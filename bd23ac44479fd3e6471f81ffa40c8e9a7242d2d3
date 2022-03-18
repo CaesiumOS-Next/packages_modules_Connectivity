@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43f654a1_4655aa20",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 11255,
+      "author": {
+        "id": 1237921
+      },
+      "writtenOn": "2022-03-18T10:34:58Z",
+      "side": 1,
+      "message": "Should we implement like this? Because we don\u0027t need to care about other than Cellular, Wifi and Bluetooth.\n\n        if (netCap.getTransportTypes().length \u003d\u003d 0) {\n            retStr \u003d AppOpsManager.OPSTR_REQUEST_NETWORK_TRANSPORT_DEFAULT;\n        } else if (netCap.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {\n            retStr \u003d AppOpsManager.OPSTR_REQUEST_NETWORK_TRANSPORT_CELLULAR;\n        } else if (netCap.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {\n            retStr \u003d AppOpsManager.OPSTR_REQUEST_NETWORK_TRANSPORT_WIFI;\n        } else if (netCap.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH)) {\n            retStr \u003d AppOpsManager.OPSTR_REQUEST_NETWORK_TRANSPORT_BLUETOOTH;\n        } else {\n            // For transport types other than the above, handling by app ops is not required.\n            retStr \u003d null;\n        }\n        return retStr;",
+      "range": {
+        "startLine": 11234,
+        "startChar": 0,
+        "endLine": 11255,
+        "endChar": 9
+      },
+      "revId": "bd23ac44479fd3e6471f81ffa40c8e9a7242d2d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
