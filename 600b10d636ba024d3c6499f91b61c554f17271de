@@ -87,6 +87,24 @@
       "parentUuid": "6201aff8_5b0927f0",
       "revId": "600b10d636ba024d3c6499f91b61c554f17271de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f03bb18b_89e46869",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 71
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1386891
+      },
+      "writtenOn": "2022-03-18T05:22:23Z",
+      "side": 1,
+      "message": "The AIDL compiler in sc-mainline-prod is far from the on in master, so it is hard to cherry-pick the feature to sc-mainline-prod.\nInstead, how about declaring min_sdk_version in the backend field instead of top level? min_sdk_version in backend is allowed even in sc-mainline-prod\n\n    backend: {\n        java: {\n            apex_available: [\n                \"com.android.tethering\",\n            ],\n            min_sdk_version: \"30\",\n        },\n    },\n    \nplease let me know if it doesn\u0027t work.",
+      "parentUuid": "cf81365c_3584986e",
+      "revId": "600b10d636ba024d3c6499f91b61c554f17271de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
