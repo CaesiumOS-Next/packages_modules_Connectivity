@@ -22,6 +22,30 @@
       },
       "revId": "2731e875bddd67874b2cfe6945586fa574f66cf4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06cc2718_142e3592",
+        "filename": "tests/cts/OWNERS",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1060831
+      },
+      "writtenOn": "2022-03-18T14:19:58Z",
+      "side": 1,
+      "message": "I\u0027ve done this, except that I\u0027ve also removed me from the per-file; it\u0027s historic, and seems mostly to cause confusion.",
+      "parentUuid": "dd3a1a5a_1d8010fd",
+      "range": {
+        "startLine": 2,
+        "startChar": 35,
+        "endLine": 2,
+        "endChar": 42
+      },
+      "revId": "2731e875bddd67874b2cfe6945586fa574f66cf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
