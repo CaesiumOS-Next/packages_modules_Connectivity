@@ -23,6 +23,7 @@ aidl_interface {
     name: "connectivity_native_aidl_interface",
     local_include_dir: "binder",
     vendor_available: true,
+    min_sdk_version: "30",
     srcs: [
         "binder/android/net/connectivity/aidl/*.aidl",
     ],
