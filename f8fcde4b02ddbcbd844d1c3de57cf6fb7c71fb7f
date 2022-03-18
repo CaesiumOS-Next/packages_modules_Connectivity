@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34d84765_a789a019",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 72
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-03-18T04:27:48Z",
+      "side": 1,
+      "message": "v4.16-rc6-1550-g4fbac77d2d09\n\ncommit 4fbac77d2d092b475dda9eea66da674369665427\nAuthor: Andrey Ignatov \u003crdna@fb.com\u003e\nDate:   Fri Mar 30 15:08:02 2018 -0700\n\n    bpf: Hooks for sys_bind",
+      "revId": "f8fcde4b02ddbcbd844d1c3de57cf6fb7c71fb7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03fffc97_83917fde",
+        "filename": "bpf_progs/block.c",
+        "patchSetId": 72
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-03-18T04:27:48Z",
+      "side": 1,
+      "message": "both of these could probably be 4.17+",
+      "range": {
+        "startLine": 58,
+        "startChar": 44,
+        "endLine": 58,
+        "endChar": 51
+      },
+      "revId": "f8fcde4b02ddbcbd844d1c3de57cf6fb7c71fb7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
