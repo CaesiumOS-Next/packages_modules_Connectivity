@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3f416463_23131cbb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-18T10:31:47Z",
+      "side": 1,
+      "message": "Checked that this is a no-op on S-, so not a problem for mainline release.\n\nThis seems very ad-hoc but I don\u0027t see another good way to fulfill the use-case (Jean also looked at the general idea in ag/16731866 I see).\n\nJean noted other concerns captured in go/rb-sandbox-uids (VPN APIs based on uids, network selection based on uids, DownloadManager/JobScheduler attribution, NetworkStats attribution and others), so there\u0027s a good number of other areas to fix - could you file and triage bugs for each of these ?\nAs discussed with Martijn, this feature \"will be used only be SDK developers, and there will be a well-documented release plan for them on what does and doesn\u0027t work\" - so maybe everything doesn\u0027t need to be covered right away.\n\nI think it would be good to investigate some ways to simplify this too - having 2 rules per app when this mode isn\u0027t used most of the time is a bit unfortunate.",
+      "revId": "3f01be04071f2486ec50dd888384f2b483e6ef7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1019ce06_ac912788",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 7
@@ -32,6 +49,47 @@
       "side": 1,
       "message": "As discussed offline, will wait for another pair of eyes to review before merging (the TH failure appears unrelated, also occurring on other CLs like go/aog/1991628 )",
       "parentUuid": "1019ce06_ac912788",
+      "revId": "3f01be04071f2486ec50dd888384f2b483e6ef7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca27a917_958f7556",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-18T10:31:47Z",
+      "side": 1,
+      "message": "Thanks, see notes on the change, but I think we don\u0027t need to block it since it\u0027s visibily a no-op on S-.",
+      "parentUuid": "08deeb84_4928d386",
+      "revId": "3f01be04071f2486ec50dd888384f2b483e6ef7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e2f688b_e53a7987",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-18T10:31:47Z",
+      "side": 1,
+      "message": "Nit: mUidsNetworkPermission.get(sdkSandboxUid) I think ? (Or you could use assertEquals and have it log the actual messages)\n\nCould be addressed separately",
+      "range": {
+        "startLine": 626,
+        "startChar": 38,
+        "endLine": 626,
+        "endChar": 48
+      },
       "revId": "3f01be04071f2486ec50dd888384f2b483e6ef7c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
