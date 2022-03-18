@@ -51,6 +51,24 @@
       "message": "Jiyong, Jeongik - it looks like this is failing to build in sc-mainline-prod (post automerge) presumably due to the lack of https://android-review.googlesource.com/c/platform/system/tools/aidl/+/1977977 and https://android-review.googlesource.com/c/platform/system/tools/aidl/+/2014876 -- is this something that could be cherrypicked into sc-mainline-prod???  They don\u0027t look entirely trivial to me...",
       "revId": "600b10d636ba024d3c6499f91b61c554f17271de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6201aff8_5b0927f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 71
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1386891
+      },
+      "writtenOn": "2022-03-18T05:05:37Z",
+      "side": 1,
+      "message": "As a workaround, you can use versions instead of versions_with_info temporarily. (As you did in PS#72) But I recommend using versions_with_info in master branch.",
+      "parentUuid": "4ca7959d_9e62bf2e",
+      "revId": "600b10d636ba024d3c6499f91b61c554f17271de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
