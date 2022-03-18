@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b5c6dc8_bf9cc906",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-18T01:26:39Z",
+      "side": 1,
+      "message": "Might want to change this to something more generic, such as:\n\nSupport ignoring validation failures after roam.\n\nIn some scenarios, Wi-Fi connectivity is disrupted after roam. If an application reacts to network errors by calling reportNetworkConnectivity(false), validation will immediately fail and the device will switch to cell data.\n\nAdd a way to ignore these validation failures for up to 10 seconds after Wi-Fi roams.\n\nBug: 216567577\nTest: new unit tests",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 15
+      },
+      "revId": "58559eed96dbaa3004567ec5ca7ead759ef628fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9e8f0e29_20cfc5d1",
