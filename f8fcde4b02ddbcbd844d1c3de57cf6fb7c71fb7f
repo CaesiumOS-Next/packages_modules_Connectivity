@@ -39,6 +39,29 @@
       },
       "revId": "f8fcde4b02ddbcbd844d1c3de57cf6fb7c71fb7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0192981_9f51e885",
+        "filename": "service/Android.bp",
+        "patchSetId": 72
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-18T07:47:16Z",
+      "side": 1,
+      "message": "This block should have a min_sdk_version clause (30 would work)",
+      "range": {
+        "startLine": 30,
+        "startChar": 14,
+        "endLine": 30,
+        "endChar": 15
+      },
+      "revId": "f8fcde4b02ddbcbd844d1c3de57cf6fb7c71fb7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
