@@ -46,6 +46,7 @@ import android.net.NetworkRequest;
 import android.net.ProxyInfo;
 import android.net.TestNetworkInterface;
 import android.net.VpnManager;
+import android.net.VpnProfileState;
 import android.net.cts.util.CtsNetUtils;
 import android.os.Build;
 import android.os.Process;
@@ -57,6 +58,7 @@ import androidx.test.InstrumentationRegistry;
 import com.android.internal.util.HexDump;
 import com.android.networkstack.apishim.VpnManagerShimImpl;
 import com.android.networkstack.apishim.common.VpnManagerShim;
+import com.android.networkstack.apishim.common.VpnProfileStateShim;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.DevSdkIgnoreRunner;
@@ -423,6 +425,10 @@ public class Ikev2VpnTest {
             // testSessionKey will never be true if running on <T
             // startProvisionedVpnProfileSession() should return a non-null & non-empty random UUID.
             assertFalse(TextUtils.isEmpty(mVmShim.startProvisionedVpnProfileSession()));
+            final VpnProfileStateShim profileState = mVmShim.getProvisionedVpnProfileState();
+            assertEquals(VpnProfileState.STATE_CONNECTING, profileState.getState());
+            assertFalse(profileState.isAlwaysOn());
+            assertFalse(profileState.isLockdownEnabled());
         } else {
             sVpnMgr.startProvisionedVpnProfile();
         }
@@ -443,6 +449,13 @@ public class Ikev2VpnTest {
         cb.waitForAvailable();
         final Network vpnNetwork = cb.currentNetwork;
         assertNotNull(vpnNetwork);
+
+        if (testSessionKey) {
+            final VpnProfileStateShim profileState = mVmShim.getProvisionedVpnProfileState();
+            assertEquals(VpnProfileState.STATE_CONNECTED, profileState.getState());
+            assertFalse(profileState.isAlwaysOn());
+            assertFalse(profileState.isLockdownEnabled());
+        }
 
         final NetworkCapabilities caps = sCM.getNetworkCapabilities(vpnNetwork);
         assertTrue(caps.hasTransport(TRANSPORT_VPN));
