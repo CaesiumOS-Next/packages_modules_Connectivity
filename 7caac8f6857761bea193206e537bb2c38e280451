@@ -22,6 +22,30 @@
       },
       "revId": "7caac8f6857761bea193206e537bb2c38e280451",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97e0441b_a298347f",
+        "filename": "tests/cts/net/src/android/net/cts/QosCallbackExceptionTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-03-18T03:48:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5000e647_fcda38b6",
+      "range": {
+        "startLine": 34,
+        "startChar": 13,
+        "endLine": 34,
+        "endChar": 37
+      },
+      "revId": "7caac8f6857761bea193206e537bb2c38e280451",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
