@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "506abee9_cec0e68e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-18T02:24:10Z",
+      "side": 1,
+      "message": "The failing tests are consistently broken at HEAD.\n\ncom.android.devicehealthchecks.SystemCheck#system_tombstone\nhttps://android-build.googleplex.com/builds/tests/view?invocationId\u003dI77600010028459136\u0026testResultId\u003dTR18427935892313782\n\nCaptivePortalLoginTests(module-abi\u003dx86_64)\nhttps://android-build.googleplex.com/builds/tests/view?invocationId\u003dI22900010028466035\u0026testResultId\u003dTR48327935837527764",
+      "revId": "333d5e52f5ab262405c96e7aab05e2552fbc52b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
