@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5000e647_fcda38b6",
+        "filename": "tests/cts/net/src/android/net/cts/QosCallbackExceptionTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-18T03:13:42Z",
+      "side": 1,
+      "message": "1. Do we want to skip this test on old devices?\nIf so you can refer to other tests in the same folder.\nIt should looks like:\n@JvmField\n    @Rule\n    val ignoreRule \u003d DevSdkIgnoreRule(ignoreClassUpTo \u003d Build.VERSION_CODES.Q)\n   \n2. nit: Since this is new code, is it feasbile to write this in kotlin?\nFeel free to ignore.",
+      "range": {
+        "startLine": 34,
+        "startChar": 13,
+        "endLine": 34,
+        "endChar": 37
+      },
+      "revId": "7caac8f6857761bea193206e537bb2c38e280451",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
