@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "caa53c99_c0c572a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1013030
+      },
+      "writtenOn": "2022-03-18T13:35:29Z",
+      "side": 1,
+      "message": "Thanks Remi. I filed bugs to cover the feedback so far at https://b.corp.google.com/hotlists/4064064 - we\u0027ll look at having folks pick these up ASAP.",
+      "parentUuid": "3f416463_23131cbb",
+      "revId": "3f01be04071f2486ec50dd888384f2b483e6ef7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1019ce06_ac912788",
@@ -84,6 +102,30 @@
       "writtenOn": "2022-03-18T10:31:47Z",
       "side": 1,
       "message": "Nit: mUidsNetworkPermission.get(sdkSandboxUid) I think ? (Or you could use assertEquals and have it log the actual messages)\n\nCould be addressed separately",
+      "range": {
+        "startLine": 626,
+        "startChar": 38,
+        "endLine": 626,
+        "endChar": 48
+      },
+      "revId": "3f01be04071f2486ec50dd888384f2b483e6ef7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4511c860_3c01e538",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1013030
+      },
+      "writtenOn": "2022-03-18T13:35:29Z",
+      "side": 1,
+      "message": "Ack, will do this in a followup since TH had some flaky tests here.",
+      "parentUuid": "7e2f688b_e53a7987",
       "range": {
         "startLine": 626,
         "startChar": 38,
