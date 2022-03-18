@@ -69,6 +69,24 @@
       "parentUuid": "4ca7959d_9e62bf2e",
       "revId": "600b10d636ba024d3c6499f91b61c554f17271de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf81365c_3584986e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 71
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-18T05:07:36Z",
+      "side": 1,
+      "message": "I think the main problem here is not the versions_with_info attribute. It\u0027s the fact that min_sdk_version is required to build in AOSP and breaks the build in sc-mainline-prod. Is it feasible to cherry-pick to sc-mainline-prod the CL that implements the min_sdk_version attribute?",
+      "parentUuid": "6201aff8_5b0927f0",
+      "revId": "600b10d636ba024d3c6499f91b61c554f17271de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
