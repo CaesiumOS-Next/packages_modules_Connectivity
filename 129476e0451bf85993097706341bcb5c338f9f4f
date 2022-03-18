@@ -165,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76326861_9d704f9e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 3795,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-18T01:14:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "152e653f_937ece8a",
+      "range": {
+        "startLine": 3795,
+        "startChar": 12,
+        "endLine": 3795,
+        "endChar": 25
+      },
+      "revId": "129476e0451bf85993097706341bcb5c338f9f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e959945e_662480a6",
@@ -188,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5188a90b_d9fd7711",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 3799,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-18T01:14:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e959945e_662480a6",
+      "range": {
+        "startLine": 3799,
+        "startChar": 49,
+        "endLine": 3799,
+        "endChar": 66
+      },
+      "revId": "129476e0451bf85993097706341bcb5c338f9f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae63ca36_7c56291d",
@@ -201,6 +249,30 @@
       "writtenOn": "2022-03-16T17:39:25Z",
       "side": 1,
       "message": "Is this only needed in case the clock steps backwards? If so, I think you can remove it of you switch to elapsedRealtime.",
+      "range": {
+        "startLine": 3801,
+        "startChar": 28,
+        "endLine": 3801,
+        "endChar": 69
+      },
+      "revId": "129476e0451bf85993097706341bcb5c338f9f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb3a00c6_e2fc84ff",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 3801,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-18T01:14:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae63ca36_7c56291d",
       "range": {
         "startLine": 3801,
         "startChar": 28,
@@ -318,6 +390,30 @@
       "writtenOn": "2022-03-16T17:39:25Z",
       "side": 1,
       "message": "Should this also send a message to force validation after a few seconds? Or will NetworkMonitor revalidate anyway, as part of its normal retry behaviour? If this code relies on NetworkMonitor to retry anyway, then would suggest something like:\n\n    // Assume the validation failure is due to a temporary failure after roaming\n    // and ignore it. NetworkMonitor will continue to retry validation. If it\n    // continues to fail after the block timeout expires, the network will be\n    // marked unvalidated. If it succeeds, then validation state will not change.",
+      "range": {
+        "startLine": 3804,
+        "startChar": 20,
+        "endLine": 3804,
+        "endChar": 21
+      },
+      "revId": "129476e0451bf85993097706341bcb5c338f9f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d763e5b9_5c077d0c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 3804,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-18T01:14:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8b74d7c_4385e09c",
       "range": {
         "startLine": 3804,
         "startChar": 20,

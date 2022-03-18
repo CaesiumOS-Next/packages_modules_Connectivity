@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e8f0e29_20cfc5d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-18T01:14:24Z",
+      "side": 1,
+      "message": "LGTM. We can address the comments in a follow-up. (I have something in my local tree that I can upload for your review.)",
+      "revId": "58559eed96dbaa3004567ec5ca7ead759ef628fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3aa4481f_986b7c9f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 4222,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-18T01:14:24Z",
+      "side": 1,
+      "message": "validation failure ignored",
+      "range": {
+        "startLine": 4222,
+        "startChar": 22,
+        "endLine": 4222,
+        "endChar": 29
+      },
+      "revId": "58559eed96dbaa3004567ec5ca7ead759ef628fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "577c49ce_7aa8eb16",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 9646,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-18T01:14:24Z",
+      "side": 1,
+      "message": "Nit: this can never happen or the system would crash at line 3552.",
+      "range": {
+        "startLine": 9646,
+        "startChar": 8,
+        "endLine": 9646,
+        "endChar": 32
+      },
+      "revId": "58559eed96dbaa3004567ec5ca7ead759ef628fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52e4168b_64d5468b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 15589,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-18T01:14:24Z",
+      "side": 1,
+      "message": "You need NET_CAPABILITY_INTERNET both here and in wifiNc2, because:\n\n03-18 08:52:26.357 13357 13389 E ConnectivityService: BUG: NetworkAgentInfo{network{64509}  handle{277067450994701}  ni{WIFI CONNECTED extra: } Score(60 ; KeepConnected : 0 ; Policies : EVER_VALIDATED_NOT_AVOIDED_WHEN_BAD\u0026IS_VALIDATED)  everValidated lastValidated  lp{{InterfaceName: test_wlan0 LinkAddresses: [ ] DnsAddresses: [ ] Domains: null MTU: 0 Routes: [ ]}}  nc{[ Transports: WIFI Capabilities: INTERNET\u0026NOT_RESTRICTED\u0026TRUSTED\u0026NOT_VPN\u0026VALIDATED\u0026NOT_ROAMING\u0026FOREGROUND\u0026NOT_SUSPENDED\u0026NOT_VCN_MANAGED TransportInfo: \u003cSSID: \u003cunknown ssid\u003e, BSSID: AA:AA:AA:AA:AA:AA, MAC: 02:00:00:00:00:00, Security type: -1, Supplicant state: UNINITIALIZED, Wi-Fi standard: 0, RSSI: -127, Link speed: -1Mbps, Tx Link speed: 0Mbps, Max Supported Tx Link speed: 0Mbps, Rx Link speed: 0Mbps, Max Supported Rx Link speed: 0Mbps, Frequency: -1MHz, Net ID: -1, Metered hint: false, score: 0, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 0\u003e UnderlyingNetworks: Null]}  factorySerialNumber\u003d-1} lost immutable capabilities:immutable capabilities changed: INTERNET|NOT_RESTRICTED|NOT_VPN -\u003e NOT_RESTRICTED|NOT_VPN\n\nThis is because because the TestNetworkAgentWrapper constructor that takes a NetworkCapabilities object (i.e., line 15595) adds NET_CAPABILITY_INTERNET to the passed-in capabilities, but the setNetworkCapabilities call at line 15608 does not.\n\nAs a result, this test it not really testing that the default network switches to cell due to validation - the default network is switching to cell because wifi lost the INTERNET capability.\n\nBecause this is really non-obvious (sorry!) you can prevent against this test breaking in the future by adding additional assertions:\n\n        // Wi-Fi is still connected and would become the default network if cell were to disconnect.\n        mCellNetworkAgent.disconnect();\n        mDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(mWiFiNetworkAgent);\n\nWhen you do that, it turns out that the test fails, because the network is being torn down because wifiNc2 doesn\u0027t include NOT_VCN_MANAGED. Once you fix that, the test fails again because the BSSID update triggers a capability change. You can fix that with:\n\n        // TODO: register the callbacks with NETWORK_SETTINGS so we can check the unredacted BSSID\n        // in the WifiInfo.\n        mDefaultNetworkCallback.expectCapabilitiesThat(mWiFiNetworkAgent, (nc) -\u003e\n                !((WifiInfo) nc.getTransportInfo()).getBSSID().equals(\"AA:AA:AA:AA:AA:AA\")\n        );\n\nI managed to get the test to pass locally, which means the code is correct. So we we can probably leave this test as is and fix it in a follow-up. I have some code in my tree that works and I can upload a follow-up CL.",
+      "range": {
+        "startLine": 15589,
+        "startChar": 16,
+        "endLine": 15589,
+        "endChar": 17
+      },
+      "revId": "58559eed96dbaa3004567ec5ca7ead759ef628fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "110099b2_afcf2733",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 15621,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-18T01:14:24Z",
+      "side": 1,
+      "message": "No need to fix in this CL, but these lines are the same as 15585-15611. Would be good to reduce duplication with something like the following. This also ensures that the feature is disabled on T:\n\n    private void doTestIgnoreValidationAfterRoam(int resValue, boolean enabled) {\n        final int value \u003d enabled ? 5_000 : -1;\n        ... common code\n\n        if (!enabled) {\n            // Validation fails and device switches to cellular.\n            mDefaultNetworkCallback.expectAvailableCallbacksValidated(mCellNetworkAgent);\n            return;\n        }\n\n        ... the code in lines 15648-...\n    }\n\n    @Test\n    public void testIgnoreValidationAfterRoamDisabled() throws Exception {\n        doTestIgnoreValidationAfterRoam(-1 /* resValue */, false /* enabled */);\n    }\n\n    @Test\n    public void testIgnoreValidationAfterRoamEnabled() throws Exception {\n        // config_validationFailureAfterRoamIgnoreTimeMillis only works before T.\n        final boolean enabled \u003d !SdkLevel.isAtLeastT();\n        doTestIgnoreValidationAfterRoam(5_000 /* resValue */, enabled);\n    }",
+      "range": {
+        "startLine": 15621,
+        "startChar": 0,
+        "endLine": 15621,
+        "endChar": 76
+      },
+      "revId": "58559eed96dbaa3004567ec5ca7ead759ef628fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10e80cdf_e54351f4",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 15652,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-18T01:14:24Z",
+      "side": 1,
+      "message": "You probably want to add:\n\n    defaultNetworkCallback.assertNoCallback();\n\nhere, to make sure that the network does not switch. The code you have here does not enforce that: the call to expectAvailableCallbacksValidated in line 15662 would succeed even if the default network switched to wifi immediately here.",
+      "revId": "58559eed96dbaa3004567ec5ca7ead759ef628fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ffab9b6_3166a214",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 15660,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-18T01:14:24Z",
+      "side": 1,
+      "message": "I don\u0027t think this does anything except sleep for 150ms because no other thread touches waitForValidationBlock. If that\u0027s what you want, then I\u0027d suggest just simply:\n\n    SystemClock.sleep(150);  // Wait for the 50ms timeout just set to elapse.",
+      "range": {
+        "startLine": 15660,
+        "startChar": 8,
+        "endLine": 15660,
+        "endChar": 42
+      },
+      "revId": "58559eed96dbaa3004567ec5ca7ead759ef628fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
