@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99f4f6d0_1699de3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-03-21T21:28:16Z",
+      "side": 1,
+      "message": "The code review can continue, but I wonder if such refactor should be done after MTS in place, to prevent behavior regression?",
+      "revId": "7fddbc67e45146d69ddc95781b6c354414f03165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9713d284_1d361b60",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-03-21T21:28:16Z",
+      "side": 1,
+      "message": "Remove ?",
+      "range": {
+        "startLine": 307,
+        "startChar": 8,
+        "endLine": 307,
+        "endChar": 62
+      },
+      "revId": "7fddbc67e45146d69ddc95781b6c354414f03165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9837bcac_7c3d3d54",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-03-21T21:28:16Z",
+      "side": 1,
+      "message": "Do you mean \"config.isCarrierSupportTethering\" ? KEY_CARRIER_SUPPORTS_TETHERING_BOOL isn\u0027t referred to in this class any more.",
+      "range": {
+        "startLine": 446,
+        "startChar": 34,
+        "endLine": 446,
+        "endChar": 69
+      },
+      "revId": "7fddbc67e45146d69ddc95781b6c354414f03165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd37fce2_d10bd88b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-03-21T21:28:16Z",
+      "side": 1,
+      "message": "Also add them to TetheringConfigurationParcel.aidl ?",
+      "revId": "7fddbc67e45146d69ddc95781b6c354414f03165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
