@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3d662fe_0770e388",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-21T07:37:05Z",
+      "side": 1,
+      "message": "It seems you need to avoid potential conflicts if the library is also added to the\nbootclasspath. Also check whether proguard setup is necessary or not.\nSee https://android-review.googlesource.com/c/platform/packages/modules/NetworkStack/+/1402472",
+      "revId": "d3a175d12337ae663d3dfbd31fa0f9ac53f54246",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
