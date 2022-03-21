@@ -35,11 +35,14 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import kotlin.test.assertNull
 import kotlin.test.fail
+import android.net.cts.EthernetManagerTest.EthernetStateListener.CallbackEntry.EthernetStateChanged
 import android.net.cts.EthernetManagerTest.EthernetStateListener.CallbackEntry.InterfaceStateChanged
 import android.os.Handler
 import android.os.HandlerExecutor
 import android.os.Looper
 import com.android.networkstack.apishim.common.EthernetManagerShim.InterfaceStateListener
+import com.android.networkstack.apishim.common.EthernetManagerShim.ETHERNET_STATE_DISABLED
+import com.android.networkstack.apishim.common.EthernetManagerShim.ETHERNET_STATE_ENABLED
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_ABSENT
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_LINK_DOWN
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_LINK_UP
@@ -47,6 +50,7 @@ import com.android.networkstack.apishim.common.EthernetManagerShim.ROLE_CLIENT
 import com.android.networkstack.apishim.common.EthernetManagerShim.ROLE_NONE
 import com.android.networkstack.apishim.EthernetManagerShimImpl
 import java.util.concurrent.Executor
+import java.util.function.IntConsumer
 import kotlin.test.assertEquals
 
 private const val TIMEOUT_MS = 1000L
@@ -69,7 +73,7 @@ class EthernetManagerTest {
 
     private open class EthernetStateListener private constructor(
         private val history: ArrayTrackRecord<CallbackEntry>
-    ) : InterfaceStateListener,
+    ) : InterfaceStateListener, IntConsumer,
                 TrackRecord<EthernetStateListener.CallbackEntry> by history {
         constructor() : this(ArrayTrackRecord())
 
@@ -82,6 +86,8 @@ class EthernetManagerTest {
                 val role: Int,
                 val configuration: IpConfiguration?
             ) : CallbackEntry()
+
+            data class EthernetStateChanged(val state: Int) : CallbackEntry()
         }
 
         override fun onInterfaceStateChanged(
@@ -93,6 +99,10 @@ class EthernetManagerTest {
             add(InterfaceStateChanged(iface, state, role, cfg))
         }
 
+        override fun accept(state: Int) {
+            add(EthernetStateChanged(state))
+        }
+
         fun <T : CallbackEntry> expectCallback(expected: T): T {
             val event = pollForNextCallback()
             assertEquals(expected, event)
@@ -102,6 +112,10 @@ class EthernetManagerTest {
         fun expectCallback(iface: TestNetworkInterface, state: Int, role: Int) {
             expectCallback(InterfaceStateChanged(iface.interfaceName, state, role,
                 if (state != STATE_ABSENT) DEFAULT_IP_CONFIGURATION else null))
+        }
+
+        fun expectEthernetStateCallback(state: Int) {
+            expectCallback(EthernetStateChanged(state))
         }
 
         fun pollForNextCallback(): CallbackEntry {
@@ -145,6 +159,45 @@ class EthernetManagerTest {
         listener.expectCallback(iface2, STATE_LINK_DOWN, ROLE_CLIENT)
         listener.expectCallback(iface2, STATE_ABSENT, ROLE_NONE)
         listener.assertNoCallback()
+    }
+
+    @Test
+    public fun testChangeSettings() {
+        val executor = HandlerExecutor(Handler(Looper.getMainLooper()))
+        // This test doesn't support physical ethernet. If physical ethernet is connected, the adb
+        // usually run over ethernet network. So it is likely this test just fail because disabling
+        // etherent settings would break the adb.
+        // val ifaceList = em.getInterfaceList()
+        // assumeTrue(ifaceList.size() == 0);
+
+        val listener = EthernetStateListener()
+        em.addEthernetStateListener(executor, listener)
+        // Ethernet settings must be enabled before this test.
+        listener.expectEthernetStateCallback(ETHERNET_STATE_ENABLED)
+
+        runAsShell(MANAGE_TEST_NETWORKS, NETWORK_SETTINGS) {
+            try {
+                runChangeSettingsTest(executor, listener)
+            } finally {
+                em.removeEthernetStateListener(listener)
+                em.setEthernetEnabled(true)
+            }
+        }
+    }
+
+    private fun runChangeSettingsTest(executor: Executor, listener: EthernetStateListener) {
+        val iface = createInterface()
+        addInterfaceStateListener(executor, listener)
+        listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
+        // There are multiple iface up/down change callbacks ?
+
+        em.setEthernetEnabled(false)
+        listener.expectCallback(iface, STATE_ABSENT, ROLE_NONE)
+        listener.expectEthernetStateCallback(ETHERNET_STATE_DISABLED)
+
+        em.setEthernetEnabled(true)
+        listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
+        listener.expectEthernetStateCallback(ETHERNET_STATE_ENABLED)
     }
 
     @Before
