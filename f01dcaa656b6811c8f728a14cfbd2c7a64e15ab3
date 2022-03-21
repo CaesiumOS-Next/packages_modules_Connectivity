@@ -22,6 +22,30 @@
       },
       "revId": "f01dcaa656b6811c8f728a14cfbd2c7a64e15ab3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5413c2e5_87c058fb",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-03-21T09:57:31Z",
+      "side": 1,
+      "message": "1. v4, v6, pfx96 are used for bpf map in aosp/2018877 (maybeStartBpf).\nv4Str, v6Str, pfx96Str are for used for clad start/stop (cli).\n\n2. Using pfx96 is because keep {v4, v6, pfx96}/{v4Str, v6Str, pfx96Str} as pairs for readability without any conversion (IpPrefix -\u003e INET6 or string ..). \n\ndo you prepared to use an IpPrefix object for \"Inet6Address pfx96 + String pfx96Str\"?\n\n    static class ClatdTracker {\n..\n        public final Inet6Address pfx96;  // remove\n        public final String pfx96Str;  // remove\n\n--\u003e\n        public final IpPrefix nat64Prefix  // add",
+      "parentUuid": "c41d1404_d99cc1d6",
+      "range": {
+        "startLine": 467,
+        "startChar": 79,
+        "endLine": 468,
+        "endChar": 42
+      },
+      "revId": "f01dcaa656b6811c8f728a14cfbd2c7a64e15ab3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
