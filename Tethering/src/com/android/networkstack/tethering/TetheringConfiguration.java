@@ -24,14 +24,17 @@ import static android.net.ConnectivityManager.TYPE_MOBILE_HIPRI;
 import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 
 import static com.android.net.module.util.DeviceConfigUtils.TETHERING_MODULE_NAME;
+import static com.android.networkstack.apishim.ConstantsShim.KEY_CARRIER_SUPPORTS_TETHERING_BOOL;
 
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
 import android.net.TetheringConfigurationParcel;
 import android.net.util.SharedLog;
+import android.os.PersistableBundle;
 import android.provider.DeviceConfig;
 import android.provider.Settings;
+import android.telephony.CarrierConfigManager;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -142,6 +145,9 @@ public class TetheringConfiguration {
     public final int provisioningCheckPeriod;
     public final String provisioningResponse;
 
+    public final boolean isCarrierSupportTethering;
+    public final boolean isEntitlementCheckRequired;
+
     public final int activeDataSubId;
 
     private final boolean mEnableLegacyDhcpServer;
@@ -205,6 +211,10 @@ public class TetheringConfiguration {
                 0 /* No periodic re-check */);
         provisioningResponse = getResourceString(res,
                 R.string.config_mobile_hotspot_provision_response);
+
+        PersistableBundle carrierConfigs = getCarrierConfig(ctx, activeDataSubId);
+        isCarrierSupportTethering = carrierConfigAffirmsCarrierSupport(carrierConfigs);
+        isEntitlementCheckRequired = carrierConfigAffirmsEntitlementCheckRequired(carrierConfigs);
 
         mOffloadPollInterval = getResourceInteger(res,
                 R.integer.config_tether_offload_poll_interval,
@@ -563,6 +573,38 @@ public class TetheringConfiguration {
             result[index++] = value;
         }
         return result;
+    }
+
+    private boolean carrierConfigAffirmsEntitlementCheckRequired(PersistableBundle carrierConfig) {
+        if (carrierConfig == null) {
+            return true;
+        }
+        return carrierConfig.getBoolean(
+                CarrierConfigManager.KEY_REQUIRE_ENTITLEMENT_CHECKS_BOOL, true);
+    }
+
+    private boolean carrierConfigAffirmsCarrierSupport(PersistableBundle carrierConfig) {
+        if (!SdkLevel.isAtLeastT() || carrierConfig == null) {
+            return true;
+        }
+        return carrierConfig.getBoolean(KEY_CARRIER_SUPPORTS_TETHERING_BOOL, true);
+    }
+
+    /**
+     * Get carrier configuration bundle.
+     */
+    public static PersistableBundle getCarrierConfig(Context context, int activeDataSubId) {
+        final CarrierConfigManager configManager =
+                context.getSystemService(CarrierConfigManager.class);
+        if (configManager == null) {
+            return null;
+        }
+
+        final PersistableBundle carrierConfig = configManager.getConfigForSubId(activeDataSubId);
+        if (CarrierConfigManager.isConfigForIdentifiedCarrier(carrierConfig)) {
+            return carrierConfig;
+        }
+        return null;
     }
 
     /**
