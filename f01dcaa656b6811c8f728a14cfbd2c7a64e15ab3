@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c41d1404_d99cc1d6",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-21T09:27:40Z",
+      "side": 1,
+      "message": "This informations (v4 vs v4Str, v6 vs v6Str and pfx96 vs pfx96Str) are duplicated. It seems you only use them when clatd/stop ? If so, you could just use e.g. pfx96.getHostAddress() to get pfx96Str instead of keeping them in memory.",
+      "range": {
+        "startLine": 467,
+        "startChar": 79,
+        "endLine": 468,
+        "endChar": 42
+      },
+      "revId": "f01dcaa656b6811c8f728a14cfbd2c7a64e15ab3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
