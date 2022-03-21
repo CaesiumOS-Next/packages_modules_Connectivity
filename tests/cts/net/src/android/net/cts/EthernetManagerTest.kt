@@ -723,4 +723,51 @@ class EthernetManagerTest {
         iface.setCarrierEnabled(false)
         cb.eventuallyExpectLost()
     }
+
+    @Test
+    public fun testChangeSettings() {
+        // do not run this test when adb might be connected over ethernet.
+        assumeFalse(isAdbOverNetwork())
+
+        // Ethernet settings must be enabled before this test.
+        val listener = EthernetStateListener()
+        em.addEthernetStateListener(handler::post, listener)
+        listener.expectCallback(ETHERNET_STATE_ENABLED)
+
+        try {
+            runChangeSettingsTest(listener)
+        } finally {
+            em.removeEthernetStateListener(listener)
+        }
+    }
+
+    private fun runChangeSettingsTest(listener: EthernetStateListener) {
+        addInterfaceStateListener(listener)
+        val iface = createInterface()
+
+        runAsShell(NETWORK_SETTINGS) { em.setEthernetEnabled(false) }
+        listener.eventuallyExpect(iface, STATE_ABSENT, ROLE_NONE)
+        listener.expectCallback(ETHERNET_STATE_DISABLED)
+
+        // Create a new test interface and make sure there is no interface state change broadcast.
+        val iface2 = EthernetTestInterface(
+                context, handler, true /* hasCarrier */).also { createdIfaces.add(it) }
+        listener.assertNoCallback()
+
+        runAsShell(NETWORK_SETTINGS) { em.setEthernetEnabled(true) }
+        // Restart ethernet will have duplicated STATE_LINK_UP which original used to cover crash.
+        // See EthernetTracker#addInterface:
+        //     if (NetdUtils.hasFlag(config, "running")) {
+        //          updateInterfaceState(iface, true);
+        //     }
+        // TODO: fix the duplicated STATE_LINK_UP for ethenret settings change case.
+        listener.eventuallyExpect(iface, STATE_LINK_UP, ROLE_CLIENT)
+
+        // The reason to check ifaceListener instead of listener for iface2 here because the test
+        // don't actually make sure iface2 already created before setEthernetEnabled(true). So the
+        // order between iface2 up event and state enabled event is not guaranteed.
+        ifaceListener.eventuallyExpect(iface2, STATE_LINK_UP, ROLE_CLIENT)
+
+        listener.eventuallyExpect(ETHERNET_STATE_ENABLED)
+    }
 }
