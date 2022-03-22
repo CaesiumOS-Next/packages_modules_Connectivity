@@ -140,6 +140,30 @@
       },
       "revId": "c76284dd3e28fb86aa31595b0508d3cd8f45c8a4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41499cf2_4845f0eb",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 3075,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-22T07:11:49Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "a4a6af69_5e6e6b81",
+      "range": {
+        "startLine": 3073,
+        "startChar": 12,
+        "endLine": 3075,
+        "endChar": 60
+      },
+      "revId": "c76284dd3e28fb86aa31595b0508d3cd8f45c8a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
