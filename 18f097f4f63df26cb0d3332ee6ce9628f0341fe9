@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a438315f_097c6597",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-22T10:18:42Z",
+      "side": 1,
+      "message": "This is just a cp, the change is already merged in internal branch.",
+      "revId": "18f097f4f63df26cb0d3332ee6ce9628f0341fe9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
