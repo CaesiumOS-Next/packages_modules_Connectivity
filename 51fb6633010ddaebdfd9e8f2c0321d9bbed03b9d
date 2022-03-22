@@ -16,6 +16,23 @@
       "message": "Hi Remi. Thanks again for the aosp-first solution to migration TelephonyManagerShim to CarrierPrivilegesCallback. Since the implementation of CarrierPrivilegesCallback is a stub in aosp, we have to temporarily disable the UT case to prevent presubmit failure.\n\nI will re-enable it soon with the real implementation cherry-picked.\n\nPlease help to review the CL.\nThanks",
       "revId": "51fb6633010ddaebdfd9e8f2c0321d9bbed03b9d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf13ab78_9b65ebb4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1609802
+      },
+      "writtenOn": "2022-03-22T05:09:25Z",
+      "side": 1,
+      "message": "This test cases does NOT break for the stub CarrierPrivilegesCallback due to the fact that, the test case directly call onCarrierPrivilegesChange (instead of register/unregister and let system trigger the callback). So need to disable and then re-enable later.\n\nThanks",
+      "revId": "51fb6633010ddaebdfd9e8f2c0321d9bbed03b9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
