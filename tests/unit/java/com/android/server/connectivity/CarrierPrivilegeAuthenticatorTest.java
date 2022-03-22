@@ -53,6 +53,7 @@ import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.DevSdkIgnoreRunner;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -201,7 +202,8 @@ public class CarrierPrivilegeAuthenticatorTest {
                 mCarrierConfigPkgUid + 1, networkRequestBuilder.build().networkCapabilities));
     }
 
-    @Test
+    // TODO(b/221306368): Enable the test case once CarrierPrivilegesCallback implementation is CPed
+    @Ignore
     public void testOnCarrierPrivilegesChanged() throws Exception {
         final TelephonyManagerShim.CarrierPrivilegesListenerShim listener =
                 getCarrierPrivilegesListeners().get(0);
