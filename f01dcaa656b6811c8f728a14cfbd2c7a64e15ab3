@@ -46,6 +46,30 @@
       },
       "revId": "f01dcaa656b6811c8f728a14cfbd2c7a64e15ab3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d58f45c8_9faca0ec",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-03-22T07:23:02Z",
+      "side": 1,
+      "message": "Done.\n\nPer discussion with you, you are right. Use INET/INET6 to replace all v4v6 address/prefix strings.\nthank you",
+      "parentUuid": "5413c2e5_87c058fb",
+      "range": {
+        "startLine": 467,
+        "startChar": 79,
+        "endLine": 468,
+        "endChar": 42
+      },
+      "revId": "f01dcaa656b6811c8f728a14cfbd2c7a64e15ab3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
