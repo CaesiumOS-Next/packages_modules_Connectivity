@@ -2234,8 +2234,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (!checkSettingsPermission(callerPid, callerUid)) {
             newNc.setUids(null);
             newNc.setSSID(null);
-            // TODO: Processes holding NETWORK_FACTORY should be able to see the underlying networks
-            newNc.setUnderlyingNetworks(null);
         }
         if (newNc.getNetworkSpecifier() != null) {
             newNc.setNetworkSpecifier(newNc.getNetworkSpecifier().redact());
@@ -2246,6 +2244,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             newNc.setAccessUids(new ArraySet<>());
             newNc.setSubscriptionIds(Collections.emptySet());
         }
+        redactUnderlyingNetworksForCapabilities(nc, callerPid, callerUid);
 
         return newNc;
     }
@@ -2856,6 +2855,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 android.Manifest.permission.MANAGE_TEST_NETWORKS,
                 android.Manifest.permission.NETWORK_FACTORY,
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
+    }
+
+    private boolean checkNetworkFactoryOrSettingsPermission(int pid, int uid) {
+        return PERMISSION_GRANTED == mContext.checkPermission(
+                android.Manifest.permission.NETWORK_FACTORY, pid, uid)
+                || PERMISSION_GRANTED == mContext.checkPermission(
+                android.Manifest.permission.NETWORK_SETTINGS, pid, uid)
+                || PERMISSION_GRANTED == mContext.checkPermission(
+                NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK, pid, uid);
     }
 
     private boolean checkSettingsPermission() {
@@ -7716,6 +7724,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    private void redactUnderlyingNetworksForCapabilities(NetworkCapabilities nc, int pid, int uid) {
+        if (nc.getUnderlyingNetworks() != null
+                && checkNetworkFactoryOrSettingsPermission(pid, uid)) {
+            nc.setUnderlyingNetworks(null);
+        }
+    }
+
     /**
      * Called when receiving NetworkCapabilities directly from a NetworkAgent.
      * Stores into |nai| any data coming from the agent that might also be written to the network's
@@ -7738,6 +7753,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         nai.declaredCapabilities = new NetworkCapabilities(nc);
         NetworkAgentInfo.restrictCapabilitiesFromNetworkAgent(nc, nai.creatorUid,
                 mCarrierPrivilegeAuthenticator);
+        redactUnderlyingNetworksForCapabilities(nc, -1 /* pid */, nai.creatorUid);
     }
 
     /** Modifies |newNc| based on the capabilities of |underlyingNetworks| and |agentCaps|. */
