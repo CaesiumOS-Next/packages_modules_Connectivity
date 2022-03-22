@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44d8ae0b_ccea0859",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-22T10:20:20Z",
+      "side": 1,
+      "message": "Remaining these comments since this is still true.",
+      "range": {
+        "startLine": 866,
+        "startChar": 66,
+        "endLine": 869,
+        "endChar": 71
+      },
+      "revId": "69e1aa9117adeaf07e3c1d5612e466b4a6ae7ff5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "715fd98e_f5b08fdd",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 3072,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-22T10:20:20Z",
+      "side": 1,
+      "message": "Remaining these comments since this is still true.",
+      "range": {
+        "startLine": 3067,
+        "startChar": 11,
+        "endLine": 3072,
+        "endChar": 37
+      },
+      "revId": "69e1aa9117adeaf07e3c1d5612e466b4a6ae7ff5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
