@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53a9b0d4_b1b8f4b7",
+        "filename": "framework/api/system-current.txt",
+        "patchSetId": 15
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-22T09:43:54Z",
+      "side": 1,
+      "message": "None of the other methods in this class have a @RequiresPermission annotation even though meny of them return data which is redacted if processes do not have appropriate permissions. Would suggest deleting this annotation.",
+      "range": {
+        "startLine": 310,
+        "startChar": 20,
+        "endLine": 310,
+        "endChar": 40
+      },
+      "revId": "33a4be0f552a23c5018bf71d31b07ebfbb314ad1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40441830_6c38717a",
+        "filename": "framework/api/system-current.txt",
+        "patchSetId": 15
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-22T09:43:54Z",
+      "side": 1,
+      "message": "Is this true? Any NetworkAgent can set the underlying networks, right? If so, then this should probably just be NETWORK_FACTORY.",
+      "range": {
+        "startLine": 343,
+        "startChar": 20,
+        "endLine": 343,
+        "endChar": 198
+      },
+      "revId": "33a4be0f552a23c5018bf71d31b07ebfbb314ad1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
