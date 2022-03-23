@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf899f93_4fe5a970",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-23T14:28:07Z",
+      "side": 1,
+      "message": "(should probably be sendUnregisterAfterReplacement with an uppercase \"U\", but I wouldn\u0027t bother respinning this)",
+      "range": {
+        "startLine": 989,
+        "startChar": 38,
+        "endLine": 989,
+        "endChar": 68
+      },
+      "revId": "cb528a7c4821844713f00a2a5af82e497b2eed66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
