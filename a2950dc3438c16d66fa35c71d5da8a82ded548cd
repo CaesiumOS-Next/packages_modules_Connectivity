@@ -16,6 +16,23 @@
       "message": "+2 just so TH can be started, but I see there\u0027s some unresolved comments",
       "revId": "a2950dc3438c16d66fa35c71d5da8a82ded548cd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eab76417_511daca6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 75
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-23T22:40:01Z",
+      "side": 1,
+      "message": "The tests on R and S base image passed, yay!\n\nTH says tests failed with:\n\n\u003d\u003d\u003d\u003d\u003d\u003d\npackages/modules/Connectivity/tests/native/connectivity_native_test.cpp:274: Failure\npackages/modules/Connectivity/tests/native/connectivity_native_test.cpp:274: Failure\nExpected equality of these values:\nEX_SECURITY\nWhich is: -1\nstatus.getExceptionCode()\nWhich is: -129\n\u003d\u003d\u003d\u003d\u003d\u003d\n\n-129 is EX_TRANSACTION_FAILED. Maybe we need the do/while loop in that test as well?",
+      "revId": "a2950dc3438c16d66fa35c71d5da8a82ded548cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
