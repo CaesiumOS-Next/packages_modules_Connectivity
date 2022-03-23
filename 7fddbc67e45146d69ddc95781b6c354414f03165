@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a011aff6_5fcb50ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-23T16:26:34Z",
+      "side": 1,
+      "message": "I am preparing now, and will provide the CL later.",
+      "parentUuid": "99f4f6d0_1699de3d",
+      "revId": "7fddbc67e45146d69ddc95781b6c354414f03165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9713d284_1d361b60",
         "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
         "patchSetId": 1
