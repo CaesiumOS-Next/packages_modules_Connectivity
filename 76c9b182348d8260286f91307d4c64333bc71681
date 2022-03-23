@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed9596d7_68c1544a",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 74
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1120458
+      },
+      "writtenOn": "2022-03-23T17:52:54Z",
+      "side": 1,
+      "message": "nit: should check all errors",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 57,
+        "endChar": 16
+      },
+      "revId": "76c9b182348d8260286f91307d4c64333bc71681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d967e1e3_2a84515b",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 74
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1120458
+      },
+      "writtenOn": "2022-03-23T17:52:54Z",
+      "side": 1,
+      "message": "also here",
+      "range": {
+        "startLine": 62,
+        "startChar": 46,
+        "endLine": 62,
+        "endChar": 54
+      },
+      "revId": "76c9b182348d8260286f91307d4c64333bc71681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8f2984a_0d318bb2",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 74
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1120458
+      },
+      "writtenOn": "2022-03-23T17:52:54Z",
+      "side": 1,
+      "message": "nit: prefer toString in all these cases, to get more information",
+      "range": {
+        "startLine": 201,
+        "startChar": 41,
+        "endLine": 201,
+        "endChar": 57
+      },
+      "revId": "76c9b182348d8260286f91307d4c64333bc71681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
