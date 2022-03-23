@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff42b397_6a34b3c8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-23T14:38:30Z",
+      "side": 1,
+      "message": "The linter\u0027s assertion that there are no CTS changes in this CL is clearly incorrect.",
+      "revId": "51ed20e93de91073ca86a745c44143672d23a4fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
