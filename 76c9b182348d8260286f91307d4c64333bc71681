@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f2aba40e_31595155",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 74
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-23T17:55:23Z",
+      "side": 1,
+      "message": "Steven suggests adding an assertion here to check that this succeeds. Maybe something like:\n\n    binder::Status status \u003d mService-\u003egetPortsBlockedForBind(\u0026mActualBlockedPorts);\n    ASSERT_TRUE(status.isOk()) \u003c\u003c status.exceptionMessage();\n\n?",
+      "range": {
+        "startLine": 57,
+        "startChar": 18,
+        "endLine": 57,
+        "endChar": 40
+      },
+      "revId": "76c9b182348d8260286f91307d4c64333bc71681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d967e1e3_2a84515b",
         "filename": "tests/native/connectivity_native_test.cpp",
         "patchSetId": 74
