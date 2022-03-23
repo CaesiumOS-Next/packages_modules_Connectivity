@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "744ca117_098f23dc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5292,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-03-23T08:47:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d43a09e0_fdfbca98",
+      "range": {
+        "startLine": 5292,
+        "startChar": 22,
+        "endLine": 5292,
+        "endChar": 41
+      },
+      "revId": "a16e9c323cae1b2eb5923130a58908719fe62fe4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e3fdcf6_8a17924c",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-11-10T06:47:22Z",
       "side": 1,
       "message": "I don\u0027t think we can do this for all default networks.\n\n- It\u0027s very possible that the default network for one app stops being the default for another app. Then reassignment.mOldNetwork here is still one of the defaults.\n- There can only be one local proxy anyway, so it can\u0027t have been running on multiple default networks.\n\nDid you want to do this in makeDefault, next to ProxyTracker#setDefaultProxy ?",
+      "range": {
+        "startLine": 7944,
+        "startChar": 12,
+        "endLine": 7944,
+        "endChar": 73
+      },
+      "revId": "a16e9c323cae1b2eb5923130a58908719fe62fe4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "968513e5_92ee7bf7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 7944,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-03-23T08:47:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e3fdcf6_8a17924c",
       "range": {
         "startLine": 7944,
         "startChar": 12,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c400e4a4_fdaf187c",
+        "filename": "service/src/com/android/server/connectivity/ProxyTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-03-23T08:47:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0cb2736a_4d9f6441",
+      "range": {
+        "startLine": 332,
+        "startChar": 12,
+        "endLine": 333,
+        "endChar": 62
+      },
+      "revId": "a16e9c323cae1b2eb5923130a58908719fe62fe4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c44c9508_e5ed4ac4",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-11-10T06:47:22Z",
       "side": 1,
       "message": "Do you want to also test that a broadcast was received ? I think it\u0027s needed here for sure, but also mostly at every paragraph in this test.",
+      "range": {
+        "startLine": 10080,
+        "startChar": 8,
+        "endLine": 10080,
+        "endChar": 18
+      },
+      "revId": "a16e9c323cae1b2eb5923130a58908719fe62fe4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66f01b81_4d552509",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 10080,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-03-23T08:47:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c44c9508_e5ed4ac4",
       "range": {
         "startLine": 10080,
         "startChar": 8,
