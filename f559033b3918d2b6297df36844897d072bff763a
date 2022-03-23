@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09d375c7_b5df37ff",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-03-23T11:21:34Z",
+      "side": 1,
+      "message": "buildIkev2VpnProfileCommon() is in the common path for the tests before and after T. setRequiresInternetValidation should only be called in T, regardless of the value of requiresValidation. If we remove it, test will fail in S build or T build running with CtsNetTestCasesLatestSdk. Shim will throw exception and crash the test.",
+      "parentUuid": "a1dd5753_e2c19651",
+      "range": {
+        "startLine": 219,
+        "startChar": 8,
+        "endLine": 219,
+        "endChar": 42
+      },
+      "revId": "f559033b3918d2b6297df36844897d072bff763a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5bbed43c_81c37a3f",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-03-23T09:13:32Z",
       "side": 1,
       "message": "Grammar nit: \"flaky\" is an adjective and you can\u0027t write \"may cause flaky\". You need a noun such as \"flakiness\" or you can say \"may cause the test to be flaky\".",
+      "range": {
+        "startLine": 476,
+        "startChar": 42,
+        "endLine": 476,
+        "endChar": 47
+      },
+      "revId": "f559033b3918d2b6297df36844897d072bff763a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a1f4ffa_462d1251",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-03-23T11:21:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bbed43c_81c37a3f",
       "range": {
         "startLine": 476,
         "startChar": 42,
