@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed98afea_46e42240",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-23T09:24:23Z",
+      "side": 1,
+      "message": "Failing tests were already failing and are unrelated",
+      "revId": "2c1a10c4b262849e4de2ca82dea7b73e70339314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
