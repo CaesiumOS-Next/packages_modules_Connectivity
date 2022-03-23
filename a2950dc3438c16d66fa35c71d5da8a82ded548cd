@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6a5c1ac_23d2c7ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 75
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-23T19:02:44Z",
+      "side": 1,
+      "message": "+2 just so TH can be started, but I see there\u0027s some unresolved comments",
+      "revId": "a2950dc3438c16d66fa35c71d5da8a82ded548cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
