@@ -53,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07aec45e_40d86970",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-23T13:59:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f12f7886_4c84aa56",
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51de3246_c687abc5",
@@ -66,6 +84,30 @@
       "writtenOn": "2022-03-15T13:50:55Z",
       "side": 1,
       "message": "API methods need docstrings explaining what the API does and how to use it. See:\n\nhttps://android.googlesource.com/platform/developers/docs/+/refs/heads/master/api-guidelines/index.md#docs",
+      "range": {
+        "startLine": 5871,
+        "startChar": 0,
+        "endLine": 5873,
+        "endChar": 7
+      },
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e395a41f_33fefe4b",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5873,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-23T13:59:41Z",
+      "side": 1,
+      "message": "There are no longer an API changes in this CL.",
+      "parentUuid": "51de3246_c687abc5",
       "range": {
         "startLine": 5871,
         "startChar": 0,
@@ -123,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71ecc6b1_b4347783",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5874,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-23T13:59:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58c5cbcd_2812258c",
+      "range": {
+        "startLine": 5874,
+        "startChar": 4,
+        "endLine": 5874,
+        "endChar": 14
+      },
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5a5d766_3ab834d4",
@@ -164,6 +230,54 @@
         "startChar": 31,
         "endLine": 5875,
         "endChar": 46
+      },
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf763f06_03d0a564",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5875,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-23T13:59:41Z",
+      "side": 1,
+      "message": "This code is gone.",
+      "parentUuid": "265f9d5a_742938d6",
+      "range": {
+        "startLine": 5875,
+        "startChar": 31,
+        "endLine": 5875,
+        "endChar": 46
+      },
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73e73ad1_13605398",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5875,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-23T13:59:41Z",
+      "side": 1,
+      "message": "This code is gone.",
+      "parentUuid": "c5a5d766_3ab834d4",
+      "range": {
+        "startLine": 5875,
+        "startChar": 16,
+        "endLine": 5875,
+        "endChar": 30
       },
       "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"

@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7740f59a_e7b8bdb2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-23T13:59:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b5c6dc8_bf9cc906",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 15
+      },
+      "revId": "58559eed96dbaa3004567ec5ca7ead759ef628fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9e8f0e29_20cfc5d1",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 25
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00ab5631_0dd38925",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 4222,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-23T13:59:41Z",
+      "side": 1,
+      "message": "Done in https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2039024/ .",
+      "parentUuid": "3aa4481f_986b7c9f",
+      "range": {
+        "startLine": 4222,
+        "startChar": 22,
+        "endLine": 4222,
+        "endChar": 29
+      },
+      "revId": "58559eed96dbaa3004567ec5ca7ead759ef628fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "577c49ce_7aa8eb16",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-03-18T01:14:24Z",
       "side": 1,
       "message": "Nit: this can never happen or the system would crash at line 3552.",
+      "range": {
+        "startLine": 9646,
+        "startChar": 8,
+        "endLine": 9646,
+        "endChar": 32
+      },
+      "revId": "58559eed96dbaa3004567ec5ca7ead759ef628fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba37c081_72467a7b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 9646,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-23T13:59:41Z",
+      "side": 1,
+      "message": "Done in https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2039024/ .",
+      "parentUuid": "577c49ce_7aa8eb16",
       "range": {
         "startLine": 9646,
         "startChar": 8,
@@ -110,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d4103c6_677b5abe",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 15589,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-23T13:59:41Z",
+      "side": 1,
+      "message": "Done in https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2039023 . Heewon, can you take a look?",
+      "parentUuid": "52e4168b_64d5468b",
+      "range": {
+        "startLine": 15589,
+        "startChar": 16,
+        "endLine": 15589,
+        "endChar": 17
+      },
+      "revId": "58559eed96dbaa3004567ec5ca7ead759ef628fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "110099b2_afcf2733",
@@ -123,6 +219,30 @@
       "writtenOn": "2022-03-18T01:14:24Z",
       "side": 1,
       "message": "No need to fix in this CL, but these lines are the same as 15585-15611. Would be good to reduce duplication with something like the following. This also ensures that the feature is disabled on T:\n\n    private void doTestIgnoreValidationAfterRoam(int resValue, boolean enabled) {\n        final int value \u003d enabled ? 5_000 : -1;\n        ... common code\n\n        if (!enabled) {\n            // Validation fails and device switches to cellular.\n            mDefaultNetworkCallback.expectAvailableCallbacksValidated(mCellNetworkAgent);\n            return;\n        }\n\n        ... the code in lines 15648-...\n    }\n\n    @Test\n    public void testIgnoreValidationAfterRoamDisabled() throws Exception {\n        doTestIgnoreValidationAfterRoam(-1 /* resValue */, false /* enabled */);\n    }\n\n    @Test\n    public void testIgnoreValidationAfterRoamEnabled() throws Exception {\n        // config_validationFailureAfterRoamIgnoreTimeMillis only works before T.\n        final boolean enabled \u003d !SdkLevel.isAtLeastT();\n        doTestIgnoreValidationAfterRoam(5_000 /* resValue */, enabled);\n    }",
+      "range": {
+        "startLine": 15621,
+        "startChar": 0,
+        "endLine": 15621,
+        "endChar": 76
+      },
+      "revId": "58559eed96dbaa3004567ec5ca7ead759ef628fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8e43633_fa65e505",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 15621,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-23T13:59:41Z",
+      "side": 1,
+      "message": "Done in https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2039023 .",
+      "parentUuid": "110099b2_afcf2733",
       "range": {
         "startLine": 15621,
         "startChar": 0,
@@ -150,6 +270,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55da4eb6_4dc2a991",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 15652,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-23T13:59:41Z",
+      "side": 1,
+      "message": "Done in https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2039023 .",
+      "parentUuid": "10e80cdf_e54351f4",
+      "revId": "58559eed96dbaa3004567ec5ca7ead759ef628fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ffab9b6_3166a214",
@@ -163,6 +301,30 @@
       "writtenOn": "2022-03-18T01:14:24Z",
       "side": 1,
       "message": "I don\u0027t think this does anything except sleep for 150ms because no other thread touches waitForValidationBlock. If that\u0027s what you want, then I\u0027d suggest just simply:\n\n    SystemClock.sleep(150);  // Wait for the 50ms timeout just set to elapse.",
+      "range": {
+        "startLine": 15660,
+        "startChar": 8,
+        "endLine": 15660,
+        "endChar": 42
+      },
+      "revId": "58559eed96dbaa3004567ec5ca7ead759ef628fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b13fda06_9f735837",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 15660,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-23T13:59:41Z",
+      "side": 1,
+      "message": "Done in https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2039023 .",
+      "parentUuid": "1ffab9b6_3166a214",
       "range": {
         "startLine": 15660,
         "startChar": 8,
