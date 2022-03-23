@@ -159,7 +159,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeTrue;
 import static org.mockito.AdditionalMatchers.aryEq;
 import static org.mockito.ArgumentMatchers.anyBoolean;
@@ -15605,11 +15604,9 @@ public class ConnectivityServiceTest {
         assertNull(readHead.poll(TEST_CALLBACK_TIMEOUT_MS, it -> true));
     }
 
-    @Test
-    public void testIgnoreValidationAfterRoamDisabled() throws Exception {
-        assumeFalse(SdkLevel.isAtLeastT());
-        // testIgnoreValidationAfterRoam off
-        doReturn(-1).when(mResources)
+    private void doTestIgnoreValidationAfterRoam(int resValue, boolean expectValidationIgnored)
+            throws Exception {
+        doReturn(resValue).when(mResources)
                 .getInteger(R.integer.config_validationFailureAfterRoamIgnoreTimeMillis);
 
         final String bssid1 = "AA:AA:AA:AA:AA:AA";
@@ -15647,67 +15644,51 @@ public class ConnectivityServiceTest {
         mDefaultNetworkCallback.expectCapabilitiesThat(mWiFiNetworkAgent, (nc) ->
                 !((WifiInfo) nc.getTransportInfo()).getBSSID().equals(bssid1)
         );
+        // Trigger validation.
         mWiFiNetworkAgent.setNetworkInvalid(false);
         mCm.reportNetworkConnectivity(mWiFiNetworkAgent.getNetwork(), false);
-        mDefaultNetworkCallback.expectAvailableCallbacksValidated(mCellNetworkAgent);
+        mDefaultNetworkCallback.assertNoCallback();
 
-        // Wi-Fi is still connected and would become the default network if cell were to disconnect.
+        if (expectValidationIgnored) {
+            // Network validation failed, but the result will be ignored.
+            assertTrue(mCm.getNetworkCapabilities(mWiFiNetworkAgent.getNetwork()).hasCapability(
+                    NET_CAPABILITY_VALIDATED));
+            mWiFiNetworkAgent.setNetworkValid(false);
+
+            // Behavior of after config_validationFailureAfterRoamIgnoreTimeMillis
+            doReturn(50).when(mResources)
+                    .getInteger(R.integer.config_validationFailureAfterRoamIgnoreTimeMillis);
+            // Wi-Fi roaming from wifiNc2 to wifiNc1.
+            mWiFiNetworkAgent.setNetworkCapabilities(wifiNc1, true);
+            mWiFiNetworkAgent.setNetworkInvalid(false);
+            waitForIdle();
+            SystemClock.sleep(150); // Wait for the 50ms timeout just set to elapse.
+            mCm.reportNetworkConnectivity(mWiFiNetworkAgent.getNetwork(), false);
+            // When validation fails after the timeout has expired, the device switches to cell data
+            // and wifi remains connected.
+            mDefaultNetworkCallback.expectAvailableCallbacksValidated(mCellNetworkAgent);
+        } else {
+            // Network validation failed, and the device immediately switches to cell data.
+            mDefaultNetworkCallback.expectAvailableCallbacksValidated(mCellNetworkAgent);
+        }
+
+        // Wi-Fi is still connected and wil become the default network if cell disconnects.
         // This assertion ensures that the network did not switch to cellular because Wi-Fi
         // disconnected (e.g., because the capability change to wifiNc2 caused it to stop
-        // satisfying the default request).
+        // satisfying the default request), but switched because validation failed.
         mCellNetworkAgent.disconnect();
         mDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, mCellNetworkAgent);
         mDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(mWiFiNetworkAgent);
     }
 
     @Test
+    public void testIgnoreValidationAfterRoamDisabled() throws Exception {
+        doTestIgnoreValidationAfterRoam(-1 /* resValue */, false /* enabled */);
+    }
+
+    @Test
     public void testIgnoreValidationAfterRoamEnabled() throws Exception {
-        assumeFalse(SdkLevel.isAtLeastT());
-        // testIgnoreValidationAfterRoam on
-        doReturn(5000).when(mResources)
-                .getInteger(R.integer.config_validationFailureAfterRoamIgnoreTimeMillis);
-
-        mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
-        mCellNetworkAgent.connect(true);
-        NetworkCapabilities wifiNc1 = new NetworkCapabilities()
-                .addTransportType(TRANSPORT_WIFI)
-                .setTransportInfo(new WifiInfo.Builder().setBssid("AA:AA:AA:AA:AA:AA").build());
-        NetworkCapabilities wifiNc2 = new NetworkCapabilities()
-                .addTransportType(TRANSPORT_WIFI)
-                .setTransportInfo(new WifiInfo.Builder().setBssid("BB:BB:BB:BB:BB:BB").build());
-        final LinkProperties wifiLp = new LinkProperties();
-        wifiLp.setInterfaceName(WIFI_IFNAME);
-        mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI, wifiLp, wifiNc1);
-        mWiFiNetworkAgent.connect(true);
-
-        // The default network will be switching to Wi-Fi Network.
-        final TestNetworkCallback wifiNetworkCallback = new TestNetworkCallback();
-        final NetworkRequest wifiRequest = new NetworkRequest.Builder()
-                .addTransportType(TRANSPORT_WIFI).build();
-        mCm.registerNetworkCallback(wifiRequest, wifiNetworkCallback);
-        wifiNetworkCallback.expectAvailableCallbacksValidated(mWiFiNetworkAgent);
-        registerDefaultNetworkCallbacks();
-        mDefaultNetworkCallback.expectAvailableCallbacksValidated(mWiFiNetworkAgent);
-
-        // Wi-Fi roaming from wifiNc1 to wifiNc2.
-        mWiFiNetworkAgent.setNetworkCapabilities(wifiNc2, true);
-        mWiFiNetworkAgent.setNetworkInvalid(false);
-        mCm.reportNetworkConnectivity(mWiFiNetworkAgent.getNetwork(), false);
-
-        // Network validation failed, but the result will be ignored.
-        assertTrue(mCm.getNetworkCapabilities(mWiFiNetworkAgent.getNetwork()).hasCapability(
-                NET_CAPABILITY_VALIDATED));
-        mWiFiNetworkAgent.setNetworkValid(false);
-
-        // Behavior of after config_validationFailureAfterRoamIgnoreTimeMillis
-        ConditionVariable waitForValidationBlock = new ConditionVariable();
-        doReturn(50).when(mResources)
-                .getInteger(R.integer.config_validationFailureAfterRoamIgnoreTimeMillis);
-        // Wi-Fi roaming from wifiNc2 to wifiNc1.
-        mWiFiNetworkAgent.setNetworkCapabilities(wifiNc1, true);
-        mWiFiNetworkAgent.setNetworkInvalid(false);
-        waitForValidationBlock.block(150);
-        mCm.reportNetworkConnectivity(mWiFiNetworkAgent.getNetwork(), false);
-        mDefaultNetworkCallback.expectAvailableCallbacksValidated(mCellNetworkAgent);
+        final boolean expectValidationIgnored = !SdkLevel.isAtLeastT();
+        doTestIgnoreValidationAfterRoam(5_000, expectValidationIgnored);
     }
 }
