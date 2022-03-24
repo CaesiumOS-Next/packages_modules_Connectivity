@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dfac772_0417335d",
+        "filename": "tests/unit/java/com/android/server/connectivity/FullScoreTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-24T12:06:00Z",
+      "side": 1,
+      "message": "Nit: private\n\nProbably not worth respinning though",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 7
+      },
+      "revId": "179448035d683e6608468e22f2443904c39889e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
