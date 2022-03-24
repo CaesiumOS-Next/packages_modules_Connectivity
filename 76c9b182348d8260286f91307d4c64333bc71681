@@ -211,6 +211,30 @@
       },
       "revId": "76c9b182348d8260286f91307d4c64333bc71681",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "429a4bde_e14de0db",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 74
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-24T09:41:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0139b84_f043c788",
+      "range": {
+        "startLine": 201,
+        "startChar": 41,
+        "endLine": 201,
+        "endChar": 57
+      },
+      "revId": "76c9b182348d8260286f91307d4c64333bc71681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
