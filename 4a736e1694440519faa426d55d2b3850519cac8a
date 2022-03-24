@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1972c798_008c3bad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1531946
+      },
+      "writtenOn": "2022-03-24T23:31:19Z",
+      "side": 1,
+      "message": "pls get the cl reviewed and cp to tm-dev",
+      "revId": "4a736e1694440519faa426d55d2b3850519cac8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
