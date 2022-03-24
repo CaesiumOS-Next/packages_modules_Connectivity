@@ -23,6 +23,10 @@ aidl_interface {
     name: "connectivity_native_aidl_interface",
     local_include_dir: "binder",
     vendor_available: true,
+    stability: "vintf",
+    vndk: {
+        enabled: true,
+    },
     srcs: [
         "binder/android/net/connectivity/aidl/*.aidl",
     ],
@@ -32,8 +36,13 @@ aidl_interface {
                 "com.android.tethering",
             ],
             min_sdk_version: "30",
+            sdk_version: "system_server_current",
+            platform_apis: true,
         },
         ndk: {
+            vndk: {
+                enabled: true,
+            },
             apex_available: [
                 "com.android.tethering",
             ],
@@ -41,7 +50,6 @@ aidl_interface {
         },
     },
     versions: ["1"],
-
 }
 
 cc_library_static {
@@ -57,7 +65,8 @@ cc_library_static {
 
 java_library {
     name: "connectivity_native_aidl_interface-lateststable-java",
-    sdk_version: "system_current",
+    sdk_version: "system_server_current",
+    platform_apis: true,
     min_sdk_version: "30",
     static_libs: [
         "connectivity_native_aidl_interface-V1-java",
