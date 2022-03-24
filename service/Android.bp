@@ -23,6 +23,10 @@ aidl_interface {
     name: "connectivity_native_aidl_interface",
     local_include_dir: "binder",
     vendor_available: true,
+    stability: "vintf",
+    vndk: {
+        enabled: true,
+    },
     srcs: [
         "binder/android/net/connectivity/aidl/*.aidl",
     ],
@@ -34,6 +38,9 @@ aidl_interface {
             min_sdk_version: "30",
         },
         ndk: {
+            vndk: {
+                enabled: true,
+            },
             apex_available: [
                 "com.android.tethering",
             ],
