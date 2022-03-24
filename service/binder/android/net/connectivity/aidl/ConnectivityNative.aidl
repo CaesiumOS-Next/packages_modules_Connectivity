@@ -16,6 +16,7 @@
 
 package android.net.connectivity.aidl;
 
+@VintfStability
 interface ConnectivityNative {
     /**
      * Blocks a port from being assigned during bind(). The caller is responsible for updating
