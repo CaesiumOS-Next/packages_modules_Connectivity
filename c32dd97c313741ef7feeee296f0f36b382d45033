@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a40cd3bb_eb113017",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-25T11:37:08Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "c32dd97c313741ef7feeee296f0f36b382d45033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53a4d552_13dcac73",
+        "filename": "framework/src/android/net/QosSocketInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-25T11:37:08Z",
+      "side": 1,
+      "message": "Nit: the constructor that you\u0027re linking to here takes a Socket, which means the socket type is always SOCK_STREAM. Suggest changing this doc to \"The socket type of the socket passed in when this QosSocketInfo object was constructed.\"",
+      "range": {
+        "startLine": 107,
+        "startChar": 49,
+        "endLine": 107,
+        "endChar": 87
+      },
+      "revId": "c32dd97c313741ef7feeee296f0f36b382d45033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0875c5fb_90f9b307",
+        "filename": "framework/src/android/net/QosSocketInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-25T11:37:08Z",
+      "side": 1,
+      "message": "Is this text useful? A socket cannot change type once created, right?",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 26
+      },
+      "revId": "c32dd97c313741ef7feeee296f0f36b382d45033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
