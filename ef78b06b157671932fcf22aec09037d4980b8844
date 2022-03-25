@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5311691_9116cc2f",
+        "filename": "service/src/com/android/server/connectivity/QosCallbackAgentConnection.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-25T13:42:16Z",
+      "side": 1,
+      "message": "Could this break existing clients (e.g., running on S)? Should we only do this on T+ devices? Also everywhere else.",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 62
+      },
+      "revId": "ef78b06b157671932fcf22aec09037d4980b8844",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
