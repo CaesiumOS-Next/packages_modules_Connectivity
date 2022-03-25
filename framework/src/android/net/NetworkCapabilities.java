@@ -2297,6 +2297,10 @@ public final class NetworkCapabilities implements Parcelable {
      */
     public static void appendStringRepresentationOfBitMaskToStringBuilder(@NonNull StringBuilder sb,
             long bitMask, @NonNull NameOf nameFetcher, @NonNull String separator) {
+        if (bitMask < 0) {
+            throw new IllegalArgumentException("bitmask is less than 0. bitMask=" + bitMask);
+        }
+
         int bitPos = 0;
         boolean firstElementAdded = false;
         while (bitMask != 0) {
@@ -2308,7 +2312,7 @@ public final class NetworkCapabilities implements Parcelable {
                 }
                 sb.append(nameFetcher.nameOf(bitPos));
             }
-            bitMask >>= 1;
+            bitMask >>>= 1;
             ++bitPos;
         }
     }
