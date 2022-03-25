@@ -26,6 +26,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.PersistableBundle;
 import android.os.RemoteException;
+import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
 
@@ -747,6 +748,8 @@ public class ConnectivityDiagnosticsManager {
         }
 
         try {
+            Log.d("DeflakyCDMTest", "registerConnectivityDiagnosticsCallback is "
+                    + "called");
             mService.registerConnectivityDiagnosticsCallback(
                     binder, request, mContext.getOpPackageName());
         } catch (RemoteException exception) {
