@@ -16,6 +16,23 @@
       "message": "Same as patchset 77",
       "revId": "b37f551287541b0483130d510660287d00cc45ae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38d73c0e_6762ab84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 79
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-25T16:19:46Z",
+      "side": 1,
+      "message": "Same as patchset 72 for aidl files",
+      "revId": "b37f551287541b0483130d510660287d00cc45ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
