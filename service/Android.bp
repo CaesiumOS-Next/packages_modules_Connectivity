@@ -23,6 +23,10 @@ aidl_interface {
     name: "connectivity_native_aidl_interface",
     local_include_dir: "binder",
     vendor_available: true,
+    stability: "vintf",
+    vndk: {
+        enabled: true,
+    },
     srcs: [
         "binder/android/net/connectivity/aidl/*.aidl",
     ],
@@ -32,15 +36,29 @@ aidl_interface {
                 "com.android.tethering",
             ],
             min_sdk_version: "30",
+            sdk_version: "module_current",
         },
         ndk: {
+            vndk: {
+                enabled: true,
+            },
             apex_available: [
                 "com.android.tethering",
             ],
             min_sdk_version: "30",
         },
     },
-    versions: ["1"],
+    versions_with_info: [
+        {
+            version: "1",
+            imports: [],
+        },
+        {
+            version: "2",
+            imports: [],
+        },
+
+    ],
 
 }
 
@@ -57,7 +75,7 @@ cc_library_static {
 
 java_library {
     name: "connectivity_native_aidl_interface-lateststable-java",
-    sdk_version: "system_current",
+    sdk_version: "module_current",
     min_sdk_version: "30",
     static_libs: [
         "connectivity_native_aidl_interface-V1-java",
@@ -174,7 +192,9 @@ java_library {
     apex_available: [
         "com.android.tethering",
     ],
-    lint: { strict_updatability_linting: true },
+    lint: {
+        strict_updatability_linting: true,
+    },
     visibility: [
         "//packages/modules/Connectivity/service-t",
         "//packages/modules/Connectivity/tests:__subpackages__",
@@ -195,7 +215,9 @@ java_library {
     apex_available: [
         "com.android.tethering",
     ],
-    lint: { strict_updatability_linting: true },
+    lint: {
+        strict_updatability_linting: true,
+    },
 }
 
 java_library {
@@ -216,7 +238,9 @@ java_library {
     apex_available: [
         "com.android.tethering",
     ],
-    lint: { strict_updatability_linting: true },
+    lint: {
+        strict_updatability_linting: true,
+    },
 }
 
 filegroup {
