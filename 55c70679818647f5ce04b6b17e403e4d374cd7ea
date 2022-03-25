@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9273eeca_1746411e",
+        "filename": "framework/src/android/net/QosCallbackException.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-25T13:40:58Z",
+      "side": 1,
+      "message": "Do we need to do something to prevent existing clients (e.g., running on S) from getting this exception? Or do we expect this to be fine since the contract of the API does not specify what exception is wrapped in the QosCallbackException?",
+      "range": {
+        "startLine": 95,
+        "startChar": 16,
+        "endLine": 95,
+        "endChar": 83
+      },
+      "revId": "55c70679818647f5ce04b6b17e403e4d374cd7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3df0876b_a9848bcb",
+        "filename": "framework/src/android/net/QosCallbackException.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-25T13:40:58Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 104,
+        "startChar": 24,
+        "endLine": 104,
+        "endChar": 63
+      },
+      "revId": "55c70679818647f5ce04b6b17e403e4d374cd7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6adda68b_c1b61780",
+        "filename": "framework/src/android/net/QosFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-25T13:40:58Z",
+      "side": 1,
+      "message": "The network doesn\u0027t seem relevant here. Remove?\n\nMight want to provide examples of what the value can be. For example:\n\n, e.g., {@link android.system.OsConstants#IPPROTO_TCP} or {@link android.system.OsConstants#IPPROTO_UDP}.",
+      "range": {
+        "startLine": 98,
+        "startChar": 22,
+        "endLine": 98,
+        "endChar": 50
+      },
+      "revId": "55c70679818647f5ce04b6b17e403e4d374cd7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be580f08_0774c29d",
+        "filename": "framework/src/android/net/QosSocketFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-25T13:40:58Z",
+      "side": 1,
+      "message": "The fact that you had to change this suggests that if the socket is not bound, getAddressFromFileDescriptor doesn\u0027t return null but returns an empty address. Is this a bug in the current code that you are fixing? If so, that suggests that currently, unbound sockets will get EX_TYPE_FILTER_SOCKET_LOCAL_ADDRESS_CHANGED, but after we push this change to the field in a mainline update, unbound sockets will start getting a SocketNotBoundExxception. Could this break existing clients somehow?",
+      "range": {
+        "startLine": 94,
+        "startChar": 8,
+        "endLine": 94,
+        "endChar": 87
+      },
+      "revId": "55c70679818647f5ce04b6b17e403e4d374cd7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a000f4c_a419d9be",
+        "filename": "framework/src/android/net/QosSocketFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-25T13:40:58Z",
+      "side": 1,
+      "message": "Why only do this for UDP and not for TCP? It seems like we should do it for all socket types.",
+      "range": {
+        "startLine": 102,
+        "startChar": 12,
+        "endLine": 102,
+        "endChar": 56
+      },
+      "revId": "55c70679818647f5ce04b6b17e403e4d374cd7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "624c384f_5f01b1ab",
+        "filename": "framework/src/android/net/QosSocketFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-25T13:40:58Z",
+      "side": 1,
+      "message": "Why only for connected sockets? The current (TCP) callbacks only require that the socket be bound, not that it be connected. Cn we do the same here? Seems like better behaviour would be:\n\n- If the socket is not bound, EX_TYPE_FILTER_SOCKET_NOT_BOUND\n- If the socket is bound to a different address than the one in the QosSocketInfo, EX_TYPE_FILTER_SOCKET_LOCAL_ADDRESS_CHANGED.\n- If the QosSocketInfo has no destination address, succeed (EX_TYPE_FILTER_NONE).\n- If the QosSocketInfo has a destination address, and the socket doesn\u0027t have a destintion address, EX_TYPE_FILTER_SOCKET_NOT_CONNECTED.\n- If the QosSocketInfo has a destination address, and the socket\u0027s destination address is different, EX_TYPE_FILTER_SOCKET_REMOTE_ADDRESS_CHANGED).\n\nand we could do this for both TCP and UDP.\n\nAssuming we agree that that is the desired behaviour, we need to think about whether this changes the behaviour for TCP, and if so, whether there will be any backwards compatibility implications for existing clients.",
+      "range": {
+        "startLine": 104,
+        "startChar": 23,
+        "endLine": 104,
+        "endChar": 58
+      },
+      "revId": "55c70679818647f5ce04b6b17e403e4d374cd7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9c2becb_37a2378a",
+        "filename": "framework/src/android/net/QosSocketFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-25T13:40:58Z",
+      "side": 1,
+      "message": "I know that getLocalAddressFromFileDescriptor already does this, but this should never happen, right? QosSocketInfo can never have a null fd because its constructor would throw. Or is this in case the getFileDescriptor$() call there returns null? But wouldn\u0027t that just not work at all?\n\nCan we remove these null checks? If we can\u0027t remove them in all cases, can we at least prevent things from being null in some cases (e.g., never allow null in T+, or never allow null in T+ or for UDP sockets, or...)?",
+      "range": {
+        "startLine": 153,
+        "startChar": 8,
+        "endLine": 153,
+        "endChar": 54
+      },
+      "revId": "55c70679818647f5ce04b6b17e403e4d374cd7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e24a737_cb9c7928",
+        "filename": "framework/src/android/net/QosSocketFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-25T13:40:58Z",
+      "side": 1,
+      "message": "Similar to the above: when can this happen? Can we avoid supporting this and remove the null check?",
+      "range": {
+        "startLine": 156,
+        "startChar": 8,
+        "endLine": 156,
+        "endChar": 36
+      },
+      "revId": "55c70679818647f5ce04b6b17e403e4d374cd7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac34bd7d_5cd7169a",
+        "filename": "framework/src/android/net/QosSocketFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-25T13:40:58Z",
+      "side": 1,
+      "message": "Shouldn\u0027t a socket that is not bound to any local address match nothing? If not, is this a bug in existing code that you are fixing? Could this break any existing client?",
+      "range": {
+        "startLine": 239,
+        "startChar": 19,
+        "endLine": 239,
+        "endChar": 47
+      },
+      "revId": "55c70679818647f5ce04b6b17e403e4d374cd7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d8a4b8c_2ddb0fe5",
+        "filename": "framework/src/android/net/QosSocketInfo.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-25T13:40:58Z",
+      "side": 1,
+      "message": "It seems unfortunate that we need to support two different codepaths for parceling (and presumably for other things as well). Why is this needed? The commit message does not mention it.",
+      "range": {
+        "startLine": 231,
+        "startChar": 16,
+        "endLine": 231,
+        "endChar": 38
+      },
+      "revId": "55c70679818647f5ce04b6b17e403e4d374cd7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
