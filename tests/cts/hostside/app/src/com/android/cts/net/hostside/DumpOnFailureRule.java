@@ -58,6 +58,8 @@ public class DumpOnFailureRule extends OnFailureRule {
         Log.i(TAG, "Dumping debug info for " + description + ": " + dumpFile.getPath());
         try (FileOutputStream out = new FileOutputStream(dumpFile)) {
             for (String cmd : new String[] {
+                    "iptables -L",
+                    "ip6tables -L",
                     "dumpsys netpolicy",
                     "dumpsys network_management",
                     "dumpsys usagestats " + TEST_PKG + " " + TEST_APP2_PKG,
