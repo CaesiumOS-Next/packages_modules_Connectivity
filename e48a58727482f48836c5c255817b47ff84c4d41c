@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2d9dbac_c866b687",
+        "filename": "service/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-25T15:48:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51bcce39_0143b3ec",
+      "range": {
+        "startLine": 39,
+        "startChar": 26,
+        "endLine": 39,
+        "endChar": 47
+      },
+      "revId": "e48a58727482f48836c5c255817b47ff84c4d41c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "727960fe_31533db9",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-25T15:23:58Z",
       "side": 1,
       "message": "This can\u0027t be used by the connectivity module if \"platform_apis: true\" is used. But sdk_version: \"module_current\" should fix that",
+      "range": {
+        "startLine": 40,
+        "startChar": 12,
+        "endLine": 40,
+        "endChar": 32
+      },
+      "revId": "e48a58727482f48836c5c255817b47ff84c4d41c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "899bc8f2_031571ca",
+        "filename": "service/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-25T15:48:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "727960fe_31533db9",
       "range": {
         "startLine": 40,
         "startChar": 12,
