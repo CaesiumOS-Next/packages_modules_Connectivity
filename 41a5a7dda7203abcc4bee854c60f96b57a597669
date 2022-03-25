@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea270f32_20b8a35d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1889688
+      },
+      "writtenOn": "2022-03-25T12:07:15Z",
+      "side": 1,
+      "message": "Review comments are addressed and run CTS with Android 12.",
+      "revId": "41a5a7dda7203abcc4bee854c60f96b57a597669",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

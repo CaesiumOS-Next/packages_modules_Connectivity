@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d56d8809_ebb7a98b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1889688
+      },
+      "writtenOn": "2022-03-25T12:07:15Z",
+      "side": 1,
+      "message": "Updated the exact CTS test case.\nRun the CTS with below command.\n      cts-tradefed run commandAndExit cts -m CtsTetheringTest",
+      "parentUuid": "fea64606_86301723",
+      "revId": "0fa26d0ac965f58ca3207bf4ba6d27349c82f224",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8700bae3_7989b555",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
