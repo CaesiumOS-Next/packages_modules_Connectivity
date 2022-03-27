@@ -9909,6 +9909,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // incremented when the NetworkRequestInfo is created as part of
             // enforceRequestCountLimit().
             nri.decrementRequestCount();
+            Log.d("DeflakyCDMTest", "Shouldn't return here 1");
             return;
         }
 
@@ -9918,6 +9919,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             iCb.linkToDeath(cbInfo, 0);
         } catch (RemoteException e) {
             cbInfo.binderDied();
+            Log.d("DeflakyCDMTest", "Shouldn't return here 2");
             return;
         }
 
@@ -9928,21 +9930,28 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 final NetworkAgentInfo nai = mNetworkForNetId.valueAt(i);
                 // Connectivity Diagnostics rejects multilayer requests at registration hence get(0)
                 if (nai.satisfies(nri.mRequests.get(0))) {
+                    Log.d("DeflakyCDMTest", "Find a matching network: " + nai);
                     matchingNetworks.add(nai);
                 }
             }
         }
+        int i = 0;
         for (final NetworkAgentInfo nai : matchingNetworks) {
+            Log.d("DeflakyCDMTest", "Matching network[" + i + "]: " + nai);
+            i++;
             final ConnectivityReport report = nai.getConnectivityReport();
             if (report == null) {
+                Log.d("DeflakyCDMTest", "Report is null");
                 continue;
             }
             if (!checkConnectivityDiagnosticsPermissions(
                     nri.mPid, nri.mUid, nai, cbInfo.mCallingPackageName)) {
+                Log.d("DeflakyCDMTest", "Fail to check the permission");
                 continue;
             }
 
             try {
+                Log.d("DeflakyCDMTest", "Trigger onConnectivityReportAvailable");
                 cb.onConnectivityReportAvailable(report);
             } catch (RemoteException e) {
                 // Exception while sending the ConnectivityReport. Move on to the next network.
@@ -10123,12 +10132,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
         try {
             if (!mLocationPermissionChecker.checkLocationPermission(
                         packageName, null /* featureId */, uid, null /* message */)) {
+                Log.d("DeflakyCDMTest", "hasLocationPermission: return false");
                 return false;
             }
         } catch (SecurityException e) {
+            Log.d("DeflakyCDMTest", "hasLocationPermission: return false");
             return false;
         }
 
+        Log.d("DeflakyCDMTest", "hasLocationPermission: return true");
         return true;
     }
 
@@ -10137,10 +10149,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
             if (virtual.propagateUnderlyingCapabilities()
                     && virtual.networkCapabilities.getOwnerUid() == uid
                     && CollectionUtils.contains(virtual.declaredUnderlyingNetworks, network)) {
+                Log.d("DeflakyCDMTest", "ownsVpnRunningOverNetwork: return true");
                 return true;
             }
         }
 
+        Log.d("DeflakyCDMTest", "ownsVpnRunningOverNetwork: return false");
         return false;
     }
 
@@ -10155,6 +10169,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final int[] administratorUids = nai.networkCapabilities.getAdministratorUids();
         if (!CollectionUtils.contains(administratorUids, callbackUid)
                 && !ownsVpnRunningOverNetwork(callbackUid, nai.network)) {
+            Log.d("DeflakyCDMTest", "Fail to check the permission");
+            Log.d("DeflakyCDMTest", "administratorUids = " + Arrays.toString(administratorUids)
+                    + ", callbackUid = " + callbackUid);
             return false;
         }
 
@@ -10196,6 +10213,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final ConnectivityDiagnosticsCallbackInfo cbInfo =
                 new ConnectivityDiagnosticsCallbackInfo(callback, nri, callingPackageName);
 
+        Log.d("DeflakyCDMTest", "Send EVENT_REGISTER_CONNECTIVITY_DIAGNOSTICS_CALLBACK");
         mConnectivityDiagnosticsHandler.sendMessage(
                 mConnectivityDiagnosticsHandler.obtainMessage(
                         ConnectivityDiagnosticsHandler
