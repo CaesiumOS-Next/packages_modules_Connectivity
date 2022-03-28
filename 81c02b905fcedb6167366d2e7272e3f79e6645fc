@@ -22,6 +22,30 @@
       },
       "revId": "81c02b905fcedb6167366d2e7272e3f79e6645fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40342148_5f7268b5",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-03-28T08:42:54Z",
+      "side": 1,
+      "message": "after aosp/2028288, the order is the same as clatdcontroller (del filter, del bpf entry, stop clatd)\nhttps://source.corp.google.com/aosp-master/system/netd/server/ClatdController.cpp;l\u003d851\n\nvoid ClatdController::maybeStopBpf(const ClatdTracker\u0026 tracker) {\n    tcFilterDelDevIngressClatIpv6(tracker.ifIndex);\n    tcFilterDelDevEgressClatIpv4(tracker.v4ifIndex);\n    mClatEgress4Map.deleteValue(txKey);\n    mClatIngress6Map.deleteValue(rxKey);\n\nint ClatdController::stopClatd(const std::string\u0026 interface) {\n    maybeStopBpf(*tracker);\n    ::stopProcess(tracker-\u003epid, \"clatd\");",
+      "parentUuid": "fb6f9ebb_7d09efba",
+      "range": {
+        "startLine": 596,
+        "startChar": 8,
+        "endLine": 596,
+        "endChar": 20
+      },
+      "revId": "81c02b905fcedb6167366d2e7272e3f79e6645fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
