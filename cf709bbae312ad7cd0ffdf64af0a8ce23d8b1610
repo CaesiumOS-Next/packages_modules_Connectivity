@@ -16,6 +16,23 @@
       "message": "This is cherrypick of aocr/2022639, see automerger issue b/226656900",
       "revId": "cf709bbae312ad7cd0ffdf64af0a8ce23d8b1610",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c672794_9adc398a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1222074
+      },
+      "writtenOn": "2022-03-28T19:10:40Z",
+      "side": 1,
+      "message": "Please CP this fix to aosp/master ",
+      "revId": "cf709bbae312ad7cd0ffdf64af0a8ce23d8b1610",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
