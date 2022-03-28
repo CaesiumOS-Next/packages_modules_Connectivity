@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f7f4c32_5c5b15ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-28T08:23:31Z",
+      "side": 1,
+      "message": "Also remove bpfHelper#maybeStopBpf ?",
+      "revId": "05d2a2bbba7073e5f4a6be58ad53168dd23349f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
