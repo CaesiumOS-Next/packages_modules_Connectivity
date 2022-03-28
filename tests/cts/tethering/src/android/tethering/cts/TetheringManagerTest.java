@@ -26,7 +26,13 @@ import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static android.net.TetheringManager.TETHER_ERROR_ENTITLEMENT_UNKNOWN;
 import static android.net.TetheringManager.TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
+import static android.net.TetheringManager.TETHER_ERROR_PROVISIONING_FAILED;
 import static android.net.cts.util.CtsTetheringUtils.isAnyIfaceMatch;
+import static android.telephony.CarrierConfigManager.ACTION_CARRIER_CONFIG_CHANGED;
+
+import static com.android.networkstack.apishim.ConstantsShim.KEY_CARRIER_SUPPORTS_TETHERING_BOOL;
+import static com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
+import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -68,8 +74,11 @@ import android.telephony.TelephonyManager;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.testutils.DevSdkIgnoreRule;
+
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -77,12 +86,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 @RunWith(AndroidJUnit4.class)
 public class TetheringManagerTest {
+
+    @Rule
+    public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
 
     private Context mContext;
 
@@ -403,11 +417,88 @@ public class TetheringManagerTest {
         overrideCarrierConfig(null);
     }
 
-    private void overrideCarrierConfig(PersistableBundle bundle) {
-        final CarrierConfigManager configManager = (CarrierConfigManager) mContext
-                .getSystemService(Context.CARRIER_CONFIG_SERVICE);
-        final int subId = SubscriptionManager.getDefaultSubscriptionId();
-        configManager.overrideConfig(subId, bundle);
+    // TODO(b/225092753) Add unittest to test tethering could be stopped while receiving
+    // CARRIER_SUPPORTS_TETHERING false
+    @Test
+    @IgnoreUpTo(SC_V2)
+    public void testEnableTethering_carrierUnsupported_noTetheringActive() throws Exception {
+        final TestTetheringEventCallback tetherEventCallback =
+                mCtsTetheringUtils.registerTetheringEventCallback();
+        try {
+            tetherEventCallback.assumeWifiTetheringSupported(mContext);
+
+            final PersistableBundle bundle = new PersistableBundle();
+            bundle.putBoolean(KEY_CARRIER_SUPPORTS_TETHERING_BOOL, false);
+            // Override carrier config to make carrier not support.
+            overrideCarrierConfig(bundle);
+
+            mCtsTetheringUtils.startWifiTetheringWithoutWatingResult();
+
+            tetherEventCallback.expectNoTetheringActive();
+        } finally {
+            overrideCarrierConfig(null);
+        }
+    }
+
+    @Test
+    @IgnoreUpTo(SC_V2)
+    public void testEnableTethering_carrierUnsupportByConfigChange_noTetheringActive()
+            throws Exception {
+        final TestTetheringEventCallback tetherEventCallback =
+                mCtsTetheringUtils.registerTetheringEventCallback();
+        try {
+            tetherEventCallback.assumeWifiTetheringSupported(mContext);
+
+            mCtsTetheringUtils.startWifiTethering(tetherEventCallback);
+
+            final PersistableBundle bundle = new PersistableBundle();
+            bundle.putBoolean(KEY_CARRIER_SUPPORTS_TETHERING_BOOL, false);
+            // Override carrier config to make carrier not support.
+            overrideCarrierConfig(bundle);
+
+            mCtsTetheringUtils.expectSoftApDisabled();
+            tetherEventCallback.expectNoTetheringActive();
+        } finally {
+            overrideCarrierConfig(null);
+        }
+    }
+
+    @Test
+    @IgnoreUpTo(SC_V2)
+    public void testRequestLatestEntitlementResult_carrierUnsupported() throws Exception {
+        assumeTrue(mTM.isTetheringSupported());
+        assumeTrue(mPm.hasSystemFeature(FEATURE_TELEPHONY));
+
+        final PersistableBundle bundle = new PersistableBundle();
+        bundle.putBoolean(KEY_CARRIER_SUPPORTS_TETHERING_BOOL, false);
+        // Override carrier config to make carrier not support.
+        overrideCarrierConfig(bundle);
+        // Verify that requestLatestTetheringEntitlementResult() can get entitlement
+        // result TETHER_ERROR_PROVISIONING_FAILED due to carrier unsupported
+        assertEntitlementResult(listener -> mTM.requestLatestTetheringEntitlementResult(
+                TETHERING_WIFI, false, c -> c.run(), listener), TETHER_ERROR_PROVISIONING_FAILED);
+
+        // Reset carrier config.
+        overrideCarrierConfig(null);
+    }
+
+    private void overrideCarrierConfig(PersistableBundle bundle) throws Exception {
+        CountDownLatch mLatch = new CountDownLatch(1);
+        CarrierConfigManager configManager = mContext
+                .getSystemService(CarrierConfigManager.class);
+        int currentSubId = SubscriptionManager.getDefaultSubscriptionId();
+        CarrierConfigBroadcastListener  mCarrierConfigChange = new CarrierConfigBroadcastListener(
+                mContext,
+                i -> {
+                    int subId = i.getIntExtra(CarrierConfigManager.EXTRA_SUBSCRIPTION_INDEX, -1);
+                    if (currentSubId == subId) {
+                        mLatch.countDown();
+                    }
+                });
+        mCarrierConfigChange.startListening();
+        configManager.overrideConfig(currentSubId, bundle);
+        mLatch.await(5000, TimeUnit.MILLISECONDS);
+        mCarrierConfigChange.stopListening();
     }
 
     @Test
@@ -461,6 +552,64 @@ public class TetheringManagerTest {
             mCtsTetheringUtils.unregisterTetheringEventCallback(tetherEventCallback);
             if (previousWifiEnabledState) {
                 mCtsNetUtils.connectToWifi();
+            }
+        }
+    }
+
+    private static class CarrierConfigBroadcastListener {
+        private final Context mContext;
+        private final IntentFilter mFilter;
+        private final Consumer<Intent> mCallback;
+        private final AtomicInteger mGenerationNumber;
+        private BroadcastReceiver mReceiver;
+
+        CarrierConfigBroadcastListener(Context ctx, Consumer<Intent> callback) {
+            mContext = ctx;
+            IntentFilter filter = new IntentFilter();
+            filter.addAction(ACTION_CARRIER_CONFIG_CHANGED);
+            mFilter = filter;
+            mCallback = callback;
+            mGenerationNumber = new AtomicInteger(0);
+        }
+
+        /** Start listening to intent broadcast. */
+        public void startListening() {
+            if (mReceiver != null) {
+                return;
+            }
+            mReceiver = new Receiver(mGenerationNumber, mCallback);
+            mContext.registerReceiver(mReceiver, mFilter);
+        }
+
+        /** Stop listening to intent broadcast. */
+        public void stopListening() {
+            if (mReceiver == null) {
+                return;
+            }
+            mGenerationNumber.incrementAndGet();
+            mContext.unregisterReceiver(mReceiver);
+            mReceiver = null;
+        }
+
+        private static class Receiver extends BroadcastReceiver {
+            public final AtomicInteger atomicGenerationNumber;
+            public final Consumer<Intent> callback;
+            // Used to verify this receiver is still current.
+            public final int generationNumber;
+
+            Receiver(AtomicInteger atomicGenerationNumber, Consumer<Intent> callback) {
+                this.atomicGenerationNumber = atomicGenerationNumber;
+                this.callback = callback;
+                generationNumber = atomicGenerationNumber.incrementAndGet();
+            }
+
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                int currentGenerationNumber = atomicGenerationNumber.get();
+                if (generationNumber != currentGenerationNumber) {
+                    return;
+                }
+                callback.accept(intent);
             }
         }
     }
