@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3890350_525b588a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-28T18:01:48Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "b580a122f3764b775676dc4e5632658fc9e09b43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fe643fa_10f6d26a",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-28T18:01:48Z",
+      "side": 1,
+      "message": "which allows or drops packets",
+      "range": {
+        "startLine": 998,
+        "startChar": 33,
+        "endLine": 998,
+        "endChar": 64
+      },
+      "revId": "b580a122f3764b775676dc4e5632658fc9e09b43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d953869c_6435a277",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-28T18:01:48Z",
+      "side": 1,
+      "message": "A firewall rule",
+      "range": {
+        "startLine": 998,
+        "startChar": 7,
+        "endLine": 998,
+        "endChar": 32
+      },
+      "revId": "b580a122f3764b775676dc4e5632658fc9e09b43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e31f232_387638f2",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1007,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-28T18:01:48Z",
+      "side": 1,
+      "message": "A firewall rule",
+      "range": {
+        "startLine": 1007,
+        "startChar": 7,
+        "endLine": 1007,
+        "endChar": 32
+      },
+      "revId": "b580a122f3764b775676dc4e5632658fc9e09b43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97b38668_f39df652",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-28T18:01:48Z",
+      "side": 1,
+      "message": "A firewall rule",
+      "range": {
+        "startLine": 1016,
+        "startChar": 7,
+        "endLine": 1016,
+        "endChar": 27
+      },
+      "revId": "b580a122f3764b775676dc4e5632658fc9e09b43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
