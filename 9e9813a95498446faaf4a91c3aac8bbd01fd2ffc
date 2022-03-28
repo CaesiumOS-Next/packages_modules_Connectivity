@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee857a40_ff17fca8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1882098
+      },
+      "writtenOn": "2022-03-28T13:06:15Z",
+      "side": 1,
+      "message": "Moved patch on top of the latest.",
+      "revId": "9e9813a95498446faaf4a91c3aac8bbd01fd2ffc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
