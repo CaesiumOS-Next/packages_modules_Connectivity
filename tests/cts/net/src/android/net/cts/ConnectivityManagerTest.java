@@ -2517,7 +2517,7 @@ public class ConnectivityManagerTest {
             mUiAutomation.adoptShellPermissionIdentity();
             // start tethering
             tetherEventCallback.assumeWifiTetheringSupported(mContext);
-            tetherUtils.startWifiTethering(tetherEventCallback);
+            tetherUtils.startWifiTetheringAndAwaitCallbacks(tetherEventCallback);
             // Update setting to verify the behavior.
             mCm.setAirplaneMode(true);
             ConnectivitySettingsManager.setPrivateDnsMode(mContext,

@@ -26,7 +26,13 @@ import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static android.net.TetheringManager.TETHER_ERROR_ENTITLEMENT_UNKNOWN;
 import static android.net.TetheringManager.TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
+import static android.net.TetheringManager.TETHER_ERROR_PROVISIONING_FAILED;
 import static android.net.cts.util.CtsTetheringUtils.isAnyIfaceMatch;
+import static android.telephony.CarrierConfigManager.ACTION_CARRIER_CONFIG_CHANGED;
+
+import static com.android.networkstack.apishim.ConstantsShim.KEY_CARRIER_SUPPORTS_TETHERING_BOOL;
+import static com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
+import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -53,7 +59,6 @@ import android.net.TetheringManager.OnTetheringEntitlementResultListener;
 import android.net.TetheringManager.TetheringInterfaceRegexps;
 import android.net.TetheringManager.TetheringRequest;
 import android.net.cts.util.CtsNetUtils;
-import android.net.cts.util.CtsNetUtils.TestNetworkCallback;
 import android.net.cts.util.CtsTetheringUtils;
 import android.net.cts.util.CtsTetheringUtils.StartTetheringCallback;
 import android.net.cts.util.CtsTetheringUtils.TestTetheringEventCallback;
@@ -68,8 +73,11 @@ import android.telephony.TelephonyManager;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.testutils.DevSdkIgnoreRule;
+
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -77,12 +85,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 @RunWith(AndroidJUnit4.class)
 public class TetheringManagerTest {
+
+    @Rule
+    public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
 
     private Context mContext;
 
@@ -259,7 +271,7 @@ public class TetheringManagerTest {
             tetherEventCallback.expectNoTetheringActive();
 
             final TetheringInterface tetheredIface =
-                    mCtsTetheringUtils.startWifiTethering(tetherEventCallback);
+                    mCtsTetheringUtils.startWifiTetheringAndAwaitCallbacks(tetherEventCallback);
 
             assertNotNull(tetheredIface);
             final String wifiTetheringIface = tetheredIface.getInterface();
@@ -318,7 +330,7 @@ public class TetheringManagerTest {
             // TODO: start ethernet tethering here when TetheringManagerTest is moved to
             // TetheringIntegrationTest.
 
-            mCtsTetheringUtils.startWifiTethering(tetherEventCallback);
+            mCtsTetheringUtils.startWifiTetheringAndAwaitCallbacks(tetherEventCallback);
 
             mTM.stopAllTethering();
             tetherEventCallback.expectNoTetheringActive();
@@ -403,11 +415,101 @@ public class TetheringManagerTest {
         overrideCarrierConfig(null);
     }
 
-    private void overrideCarrierConfig(PersistableBundle bundle) {
-        final CarrierConfigManager configManager = (CarrierConfigManager) mContext
-                .getSystemService(Context.CARRIER_CONFIG_SERVICE);
-        final int subId = SubscriptionManager.getDefaultSubscriptionId();
-        configManager.overrideConfig(subId, bundle);
+    @Test
+    @IgnoreUpTo(SC_V2)
+    public void testEnableTethering_carrierUnsupported_noTetheringActive() throws Exception {
+        final TestTetheringEventCallback tetherEventCallback =
+                mCtsTetheringUtils.registerTetheringEventCallback();
+        boolean previousWifiEnabledState = false;
+        try {
+            tetherEventCallback.assumeWifiTetheringSupported(mContext);
+            // Avoid device connected to Wifi network.
+            previousWifiEnabledState = ensureCurrentNetworkIsCellular();
+            final PersistableBundle bundle = new PersistableBundle();
+            bundle.putBoolean(KEY_CARRIER_SUPPORTS_TETHERING_BOOL, false);
+            // Override carrier config to make carrier not support.
+            overrideCarrierConfig(bundle);
+
+            mCtsTetheringUtils.startWifiTetheringAndAwaitCallbacks(tetherEventCallback);
+
+            mCtsTetheringUtils.expectSoftApDisabled();
+            tetherEventCallback.expectNoTetheringActive();
+        } finally {
+            overrideCarrierConfig(null);
+            mCtsTetheringUtils.unregisterTetheringEventCallback(tetherEventCallback);
+            if (previousWifiEnabledState) {
+                mCtsNetUtils.connectToWifi();
+            }
+        }
+    }
+
+    @Test
+    @IgnoreUpTo(SC_V2)
+    public void testEnableTethering_carrierUnsupportByConfigChange_noTetheringActive()
+            throws Exception {
+        final TestTetheringEventCallback tetherEventCallback =
+                mCtsTetheringUtils.registerTetheringEventCallback();
+        boolean previousWifiEnabledState = false;
+        try {
+            tetherEventCallback.assumeWifiTetheringSupported(mContext);
+            // Avoid device connected to Wifi network.
+            previousWifiEnabledState = ensureCurrentNetworkIsCellular();
+            mCtsTetheringUtils.startWifiTetheringAndAwaitCallbacks(tetherEventCallback);
+
+            final PersistableBundle bundle = new PersistableBundle();
+            bundle.putBoolean(KEY_CARRIER_SUPPORTS_TETHERING_BOOL, false);
+            // Override carrier config to make carrier not support.
+            overrideCarrierConfig(bundle);
+
+            mCtsTetheringUtils.expectSoftApDisabled();
+            tetherEventCallback.expectNoTetheringActive();
+        } finally {
+            overrideCarrierConfig(null);
+            mCtsTetheringUtils.unregisterTetheringEventCallback(tetherEventCallback);
+            if (previousWifiEnabledState) {
+                mCtsNetUtils.connectToWifi();
+            }
+        }
+    }
+
+    @Test
+    @IgnoreUpTo(SC_V2)
+    public void testRequestLatestEntitlementResult_carrierUnsupported() throws Exception {
+        assumeTrue(mTM.isTetheringSupported());
+        assumeTrue(mPm.hasSystemFeature(FEATURE_TELEPHONY));
+
+        final PersistableBundle bundle = new PersistableBundle();
+        bundle.putBoolean(KEY_CARRIER_SUPPORTS_TETHERING_BOOL, false);
+        try {
+            // Override carrier config to make carrier not support.
+            overrideCarrierConfig(bundle);
+            // Verify that requestLatestTetheringEntitlementResult() can get entitlement
+            // result TETHER_ERROR_PROVISIONING_FAILED due to carrier unsupported
+            assertEntitlementResult(listener -> mTM.requestLatestTetheringEntitlementResult(
+                    TETHERING_WIFI,
+                    false,
+                    c -> c.run(),
+                    listener),
+                    TETHER_ERROR_PROVISIONING_FAILED);
+        } finally {
+            // Reset carrier config.
+            overrideCarrierConfig(null);
+        }
+    }
+
+    private void overrideCarrierConfig(PersistableBundle bundle) throws Exception {
+        CountDownLatch mLatch = new CountDownLatch(1);
+        final int timeoutMs = 5_000;
+        CarrierConfigManager configManager = mContext
+                .getSystemService(CarrierConfigManager.class);
+        CarrierConfigBroadcastListener configListener = new CarrierConfigBroadcastListener();
+        final int currentSubId = SubscriptionManager.getDefaultSubscriptionId();
+        configListener.startListening(mContext, currentSubId, mLatch);
+        configManager.overrideConfig(currentSubId, bundle);
+
+        assertTrue("No carrier config broadcast received after " + timeoutMs + " milliseconds.",
+                mLatch.await(timeoutMs, TimeUnit.MILLISECONDS));
+        configListener.stopListening(mContext);
     }
 
     @Test
@@ -421,31 +523,9 @@ public class TetheringManagerTest {
         try {
             tetherEventCallback.assumeWifiTetheringSupported(mContext);
             tetherEventCallback.expectNoTetheringActive();
-
-            previousWifiEnabledState = mWm.isWifiEnabled();
-            if (previousWifiEnabledState) {
-                mCtsNetUtils.ensureWifiDisconnected(null);
-            }
-
-            final TestNetworkCallback networkCallback = new TestNetworkCallback();
-            Network activeNetwork = null;
-            try {
-                mCm.registerDefaultNetworkCallback(networkCallback);
-                activeNetwork = networkCallback.waitForAvailable();
-            } finally {
-                mCm.unregisterNetworkCallback(networkCallback);
-            }
-
-            assertNotNull("No active network. Please ensure the device has working mobile data.",
-                    activeNetwork);
-            final NetworkCapabilities activeNetCap = mCm.getNetworkCapabilities(activeNetwork);
-
-            // If active nework is ETHERNET, tethering may not use cell network as upstream.
-            assumeFalse(activeNetCap.hasTransport(TRANSPORT_ETHERNET));
-
-            assertTrue(activeNetCap.hasTransport(TRANSPORT_CELLULAR));
-
-            mCtsTetheringUtils.startWifiTethering(tetherEventCallback);
+            // Avoid device connected to Wifi network.
+            previousWifiEnabledState = ensureCurrentNetworkIsCellular();
+            mCtsTetheringUtils.startWifiTetheringAndAwaitCallbacks(tetherEventCallback);
 
             final TelephonyManager telephonyManager = (TelephonyManager) mContext.getSystemService(
                     Context.TELEPHONY_SERVICE);
@@ -462,6 +542,57 @@ public class TetheringManagerTest {
             if (previousWifiEnabledState) {
                 mCtsNetUtils.connectToWifi();
             }
+        }
+    }
+
+    /**
+     * Make sure current network is cellular data.
+     * @return true Previous Wifi state is enabled, false is disabled.
+     */
+    private boolean ensureCurrentNetworkIsCellular() throws Exception {
+        final boolean previousWifiEnabledState = mWm.isWifiEnabled();
+        if (previousWifiEnabledState) {
+            mCtsNetUtils.ensureWifiDisconnected(null);
+        }
+        Network activeNetwork = mCm.getActiveNetwork();
+        assertNotNull("No active network. Please ensure the device has working mobile data.",
+                activeNetwork);
+
+        final NetworkCapabilities activeNetCap = mCm.getNetworkCapabilities(activeNetwork);
+
+        // If active nework is ETHERNET, tethering may not use cell network as upstream.
+        assumeFalse(activeNetCap.hasTransport(TRANSPORT_ETHERNET));
+
+        assertTrue(activeNetCap.hasTransport(TRANSPORT_CELLULAR));
+
+        return previousWifiEnabledState;
+    }
+
+    private static class CarrierConfigBroadcastListener extends BroadcastReceiver{
+        private int mCurrentSubId = SubscriptionManager.INVALID_SUBSCRIPTION_ID;
+        private CountDownLatch mLatch;
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int subId = intent.getIntExtra(CarrierConfigManager.EXTRA_SUBSCRIPTION_INDEX,
+                    SubscriptionManager.INVALID_SUBSCRIPTION_ID);
+            if (mCurrentSubId == subId && mLatch != null) {
+                mLatch.countDown();
+            }
+        }
+
+        /** Start listening to intent broadcast. */
+        public void startListening(Context context, int subId, CountDownLatch latch) {
+            mCurrentSubId = subId;
+            IntentFilter filter = new IntentFilter();
+            filter.addAction(ACTION_CARRIER_CONFIG_CHANGED);
+            mLatch = latch;
+            context.registerReceiver(this, filter);
+        }
+
+        /** Stop listening to intent broadcast. */
+        public void stopListening(Context context) {
+            context.unregisterReceiver(this);
         }
     }
 }
