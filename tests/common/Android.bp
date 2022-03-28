@@ -28,6 +28,7 @@ java_library {
         "java/**/*.java",
         "java/**/*.kt",
     ],
+    exclude_srcs: [":connectivity-tiramisu-tests"],
     static_libs: [
         "androidx.core_core",
         "androidx.test.rules",
@@ -144,4 +145,11 @@ cc_defaults {
 java_defaults {
     name: "connectivity-mainline-presubmit-java-defaults",
     test_mainline_modules: mainline_presubmit_modules,
+}
+
+filegroup {
+    name: "connectivity-tiramisu-tests",
+    srcs: [
+        "java/android/net/netstats/NetworkTemplateTest.kt",
+    ],
 }
