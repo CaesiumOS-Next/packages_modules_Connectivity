@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb6f9ebb_7d09efba",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-28T07:58:31Z",
+      "side": 1,
+      "message": "Is it safe to clean up the map before stopClatd ? There are comments inside bpfhelper#maybeStopBpf:\n    // We cleanup the maps last, so scanning through them can be used to\n    // determine what still needs cleanup.",
+      "range": {
+        "startLine": 596,
+        "startChar": 8,
+        "endLine": 596,
+        "endChar": 20
+      },
+      "revId": "81c02b905fcedb6167366d2e7272e3f79e6645fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
