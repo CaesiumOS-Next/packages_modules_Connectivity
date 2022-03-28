@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3417490a_d34af1c1",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-03-28T22:40:09Z",
+      "side": 1,
+      "message": "But, afaik, it is not yet available in the downstream branches, so we can\u0027t use it yet (downstream branches presubmit will fail)",
+      "parentUuid": "d5f4150c_7ff2e4f2",
+      "range": {
+        "startLine": 67,
+        "startChar": 37,
+        "endLine": 67,
+        "endChar": 58
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eaadce18_b631935b",
@@ -71,6 +95,30 @@
       "writtenOn": "2022-03-28T10:35:30Z",
       "side": 1,
       "message": "Maybe it\u0027s a stupid question, may I know why do you use this number? What it means? Or you just random pick a number?",
+      "range": {
+        "startLine": 69,
+        "startChar": 47,
+        "endLine": 69,
+        "endChar": 56
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "395ae0c3_796797b2",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-03-28T22:40:09Z",
+      "side": 1,
+      "message": "This should be an id of a related buganizer issue.",
+      "parentUuid": "eaadce18_b631935b",
       "range": {
         "startLine": 69,
         "startChar": 47,
@@ -104,6 +152,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdee1f57_b13ad9b4",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-03-28T22:40:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "531c625f_39277362",
+      "range": {
+        "startLine": 754,
+        "startChar": 4,
+        "endLine": 758,
+        "endChar": 7
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a11e81f_638f7211",
@@ -117,6 +189,30 @@
       "writtenOn": "2022-03-28T10:35:30Z",
       "side": 1,
       "message": "I think this can be ignored, or do you want to emphasize that *EXCLUDED_ROUTES* is defined in LinkProperties?",
+      "range": {
+        "startLine": 760,
+        "startChar": 42,
+        "endLine": 760,
+        "endChar": 57
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e4118ab_656d4ccb",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-03-28T22:40:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a11e81f_638f7211",
       "range": {
         "startLine": 760,
         "startChar": 42,
@@ -150,6 +246,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "601b5703_c4614fff",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-03-28T22:40:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "610f3c80_7de5462a",
+      "range": {
+        "startLine": 788,
+        "startChar": 7,
+        "endLine": 788,
+        "endChar": 78
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c2485c7_bf61e1b9",
@@ -163,6 +283,30 @@
       "writtenOn": "2022-03-28T10:35:30Z",
       "side": 1,
       "message": "Can be final.",
+      "range": {
+        "startLine": 793,
+        "startChar": 8,
+        "endLine": 793,
+        "endChar": 9
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85923ab3_b53c0e5d",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-03-28T22:40:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c2485c7_bf61e1b9",
       "range": {
         "startLine": 793,
         "startChar": 8,
@@ -196,6 +340,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b9c41d3_11fc04e4",
+        "filename": "tests/common/java/android/net/LinkPropertiesTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-03-28T22:40:09Z",
+      "side": 1,
+      "message": "it\u0027s not available in downstream branches yet",
+      "parentUuid": "f29c57fa_9b91634b",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 61
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3850512b_733614ed",
@@ -209,6 +377,30 @@
       "writtenOn": "2022-03-28T10:35:30Z",
       "side": 1,
       "message": "2022\n\nSorry for delaying this to 2022. 😞",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67e3dbac_53376e92",
+        "filename": "tests/cts/hostside/app3/Android.bp",
+        "patchSetId": 22
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-03-28T22:40:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3850512b_733614ed",
       "range": {
         "startLine": 2,
         "startChar": 17,
@@ -242,6 +434,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06a245b9_47c334b2",
+        "filename": "tests/cts/hostside/app3/AndroidManifest.xml",
+        "patchSetId": 22
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-03-28T22:40:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e5d520b_bf8dcaaf",
+      "range": {
+        "startLine": 2,
+        "startChar": 19,
+        "endLine": 2,
+        "endChar": 23
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44215794_f4eca741",
@@ -255,6 +471,30 @@
       "writtenOn": "2022-03-28T10:35:30Z",
       "side": 1,
       "message": "2022",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfe57a80_480d8b3b",
+        "filename": "tests/cts/hostside/app3/src/com/android/cts/net/hostside/app3/ExcludedRoutesGatingTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-03-28T22:40:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44215794_f4eca741",
       "range": {
         "startLine": 2,
         "startChar": 17,
@@ -288,6 +528,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "192c0b04_2bf6fc2d",
+        "filename": "tests/cts/hostside/app3/src/com/android/cts/net/hostside/app3/ExcludedRoutesGatingTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-03-28T22:40:09Z",
+      "side": 1,
+      "message": "This comment was out of date, I\u0027ve updated it.\n\nmore details:\n\nOur initial approach was to convert set of routes that contains non-unicast routes to equivalent set of unicast routes\n(e.g. 0.0.0.0/0 unicast + 0.0.0.0/1 throw \u003d\u003d\u003d 128.0.0.0/1 unicast, etc)\n\nLater with Jean and Lorenzo we decided that simply filtering out non-unicast routes is sufficient.",
+      "parentUuid": "e38309b4_41c42b36",
+      "range": {
+        "startLine": 66,
+        "startChar": 47,
+        "endLine": 67,
+        "endChar": 30
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b52e6626_10434820",
@@ -301,6 +565,30 @@
       "writtenOn": "2022-03-28T10:35:30Z",
       "side": 1,
       "message": "2022",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aac5878b_eb6d56c6",
+        "filename": "tests/cts/hostside/src/com/android/cts/net/HostsideLinkPropertiesGatingTests.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-03-28T22:40:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b52e6626_10434820",
       "range": {
         "startLine": 2,
         "startChar": 17,
