@@ -33,6 +33,282 @@
       "message": "Hi Lucas, \nSince Jean is out of office, could you please take a look at this CL?",
       "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5f4150c_7ff2e4f2",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-28T10:35:30Z",
+      "side": 1,
+      "message": "S_V2 is now available in AOSP.",
+      "range": {
+        "startLine": 67,
+        "startChar": 37,
+        "endLine": 67,
+        "endChar": 58
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaadce18_b631935b",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-28T10:35:30Z",
+      "side": 1,
+      "message": "Maybe it\u0027s a stupid question, may I know why do you use this number? What it means? Or you just random pick a number?",
+      "range": {
+        "startLine": 69,
+        "startChar": 47,
+        "endLine": 69,
+        "endChar": 56
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "531c625f_39277362",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-28T10:35:30Z",
+      "side": 1,
+      "message": "I think the javadoc should be also modified accordingly.",
+      "range": {
+        "startLine": 754,
+        "startChar": 4,
+        "endLine": 758,
+        "endChar": 7
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a11e81f_638f7211",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-28T10:35:30Z",
+      "side": 1,
+      "message": "I think this can be ignored, or do you want to emphasize that *EXCLUDED_ROUTES* is defined in LinkProperties?",
+      "range": {
+        "startLine": 760,
+        "startChar": 42,
+        "endLine": 760,
+        "endChar": 57
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "610f3c80_7de5462a",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-28T10:35:30Z",
+      "side": 1,
+      "message": "This should be also modified?",
+      "range": {
+        "startLine": 788,
+        "startChar": 7,
+        "endLine": 788,
+        "endChar": 78
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c2485c7_bf61e1b9",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-28T10:35:30Z",
+      "side": 1,
+      "message": "Can be final.",
+      "range": {
+        "startLine": 793,
+        "startChar": 8,
+        "endLine": 793,
+        "endChar": 9
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f29c57fa_9b91634b",
+        "filename": "tests/common/java/android/net/LinkPropertiesTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-28T10:35:30Z",
+      "side": 1,
+      "message": "Use \"import static android.os.Build.VERSION_CODES.S_V2;\" instead?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 61
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3850512b_733614ed",
+        "filename": "tests/cts/hostside/app3/Android.bp",
+        "patchSetId": 22
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-28T10:35:30Z",
+      "side": 1,
+      "message": "2022\n\nSorry for delaying this to 2022. 😞",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e5d520b_bf8dcaaf",
+        "filename": "tests/cts/hostside/app3/AndroidManifest.xml",
+        "patchSetId": 22
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-28T10:35:30Z",
+      "side": 1,
+      "message": "2022",
+      "range": {
+        "startLine": 2,
+        "startChar": 19,
+        "endLine": 2,
+        "endChar": 23
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44215794_f4eca741",
+        "filename": "tests/cts/hostside/app3/src/com/android/cts/net/hostside/app3/ExcludedRoutesGatingTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-28T10:35:30Z",
+      "side": 1,
+      "message": "2022",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e38309b4_41c42b36",
+        "filename": "tests/cts/hostside/app3/src/com/android/cts/net/hostside/app3/ExcludedRoutesGatingTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-28T10:35:30Z",
+      "side": 1,
+      "message": "Does it mean the non-RTN_UNICAST routes should be treated as RTN_UNICAST? (It doesn\u0027t match what you did in LinkProperties#getRoutes())\nIf so, then the size below shouldn\u0027t be 0, right?\nDo you want to modify the comment?\nOr do I misunderstand what you mean?",
+      "range": {
+        "startLine": 66,
+        "startChar": 47,
+        "endLine": 67,
+        "endChar": 30
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b52e6626_10434820",
+        "filename": "tests/cts/hostside/src/com/android/cts/net/HostsideLinkPropertiesGatingTests.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-28T10:35:30Z",
+      "side": 1,
+      "message": "2022",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
