@@ -100,7 +100,7 @@ public class TetheringModuleTest {
             tetherEventCallback.expectNoTetheringActive();
 
             final TetheringInterface tetheredIface =
-                    mCtsTetheringUtils.startWifiTethering(tetherEventCallback);
+                    mCtsTetheringUtils.startWifiTetheringAndAwaitCallbacks(tetherEventCallback);
 
             assertNotNull(tetheredIface);
             final String wifiTetheringIface = tetheredIface.getInterface();
