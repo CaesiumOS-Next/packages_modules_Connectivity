@@ -476,6 +476,17 @@ public final class CtsTetheringUtils {
         return iface;
     }
 
+    public void startWifiTetheringWithoutCheck(
+            final TestTetheringEventCallback callback) throws InterruptedException {
+        final List<String> wifiRegexs = getWifiTetherableInterfaceRegexps(callback);
+
+        final StartTetheringCallback startTetheringCallback = new StartTetheringCallback();
+        final TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI)
+                .setShouldShowEntitlementUi(false).build();
+        mTm.startTethering(request, c -> c.run() /* executor */, startTetheringCallback);
+        startTetheringCallback.verifyTetheringStarted();
+    }
+
     private static class StopSoftApCallback implements SoftApCallback {
         private final ConditionVariable mWaiting = new ConditionVariable();
         @Override
