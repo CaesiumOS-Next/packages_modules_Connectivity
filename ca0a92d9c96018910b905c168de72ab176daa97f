@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "471753cc_3e58e0ff",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-03-28T08:44:26Z",
+      "side": 1,
+      "message": "thanks for your review\n\n1. remark to non-ether\n2. Struct doesn\u0027t support boolean. The smallest type is U8 and field Type.U8 is using type short.\nhttps://source.corp.google.com/aosp-master/frameworks/libs/net/common/device/com/android/net/module/util/Struct.java;l\u003d108\npublic class Struct {\n    public enum Type {\n        U8,          // unsigned byte,  size \u003d 1 byte\n..\n    private static void checkAnnotationType(final Field annotation, final Class fieldType) {\n        switch (annotation.type()) {\n            case U8:\n            case S16:\n                if (fieldType \u003d\u003d Short.TYPE) return;\n                break;\n\nhttps://source.corp.google.com/aosp-master/frameworks/libs/net/common/device/com/android/net/module/util/bpf/ClatEgress4Value.java\npublic class ClatEgress4Value extends Struct {\n..\n    @Field(order \u003d 3, type \u003d Type.U8, padding \u003d 3)\n    public final short oifIsEthernet;",
+      "parentUuid": "0621cf15_567ce74f",
+      "range": {
+        "startLine": 347,
+        "startChar": 74,
+        "endLine": 347,
+        "endChar": 79
+      },
+      "revId": "ca0a92d9c96018910b905c168de72ab176daa97f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "534a0b31_f5a1c5e8",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-28T07:32:33Z",
       "side": 1,
       "message": "You change the order. Previously it would write bpf entry before doing tcXXX (e.g. tcQdiscAddDevClsact, tcFilterAddDevEgressClatIpv4 and tcFilterAddDevIngressClatIpv6). This looks more clean but I am not sure whether this is safe, could you add the comment to commit message explain why this is safe ?",
+      "range": {
+        "startLine": 561,
+        "startChar": 8,
+        "endLine": 561,
+        "endChar": 21
+      },
+      "revId": "ca0a92d9c96018910b905c168de72ab176daa97f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48f41ae1_14d55e5e",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-03-28T08:44:26Z",
+      "side": 1,
+      "message": "after aosp/2028287, the order will be the same (add bpf entry -\u003e add clsact -\u003e add egress/ingress filter)\n\nSince we are not really switch clatd (aosp/1951099), merging this commit first won\u0027t break anything.",
+      "parentUuid": "534a0b31_f5a1c5e8",
       "range": {
         "startLine": 561,
         "startChar": 8,
