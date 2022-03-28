@@ -22,6 +22,23 @@
       },
       "revId": "4bd285b928648ba007325ae82a7253b22a8550a8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00abc8f3_bc2a19f4",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-03-28T19:01:47Z",
+      "side": 1,
+      "message": "Is there a way to verify the Settings dialog of tethering failure is displayed?",
+      "revId": "4bd285b928648ba007325ae82a7253b22a8550a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
