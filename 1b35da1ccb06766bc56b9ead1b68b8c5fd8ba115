@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8035788_1cfb2fc4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2022-03-28T21:35:42Z",
+      "side": 1,
+      "message": "I thought changes in android12-tests-dev will automerge to master and this is what automerger config shows as well: https://android-build.googleplex.com/builds/automerger/graph/branch/android/android12-tests-dev. So, I\u0027m surprised that we need to manually cherrypick to master. Do we need to do the same for android12L-tests-dev as well?",
+      "revId": "1b35da1ccb06766bc56b9ead1b68b8c5fd8ba115",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
