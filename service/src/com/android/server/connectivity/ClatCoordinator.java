@@ -425,6 +425,17 @@ public class ClatCoordinator {
             throw new IOException("tag raw socket failed: " + e);
         }
 
+        // Tag socket as AID_CLAT to avoid duplicated CLAT data usage accounting.
+        final long cookie2;
+        try {
+            cookie2 = mDeps.tagSocketAsClat(readSock6.getFileDescriptor());
+        } catch (IOException e) {
+            tunFd.close();
+            readSock6.close();
+            writeSock6.close();
+            throw new IOException("tag raw socket failed: " + e);
+        }
+
         // Update our packet socket filter to reflect the new 464xlat IP address.
         try {
             mDeps.configurePacketSocket(readSock6.getFileDescriptor(), v6Str, ifIndex);

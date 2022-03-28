@@ -307,23 +307,30 @@ DEFINE_BPF_PROG("cgroupskb/egress/stats", AID_ROOT, AID_SYSTEM, bpf_cgroup_egres
     return bpf_traffic_account(skb, BPF_EGRESS);
 }
 
+static inline bool is_clat_socket(struct __sk_buff* skb) {
+    //uint32_t sock_uid = bpf_get_socket_uid(skb);
+    //if (sock_uid == AID_SYSTEM) {
+        uint64_t cookie = bpf_get_socket_cookie(skb);
+        UidTagValue* utag = bpf_cookie_tag_map_lookup_elem(&cookie);
+        return (utag && utag->uid == AID_CLAT);
+    //}
+    //return false;
+}
+
 DEFINE_BPF_PROG("skfilter/egress/xtbpf", AID_ROOT, AID_NET_ADMIN, xt_bpf_egress_prog)
 (struct __sk_buff* skb) {
     // Clat daemon does not generate new traffic, all its traffic is accounted for already
     // on the v4-* interfaces (except for the 20 (or 28) extra bytes of IPv6 vs IPv4 overhead,
     // but that can be corrected for later when merging v4-foo stats into interface foo's).
     // TODO: remove sock_uid check once Nat464Xlat javaland adds the socket tag AID_CLAT for clat.
-    uint32_t sock_uid = bpf_get_socket_uid(skb);
-    if (sock_uid == AID_CLAT) return BPF_NOMATCH;
-    if (sock_uid == AID_SYSTEM) {
-        uint64_t cookie = bpf_get_socket_cookie(skb);
-        UidTagValue* utag = bpf_cookie_tag_map_lookup_elem(&cookie);
-        if (utag && utag->uid == AID_CLAT) return BPF_NOMATCH;
-    }
+    // TODO: correct the comment once clat daemon is launched from system server. Currently,
+    // bpf prog is not able to distinguish clat daemon socket because the socket uid is AID_ROOT
+    // and the socket tag is not applied.
+    if (is_clat_socket(skb)) return BPF_MATCH;
 
     uint32_t key = skb->ifindex;
     update_iface_stats_map(skb, BPF_EGRESS, &key);
-    return BPF_MATCH;
+    return BPF_NOMATCH;
 }
 
 DEFINE_BPF_PROG("skfilter/ingress/xtbpf", AID_ROOT, AID_NET_ADMIN, xt_bpf_ingress_prog)
@@ -332,10 +339,14 @@ DEFINE_BPF_PROG("skfilter/ingress/xtbpf", AID_ROOT, AID_NET_ADMIN, xt_bpf_ingres
     // (in clat_raw_PREROUTING chain), which triggers before this (in bw_raw_PREROUTING chain).
     // It will be accounted for on the v4-* clat interface instead.
     // Keep that in mind when moving this out of iptables xt_bpf and into tc ingress (or xdp).
+    // TODO: correct the comment once clat daemon is launched from system server. Currently,
+    // this line doesn't work because the clat daemon packets are dropped by iptables in
+    // clat_raw_PREROUTING chain.
+    if (is_clat_socket(skb)) return BPF_MATCH;
 
     uint32_t key = skb->ifindex;
     update_iface_stats_map(skb, BPF_INGRESS, &key);
-    return BPF_MATCH;
+    return BPF_NOMATCH;
 }
 
 DEFINE_BPF_PROG("schedact/ingress/account", AID_ROOT, AID_NET_ADMIN, tc_bpf_ingress_account_prog)
