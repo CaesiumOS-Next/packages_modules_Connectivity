@@ -26,7 +26,12 @@ import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static android.net.TetheringManager.TETHER_ERROR_ENTITLEMENT_UNKNOWN;
 import static android.net.TetheringManager.TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
+import static android.net.TetheringManager.TETHER_ERROR_PROVISIONING_FAILED;
 import static android.net.cts.util.CtsTetheringUtils.isAnyIfaceMatch;
+
+import static com.android.networkstack.apishim.ConstantsShim.KEY_CARRIER_SUPPORTS_TETHERING_BOOL;
+import static com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
+import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -68,8 +73,11 @@ import android.telephony.TelephonyManager;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.testutils.DevSdkIgnoreRule;
+
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -96,6 +104,9 @@ public class TetheringManagerTest {
     private CtsTetheringUtils mCtsTetheringUtils;
 
     private static final int DEFAULT_TIMEOUT_MS = 60_000;
+
+    @Rule
+    public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
 
     private void adoptShellPermissionIdentity() {
         final UiAutomation uiAutomation =
@@ -336,6 +347,30 @@ public class TetheringManagerTest {
         startTetheringCallback.expectTetheringFailed(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
     }
 
+    @Test
+    @IgnoreUpTo(SC_V2)
+    public void testEnableTethering_carrierUnsupport_tetheringFailed() throws Exception {
+        final TestTetheringEventCallback tetherEventCallback =
+                mCtsTetheringUtils.registerTetheringEventCallback();
+        try {
+            tetherEventCallback.assumeWifiTetheringSupported(mContext);
+
+            // TODO: start ethernet tethering here when TetheringManagerTest is moved to
+            // TetheringIntegrationTest.
+
+            final PersistableBundle bundle = new PersistableBundle();
+            bundle.putBoolean(KEY_CARRIER_SUPPORTS_TETHERING_BOOL, false);
+            // Override carrier config to make carrier not support.
+            overrideCarrierConfig(bundle);
+
+            mCtsTetheringUtils.startWifiTethering(tetherEventCallback);
+
+            tetherEventCallback.expectNoTetheringActive();
+        } finally {
+            mCtsTetheringUtils.unregisterTetheringEventCallback(tetherEventCallback);
+        }
+    }
+
     private class EntitlementResultListener implements OnTetheringEntitlementResultListener {
         private final CompletableFuture<Integer> future = new CompletableFuture<>();
 
@@ -393,19 +428,34 @@ public class TetheringManagerTest {
         final PersistableBundle bundle = new PersistableBundle();
         bundle.putBoolean(CarrierConfigManager.KEY_REQUIRE_ENTITLEMENT_CHECKS_BOOL, false);
         overrideCarrierConfig(bundle);
-
         // Verify that requestLatestTetheringEntitlementResult() can get entitlement
         // result TETHER_ERROR_NO_ERROR due to provisioning bypassed.
         assertEntitlementResult(listener -> mTM.requestLatestTetheringEntitlementResult(
                 TETHERING_WIFI, false, c -> c.run(), listener), TETHER_ERROR_NO_ERROR);
+    }
+
+    @Test
+    @IgnoreUpTo(SC_V2)
+    public void testRequestLatestEntitlementResult_carrierunSupport() throws Exception {
+        assumeTrue(mTM.isTetheringSupported());
+        assumeTrue(mPm.hasSystemFeature(FEATURE_TELEPHONY));
+
+        final PersistableBundle bundle = new PersistableBundle();
+        bundle.putBoolean(KEY_CARRIER_SUPPORTS_TETHERING_BOOL, false);
+        // Override carrier config to make carrier not support.
+        overrideCarrierConfig(bundle);
+        // Verify that requestLatestTetheringEntitlementResult() can get entitlement
+        // result TETHER_ERROR_PROVISIONING_FAILED due to carrier unsupported
+        assertEntitlementResult(listener -> mTM.requestLatestTetheringEntitlementResult(
+                TETHERING_WIFI, false, c -> c.run(), listener), TETHER_ERROR_PROVISIONING_FAILED);
 
         // Reset carrier config.
         overrideCarrierConfig(null);
     }
 
     private void overrideCarrierConfig(PersistableBundle bundle) {
-        final CarrierConfigManager configManager = (CarrierConfigManager) mContext
-                .getSystemService(Context.CARRIER_CONFIG_SERVICE);
+        final CarrierConfigManager configManager = mContext
+                .getSystemService(CarrierConfigManager.class);
         final int subId = SubscriptionManager.getDefaultSubscriptionId();
         configManager.overrideConfig(subId, bundle);
     }
