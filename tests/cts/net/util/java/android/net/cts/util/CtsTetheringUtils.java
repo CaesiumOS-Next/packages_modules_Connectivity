@@ -59,7 +59,7 @@ public final class CtsTetheringUtils {
     private WifiManager mWm;
     private Context mContext;
 
-    private static final int DEFAULT_TIMEOUT_MS = 60_000;
+    private static final int DEFAULT_TIMEOUT_MS = 90_000;
 
     public CtsTetheringUtils(Context ctx) {
         mContext = ctx;
@@ -456,24 +456,26 @@ public final class CtsTetheringUtils {
         }
     }
 
-    public TetheringInterface startWifiTethering(final TestTetheringEventCallback callback)
-            throws InterruptedException {
+    public TetheringInterface startWifiTetheringAndAwaitCallbacks(
+            final TestTetheringEventCallback callback) throws InterruptedException {
+        startWifiTethering();
         final List<String> wifiRegexs = getWifiTetherableInterfaceRegexps(callback);
-
-        final StartTetheringCallback startTetheringCallback = new StartTetheringCallback();
-        final TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI)
-                .setShouldShowEntitlementUi(false).build();
-        mTm.startTethering(request, c -> c.run() /* executor */, startTetheringCallback);
-        startTetheringCallback.verifyTetheringStarted();
 
         final TetheringInterface iface =
                 callback.expectTetheredInterfacesChanged(wifiRegexs, TETHERING_WIFI);
-
         callback.expectOneOfOffloadStatusChanged(
                 TETHER_HARDWARE_OFFLOAD_STARTED,
                 TETHER_HARDWARE_OFFLOAD_FAILED);
 
         return iface;
+    }
+
+    public void startWifiTethering() throws InterruptedException {
+        final StartTetheringCallback startTetheringCallback = new StartTetheringCallback();
+        final TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI)
+                .setShouldShowEntitlementUi(false).build();
+        mTm.startTethering(request, c -> c.run() /* executor */, startTetheringCallback);
+        startTetheringCallback.verifyTetheringStarted();
     }
 
     private static class StopSoftApCallback implements SoftApCallback {
