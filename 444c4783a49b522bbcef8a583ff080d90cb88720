@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "039a95d0_98e1b1f5",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1187,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-28T08:07:20Z",
+      "side": 1,
+      "message": "This seems currently only dump bpf rules and would dump all clat bpf rules even it is not related this NetworkAgent ?\n\nFor example: if there are two clats e.g. one for wifi, one for celluar. Are the wifi network agent and cellular network agent dump the duplicated information ?",
+      "range": {
+        "startLine": 1187,
+        "startChar": 8,
+        "endLine": 1187,
+        "endChar": 23
+      },
+      "revId": "444c4783a49b522bbcef8a583ff080d90cb88720",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
