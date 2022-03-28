@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98353e60_22388224",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-03-28T10:56:34Z",
+      "side": 1,
+      "message": "Identical to internal but TH is red on sc-mainline-prod.",
+      "revId": "1d80a8e52b4e7f9097763185d7c6a7d4cb156788",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
