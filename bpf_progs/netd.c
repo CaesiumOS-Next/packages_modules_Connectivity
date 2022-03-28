@@ -309,33 +309,34 @@ DEFINE_BPF_PROG("cgroupskb/egress/stats", AID_ROOT, AID_SYSTEM, bpf_cgroup_egres
 
 DEFINE_BPF_PROG("skfilter/egress/xtbpf", AID_ROOT, AID_NET_ADMIN, xt_bpf_egress_prog)
 (struct __sk_buff* skb) {
+    // Match clat traffic and have no action in iptables. The return value is not used for egress
+    // and just keep consistent with ingress direction which uses to drop dup'ed clat packets.
     // Clat daemon does not generate new traffic, all its traffic is accounted for already
     // on the v4-* interfaces (except for the 20 (or 28) extra bytes of IPv6 vs IPv4 overhead,
     // but that can be corrected for later when merging v4-foo stats into interface foo's).
-    // TODO: remove sock_uid check once Nat464Xlat javaland adds the socket tag AID_CLAT for clat.
     uint32_t sock_uid = bpf_get_socket_uid(skb);
-    if (sock_uid == AID_CLAT) return BPF_NOMATCH;
     if (sock_uid == AID_SYSTEM) {
         uint64_t cookie = bpf_get_socket_cookie(skb);
         UidTagValue* utag = bpf_cookie_tag_map_lookup_elem(&cookie);
-        if (utag && utag->uid == AID_CLAT) return BPF_NOMATCH;
+        if (utag && utag->uid == AID_CLAT) return BPF_MATCH;
     }
 
     uint32_t key = skb->ifindex;
     update_iface_stats_map(skb, BPF_EGRESS, &key);
-    return BPF_MATCH;
+    return BPF_NOMATCH;
 }
 
 DEFINE_BPF_PROG("skfilter/ingress/xtbpf", AID_ROOT, AID_NET_ADMIN, xt_bpf_ingress_prog)
 (struct __sk_buff* skb) {
-    // Clat daemon traffic is not accounted by virtue of iptables raw prerouting drop rule
-    // (in clat_raw_PREROUTING chain), which triggers before this (in bw_raw_PREROUTING chain).
-    // It will be accounted for on the v4-* clat interface instead.
+    // Match clat traffic for dropping dup'ed clat packets in bw_raw_PREROUTING chain.
+    // Clat traffic will be accounted for on the v4-* clat interface instead.
     // Keep that in mind when moving this out of iptables xt_bpf and into tc ingress (or xdp).
+    // TODO: fix clat ingress traffic matching once clat bpf map (in bpf_progs\clat.c) can be
+    // shared with netd bpf prog.
 
     uint32_t key = skb->ifindex;
     update_iface_stats_map(skb, BPF_INGRESS, &key);
-    return BPF_MATCH;
+    return BPF_NOMATCH;
 }
 
 DEFINE_BPF_PROG("schedact/ingress/account", AID_ROOT, AID_NET_ADMIN, tc_bpf_ingress_account_prog)
