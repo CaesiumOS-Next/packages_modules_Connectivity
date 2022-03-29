@@ -22,6 +22,30 @@
       },
       "revId": "0aa7a1dcce831a3eeb53dbee1a3faad54f4251ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e08ec4e3_132bf3c4",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-03-29T09:35:22Z",
+      "side": 1,
+      "message": "Test running in T device with CtsNetTestCasesLatestSdk should also skip it. It could not be done with only  @IgnoreUpTo(SC_V2)",
+      "parentUuid": "50edee38_a9ddc530",
+      "range": {
+        "startLine": 305,
+        "startChar": 8,
+        "endLine": 305,
+        "endChar": 48
+      },
+      "revId": "0aa7a1dcce831a3eeb53dbee1a3faad54f4251ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
