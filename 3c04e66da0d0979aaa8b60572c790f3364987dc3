@@ -16,6 +16,23 @@
       "message": "API identical to what was merged in ag/17312334.",
       "revId": "3c04e66da0d0979aaa8b60572c790f3364987dc3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dc3f6ec_4d6dff76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-03-29T03:40:54Z",
+      "side": 1,
+      "message": "LGTM\n\n\n\n3c04e66.diff: https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2045104 (patchset 1)\n4b00f76.diff: https://googleplex-android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/17312334 (patchset 5)\n\n$ diff 3c04e66.diff 4b00f76.diff \n1c1\n\u003c From 3c04e66da0d0979aaa8b60572c790f3364987dc3 Mon Sep 17 00:00:00 2001\n---\n\u003e From 4b00f768590d4149aa70c64310647e4ec67d035d Mon Sep 17 00:00:00 2001\n7a8,9\n\u003e Ignore-AOSP-First: to avoid diamond automerge cause build break, will\n\u003e cherry-pick back to AOSP once this is merged\n10d11\n\u003c Merged-In: I52a02ebe109b687359f579c16fded4af3c9cd242\n119c120\n\u003c index ab5f5d3..b4cc41a 100644",
+      "revId": "3c04e66da0d0979aaa8b60572c790f3364987dc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
