@@ -20,6 +20,8 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.cts.util.CtsNetUtils.TestNetworkCallback;
+import static android.net.cts.util.IkeSessionTestUtils.CHILD_PARAMS;
+import static android.net.cts.util.IkeSessionTestUtils.IKE_PARAMS;
 
 import static com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity;
 import static com.android.testutils.TestableNetworkCallbackKt.anyNetwork;
@@ -46,6 +48,7 @@ import android.net.ProxyInfo;
 import android.net.TestNetworkInterface;
 import android.net.VpnManager;
 import android.net.cts.util.CtsNetUtils;
+import android.net.ipsec.ike.IkeTunnelConnectionParams;
 import android.os.Build;
 import android.os.Process;
 import android.platform.test.annotations.AppModeFull;
@@ -57,6 +60,7 @@ import com.android.networkstack.apishim.Ikev2VpnProfileBuilderShimImpl;
 import com.android.networkstack.apishim.Ikev2VpnProfileShimImpl;
 import com.android.networkstack.apishim.common.Ikev2VpnProfileShim;
 import com.android.networkstack.apishim.common.UnsupportedApiLevelException;
+import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.RecorderCallback.CallbackEntry;
@@ -64,6 +68,7 @@ import com.android.testutils.TestableNetworkCallback;
 
 import org.bouncycastle.x509.X509V1CertificateGenerator;
 import org.junit.After;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -85,7 +90,8 @@ import javax.security.auth.x500.X500Principal;
 @AppModeFull(reason = "Appops state changes disallowed for instant apps (OP_ACTIVATE_PLATFORM_VPN)")
 public class Ikev2VpnTest {
     private static final String TAG = Ikev2VpnTest.class.getSimpleName();
-
+    @Rule
+    public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
     // Test vectors for IKE negotiation in test mode.
     private static final String SUCCESSFUL_IKE_INIT_RESP_V4 =
             "46b8eca1e0d72a18b2b5d9006d47a0022120222000000000000002d0220000300000002c01010004030000"
@@ -288,6 +294,39 @@ public class Ikev2VpnTest {
                 fail("Only supported from API level 33");
             } catch (UnsupportedApiLevelException expected) {
             }
+        }
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    @Test
+    public void testBuildIkev2VpnProfileWithIkeTunnelConnectionParams() {
+        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+        assumeTrue(TestUtils.shouldTestTApis());
+
+        final IkeTunnelConnectionParams tunnelParams =
+                new IkeTunnelConnectionParams(IKE_PARAMS, CHILD_PARAMS);
+
+        final Ikev2VpnProfile.Builder ikeProfileBuilder = new Ikev2VpnProfile.Builder(tunnelParams);
+        assertEquals(tunnelParams, ikeProfileBuilder.build().getIkeTunnelConnectionParams());
+
+        // Verify the other Ike options could not be set with IkeTunnelConnectionParams.
+        try {
+            ikeProfileBuilder.setAuthPsk(TEST_PSK);
+            fail("Ike option can't be set with IkeTunnelConnectionParams");
+        } catch (IllegalArgumentException expected) {
+        }
+
+        try {
+            ikeProfileBuilder.setAuthUsernamePassword(TEST_USER, TEST_PASSWORD, mServerRootCa);
+            fail("Ike option can't be set with IkeTunnelConnectionParams");
+        } catch (IllegalArgumentException expected) {
+        }
+
+        try {
+            ikeProfileBuilder.setAuthDigitalSignature(mUserCertKey.cert, mUserCertKey.key,
+                    mServerRootCa);
+            fail("Ike option can't be set with IkeTunnelConnectionParams");
+        } catch (IllegalArgumentException expected) {
         }
     }
 
