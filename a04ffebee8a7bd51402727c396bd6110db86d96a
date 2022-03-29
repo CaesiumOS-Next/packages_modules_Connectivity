@@ -16,6 +16,23 @@
       "message": "Hi Lucas, \ncomments resolved, please re-review",
       "revId": "a04ffebee8a7bd51402727c396bd6110db86d96a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27df3e9d_889baabb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-29T03:03:57Z",
+      "side": 1,
+      "message": "CTS need to be reviewed by Lorenzo.",
+      "revId": "a04ffebee8a7bd51402727c396bd6110db86d96a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

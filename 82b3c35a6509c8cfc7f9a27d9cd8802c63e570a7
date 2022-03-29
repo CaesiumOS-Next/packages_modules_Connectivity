@@ -82,6 +82,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1768c4b6_b1327c2e",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-29T03:03:57Z",
+      "side": 1,
+      "message": "Yes, it\u0027s not available in sc-mainline-prod.",
+      "parentUuid": "3417490a_d34af1c1",
+      "range": {
+        "startLine": 67,
+        "startChar": 37,
+        "endLine": 67,
+        "endChar": 58
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eaadce18_b631935b",
@@ -119,6 +143,30 @@
       "side": 1,
       "message": "This should be an id of a related buganizer issue.",
       "parentUuid": "eaadce18_b631935b",
+      "range": {
+        "startLine": 69,
+        "startChar": 47,
+        "endLine": 69,
+        "endChar": 56
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29342eba_f73b1d63",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-29T03:03:57Z",
+      "side": 1,
+      "message": "I see, so it can be defined to any value which is not the same as other change id?\nI wonder is there any rule to define this value? And how do we know if this value is already used by other change?",
+      "parentUuid": "395ae0c3_796797b2",
       "range": {
         "startLine": 69,
         "startChar": 47,
