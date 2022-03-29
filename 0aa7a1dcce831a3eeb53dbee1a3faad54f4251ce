@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50edee38_a9ddc530",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-29T09:31:46Z",
+      "side": 1,
+      "message": "Question: Isn\u0027t \"@IgnoreUpTo(SC_V2)\" enough?",
+      "range": {
+        "startLine": 305,
+        "startChar": 8,
+        "endLine": 305,
+        "endChar": 48
+      },
+      "revId": "0aa7a1dcce831a3eeb53dbee1a3faad54f4251ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
