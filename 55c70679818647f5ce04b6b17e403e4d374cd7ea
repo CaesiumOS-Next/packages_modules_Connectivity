@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de3f274b_2557cfe3",
+        "filename": "framework/src/android/net/QosCallbackException.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-03-29T03:28:21Z",
+      "side": 1,
+      "message": "This will be returned at least T.",
+      "parentUuid": "9273eeca_1746411e",
+      "range": {
+        "startLine": 95,
+        "startChar": 16,
+        "endLine": 95,
+        "endChar": 83
+      },
+      "revId": "55c70679818647f5ce04b6b17e403e4d374cd7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3df0876b_a9848bcb",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-25T13:40:58Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 104,
+        "startChar": 24,
+        "endLine": 104,
+        "endChar": 63
+      },
+      "revId": "55c70679818647f5ce04b6b17e403e4d374cd7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b275b653_6bf5d8ff",
+        "filename": "framework/src/android/net/QosCallbackException.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-03-29T03:28:21Z",
+      "side": 1,
+      "message": "This will be returned at least T.",
+      "parentUuid": "3df0876b_a9848bcb",
       "range": {
         "startLine": 104,
         "startChar": 24,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfafa8e4_975e6d5a",
+        "filename": "framework/src/android/net/QosFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-03-29T03:28:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6adda68b_c1b61780",
+      "range": {
+        "startLine": 98,
+        "startChar": 22,
+        "endLine": 98,
+        "endChar": 50
+      },
+      "revId": "55c70679818647f5ce04b6b17e403e4d374cd7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be580f08_0774c29d",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-03-25T13:40:58Z",
       "side": 1,
       "message": "The fact that you had to change this suggests that if the socket is not bound, getAddressFromFileDescriptor doesn\u0027t return null but returns an empty address. Is this a bug in the current code that you are fixing? If so, that suggests that currently, unbound sockets will get EX_TYPE_FILTER_SOCKET_LOCAL_ADDRESS_CHANGED, but after we push this change to the field in a mainline update, unbound sockets will start getting a SocketNotBoundExxception. Could this break existing clients somehow?",
+      "range": {
+        "startLine": 94,
+        "startChar": 8,
+        "endLine": 94,
+        "endChar": 87
+      },
+      "revId": "55c70679818647f5ce04b6b17e403e4d374cd7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e729c105_8ba62d5f",
+        "filename": "framework/src/android/net/QosSocketFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-03-29T03:28:21Z",
+      "side": 1,
+      "message": "Yes, this is a bug in the current code.\nI rarely think this will break existing clients, however I\u0027ll add SDK version condition for certainty.",
+      "parentUuid": "be580f08_0774c29d",
       "range": {
         "startLine": 94,
         "startChar": 8,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82684ab4_892173da",
+        "filename": "framework/src/android/net/QosSocketFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-03-29T03:28:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1a000f4c_a419d9be",
+      "range": {
+        "startLine": 102,
+        "startChar": 12,
+        "endLine": 102,
+        "endChar": 56
+      },
+      "revId": "55c70679818647f5ce04b6b17e403e4d374cd7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "624c384f_5f01b1ab",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-03-25T13:40:58Z",
       "side": 1,
       "message": "Why only for connected sockets? The current (TCP) callbacks only require that the socket be bound, not that it be connected. Cn we do the same here? Seems like better behaviour would be:\n\n- If the socket is not bound, EX_TYPE_FILTER_SOCKET_NOT_BOUND\n- If the socket is bound to a different address than the one in the QosSocketInfo, EX_TYPE_FILTER_SOCKET_LOCAL_ADDRESS_CHANGED.\n- If the QosSocketInfo has no destination address, succeed (EX_TYPE_FILTER_NONE).\n- If the QosSocketInfo has a destination address, and the socket doesn\u0027t have a destintion address, EX_TYPE_FILTER_SOCKET_NOT_CONNECTED.\n- If the QosSocketInfo has a destination address, and the socket\u0027s destination address is different, EX_TYPE_FILTER_SOCKET_REMOTE_ADDRESS_CHANGED).\n\nand we could do this for both TCP and UDP.\n\nAssuming we agree that that is the desired behaviour, we need to think about whether this changes the behaviour for TCP, and if so, whether there will be any backwards compatibility implications for existing clients.",
+      "range": {
+        "startLine": 104,
+        "startChar": 23,
+        "endLine": 104,
+        "endChar": 58
+      },
+      "revId": "55c70679818647f5ce04b6b17e403e4d374cd7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3054b105_c330028b",
+        "filename": "framework/src/android/net/QosSocketFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-03-29T03:28:21Z",
+      "side": 1,
+      "message": "Yes, I agree that we could do this for both TCP and UDP.\nI rarely think that there will be backwards compatibility implications with behaviors you suggested nevertheless I\u0027ll add SDK version condition check to this new logic for certainty.",
+      "parentUuid": "624c384f_5f01b1ab",
       "range": {
         "startLine": 104,
         "startChar": 23,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94a50f26_a1f834c0",
+        "filename": "framework/src/android/net/QosSocketFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-03-29T03:28:21Z",
+      "side": 1,
+      "message": "Ok this should be never happen, I\u0027ll remove these null checks.",
+      "parentUuid": "d9c2becb_37a2378a",
+      "range": {
+        "startLine": 153,
+        "startChar": 8,
+        "endLine": 153,
+        "endChar": 54
+      },
+      "revId": "55c70679818647f5ce04b6b17e403e4d374cd7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e24a737_cb9c7928",
@@ -175,6 +343,30 @@
       "writtenOn": "2022-03-25T13:40:58Z",
       "side": 1,
       "message": "Similar to the above: when can this happen? Can we avoid supporting this and remove the null check?",
+      "range": {
+        "startLine": 156,
+        "startChar": 8,
+        "endLine": 156,
+        "endChar": 36
+      },
+      "revId": "55c70679818647f5ce04b6b17e403e4d374cd7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e7f0cad_5c5cce20",
+        "filename": "framework/src/android/net/QosSocketFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-03-29T03:28:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8e24a737_cb9c7928",
       "range": {
         "startLine": 156,
         "startChar": 8,
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7560660_0c1aed19",
+        "filename": "framework/src/android/net/QosSocketFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-03-29T03:28:21Z",
+      "side": 1,
+      "message": "This is the way that you suggested on the design doc.\nCellular network may provide a filter including only port without address.\nIn this case, telephony will use wild card address as a parameter of this method to check match of port without comparing address.\n\nThis will not break existing client.",
+      "parentUuid": "ac34bd7d_5cd7169a",
+      "range": {
+        "startLine": 239,
+        "startChar": 19,
+        "endLine": 239,
+        "endChar": 47
+      },
+      "revId": "55c70679818647f5ce04b6b17e403e4d374cd7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d8a4b8c_2ddb0fe5",
@@ -221,6 +437,30 @@
       "writtenOn": "2022-03-25T13:40:58Z",
       "side": 1,
       "message": "It seems unfortunate that we need to support two different codepaths for parceling (and presumably for other things as well). Why is this needed? The commit message does not mention it.",
+      "range": {
+        "startLine": 231,
+        "startChar": 16,
+        "endLine": 231,
+        "endChar": 38
+      },
+      "revId": "55c70679818647f5ce04b6b17e403e4d374cd7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9542886_38750b5d",
+        "filename": "framework/src/android/net/QosSocketInfo.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-03-29T03:28:21Z",
+      "side": 1,
+      "message": "QosSocketInfo is passed client-\u003eConnectivity \u0026 Connectivity-\u003eQoSProvider(Telephony).\n\nThe former case, we need to deliver PFD in QosSocketInfo because Connectivity checks socket\u0027s address \u0026 port with FD. However the latter case, QoSProvider doesn\u0027t need to use FD. we don\u0027t need to allow access of socket to Telephony.\nIf Connectivity passes PFD of UDP socket to telephony via binder transaction, We need to give a new SEPOLICY rule allowing read/write permission of udp_socket to telephony.\n  \u003e\u003e allow radio system_app:udp_socket { read write };\n\nI think this is not a good choice in point of security, so I intended not to pass PFD to QoSProvider.",
+      "parentUuid": "3d8a4b8c_2ddb0fe5",
       "range": {
         "startLine": 231,
         "startChar": 16,
