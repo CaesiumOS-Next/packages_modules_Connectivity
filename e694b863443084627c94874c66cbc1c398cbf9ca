@@ -16,6 +16,29 @@
       "message": "LGTM.",
       "revId": "e694b863443084627c94874c66cbc1c398cbf9ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "645fe8f9_4c61862f",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1102,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-29T12:12:54Z",
+      "side": 1,
+      "message": "Instant apps don\u0027t have permission to bind sockets.",
+      "range": {
+        "startLine": 1102,
+        "startChar": 27,
+        "endLine": 1102,
+        "endChar": 78
+      },
+      "revId": "e694b863443084627c94874c66cbc1c398cbf9ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
