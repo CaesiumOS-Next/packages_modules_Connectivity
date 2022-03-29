@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa49cb36_a42e57cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1294681
+      },
+      "writtenOn": "2022-03-29T04:59:42Z",
+      "side": 1,
+      "message": "Hi Lorenzo, would you be able to provide an owner\u0027s review for this revert? All telephony protected-broadcasts are now declared in the platform\u0027s manifest, so there will no longer be an issue registering a receiver for these broadcasts without a flag on devices without the telephony package. And with ag/17307852, an unexported receiver registering for telephony broadcasts will not be able to receive them since only the system and root UIDs can send a broadcast to an unexported runtime receiver. Thanks!",
+      "revId": "eef36c8917c12040b38f4ba62e415345049dd9af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
