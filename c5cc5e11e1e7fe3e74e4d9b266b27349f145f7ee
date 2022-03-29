@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1aa48c15_1cb209c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-29T05:13:25Z",
+      "side": 1,
+      "message": "Please fix the build failure in sc-mainline-prod.",
+      "revId": "c5cc5e11e1e7fe3e74e4d9b266b27349f145f7ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a500b54_29715cd1",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-29T05:13:25Z",
+      "side": 1,
+      "message": "You\u0027ll get build failure when running presubmit because it\u0027s no available in sc-mainline-prod.",
+      "range": {
+        "startLine": 300,
+        "startChar": 16,
+        "endLine": 300,
+        "endChar": 40
+      },
+      "revId": "c5cc5e11e1e7fe3e74e4d9b266b27349f145f7ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
