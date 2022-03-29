@@ -39,6 +39,30 @@
       },
       "revId": "c5cc5e11e1e7fe3e74e4d9b266b27349f145f7ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d14c9b44_76517d8e",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-03-29T06:43:59Z",
+      "side": 1,
+      "message": "Addressed",
+      "parentUuid": "1a500b54_29715cd1",
+      "range": {
+        "startLine": 300,
+        "startChar": 16,
+        "endLine": 300,
+        "endChar": 40
+      },
+      "revId": "c5cc5e11e1e7fe3e74e4d9b266b27349f145f7ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
