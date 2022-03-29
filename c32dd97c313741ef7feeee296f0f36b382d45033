@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa9bcd8c_023cac63",
+        "filename": "framework/src/android/net/QosSocketInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-03-29T03:28:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "53a4d552_13dcac73",
+      "range": {
+        "startLine": 107,
+        "startChar": 49,
+        "endLine": 107,
+        "endChar": 87
+      },
+      "revId": "c32dd97c313741ef7feeee296f0f36b382d45033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0875c5fb_90f9b307",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-03-25T11:37:08Z",
       "side": 1,
       "message": "Is this text useful? A socket cannot change type once created, right?",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 26
+      },
+      "revId": "c32dd97c313741ef7feeee296f0f36b382d45033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f16ff04d_01f5cad8",
+        "filename": "framework/src/android/net/QosSocketInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-03-29T03:28:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0875c5fb_90f9b307",
       "range": {
         "startLine": 108,
         "startChar": 0,
