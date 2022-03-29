@@ -201,6 +201,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bdd8faf_1e5a040d",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-29T13:01:33Z",
+      "side": 1,
+      "message": "Thanks! That\u0027s what I want.\n\nI think it\u0027s better to write a comment here to let other people know how do we define it. 😊\nIf you don\u0027t want to change the code again, maybe you can say something in the commit message.",
+      "parentUuid": "c3a1ead8_b6ec2390",
+      "range": {
+        "startLine": 69,
+        "startChar": 47,
+        "endLine": 69,
+        "endChar": 56
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "531c625f_39277362",
