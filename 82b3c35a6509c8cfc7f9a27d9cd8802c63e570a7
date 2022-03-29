@@ -177,6 +177,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3a1ead8_b6ec2390",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-03-29T12:55:53Z",
+      "side": 1,
+      "message": "Here is the relevant documentation\ngo/nonsdk/dev/compat-framework#define-a-change-id\n\n\"A change ID is a buganizer issue ID and must be unique across all the code base. You can file a new bug for this, or use an appropriate feature bug if one exists.\"\n\nb/186082280 is a feature bug for VPN excluded routes, so I used 186082280 as a change id",
+      "parentUuid": "29342eba_f73b1d63",
+      "range": {
+        "startLine": 69,
+        "startChar": 47,
+        "endLine": 69,
+        "endChar": 56
+      },
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "531c625f_39277362",
