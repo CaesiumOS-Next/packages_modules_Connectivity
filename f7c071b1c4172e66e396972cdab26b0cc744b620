@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9cf8c1e_e58ae8e1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 2251,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-29T11:55:16Z",
+      "side": 0,
+      "message": "The fact that you didn\u0027t need to change the tests in this CL suggests that this codepath is not covered by tests. We should add a test for it. Doesn\u0027t need to be in this CL, but can you do it in a follow-up CL?",
+      "range": {
+        "startLine": 2250,
+        "startChar": 0,
+        "endLine": 2251,
+        "endChar": 46
+      },
+      "revId": "f7c071b1c4172e66e396972cdab26b0cc744b620",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

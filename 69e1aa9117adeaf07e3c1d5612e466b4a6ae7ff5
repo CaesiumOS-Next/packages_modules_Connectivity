@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3ead5b09_601a541b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-29T11:55:16Z",
+      "side": 1,
+      "message": "LGTM but please address the comments in a follow-up.",
+      "revId": "69e1aa9117adeaf07e3c1d5612e466b4a6ae7ff5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "44d8ae0b_ccea0859",
         "filename": "framework/src/android/net/NetworkCapabilities.java",
         "patchSetId": 16
@@ -42,6 +59,29 @@
         "startChar": 11,
         "endLine": 3072,
         "endChar": 37
+      },
+      "revId": "69e1aa9117adeaf07e3c1d5612e466b4a6ae7ff5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0253b33a_4acdcf4c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 2270,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-29T11:55:16Z",
+      "side": 1,
+      "message": "Looks like moving this code here will result in two extra permission checks almost every time this method is called. Those permission checks aren\u0027t free so we should try to avoid them if possible. Maybe we could keep the code similar to what it was before and do something like this instead?\n\n        if (!checkSettingsPermission(callerPid, callerUid)) {\n            newNc.setUids(null);\n            newNc.setSSID(null);\n            if (!checkNetworkFactoryPermission(callerPid, callerUid)) {\n                newNc.setUnderlyingNetworks(null);\n            }\n        }\n\nThat will remove one permssion check in the common case (caller does not have NETWORK_SETTINGS).",
+      "range": {
+        "startLine": 2270,
+        "startChar": 8,
+        "endLine": 2270,
+        "endChar": 47
       },
       "revId": "69e1aa9117adeaf07e3c1d5612e466b4a6ae7ff5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
