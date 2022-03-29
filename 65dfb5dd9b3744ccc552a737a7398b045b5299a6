@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "997e493f_b3f90b77",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-03-29T12:33:24Z",
+      "side": 1,
+      "message": "Merging this commit without aosp/1951099 is okay. The socket uid has already broken (AID_CLAT -\u003e AID_ROOT) for now and there is no action for the bpf prog egress and ingress.",
+      "revId": "65dfb5dd9b3744ccc552a737a7398b045b5299a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
