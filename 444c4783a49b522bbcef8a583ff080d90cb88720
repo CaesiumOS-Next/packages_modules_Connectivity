@@ -22,6 +22,30 @@
       },
       "revId": "444c4783a49b522bbcef8a583ff080d90cb88720",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebf699cb_cb3a9849",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1187,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-03-30T04:00:02Z",
+      "side": 1,
+      "message": "Nat464Xlat(clat) is a part of NetworkAgentInfo\n\n1. NetworkAgentInfo.toString() prints \"Nat464Xlat(clat)\" info via Nat464Xlat.toString()\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/service/src/com/android/server/connectivity/NetworkAgentInfo.java;l\u003d1278\n+ (clatd.isStarted() ? \" clat{\" + clatd + \"} \" : \"\")\n\n2. Nat464Xlat(clatd) is one of NetworkAgentInfo data member as InactivityTimer(mInactivityTimers) and dumpNat464Xlat() dump one of NetworkAgentInfo data member as dumpInactivityTimers() did. Since Nat464Xlat is a NetworkAgentInfo data member, I think that they are related.\n\nFor your example, the NetworkAgentInfo object is printed by network.\nHere is a example. celluar and wifi print their own info by each. NetworkAgentInfo.toString() prints clat info (if clat start) as well\n\ndumpsys:\nCurrent Networks:\n  NetworkAgentInfo{network{100} .. ni{MOBILE[LTE] CONNECTED..\n    Nat464Xlat:\n      ClatCoordinator:\n\n  NetworkAgentInfo{network{102}  ..  ni{WIFI CONNECTED .. clat{mBaseIface: wlan0, mIface: v4-wlan0, mState: RUNNING} ..\n    Nat464Xlat:\n      ClatCoordinator:\n\nsrc:\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2017317/13/service/src/com/android/server/ConnectivityService.java#3383\nprivate void dumpNetworks(IndentingPrintWriter pw) {\n        for (NetworkAgentInfo nai : networksSortedById()) {\n            nai.dumpNat464Xlat(pw);\n\n\nPlease let me know if I misunderstanding your meaning. Thank you.",
+      "parentUuid": "039a95d0_98e1b1f5",
+      "range": {
+        "startLine": 1187,
+        "startChar": 8,
+        "endLine": 1187,
+        "endChar": 23
+      },
+      "revId": "444c4783a49b522bbcef8a583ff080d90cb88720",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
