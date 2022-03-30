@@ -33,6 +33,98 @@
       "message": "Same as patchset 72 for aidl files",
       "revId": "b37f551287541b0483130d510660287d00cc45ae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6607e4a5_a004bf1d",
+        "filename": "service/Android.bp",
+        "patchSetId": 79
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1120458
+      },
+      "writtenOn": "2022-03-30T22:07:49Z",
+      "side": 1,
+      "message": "can you use the package name as the aidl_interface name?",
+      "range": {
+        "startLine": 23,
+        "startChar": 11,
+        "endLine": 23,
+        "endChar": 45
+      },
+      "revId": "b37f551287541b0483130d510660287d00cc45ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c03b065_0916ddc8",
+        "filename": "service/Android.bp",
+        "patchSetId": 79
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1120458
+      },
+      "writtenOn": "2022-03-30T22:07:49Z",
+      "side": 1,
+      "message": "does this work without vintf stability now?",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 25,
+        "endChar": 20
+      },
+      "revId": "b37f551287541b0483130d510660287d00cc45ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82d36e4c_5abb8e60",
+        "filename": "service/aidl_api/connectivity_native_aidl_interface/current/android/net/connectivity/aidl/ConnectivityNative.aidl",
+        "patchSetId": 79
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1120458
+      },
+      "writtenOn": "2022-03-30T22:07:49Z",
+      "side": 1,
+      "message": "can we avoid having aidl in the package name, or is this standard here?",
+      "range": {
+        "startLine": 34,
+        "startChar": 33,
+        "endLine": 34,
+        "endChar": 37
+      },
+      "revId": "b37f551287541b0483130d510660287d00cc45ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4843fea6_303daef9",
+        "filename": "service/binder/android/net/connectivity/aidl/ConnectivityNative.aidl",
+        "patchSetId": 79
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1120458
+      },
+      "writtenOn": "2022-03-30T22:07:49Z",
+      "side": 1,
+      "message": "how are races handled here?",
+      "range": {
+        "startLine": 21,
+        "startChar": 55,
+        "endLine": 22,
+        "endChar": 100
+      },
+      "revId": "b37f551287541b0483130d510660287d00cc45ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
