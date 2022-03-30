@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4d49a53_710de11f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-03-30T11:51:39Z",
+      "side": 1,
+      "message": "done\naosp/1744606",
+      "parentUuid": "72c48937_d338e446",
+      "range": {
+        "startLine": 227,
+        "startChar": 12,
+        "endLine": 227,
+        "endChar": 24
+      },
+      "revId": "4aa94e6f9c87c34b2000ee68816cd98ae451d4b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b833b89f_bc63005d",
@@ -54,6 +78,24 @@
       "writtenOn": "2022-03-09T15:11:40Z",
       "side": 1,
       "message": "nits: this seems redundant",
+      "revId": "4aa94e6f9c87c34b2000ee68816cd98ae451d4b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc660559_4eae9e3e",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-03-30T11:51:39Z",
+      "side": 1,
+      "message": "done\naosp/1744606",
+      "parentUuid": "b833b89f_bc63005d",
       "revId": "4aa94e6f9c87c34b2000ee68816cd98ae451d4b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -75,6 +117,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f2b1f37_f4be8a36",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-03-30T11:51:39Z",
+      "side": 1,
+      "message": "done\naosp/1744606",
+      "parentUuid": "9517cf5b_262f3545",
+      "revId": "4aa94e6f9c87c34b2000ee68816cd98ae451d4b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f4a8254_ec9489bd",
@@ -92,6 +152,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37e8b414_d94dc0ab",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-03-30T11:51:39Z",
+      "side": 1,
+      "message": "done\naosp/1744606",
+      "parentUuid": "7f4a8254_ec9489bd",
+      "revId": "4aa94e6f9c87c34b2000ee68816cd98ae451d4b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d6e2d2d_7495f3e4",
@@ -105,6 +183,30 @@
       "writtenOn": "2022-03-09T15:11:40Z",
       "side": 1,
       "message": "nits: this seems redundant",
+      "range": {
+        "startLine": 324,
+        "startChar": 0,
+        "endLine": 324,
+        "endChar": 24
+      },
+      "revId": "4aa94e6f9c87c34b2000ee68816cd98ae451d4b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f437b58e_cbe74ee2",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-03-30T11:51:39Z",
+      "side": 1,
+      "message": "done\naosp/1744606",
+      "parentUuid": "5d6e2d2d_7495f3e4",
       "range": {
         "startLine": 324,
         "startChar": 0,
