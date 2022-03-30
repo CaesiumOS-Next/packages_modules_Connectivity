@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41d1a4a9_ad999c92",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2001,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-03-30T08:29:07Z",
+      "side": 1,
+      "message": "Done\n\nnice advice, thank you",
+      "parentUuid": "08889150_198772f5",
+      "range": {
+        "startLine": 1996,
+        "startChar": 0,
+        "endLine": 2001,
+        "endChar": 81
+      },
+      "revId": "13bd00275fb8264a7f168ddf51e3ab85b835c903",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aca7cbb7_75f3a336",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-03-30T04:46:12Z",
       "side": 1,
       "message": "If you take suggestion above, you could just:\n\nasseertHasClientInfo(mIpserver, clientA);\nasseertHasClientInfo(mIpserver, clientB);",
+      "range": {
+        "startLine": 2016,
+        "startChar": 0,
+        "endLine": 2019,
+        "endChar": 69
+      },
+      "revId": "13bd00275fb8264a7f168ddf51e3ab85b835c903",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4fda8fb_13b05ef1",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2019,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-03-30T08:29:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aca7cbb7_75f3a336",
       "range": {
         "startLine": 2016,
         "startChar": 0,
