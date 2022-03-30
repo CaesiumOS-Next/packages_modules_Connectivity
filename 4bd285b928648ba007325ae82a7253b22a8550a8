@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "765c9022_5b87b866",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-30T03:21:47Z",
+      "side": 1,
+      "message": "It seems you override the configuration to false but never change it back ? After this test, tethering would be restricted ?",
+      "range": {
+        "startLine": 361,
+        "startChar": 12,
+        "endLine": 364,
+        "endChar": 42
+      },
+      "revId": "4bd285b928648ba007325ae82a7253b22a8550a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "00abc8f3_bc2a19f4",
         "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
         "patchSetId": 1
@@ -37,6 +60,23 @@
       "writtenOn": "2022-03-28T19:01:47Z",
       "side": 1,
       "message": "Is there a way to verify the Settings dialog of tethering failure is displayed?",
+      "revId": "4bd285b928648ba007325ae82a7253b22a8550a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "126ce5a5_b225f518",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-30T03:21:47Z",
+      "side": 1,
+      "message": "Could you also test that tethering would be stopped when carrier supported change to false ?",
       "revId": "4bd285b928648ba007325ae82a7253b22a8550a8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
