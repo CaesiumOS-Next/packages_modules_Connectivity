@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f60f2f3_527e25ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-31T08:31:51Z",
+      "side": 1,
+      "message": "May I know how do you test the minus value?\nModify the code to bypass the invalid transport type check?",
+      "range": {
+        "startLine": 16,
+        "startChar": 6,
+        "endLine": 16,
+        "endChar": 12
+      },
+      "revId": "7209e3fe411ff916c120c9431d39b86c169a556b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c9f4cb4_b3c07ea6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-31T08:31:51Z",
+      "side": 1,
+      "message": "Basically, transport type shouldn\u0027t be a minus value, if it is, then there must be something wrong. Especially NetworkCapabilities#addTransportType() has checked the transport type when transport type is added.\n\n+Remi \u0026 +Lorenzo for another look, see if it\u0027s ok to throw an exception when transport type is a minus value.",
+      "revId": "7209e3fe411ff916c120c9431d39b86c169a556b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c06dd53_df17f4a0",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2315,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-31T08:31:51Z",
+      "side": 1,
+      "message": "If this change is only to prevent the case of infinite loop when bitMask is less than 0, then this change seems unnecessary if we have checked the illegal argument above and thrown an exception.",
+      "range": {
+        "startLine": 2315,
+        "startChar": 12,
+        "endLine": 2315,
+        "endChar": 27
+      },
+      "revId": "7209e3fe411ff916c120c9431d39b86c169a556b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
