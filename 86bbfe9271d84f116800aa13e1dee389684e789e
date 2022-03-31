@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a495b8e7_0f63ba94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-03-31T06:36:23Z",
+      "side": 1,
+      "message": "nit: services.connectivity-tiramisu-updatable-sources?",
+      "range": {
+        "startLine": 7,
+        "startChar": 7,
+        "endLine": 7,
+        "endChar": 19
+      },
+      "revId": "86bbfe9271d84f116800aa13e1dee389684e789e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b35cc4dd_faf761ea",
+        "filename": "service-t/Sources.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-03-31T06:36:23Z",
+      "side": 0,
+      "message": "nit: maybe we could also delete this filegroup?",
+      "range": {
+        "startLine": 119,
+        "startChar": 9,
+        "endLine": 119,
+        "endChar": 48
+      },
+      "revId": "e99dcfd4ddfecc462162be00ada1b5151032f1e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
