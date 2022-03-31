@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cc76c4f9_1b79f232",
+        "filename": "service/Android.bp",
+        "patchSetId": 79
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1937168
+      },
+      "writtenOn": "2022-03-31T02:51:31Z",
+      "side": 1,
+      "message": "we followed the norm from other aidl\u0027s. How does package name helps here?",
+      "parentUuid": "6607e4a5_a004bf1d",
+      "range": {
+        "startLine": 23,
+        "startChar": 11,
+        "endLine": 23,
+        "endChar": 45
+      },
+      "revId": "b37f551287541b0483130d510660287d00cc45ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c03b065_0916ddc8",
         "filename": "service/Android.bp",
         "patchSetId": 79
@@ -71,6 +95,30 @@
       "writtenOn": "2022-03-30T22:07:49Z",
       "side": 1,
       "message": "does this work without vintf stability now?",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 25,
+        "endChar": 20
+      },
+      "revId": "b37f551287541b0483130d510660287d00cc45ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18754326_c3e196cc",
+        "filename": "service/Android.bp",
+        "patchSetId": 79
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1937168
+      },
+      "writtenOn": "2022-03-31T02:51:31Z",
+      "side": 1,
+      "message": "it doesn\u0027t work without vintf. It gives a compilation error",
+      "parentUuid": "1c03b065_0916ddc8",
       "range": {
         "startLine": 25,
         "startChar": 4,
@@ -106,6 +154,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a9974ba_cd3c9991",
+        "filename": "service/aidl_api/connectivity_native_aidl_interface/current/android/net/connectivity/aidl/ConnectivityNative.aidl",
+        "patchSetId": 79
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1937168
+      },
+      "writtenOn": "2022-03-31T02:51:31Z",
+      "side": 1,
+      "message": "APMU its standard.",
+      "parentUuid": "82d36e4c_5abb8e60",
+      "range": {
+        "startLine": 34,
+        "startChar": 33,
+        "endLine": 34,
+        "endChar": 37
+      },
+      "revId": "b37f551287541b0483130d510660287d00cc45ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4843fea6_303daef9",
         "filename": "service/binder/android/net/connectivity/aidl/ConnectivityNative.aidl",
         "patchSetId": 79
@@ -117,6 +189,30 @@
       "writtenOn": "2022-03-30T22:07:49Z",
       "side": 1,
       "message": "how are races handled here?",
+      "range": {
+        "startLine": 21,
+        "startChar": 55,
+        "endLine": 22,
+        "endChar": 100
+      },
+      "revId": "b37f551287541b0483130d510660287d00cc45ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9da34c9_3edd8f97",
+        "filename": "service/binder/android/net/connectivity/aidl/ConnectivityNative.aidl",
+        "patchSetId": 79
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1937168
+      },
+      "writtenOn": "2022-03-31T02:51:31Z",
+      "side": 1,
+      "message": "There is no race. There will be only one client from QC and it already handles updating of the proc file.",
+      "parentUuid": "4843fea6_303daef9",
       "range": {
         "startLine": 21,
         "startChar": 55,
