@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a11822ce_c5d80360",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-31T18:18:54Z",
+      "side": 1,
+      "message": "EthernetTetheringTest already has tests that need to be skipped if the device supports physical Ethernet. Can we ensure that this new test is skipped on the same devices as those existing tests?",
+      "range": {
+        "startLine": 170,
+        "startChar": 8,
+        "endLine": 170,
+        "endChar": 55
+      },
+      "revId": "6151950b7be689a0d3ca13e8c9d18164d73dad62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8123ca7d_d3149371",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-31T18:18:54Z",
+      "side": 1,
+      "message": "So the test will fail if it\u0027s run on a device with Ethernet enabled? I think that\u0027s fine but if so, please ensure that the failure at line 179 clearly explains that the failure is because the test expects Ethernet to be enabled.\n\nAnother option would be to determine the current state here, run the test, and restore the previous state later. Either is fine I think.",
+      "range": {
+        "startLine": 178,
+        "startChar": 29,
+        "endLine": 178,
+        "endChar": 62
+      },
+      "revId": "6151950b7be689a0d3ca13e8c9d18164d73dad62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "523eee3f_79ebbcfd",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-31T18:18:54Z",
+      "side": 1,
+      "message": "Would instead suggest being consistent with the existing tests which check for the current (broken?) behaviour - i.e., check up/up/down/up. If that\u0027s too many lines of code, you can always reduce duplication by refactoring to a function such as expectCallbacksForCreatedInterface.\n\n\nAlso I think it would be good to check that when ethernet is disabled, various DOWN callbacks are sent.",
+      "range": {
+        "startLine": 197,
+        "startChar": 8,
+        "endLine": 197,
+        "endChar": 38
+      },
+      "revId": "6151950b7be689a0d3ca13e8c9d18164d73dad62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
