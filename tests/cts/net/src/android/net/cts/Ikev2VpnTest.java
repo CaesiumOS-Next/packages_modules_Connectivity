@@ -59,6 +59,7 @@ import android.text.TextUtils;
 import androidx.test.InstrumentationRegistry;
 
 import com.android.internal.util.HexDump;
+import com.android.networkstack.apishim.ConstantsShim;
 import com.android.networkstack.apishim.Ikev2VpnProfileBuilderShimImpl;
 import com.android.networkstack.apishim.Ikev2VpnProfileShimImpl;
 import com.android.networkstack.apishim.VpnManagerShimImpl;
@@ -66,6 +67,7 @@ import com.android.networkstack.apishim.common.Ikev2VpnProfileBuilderShim;
 import com.android.networkstack.apishim.common.Ikev2VpnProfileShim;
 import com.android.networkstack.apishim.common.UnsupportedApiLevelException;
 import com.android.networkstack.apishim.common.VpnManagerShim;
+import com.android.networkstack.apishim.common.VpnProfileStateShim;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.DevSdkIgnoreRunner;
@@ -486,7 +488,13 @@ public class Ikev2VpnTest {
         if (testSessionKey) {
             // testSessionKey will never be true if running on <T
             // startProvisionedVpnProfileSession() should return a non-null & non-empty random UUID.
-            assertFalse(TextUtils.isEmpty(mVmShim.startProvisionedVpnProfileSession()));
+            final String sessionId = mVmShim.startProvisionedVpnProfileSession();
+            assertFalse(TextUtils.isEmpty(sessionId));
+            final VpnProfileStateShim profileState = mVmShim.getProvisionedVpnProfileState();
+            assertEquals(ConstantsShim.STATE_CONNECTING, profileState.getState());
+            assertEquals(sessionId, profileState.getSessionId());
+            assertFalse(profileState.isAlwaysOn());
+            assertFalse(profileState.isLockdownEnabled());
         } else {
             sVpnMgr.startProvisionedVpnProfile();
         }
@@ -501,6 +509,13 @@ public class Ikev2VpnTest {
         // Verify the VPN network came up
         final Network vpnNetwork = cb.expectCallback(CallbackEntry.AVAILABLE, anyNetwork())
                 .getNetwork();
+
+        if (testSessionKey) {
+            final VpnProfileStateShim profileState = mVmShim.getProvisionedVpnProfileState();
+            // assertEquals(ConstantsShim.STATE_CONNECTED, profileState.getState());
+            assertFalse(profileState.isAlwaysOn());
+            assertFalse(profileState.isLockdownEnabled());
+        }
 
         cb.expectCapabilitiesThat(vpnNetwork, TIMEOUT_MS, caps -> caps.hasTransport(TRANSPORT_VPN)
                 && caps.hasCapability(NET_CAPABILITY_INTERNET)
