@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61f660ac_f4a56826",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-03-31T02:12:46Z",
+      "side": 1,
+      "message": "Do you want to have some tests to verify non-default state? i.e. we do not have test to verify the cases that these two return true.",
+      "range": {
+        "startLine": 463,
+        "startChar": 12,
+        "endLine": 464,
+        "endChar": 58
+      },
+      "revId": "e8e8fdcd5af524f2c0d6cdf19c60b6fdac121eb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
