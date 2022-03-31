@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ecc042a_946d6e1d",
+        "filename": "Tethering/res/values/config.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-31T07:06:25Z",
+      "side": 1,
+      "message": "Nit: maybe explicitly write \"0\" to make the default clear ?",
+      "range": {
+        "startLine": 85,
+        "startChar": 79,
+        "endLine": 85,
+        "endChar": 81
+      },
+      "revId": "cc99c0dc2f71b734e382848b087fd2e77cb46f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c54c4319_4c0e6e80",
+        "filename": "Tethering/src/android/net/dhcp/DhcpServingParamsParcelExt.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-31T07:06:25Z",
+      "side": 1,
+      "message": "this configuration would be ignored right ?\n\n(Also nit: I think \"will be ignored\" or \"is ignored\" is more correct in this case)",
+      "range": {
+        "startLine": 189,
+        "startChar": 7,
+        "endLine": 189,
+        "endChar": 46
+      },
+      "revId": "cc99c0dc2f71b734e382848b087fd2e77cb46f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6cc995f_a10a9c0c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-31T07:06:25Z",
+      "side": 1,
+      "message": "Nit: prefixLengthTooSmallConfig or tooSmallConfig ? Otherwise the var doesn\u0027t really explain what the object is",
+      "range": {
+        "startLine": 632,
+        "startChar": 37,
+        "endLine": 632,
+        "endChar": 45
+      },
+      "revId": "cc99c0dc2f71b734e382848b087fd2e77cb46f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
