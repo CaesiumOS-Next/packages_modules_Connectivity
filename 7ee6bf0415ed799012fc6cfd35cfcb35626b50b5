@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "962ca1c9_9b66572e",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-01T06:01:35Z",
+      "side": 0,
+      "message": "Could you write a test in cts/net/src/android/net/cts/NsdManagerTest.kt to verify that a service can still be registered with non-standard characters (dots, backslashes, and non-ascii characters) ? This should help make sure this change doesn\u0027t break stuff, as unescape had specific handling for dots, backslashes and chars encoded as \\nnn\n\nDoesn\u0027t need to be in the same change though",
+      "range": {
+        "startLine": 513,
+        "startChar": 31,
+        "endLine": 513,
+        "endChar": 39
+      },
+      "revId": "7ee6bf0415ed799012fc6cfd35cfcb35626b50b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
