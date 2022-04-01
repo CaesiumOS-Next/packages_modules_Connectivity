@@ -333,6 +333,7 @@ DEFINE_BPF_PROG("skfilter/ingress/xtbpf", AID_ROOT, AID_NET_ADMIN, xt_bpf_ingres
     // Keep that in mind when moving this out of iptables xt_bpf and into tc ingress (or xdp).
     // TODO: fix clat ingress traffic matching once clat bpf map (in bpf_progs\clat.c) can be
     // shared with netd bpf prog.
+    if (skb->mark == 0xbeef) return BPF_MATCH;
 
     uint32_t key = skb->ifindex;
     update_iface_stats_map(skb, BPF_INGRESS, &key);

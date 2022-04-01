@@ -64,17 +64,6 @@ static inline __always_inline int nat64(struct __sk_buff* skb, bool is_ethernet)
     // Maximum IPv6 payload length that can be translated to IPv4
     if (ntohs(ip6->payload_len) > 0xFFFF - sizeof(struct iphdr)) return TC_ACT_PIPE;
 
-    switch (ip6->nexthdr) {
-        case IPPROTO_TCP:  // For TCP & UDP the checksum neutrality of the chosen IPv6
-        case IPPROTO_UDP:  // address means there is no need to update their checksums.
-        case IPPROTO_GRE:  // We do not need to bother looking at GRE/ESP headers,
-        case IPPROTO_ESP:  // since there is never a checksum to update.
-            break;
-
-        default:  // do not know how to handle anything else
-            return TC_ACT_PIPE;
-    }
-
     ClatIngress6Key k = {
             .iif = skb->ifindex,
             .pfx96.in6_u.u6_addr32 =
@@ -89,6 +78,20 @@ static inline __always_inline int nat64(struct __sk_buff* skb, bool is_ethernet)
     ClatIngress6Value* v = bpf_clat_ingress6_map_lookup_elem(&k);
 
     if (!v) return TC_ACT_PIPE;
+
+    // Mark clat packet for dropping in iptables bw_raw_PREROUTING.
+    skb->mark = 0xbeef;
+
+    switch (ip6->nexthdr) {
+        case IPPROTO_TCP:  // For TCP & UDP the checksum neutrality of the chosen IPv6
+        case IPPROTO_UDP:  // address means there is no need to update their checksums.
+        case IPPROTO_GRE:  // We do not need to bother looking at GRE/ESP headers,
+        case IPPROTO_ESP:  // since there is never a checksum to update.
+            break;
+
+        default:  // do not know how to handle anything else
+            return TC_ACT_PIPE;
+    }
 
     struct ethhdr eth2;  // used iff is_ethernet
     if (is_ethernet) {
