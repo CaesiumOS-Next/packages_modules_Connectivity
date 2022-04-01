@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e95add28_4488f0ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-01T16:52:29Z",
+      "side": 1,
+      "message": "This is currently what I have to refactor ConnectivityCoverageTest, but some tests in BpfCoordinatorTest and NetworkNotificationManagerTest are fail and I don\u0027t fix them yet.",
+      "revId": "4f988e7dc66b8b5a85b8bc96ccd9d34a7099bce3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
