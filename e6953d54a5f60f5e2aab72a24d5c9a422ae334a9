@@ -22,6 +22,30 @@
       },
       "revId": "e6953d54a5f60f5e2aab72a24d5c9a422ae334a9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14e53444_054ec88d",
+        "filename": "framework/src/android/net/Network.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2022-04-01T08:55:00Z",
+      "side": 0,
+      "message": "Yes, (after some more reading) you are right: although the UDP protocol is connectionless, the socket itself can be \"connected\", which limits the places that packets can be sent to (and received from). I think I knew this at one point but had forgotten.\n\nhttps://www.geeksforgeeks.org/udp-client-server-using-connect-c-implementation/\n\nsays:\n\nIn UDP, the client does not form a connection with the server like in TCP and instead, It just sends a datagram. Similarly, the server need not to accept a connection and just waits for datagrams to arrive. We can call a function called connect() in UDP but it does not result anything like it does in TCP. There is no 3 way handshake. It just checks for any immediate errors and store the peer’s IP address and port number. connect() is storing peers address so no need to pass server address and server address length arguments in sendto().\n\n----\n\nSo, just a shortcut / programming aid, and it explains line 423. I will abandon this change.\n\nThanks for the response!",
+      "parentUuid": "bdc5b401_1b762117",
+      "range": {
+        "startLine": 378,
+        "startChar": 64,
+        "endLine": 379,
+        "endChar": 17
+      },
+      "revId": "e6953d54a5f60f5e2aab72a24d5c9a422ae334a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
