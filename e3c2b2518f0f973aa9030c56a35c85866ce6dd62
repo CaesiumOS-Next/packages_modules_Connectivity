@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78769842_9ec7b7eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-01T03:24:59Z",
+      "side": 1,
+      "message": "LGTM, but could you remove Autosubmit because the internal branch need to be merged first that is why you have Merged-In tag. I am worry about if I just +2 this CL, this change would just merged before internal one.",
+      "revId": "e3c2b2518f0f973aa9030c56a35c85866ce6dd62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
