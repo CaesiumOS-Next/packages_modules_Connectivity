@@ -130,6 +130,9 @@ public class PermissionMonitor {
     @GuardedBy("this")
     private final Map<UserHandle, PackageManager> mUsersPackageManager = new ArrayMap<>();
 
+    @GuardedBy("this")
+    private final Map<UserHandle, SparseIntArray> mUsersTrafficPermissions = new ArrayMap<>();
+
     private static final int SYSTEM_APPID = SYSTEM_UID;
 
     private static final int MAX_PERMISSION_UPDATE_LOGS = 40;
@@ -292,12 +295,19 @@ public class PermissionMonitor {
         sendUidsNetworkPermission(uids, true /* add */);
     }
 
-    private void updateAppIdsTrafficPermission(final SparseIntArray appIds,
-            final SparseIntArray extraAppIds) {
-        for (int i = 0; i < extraAppIds.size(); i++) {
-            final int appId = extraAppIds.keyAt(i);
-            final int permission = extraAppIds.valueAt(i);
-            appIds.put(appId, appIds.get(appId) | permission);
+    private synchronized void updateAppIdsTrafficPermission(final SparseIntArray newAppIds) {
+        final SparseIntArray appIds = newAppIds.clone();
+        for (UserHandle user : mUsersTrafficPermissions.keySet()) {
+            final SparseIntArray userAppIds = mUsersTrafficPermissions.get(user);
+            for (int i = 0; i < userAppIds.size(); i++) {
+                final int appId = userAppIds.keyAt(i);
+                final int permission = userAppIds.valueAt(i);
+                if (permission != PERMISSION_UNINSTALLED) {
+                    final int current = appIds.get(appId) == PERMISSION_UNINSTALLED
+                            ? permission : appIds.get(appId);
+                    appIds.put(appId, current | permission);
+                }
+            }
         }
         sendAppIdsTrafficPermission(appIds);
     }
@@ -362,6 +372,10 @@ public class PermissionMonitor {
         // Read UIDS_ALLOWED_ON_RESTRICTED_NETWORKS setting and update
         // mUidsAllowedOnRestrictedNetworks.
         updateUidsAllowedOnRestrictedNetworks(mDeps.getUidsAllowedOnRestrictedNetworks(mContext));
+
+        // Read system traffic permissions and put them to USER_ALL because the permission should
+        // apply to all users.
+        mUsersTrafficPermissions.put(UserHandle.ALL, getSystemTrafficPerm());
 
         final List<UserHandle> usrs = mUserManager.getUserHandles(true /* excludeDying */);
         // Update netd permissions for all users.
@@ -487,9 +501,14 @@ public class PermissionMonitor {
         final SparseIntArray uids = makeUidsNetworkPerm(apps);
         updateUidsNetworkPermission(uids);
 
-        // App ids traffic permission
+        // App ids traffic permissions
         final SparseIntArray appIds = makeAppIdsTrafficPerm(apps);
-        updateAppIdsTrafficPermission(appIds, getSystemTrafficPerm());
+        updateAppIdsTrafficPermission(appIds);
+        mUsersTrafficPermissions.put(user, appIds);
+
+        // Log user added
+        mPermissionUpdateLogs.log("New user(" + user.getIdentifier() + ") added: nPerm uids="
+                + uids + ", tPerm appIds=" + appIds);
     }
 
     /**
@@ -502,6 +521,7 @@ public class PermissionMonitor {
     public synchronized void onUserRemoved(@NonNull UserHandle user) {
         mUsers.remove(user);
 
+        // Remove uids network permissions that belongs to the user.
         final SparseIntArray removedUids = new SparseIntArray();
         final SparseIntArray allUids = mUidToNetworkPerm.clone();
         for (int i = 0; i < allUids.size(); i++) {
@@ -512,6 +532,19 @@ public class PermissionMonitor {
             }
         }
         sendUidsNetworkPermission(removedUids, false /* add */);
+
+        // Remove app ids traffic permission that belongs to the user
+        final SparseIntArray uninstalledAppIds = mUsersTrafficPermissions.remove(user);
+        if (uninstalledAppIds != null) {
+            for (int i = 0; i < uninstalledAppIds.size(); i++) {
+                uninstalledAppIds.setValueAt(i, PERMISSION_UNINSTALLED);
+            }
+            updateAppIdsTrafficPermission(uninstalledAppIds);
+        }
+
+        // Log user removed
+        mPermissionUpdateLogs.log("User(" + user.getIdentifier() + ") removed: nPerm uids="
+                + removedUids + ", tPerm appIds=" + uninstalledAppIds);
     }
 
     /**
@@ -598,6 +631,22 @@ public class PermissionMonitor {
         }
     }
 
+    private int getAppIdTrafficPermission(int appId) {
+        int permission = PERMISSION_UNINSTALLED;
+        for (UserHandle user : mUsersTrafficPermissions.keySet()) {
+            final int appIdPerm = mUsersTrafficPermissions.get(user)
+                    .get(appId, PERMISSION_UNINSTALLED);
+            if (appIdPerm != PERMISSION_UNINSTALLED) {
+                if (permission == PERMISSION_UNINSTALLED) {
+                    permission = appIdPerm;
+                } else {
+                    permission |= appIdPerm;
+                }
+            }
+        }
+        return permission;
+    }
+
     /**
      * Called when a package is added.
      *
@@ -608,7 +657,10 @@ public class PermissionMonitor {
      */
     public synchronized void onPackageAdded(@NonNull final String packageName, final int uid) {
         final int appId = UserHandle.getAppId(uid);
-        final int trafficPerm = getTrafficPermissionForUid(uid);
+        final int uidTrafficPerm = getTrafficPermissionForUid(uid);
+        mUsersTrafficPermissions.get(UserHandle.getUserHandleForUid(uid))
+                .put(appId, uidTrafficPerm);
+        final int trafficPerm = getAppIdTrafficPermission(appId);
         sendPackagePermissionsForAppId(appId, trafficPerm);
 
         final int currentPermission = mUidToNetworkPerm.get(uid, PERMISSION_NONE);
@@ -665,7 +717,10 @@ public class PermissionMonitor {
      */
     public synchronized void onPackageRemoved(@NonNull final String packageName, final int uid) {
         final int appId = UserHandle.getAppId(uid);
-        final int trafficPerm = getTrafficPermissionForUid(uid);
+        final int uidTrafficPerm = getTrafficPermissionForUid(uid);
+        mUsersTrafficPermissions.get(UserHandle.getUserHandleForUid(uid))
+                .put(appId, uidTrafficPerm);
+        final int trafficPerm = getAppIdTrafficPermission(appId);
         sendPackagePermissionsForAppId(appId, trafficPerm);
 
         // If the newly-removed package falls within some VPN's uid range, update Netd with it.
