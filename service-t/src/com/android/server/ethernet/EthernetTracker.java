@@ -29,8 +29,8 @@ import android.content.res.Resources;
 import android.net.ConnectivityResources;
 import android.net.EthernetManager;
 import android.net.IEthernetServiceListener;
-import android.net.INetworkInterfaceOutcomeReceiver;
 import android.net.INetd;
+import android.net.INetworkInterfaceOutcomeReceiver;
 import android.net.ITetheredInterfaceCallback;
 import android.net.InterfaceConfigurationParcel;
 import android.net.IpConfiguration;
@@ -230,7 +230,7 @@ public class EthernetTracker {
         if (DBG) {
             Log.i(TAG, "updateIpConfiguration, iface: " + iface + ", cfg: " + ipConfiguration);
         }
-        writeIpConfiguration(iface, ipConfiguration);
+        writeIpConfiguration(iface, ipConfiguration, true /* writeToStore */);
         mHandler.post(() -> {
             mFactory.updateInterface(iface, ipConfiguration, null, null);
             broadcastInterfaceStateChange(iface);
@@ -238,8 +238,10 @@ public class EthernetTracker {
     }
 
     private void writeIpConfiguration(@NonNull final String iface,
-            @NonNull final IpConfiguration ipConfig) {
-        mConfigStore.write(iface, ipConfig);
+            @NonNull final IpConfiguration ipConfig, final boolean writeToStore) {
+        if (writeToStore) {
+            mConfigStore.write(iface, ipConfig);
+        }
         mIpConfigurations.put(iface, ipConfig);
     }
 
@@ -305,7 +307,8 @@ public class EthernetTracker {
         final IpConfiguration localIpConfig = ipConfig == null
                 ? null : new IpConfiguration(ipConfig);
         if (ipConfig != null) {
-            writeIpConfiguration(iface, localIpConfig);
+            // Don't write to store similar to NetworkCapabilities configs for this iface.
+            writeIpConfiguration(iface, localIpConfig, false /* writeToStore */);
         }
 
         if (null != capabilities) {
