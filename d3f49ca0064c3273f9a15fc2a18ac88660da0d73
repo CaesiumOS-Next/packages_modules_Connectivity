@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88b9a7a3_184ea579",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1905361
+      },
+      "writtenOn": "2022-04-01T21:51:07Z",
+      "side": 1,
+      "message": "Cherry Picking as this apparently missed the branch off of android 12 to android 12L",
+      "revId": "d3f49ca0064c3273f9a15fc2a18ac88660da0d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
