@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1217c61_2a415300",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-01T05:14:11Z",
+      "side": 1,
+      "message": "Can this go to framework-connectivity (not -t) ? Classes here are not \"part of the non-updatable API before T, and moved to the module in T\" (as per the comment above), so they should go to framework-connectivity.",
+      "range": {
+        "startLine": 56,
+        "startChar": 9,
+        "endLine": 56,
+        "endChar": 46
+      },
+      "revId": "7ee6bf0415ed799012fc6cfd35cfcb35626b50b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
