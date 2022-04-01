@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdc5b401_1b762117",
+        "filename": "framework/src/android/net/Network.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-04-01T02:58:27Z",
+      "side": 0,
+      "message": "It seems to me that l.423 actually mentioned a connected UDP socket, and have checks on it, so I\u0027m wondering whether it do exist:\n  // Apparently, the kernel doesn\u0027t update a connected UDP socket\u0027s\n  // routing upon mark changes.\n  \nAlso, there are some articles talked about connected UDP socket,\nwhich is used for a client side to receive only the packets from the \"connected\" server side.\nhttps://blog.cloudflare.com/everything-you-ever-wanted-to-know-about-udp-sockets-but-were-afraid-to-ask-part-1/\nNot sure if I missed something.\nBut if you need a networking expert about this, I think we might need to add maze@ or lorenzo@ to comment.",
+      "range": {
+        "startLine": 378,
+        "startChar": 64,
+        "endLine": 379,
+        "endChar": 17
+      },
+      "revId": "e6953d54a5f60f5e2aab72a24d5c9a422ae334a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
