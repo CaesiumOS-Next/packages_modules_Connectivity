@@ -50,6 +50,7 @@ import java.util.concurrent.Executor
 import kotlin.test.assertFalse
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
+import android.util.Log
 
 private const val TIMEOUT_MS = 1000L
 private const val NO_CALLBACK_TIMEOUT_MS = 200L
@@ -92,6 +93,8 @@ class EthernetManagerTest {
             role: Int,
             cfg: IpConfiguration?
         ) {
+            Log.i("EthernetManagerTest", "onInterfaceStateChanged: add iface " +
+                    iface + ", state " + state + ", role " + role + ", cfg " + cfg)
             add(InterfaceStateChanged(iface, state, role, cfg))
         }
 
@@ -102,6 +105,8 @@ class EthernetManagerTest {
         }
 
         fun expectCallback(iface: TestNetworkInterface, state: Int, role: Int) {
+            Log.i("EthernetManagerTest", "expectCallback: iface.interfaceName " +
+                    iface.interfaceName + ", state " + state + ", role " + role)
             expectCallback(InterfaceStateChanged(iface.interfaceName, state, role,
                 if (state != STATE_ABSENT) DEFAULT_IP_CONFIGURATION else null))
         }
@@ -124,6 +129,8 @@ class EthernetManagerTest {
         val iface = runAsShell(MANAGE_TEST_NETWORKS) {
             createInterface()
         }
+        Log.i("EthernetManagerTest", "createInterface: iface.interfaceName " +
+                iface.interfaceName)
         val listener = EthernetStateListener()
         addInterfaceStateListener(executor, listener)
         listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
@@ -133,6 +140,8 @@ class EthernetManagerTest {
         val iface2 = runAsShell(MANAGE_TEST_NETWORKS) {
             createInterface()
         }
+        Log.i("EthernetManagerTest", "createInterface: iface2.interfaceName " +
+                iface2.interfaceName)
         listener.expectCallback(iface2, STATE_LINK_UP, ROLE_CLIENT)
         listener.expectCallback(iface2, STATE_LINK_UP, ROLE_CLIENT)
         listener.expectCallback(iface2, STATE_LINK_DOWN, ROLE_CLIENT)
