@@ -127,8 +127,15 @@ public class PermissionMonitor {
     @GuardedBy("this")
     private final Set<Integer> mUidsAllowedOnRestrictedNetworks = new ArraySet<>();
 
+    // Store PackageManager for each user.
+    // Keys are users, Values are PackageManagers which get from each user.
     @GuardedBy("this")
     private final Map<UserHandle, PackageManager> mUsersPackageManager = new ArrayMap<>();
+
+    // Store appIds traffic permissions for each user.
+    // Keys are users, Values are all appIds traffic permissions which get from the user.
+    @GuardedBy("this")
+    private final Map<UserHandle, SparseIntArray> mUsersTrafficPermissions = new ArrayMap<>();
 
     private static final int SYSTEM_APPID = SYSTEM_UID;
 
@@ -292,14 +299,23 @@ public class PermissionMonitor {
         sendUidsNetworkPermission(uids, true /* add */);
     }
 
-    private void updateAppIdsTrafficPermission(final SparseIntArray appIds,
-            final SparseIntArray extraAppIds) {
-        for (int i = 0; i < extraAppIds.size(); i++) {
-            final int appId = extraAppIds.keyAt(i);
-            final int permission = extraAppIds.valueAt(i);
-            appIds.put(appId, appIds.get(appId) | permission);
+    /**
+     * Generate appIds traffic permissions from current users.
+     *
+     * @return The appIds traffic permissions.
+     */
+    private synchronized SparseIntArray generateAppIdsTrafficPermission() {
+        final SparseIntArray appIds = new SparseIntArray();
+        // Check appIds permissions from each user.
+        for (UserHandle user : mUsersTrafficPermissions.keySet()) {
+            final SparseIntArray userAppIds = mUsersTrafficPermissions.get(user);
+            for (int i = 0; i < userAppIds.size(); i++) {
+                final int appId = userAppIds.keyAt(i);
+                final int permission = userAppIds.valueAt(i);
+                appIds.put(appId, appIds.get(appId) | permission);
+            }
         }
-        sendAppIdsTrafficPermission(appIds);
+        return appIds;
     }
 
     private SparseIntArray getSystemTrafficPerm() {
@@ -362,6 +378,10 @@ public class PermissionMonitor {
         // Read UIDS_ALLOWED_ON_RESTRICTED_NETWORKS setting and update
         // mUidsAllowedOnRestrictedNetworks.
         updateUidsAllowedOnRestrictedNetworks(mDeps.getUidsAllowedOnRestrictedNetworks(mContext));
+
+        // Read system traffic permissions and put them to USER_ALL because the permission should
+        // apply to all users.
+        mUsersTrafficPermissions.put(UserHandle.ALL, getSystemTrafficPerm());
 
         final List<UserHandle> usrs = mUserManager.getUserHandles(true /* excludeDying */);
         // Update netd permissions for all users.
@@ -487,9 +507,16 @@ public class PermissionMonitor {
         final SparseIntArray uids = makeUidsNetworkPerm(apps);
         updateUidsNetworkPermission(uids);
 
-        // App ids traffic permission
-        final SparseIntArray appIds = makeAppIdsTrafficPerm(apps);
-        updateAppIdsTrafficPermission(appIds, getSystemTrafficPerm());
+        // Add new user appIds permissions.
+        final SparseIntArray addedUserAppIds = makeAppIdsTrafficPerm(apps);
+        mUsersTrafficPermissions.put(user, addedUserAppIds);
+        // Generate appIds from all users and send result to netd.
+        final SparseIntArray appIds = generateAppIdsTrafficPermission();
+        sendAppIdsTrafficPermission(appIds);
+
+        // Log user added
+        mPermissionUpdateLogs.log("New user(" + user.getIdentifier() + ") added: nPerm uids="
+                + uids + ", tPerm appIds=" + addedUserAppIds);
     }
 
     /**
@@ -502,6 +529,7 @@ public class PermissionMonitor {
     public synchronized void onUserRemoved(@NonNull UserHandle user) {
         mUsers.remove(user);
 
+        // Remove uids network permissions that belongs to the user.
         final SparseIntArray removedUids = new SparseIntArray();
         final SparseIntArray allUids = mUidToNetworkPerm.clone();
         for (int i = 0; i < allUids.size(); i++) {
@@ -512,6 +540,29 @@ public class PermissionMonitor {
             }
         }
         sendUidsNetworkPermission(removedUids, false /* add */);
+
+        // Remove appIds traffic permission that belongs to the user
+        final SparseIntArray removedUserAppIds = mUsersTrafficPermissions.remove(user);
+        // Generate appIds from left users.
+        final SparseIntArray appIds = generateAppIdsTrafficPermission();
+        // Clear permission on those appIds belong to this user only, set the permission to
+        // PERMISSION_UNINSTALLED.
+        if (removedUserAppIds != null) {
+            for (int i = 0; i < removedUserAppIds.size(); i++) {
+                final int appId = removedUserAppIds.keyAt(i);
+                // Need to clear permission if the removed appId is not found in the list.
+                final boolean clear =
+                        appIds.get(appId, PERMISSION_UNINSTALLED) == PERMISSION_UNINSTALLED;
+                if (clear) {
+                    appIds.put(appId, PERMISSION_UNINSTALLED);
+                }
+            }
+        }
+        sendAppIdsTrafficPermission(appIds);
+
+        // Log user removed
+        mPermissionUpdateLogs.log("User(" + user.getIdentifier() + ") removed: nPerm uids="
+                + removedUids + ", tPerm appIds=" + removedUserAppIds);
     }
 
     /**
@@ -598,6 +649,43 @@ public class PermissionMonitor {
         }
     }
 
+    private void updateUidTrafficPermission(int uid) {
+        final int appId = UserHandle.getAppId(uid);
+        final int uidTrafficPerm = getTrafficPermissionForUid(uid);
+        final SparseIntArray userTrafficPerms =
+                mUsersTrafficPermissions.get(UserHandle.getUserHandleForUid(uid));
+        if (userTrafficPerms == null) {
+            Log.wtf(TAG, "Can't get user traffic permission from uid=" + uid);
+            return;
+        }
+        // Do not put PERMISSION_UNINSTALLED into the array. If no package left on the uid
+        // (PERMISSION_UNINSTALLED), remove the appId from the array. Otherwise, update the latest
+        // permission to the appId.
+        if (uidTrafficPerm == PERMISSION_UNINSTALLED) {
+            userTrafficPerms.delete(appId);
+        } else {
+            userTrafficPerms.put(appId, uidTrafficPerm);
+        }
+    }
+
+    private int getAppIdTrafficPermission(int appId) {
+        int permission = PERMISSION_UNINSTALLED;
+        for (UserHandle user : mUsersTrafficPermissions.keySet()) {
+            final int appIdPerm = mUsersTrafficPermissions.get(user)
+                    .get(appId, PERMISSION_UNINSTALLED);
+            // Do not combine PERMISSION_UNINSTALLED because the permissions will become
+            // PERMISSION_UNINSTALLED and can not be recognized.
+            if (appIdPerm != PERMISSION_UNINSTALLED) {
+                if (permission == PERMISSION_UNINSTALLED) {
+                    permission = appIdPerm;
+                } else {
+                    permission |= appIdPerm;
+                }
+            }
+        }
+        return permission;
+    }
+
     /**
      * Called when a package is added.
      *
@@ -607,9 +695,12 @@ public class PermissionMonitor {
      * @hide
      */
     public synchronized void onPackageAdded(@NonNull final String packageName, final int uid) {
+        // Update uid permission.
+        updateUidTrafficPermission(uid);
+        // Get the appId permission from all users then send the latest permission to netd.
         final int appId = UserHandle.getAppId(uid);
-        final int trafficPerm = getTrafficPermissionForUid(uid);
-        sendPackagePermissionsForAppId(appId, trafficPerm);
+        final int appIdTrafficPerm = getAppIdTrafficPermission(appId);
+        sendPackagePermissionsForAppId(appId, appIdTrafficPerm);
 
         final int currentPermission = mUidToNetworkPerm.get(uid, PERMISSION_NONE);
         final int permission = highestPermissionForUid(uid, currentPermission, packageName);
@@ -633,10 +724,12 @@ public class PermissionMonitor {
         // package can bypass VPN.
         updateVpnUid(uid, true /* add */);
         mAllApps.add(appId);
+
+        // Log package added.
         mPermissionUpdateLogs.log("Package add: name=" + packageName + ", uid=" + uid
                 + ", nPerm=(" + permissionToString(permission) + "/"
                 + permissionToString(currentPermission) + ")"
-                + ", tPerm=" + permissionToString(trafficPerm));
+                + ", tPerm=" + permissionToString(appIdTrafficPerm));
     }
 
     private int highestUidNetworkPermission(int uid) {
@@ -664,9 +757,12 @@ public class PermissionMonitor {
      * @hide
      */
     public synchronized void onPackageRemoved(@NonNull final String packageName, final int uid) {
+        // Update uid permission.
+        updateUidTrafficPermission(uid);
+        // Get the appId permission from all users then send the latest permission to netd.
         final int appId = UserHandle.getAppId(uid);
-        final int trafficPerm = getTrafficPermissionForUid(uid);
-        sendPackagePermissionsForAppId(appId, trafficPerm);
+        final int appIdTrafficPerm = getAppIdTrafficPermission(appId);
+        sendPackagePermissionsForAppId(appId, appIdTrafficPerm);
 
         // If the newly-removed package falls within some VPN's uid range, update Netd with it.
         // This needs to happen before the mUidToNetworkPerm update below, since
@@ -680,10 +776,13 @@ public class PermissionMonitor {
 
         final int currentPermission = mUidToNetworkPerm.get(uid, PERMISSION_NONE);
         final int permission = highestUidNetworkPermission(uid);
+
+        // Log package removed.
         mPermissionUpdateLogs.log("Package remove: name=" + packageName + ", uid=" + uid
                 + ", nPerm=(" + permissionToString(permission) + "/"
                 + permissionToString(currentPermission) + ")"
-                + ", tPerm=" + permissionToString(trafficPerm));
+                + ", tPerm=" + permissionToString(appIdTrafficPerm));
+
         if (permission != currentPermission) {
             final SparseIntArray apps = new SparseIntArray();
             int sdkSandboxUid = -1;
