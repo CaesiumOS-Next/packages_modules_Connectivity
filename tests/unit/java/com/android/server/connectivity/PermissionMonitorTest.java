@@ -191,6 +191,7 @@ public class PermissionMonitorTest {
         mBpfMapMonitor = new BpfMapMonitor(mBpfNetMaps);
 
         doReturn(List.of()).when(mPackageManager).getInstalledPackagesAsUser(anyInt(), anyInt());
+        mPermissionMonitor.onUserAdded(MOCK_USER1);
     }
 
     private boolean hasRestrictedNetworkPermission(String partition, int targetSdkVersion,
@@ -791,6 +792,7 @@ public class PermissionMonitorTest {
                 buildPackageInfo(SYSTEM_PACKAGE2, VPN_UID)))
                 .when(mPackageManager).getInstalledPackagesAsUser(eq(GET_PERMISSIONS), anyInt());
         buildAndMockPackageInfoWithPermissions(MOCK_PACKAGE1, MOCK_UID11);
+        doReturn(List.of(MOCK_USER1, MOCK_USER2)).when(mUserManager).getUserHandles(eq(true));
 
         mPermissionMonitor.startMonitoring();
         final Set<UidRange> vpnRange = Set.of(UidRange.createForUser(MOCK_USER1),
