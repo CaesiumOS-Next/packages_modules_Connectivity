@@ -169,8 +169,19 @@ java_library {
     lint: { strict_updatability_linting: true },
 }
 
-filegroup {
+genrule {
     name: "connectivity-jarjar-rules",
+    srcs: [
+        ":connectivity-common-jarjar-rules",
+        "aidl-jarjar-rules.txt",
+    ],
+    out: ["jarjar-rules-connectivity.txt"],
+    cmd: "cat $(in) > $(out)",
+    visibility: ["//packages/modules/Connectivity:__subpackages__"],
+}
+
+filegroup {
+    name: "connectivity-common-jarjar-rules",
     srcs: ["jarjar-rules.txt"],
     visibility: ["//packages/modules/Connectivity:__subpackages__"],
 }

@@ -43,10 +43,43 @@ java_library {
     ],
 }
 
-// Connectivity coverage tests combines Tethering and Connectivity tests, each with their
-// respective jarjar rules applied.
-// Some tests may be duplicated (in particular static lib tests), as they need to be run under both
-// jarjared packages to cover both usages.
+// Combine Connectivity, NetworkStack and Tethering jarjar rules for coverage target.
+// The jarjar files are simply concatenated in the order specified in srcs.
+genrule {
+    name: "ConnectivityCoverageJarJarRules",
+    srcs: [
+        ":connectivity-common-jarjar-rules",
+        ":TetheringTestsJarJarRules",
+        ":NetworkStackJarJarRules",
+    ],
+    out: ["jarjar-rules-connectivity-coverage.txt"],
+    cmd: "cat $(in) > $(out)",
+    visibility: ["//visibility:private"],
+}
+
+android_library {
+    name: "TetheringCoverageTestsLib",
+    min_sdk_version: "30",
+    static_libs: [
+        "TetheringTestsLatestSdkLib",
+        "TetheringIntegrationTestsLatestSdkLib",
+    ],
+    // Jarjar rules should normally be applied on final artifacts and not intermediate libraries as
+    // applying different rules on intermediate libraries can cause conflicts when combining them
+    // (the resulting artifact can end up with multiple incompatible implementations of the same
+    // classes). But this library is used to combine tethering coverage tests with connectivity
+    // coverage tests into a single coverage target. The tethering jni need to use the same jarjar
+    // rules as covered production code for loading jni properly.
+    jarjar_rules: "tethering-jni-jarjar-rules.txt",
+    manifest: "AndroidManifest_coverage.xml",
+    visibility: ["//visibility:private"],
+}
+
+// Connectivity coverage tests after jarjar'ed, this make sure the jarjar rule don't apply to
+// instruction class which break the test tool. E.g. the test would break if instruction class under
+// com.android.modules.utils jarjar'ed to other package name and throw IllegalArgumentException:
+// Could not find extra class
+// com.android.modules.utils.testing.NativeCoverageHackInstrumentationListener
 android_library {
     name: "ConnectivityCoverageTestsLib",
     min_sdk_version: "30",
@@ -54,8 +87,10 @@ android_library {
         "FrameworksNetTestsLib",
         "NetdStaticLibTestsLib",
         "NetworkStaticLibTestsLib",
+        "NetworkStackTestsLib",
+        "TetheringCoverageTestsLib",
     ],
-    jarjar_rules: ":connectivity-jarjar-rules",
+    jarjar_rules: ":ConnectivityCoverageJarJarRules",
     manifest: "AndroidManifest_coverage.xml",
     visibility: ["//visibility:private"],
 }
@@ -80,7 +115,6 @@ android_test {
         "mockito-target-extended-minus-junit4",
         "modules-utils-native-coverage-listener",
         "ConnectivityCoverageTestsLib",
-        "TetheringCoverageTestsLib",
     ],
     jni_libs: [
         // For mockito extended

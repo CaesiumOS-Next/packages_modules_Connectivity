@@ -1,0 +1,3 @@
+rule com.android.net.module.util.BpfMap* com.android.networkstack.tethering.util.BpfMap@1
+rule com.android.net.module.util.BpfUtils* com.android.networkstack.tethering.util.BpfUtils@1
+rule com.android.net.module.util.TcUtils* com.android.networkstack.tethering.util.TcUtils@1
