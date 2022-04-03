@@ -34,6 +34,24 @@
       "parentUuid": "22e5b294_ce557367",
       "revId": "1e837dac33ad5412aaf3ba13770554bac04f48c1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cc68a97_91e5b9db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-03T00:05:25Z",
+      "side": 1,
+      "message": "This is done. The latest patch now has the code migrated to the .kt version of EthernetManagerTest.",
+      "parentUuid": "548f47db_09230c01",
+      "revId": "1e837dac33ad5412aaf3ba13770554bac04f48c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
