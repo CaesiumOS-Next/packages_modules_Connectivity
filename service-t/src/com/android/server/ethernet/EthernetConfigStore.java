@@ -22,6 +22,7 @@ import android.net.IpConfiguration;
 import android.os.Environment;
 import android.util.ArrayMap;
 
+import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.net.IpConfigStore;
 
 
@@ -30,16 +31,43 @@ import com.android.server.net.IpConfigStore;
  */
 public class EthernetConfigStore {
     private static final String FILE_PATH = "/misc/ethernet/ipconfig.txt";
-    private static final String IP_CONFIG_FILE_LEGACY = Environment.getDataDirectory() + FILE_PATH;
-    private static final String IP_CONFIG_FILE_APEX = ApexEnvironment.getApexEnvironment(
+    @VisibleForTesting
+    static final String IP_CONFIG_FILE_LEGACY = Environment.getDataDirectory() + FILE_PATH;
+    @VisibleForTesting
+    static final String IP_CONFIG_FILE_APEX = ApexEnvironment.getApexEnvironment(
             "com.android.tethering").getDeviceProtectedDataDir() + FILE_PATH;
 
-    private IpConfigStore mStore = new IpConfigStore();
+    private final Dependencies mDeps;
+    private final IpConfigStore mStore;
     private final ArrayMap<String, IpConfiguration> mIpConfigurations;
     private IpConfiguration mIpConfigurationForDefaultInterface;
     private final Object mSync = new Object();
 
+    /**
+     * EthernetConfigStore dependencies that can be overridden for testing.
+     */
+    @VisibleForTesting
+    public static class Dependencies {
+        public IpConfigStore getIpConfigStore() {
+            return new IpConfigStore();
+        }
+
+        /**
+         * Wrapper around {@link IpConfigStore#readIpConfigurations} for testing.
+         */
+        public ArrayMap<String, IpConfiguration> readIpConfigurations(String configFilePath) {
+            return IpConfigStore.readIpConfigurations(configFilePath);
+        }
+    }
+
     public EthernetConfigStore() {
+        this(new Dependencies());
+    }
+
+    @VisibleForTesting
+    EthernetConfigStore(Dependencies deps) {
+        mDeps = deps;
+        mStore = deps.getIpConfigStore();
         mIpConfigurations = new ArrayMap<>(0);
     }
 
@@ -54,7 +82,7 @@ public class EthernetConfigStore {
     }
 
     private void loadConfigFileLocked(String configFilePath) {
-        final ArrayMap<String, IpConfiguration> configs = IpConfigStore.readIpConfigurations(
+        final ArrayMap<String, IpConfiguration> configs = mDeps.readIpConfigurations(
                 configFilePath);
 
         // This configuration may exist in old file versions when there was only a single active
