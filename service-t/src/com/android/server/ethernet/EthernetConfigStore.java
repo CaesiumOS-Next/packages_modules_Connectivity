@@ -22,6 +22,7 @@ import android.net.IpConfiguration;
 import android.os.Environment;
 import android.util.ArrayMap;
 
+import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.net.IpConfigStore;
 
 import java.io.File;
@@ -31,28 +32,58 @@ import java.io.File;
  */
 public class EthernetConfigStore {
     private static final String FILE_PATH = "/misc/ethernet/ipconfig.txt";
-    private static final String IP_CONFIG_FILE_LEGACY = Environment.getDataDirectory() + FILE_PATH;
-    private static final String IP_CONFIG_FILE_APEX = ApexEnvironment.getApexEnvironment(
+    @VisibleForTesting
+    static final String IP_CONFIG_FILE_LEGACY = Environment.getDataDirectory() + FILE_PATH;
+    @VisibleForTesting
+    static final String IP_CONFIG_FILE_APEX = ApexEnvironment.getApexEnvironment(
             "com.android.tethering").getDeviceProtectedDataDir() + FILE_PATH;
 
-    private IpConfigStore mStore = new IpConfigStore();
+    private final Dependencies mDeps;
+    private final IpConfigStore mStore;
     private final ArrayMap<String, IpConfiguration> mIpConfigurations;
     private IpConfiguration mIpConfigurationForDefaultInterface;
     private final Object mSync = new Object();
 
-    public EthernetConfigStore() {
-        mIpConfigurations = new ArrayMap<>(0);
+    /**
+     * EthernetConfigStore dependencies that can be overridden for testing.
+     */
+    @VisibleForTesting
+    public static class Dependencies {
+        public IpConfigStore getIpConfigStore() {
+            return new IpConfigStore();
+        }
+
+        /**
+         * Check whether the config file already exists in the destination path.
+         */
+        public boolean doesConfigFileExist(final String configFilePath) {
+            final File config = new File(configFilePath);
+            return config.exists();
+        }
+
+        /**
+         * Wrapper around {@link IpConfigStore#readIpConfigurations} for testing.
+         */
+        public ArrayMap<String, IpConfiguration> readIpConfigurations(String configFilePath) {
+            return IpConfigStore.readIpConfigurations(configFilePath);
+        }
     }
 
-    private static boolean doesConfigFileExist(final String configFilePath) {
-        final File config = new File(configFilePath);
-        return config.exists();
+    public EthernetConfigStore() {
+        this(new Dependencies());
+    }
+
+    @VisibleForTesting
+    EthernetConfigStore(Dependencies deps) {
+        mDeps = deps;
+        mStore = deps.getIpConfigStore();
+        mIpConfigurations = new ArrayMap<>(0);
     }
 
     public void read() {
         synchronized (mSync) {
             // Attempt to read the IP configuration from apex file path first.
-            if (doesConfigFileExist(IP_CONFIG_FILE_APEX)) {
+            if (mDeps.doesConfigFileExist(IP_CONFIG_FILE_APEX)) {
                 loadConfigFileLocked(IP_CONFIG_FILE_APEX);
                 return;
             }
@@ -61,14 +92,14 @@ public class EthernetConfigStore {
             // the legacy file path, if config file exists, write the IP configuration to apex
             // config file path, this should just happen on the first boot. New or updated config
             // entries are only written to the apex config file later.
-            if (!doesConfigFileExist(IP_CONFIG_FILE_LEGACY)) return;
+            if (!mDeps.doesConfigFileExist(IP_CONFIG_FILE_LEGACY)) return;
             loadConfigFileLocked(IP_CONFIG_FILE_LEGACY);
             mStore.writeIpConfigurations(IP_CONFIG_FILE_APEX, mIpConfigurations);
         }
     }
 
     private void loadConfigFileLocked(final String configFilePath) {
-        final ArrayMap<String, IpConfiguration> configs = IpConfigStore.readIpConfigurations(
+        final ArrayMap<String, IpConfiguration> configs = mDeps.readIpConfigurations(
                 configFilePath);
 
         // This configuration may exist in old file versions when there was only a single active
