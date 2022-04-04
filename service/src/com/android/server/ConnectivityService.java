@@ -2293,6 +2293,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         private Boolean mHasLocationPermission = null;
         private Boolean mHasLocalMacAddressPermission = null;
         private Boolean mHasSettingsPermission = null;
+        private Boolean mHasSetupWizardPermission = null;
 
         RedactionPermissionChecker(int callingPid, int callingUid,
                 @NonNull String callingPackageName, @Nullable String callingAttributionTag) {
@@ -2349,6 +2350,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
             return mHasSettingsPermission;
         }
+
+        /**
+         * Returns whether the app holds setup wizard permission or not (might return cached
+         * result if the permission was already checked before).
+         */
+        public boolean hasSetupWizardPermission() {
+            if (mHasSetupWizardPermission == null) {
+                // If there is no cached result, perform the check now.
+                mHasSetupWizardPermission = checkSetupWizardPermission(mCallingPid, mCallingUid);
+            }
+            return mHasSetupWizardPermission;
+        }
     }
 
     private static boolean shouldRedact(@NetworkCapabilities.RedactionType long redactions,
@@ -2379,7 +2392,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
         if (shouldRedact(redactions, REDACT_FOR_NETWORK_SETTINGS)) {
-            if (redactionPermissionChecker.hasSettingsPermission()) {
+            if (redactionPermissionChecker.hasSettingsPermission()
+                    || redactionPermissionChecker.hasSetupWizardPermission()) {
                 redactions &= ~REDACT_FOR_NETWORK_SETTINGS;
             }
         }
@@ -2903,6 +2917,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 android.Manifest.permission.NETWORK_SETTINGS, pid, uid)
                 || PERMISSION_GRANTED == mContext.checkPermission(
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK, pid, uid);
+    }
+
+    private boolean checkSetupWizardPermission(int pid, int uid) {
+        return PERMISSION_GRANTED == mContext.checkPermission(
+                android.Manifest.permission.NETWORK_SETUP_WIZARD, pid, uid);
     }
 
     private void enforceNetworkStackOrSettingsPermission() {
