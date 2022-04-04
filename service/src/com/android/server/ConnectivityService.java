@@ -81,6 +81,7 @@ import static android.net.NetworkCapabilities.NET_ENTERPRISE_ID_5;
 import static android.net.NetworkCapabilities.REDACT_FOR_ACCESS_FINE_LOCATION;
 import static android.net.NetworkCapabilities.REDACT_FOR_LOCAL_MAC_ADDRESS;
 import static android.net.NetworkCapabilities.REDACT_FOR_NETWORK_SETTINGS;
+import static android.net.NetworkCapabilities.REDACT_FOR_NETWORK_SETTINGS_OR_SETUP_WIZARD;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
@@ -2309,6 +2310,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         private Boolean mHasLocationPermission = null;
         private Boolean mHasLocalMacAddressPermission = null;
         private Boolean mHasSettingsPermission = null;
+        private Boolean mHasSetupWizardPermission = null;
 
         RedactionPermissionChecker(int callingPid, int callingUid,
                 @NonNull String callingPackageName, @Nullable String callingAttributionTag) {
@@ -2365,6 +2367,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
             return mHasSettingsPermission;
         }
+
+        /**
+         * Returns whether the app holds setup wizard permission or not (might return cached
+         * result if the permission was already checked before).
+         */
+        public boolean hasSetupWizardPermission() {
+            if (mHasSetupWizardPermission == null) {
+                // If there is no cached result, perform the check now.
+                mHasSetupWizardPermission = checkSetupWizardPermission(mCallingPid, mCallingUid);
+            }
+            return mHasSetupWizardPermission;
+        }
     }
 
     private static boolean shouldRedact(@NetworkCapabilities.RedactionType long redactions,
@@ -2397,6 +2411,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (shouldRedact(redactions, REDACT_FOR_NETWORK_SETTINGS)) {
             if (redactionPermissionChecker.hasSettingsPermission()) {
                 redactions &= ~REDACT_FOR_NETWORK_SETTINGS;
+            }
+        }
+        if (shouldRedact(redactions, REDACT_FOR_NETWORK_SETTINGS_OR_SETUP_WIZARD)) {
+            if (redactionPermissionChecker.hasSettingsPermission()
+                    || redactionPermissionChecker.hasSetupWizardPermission()) {
+                redactions &= ~REDACT_FOR_NETWORK_SETTINGS_OR_SETUP_WIZARD;
             }
         }
         return redactions;
@@ -2918,6 +2938,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 android.Manifest.permission.NETWORK_SETTINGS, pid, uid)
                 || PERMISSION_GRANTED == mContext.checkPermission(
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK, pid, uid);
+    }
+
+    private boolean checkSetupWizardPermission(int pid, int uid) {
+        return PERMISSION_GRANTED == mContext.checkPermission(
+                android.Manifest.permission.NETWORK_SETUP_WIZARD, pid, uid);
     }
 
     private void enforceNetworkStackOrSettingsPermission() {

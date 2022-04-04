@@ -114,6 +114,19 @@ public final class NetworkCapabilities implements Parcelable {
     public static final long REDACT_FOR_NETWORK_SETTINGS = 1 << 2;
 
     /**
+     *
+     * Redact any fields that need {@link android.Manifest.permission#NETWORK_SETTINGS}
+     * permission or {@link android.Manifest.permission#NETWORK_SETUP_WIZARD} permission since the
+     * receiving app does not hold either permission.
+     *
+     * @see android.Manifest.permission#NETWORK_SETTINGS
+     * @see android.Manifest.permission#NETWORK_SETUP_WIZARD
+     * @hide
+     */
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    public static final long REDACT_FOR_NETWORK_SETTINGS_OR_SETUP_WIZARD = 1 << 3;
+
+    /**
      * Redact all fields in this object that require any relevant permission.
      * @hide
      */
@@ -126,6 +139,7 @@ public final class NetworkCapabilities implements Parcelable {
             REDACT_FOR_ACCESS_FINE_LOCATION,
             REDACT_FOR_LOCAL_MAC_ADDRESS,
             REDACT_FOR_NETWORK_SETTINGS,
+            REDACT_FOR_NETWORK_SETTINGS_OR_SETUP_WIZARD,
             REDACT_ALL
     })
     @Retention(RetentionPolicy.SOURCE)
