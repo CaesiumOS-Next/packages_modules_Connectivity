@@ -47,6 +47,7 @@ import android.os.Looper;
 import android.os.RemoteException;
 import android.text.TextUtils;
 import android.util.AndroidRuntimeException;
+import android.util.ArraySet;
 import android.util.Log;
 import android.util.SparseArray;
 
@@ -57,6 +58,7 @@ import com.android.net.module.util.InterfaceParams;
 
 import java.io.FileDescriptor;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -382,12 +384,14 @@ public class EthernetNetworkFactory extends NetworkFactory {
         private final Context mContext;
         private final NetworkProvider mNetworkProvider;
         private final Dependencies mDeps;
+        private final NetworkProvider.NetworkOfferCallback mNetworkOfferCallback;
 
         private static String sTcpBufferSizes = null;  // Lazy initialized.
 
         private boolean mLinkUp;
         private int mLegacyType;
         private LinkProperties mLinkProperties = new LinkProperties();
+        private Set<NetworkRequest> mRequests = new ArraySet<>();
 
         private volatile @Nullable IpClientManager mIpClient;
         private @NonNull NetworkCapabilities mCapabilities;
@@ -488,6 +492,28 @@ public class EthernetNetworkFactory extends NetworkFactory {
             }
         }
 
+        private class EthernetNetworkOfferCallback implements NetworkProvider.NetworkOfferCallback {
+            @Override
+            public void onNetworkNeeded(@NonNull NetworkRequest request) {
+                // When the network offer is first registered, onNetworkNeeded is called with all
+                // existing requests.
+                // ConnectivityService filters requests for us based on the NetworkCapabilities
+                // passed in the registerNetworkOffer() call.
+                mRequests.add(request);
+                // if the network is already started, this is a no-op.
+                start();
+            }
+
+            @Override
+            public void onNetworkUnneeded(@NonNull NetworkRequest request) {
+                mRequests.remove(request);
+                if (mRequests.isEmpty()) {
+                    // not currently serving any requests, stop the network.
+                    stop();
+                }
+            }
+        }
+
         NetworkInterfaceState(String ifaceName, String hwAddress, Handler handler, Context context,
                 @NonNull IpConfiguration ipConfig, @NonNull NetworkCapabilities capabilities,
                 NetworkProvider networkProvider, Dependencies deps) {
@@ -499,6 +525,7 @@ public class EthernetNetworkFactory extends NetworkFactory {
             mContext = context;
             mNetworkProvider = networkProvider;
             mDeps = deps;
+            mNetworkOfferCallback = new EthernetNetworkOfferCallback();
             mHwAddress = hwAddress;
         }
 
