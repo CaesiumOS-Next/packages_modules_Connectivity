@@ -1,0 +1,75 @@
+//
+// Copyright (C) 2022 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+package {
+    // See: http://go/android-license-faq
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+cc_library_shared {
+    name: "libcom.android.tethering.connectivity",
+    srcs: [
+        "src/**/*.cpp",
+    ],
+    sdk_version: "current",
+    min_sdk_version: "30",
+    static_libs: [
+        "connectivity_native_aidl_interface-ndk",
+    ],
+    export_include_dirs: ["include"],
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-Wno-error=deprecated-declarations",
+    ],
+
+    shared_libs: [
+        "libbinder_ndk",
+    ],
+    stubs: {
+        symbol_file: "libconnectivity_native.map.txt",
+        versions: [
+            "current",
+        ],
+    },
+    header_abi_checker: {
+        enabled: true,
+        symbol_file: "libconnectivity_native.map.txt",
+    },
+    apex_available: [
+        "com.android.tethering",
+    ],
+}
+
+// Below should be in /vendor, and added to PRODUCT_PACKAGES (b/187806226#comment19)
+linker_config {
+    name: "test_connectivity_vendor_user_linkerconfig",
+    src: "testbinary/vendor.linker.config.json",
+    vendor: true,
+}
+
+// Below should also be in /vendor and added to PRODUCT_PACKAGES
+cc_binary {
+    name: "test_connectivity_vendor_user",
+    srcs: ["testbinary/**/*.cpp"],
+    vendor: true,
+    proprietary: true,
+    sdk_version: "current",
+    shared_libs: [
+        "libcom.android.tethering.connectivity",
+        "liblog",
+    ],
+}

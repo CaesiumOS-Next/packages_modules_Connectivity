@@ -22,7 +22,6 @@ package {
 aidl_interface {
     name: "connectivity_native_aidl_interface",
     local_include_dir: "binder",
-    vendor_available: true,
     srcs: [
         "binder/android/net/connectivity/aidl/*.aidl",
     ],
@@ -40,31 +39,7 @@ aidl_interface {
             min_sdk_version: "30",
         },
     },
-    versions: ["1"],
-
-}
-
-cc_library_static {
-    name: "connectivity_native_aidl_interface-lateststable-ndk",
-    min_sdk_version: "30",
-    whole_static_libs: [
-        "connectivity_native_aidl_interface-V1-ndk",
-    ],
-    apex_available: [
-        "com.android.tethering",
-    ],
-}
-
-java_library {
-    name: "connectivity_native_aidl_interface-lateststable-java",
-    sdk_version: "system_current",
-    min_sdk_version: "30",
-    static_libs: [
-        "connectivity_native_aidl_interface-V1-java",
-    ],
-    apex_available: [
-        "com.android.tethering",
-    ],
+    unstable: true,
 }
 
 // The library name match the service-connectivity jarjar rules that put the JNI utils in the
@@ -158,7 +133,7 @@ java_library {
     static_libs: [
         // Do not add libs here if they are already included
         // in framework-connectivity
-        "connectivity_native_aidl_interface-lateststable-java",
+        "connectivity_native_aidl_interface-java",
         "dnsresolver_aidl_interface-V9-java",
         "modules-utils-shell-command-handler",
         "net-utils-device-common",

@@ -20,7 +20,7 @@ cc_test {
         "libprocessgroup",
     ],
     static_libs: [
-        "connectivity_native_aidl_interface-lateststable-ndk",
+        "connectivity_native_aidl_interface-ndk",
         "libcutils",
         "libmodules-utils-build",
         "libutils",
