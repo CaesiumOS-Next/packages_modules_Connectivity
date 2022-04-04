@@ -156,6 +156,7 @@ package android.net {
     field public static final long REDACT_FOR_ACCESS_FINE_LOCATION = 1L; // 0x1L
     field public static final long REDACT_FOR_LOCAL_MAC_ADDRESS = 2L; // 0x2L
     field public static final long REDACT_FOR_NETWORK_SETTINGS = 4L; // 0x4L
+    field public static final long REDACT_FOR_NETWORK_SETUP_WIZARD = 8L; // 0x8L
     field public static final long REDACT_NONE = 0L; // 0x0L
     field public static final int TRANSPORT_TEST = 7; // 0x7
   }
