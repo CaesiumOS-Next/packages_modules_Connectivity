@@ -55,7 +55,9 @@ apex {
                 "libservice-connectivity",
                 "libandroid_net_connectivity_com_android_net_module_util_jni",
             ],
-            native_shared_libs: ["libnetd_updatable"],
+            native_shared_libs: [
+                "libnetd_updatable",
+            ],
         },
         both: {
             jni_libs: [
@@ -64,6 +66,9 @@ apex {
             ],
         },
     },
+    native_shared_libs: [
+        "libcom.android.tethering.connectivity_native",
+    ],
     binaries: [
         "clatd",
     ],

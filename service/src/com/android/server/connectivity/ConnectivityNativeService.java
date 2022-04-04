@@ -145,16 +145,6 @@ public class ConnectivityNativeService extends ConnectivityNative.Stub {
         return CollectionUtils.toIntArray(portMap);
     }
 
-    @Override
-    public int getInterfaceVersion() {
-        return this.VERSION;
-    }
-
-    @Override
-    public String getInterfaceHash() {
-        return this.HASH;
-    }
-
     /**
      * Attach BPF program
      */
