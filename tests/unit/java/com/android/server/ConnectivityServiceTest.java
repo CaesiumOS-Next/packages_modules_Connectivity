@@ -124,6 +124,7 @@ import static android.net.NetworkCapabilities.NET_ENTERPRISE_ID_5;
 import static android.net.NetworkCapabilities.REDACT_FOR_ACCESS_FINE_LOCATION;
 import static android.net.NetworkCapabilities.REDACT_FOR_LOCAL_MAC_ADDRESS;
 import static android.net.NetworkCapabilities.REDACT_FOR_NETWORK_SETTINGS;
+import static android.net.NetworkCapabilities.REDACT_FOR_NETWORK_SETUP_WIZARD;
 import static android.net.NetworkCapabilities.REDACT_NONE;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
@@ -11337,6 +11338,25 @@ public class ConnectivityServiceTest {
 
         final TransportInfo transportInfo = mock(TransportInfo.class);
         doReturn(REDACT_FOR_ACCESS_FINE_LOCATION | REDACT_FOR_NETWORK_SETTINGS)
+                .when(transportInfo).getApplicableRedactions();
+        final NetworkCapabilities netCap =
+                new NetworkCapabilities().setTransportInfo(transportInfo);
+
+        mService.createWithLocationInfoSanitizedIfNecessaryWhenParceled(
+                netCap, false /* includeLocationSensitiveInfoInTransportInfo */,
+                Process.myPid(), Process.myUid(),
+                mContext.getPackageName(), getAttributionTag());
+        // don't redact NETWORK_SETTINGS fields, only location sensitive fields.
+        verify(transportInfo).makeCopy(REDACT_FOR_ACCESS_FINE_LOCATION);
+    }
+
+    @Test
+    public void testCreateForCallerWithLocalMacAddressSanitizedWithSetupWizardPermission()
+            throws Exception {
+        mServiceContext.setPermission(NETWORK_SETUP_WIZARD, PERMISSION_GRANTED);
+
+        final TransportInfo transportInfo = mock(TransportInfo.class);
+        doReturn(REDACT_FOR_ACCESS_FINE_LOCATION | REDACT_FOR_NETWORK_SETUP_WIZARD)
                 .when(transportInfo).getApplicableRedactions();
         final NetworkCapabilities netCap =
                 new NetworkCapabilities().setTransportInfo(transportInfo);
