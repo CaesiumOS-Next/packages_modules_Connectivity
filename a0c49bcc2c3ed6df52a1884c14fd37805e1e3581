@@ -16,6 +16,23 @@
       "message": "Trying again with merged-in.",
       "revId": "a0c49bcc2c3ed6df52a1884c14fd37805e1e3581",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74567ae0_22b722d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2022-04-04T17:50:14Z",
+      "side": 1,
+      "message": "Ping.",
+      "revId": "a0c49bcc2c3ed6df52a1884c14fd37805e1e3581",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
