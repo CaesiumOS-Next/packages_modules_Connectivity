@@ -33,6 +33,23 @@
       "message": "Ping.",
       "revId": "a0c49bcc2c3ed6df52a1884c14fd37805e1e3581",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98499778_4121030d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-06T03:16:10Z",
+      "side": 1,
+      "message": "LGTM, but can you fix the tabs as well, like you did in ag/17293708? Otherwise this CL will cause merge conflicts in the futute.",
+      "revId": "a0c49bcc2c3ed6df52a1884c14fd37805e1e3581",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
