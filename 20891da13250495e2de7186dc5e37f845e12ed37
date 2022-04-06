@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60c388ac_69a76302",
+        "filename": "tests/common/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-06T10:36:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5c3e3df_7ddd7c65",
+      "revId": "20891da13250495e2de7186dc5e37f845e12ed37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "283e4cfa_59a2e50b",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-04-06T09:25:49Z",
       "side": 1,
       "message": "I think this is out-of-date ? Could be removed in a followup",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 78
+      },
+      "revId": "20891da13250495e2de7186dc5e37f845e12ed37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "074a2ea4_1d4434b0",
+        "filename": "tests/common/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-06T10:36:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "283e4cfa_59a2e50b",
       "range": {
         "startLine": 62,
         "startChar": 2,
