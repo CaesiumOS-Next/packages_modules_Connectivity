@@ -57,3 +57,23 @@ cc_library_shared {
         "com.android.tethering",
     ],
 }
+
+// Below should be in /vendor, and added to PRODUCT_PACKAGES (b/187806226#comment19)
+linker_config {
+    name: "test_connectivity_vendor_user_linkerconfig",
+    src: "testbinary/vendor.linker.config.json",
+    vendor: true,
+}
+
+// Below should also be in /vendor and added to PRODUCT_PACKAGES
+cc_binary {
+    name: "test_connectivity_vendor_user",
+    srcs: ["testbinary/**/*.cpp"],
+    vendor: true,
+    proprietary: true,
+    sdk_version: "current",
+    shared_libs: [
+        "libcom.android.tethering.connectivity_native",
+        "liblog",
+    ],
+}
