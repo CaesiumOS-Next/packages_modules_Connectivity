@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0f72c63_be053a57",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-06T06:17:09Z",
+      "side": 1,
+      "message": "did you try to run this in Q?",
+      "range": {
+        "startLine": 22,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 39
+      },
+      "revId": "3706eb8efb686a4affb68ebb3495de9283118ce7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7002bea_98f227ed",
+        "filename": "tests/cts/netpermission/internetpermission/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-06T06:17:09Z",
+      "side": 1,
+      "message": "Maybe not in this commit. Do you want add this to be a part of mts?\n\nDitto for CtsNetTestCasesUpdateStatsPermission",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 28,
+        "endChar": 16
+      },
+      "revId": "3706eb8efb686a4affb68ebb3495de9283118ce7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bccd0e0_4ec0172d",
+        "filename": "tests/cts/netpermission/internetpermission/TEST_MAPPING",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-06T06:17:09Z",
+      "side": 1,
+      "message": "Q: I wonder if we could directly put this in presubmit directly though it was in presubmit when it\u0027s under cts/. If you ran the test with possible candidates(T to Q), maybe it\u0027s ok?",
+      "range": {
+        "startLine": 2,
+        "startChar": 3,
+        "endLine": 2,
+        "endChar": 12
+      },
+      "revId": "3706eb8efb686a4affb68ebb3495de9283118ce7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8ee4417_990201b3",
+        "filename": "tests/cts/netpermission/updatestatspermission/src/android/net/cts/network/permission/UpdateStatsPermissionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-06T06:17:09Z",
+      "side": 1,
+      "message": "Not caused by this change\nNit: an",
+      "range": {
+        "startLine": 51,
+        "startChar": 41,
+        "endLine": 51,
+        "endChar": 42
+      },
+      "revId": "3706eb8efb686a4affb68ebb3495de9283118ce7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
