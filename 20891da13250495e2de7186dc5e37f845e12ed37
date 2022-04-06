@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5c3e3df_7ddd7c65",
+        "filename": "tests/common/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-06T09:25:49Z",
+      "side": 1,
+      "message": "Some of these files don\u0027t end with a line break I think, which would cause them to miss the first jarjar rule in the next file if the last line was a comment.\n\nI think the command can be changed to something like:\n\n  for src in $(in); do cat $src; echo; done \u003e $(out)\n\nCould be in a followup if TH is happy with this change (tests still passing).\n\nWhen doing that I suspect Tethering/tests/jarjar-rules.txt may need an addition after its list of com.android.internal.util classes:\n\n  rule com.android.internal.util.** @0\n\nSo that other com.android.internal.util classes are not jarjared (otherwise NetworkStack jarjar rules would jarjar them, as the first rule in that file).",
+      "revId": "20891da13250495e2de7186dc5e37f845e12ed37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "283e4cfa_59a2e50b",
+        "filename": "tests/common/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-06T09:25:49Z",
+      "side": 1,
+      "message": "I think this is out-of-date ? Could be removed in a followup",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 78
+      },
+      "revId": "20891da13250495e2de7186dc5e37f845e12ed37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
