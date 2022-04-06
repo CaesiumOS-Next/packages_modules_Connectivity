@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa7a37c1_17a6d18a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-06T06:27:28Z",
+      "side": 1,
+      "message": "I hope to merge this ASAP to ensure the bluetooth work can proceed without needing to make NETWORK_FACTORY a role permission.\n\nIn parallel I\u0027ve uploaded ag/17607965 to make this a module-lib API in U. Once that is in we can add a shim for the permission string and update the code in this CL to check for BLUETOOTH_STACK instead of for the UID.",
+      "revId": "d12af7ebfe160218418992e71a5da0f901fb4ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
