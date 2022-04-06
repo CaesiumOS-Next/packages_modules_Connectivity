@@ -55,8 +55,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.IOException;
 import java.net.Inet6Address;
 import java.net.NetworkInterface;
+import java.util.ArrayList;
 
 
 @AppModeFull(reason = "Instant apps cannot access /dev/tap, so createTapInterface fails")
@@ -72,39 +74,60 @@ public class EthernetNetworkTest {
 
     private Handler mHandler;
     private Context mContext;
-    private TestNetworkManager mNetworkManager;
-    private TestNetworkInterface mTapInterface;
     private ConnectivityManager mCm;
     private EthernetManagerShim mEthernetManager;
-    private TapPacketReader mPacketReader;
-    private RouterAdvertisementResponder mRaResponder;
 
     private final TestableNetworkCallback mNetworkCb = new TestableNetworkCallback();
+    private final ArrayList<EthernetTestInterface> mTestInterfaces = new ArrayList<>();
+
+    private static class EthernetTestInterface {
+        private final Handler mHandler;
+        private TestNetworkInterface mTapInterface;
+        private final TapPacketReader mPacketReader;
+        private final RouterAdvertisementResponder mRaResponder;
+
+        EthernetTestInterface(Context context, Handler handler) throws IOException {
+            mHandler = handler;
+            runAsShell(MANAGE_TEST_NETWORKS, () -> {
+                mTapInterface = context.getSystemService(
+                        TestNetworkManager.class).createTapInterface();
+            });
+            NetworkInterface iface = NetworkInterface.getByName(mTapInterface.getInterfaceName());
+            mPacketReader = new TapPacketReader(mHandler,
+                    mTapInterface.getFileDescriptor().getFileDescriptor(), iface.getMTU());
+            mRaResponder = new RouterAdvertisementResponder(mPacketReader);
+            mRaResponder.addRouterEntry(MacAddress.fromString("01:23:45:67:89:ab"),
+                    (Inet6Address) InetAddresses.parseNumericAddress("fe80::abcd"));
+        }
+
+        public void init() {
+            mPacketReader.startAsyncForTest();
+            mRaResponder.start();
+        }
+
+        public void destroy() {
+            mRaResponder.stop();
+            mHandler.post(() -> mPacketReader.stop());
+        }
+
+        public String getInterfaceName() {
+            return mTapInterface.getInterfaceName();
+        }
+    }
+
+    private EthernetTestInterface createTestInterface() throws IOException {
+        EthernetTestInterface iface = new EthernetTestInterface(mContext, mHandler);
+        iface.init();
+        mTestInterfaces.add(iface);
+        return iface;
+    }
 
     @Before
     public void setUp() throws Exception {
         mHandler = new Handler(Looper.getMainLooper());
         mContext = getContext();
-
-        runAsShell(MANAGE_TEST_NETWORKS, () -> {
-            mNetworkManager = mContext.getSystemService(TestNetworkManager.class);
-            mTapInterface = mNetworkManager.createTapInterface();
-        });
-
         mCm = mContext.getSystemService(ConnectivityManager.class);
         mEthernetManager = EthernetManagerShimImpl.newInstance(mContext);
-
-        NetworkInterface iface = NetworkInterface.getByName(mTapInterface.getInterfaceName());
-        mPacketReader = new TapPacketReader(mHandler,
-                mTapInterface.getFileDescriptor().getFileDescriptor(),
-                iface.getMTU());
-        mRaResponder = new RouterAdvertisementResponder(mPacketReader);
-        mRaResponder.addRouterEntry(MacAddress.fromString("01:23:45:67:89:ab"),
-                (Inet6Address) InetAddresses.parseNumericAddress("fe80::abcd"));
-
-        mPacketReader.startAsyncForTest();
-        mRaResponder.start();
-
         mCm.registerNetworkCallback(ETH_REQUEST, mNetworkCb);
     }
 
@@ -113,9 +136,9 @@ public class EthernetNetworkTest {
         setIncludeTestInterfaces(false);
 
         if (mCm != null) mCm.unregisterNetworkCallback(mNetworkCb);
-        if (mRaResponder != null) mRaResponder.stop();
-        if (mPacketReader != null) mHandler.post(() -> mPacketReader.stop());
-        if (mTapInterface != null) mTapInterface.getFileDescriptor().close();
+        for (EthernetTestInterface iface : mTestInterfaces) {
+            iface.destroy();
+        }
     }
 
     private void setIncludeTestInterfaces(boolean value) {
@@ -136,7 +159,8 @@ public class EthernetNetworkTest {
     }
 
     @Test
-    public void testEthernetWithSingleRequest() {
+    public void testEthernetWithSingleRequest() throws Exception {
+        createTestInterface();
         setIncludeTestInterfaces(true);
 
         TestableNetworkCallback networkCb = new TestableNetworkCallback();
@@ -148,7 +172,8 @@ public class EthernetNetworkTest {
     }
 
     @Test
-    public void testEthernetWithMultipleRequests() {
+    public void testEthernetWithMultipleRequests() throws Exception {
+        createTestInterface();
         TestableNetworkCallback firstRequestCb = new TestableNetworkCallback();
         mCm.requestNetwork(ETH_REQUEST, firstRequestCb);
         // wait some time to make sure ethernet-service has received the network request before
