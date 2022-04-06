@@ -25,6 +25,7 @@ import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
 import static com.android.testutils.TestableNetworkCallbackKt.anyNetwork;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import android.content.Context;
@@ -146,4 +147,29 @@ public class EthernetNetworkTest {
         expectNetworkLost(n);
     }
 
+    @Test
+    public void testEthernetWithMultipleRequests() {
+        TestableNetworkCallback firstRequestCb = new TestableNetworkCallback();
+        mCm.requestNetwork(ETH_REQUEST, firstRequestCb);
+        // wait some time to make sure ethernet-service has received the network request before
+        // including the test interfaces.
+        firstRequestCb.assertNoCallback(1000 /*timeout*/);
+        setIncludeTestInterfaces(true);
+
+        TestableNetworkCallback secondRequestCb = new TestableNetworkCallback();
+        mCm.requestNetwork(ETH_REQUEST, secondRequestCb);
+
+        // both requests should serve the same network
+        Network firstNetwork = expectNetworkForRequestAvailable(firstRequestCb);
+        Network secondNetwork = expectNetworkForRequestAvailable(secondRequestCb);
+        assertEquals(firstNetwork, secondNetwork);
+
+        // remove one request and assert that the second request still serves the network.
+        mCm.unregisterNetworkCallback(firstRequestCb);
+        secondRequestCb.assertNoCallbackThat(5000 /*timeout*/,
+                (c) -> c instanceof CallbackEntry.Lost);
+
+        mCm.unregisterNetworkCallback(secondRequestCb);
+        expectNetworkLost(secondNetwork);
+    }
 }
