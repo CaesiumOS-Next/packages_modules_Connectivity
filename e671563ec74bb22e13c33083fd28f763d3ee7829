@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ff3eead_bf9914bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2022-04-06T18:23:11Z",
+      "side": 1,
+      "message": "Thank you for the fix.",
+      "revId": "e671563ec74bb22e13c33083fd28f763d3ee7829",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73916e15_71574dea",
+        "filename": "tests/cts/hostside/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2022-04-06T18:23:11Z",
+      "side": 1,
+      "message": "Could you also add \"CtsHostsideNetworkTestsApp\"?",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 22
+      },
+      "revId": "e671563ec74bb22e13c33083fd28f763d3ee7829",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
