@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5820496_ad86bc0b",
+        "filename": "service/libconnectivity/include/connectivity_native.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1006497
+      },
+      "writtenOn": "2022-04-06T11:40:25Z",
+      "side": 1,
+      "message": "nit: Generally names should be camelCase not PascalCase\n\nSo this should be `AConnectivityNative_blockPortForBind`, etc.",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 40
+      },
+      "revId": "de1ea158c7d772f60b46d7aa9937a7a0d4fa6102",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6dac1f3_731a90d3",
+        "filename": "service/libconnectivity/include/connectivity_native.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1006497
+      },
+      "writtenOn": "2022-04-06T11:40:25Z",
+      "side": 1,
+      "message": "Does the int type come from a kernel interface?\n\nTypically we recommend using fixed size types (e.g. `int32_t`): https://g3doc.corp.google.com/company/teams/android-api-council/ndk_guidelines.md?cl\u003dhead#fixed-size-types",
+      "range": {
+        "startLine": 40,
+        "startChar": 43,
+        "endLine": 40,
+        "endChar": 46
+      },
+      "revId": "de1ea158c7d772f60b46d7aa9937a7a0d4fa6102",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb7e7474_1448149a",
+        "filename": "service/libconnectivity/include/connectivity_native.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1006497
+      },
+      "writtenOn": "2022-04-06T11:40:25Z",
+      "side": 1,
+      "message": "Please document the return value for all of these methods. I\u0027m assuming it\u0027s an error code, which has the following guideline:\n\n\n```\nIf error return codes are being used, all possible errors must be listed as well, akin to how the man pages do.\n\nIf your API returns an errno that is produced by a libc call in the implementation, you may link the relevant man7.org page rather than listing every possible errno explicitly, but do be specific about the circumstances when it is not clear. For example, if an API that doesn\u0027t obviously require any permissions can return EPERM, you must explain the conditions that will return EPERM.\n```\n\nhttps://g3doc.corp.google.com/company/teams/android-api-council/ndk_guidelines.md?cl\u003dhead#well-documented",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 3
+      },
+      "revId": "de1ea158c7d772f60b46d7aa9937a7a0d4fa6102",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "677c6e27_492987c2",
+        "filename": "service/libconnectivity/include/connectivity_native.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1006497
+      },
+      "writtenOn": "2022-04-06T11:40:25Z",
+      "side": 1,
+      "message": "nit: count should be size_t\n\nhttps://g3doc.corp.google.com/company/teams/android-api-council/ndk_guidelines.md?cl\u003dhead#fixed-size-types",
+      "range": {
+        "startLine": 54,
+        "startChar": 59,
+        "endLine": 54,
+        "endChar": 62
+      },
+      "revId": "de1ea158c7d772f60b46d7aa9937a7a0d4fa6102",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
