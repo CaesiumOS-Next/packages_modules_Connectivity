@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f570afe_264084df",
+        "filename": "service/libconnectivity/src/connectivity_native.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-06T10:20:19Z",
+      "side": 1,
+      "message": "Per discussion, since this is C++ you can probably make this static and rely on C++\u0027s implicit locking for static initializers?",
+      "range": {
+        "startLine": 32,
+        "startChar": 45,
+        "endLine": 32,
+        "endChar": 57
+      },
+      "revId": "8dbf8344db9f501c77d15fe0ef194e6acc766f9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
