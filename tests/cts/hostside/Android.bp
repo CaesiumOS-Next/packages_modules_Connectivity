@@ -34,4 +34,8 @@ java_test_host {
         "general-tests",
         "sts"
     ],
+    target_required: [
+        "CtsHostsideNetworkTestsApp2",
+        "CtsHostsideNetworkTestsAppNext",
+    ],
 }
