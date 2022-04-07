@@ -230,10 +230,12 @@ public final class CtsNetUtils {
 
             // Ensure we get an onAvailable callback and possibly a CONNECTIVITY_ACTION.
             wifiNetwork = callback.waitForAvailable();
-            assertNotNull("onAvailable callback not received after connecting to " + config.SSID,
+            assertNotNull("onAvailable callback not received after " +
+                    ((config == null)? "expecting to autojoin" : "connecting to " + config.SSID),
                     wifiNetwork);
             if (expectLegacyBroadcast) {
-                assertTrue("CONNECTIVITY_ACTION not received after connecting to " + config.SSID,
+                assertTrue("CONNECTIVITY_ACTION not received after " +
+                        ((config == null)? "expecting to autojoin" : "connecting to " + config.SSID),
                         receiver.waitForState());
             }
         } catch (InterruptedException ex) {
@@ -247,6 +249,9 @@ public final class CtsNetUtils {
     }
 
     private void connectToWifiConfig(WifiConfiguration config) {
+        if (config == null) {
+            return;
+        }
         for (int i = 0; i < MAX_WIFI_CONNECT_RETRIES; i++) {
             final Integer error = runAsShell(NETWORK_SETTINGS, () -> {
                 final ConnectWifiListener listener = new ConnectWifiListener();
@@ -312,7 +317,7 @@ public final class CtsNetUtils {
                     s -> "\"" + s.SSID + "\"").collect(Collectors.toSet());
 
             return configs.stream().filter(c -> scanResults.contains(c.SSID))
-                    .findFirst().orElse(configs.get(0));
+                    .findFirst().orElse(null);
         }
         return configs.get(0);
     }
