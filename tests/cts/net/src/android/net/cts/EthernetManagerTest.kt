@@ -42,7 +42,6 @@ import android.net.cts.EthernetManagerTest.EthernetStateListener.CallbackEntry.I
 import android.os.Handler
 import android.os.HandlerExecutor
 import android.os.Looper
-import com.android.networkstack.apishim.common.EthernetManagerShim.InterfaceStateListener
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_ABSENT
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_LINK_DOWN
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_LINK_UP
@@ -53,6 +52,7 @@ import com.android.testutils.RouterAdvertisementResponder
 import com.android.testutils.TapPacketReader
 import com.android.testutils.waitForIdle
 import java.net.Inet6Address
+import com.android.networkstack.apishim.api30.InterfaceStateListenerShim
 import java.util.concurrent.Executor
 import kotlin.test.assertFalse
 import kotlin.test.assertEquals
@@ -75,7 +75,7 @@ class EthernetManagerTest {
     private val em by lazy { EthernetManagerShimImpl.newInstance(context) }
 
     private val createdIfaces = ArrayList<EthernetTestInterface>()
-    private val addedListeners = ArrayList<InterfaceStateListener>()
+    private val addedListeners = ArrayList<InterfaceStateListenerShim>()
 
     private class EthernetTestInterface(
         context: Context,
@@ -110,7 +110,7 @@ class EthernetManagerTest {
 
     private open class EthernetStateListener private constructor(
         private val history: ArrayTrackRecord<CallbackEntry>
-    ) : InterfaceStateListener,
+    ) : InterfaceStateListenerShim,
                 TrackRecord<EthernetStateListener.CallbackEntry> by history {
         constructor() : this(ArrayTrackRecord())
 
