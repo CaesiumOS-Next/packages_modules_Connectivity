@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0309944c_9f7be935",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-07T14:58:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae164e25_0615bfa2",
+      "range": {
+        "startLine": 19,
+        "startChar": 20,
+        "endLine": 19,
+        "endChar": 21
+      },
+      "revId": "190414c997c2274fc40bf8f88f3d7c7dfe6ace57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1fd9efac_fdc07552",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-07T14:30:13Z",
       "side": 1,
       "message": "It\u0027s not clear why we do not store the permission for each uid. do you want to also explain this is design limitation(?) in native side?",
+      "range": {
+        "startLine": 20,
+        "startChar": 28,
+        "endLine": 21,
+        "endChar": 59
+      },
+      "revId": "190414c997c2274fc40bf8f88f3d7c7dfe6ace57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "918f5ef7_481410c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-07T14:58:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1fd9efac_fdc07552",
       "range": {
         "startLine": 20,
         "startChar": 28,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c36181ce_911f55ab",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-07T14:58:24Z",
+      "side": 1,
+      "message": "\u003e You add UserHandle.ALL(-1) into mUsersTrafficPermissions when PermissionMonitor starts to monitor. Then add/remove specific user when the user add/remove. I think the UserHandle.ALL will never be removed. Does this mean even all users are removed the permission will still stay since mUsersTrafficPermissions will at least contain UserHandle.ALL and at least one user(UserHandle.ALL) is still available?\n\nYes and no. These syste traffic permission should be always there because it\u0027s native service permission actually.\nDevice will have primary user(UserHandle.SYSTEM) at least. Put these permission to UserHandle.SYSTEM might be a another choice but it will make the design more complicated because we need to consider the permission overwritten problem. So I think put these permission to UserHandle.ALL should be a simple solution. \n\n\u003e If this is true, it seems that add/remove other user is not important at all. The result is sort of decided by the UserHandle.ALL.\nOnly few appIds will apply these permissions. You can refer to frameworks/base/data/etc/platform.xml",
+      "parentUuid": "fd02906b_b18d5bfd",
+      "range": {
+        "startLine": 394,
+        "startChar": 37,
+        "endLine": 394,
+        "endChar": 51
+      },
+      "revId": "190414c997c2274fc40bf8f88f3d7c7dfe6ace57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ea9123c_f6bba916",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 4
@@ -83,6 +155,30 @@
       "writtenOn": "2022-04-07T14:30:13Z",
       "side": 1,
       "message": "If device boot up with user A available, will onUserAdded() trigger?\n\nThe answer might be positive since it\u0027s assume mUsersTrafficPermissions will always be able to get the userTrafficPerms for the given user?",
+      "range": {
+        "startLine": 685,
+        "startChar": 8,
+        "endLine": 685,
+        "endChar": 39
+      },
+      "revId": "190414c997c2274fc40bf8f88f3d7c7dfe6ace57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc874902_cc62b111",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-07T14:58:24Z",
+      "side": 1,
+      "message": "\u003e If device boot up with user A available, will onUserAdded() trigger?\n\u003e \n\u003e The answer might be positive since it\u0027s assume mUsersTrafficPermissions will always be able to get the userTrafficPerms for the given user?\nYes. Please see l.399.\nThis is just a protection to prevent receiving incorrect uid.(user has been removed maybe)",
+      "parentUuid": "0ea9123c_f6bba916",
       "range": {
         "startLine": 685,
         "startChar": 8,
