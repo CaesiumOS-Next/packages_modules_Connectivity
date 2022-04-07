@@ -45,6 +45,30 @@
       },
       "revId": "e8e8fdcd5af524f2c0d6cdf19c60b6fdac121eb7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cb97045_216d351f",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-04-07T07:34:43Z",
+      "side": 1,
+      "message": "This test is flaky now, I\u0027m trying to figure out what\u0027s going on. 😞\nCurrently, I found that the VPN interface will be removed immediately after VPN is connected.\nWhich will cause mVpnRunner being reset, and NPE will happen when calling \"profileState.getState()\" since Vpn#getProvisionedVpnProfileState() returns null.",
+      "parentUuid": "57efa123_bd70201a",
+      "range": {
+        "startLine": 482,
+        "startChar": 0,
+        "endLine": 482,
+        "endChar": 84
+      },
+      "revId": "e8e8fdcd5af524f2c0d6cdf19c60b6fdac121eb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
