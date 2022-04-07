@@ -20,7 +20,7 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 
-import static com.android.networkstack.apishim.common.ShimUtils.isAtLeastS;
+import static com.android.modules.utils.build.SdkLevel.isAtLeastS;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
