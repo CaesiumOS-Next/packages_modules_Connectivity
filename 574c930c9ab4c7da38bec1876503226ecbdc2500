@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c38b5f32_85948ac3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-07T15:33:03Z",
+      "side": 1,
+      "message": "LGTM but see inline comments. The only substantive one is whether it actually makes sense to add a new test file since we already have EthernetManagerTest. I think it might be better to fold these test methods into the existing test instead, as it will reduce code duplication down the road.",
+      "revId": "574c930c9ab4c7da38bec1876503226ecbdc2500",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "992e3cc2_0ead29b4",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetNetworkTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-07T15:33:03Z",
+      "side": 1,
+      "message": "Why add a new test instead of adding new test methods to the existing EthernetManagerTest? If we make these separate files I think that will lead to code duplication down the line as we realize that both tests need similar helper methods. Also kotlin is nicer to use for tests once you\u0027ve written a couple of them.",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 32
+      },
+      "revId": "574c930c9ab4c7da38bec1876503226ecbdc2500",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bf30839_568225d0",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetNetworkTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-07T15:33:03Z",
+      "side": 1,
+      "message": "This is fine but more usually we indent such code like this:\n\n    private static final NetworkRequest ETH_REQUEST \u003d new NetworkRequest.Builder()\n             .addTransportType(TRANSPORT_TEST)\n             .addTransportType(TRANSPORT_ETHERNET)\n             ...\n             .build();",
+      "range": {
+        "startLine": 66,
+        "startChar": 82,
+        "endLine": 66,
+        "endChar": 100
+      },
+      "revId": "574c930c9ab4c7da38bec1876503226ecbdc2500",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e45e6d7_60d84a05",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetNetworkTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-07T15:33:03Z",
+      "side": 1,
+      "message": "Consider removing \"NetworkCapabilities.\" by doing:\n\nimport static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;\nimport static android.net.NetworkCapabilities.TRANSPORT_TEST;",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 50
+      },
+      "revId": "574c930c9ab4c7da38bec1876503226ecbdc2500",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a44d2f0d_f5961080",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetNetworkTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-07T15:33:03Z",
+      "side": 1,
+      "message": "Is it a problem if this close() call wins the race against the \"mPacketReader.stop()\" lambda just posted above? If so, you might want to run both the stop and the close from the lambda.\n\nAlternatively, does PacketReader stop cleanly when its fd is closed? I think it might because FdEventsReader#handleInput will log but not throw if read throws an exception. I think read is guaranteed to throw an exception if the fd is closed while it\u0027s running; this is not how linux behaves but Java/Android require it. See AsynchronousCloseMonitor and its users. Not sure if AsynchronousCloseMonitor will cause poll to fail though.\n\nAll that said - it seems simplest here to do teardown just by using mPacketReader.stop(), since I think that will close the fd. So maybe something like this?\n\n    if (mPacketReader !\u003d null) {\n        mHandler.post(() -\u003e mPacketReader.stop());  // Also closes the fd.\n    } else if (mTapInterface !\u003d null) {\n        mTapInterface.getFileDescriptor().close();\n    }\n\nThis seems way too difficult to get right. What do other tests do?",
+      "range": {
+        "startLine": 117,
+        "startChar": 48,
+        "endLine": 117,
+        "endChar": 76
+      },
+      "revId": "574c930c9ab4c7da38bec1876503226ecbdc2500",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e6061e9_a4c054d2",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetNetworkTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-07T15:33:03Z",
+      "side": 1,
+      "message": "Can it happen that expectCallback returns null without throwing? I suspect not.",
+      "range": {
+        "startLine": 128,
+        "startChar": 8,
+        "endLine": 128,
+        "endChar": 21
+      },
+      "revId": "574c930c9ab4c7da38bec1876503226ecbdc2500",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "648c8a0c_64c90afa",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetNetworkTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-07T15:33:03Z",
+      "side": 1,
+      "message": "Will the test be flaky if this requestNetwork call runs before the setIncludeTestInterface call has taken effect? (That runs on a different thread.) If the ethernet code were correct it shouldn\u0027t make any difference, because if a request is filed before an interface exists to serve it, the factory should satisfy the request as soon as the interface shows up. But EthernetNetworkFactory is known to be flaky, so...",
+      "range": {
+        "startLine": 142,
+        "startChar": 12,
+        "endLine": 142,
+        "endChar": 26
+      },
+      "revId": "574c930c9ab4c7da38bec1876503226ecbdc2500",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
