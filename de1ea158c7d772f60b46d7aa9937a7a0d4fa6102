@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5976ef6b_b3cad872",
+        "filename": "service/libconnectivity/include/connectivity_native.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-07T10:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5820496_ad86bc0b",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 40
+      },
+      "revId": "de1ea158c7d772f60b46d7aa9937a7a0d4fa6102",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6dac1f3_731a90d3",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-06T11:40:25Z",
       "side": 1,
       "message": "Does the int type come from a kernel interface?\n\nTypically we recommend using fixed size types (e.g. `int32_t`): https://g3doc.corp.google.com/company/teams/android-api-council/ndk_guidelines.md?cl\u003dhead#fixed-size-types",
+      "range": {
+        "startLine": 40,
+        "startChar": 43,
+        "endLine": 40,
+        "endChar": 46
+      },
+      "revId": "de1ea158c7d772f60b46d7aa9937a7a0d4fa6102",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "066a7995_1a60a04e",
+        "filename": "service/libconnectivity/include/connectivity_native.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-07T10:08:08Z",
+      "side": 1,
+      "message": "Since this is actually a port number, used in_port_t",
+      "parentUuid": "b6dac1f3_731a90d3",
       "range": {
         "startLine": 40,
         "startChar": 43,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed59175f_6420282e",
+        "filename": "service/libconnectivity/include/connectivity_native.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-07T10:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb7e7474_1448149a",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 3
+      },
+      "revId": "de1ea158c7d772f60b46d7aa9937a7a0d4fa6102",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "677c6e27_492987c2",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-04-06T11:40:25Z",
       "side": 1,
       "message": "nit: count should be size_t\n\nhttps://g3doc.corp.google.com/company/teams/android-api-council/ndk_guidelines.md?cl\u003dhead#fixed-size-types",
+      "range": {
+        "startLine": 54,
+        "startChar": 59,
+        "endLine": 54,
+        "endChar": 62
+      },
+      "revId": "de1ea158c7d772f60b46d7aa9937a7a0d4fa6102",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4318307_7303c3ef",
+        "filename": "service/libconnectivity/include/connectivity_native.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-07T10:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "677c6e27_492987c2",
       "range": {
         "startLine": 54,
         "startChar": 59,
