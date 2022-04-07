@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74be15fa_d25af678",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-07T07:47:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a58befc_5b75e38a",
+      "range": {
+        "startLine": 134,
+        "startChar": 50,
+        "endLine": 134,
+        "endChar": 74
+      },
+      "revId": "73922c3cc8e816322c0645ceb113de8d53203b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "738c35f2_6ff8dcef",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-04-06T10:50:25Z",
       "side": 1,
       "message": "Can you document what this does exactly ?\n\nIIUC this sends permissions for each appId where the permissions in argument are combined with permissions of each user in mUsersTrafficPermissions ?\n\nThis is a bit hard to follow... Maybe you could make a method that generates the SparseIntArray to use for sendAppIdsTrafficPermission, based only on the contents of mUsersTrafficPermissions (no arguments), if you update mUsersTrafficPermissions before calling the method ? I think that would be easier to understand, as one only needs to understand how the per-user permissions should be combined into what is sent to netd.",
+      "range": {
+        "startLine": 298,
+        "startChar": 30,
+        "endLine": 298,
+        "endChar": 59
+      },
+      "revId": "73922c3cc8e816322c0645ceb113de8d53203b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5482b534_bae642b1",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-07T07:47:47Z",
+      "side": 1,
+      "message": "Separate the generation and update as your suggestion.",
+      "parentUuid": "738c35f2_6ff8dcef",
       "range": {
         "startLine": 298,
         "startChar": 30,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "277a9990_e4af1155",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-07T07:47:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd06857f_108a160f",
+      "range": {
+        "startLine": 307,
+        "startChar": 43,
+        "endLine": 307,
+        "endChar": 60
+      },
+      "revId": "73922c3cc8e816322c0645ceb113de8d53203b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84039b97_28dd5926",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-04-06T10:50:25Z",
       "side": 1,
       "message": "Might want to Log.wtf if this returns null, just to be safe",
+      "range": {
+        "startLine": 661,
+        "startChar": 33,
+        "endLine": 661,
+        "endChar": 36
+      },
+      "revId": "73922c3cc8e816322c0645ceb113de8d53203b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b01ee0f_3e9ac3df",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-07T07:47:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84039b97_28dd5926",
       "range": {
         "startLine": 661,
         "startChar": 33,
