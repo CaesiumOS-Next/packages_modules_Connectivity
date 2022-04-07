@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1c6fb24_f71773e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-07T23:23:10Z",
+      "side": 1,
+      "message": "Code LGTM but I don\u0027t really know the policy here. What information does setup wizard actually need? Location? Local MAC address? Both? What\u0027s the policy around what it can access? What can it access in wifi?",
+      "revId": "009faa72c536921032182c9f5942d738fb0c7c6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
