@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c9d8492_d306f43d",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-07T06:59:14Z",
+      "side": 1,
+      "message": "This is a very long timeout; can it not be shortened?",
+      "range": {
+        "startLine": 72,
+        "startChar": 18,
+        "endLine": 72,
+        "endChar": 41
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cb4c70b_d735d0f5",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-07T06:59:14Z",
+      "side": 1,
+      "message": "Hm, I think \"createInterface\" (even though it is less verbose) is a better name in this case. The EthernetTracker already handles bringup for us, so as far as it is concerned, it does not even matter if the interface is up or down. Plus, \"downed\" sounds quite brutal. 😊",
+      "range": {
+        "startLine": 212,
+        "startChar": 16,
+        "endLine": 212,
+        "endChar": 37
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29654978_576492b3",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-07T06:59:14Z",
+      "side": 1,
+      "message": "rename to enableInterface",
+      "range": {
+        "startLine": 251,
+        "startChar": 16,
+        "endLine": 251,
+        "endChar": 30
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92033a92_4ed2e85f",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-07T06:59:14Z",
+      "side": 1,
+      "message": "Should this use the HandlerExecutor similar to other tests in this class?",
+      "range": {
+        "startLine": 254,
+        "startChar": 38,
+        "endLine": 254,
+        "endChar": 46
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10f686cd_e00ceeea",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-07T06:59:14Z",
+      "side": 1,
+      "message": "rename to disableInterface",
+      "range": {
+        "startLine": 260,
+        "startChar": 16,
+        "endLine": 260,
+        "endChar": 33
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "955d4d49_aebcf8ed",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-07T06:59:14Z",
+      "side": 1,
+      "message": "I don\u0027t know why this isn\u0027t the case yet, but can callWithShellPermissionIdentity be moved inside createInterface()?",
+      "range": {
+        "startLine": 270,
+        "startChar": 9,
+        "endLine": 272,
+        "endChar": 9
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df652755_e6286cd3",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-07T06:59:14Z",
+      "side": 1,
+      "message": "Why is this being done? This is essentially a no-op. If the goal is to test a no-op, can we do this explicitly in its own test?",
+      "range": {
+        "startLine": 275,
+        "startChar": 20,
+        "endLine": 275,
+        "endChar": 51
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5db07242_7d20af23",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-07T06:59:14Z",
+      "side": 1,
+      "message": "nit: I think the two lines of code in this function should just be part of createTestNetwork(). I don\u0027t mind test code to be a little verbose (in fact, I very much prefer it).",
+      "range": {
+        "startLine": 282,
+        "startChar": 16,
+        "endLine": 282,
+        "endChar": 47
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4643ab49_2008240d",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-07T06:59:14Z",
+      "side": 1,
+      "message": "Suggest renaming to EthernetConfigCallback.\n\n---\n\nAnd nit: can this definition be moved above connectNetwork(), so the code is easier to read?",
+      "range": {
+        "startLine": 307,
+        "startChar": 18,
+        "endLine": 307,
+        "endChar": 39
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a997165_93213910",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-07T06:59:14Z",
+      "side": 1,
+      "message": "testEnableDisableInterface",
+      "range": {
+        "startLine": 338,
+        "startChar": 8,
+        "endLine": 338,
+        "endChar": 36
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aed97529_d03417d9",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-07T06:59:14Z",
+      "side": 1,
+      "message": "Does this work? I don\u0027t see how IP provisioning can possible succeed here.\nI think you will have to do something similar to aosp/2055891.",
+      "range": {
+        "startLine": 342,
+        "startChar": 11,
+        "endLine": 342,
+        "endChar": 48
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc7b80b4_0bd8d98a",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-07T06:59:14Z",
+      "side": 1,
+      "message": "Usually we prefer using IPv6 over IPv4 for testing. Also, try using an address from the documentation range (192.0.2.0/24 or 2001:db8::/32).",
+      "range": {
+        "startLine": 368,
+        "startChar": 24,
+        "endLine": 368,
+        "endChar": 43
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa0cc7f9_b0e0fc81",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-07T06:59:14Z",
+      "side": 1,
+      "message": "We may want to think about this some more. I think this should be a LinkPropertiesChanged callback when no non-mutable NetworkCapabilities are changed.",
+      "range": {
+        "startLine": 371,
+        "startChar": 0,
+        "endLine": 373,
+        "endChar": 69
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ba01323_551cd197",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-07T06:59:14Z",
+      "side": 1,
+      "message": "I would remove this as this test doesn\u0027t test the enable/disableInterface functionality.",
+      "range": {
+        "startLine": 383,
+        "startChar": 8,
+        "endLine": 384,
+        "endChar": 79
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
