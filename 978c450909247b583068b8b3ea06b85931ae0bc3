@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7ca3e05_2099fb84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-07T02:55:22Z",
+      "side": 1,
+      "message": "Could you add the test for TetheringMetrics ?",
+      "revId": "978c450909247b583068b8b3ea06b85931ae0bc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
