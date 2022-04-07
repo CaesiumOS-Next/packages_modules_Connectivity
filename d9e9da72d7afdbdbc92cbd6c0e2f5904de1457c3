@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6036eca2_c0a3a831",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-04-07T01:50:56Z",
+      "side": 1,
+      "message": "ip6tables",
+      "range": {
+        "startLine": 93,
+        "startChar": 70,
+        "endLine": 93,
+        "endChar": 78
+      },
+      "revId": "d9e9da72d7afdbdbc92cbd6c0e2f5904de1457c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fab4b529_af8f4cb4",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-04-07T01:50:56Z",
+      "side": 1,
+      "message": "ip6tables",
+      "range": {
+        "startLine": 94,
+        "startChar": 83,
+        "endLine": 94,
+        "endChar": 91
+      },
+      "revId": "d9e9da72d7afdbdbc92cbd6c0e2f5904de1457c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce4b05ba_244eddd4",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-04-07T01:50:56Z",
+      "side": 1,
+      "message": "ip6tables",
+      "range": {
+        "startLine": 95,
+        "startChar": 32,
+        "endLine": 95,
+        "endChar": 40
+      },
+      "revId": "d9e9da72d7afdbdbc92cbd6c0e2f5904de1457c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e1115d9_3b3566fa",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-04-07T01:50:56Z",
+      "side": 1,
+      "message": "{ skb-\u003emark \u003d ...; return ... }",
+      "range": {
+        "startLine": 142,
+        "startChar": 55,
+        "endLine": 142,
+        "endChar": 61
+      },
+      "revId": "d9e9da72d7afdbdbc92cbd6c0e2f5904de1457c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
