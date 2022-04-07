@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77a8826f_18f52387",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-07T01:20:19Z",
+      "side": 1,
+      "message": "Only failure in CaptivePortalLoginTests is a known failure",
+      "revId": "e59f5e36e57c2547273f716cd5902a473e09f90d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
