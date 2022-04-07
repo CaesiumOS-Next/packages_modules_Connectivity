@@ -67,11 +67,11 @@ class EthernetManagerTest {
     private val em by lazy { EthernetManagerShimImpl.newInstance(context) }
 
     private val createdIfaces = ArrayList<TestNetworkInterface>()
-    private val addedListeners = ArrayList<InterfaceStateListener>()
+    private val addedListeners = ArrayList<InterfaceStateListener<IpConfiguration>>()
 
     private open class EthernetStateListener private constructor(
         private val history: ArrayTrackRecord<CallbackEntry>
-    ) : InterfaceStateListener,
+    ) : InterfaceStateListener<IpConfiguration>,
                 TrackRecord<EthernetStateListener.CallbackEntry> by history {
         constructor() : this(ArrayTrackRecord())
 
@@ -169,7 +169,7 @@ class EthernetManagerTest {
         }
     }
 
-    private fun addInterfaceStateListener(executor: Executor, listener: InterfaceStateListener) {
+    private fun addInterfaceStateListener(executor: Executor, listener: EthernetStateListener) {
         em.addInterfaceStateListener(executor, listener)
         addedListeners.add(listener)
     }
