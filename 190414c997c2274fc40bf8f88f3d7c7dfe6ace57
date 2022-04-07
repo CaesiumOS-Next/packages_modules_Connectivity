@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae164e25_0615bfa2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-07T14:30:13Z",
+      "side": 1,
+      "message": "nit: s",
+      "range": {
+        "startLine": 19,
+        "startChar": 20,
+        "endLine": 19,
+        "endChar": 21
+      },
+      "revId": "190414c997c2274fc40bf8f88f3d7c7dfe6ace57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fd9efac_fdc07552",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-07T14:30:13Z",
+      "side": 1,
+      "message": "It\u0027s not clear why we do not store the permission for each uid. do you want to also explain this is design limitation(?) in native side?",
+      "range": {
+        "startLine": 20,
+        "startChar": 28,
+        "endLine": 21,
+        "endChar": 59
+      },
+      "revId": "190414c997c2274fc40bf8f88f3d7c7dfe6ace57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd02906b_b18d5bfd",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-07T14:30:13Z",
+      "side": 1,
+      "message": "You add UserHandle.ALL(-1) into mUsersTrafficPermissions when PermissionMonitor starts to monitor. Then add/remove specific user when the user add/remove. I think the UserHandle.ALL will never be removed. Does this mean even all users are removed the permission will still stay since mUsersTrafficPermissions will at least contain UserHandle.ALL and at least one user(UserHandle.ALL) is still available?\n\nIf this is true, it seems that add/remove other user is not important at all. The result is sort of decided by the UserHandle.ALL.",
+      "range": {
+        "startLine": 394,
+        "startChar": 37,
+        "endLine": 394,
+        "endChar": 51
+      },
+      "revId": "190414c997c2274fc40bf8f88f3d7c7dfe6ace57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ea9123c_f6bba916",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-07T14:30:13Z",
+      "side": 1,
+      "message": "If device boot up with user A available, will onUserAdded() trigger?\n\nThe answer might be positive since it\u0027s assume mUsersTrafficPermissions will always be able to get the userTrafficPerms for the given user?",
+      "range": {
+        "startLine": 685,
+        "startChar": 8,
+        "endLine": 685,
+        "endChar": 39
+      },
+      "revId": "190414c997c2274fc40bf8f88f3d7c7dfe6ace57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
