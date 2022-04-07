@@ -39,13 +39,13 @@ import android.net.cts.EthernetManagerTest.EthernetStateListener.CallbackEntry.I
 import android.os.Handler
 import android.os.HandlerExecutor
 import android.os.Looper
-import com.android.networkstack.apishim.common.EthernetManagerShim.InterfaceStateListener
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_ABSENT
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_LINK_DOWN
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_LINK_UP
 import com.android.networkstack.apishim.common.EthernetManagerShim.ROLE_CLIENT
 import com.android.networkstack.apishim.common.EthernetManagerShim.ROLE_NONE
 import com.android.networkstack.apishim.EthernetManagerShimImpl
+import com.android.networkstack.apishim.api30.InterfaceStateListenerShim
 import java.util.concurrent.Executor
 import kotlin.test.assertFalse
 import kotlin.test.assertEquals
@@ -67,11 +67,11 @@ class EthernetManagerTest {
     private val em by lazy { EthernetManagerShimImpl.newInstance(context) }
 
     private val createdIfaces = ArrayList<TestNetworkInterface>()
-    private val addedListeners = ArrayList<InterfaceStateListener>()
+    private val addedListeners = ArrayList<InterfaceStateListenerShim>()
 
     private open class EthernetStateListener private constructor(
         private val history: ArrayTrackRecord<CallbackEntry>
-    ) : InterfaceStateListener,
+    ) : InterfaceStateListenerShim,
                 TrackRecord<EthernetStateListener.CallbackEntry> by history {
         constructor() : this(ArrayTrackRecord())
 
@@ -169,7 +169,7 @@ class EthernetManagerTest {
         }
     }
 
-    private fun addInterfaceStateListener(executor: Executor, listener: InterfaceStateListener) {
+    private fun addInterfaceStateListener(executor: Executor, listener: EthernetStateListener) {
         em.addInterfaceStateListener(executor, listener)
         addedListeners.add(listener)
     }
