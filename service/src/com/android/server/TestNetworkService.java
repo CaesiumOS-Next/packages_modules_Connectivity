@@ -106,17 +106,20 @@ class TestNetworkService extends ITestNetworkManager.Stub {
      */
     @Override
     public TestNetworkInterface createInterface(boolean isTun, boolean bringUp,
-            LinkAddress[] linkAddrs) {
+            LinkAddress[] linkAddrs, @Nullable String iface) {
         enforceTestNetworkPermissions(mContext);
 
         Objects.requireNonNull(linkAddrs, "missing linkAddrs");
 
-        String ifacePrefix = isTun ? TEST_TUN_PREFIX : TEST_TAP_PREFIX;
-        String iface = ifacePrefix + sTestTunIndex.getAndIncrement();
+        String ifname = iface;
+        if (iface == null) {
+            String ifacePrefix = isTun ? TEST_TUN_PREFIX : TEST_TAP_PREFIX;
+            ifname = ifacePrefix + sTestTunIndex.getAndIncrement();
+        }
         final long token = Binder.clearCallingIdentity();
         try {
             ParcelFileDescriptor tunIntf =
-                    ParcelFileDescriptor.adoptFd(jniCreateTunTap(isTun, iface));
+                    ParcelFileDescriptor.adoptFd(jniCreateTunTap(isTun, ifname));
             for (LinkAddress addr : linkAddrs) {
                 mNetd.interfaceAddAddress(
                         iface,
@@ -125,10 +128,10 @@ class TestNetworkService extends ITestNetworkManager.Stub {
             }
 
             if (bringUp) {
-                NetdUtils.setInterfaceUp(mNetd, iface);
+                NetdUtils.setInterfaceUp(mNetd, ifname);
             }
 
-            return new TestNetworkInterface(tunIntf, iface);
+            return new TestNetworkInterface(tunIntf, ifname);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         } finally {

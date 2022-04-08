@@ -160,7 +160,8 @@ public class TestNetworkManager {
     public TestNetworkInterface createTunInterface(@NonNull Collection<LinkAddress> linkAddrs) {
         try {
             final LinkAddress[] arr = new LinkAddress[linkAddrs.size()];
-            return mService.createInterface(TUN, BRING_UP, linkAddrs.toArray(arr));
+            return mService.createInterface(TUN, BRING_UP, linkAddrs.toArray(arr),
+                    null /* iface */);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
@@ -178,7 +179,7 @@ public class TestNetworkManager {
     @NonNull
     public TestNetworkInterface createTapInterface() {
         try {
-            return mService.createInterface(TAP, BRING_UP, NO_ADDRS);
+            return mService.createInterface(TAP, BRING_UP, NO_ADDRS, null /* iface */);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
@@ -197,7 +198,28 @@ public class TestNetworkManager {
     @NonNull
     public TestNetworkInterface createTapInterface(boolean bringUp) {
         try {
-            return mService.createInterface(TAP, bringUp, NO_ADDRS);
+            return mService.createInterface(TAP, bringUp, NO_ADDRS, null /* iface */);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * Create a tap interface with a given interface name for testing purposes
+     *
+     * @param bringUp whether to bring up the interface before returning it.
+     * @param iface the interface name to be assigned, if it's null, then use the default name.
+     *
+     * @return A ParcelFileDescriptor of the underlying TAP interface. Close this to tear down the
+     *     TAP interface.
+     * @hide
+     */
+    @RequiresPermission(Manifest.permission.MANAGE_TEST_NETWORKS)
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    @NonNull
+    public TestNetworkInterface createTapInterface(boolean bringUp, @NonNull String iface) {
+        try {
+            return mService.createInterface(TAP, bringUp, NO_ADDRS, iface);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
