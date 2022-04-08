@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7667e74_feb84990",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-08T09:07:15Z",
+      "side": 1,
+      "message": "Could you remove a package from mUsersTrafficPermissions when it\u0027s uninstalled, instead of keeping a mapping with PERMISSION_UNINSTALLED instead ?\n\nThere shouldn\u0027t be a difference in state between a package that was installed then uninstalled, and a package that was never installed.\n\nWith the suggestion to not take the newAppIds as argument, I think it makes the code simpler too.",
+      "range": {
+        "startLine": 320,
+        "startChar": 20,
+        "endLine": 320,
+        "endChar": 56
+      },
+      "revId": "a146fbe3b44a6fb0050870bbf56e2fa9715d05c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -114,6 +114,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d9f70a0_cffe1325",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-08T09:07:15Z",
+      "side": 1,
+      "message": "But can you make sendAppIdsTrafficPermission only use the contents of mUsersTrafficPermissions, without arguments ? I think it would be clearer because it wouldn\u0027t need to be \"Generate appIds traffic permissions that need to be sent to netd after combining the new ones\", but it can just be \"Generate appIds traffic permissions based on current uid traffic permissions\".\n\nI think this can be done by:\n - In onUserAdded, first call mUsersTrafficPermissions.put(user, addedUserAppIds), then call generateAppIdsTrafficPermission() without argument\n - In onUserRemoved, call appIds \u003d generateAppIdsTrafficPermission(), then add PERMISSION_UNINSTALLED for all packages that are in removedUserAppIds but not appIds",
+      "parentUuid": "5482b534_bae642b1",
+      "range": {
+        "startLine": 298,
+        "startChar": 30,
+        "endLine": 298,
+        "endChar": 59
+      },
+      "revId": "73922c3cc8e816322c0645ceb113de8d53203b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dd06857f_108a160f",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 2
