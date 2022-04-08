@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3aa7bf6_69a3a99d",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-04-08T14:09:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0437aed0_1f481120",
+      "range": {
+        "startLine": 576,
+        "startChar": 8,
+        "endLine": 576,
+        "endChar": 10
+      },
+      "revId": "58033c18339d1942095157c2997032fc931f92a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4805856_85fdc212",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-31T01:43:26Z",
       "side": 1,
       "message": "Nit: It looks to me that this should done in the test/shims itself instead of taking as parameter.",
+      "range": {
+        "startLine": 582,
+        "startChar": 24,
+        "endLine": 582,
+        "endChar": 28
+      },
+      "revId": "58033c18339d1942095157c2997032fc931f92a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d3f7e53_5caaa1f0",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-04-08T14:09:19Z",
+      "side": 1,
+      "message": "Per offline discussed, this is used for deciding calling the new API or the old API.",
+      "parentUuid": "c4805856_85fdc212",
       "range": {
         "startLine": 582,
         "startChar": 24,
