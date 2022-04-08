@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6190355f_5f87901e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1141163
+      },
+      "writtenOn": "2022-04-08T06:42:36Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 7,
+        "startChar": 36,
+        "endLine": 7,
+        "endChar": 38
+      },
+      "revId": "2210363fe601c977a680240cc28fc2512d6a1ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6383e77a_f44d0615",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1141163
+      },
+      "writtenOn": "2022-04-08T06:42:36Z",
+      "side": 1,
+      "message": "for",
+      "range": {
+        "startLine": 7,
+        "startChar": 20,
+        "endLine": 7,
+        "endChar": 24
+      },
+      "revId": "2210363fe601c977a680240cc28fc2512d6a1ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eed1bf52_71f92cf3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1141163
+      },
+      "writtenOn": "2022-04-08T06:42:36Z",
+      "side": 1,
+      "message": "matchProtocol",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 19
+      },
+      "revId": "2210363fe601c977a680240cc28fc2512d6a1ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0ea8cef_621b0a8a",
+        "filename": "framework/src/android/net/QosFilter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1141163
+      },
+      "writtenOn": "2022-04-08T06:42:36Z",
+      "side": 1,
+      "message": "such as TCP or UDP",
+      "range": {
+        "startLine": 89,
+        "startChar": 36,
+        "endLine": 89,
+        "endChar": 46
+      },
+      "revId": "2210363fe601c977a680240cc28fc2512d6a1ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dceebe9_21a3ca36",
+        "filename": "framework/src/android/net/QosFilter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1141163
+      },
+      "writtenOn": "2022-04-08T06:42:36Z",
+      "side": 1,
+      "message": "i think it needs to be public right",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 12
+      },
+      "revId": "2210363fe601c977a680240cc28fc2512d6a1ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4b71a72_38153207",
+        "filename": "framework/src/android/net/QosFilter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1141163
+      },
+      "writtenOn": "2022-04-08T06:42:36Z",
+      "side": 1,
+      "message": "matchesProtocol ?",
+      "range": {
+        "startLine": 94,
+        "startChar": 28,
+        "endLine": 94,
+        "endChar": 45
+      },
+      "revId": "2210363fe601c977a680240cc28fc2512d6a1ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

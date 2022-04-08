@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e53700a_5a3a5fad",
+        "filename": "framework/src/android/net/SocketNotConnectedException.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1141163
+      },
+      "writtenOn": "2022-04-08T06:42:36Z",
+      "side": 1,
+      "message": "why is this commented",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 3
+      },
+      "revId": "1e3a715a705682b3800c1f6947dc6543d265b222",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fbc78b4_78d13e1c",
+        "filename": "framework/src/android/net/SocketRemoteAddressChangedException.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1141163
+      },
+      "writtenOn": "2022-04-08T06:42:36Z",
+      "side": 1,
+      "message": "why is this commented ?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 13
+      },
+      "revId": "1e3a715a705682b3800c1f6947dc6543d265b222",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
