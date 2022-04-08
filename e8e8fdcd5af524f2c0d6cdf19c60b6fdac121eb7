@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "298b5e81_f937d779",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-04-08T10:27:42Z",
+      "side": 1,
+      "message": "Test non-default value is good but calling VpnManager#setAlwaysOnVpnPackageForUser() needs CONTROL_ALWAYS_ON_VPN and shell doesn\u0027t have this permission.\nSo currently, I don\u0027t have a way to change the value of those 2 members.",
+      "parentUuid": "61f660ac_f4a56826",
+      "range": {
+        "startLine": 463,
+        "startChar": 12,
+        "endLine": 464,
+        "endChar": 58
+      },
+      "revId": "e8e8fdcd5af524f2c0d6cdf19c60b6fdac121eb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57efa123_bd70201a",
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "This test is flaky now, I\u0027m trying to figure out what\u0027s going on. 😞\nCurrently, I found that the VPN interface will be removed immediately after VPN is connected.\nWhich will cause mVpnRunner being reset, and NPE will happen when calling \"profileState.getState()\" since Vpn#getProvisionedVpnProfileState() returns null.",
       "parentUuid": "57efa123_bd70201a",
+      "range": {
+        "startLine": 482,
+        "startChar": 0,
+        "endLine": 482,
+        "endChar": 84
+      },
+      "revId": "e8e8fdcd5af524f2c0d6cdf19c60b6fdac121eb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34b1bdde_b0883035",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-04-08T10:27:42Z",
+      "side": 1,
+      "message": "Filed b/228574221 and provided aosp/2059450 to fix the problem.",
+      "parentUuid": "9cb97045_216d351f",
       "range": {
         "startLine": 482,
         "startChar": 0,
