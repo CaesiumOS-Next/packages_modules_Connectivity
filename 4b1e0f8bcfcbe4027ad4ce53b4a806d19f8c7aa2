@@ -16,6 +16,46 @@
       "message": "I wish my local test env worked...",
       "revId": "4b1e0f8bcfcbe4027ad4ce53b4a806d19f8c7aa2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b5e0d13_9cb96a17",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-04-08T08:30:41Z",
+      "side": 1,
+      "message": "Here is the local test result. Although the result is positive, I think that there may be all linear skb cases. Not sure how to generate a skb with non-linear portion.\n\n\nSummary:\nTest {ping, iperf} with clatd launched from {system server, netd}\n- ping + mainline clatd: [pass]\n  (clat ingress is dropped in ip6tables bw_raw_PREROUTING)\n- iperf + mainline clatd: [pass]\n  (ip6tables bw_raw_PREROUTING see clat packet)\n- ping + netd clatd: [pass]\n  (clat ingress is dropped in ip6tables clat_raw_PREROUTING)\n- iperf + netd clatd: [pass]\n  (ip6tables clat_raw_PREROUTING and bw_raw_PREROUTING doesn\u0027t see clat packet)\n\n  ---------------------------------------------\n  \nTests:\nA. Test with clatd launched from system server (uses unmerged aosp/1951099)\n\n0. Connect to IPv6-only wifi\n\n1. Clatd test: ping 5 times and check that iptables drop 5 packets by\n   mark 0xdeadc1a7.\n\n$ adb shell ping 8.8.8.8\nPING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.\n64 bytes from 8.8.8.8: icmp_seq\u003d1 ttl\u003d120 time\u003d22.9 ms\n64 bytes from 8.8.8.8: icmp_seq\u003d2 ttl\u003d120 time\u003d21.3 ms\n64 bytes from 8.8.8.8: icmp_seq\u003d3 ttl\u003d120 time\u003d74.5 ms\n64 bytes from 8.8.8.8: icmp_seq\u003d4 ttl\u003d120 time\u003d17.8 ms\n64 bytes from 8.8.8.8: icmp_seq\u003d5 ttl\u003d120 time\u003d72.0 ms\n\n$ adb shell ip6tables -t raw -L bw_raw_PREROUTING -v\nChain bw_raw_PREROUTING (1 references)\n pkts bytes target     prot opt in     out     source               destination         \n    5   520 DROP       all      any    any     anywhere             anywhere             mark match 0xdeadc1a7\n    0     0 RETURN     all      ipsec+ any     anywhere             anywhere            \n    0     0 RETURN     all      any    any     anywhere             anywhere             policy match dir in pol ipsec\n 1152  929K            all      any    any     anywhere             anywhere            match bpf pinned /sys/fs/bpf/prog_netd_skfilter_ingress_xtbpf\n\n2. Bpf test: run iperf to an IPv4 server and iptables doesn\u0027t see\n   offloaded packet with mark 0xdeadc1a7. Drop packet count (5) is\n   unchanged.\n\n$ adb shell iperf3 -4 -c 195.69.189.215 -t1\nConnecting to host 195.69.189.215, port 5201\n[  5] local 192.0.0.4 port 51504 connected to 195.69.189.215 port 5201\n[ ID] Interval           Transfer     Bitrate         Retr  Cwnd\n[  5]   0.00-1.00   sec   466 KBytes  3.82 Mbits/sec    0   12.9 KBytes       \n- - - - - - - - - - - - - - - - - - - - - - - - -\n[ ID] Interval           Transfer     Bitrate         Retr\n[  5]   0.00-1.00   sec   466 KBytes  3.82 Mbits/sec    0             sender\n[  5]   0.00-1.00   sec  12.9 KBytes   106 Kbits/sec                  receiver\n\n$ adb shell ip6tables -t raw -L bw_raw_PREROUTING -v\nChain bw_raw_PREROUTING (1 references)\n pkts bytes target     prot opt in     out     source               destination         \n    5   520 DROP       all      any    any     anywhere             anywhere             mark match 0xdeadc1a7\n    0     0 RETURN     all      ipsec+ any     anywhere             anywhere            \n    0     0 RETURN     all      any    any     anywhere             anywhere             policy match dir in pol ipsec\n 1349 1008K            all      any    any     anywhere             anywhere            match bpf pinned /sys/fs/bpf/prog_netd_skfilter_ingress_xtbpf\n\n  ---------------------------------------------\n\nB. Test with clatd launched from netd (currently)\n\n1. Clatd test: ping 5 times and check that iptables drop 5 packets in clat_raw_PREROUTING (which has higher prio than bw_raw_PREROUTING)\n\n$ adb shell ping 8.8.8.8\nPING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.\n64 bytes from 8.8.8.8: icmp_seq\u003d1 ttl\u003d120 time\u003d7.79 ms\n64 bytes from 8.8.8.8: icmp_seq\u003d2 ttl\u003d120 time\u003d8.61 ms\n64 bytes from 8.8.8.8: icmp_seq\u003d3 ttl\u003d120 time\u003d14.4 ms\n64 bytes from 8.8.8.8: icmp_seq\u003d4 ttl\u003d120 time\u003d67.2 ms\n64 bytes from 8.8.8.8: icmp_seq\u003d5 ttl\u003d120 time\u003d67.2 ms\n\n$ adb shell ip6tables -t raw -L clat_raw_PREROUTING -v\nChain clat_raw_PREROUTING (1 references)\n pkts bytes target     prot opt in     out     source               destination         \n    5   520 DROP       all      wlan0  any     64:ff9b::/96         2a00:79e1:abc:6f02:63d6:a0f3:ce8e:cf0b \n\n$ adb shell ip6tables -t raw -L bw_raw_PREROUTING -v\nChain bw_raw_PREROUTING (1 references)\n pkts bytes target     prot opt in     out     source               destination         \n    0     0 DROP       all      any    any     anywhere             anywhere             mark match 0xdeadc1a7\n    0     0 RETURN     all      ipsec+ any     anywhere             anywhere            \n    0     0 RETURN     all      any    any     anywhere             anywhere             policy match dir in pol ipsec\n 1646 1019K            all      any    any     anywhere             anywhere            match bpf pinned /sys/fs/bpf/prog_netd_skfilter_ingress_xtbpf\n\n2. Bpf test: run iperf to an IPv4 server and iptables doesn\u0027t see\n   offloaded packet. Drop packet count (5) is unchanged in clat_raw_PREROUTING.\n\n$ adb shell iperf3 -4 -c 117.102.109.186 -t1\nConnecting to host 117.102.109.186, port 5201\n[  5] local 192.0.0.4 port 42456 connected to 117.102.109.186 port 5201\n[ ID] Interval           Transfer     Bitrate         Retr  Cwnd\n[  5]   0.00-1.00   sec   427 KBytes  3.50 Mbits/sec    0   12.9 KBytes       \n- - - - - - - - - - - - - - - - - - - - - - - - -\n[ ID] Interval           Transfer     Bitrate         Retr\n[  5]   0.00-1.00   sec   427 KBytes  3.50 Mbits/sec    0             sender\n[  5]   0.00-1.00   sec  12.9 KBytes   106 Kbits/sec                  receiver\n\n$ adb shell ip6tables -t raw -L clat_raw_PREROUTING -v\nChain clat_raw_PREROUTING (1 references)\n pkts bytes target     prot opt in     out     source               destination         \n    5   520 DROP       all      wlan0  any     64:ff9b::/96         2a00:79e1:abc:6f02:63d6:a0f3:ce8e:cf0b \n\n$ adb shell ip6tables -t raw -L bw_raw_PREROUTING -v\nChain bw_raw_PREROUTING (1 references)\n pkts bytes target     prot opt in     out     source               destination         \n    0     0 DROP       all      any    any     anywhere             anywhere             mark match 0xdeadc1a7\n    0     0 RETURN     all      ipsec+ any     anywhere             anywhere            \n    0     0 RETURN     all      any    any     anywhere             anywhere             policy match dir in pol ipsec\n 1697 1030K            all      any    any     anywhere             anywhere            match bpf pinned /sys/fs/bpf/prog_netd_skfilter_ingress_xtbpf\n\n",
+      "revId": "4b1e0f8bcfcbe4027ad4ce53b4a806d19f8c7aa2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d9b70da_0d42e2a4",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-04-08T08:30:41Z",
+      "side": 1,
+      "message": "Since this commit, bpf_skb_pull_data(skb, ..) may be called in sch_handle_ingress (bpf ingress). \nIs it possible to break that the skb in \"another_round\" trip (if any)? ex: deliver_skb try to clone modified skb for ptype_all in another_round trip\n\nhttps://elixir.bootlin.com/linux/v5.10.94/source/net/core/dev.c#L5144\n\nstatic int __netif_receive_skb_core(struct sk_buff **pskb, bool pfmemalloc,\n\t\t\t\t    struct packet_type **ppt_prev)\nanother_round:\n..\n    list_for_each_entry_rcu(ptype, \u0026ptype_all, list) {\n        if (pt_prev)\n            ret \u003d deliver_skb(skb, pt_prev, orig_dev);\n\n    if (static_branch_unlikely(\u0026ingress_needed_key)) {\n..\n        skb \u003d sch_handle_ingress(skb, \u0026pt_prev, \u0026ret, orig_dev,\n        if (another)\n            goto another_round; // --\u003e starts a new trip with modified skb",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 21
+      },
+      "revId": "4b1e0f8bcfcbe4027ad4ce53b4a806d19f8c7aa2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
