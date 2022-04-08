@@ -45,6 +45,12 @@
     },
     {
       "name": "FrameworksNetIntegrationTests"
+    },
+    {
+      "name": "CtsNetTestCasesInternetPermission"
+    },
+    {
+      "name": "CtsNetTestCasesUpdateStatsPermission"
     }
   ],
   "postsubmit": [
@@ -98,6 +104,12 @@
     },
     {
       "name": "libnetworkstats_test[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]"
+    },
+    {
+      "name": "CtsNetTestCasesInternetPermission[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]"
+    },
+    {
+      "name": "CtsNetTestCasesUpdateStatsPermission[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]"
     }
   ],
   "mainline-postsubmit": [
