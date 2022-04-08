@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c122782d_b0244064",
+        "filename": "framework/src/android/net/SocketNotConnectedException.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-08T09:47:02Z",
+      "side": 1,
+      "message": "It\u0027s my bad. Thanks for reminder.",
+      "parentUuid": "6e53700a_5a3a5fad",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 3
+      },
+      "revId": "1e3a715a705682b3800c1f6947dc6543d265b222",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1fbc78b4_78d13e1c",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-08T06:42:36Z",
       "side": 1,
       "message": "why is this commented ?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 13
+      },
+      "revId": "1e3a715a705682b3800c1f6947dc6543d265b222",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9f3f49f_4a3ca6ff",
+        "filename": "framework/src/android/net/SocketRemoteAddressChangedException.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-08T09:47:02Z",
+      "side": 1,
+      "message": "It\u0027s my bad. Fixed.",
+      "parentUuid": "1fbc78b4_78d13e1c",
       "range": {
         "startLine": 25,
         "startChar": 0,

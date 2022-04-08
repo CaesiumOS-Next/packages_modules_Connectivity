@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28d15344_3d88f1ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-08T09:47:02Z",
+      "side": 1,
+      "message": "It\u0027s already removed.",
+      "parentUuid": "6190355f_5f87901e",
+      "range": {
+        "startLine": 7,
+        "startChar": 36,
+        "endLine": 7,
+        "endChar": 38
+      },
+      "revId": "2210363fe601c977a680240cc28fc2512d6a1ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a6065fa_416d8c86",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-08T09:47:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6383e77a_f44d0615",
+      "range": {
+        "startLine": 7,
+        "startChar": 20,
+        "endLine": 7,
+        "endChar": 24
+      },
+      "revId": "2210363fe601c977a680240cc28fc2512d6a1ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eed1bf52_71f92cf3",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-04-08T06:42:36Z",
       "side": 1,
       "message": "matchProtocol",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 19
+      },
+      "revId": "2210363fe601c977a680240cc28fc2512d6a1ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9aaa21db_93342dbb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-08T09:47:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "eed1bf52_71f92cf3",
       "range": {
         "startLine": 9,
         "startChar": 4,
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e79ae52d_f5814ce9",
+        "filename": "framework/src/android/net/QosFilter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-08T09:47:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b0ea8cef_621b0a8a",
+      "range": {
+        "startLine": 89,
+        "startChar": 36,
+        "endLine": 89,
+        "endChar": 46
+      },
+      "revId": "2210363fe601c977a680240cc28fc2512d6a1ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6dceebe9_21a3ca36",
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2654275b_a9087aec",
+        "filename": "framework/src/android/net/QosFilter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-08T09:47:02Z",
+      "side": 1,
+      "message": "This is intended. I will expose this API later after merging implementation.\nAs I know, AOSP still sync to tm-dev. So, API change should not be merged yet.",
+      "parentUuid": "6dceebe9_21a3ca36",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 12
+      },
+      "revId": "2210363fe601c977a680240cc28fc2512d6a1ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4b71a72_38153207",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-04-08T06:42:36Z",
       "side": 1,
       "message": "matchesProtocol ?",
+      "range": {
+        "startLine": 94,
+        "startChar": 28,
+        "endLine": 94,
+        "endChar": 45
+      },
+      "revId": "2210363fe601c977a680240cc28fc2512d6a1ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50d74995_9d3646ce",
+        "filename": "framework/src/android/net/QosFilter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-08T09:47:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f4b71a72_38153207",
       "range": {
         "startLine": 94,
         "startChar": 28,
