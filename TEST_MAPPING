@@ -45,6 +45,12 @@
     },
     {
       "name": "FrameworksNetIntegrationTests"
+    },
+    {
+      "name": "CtsNetTestCasesInternetPermission"
+    },
+    {
+      "name": "CtsNetTestCasesUpdateStatsPermission"
     }
   ],
   "postsubmit": [
