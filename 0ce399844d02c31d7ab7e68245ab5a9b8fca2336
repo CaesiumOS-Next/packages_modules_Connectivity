@@ -16,6 +16,23 @@
       "message": "(testing still in flight)",
       "revId": "0ce399844d02c31d7ab7e68245ab5a9b8fca2336",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccca3a18_c212e173",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-04-08T00:54:05Z",
+      "side": 1,
+      "message": "eh, it builds, but it fails to load...\n\n[    9.528347] LibBpfLoader: BpfLoader version 0x0000b processing ELF object /apex/com.android.tethering/etc/bpf/net_shared/clatd.o with ver [0x00000,0x10000)\n[    9.528492] LibBpfLoader: \n[    9.544043] LibBpfLoader: bpf_prog_load - BEGIN log_buf contents:\n[    9.544472] LibBpfLoader: 0: (bf) r7 \u003d r1\n[    9.544531] LibBpfLoader: 1: (b7) r8 \u003d 3\n[    9.544590] LibBpfLoader: 2: (61) r1 \u003d *(u32 *)(r7 +4)\n[    9.544653] LibBpfLoader: 3: (55) if r1 !\u003d 0x0 goto pc+157\n[    9.544716] LibBpfLoader:  R1_w\u003dinv0 R7_w\u003dctx(id\u003d0,off\u003d0,imm\u003d0) R8_w\u003dinv3 R10\u003dfp0\n[    9.544804] LibBpfLoader: 4: (61) r1 \u003d *(u32 *)(r7 +16)\n[    9.544866] LibBpfLoader: 5: (55) if r1 !\u003d 0xdd86 goto pc+155\n[    9.544942] LibBpfLoader:  R1_w\u003dinv56710 R7_w\u003dctx(id\u003d0,off\u003d0,imm\u003d0) R8_w\u003dinv3 R10\u003dfp0\n[    9.545030] LibBpfLoader: 6: (61) r2 \u003d *(u32 *)(r7 +0)\n[    9.545088] LibBpfLoader: 7: (b7) r1 \u003d 54\n[    9.545132] LibBpfLoader: 8: (2d) if r1 \u003e r2 goto pc+1\n[    9.545190] LibBpfLoader:  R1\u003dinv54 R2\u003dinv(id\u003d0,umin_value\u003d54,umax_value\u003d4294967295,var_off\u003d(0x0; 0xffffffff)) R7\u003dctx(id\u003d0,off\u003d0,imm\u003d0) R8\u003dinv3 R10\u003dfp0\n[    9.545334] LibBpfLoader: 9: (b7) r2 \u003d 54\n[    9.545376] LibBpfLoader: 10: (61) r9 \u003d *(u32 *)(r7 +80)\n[    9.545438] LibBpfLoader: 11: (61) r6 \u003d *(u32 *)(r7 +76)\n[    9.545500] LibBpfLoader: 12: (bf) r1 \u003d r9\n[    9.545544] LibBpfLoader: 13: (1f) r1 -\u003d r6\n[    9.545592] LibBpfLoader: 14: (67) r1 \u003c\u003c\u003d 32\n[    9.545654] LibBpfLoader: 15: (77) r1 \u003e\u003e\u003d 32\n[    9.545716] LibBpfLoader: 16: (3d) if r1 \u003e\u003d r2 goto pc+2\n[    9.545769] LibBpfLoader:  R1_w\u003dinv(id\u003d0,umax_value\u003d53,var_off\u003d(0x0; 0x3f)) R2_w\u003dinv54 R6_w\u003dpkt(id\u003d0,off\u003d0,r\u003d0,imm\u003d0) R7\u003dctx(id\u003d0,off\u003d0,imm\u003d0) R8\u003dinv3 R9_w\u003dpkt_end(id\u003d0,off\u003d0,imm\u003d0) R10\u003dfp0\n[    9.545957] LibBpfLoader: 17: (bf) r1 \u003d r7\n[    9.546005] LibBpfLoader: 18: (85) call bpf_skb_pull_data#39\n[    9.546080] LibBpfLoader: 19: (bf) r1 \u003d r6\n[    9.546128] LibBpfLoader: 20: (07) r1 +\u003d 54\n[    9.546172] LibBpfLoader: 21: (2d) if r1 \u003e r9 goto pc+139\n[    9.546247] LibBpfLoader:  R0\u003dinv(id\u003d0) R1_w\u003dinv(id\u003d0) R6\u003dinv(id\u003d1) R7\u003dctx(id\u003d0,off\u003d0,imm\u003d0) R8\u003dinv3 R9\u003dinv(id\u003d0) R10\u003dfp0\n[    9.546361] LibBpfLoader: 22: (71) r1 \u003d *(u8 *)(r6 +12)\n[    9.546423] LibBpfLoader: R6 invalid mem access \u0027inv\u0027\n[    9.546479] LibBpfLoader: processed 23 insns (limit 1000000) max_states_per_insn 0 total_states 2 peak_states 2 mark_read 1\n[    9.546596] LibBpfLoader: \n[    9.546630] LibBpfLoader: bpf_prog_load - END log_buf contents.\n[    9.546703] LibBpfLoader: non-optional program failed to load.\n[    9.546953] LibBpfLoader: Failed to load programs, loadCodeSections ret\u003d-1\n[    9.547041] LibBpfLoader: \n[    9.547120] bpfloader: Failed to load object: /apex/com.android.tethering/etc/bpf/net_shared/clatd.o, ret: Operation not permitted\n[    9.547279] bpfloader: \u003d\u003d\u003d CRITICAL FAILURE LOADING BPF PROGRAMS FROM /apex/com.android.tethering/etc/bpf/net_shared/ \u003d\u003d\u003d",
+      "revId": "0ce399844d02c31d7ab7e68245ab5a9b8fca2336",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
