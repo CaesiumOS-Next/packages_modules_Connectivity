@@ -35,6 +35,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cf4d772_f1d8a618",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-04-08T22:52:22Z",
+      "side": 1,
+      "message": "If it hasn\u0027t regressed anything (ie. your tests confirm that things still work, TreeHugger tests confirm all devices still boot [ie. can load the new program]) then it\u0027s good to merge.  It\u0027s true we don\u0027t have proof it fixes things - indeed I\u0027m not 100% certain it\u0027s even needed, but it certainly won\u0027t hurt... and might fix things.",
+      "revId": "4b1e0f8bcfcbe4027ad4ce53b4a806d19f8c7aa2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d9b70da_0d42e2a4",
