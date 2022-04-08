@@ -22,6 +22,75 @@
       },
       "revId": "a146fbe3b44a6fb0050870bbf56e2fa9715d05c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec6d955c_00991774",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-08T09:56:53Z",
+      "side": 1,
+      "message": "In a test, you could just do:\n\n  Arrays.stream(oldPackages).filter(e -\u003e !e.equals(packageName)).toArray(String[]::new);",
+      "range": {
+        "startLine": 322,
+        "startChar": 37,
+        "endLine": 322,
+        "endChar": 50
+      },
+      "revId": "a146fbe3b44a6fb0050870bbf56e2fa9715d05c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3215ce7_aae58e00",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1361,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-08T09:56:53Z",
+      "side": 1,
+      "message": "1",
+      "range": {
+        "startLine": 1361,
+        "startChar": 27,
+        "endLine": 1361,
+        "endChar": 28
+      },
+      "revId": "a146fbe3b44a6fb0050870bbf56e2fa9715d05c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed7a6d94_1f003e73",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1365,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-08T09:56:53Z",
+      "side": 1,
+      "message": "Typo: back",
+      "range": {
+        "startLine": 1365,
+        "startChar": 26,
+        "endLine": 1365,
+        "endChar": 31
+      },
+      "revId": "a146fbe3b44a6fb0050870bbf56e2fa9715d05c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
