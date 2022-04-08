@@ -1022,6 +1022,9 @@ public class VpnTest {
         when(mNetd.interfaceGetCfg(anyString())).thenReturn(config);
         final NetworkCallback cb = networkCallbackCaptor.getValue();
         cb.onAvailable(TEST_NETWORK);
+        // aosp/2059450 changed the design to call onCapabilitiesChanged() instead of onAvailable().
+        final NetworkCapabilities nc = new NetworkCapabilities();
+        cb.onCapabilitiesChanged(TEST_NETWORK, nc);
         return cb;
     }
 
