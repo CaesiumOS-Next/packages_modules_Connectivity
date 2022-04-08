@@ -215,6 +215,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0df2ae57_562bd548",
+        "filename": "service/libconnectivity/include/connectivity_native.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1006497
+      },
+      "writtenOn": "2022-04-08T13:01:58Z",
+      "side": 1,
+      "message": "No, this should be __ANDROID_API_T__, not 33.\n\nWe\u0027re trying to get libraries to change to using the named constant rather than the literal number since we want the flexibility to do intermediate API bumps.",
+      "parentUuid": "8dc2d4f7_0a2e5356",
+      "range": {
+        "startLine": 76,
+        "startChar": 20,
+        "endLine": 76,
+        "endChar": 37
+      },
+      "revId": "c54b23e555530a222f4ddae442fda554b4d70584",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0e602282_6ed2fb97",
         "filename": "service/libconnectivity/src/connectivity_native.cpp",
         "patchSetId": 5
