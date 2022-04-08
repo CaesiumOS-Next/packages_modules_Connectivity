@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d7c5ce6_cf8cf695",
+        "filename": "service/libconnectivity/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-08T04:00:32Z",
+      "side": 1,
+      "message": "Should this be something like \"1\"?",
+      "range": {
+        "startLine": 48,
+        "startChar": 13,
+        "endLine": 48,
+        "endChar": 20
+      },
+      "revId": "c54b23e555530a222f4ddae442fda554b4d70584",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52e386ff_412ce93f",
+        "filename": "service/libconnectivity/include/connectivity_native.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-08T04:00:32Z",
+      "side": 1,
+      "message": "For all these methods, suggest using negative errno instead. I don\u0027t think I\u0027ve seen an existing API that uses *positive* error codes to indicate failure.",
+      "range": {
+        "startLine": 66,
+        "startChar": 30,
+        "endLine": 66,
+        "endChar": 35
+      },
+      "revId": "c54b23e555530a222f4ddae442fda554b4d70584",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8d21d84_bda019f5",
+        "filename": "service/libconnectivity/include/connectivity_native.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-08T04:00:32Z",
+      "side": 1,
+      "message": "Should this be something like 1, if the version of this library is version 1? Or are LL-NDK build versions aligned with platform versions and this needs to be T? (BTW, should this be 33 instead of T? Lots of other libraries use 33.)",
+      "range": {
+        "startLine": 76,
+        "startChar": 20,
+        "endLine": 76,
+        "endChar": 37
+      },
+      "revId": "c54b23e555530a222f4ddae442fda554b4d70584",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e602282_6ed2fb97",
+        "filename": "service/libconnectivity/src/connectivity_native.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-08T04:00:32Z",
+      "side": 1,
+      "message": "Suggest either making these error codes negative (-EPROTO, -EINVAL) or making the functions return -1 and setting errno to the right value.",
+      "range": {
+        "startLine": 31,
+        "startChar": 11,
+        "endLine": 31,
+        "endChar": 19
+      },
+      "revId": "c54b23e555530a222f4ddae442fda554b4d70584",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
