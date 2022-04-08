@@ -16,6 +16,24 @@
       "message": "Code LGTM but I don\u0027t really know the policy here. What information does setup wizard actually need? Location? Local MAC address? Both? What\u0027s the policy around what it can access? What can it access in wifi?",
       "revId": "009faa72c536921032182c9f5942d738fb0c7c6d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c248d63_254f58a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2022-04-08T16:21:26Z",
+      "side": 1,
+      "message": "SUW already holds the other two redaction permissions (which are also needed for the wifi picker): https://source.corp.google.com/piper///depot/google3/java/com/google/android/apps/setupwizard/AndroidManifest.xml.\n\nI believe the only thing missing from SUW is NETWORK_SETTINGS",
+      "parentUuid": "f1c6fb24_f71773e6",
+      "revId": "009faa72c536921032182c9f5942d738fb0c7c6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
