@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb5debd7_6447c0dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006497
+      },
+      "writtenOn": "2022-04-08T13:02:43Z",
+      "side": 1,
+      "message": "We\u0027re also past T finalization. Let me raise with NDK API council, but this likely needs some sort of exception to land for T.",
+      "revId": "2c8a789c43b30586f2902fbcd89bab363d6f7310",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
