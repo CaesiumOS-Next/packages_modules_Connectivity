@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e41ffae3_95ba142a",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-09T04:19:50Z",
+      "side": 1,
+      "message": "This is actually the same timeout as used in the CTS test for ConnectivityManager for network callbacks:\nhttps://source.corp.google.com/android/packages/modules/Connectivity/tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java?q\u003dNETWORK_CALLBACK_TIMEOUT_MS%5C%20%5C%3D%5C%2030_000%20f:connectivitymanagertest\u0026sq\u003dpackage:%5Eandroid$\n\nAFAIK, it\u0027s this long to support older devices.",
+      "parentUuid": "7c9d8492_d306f43d",
+      "range": {
+        "startLine": 72,
+        "startChar": 18,
+        "endLine": 72,
+        "endChar": 41
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3cb4c70b_d735d0f5",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-07T06:59:14Z",
       "side": 1,
       "message": "Hm, I think \"createInterface\" (even though it is less verbose) is a better name in this case. The EthernetTracker already handles bringup for us, so as far as it is concerned, it does not even matter if the interface is up or down. Plus, \"downed\" sounds quite brutal. 😊",
+      "range": {
+        "startLine": 212,
+        "startChar": 16,
+        "endLine": 212,
+        "endChar": 37
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "098327ca_41190a35",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-09T04:19:50Z",
+      "side": 1,
+      "message": "Hah, yes, good point and agree on the naming.",
+      "parentUuid": "3cb4c70b_d735d0f5",
       "range": {
         "startLine": 212,
         "startChar": 16,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "405ceca3_d265418d",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-09T04:19:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29654978_576492b3",
+      "range": {
+        "startLine": 251,
+        "startChar": 16,
+        "endLine": 251,
+        "endChar": 30
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92033a92_4ed2e85f",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-04-07T06:59:14Z",
       "side": 1,
       "message": "Should this use the HandlerExecutor similar to other tests in this class?",
+      "range": {
+        "startLine": 254,
+        "startChar": 38,
+        "endLine": 254,
+        "endChar": 46
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fd34b79_6866d492",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-09T04:19:50Z",
+      "side": 1,
+      "message": "I don\u0027t think it is needed? In fact, it may even simplify things to remove the HandlerExecutor from the other tests and use the global one I added in this patch.",
+      "parentUuid": "92033a92_4ed2e85f",
       "range": {
         "startLine": 254,
         "startChar": 38,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f3ad5e5_a3d5af9e",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-09T04:19:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10f686cd_e00ceeea",
+      "range": {
+        "startLine": 260,
+        "startChar": 16,
+        "endLine": 260,
+        "endChar": 33
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "955d4d49_aebcf8ed",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-04-07T06:59:14Z",
       "side": 1,
       "message": "I don\u0027t know why this isn\u0027t the case yet, but can callWithShellPermissionIdentity be moved inside createInterface()?",
+      "range": {
+        "startLine": 270,
+        "startChar": 9,
+        "endLine": 272,
+        "endChar": 9
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e004c5a_d0925a8e",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-09T04:19:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "955d4d49_aebcf8ed",
       "range": {
         "startLine": 270,
         "startChar": 9,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10d9acbb_c74704c3",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-09T04:19:50Z",
+      "side": 1,
+      "message": "This is necessary in order for IP provisioning to work for the test interface. Using the new updateConfiguration() API in the highlighted method, an IP can be set for the test interface which allows it to successfully provision.",
+      "parentUuid": "df652755_e6286cd3",
+      "range": {
+        "startLine": 275,
+        "startChar": 20,
+        "endLine": 275,
+        "endChar": 51
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5db07242_7d20af23",
@@ -175,6 +343,30 @@
       "writtenOn": "2022-04-07T06:59:14Z",
       "side": 1,
       "message": "nit: I think the two lines of code in this function should just be part of createTestNetwork(). I don\u0027t mind test code to be a little verbose (in fact, I very much prefer it).",
+      "range": {
+        "startLine": 282,
+        "startChar": 16,
+        "endLine": 282,
+        "endChar": 47
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af89f468_2acfa982",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-09T04:19:50Z",
+      "side": 1,
+      "message": "Done.\n\nThat said, I tend to find smaller, well-named methods to be easier to read, maintain and reuse.\n\nAlthough there is a bunch of material online on the topic, there is some internal guidance here if helpful:\ngo/java-practices/methods#length\n\nOf course, this comes with a high-level of subjectivity and is not an exact science but something to consider.",
+      "parentUuid": "5db07242_7d20af23",
       "range": {
         "startLine": 282,
         "startChar": 16,
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4eef4430_7d0cbf13",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-09T04:19:50Z",
+      "side": 1,
+      "message": "Done and done.",
+      "parentUuid": "4643ab49_2008240d",
+      "range": {
+        "startLine": 307,
+        "startChar": 18,
+        "endLine": 307,
+        "endChar": 39
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a997165_93213910",
@@ -221,6 +437,30 @@
       "writtenOn": "2022-04-07T06:59:14Z",
       "side": 1,
       "message": "testEnableDisableInterface",
+      "range": {
+        "startLine": 338,
+        "startChar": 8,
+        "endLine": 338,
+        "endChar": 36
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b71bff80_3f215ade",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-09T04:19:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a997165_93213910",
       "range": {
         "startLine": 338,
         "startChar": 8,
@@ -254,6 +494,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea344b10_6ddd5739",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-09T04:19:50Z",
+      "side": 1,
+      "message": "On the line above, `createTestNetwork()` is called and in that method, ultimately an IP is assigned to the test interface using the new `updateConfiguration()` API to allow it to provision.",
+      "parentUuid": "aed97529_d03417d9",
+      "range": {
+        "startLine": 342,
+        "startChar": 11,
+        "endLine": 342,
+        "endChar": 48
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc7b80b4_0bd8d98a",
@@ -267,6 +531,30 @@
       "writtenOn": "2022-04-07T06:59:14Z",
       "side": 1,
       "message": "Usually we prefer using IPv6 over IPv4 for testing. Also, try using an address from the documentation range (192.0.2.0/24 or 2001:db8::/32).",
+      "range": {
+        "startLine": 368,
+        "startChar": 24,
+        "endLine": 368,
+        "endChar": 43
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60c05a4b_8e1feca3",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-09T04:19:50Z",
+      "side": 1,
+      "message": "I actually initially tried using IPv6 but it is not allowed in StaticIpConfiguration:\nhttps://source.corp.google.com/android/packages/modules/Connectivity/framework/src/android/net/StaticIpConfiguration.java?q\u003donly%5C%20ipv4.*IP%5C%20configuration%20f:staticipconfiguration\u0026sq\u003dpackage:%5Eandroid$\n\n    if (ipAddress !\u003d null \u0026\u0026 !(ipAddress.getAddress() instanceof Inet4Address)) {\n                throw new IllegalArgumentException(\n                        \"Only IPv4 addresses can be used for the IP configuration\");\n            }\n\nI updated to use addresses in the IPv4 you suggested.",
+      "parentUuid": "fc7b80b4_0bd8d98a",
       "range": {
         "startLine": 368,
         "startChar": 24,
@@ -300,6 +588,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3952a211_3c0667bb",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-09T04:19:50Z",
+      "side": 1,
+      "message": "There is an existing TODO for just this:\nhttps://source.corp.google.com/android/packages/modules/Connectivity/service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java?q\u003dTODO%5C:%5C%20Update%5C%20this%5C%20logic%5C%20to%5C%20only%5C%20do%5C%20a%5C%20restart%5C%20if%5C%20required%20f:ethernetnetworkfactory\u0026sq\u003dpackage:%5Eandroid$\n\n    // TODO: Update this logic to only do a restart if required...\n    \nMy suggestion is to do this in a follow-up CL and update the test accordingly.",
+      "parentUuid": "fa0cc7f9_b0e0fc81",
+      "range": {
+        "startLine": 371,
+        "startChar": 0,
+        "endLine": 373,
+        "endChar": 69
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ba01323_551cd197",
@@ -313,6 +625,30 @@
       "writtenOn": "2022-04-07T06:59:14Z",
       "side": 1,
       "message": "I would remove this as this test doesn\u0027t test the enable/disableInterface functionality.",
+      "range": {
+        "startLine": 383,
+        "startChar": 8,
+        "endLine": 384,
+        "endChar": 79
+      },
+      "revId": "d3c22e0c9751520d6f6bac4bc0558d20dba4e94a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b34282a2_f36ef654",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-09T04:19:50Z",
+      "side": 1,
+      "message": "This is actually here as part of cleaning up after the test and putting the system back into an expected state. I considered putting something into the @After method however on initial look didn\u0027t see a clean way to do it that made sense for all tests.\n\nIn any case, I added a comment to better explain.",
+      "parentUuid": "8ba01323_551cd197",
       "range": {
         "startLine": 383,
         "startChar": 8,
