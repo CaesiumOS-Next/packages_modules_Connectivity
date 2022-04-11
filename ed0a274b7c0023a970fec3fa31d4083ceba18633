@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a25fe4d_6fa203be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-11T09:03:11Z",
+      "side": 1,
+      "message": "Basically LGTM",
+      "revId": "ed0a274b7c0023a970fec3fa31d4083ceba18633",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "542cce0f_58117ba7",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-11T09:03:11Z",
+      "side": 1,
+      "message": "This assumes that getSystemTrafficPerm() will never change after boot, but theoretically some OEM could have added apps that only have the system traffic permission in some users, so the return value changes after such users have been added.\n\nNow getSystemPermissionUids was only called once in startMonitoring in S, so that\u0027s probably OK, but for correctness/robustness it may be better to call this again on user added/removed",
+      "range": {
+        "startLine": 384,
+        "startChar": 8,
+        "endLine": 384,
+        "endChar": 77
+      },
+      "revId": "ed0a274b7c0023a970fec3fa31d4083ceba18633",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ab3f151_9ec2b3d4",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-11T09:03:11Z",
+      "side": 1,
+      "message": "Nit: appIds.indexOfKey(appId) \u003c 0 would be slightly simpler / shorter",
+      "range": {
+        "startLine": 556,
+        "startChar": 20,
+        "endLine": 556,
+        "endChar": 25
+      },
+      "revId": "ed0a274b7c0023a970fec3fa31d4083ceba18633",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e55a3d77_b299ad42",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-11T09:03:11Z",
+      "side": 1,
+      "message": "These 2 methods should probably be synchronized if generateAppIdsTrafficPermission is ? They\u0027re already called by synchronized methods but it would be more consistent",
+      "range": {
+        "startLine": 652,
+        "startChar": 4,
+        "endLine": 652,
+        "endChar": 11
+      },
+      "revId": "ed0a274b7c0023a970fec3fa31d4083ceba18633",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "201ef86b_412edaff",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-11T09:03:11Z",
+      "side": 1,
+      "message": "Nit: I find the name a bit confusing because other places that update the map refer to app Id (\"makeAppIdsTrafficPerm\", \"generateAppIdsTrafficPermission\", \"sendAppIdsTrafficPermission\").\n\nThis method updates mUsersTrafficPermissions for the app ID associated with the UID, so maybe \"updateAppIdTrafficPermission(int uid)\" would be better ?",
+      "range": {
+        "startLine": 652,
+        "startChar": 17,
+        "endLine": 652,
+        "endChar": 43
+      },
+      "revId": "ed0a274b7c0023a970fec3fa31d4083ceba18633",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78b546b9_39a4ab85",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-11T09:03:11Z",
+      "side": 1,
+      "message": "Maybe slightly simpler ?\n\n  int permission \u003d 0;\n  boolean installed \u003d false;\n  for (...) {\n      final SparseArray userApps \u003d mUsersTrafficPermissions.get(user);\n      final int appIdx \u003d userApps.indexOfKey(appId);\n      if (appIdx \u003e\u003d 0) {\n          permission |\u003d userApps.valueAt(appId);\n          installed \u003d true;\n      }\n  }\n  return installed ? permission : PERMISSION_UNINSTALLED;\n\nWhat if have is fine if you prefer it though",
+      "revId": "ed0a274b7c0023a970fec3fa31d4083ceba18633",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
