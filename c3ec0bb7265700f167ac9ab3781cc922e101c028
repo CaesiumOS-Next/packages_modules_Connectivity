@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d88763a8_0456acf9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-11T19:45:21Z",
+      "side": 1,
+      "message": "Thanks for the feedback! I will merge these tests into EthernetManagerTest",
+      "revId": "c3ec0bb7265700f167ac9ab3781cc922e101c028",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
