@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28bacecc_05b28cfa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-04-11T10:18:33Z",
+      "side": 1,
+      "message": "Note for reviewers: An alternative CL is uploaded at aosp/2003670 by Jean.\nPlease also check if we should use that one instead.",
+      "revId": "4a036552fdbe831818795252fba4b0687c862876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
