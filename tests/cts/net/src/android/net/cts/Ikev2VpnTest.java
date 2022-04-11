@@ -240,7 +240,7 @@ public class Ikev2VpnTest {
     private Ikev2VpnProfile buildIkev2VpnProfilePsk(@NonNull String remote,
             boolean isRestrictedToTestNetworks, boolean requiresValidation) throws Exception {
         final Ikev2VpnProfileBuilderShim builder =
-                Ikev2VpnProfileBuilderShimImpl.newInstance(remote, TEST_IDENTITY, null)
+                Ikev2VpnProfileBuilderShimImpl.newInstance(remote, TEST_IDENTITY)
                         .setAuthPsk(TEST_PSK);
         return buildIkev2VpnProfileCommon(builder, isRestrictedToTestNetworks,
                 requiresValidation);
@@ -250,7 +250,7 @@ public class Ikev2VpnTest {
             throws Exception {
 
         final Ikev2VpnProfileBuilderShim builder =
-                Ikev2VpnProfileBuilderShimImpl.newInstance(TEST_SERVER_ADDR_V6, TEST_IDENTITY, null)
+                Ikev2VpnProfileBuilderShimImpl.newInstance(TEST_SERVER_ADDR_V6, TEST_IDENTITY)
                         .setAuthUsernamePassword(TEST_USER, TEST_PASSWORD, mServerRootCa);
         return buildIkev2VpnProfileCommon(builder, isRestrictedToTestNetworks,
                 false /* requiresValidation */);
@@ -259,7 +259,7 @@ public class Ikev2VpnTest {
     private Ikev2VpnProfile buildIkev2VpnProfileDigitalSignature(boolean isRestrictedToTestNetworks)
             throws Exception {
         final Ikev2VpnProfileBuilderShim builder =
-                Ikev2VpnProfileBuilderShimImpl.newInstance(TEST_SERVER_ADDR_V6, TEST_IDENTITY, null)
+                Ikev2VpnProfileBuilderShimImpl.newInstance(TEST_SERVER_ADDR_V6, TEST_IDENTITY)
                         .setAuthDigitalSignature(
                                 mUserCertKey.cert, mUserCertKey.key, mServerRootCa);
         return buildIkev2VpnProfileCommon(builder, isRestrictedToTestNetworks,
@@ -292,7 +292,8 @@ public class Ikev2VpnTest {
         assertNull(profile.getServerRootCaCert());
         assertNull(profile.getRsaPrivateKey());
         assertNull(profile.getUserCert());
-        final Ikev2VpnProfileShim<Ikev2VpnProfile> shim = new Ikev2VpnProfileShimImpl(profile);
+        final Ikev2VpnProfileShim<Ikev2VpnProfile> shim =
+                Ikev2VpnProfileShimImpl.newInstance(profile);
         if (TestUtils.shouldTestTApis()) {
             assertEquals(requiresValidation, shim.isInternetValidationRequired());
         } else {
@@ -313,7 +314,7 @@ public class Ikev2VpnTest {
         final IkeTunnelConnectionParams expectedParams =
                 new IkeTunnelConnectionParams(IKE_PARAMS, CHILD_PARAMS);
         final Ikev2VpnProfileBuilderShim ikeProfileBuilder =
-                Ikev2VpnProfileBuilderShimImpl.newInstance(null, null, expectedParams);
+                Ikev2VpnProfileBuilderShimImpl.newInstance(expectedParams);
         // Verify the other Ike options could not be set with IkeTunnelConnectionParams.
         final Class<IllegalArgumentException> expected = IllegalArgumentException.class;
         assertThrows(expected, () -> ikeProfileBuilder.setAuthPsk(TEST_PSK));
@@ -325,7 +326,7 @@ public class Ikev2VpnTest {
         final Ikev2VpnProfile profile = (Ikev2VpnProfile) ikeProfileBuilder.build().getProfile();
 
         assertEquals(expectedParams,
-                new Ikev2VpnProfileShimImpl(profile).getIkeTunnelConnectionParams());
+                Ikev2VpnProfileShimImpl.newInstance(profile).getIkeTunnelConnectionParams());
     }
 
     @Test
