@@ -198,6 +198,30 @@
       },
       "revId": "4b1e0f8bcfcbe4027ad4ce53b4a806d19f8c7aa2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5270cad_7de2dac9",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-04-11T17:42:15Z",
+      "side": 1,
+      "message": "I think it is important to point out that \u0027bpf_try_make_writable() / skb_ensure_writable()\u0027 are meant to be (in a sense) transparent to the user.  ie. for some packets (fully linear ones that aren\u0027t clones) they do nothing.  ie. these helpers are just ironing out some rough edge cases.  And in every case if you call them two times in a row with the same arguments, the second call is a no-op.\n\nIt\u0027s probably a naming mistake that the bpf helper is \u0027bpf_skb_pull_data\u0027 which makes it seem like it meaningfully changes packet pointers around.  (This is very much unlike in kernel functions like \u0027skb_pull\u0027 which *do* move pointers around and a second call is not a no-op)",
+      "parentUuid": "e892db54_fd9cd15d",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 21
+      },
+      "revId": "4b1e0f8bcfcbe4027ad4ce53b4a806d19f8c7aa2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
