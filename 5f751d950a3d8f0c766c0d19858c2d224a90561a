@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2f84c2e_e36a38ec",
+        "filename": "framework/src/android/net/ITestNetworkManager.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-11T08:21:13Z",
+      "side": 1,
+      "message": "Is TestNetworkManager only present on test builds? Could it be dangerous that the shell now has permission to create tap interfaces that could look like regular ethernet interfaces? (This may not be an issue at all, I really don\u0027t know.)",
+      "range": {
+        "startLine": 32,
+        "startChar": 100,
+        "endLine": 32,
+        "endChar": 112
+      },
+      "revId": "5f751d950a3d8f0c766c0d19858c2d224a90561a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
