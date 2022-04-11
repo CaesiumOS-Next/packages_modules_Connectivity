@@ -150,6 +150,30 @@
       },
       "revId": "4b1e0f8bcfcbe4027ad4ce53b4a806d19f8c7aa2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50c61531_be0245fe",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-04-11T17:33:18Z",
+      "side": 1,
+      "message": "ie. calling this twice on the same skb is fine, the first time we\u0027ll linearize a portion of the header of the packet and break copy-on-write semantics, the next time it\u0027ll be a no-op (unless it was cloned again in the mean time, in which case we\u0027ll break cow semantics again).",
+      "parentUuid": "47fd7a53_24fcc582",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 21
+      },
+      "revId": "4b1e0f8bcfcbe4027ad4ce53b4a806d19f8c7aa2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
