@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f018a36_e47a76c1",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-11T10:07:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "542cce0f_58117ba7",
+      "range": {
+        "startLine": 384,
+        "startChar": 8,
+        "endLine": 384,
+        "endChar": 77
+      },
+      "revId": "ed0a274b7c0023a970fec3fa31d4083ceba18633",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ab3f151_9ec2b3d4",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-04-11T09:03:11Z",
       "side": 1,
       "message": "Nit: appIds.indexOfKey(appId) \u003c 0 would be slightly simpler / shorter",
+      "range": {
+        "startLine": 556,
+        "startChar": 20,
+        "endLine": 556,
+        "endChar": 25
+      },
+      "revId": "ed0a274b7c0023a970fec3fa31d4083ceba18633",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27bd0bfa_fdaec5cd",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-11T10:07:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ab3f151_9ec2b3d4",
       "range": {
         "startLine": 556,
         "startChar": 20,
@@ -110,6 +158,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7df842fa_2f01caa4",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-11T10:07:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e55a3d77_b299ad42",
+      "range": {
+        "startLine": 652,
+        "startChar": 4,
+        "endLine": 652,
+        "endChar": 11
+      },
+      "revId": "ed0a274b7c0023a970fec3fa31d4083ceba18633",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43da60fa_3f43413c",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-11T10:07:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "201ef86b_412edaff",
+      "range": {
+        "startLine": 652,
+        "startChar": 17,
+        "endLine": 652,
+        "endChar": 43
+      },
+      "revId": "ed0a274b7c0023a970fec3fa31d4083ceba18633",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78b546b9_39a4ab85",
@@ -123,6 +219,24 @@
       "writtenOn": "2022-04-11T09:03:11Z",
       "side": 1,
       "message": "Maybe slightly simpler ?\n\n  int permission \u003d 0;\n  boolean installed \u003d false;\n  for (...) {\n      final SparseArray userApps \u003d mUsersTrafficPermissions.get(user);\n      final int appIdx \u003d userApps.indexOfKey(appId);\n      if (appIdx \u003e\u003d 0) {\n          permission |\u003d userApps.valueAt(appId);\n          installed \u003d true;\n      }\n  }\n  return installed ? permission : PERMISSION_UNINSTALLED;\n\nWhat if have is fine if you prefer it though",
+      "revId": "ed0a274b7c0023a970fec3fa31d4083ceba18633",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18c7771a_acefd363",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-11T10:07:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78b546b9_39a4ab85",
       "revId": "ed0a274b7c0023a970fec3fa31d4083ceba18633",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
