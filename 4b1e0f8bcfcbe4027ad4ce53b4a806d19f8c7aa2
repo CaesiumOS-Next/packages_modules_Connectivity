@@ -126,6 +126,30 @@
       },
       "revId": "4b1e0f8bcfcbe4027ad4ce53b4a806d19f8c7aa2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47fd7a53_24fcc582",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-04-11T17:30:53Z",
+      "side": 1,
+      "message": "bpf_skb_pull_data(skb, len) just calls:\n  return bpf_try_make_writable(skb, len ? : skb_headlen(skb));\n\nwhich in turn just becomes:\n  int err \u003d __bpf_try_make_writable(skb, write_len);\n  bpf_compute_data_pointers(skb);\n  return err;\n\nwhere __bpf_try_make_writable() is just:\n  skb_ensure_writable(skb, write_len);\n\nthis in turn becomes:\n  if (!pskb_may_pull(skb, write_len)) return -ENOMEM;\n  if (!skb_cloned(skb) || skb_clone_writable(skb, write_len)) return 0;\n  return pskb_expand_head(skb, 0, 0, GFP_ATOMIC);\n\nWhich basically makes sure some number of bytes are in the linear portion of the packet header and breaks copy-on-write semantics (unclone)",
+      "parentUuid": "8d9b70da_0d42e2a4",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 21
+      },
+      "revId": "4b1e0f8bcfcbe4027ad4ce53b4a806d19f8c7aa2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
