@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e6df35d_b997c189",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-04-11T21:14:30Z",
+      "side": 1,
+      "message": "I think we can drop this.\n\nI really like when we return BPF_MATCH iff we account statistics, because this means the iptables per-rule statistics should match...",
+      "revId": "66fa26208850d85cb26b8b4b0537587244393af7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
