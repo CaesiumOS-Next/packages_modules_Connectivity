@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5b4d9fe_d818ddc5",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-04-12T14:14:05Z",
+      "side": 1,
+      "message": "Modified.",
+      "parentUuid": "765c9022_5b87b866",
+      "range": {
+        "startLine": 361,
+        "startChar": 12,
+        "endLine": 364,
+        "endChar": 42
+      },
+      "revId": "4bd285b928648ba007325ae82a7253b22a8550a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00abc8f3_bc2a19f4",
@@ -64,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92d3725b_da5b0866",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-04-12T14:14:05Z",
+      "side": 1,
+      "message": "Add a test of intent with action.",
+      "parentUuid": "00abc8f3_bc2a19f4",
+      "revId": "4bd285b928648ba007325ae82a7253b22a8550a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "126ce5a5_b225f518",
@@ -77,6 +119,24 @@
       "writtenOn": "2022-03-30T03:21:47Z",
       "side": 1,
       "message": "Could you also test that tethering would be stopped when carrier supported change to false ?",
+      "revId": "4bd285b928648ba007325ae82a7253b22a8550a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a67d9fca_680faab6",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-04-12T14:14:05Z",
+      "side": 1,
+      "message": "sure",
+      "parentUuid": "126ce5a5_b225f518",
       "revId": "4bd285b928648ba007325ae82a7253b22a8550a8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
