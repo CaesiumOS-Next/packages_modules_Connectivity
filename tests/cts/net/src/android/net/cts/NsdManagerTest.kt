@@ -556,6 +556,35 @@ class NsdManagerTest {
         }
     }
 
+    @Test
+    fun testNsdManager_RegisterServiceNameWithNonStandardCharacters() {
+        // This test requires shims supporting T+ APIs (discovering on specific network)
+        assumeTrue(ConstantsShim.VERSION > SC_V2)
+
+        val nscServiceNames = listOf("^Nsd.Test|", "=Nsd\\Test&")
+        for (name in nscServiceNames) {
+            val si = NsdServiceInfo().apply {
+                serviceType = SERVICE_TYPE
+                serviceName = name
+                port = 12345 // Test won't try to connect so port does not matter
+            }
+
+            val registrationRecord = NsdRegistrationRecord()
+            registerService(registrationRecord, si)
+            tryTest {
+                val discoveryRecord = NsdDiscoveryRecord()
+                nsdManager.discoverServices(
+                        SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, discoveryRecord)
+                val foundInfo = discoveryRecord.waitForServiceDiscovered(name)
+                resolveService(foundInfo)
+            } cleanupStep {
+                nsdManager.unregisterService(registrationRecord)
+            } cleanup {
+                registrationRecord.expectCallback<ServiceUnregistered>()
+            }
+        }
+    }
+
     /**
      * Register a service and return its registration record.
      */
