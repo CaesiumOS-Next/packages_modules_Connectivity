@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a9dd915_5f3485a6",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-12T13:59:58Z",
+      "side": 1,
+      "message": "I think these two items may not ensure the their value here. In this method, it does not invoke always on, but this is not a single test but a common method. Callers may setLockDown first the call to this method. The assertion here is then not true.\n\nAnother point is you do not actually set them. Why do we need to verify these two here?",
+      "range": {
+        "startLine": 498,
+        "startChar": 12,
+        "endLine": 499,
+        "endChar": 58
+      },
+      "revId": "7c4e757955c9bec7611ae0b49403b26d49c11d09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
