@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f7ce9fa_732cc0e7",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-12T08:48:02Z",
+      "side": 1,
+      "message": "(See future comment from Lorenzo, we discussed this and actually having it in startMonitoring as you had before is probably safer; sorry !)",
+      "parentUuid": "1f018a36_e47a76c1",
+      "range": {
+        "startLine": 384,
+        "startChar": 8,
+        "endLine": 384,
+        "endChar": 77
+      },
+      "revId": "ed0a274b7c0023a970fec3fa31d4083ceba18633",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ab3f151_9ec2b3d4",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 6

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38014ec1_d660789c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-12T08:48:02Z",
+      "side": 1,
+      "message": "Still LGTM, but Lorenzo is also reviewing",
+      "revId": "f0cf506796c7fc9aab7c200bb13763efaef5279b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
