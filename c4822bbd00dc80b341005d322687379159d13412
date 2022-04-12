@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7704841e_0db4c2c5",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-12T14:34:43Z",
+      "side": 1,
+      "message": "nit: I am still pretty new to Kotlin, but wouldn\u0027t the get(CB_TIMEOUT_MS, TimeUnit.MILLISECONDS) syntax be preferable over the bracket operator? This syntax looks a little weird on something that isn\u0027t a matrix or something similar.",
+      "range": {
+        "startLine": 257,
+        "startChar": 24,
+        "endLine": 257,
+        "endChar": 62
+      },
+      "revId": "c4822bbd00dc80b341005d322687379159d13412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e84e282e_1bee9bcb",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-12T14:34:43Z",
+      "side": 1,
+      "message": "This should call completeExceptionally(error)",
+      "range": {
+        "startLine": 265,
+        "startChar": 21,
+        "endLine": 267,
+        "endChar": 9
+      },
+      "revId": "c4822bbd00dc80b341005d322687379159d13412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd1f4e84_f4abf521",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-12T14:34:43Z",
+      "side": 1,
+      "message": "should this assert that expectComplete() returns iface?",
+      "range": {
+        "startLine": 276,
+        "startChar": 8,
+        "endLine": 276,
+        "endChar": 40
+      },
+      "revId": "c4822bbd00dc80b341005d322687379159d13412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c611faeb_95011989",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-12T14:34:43Z",
+      "side": 1,
+      "message": "same here, I think this should assert that expectComplete() returns iface",
+      "range": {
+        "startLine": 285,
+        "startChar": 8,
+        "endLine": 285,
+        "endChar": 43
+      },
+      "revId": "c4822bbd00dc80b341005d322687379159d13412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da32bb07_ae62d223",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-12T14:34:43Z",
+      "side": 1,
+      "message": "Apologies for creating a merge conflict. On the bright side, this can now all be replaced by \"createInterface()\" which creates an EthernetTestInterface (tap interface with associated RaResponder which handles IPv6 provisioning).",
+      "range": {
+        "startLine": 288,
+        "startChar": 0,
+        "endLine": 299,
+        "endChar": 5
+      },
+      "revId": "c4822bbd00dc80b341005d322687379159d13412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e074607_c0aedbde",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-12T14:34:43Z",
+      "side": 1,
+      "message": "This should also do something like `return listener.expectComplete().also { assertEquals(it, iface) }`",
+      "range": {
+        "startLine": 315,
+        "startChar": 8,
+        "endLine": 317,
+        "endChar": 18
+      },
+      "revId": "c4822bbd00dc80b341005d322687379159d13412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ede5645b_b4a55d64",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-12T14:34:43Z",
+      "side": 1,
+      "message": "nit: could be named \"createStaticIpConfig\"",
+      "range": {
+        "startLine": 320,
+        "startChar": 16,
+        "endLine": 320,
+        "endChar": 30
+      },
+      "revId": "c4822bbd00dc80b341005d322687379159d13412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "471930e8_1a3ba747",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-12T14:34:43Z",
+      "side": 1,
+      "message": "I don\u0027t think requesting a test network needs permission. You may have to remove the trusted capability though.\n\nThis is what I use in a similar test:\n\n```\nnew NetworkRequest.Builder()\n        .addTransportType(NetworkCapabilities.TRANSPORT_TEST)\n        .addTransportType(NetworkCapabilities.TRANSPORT_ETHERNET)\n        .removeCapability(NetworkCapabilities.NET_CAPABILITY_TRUSTED)\n        .build();\n```",
+      "range": {
+        "startLine": 326,
+        "startChar": 6,
+        "endLine": 328,
+        "endChar": 9
+      },
+      "revId": "c4822bbd00dc80b341005d322687379159d13412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
