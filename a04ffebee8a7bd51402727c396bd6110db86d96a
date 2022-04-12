@@ -67,6 +67,24 @@
       "message": "Since fixing the implementation of LinkProperties is more important than adding a CTS change, can we split this CL into two parts where we only update LinkProperties and the associated unit test in this CL and add CTS test separately?\n\nLucas, would you be OK with that?",
       "revId": "a04ffebee8a7bd51402727c396bd6110db86d96a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f266b62_0bc2ec18",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-04-12T06:59:45Z",
+      "side": 1,
+      "message": "Sounds good to me.",
+      "parentUuid": "8fc1fd04_d1575d5c",
+      "revId": "a04ffebee8a7bd51402727c396bd6110db86d96a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
