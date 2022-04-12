@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "537ea834_c709b613",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-04-12T09:02:00Z",
+      "side": 1,
+      "message": "I ran CtsNetTestCases, FrameworksNetTests and FrameworksVcnTests locally, and all of them are passed.",
+      "revId": "dd0bc1cad8eb59993abd27ca86f565c6975f89b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
