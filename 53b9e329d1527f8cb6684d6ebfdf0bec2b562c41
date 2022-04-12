@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38ee16a1_38172e1c",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-12T06:44:57Z",
+      "side": 1,
+      "message": "Any reason you have to do this instead of just calling stop(), which also closes the interface fd?\n\nAlso, per discussion, consider using waitForIdle, which we use extensively in our tests.",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 47
+      },
+      "revId": "53b9e329d1527f8cb6684d6ebfdf0bec2b562c41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
