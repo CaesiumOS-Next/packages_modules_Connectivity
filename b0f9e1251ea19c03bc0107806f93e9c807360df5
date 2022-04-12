@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ccbe59d_960fc485",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-04-12T09:54:03Z",
+      "side": 1,
+      "message": "Just a question, the reason we need NetworkInterface class is just to get the MTU of interface as TapPacketReader constructor parameter? If so, maybe we could just assign a constant value directly.",
+      "range": {
+        "startLine": 94,
+        "startChar": 16,
+        "endLine": 94,
+        "endChar": 21
+      },
+      "revId": "b0f9e1251ea19c03bc0107806f93e9c807360df5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
