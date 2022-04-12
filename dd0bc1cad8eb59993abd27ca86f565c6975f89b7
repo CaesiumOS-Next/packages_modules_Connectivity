@@ -16,6 +16,23 @@
       "message": "I ran CtsNetTestCases, FrameworksNetTests and FrameworksVcnTests locally, and all of them are passed.",
       "revId": "dd0bc1cad8eb59993abd27ca86f565c6975f89b7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdeb938d_d0d2ba8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-04-12T09:02:56Z",
+      "side": 1,
+      "message": "So it seems like it\u0027s ok that the test network has NOT_VPN by default.",
+      "revId": "dd0bc1cad8eb59993abd27ca86f565c6975f89b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
