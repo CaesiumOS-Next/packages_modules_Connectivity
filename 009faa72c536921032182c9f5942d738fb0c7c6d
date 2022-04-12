@@ -34,6 +34,24 @@
       "parentUuid": "f1c6fb24_f71773e6",
       "revId": "009faa72c536921032182c9f5942d738fb0c7c6d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9d0abb9_6efb04dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-12T06:51:15Z",
+      "side": 1,
+      "message": "Ah, I see. So if it has the other redaction permissions anyway, then what is it that it cannot access? The commit message should clearly state what it cannot access (and potentially justify why it should be able to access it).",
+      "parentUuid": "5c248d63_254f58a4",
+      "revId": "009faa72c536921032182c9f5942d738fb0c7c6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
