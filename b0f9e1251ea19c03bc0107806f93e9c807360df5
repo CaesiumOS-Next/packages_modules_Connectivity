@@ -22,6 +22,30 @@
       },
       "revId": "b0f9e1251ea19c03bc0107806f93e9c807360df5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2893442a_2b7cd1ae",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-12T10:17:47Z",
+      "side": 1,
+      "message": "Yes, this makes the next call fit on one line, yay 😊",
+      "parentUuid": "6ccbe59d_960fc485",
+      "range": {
+        "startLine": 94,
+        "startChar": 16,
+        "endLine": 94,
+        "endChar": 21
+      },
+      "revId": "b0f9e1251ea19c03bc0107806f93e9c807360df5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
