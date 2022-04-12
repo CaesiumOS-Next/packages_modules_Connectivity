@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c10492ef_5ab6fc99",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-12T15:36:08Z",
+      "side": 1,
+      "message": "Code LGTM but please check the questions in my comments before merging the CL. Would be good to address the comments if you can but they are minor so they could wait for a follow-up CL if you prefer.",
+      "revId": "a501e47e19b435bcaef238c41f6d69c8606972d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aabcd687_6c7e8b60",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-12T15:36:08Z",
+      "side": 1,
+      "message": "The permissions are a bitmask of PERMISSION_INTERNET and PERMISSION_UPDATE_DEVICE_STATS, or 0 (PERMISSION_NONE) if the app has neither of those permissions. They can never be PERMISSION_UNINSTALLED.",
+      "range": {
+        "startLine": 137,
+        "startChar": 38,
+        "endLine": 137,
+        "endChar": 39
+      },
+      "revId": "a501e47e19b435bcaef238c41f6d69c8606972d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50ad12b9_1093c2ab",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-12T15:36:08Z",
+      "side": 1,
+      "message": "the remaining",
+      "range": {
+        "startLine": 548,
+        "startChar": 32,
+        "endLine": 548,
+        "endChar": 36
+      },
+      "revId": "a501e47e19b435bcaef238c41f6d69c8606972d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "120bd57a_6e73bc6f",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-12T15:36:08Z",
+      "side": 1,
+      "message": "Can this really be null, I wonder? Maybe log a wtf if it is?",
+      "range": {
+        "startLine": 552,
+        "startChar": 8,
+        "endLine": 552,
+        "endChar": 40
+      },
+      "revId": "a501e47e19b435bcaef238c41f6d69c8606972d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff8005a4_676c1cc8",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-12T15:36:08Z",
+      "side": 1,
+      "message": "Consider moving this down to where it\u0027s used (e.g., just before line 664).",
+      "range": {
+        "startLine": 653,
+        "startChar": 8,
+        "endLine": 653,
+        "endChar": 51
+      },
+      "revId": "a501e47e19b435bcaef238c41f6d69c8606972d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1998a3c_8f269f60",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-12T15:36:08Z",
+      "side": 1,
+      "message": "Does this code work correctly if we receive a PACKAGE_REMOVED for a user that has just been deleted, or a PACKAGE_ADDED for a user that has not yet been added? In that case that user will not be handled by the loop.\n\nThe PACKAGE_* and USER_* broadcasts are sent by two different services and I don\u0027t think they are very well coordinated.\n\nFor example: looking at PackageManagerService I see that when a user is removed, after sending ACTION_USER_REMOVED, UserManagerService#finishRemoveUser calls PackageManagerService#cleanupUser to delete any packages that were installed only for that user. That code calls removeUnusedPackagesLPw, which sends up posting deletePackageX to the handler thread. That looks like it might be able to send a PACKAGE_REMOVED broadcast.\n\nFor safety maybe we could add a wtf if we get a PACKAGE_ADDED (and maybe also PACKAGE_REMOVED) for a user that is not in mUsersTrafficPermissions?\n\nHave you run this code on a real device and added/removed users? For example, maybe try to create a work profile? Or add/remove guest users? (Probably need to use an internal build to test with real apps.)",
+      "range": {
+        "startLine": 676,
+        "startChar": 39,
+        "endLine": 676,
+        "endChar": 40
+      },
+      "revId": "a501e47e19b435bcaef238c41f6d69c8606972d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17a504bb_31162861",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-12T15:36:08Z",
+      "side": 1,
+      "message": "Not for this CL, but this code looks incorrect on T+ where permissions don\u0027t go to netd at all. Can you upload a CL to clean this up?",
+      "range": {
+        "startLine": 987,
+        "startChar": 0,
+        "endLine": 990,
+        "endChar": 9
+      },
+      "revId": "a501e47e19b435bcaef238c41f6d69c8606972d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
