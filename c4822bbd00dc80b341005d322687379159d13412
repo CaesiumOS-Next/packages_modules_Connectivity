@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a712888b_0091ebf7",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-12T23:14:15Z",
+      "side": 1,
+      "message": "Yep. Fair point and agreed. Done.",
+      "parentUuid": "7704841e_0db4c2c5",
+      "range": {
+        "startLine": 257,
+        "startChar": 24,
+        "endLine": 257,
+        "endChar": 62
+      },
+      "revId": "c4822bbd00dc80b341005d322687379159d13412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e84e282e_1bee9bcb",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-12T14:34:43Z",
       "side": 1,
       "message": "This should call completeExceptionally(error)",
+      "range": {
+        "startLine": 265,
+        "startChar": 21,
+        "endLine": 267,
+        "endChar": 9
+      },
+      "revId": "c4822bbd00dc80b341005d322687379159d13412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50d4cf78_faf6baa6",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-12T23:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e84e282e_1bee9bcb",
       "range": {
         "startLine": 265,
         "startChar": 21,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52ef4652_4ac971ef",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-12T23:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd1f4e84_f4abf521",
+      "range": {
+        "startLine": 276,
+        "startChar": 8,
+        "endLine": 276,
+        "endChar": 40
+      },
+      "revId": "c4822bbd00dc80b341005d322687379159d13412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c611faeb_95011989",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-04-12T14:34:43Z",
       "side": 1,
       "message": "same here, I think this should assert that expectComplete() returns iface",
+      "range": {
+        "startLine": 285,
+        "startChar": 8,
+        "endLine": 285,
+        "endChar": 43
+      },
+      "revId": "c4822bbd00dc80b341005d322687379159d13412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50f1b7b2_679dfc27",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-12T23:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c611faeb_95011989",
       "range": {
         "startLine": 285,
         "startChar": 8,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d51dd0a8_271d0781",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-12T23:14:15Z",
+      "side": 1,
+      "message": "NP at all and appreciate the comment.",
+      "parentUuid": "da32bb07_ae62d223",
+      "range": {
+        "startLine": 288,
+        "startChar": 0,
+        "endLine": 299,
+        "endChar": 5
+      },
+      "revId": "c4822bbd00dc80b341005d322687379159d13412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e074607_c0aedbde",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-04-12T14:34:43Z",
       "side": 1,
       "message": "This should also do something like `return listener.expectComplete().also { assertEquals(it, iface) }`",
+      "range": {
+        "startLine": 315,
+        "startChar": 8,
+        "endLine": 317,
+        "endChar": 18
+      },
+      "revId": "c4822bbd00dc80b341005d322687379159d13412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61f13c37_36b4e73d",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-12T23:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e074607_c0aedbde",
       "range": {
         "startLine": 315,
         "startChar": 8,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4d7cd6f_16ca8fbb",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-12T23:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ede5645b_b4a55d64",
+      "range": {
+        "startLine": 320,
+        "startChar": 16,
+        "endLine": 320,
+        "endChar": 30
+      },
+      "revId": "c4822bbd00dc80b341005d322687379159d13412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "471930e8_1a3ba747",
@@ -175,6 +343,30 @@
       "writtenOn": "2022-04-12T14:34:43Z",
       "side": 1,
       "message": "I don\u0027t think requesting a test network needs permission. You may have to remove the trusted capability though.\n\nThis is what I use in a similar test:\n\n```\nnew NetworkRequest.Builder()\n        .addTransportType(NetworkCapabilities.TRANSPORT_TEST)\n        .addTransportType(NetworkCapabilities.TRANSPORT_ETHERNET)\n        .removeCapability(NetworkCapabilities.NET_CAPABILITY_TRUSTED)\n        .build();\n```",
+      "range": {
+        "startLine": 326,
+        "startChar": 6,
+        "endLine": 328,
+        "endChar": 9
+      },
+      "revId": "c4822bbd00dc80b341005d322687379159d13412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c0aa2bb_83828aaa",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-12T23:14:15Z",
+      "side": 1,
+      "message": "Done. Not sure why I added it TBH, must have been a relic from an older patchset.",
+      "parentUuid": "471930e8_1a3ba747",
       "range": {
         "startLine": 326,
         "startChar": 6,
