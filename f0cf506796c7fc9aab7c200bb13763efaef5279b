@@ -16,6 +16,161 @@
       "message": "Still LGTM, but Lorenzo is also reviewing",
       "revId": "f0cf506796c7fc9aab7c200bb13763efaef5279b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eacd2d63_df79c322",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-12T09:07:26Z",
+      "side": 1,
+      "message": "Initial comments, still need to finish the review.",
+      "revId": "f0cf506796c7fc9aab7c200bb13763efaef5279b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2e2f586_1c8f4fd8",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-12T09:07:26Z",
+      "side": 1,
+      "message": "are SparseArrays where each entry maps an appId to the permissions that appId has within that user.",
+      "range": {
+        "startLine": 136,
+        "startChar": 30,
+        "endLine": 136,
+        "endChar": 88
+      },
+      "revId": "f0cf506796c7fc9aab7c200bb13763efaef5279b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe8be46f_f10457f5",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-12T09:07:26Z",
+      "side": 1,
+      "message": "Calculates permissions for appIds.\n\nMaps each appId to the union of all traffic permissions that the appId has in all users.",
+      "range": {
+        "startLine": 303,
+        "startChar": 7,
+        "endLine": 303,
+        "endChar": 62
+      },
+      "revId": "f0cf506796c7fc9aab7c200bb13763efaef5279b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "376bf82c_4f519f47",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-12T09:07:26Z",
+      "side": 1,
+      "message": "It is confusing that this method\u0027s name is similar to makeAppIdsTrafficPerm. That method only operates on a particular list of apps, this method operates on all apps. Maybe rename this one to makeAppIdsTrafficPermForAllUsers?",
+      "range": {
+        "startLine": 307,
+        "startChar": 40,
+        "endLine": 307,
+        "endChar": 71
+      },
+      "revId": "f0cf506796c7fc9aab7c200bb13763efaef5279b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "679a7c4d_b0fb33a6",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-12T09:07:26Z",
+      "side": 1,
+      "message": "they are not specific to any particular user.",
+      "range": {
+        "startLine": 506,
+        "startChar": 97,
+        "endLine": 507,
+        "endChar": 47
+      },
+      "revId": "f0cf506796c7fc9aab7c200bb13763efaef5279b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b664240_9bcca269",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-12T09:07:26Z",
+      "side": 1,
+      "message": "FWIW it seems like it might be better if this was in startMonitoring. Rationale:\n- The original S code did not rescan the system permissions when a user was added or removed, so OEMs probably aren\u0027t dependent on this.\n- It seems fairly arbitrary/unjustified to rescan the system permissions when a user is added or removed, but not when a package is installed or uninstalled.\n\nI don\u0027t feel very strongly about this though.",
+      "range": {
+        "startLine": 508,
+        "startChar": 53,
+        "endLine": 508,
+        "endChar": 73
+      },
+      "revId": "f0cf506796c7fc9aab7c200bb13763efaef5279b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9d416ba_37f18157",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-12T09:07:26Z",
+      "side": 1,
+      "message": "Looks like this could be really long. Have you tried it on a device with lots of apps? Does it work correctly? Seems like it could use lots of memory and create lots of garbage objects, too...",
+      "range": {
+        "startLine": 519,
+        "startChar": 18,
+        "endLine": 519,
+        "endChar": 22
+      },
+      "revId": "f0cf506796c7fc9aab7c200bb13763efaef5279b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
