@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9754270_0ed198d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-04-12T23:46:51Z",
+      "side": 1,
+      "message": "Hi Lucas, \nI\u0027ve moved tests to a separate CL: aosp/2063047\nplease re-approve this CL",
+      "revId": "30d41e59bc6b429e38cfaf173bc3e10a8f72d796",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
