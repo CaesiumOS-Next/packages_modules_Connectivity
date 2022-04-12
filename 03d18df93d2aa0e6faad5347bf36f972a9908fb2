@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b96d7d29_4da2ca42",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-04-12T05:49:21Z",
+      "side": 1,
+      "message": "nit: maybe also add \"Bug: ID\", which is easier to track the relevant CLs.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 4
+      },
+      "revId": "03d18df93d2aa0e6faad5347bf36f972a9908fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fc2644e_021838d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-04-12T05:49:21Z",
+      "side": 1,
+      "message": "Looks like it\u0027s just a simple code reorder. Btw, have we fixed this deflak test case?",
+      "revId": "03d18df93d2aa0e6faad5347bf36f972a9908fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
