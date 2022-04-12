@@ -39,6 +39,23 @@
       "message": "Looks like it\u0027s just a simple code reorder. Btw, have we fixed this deflak test case?",
       "revId": "03d18df93d2aa0e6faad5347bf36f972a9908fb2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7772ef2c_520218f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-12T06:31:57Z",
+      "side": 1,
+      "message": "LGTM, but in general consider that moving code around makes it harder to track history with \"git blame\".",
+      "revId": "03d18df93d2aa0e6faad5347bf36f972a9908fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
