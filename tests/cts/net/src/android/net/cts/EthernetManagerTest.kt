@@ -42,6 +42,7 @@ import android.net.cts.EthernetManagerTest.EthernetStateListener.CallbackEntry.I
 import android.os.Handler
 import android.os.HandlerExecutor
 import android.os.Looper
+import android.util.ArrayMap
 import com.android.networkstack.apishim.common.EthernetManagerShim.InterfaceStateListener
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_ABSENT
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_LINK_DOWN
@@ -114,7 +115,7 @@ class EthernetManagerTest {
                 TrackRecord<EthernetStateListener.CallbackEntry> by history {
         constructor() : this(ArrayTrackRecord())
 
-        val events = history.newReadHead()
+        val readHeads = ArrayMap<String, ArrayTrackRecord<CallbackEntry>.ReadHead>()
 
         sealed class CallbackEntry {
             data class InterfaceStateChanged(
@@ -134,23 +135,31 @@ class EthernetManagerTest {
             add(InterfaceStateChanged(iface, state, role, cfg))
         }
 
-        fun <T : CallbackEntry> expectCallback(expected: T): T {
-            val event = pollForNextCallback()
+        private fun eventsForIface(ifName: String): ArrayTrackRecord<CallbackEntry>.ReadHead {
+            return readHeads.get(ifName) ?: history.newReadHead().also { readHeads.put(ifName, it) }
+        }
+
+        fun <T : CallbackEntry> expectCallback(expected: T, ifName: String): T {
+            val event = pollForNextCallback(ifName)
             assertEquals(expected, event)
             return event as T
         }
 
         fun expectCallback(iface: EthernetTestInterface, state: Int, role: Int) {
             expectCallback(InterfaceStateChanged(iface.interfaceName, state, role,
-                if (state != STATE_ABSENT) DEFAULT_IP_CONFIGURATION else null))
+                if (state != STATE_ABSENT) DEFAULT_IP_CONFIGURATION else null), iface.interfaceName)
         }
 
-        fun pollForNextCallback(): CallbackEntry {
-            return events.poll(TIMEOUT_MS) ?: fail("Did not receive callback after ${TIMEOUT_MS}ms")
+        fun pollForNextCallback(ifName: String): CallbackEntry {
+            return eventsForIface(ifName).poll(TIMEOUT_MS) {
+                (it as InterfaceStateChanged).iface == ifName
+            } ?: fail("Did not receive callback after ${TIMEOUT_MS}ms")
         }
 
-        fun assertNoCallback() {
-            val cb = events.poll(NO_CALLBACK_TIMEOUT_MS)
+        fun assertNoCallback(ifName: String) {
+            val cb = eventsForIface(ifName).poll(NO_CALLBACK_TIMEOUT_MS) {
+                (it as InterfaceStateChanged).iface == ifName
+            }
             assertNull(cb, "Expected no callback but got $cb")
         }
     }
@@ -220,7 +229,8 @@ class EthernetManagerTest {
         removeInterface(iface2)
         listener.expectCallback(iface2, STATE_LINK_DOWN, ROLE_CLIENT)
         listener.expectCallback(iface2, STATE_ABSENT, ROLE_NONE)
-        listener.assertNoCallback()
+        listener.assertNoCallback(iface.interfaceName)
+        listener.assertNoCallback(iface2.interfaceName)
     }
 
     @Test
