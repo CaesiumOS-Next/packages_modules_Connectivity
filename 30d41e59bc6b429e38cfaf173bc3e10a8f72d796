@@ -16,6 +16,23 @@
       "message": "Hi Lucas, \nI\u0027ve moved tests to a separate CL: aosp/2063047\nplease re-approve this CL",
       "revId": "30d41e59bc6b429e38cfaf173bc3e10a8f72d796",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce71e564_d4777133",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-04-13T10:20:49Z",
+      "side": 1,
+      "message": "Except for CTS part, patchset-25 is identical with patchset-24.\nCarry over +2.",
+      "revId": "30d41e59bc6b429e38cfaf173bc3e10a8f72d796",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
