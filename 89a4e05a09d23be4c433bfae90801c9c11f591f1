@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42b5224f_bad0ce3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-13T02:15:27Z",
+      "side": 1,
+      "message": "Might want to add something to the commit message to explain why we are doing this and why it\u0027s correct. We can mention that:\n- This API is intended to be used for testing\n- This change correct because almost all the tests that use this API are not doing so to create VPNs.\n- It makes it easier to write tests for IKEv2 VPNs because without this change, a VPN that is restricted to test networks would pick itself as the underlying network (since it does not have NET_CAPABILITY_NOT_VPN).",
+      "revId": "89a4e05a09d23be4c433bfae90801c9c11f591f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
