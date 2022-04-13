@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb3a2e8b_23f6b35f",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-13T17:43:59Z",
+      "side": 1,
+      "message": "Ok cool and sounds good. Removed.",
+      "parentUuid": "7df3e633_c069ff35",
+      "range": {
+        "startLine": 133,
+        "startChar": 12,
+        "endLine": 133,
+        "endChar": 35
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d218d386_1958863f",
@@ -61,6 +85,30 @@
       "writtenOn": "2022-04-13T08:43:12Z",
       "side": 1,
       "message": "[[let\u0027s not do this here, but maybe in a follow up]]\n\nJust thinking about this, what\u0027s the expected behavior of calling updateConfiguration on a disabled interface? It may make sense to add a test for that use case as well. Not super high priority though.\n\nSimilarly, in the future, we may want to think about adding a test that calls disableInterface on an interface that doesn\u0027t have link yet but acquires it later. (I think this scenario would break right now).\n\n----\n\nAnother one: what happens when disableInterface(\"thisInterfaceDoesNotExist\") is called?",
+      "range": {
+        "startLine": 358,
+        "startChar": 8,
+        "endLine": 358,
+        "endChar": 34
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db45426e_cef2efed",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-13T17:43:59Z",
+      "side": 1,
+      "message": "Thanks, yeah good points and agreed, we can always add more tests in a follow-up as you suggest wherever it makes sense.\n\nTo answer your questions:\n\n- Calling updateConfiguration on a downed interface will bring the interface up with the new configuration (we may want to change this behavior in the future).\n- Calling disable interface on an untracked interface will result in an error (we have unit test coverage on this).",
+      "parentUuid": "d218d386_1958863f",
       "range": {
         "startLine": 358,
         "startChar": 8,
@@ -96,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7a010496_de22918b",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-13T17:43:59Z",
+      "side": 1,
+      "message": "I have mixed feelings on this. Currently, createTestNetwork() actually calls createInterface() on l.319 so that flow is included. \n\nThe nice thing about the current logic vs calling createInterface() directly is that createTestNetwork() is reusing updateConfiguration() to allow for the IP address to be provisioned in the Ethernet stack which in turn implicitly tests that API as well as opposed to statically adding a route as in createInterface().\n\nWouldn\u0027t the updateConfiguration() flow gives us additional test coverage in this case? This seems to test much more of the ethernet provisioning logic.\n\nI can change it to what you suggest barring any issues, but my preference is to keep as-is for the reasons above. Let me know what you think. Thanks!",
+      "parentUuid": "0e80a0f4_d43ea2ad",
+      "range": {
+        "startLine": 361,
+        "startChar": 28,
+        "endLine": 361,
+        "endChar": 45
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9fce9f39_86cc08eb",
         "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
         "patchSetId": 21
@@ -107,6 +179,30 @@
       "writtenOn": "2022-04-13T08:43:12Z",
       "side": 1,
       "message": "nit: I think in Kotlin you can write it as: cb.expectCallback\u003cLost\u003e(cb.lastAvailableNetwork, CB_TIMEOUT_MS)",
+      "range": {
+        "startLine": 365,
+        "startChar": 11,
+        "endLine": 365,
+        "endChar": 25
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb0fa56c_fb465cf6",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-13T17:43:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fce9f39_86cc08eb",
       "range": {
         "startLine": 365,
         "startChar": 11,
@@ -130,6 +226,30 @@
       "writtenOn": "2022-04-13T08:43:12Z",
       "side": 1,
       "message": "You should be able to use assertNotNull (in kotlin.test.assertNotNull) and rely on smart-casting rather than having to specify n!! further down.",
+      "range": {
+        "startLine": 382,
+        "startChar": 12,
+        "endLine": 382,
+        "endChar": 13
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96a09089_e78fb081",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-13T17:43:59Z",
+      "side": 1,
+      "message": "Very cool. I didn\u0027t know about that (I\u0027m fairly new to Kotlin). Thanks for sharing.",
+      "parentUuid": "5a954904_b37104bd",
       "range": {
         "startLine": 382,
         "startChar": 12,
@@ -186,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6eb0d3a6_d202dde8",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-13T17:43:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9941e4c9_ae137d8d",
+      "range": {
+        "startLine": 386,
+        "startChar": 34,
+        "endLine": 386,
+        "endChar": 68
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6fc361f9_9afbfc3e",
@@ -199,6 +343,30 @@
       "writtenOn": "2022-04-13T08:43:12Z",
       "side": 1,
       "message": "Combine in one line?",
+      "range": {
+        "startLine": 388,
+        "startChar": 8,
+        "endLine": 389,
+        "endChar": 44
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "106c2606_1fd841cb",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-13T17:43:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fc361f9_9afbfc3e",
       "range": {
         "startLine": 388,
         "startChar": 8,
@@ -255,6 +423,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a80f6288_9648557a",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-13T17:43:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51d24def_da9e5e2f",
+      "range": {
+        "startLine": 391,
+        "startChar": 0,
+        "endLine": 393,
+        "endChar": 69
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae7c7e10_09afd4d7",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-13T17:43:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f64975a_10bd2b1b",
+      "range": {
+        "startLine": 393,
+        "startChar": 26,
+        "endLine": 393,
+        "endChar": 66
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70870adc_78fe0f62",
@@ -278,6 +494,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1846fd5e_172277c5",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-13T17:43:59Z",
+      "side": 1,
+      "message": "Unfortunately not. It seems that a LinkProperties `flags` property is set by the framework even though it is not set by the test. Therefore any `contains` will fail since no match will be found due to the mismatch in the flags property.",
+      "parentUuid": "70870adc_78fe0f62",
+      "range": {
+        "startLine": 399,
+        "startChar": 12,
+        "endLine": 400,
+        "endChar": 96
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1fea4ab6_15f326d9",
@@ -291,6 +531,30 @@
       "writtenOn": "2022-04-13T08:43:12Z",
       "side": 1,
       "message": "I don\u0027t think this is necessary.",
+      "range": {
+        "startLine": 403,
+        "startChar": 0,
+        "endLine": 405,
+        "endChar": 79
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b91b538d_2704ea69",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-13T17:43:59Z",
+      "side": 1,
+      "message": "We can remove if you like, but the thing I like about this is that networks are put back into a know state. If we only close the fd on the interface but not wait until ConnectivityService notifies that it is lost, it could cause increased issues of flakiness if we start new runs before the system is in a known state. I\u0027m ok though removing now if you like and adding back in later if needed.",
+      "parentUuid": "1fea4ab6_15f326d9",
       "range": {
         "startLine": 403,
         "startChar": 0,
