@@ -1,0 +1,285 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87d78f89_605556bd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-13T01:44:44Z",
+      "side": 1,
+      "message": "policies and support interfaces with MAC addresses",
+      "range": {
+        "startLine": 7,
+        "startChar": 27,
+        "endLine": 7,
+        "endChar": 35
+      },
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33a3517b_f9baa6cf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-13T01:44:44Z",
+      "side": 1,
+      "message": "Also support DSCP policy rules on multiple interfaces simultaneously.",
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9a03334_a22a7660",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-13T01:44:44Z",
+      "side": 1,
+      "message": "Java portions LGTM assuming comments are addressed. BPF portions unmodified since maze@ +2d them.",
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e451e3ff_63c9bcd6",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-13T01:44:44Z",
+      "side": 1,
+      "message": "This returns the index if it\u0027s unused in *any* of the maps, right? But we can only return the index if it\u0027s unused in *all* the maps, right? Suggest:\n\n    private boolean isUnusedIndex(int index) {\n        for (SparseIntArray sia : mIfaceIndexToPolicyIdBpfMapIndex.values()) {\n            if (sia.indexOfValue(i) \u003e\u003d 0) return false;\n        }\n        return true;\n    }",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 13
+      },
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98a51f82_c75379dc",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-13T01:44:44Z",
+      "side": 1,
+      "message": "Suggest renaming to ifacePolicies for clarity.",
+      "range": {
+        "startLine": 140,
+        "startChar": 23,
+        "endLine": 140,
+        "endChar": 26
+      },
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a584df69_dba76f38",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-13T01:44:44Z",
+      "side": 1,
+      "message": "I think this might be easier to understand if you had a function that finds the index?\n\n    private int findIndex(int policyId, int ifIndex) {\n        ...\n    }\n\nThat will make it easier to understand because when you find an existing rule you can just \"return\" and simplify the control flow.",
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c6fe90b_0369fb59",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-13T01:44:44Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be just after line 142, in the codepath where we create the per-interface array?\n\nPer discussion: this is because we only want to create a new per-interface map if there are *actually* bpf rules in it, and we don\u0027t know if the rules are actually created until the insert actually succeeds. Would add a comment to explain that.",
+      "range": {
+        "startLine": 186,
+        "startChar": 45,
+        "endLine": 186,
+        "endChar": 48
+      },
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d24faad1_a0cacba7",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-13T01:44:44Z",
+      "side": 1,
+      "message": "What if this returns zero? You probably want to ignore the operation?\n\n    final int ifIndex \u003d getIfaceIndex(nai);\n    if (ifIndex \u003d\u003d 0) {\n        Log....\n        return;\n    }",
+      "range": {
+        "startLine": 212,
+        "startChar": 51,
+        "endLine": 212,
+        "endChar": 69
+      },
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84c92886_89440ded",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-13T01:44:44Z",
+      "side": 1,
+      "message": "Suggest renaming to ifacePolicies.",
+      "range": {
+        "startLine": 239,
+        "startChar": 23,
+        "endLine": 239,
+        "endChar": 26
+      },
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f13b038_180f8926",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-13T01:44:44Z",
+      "side": 1,
+      "message": "Any reason you can\u0027t remember this, and also return early (rationale: if the policy is not found we\u0027re not going to delete anything, so we won\u0027t need to remove the sia from mIfaceIndexToPolicyIdBpfMapIndex)?\n\n    final int existingIndex \u003d sia.get(policyId, -1);\n    if (existingIndex \u003d\u003d -1) {\n        Log....;\n        return;\n    }",
+      "range": {
+        "startLine": 241,
+        "startChar": 8,
+        "endLine": 241,
+        "endChar": 42
+      },
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c04cbfa_60c0518d",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-13T01:44:44Z",
+      "side": 1,
+      "message": "Per discussion: maybe refactor duplicated code with removeDscpPolicy into a helper method?",
+      "range": {
+        "startLine": 262,
+        "startChar": 0,
+        "endLine": 269,
+        "endChar": 61
+      },
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8eab01ea_7459eb3f",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-13T01:44:44Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 141,
+        "startChar": 8,
+        "endLine": 141,
+        "endChar": 13
+      },
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e48356e_a9091551",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-13T01:44:44Z",
+      "side": 1,
+      "message": "Why %02? Seems like we should just use %d?",
+      "range": {
+        "startLine": 176,
+        "startChar": 53,
+        "endLine": 176,
+        "endChar": 55
+      },
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
