@@ -166,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e799af9e_1cde91a0",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-13T17:57:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7a010496_de22918b",
+      "range": {
+        "startLine": 361,
+        "startChar": 28,
+        "endLine": 361,
+        "endChar": 45
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9fce9f39_86cc08eb",
@@ -555,6 +579,30 @@
       "side": 1,
       "message": "We can remove if you like, but the thing I like about this is that networks are put back into a know state. If we only close the fd on the interface but not wait until ConnectivityService notifies that it is lost, it could cause increased issues of flakiness if we start new runs before the system is in a known state. I\u0027m ok though removing now if you like and adding back in later if needed.",
       "parentUuid": "1fea4ab6_15f326d9",
+      "range": {
+        "startLine": 403,
+        "startChar": 0,
+        "endLine": 405,
+        "endChar": 79
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a74f4395_638f27ff",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-13T17:57:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b91b538d_2704ea69",
       "range": {
         "startLine": 403,
         "startChar": 0,

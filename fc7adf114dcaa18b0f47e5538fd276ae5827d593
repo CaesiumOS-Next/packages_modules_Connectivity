@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d111098_a48975ca",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-13T17:57:45Z",
+      "side": 1,
+      "message": "nit: import kotlin.test.assertNotNull",
+      "range": {
+        "startLine": 381,
+        "startChar": 16,
+        "endLine": 381,
+        "endChar": 41
+      },
+      "revId": "fc7adf114dcaa18b0f47e5538fd276ae5827d593",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
