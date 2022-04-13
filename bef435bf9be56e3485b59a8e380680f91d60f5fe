@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d480a6f_89e5504f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-13T01:07:42Z",
+      "side": 1,
+      "message": "LGTM, but instead of adding new XML files, could we instead run the test anyway and just have it GTEST_SKIP() when running on older releases? That seems simpler.",
+      "revId": "bef435bf9be56e3485b59a8e380680f91d60f5fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
