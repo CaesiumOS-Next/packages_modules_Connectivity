@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cd405db_1bc2b06d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-04-13T10:26:31Z",
+      "side": 1,
+      "message": "The unit test should be in aosp/1619104.",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 8
+      },
+      "revId": "1a3b6dc5411734e686f982dd9644c592fe4cf6a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a06be3ee_91c76b56",
@@ -14,6 +37,23 @@
       "writtenOn": "2022-04-12T23:48:11Z",
       "side": 1,
       "message": "Hi Lucas, \nthis CL contains tests separated from aosp/1619104\nplease approve, before I send it to Lorenzo for code owners approval.",
+      "revId": "1a3b6dc5411734e686f982dd9644c592fe4cf6a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09b8409b_b695e0a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-04-13T10:26:31Z",
+      "side": 1,
+      "message": "This change is identical with CTS part of aosp/1619104#patchset-24.\nCarry over +2.",
       "revId": "1a3b6dc5411734e686f982dd9644c592fe4cf6a6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
