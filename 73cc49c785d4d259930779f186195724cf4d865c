@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8981ce5f_67f6c2d6",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-13T02:23:13Z",
+      "side": 1,
+      "message": "Is it possible that the state is already STATE_CONNECTED? If so this test will fail.\n\nAlso, is profileState even guaranteed to be non-null here? If startProvisionedVpnProfileSession is asynchronous, then maybe it\u0027s possible that getProvisionedVpnProfileState can run before the VPN actually even exists? Or maybe it\u0027s guaranteed that when startProvisionedVpnProfileSession returns, then getProvisionedVpnProfileState will always return non-null?",
+      "range": {
+        "startLine": 494,
+        "startChar": 39,
+        "endLine": 494,
+        "endChar": 55
+      },
+      "revId": "73cc49c785d4d259930779f186195724cf4d865c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
