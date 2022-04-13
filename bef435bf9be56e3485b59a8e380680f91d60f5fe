@@ -16,6 +16,24 @@
       "message": "LGTM, but instead of adding new XML files, could we instead run the test anyway and just have it GTEST_SKIP() when running on older releases? That seems simpler.",
       "revId": "bef435bf9be56e3485b59a8e380680f91d60f5fe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f9b9aff_67d1413e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-13T01:16:48Z",
+      "side": 1,
+      "message": "The native test doesn\u0027t actually even start on Q, it gets linker problems:\n\nconnectivity_native_test did not report any run:\nWARNING: linker: Warning: \"/data/local/tmp/connectivity_native_test/x86_64/connectivity_native_test\" unused DT entry: unknown (type 0x24 arg 0x3c20) (ignoring)\nWARNING: linker: Warning: \"/data/local/tmp/connectivity_native_test/x86_64/connectivity_native_test\" unused DT entry: unknown (type 0x23 arg 0x80) (ignoring)\nWARNING: linker: Warning: \"/data/local/tmp/connectivity_native_test/x86_64/connectivity_native_test\" unused DT entry: unknown (type 0x25 arg 0x8) (ignoring)\nCANNOT LINK EXECUTABLE \"/data/local/tmp/connectivity_native_test/x86_64/connectivity_native_test\": cannot locate symbol \"AStatus_getDescription\" referenced by \"/data/local/tmp/connectivity_native_test/x86_64/connectivity_native_test\"...\n\nMaybe it could be fixed by having min_sdk 29 (?), but we might have to put additional effort to keep the binary compatible even though it actually doesn\u0027t need to be run",
+      "parentUuid": "5d480a6f_89e5504f",
+      "revId": "bef435bf9be56e3485b59a8e380680f91d60f5fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
