@@ -22,6 +22,283 @@
       },
       "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7df3e633_c069ff35",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-13T08:43:12Z",
+      "side": 1,
+      "message": "Whoops, you are right. I would prefer the fix being in a separate CL though, let me upload one quick.",
+      "parentUuid": "f86ea71c_c88303c3",
+      "range": {
+        "startLine": 133,
+        "startChar": 12,
+        "endLine": 133,
+        "endChar": 35
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d218d386_1958863f",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-13T08:43:12Z",
+      "side": 1,
+      "message": "[[let\u0027s not do this here, but maybe in a follow up]]\n\nJust thinking about this, what\u0027s the expected behavior of calling updateConfiguration on a disabled interface? It may make sense to add a test for that use case as well. Not super high priority though.\n\nSimilarly, in the future, we may want to think about adding a test that calls disableInterface on an interface that doesn\u0027t have link yet but acquires it later. (I think this scenario would break right now).\n\n----\n\nAnother one: what happens when disableInterface(\"thisInterfaceDoesNotExist\") is called?",
+      "range": {
+        "startLine": 358,
+        "startChar": 8,
+        "endLine": 358,
+        "endChar": 34
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e80a0f4_d43ea2ad",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-13T08:43:12Z",
+      "side": 1,
+      "message": "Can this use createInterface() instead? I think that way it\u0027s a much more thorough test as it goes through the steps of provisioning the interface.",
+      "range": {
+        "startLine": 361,
+        "startChar": 28,
+        "endLine": 361,
+        "endChar": 45
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fce9f39_86cc08eb",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-13T08:43:12Z",
+      "side": 1,
+      "message": "nit: I think in Kotlin you can write it as: cb.expectCallback\u003cLost\u003e(cb.lastAvailableNetwork, CB_TIMEOUT_MS)",
+      "range": {
+        "startLine": 365,
+        "startChar": 11,
+        "endLine": 365,
+        "endChar": 25
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a954904_b37104bd",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-13T08:43:12Z",
+      "side": 1,
+      "message": "You should be able to use assertNotNull (in kotlin.test.assertNotNull) and rely on smart-casting rather than having to specify n!! further down.",
+      "range": {
+        "startLine": 382,
+        "startChar": 12,
+        "endLine": 382,
+        "endChar": 13
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aefcd1e4_4bba7dd6",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-13T08:43:12Z",
+      "side": 1,
+      "message": "Huh, I wonder if ethernet-service should check the NetworkCapabilities before just blindly writing them, so we couldn\u0027t just change the Transport Type to WIFI or something crazy like that.",
+      "range": {
+        "startLine": 385,
+        "startChar": 46,
+        "endLine": 386,
+        "endChar": 69
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9941e4c9_ae137d8d",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-13T08:43:12Z",
+      "side": 1,
+      "message": "Should you also .addTransportType(NetworkCapabilities.TRANSPORT_ETHERNET)?",
+      "range": {
+        "startLine": 386,
+        "startChar": 34,
+        "endLine": 386,
+        "endChar": 68
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fc361f9_9afbfc3e",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-13T08:43:12Z",
+      "side": 1,
+      "message": "Combine in one line?",
+      "range": {
+        "startLine": 388,
+        "startChar": 8,
+        "endLine": 389,
+        "endChar": 44
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51d24def_da9e5e2f",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-13T08:43:12Z",
+      "side": 1,
+      "message": "Maybe leave a TODO: comment on why we the network is torn down here. I have a feeling I won\u0027t remember in a few months 😊",
+      "range": {
+        "startLine": 391,
+        "startChar": 0,
+        "endLine": 393,
+        "endChar": 69
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f64975a_10bd2b1b",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-13T08:43:12Z",
+      "side": 1,
+      "message": "Can you import RecorderCallback.CallbackEntry.Lost/Available to improve readability?",
+      "range": {
+        "startLine": 393,
+        "startChar": 26,
+        "endLine": 393,
+        "endChar": 66
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70870adc_78fe0f62",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-13T08:43:12Z",
+      "side": 1,
+      "message": "Could we either do `lp.linkAddresses.contains(newAddr)` or `assertContains(lp.linkAddresses, newAddr)`? I don\u0027t know which is more correct. Maybe the second as we don\u0027t expect there to be multiple link properties callbacks?",
+      "range": {
+        "startLine": 399,
+        "startChar": 12,
+        "endLine": 400,
+        "endChar": 96
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fea4ab6_15f326d9",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-13T08:43:12Z",
+      "side": 1,
+      "message": "I don\u0027t think this is necessary.",
+      "range": {
+        "startLine": 403,
+        "startChar": 0,
+        "endLine": 405,
+        "endChar": 79
+      },
+      "revId": "ccdd694c8ba6efed4641e3ec37e2690f9cd77b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
