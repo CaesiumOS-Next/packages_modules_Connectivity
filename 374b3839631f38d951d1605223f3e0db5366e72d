@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "550829bc_3b591141",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-04-13T18:10:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87d78f89_605556bd",
+      "range": {
+        "startLine": 7,
+        "startChar": 27,
+        "endLine": 7,
+        "endChar": 35
+      },
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33a3517b_f9baa6cf",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-04-13T01:44:44Z",
       "side": 1,
       "message": "Also support DSCP policy rules on multiple interfaces simultaneously.",
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "063c26a5_1233122b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-04-13T18:10:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33a3517b_f9baa6cf",
       "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -81,6 +123,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b006cb79_5aa51785",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-04-13T18:10:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e451e3ff_63c9bcd6",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 13
+      },
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98a51f82_c75379dc",
@@ -94,6 +160,30 @@
       "writtenOn": "2022-04-13T01:44:44Z",
       "side": 1,
       "message": "Suggest renaming to ifacePolicies for clarity.",
+      "range": {
+        "startLine": 140,
+        "startChar": 23,
+        "endLine": 140,
+        "endChar": 26
+      },
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31ad15df_a69ec57f",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-04-13T18:10:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98a51f82_c75379dc",
       "range": {
         "startLine": 140,
         "startChar": 23,
@@ -121,6 +211,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da0dcd26_812e93d8",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-04-13T18:10:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a584df69_dba76f38",
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c6fe90b_0369fb59",
@@ -134,6 +242,30 @@
       "writtenOn": "2022-04-13T01:44:44Z",
       "side": 1,
       "message": "Shouldn\u0027t this be just after line 142, in the codepath where we create the per-interface array?\n\nPer discussion: this is because we only want to create a new per-interface map if there are *actually* bpf rules in it, and we don\u0027t know if the rules are actually created until the insert actually succeeds. Would add a comment to explain that.",
+      "range": {
+        "startLine": 186,
+        "startChar": 45,
+        "endLine": 186,
+        "endChar": 48
+      },
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef0853f8_32d006a3",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-04-13T18:10:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c6fe90b_0369fb59",
       "range": {
         "startLine": 186,
         "startChar": 45,
@@ -167,6 +299,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f7d635b_57b94f70",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-04-13T18:10:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d24faad1_a0cacba7",
+      "range": {
+        "startLine": 212,
+        "startChar": 51,
+        "endLine": 212,
+        "endChar": 69
+      },
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84c92886_89440ded",
@@ -180,6 +336,30 @@
       "writtenOn": "2022-04-13T01:44:44Z",
       "side": 1,
       "message": "Suggest renaming to ifacePolicies.",
+      "range": {
+        "startLine": 239,
+        "startChar": 23,
+        "endLine": 239,
+        "endChar": 26
+      },
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b278f741_5c583105",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-04-13T18:10:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84c92886_89440ded",
       "range": {
         "startLine": 239,
         "startChar": 23,
@@ -213,6 +393,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b73a785e_7b94ad0a",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-04-13T18:10:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f13b038_180f8926",
+      "range": {
+        "startLine": 241,
+        "startChar": 8,
+        "endLine": 241,
+        "endChar": 42
+      },
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c04cbfa_60c0518d",
@@ -226,6 +430,30 @@
       "writtenOn": "2022-04-13T01:44:44Z",
       "side": 1,
       "message": "Per discussion: maybe refactor duplicated code with removeDscpPolicy into a helper method?",
+      "range": {
+        "startLine": 262,
+        "startChar": 0,
+        "endLine": 269,
+        "endChar": 61
+      },
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7dec286_96042c39",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-04-13T18:10:33Z",
+      "side": 1,
+      "message": "Not enough duplicated code to make a helper method, leaving for now.",
+      "parentUuid": "7c04cbfa_60c0518d",
       "range": {
         "startLine": 262,
         "startChar": 0,
@@ -259,6 +487,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d75ae10a_dffa142a",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-04-13T18:10:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8eab01ea_7459eb3f",
+      "range": {
+        "startLine": 141,
+        "startChar": 8,
+        "endLine": 141,
+        "endChar": 13
+      },
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e48356e_a9091551",
@@ -272,6 +524,30 @@
       "writtenOn": "2022-04-13T01:44:44Z",
       "side": 1,
       "message": "Why %02? Seems like we should just use %d?",
+      "range": {
+        "startLine": 176,
+        "startChar": 53,
+        "endLine": 176,
+        "endChar": 55
+      },
+      "revId": "374b3839631f38d951d1605223f3e0db5366e72d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35fcfb36_a242b77c",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-04-13T18:10:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e48356e_a9091551",
       "range": {
         "startLine": 176,
         "startChar": 53,
