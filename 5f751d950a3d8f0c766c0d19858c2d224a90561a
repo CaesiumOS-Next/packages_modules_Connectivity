@@ -22,6 +22,30 @@
       },
       "revId": "5f751d950a3d8f0c766c0d19858c2d224a90561a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45d87f80_d8cc2aec",
+        "filename": "framework/src/android/net/ITestNetworkManager.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-04-13T07:58:40Z",
+      "side": 1,
+      "message": "Yes, just confirm with Lorenzo, only test and OEMs can call methods in the TestNetworkManager which are protected by the MANAGE_TEST_NETWORKS permission, it\u0027s defined in the frameworks/base/core/res/ and the caller with the same signature with framework can call these methods. OEMs can do that because they have the signature, and test code can do that by calling runWithShellPermissionIdentity(MANAGE_TEST_NETWORKS).",
+      "parentUuid": "e2f84c2e_e36a38ec",
+      "range": {
+        "startLine": 32,
+        "startChar": 100,
+        "endLine": 32,
+        "endChar": 112
+      },
+      "revId": "5f751d950a3d8f0c766c0d19858c2d224a90561a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
