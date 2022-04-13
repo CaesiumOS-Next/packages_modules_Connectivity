@@ -22,6 +22,30 @@
       },
       "revId": "903dab6a21073966f94e3d226bc4c8a924095f5e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eba95ddf_c1fe31d2",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-13T07:40:35Z",
+      "side": 0,
+      "message": "\u003e Where did the old code remove permissions when a user was removed? Did it simply never do that? That seems like a pretty obvious bug.\nIt would do nothing. I think it\u0027s a bug indeed.\n\n\u003e Or did the code acthieve this in some other way? For example, is it the case that when a user is removed, we get PACKAGE_REMOVED broadcasts for all the apps in that user, and therefore the old code was approximately correct?\nPermissionMonitor only received onUserRemoved calling.\n\n\u003e In this latter case (code was already approximately correct), is the code you\u0027re adding in line 546-565 redundant?\nI think it fixes a potential issue.",
+      "parentUuid": "9a7072af_3dd5f8be",
+      "range": {
+        "startLine": 515,
+        "startChar": 4,
+        "endLine": 515,
+        "endChar": 5
+      },
+      "revId": "903dab6a21073966f94e3d226bc4c8a924095f5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

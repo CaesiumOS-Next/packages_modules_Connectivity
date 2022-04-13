@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f9debcd_003ebe7d",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-13T07:40:35Z",
+      "side": 1,
+      "message": "Done in aosp/2063711.",
+      "parentUuid": "aabcd687_6c7e8b60",
+      "range": {
+        "startLine": 137,
+        "startChar": 38,
+        "endLine": 137,
+        "endChar": 39
+      },
+      "revId": "a501e47e19b435bcaef238c41f6d69c8606972d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50ad12b9_1093c2ab",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-04-12T15:36:08Z",
       "side": 1,
       "message": "the remaining",
+      "range": {
+        "startLine": 548,
+        "startChar": 32,
+        "endLine": 548,
+        "endChar": 36
+      },
+      "revId": "a501e47e19b435bcaef238c41f6d69c8606972d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d33d0433_882db975",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-13T07:40:35Z",
+      "side": 1,
+      "message": "Done in aosp/2063711.",
+      "parentUuid": "50ad12b9_1093c2ab",
       "range": {
         "startLine": 548,
         "startChar": 32,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdf87c05_6223f85d",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-13T07:40:35Z",
+      "side": 1,
+      "message": "I think this should never be null. Logging a wtf is better. Done in aosp/2063711.",
+      "parentUuid": "120bd57a_6e73bc6f",
+      "range": {
+        "startLine": 552,
+        "startChar": 8,
+        "endLine": 552,
+        "endChar": 40
+      },
+      "revId": "a501e47e19b435bcaef238c41f6d69c8606972d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff8005a4_676c1cc8",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-04-12T15:36:08Z",
       "side": 1,
       "message": "Consider moving this down to where it\u0027s used (e.g., just before line 664).",
+      "range": {
+        "startLine": 653,
+        "startChar": 8,
+        "endLine": 653,
+        "endChar": 51
+      },
+      "revId": "a501e47e19b435bcaef238c41f6d69c8606972d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d30d1779_66cb3659",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-13T07:40:35Z",
+      "side": 1,
+      "message": "Done in aosp/2063711.",
+      "parentUuid": "ff8005a4_676c1cc8",
       "range": {
         "startLine": 653,
         "startChar": 8,
@@ -135,6 +231,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9162a166_e894e64c",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-13T07:40:35Z",
+      "side": 1,
+      "message": "\u003e Does this code work correctly if we receive a PACKAGE_REMOVED for a user that has just been deleted, or a PACKAGE_ADDED for a user that has not yet been added? In that case that user will not be handled by the loop.\n\u003e \n\u003e The PACKAGE_* and USER_* broadcasts are sent by two different services and I don\u0027t think they are very well coordinated.\n\u003e \n\u003e For example: looking at PackageManagerService I see that when a user is removed, after sending ACTION_USER_REMOVED, UserManagerService#finishRemoveUser calls PackageManagerService#cleanupUser to delete any packages that were installed only for that user. That code calls removeUnusedPackagesLPw, which sends up posting deletePackageX to the handler thread. That looks like it might be able to send a PACKAGE_REMOVED broadcast.\n\u003e \n\u003e For safety maybe we could add a wtf if we get a PACKAGE_ADDED (and maybe also PACKAGE_REMOVED) for a user that is not in mUsersTrafficPermissions?\n\u003e \n\u003e Have you run this code on a real device and added/removed users? For example, maybe try to create a work profile? Or add/remove guest users? (Probably need to use an internal build to test with real apps.)\nYes, I have tried to add/remove users on a real device. I have never seen the PACKAGE_REMOVED broadcast while removing a user. But I think your description make sense. Maybe the real devices deal with removing user quickly, so that the case will never be hit. I can try to run more user added/removed operations(50 times) or run it on cuttlefish to see if we can hit the case.",
+      "parentUuid": "e1998a3c_8f269f60",
+      "range": {
+        "startLine": 676,
+        "startChar": 39,
+        "endLine": 676,
+        "endChar": 40
+      },
+      "revId": "a501e47e19b435bcaef238c41f6d69c8606972d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "17a504bb_31162861",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 8
@@ -146,6 +266,30 @@
       "writtenOn": "2022-04-12T15:36:08Z",
       "side": 1,
       "message": "Not for this CL, but this code looks incorrect on T+ where permissions don\u0027t go to netd at all. Can you upload a CL to clean this up?",
+      "range": {
+        "startLine": 987,
+        "startChar": 0,
+        "endLine": 990,
+        "endChar": 9
+      },
+      "revId": "a501e47e19b435bcaef238c41f6d69c8606972d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc69b831_eccdc970",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-13T07:40:35Z",
+      "side": 1,
+      "message": "Done in aosp/2063711.",
+      "parentUuid": "17a504bb_31162861",
       "range": {
         "startLine": 987,
         "startChar": 0,
