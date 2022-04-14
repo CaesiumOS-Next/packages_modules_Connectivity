@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8160885_880563cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-14T17:11:42Z",
+      "side": 1,
+      "message": "CTS: Lorenzo, can you please review? Thanks.",
+      "revId": "61867ee1d39499217ba470d5edf5283acf608b62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
