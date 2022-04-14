@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ffe72ec0_08fe755a",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-14T17:58:27Z",
+      "side": 1,
+      "message": "Ack, I\u0027ll also update EthernetTetheringTest part in follow up change which use this T API after T platform.",
+      "parentUuid": "a11822ce_c5d80360",
+      "range": {
+        "startLine": 170,
+        "startChar": 8,
+        "endLine": 170,
+        "endChar": 55
+      },
+      "revId": "6151950b7be689a0d3ca13e8c9d18164d73dad62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8123ca7d_d3149371",
         "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-31T18:18:54Z",
       "side": 1,
       "message": "So the test will fail if it\u0027s run on a device with Ethernet enabled? I think that\u0027s fine but if so, please ensure that the failure at line 179 clearly explains that the failure is because the test expects Ethernet to be enabled.\n\nAnother option would be to determine the current state here, run the test, and restore the previous state later. Either is fine I think.",
+      "range": {
+        "startLine": 178,
+        "startChar": 29,
+        "endLine": 178,
+        "endChar": 62
+      },
+      "revId": "6151950b7be689a0d3ca13e8c9d18164d73dad62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49159422_5a36abe6",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-14T17:58:27Z",
+      "side": 1,
+      "message": "I think we don\u0027t need to add any specific message into this test case because all the test expect Ethernet settings default enabled. If ethernet settings is not enabled, whole EthernetManagerTest test cases would fail. Not only this test case.",
+      "parentUuid": "8123ca7d_d3149371",
       "range": {
         "startLine": 178,
         "startChar": 29,
@@ -60,6 +108,30 @@
       "writtenOn": "2022-03-31T18:18:54Z",
       "side": 1,
       "message": "Would instead suggest being consistent with the existing tests which check for the current (broken?) behaviour - i.e., check up/up/down/up. If that\u0027s too many lines of code, you can always reduce duplication by refactoring to a function such as expectCallbacksForCreatedInterface.\n\n\nAlso I think it would be good to check that when ethernet is disabled, various DOWN callbacks are sent.",
+      "range": {
+        "startLine": 197,
+        "startChar": 8,
+        "endLine": 197,
+        "endChar": 38
+      },
+      "revId": "6151950b7be689a0d3ca13e8c9d18164d73dad62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88fe52b0_7bf29338",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-14T17:58:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "523eee3f_79ebbcfd",
       "range": {
         "startLine": 197,
         "startChar": 8,
