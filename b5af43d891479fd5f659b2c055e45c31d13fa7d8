@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b617a35f_718640f8",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-14T11:07:20Z",
+      "side": 1,
+      "message": "I wonder what happens when an interface is removed (without unregisterNetworkOffer being called); will it stay around forever?",
+      "range": {
+        "startLine": 649,
+        "startChar": 0,
+        "endLine": 649,
+        "endChar": 79
+      },
+      "revId": "b5af43d891479fd5f659b2c055e45c31d13fa7d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
