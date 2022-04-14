@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "933ab99a_7f3afcb0",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetNetworkFactoryTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-14T11:08:16Z",
+      "side": 0,
+      "message": "We should add CTS tests that cover these scenarios.",
+      "range": {
+        "startLine": 381,
+        "startChar": 3,
+        "endLine": 408,
+        "endChar": 5
+      },
+      "revId": "60288412137d28aa07600b461182d6e7593bff8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
