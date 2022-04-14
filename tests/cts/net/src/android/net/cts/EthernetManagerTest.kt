@@ -53,7 +53,6 @@ import com.android.testutils.RouterAdvertisementResponder
 import com.android.testutils.TapPacketReader
 import com.android.testutils.waitForIdle
 import java.net.Inet6Address
-import java.util.concurrent.Executor
 import kotlin.test.assertFalse
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -74,6 +73,7 @@ class EthernetManagerTest {
     private val context by lazy { InstrumentationRegistry.getInstrumentation().context }
     private val em by lazy { EthernetManagerShimImpl.newInstance(context) }
 
+    private val ifaceListener = EthernetStateListener()
     private val createdIfaces = ArrayList<EthernetTestInterface>()
     private val addedListeners = ArrayList<InterfaceStateListener>()
 
@@ -158,6 +158,7 @@ class EthernetManagerTest {
     @Before
     fun setUp() {
         setIncludeTestInterfaces(true)
+        addInterfaceStateListener(ifaceListener)
     }
 
     @After
@@ -171,16 +172,18 @@ class EthernetManagerTest {
         }
     }
 
-    private fun addInterfaceStateListener(executor: Executor, listener: InterfaceStateListener) {
-        em.addInterfaceStateListener(executor, listener)
+    private fun addInterfaceStateListener(listener: InterfaceStateListener) {
+        em.addInterfaceStateListener(HandlerExecutor(Handler(Looper.getMainLooper())), listener)
         addedListeners.add(listener)
     }
 
     private fun createInterface(): EthernetTestInterface {
-        return EthernetTestInterface(
+        val iface = EthernetTestInterface(
             context,
             Handler(Looper.getMainLooper())
         ).also { createdIfaces.add(it) }
+        ifaceListener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
+        return iface
     }
 
     private fun setIncludeTestInterfaces(value: Boolean) {
