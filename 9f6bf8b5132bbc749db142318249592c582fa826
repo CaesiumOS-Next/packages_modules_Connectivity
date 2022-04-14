@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "039f038f_db6c6874",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-14T08:21:26Z",
+      "side": 1,
+      "message": "Generally speaking any service that is based on a handler loop should be capable or returning its events in order. In this case the service must be able to order events on different interfaces correctly,. If that is not what is happening here, then it should be fixed in the service (likely, EthernetTracker).",
+      "revId": "9f6bf8b5132bbc749db142318249592c582fa826",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
