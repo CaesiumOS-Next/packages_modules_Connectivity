@@ -41,6 +41,53 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b28853ce_27d664af",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-14T11:03:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59e0dbf7_cfd64a69",
+      "range": {
+        "startLine": 74,
+        "startChar": 29,
+        "endLine": 74,
+        "endChar": 42
+      },
+      "revId": "72165268a935555b86acd5a0f332cd7ca77569e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a540dd7_a755b3bd",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-14T11:03:11Z",
+      "side": 1,
+      "message": "What happens when a network is torn down. Will it come back up?",
+      "range": {
+        "startLine": 421,
+        "startChar": 24,
+        "endLine": 421,
+        "endChar": 39
+      },
+      "revId": "72165268a935555b86acd5a0f332cd7ca77569e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e173e5dc_e98c5c35",
@@ -54,6 +101,30 @@
       "writtenOn": "2022-04-13T22:34:09Z",
       "side": 1,
       "message": "I\u0027m guessing the link won\u0027t come up without this? Hence the TODO?",
+      "range": {
+        "startLine": 664,
+        "startChar": 0,
+        "endLine": 665,
+        "endChar": 34
+      },
+      "revId": "72165268a935555b86acd5a0f332cd7ca77569e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecf685e7_c2b2e4f3",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-04-14T11:03:11Z",
+      "side": 1,
+      "message": "Hm yeah, I actually meant to remove these two lines. I think this code is technically wrong right now as it brings up an ethernet even when no request exists. (This hasn\u0027t been removed earlier as it helps with the current refCount bug).",
+      "parentUuid": "e173e5dc_e98c5c35",
       "range": {
         "startLine": 664,
         "startChar": 0,
