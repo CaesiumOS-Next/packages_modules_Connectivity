@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8210daa3_bb4ea814",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-15T18:18:34Z",
+      "side": 1,
+      "message": "Just curious if any of this is needed? In ConnectivityService, there is already an uneeded() method which I believe already handles this?\n\nhttps://source.corp.google.com/android/packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java?q\u003dboolean%5C%20unneeded%20f:connectivityservice\u0026sq\u003dpackage:%5Eandroid$\n\nIt\u0027s possible that I am missing something (maybe there was a decision to move away from the centralized handling of network teardowns) but if not, you may be able to remove this override and get rid of the newly added mRequests object all together.",
+      "range": {
+        "startLine": 507,
+        "startChar": 12,
+        "endLine": 514,
+        "endChar": 13
+      },
+      "revId": "60288412137d28aa07600b461182d6e7593bff8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
