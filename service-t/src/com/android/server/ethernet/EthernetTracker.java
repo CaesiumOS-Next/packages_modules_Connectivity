@@ -19,11 +19,13 @@ package com.android.server.ethernet;
 import static android.net.EthernetManager.ETHERNET_STATE_DISABLED;
 import static android.net.EthernetManager.ETHERNET_STATE_ENABLED;
 import static android.net.TestNetworkManager.TEST_TAP_PREFIX;
+import static android.net.TetheringManager.TETHERING_ETHERNET;
 
 import static com.android.internal.annotations.VisibleForTesting.Visibility.PACKAGE;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
 import android.net.ConnectivityResources;
@@ -39,11 +41,15 @@ import android.net.IpConfiguration.ProxySettings;
 import android.net.LinkAddress;
 import android.net.NetworkCapabilities;
 import android.net.StaticIpConfiguration;
+import android.net.TetheringManager;
+import android.net.TetheringManager.StartTetheringCallback;
+import android.net.TetheringManager.TetheringRequest;
 import android.os.ConditionVariable;
 import android.os.Handler;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.Log;
@@ -460,6 +466,12 @@ public class EthernetTracker {
     private void maybeUntetherDefaultInterface() {
         if (mTetheredInterfaceRequests.getRegisteredCallbackCount() > 0) return;
         if (mDefaultInterfaceMode == INTERFACE_MODE_CLIENT) return;
+
+        final ContentResolver cr = mContext.getContentResolver();
+        if ("on".equals(Settings.System.getString(cr, "ETHERNET_TETHERING_MODE"))) {
+            return;
+        }
+
         setDefaultInterfaceMode(INTERFACE_MODE_CLIENT);
     }
 
@@ -592,6 +604,21 @@ public class EthernetTracker {
             if (DBG) Log.w(TAG, "Ignoring already-tracked interface " + iface);
             return;
         }
+
+        final ContentResolver cr = mContext.getContentResolver();
+        if ("on".equals(Settings.System.getString(cr, "ETHERNET_TETHERING_MODE"))) {
+            StartTetheringCallback startTetheringCallback = new StartTetheringCallback() {
+                @Override
+                public void onTetheringFailed(int resultCode) {
+                    Log.e(TAG, "onTetheringFailed resultCode: " + resultCode);
+                }
+            };
+
+            TetheringRequest request = new TetheringRequest.Builder(TETHERING_ETHERNET).build();
+            TetheringManager tetheringManager = mContext.getSystemService(TetheringManager.class);
+            tetheringManager.startTethering(request, mHandler::post, startTetheringCallback);
+        }
+
         if (DBG) Log.i(TAG, "maybeTrackInterface: " + iface);
 
         // TODO: avoid making an interface default if it has configured NetworkCapabilities.
