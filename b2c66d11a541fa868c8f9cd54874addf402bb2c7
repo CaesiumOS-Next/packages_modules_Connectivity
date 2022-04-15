@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24e38941_8e5bfee2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T04:04:40Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "b2c66d11a541fa868c8f9cd54874addf402bb2c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3731357_409fd539",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T04:04:40Z",
+      "side": 1,
+      "message": "Would rename to ifacePolicies.",
+      "range": {
+        "startLine": 95,
+        "startChar": 28,
+        "endLine": 95,
+        "endChar": 31
+      },
+      "revId": "b2c66d11a541fa868c8f9cd54874addf402bb2c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0cdb619_c9f46fda",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T04:04:40Z",
+      "side": 1,
+      "message": "Need to fetch this from  mIfaceIndexToPolicyIdBpfMapIndex and decide what to do if it\u0027s not there (maybe just keep on going, since the policy cannot exist if there are no policies on that interface).",
+      "range": {
+        "startLine": 112,
+        "startChar": 34,
+        "endLine": 112,
+        "endChar": 47
+      },
+      "revId": "b2c66d11a541fa868c8f9cd54874addf402bb2c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c28ceabc_5eb5aa89",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T04:04:40Z",
+      "side": 1,
+      "message": "If we already have an existing index, can\u0027t we return it directly?\n\n\n    final int existingIndex \u003d ifacePolicies.get(policyId, -1);\n    if (existingIndex !\u003d -1) {\n        return existingIndex;\n    }\n\n    final int firstIndex \u003d ...;",
+      "range": {
+        "startLine": 113,
+        "startChar": 18,
+        "endLine": 113,
+        "endChar": 28
+      },
+      "revId": "b2c66d11a541fa868c8f9cd54874addf402bb2c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab84e8b8_6baa1c12",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T04:04:40Z",
+      "side": 1,
+      "message": "If we do this because one of the two operations above failed, then when the policy is removed, due to refcounting issues we will not later on detach the program from the interface.\n\nI think this might be OK as long as we ensure that removeAllDscpPolicies is called when the network is torn down. Do we do this? If not, then that\u0027s a bug we should fix.\n\nHere we could also take the position that we would add the policy to the per-interface policies even if one of the two map writes failed (or even if both of them failed). Up to you whether you want to do this. But I think that even if we do this, we need to ensure that removeAllDscpPolicies is called when the network is torn down.\n\nNot sure where to do that though. destroyNativeNetwork is the best place perhaps?",
+      "range": {
+        "startLine": 205,
+        "startChar": 19,
+        "endLine": 205,
+        "endChar": 71
+      },
+      "revId": "b2c66d11a541fa868c8f9cd54874addf402bb2c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d057c71f_823f3d93",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T04:04:40Z",
+      "side": 1,
+      "message": "You already have this, it\u0027s called existingIndex.",
+      "range": {
+        "startLine": 273,
+        "startChar": 43,
+        "endLine": 273,
+        "endChar": 70
+      },
+      "revId": "b2c66d11a541fa868c8f9cd54874addf402bb2c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
