@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9bd339f_b19fdda2",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T07:31:57Z",
+      "side": 1,
+      "message": "It may be difficult to understand the rationale here. Example: ConnectivityManager is also only updatable in S+, but we do run ConnectivityManagerTest on Q and R. What\u0027s the real reason here? Perhaps the actual reason is that it\u0027s unlikely/impossible for any change in the modules to break this test, and so there\u0027s no point running this test on Q and R, so we might as well save ourselves the effort of making this test backwards compatible to Q and R?\n\nMaybe improve the comment?",
+      "range": {
+        "startLine": 103,
+        "startChar": 35,
+        "endLine": 103,
+        "endChar": 78
+      },
+      "revId": "ac17efbc2d248568b0d3fc72501e687e936ca4bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a95cd684_40ba05f5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T07:31:57Z",
+      "side": 1,
+      "message": "Out of curiosity, why change this? Was it incorrect?",
+      "range": {
+        "startLine": 666,
+        "startChar": 12,
+        "endLine": 666,
+        "endChar": 53
+      },
+      "revId": "ac17efbc2d248568b0d3fc72501e687e936ca4bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97c8c3b1_baeddfa5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T07:31:57Z",
+      "side": 1,
+      "message": "FWIW I suspect that these two are unnecessary. No need to change in this CL.",
+      "range": {
+        "startLine": 892,
+        "startChar": 0,
+        "endLine": 893,
+        "endChar": 70
+      },
+      "revId": "ac17efbc2d248568b0d3fc72501e687e936ca4bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
