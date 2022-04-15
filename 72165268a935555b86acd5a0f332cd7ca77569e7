@@ -157,6 +157,30 @@
       },
       "revId": "72165268a935555b86acd5a0f332cd7ca77569e7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcef9e5a_2b3d6751",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-15T17:26:22Z",
+      "side": 1,
+      "message": "Ok I see. Looks like it will be brought up as part of onNetworkNeeded() which makes sense.",
+      "parentUuid": "ecf685e7_c2b2e4f3",
+      "range": {
+        "startLine": 664,
+        "startChar": 0,
+        "endLine": 665,
+        "endChar": 34
+      },
+      "revId": "72165268a935555b86acd5a0f332cd7ca77569e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

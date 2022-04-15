@@ -93,6 +93,30 @@
       },
       "revId": "1af58519002d841a620c306546437c48ed2c5b62",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "404968b4_50767c61",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-15T17:26:22Z",
+      "side": 0,
+      "message": "Ok I see. I am not very familiar on how network offers work but given what you say above and also looking into how they are implemented a bit more, totally makes sense. Thanks!",
+      "parentUuid": "587334c8_8ebffcc4",
+      "range": {
+        "startLine": 332,
+        "startChar": 33,
+        "endLine": 332,
+        "endChar": 57
+      },
+      "revId": "1af58519002d841a620c306546437c48ed2c5b62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

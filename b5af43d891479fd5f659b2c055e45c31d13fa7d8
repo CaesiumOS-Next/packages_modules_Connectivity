@@ -22,6 +22,30 @@
       },
       "revId": "b5af43d891479fd5f659b2c055e45c31d13fa7d8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0966ae29_c10c9a67",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-15T17:26:22Z",
+      "side": 1,
+      "message": "Ultimately stop() on l.666 will be called due to interface listeners in EthernetTracker.\n\nNow in stop(), we are not calling unregisterNetworkOffer() right now. We do unregister the network agent though. I looked at the code in Connectivity service however and didn\u0027t see network offers being removed as part of unregistering a network agent so it is possible that network offers continue to exist for a non-existent network agent.\n\nI am not sure if this is expected or not? If not, either perhaps one of the following needs to be done? unregisterNetworkOffer called as part of stop() or maybe removing network offers as part of unregistering a network agent?\n\nTBH, I\u0027m not too familiar with network offers so the above may not make any sense to do at all.",
+      "parentUuid": "b617a35f_718640f8",
+      "range": {
+        "startLine": 649,
+        "startChar": 0,
+        "endLine": 649,
+        "endChar": 79
+      },
+      "revId": "b5af43d891479fd5f659b2c055e45c31d13fa7d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
