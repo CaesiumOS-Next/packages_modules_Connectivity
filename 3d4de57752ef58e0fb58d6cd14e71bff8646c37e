@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "018f7d67_4db72f23",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1037,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-15T08:42:54Z",
+      "side": 0,
+      "message": "This part was never implemented right ?\n\nSo onTetheringSupported used to be called only once after registering the callback, but now it would be called every time there is a change in supported tethering types (including when that doesn\u0027t change the \"supported\" boolean) ?\n\nI\u0027m wondering if this could cause problems with current users of the API on R/S, which may have code that start failing if the callback is triggered more often than they expected.\n\nMaybe it would be safer to only call onTetheringSupported once from onCallbackStarted, as before, but still call onSupportedTetheringTypes as you implemented it here ?\n\nYou can also file a bug to mark onTetheringSupported @Deprecated in the U API surface.",
+      "range": {
+        "startLine": 1036,
+        "startChar": 80,
+        "endLine": 1037,
+        "endChar": 45
+      },
+      "revId": "3d4de57752ef58e0fb58d6cd14e71bff8646c37e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
