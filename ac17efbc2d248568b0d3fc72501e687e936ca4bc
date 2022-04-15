@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09473d8f_ae95adae",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-15T07:45:04Z",
+      "side": 1,
+      "message": "Updated the comment",
+      "parentUuid": "d9bd339f_b19fdda2",
+      "range": {
+        "startLine": 103,
+        "startChar": 35,
+        "endLine": 103,
+        "endChar": 78
+      },
+      "revId": "ac17efbc2d248568b0d3fc72501e687e936ca4bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a95cd684_40ba05f5",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d0e8244_7d23e315",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-15T07:45:04Z",
+      "side": 1,
+      "message": "It was not incorrect but it would crash on Q because \"capportUrl\" refers to a variable declared outside of the runAsShell lambda, so this gets compiled into a function that takes a \"capportUrl\" as argument. When JUnit tries to enumerate methods in the test class, it crashes because the argument type is undefined.\n\nClarified the commit message.",
+      "parentUuid": "a95cd684_40ba05f5",
+      "range": {
+        "startLine": 666,
+        "startChar": 12,
+        "endLine": 666,
+        "endChar": 53
+      },
+      "revId": "ac17efbc2d248568b0d3fc72501e687e936ca4bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97c8c3b1_baeddfa5",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-04-15T07:31:57Z",
       "side": 1,
       "message": "FWIW I suspect that these two are unnecessary. No need to change in this CL.",
+      "range": {
+        "startLine": 892,
+        "startChar": 0,
+        "endLine": 893,
+        "endChar": 70
+      },
+      "revId": "ac17efbc2d248568b0d3fc72501e687e936ca4bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bc10ebd_804e9008",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-15T07:45:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "97c8c3b1_baeddfa5",
       "range": {
         "startLine": 892,
         "startChar": 0,
