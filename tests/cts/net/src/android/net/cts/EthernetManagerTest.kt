@@ -17,47 +17,49 @@ package android.net.cts
 
 import android.Manifest.permission.MANAGE_TEST_NETWORKS
 import android.Manifest.permission.NETWORK_SETTINGS
+import android.content.Context
 import android.net.InetAddresses
 import android.net.IpConfiguration
 import android.net.MacAddress
 import android.net.TestNetworkInterface
 import android.net.TestNetworkManager
+import android.net.cts.EthernetManagerTest.EthernetStateListener.CallbackEntry.InterfaceStateChanged
+import android.os.Handler
+import android.os.HandlerExecutor
+import android.os.Looper
 import android.platform.test.annotations.AppModeFull
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 import com.android.net.module.util.ArrayTrackRecord
 import com.android.net.module.util.TrackRecord
-import com.android.testutils.DevSdkIgnoreRule
-import com.android.testutils.SC_V2
-import com.android.testutils.runAsShell
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
-import android.content.Context
-import org.junit.runner.RunWith
-import kotlin.test.assertNull
-import kotlin.test.fail
-import android.net.cts.EthernetManagerTest.EthernetStateListener.CallbackEntry.InterfaceStateChanged
-import android.os.Handler
-import android.os.HandlerExecutor
-import android.os.Looper
+import com.android.networkstack.apishim.ConstantsShim
+import com.android.networkstack.apishim.EthernetManagerShimImpl
+import com.android.networkstack.apishim.api30.InterfaceStateListenerShim
+import com.android.networkstack.apishim.common.EthernetManagerShim.ROLE_CLIENT
+import com.android.networkstack.apishim.common.EthernetManagerShim.ROLE_NONE
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_ABSENT
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_LINK_DOWN
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_LINK_UP
-import com.android.networkstack.apishim.common.EthernetManagerShim.ROLE_CLIENT
-import com.android.networkstack.apishim.common.EthernetManagerShim.ROLE_NONE
-import com.android.networkstack.apishim.EthernetManagerShimImpl
+import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.RouterAdvertisementResponder
+import com.android.testutils.SC_V2
 import com.android.testutils.TapPacketReader
+import com.android.testutils.runAsShell
 import com.android.testutils.waitForIdle
+import org.junit.After
+import org.junit.Assume.assumeTrue
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
 import java.net.Inet6Address
-import com.android.networkstack.apishim.api30.InterfaceStateListenerShim
-import java.util.concurrent.Executor
-import kotlin.test.assertFalse
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 import java.net.NetworkInterface
+import java.util.concurrent.Executor
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
+import kotlin.test.fail
 
 private const val TIMEOUT_MS = 1000L
 private const val NO_CALLBACK_TIMEOUT_MS = 200L
@@ -157,11 +159,16 @@ class EthernetManagerTest {
 
     @Before
     fun setUp() {
+        // This test assumes shims for T+ APIs are available
+        assumeTrue(ConstantsShim.VERSION > SC_V2)
         setIncludeTestInterfaces(true)
     }
 
     @After
     fun tearDown() {
+        if (ConstantsShim.VERSION <= SC_V2) {
+            return
+        }
         setIncludeTestInterfaces(false)
         for (iface in createdIfaces) {
             iface.destroy()
@@ -171,7 +178,7 @@ class EthernetManagerTest {
         }
     }
 
-    private fun addInterfaceStateListener(executor: Executor, listener: InterfaceStateListener) {
+    private fun addInterfaceStateListener(executor: Executor, listener: EthernetStateListener) {
         em.addInterfaceStateListener(executor, listener)
         addedListeners.add(listener)
     }

@@ -393,14 +393,17 @@ class NsdManagerTest {
         si2.serviceName = serviceName
         si2.port = localPort
         val registrationRecord2 = NsdRegistrationRecord()
-        val registeredInfo2 = registerService(registrationRecord2, si2)
+        nsdManager.registerService(si2, NsdManager.PROTOCOL_DNS_SD, registrationRecord2)
+        val registeredInfo2 = registrationRecord2.expectCallback<ServiceRegistered>().serviceInfo
 
         // Expect a service record to be discovered (and filter the ones
         // that are unrelated to this test)
         val foundInfo2 = discoveryRecord.waitForServiceDiscovered(registeredInfo2.serviceName)
 
         // Resolve the service
-        val resolvedService2 = resolveService(foundInfo2)
+        val resolveRecord2 = NsdResolveRecord()
+        nsdManager.resolveService(foundInfo2, resolveRecord2)
+        val resolvedService2 = resolveRecord2.expectCallback<ServiceResolved>().serviceInfo
 
         // Check that the resolved service doesn't have any TXT records
         assertEquals(0, resolvedService2.attributes.size)

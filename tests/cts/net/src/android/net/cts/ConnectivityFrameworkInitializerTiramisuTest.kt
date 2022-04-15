@@ -19,9 +19,11 @@ package android.net.cts
 import android.net.nsd.NsdManager
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.networkstack.apishim.ConnectivityFrameworkInitShimImpl
+import com.android.networkstack.apishim.ConstantsShim
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.SC_V2
+import org.junit.Assume.assumeTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import kotlin.test.assertNotNull
@@ -42,6 +44,7 @@ class ConnectivityFrameworkInitializerTiramisuTest {
     // registerServiceWrappers can only be called during initialization and should throw otherwise
     @Test(expected = IllegalStateException::class)
     fun testThrows() {
+        assumeTrue(ConstantsShim.VERSION > SC_V2)
         cfiShim.registerServiceWrappers()
     }
 }
