@@ -1,0 +1,435 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfa5f6bb_579afb89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T09:33:09Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8faee223_b348a40a",
+        "filename": "tests/unit/java/android/net/QosSocketFilterTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T09:33:09Z",
+      "side": 1,
+      "message": "This checks that B matches A. Can you also check that A does not match B?",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 5
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "374a70d7_48e641db",
+        "filename": "tests/unit/java/android/net/QosSocketFilterTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T09:33:09Z",
+      "side": 1,
+      "message": "Nit: why not just:\n\n    DatagramSocket socket \u003d new ...",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 101,
+        "endChar": 20
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c57d1d5_23aefe65",
+        "filename": "tests/unit/java/android/net/QosSocketFilterTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T09:33:09Z",
+      "side": 1,
+      "message": "Please test IPv6 as well. You don\u0027t need to test both every time, but at least some of the tests should test IPv6 instead of (or in addition to) IPv4. For example, you could do half and half.",
+      "range": {
+        "startLine": 102,
+        "startChar": 46,
+        "endLine": 102,
+        "endChar": 55
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f8a9bcf_b451562e",
+        "filename": "tests/unit/java/android/net/QosSocketFilterTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T09:33:09Z",
+      "side": 1,
+      "message": "It is generally not recommended to bind to specific ports in tests because if something else happens to be using the same port, the test will fail. This makes the test flaky. It\u0027s particularly true for TCP because sockets keep the port open for a while after they are closed.\n\nInstead, suggest binding to 0 and then using getLocalAddress() to get the port. That ensures that the socket will always be bound (well, unless the whole device runs out of ports :-)).",
+      "range": {
+        "startLine": 113,
+        "startChar": 71,
+        "endLine": 113,
+        "endChar": 76
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2ed1975_e56b5bf3",
+        "filename": "tests/unit/java/android/net/QosSocketFilterTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T09:33:09Z",
+      "side": 1,
+      "message": "Prefer assertEquals(a, b) instead of assertTrue(a \u003d\u003d b) because:\n- It outputs clearer error messages when the assertion fails.\n- It works even for objects, for which \u003d\u003d is almost never correct. (This doesn\u0027t matter here because validate returns an int.\n\nRemember that usually in assertions the expected value is the first parameter and the actual value is the second parameter.",
+      "range": {
+        "startLine": 117,
+        "startChar": 8,
+        "endLine": 117,
+        "endChar": 18
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67dda05d_5defee83",
+        "filename": "tests/unit/java/android/net/QosSocketFilterTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T09:33:09Z",
+      "side": 1,
+      "message": "Why check the launch version of the device instead of the OS version? I would just do:\n\n    @Test @IgnoreUpTo(SC_V2) // TODO: Use Build.VERSION_CODES.SC_V2 when \navailable\n    public void testValidateUnbind() throws Exception {\n\nalso elsewhere.",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 9
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20bfa8b9_ad233b65",
+        "filename": "tests/unit/java/android/net/QosSocketFilterTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T09:33:09Z",
+      "side": 1,
+      "message": "Can you also test what happens if you call disconnect() and later on don\u0027t call connect? I\u0027d expect it to fail with EX_TYPE_FILTER_SOCKET_NOT_CONNECTED.",
+      "range": {
+        "startLine": 157,
+        "startChar": 15,
+        "endLine": 157,
+        "endChar": 22
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "278288a5_c50e0ba6",
+        "filename": "tests/unit/java/android/net/QosSocketInfoTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T09:33:09Z",
+      "side": 1,
+      "message": "Generally coding style guides suggest declaring variables just before they are used. In this case you\u0027d do something like:\n\n    Socket socket \u003d new Socket()...\n\nat line 67.",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 22
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "661b7c99_4cacef81",
+        "filename": "tests/unit/java/android/net/QosSocketInfoTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T09:33:09Z",
+      "side": 1,
+      "message": "Ditto, please ensure some of the tests use IPv6.",
+      "range": {
+        "startLine": 54,
+        "startChar": 62,
+        "endLine": 54,
+        "endChar": 71
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad3a331e_3f047009",
+        "filename": "tests/unit/java/android/net/QosSocketInfoTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T09:33:09Z",
+      "side": 1,
+      "message": "Ditto, binding to specific ports is going to make the test flaky (especially here since you\u0027re using TCP). Suggest binding to 0 and getting the port using getLocalAddress().",
+      "range": {
+        "startLine": 55,
+        "startChar": 15,
+        "endLine": 55,
+        "endChar": 19
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d493a547_1a99e5a6",
+        "filename": "tests/unit/java/android/net/QosSocketInfoTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T09:33:09Z",
+      "side": 1,
+      "message": "Generally the address a socket is bound to is called the local address. Consider renaming the variables.",
+      "range": {
+        "startLine": 55,
+        "startChar": 20,
+        "endLine": 55,
+        "endChar": 30
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a70d52de_8d2a98d2",
+        "filename": "tests/unit/java/android/net/QosSocketInfoTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T09:33:09Z",
+      "side": 1,
+      "message": "Are you sure you need this thread? It looks like calling bind() is sufficient to cause the listen() system call to be called, and once listen() is called on a server socket, a connect() to that socket will succeed even before accept() is called. So you can just do:\n\n    server.bind(remoteAddr);\n    socket \u003d new Socket(...);\n    Socket accepted \u003d server.accept();",
+      "range": {
+        "startLine": 56,
+        "startChar": 15,
+        "endLine": 56,
+        "endChar": 27
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13b03585_d097fd2d",
+        "filename": "tests/unit/java/android/net/QosSocketInfoTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T09:33:09Z",
+      "side": 1,
+      "message": "Do you need to close sock (the accepted socket) as well?",
+      "range": {
+        "startLine": 74,
+        "startChar": 8,
+        "endLine": 74,
+        "endChar": 14
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63988d50_a887f623",
+        "filename": "tests/unit/java/android/net/QosSocketInfoTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T09:33:09Z",
+      "side": 1,
+      "message": "Ditto, suggest binding to 0.",
+      "range": {
+        "startLine": 84,
+        "startChar": 15,
+        "endLine": 84,
+        "endChar": 19
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "468c29ef_f841ac8b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11954,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T09:33:09Z",
+      "side": 1,
+      "message": "Consider statically importing OnCallbackRegister to reduce boilerplate code.",
+      "range": {
+        "startLine": 11954,
+        "startChar": 14,
+        "endLine": 11954,
+        "endChar": 68
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7198d6e_e3c1a9b6",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11975,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T09:33:09Z",
+      "side": 1,
+      "message": "A wait of only 200ms generally risks making the test flaky. Can you use waitForIdle() here instead? Or can you not use it because some of the handler(s) involved are not touched by waitForIdle?",
+      "range": {
+        "startLine": 11975,
+        "startChar": 53,
+        "endLine": 11975,
+        "endChar": 56
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cf9b64f_d69970b0",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11996,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T09:33:09Z",
+      "side": 1,
+      "message": "Can you find ways of reducing code duplication with the method above? Perhaps factoring out to helper methods?",
+      "range": {
+        "startLine": 11992,
+        "startChar": 0,
+        "endLine": 11996,
+        "endChar": 22
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "657bb5cc_aacc6b78",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 12002,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T09:33:09Z",
+      "side": 1,
+      "message": "This test is a bit difficult to follow, and it also uses mocks, which isn\u0027t great. Did you consider instead using a real NetworkAgent, like we do in NetworkAgentTest.kt? That should be pretty easy to use, and you can use real sockets for it as well.\n\nOnce you unhide these APIs, I think you\u0027ll need proper CTS tests for them anyway, and the best place for that is I think in NetworkAgentTest.",
+      "range": {
+        "startLine": 12002,
+        "startChar": 38,
+        "endLine": 12002,
+        "endChar": 82
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
