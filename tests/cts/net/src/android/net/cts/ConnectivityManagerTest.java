@@ -2176,15 +2176,12 @@ public class ConnectivityManagerTest {
                 c -> c instanceof CallbackEntry.Available);
     }
 
-    private void waitForAvailable(
+    private void waitForTransport(
             @NonNull final TestableNetworkCallback cb, final int expectedTransport) {
-        cb.eventuallyExpect(
-                CallbackEntry.AVAILABLE, NETWORK_CALLBACK_TIMEOUT_MS,
-                entry -> {
-                    final NetworkCapabilities nc = mCm.getNetworkCapabilities(entry.getNetwork());
-                    return nc.hasTransport(expectedTransport);
-                }
-        );
+        cb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED,
+                NETWORK_CALLBACK_TIMEOUT_MS,
+                entry -> ((CallbackEntry.CapabilitiesChanged) entry).getCaps()
+                        .hasTransport(expectedTransport));
     }
 
     private void waitForAvailable(
@@ -2671,24 +2668,35 @@ public class ConnectivityManagerTest {
             registerTestOemNetworkPreferenceCallbacks(defaultCallback, systemDefaultCallback);
 
             // Validate that an unmetered network is used over other networks.
+            Log.d(TAG, "1 - defaultCallback waits for available callback from wifi");
             waitForAvailable(defaultCallback, wifiNetwork);
-            waitForAvailable(systemDefaultCallback, wifiNetwork);
+            Log.d(TAG, "2 - systemDefaultCallback waits for available callback from wifi");
+            systemDefaultCallback.eventuallyExpect(CallbackEntry.AVAILABLE,
+                    NETWORK_CALLBACK_TIMEOUT_MS, cb -> wifiNetwork.equals(cb.getNetwork()));
 
             // Validate that when setting unmetered to metered, unmetered is lost and replaced by
             // the network with the TEST transport. Also wait for validation here, in case there
             // is a bug that's only visible when the network is validated.
             setWifiMeteredStatusAndWait(ssid, true /* isMetered */, true /* waitForValidation */);
+            Log.d(TAG, "3 - defaultCallback waits for lost callback from wifi");
             defaultCallback.expect(CallbackEntry.LOST, wifiNetwork, NETWORK_CALLBACK_TIMEOUT_MS);
+            Log.d(TAG, "4 - defaultCallback waits for available callback from tnt");
             waitForAvailable(defaultCallback, tnt.getNetwork());
             // Depending on if this device has cellular connectivity or not, multiple available
             // callbacks may be received. Eventually, metered Wi-Fi should be the final available
             // callback in any case therefore confirm its receipt before continuing to assure the
             // system is in the expected state.
-            waitForAvailable(systemDefaultCallback, TRANSPORT_WIFI);
+            Log.d(TAG, "5 - systemDefaultCallback waits for wifi transport");
+            waitForTransport(systemDefaultCallback, TRANSPORT_WIFI);
         }, /* cleanup */ () -> {
-            // Validate that removing the test network will fallback to the default network.
+                // Validate that removing the test network will fallback to the default network.
                 runWithShellPermissionIdentity(tnt::teardown);
-                defaultCallback.expect(CallbackEntry.LOST, tnt, NETWORK_CALLBACK_TIMEOUT_MS);
+                // The other callbacks (LP or NC changes) would receive before LOST callback. Use
+                // eventuallyExpect to check callback for avoiding test flake.
+                Log.d(TAG, "6 - defaultCallback waits for lost callback from tnt");
+                defaultCallback.eventuallyExpect(CallbackEntry.LOST, NETWORK_CALLBACK_TIMEOUT_MS,
+                        lost -> tnt.getNetwork().equals(lost.getNetwork()));
+                Log.d(TAG, "7 - defaultCallback waits for available callback");
                 waitForAvailable(defaultCallback);
             }, /* cleanup */ () -> {
                 setWifiMeteredStatusAndWait(ssid, oldMeteredValue, false /* waitForValidation */);
