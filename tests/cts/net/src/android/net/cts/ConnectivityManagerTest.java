@@ -2163,15 +2163,13 @@ public class ConnectivityManagerTest {
                 c -> c instanceof CallbackEntry.Available);
     }
 
-    private void waitForAvailable(
+    private void waitForTransport(
             @NonNull final TestableNetworkCallback cb, final int expectedTransport) {
-        cb.eventuallyExpect(
-                CallbackEntry.AVAILABLE, NETWORK_CALLBACK_TIMEOUT_MS,
-                entry -> {
-                    final NetworkCapabilities nc = mCm.getNetworkCapabilities(entry.getNetwork());
-                    return nc.hasTransport(expectedTransport);
-                }
-        );
+        waitForAvailable(cb);
+        cb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED,
+                NETWORK_CALLBACK_TIMEOUT_MS,
+                entry -> !((CallbackEntry.CapabilitiesChanged) entry).getCaps()
+                        .hasTransport(expectedTransport));
     }
 
     private void waitForAvailable(
@@ -2638,12 +2636,12 @@ public class ConnectivityManagerTest {
             // callbacks may be received. Eventually, metered Wi-Fi should be the final available
             // callback in any case therefore confirm its receipt before continuing to assure the
             // system is in the expected state.
-            waitForAvailable(systemDefaultCallback, TRANSPORT_WIFI);
+            waitForTransport(systemDefaultCallback, TRANSPORT_WIFI);
         }, /* cleanup */ () -> {
             // Validate that removing the test network will fallback to the default network.
             runWithShellPermissionIdentity(tnt::teardown);
-            defaultCallback.expectCallback(CallbackEntry.LOST, tnt.getNetwork(),
-                    NETWORK_CALLBACK_TIMEOUT_MS);
+            defaultCallback.eventuallyExpect(CallbackEntry.LOST, NETWORK_CALLBACK_TIMEOUT_MS,
+                    lost -> tnt.getNetwork().equals(lost.getNetwork()));
             waitForAvailable(defaultCallback);
             }, /* cleanup */ () -> {
                 setWifiMeteredStatusAndWait(ssid, oldMeteredValue, false /* waitForValidation */);
