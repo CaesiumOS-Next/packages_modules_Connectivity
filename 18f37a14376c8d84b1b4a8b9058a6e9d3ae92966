@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "901f0642_c75de28f",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-15T10:07:16Z",
+      "side": 1,
+      "message": "Move it back to test itself. It\u0027s static link so it will try to build IkeSessionTestUtils but test did not need IkeSessionTestUtils for all the other cases.  Refer to local variable could solve this.",
+      "parentUuid": "c33ec914_7e5320b3",
+      "range": {
+        "startLine": 259,
+        "startChar": 46,
+        "endLine": 259,
+        "endChar": 56
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6cc3988c_c6064e39",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-15T05:06:35Z",
       "side": 1,
       "message": "We\u0027ll also need to have some test to make sure IKE options are honored (ie, that we\u0027re actually sending the full IkeTunnelConnectionParams down.\n\nPerhaps we can add which port we expect it on, and set the IKE option FORCE_PORT_4500\n\nSuggest looking into exposing getDstPort from IkeTunUtils, setting the IKE_OPTION_FORCE_PORT_4500 on the IkeSessionParams.Builder, and expecting this to be port 4500 here for the IkeTunConnParams version.",
+      "range": {
+        "startLine": 528,
+        "startChar": 17,
+        "endLine": 528,
+        "endChar": 38
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1946435_1779670e",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-15T10:07:16Z",
+      "side": 1,
+      "message": "I need some more time to build the correct spi and maybe response. Upload patch address the other comments first. Will update later or address in other follow up",
+      "parentUuid": "6cc3988c_c6064e39",
       "range": {
         "startLine": 528,
         "startChar": 17,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae35cb62_de3779de",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-15T10:07:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "236306bb_60b913bf",
+      "range": {
+        "startLine": 99,
+        "startChar": 39,
+        "endLine": 99,
+        "endChar": 56
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db972e56_14432ad2",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-04-15T05:18:12Z",
       "side": 1,
       "message": "This (l.106) is the only one we need in the encryption algorithm block",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 96
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87f9780a_7a8c3cca",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-15T10:07:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db972e56_14432ad2",
       "range": {
         "startLine": 106,
         "startChar": 0,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "066c24e3_d393f11b",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-15T10:07:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a223860_950fb5f8",
+      "range": {
+        "startLine": 105,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 0
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb2a4f57_70b8fa5a",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-04-15T05:18:12Z",
       "side": 1,
       "message": "Ditto",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 87
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63021303_553afd87",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-15T10:07:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb2a4f57_70b8fa5a",
       "range": {
         "startLine": 115,
         "startChar": 0,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25fcadff_bfa8a30f",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-15T10:07:16Z",
+      "side": 1,
+      "message": "IkeSaProposal will need one encryption algorithm. I random pick one as the encryptionAlgorithm",
+      "parentUuid": "4c0fb022_430e3c3a",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 92
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44021df4_ae71930c",
@@ -185,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3309f056_85038e94",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-15T10:07:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44021df4_ae71930c",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 55
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "580af98b_168c80af",
@@ -198,6 +390,30 @@
       "writtenOn": "2022-04-15T05:18:12Z",
       "side": 1,
       "message": "Ditto",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 79
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "477c2c35_7d36a7da",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-15T10:07:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "580af98b_168c80af",
       "range": {
         "startLine": 144,
         "startChar": 0,
@@ -254,6 +470,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78931251_84f2a78c",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-15T10:07:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0341b947_341a1875",
+      "range": {
+        "startLine": 154,
+        "startChar": 74,
+        "endLine": 154,
+        "endChar": 91
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3351a567_35c7495b",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-15T10:07:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62687cb8_f01a989d",
+      "range": {
+        "startLine": 154,
+        "startChar": 41,
+        "endLine": 154,
+        "endChar": 60
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c389452_f8bc5a6f",
@@ -277,6 +541,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30514d08_62a6881c",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-15T10:07:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c389452_f8bc5a6f",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 9
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c6c4145_7d73b62b",
@@ -290,6 +578,30 @@
       "writtenOn": "2022-04-15T05:18:12Z",
       "side": 1,
       "message": "This is the only one we need. So suggest:\n\n  final ChildSaProposal.Builder aeadBuilder \u003d new ChildSaProposal.Builder();\n  aeadBuilder.addEncryptionAlgorithm(\n                        ENCRYPTION_ALGORITHM_AES_GCM_12, KEY_LEN_AES_128);\n  proposals.add(aeadBuilder.build());",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 74
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31597e22_4f7ce8be",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-15T10:07:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c6c4145_7d73b62b",
       "range": {
         "startLine": 222,
         "startChar": 0,
