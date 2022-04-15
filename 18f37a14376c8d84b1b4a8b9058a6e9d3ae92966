@@ -72,6 +72,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "db972e56_14432ad2",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-15T05:18:12Z",
+      "side": 1,
+      "message": "This (l.106) is the only one we need in the encryption algorithm block",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 96
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7a223860_950fb5f8",
         "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
         "patchSetId": 1
@@ -88,6 +111,98 @@
         "startChar": 8,
         "endLine": 111,
         "endChar": 0
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb2a4f57_70b8fa5a",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-15T05:18:12Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 87
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c0fb022_430e3c3a",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-15T05:18:12Z",
+      "side": 1,
+      "message": "Can be deleted; we don\u0027t need AEAD for the canned responses.",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 92
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44021df4_ae71930c",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-15T05:18:12Z",
+      "side": 1,
+      "message": "This is the only one necessary (also only necessary for normal mode)",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 55
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "580af98b_168c80af",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-15T05:18:12Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 79
       },
       "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -134,6 +249,52 @@
         "startChar": 74,
         "endLine": 154,
         "endChar": 91
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c389452_f8bc5a6f",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-15T05:18:12Z",
+      "side": 1,
+      "message": "Can delete all of these.",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 9
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c6c4145_7d73b62b",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-15T05:18:12Z",
+      "side": 1,
+      "message": "This is the only one we need. So suggest:\n\n  final ChildSaProposal.Builder aeadBuilder \u003d new ChildSaProposal.Builder();\n  aeadBuilder.addEncryptionAlgorithm(\n                        ENCRYPTION_ALGORITHM_AES_GCM_12, KEY_LEN_AES_128);\n  proposals.add(aeadBuilder.build());",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 74
       },
       "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
