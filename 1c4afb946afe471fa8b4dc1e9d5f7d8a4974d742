@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b14aa97a_2b2f61c8",
+        "filename": "service/src/com/android/server/connectivity/QosCallbackAgentConnection.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T08:41:04Z",
+      "side": 1,
+      "message": "If I\u0027m reading this correctly, the current code sends callbacks to a socket even if it was rebound / disconnected / reconnected / etc. after the callback was first registered (because validate is only called when the callback is registered).\n\nIs this an information leakage bug that allows apps to get callbacks for sockets they don\u0027t own. If so, that seems like perhaps it\u0027s something we should fix in S as well?\n\nIf you think it\u0027s disruptive to send the onError callback, then maybe you could simply drop the event, or drop the event and unregister the callback but not send the onError callback.\n\nLGTM either way.",
+      "range": {
+        "startLine": 154,
+        "startChar": 8,
+        "endLine": 154,
+        "endChar": 36
+      },
+      "revId": "1c4afb946afe471fa8b4dc1e9d5f7d8a4974d742",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e9ffd6a_0201d664",
+        "filename": "service/src/com/android/server/connectivity/QosCallbackAgentConnection.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-15T08:41:04Z",
+      "side": 1,
+      "message": "There are three copies of this code in this file, can you refactor out to a method? Something like:\n\n    private boolean validateOrSendErrorAndUnregister() {\n        // In S, validation was only performed when the callback was registered,\n        // not when sending callbacks.\n        if (!SdkLevel.isAtLeastT()) return;\n\n        final int exceptionType \u003d mFilter.validate();\n        if (exceptionType !\u003d EX_TYPE_FILTER_NONE) {\n            sendEventQosCallbackError(exceptionType);\n            mQosCallbackTracker.unregisterCallback(mCallback);\n            return;\n        }\n    }\n\n\nthen in these methods you\u0027d do:\n\n    if (!validateOrSendErrorAndUnregister()) return;",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 13
+      },
+      "revId": "1c4afb946afe471fa8b4dc1e9d5f7d8a4974d742",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
