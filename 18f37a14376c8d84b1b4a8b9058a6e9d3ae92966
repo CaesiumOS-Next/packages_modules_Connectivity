@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c33ec914_7e5320b3",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-15T05:06:35Z",
+      "side": 1,
+      "message": "This looks like it\u0027s failing on `suite/test-mapping-mainline-presubmit-retry_cloud-tf-R-base-image`\n\nPerhaps it needs to be in a shim?",
+      "range": {
+        "startLine": 259,
+        "startChar": 46,
+        "endLine": 259,
+        "endChar": 56
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cc3988c_c6064e39",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-15T05:06:35Z",
+      "side": 1,
+      "message": "We\u0027ll also need to have some test to make sure IKE options are honored (ie, that we\u0027re actually sending the full IkeTunnelConnectionParams down.\n\nPerhaps we can add which port we expect it on, and set the IKE option FORCE_PORT_4500\n\nSuggest looking into exposing getDstPort from IkeTunUtils, setting the IKE_OPTION_FORCE_PORT_4500 on the IkeSessionParams.Builder, and expecting this to be port 4500 here for the IkeTunConnParams version.",
+      "range": {
+        "startLine": 528,
+        "startChar": 17,
+        "endLine": 528,
+        "endChar": 38
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "236306bb_60b913bf",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-15T05:06:35Z",
+      "side": 1,
+      "message": "You should be able to get away with proposing the following options:\n\nENCR_AES_CBC(256), AUTH_HMAC_SHA2_256_128, DH_4096_BIT_MODP, PRF_AES128_XCBC\n\nThe canned test values return this combination, and this is also a good way to test that those algorithms are passed in.\n\nBonus points for a second set of tests using algorithms that don\u0027t include those, and that should fail.",
+      "range": {
+        "startLine": 99,
+        "startChar": 39,
+        "endLine": 99,
+        "endChar": 56
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a223860_950fb5f8",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-15T05:06:35Z",
+      "side": 1,
+      "message": "This and below looks like we\u0027re just copying from VpnIkev2Utils; it\u0027ll get out of date, and doesn\u0027t really serve much purpose.",
+      "range": {
+        "startLine": 105,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 0
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62687cb8_f01a989d",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-15T05:06:35Z",
+      "side": 1,
+      "message": "This can just be ENCR_AES_GCM_12(128)|ESN_No_Extended",
+      "range": {
+        "startLine": 154,
+        "startChar": 41,
+        "endLine": 154,
+        "endChar": 60
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0341b947_341a1875",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-15T05:06:35Z",
+      "side": 1,
+      "message": "I don\u0027t think we need this; I doubt we\u0027ll need this much configurability",
+      "range": {
+        "startLine": 154,
+        "startChar": 74,
+        "endLine": 154,
+        "endChar": 91
+      },
+      "revId": "18f37a14376c8d84b1b4a8b9058a6e9d3ae92966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
