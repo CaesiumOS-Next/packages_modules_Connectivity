@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0da39182_4b6eab5f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-18T05:25:26Z",
+      "side": 1,
+      "message": "LGTM, assume comment addressed.",
+      "revId": "78eb1f53d9316ea76ff30ed2a991b86701c387d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa3bc680_db23112c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-18T05:25:26Z",
+      "side": 1,
+      "message": "This doesn\u0027t mean EntitlementCheck Required, it need to depend on whether this carrier have entitlement configuration in rro. Maybe rename to isEntitlementCheckNotRequried or isCarrierConfigAffirmsEntitlementCheckRequired?",
+      "range": {
+        "startLine": 217,
+        "startChar": 8,
+        "endLine": 217,
+        "endChar": 34
+      },
+      "revId": "78eb1f53d9316ea76ff30ed2a991b86701c387d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a67dab1_3818d189",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-18T05:25:26Z",
+      "side": 1,
+      "message": "carrierConfigManagerMissing -\u003e carrierConfigMissing ?",
+      "range": {
+        "startLine": 501,
+        "startChar": 44,
+        "endLine": 501,
+        "endChar": 71
+      },
+      "revId": "78eb1f53d9316ea76ff30ed2a991b86701c387d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "676fa8c3_597d6faa",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-18T05:25:26Z",
+      "side": 1,
+      "message": "Just curious what KEY_CARRIER_CONFIG_APPLIED_BOOL used for ? I don\u0027t see tethering check this configuration.",
+      "range": {
+        "startLine": 517,
+        "startChar": 8,
+        "endLine": 517,
+        "endChar": 94
+      },
+      "revId": "78eb1f53d9316ea76ff30ed2a991b86701c387d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "051fa550_89af3f6c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-18T05:25:26Z",
+      "side": 1,
+      "message": "nit: also static import this ? then you can use use KEY_REQUIRE_ENTITLEMENT_CHECKS_BOOL here and be more consistent with next line(l.519).",
+      "range": {
+        "startLine": 518,
+        "startChar": 34,
+        "endLine": 518,
+        "endChar": 90
+      },
+      "revId": "78eb1f53d9316ea76ff30ed2a991b86701c387d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45f4254c_fecd1b1c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-18T05:25:26Z",
+      "side": 1,
+      "message": "nit:\n        if (SdkLevel.isAtLeastT()) {\n            assertFalse(cfg.isCarrierSupportTethering);\n        } else {\n            assertTrue(cfg.isCarrierSupportTethering);\n        }\n        assertFalse(cfg.isEntitlementCheckRequired);",
+      "range": {
+        "startLine": 524,
+        "startChar": 0,
+        "endLine": 530,
+        "endChar": 9
+      },
+      "revId": "78eb1f53d9316ea76ff30ed2a991b86701c387d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
