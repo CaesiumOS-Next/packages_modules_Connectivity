@@ -16,6 +16,23 @@
       "message": "Hi Lorenzo, \nplease review for code-owners approval",
       "revId": "c3751111099b38a72025baaf0619ecee39fdbc59",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc88cd04_6c521367",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-04-18T20:16:09Z",
+      "side": 1,
+      "message": "Hi Lorenzo, \nplease review this CL for code-owners review\nthis is the last CL for VPN exclude routes",
+      "revId": "c3751111099b38a72025baaf0619ecee39fdbc59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
