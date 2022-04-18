@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "af1fd553_62638bda",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2168,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-18T02:26:00Z",
+      "side": 1,
+      "message": "This is probably not needed: NetworkCapabilities is always called after onAvailable, and since this is renamed to \"waitForTransport\" it\u0027s not clear that this method should expect the first Available callback too",
+      "range": {
+        "startLine": 2168,
+        "startChar": 8,
+        "endLine": 2168,
+        "endChar": 24
+      },
+      "revId": "cb5be9556a28c39a9bf52f039e25b47454b26a99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9e0875ea_cccc86bb",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 1
@@ -37,6 +60,30 @@
       "writtenOn": "2022-04-15T12:55:48Z",
       "side": 1,
       "message": "I don\u0027t get why do we need this.\nCan\u0027t we guarantee that the LOST will be always received before AVAILABLE?\n\nIf there is really a timing issue that AVAILABLE is received before LOST, then the test should still fail in the next check \"waitForAvailable(defaultCallback)\", right? (Because AVAILABLE is skipped when we wait for LOST, so there is no chance for the next check to wait for AVAILABLE)",
+      "range": {
+        "startLine": 2643,
+        "startChar": 12,
+        "endLine": 2644,
+        "endChar": 72
+      },
+      "revId": "cb5be9556a28c39a9bf52f039e25b47454b26a99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13d39a96_5f97dc8f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2644,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-18T02:26:00Z",
+      "side": 1,
+      "message": "Is this because LOST may not be the next callback, as other callbacks could be (like LinkProperties or NC) ? In that case maybe add a comment to explain what kind of callbacks may happen in the meantime",
+      "parentUuid": "a83ecc9f_c2063ad5",
       "range": {
         "startLine": 2643,
         "startChar": 12,
