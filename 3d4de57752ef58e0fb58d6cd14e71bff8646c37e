@@ -22,6 +22,30 @@
       },
       "revId": "3d4de57752ef58e0fb58d6cd14e71bff8646c37e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85c372a1_870c3ff3",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1037,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-18T09:44:03Z",
+      "side": 0,
+      "message": "Thanks for the suggestion, make onTetheringSupported only fired when callback registered and file the bug b/229576236 to deprecate onTetheringSupported API",
+      "parentUuid": "018f7d67_4db72f23",
+      "range": {
+        "startLine": 1036,
+        "startChar": 80,
+        "endLine": 1037,
+        "endChar": 45
+      },
+      "revId": "3d4de57752ef58e0fb58d6cd14e71bff8646c37e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
