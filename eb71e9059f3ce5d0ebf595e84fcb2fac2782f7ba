@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43d66521_ec3e58d9",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-18T05:45:16Z",
+      "side": 1,
+      "message": "You can reuse this function:\n\n    public TetheringInterface startWifiTethering(final TestTetheringEventCallback callback)\n            throws InterruptedException {\n        final List\u003cString\u003e wifiRegexs \u003d getWifiTetherableInterfaceRegexps(callback);\n\n        startWifiTetheringWithoutCheck(callback);\n\n        final TetheringInterface iface \u003d\n                callback.expectTetheredInterfacesChanged(wifiRegexs, TETHERING_WIFI);\n\n        callback.expectOneOfOffloadStatusChanged(\n                TETHER_HARDWARE_OFFLOAD_STARTED,\n                TETHER_HARDWARE_OFFLOAD_FAILED);\n\n        return iface;\n    }\n \n    public TetheringInterface startWifiTetheringWithoutCheck(\n            final TestTetheringEventCallback callback) throws InterruptedException {\n        final StartTetheringCallback startTetheringCallback \u003d new StartTetheringCallback();\n        final TetheringRequest request \u003d new TetheringRequest.Builder(TETHERING_WIFI)\n                .setShouldShowEntitlementUi(false).build();\n        mTm.startTethering(request, c -\u003e c.run() /* executor */, startTetheringCallback);\n        startTetheringCallback.verifyTetheringStarted();\n    }",
+      "range": {
+        "startLine": 479,
+        "startChar": 16,
+        "endLine": 479,
+        "endChar": 46
+      },
+      "revId": "eb71e9059f3ce5d0ebf595e84fcb2fac2782f7ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e981f370_21f19222",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-18T05:45:16Z",
+      "side": 1,
+      "message": "It seems wifiRegexs never be used ?",
+      "range": {
+        "startLine": 481,
+        "startChar": 8,
+        "endLine": 481,
+        "endChar": 84
+      },
+      "revId": "eb71e9059f3ce5d0ebf595e84fcb2fac2782f7ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81d49c59_46d369a7",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-18T05:45:16Z",
+      "side": 1,
+      "message": "Change to use startWifiTethering to make sure tethering is active ? Then you can verify whether tethering is disabled successful whether it is change from active to inactive at l.474 ?",
+      "range": {
+        "startLine": 467,
+        "startChar": 31,
+        "endLine": 467,
+        "endChar": 61
+      },
+      "revId": "eb71e9059f3ce5d0ebf595e84fcb2fac2782f7ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
