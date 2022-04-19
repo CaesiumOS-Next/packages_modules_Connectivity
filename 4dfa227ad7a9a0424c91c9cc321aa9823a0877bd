@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10102d6e_2c7352cf",
+        "filename": "tests/unit/java/android/net/NetworkIdentitySetTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-04-19T06:29:43Z",
+      "side": 1,
+      "message": "Style:\n\nIf there are multiple annotations, or parameterized annotations, list them one-per-line in alphabetical order.\nhttps://source.android.com/setup/contribute/code-style?hl\u003den#use-standard-java-annotations",
+      "range": {
+        "startLine": 32,
+        "startChar": 1,
+        "endLine": 32,
+        "endChar": 8
+      },
+      "revId": "4dfa227ad7a9a0424c91c9cc321aa9823a0877bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa197971_63fe2a9d",
+        "filename": "tests/unit/java/android/net/NetworkIdentitySetTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-04-19T06:29:43Z",
+      "side": 1,
+      "message": "You should be able to pass TH by adding the test into this?\nhttps://osscs.corp.google.com/android/platform/superproject/+/master:packages/modules/Connectivity/tests/unit/Android.bp;l\u003d66?q\u003d%22NetworkStats*%22\u0026ss\u003dandroid",
+      "range": {
+        "startLine": 34,
+        "startChar": 6,
+        "endLine": 34,
+        "endChar": 28
+      },
+      "revId": "4dfa227ad7a9a0424c91c9cc321aa9823a0877bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb4963da_c6716e0d",
+        "filename": "tests/unit/java/android/net/NetworkIdentitySetTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-04-19T06:29:43Z",
+      "side": 1,
+      "message": "Maybe assert with not equals if the we don\u0027t really need to assert the output?",
+      "range": {
+        "startLine": 61,
+        "startChar": 21,
+        "endLine": 61,
+        "endChar": 23
+      },
+      "revId": "4dfa227ad7a9a0424c91c9cc321aa9823a0877bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
