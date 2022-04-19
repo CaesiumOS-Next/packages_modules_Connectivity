@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23dcc0e4_cc8153fa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-19T05:00:07Z",
+      "side": 1,
+      "message": "Use ConnectivityCoverageTests instead",
+      "range": {
+        "startLine": 21,
+        "startChar": 12,
+        "endLine": 21,
+        "endChar": 34
+      },
+      "revId": "87bb6c3603b9381745b82669ab304f861f8acc10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54688e98_b15cce74",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-19T05:00:07Z",
+      "side": 1,
+      "message": "LGTM. Per talk offline, please double check the classes which rename the package name don\u0027t be shrinked by proguard in user build before you submit this CL.",
+      "revId": "87bb6c3603b9381745b82669ab304f861f8acc10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
