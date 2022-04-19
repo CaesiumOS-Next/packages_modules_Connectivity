@@ -81,6 +81,24 @@
       "parentUuid": "54688e98_b15cce74",
       "revId": "87bb6c3603b9381745b82669ab304f861f8acc10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f34b689b_e54eb40c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-04-19T06:30:28Z",
+      "side": 1,
+      "message": "Add more raw dump:\n\nClass #354            -\n  Class descriptor  : \u0027Lcom/android/networkstack/tethering/util/bpf/TetherStatsKey;\u0027\n  Access flags      : 0x0001 (PUBLIC)\n  Superclass        : \u0027Lcom/android/networkstack/tethering/util/Struct;\u0027\n  Interfaces        -\n  Static fields     -\n  Instance fields   -\n    #0              : (in Lcom/android/networkstack/tethering/util/bpf/TetherStatsKey;)\n      name          : \u0027ifindex\u0027\n      type          : \u0027J\u0027\n      access        : 0x0011 (PUBLIC FINAL)\n\nClass #355            -\n  Class descriptor  : \u0027Lcom/android/networkstack/tethering/util/bpf/TetherStatsValue;\u0027\n  Access flags      : 0x0001 (PUBLIC)\n  Superclass        : \u0027Lcom/android/networkstack/tethering/util/Struct;\u0027\n  Interfaces        -\n  Static fields     -\n  Instance fields   -\n    #0              : (in Lcom/android/networkstack/tethering/util/bpf/TetherStatsValue;)\n      name          : \u0027rxBytes\u0027\n      type          : \u0027J\u0027\n      access        : 0x0011 (PUBLIC FINAL)\n    #1              : (in Lcom/android/networkstack/tethering/util/bpf/TetherStatsValue;)\n      name          : \u0027rxErrors\u0027\n      type          : \u0027J\u0027\n      access        : 0x0011 (PUBLIC FINAL)\n    #2              : (in Lcom/android/networkstack/tethering/util/bpf/TetherStatsValue;)\n      name          : \u0027rxPackets\u0027\n      type          : \u0027J\u0027\n      access        : 0x0011 (PUBLIC FINAL)\n    #3              : (in Lcom/android/networkstack/tethering/util/bpf/TetherStatsValue;)\n      name          : \u0027txBytes\u0027\n      type          : \u0027J\u0027\n      access        : 0x0011 (PUBLIC FINAL)\n    #4              : (in Lcom/android/networkstack/tethering/util/bpf/TetherStatsValue;)\n      name          : \u0027txErrors\u0027\n      type          : \u0027J\u0027\n      access        : 0x0011 (PUBLIC FINAL)\n    #5              : (in Lcom/android/networkstack/tethering/util/bpf/TetherStatsValue;)\n      name          : \u0027txPackets\u0027\n      type          : \u0027J\u0027\n      access        : 0x0011 (PUBLIC FINAL)",
+      "parentUuid": "b0d0816d_2e5d3776",
+      "revId": "87bb6c3603b9381745b82669ab304f861f8acc10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
