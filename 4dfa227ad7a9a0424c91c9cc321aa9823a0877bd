@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46150066_24f4b17e",
+        "filename": "tests/unit/java/android/net/NetworkIdentitySetTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-04-19T09:44:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10102d6e_2c7352cf",
+      "range": {
+        "startLine": 32,
+        "startChar": 1,
+        "endLine": 32,
+        "endChar": 8
+      },
+      "revId": "4dfa227ad7a9a0424c91c9cc321aa9823a0877bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa197971_63fe2a9d",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8563a1f1_97adc7df",
+        "filename": "tests/unit/java/android/net/NetworkIdentitySetTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-04-19T09:44:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa197971_63fe2a9d",
+      "range": {
+        "startLine": 34,
+        "startChar": 6,
+        "endLine": 34,
+        "endChar": 28
+      },
+      "revId": "4dfa227ad7a9a0424c91c9cc321aa9823a0877bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb4963da_c6716e0d",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-04-19T06:29:43Z",
       "side": 1,
       "message": "Maybe assert with not equals if the we don\u0027t really need to assert the output?",
+      "range": {
+        "startLine": 61,
+        "startChar": 21,
+        "endLine": 61,
+        "endChar": 23
+      },
+      "revId": "4dfa227ad7a9a0424c91c9cc321aa9823a0877bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b989fa7b_d873b5f5",
+        "filename": "tests/unit/java/android/net/NetworkIdentitySetTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-04-19T09:44:36Z",
+      "side": 1,
+      "message": "This asserts that the output of NetworkIdentitySet.compare should be expected. Not sure what do you mean.",
+      "parentUuid": "fb4963da_c6716e0d",
       "range": {
         "startLine": 61,
         "startChar": 21,
