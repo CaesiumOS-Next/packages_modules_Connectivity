@@ -24,6 +24,7 @@ import static android.net.cts.util.IkeSessionTestUtils.CHILD_PARAMS;
 import static android.net.cts.util.IkeSessionTestUtils.IKE_PARAMS;
 
 import static com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity;
+import static com.android.testutils.Cleanup.testAndCleanup;
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 import static com.android.testutils.TestableNetworkCallbackKt.anyNetwork;
 
@@ -482,53 +483,58 @@ public class Ikev2VpnTest {
         final NetworkRequest nr = new NetworkRequest.Builder()
                 .clearCapabilities().addTransportType(TRANSPORT_VPN).build();
         sCM.registerNetworkCallback(nr, cb);
+        testAndCleanup(() -> {
+            if (testSessionKey) {
+                // testSessionKey will never be true if running on <T
+                // startProvisionedVpnProfileSession() should return a non-null & non-empty random
+                // UUID.
+                assertFalse(TextUtils.isEmpty(mVmShim.startProvisionedVpnProfileSession()));
+            } else {
+                sVpnMgr.startProvisionedVpnProfile();
+            }
 
-        if (testSessionKey) {
-            // testSessionKey will never be true if running on <T
-            // startProvisionedVpnProfileSession() should return a non-null & non-empty random UUID.
-            assertFalse(TextUtils.isEmpty(mVmShim.startProvisionedVpnProfileSession()));
-        } else {
-            sVpnMgr.startProvisionedVpnProfile();
-        }
+            // Inject IKE negotiation
+            int expectedMsgId = 0;
+            tunUtils.awaitReqAndInjectResp(IKE_INITIATOR_SPI, expectedMsgId++, false /* isEncap */,
+                    HexDump.hexStringToByteArray(initResp));
+            tunUtils.awaitReqAndInjectResp(IKE_INITIATOR_SPI, expectedMsgId++, hasNat /* isEncap */,
+                    HexDump.hexStringToByteArray(authResp));
 
-        // Inject IKE negotiation
-        int expectedMsgId = 0;
-        tunUtils.awaitReqAndInjectResp(IKE_INITIATOR_SPI, expectedMsgId++, false /* isEncap */,
-                HexDump.hexStringToByteArray(initResp));
-        tunUtils.awaitReqAndInjectResp(IKE_INITIATOR_SPI, expectedMsgId++, hasNat /* isEncap */,
-                HexDump.hexStringToByteArray(authResp));
+            // Verify the VPN network came up
+            final Network vpnNetwork = cb.expectCallback(CallbackEntry.AVAILABLE, anyNetwork())
+                    .getNetwork();
 
-        // Verify the VPN network came up
-        final Network vpnNetwork = cb.expectCallback(CallbackEntry.AVAILABLE, anyNetwork())
-                .getNetwork();
+            cb.expectCapabilitiesThat(vpnNetwork, TIMEOUT_MS,
+                    caps -> caps.hasTransport(TRANSPORT_VPN)
+                    && caps.hasCapability(NET_CAPABILITY_INTERNET)
+                    && !caps.hasCapability(NET_CAPABILITY_VALIDATED)
+                    && Process.myUid() == caps.getOwnerUid());
+            cb.expectCallback(CallbackEntry.LINK_PROPERTIES_CHANGED, vpnNetwork);
+            cb.expectCallback(CallbackEntry.BLOCKED_STATUS, vpnNetwork);
 
-        cb.expectCapabilitiesThat(vpnNetwork, TIMEOUT_MS, caps -> caps.hasTransport(TRANSPORT_VPN)
-                && caps.hasCapability(NET_CAPABILITY_INTERNET)
-                && !caps.hasCapability(NET_CAPABILITY_VALIDATED)
-                && Process.myUid() == caps.getOwnerUid());
-        cb.expectCallback(CallbackEntry.LINK_PROPERTIES_CHANGED, vpnNetwork);
-        cb.expectCallback(CallbackEntry.BLOCKED_STATUS, vpnNetwork);
+            // A VPN that requires validation is initially not validated, while one that doesn't
+            // immediately validate automatically. Because this VPN can't actually access Internet,
+            // the VPN only validates if it doesn't require validation. If the VPN requires
+            // validation but unexpectedly sends this callback, expecting LOST below will fail
+            // because the next callback will be the validated capabilities instead.
+            // In S and below, |requiresValidation| is ignored, so this callback is always sent
+            // regardless of its value. However, there is a race in Vpn(see b/228574221) that VPN
+            // may misuse VPN network itself as the underlying network. The fix is not available
+            // without SDK > T platform. Thus, verify this only on T+ platform.
+            if (!requiresValidation && TestUtils.shouldTestTApis()) {
+                cb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED, TIMEOUT_MS,
+                        entry -> ((CallbackEntry.CapabilitiesChanged) entry).getCaps()
+                                .hasCapability(NET_CAPABILITY_VALIDATED));
+            }
 
-        // A VPN that requires validation is initially not validated, while one that doesn't
-        // immediately validate automatically. Because this VPN can't actually access Internet,
-        // the VPN only validates if it doesn't require validation. If the VPN requires validation
-        // but unexpectedly sends this callback, expecting LOST below will fail because the next
-        // callback will be the validated capabilities instead.
-        // In S and below, |requiresValidation| is ignored, so this callback is always sent
-        // regardless of its value. However, there is a race in Vpn(see b/228574221) that VPN may
-        // misuse VPN network itself as the underlying network. The fix is not available without
-        // SDK > T platform. Thus, verify this only on T+ platform.
-        if (!requiresValidation && TestUtils.shouldTestTApis()) {
-            cb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED, TIMEOUT_MS,
-                    entry -> ((CallbackEntry.CapabilitiesChanged) entry).getCaps()
-                            .hasCapability(NET_CAPABILITY_VALIDATED));
-        }
-
-        sVpnMgr.stopProvisionedVpnProfile();
-        // Using expectCallback may cause the test to be flaky since test may receive other
-        // callbacks such as linkproperties change.
-        cb.eventuallyExpect(CallbackEntry.LOST, TIMEOUT_MS,
-                lost -> vpnNetwork.equals(lost.getNetwork()));
+            sVpnMgr.stopProvisionedVpnProfile();
+            // Using expectCallback may cause the test to be flaky since test may receive other
+            // callbacks such as linkproperties change.
+            cb.eventuallyExpect(CallbackEntry.LOST, TIMEOUT_MS,
+                    lost -> vpnNetwork.equals(lost.getNetwork()));
+        }, /* cleanup */ () -> {
+            sCM.unregisterNetworkCallback(cb);
+        });
     }
 
     private class VerifyStartStopVpnProfileTest implements TestNetworkRunnable.Test {
