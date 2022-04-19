@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b831ecf_b3801dab",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-19T11:06:55Z",
+      "side": 1,
+      "message": "You don\u0027t need to store DownstreamType because it is already the key of mStatsMap. This is duplicated inforamtion, we could remove this to save memory.",
+      "range": {
+        "startLine": 71,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 53
+      },
+      "revId": "5d0b5d589ff1a1af7ea5b3d80d87b4ba578501d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f54eef9d_1510c5d5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-19T11:06:55Z",
+      "side": 1,
+      "message": "Could you check if build a NetworkTetheringReported really necessary ? Currently this code only use NetworkTetheringReported inside TetheringMetrics. Does NetworkTetheringReported need to delivery to somewhere outside TetheringMetrics ? If no, maybe we don\u0027t need to build NetworkTetheringReported ? Then we could remove StatsLog and just have code like this:\n\n    private final SparseArray\u003cUserType\u003e mUserMap \u003d new SparseArray\u003c\u003e();\n\n    public void writeStats(int downstreamType, int errorCode) {\n        final UserType user \u003d mUserMap.get(downstreamType);\n\n        final NetworkTetheringReported statsReported \u003d makeNetworkTetheringReported(type, errorCode);\n        write(errorCodeToEnum(errCode), downstreamTypeToEnum(type), UpstreamType.UT_UNKNOWN, user);\n        mStatsMap.remove(downstreamType);\n    }",
+      "range": {
+        "startLine": 86,
+        "startChar": 19,
+        "endLine": 90,
+        "endChar": 29
+      },
+      "revId": "5d0b5d589ff1a1af7ea5b3d80d87b4ba578501d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84e0a4fc_33f666db",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-19T11:06:55Z",
+      "side": 1,
+      "message": "We could move getNetworkTetheringReported out of StatsLog.\n\nYou can make the code like this:\n\n    private final SparseArray\u003cUserType\u003e mUserMap \u003d new SparseArray\u003c\u003e();\n\n    public void writeStats(int downstreamType, int errorCode) {\n        final UserType user \u003d mUserMap.get(downstreamType);\n\n        final NetworkTetheringReported statsReported \u003d makeNetworkTetheringReported(type, errorCode);\n        write(errorCodeToEnum(errCode), downstreamTypeToEnum(type), UpstreamType.UT_UNKNOWN, user);\n        mStatsMap.remove(downstreamType);\n    }",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 9
+      },
+      "revId": "5d0b5d589ff1a1af7ea5b3d80d87b4ba578501d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
