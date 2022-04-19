@@ -105,6 +105,7 @@ import android.Manifest;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.TargetApi;
+import android.app.ActivityManager;
 import android.app.AppOpsManager;
 import android.app.BroadcastOptions;
 import android.app.PendingIntent;
@@ -2865,7 +2866,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void enforceNetworkFactoryPermission() {
         // TODO: Check for the BLUETOOTH_STACK permission once that is in the API surface.
-        if (getCallingUid() == Process.BLUETOOTH_UID) return;
+        if (UserHandle.getAppId(getCallingUid()) == Process.BLUETOOTH_UID
+                && getCallingUserHandle().getIdentifier()
+                == ActivityManager.getCurrentUser()) {
+            return;
+        }
         enforceAnyPermissionOf(
                 android.Manifest.permission.NETWORK_FACTORY,
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
@@ -2873,7 +2878,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void enforceNetworkFactoryOrSettingsPermission() {
         // TODO: Check for the BLUETOOTH_STACK permission once that is in the API surface.
-        if (getCallingUid() == Process.BLUETOOTH_UID) return;
+        if (UserHandle.getAppId(getCallingUid()) == Process.BLUETOOTH_UID
+                && getCallingUserHandle().getIdentifier()
+                == ActivityManager.getCurrentUser()) {
+            return;
+        }
         enforceAnyPermissionOf(
                 android.Manifest.permission.NETWORK_SETTINGS,
                 android.Manifest.permission.NETWORK_FACTORY,
@@ -2882,7 +2891,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void enforceNetworkFactoryOrTestNetworksPermission() {
         // TODO: Check for the BLUETOOTH_STACK permission once that is in the API surface.
-        if (getCallingUid() == Process.BLUETOOTH_UID) return;
+        if (UserHandle.getAppId(getCallingUid()) == Process.BLUETOOTH_UID
+                && getCallingUserHandle().getIdentifier()
+                == ActivityManager.getCurrentUser()) {
+            return;
+        }
         enforceAnyPermissionOf(
                 android.Manifest.permission.MANAGE_TEST_NETWORKS,
                 android.Manifest.permission.NETWORK_FACTORY,
@@ -2896,7 +2909,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 android.Manifest.permission.NETWORK_SETTINGS, pid, uid)
                 || PERMISSION_GRANTED == mContext.checkPermission(
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK, pid, uid)
-                || uid == Process.BLUETOOTH_UID;
+                || (UserHandle.getAppId(uid) == Process.BLUETOOTH_UID
+                && UserHandle.getUserHandleForUid(uid).getIdentifier()
+                == ActivityManager.getCurrentUser());
     }
 
     private boolean checkSettingsPermission() {
