@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52c4e7dd_af61e18d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-19T07:16:15Z",
+      "side": 1,
+      "message": "TH is blocked by b/229293166. The VPN commit was not merged into tm-dev and its downstream. ",
+      "revId": "67a82837cc686848945c35b13f7c14331326d0c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
