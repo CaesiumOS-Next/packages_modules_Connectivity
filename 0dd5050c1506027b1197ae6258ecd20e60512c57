@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddd83376_4904daa6",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-19T00:40:19Z",
+      "side": 1,
+      "message": "Can this be removed too?",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 93
+      },
+      "revId": "0dd5050c1506027b1197ae6258ecd20e60512c57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc5210a2_68d68871",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-19T00:40:19Z",
+      "side": 1,
+      "message": "And likewise this.",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 43
+      },
+      "revId": "0dd5050c1506027b1197ae6258ecd20e60512c57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "177b6196_01179eee",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-19T00:40:19Z",
+      "side": 1,
+      "message": "Let\u0027s remove this; we don\u0027t need to pass in allowed algorithms for testing.",
+      "range": {
+        "startLine": 114,
+        "startChar": 61,
+        "endLine": 114,
+        "endChar": 91
+      },
+      "revId": "0dd5050c1506027b1197ae6258ecd20e60512c57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df618274_1346836c",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-19T00:40:19Z",
+      "side": 1,
+      "message": "And just take the rest out of the if condition.",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 67
+      },
+      "revId": "0dd5050c1506027b1197ae6258ecd20e60512c57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fd61557_8d62c732",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-19T00:40:19Z",
+      "side": 1,
+      "message": "Can probably just do \"return Collections.singletonList(aeadBuilder.build());\"\n\nDitto above for the IkeSaProposal(s)",
+      "range": {
+        "startLine": 121,
+        "startChar": 12,
+        "endLine": 121,
+        "endChar": 26
+      },
+      "revId": "0dd5050c1506027b1197ae6258ecd20e60512c57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
