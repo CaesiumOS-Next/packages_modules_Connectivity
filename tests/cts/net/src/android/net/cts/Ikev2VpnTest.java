@@ -515,8 +515,10 @@ public class Ikev2VpnTest {
         // but unexpectedly sends this callback, expecting LOST below will fail because the next
         // callback will be the validated capabilities instead.
         // In S and below, |requiresValidation| is ignored, so this callback is always sent
-        // regardless of its value.
-        if (!requiresValidation || !TestUtils.shouldTestTApis()) {
+        // regardless of its value. However, there is a race in Vpn(see b/228574221) that VPN may
+        // misuse VPN network itself as the underlying network. The fix is not available without
+        // SDK > T platform. Thus, verify this only on T+ platform.
+        if (!requiresValidation && TestUtils.shouldTestTApis()) {
             cb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED, TIMEOUT_MS,
                     entry -> ((CallbackEntry.CapabilitiesChanged) entry).getCaps()
                             .hasCapability(NET_CAPABILITY_VALIDATED));
