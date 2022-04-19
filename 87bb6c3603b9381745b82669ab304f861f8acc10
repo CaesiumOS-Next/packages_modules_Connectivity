@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0e6abab1_e8ab2f9c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-04-19T06:23:27Z",
+      "side": 1,
+      "message": "ACK",
+      "parentUuid": "23dcc0e4_cc8153fa",
+      "range": {
+        "startLine": 21,
+        "startChar": 12,
+        "endLine": 21,
+        "endChar": 34
+      },
+      "revId": "87bb6c3603b9381745b82669ab304f861f8acc10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "54688e98_b15cce74",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -37,6 +61,24 @@
       "writtenOn": "2022-04-19T05:00:07Z",
       "side": 1,
       "message": "LGTM. Per talk offline, please double check the classes which rename the package name don\u0027t be shrinked by proguard in user build before you submit this CL.",
+      "revId": "87bb6c3603b9381745b82669ab304f861f8acc10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0d0816d_2e5d3776",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-04-19T06:23:27Z",
+      "side": 1,
+      "message": "Please help to review if any missing. Thank you\nBoth TetherStatsKey and TetherStatsValue are found in local raven pre-T user build. \n\n# Search Class descriptor in dexdump\n$~/Android/Sdk/build-tools/32.0.0/dexdump out/target/product/raven/apex/com.google.android.tethering.next/priv-app/TetheringNextGoogle@MASTER/TetheringNextGoogle.apk | grep -oP \u0027Class descriptor *:? *\\K.+\u0027 | less\n\u0027Lcom/android/networkstack/tethering/util/bpf/TetherStatsKey;\u0027\n\u0027Lcom/android/networkstack/tethering/util/bpf/TetherStatsValue;\u0027\n\n# raw dexdump dump\nClass #354            -\n  Class descriptor  : \u0027Lcom/android/networkstack/tethering/util/bpf/TetherStatsKey;\u0027\n\nClass #355            -\n  Class descriptor  : \u0027Lcom/android/networkstack/tethering/util/bpf/TetherStatsValue;\u0027",
+      "parentUuid": "54688e98_b15cce74",
       "revId": "87bb6c3603b9381745b82669ab304f861f8acc10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
