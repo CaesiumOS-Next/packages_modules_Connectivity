@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f33a8e25_eba67e70",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-19T11:34:27Z",
+      "side": 1,
+      "message": "It\u0027s needed for platform below T because that is a platform fix. If the test run in S- device, we will still meet the original race.",
+      "parentUuid": "0e28ac81_56bc85f1",
+      "revId": "dc6a9ccb53048b4af5192ed9ae1c43ca80dce1fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e53ad199_2780e25f",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-04-19T10:53:17Z",
       "side": 1,
       "message": "Instead of requiring individual tests to run testAndCleanup for common operations such as registering NetworkCallbacks, would suggest doing something like:\n\n    private final List\u003cNetworkCallback\u003e mCallbacksToUnregister \u003d new List\u003c\u003e();\n\n    private void registerNetworkCallback(NetworkRequest request, NetworkCallback callback) {\n        sCM.registerNetworkCallback(nr, cb);\n    }\n\n    public void tearDown() {\n        for (NetworkCallback callback : mCallbacksToUnregister) {\n            sCM.unregisterNetworkCallback(callback);\n        }\n    }",
+      "range": {
+        "startLine": 486,
+        "startChar": 8,
+        "endLine": 486,
+        "endChar": 22
+      },
+      "revId": "dc6a9ccb53048b4af5192ed9ae1c43ca80dce1fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64f8e871_833a17f2",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-19T11:34:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e53ad199_2780e25f",
       "range": {
         "startLine": 486,
         "startChar": 8,
