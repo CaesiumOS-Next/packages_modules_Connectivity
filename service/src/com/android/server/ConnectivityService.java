@@ -2588,6 +2588,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    /**
+     * A UID can be a concatenation of a UserID with a 4-5 digit package UID. E.g.,
+     * Bluetooth under User10 would have UID 1001002. This function removes the UserID (if any),
+     * and returns just the app/package's UID (e.g., 1002 for Bluetooth).
+     */
+    private int getAppUid(int userIdAndPackageUid, UserHandle user) {
+        return user.getAppId(userIdAndPackageUid);
+    }
+
     private void verifyCallingUidAndPackage(String packageName, int callingUid) {
         final UserHandle user = UserHandle.getUserHandleForUid(callingUid);
         if (getAppUid(packageName, user) != callingUid) {
@@ -2865,7 +2874,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void enforceNetworkFactoryPermission() {
         // TODO: Check for the BLUETOOTH_STACK permission once that is in the API surface.
-        if (getCallingUid() == Process.BLUETOOTH_UID) return;
+        if (getAppUid(getCallingUid(), getCallingUserHandle()) == Process.BLUETOOTH_UID) return;
         enforceAnyPermissionOf(
                 android.Manifest.permission.NETWORK_FACTORY,
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
@@ -2873,7 +2882,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void enforceNetworkFactoryOrSettingsPermission() {
         // TODO: Check for the BLUETOOTH_STACK permission once that is in the API surface.
-        if (getCallingUid() == Process.BLUETOOTH_UID) return;
+        if (getAppUid(getCallingUid(), getCallingUserHandle()) == Process.BLUETOOTH_UID) return;
         enforceAnyPermissionOf(
                 android.Manifest.permission.NETWORK_SETTINGS,
                 android.Manifest.permission.NETWORK_FACTORY,
@@ -2882,7 +2891,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void enforceNetworkFactoryOrTestNetworksPermission() {
         // TODO: Check for the BLUETOOTH_STACK permission once that is in the API surface.
-        if (getCallingUid() == Process.BLUETOOTH_UID) return;
+        if (getAppUid(getCallingUid(), getCallingUserHandle()) == Process.BLUETOOTH_UID) return;
         enforceAnyPermissionOf(
                 android.Manifest.permission.MANAGE_TEST_NETWORKS,
                 android.Manifest.permission.NETWORK_FACTORY,
