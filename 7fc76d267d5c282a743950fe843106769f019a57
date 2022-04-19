@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32994073_92381191",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-19T09:45:01Z",
+      "side": 1,
+      "message": "Nit: I think it would be clearer / safer to have:\n\n  private static long makeSupportedDownstreams(config)\n\nbecause it would make the code here clearer (it\u0027s not obvious that this method is having the side-effect of resetting mSupportedTypeBitmap), and it would avoid some implicit requirements on setSupportedDownstreams: should only be called from the handler thread, and reportTetheringSupportedChange needs to be called if it changes mSupportedTypeBitmap.",
+      "range": {
+        "startLine": 503,
+        "startChar": 8,
+        "endLine": 503,
+        "endChar": 31
+      },
+      "revId": "7fc76d267d5c282a743950fe843106769f019a57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d522a31_e7d50aef",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 2859,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-19T09:45:01Z",
+      "side": 1,
+      "message": "It would be good to also have a test for the (now legacy) onTetheringSupported callback, also considering that it didn\u0027t do what its documentation said before.",
+      "range": {
+        "startLine": 2859,
+        "startChar": 16,
+        "endLine": 2859,
+        "endChar": 38
+      },
+      "revId": "7fc76d267d5c282a743950fe843106769f019a57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
