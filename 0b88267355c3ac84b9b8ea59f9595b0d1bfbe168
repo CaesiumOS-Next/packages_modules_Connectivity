@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac92a0da_8ab33175",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-19T06:56:17Z",
+      "side": 1,
+      "message": "Zach, is it correct to allow the bluetooth app ID to call privileged APIs regardless of what user ID it\u0027s running on?\n\nIf so, then LGTM assuming the inline comment is addressed.",
+      "revId": "0b88267355c3ac84b9b8ea59f9595b0d1bfbe168",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd87a79d_cd44d66b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2596,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-19T06:56:17Z",
+      "side": 1,
+      "message": "Why define this function instead of just calling UserHandle.getAppId(uid)?",
+      "range": {
+        "startLine": 2596,
+        "startChar": 16,
+        "endLine": 2596,
+        "endChar": 25
+      },
+      "revId": "0b88267355c3ac84b9b8ea59f9595b0d1bfbe168",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
