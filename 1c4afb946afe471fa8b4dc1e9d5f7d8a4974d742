@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8233e8c8_01107d07",
+        "filename": "service/src/com/android/server/connectivity/QosCallbackAgentConnection.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-19T00:44:03Z",
+      "side": 1,
+      "message": "Yes, we need to add it S as well.\nAnd I think FWK needs to notify error to client, so that the client recognize error on its callback.",
+      "parentUuid": "b14aa97a_2b2f61c8",
+      "range": {
+        "startLine": 154,
+        "startChar": 8,
+        "endLine": 154,
+        "endChar": 36
+      },
+      "revId": "1c4afb946afe471fa8b4dc1e9d5f7d8a4974d742",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e9ffd6a_0201d664",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-15T08:41:04Z",
       "side": 1,
       "message": "There are three copies of this code in this file, can you refactor out to a method? Something like:\n\n    private boolean validateOrSendErrorAndUnregister() {\n        // In S, validation was only performed when the callback was registered,\n        // not when sending callbacks.\n        if (!SdkLevel.isAtLeastT()) return;\n\n        final int exceptionType \u003d mFilter.validate();\n        if (exceptionType !\u003d EX_TYPE_FILTER_NONE) {\n            sendEventQosCallbackError(exceptionType);\n            mQosCallbackTracker.unregisterCallback(mCallback);\n            return;\n        }\n    }\n\n\nthen in these methods you\u0027d do:\n\n    if (!validateOrSendErrorAndUnregister()) return;",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 13
+      },
+      "revId": "1c4afb946afe471fa8b4dc1e9d5f7d8a4974d742",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c33f08c_d5fadc43",
+        "filename": "service/src/com/android/server/connectivity/QosCallbackAgentConnection.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-19T00:44:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6e9ffd6a_0201d664",
       "range": {
         "startLine": 173,
         "startChar": 0,
