@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d28af2fb_69583823",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-19T02:40:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ddd83376_4904daa6",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 93
+      },
+      "revId": "0dd5050c1506027b1197ae6258ecd20e60512c57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc5210a2_68d68871",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-19T00:40:19Z",
       "side": 1,
       "message": "And likewise this.",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 43
+      },
+      "revId": "0dd5050c1506027b1197ae6258ecd20e60512c57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0be9f261_3fa86077",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-19T02:40:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc5210a2_68d68871",
       "range": {
         "startLine": 110,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10d39625_484d596e",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-19T02:40:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "177b6196_01179eee",
+      "range": {
+        "startLine": 114,
+        "startChar": 61,
+        "endLine": 114,
+        "endChar": 91
+      },
+      "revId": "0dd5050c1506027b1197ae6258ecd20e60512c57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df618274_1346836c",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2cec9c5_6dd81211",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-19T02:40:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df618274_1346836c",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 67
+      },
+      "revId": "0dd5050c1506027b1197ae6258ecd20e60512c57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7fd61557_8d62c732",
@@ -106,6 +202,30 @@
       "writtenOn": "2022-04-19T00:40:19Z",
       "side": 1,
       "message": "Can probably just do \"return Collections.singletonList(aeadBuilder.build());\"\n\nDitto above for the IkeSaProposal(s)",
+      "range": {
+        "startLine": 121,
+        "startChar": 12,
+        "endLine": 121,
+        "endChar": 26
+      },
+      "revId": "0dd5050c1506027b1197ae6258ecd20e60512c57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50f37243_781d01e5",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-19T02:40:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fd61557_8d62c732",
       "range": {
         "startLine": 121,
         "startChar": 12,
