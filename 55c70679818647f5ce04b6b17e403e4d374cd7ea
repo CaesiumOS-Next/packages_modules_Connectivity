@@ -213,6 +213,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cb43b6e_9c6b1a4f",
+        "filename": "framework/src/android/net/QosSocketFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-19T00:42:20Z",
+      "side": 1,
+      "message": "Ok, I\u0027ll remove SDK check.",
+      "parentUuid": "6db8e5a0_392ef810",
+      "range": {
+        "startLine": 94,
+        "startChar": 8,
+        "endLine": 94,
+        "endChar": 87
+      },
+      "revId": "55c70679818647f5ce04b6b17e403e4d374cd7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a000f4c_a419d9be",
@@ -321,6 +345,30 @@
       "side": 1,
       "message": "Thanks.\n\nAs for backwards compatibility, I\u0027ll leave that up to you. I just wanted to make sure you\u0027d considered the it.\n\nIf you think the SDK check is not needed, I think it\u0027s OK not to add it. Adding an SDK check definitely makes the code more complex and difficult to follow, and that will make it hard to maintain in the future, so it only makes sense to have an SDK check if we think the change in behaviour could break an existing client.",
       "parentUuid": "3054b105_c330028b",
+      "range": {
+        "startLine": 104,
+        "startChar": 23,
+        "endLine": 104,
+        "endChar": 58
+      },
+      "revId": "55c70679818647f5ce04b6b17e403e4d374cd7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6166a71_d804a1d3",
+        "filename": "framework/src/android/net/QosSocketFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-19T00:42:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ac48b972_99fc3e2a",
       "range": {
         "startLine": 104,
         "startChar": 23,
@@ -557,6 +605,30 @@
       "side": 1,
       "message": "Ah, I see. In that case please add a comment to explain. Something like:\n\n    // Used when sending QoS filters to telephony, which does not need\n    // access to the socket fd.\n\nAlso, can you de-duplicate the code between these methods? Something like:\n\n    @Override\n    public void writeToParcel(@NonNull final Parcel dest, final int flags) {\n        writeToParcelInternal(dest, flags, /*includeFd\u003d*/ true);\n    }\n\n    // Used when sending QoS filters to telephony, which does not need\n    // access to the socket fd.\n    private void writeToParcelWithoutFd(@NonNull final Parcel dest, final int flags, boolean includeFd) {\n        writeToParcelInternal(dest, flags, /*includeFd\u003d*/ false);\n    }\n\n    private void writeToParcelInternal(@NonNull final Parcel dest, final int flags, boolean includeFd) {\n        mNetwork.writeToParcel(dest, 0);\n        dest.writeBoolean(includeFd);\n        if (includeFd) {\n            mParcelFileDescriptor.writeToParcel(dest, 0);\n        }",
       "parentUuid": "b9542886_38750b5d",
+      "range": {
+        "startLine": 231,
+        "startChar": 16,
+        "endLine": 231,
+        "endChar": 38
+      },
+      "revId": "55c70679818647f5ce04b6b17e403e4d374cd7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a85abc4b_59ce6513",
+        "filename": "framework/src/android/net/QosSocketInfo.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-19T00:42:20Z",
+      "side": 1,
+      "message": "Yes, this looks better.\nUpdated.",
+      "parentUuid": "d17bf8ef_70ec3ed9",
       "range": {
         "startLine": 231,
         "startChar": 16,
