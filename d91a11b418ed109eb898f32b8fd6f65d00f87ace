@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6518e472_82a4a02e",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-20T06:57:52Z",
+      "side": 1,
+      "message": "Not for this commit.\nI saw this annotation is used on DnsResolverTest#testContinuousQueriesInline only, and the skip reason is flaky test. Should we replace the annotation to more precisely one @FlakyTest?",
+      "range": {
+        "startLine": 30,
+        "startChar": 55,
+        "endLine": 30,
+        "endChar": 68
+      },
+      "revId": "d91a11b418ed109eb898f32b8fd6f65d00f87ace",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acb51428_bccb06fc",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-20T06:57:52Z",
+      "side": 1,
+      "message": "Not for this commit.\nThis is used to skip some tests on virtual device. Maybe we can create a precise annotation for virtual device like wifi does.\nhttps://source.corp.google.com/android/cts/tests/tests/wifi/src/android/net/wifi/cts/WifiManagerTest.java;l\u003d638?q\u003dVirtualDeviceNotSupported",
+      "range": {
+        "startLine": 33,
+        "startChar": 55,
+        "endLine": 33,
+        "endChar": 69
+      },
+      "revId": "d91a11b418ed109eb898f32b8fd6f65d00f87ace",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
