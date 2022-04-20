@@ -1,0 +1,3 @@
+# INetworkStatsProvider is referenced from net-tests-utils
+# TODO: Avoid such usage in a common lib
+android\.net\.netstats\.provider\.INetworkStatsProvider.*

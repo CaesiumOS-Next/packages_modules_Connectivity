@@ -88,7 +88,29 @@ java_library {
         "framework-wifi",
         "framework-connectivity-pre-jarjar",
     ],
-    visibility: ["//packages/modules/Connectivity:__subpackages__"],
+    visibility: [
+        "//packages/modules/Connectivity:__subpackages__",
+
+        // Tests using hidden APIs
+        "//cts/tests/netlegacy22.api",
+        "//cts/tests/tests/app.usage", // NetworkUsageStatsTest
+        "//external/sl4a:__subpackages__",
+        "//frameworks/base/core/tests/bandwidthtests",
+        "//frameworks/base/core/tests/benchmarks",
+        "//frameworks/base/core/tests/utillib",
+        "//frameworks/base/tests/vcn",
+        "//frameworks/libs/net/common/testutils",
+        "//frameworks/libs/net/common/tests:__subpackages__",
+        "//frameworks/opt/net/ethernet/tests:__subpackages__",
+        "//frameworks/opt/telephony/tests/telephonytests",
+        "//packages/modules/CaptivePortalLogin/tests",
+        "//packages/modules/Connectivity/Tethering/tests:__subpackages__",
+        "//packages/modules/Connectivity/tests:__subpackages__",
+        "//packages/modules/IPsec/tests/iketests",
+        "//packages/modules/NetworkStack/tests:__subpackages__",
+        "//packages/modules/Nearby/tests:__subpackages__",
+        "//packages/modules/Wifi/service/tests/wifitests",
+    ],
 }
 
 // SDK library for connectivity bootclasspath classes that were part of the non-updatable API before
@@ -103,7 +125,7 @@ java_sdk_library {
     // Do not add static_libs to this library: put them in framework-connectivity instead.
     // The jarjar rules are only so that references to jarjared utils in
     // framework-connectivity-pre-jarjar match at runtime.
-    jarjar_rules: ":connectivity-jarjar-rules",
+    jarjar_rules: ":framework-connectivity-jarjar-rules",
     permitted_packages: [
         "android.app.usage",
         "android.net",
