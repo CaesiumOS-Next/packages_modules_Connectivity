@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01996108_100a4aee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-20T01:12:04Z",
+      "side": 1,
+      "message": "Not familiar with the utils so deferring review to someone else but LGTM",
+      "revId": "4e7acedf15758284aa42a39b1d680aa2bd29f307",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
