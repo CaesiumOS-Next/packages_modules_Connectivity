@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f909c188_fb5f210f",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-04-20T08:23:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43d66521_ec3e58d9",
+      "range": {
+        "startLine": 479,
+        "startChar": 16,
+        "endLine": 479,
+        "endChar": 46
+      },
+      "revId": "eb71e9059f3ce5d0ebf595e84fcb2fac2782f7ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e981f370_21f19222",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "844417ee_61863cbc",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-04-20T08:23:04Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "e981f370_21f19222",
+      "range": {
+        "startLine": 481,
+        "startChar": 8,
+        "endLine": 481,
+        "endChar": 84
+      },
+      "revId": "eb71e9059f3ce5d0ebf595e84fcb2fac2782f7ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81d49c59_46d369a7",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-04-18T05:45:16Z",
       "side": 1,
       "message": "Change to use startWifiTethering to make sure tethering is active ? Then you can verify whether tethering is disabled successful whether it is change from active to inactive at l.474 ?",
+      "range": {
+        "startLine": 467,
+        "startChar": 31,
+        "endLine": 467,
+        "endChar": 61
+      },
+      "revId": "eb71e9059f3ce5d0ebf595e84fcb2fac2782f7ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f0f72a5_ca208b36",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-04-20T08:23:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81d49c59_46d369a7",
       "range": {
         "startLine": 467,
         "startChar": 31,
