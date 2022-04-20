@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe45d772_8e357a8d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-20T06:24:33Z",
+      "side": 1,
+      "message": "Maybe you could just have one generic dumpRawMap function:\n\n    private \u003cK extends Struct, V extends Struct\u003e void dumpRawMap(\n            BpfMap\u003cK, V\u003e map, IndentingPrintWriter pw) throws ErrnoException {\n        if (map \u003d\u003d null) {\n            pw.println(\"Not support\");\n            return;\n        }\n        if (map.isEmpty()) {\n            pw.println(\"No entries\");\n            return;\n        }\n        map.forEach((k, v) -\u003e pw.println(bpfMapEntryToBase64String(k, v)));\n    }",
+      "range": {
+        "startLine": 1091,
+        "startChar": 0,
+        "endLine": 1116,
+        "endChar": 5
+      },
+      "revId": "ef77c36acb56437d85fe59fc7ae1412eb659438a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
