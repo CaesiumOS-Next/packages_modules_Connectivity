@@ -223,7 +223,7 @@ public abstract class SocketKeepalive implements AutoCloseable {
     // TODO: remove slot since mCallback could be used to identify which keepalive to stop.
     @Nullable Integer mSlot;
 
-    SocketKeepalive(@NonNull IConnectivityManager service, @NonNull Network network,
+    public SocketKeepalive(@NonNull IConnectivityManager service, @NonNull Network network,
             @NonNull ParcelFileDescriptor pfd,
             @NonNull Executor executor, @NonNull Callback callback) {
         mService = service;
