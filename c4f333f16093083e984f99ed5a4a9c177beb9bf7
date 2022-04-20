@@ -70,6 +70,30 @@
       },
       "revId": "c4f333f16093083e984f99ed5a4a9c177beb9bf7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "957ce84e_6e42a4ee",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2871,
+      "author": {
+        "id": 1013984
+      },
+      "writtenOn": "2022-04-20T19:42:21Z",
+      "side": 1,
+      "message": "getCurrentUser() returns the foreground user, which is typically 0 on phones (but could be other users).\n\nA work profile - or any profile - runs \"concurrently\" with its parent user (which is also typically 0). So, if it\u0027s an app in the work profile that\u0027s making this call,  getCallingUserHandle().getIdentifier() \u003d\u003d ActivityManager.getCurrentUser() would fail...",
+      "parentUuid": "a384e92e_d0a1a1a3",
+      "range": {
+        "startLine": 2869,
+        "startChar": 7,
+        "endLine": 2871,
+        "endChar": 54
+      },
+      "revId": "c4f333f16093083e984f99ed5a4a9c177beb9bf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
