@@ -46,6 +46,30 @@
       },
       "revId": "c4f333f16093083e984f99ed5a4a9c177beb9bf7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a384e92e_d0a1a1a3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2871,
+      "author": {
+        "id": 1466695
+      },
+      "writtenOn": "2022-04-20T18:32:55Z",
+      "side": 1,
+      "message": "Tl;dr: In theory, the check is probably not needed, so I’ll remove it. However, leaving the check in shouldn’t cause issues with work profile apps, either, I think.\n\nRegarding whether the check for the current user is needed: in theory, no, since there should only be one instance of Bluetooth running in theory. There may be edge cases when there are two Bluetooth instances (e.g., one goes up as another is torn down during user switch), so I added the check as an extra precaution, and also to address your other comment regarding user ID and privileged APIs.\n\nRegarding work profile app: getCurrentUser should return 0 in your example? According to https://sites.google.com/corp/google.com/work-profiles/developers-guide-to-work-profiles#h.p_ax6HheNOp-zP, The foreground user returned by ActivityManager.getCurrentUser() is never the work profile user. Even when a work profile app is running, this API will continue to say that the primary user is the current user. Therefore, you can’t use this API to get the userId that the current foreground app is running in.\n\nAdditionally, shouldn’t getCallingUid() return the uid of Bluetooth and not the work profile app in this case? And Bluetooth should still be running under user 0 in this case?",
+      "parentUuid": "6c3071ed_b097ef0b",
+      "range": {
+        "startLine": 2869,
+        "startChar": 7,
+        "endLine": 2871,
+        "endChar": 54
+      },
+      "revId": "c4f333f16093083e984f99ed5a4a9c177beb9bf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
