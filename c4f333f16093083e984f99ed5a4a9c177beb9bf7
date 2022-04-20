@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdcb133f_e8905186",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2871,
+      "author": {
+        "id": 1013984
+      },
+      "writtenOn": "2022-04-20T02:56:32Z",
+      "side": 1,
+      "message": "the same logic is repeated 3-4 times - encapsulate into a private helper (like isCallerBluetoothUidOnCurrentUser()) instead?",
+      "range": {
+        "startLine": 2869,
+        "startChar": 7,
+        "endLine": 2871,
+        "endChar": 54
+      },
+      "revId": "c4f333f16093083e984f99ed5a4a9c177beb9bf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
