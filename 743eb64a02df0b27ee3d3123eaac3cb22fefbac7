@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "429a8558_26e575ae",
+        "filename": "tests/unit/java/android/net/QosSocketFilterTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-20T07:25:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8faee223_b348a40a",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 5
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "374a70d7_48e641db",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-04-15T09:33:09Z",
       "side": 1,
       "message": "Nit: why not just:\n\n    DatagramSocket socket \u003d new ...",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 101,
+        "endChar": 20
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d8a22d9_57143ab3",
+        "filename": "tests/unit/java/android/net/QosSocketFilterTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-20T07:25:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "374a70d7_48e641db",
       "range": {
         "startLine": 100,
         "startChar": 8,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "129c09b7_a47240d0",
+        "filename": "tests/unit/java/android/net/QosSocketFilterTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-20T07:25:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1c57d1d5_23aefe65",
+      "range": {
+        "startLine": 102,
+        "startChar": 46,
+        "endLine": 102,
+        "endChar": 55
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f8a9bcf_b451562e",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-04-15T09:33:09Z",
       "side": 1,
       "message": "It is generally not recommended to bind to specific ports in tests because if something else happens to be using the same port, the test will fail. This makes the test flaky. It\u0027s particularly true for TCP because sockets keep the port open for a while after they are closed.\n\nInstead, suggest binding to 0 and then using getLocalAddress() to get the port. That ensures that the socket will always be bound (well, unless the whole device runs out of ports :-)).",
+      "range": {
+        "startLine": 113,
+        "startChar": 71,
+        "endLine": 113,
+        "endChar": 76
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c6050c6_a8d0919b",
+        "filename": "tests/unit/java/android/net/QosSocketFilterTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-20T07:25:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1f8a9bcf_b451562e",
       "range": {
         "startLine": 113,
         "startChar": 71,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ef171d1_12cbe920",
+        "filename": "tests/unit/java/android/net/QosSocketFilterTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-20T07:25:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b2ed1975_e56b5bf3",
+      "range": {
+        "startLine": 117,
+        "startChar": 8,
+        "endLine": 117,
+        "endChar": 18
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67dda05d_5defee83",
@@ -146,6 +266,30 @@
       "writtenOn": "2022-04-15T09:33:09Z",
       "side": 1,
       "message": "Why check the launch version of the device instead of the OS version? I would just do:\n\n    @Test @IgnoreUpTo(SC_V2) // TODO: Use Build.VERSION_CODES.SC_V2 when \navailable\n    public void testValidateUnbind() throws Exception {\n\nalso elsewhere.",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 9
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9299ee9e_7de93262",
+        "filename": "tests/unit/java/android/net/QosSocketFilterTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-20T07:25:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "67dda05d_5defee83",
       "range": {
         "startLine": 123,
         "startChar": 0,
@@ -179,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6790ce09_4b6af086",
+        "filename": "tests/unit/java/android/net/QosSocketFilterTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-20T07:25:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "20bfa8b9_ad233b65",
+      "range": {
+        "startLine": 157,
+        "startChar": 15,
+        "endLine": 157,
+        "endChar": 22
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "278288a5_c50e0ba6",
@@ -202,6 +370,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a23c4d2_a7e882d8",
+        "filename": "tests/unit/java/android/net/QosSocketInfoTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-20T07:25:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "278288a5_c50e0ba6",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 22
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41c3bc96_f246ff75",
+        "filename": "tests/unit/java/android/net/QosSocketInfoTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-20T07:25:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "278288a5_c50e0ba6",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 22
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "661b7c99_4cacef81",
@@ -215,6 +431,30 @@
       "writtenOn": "2022-04-15T09:33:09Z",
       "side": 1,
       "message": "Ditto, please ensure some of the tests use IPv6.",
+      "range": {
+        "startLine": 54,
+        "startChar": 62,
+        "endLine": 54,
+        "endChar": 71
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1541aa93_7af0879a",
+        "filename": "tests/unit/java/android/net/QosSocketInfoTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-20T07:25:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "661b7c99_4cacef81",
       "range": {
         "startLine": 54,
         "startChar": 62,
@@ -271,6 +511,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a789b74b_e3a747d5",
+        "filename": "tests/unit/java/android/net/QosSocketInfoTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-20T07:25:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ad3a331e_3f047009",
+      "range": {
+        "startLine": 55,
+        "startChar": 15,
+        "endLine": 55,
+        "endChar": 19
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e6898fa_b9b98260",
+        "filename": "tests/unit/java/android/net/QosSocketInfoTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-20T07:25:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d493a547_1a99e5a6",
+      "range": {
+        "startLine": 55,
+        "startChar": 20,
+        "endLine": 55,
+        "endChar": 30
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a70d52de_8d2a98d2",
@@ -284,6 +572,30 @@
       "writtenOn": "2022-04-15T09:33:09Z",
       "side": 1,
       "message": "Are you sure you need this thread? It looks like calling bind() is sufficient to cause the listen() system call to be called, and once listen() is called on a server socket, a connect() to that socket will succeed even before accept() is called. So you can just do:\n\n    server.bind(remoteAddr);\n    socket \u003d new Socket(...);\n    Socket accepted \u003d server.accept();",
+      "range": {
+        "startLine": 56,
+        "startChar": 15,
+        "endLine": 56,
+        "endChar": 27
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34fdc791_b6cd1ba3",
+        "filename": "tests/unit/java/android/net/QosSocketInfoTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-20T07:25:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a70d52de_8d2a98d2",
       "range": {
         "startLine": 56,
         "startChar": 15,
@@ -317,6 +629,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7404f3bb_0575e260",
+        "filename": "tests/unit/java/android/net/QosSocketInfoTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-20T07:25:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "13b03585_d097fd2d",
+      "range": {
+        "startLine": 74,
+        "startChar": 8,
+        "endLine": 74,
+        "endChar": 14
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63988d50_a887f623",
@@ -330,6 +666,30 @@
       "writtenOn": "2022-04-15T09:33:09Z",
       "side": 1,
       "message": "Ditto, suggest binding to 0.",
+      "range": {
+        "startLine": 84,
+        "startChar": 15,
+        "endLine": 84,
+        "endChar": 19
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b8a92a9_b555f70e",
+        "filename": "tests/unit/java/android/net/QosSocketInfoTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-20T07:25:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "63988d50_a887f623",
       "range": {
         "startLine": 84,
         "startChar": 15,
@@ -363,6 +723,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c97b972_c19c3e0e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11954,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-20T07:25:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "468c29ef_f841ac8b",
+      "range": {
+        "startLine": 11954,
+        "startChar": 14,
+        "endLine": 11954,
+        "endChar": 68
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7198d6e_e3c1a9b6",
@@ -376,6 +760,30 @@
       "writtenOn": "2022-04-15T09:33:09Z",
       "side": 1,
       "message": "A wait of only 200ms generally risks making the test flaky. Can you use waitForIdle() here instead? Or can you not use it because some of the handler(s) involved are not touched by waitForIdle?",
+      "range": {
+        "startLine": 11975,
+        "startChar": 53,
+        "endLine": 11975,
+        "endChar": 56
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef04b98c_6478c49f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11975,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-20T07:25:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c7198d6e_e3c1a9b6",
       "range": {
         "startLine": 11975,
         "startChar": 53,
@@ -409,6 +817,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45722e95_2df1874b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 11996,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-20T07:25:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8cf9b64f_d69970b0",
+      "range": {
+        "startLine": 11992,
+        "startChar": 0,
+        "endLine": 11996,
+        "endChar": 22
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "657bb5cc_aacc6b78",
@@ -422,6 +854,30 @@
       "writtenOn": "2022-04-15T09:33:09Z",
       "side": 1,
       "message": "This test is a bit difficult to follow, and it also uses mocks, which isn\u0027t great. Did you consider instead using a real NetworkAgent, like we do in NetworkAgentTest.kt? That should be pretty easy to use, and you can use real sockets for it as well.\n\nOnce you unhide these APIs, I think you\u0027ll need proper CTS tests for them anyway, and the best place for that is I think in NetworkAgentTest.",
+      "range": {
+        "startLine": 12002,
+        "startChar": 38,
+        "endLine": 12002,
+        "endChar": 82
+      },
+      "revId": "743eb64a02df0b27ee3d3123eaac3cb22fefbac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b0fe331_63f34210",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 12002,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-20T07:25:20Z",
+      "side": 1,
+      "message": "Ok, I\u0027ll use real NetworkAge when I add CTS test for this.",
+      "parentUuid": "657bb5cc_aacc6b78",
       "range": {
         "startLine": 12002,
         "startChar": 38,
