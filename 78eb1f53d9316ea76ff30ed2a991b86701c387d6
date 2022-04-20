@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a77e0070_6c2948c1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-04-20T07:38:04Z",
+      "side": 1,
+      "message": "I preferred isCarrierConfigAffirmsEntitlementCheckRequired.",
+      "parentUuid": "fa3bc680_db23112c",
+      "range": {
+        "startLine": 217,
+        "startChar": 8,
+        "endLine": 217,
+        "endChar": 34
+      },
+      "revId": "78eb1f53d9316ea76ff30ed2a991b86701c387d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a67dab1_3818d189",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-04-18T05:25:26Z",
       "side": 1,
       "message": "carrierConfigManagerMissing -\u003e carrierConfigMissing ?",
+      "range": {
+        "startLine": 501,
+        "startChar": 44,
+        "endLine": 501,
+        "endChar": 71
+      },
+      "revId": "78eb1f53d9316ea76ff30ed2a991b86701c387d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54a66c51_f9e1ce59",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-04-20T07:38:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a67dab1_3818d189",
       "range": {
         "startLine": 501,
         "startChar": 44,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffd4d179_81c28933",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-04-20T07:38:04Z",
+      "side": 1,
+      "message": "https://source.corp.google.com/android/frameworks/base/telephony/java/android/telephony/CarrierConfigManager.java;rcl\u003dedf0a02ed2fa22242d7d97e3eb72f84a25ff1a41;l\u003d9405\n\nThis is due to \n\nCarrierConfigManager.isConfigForIdentifiedCarrier(carrierConfig);\n\n```\n    public static PersistableBundle getCarrierConfig(Context context, int activeDataSubId) {\n        final CarrierConfigManager configManager \u003d\n                context.getSystemService(CarrierConfigManager.class);\n        if (configManager \u003d\u003d null) {\n            return null;\n        }\n\n        final PersistableBundle carrierConfig \u003d configManager.getConfigForSubId(activeDataSubId);\n        if (CarrierConfigManager.isConfigForIdentifiedCarrier(carrierConfig)) {\n            return carrierConfig;\n        }\n        return null;\n    }\n```",
+      "parentUuid": "676fa8c3_597d6faa",
+      "range": {
+        "startLine": 517,
+        "startChar": 8,
+        "endLine": 517,
+        "endChar": 94
+      },
+      "revId": "78eb1f53d9316ea76ff30ed2a991b86701c387d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "051fa550_89af3f6c",
@@ -110,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20307222_079f4dc3",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-04-20T07:38:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "051fa550_89af3f6c",
+      "range": {
+        "startLine": 518,
+        "startChar": 34,
+        "endLine": 518,
+        "endChar": 90
+      },
+      "revId": "78eb1f53d9316ea76ff30ed2a991b86701c387d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45f4254c_fecd1b1c",
@@ -123,6 +219,30 @@
       "writtenOn": "2022-04-18T05:25:26Z",
       "side": 1,
       "message": "nit:\n        if (SdkLevel.isAtLeastT()) {\n            assertFalse(cfg.isCarrierSupportTethering);\n        } else {\n            assertTrue(cfg.isCarrierSupportTethering);\n        }\n        assertFalse(cfg.isEntitlementCheckRequired);",
+      "range": {
+        "startLine": 524,
+        "startChar": 0,
+        "endLine": 530,
+        "endChar": 9
+      },
+      "revId": "78eb1f53d9316ea76ff30ed2a991b86701c387d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ff01048_e2c1cac2",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-04-20T07:38:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45f4254c_fecd1b1c",
       "range": {
         "startLine": 524,
         "startChar": 0,

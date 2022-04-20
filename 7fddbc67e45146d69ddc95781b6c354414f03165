@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22b39180_ee5d36d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-04-20T07:38:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a011aff6_5fcb50ec",
+      "revId": "7fddbc67e45146d69ddc95781b6c354414f03165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9713d284_1d361b60",
@@ -161,6 +179,24 @@
       "side": 1,
       "message": "My opinion is since this data does not need to pass to tetheringservice in Settings, it does not need to add them to TetheringConfigurationParcel.aidl.",
       "parentUuid": "bd37fce2_d10bd88b",
+      "revId": "7fddbc67e45146d69ddc95781b6c354414f03165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1b9dc2a_0e06e0a7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-04-20T07:38:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "091f0475_07658320",
       "revId": "7fddbc67e45146d69ddc95781b6c354414f03165",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
