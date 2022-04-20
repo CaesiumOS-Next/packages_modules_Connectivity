@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4a0d100_44a8012a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-20T06:50:46Z",
+      "side": 1,
+      "message": "Generally LGTM but please address the comment before you merge this CL.",
+      "revId": "e4c6c34b4c6a621ca4bbd3c05854d40157e3543e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47a158c1_a27a5ae2",
+        "filename": "service/src/com/android/server/TestNetworkService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-20T06:50:46Z",
+      "side": 1,
+      "message": "We should ensure that this method cannot be used to create interface names that could confuse the code or confuse humans. For example, we don\u0027t want to be able to create an interface called \"wlan0\" or \"tun1\".\n\nWe also don\u0027t want to create an interface that could then cause a future call to this method to fail. For example, if you call this method once with a null name and get \"testtap1\", and then call it again passing in a name of \"testtap2\", if you then call this method again with null again, it will fail.\n\nSimplest for now to be to allow only interfaces starting with \"v4-\" + TEST_TUN_PREFIX or \"v4-\" + TEST_TAP_PREFIX, since that is the only thing we need to support today. We should also check what EthernetManager#setAllowTestInterfaces does.",
+      "range": {
+        "startLine": 122,
+        "startChar": 72,
+        "endLine": 122,
+        "endChar": 85
+      },
+      "revId": "e4c6c34b4c6a621ca4bbd3c05854d40157e3543e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
