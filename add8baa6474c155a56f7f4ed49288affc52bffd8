@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "996a1a8c_55de84fa",
+        "filename": "framework/src/android/net/QosSocketInfo.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-20T22:50:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "70fcbf6b_94fbd4b5",
+      "range": {
+        "startLine": 229,
+        "startChar": 8,
+        "endLine": 229,
+        "endChar": 43
+      },
+      "revId": "add8baa6474c155a56f7f4ed49288affc52bffd8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bff3fed1_ccb893b2",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-04-19T11:18:52Z",
       "side": 1,
       "message": "Here I think you could just do:\n\n    if (mRemoteSocketAddress !\u003d null) {\n        dest.writeByteArray(mRemoteSocketAddress);\n        dest.writeInt(mRemoteSocketAddress.getPort());\n    } else {\n        dest.writeByteArray(null);\n    }\n\nand in readSocketAddress:\n\n    final byte[] addrBytes \u003d in.createByteArray();\n    if (addrBytes \u003d\u003d null) {\n        return null;\n    }\n\n    final int port \u003d in.readInt();\n    try {\n        return new InetSocketAddress(InetAddress.getByAddress(addrBytes), port);\n    ...",
+      "range": {
+        "startLine": 233,
+        "startChar": 8,
+        "endLine": 233,
+        "endChar": 43
+      },
+      "revId": "add8baa6474c155a56f7f4ed49288affc52bffd8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d87e59b_1f158f5f",
+        "filename": "framework/src/android/net/QosSocketInfo.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-04-20T22:50:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bff3fed1_ccb893b2",
       "range": {
         "startLine": 233,
         "startChar": 8,
