@@ -223,7 +223,8 @@ public abstract class SocketKeepalive implements AutoCloseable {
     // TODO: remove slot since mCallback could be used to identify which keepalive to stop.
     @Nullable Integer mSlot;
 
-    SocketKeepalive(@NonNull IConnectivityManager service, @NonNull Network network,
+    /** @hide */
+    public SocketKeepalive(@NonNull IConnectivityManager service, @NonNull Network network,
             @NonNull ParcelFileDescriptor pfd,
             @NonNull Executor executor, @NonNull Callback callback) {
         mService = service;
@@ -303,7 +304,8 @@ public abstract class SocketKeepalive implements AutoCloseable {
         startImpl(intervalSec);
     }
 
-    abstract void startImpl(int intervalSec);
+    /** @hide */
+    protected abstract void startImpl(int intervalSec);
 
     /**
      * Requests that keepalive be stopped. The application must wait for {@link Callback#onStopped}
@@ -313,7 +315,8 @@ public abstract class SocketKeepalive implements AutoCloseable {
         stopImpl();
     }
 
-    abstract void stopImpl();
+    /** @hide */
+    protected abstract void stopImpl();
 
     /**
      * Deactivate this {@link SocketKeepalive} and free allocated resources. The instance won't be
