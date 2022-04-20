@@ -143,6 +143,7 @@ public class NetworkOffer implements NetworkRanker.Scoreable {
 
     @Override
     public String toString() {
-        return "NetworkOffer [ Score " + score + " Caps " + caps + "]";
+        return "NetworkOffer [ Provider Id (" + providerId + ") Score " + score + " Caps "
+                + caps + "]";
     }
 }
