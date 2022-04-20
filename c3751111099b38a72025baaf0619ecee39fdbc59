@@ -33,6 +33,23 @@
       "message": "Hi Lorenzo, \nplease review this CL for code-owners review\nthis is the last CL for VPN exclude routes",
       "revId": "c3751111099b38a72025baaf0619ecee39fdbc59",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00b5c841_de789927",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-04-20T22:44:06Z",
+      "side": 1,
+      "message": "Hi Lorenzo, \ngentle ping regarding this CL",
+      "revId": "c3751111099b38a72025baaf0619ecee39fdbc59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
