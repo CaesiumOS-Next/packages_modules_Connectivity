@@ -24,9 +24,9 @@ import android.util.Log;
 import java.util.concurrent.Executor;
 
 /** @hide */
-final class TcpSocketKeepalive extends SocketKeepalive {
+public final class TcpSocketKeepalive extends SocketKeepalive {
 
-    TcpSocketKeepalive(@NonNull IConnectivityManager service,
+    public TcpSocketKeepalive(@NonNull IConnectivityManager service,
             @NonNull Network network,
             @NonNull ParcelFileDescriptor pfd,
             @NonNull Executor executor,

@@ -1,0 +1,8 @@
+# Classes loaded by SystemServer via their hardcoded name, so they can't be jarjared
+com\.android\.server\.ConnectivityServiceInitializer.*
+com\.android\.server\.NetworkStatsServiceInitializer.*
+
+# Do not jarjar com.android.server, as several unit tests fail because they lose
+# package-private visibility between jarjared and non-jarjared classes.
+# TODO: fix the tests and also jarjar com.android.server
+com\.android\.server\..+
