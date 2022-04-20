@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c460ab9e_0f2d7196",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-20T08:36:26Z",
+      "side": 1,
+      "message": "VpnTest is also included in ConnectivityCoverageTests. So you should also add \u003coption name\u003d\"install-arg\" value\u003d\"-t\" /\u003e to tests/common/AndroidTest_Coverage.xml like you do on internal change.",
+      "revId": "6c8aa81bf9b0db749feb713aec25c2613cb5eaec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
