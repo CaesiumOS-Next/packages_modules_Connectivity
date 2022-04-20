@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "444bfd99_607ed99e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1535,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-20T04:04:39Z",
+      "side": 0,
+      "message": "Any reason to delete this TODO? It still seems like something we\u0027d want to do - especially since in T+ Ethernet can be enabled or disabled.\n\nThe EthernetManager API is only available in T+, but even in the previous code, Ethernet availability was only relevant on T+, so that\u0027s fine.\n\nIn fact - shouldn\u0027t we register a callback with EthernetManager here? If ethernet is disabled or the interface is unplugged, we\u0027d want to tell callers that Ethernet is not supported, right?",
+      "range": {
+        "startLine": 1534,
+        "startChar": 0,
+        "endLine": 1535,
+        "endChar": 20
+      },
+      "revId": "ac8935bee7769d4c4418cdd48d525ebdc6a2667a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

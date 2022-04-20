@@ -1,5 +1,52 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a079fcf_d44b9d1d",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-20T04:04:39Z",
+      "side": 1,
+      "message": "Is it really the case that this callback will never be called after the first time? That seems bad. If this can\u0027t be fixed, should this method be deprecated in favour of the new one?",
+      "range": {
+        "startLine": 1046,
+        "startChar": 27,
+        "endLine": 1046,
+        "endChar": 32
+      },
+      "revId": "ae3d303344f0d9b4df5e36df93c585a0dc8343f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76812ef7_2661e286",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1433,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-20T04:04:39Z",
+      "side": 1,
+      "message": "Since this is a utility method it should live in library code somewhere (frameworks/libs/net?) and have a unit test.\n\nAny reason not to use BitUtils.unpackBits?",
+      "range": {
+        "startLine": 1433,
+        "startChar": 36,
+        "endLine": 1433,
+        "endChar": 46
+      },
+      "revId": "ae3d303344f0d9b4df5e36df93c585a0dc8343f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
