@@ -33,7 +33,7 @@ public final class NattSocketKeepalive extends SocketKeepalive {
     @NonNull private final InetAddress mDestination;
     private final int mResourceId;
 
-    NattSocketKeepalive(@NonNull IConnectivityManager service,
+    public NattSocketKeepalive(@NonNull IConnectivityManager service,
             @NonNull Network network,
             @NonNull ParcelFileDescriptor pfd,
             int resourceId,
