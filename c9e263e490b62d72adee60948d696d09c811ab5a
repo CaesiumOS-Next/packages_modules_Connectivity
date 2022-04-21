@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd21eaee_12197b38",
+        "filename": "service/src/com/android/server/TestNetworkService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-04-21T08:00:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b602f25_742a05e6",
+      "range": {
+        "startLine": 103,
+        "startChar": 8,
+        "endLine": 103,
+        "endChar": 14
+      },
+      "revId": "c9e263e490b62d72adee60948d696d09c811ab5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3907824a_c8921857",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-04-21T03:51:30Z",
       "side": 1,
       "message": "How about also adding:\n\n    || iface.startsWith(CLAT_INTERFACE_PREFIX + TEST_TUN_PREFIX);",
+      "range": {
+        "startLine": 104,
+        "startChar": 16,
+        "endLine": 104,
+        "endChar": 77
+      },
+      "revId": "c9e263e490b62d72adee60948d696d09c811ab5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b808b556_014f3f53",
+        "filename": "service/src/com/android/server/TestNetworkService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-04-21T08:00:11Z",
+      "side": 1,
+      "message": "yeah, that\u0027s done in L103 :)",
+      "parentUuid": "3907824a_c8921857",
       "range": {
         "startLine": 104,
         "startChar": 16,
@@ -105,6 +153,54 @@
         "startChar": 22,
         "endLine": 125,
         "endChar": 37
+      },
+      "revId": "c9e263e490b62d72adee60948d696d09c811ab5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "257f7303_2e8ef549",
+        "filename": "service/src/com/android/server/TestNetworkService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-04-21T08:00:11Z",
+      "side": 1,
+      "message": "Updated, thanks!",
+      "parentUuid": "213f0dd4_d6104d3b",
+      "range": {
+        "startLine": 125,
+        "startChar": 22,
+        "endLine": 125,
+        "endChar": 37
+      },
+      "revId": "c9e263e490b62d72adee60948d696d09c811ab5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20dadf1c_571a8f83",
+        "filename": "service/src/com/android/server/TestNetworkService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-04-21T08:00:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa204bd1_656cf951",
+      "range": {
+        "startLine": 125,
+        "startChar": 62,
+        "endLine": 125,
+        "endChar": 78
       },
       "revId": "c9e263e490b62d72adee60948d696d09c811ab5a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
