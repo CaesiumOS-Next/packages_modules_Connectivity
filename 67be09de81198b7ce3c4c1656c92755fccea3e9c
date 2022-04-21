@@ -81,6 +81,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dade086a_aecb9464",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-21T06:53:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3854bf20_47372da2",
+      "range": {
+        "startLine": 642,
+        "startChar": 0,
+        "endLine": 646,
+        "endChar": 88
+      },
+      "revId": "67be09de81198b7ce3c4c1656c92755fccea3e9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a88d3f1f_b8eed646",
@@ -94,6 +118,30 @@
       "writtenOn": "2022-04-21T03:44:42Z",
       "side": 1,
       "message": "Given that this method returns only one object, it should be singular, not plural. Rename to getIkeSaProposal?\n\nAlso would suggest shortening the code like you do below:\n\n        return new IkeSaProposal.Builder()\n                .addEncryptionAlgorithm(ENCRYPTION_ALGORITHM_AES_CBC, KEY_LEN_AES_256)\n            ...\n                .build();\n    }",
+      "range": {
+        "startLine": 75,
+        "startChar": 33,
+        "endLine": 75,
+        "endChar": 50
+      },
+      "revId": "67be09de81198b7ce3c4c1656c92755fccea3e9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d45168c_3e5a94b7",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-21T06:53:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a88d3f1f_b8eed646",
       "range": {
         "startLine": 75,
         "startChar": 33,
