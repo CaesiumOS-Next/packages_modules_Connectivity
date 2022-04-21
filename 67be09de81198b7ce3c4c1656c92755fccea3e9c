@@ -20,6 +20,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "424a560a_a682d7d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-21T03:44:42Z",
+      "side": 1,
+      "message": "LGTM, feel free to address comments in a follow-up.",
+      "revId": "67be09de81198b7ce3c4c1656c92755fccea3e9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "dfb268b3_b149d456",
         "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
         "patchSetId": 15
@@ -36,6 +53,52 @@
         "startChar": 50,
         "endLine": 641,
         "endChar": 84
+      },
+      "revId": "67be09de81198b7ce3c4c1656c92755fccea3e9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3854bf20_47372da2",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-21T03:44:42Z",
+      "side": 1,
+      "message": "Nit: should this be in a different method from the one above? Also, maybe remove boilerplate?\n\n    private void doTestStartStopVpnProfile(...) throws Exception {\n        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());\n        runWithShellPermissionIdentity(\n                new TestNetworkRunnable(new VerifyStartStopVpnProfileTest(\n                        testIpv6Only, requiresValidation, testSessionKey , testIkeTunConnParams)));\n    }\n\n    @Test\n    public void testStartStopVpnProfileV4WithValidation() throws Exception {\n        doTestStartStopVpnProfile\n                false /* testIpv6Only */, false /* requiresValidation */,\n                false /* testSessionKey */, false /* testIkeTunConnParams */)));\n    }\n\n    @Test\n    public void testStartStopVpnProfileV4() throws Exception {\n        doTestStartStopVpnProfile\n                false /* testIpv6Only */, true /* requiresValidation */,\n                false /* testSessionKey */, false /* testIkeTunConnParams */)));\n    }",
+      "range": {
+        "startLine": 642,
+        "startChar": 0,
+        "endLine": 646,
+        "endChar": 88
+      },
+      "revId": "67be09de81198b7ce3c4c1656c92755fccea3e9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a88d3f1f_b8eed646",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/IkeSessionTestUtils.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-21T03:44:42Z",
+      "side": 1,
+      "message": "Given that this method returns only one object, it should be singular, not plural. Rename to getIkeSaProposal?\n\nAlso would suggest shortening the code like you do below:\n\n        return new IkeSaProposal.Builder()\n                .addEncryptionAlgorithm(ENCRYPTION_ALGORITHM_AES_CBC, KEY_LEN_AES_256)\n            ...\n                .build();\n    }",
+      "range": {
+        "startLine": 75,
+        "startChar": 33,
+        "endLine": 75,
+        "endChar": 50
       },
       "revId": "67be09de81198b7ce3c4c1656c92755fccea3e9c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
