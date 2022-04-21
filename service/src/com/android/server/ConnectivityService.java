@@ -7812,6 +7812,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
         nai.declaredCapabilities = new NetworkCapabilities(nc);
         NetworkAgentInfo.restrictCapabilitiesFromNetworkAgent(nc, nai.creatorUid,
+                mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE),
                 mCarrierPrivilegeAuthenticator);
     }
 
