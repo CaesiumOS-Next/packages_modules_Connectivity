@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65f8ef6d_9e4916cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-21T07:54:11Z",
+      "side": 1,
+      "message": "Long lines\n\nBut also I find this change a bit hard to understand/review; could you give more details in the commit message of what the flow was before, and what it will be afterwards ? (with methods names, etc)",
+      "range": {
+        "startLine": 10,
+        "startChar": 72,
+        "endLine": 10,
+        "endChar": 74
+      },
+      "revId": "c79d6f038cdc4c0e8723b91cf61ba906db905a6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
