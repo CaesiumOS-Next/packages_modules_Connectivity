@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0caaf07c_282a6502",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-21T03:09:01Z",
+      "side": 1,
+      "message": "Per talk, we could just use NetworkTetheringReported directly and remove StatsLog.\n\nprivate final SparseArray\u003cNetworkTetheringReported\u003e mReportedMap \u003d new SparseArray\u003c\u003e();\n\npublic createReported(int downstreamType, String callerPkg) {\n   NetworkTetheringReported reported \u003d \n           mStatsBuilder.setDownstreamType(downstreamTypeToEnum(downstreamType))\n           .setUserType(userTypeToEnum(callerPkg))\n           .build();\n   mReportedMap.put(type, reported);          \n}\n\n/** Remove Tethering stats. If stats is ready to write then write it before removing */\npublic void sendReport(final int downstreamType, final int errCode) {\n    final NetworkTetheringReported reported \u003d mReportedMap.get(downstreamType);\n        if (reported \u003d\u003d null) {\n           Log.e(...);\n           return;\n        }\n\n        final NetworkTetheringReported statsReported \u003d stats.getNetworkTetheringReported();\n        write(errorCodeToEnum(errCode), reported.getDownstreamType(),\n                UpstreamType.UT_UNKNOWN, reported.getUserType());\n        mReportedMap.remove(downstreamType);\n}",
+      "range": {
+        "startLine": 69,
+        "startChar": 18,
+        "endLine": 69,
+        "endChar": 26
+      },
+      "revId": "5d0b5d589ff1a1af7ea5b3d80d87b4ba578501d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b831ecf_b3801dab",
         "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
         "patchSetId": 8
