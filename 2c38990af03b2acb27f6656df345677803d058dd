@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9e462770_f21c3cd3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-21T01:44:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c9677e6_bba3f805",
+      "range": {
+        "startLine": 9,
+        "startChar": 37,
+        "endLine": 9,
+        "endChar": 38
+      },
+      "revId": "2c38990af03b2acb27f6656df345677803d058dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "cc97ba38_e993682a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-21T01:26:16Z",
       "side": 1,
       "message": "Optional: Maybe we do not need to say everything? Maybe only explain the wtf and the other changes for logic change?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 27
+      },
+      "revId": "2c38990af03b2acb27f6656df345677803d058dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "978e0508_f3a2d1c1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-21T01:44:49Z",
+      "side": 1,
+      "message": "ACK",
+      "parentUuid": "cc97ba38_e993682a",
       "range": {
         "startLine": 10,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "476aeb36_c2d346ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-21T01:44:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b7f5873_e6ad9e17",
+      "range": {
+        "startLine": 11,
+        "startChar": 16,
+        "endLine": 11,
+        "endChar": 35
+      },
+      "revId": "2c38990af03b2acb27f6656df345677803d058dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "781f4c3a_311c4078",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-04-21T01:26:16Z",
       "side": 1,
       "message": "Nit: extra space",
+      "range": {
+        "startLine": 14,
+        "startChar": 50,
+        "endLine": 14,
+        "endChar": 52
+      },
+      "revId": "2c38990af03b2acb27f6656df345677803d058dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbf47c1d_d9579fca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-21T01:44:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "781f4c3a_311c4078",
       "range": {
         "startLine": 14,
         "startChar": 50,
@@ -123,6 +219,30 @@
       "writtenOn": "2022-04-21T01:26:16Z",
       "side": 1,
       "message": "Optional: Receive unknown user xx on onUserRemoved",
+      "range": {
+        "startLine": 554,
+        "startChar": 26,
+        "endLine": 554,
+        "endChar": 46
+      },
+      "revId": "2c38990af03b2acb27f6656df345677803d058dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6101fc2_0cffc5b6",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-21T01:44:49Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "07b6896b_06bcc3ce",
       "range": {
         "startLine": 554,
         "startChar": 26,
