@@ -108,6 +108,7 @@ import android.annotation.TargetApi;
 import android.app.AppOpsManager;
 import android.app.BroadcastOptions;
 import android.app.PendingIntent;
+import android.app.admin.DevicePolicyManager;
 import android.app.usage.NetworkStatsManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -10622,12 +10623,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     /**
-     * Request that a user profile is put by default on a network matching a given preference.
+     * Set a list of default network selection policies for a user profile or device owner
      *
      * See the documentation for the individual preferences for a description of the supported
      * behaviors.
      *
-     * @param profile the user profile for whih the preference is being set.
+     * @param profile the user profile for which the preference is being set.
      * @param preferences the list of profile network preferences for the
      *        provided profile.
      * @param listener an optional listener to listen for completion of the operation.
@@ -10653,7 +10654,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     + "UserHandle.CURRENT not supported)");
         }
         final UserManager um = mContext.getSystemService(UserManager.class);
-        if (!um.isManagedProfile(profile.getIdentifier())) {
+        final DevicePolicyManager dpm = mContext.getSystemService(DevicePolicyManager.class);
+        if (!um.isManagedProfile(profile.getIdentifier())
+                && dpm.getDeviceOwnerComponentOnAnyUser() == null) {
             throw new IllegalArgumentException("Profile must be a managed profile");
         }
 
