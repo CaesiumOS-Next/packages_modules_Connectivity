@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "455ccf17_d5f6be21",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-21T07:52:56Z",
+      "side": 0,
+      "message": "If type \u003d\u003d TETHERING_USB, up \u003d\u003d false, then this will now call ensureIpServerStopped, even though previously it did nothing. Is that expected ? Shouldn\u0027t this change only change the flow for wifi ?",
+      "range": {
+        "startLine": 573,
+        "startChar": 12,
+        "endLine": 573,
+        "endChar": 73
+      },
+      "revId": "c4379c24400554d2a130b14d7f8af169a0a7d9ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
