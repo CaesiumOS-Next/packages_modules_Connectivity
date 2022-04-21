@@ -194,6 +194,7 @@ import android.app.AlarmManager;
 import android.app.AppOpsManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.admin.DevicePolicyManager;
 import android.app.usage.NetworkStatsManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -545,6 +546,7 @@ public class ConnectivityServiceTest {
     @Mock PacProxyManager mPacProxyManager;
     @Mock BpfNetMaps mBpfNetMaps;
     @Mock CarrierPrivilegeAuthenticator mCarrierPrivilegeAuthenticator;
+    @Mock DevicePolicyManager mDevicePolicyManager;
 
     // BatteryStatsManager is final and cannot be mocked with regular mockito, so just mock the
     // underlying binder calls.
@@ -665,6 +667,7 @@ public class ConnectivityServiceTest {
             if (Context.NETWORK_STATS_SERVICE.equals(name)) return mStatsManager;
             if (Context.BATTERY_STATS_SERVICE.equals(name)) return mBatteryStatsManager;
             if (Context.PAC_PROXY_SERVICE.equals(name)) return mPacProxyManager;
+            if (Context.DEVICE_POLICY_SERVICE.equals(name)) return mDevicePolicyManager;
             return super.getSystemService(name);
         }
 
@@ -687,6 +690,14 @@ public class ConnectivityServiceTest {
                     .getSystemService(UserManager.class);
             doReturn(value).when(umMock).isManagedProfile();
             doReturn(value).when(mUserManager).isManagedProfile(eq(userHandle.getIdentifier()));
+        }
+
+        public void setDeviceOwner(@NonNull final UserHandle userHandle, String value) {
+            // This relies on all contexts for a given user returning the same UM mock
+            final DevicePolicyManager dpmMock = createContextAsUser(userHandle, 0 /* flags */)
+                    .getSystemService(DevicePolicyManager.class);
+            doReturn(value).when(dpmMock).getDeviceOwner();
+            doReturn(value).when(mDevicePolicyManager).getDeviceOwner();
         }
 
         @Override
@@ -14729,10 +14740,31 @@ public class ConnectivityServiceTest {
     public void testProfileNetworkPrefWrongProfile() throws Exception {
         final UserHandle testHandle = UserHandle.of(TEST_WORK_PROFILE_USER_ID);
         mServiceContext.setWorkProfile(testHandle, false);
-        assertThrows("Should not be able to set a user pref for a non-work profile",
+        mServiceContext.setDeviceOwner(testHandle, null);
+        assertThrows("Should not be able to set a user pref for a non-work profile "
+                + "and non device owner",
                 IllegalArgumentException.class , () ->
                         mCm.setProfileNetworkPreference(testHandle,
                                 PROFILE_NETWORK_PREFERENCE_ENTERPRISE, null, null));
+    }
+
+    /**
+     * Make sure requests for per-profile default networking for a device owner is
+     * accepted
+     */
+    @Test
+    public void testProfileNetworkDeviceOwnerDoesNotThrow() throws Exception {
+        final UserHandle testHandle = UserHandle.of(TEST_WORK_PROFILE_USER_ID);
+        mServiceContext.setWorkProfile(testHandle, false);
+        mServiceContext.setDeviceOwner(testHandle, "deviceOwnerPackage");
+        ProfileNetworkPreference.Builder profileNetworkPreferenceBuilder =
+                new ProfileNetworkPreference.Builder();
+        profileNetworkPreferenceBuilder.setPreference(PROFILE_NETWORK_PREFERENCE_ENTERPRISE);
+        profileNetworkPreferenceBuilder.setPreferenceEnterpriseId(NET_ENTERPRISE_ID_1);
+        final TestOnCompleteListener listener = new TestOnCompleteListener();
+        mCm.setProfileNetworkPreferences(testHandle,
+                List.of(profileNetworkPreferenceBuilder.build()),
+                r -> r.run(), listener);
     }
 
     @Test
