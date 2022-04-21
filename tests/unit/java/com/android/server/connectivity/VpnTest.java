@@ -169,7 +169,7 @@ import java.util.stream.Stream;
  */
 @RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
-@DevSdkIgnoreRule.IgnoreUpTo(VERSION_CODES.R)
+@DevSdkIgnoreRule.IgnoreUpTo(VERSION_CODES.S_V2)
 public class VpnTest {
     private static final String TAG = "VpnTest";
 
@@ -217,7 +217,7 @@ public class VpnTest {
             + "5F4954454D5F33223E0A3C737472696E67206E616D653D22535452494E475F4B4559223E7765"
             + "622E76706E3C2F737472696E673E0A3C2F7062756E646C655F61735F6D61703E0A3C2F62756E"
             + "646C653E0A";
-    static final int[] PKG_UIDS = {66, 77, 78, 400};
+    static final int[] PKG_UIDS = {10066, 10077, 10078, 10400};
 
     // Mock packages
     static final Map<String, Integer> mPackages = new ArrayMap<>();
@@ -379,7 +379,11 @@ public class VpnTest {
                 Arrays.asList(packages), null /* disallowedApplications */);
         assertEquals(rangeSet(
                 uidRange(userStart + PKG_UIDS[0], userStart + PKG_UIDS[0]),
-                uidRange(userStart + PKG_UIDS[1], userStart + PKG_UIDS[2])),
+                uidRange(userStart + PKG_UIDS[1], userStart + PKG_UIDS[2]),
+                uidRange(Process.toSdkSandboxUid(userStart + PKG_UIDS[0]),
+                         Process.toSdkSandboxUid(userStart + PKG_UIDS[0])),
+                uidRange(Process.toSdkSandboxUid(userStart + PKG_UIDS[1]),
+                         Process.toSdkSandboxUid(userStart + PKG_UIDS[2]))),
                 allow);
 
         // Denied list
@@ -390,7 +394,11 @@ public class VpnTest {
                 uidRange(userStart, userStart + PKG_UIDS[0] - 1),
                 uidRange(userStart + PKG_UIDS[0] + 1, userStart + PKG_UIDS[1] - 1),
                 /* Empty range between UIDS[1] and UIDS[2], should be excluded, */
-                uidRange(userStart + PKG_UIDS[2] + 1, userStop)),
+                uidRange(userStart + PKG_UIDS[2] + 1,
+                         Process.toSdkSandboxUid(userStart + PKG_UIDS[0] - 1)),
+                uidRange(Process.toSdkSandboxUid(userStart + PKG_UIDS[0] + 1),
+                         Process.toSdkSandboxUid(userStart + PKG_UIDS[1] - 1)),
+                uidRange(Process.toSdkSandboxUid(userStart + PKG_UIDS[2] + 1), userStop)),
                 disallow);
     }
 
@@ -431,18 +439,24 @@ public class VpnTest {
         assertTrue(vpn.setAlwaysOnPackage(PKGS[1], true, null));
         verify(mConnectivityManager).setRequireVpnForUids(true, toRanges(new UidRangeParcel[] {
                 new UidRangeParcel(userStart, userStart + PKG_UIDS[1] - 1),
-                new UidRangeParcel(userStart + PKG_UIDS[1] + 1, userStop)
+                new UidRangeParcel(userStart + PKG_UIDS[1] + 1,
+                                   Process.toSdkSandboxUid(userStart + PKG_UIDS[1] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[1] + 1), userStop)
         }));
 
         // Switch to another app.
         assertTrue(vpn.setAlwaysOnPackage(PKGS[3], true, null));
         verify(mConnectivityManager).setRequireVpnForUids(false, toRanges(new UidRangeParcel[] {
                 new UidRangeParcel(userStart, userStart + PKG_UIDS[1] - 1),
-                new UidRangeParcel(userStart + PKG_UIDS[1] + 1, userStop)
+                new UidRangeParcel(userStart + PKG_UIDS[1] + 1,
+                                   Process.toSdkSandboxUid(userStart + PKG_UIDS[1] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[1] + 1), userStop)
         }));
         verify(mConnectivityManager).setRequireVpnForUids(true, toRanges(new UidRangeParcel[] {
                 new UidRangeParcel(userStart, userStart + PKG_UIDS[3] - 1),
-                new UidRangeParcel(userStart + PKG_UIDS[3] + 1, userStop)
+                new UidRangeParcel(userStart + PKG_UIDS[3] + 1,
+                                   Process.toSdkSandboxUid(userStart + PKG_UIDS[3] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[3] + 1), userStop)
         }));
     }
 
@@ -457,17 +471,25 @@ public class VpnTest {
                 PKGS[1], true, Collections.singletonList(PKGS[2])));
         verify(mConnectivityManager).setRequireVpnForUids(true, toRanges(new UidRangeParcel[]  {
                 new UidRangeParcel(userStart, userStart + PKG_UIDS[1] - 1),
-                new UidRangeParcel(userStart + PKG_UIDS[2] + 1, userStop)
+                new UidRangeParcel(userStart + PKG_UIDS[2] + 1,
+                                   Process.toSdkSandboxUid(userStart + PKG_UIDS[1]) - 1),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[2] + 1), userStop)
         }));
         // Change allowed app list to PKGS[3].
         assertTrue(vpn.setAlwaysOnPackage(
                 PKGS[1], true, Collections.singletonList(PKGS[3])));
         verify(mConnectivityManager).setRequireVpnForUids(false, toRanges(new UidRangeParcel[] {
-                new UidRangeParcel(userStart + PKG_UIDS[2] + 1, userStop)
+                new UidRangeParcel(userStart + PKG_UIDS[2] + 1,
+                                   Process.toSdkSandboxUid(userStart + PKG_UIDS[1] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[2] + 1), userStop)
         }));
         verify(mConnectivityManager).setRequireVpnForUids(true, toRanges(new UidRangeParcel[] {
                 new UidRangeParcel(userStart + PKG_UIDS[1] + 1, userStart + PKG_UIDS[3] - 1),
-                new UidRangeParcel(userStart + PKG_UIDS[3] + 1, userStop)
+                new UidRangeParcel(userStart + PKG_UIDS[3] + 1,
+                                   Process.toSdkSandboxUid(userStart + PKG_UIDS[1] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[1] + 1),
+                                   Process.toSdkSandboxUid(userStart + PKG_UIDS[3] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[3] + 1), userStop)
         }));
 
         // Change the VPN app.
@@ -475,32 +497,52 @@ public class VpnTest {
                 PKGS[0], true, Collections.singletonList(PKGS[3])));
         verify(mConnectivityManager).setRequireVpnForUids(false, toRanges(new UidRangeParcel[] {
                 new UidRangeParcel(userStart, userStart + PKG_UIDS[1] - 1),
-                new UidRangeParcel(userStart + PKG_UIDS[1] + 1, userStart + PKG_UIDS[3] - 1)
+                new UidRangeParcel(userStart + PKG_UIDS[1] + 1, userStart + PKG_UIDS[3] - 1),
+                new UidRangeParcel(userStart + PKG_UIDS[3] + 1,
+                                   Process.toSdkSandboxUid(userStart + PKG_UIDS[1] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[1] + 1),
+                                   Process.toSdkSandboxUid(userStart + PKG_UIDS[3] - 1))
         }));
         verify(mConnectivityManager).setRequireVpnForUids(true, toRanges(new UidRangeParcel[] {
                 new UidRangeParcel(userStart, userStart + PKG_UIDS[0] - 1),
-                new UidRangeParcel(userStart + PKG_UIDS[0] + 1, userStart + PKG_UIDS[3] - 1)
+                new UidRangeParcel(userStart + PKG_UIDS[0] + 1, userStart + PKG_UIDS[3] - 1),
+                new UidRangeParcel(userStart + PKG_UIDS[3] + 1,
+                                   Process.toSdkSandboxUid(userStart + PKG_UIDS[0] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[0] + 1),
+                                   Process.toSdkSandboxUid(userStart + PKG_UIDS[3] - 1))
         }));
 
         // Remove the list of allowed packages.
         assertTrue(vpn.setAlwaysOnPackage(PKGS[0], true, null));
         verify(mConnectivityManager).setRequireVpnForUids(false, toRanges(new UidRangeParcel[] {
                 new UidRangeParcel(userStart + PKG_UIDS[0] + 1, userStart + PKG_UIDS[3] - 1),
-                new UidRangeParcel(userStart + PKG_UIDS[3] + 1, userStop)
+                new UidRangeParcel(userStart + PKG_UIDS[3] + 1,
+                                   Process.toSdkSandboxUid(userStart + PKG_UIDS[0] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[0] + 1),
+                                   Process.toSdkSandboxUid(userStart + PKG_UIDS[3] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[3] + 1), userStop)
         }));
         verify(mConnectivityManager).setRequireVpnForUids(true, toRanges(new UidRangeParcel[] {
-                new UidRangeParcel(userStart + PKG_UIDS[0] + 1, userStop),
+                new UidRangeParcel(userStart + PKG_UIDS[0] + 1,
+                                   Process.toSdkSandboxUid(userStart + PKG_UIDS[0] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[0] + 1), userStop),
         }));
 
         // Add the list of allowed packages.
         assertTrue(vpn.setAlwaysOnPackage(
                 PKGS[0], true, Collections.singletonList(PKGS[1])));
         verify(mConnectivityManager).setRequireVpnForUids(false, toRanges(new UidRangeParcel[] {
-                new UidRangeParcel(userStart + PKG_UIDS[0] + 1, userStop)
+                new UidRangeParcel(userStart + PKG_UIDS[0] + 1,
+                                   Process.toSdkSandboxUid(userStart + PKG_UIDS[0] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[0] + 1), userStop),
         }));
         verify(mConnectivityManager).setRequireVpnForUids(true, toRanges(new UidRangeParcel[] {
                 new UidRangeParcel(userStart + PKG_UIDS[0] + 1, userStart + PKG_UIDS[1] - 1),
-                new UidRangeParcel(userStart + PKG_UIDS[1] + 1, userStop)
+                new UidRangeParcel(userStart + PKG_UIDS[1] + 1,
+                                   Process.toSdkSandboxUid(userStart + PKG_UIDS[0] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[0] + 1),
+                                   Process.toSdkSandboxUid(userStart + PKG_UIDS[1] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[1] + 1), userStop)
         }));
 
         // Try allowing a package with a comma, should be rejected.
@@ -513,11 +555,19 @@ public class VpnTest {
                 PKGS[0], true, Arrays.asList("com.foo.app", PKGS[2], "com.bar.app")));
         verify(mConnectivityManager).setRequireVpnForUids(false, toRanges(new UidRangeParcel[] {
                 new UidRangeParcel(userStart + PKG_UIDS[0] + 1, userStart + PKG_UIDS[1] - 1),
-                new UidRangeParcel(userStart + PKG_UIDS[1] + 1, userStop)
+                new UidRangeParcel(userStart + PKG_UIDS[1] + 1,
+                                   Process.toSdkSandboxUid(userStart + PKG_UIDS[0] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[0] + 1),
+                                   Process.toSdkSandboxUid(userStart + PKG_UIDS[1] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[1] + 1), userStop)
         }));
         verify(mConnectivityManager).setRequireVpnForUids(true, toRanges(new UidRangeParcel[] {
                 new UidRangeParcel(userStart + PKG_UIDS[0] + 1, userStart + PKG_UIDS[2] - 1),
-                new UidRangeParcel(userStart + PKG_UIDS[2] + 1, userStop)
+                new UidRangeParcel(userStart + PKG_UIDS[2] + 1,
+                                   Process.toSdkSandboxUid(userStart + PKG_UIDS[0] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[0] + 1),
+                                   Process.toSdkSandboxUid(userStart + PKG_UIDS[2] - 1)),
+                new UidRangeParcel(Process.toSdkSandboxUid(userStart + PKG_UIDS[2] + 1), userStop)
         }));
     }
 
@@ -562,7 +612,10 @@ public class VpnTest {
         };
         final UidRangeParcel[] exceptPkg0 = {
             new UidRangeParcel(entireUser[0].start, entireUser[0].start + PKG_UIDS[0] - 1),
-            new UidRangeParcel(entireUser[0].start + PKG_UIDS[0] + 1, entireUser[0].stop)
+            new UidRangeParcel(entireUser[0].start + PKG_UIDS[0] + 1,
+                               Process.toSdkSandboxUid(entireUser[0].start + PKG_UIDS[0] - 1)),
+            new UidRangeParcel(Process.toSdkSandboxUid(entireUser[0].start + PKG_UIDS[0] + 1),
+                               entireUser[0].stop),
         };
 
         final InOrder order = inOrder(mConnectivityManager);
