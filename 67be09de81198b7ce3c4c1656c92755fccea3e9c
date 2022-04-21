@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfb268b3_b149d456",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-21T00:47:13Z",
+      "side": 1,
+      "message": "This is fine; just as an FYI, the easier way to do this is to have a method overload to hide the addition.",
+      "range": {
+        "startLine": 641,
+        "startChar": 50,
+        "endLine": 641,
+        "endChar": 84
+      },
+      "revId": "67be09de81198b7ce3c4c1656c92755fccea3e9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
