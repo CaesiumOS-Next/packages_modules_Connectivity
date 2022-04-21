@@ -108,6 +108,7 @@ import android.annotation.TargetApi;
 import android.app.AppOpsManager;
 import android.app.BroadcastOptions;
 import android.app.PendingIntent;
+import android.app.admin.DevicePolicyManager;
 import android.app.usage.NetworkStatsManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -10653,7 +10654,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     + "UserHandle.CURRENT not supported)");
         }
         final UserManager um = mContext.getSystemService(UserManager.class);
-        if (!um.isManagedProfile(profile.getIdentifier())) {
+        final DevicePolicyManager dpm = mContext.getSystemService(DevicePolicyManager.class);
+        if (!um.isManagedProfile(profile.getIdentifier())
+                && dpm.getDeviceOwnerComponentOnAnyUser() == null) {
             throw new IllegalArgumentException("Profile must be a managed profile");
         }
 
