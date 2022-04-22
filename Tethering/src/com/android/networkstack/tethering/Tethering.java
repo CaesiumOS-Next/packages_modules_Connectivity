@@ -1228,6 +1228,8 @@ public class Tethering {
         }
 
         private void handleWifiApAction(Intent intent) {
+            if (!hasSystemFeature(PackageManager.FEATURE_WIFI)) return;
+
             final int curState = intent.getIntExtra(EXTRA_WIFI_AP_STATE, WIFI_AP_STATE_DISABLED);
             final String ifname = intent.getStringExtra(EXTRA_WIFI_AP_INTERFACE_NAME);
             final int ipmode = intent.getIntExtra(EXTRA_WIFI_AP_MODE, IFACE_IP_MODE_UNSPECIFIED);
@@ -1256,6 +1258,8 @@ public class Tethering {
         }
 
         private void handleWifiP2pAction(Intent intent) {
+            if (!hasSystemFeature(PackageManager.FEATURE_WIFI_DIRECT)) return;
+
             if (mConfig.isWifiP2pLegacyTetheringMode()) return;
 
             final WifiP2pInfo p2pInfo =
@@ -1288,7 +1292,7 @@ public class Tethering {
 
             // Finally bring up serving on the new interface
             mWifiP2pTetherInterface = group.getInterface();
-            enableWifiIpServing(mWifiP2pTetherInterface, IFACE_IP_MODE_LOCAL_ONLY);
+            enableWifiP2pIpServing(mWifiP2pTetherInterface);
         }
 
         private void handleUserRestrictionAction() {
@@ -1379,31 +1383,29 @@ public class Tethering {
         changeInterfaceState(ifname, ipServingMode);
     }
 
-    private void disableWifiIpServingCommon(int tetheringType, String ifname, int apState) {
-        mLog.log("Canceling WiFi tethering request -"
-                + " type=" + tetheringType
-                + " interface=" + ifname
-                + " state=" + apState);
-
-        if (!TextUtils.isEmpty(ifname)) {
-            final TetherState ts = mTetherStates.get(ifname);
-            if (ts != null) {
-                ts.ipServer.unwanted();
-                return;
+    private void disableWifiIpServingCommon(int tetheringType, String ifname) {
+        if (!mTetherStates.containsKey(ifname) && !SdkLevel.isAtLeastT()) {
+            // Attempt to guess the interface name before T. Pure AOSP code should never enter here
+            // because WIFI_AP_STATE_CHANGED intent always include ifname and it should be tracked
+            // by mTetherStates. In case OEMs have some modification in wifi side which pass null
+            // or empty ifname. Before T, tethering allow to disable the first wifi ipServer if
+            // given ifname don't match any tracking ipServer.
+            for (int i = 0; i < mTetherStates.size(); i++) {
+                final IpServer ipServer = mTetherStates.valueAt(i).ipServer;
+                if (ipServer.interfaceType() == tetheringType) {
+                    ipServer.unwanted();
+                    return;
+                }
             }
+
+            mLog.log("Error disabling Wi-Fi IP serving; "
+                    + (TextUtils.isEmpty(ifname) ? "no interface name specified"
+                                               : "specified interface: " + ifname));
+            return;
         }
 
-        for (int i = 0; i < mTetherStates.size(); i++) {
-            final IpServer ipServer = mTetherStates.valueAt(i).ipServer;
-            if (ipServer.interfaceType() == tetheringType) {
-                ipServer.unwanted();
-                return;
-            }
-        }
-
-        mLog.log("Error disabling Wi-Fi IP serving; "
-                + (TextUtils.isEmpty(ifname) ? "no interface name specified"
-                                           : "specified interface: " + ifname));
+        final TetherState ts = mTetherStates.get(ifname);
+        if (ts != null) ts.ipServer.unwanted();
     }
 
     private void disableWifiIpServing(String ifname, int apState) {
@@ -1413,16 +1415,30 @@ public class Tethering {
         // interface name with every broadcast.
         mWifiTetherRequested = false;
 
-        disableWifiIpServingCommon(TETHERING_WIFI, ifname, apState);
+        mLog.log("Canceling WiFi tethering request - interface=" + ifname + " state=" + apState);
+
+        disableWifiIpServingCommon(TETHERING_WIFI, ifname);
+    }
+
+    private void enableWifiP2pIpServing(String ifname) {
+        if (TextUtils.isEmpty(ifname)) {
+            mLog.e("Cannot enable P2P IP serving with invalid interface");
+            return;
+        }
+
+        enableIpServing(TETHERING_WIFI_P2P, ifname, IpServer.STATE_LOCAL_ONLY);
     }
 
     private void disableWifiP2pIpServingIfNeeded(String ifname) {
         if (TextUtils.isEmpty(ifname)) return;
 
-        disableWifiIpServingCommon(TETHERING_WIFI_P2P, ifname, /* fake */ 0);
+        mLog.log("Canceling P2P tethering request - interface=" + ifname);
+        disableWifiIpServingCommon(TETHERING_WIFI_P2P, ifname);
     }
 
     private void enableWifiIpServing(String ifname, int wifiIpMode) {
+        mLog.log("request WiFi tethering - interface=" + ifname + " state=" + wifiIpMode);
+
         // Map wifiIpMode values to IpServer.Callback serving states, inferring
         // from mWifiTetherRequested as a final "best guess".
         final int ipServingMode;
@@ -1438,13 +1454,16 @@ public class Tethering {
                 return;
         }
 
+        final int interfaceType = ifaceNameToType(ifname);
+        if (interfaceType == TETHERING_INVALID) {
+            mLog.e(ifname + " is not a tetherable iface, ignoring");
+            return;
+        }
+
         if (!TextUtils.isEmpty(ifname)) {
-            ensureIpServerStarted(ifname);
-            changeInterfaceState(ifname, ipServingMode);
+            enableIpServing(interfaceType, ifname, ipServingMode);
         } else {
-            mLog.e(String.format(
-                    "Cannot enable IP serving in mode %s on missing interface name",
-                    ipServingMode));
+            mLog.e("Cannot enable IP serving on missing interface name");
         }
     }
 
@@ -2715,6 +2734,10 @@ public class Tethering {
         mTetherMainSM.sendMessage(which, state, 0, newLp);
     }
 
+    private boolean hasSystemFeature(final String feature) {
+        return mContext.getPackageManager().hasSystemFeature(feature);
+    }
+
     private void ensureIpServerStarted(final String iface) {
         // If we don't care about this type of interface, ignore.
         final int interfaceType = ifaceNameToType(iface);
@@ -2723,14 +2746,13 @@ public class Tethering {
             return;
         }
 
-        final PackageManager pm = mContext.getPackageManager();
         if ((interfaceType == TETHERING_WIFI || interfaceType == TETHERING_WIGIG)
-                && !pm.hasSystemFeature(PackageManager.FEATURE_WIFI)) {
+                && !hasSystemFeature(PackageManager.FEATURE_WIFI)) {
             mLog.log(iface + " is not tetherable, because WiFi feature is disabled");
             return;
         }
         if (interfaceType == TETHERING_WIFI_P2P
-                && !pm.hasSystemFeature(PackageManager.FEATURE_WIFI_DIRECT)) {
+                && !hasSystemFeature(PackageManager.FEATURE_WIFI_DIRECT)) {
             mLog.log(iface + " is not tetherable, because WiFi Direct feature is disabled");
             return;
         }
