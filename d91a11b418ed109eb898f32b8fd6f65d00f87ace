@@ -45,6 +45,29 @@
       },
       "revId": "d91a11b418ed109eb898f32b8fd6f65d00f87ace",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5346ddb5_15570f85",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityFrameworkInitializerTiramisuTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-22T09:39:05Z",
+      "side": 1,
+      "message": "Not for this CL, but it\u0027s unfortunate that we have to check the shim version *as well* as doing the @IgnoreUpTo in line 35. Can we have DevSdkIgnoreRunner do this for us?",
+      "range": {
+        "startLine": 47,
+        "startChar": 19,
+        "endLine": 47,
+        "endChar": 48
+      },
+      "revId": "d91a11b418ed109eb898f32b8fd6f65d00f87ace",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
