@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8f09be4_e13fc487",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2022-04-22T23:12:26Z",
+      "side": 1,
+      "message": "This is a cherry-pick of http://ag/17612858.",
+      "revId": "dcde1b009268b74f83c2a3bd4221149f1d9c6eb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
