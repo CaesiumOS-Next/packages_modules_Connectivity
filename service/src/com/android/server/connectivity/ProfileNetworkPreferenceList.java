@@ -70,14 +70,17 @@ public class ProfileNetworkPreferenceList {
     /**
      * Returns a new object consisting of this object plus the passed preference.
      *
-     * If a preference already exists for the same user, it will be replaced by the passed
+     * If a preference already exists for the same uids, it will be replaced by the passed
      * preference. Passing a Preference object containing a null capabilities object is equivalent
      * to (and indeed, implemented as) removing the preference for this user.
      */
     public ProfileNetworkPreferenceList plus(@NonNull final Preference pref) {
         final ArrayList<Preference> newPrefs = new ArrayList<>();
         for (final Preference existingPref : preferences) {
-            if (!existingPref.user.equals(pref.user)) {
+            if (!existingPref.user.equals(pref.user)
+                    || (existingPref.capabilities != null
+                    && pref.capabilities != null
+                    && !existingPref.capabilities.satisfiedByUids(pref.capabilities))) {
                 newPrefs.add(existingPref);
             }
         }
