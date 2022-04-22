@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3520cde6_8357e7a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-04-22T03:07:11Z",
+      "side": 1,
+      "message": "LGTM. Invite cken@ who also work on bpf as reviewer\n\nVerify clatd locally as the follows.\n\nDevice: raven\nOS: T\nSteps:\n1. Check clatd entries\n2. Check bpf binary path is \"/apex/../net_shared\"\n3. Check prog/map path is \"/sys/../net_shared\"\n\n$ adb shell dumpsys netd --short\n  ClatdController\n    Trackers: iif[iface] nat64Prefix v6Addr -\u003e v4Addr v4iif[v4iface] [fwmark]\n    BPF ingress map: iif(iface) nat64Prefix v6Addr -\u003e v4Addr oif(iface)\n      47(wlan0) 64:ff9b::/96 2a00:79e1:abc:6f02:a9f4:de84:b168:6882 -\u003e 192.0.0.4 52(v4-wlan0)\n    BPF egress map: iif(iface) v4Addr -\u003e v6Addr nat64Prefix oif(iface)\n      52(v4-wlan0) 192.0.0.4 -\u003e 2a00:79e1:abc:6f02:a9f4:de84:b168:6882 64:ff9b::/96 47(wlan0) ether\n\n\n$ adb shell ls /apex/com.android.tethering/etc/bpf/net_shared/\nblock.o\nclatd.o\ndscp_policy.o\nnetd.o\n\n$ adb shell ls /sys/fs/bpf/net_shared/\nmap_block_blocked_ports_map\nmap_clatd_clat_egress4_map\nmap_clatd_clat_ingress6_map\nmap_dscp_policy_ipv4_dscp_policies_map\nmap_dscp_policy_ipv4_socket_to_policies_map_A\nmap_dscp_policy_ipv4_socket_to_policies_map_B\nmap_dscp_policy_ipv6_dscp_policies_map\nmap_dscp_policy_ipv6_socket_to_policies_map_A\nmap_dscp_policy_ipv6_socket_to_policies_map_B\nmap_dscp_policy_switch_comp_map\nmap_netd_app_uid_stats_map\nmap_netd_configuration_map\nmap_netd_cookie_tag_map\nmap_netd_iface_index_name_map\nmap_netd_iface_stats_map\nmap_netd_stats_map_A\nmap_netd_stats_map_B\nmap_netd_uid_counterset_map\nmap_netd_uid_owner_map\nmap_netd_uid_permission_map\nprog_block_bind4_block_port\nprog_block_bind6_block_port\nprog_clatd_schedcls_egress4_clat_ether\nprog_clatd_schedcls_egress4_clat_rawip\nprog_clatd_schedcls_ingress6_clat_ether\nprog_clatd_schedcls_ingress6_clat_rawip\nprog_dscp_policy_schedcls_set_dscp_ether\nprog_dscp_policy_schedcls_set_dscp_raw_ip\nprog_netd_cgroupskb_egress_stats\nprog_netd_cgroupskb_ingress_stats\nprog_netd_cgroupsock_inet_create\nprog_netd_schedact_ingress_account\nprog_netd_skfilter_allowlist_xtbpf\nprog_netd_skfilter_denylist_xtbpf\nprog_netd_skfilter_egress_xtbpf\nprog_netd_skfilter_ingress_xtbpf\n\n",
+      "revId": "a266abb39afa39cffdff54ad2509d43f22011b30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
