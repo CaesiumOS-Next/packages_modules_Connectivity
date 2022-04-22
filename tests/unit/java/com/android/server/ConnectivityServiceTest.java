@@ -14536,7 +14536,7 @@ public class ConnectivityServiceTest {
         profileNetworkPreferenceBuilder.setPreference(
                 PROFILE_NETWORK_PREFERENCE_ENTERPRISE_NO_FALLBACK);
         profileNetworkPreferenceBuilder.setPreferenceEnterpriseId(
-                NetworkCapabilities.NET_ENTERPRISE_ID_2);
+                NET_ENTERPRISE_ID_2);
         registerDefaultNetworkCallbacks();
         testPreferenceForUserNetworkUpDownForGivenPreference(
                 profileNetworkPreferenceBuilder.build(), true,
@@ -14623,12 +14623,13 @@ public class ConnectivityServiceTest {
                 workAgent2.getNetwork().netId,
                 uidRangeFor(testHandle, profileNetworkPreferenceBuilder2.build()),
                 PREFERENCE_ORDER_PROFILE));
-        verify(mMockNetd, never()).networkAddUidRangesParcel(new NativeUidRangeConfig(
+        verify(mMockNetd).networkAddUidRangesParcel(new NativeUidRangeConfig(
                 workAgent1.getNetwork().netId,
                 uidRangeFor(testHandle, profileNetworkPreferenceBuilder1.build()),
                 PREFERENCE_ORDER_PROFILE));
 
-        assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback, appCb1);
+        assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback);
+        appCb1.expectAvailableCallbacksValidated(workAgent1);
         appCb2.expectAvailableCallbacksValidated(workAgent2);
 
         ProfileNetworkPreference.Builder profileNetworkPreferenceBuilder =
@@ -14643,12 +14644,13 @@ public class ConnectivityServiceTest {
                 workAgent2.getNetwork().netId,
                 uidRangeFor(testHandle, profileNetworkPreferenceBuilder2.build()),
                 PREFERENCE_ORDER_PROFILE));
-        verify(mMockNetd, never()).networkRemoveUidRangesParcel(new NativeUidRangeConfig(
+        verify(mMockNetd).networkRemoveUidRangesParcel(new NativeUidRangeConfig(
                 workAgent1.getNetwork().netId,
                 uidRangeFor(testHandle, profileNetworkPreferenceBuilder1.build()),
                 PREFERENCE_ORDER_PROFILE));
 
-        assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback, appCb1);
+        assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback);
+        appCb1.expectAvailableCallbacksValidated(mCellNetworkAgent);
         appCb2.expectAvailableCallbacksValidated(mCellNetworkAgent);
         workAgent2.disconnect();
         mCellNetworkAgent.disconnect();
