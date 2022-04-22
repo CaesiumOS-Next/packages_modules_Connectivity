@@ -320,7 +320,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static final String REQUEST_ARG = "requests";
     private static final String TRAFFICCONTROLLER_ARG = "trafficcontroller";
 
-    private static final boolean DBG = true;
+    private static final boolean DBG = false;
     private static final boolean DDBG = Log.isLoggable(TAG, Log.DEBUG);
     private static final boolean VDBG = Log.isLoggable(TAG, Log.VERBOSE);
 
