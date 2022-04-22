@@ -1378,18 +1378,18 @@ public class Tethering {
         changeInterfaceState(ifname, ipServingMode);
     }
 
-    private void disableWifiIpServingCommon(int tetheringType, String ifname, int apState) {
-        mLog.log("Canceling WiFi tethering request -"
-                + " type=" + tetheringType
-                + " interface=" + ifname
-                + " state=" + apState);
-
+    private void disableWifiIpServingCommon(int tetheringType, String ifname) {
         if (!TextUtils.isEmpty(ifname)) {
             final TetherState ts = mTetherStates.get(ifname);
             if (ts != null) {
                 ts.ipServer.unwanted();
                 return;
             }
+        }
+
+        if (SdkLevel.isAtLeastT()) {
+            mLog.log("Error disabling Wi-Fi IP serving for specific interface: " + ifname);
+            return;
         }
 
         for (int i = 0; i < mTetherStates.size(); i++) {
@@ -1412,13 +1412,16 @@ public class Tethering {
         // interface name with every broadcast.
         mWifiTetherRequested = false;
 
-        disableWifiIpServingCommon(TETHERING_WIFI, ifname, apState);
+        mLog.log("Canceling WiFi tethering request - interface=" + ifname + " state=" + apState);
+
+        disableWifiIpServingCommon(TETHERING_WIFI, ifname);
     }
 
     private void disableWifiP2pIpServingIfNeeded(String ifname) {
         if (TextUtils.isEmpty(ifname)) return;
 
-        disableWifiIpServingCommon(TETHERING_WIFI_P2P, ifname, /* fake */ 0);
+        mLog.log("Canceling P2P tethering request - interface=" + ifname);
+        disableWifiIpServingCommon(TETHERING_WIFI_P2P, ifname);
     }
 
     private void enableWifiIpServing(String ifname, int wifiIpMode) {
@@ -1438,8 +1441,7 @@ public class Tethering {
         }
 
         if (!TextUtils.isEmpty(ifname)) {
-            ensureIpServerStarted(ifname);
-            changeInterfaceState(ifname, ipServingMode);
+            enableIpServing(TETHERING_WIFI, ifname, ipServingMode);
         } else {
             mLog.e(String.format(
                     "Cannot enable IP serving in mode %s on missing interface name",
