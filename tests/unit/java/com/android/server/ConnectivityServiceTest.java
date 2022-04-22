@@ -159,8 +159,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.junit.Assume.assumeTrue;
 import static org.junit.Assume.assumeFalse;
+import static org.junit.Assume.assumeTrue;
 import static org.mockito.AdditionalMatchers.aryEq;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -642,7 +642,8 @@ public class ConnectivityServiceTest {
         @Override
         public ComponentName startService(Intent service) {
             final String action = service.getAction();
-            if (!VpnConfig.SERVICE_INTERFACE.equals(action)) {
+            if (!VpnConfig.SERVICE_INTERFACE.equals(action)
+                    && !VpnManager.ACTION_VPN_MANAGER_EVENT.equals(action)) {
                 fail("Attempt to start unknown service, action=" + action);
             }
             return new ComponentName(service.getPackage(), "com.android.test.Service");
