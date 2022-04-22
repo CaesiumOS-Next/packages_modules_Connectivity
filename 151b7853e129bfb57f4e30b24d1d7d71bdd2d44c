@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f79b34aa_8fef4524",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-22T07:58:09Z",
+      "side": 1,
+      "message": "You could also add something not printable in there, like \\ufffe (defined as \"not an unicode character\"), and something not ASCII like テスト",
+      "range": {
+        "startLine": 561,
+        "startChar": 64,
+        "endLine": 561,
+        "endChar": 65
+      },
+      "revId": "151b7853e129bfb57f4e30b24d1d7d71bdd2d44c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
