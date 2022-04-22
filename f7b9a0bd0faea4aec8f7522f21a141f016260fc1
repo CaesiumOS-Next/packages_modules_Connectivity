@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2274eb9e_962bbc23",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-04-22T10:16:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4753da4e_e3a68fd6",
+      "range": {
+        "startLine": 15,
+        "startChar": 6,
+        "endLine": 15,
+        "endChar": 9
+      },
+      "revId": "f7b9a0bd0faea4aec8f7522f21a141f016260fc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ad22baf0_6497f0e1",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83bbf0e1_da95cf42",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10627,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-04-22T10:16:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5306d96_100b7fd0",
+      "range": {
+        "startLine": 10627,
+        "startChar": 6,
+        "endLine": 10627,
+        "endChar": 8
+      },
+      "revId": "f7b9a0bd0faea4aec8f7522f21a141f016260fc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f97c9c5_f50246f8",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-04-22T09:20:54Z",
       "side": 1,
       "message": "If \"device owner is a manged profile, isManagedProfile does not return true \" is true now, I think the change should be inside the isManagedProfile instead of here.",
+      "range": {
+        "startLine": 10658,
+        "startChar": 23,
+        "endLine": 10658,
+        "endChar": 95
+      },
+      "revId": "f7b9a0bd0faea4aec8f7522f21a141f016260fc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b88356c_92f3db36",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10658,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-04-22T10:16:37Z",
+      "side": 1,
+      "message": "This is not a new change, isManagedProfile is for profile specific usecase it will not change behavior to handle device owner use case",
+      "parentUuid": "8f97c9c5_f50246f8",
       "range": {
         "startLine": 10658,
         "startChar": 23,
@@ -157,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2aedf8a9_0845e2a2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10661,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-04-22T10:16:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f1beacf_e32d3482",
+      "range": {
+        "startLine": 10658,
+        "startChar": 7,
+        "endLine": 10661,
+        "endChar": 11
+      },
+      "revId": "f7b9a0bd0faea4aec8f7522f21a141f016260fc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6bab49e1_097b9731",
@@ -170,6 +266,30 @@
       "writtenOn": "2022-04-22T09:20:54Z",
       "side": 1,
       "message": "It looks that every caller could skip this check whenever the device owner is set even in different user. If we would like to allow device owner to do so, the calling uid should come from the device owner user, instead of any user. Do I misunderstand anything? This does not look right to me.",
+      "range": {
+        "startLine": 10664,
+        "startChar": 8,
+        "endLine": 10667,
+        "endChar": 85
+      },
+      "revId": "f7b9a0bd0faea4aec8f7522f21a141f016260fc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c006253c_662d18ff",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10667,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-04-22T10:16:37Z",
+      "side": 1,
+      "message": "So the caller will have to be a system app (system api) and NETWORK_STACK permission needs to pass. This check isManagerProfile was added in S (i dont know why it was added in CS though, it seems redundant), it only checks the profile not the calling app and will be true for all app in the work profile. Similarly the second check I added to make sure we are on fully managed device owner device. \n\nIdeally this check should not be in CS, it is already checked in DPM, but I thought to keep it in T and probably evaluate before removing it in master",
+      "parentUuid": "6bab49e1_097b9731",
       "range": {
         "startLine": 10664,
         "startChar": 8,
