@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27e5c714_18bacef2",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-22T08:00:19Z",
+      "side": 1,
+      "message": "Is the \"escaping\" implemented somewhere by mdnsresponder ? Can you point to the corresponding code that escapes via a comment ?",
+      "range": {
+        "startLine": 593,
+        "startChar": 19,
+        "endLine": 593,
+        "endChar": 27
+      },
+      "revId": "cfaf22c5be66e6d97598a51e94e1d90ff4c3af57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
