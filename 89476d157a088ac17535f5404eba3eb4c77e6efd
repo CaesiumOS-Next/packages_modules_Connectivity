@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec461023_ac8c9f1f",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-23T02:57:08Z",
+      "side": 1,
+      "message": "finishOp?",
+      "range": {
+        "startLine": 811,
+        "startChar": 52,
+        "endLine": 811,
+        "endChar": 59
+      },
+      "revId": "89476d157a088ac17535f5404eba3eb4c77e6efd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "962cab8e_cc20ccd6",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-23T02:57:08Z",
+      "side": 1,
+      "message": "Nit: Separating logical \"chunks\" with whitespace helps to make things more readable:\n\n\u003cSetup environment, eg user context\u003e\n\n\u003cCapture and verify intent called\u003e\n\n\u003cVerify intent values - session key, error class, and error code\u003e",
+      "range": {
+        "startLine": 982,
+        "startChar": 0,
+        "endLine": 985,
+        "endChar": 0
+      },
+      "revId": "89476d157a088ac17535f5404eba3eb4c77e6efd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc4a68ef_8c83cf2c",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-23T02:57:08Z",
+      "side": 1,
+      "message": "Nit this could be inlined",
+      "range": {
+        "startLine": 987,
+        "startChar": 39,
+        "endLine": 987,
+        "endChar": 61
+      },
+      "revId": "89476d157a088ac17535f5404eba3eb4c77e6efd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
