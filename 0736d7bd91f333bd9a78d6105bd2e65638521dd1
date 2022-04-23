@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d46823a_861d76d7",
+        "filename": "tests/mts/bpf_existence_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-23T14:43:21Z",
+      "side": 1,
+      "message": "This is never used. Does this test pass?",
+      "revId": "0736d7bd91f333bd9a78d6105bd2e65638521dd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
