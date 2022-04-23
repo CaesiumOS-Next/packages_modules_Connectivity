@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5012ddbd_07d1163f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-04-23T16:25:38Z",
+      "side": 1,
+      "message": "side note: the way we specify the maps/progs is very clunky...\n\nwe should probably have one list of map/prog names along with some sort of \u0027introduced in\u0027 \u0027removed in\u0027 api level thing...\n\nand/or maybe\n\n\u0027introduced in\u0027 \u0027moved to mainline location in\u0027 \u0027removed in\u0027\n\nor something like that.",
+      "revId": "e9d5ad0b88a9a4e1fa1d15dde448b02378ddfb5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
