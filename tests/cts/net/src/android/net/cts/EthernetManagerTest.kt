@@ -42,6 +42,7 @@ import android.net.cts.EthernetManagerTest.EthernetStateListener.CallbackEntry.I
 import android.os.Handler
 import android.os.HandlerExecutor
 import android.os.Looper
+import android.util.ArraySet
 import com.android.networkstack.apishim.common.EthernetManagerShim.InterfaceStateListener
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_ABSENT
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_LINK_DOWN
@@ -141,9 +142,12 @@ class EthernetManagerTest {
         }
 
         fun expectCallback(iface: EthernetTestInterface, state: Int, role: Int) {
-            expectCallback(InterfaceStateChanged(iface.interfaceName, state, role,
-                if (state != STATE_ABSENT) DEFAULT_IP_CONFIGURATION else null))
+            expectCallback(createChangeEvent(iface, state, role))
         }
+
+        fun createChangeEvent(iface: EthernetTestInterface, state: Int, role: Int) =
+                InterfaceStateChanged(iface.interfaceName, state, role,
+                        if (state != STATE_ABSENT) DEFAULT_IP_CONFIGURATION else null)
 
         fun pollForNextCallback(): CallbackEntry {
             return events.poll(TIMEOUT_MS) ?: fail("Did not receive callback after ${TIMEOUT_MS}ms")
@@ -195,28 +199,27 @@ class EthernetManagerTest {
     }
 
     @Test
-    public fun testCallbacks() {
+    fun testCallbacks() {
         val executor = HandlerExecutor(Handler(Looper.getMainLooper()))
 
         // If an interface exists when the callback is registered, it is reported on registration.
         val iface = createInterface()
-        val listener = EthernetStateListener()
-        addInterfaceStateListener(executor, listener)
-        listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
+        val listener1 = EthernetStateListener()
+        addInterfaceStateListener(executor, listener1)
+        validateListenerOnRegistration(listener1)
 
         // If an interface appears, existing callbacks see it.
         // TODO: fix the up/up/down/up callbacks and only send down/up.
         val iface2 = createInterface()
-        listener.expectCallback(iface2, STATE_LINK_UP, ROLE_CLIENT)
-        listener.expectCallback(iface2, STATE_LINK_UP, ROLE_CLIENT)
-        listener.expectCallback(iface2, STATE_LINK_DOWN, ROLE_CLIENT)
-        listener.expectCallback(iface2, STATE_LINK_UP, ROLE_CLIENT)
+        listener1.expectCallback(iface2, STATE_LINK_UP, ROLE_CLIENT)
+        listener1.expectCallback(iface2, STATE_LINK_UP, ROLE_CLIENT)
+        listener1.expectCallback(iface2, STATE_LINK_DOWN, ROLE_CLIENT)
+        listener1.expectCallback(iface2, STATE_LINK_UP, ROLE_CLIENT)
 
         // Register a new listener, it should see state of all existing interfaces immediately.
         val listener2 = EthernetStateListener()
         addInterfaceStateListener(executor, listener2)
-        listener2.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
-        listener2.expectCallback(iface2, STATE_LINK_UP, ROLE_CLIENT)
+        validateListenerOnRegistration(listener2)
 
         // Removing interfaces first sends link down, then STATE_ABSENT/ROLE_NONE.
         removeInterface(iface)
@@ -233,8 +236,30 @@ class EthernetManagerTest {
         }
     }
 
+    /**
+     * Validate all interfaces are returned for an EthernetStateListener upon registration.
+     */
+    private fun validateListenerOnRegistration(listener: EthernetStateListener) {
+        // Get any existing interfaces to validate on listener registration. Ordering and interface
+        // state (up/down) can't be validated for interfaces not created as part of testing.
+        val ifaces = em.getInterfaceList()
+        val polledIfaces = ArraySet<String>()
+        for (i in ifaces) {
+            val event = (listener.pollForNextCallback() as InterfaceStateChanged)
+            val iface = event.iface
+            assertTrue(polledIfaces.add(iface), "Duplicate interface $iface returned")
+            assertTrue(ifaces.contains(iface), "Untracked interface $iface returned")
+            // If the event's iface was created in the test, additional criteria can be validated.
+            createdIfaces.find { it.interfaceName.equals(iface) }?.let {
+                assertEquals(event, listener.createChangeEvent(it, STATE_LINK_UP, ROLE_CLIENT))
+            }
+        }
+        // Assert all callbacks are accounted for.
+        listener.assertNoCallback()
+    }
+
     @Test
-    public fun testGetInterfaceList() {
+    fun testGetInterfaceList() {
         setIncludeTestInterfaces(true)
 
         // Create two test interfaces and check the return list contains the interface names.
