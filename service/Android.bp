@@ -244,6 +244,7 @@ java_genrule {
         ":service-connectivity-pre-jarjar",
         ":service-connectivity-tiramisu-pre-jarjar",
         "jarjar-excludes.txt",
+        "jarjar-allowed-exceptions.txt",
     ],
     tools: [
         "jarjar-rules-generator",
@@ -255,6 +256,8 @@ java_genrule {
             "$(location :service-connectivity-tiramisu-pre-jarjar) " +
          "--prefix android.net.connectivity " +
          "--excludes $(location jarjar-excludes.txt) " +
+         "--disallow-jarjar-api-packages " +
+         "--disallow-exceptions $(location jarjar-allowed-exceptions.txt) " +
          "--dexdump $(location dexdump) " +
          "--output $(out)",
     visibility: ["//visibility:private"],
