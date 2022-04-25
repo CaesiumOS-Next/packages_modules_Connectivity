@@ -20,8 +20,8 @@ import android.net.IpConfiguration;
 import android.net.IEthernetServiceListener;
 import android.net.EthernetNetworkManagementException;
 import android.net.EthernetNetworkUpdateRequest;
-import android.net.INetworkInterfaceOutcomeReceiver;
-import android.net.ITetheredInterfaceCallback;
+import android.net.connectivity.internal.INetworkInterfaceOutcomeReceiver;
+import android.net.connectivity.internal.ITetheredInterfaceCallback;
 
 import java.util.List;
 
