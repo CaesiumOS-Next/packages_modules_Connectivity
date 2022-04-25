@@ -31,20 +31,30 @@ import unittest
 
 
 class TestGenJarjar(unittest.TestCase):
-    def test_gen_rules(self):
+    _API_STUBS_PATH = 'stubs.jar'
+
+    @classmethod
+    def setUpClass(cls):
         # dexdump opens jars with follow_symlinks=False; make a copy of the apistubs as it is
         # provided via a symlink in the test directory otherwise.
-        stubs_jar = "stubs.jar"
-        shutil.copy("framework-connectivity.stubs.module_lib.jar", stubs_jar)
-        args = gen_jarjar.parser.parse_args([
-            "--jars", "jarjar-rules-generator-testjavalib.jar",
-            "--prefix", "jarjar.prefix",
-            "--output", "test-output-rules.txt",
-            "--apistubs", stubs_jar,
-            "--unsupportedapi", "testdata/test-unsupportedappusage.txt",
-            "--excludes", "testdata/test-jarjar-excludes.txt",
-            "--dexdump", "dexdump",
-        ])
+        shutil.copy('framework-connectivity.stubs.module_lib.jar', cls._API_STUBS_PATH)
+
+    @staticmethod
+    def _make_args(target_jar, *extra_args):
+        args = [
+            '--jars', target_jar,
+            '--prefix', 'jarjar.prefix',
+            '--output', 'test-output-rules.txt',
+            '--apistubs', TestGenJarjar._API_STUBS_PATH,
+            '--unsupportedapi', 'testdata/test-unsupportedappusage.txt',
+            '--excludes', 'testdata/test-jarjar-excludes.txt',
+            '--dexdump', 'dexdump',
+        ]
+        args.extend(extra_args)
+        return gen_jarjar.parser.parse_args(args)
+
+    def test_gen_rules(self):
+        args = self._make_args('jarjar-rules-generator-testjavalib.jar')
         gen_jarjar.make_jarjar_rules(args)
 
         with open(args.output) as out:
@@ -57,6 +67,27 @@ class TestGenJarjar(unittest.TestCase):
             'rule test.utils.TestUtilClass$TestInnerClass jarjar.prefix.@0\n',
             'rule test.utils.TestUtilClass$TestInnerClassTest jarjar.prefix.@0\n',
             'rule test.utils.TestUtilClass$TestInnerClassTest$* jarjar.prefix.@0\n'], lines)
+
+    def test_disallowed_class(self):
+        args = self._make_args('jarjar-rules-generator-testdisallowedclasslib.jar',
+                               '--disallow-jarjar-api-packages')
+        self.assertRaisesRegex(Exception, 'Classes \\[\'android.net.DisallowedApiPackageClass\'\\] '
+                                          'are not allowed to be jarjared.*',
+                               lambda: gen_jarjar.make_jarjar_rules(args))
+
+    def test_disallowed_class_allowlisted(self):
+        args = self._make_args('jarjar-rules-generator-testdisallowedclasslib.jar',
+                               '--disallow-jarjar-api-packages',
+                               '--disallow-exceptions', 'testdata/test-disallow-exceptions.txt')
+        gen_jarjar.make_jarjar_rules(args)
+        with open(args.output) as out:
+            lines = out.readlines()
+
+        self.assertListEqual([
+            'rule android.net.DisallowedApiPackageClass jarjar.prefix.@0\n',
+            'rule android.net.DisallowedApiPackageClassTest jarjar.prefix.@0\n',
+            'rule android.net.DisallowedApiPackageClassTest$* jarjar.prefix.@0\n',
+        ], lines)
 
 
 if __name__ == '__main__':
