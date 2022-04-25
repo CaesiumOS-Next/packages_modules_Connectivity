@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.net;
+package android.net.connectivity.internal;
 
 import static android.net.QosCallbackException.EX_TYPE_FILTER_NONE;
 import static android.net.QosCallbackException.EX_TYPE_FILTER_SOCKET_LOCAL_ADDRESS_CHANGED;
@@ -28,6 +28,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import android.net.InetAddresses;
 import android.os.Build;
 
 import androidx.test.filters.SmallTest;

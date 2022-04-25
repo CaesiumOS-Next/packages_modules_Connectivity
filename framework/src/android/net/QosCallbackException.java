@@ -19,6 +19,8 @@ package android.net;
 import android.annotation.IntDef;
 import android.annotation.NonNull;
 import android.annotation.SystemApi;
+import android.net.connectivity.internal.SocketNotConnectedException;
+import android.net.connectivity.internal.SocketRemoteAddressChangedException;
 import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
