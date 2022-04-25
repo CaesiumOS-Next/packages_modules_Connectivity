@@ -42,6 +42,7 @@ import android.net.cts.EthernetManagerTest.EthernetStateListener.CallbackEntry.I
 import android.os.Handler
 import android.os.HandlerExecutor
 import android.os.Looper
+import android.util.ArraySet
 import com.android.networkstack.apishim.common.EthernetManagerShim.InterfaceStateListener
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_ABSENT
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_LINK_DOWN
@@ -195,14 +196,36 @@ class EthernetManagerTest {
     }
 
     @Test
-    public fun testCallbacks() {
+    fun testCallbacks() {
         val executor = HandlerExecutor(Handler(Looper.getMainLooper()))
 
-        // If an interface exists when the callback is registered, it is reported on registration.
-        val iface = createInterface()
         val listener = EthernetStateListener()
-        addInterfaceStateListener(executor, listener)
-        listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
+        val ifaces = em.getInterfaceList()
+        if (ifaces.count() > 0) {
+            // If interfaces already exist, validate the listener returns all expected interfaces on
+            // registration. Ordering and interface state (up/down) can't be validated in this case.
+            addInterfaceStateListener(executor, listener)
+            val polledIfaces = ArraySet<String>()
+            for (i in ifaces) {
+                val iface = (listener.pollForNextCallback() as InterfaceStateChanged).iface
+                if (!polledIfaces.add(iface)) {
+                    fail("Duplicate interface $iface returned")
+                }
+                if (!ifaces.contains(iface)) {
+                    fail("Untracked interface $iface returned")
+                }
+            }
+        } else {
+            // If no interfaces exist, create one and validate it's returned when adding a listener.
+            val iface = createInterface()
+            addInterfaceStateListener(executor, listener)
+            listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
+
+            // Removing interfaces first sends link down, then STATE_ABSENT/ROLE_NONE.
+            removeInterface(iface)
+            listener.expectCallback(iface, STATE_LINK_DOWN, ROLE_CLIENT)
+            listener.expectCallback(iface, STATE_ABSENT, ROLE_NONE)
+        }
 
         // If an interface appears, existing callbacks see it.
         // TODO: fix the up/up/down/up callbacks and only send down/up.
@@ -212,11 +235,6 @@ class EthernetManagerTest {
         listener.expectCallback(iface2, STATE_LINK_DOWN, ROLE_CLIENT)
         listener.expectCallback(iface2, STATE_LINK_UP, ROLE_CLIENT)
 
-        // Removing interfaces first sends link down, then STATE_ABSENT/ROLE_NONE.
-        removeInterface(iface)
-        listener.expectCallback(iface, STATE_LINK_DOWN, ROLE_CLIENT)
-        listener.expectCallback(iface, STATE_ABSENT, ROLE_NONE)
-
         removeInterface(iface2)
         listener.expectCallback(iface2, STATE_LINK_DOWN, ROLE_CLIENT)
         listener.expectCallback(iface2, STATE_ABSENT, ROLE_NONE)
@@ -224,7 +242,7 @@ class EthernetManagerTest {
     }
 
     @Test
-    public fun testGetInterfaceList() {
+    fun testGetInterfaceList() {
         setIncludeTestInterfaces(true)
 
         // Create two test interfaces and check the return list contains the interface names.
