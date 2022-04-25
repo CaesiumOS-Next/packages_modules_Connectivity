@@ -30,6 +30,8 @@ import android.net.ConnectivityManager;
 import android.net.ConnectivityManager.NetworkCallback;
 import android.net.Network;
 import android.net.NetworkRequest;
+import android.net.connectivity.internal.nsd.INsdManagerCallback;
+import android.net.connectivity.internal.nsd.INsdServiceConnector;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;

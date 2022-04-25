@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
-package android.net;
+package android.net.connectivity.internal;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.net.NetworkAgent;
+import android.net.QosFilter;
+import android.net.QosSocketInfo;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
