@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d8ea6a5_698c7368",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 10631,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-04-25T03:12:02Z",
+      "side": 1,
+      "message": "Do we want to document the allowed profile when the device owner is set?\ne.g.\n... If the device owner is set, any profile is allowed. otherwise, the given profile can only be managed profile.",
+      "range": {
+        "startLine": 10631,
+        "startChar": 76,
+        "endLine": 10631,
+        "endChar": 77
+      },
+      "revId": "762622bcfe50b3ae257251834b89ccccf9b69ed9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f4eaba1_d653f165",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 10660,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-04-25T03:12:02Z",
+      "side": 1,
+      "message": "Still not clear for me why the test is failing, is it because the test also runs on Enterprise device after your change?\nIf so, is it better if we limit the test to run on device which has work profile?",
+      "range": {
+        "startLine": 10659,
+        "startChar": 11,
+        "endLine": 10660,
+        "endChar": 36
+      },
+      "revId": "762622bcfe50b3ae257251834b89ccccf9b69ed9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fcdf84f_4e11153c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 10662,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-04-25T03:12:02Z",
+      "side": 1,
+      "message": "nit: go/avoidwe",
+      "range": {
+        "startLine": 10662,
+        "startChar": 10,
+        "endLine": 10662,
+        "endChar": 12
+      },
+      "revId": "762622bcfe50b3ae257251834b89ccccf9b69ed9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c90b2718_17bb7da9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 10669,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-04-25T03:12:02Z",
+      "side": 1,
+      "message": "It confuses me the deivce owner is one of the profile types.\nIs it more correct by saying: Profile must be a managed profile or the device owner must be set. ?",
+      "range": {
+        "startLine": 10669,
+        "startChar": 85,
+        "endLine": 10669,
+        "endChar": 97
+      },
+      "revId": "762622bcfe50b3ae257251834b89ccccf9b69ed9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
