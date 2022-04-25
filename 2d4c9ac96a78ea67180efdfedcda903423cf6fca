@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dc78953_a3ea08c8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-04-25T09:24:50Z",
+      "side": 1,
+      "message": "Upload patchset#21\n\n1. rebase and fix conflict\n2. remove getRouterMacAddressFromRa because we get mac from arp now\n3. class TetheredDevice allows that tethered device has IPv4 address only (apply param hasIpv6 \u003d false)",
+      "revId": "2d4c9ac96a78ea67180efdfedcda903423cf6fca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
