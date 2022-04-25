@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58ec53c6_2a7335ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-04-25T15:35:05Z",
+      "side": 1,
+      "message": "None of the comments are related to this CL, which seems fine.  Let it automerge if TH passes.",
+      "revId": "77d24ac8d5986a486d343652009870d1dd5a2dea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c48f3335_c5b6dcab",
+        "filename": "bpf_progs/bpf_shared.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-04-25T15:35:05Z",
+      "side": 1,
+      "message": "note this is 2 not 3",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 44
+      },
+      "revId": "77d24ac8d5986a486d343652009870d1dd5a2dea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07d977fa_81a98a32",
+        "filename": "bpf_progs/bpf_shared.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-04-25T15:35:05Z",
+      "side": 1,
+      "message": "should change to 0",
+      "range": {
+        "startLine": 163,
+        "startChar": 36,
+        "endLine": 163,
+        "endChar": 37
+      },
+      "revId": "77d24ac8d5986a486d343652009870d1dd5a2dea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1817fcad_a1433a06",
+        "filename": "bpf_progs/bpf_shared.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-04-25T15:35:05Z",
+      "side": 1,
+      "message": "should change to 1",
+      "range": {
+        "startLine": 165,
+        "startChar": 44,
+        "endLine": 165,
+        "endChar": 45
+      },
+      "revId": "77d24ac8d5986a486d343652009870d1dd5a2dea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "186a9826_70502bfa",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-04-25T15:35:05Z",
+      "side": 1,
+      "message": "should this perhaps even just be BpfConfig ??\n\nit\u0027s not clear to me if this is a:\nhashmap[2] uint32-\u003euint32, where it so happens that one entry is also a BpfConfig,\nor a hashmap[2] uint32-\u003eBpfConfig, where we also use BpfConfig to store selected map.",
+      "range": {
+        "startLine": 62,
+        "startChar": 54,
+        "endLine": 62,
+        "endChar": 62
+      },
+      "revId": "77d24ac8d5986a486d343652009870d1dd5a2dea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8914a43c_f8870d4c",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-04-25T15:35:05Z",
+      "side": 1,
+      "message": "IMHO should change to ARRAY (though need to either increase size from 2 to 3, or bump indexes down from 1/2 to 0/1)",
+      "range": {
+        "startLine": 62,
+        "startChar": 38,
+        "endLine": 62,
+        "endChar": 42
+      },
+      "revId": "77d24ac8d5986a486d343652009870d1dd5a2dea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d633abd9_cb6de2a5",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-04-25T15:35:05Z",
+      "side": 1,
+      "message": "note this function is only ever called (and only once) with UID_RULES_CONFIGURATION_KEY...\n\nprobably should be renamed getRulesConfig() and not take the key as arg at all?",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 64
+      },
+      "revId": "77d24ac8d5986a486d343652009870d1dd5a2dea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
