@@ -32,6 +32,8 @@ import static org.mockito.Mockito.verify;
 
 import android.compat.testing.PlatformCompatChangeRule;
 import android.content.Context;
+import android.net.connectivity.internal.nsd.INsdManagerCallback;
+import android.net.connectivity.internal.nsd.INsdServiceConnector;
 import android.os.Build;
 
 import androidx.test.filters.SmallTest;
