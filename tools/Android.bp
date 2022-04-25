@@ -47,7 +47,21 @@ genrule_defaults {
 
 java_library {
     name: "jarjar-rules-generator-testjavalib",
-    srcs: ["testdata/java/**/*.java"],
+    srcs: [
+        "testdata/java/android/net/LinkProperties.java",
+        "testdata/java/test/jarjarexcluded/JarjarExcludedClass.java",
+        "testdata/java/test/unsupportedappusage/TestUnsupportedAppUsageClass.java",
+        "testdata/java/test/utils/TestUtilClass.java",
+    ],
+    visibility: ["//visibility:private"],
+}
+
+java_library {
+    name: "jarjar-rules-generator-testdisallowedclasslib",
+    srcs: [
+        "testdata/java/android/net/DisallowedApiPackageClass.java",
+        "testdata/java/android/net/LinkProperties.java",
+    ],
     visibility: ["//visibility:private"],
 }
 
@@ -58,10 +72,12 @@ python_test_host {
         "gen_jarjar_test.py",
     ],
     data: [
+        "testdata/test-disallow-exceptions.txt",
         "testdata/test-jarjar-excludes.txt",
         "testdata/test-unsupportedappusage.txt",
         ":framework-connectivity.stubs.module_lib",
         ":jarjar-rules-generator-testjavalib",
+        ":jarjar-rules-generator-testdisallowedclasslib",
     ],
     required: ["dexdump"],
     main: "gen_jarjar_test.py",
