@@ -36,9 +36,9 @@ import android.annotation.NonNull;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.EthernetNetworkUpdateRequest;
-import android.net.INetworkInterfaceOutcomeReceiver;
 import android.net.IpConfiguration;
 import android.net.NetworkCapabilities;
+import android.net.connectivity.internal.INetworkInterfaceOutcomeReceiver;
 import android.os.Build;
 import android.os.Handler;
 

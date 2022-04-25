@@ -22,6 +22,7 @@ import static android.net.InvalidPacketException.ERROR_INVALID_PORT;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.SystemApi;
+import android.net.connectivity.internal.NattSocketKeepalive;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.system.OsConstants;
