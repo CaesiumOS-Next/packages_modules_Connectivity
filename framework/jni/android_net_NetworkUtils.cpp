@@ -254,7 +254,7 @@ static const JNINativeMethod gNetworkUtilMethods[] = {
     { "bindSocketToNetworkHandle", "(Ljava/io/FileDescriptor;J)I", (void*) android_net_utils_bindSocketToNetworkHandle },
     { "attachDropAllBPFFilter", "(Ljava/io/FileDescriptor;)V", (void*) android_net_utils_attachDropAllBPFFilter },
     { "detachBPFFilter", "(Ljava/io/FileDescriptor;)V", (void*) android_net_utils_detachBPFFilter },
-    { "getTcpRepairWindow", "(Ljava/io/FileDescriptor;)Landroid/net/connectivity/android/net/TcpRepairWindow;", (void*) android_net_utils_getTcpRepairWindow },
+    { "getTcpRepairWindow", "(Ljava/io/FileDescriptor;)Landroid/net/connectivity/internal/TcpRepairWindow;", (void*) android_net_utils_getTcpRepairWindow },
     { "resNetworkSend", "(J[BII)Ljava/io/FileDescriptor;", (void*) android_net_utils_resNetworkSend },
     { "resNetworkQuery", "(JLjava/lang/String;III)Ljava/io/FileDescriptor;", (void*) android_net_utils_resNetworkQuery },
     { "resNetworkResult", "(Ljava/io/FileDescriptor;)Landroid/net/DnsResolver$DnsResponse;", (void*) android_net_utils_resNetworkResult },

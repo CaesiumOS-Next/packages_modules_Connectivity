@@ -40,6 +40,8 @@ import static org.junit.Assert.fail;
 import android.annotation.NonNull;
 import android.content.res.Resources;
 import android.net.NetworkStatsCollection.Key;
+import android.net.connectivity.internal.NetworkIdentitySet;
+import android.net.connectivity.internal.NetworkStatsAccess;
 import android.os.Process;
 import android.os.UserHandle;
 import android.telephony.SubscriptionPlan;
