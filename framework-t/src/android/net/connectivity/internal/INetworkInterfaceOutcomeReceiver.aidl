@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019, The Android Open Source Project
+ * Copyright (c) 2021, The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,12 @@
  * limitations under the License.
  */
 
-package android.net;
+package android.net.connectivity.internal;
 
-/**
- * Callback to provide status changes of keepalive offload.
- *
- * @hide
- */
-oneway interface ISocketKeepaliveCallback
-{
-    /** The keepalive was successfully started. */
-    void onStarted(int slot);
-    /** The keepalive was successfully stopped. */
-    void onStopped();
-    /** The keepalive was stopped because of an error. */
-    void onError(int error);
-    /** The keepalive on a TCP socket was stopped because the socket received data. */
-    void onDataReceived();
+import android.net.EthernetNetworkManagementException;
+
+/** @hide */
+oneway interface INetworkInterfaceOutcomeReceiver {
+    void onResult(in String iface);
+    void onError(in EthernetNetworkManagementException e);
 }

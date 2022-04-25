@@ -38,7 +38,7 @@ import android.net.NetworkUtils;
 import android.net.SocketKeepalive.InvalidSocketException;
 import android.net.TcpKeepalivePacketData;
 import android.net.TcpKeepalivePacketDataParcelable;
-import android.net.TcpRepairWindow;
+import android.net.connectivity.internal.TcpRepairWindow;
 import android.os.Handler;
 import android.os.MessageQueue;
 import android.os.Messenger;

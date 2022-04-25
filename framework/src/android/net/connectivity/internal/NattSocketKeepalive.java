@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,12 @@
  * limitations under the License.
  */
 
-package android.net;
+package android.net.connectivity.internal;
 
 import android.annotation.NonNull;
+import android.net.IConnectivityManager;
+import android.net.Network;
+import android.net.SocketKeepalive;
 import android.os.ParcelFileDescriptor;
 import android.os.RemoteException;
 import android.util.Log;

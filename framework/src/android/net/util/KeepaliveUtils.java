@@ -19,8 +19,8 @@ package android.net.util;
 import android.annotation.NonNull;
 import android.content.Context;
 import android.content.res.Resources;
-import android.net.ConnectivityResources;
 import android.net.NetworkCapabilities;
+import android.net.connectivity.internal.ConnectivityResources;
 import android.text.TextUtils;
 import android.util.AndroidRuntimeException;
 

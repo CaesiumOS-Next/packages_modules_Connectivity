@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,14 @@
  * limitations under the License.
  */
 
-package android.net;
+package android.net.connectivity.internal;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.net.ConnectivityManager;
+import android.net.QosCallback;
+import android.net.QosCallbackException;
+import android.net.QosSession;
 import android.telephony.data.EpsBearerQosSessionAttributes;
 import android.telephony.data.NrQosSessionAttributes;
 
@@ -35,7 +39,7 @@ import java.util.concurrent.Executor;
  *
  * @hide
  */
-public class QosCallbackConnection extends android.net.IQosCallback.Stub {
+public class QosCallbackConnection extends android.net.connectivity.internal.IQosCallback.Stub {
 
     @NonNull private final ConnectivityManager mConnectivityManager;
     @Nullable private volatile QosCallback mCallback;

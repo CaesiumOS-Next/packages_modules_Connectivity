@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.net.nsd;
+package android.net.connectivity.internal.nsd;
 
 import android.os.Messenger;
 import android.net.nsd.NsdServiceInfo;
