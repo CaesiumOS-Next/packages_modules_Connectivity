@@ -16,8 +16,8 @@
 
 package android.net.nsd;
 
-import android.net.nsd.INsdManagerCallback;
-import android.net.nsd.INsdServiceConnector;
+import android.net.connectivity.internal.nsd.INsdManagerCallback;
+import android.net.connectivity.internal.nsd.INsdServiceConnector;
 import android.os.Messenger;
 
 /**

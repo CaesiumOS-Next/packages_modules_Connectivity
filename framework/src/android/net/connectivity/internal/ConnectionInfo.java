@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package android.net;
+package android.net.connectivity.internal;
 
+import android.annotation.NonNull;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -54,7 +55,7 @@ public final class ConnectionInfo implements Parcelable {
         out.writeInt(remote.getPort());
     }
 
-    public static final @android.annotation.NonNull Creator<ConnectionInfo> CREATOR = new Creator<ConnectionInfo>() {
+    public static final @NonNull Creator<ConnectionInfo> CREATOR = new Creator<ConnectionInfo>() {
         public ConnectionInfo createFromParcel(Parcel in) {
             int protocol = in.readInt();
             InetAddress localAddress;

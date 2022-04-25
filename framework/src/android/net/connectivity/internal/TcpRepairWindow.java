@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.net;
+package android.net.connectivity.internal;
 
 /**
  * Corresponds to C's {@code struct tcp_repair_window} from
