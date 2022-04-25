@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1534b66d_8fd4140a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-04-25T05:38:18Z",
+      "side": 1,
+      "message": "lgtm but chiachang might want to take another look.",
+      "revId": "79f7527afaeedb8750fb735bec7470a1275eabbb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
