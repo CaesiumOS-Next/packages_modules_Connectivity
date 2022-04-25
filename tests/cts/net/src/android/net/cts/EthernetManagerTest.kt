@@ -195,17 +195,25 @@ class EthernetManagerTest {
     }
 
     @Test
-    public fun testCallbacks() {
+    fun testCallbacks() {
         val executor = HandlerExecutor(Handler(Looper.getMainLooper()))
 
-        // If an interface exists when the callback is registered, it is reported on registration.
-        val iface = createInterface()
         val listener = EthernetStateListener()
         addInterfaceStateListener(executor, listener)
+        // If an interface exists when the callback is registered, it is reported on registration.
+        // Get all existing interfaces and account for them before starting test.
+        val ifaces = em.getInterfaceList()
+        for (i in ifaces) {
+            listener.pollForNextCallback()
+        }
+        val iface = createInterface()
+        // TODO: fix the up/up/down/up callbacks and only send down/up.
+        listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
+        listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
+        listener.expectCallback(iface, STATE_LINK_DOWN, ROLE_CLIENT)
         listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
 
         // If an interface appears, existing callbacks see it.
-        // TODO: fix the up/up/down/up callbacks and only send down/up.
         val iface2 = createInterface()
         listener.expectCallback(iface2, STATE_LINK_UP, ROLE_CLIENT)
         listener.expectCallback(iface2, STATE_LINK_UP, ROLE_CLIENT)
@@ -224,7 +232,7 @@ class EthernetManagerTest {
     }
 
     @Test
-    public fun testGetInterfaceList() {
+    fun testGetInterfaceList() {
         setIncludeTestInterfaces(true)
 
         // Create two test interfaces and check the return list contains the interface names.
