@@ -18,15 +18,16 @@ package com.android.server.ethernet;
 
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 
+import android.Manifest;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.EthernetNetworkUpdateRequest;
 import android.net.IEthernetManager;
 import android.net.IEthernetServiceListener;
 import android.net.INetworkInterfaceOutcomeReceiver;
 import android.net.ITetheredInterfaceCallback;
-import android.net.EthernetNetworkUpdateRequest;
 import android.net.IpConfiguration;
 import android.net.NetworkCapabilities;
 import android.os.Binder;
@@ -70,9 +71,10 @@ public class EthernetServiceImpl extends IEthernetManager.Stub {
                 methodName + " is only available on automotive devices.");
     }
 
-    private boolean checkUseRestrictedNetworksPermission() {
+    private boolean checkSeeRestrictedNetworks() {
         return PermissionUtils.checkAnyPermissionOf(mContext,
-                android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS);
+                Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS,
+                Manifest.permission.NETWORK_SETTINGS);
     }
 
     public void start() {
@@ -90,7 +92,7 @@ public class EthernetServiceImpl extends IEthernetManager.Stub {
     @Override
     public String[] getAvailableInterfaces() throws RemoteException {
         PermissionUtils.enforceAccessNetworkStatePermission(mContext, TAG);
-        return mTracker.getInterfaces(checkUseRestrictedNetworksPermission());
+        return mTracker.getInterfaces(checkSeeRestrictedNetworks());
     }
 
     /**
@@ -144,7 +146,7 @@ public class EthernetServiceImpl extends IEthernetManager.Stub {
     public void addListener(IEthernetServiceListener listener) throws RemoteException {
         Objects.requireNonNull(listener, "listener must not be null");
         PermissionUtils.enforceAccessNetworkStatePermission(mContext, TAG);
-        mTracker.addListener(listener, checkUseRestrictedNetworksPermission());
+        mTracker.addListener(listener, checkSeeRestrictedNetworks());
     }
 
     /**
