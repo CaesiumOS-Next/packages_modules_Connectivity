@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93f4abbc_f7002f3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-25T07:18:26Z",
+      "side": 1,
+      "message": "LGTM assume comment fixed.\nAdd lorenzo for owner review.",
+      "revId": "697681a0a3f37a1beb94c7e43889c315824cbf10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b78c9fe7_a2adf7cd",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-25T07:18:26Z",
+      "side": 1,
+      "message": "Nit: sorry, maybe you just follow the suggest I provided previously. Could you rename to other name (e.g.: startWifiTetheringWithoutWatingResult) ? Usually, people would expect the method overloading does the similar task and the method without parameter would call the method has parameter.  #startWifiTethering(callback) call to #startWifiTethering()  is not the style we used to have.",
+      "range": {
+        "startLine": 473,
+        "startChar": 16,
+        "endLine": 473,
+        "endChar": 34
+      },
+      "revId": "697681a0a3f37a1beb94c7e43889c315824cbf10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd0ee6ec_5bf1de88",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-25T07:18:26Z",
+      "side": 1,
+      "message": "Per offline talk, you will have the test in follow up to test tethering could be stopped while receiving CARRIER_SUPPORTS_TETHERING false. Could you add a TODO here fist, then you could fix the the TODO in follow up change.",
+      "revId": "697681a0a3f37a1beb94c7e43889c315824cbf10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
