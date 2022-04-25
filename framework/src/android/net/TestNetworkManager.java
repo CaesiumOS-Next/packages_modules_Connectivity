@@ -20,6 +20,7 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.RequiresPermission;
 import android.annotation.SystemApi;
+import android.net.connectivity.internal.ITestNetworkManager;
 import android.os.IBinder;
 import android.os.RemoteException;
 

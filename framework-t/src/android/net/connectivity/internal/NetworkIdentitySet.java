@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package android.net;
+package android.net.connectivity.internal;
 
 import static android.net.ConnectivityManager.TYPE_MOBILE;
 import static android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID;
 
 import android.annotation.NonNull;
+import android.net.NetworkIdentity;
 import android.service.NetworkIdentitySetProto;
 import android.util.proto.ProtoOutputStream;
 
@@ -203,6 +204,10 @@ public class NetworkIdentitySet extends HashSet<NetworkIdentity> {
         }
     }
 
+    /**
+     * Compare two {@link NetworkIdentitySet}, similarly to {@link java.util.Comparator#compare}.
+     * @hide
+     */
     public static int compare(@NonNull NetworkIdentitySet left, @NonNull NetworkIdentitySet right) {
         Objects.requireNonNull(left);
         Objects.requireNonNull(right);

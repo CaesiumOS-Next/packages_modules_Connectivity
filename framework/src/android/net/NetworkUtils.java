@@ -19,6 +19,7 @@ package android.net;
 import static android.net.ConnectivityManager.NETID_UNSET;
 
 import android.compat.annotation.UnsupportedAppUsage;
+import android.net.connectivity.internal.TcpRepairWindow;
 import android.os.Build;
 import android.system.ErrnoException;
 import android.util.Log;

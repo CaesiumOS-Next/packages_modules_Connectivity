@@ -19,11 +19,11 @@ package com.android.server.connectivity;
 import static android.net.QosCallbackException.EX_TYPE_FILTER_NONE;
 
 import android.annotation.NonNull;
-import android.net.IQosCallback;
 import android.net.Network;
 import android.net.QosCallbackException;
 import android.net.QosFilter;
 import android.net.QosSession;
+import android.net.connectivity.internal.IQosCallback;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.telephony.data.EpsBearerQosSessionAttributes;

@@ -16,10 +16,10 @@
 package android.net;
 
 import android.net.NattKeepalivePacketData;
-import android.net.QosFilterParcelable;
 import android.net.TcpKeepalivePacketData;
 
 import android.net.INetworkAgentRegistry;
+import android.net.connectivity.internal.QosFilterParcelable;
 
 /**
  * Interface to notify NetworkAgent of connectivity events.
