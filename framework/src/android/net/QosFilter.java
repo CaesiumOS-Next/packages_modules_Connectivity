@@ -18,6 +18,7 @@ package android.net;
 
 import android.annotation.NonNull;
 import android.annotation.SystemApi;
+import android.net.connectivity.internal.QosSocketFilter;
 
 import java.net.InetAddress;
 

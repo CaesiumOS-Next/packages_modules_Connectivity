@@ -14,24 +14,10 @@
  * limitations under the License.
  */
 
-package android.net;
+package android.net.connectivity.internal;
 
-import android.os.Bundle;
-import android.net.QosSession;
-import android.telephony.data.EpsBearerQosSessionAttributes;
-import android.telephony.data.NrQosSessionAttributes;
-
-/**
- * AIDL interface for QosCallback
- *
- * @hide
- */
-oneway interface IQosCallback
-{
-     void onQosEpsBearerSessionAvailable(in QosSession session,
-        in EpsBearerQosSessionAttributes attributes);
-     void onNrQosSessionAvailable(in QosSession session,
-        in NrQosSessionAttributes attributes);
-     void onQosSessionLost(in QosSession session);
-     void onError(in int type);
+/** @hide */
+oneway interface ITetheredInterfaceCallback {
+    void onAvailable(in String iface);
+    void onUnavailable();
 }

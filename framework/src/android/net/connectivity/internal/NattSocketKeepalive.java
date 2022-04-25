@@ -14,9 +14,12 @@
  * limitations under the License.
  */
 
-package android.net;
+package android.net.connectivity.internal;
 
 import android.annotation.NonNull;
+import android.net.IConnectivityManager;
+import android.net.Network;
+import android.net.SocketKeepalive;
 import android.os.ParcelFileDescriptor;
 import android.os.RemoteException;
 import android.util.Log;

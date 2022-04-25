@@ -21,9 +21,9 @@ import android.content.res.Resources
 import android.net.ConnectivityManager.MULTIPATH_PREFERENCE_HANDOVER
 import android.net.ConnectivityManager.MULTIPATH_PREFERENCE_PERFORMANCE
 import android.net.ConnectivityManager.MULTIPATH_PREFERENCE_RELIABILITY
-import android.net.ConnectivityResources
 import android.net.ConnectivitySettingsManager.NETWORK_AVOID_BAD_WIFI
 import android.net.ConnectivitySettingsManager.NETWORK_METERED_MULTIPATH_PREFERENCE
+import android.net.connectivity.internal.ConnectivityResources
 import android.net.util.MultinetworkPolicyTracker.ActiveDataSubscriptionIdListener
 import android.os.Build
 import android.provider.Settings

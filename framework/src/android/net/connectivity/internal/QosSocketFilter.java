@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.net;
+package android.net.connectivity.internal;
 
 import static android.net.QosCallbackException.EX_TYPE_FILTER_NONE;
 import static android.net.QosCallbackException.EX_TYPE_FILTER_SOCKET_LOCAL_ADDRESS_CHANGED;
@@ -28,6 +28,11 @@ import static android.system.OsConstants.SOCK_STREAM;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.net.Network;
+import android.net.QosCallbackException;
+import android.net.QosFilter;
+import android.net.QosSession;
+import android.net.QosSocketInfo;
 import android.os.ParcelFileDescriptor;
 import android.system.ErrnoException;
 import android.system.Os;
