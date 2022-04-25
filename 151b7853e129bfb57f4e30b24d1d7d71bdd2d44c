@@ -22,6 +22,30 @@
       },
       "revId": "151b7853e129bfb57f4e30b24d1d7d71bdd2d44c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7a7b1eb_c5663723",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-25T08:58:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f79b34aa_8fef4524",
+      "range": {
+        "startLine": 561,
+        "startChar": 64,
+        "endLine": 561,
+        "endChar": 65
+      },
+      "revId": "151b7853e129bfb57f4e30b24d1d7d71bdd2d44c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
