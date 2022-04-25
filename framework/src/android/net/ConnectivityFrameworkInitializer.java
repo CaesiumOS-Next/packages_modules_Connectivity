@@ -19,6 +19,7 @@ package android.net;
 import android.annotation.SystemApi;
 import android.app.SystemServiceRegistry;
 import android.content.Context;
+import android.net.connectivity.internal.DnsResolverServiceManager;
 
 /**
  * Class for performing registration for all core connectivity services.

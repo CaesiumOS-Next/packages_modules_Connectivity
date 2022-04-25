@@ -18,13 +18,13 @@ package android.net.util
 
 import android.content.Context
 import android.content.res.Resources
-import android.net.ConnectivityResources
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.MAX_TRANSPORT
 import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
 import android.net.NetworkCapabilities.TRANSPORT_ETHERNET
 import android.net.NetworkCapabilities.TRANSPORT_VPN
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
+import android.net.connectivity.internal.ConnectivityResources
 import android.os.Build
 import androidx.test.filters.SmallTest
 import com.android.internal.R
