@@ -38,6 +38,8 @@ import android.annotation.Nullable;
 import android.annotation.SystemApi;
 import android.net.NetworkStats.State;
 import android.net.NetworkStatsHistory.Entry;
+import android.net.connectivity.internal.NetworkIdentitySet;
+import android.net.connectivity.internal.NetworkStatsAccess;
 import android.os.Binder;
 import android.service.NetworkStatsCollectionKeyProto;
 import android.service.NetworkStatsCollectionProto;

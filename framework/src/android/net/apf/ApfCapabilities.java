@@ -21,7 +21,7 @@ import android.annotation.Nullable;
 import android.annotation.SystemApi;
 import android.content.Context;
 import android.content.res.Resources;
-import android.net.ConnectivityResources;
+import android.net.connectivity.internal.ConnectivityResources;
 import android.os.Parcel;
 import android.os.Parcelable;
 

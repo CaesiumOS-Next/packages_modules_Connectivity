@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.net;
+package android.net.connectivity.internal;
 
 import static android.content.pm.PackageManager.MATCH_SYSTEM_ONLY;
 
