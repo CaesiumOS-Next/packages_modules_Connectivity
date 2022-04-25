@@ -25,7 +25,6 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.content.res.Resources
 import android.net.ConnectivityManager
-import android.net.ConnectivityResources
 import android.net.IDnsResolver
 import android.net.INetd
 import android.net.LinkProperties
@@ -36,6 +35,7 @@ import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
 import android.net.NetworkRequest
 import android.net.TestNetworkStackClient
 import android.net.Uri
+import android.net.connectivity.internal.ConnectivityResources
 import android.net.metrics.IpConnectivityLog
 import android.net.util.MultinetworkPolicyTracker
 import android.os.ConditionVariable
