@@ -249,7 +249,10 @@ java_genrule {
     tool_files: [
         ":service-connectivity-pre-jarjar",
         ":service-connectivity-tiramisu-pre-jarjar",
+        ":framework-connectivity.stubs.module_lib",
+        ":framework-connectivity-t.stubs.module_lib",
         "jarjar-excludes.txt",
+        "jarjar-allowed-exceptions.txt",
     ],
     tools: [
         "jarjar-rules-generator",
@@ -260,7 +263,11 @@ java_genrule {
         "--jars $(location :service-connectivity-pre-jarjar) " +
         "$(location :service-connectivity-tiramisu-pre-jarjar) " +
         "--prefix android.net.connectivity " +
+        "--apistubs $(location :framework-connectivity.stubs.module_lib) " +
+        "$(location :framework-connectivity-t.stubs.module_lib) " +
         "--excludes $(location jarjar-excludes.txt) " +
+        "--disallow-jarjar-api-packages " +
+        "--disallow-exceptions $(location jarjar-allowed-exceptions.txt) " +
         "--dexdump $(location dexdump) " +
         "--output $(out)",
     visibility: ["//visibility:private"],
