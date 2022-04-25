@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package android.net;
+package android.net.connectivity.internal;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
+import android.net.InetAddresses;
 import android.os.Build;
 
 import androidx.test.filters.SmallTest;
