@@ -247,6 +247,7 @@ java_genrule {
             "$(location :framework-connectivity-t.stubs.module_lib) " +
          "--unsupportedapi $(locations :connectivity-hiddenapi-files) " +
          "--excludes $(location jarjar-excludes.txt) " +
+         "--disallow-jarjar-api-packages " +
          "--dexdump $(location dexdump) " +
          "--output $(out)",
     visibility: [

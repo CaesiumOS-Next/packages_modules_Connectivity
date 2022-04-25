@@ -1,0 +1,55 @@
+# DO NOT add exceptions here; newer internal util classes should not be in the android.net package
+# (which is reserved for classes that are platform API so do not need jarjar), but should be moved
+# to some internal package like android.net.connectivity.internal instead.
+
+# TODO: rename below aidl-generated classes from NetworkStack aidl interface.
+# Newer classes should use android.net.networkstack.aidl.
+android.net.DataStallReportParcelable(\$.+)?
+android.net.DhcpResultsParcelable(\$.+)?
+android.net.IIpMemoryStore(\$.+)?
+android.net.IIpMemoryStoreCallbacks(\$.+)?
+android.net.INetworkMonitor(\$.+)?
+android.net.INetworkMonitorCallbacks(\$.+)?
+android.net.INetworkStackConnector(\$.+)?
+android.net.INetworkStackStatusCallback(\$.+)?
+android.net.InformationElementParcelable(\$.+)?
+android.net.InitialConfigurationParcelable(\$.+)?
+android.net.InterfaceConfigurationParcel(\$.+)?
+android.net.IpMemoryStore(\$.+)?
+android.net.IpMemoryStoreClient(\$.+)?
+android.net.Layer2InformationParcelable(\$.+)?
+android.net.Layer2PacketParcelable(\$.+)?
+android.net.NattKeepalivePacketDataParcelable(\$.+)?
+android.net.NetworkMonitorManager(\$.+)?
+android.net.NetworkTestResultParcelable(\$.+)?
+android.net.PrivateDnsConfigParcel(\$.+)?
+android.net.ProvisioningConfigurationParcelable(\$.+)?
+android.net.ScanResultInfoParcelable(\$.+)?
+android.net.TcpKeepalivePacketDataParcelable(\$.+)?
+
+# TODO: rename below aidl-generated classes from netd aidl interface.
+# Newer classes should use android.net.netd.aidl.
+android.net.INetd(\$.+)?
+android.net.INetdUnsolicitedEventListener(\$.+)?
+android.net.MarkMaskParcel(\$.+)?
+android.net.NativeNetworkConfig(\$.+)?
+android.net.NativeNetworkType(\$.+)?
+android.net.NativeVpnType(\$.+)?
+android.net.RouteInfoParcel(\$.+)?
+android.net.TetherConfigParcel(\$.+)?
+android.net.TetherOffloadRuleParcel(\$.+)?
+android.net.TetherStatsParcel(\$.+)?
+android.net.UidRangeParcel(\$.+)?
+
+# TODO: rename below aidl-generated classes from DnsResolver aidl interface.
+# Newer classes should use android.net.resolv.aidl.
+android.net.IDnsResolver(\$.+)?
+android.net.ResolverHostsParcel(\$.+)?
+android.net.ResolverOptionsParcel(\$.+)?
+android.net.ResolverParamsParcel(\$.+)?
+
+# TODO: rename NetworkFactory, which is used by multiple modules as shared util.
+android.net.NetworkFactory(\$.+)?
+android.net.NetworkFactoryImpl(\$.+)?
+android.net.NetworkFactoryLegacyImpl(\$.+)?
+android.net.NetworkFactoryShim(\$.+)?
