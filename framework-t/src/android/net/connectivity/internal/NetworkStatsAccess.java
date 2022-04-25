@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.net;
+package android.net.connectivity.internal;
 
 import static android.Manifest.permission.READ_NETWORK_USAGE_HISTORY;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
