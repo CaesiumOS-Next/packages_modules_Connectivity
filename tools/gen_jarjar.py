@@ -51,6 +51,18 @@ def parse_arguments(argv):
              'multiple space-separated paths. '
              'Each file should contain one full-match regex per line. Empty lines or lines '
              'starting with "#" are ignored.')
+    parser.add_argument(
+        '--disallow-jarjar-api-packages', default=False, action='store_true',
+        help='Disallow jarjaring classes in the same packages as non-jarjared API classes. '
+             'Jarjaring only some classes in a package should be avoided as package-private '
+             'visibility breaks at runtime. The tool will fail if disallowed rules are found.')
+    parser.add_argument(
+        '--disallow-exceptions', nargs='*', default=[],
+        help='Path to file listing classes that are '
+             'allowed to be jarjared regardless of disallow-jarjar-packages. '
+             'The file should contain one full-match regex per line. '
+             'Empty lines or lines starting with "#" are ignored. '
+             'Can be repeated for multiple files.')
     return parser.parse_args(argv)
 
 
@@ -80,6 +92,10 @@ def _list_hiddenapi_classes(txt_file):
     return out
 
 
+def _get_package(clazz):
+    return clazz[:clazz.rfind('.')]
+
+
 def _get_toplevel_class(clazz):
     """Return the name of the toplevel (not an inner class) enclosing class of the given class."""
     if '$' not in clazz:
@@ -87,7 +103,7 @@ def _get_toplevel_class(clazz):
     return clazz.split('$')[0]
 
 
-def _get_excludes(path):
+def _get_regexes(path):
     out = []
     with open(path, 'r') as f:
         for line in f:
@@ -98,18 +114,37 @@ def _get_excludes(path):
     return out
 
 
+def _is_jarjar_allowed(clazz, disallowed_packages, disallow_exceptions):
+    pkg = _get_package(clazz)
+    if not pkg in disallowed_packages:
+        return True
+    if any(r.fullmatch(clazz) for r in disallow_exceptions):
+        return True
+    return False
+
+
 def make_jarjar_rules(args):
     excluded_classes = set()
     for apistubs_file in args.apistubs:
         excluded_classes.update(_list_toplevel_jar_classes(apistubs_file))
+
+    api_packages = set()
+    if args.disallow_jarjar_api_packages:
+        for clazz in excluded_classes:
+            api_packages.add(_get_package(clazz))
 
     for unsupportedapi_file in args.unsupportedapi:
         excluded_classes.update(_list_hiddenapi_classes(unsupportedapi_file))
 
     exclude_regexes = []
     for exclude_file in args.excludes:
-        exclude_regexes.extend(_get_excludes(exclude_file))
+        exclude_regexes.extend(_get_regexes(exclude_file))
 
+    disallow_exceptions = []
+    for exception_file in args.disallow_exceptions:
+        disallow_exceptions.extend(_get_regexes(exception_file))
+
+    disallowed_classes = []
     with open(args.output, 'w') as outfile:
         for jar in args.jars:
             jar_classes = _list_jar_classes(jar)
@@ -117,10 +152,18 @@ def make_jarjar_rules(args):
             for clazz in jar_classes:
                 if (_get_toplevel_class(clazz) not in excluded_classes and
                         not any(r.fullmatch(clazz) for r in exclude_regexes)):
+                    if not _is_jarjar_allowed(clazz, api_packages, disallow_exceptions):
+                        disallowed_classes.append(clazz)
                     outfile.write(f'rule {clazz} {args.prefix}.@0\n')
                     # Also include jarjar rules for unit tests of the class, so the package matches
                     outfile.write(f'rule {clazz}Test {args.prefix}.@0\n')
                     outfile.write(f'rule {clazz}Test$* {args.prefix}.@0\n')
+
+    if disallowed_classes:
+        raise Exception(f'Classes {disallowed_classes} are not allowed to be jarjared as per '
+                        'disallow-jarjar-api-packages. Consider moving internal utils to a '
+                        'different package '
+                        '(for example android.net -> android.net.connectivity.internal).')
 
 
 def _main():
