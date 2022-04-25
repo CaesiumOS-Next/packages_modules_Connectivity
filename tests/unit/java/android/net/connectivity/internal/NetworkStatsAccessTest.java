@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.net;
+package android.net.connectivity.internal;
 
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 

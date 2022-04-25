@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.net;
+package android.net.connectivity.internal;
 
 import static android.net.QosCallbackException.EX_TYPE_FILTER_NONE;
 import static android.net.QosCallbackException.EX_TYPE_FILTER_SOCKET_LOCAL_ADDRESS_CHANGED;
@@ -28,6 +28,10 @@ import static android.system.OsConstants.SOCK_STREAM;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.net.Network;
+import android.net.QosFilter;
+import android.net.QosSession;
+import android.net.QosSocketInfo;
 import android.os.ParcelFileDescriptor;
 import android.system.ErrnoException;
 import android.system.Os;
@@ -75,14 +79,14 @@ public class QosSocketFilter extends QosFilter {
     /**
      * Performs two validations:
      * 1. If the socket is not bound, then return
-     *    {@link QosCallbackException.EX_TYPE_FILTER_SOCKET_NOT_BOUND}. This is detected
+     *    {@link EX_TYPE_FILTER_SOCKET_NOT_BOUND}. This is detected
      *    by checking the local address on the filter which becomes null when the socket is no
      *    longer bound.
      * 2. In the scenario that the socket is now bound to a different local address, which can
      *    happen in the case of UDP, then
-     *    {@link QosCallbackException.EX_TYPE_FILTER_SOCKET_LOCAL_ADDRESS_CHANGED} is returned.
+     *    {@link EX_TYPE_FILTER_SOCKET_LOCAL_ADDRESS_CHANGED} is returned.
      * 3. In the scenario that the UDP socket changed remote address, then
-     *    {@link QosCallbackException.EX_TYPE_FILTER_SOCKET_REMOTE_ADDRESS_CHANGED} is returned.
+     *    {@link EX_TYPE_FILTER_SOCKET_REMOTE_ADDRESS_CHANGED} is returned.
      *
      * @return validation error code
      */
