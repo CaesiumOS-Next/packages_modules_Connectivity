@@ -18,11 +18,11 @@ package com.android.server.connectivity;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
-import android.net.IQosCallback;
 import android.net.Network;
 import android.net.QosCallbackException;
 import android.net.QosFilter;
 import android.net.QosSession;
+import android.net.connectivity.internal.IQosCallback;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;

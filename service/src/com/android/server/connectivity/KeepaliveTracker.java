@@ -17,7 +17,6 @@
 package com.android.server.connectivity;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
-import static android.net.NattSocketKeepalive.NATT_PORT;
 import static android.net.NetworkAgent.CMD_START_SOCKET_KEEPALIVE;
 import static android.net.SocketKeepalive.BINDER_DIED;
 import static android.net.SocketKeepalive.DATA_RECEIVED;
@@ -33,12 +32,11 @@ import static android.net.SocketKeepalive.MAX_INTERVAL_SEC;
 import static android.net.SocketKeepalive.MIN_INTERVAL_SEC;
 import static android.net.SocketKeepalive.NO_KEEPALIVE;
 import static android.net.SocketKeepalive.SUCCESS;
+import static android.net.connectivity.internal.NattSocketKeepalive.NATT_PORT;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.content.Context;
-import android.net.ConnectivityResources;
-import android.net.ISocketKeepaliveCallback;
 import android.net.InetAddresses;
 import android.net.InvalidPacketException;
 import android.net.KeepalivePacketData;
@@ -46,6 +44,8 @@ import android.net.NattKeepalivePacketData;
 import android.net.NetworkAgent;
 import android.net.SocketKeepalive.InvalidSocketException;
 import android.net.TcpKeepalivePacketData;
+import android.net.connectivity.internal.ConnectivityResources;
+import android.net.connectivity.internal.ISocketKeepaliveCallback;
 import android.net.util.KeepaliveUtils;
 import android.os.Binder;
 import android.os.Handler;

@@ -18,22 +18,22 @@ package android.net
 
 import android.net.InvalidPacketException.ERROR_INVALID_IP_ADDRESS
 import android.net.InvalidPacketException.ERROR_INVALID_PORT
-import android.net.NattSocketKeepalive.NATT_PORT
+import android.net.connectivity.internal.NattSocketKeepalive.NATT_PORT
 import android.os.Build
 import androidx.test.filters.SmallTest
 import androidx.test.runner.AndroidJUnit4
-import com.android.testutils.assertEqualBothWays
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
+import com.android.testutils.assertEqualBothWays
 import com.android.testutils.assertParcelingIsLossless
 import com.android.testutils.parcelingRoundTrip
-import java.net.InetAddress
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.fail
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.net.InetAddress
 
 @RunWith(AndroidJUnit4::class)
 @SmallTest

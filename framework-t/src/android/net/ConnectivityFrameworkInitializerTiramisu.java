@@ -20,9 +20,9 @@ import android.annotation.SystemApi;
 import android.app.SystemServiceRegistry;
 import android.app.usage.NetworkStatsManager;
 import android.content.Context;
+import android.net.connectivity.internal.nsd.MDnsManager;
 import android.net.mdns.aidl.IMDns;
 import android.net.nsd.INsdManager;
-import android.net.nsd.MDnsManager;
 import android.net.nsd.NsdManager;
 
 /**

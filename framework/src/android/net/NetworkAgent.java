@@ -25,6 +25,7 @@ import android.annotation.SystemApi;
 import android.annotation.TestApi;
 import android.compat.annotation.UnsupportedAppUsage;
 import android.content.Context;
+import android.net.connectivity.internal.QosFilterParcelable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.ConditionVariable;

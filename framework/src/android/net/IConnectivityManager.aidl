@@ -17,15 +17,9 @@
 package android.net;
 
 import android.app.PendingIntent;
-import android.net.ConnectionInfo;
 import android.net.ConnectivityDiagnosticsManager;
 import android.net.IConnectivityDiagnosticsCallback;
 import android.net.INetworkAgent;
-import android.net.IOnCompleteListener;
-import android.net.INetworkActivityListener;
-import android.net.INetworkOfferCallback;
-import android.net.IQosCallback;
-import android.net.ISocketKeepaliveCallback;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkAgentConfig;
@@ -40,6 +34,12 @@ import android.net.ProfileNetworkPreference;
 import android.net.ProxyInfo;
 import android.net.UidRange;
 import android.net.QosSocketInfo;
+import android.net.connectivity.internal.ConnectionInfo;
+import android.net.connectivity.internal.IOnCompleteListener;
+import android.net.connectivity.internal.INetworkActivityListener;
+import android.net.connectivity.internal.INetworkOfferCallback;
+import android.net.connectivity.internal.IQosCallback;
+import android.net.connectivity.internal.ISocketKeepaliveCallback;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Messenger;

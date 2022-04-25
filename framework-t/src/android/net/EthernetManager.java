@@ -29,6 +29,8 @@ import android.annotation.SystemService;
 import android.compat.annotation.UnsupportedAppUsage;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.connectivity.internal.INetworkInterfaceOutcomeReceiver;
+import android.net.connectivity.internal.ITetheredInterfaceCallback;
 import android.os.Build;
 import android.os.OutcomeReceiver;
 import android.os.RemoteException;

@@ -21,7 +21,7 @@ import android.annotation.IntRange;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.SystemApi;
-import android.net.internal.ISocketKeepaliveCallback;
+import android.net.connectivity.internal.ISocketKeepaliveCallback;
 import android.os.Binder;
 import android.os.ParcelFileDescriptor;
 import android.os.RemoteException;

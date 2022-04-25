@@ -17,9 +17,9 @@
 package com.android.server.connectivity;
 
 import android.annotation.NonNull;
-import android.net.INetworkOfferCallback;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
+import android.net.connectivity.internal.INetworkOfferCallback;
 import android.os.RemoteException;
 
 import java.util.HashSet;
