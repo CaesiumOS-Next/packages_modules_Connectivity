@@ -54,7 +54,6 @@ import com.android.net.module.util.ArrayTrackRecord
 import com.android.net.module.util.TrackRecord
 import com.android.networkstack.apishim.ConstantsShim
 import com.android.networkstack.apishim.NsdShimImpl
-import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.SC_V2
 import com.android.testutils.TestableNetworkAgent
 import com.android.testutils.TestableNetworkCallback
@@ -65,7 +64,6 @@ import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertTrue
 import org.junit.Assume.assumeTrue
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.net.ServerSocket
@@ -89,10 +87,6 @@ private val nsdShim = NsdShimImpl.newInstance()
 @AppModeFull(reason = "Socket cannot bind in instant app mode")
 @RunWith(AndroidJUnit4::class)
 class NsdManagerTest {
-    // NsdManager is not updatable before S, so tests do not need to be backwards compatible
-    @get:Rule
-    val ignoreRule = DevSdkIgnoreRule(ignoreClassUpTo = SC_V2)
-
     private val context by lazy { InstrumentationRegistry.getInstrumentation().context }
     private val nsdManager by lazy { context.getSystemService(NsdManager::class.java) }
 
