@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7231d75_f060adaf",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-04-25T18:35:41Z",
+      "side": 1,
+      "message": "nit: should this be a comment instead of a javadoc ?\n\n  // comment line 1\n  // comment line 2",
+      "range": {
+        "startLine": 418,
+        "startChar": 5,
+        "endLine": 418,
+        "endChar": 7
+      },
+      "revId": "b810de364a5953046ed9765de9da03076e485ce6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
