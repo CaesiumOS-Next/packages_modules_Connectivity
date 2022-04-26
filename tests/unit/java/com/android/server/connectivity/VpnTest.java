@@ -30,6 +30,7 @@ import static android.net.INetd.IF_STATE_UP;
 import static android.os.UserHandle.PER_USER_RANGE;
 
 import static com.android.modules.utils.build.SdkLevel.isAtLeastT;
+import static com.android.server.connectivity.Vpn.VPN_APP_EXCLUDED;
 import static com.android.testutils.MiscAsserts.assertThrows;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -83,8 +84,11 @@ import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.LocalSocket;
 import android.net.Network;
+import android.net.NetworkAgent;
+import android.net.NetworkAgentConfig;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo.DetailedState;
+import android.net.NetworkProvider;
 import android.net.RouteInfo;
 import android.net.UidRangeParcel;
 import android.net.VpnManager;
@@ -96,6 +100,7 @@ import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.ConditionVariable;
 import android.os.INetworkManagementService;
+import android.os.Looper;
 import android.os.ParcelFileDescriptor;
 import android.os.Process;
 import android.os.UserHandle;
@@ -113,6 +118,7 @@ import com.android.internal.R;
 import com.android.internal.net.LegacyVpnInfo;
 import com.android.internal.net.VpnConfig;
 import com.android.internal.net.VpnProfile;
+import com.android.internal.util.HexDump;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.server.IpSecService;
 import com.android.testutils.DevSdkIgnoreRule;
@@ -188,6 +194,9 @@ public class VpnTest {
      *  - One pair of packages have consecutive UIDs.
      */
     static final String[] PKGS = {"com.example", "org.example", "net.example", "web.vpn"};
+    static final String PKGS_BYTES =
+            "000B636F6D2E6578616D706C65000B6F72672E6578616D706C65000B6E657"
+                + "42E6578616D706C6500077765622E76706E";
     static final int[] PKG_UIDS = {66, 77, 78, 400};
 
     // Mock packages
@@ -694,6 +703,47 @@ public class VpnTest {
             fail("Expected exception due to missing feature");
         } catch (UnsupportedOperationException expected) {
         }
+    }
+
+    private Vpn prepareVpnForVerifyAppExclusionList() throws Exception {
+        assumeTrue(isAtLeastT());
+        final Vpn vpn = createVpnAndSetupUidChecks(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
+        when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
+                .thenReturn(mVpnProfile.encode());
+        when(mVpnProfileStore.get(VPN_APP_EXCLUDED + mVpnProfile.key))
+                .thenReturn(HexDump.hexStringToByteArray(PKGS_BYTES));
+
+        vpn.startVpnProfile(TEST_VPN_PKG);
+        verify(mVpnProfileStore).get(eq(vpn.getProfileNameForPackage(TEST_VPN_PKG)));
+        vpn.mNetworkAgent = new NetworkAgent(mContext, Looper.getMainLooper(), TAG,
+                new NetworkCapabilities.Builder().build(), new LinkProperties(), 10 /* score */,
+                new NetworkAgentConfig.Builder().build(),
+                new NetworkProvider(mContext, Looper.getMainLooper(), TAG)) {};
+        return vpn;
+    }
+
+    @Test
+    public void testSetAndGetAppExclusionList() throws Exception {
+        final Vpn vpn = prepareVpnForVerifyAppExclusionList();
+        vpn.setAppExclusionList(TEST_VPN_PKG, Arrays.asList(PKGS));
+        verify(mVpnProfileStore)
+                .put(eq(VPN_APP_EXCLUDED + mVpnProfile.key),
+                     eq(HexDump.hexStringToByteArray(PKGS_BYTES)));
+        assertEquals(vpn.createUserAndRestrictedProfilesRanges(
+                primaryUser.id, null, Arrays.asList(PKGS)),
+                vpn.mNetworkCapabilities.getUids());
+        assertEquals(Arrays.asList(PKGS), vpn.getAppExclusionList(TEST_VPN_PKG));
+    }
+
+    @Test
+    public void testSetAndGetAppExclusionListRestrictedUser() throws Exception {
+        final Vpn vpn = prepareVpnForVerifyAppExclusionList();
+        // Mock it to restricted profile
+        when(mUserManager.getUserInfo(anyInt())).thenReturn(restrictedProfileA);
+        // Restricted users cannot configure VPNs
+        assertThrows(SecurityException.class,
+                () -> vpn.setAppExclusionList(TEST_VPN_PKG, new ArrayList<>()));
+        assertThrows(SecurityException.class, () -> vpn.getAppExclusionList(TEST_VPN_PKG));
     }
 
     @Test
