@@ -41,6 +41,7 @@ import static com.android.testutils.MiscAsserts.assertThrows;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.anyBoolean;
@@ -481,7 +482,6 @@ public class ConnectivityManagerTest {
         System.runFinalization();
         System.gc();
 
-        // TODO: fix memeory leak then assertNull here.
-        assertNotNull(ref.get());
+        assertNull(ref.get());
     }
 }
