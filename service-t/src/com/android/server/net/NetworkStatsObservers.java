@@ -43,6 +43,7 @@ import android.util.SparseArray;
 
 import com.android.internal.annotations.VisibleForTesting;
 
+import java.lang.ref.WeakReference;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -234,7 +235,7 @@ class NetworkStatsObservers {
      * It will notice when the calling process dies so we can self-expire.
      */
     private abstract static class RequestInfo implements IBinder.DeathRecipient {
-        private final NetworkStatsObservers mStatsObserver;
+        private final WeakReference<NetworkStatsObservers> mStatsObserver;
         protected final DataUsageRequest mRequest;
         private final IUsageCallback mCallback;
         protected final int mCallingUid;
@@ -245,7 +246,7 @@ class NetworkStatsObservers {
         RequestInfo(NetworkStatsObservers statsObserver, DataUsageRequest request,
                 IUsageCallback callback, int callingUid,
                     @NetworkStatsAccess.Level int accessLevel) {
-            mStatsObserver = statsObserver;
+            mStatsObserver = new WeakReference<>(statsObserver);
             mRequest = request;
             mCallback = callback;
             mCallingUid = callingUid;
@@ -263,7 +264,11 @@ class NetworkStatsObservers {
             if (LOGV) {
                 Log.v(TAG, "RequestInfo binderDied(" + mRequest + ", " + mCallback + ")");
             }
-            mStatsObserver.unregister(mRequest, Process.SYSTEM_UID);
+            final NetworkStatsObservers parent =
+                    mStatsObserver != null ? mStatsObserver.get() : null;
+            if (parent != null) {
+                parent.unregister(mRequest, Process.SYSTEM_UID);
+            }
             callCallback(NetworkStatsManager.CALLBACK_RELEASED);
         }
 

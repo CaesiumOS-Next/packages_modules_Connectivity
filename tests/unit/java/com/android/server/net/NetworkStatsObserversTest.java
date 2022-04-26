@@ -32,6 +32,8 @@ import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
@@ -64,6 +66,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.lang.ref.WeakReference;
 import java.util.Objects;
 
 /**
@@ -444,6 +447,46 @@ public class NetworkStatsObserversTest {
         mStatsObservers.updateStats(
                 xtSnapshot, uidSnapshot, mActiveIfaces, mActiveUidIfaces, TEST_START);
         waitForObserverToIdle();
+    }
+
+    private void forceGc() {
+        System.gc();
+        System.runFinalization();
+        System.gc();
+    }
+
+    @Test
+    public void testMemoryLeak() throws Exception {
+        assertNotNull(mStatsObservers);
+        final WeakReference<NetworkStatsObservers> weakObservers =
+                new WeakReference(mStatsObservers);
+        assertNotNull(weakObservers.get());
+        final DataUsageRequest inputRequest = new DataUsageRequest(
+                DataUsageRequest.REQUEST_ID_UNSET, sTemplateWifi, THRESHOLD_BYTES);
+
+        // Register the observers to make sure the service sees it.
+        DataUsageRequest request = mStatsObservers.register(mContext, inputRequest, mUsageCallback,
+                Process.SYSTEM_UID, NetworkStatsAccess.Level.DEVICE);
+        assertTrue(request.requestId > 0);
+        assertTrue(Objects.equals(sTemplateWifi, request.template));
+        assertEquals(THRESHOLD_BYTES, request.thresholdInBytes);
+        assertNotNull(weakObservers.get());
+
+        // Unregister and clean up the references of the observers.
+        mStatsObservers.unregister(request, Process.SYSTEM_UID);
+        waitForObserverToIdle();
+        mStatsObservers = null;
+
+        final int attempts = 100;
+        final long waitIntervalMs = 50;
+        for (int i = 0; i < attempts; i++) {
+            forceGc();
+            if (weakObservers.get() == null) break;
+
+            Thread.sleep(waitIntervalMs);
+        }
+        assertNull("NetworkStatsObservers weak reference still not null after " + attempts
+                + " attempts", weakObservers.get());
     }
 
     private void waitForObserverToIdle() {
