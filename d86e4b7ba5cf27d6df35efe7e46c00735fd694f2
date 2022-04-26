@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07409a4d_d526d50d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-26T23:14:11Z",
+      "side": 1,
+      "message": "Yes, I see what you mean now and agreed. \n\nNew patch uploaded which should hopefully address this and thanks for the quick review.",
+      "parentUuid": "1a753642_1527119c",
+      "revId": "d86e4b7ba5cf27d6df35efe7e46c00735fd694f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77cfec89_9fa0398f",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fef8ed8_e997eb15",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-26T23:14:11Z",
+      "side": 1,
+      "message": "Yes, absolutely. I added conditions to fail if a duplicate is returned or an interface that was not in the original list as you suggested. Feel free to reopen this if you\u0027d rather I implement it with the list comparison as you suggested originally.",
+      "parentUuid": "77cfec89_9fa0398f",
+      "range": {
+        "startLine": 207,
+        "startChar": 21,
+        "endLine": 207,
+        "endChar": 40
+      },
+      "revId": "d86e4b7ba5cf27d6df35efe7e46c00735fd694f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a533ec93_38656e89",
@@ -54,6 +96,30 @@
       "writtenOn": "2022-04-26T04:05:58Z",
       "side": 1,
       "message": "If you put this after the call to addInterfaceStateListener, then on a device without physical Ethernet interfaces, the test will no longer be checking that when a callback is registered it sends callbacks for existing interfaces.",
+      "range": {
+        "startLine": 209,
+        "startChar": 8,
+        "endLine": 209,
+        "endChar": 37
+      },
+      "revId": "d86e4b7ba5cf27d6df35efe7e46c00735fd694f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ba1c991_27a141b7",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-26T23:14:11Z",
+      "side": 1,
+      "message": "Ok yes, thanks for confirming. I initially wondered why the assertions were different and guessed the above last night.\n\nI\u0027ve updated the code to take this into account. If interfaces already exist, we\u0027ll validate the expected ones are returned. If not, we\u0027ll create an interface as what was originally done and validate as before.",
+      "parentUuid": "a533ec93_38656e89",
       "range": {
         "startLine": 209,
         "startChar": 8,
