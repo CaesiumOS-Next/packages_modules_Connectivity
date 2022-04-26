@@ -41,6 +41,7 @@ import static com.android.testutils.MiscAsserts.assertThrows;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.anyBoolean;
@@ -474,14 +475,20 @@ public class ConnectivityManagerTest {
     }
 
     @Test
-    public void testConnectivityManagerDoesNotLeakContext() {
+    public void testConnectivityManagerDoesNotLeakContext() throws Exception {
         final WeakReference<Context> ref = makeConnectivityManagerAndReturnContext();
 
-        System.gc();
-        System.runFinalization();
-        System.gc();
+        final int attempts = 100;
+        final long waitIntervalMs = 50;
+        for (int i = 0; i < attempts; i++) {
+            System.gc();
+            System.runFinalization();
+            System.gc();
+            if (ref.get() == null) break;
 
-        // TODO: fix memeory leak then assertNull here.
-        assertNotNull(ref.get());
+            Thread.sleep(waitIntervalMs);
+        }
+        assertNull("ConnectivityManager weak reference still not null after " + attempts
+                    + " attempts", ref.get());
     }
 }
