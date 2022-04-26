@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a753642_1527119c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-26T04:05:58Z",
+      "side": 1,
+      "message": "-1 because I think this reduces test coverage.",
+      "revId": "d86e4b7ba5cf27d6df35efe7e46c00735fd694f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77cfec89_9fa0398f",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-26T04:05:58Z",
+      "side": 1,
+      "message": "Can we do better here? At least check that the callback returns all the existing interfaces (in whatever order, and regardless of whether they are up or down)? You could look at the return values of pollforNextCallback, put the interface into a list (to ensure that if there are duplicates the test will fail), and check that the list of interfaces seen by the callback is the same (minus ordering) as the list of interfaces returned by getInterfaceList.",
+      "range": {
+        "startLine": 207,
+        "startChar": 21,
+        "endLine": 207,
+        "endChar": 40
+      },
+      "revId": "d86e4b7ba5cf27d6df35efe7e46c00735fd694f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a533ec93_38656e89",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-26T04:05:58Z",
+      "side": 1,
+      "message": "If you put this after the call to addInterfaceStateListener, then on a device without physical Ethernet interfaces, the test will no longer be checking that when a callback is registered it sends callbacks for existing interfaces.",
+      "range": {
+        "startLine": 209,
+        "startChar": 8,
+        "endLine": 209,
+        "endChar": 37
+      },
+      "revId": "d86e4b7ba5cf27d6df35efe7e46c00735fd694f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
