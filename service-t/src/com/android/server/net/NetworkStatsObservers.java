@@ -39,10 +39,13 @@ import android.os.Process;
 import android.os.RemoteException;
 import android.util.ArrayMap;
 import android.util.Log;
+import android.util.Pair;
 import android.util.SparseArray;
 
 import com.android.internal.annotations.VisibleForTesting;
 
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -61,6 +64,7 @@ class NetworkStatsObservers {
     // All access to this map must be done from the handler thread.
     // indexed by DataUsageRequest#requestId
     private final SparseArray<RequestInfo> mDataUsageRequests = new SparseArray<>();
+    private final ArrayList<WeakReference<RequestInfo>> mRemovedDataUsageRequests = new ArrayList<>();
 
     // Sequence number of DataUsageRequests
     private final AtomicInteger mNextDataUsageRequestId = new AtomicInteger();
@@ -182,8 +186,17 @@ class NetworkStatsObservers {
 
         if (LOGV) Log.v(TAG, "Unregistering " + request);
         mDataUsageRequests.remove(request.requestId);
+        mRemovedDataUsageRequests.add(new WeakReference<>(requestInfo));
         requestInfo.unlinkDeathRecipient();
         requestInfo.callCallback(NetworkStatsManager.CALLBACK_RELEASED);
+    }
+
+    public Pair<Integer, Integer> getRemovedRequestInfoCount() {
+        int stillThereCount = 0;
+        for (WeakReference<RequestInfo> ref : mRemovedDataUsageRequests) {
+            if (ref.get() != null) stillThereCount++;
+        }
+        return new Pair<>(stillThereCount, mRemovedDataUsageRequests.size());
     }
 
     private void handleUpdateStats(StatsContext statsContext) {

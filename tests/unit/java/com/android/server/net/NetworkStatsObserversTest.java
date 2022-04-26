@@ -32,6 +32,9 @@ import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
@@ -50,6 +53,8 @@ import android.os.Process;
 import android.os.UserHandle;
 import android.telephony.TelephonyManager;
 import android.util.ArrayMap;
+import android.util.Log;
+import android.util.Pair;
 
 import androidx.test.filters.SmallTest;
 
@@ -64,6 +69,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.lang.ref.WeakReference;
 import java.util.Objects;
 
 /**
@@ -444,6 +450,47 @@ public class NetworkStatsObserversTest {
         mStatsObservers.updateStats(
                 xtSnapshot, uidSnapshot, mActiveIfaces, mActiveUidIfaces, TEST_START);
         waitForObserverToIdle();
+    }
+
+    private void forceGc() {
+        System.gc();
+        System.runFinalization();
+        System.gc();
+    }
+
+    @Test
+    public void testRequestInfoMemoryLeak() throws Exception {
+        final DataUsageRequest inputRequest = new DataUsageRequest(
+                DataUsageRequest.REQUEST_ID_UNSET, sTemplateWifi, THRESHOLD_BYTES);
+
+        // Register a request to the observers to make a RequestInfo which is also referencing
+        // the observers.
+        for (int i = 0; i < 100; i++) {
+            DataUsageRequest request = mStatsObservers.register(mContext, inputRequest,
+                    mUsageCallback, 1234,
+                    Process.SYSTEM_UID, "unittest", NetworkStatsAccess.Level.DEVICE);
+            assertTrue(request.requestId > 0);
+            assertTrue(Objects.equals(sTemplateWifi, request.template));
+            assertEquals(THRESHOLD_BYTES, request.thresholdInBytes);
+
+            // Unregister and clean up the references of the observers.
+            mStatsObservers.unregister(request, Process.SYSTEM_UID);
+        }
+        waitForObserverToIdle();
+
+        final int attempts = 100;
+        final long waitIntervalMs = 50;
+        for (int i = 0; i < attempts; i++) {
+            forceGc();
+            Pair<Integer, Integer> info = mStatsObservers.getRemovedRequestInfoCount();
+            Log.d("JUNYU", "attempt=" + i + " info=" + info);
+            if (info.first == 0) break;
+
+            Thread.sleep(waitIntervalMs);
+        }
+        Pair<Integer, Integer> info = mStatsObservers.getRemovedRequestInfoCount();
+        assertEquals("Cannot GC info " + info.first + "/" + info.second,
+                Integer.valueOf(0), info.first);
     }
 
     private void waitForObserverToIdle() {
