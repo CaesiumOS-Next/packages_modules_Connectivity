@@ -50,6 +50,7 @@ import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.after;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
@@ -74,6 +75,8 @@ import androidx.test.filters.SmallTest;
 
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
+
+import java.lang.ref.WeakReference;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -460,5 +463,25 @@ public class ConnectivityManagerTest {
             fail("expected exception of type " + throwableType + ", but was " + t.getClass());
         }
         fail("expected exception of type " + throwableType);
+    }
+
+    WeakReference<Context> makeConnectivityManagerAndReturnContext() {
+        final Context c = mock(Context.class);
+        doReturn(mock(Context.class)).when(c).getApplicationContext();
+        new ConnectivityManager(c, mService);
+
+        return new WeakReference<>(c);
+    }
+
+    @Test
+    public void testConnectivityManagerDoesNotLeakContext() {
+        final WeakReference<Context> ref = makeConnectivityManagerAndReturnContext();
+
+        System.gc();
+        System.runFinalization();
+        System.gc();
+
+        // TODO: fix memeory leak then assertNull here.
+        assertNotNull(ref.get());
     }
 }
