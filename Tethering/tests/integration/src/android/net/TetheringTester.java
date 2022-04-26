@@ -75,7 +75,7 @@ public final class TetheringTester {
     private static final String TAG = TetheringTester.class.getSimpleName();
     private static final int PACKET_READ_TIMEOUT_MS = 100;
     private static final int DHCP_DISCOVER_ATTEMPTS = 10;
-    private static final int READ_RA_ATTEMPTS = 10;
+    private static final int READ_RA_ATTEMPTS = 50;
     private static final byte[] DHCP_REQUESTED_PARAMS = new byte[] {
             DhcpPacket.DHCP_SUBNET_MASK,
             DhcpPacket.DHCP_ROUTER,
@@ -122,7 +122,12 @@ public final class TetheringTester {
             routerMacAddr = getRouterMacAddressFromArp(ipv4Addr, macAddr,
                     dhcpResults.serverAddress);
 
-            ipv6Addr = hasIpv6 ? runSlaac(macAddr, routerMacAddr) : null;
+			if (hasIpv6) {
+				waitForIpv6Ready();
+				ipv6Addr = runSlaac(macAddr, routerMacAddr);
+			} else {
+				ipv6Addr = null;
+			}
         }
     }
 
@@ -247,6 +252,27 @@ public final class TetheringTester {
         return null;
     }
 
+	private void waitForIpv6Ready() throws Exception {
+        Log.d(TAG, "Waiting IPv6 ready via RA");
+        for (int i = 0; i < READ_RA_ATTEMPTS; i++) {
+            final byte[] raPacket = getNextMatchedPacket((p) -> {
+                ByteBuffer buf = ByteBuffer.wrap(p);
+                final EthernetHeader ethHdr = Struct.parse(EthernetHeader.class, buf);
+                if (ethHdr.etherType != ETHER_TYPE_IPV6) return false;
+
+                if (Ipv6Utils.isIcmpv6Type(buf, false /* hasEthernetHeader */,
+                        ICMPV6_ROUTER_ADVERTISEMENT)) {
+                    return true;
+                }
+                return false;
+            });
+
+            if (raPacket != null) return;
+        }
+
+        fail("Could get RA broadcast packet after " + READ_RA_ATTEMPTS + " attempts");
+    }
+
     private List<PrefixInformationOption> getRaPrefixOptions(byte[] packet) {
         ByteBuffer buf = ByteBuffer.wrap(packet);
         final EthernetHeader ethHdr = Struct.parse(EthernetHeader.class, buf);
@@ -288,6 +314,10 @@ public final class TetheringTester {
         final byte[] raPacket = getNextMatchedPacket((p) -> {
             return isIcmpv6Type(p, true /* hasEthernetHeader */, ICMPV6_ROUTER_ADVERTISEMENT);
         });
+
+		if (raPacket == null) {
+			fail("Could not get ra for prefix options");
+		}
         final List<PrefixInformationOption> options = getRaPrefixOptions(raPacket);
 
         for (PrefixInformationOption pio : options) {
