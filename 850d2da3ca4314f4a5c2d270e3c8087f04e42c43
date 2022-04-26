@@ -33,6 +33,24 @@
       "message": "Could you add a test ? The test should fail without the fix and pass with the fix. You could reference below link for forcing GC.\n\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java;l\u003d520?q\u003dtetheringservicetest.java\u0026sq\u003dpackage:aosp-master",
       "revId": "850d2da3ca4314f4a5c2d270e3c8087f04e42c43",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bf43fe2_a68245fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-04-26T02:56:50Z",
+      "side": 1,
+      "message": "Done, thanks for the advise.",
+      "parentUuid": "6a7fff47_a539bc07",
+      "revId": "850d2da3ca4314f4a5c2d270e3c8087f04e42c43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
