@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe707c48_b7ab6776",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-26T03:18:12Z",
+      "side": 1,
+      "message": "LGTM, only nit.",
+      "revId": "d6e87d6cc988e4497437c90de02e9a95cc2cb1fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb614121_66e6050c",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsObservers.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-26T03:18:12Z",
+      "side": 1,
+      "message": "nit: you don\u0027t need to check \"mStatsObserver !\u003d null\", it should never be null.\n\nfinal NetworkStatsObservers parent \u003d mStatsObserver.get();",
+      "range": {
+        "startLine": 267,
+        "startChar": 12,
+        "endLine": 268,
+        "endChar": 73
+      },
+      "revId": "d6e87d6cc988e4497437c90de02e9a95cc2cb1fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
