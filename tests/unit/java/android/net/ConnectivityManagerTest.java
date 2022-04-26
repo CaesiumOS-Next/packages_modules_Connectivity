@@ -50,6 +50,7 @@ import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.after;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
@@ -81,6 +82,8 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.lang.ref.WeakReference;
 
 @RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
@@ -460,5 +463,39 @@ public class ConnectivityManagerTest {
             fail("expected exception of type " + throwableType + ", but was " + t.getClass());
         }
         fail("expected exception of type " + throwableType);
+    }
+
+    private WeakReference<Context> makeConnectivityManagerAndReturnContext() {
+        final Context c = mock(Context.class);
+        doReturn(mock(Context.class)).when(c).getApplicationContext();
+        new ConnectivityManager(c, mService);
+
+        return new WeakReference<>(c);
+    }
+
+    private void forceGC() {
+        // First GC ensures that objects are collected for finalization, then second GC ensures
+        // they're garbage-collected after being finalized.
+        System.gc();
+        System.runFinalization();
+        System.gc();
+    }
+
+    @Test
+    public void testConnectivityManagerDoesNotLeakContext() throws Exception {
+        final WeakReference<Context> ref = makeConnectivityManagerAndReturnContext();
+
+        final int attempts = 100;
+        final long waitIntervalMs = 50;
+        for (int i = 0; i < attempts; i++) {
+            forceGC();
+            if (ref.get() == null) break;
+
+            Thread.sleep(waitIntervalMs);
+        }
+
+        // TODO: fix memory leak then assertNull here.
+        assertNotNull("Couldn't find the Context leak in ConnectivityManager after " + attempts
+                + " attempts", ref.get());
     }
 }
