@@ -46,6 +46,30 @@
       },
       "revId": "444c4783a49b522bbcef8a583ff080d90cb88720",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4db4b5ec_175e10fe",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1187,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-26T06:35:13Z",
+      "side": 1,
+      "message": "All the clat maintain the bpf rules in the same pool, so dumping cellular clat bpf rules per Xlat464 would dumping duplicate bpf rules. Per talk offline: given that clat bpf rules is not too much (two rules per interface) and usually we just have one or two clat, maybe just add a TODO and keep the code as it is.",
+      "parentUuid": "ebf699cb_cb3a9849",
+      "range": {
+        "startLine": 1187,
+        "startChar": 8,
+        "endLine": 1187,
+        "endChar": 23
+      },
+      "revId": "444c4783a49b522bbcef8a583ff080d90cb88720",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
