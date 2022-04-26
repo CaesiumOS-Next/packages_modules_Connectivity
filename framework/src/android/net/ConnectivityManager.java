@@ -5646,7 +5646,6 @@ public class ConnectivityManager {
      * @param preference the preference for this profile.
      * @param executor an executor to execute the listener on. Optional if listener is null.
      * @param listener an optional listener to listen for completion of the operation.
-     * @throws IllegalArgumentException if {@code profile} is not a valid user profile.
      * @throws SecurityException if missing the appropriate permissions.
      * @deprecated Use {@link #setProfileNetworkPreferences(UserHandle, List, Executor, Runnable)}
      * instead as it provides a more flexible API with more options.
@@ -5692,7 +5691,6 @@ public class ConnectivityManager {
      *        provided profile.
      * @param executor an executor to execute the listener on. Optional if listener is null.
      * @param listener an optional listener to listen for completion of the operation.
-     * @throws IllegalArgumentException if {@code profile} is not a valid user profile.
      * @throws SecurityException if missing the appropriate permissions.
      * @hide
      */

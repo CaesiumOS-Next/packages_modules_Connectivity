@@ -14721,20 +14721,6 @@ public class ConnectivityServiceTest {
                         null, null));
     }
 
-    /**
-     * Make sure requests for per-profile default networking for a non-work profile are
-     * rejected
-     */
-    @Test
-    public void testProfileNetworkPrefWrongProfile() throws Exception {
-        final UserHandle testHandle = UserHandle.of(TEST_WORK_PROFILE_USER_ID);
-        mServiceContext.setWorkProfile(testHandle, false);
-        assertThrows("Should not be able to set a user pref for a non-work profile",
-                IllegalArgumentException.class , () ->
-                        mCm.setProfileNetworkPreference(testHandle,
-                                PROFILE_NETWORK_PREFERENCE_ENTERPRISE, null, null));
-    }
-
     @Test
     public void testSubIdsClearedWithoutNetworkFactoryPermission() throws Exception {
         mServiceContext.setPermission(NETWORK_FACTORY, PERMISSION_DENIED);
