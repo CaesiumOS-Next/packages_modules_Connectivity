@@ -136,6 +136,11 @@ class NsdManagerTest {
                     nextEvent.javaClass.simpleName)
             return nextEvent
         }
+
+        inline fun assertNoCallback(timeoutMs: Long = TIMEOUT_MS) {
+            val cb = nextEvents.poll(timeoutMs)
+            if (null != cb) fail("Expected no callback but got $cb")
+        }
     }
 
     private class NsdRegistrationRecord : RegistrationListener,
@@ -553,6 +558,51 @@ class NsdManagerTest {
             nsdManager.unregisterService(registrationRecord)
         } cleanup {
             registrationRecord.expectCallback<ServiceUnregistered>()
+        }
+    }
+
+    @Test
+    fun testNsdManager_RegisterOnNetwork() {
+        // This test requires shims supporting T+ APIs (NsdServiceInfo.network)
+        assumeTrue(ConstantsShim.VERSION > SC_V2)
+
+        val si = NsdServiceInfo()
+        si.serviceType = SERVICE_TYPE
+        si.serviceName = this.serviceName
+        si.network = testNetwork1.network
+        si.port = 12345 // Test won't try to connect so port does not matter
+
+        // Register service on testNetwork1
+        val registrationRecord = NsdRegistrationRecord()
+        registerService(registrationRecord, si)
+
+        tryTest {
+            // Discover service on testNetwork1.
+            val discoveryRecord = NsdDiscoveryRecord()
+            nsdShim.discoverServices(nsdManager, SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD,
+                testNetwork1.network, Executor { it.run() }, discoveryRecord)
+            // Expect that service is found on testNetwork1
+            val foundInfo = discoveryRecord.waitForServiceDiscovered(
+                serviceName, testNetwork1.network)
+            assertEquals(testNetwork1.network, nsdShim.getNetwork(foundInfo))
+
+            // Discover service on testNetwork2.
+            val discoveryRecord2 = NsdDiscoveryRecord()
+            nsdShim.discoverServices(nsdManager, SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD,
+                testNetwork2.network, Executor { it.run() }, discoveryRecord2)
+            // Expect that discovery is started then no other callbacks.
+            discoveryRecord2.expectCallback<DiscoveryStarted>()
+            discoveryRecord2.assertNoCallback()
+
+            // Discover service on all networks (not specify any network).
+            val discoveryRecord3 = NsdDiscoveryRecord()
+            nsdManager.discoverServices(SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, discoveryRecord3)
+            // Expect that service is found on testNetwork1
+            val foundInfo3 = discoveryRecord3.waitForServiceDiscovered(
+                    serviceName, testNetwork1.network)
+            assertEquals(testNetwork1.network, nsdShim.getNetwork(foundInfo3))
+        } cleanup {
+            nsdManager.unregisterService(registrationRecord)
         }
     }
 
