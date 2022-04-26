@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fae48fa4_1477b0ac",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-26T01:44:43Z",
+      "side": 1,
+      "message": "Nit for readability: Suggest moving right after the intent assignment (l.989), and then adding a space after the assignment of these two local variables.\n\nThat will allow us to be able to visibly see what is \"just\" assignment, and what is actually testing things in logical blocks.",
+      "range": {
+        "startLine": 991,
+        "startChar": 0,
+        "endLine": 991,
+        "endChar": 66
+      },
+      "revId": "0772c169b59e0536a68486a921f9144c5732faff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
