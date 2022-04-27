@@ -22,6 +22,30 @@
       },
       "revId": "37a892323d810f21e777f46783f1ec729c91f067",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9093be1_779718ce",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-04-27T23:56:10Z",
+      "side": 1,
+      "message": "configuration.value() should be either 0 or 1 and thus in range...\nI don\u0027t think any other value is ever written...\n\ncan you figure out from the bug what the value actually was?",
+      "parentUuid": "ae0d2bf0_4d2c4f23",
+      "range": {
+        "startLine": 208,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 69
+      },
+      "revId": "37a892323d810f21e777f46783f1ec729c91f067",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
