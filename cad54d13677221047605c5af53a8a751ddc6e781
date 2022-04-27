@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a01ef55_15f39fcf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-04-27T05:20:20Z",
+      "side": 1,
+      "message": "verified:\n1. ping 8.8.8.8 on ipv6 only network (wifi googleguest)\n2. there is no clat avc after clatd started",
+      "revId": "cad54d13677221047605c5af53a8a751ddc6e781",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
