@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "198f522f_adbd9798",
+        "filename": "framework-t/src/android/net/EthernetManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-27T09:36:22Z",
+      "side": 1,
+      "message": "Using Object is not great here - you wouldn\u0027t want to put something like Long or String or LinkProperties in this map, right? It might be better to have two maps?",
+      "range": {
+        "startLine": 66,
+        "startChar": 36,
+        "endLine": 66,
+        "endChar": 42
+      },
+      "revId": "478088c42e28e3f0d5897203c4b243b5cb2a85a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c908d7e_7419626b",
+        "filename": "framework-t/src/android/net/EthernetManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-27T09:36:22Z",
+      "side": 1,
+      "message": "If the GuardedBy(\"mListenerLock\") annotation is correct, then that means that any code that reads or writes this map must have the lock held. In that case, the map does not need to be a thread-safe object like ConcurrentHashMap, it can simply be a normal HashMap.",
+      "range": {
+        "startLine": 66,
+        "startChar": 18,
+        "endLine": 66,
+        "endChar": 35
+      },
+      "revId": "478088c42e28e3f0d5897203c4b243b5cb2a85a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "300a293a_b9c04535",
+        "filename": "framework-t/src/android/net/EthernetManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-27T09:36:22Z",
+      "side": 1,
+      "message": "This will get slower if there are lots of registered callbacks, because you need to scan all of them. What if you stored the servicelistener in the listener itself? Something like:\n\n    private static class ListenerInfo\u003cT\u003e {\n\n        private final ServiceListener mServiceListener \u003d new EthernetServiceListener.Stub() {\n\n            public void onEthernetStateChanged(int state) {\n                ListenerInfo.this.onEthernetStateChanged(state);\n            }\n\n            ...\n        };\n    }\n\nIf that doesn\u0027t compile due to generics, maybe we could have two different ListenerInfo classes, one for each type of listener?",
+      "range": {
+        "startLine": 74,
+        "startChar": 40,
+        "endLine": 74,
+        "endChar": 47
+      },
+      "revId": "478088c42e28e3f0d5897203c4b243b5cb2a85a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e520afe_2795d9f8",
+        "filename": "framework-t/src/android/net/EthernetManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-27T09:36:22Z",
+      "side": 1,
+      "message": "Remove \"maybe\" from the name because this method always adds the listener.",
+      "range": {
+        "startLine": 341,
+        "startChar": 17,
+        "endLine": 341,
+        "endChar": 22
+      },
+      "revId": "478088c42e28e3f0d5897203c4b243b5cb2a85a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
