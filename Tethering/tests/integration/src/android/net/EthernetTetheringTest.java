@@ -59,6 +59,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.SystemClock;
 import android.os.SystemProperties;
+import android.os.VintfRuntimeInfo;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -115,6 +116,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RunWith(AndroidJUnit4.class)
 @MediumTest
@@ -915,7 +918,7 @@ public class EthernetTetheringTest {
         return false;
     }
 
-    private void runUdp4Test(TetheringTester tester, RemoteResponder remote, boolean usingBpf)
+    private void runUdp4Test(TetheringTester tester, RemoteResponder remote, boolean checkBpf)
             throws Exception {
         final TetheredDevice tethered = tester.createTetheredDevice(MacAddress.fromString(
                 "1:2:3:4:5:6"));
@@ -948,7 +951,7 @@ public class EthernetTetheringTest {
             return isExpectedUdpPacket(p, true/* hasEther */, PAYLOAD2);
         });
 
-        if (usingBpf) {
+        if (checkBpf) {
             // Send second UDP packet in original direction.
             // The BPF coordinator only offloads the ASSURED conntrack entry. The "request + reply"
             // packets can make status IPS_SEEN_REPLY to be set. Need one more packet to make
@@ -1059,18 +1062,56 @@ public class EthernetTetheringTest {
 
     @Test
     @IgnoreAfter(Build.VERSION_CODES.Q)
-    public void testTetherUdpV4WithoutBpf() throws Exception {
+    public void testTetherUdpV4IgnoreAfterQ() throws Exception {
         initializeTethering();
         runUdp4Test(new TetheringTester(mDownstreamReader), new RemoteResponder(mUpstreamReader),
-                false /* usingBpf */);
+                false /* checkBpf */);
+    }
+
+    // TODO: Move to util class.
+    private static Pair<Integer, Integer> getVersionFromString(String version) {
+        // Only gets major and minor number of the version string.
+        final Pattern versionPattern = Pattern.compile("^(\\d+)(\\.(\\d+))?.*");
+        final Matcher m = versionPattern.matcher(version);
+        if (m.matches()) {
+            final int major = Integer.parseInt(m.group(1));
+            final int minor = TextUtils.isEmpty(m.group(3)) ? 0 : Integer.parseInt(m.group(3));
+            return new Pair<>(major, minor);
+        } else {
+            return new Pair<>(0, 0);
+        }
+    }
+
+    // TODO: Move to util class.
+    private static int compareMajorMinorVersion(final String s1, final String s2) {
+        final Pair<Integer, Integer> v1 = getVersionFromString(s1);
+        final Pair<Integer, Integer> v2 = getVersionFromString(s2);
+
+        if (v1.first == v2.first) {
+            return Integer.compare(v1.second, v2.second);
+        } else {
+            return Integer.compare(v1.first, v2.first);
+        }
+    }
+
+    private static boolean isUdpOffloadSupportedByKernel() {
+        final String kVersionString = VintfRuntimeInfo.getKernelVersion();
+        // Only test BPF on full featured implementations for 5.8+ kernels.
+        // See packages/modules/Connectivity/bpf_progs/offload.c
+        return compareMajorMinorVersion(kVersionString, "5.8") >= 0;
     }
 
     @Test
     @IgnoreUpTo(Build.VERSION_CODES.R)
-    public void testTetherUdpV4WithBpf() throws Exception {
+    public void testTetherUdpV4IgnoreUpToR() throws Exception {
         initializeTethering();
+        boolean checkBpf = isUdpOffloadSupportedByKernel();
+        if (!checkBpf) {
+            Log.i(TAG, "testTetherUdpV4IgnoreUpToR will skip BPF offload test for kernel "
+                    + VintfRuntimeInfo.getKernelVersion());
+        }
         runUdp4Test(new TetheringTester(mDownstreamReader), new RemoteResponder(mUpstreamReader),
-                true /* usingBpf */);
+                checkBpf);
     }
 
     @Nullable
