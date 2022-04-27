@@ -41,6 +41,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
 import java.util.function.IntConsumer;
 
@@ -61,32 +62,37 @@ public class EthernetManager {
     @GuardedBy("mListenerLock")
     private final ArrayList<ListenerInfo<IntConsumer>> mEthernetStateListeners =
             new ArrayList<>();
+    @GuardedBy("mListenerLock")
+    private final ConcurrentHashMap<Object, EthernetServiceListener> mServiceListeners =
+            new ConcurrentHashMap<>();
     final Object mListenerLock = new Object();
-    private final IEthernetServiceListener.Stub mServiceListener =
-            new IEthernetServiceListener.Stub() {
-                @Override
-                public void onEthernetStateChanged(int state) {
-                    synchronized (mListenerLock) {
-                        for (ListenerInfo<IntConsumer> li : mEthernetStateListeners) {
-                            li.executor.execute(() -> {
-                                li.listener.accept(state);
-                            });
-                        }
-                    }
-                }
 
-                @Override
-                public void onInterfaceStateChanged(String iface, int state, int role,
-                        IpConfiguration configuration) {
-                    synchronized (mListenerLock) {
-                        for (ListenerInfo<InterfaceStateListener> li : mIfaceListeners) {
-                            li.executor.execute(() ->
-                                    li.listener.onInterfaceStateChanged(iface, state, role,
-                                            configuration));
-                        }
+    private class EthernetServiceListener extends IEthernetServiceListener.Stub {
+        @Override
+        public void onEthernetStateChanged(int state) {
+            synchronized (mListenerLock) {
+                mEthernetStateListeners.forEach(li -> {
+                    if (Objects.equals(mServiceListeners.get(li.listener), this)) {
+                        li.executor.execute(() -> li.listener.accept(state));
                     }
-                }
-            };
+                });
+            }
+        }
+
+        @Override
+        public void onInterfaceStateChanged(String iface, int state, int role,
+                IpConfiguration configuration) {
+            synchronized (mListenerLock) {
+                mIfaceListeners.forEach(li -> {
+                    if (Objects.equals(mServiceListeners.get(li.listener), this)) {
+                        li.executor.execute(() ->
+                                li.listener.onInterfaceStateChanged(iface, state, role,
+                                        configuration));
+                    }
+                });
+            }
+        }
+    }
 
     /**
      * Indicates that Ethernet is disabled.
@@ -324,17 +330,17 @@ public class EthernetManager {
             throw new NullPointerException("listener and executor must not be null");
         }
         synchronized (mListenerLock) {
-            maybeAddServiceListener();
+            final EthernetServiceListener serviceListener = new EthernetServiceListener();
+            mServiceListeners.put(listener, serviceListener);
+            maybeAddServiceListener(serviceListener);
             mIfaceListeners.add(new ListenerInfo<InterfaceStateListener>(executor, listener));
         }
     }
 
     @GuardedBy("mListenerLock")
-    private void maybeAddServiceListener() {
-        if (!mIfaceListeners.isEmpty() || !mEthernetStateListeners.isEmpty()) return;
-
+    private void maybeAddServiceListener(@NonNull final EthernetServiceListener listener) {
         try {
-            mService.addListener(mServiceListener);
+            mService.addListener(listener);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
@@ -365,16 +371,17 @@ public class EthernetManager {
         Objects.requireNonNull(listener);
         synchronized (mListenerLock) {
             mIfaceListeners.removeIf(l -> l.listener == listener);
-            maybeRemoveServiceListener();
+            final EthernetServiceListener serviceListener = mServiceListeners.remove(listener);
+            maybeRemoveServiceListener(serviceListener);
         }
     }
 
     @GuardedBy("mListenerLock")
-    private void maybeRemoveServiceListener() {
-        if (!mIfaceListeners.isEmpty() || !mEthernetStateListeners.isEmpty()) return;
+    private void maybeRemoveServiceListener(@Nullable final EthernetServiceListener listener) {
+        if (listener == null) return;
 
         try {
-            mService.removeListener(mServiceListener);
+            mService.removeListener(listener);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
@@ -688,7 +695,9 @@ public class EthernetManager {
         Objects.requireNonNull(executor);
         Objects.requireNonNull(listener);
         synchronized (mListenerLock) {
-            maybeAddServiceListener();
+            final EthernetServiceListener serviceListener = new EthernetServiceListener();
+            mServiceListeners.put(listener, serviceListener);
+            maybeAddServiceListener(serviceListener);
             mEthernetStateListeners.add(new ListenerInfo<IntConsumer>(executor, listener));
         }
     }
@@ -706,7 +715,8 @@ public class EthernetManager {
         Objects.requireNonNull(listener);
         synchronized (mListenerLock) {
             mEthernetStateListeners.removeIf(l -> l.listener == listener);
-            maybeRemoveServiceListener();
+            final EthernetServiceListener serviceListener = mServiceListeners.remove(listener);
+            maybeRemoveServiceListener(serviceListener);
         }
     }
 
