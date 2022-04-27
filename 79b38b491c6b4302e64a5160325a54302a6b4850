@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef861fa3_d7a2d614",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10670,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-27T11:51:27Z",
+      "side": 0,
+      "message": "Per discussion, maybe:\n\n    if (!um.isManagedProfile(profile.getIdentifier()) \u0026\u0026\n            dpm.getDeviceOwner() \u003d\u003d null) {\n        ...",
+      "range": {
+        "startLine": 10670,
+        "startChar": 16,
+        "endLine": 10670,
+        "endChar": 32
+      },
+      "revId": "79b38b491c6b4302e64a5160325a54302a6b4850",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
