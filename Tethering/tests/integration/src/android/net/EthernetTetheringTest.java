@@ -59,6 +59,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.SystemClock;
 import android.os.SystemProperties;
+import android.os.VintfRuntimeInfo;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -915,7 +916,7 @@ public class EthernetTetheringTest {
         return false;
     }
 
-    private void runUdp4Test(TetheringTester tester, RemoteResponder remote, boolean usingBpf)
+    private void runUdp4Test(TetheringTester tester, RemoteResponder remote, boolean supportBpf)
             throws Exception {
         final TetheredDevice tethered = tester.createTetheredDevice(MacAddress.fromString(
                 "1:2:3:4:5:6"));
@@ -948,7 +949,7 @@ public class EthernetTetheringTest {
             return isExpectedUdpPacket(p, true/* hasEther */, PAYLOAD2);
         });
 
-        if (usingBpf) {
+        if (supportBpf) {
             // Send second UDP packet in original direction.
             // The BPF coordinator only offloads the ASSURED conntrack entry. The "request + reply"
             // packets can make status IPS_SEEN_REPLY to be set. Need one more packet to make
@@ -1058,19 +1059,33 @@ public class EthernetTetheringTest {
     }
 
     @Test
-    @IgnoreAfter(Build.VERSION_CODES.Q)
-    public void testTetherUdpV4WithoutBpf() throws Exception {
+    @IgnoreAfter(Build.VERSION_CODES.R)
+    public void testTetherUdpV4IgnoreAfterR() throws Exception {
         initializeTethering();
         runUdp4Test(new TetheringTester(mDownstreamReader), new RemoteResponder(mUpstreamReader),
-                false /* usingBpf */);
+                false /* supportBpf */);
+    }
+
+    private static boolean isUdpOffloadSupportedByKernel() {
+        final String kVersionString = VintfRuntimeInfo.getKernelVersion();
+        // Kernel verion which is older than 4.14 doesn't support UDP offload absolutely.
+        // Kernel verion which is between 4.14 and 5.8 support UDP offload probabely. Simply
+        // set kernel 4.14 to be threshold first and monitor on what device tests failed for
+        // improving the offload support checking.
+        return compareMajorMinorVersion(kVersionString, "4.14") >= 0;
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.R)
-    public void testTetherUdpV4WithBpf() throws Exception {
+    @IgnoreUpTo(Build.VERSION_CODES.S)
+    public void testTetherUdpV4IgnoreUpToS() throws Exception {
         initializeTethering();
+        boolean supportBpf = isUdpOffloadSupportedByKernel();
+        if (!supportBpf) {
+            Log.i(TAG, "testTetherUdpV4IgnoreUpToS skips BPF offload test for kernel "
+                    + VintfRuntimeInfo.getKernelVersion());
+        }
         runUdp4Test(new TetheringTester(mDownstreamReader), new RemoteResponder(mUpstreamReader),
-                true /* usingBpf */);
+                supportBpf);
     }
 
     @Nullable
