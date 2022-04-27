@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd7610d2_e7316c64",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-27T05:49:59Z",
+      "side": 1,
+      "message": "I don\u0027t think we should do this. There are lots of logs gated by DBG and most of them are useful. If there are some that are overly verbose, we can definitely remove them.\n\nThe ConnectivityService logs mentioned in b/230123585, though, are IMO *not* too verbose (with the possible exception of \"NetReassign [no changes]\"). It\u0027s important to know when networks connect and disconnect, and it doesn\u0027t really happen very often (maybe 10-20 times a day?).",
+      "revId": "46e806993727b43556c53ff0123dd132fe9a1209",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
