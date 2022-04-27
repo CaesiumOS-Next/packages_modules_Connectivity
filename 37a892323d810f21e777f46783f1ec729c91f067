@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae0d2bf0_4d2c4f23",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1268571
+      },
+      "writtenOn": "2022-04-27T23:11:49Z",
+      "side": 1,
+      "message": "This CL might have caused a memory bug here (potentially because the value was truncated before and thus in range, but no longer is). See http://b/230662828.",
+      "range": {
+        "startLine": 208,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 69
+      },
+      "revId": "37a892323d810f21e777f46783f1ec729c91f067",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
