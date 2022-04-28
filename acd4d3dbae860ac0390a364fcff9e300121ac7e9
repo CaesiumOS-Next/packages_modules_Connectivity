@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "319dd6f2_db1aeb06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-28T09:24:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7566ad92_eb965575",
+      "range": {
+        "startLine": 7,
+        "startChar": 23,
+        "endLine": 7,
+        "endChar": 30
+      },
+      "revId": "acd4d3dbae860ac0390a364fcff9e300121ac7e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74fc1626_67712a15",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-28T08:05:14Z",
       "side": 1,
       "message": "Nit: long line\n\nBut you\u0027d probably want something like \"which holds a reference to a ConnectivityManager instance causes the Context referenced by that instance to never be GCed\"",
+      "range": {
+        "startLine": 9,
+        "startChar": 54,
+        "endLine": 9,
+        "endChar": 73
+      },
+      "revId": "acd4d3dbae860ac0390a364fcff9e300121ac7e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4232c514_d824edcc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-28T09:24:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74fc1626_67712a15",
       "range": {
         "startLine": 9,
         "startChar": 54,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f060aed8_aaccce68",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-28T09:24:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f341e2c2_3cd43aa9",
+      "range": {
+        "startLine": 468,
+        "startChar": 2,
+        "endLine": 468,
+        "endChar": 3
+      },
+      "revId": "acd4d3dbae860ac0390a364fcff9e300121ac7e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d95120ba_66e3e782",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "282779e9_cee39838",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-28T09:24:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d95120ba_66e3e782",
+      "range": {
+        "startLine": 480,
+        "startChar": 15,
+        "endLine": 480,
+        "endChar": 17
+      },
+      "revId": "acd4d3dbae860ac0390a364fcff9e300121ac7e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e92dfc65_02f37e0e",
@@ -106,6 +202,30 @@
       "writtenOn": "2022-04-28T08:05:14Z",
       "side": 1,
       "message": "Typo: memory",
+      "range": {
+        "startLine": 484,
+        "startChar": 21,
+        "endLine": 484,
+        "endChar": 28
+      },
+      "revId": "acd4d3dbae860ac0390a364fcff9e300121ac7e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0adcd577_b1495cbb",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-28T09:24:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e92dfc65_02f37e0e",
       "range": {
         "startLine": 484,
         "startChar": 21,
