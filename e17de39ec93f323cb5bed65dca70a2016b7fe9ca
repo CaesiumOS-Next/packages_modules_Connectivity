@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45cf9b57_c5b91446",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-28T07:03:48Z",
+      "side": 1,
+      "message": "Use agent.unregister() instead to avoid confusion on onNetworkDestroyed and focus on the problem that we want to fix(available callback). Aso add the comment about test failure without the fix.",
+      "parentUuid": "167510a0_184e46cb",
+      "revId": "e17de39ec93f323cb5bed65dca70a2016b7fe9ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bad7099d_cac44da7",
@@ -55,6 +73,30 @@
       "side": 1,
       "message": "I think so, but I think the one below has to be eventuallyExpect otherwise we\u0027d have to expect onLinkPropertiesChanged, onCapabilitiesChanged, etc. as well. Maybe Paul chose to be consistent here?",
       "parentUuid": "bad7099d_cac44da7",
+      "range": {
+        "startLine": 1294,
+        "startChar": 17,
+        "endLine": 1294,
+        "endChar": 33
+      },
+      "revId": "e17de39ec93f323cb5bed65dca70a2016b7fe9ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30ec7360_2ff52123",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1294,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-28T07:03:48Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "46bfd569_05a12ac4",
       "range": {
         "startLine": 1294,
         "startChar": 17,
