@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9929a938_031ab380",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2598,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-28T08:27:18Z",
+      "side": 1,
+      "message": "Looking at this people might think that this block can only be run once (it looks a bit like a singleton initialization); maybe add a comment saying that sInstance is accessed without a lock, so it may actually be reassigned several times with different ConnectivityManager, but that\u0027s still OK considering its usage.",
+      "range": {
+        "startLine": 2598,
+        "startChar": 12,
+        "endLine": 2598,
+        "endChar": 21
+      },
+      "revId": "859a4b67b4ce93aab32cf3737a8c16757fef320f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6825def_21a94ce2",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-28T08:27:18Z",
+      "side": 1,
+      "message": "Actually, I\u0027m thinking this might not work if Mockito keeps an internal reference to the mock (looks like presubmit isn\u0027t passing).\n\nMaybe it would be better with something like:\n\n  c \u003d getInstrumentation().getContext().createContext(\n      new ContextParams.Builder().build());",
+      "range": {
+        "startLine": 470,
+        "startChar": 26,
+        "endLine": 470,
+        "endChar": 30
+      },
+      "revId": "859a4b67b4ce93aab32cf3737a8c16757fef320f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea6d28cf_c0c59068",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-28T08:27:18Z",
+      "side": 1,
+      "message": "You might want to move this to the parent CL, otherwise you\u0027re not really checking that the same test becomes passing with the fix",
+      "range": {
+        "startLine": 483,
+        "startChar": 8,
+        "endLine": 483,
+        "endChar": 11
+      },
+      "revId": "859a4b67b4ce93aab32cf3737a8c16757fef320f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
