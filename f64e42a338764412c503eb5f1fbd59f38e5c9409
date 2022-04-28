@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a1e4d66_c97566b0",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-28T08:00:34Z",
+      "side": 1,
+      "message": "What happens on devices where this is called com.google.android.tethering? Suggest asking Junyu or Remi or Mark if they already know what to do here.",
+      "range": {
+        "startLine": 36,
+        "startChar": 13,
+        "endLine": 36,
+        "endChar": 34
+      },
+      "revId": "f64e42a338764412c503eb5f1fbd59f38e5c9409",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8b460ee_983a2312",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-28T08:00:34Z",
+      "side": 1,
+      "message": "return new File(...).exists();",
+      "range": {
+        "startLine": 48,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 31
+      },
+      "revId": "f64e42a338764412c503eb5f1fbd59f38e5c9409",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ea71a92_7059069c",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-28T08:00:34Z",
+      "side": 1,
+      "message": "If the code crashes here then you\u0027ll have a problem. Suggest writing it to a backup filename, syncing the file, and then renaming it.",
+      "range": {
+        "startLine": 66,
+        "startChar": 19,
+        "endLine": 66,
+        "endChar": 40
+      },
+      "revId": "f64e42a338764412c503eb5f1fbd59f38e5c9409",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd7a3d5b_85da4729",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-04-28T08:00:34Z",
+      "side": 1,
+      "message": "Given that this was already a legacy format in S, can we stop supporting this in the new format?",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 9
+      },
+      "revId": "f64e42a338764412c503eb5f1fbd59f38e5c9409",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
