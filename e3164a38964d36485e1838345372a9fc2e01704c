@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03ee63cb_ef9b749b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-28T02:49:18Z",
+      "side": 1,
+      "message": "LGTM with some nits; maybe just address those and send to Lorenzo for CTS owners.",
+      "revId": "e3164a38964d36485e1838345372a9fc2e01704c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1e809ba_fab4c3f7",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-28T02:49:18Z",
+      "side": 1,
+      "message": "Nit: this will block the test for 2s which is a bit long; it may be better to have a different timeout for \"wait and check it didn\u0027t happen\" and for \"wait at least X until it happens\", as the second one could be increased without downside (to say, 10s or more) but the first one needs to be small enough to keep the test fast.\n\nMaybe define a separate constant, so that if someone increases the test timeout it doesn\u0027t make the test slower (which they might not expect) ? I think it could be also smaller, like 200ms or 500ms.",
+      "range": {
+        "startLine": 140,
+        "startChar": 54,
+        "endLine": 140,
+        "endChar": 64
+      },
+      "revId": "e3164a38964d36485e1838345372a9fc2e01704c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1322224b_d27cf6a8",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-28T02:49:18Z",
+      "side": 1,
+      "message": "Nit: could also use assertNull",
+      "range": {
+        "startLine": 142,
+        "startChar": 28,
+        "endLine": 142,
+        "endChar": 32
+      },
+      "revId": "e3164a38964d36485e1838345372a9fc2e01704c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e29a4232_e8115902",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-28T02:49:18Z",
+      "side": 1,
+      "message": "You could also expect DiscoveryStopped on cleanup, this would make sure that the whole TrackRecord of callbacks has been read and nothing was received. It increases the chances that an unexpected callback would be caught, especially if the timeout isn\u0027t too large.",
+      "range": {
+        "startLine": 595,
+        "startChar": 29,
+        "endLine": 595,
+        "endChar": 45
+      },
+      "revId": "e3164a38964d36485e1838345372a9fc2e01704c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22fe9d72_86b636e2",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-28T02:49:18Z",
+      "side": 1,
+      "message": "Nit: also for consistency, maybe use the newer method that specifies the executor (it should be the recommended version to use for T+)",
+      "range": {
+        "startLine": 599,
+        "startChar": 23,
+        "endLine": 599,
+        "endChar": 39
+      },
+      "revId": "e3164a38964d36485e1838345372a9fc2e01704c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
