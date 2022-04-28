@@ -50,6 +50,23 @@
       "message": "Hi Lorenzo, \ngentle ping regarding this CL",
       "revId": "c3751111099b38a72025baaf0619ecee39fdbc59",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7f79e47_ef4f2c56",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-04-28T21:30:48Z",
+      "side": 1,
+      "message": "Hi Lorenzo, \nplease take a look",
+      "revId": "c3751111099b38a72025baaf0619ecee39fdbc59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
