@@ -44,3 +44,33 @@ genrule_defaults {
     cmd: "for src in $(in); do cat $${src}; echo; done > $(out)",
     defaults_visibility: ["//packages/modules/Connectivity:__subpackages__"],
 }
+
+java_library {
+    name: "jarjar-rules-generator-testjavalib",
+    srcs: ["testdata/java/**/*.java"],
+    visibility: ["//visibility:private"],
+}
+
+python_test_host {
+    name: "jarjar-rules-generator-test",
+    srcs: [
+        "gen_jarjar.py",
+        "gen_jarjar_test.py",
+    ],
+    data: [
+        "testdata/test-jarjar-excludes.txt",
+        "testdata/test-unsupportedappusage.txt",
+        ":framework-connectivity.stubs.module_lib",
+        ":jarjar-rules-generator-testjavalib",
+    ],
+    required: ["dexdump"],
+    main: "gen_jarjar_test.py",
+    version: {
+        py2: {
+            enabled: false,
+        },
+        py3: {
+            enabled: true,
+        },
+    },
+}
