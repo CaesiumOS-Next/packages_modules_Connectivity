@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c59cdc47_3113e01d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-28T17:36:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "760dfaee_0aa927b6",
+      "range": {
+        "startLine": 549,
+        "startChar": 4,
+        "endLine": 550,
+        "endChar": 33
+      },
+      "revId": "4bbcbfe41a0c31c95084afa81bfc9a49c7cc4833",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "773ed249_4a32521b",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bc3644b_bfe45de2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-28T17:36:10Z",
+      "side": 1,
+      "message": "Ethernet don\u0027t have behavior change, ethernet tethering doesn\u0027t use this function. The ethernet interface regexs is maintain in ethernet framework, so tethering doesn\u0027t know which interface is ethernet without the notification from ethernet framework. ifaceNameToType(iface) doesn\u0027t work.\n\nWIGIG also don\u0027t have behavior change because it only supported before S.",
+      "parentUuid": "773ed249_4a32521b",
+      "revId": "4bbcbfe41a0c31c95084afa81bfc9a49c7cc4833",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26c45b0c_f640ea5b",
@@ -54,6 +96,30 @@
       "writtenOn": "2022-04-28T09:29:33Z",
       "side": 1,
       "message": "Why is it OK to change from ipServer.unwanted() to stop() and removing the mTetherState ? Can you explain it in the cover comment ? Right now it only says that this change changes when the IpServer was created, not when/how it is stopped.",
+      "range": {
+        "startLine": 1387,
+        "startChar": 12,
+        "endLine": 1387,
+        "endChar": 42
+      },
+      "revId": "4bbcbfe41a0c31c95084afa81bfc9a49c7cc4833",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7327d521_40ce96bb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1387,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-28T17:36:10Z",
+      "side": 1,
+      "message": "Commit message updated.\nBefore this change, wifi ipServe is available if interface is added even tethering is not started.\n- ipServer#stop would change the ipServer state machine to unavailable state and could never be reused, thus should always be paired to remove it from mTetherState.\n- ipServer#unwanted would change the state machine to initial state\n\nNote: before this change, ipServer.stop() is called when #interfaceRemoved and ipServer.unwanted is called here when receiving wifi state change intent.",
+      "parentUuid": "26c45b0c_f640ea5b",
       "range": {
         "startLine": 1387,
         "startChar": 12,
