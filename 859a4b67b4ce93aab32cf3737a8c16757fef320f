@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11d8cd52_ada9150f",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2598,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-28T09:36:12Z",
+      "side": 1,
+      "message": "Ohh, yes. You did suggest this in offline talk but I forgot to add the this comment. Done this time.",
+      "parentUuid": "9929a938_031ab380",
+      "range": {
+        "startLine": 2598,
+        "startChar": 12,
+        "endLine": 2598,
+        "endChar": 21
+      },
+      "revId": "859a4b67b4ce93aab32cf3737a8c16757fef320f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6825def_21a94ce2",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-28T08:27:18Z",
       "side": 1,
       "message": "Actually, I\u0027m thinking this might not work if Mockito keeps an internal reference to the mock (looks like presubmit isn\u0027t passing).\n\nMaybe it would be better with something like:\n\n  c \u003d getInstrumentation().getContext().createContext(\n      new ContextParams.Builder().build());",
+      "range": {
+        "startLine": 470,
+        "startChar": 26,
+        "endLine": 470,
+        "endChar": 30
+      },
+      "revId": "859a4b67b4ce93aab32cf3737a8c16757fef320f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d660fede_bab9660c",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-28T09:36:12Z",
+      "side": 1,
+      "message": "Presubmit fail in cf. In my local  testing, it cf could pass if I increase the attempts the cf works.",
+      "parentUuid": "a6825def_21a94ce2",
       "range": {
         "startLine": 470,
         "startChar": 26,
@@ -84,6 +132,30 @@
       "side": 1,
       "message": "Ack. If so, we need to submit this two CL together (but could check whether happy with two CL individually). Otherwise, this would slow down the whole test. BTW, I need to increase the attempt times from 100 to 500 which current this fail in cuttlefish for 100 attempts (pass with 500 attempts in my local testing)",
       "parentUuid": "ea6d28cf_c0c59068",
+      "range": {
+        "startLine": 483,
+        "startChar": 8,
+        "endLine": 483,
+        "endChar": 11
+      },
+      "revId": "859a4b67b4ce93aab32cf3737a8c16757fef320f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62fb4176_6f7adca2",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-28T09:36:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a199ee1_7841c2e4",
       "range": {
         "startLine": 483,
         "startChar": 8,
