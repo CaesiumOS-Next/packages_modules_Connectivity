@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e023fc11_2ee8ff9d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-28T03:24:36Z",
+      "side": 1,
+      "message": "For reviewers, maybe also mention that the unescape() method is the same one that was used in S, but was removed by mistake (sorry !)",
+      "revId": "a7fa8c2b22249b42722aade7469baa9e69aee63b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7f0ae87_17d5000e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-28T03:24:36Z",
+      "side": 1,
+      "message": "Can you file a separate bug for this ? It\u0027s a well-defined bug on its own",
+      "range": {
+        "startLine": 13,
+        "startChar": 5,
+        "endLine": 13,
+        "endChar": 14
+      },
+      "revId": "a7fa8c2b22249b42722aade7469baa9e69aee63b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
