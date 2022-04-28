@@ -68,6 +68,30 @@
       },
       "revId": "859a4b67b4ce93aab32cf3737a8c16757fef320f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a199ee1_7841c2e4",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-04-28T08:42:52Z",
+      "side": 1,
+      "message": "Ack. If so, we need to submit this two CL together (but could check whether happy with two CL individually). Otherwise, this would slow down the whole test. BTW, I need to increase the attempt times from 100 to 500 which current this fail in cuttlefish for 100 attempts (pass with 500 attempts in my local testing)",
+      "parentUuid": "ea6d28cf_c0c59068",
+      "range": {
+        "startLine": 483,
+        "startChar": 8,
+        "endLine": 483,
+        "endChar": 11
+      },
+      "revId": "859a4b67b4ce93aab32cf3737a8c16757fef320f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
