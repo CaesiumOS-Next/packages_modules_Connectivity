@@ -1262,6 +1262,17 @@ public class LinkPropertiesTest {
     }
 
     @Test @IgnoreUpTo(Build.VERSION_CODES.Q)
+    public void testHasExcludeRoute() {
+        LinkProperties lp = new LinkProperties();
+        lp.setInterfaceName("VPN");
+        lp.addRoute(new RouteInfo(new IpPrefix(ADDRV4, 2), RTN_UNICAST));
+        lp.addRoute(new RouteInfo(new IpPrefix(ADDRV6, 0), RTN_UNICAST));
+        assertFalse(lp.hasExcludeRoute());
+        lp.addRoute(new RouteInfo(new IpPrefix(ADDRV6, 2), RTN_THROW));
+        assertTrue(lp.hasExcludeRoute());
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.Q)
     @EnableCompatChanges({LinkProperties.EXCLUDED_ROUTES})
     public void testRouteAddWithSameKey() throws Exception {
         LinkProperties lp = new LinkProperties();
