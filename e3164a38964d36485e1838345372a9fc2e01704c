@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "010e89aa_bb766c73",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-28T12:56:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1e809ba_fab4c3f7",
+      "range": {
+        "startLine": 140,
+        "startChar": 54,
+        "endLine": 140,
+        "endChar": 64
+      },
+      "revId": "e3164a38964d36485e1838345372a9fc2e01704c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1322224b_d27cf6a8",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-04-28T02:49:18Z",
       "side": 1,
       "message": "Nit: could also use assertNull",
+      "range": {
+        "startLine": 142,
+        "startChar": 28,
+        "endLine": 142,
+        "endChar": 32
+      },
+      "revId": "e3164a38964d36485e1838345372a9fc2e01704c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba9df430_c2e87e30",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-28T12:56:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1322224b_d27cf6a8",
       "range": {
         "startLine": 142,
         "startChar": 28,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd87b7c5_ad54ec40",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-28T12:56:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e29a4232_e8115902",
+      "range": {
+        "startLine": 595,
+        "startChar": 29,
+        "endLine": 595,
+        "endChar": 45
+      },
+      "revId": "e3164a38964d36485e1838345372a9fc2e01704c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22fe9d72_86b636e2",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-04-28T02:49:18Z",
       "side": 1,
       "message": "Nit: also for consistency, maybe use the newer method that specifies the executor (it should be the recommended version to use for T+)",
+      "range": {
+        "startLine": 599,
+        "startChar": 23,
+        "endLine": 599,
+        "endChar": 39
+      },
+      "revId": "e3164a38964d36485e1838345372a9fc2e01704c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2d46c6a_ff7168bf",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-04-28T12:56:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22fe9d72_86b636e2",
       "range": {
         "startLine": 599,
         "startChar": 23,
