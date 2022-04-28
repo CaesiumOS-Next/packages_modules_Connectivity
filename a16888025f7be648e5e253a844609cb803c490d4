@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "921002d9_9ffedb44",
+        "filename": "framework-t/src/android/net/EthernetManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-04-28T10:38:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12524287_d3f7f80d",
+      "range": {
+        "startLine": 60,
+        "startChar": 16,
+        "endLine": 60,
+        "endChar": 23
+      },
+      "revId": "a16888025f7be648e5e253a844609cb803c490d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "abf74d14_8d5352fc",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-04-28T07:56:41Z",
       "side": 1,
       "message": "Do you need these classes? You could use anonymous inline classes:\n\n        public void addInterfaceStateListener(@NonNull Executor executor,\n                @NonNull InterfaceStateListener listener) {\n            final IEthernetServiceListene.Stub serviceListener \u003d new IEthernetServiceListener.Stub() {\n                @Override\n                public void onEthernetStateChanged(int state) {\n                    executor.execute(() -\u003e listener.accept(state));\n                }\n\n                @Override\n                public void onInterfaceStateChanged(String iface, int state, int role,\n                            IpConfiguration configuration) {}\n            }\n            addServiceListener(serviceListener);\n            mIfaceServiceListeners.put(listener, serviceListener);\n        }",
+      "range": {
+        "startLine": 82,
+        "startChar": 25,
+        "endLine": 82,
+        "endChar": 42
+      },
+      "revId": "a16888025f7be648e5e253a844609cb803c490d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5324bc0d_c1cc7b65",
+        "filename": "framework-t/src/android/net/EthernetManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-04-28T10:38:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abf74d14_8d5352fc",
       "range": {
         "startLine": 82,
         "startChar": 25,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "554ca306_283a1f0d",
+        "filename": "framework-t/src/android/net/EthernetManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-04-28T10:38:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f89a241_8116eae3",
+      "range": {
+        "startLine": 380,
+        "startChar": 18,
+        "endLine": 380,
+        "endChar": 42
+      },
+      "revId": "a16888025f7be648e5e253a844609cb803c490d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eda25837_b5e1e57f",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-04-28T07:56:41Z",
       "side": 1,
       "message": "Nit: you don\u0027t need this variable, you can just do:\n\n    maybeRemoveServiceListener(mStateServiceListeners.remove(listener));",
+      "range": {
+        "startLine": 723,
+        "startChar": 18,
+        "endLine": 723,
+        "endChar": 42
+      },
+      "revId": "a16888025f7be648e5e253a844609cb803c490d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c5e0e29_83226578",
+        "filename": "framework-t/src/android/net/EthernetManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-04-28T10:38:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eda25837_b5e1e57f",
       "range": {
         "startLine": 723,
         "startChar": 18,
