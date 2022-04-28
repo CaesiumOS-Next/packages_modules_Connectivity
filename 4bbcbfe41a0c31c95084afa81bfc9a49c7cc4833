@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "760dfaee_0aa927b6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-28T09:29:33Z",
+      "side": 1,
+      "message": "This doesn\u0027t explain well why this method does nothing on T+ now, maybe update the comment and consider whether it would be appropriate to have it above the isAtLeastT call",
+      "range": {
+        "startLine": 549,
+        "startChar": 4,
+        "endLine": 550,
+        "endChar": 33
+      },
+      "revId": "4bbcbfe41a0c31c95084afa81bfc9a49c7cc4833",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "773ed249_4a32521b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-28T09:29:33Z",
+      "side": 1,
+      "message": "I don\u0027t understand why we go from \"wifi, p2p, ethernet, wigig, BT before T have the below behavior\" to \"BT before T, wigig before T have the below behavior\" here.\n\n - Why is ethernet behavior changing ? This is not explained in the cover comment\n - Why is T+ wigig behavior changing ? This is not explained in the cover comment either",
+      "revId": "4bbcbfe41a0c31c95084afa81bfc9a49c7cc4833",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26c45b0c_f640ea5b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1387,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-28T09:29:33Z",
+      "side": 1,
+      "message": "Why is it OK to change from ipServer.unwanted() to stop() and removing the mTetherState ? Can you explain it in the cover comment ? Right now it only says that this change changes when the IpServer was created, not when/how it is stopped.",
+      "range": {
+        "startLine": 1387,
+        "startChar": 12,
+        "endLine": 1387,
+        "endChar": 42
+      },
+      "revId": "4bbcbfe41a0c31c95084afa81bfc9a49c7cc4833",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
