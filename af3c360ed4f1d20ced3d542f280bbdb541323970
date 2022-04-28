@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67ef186e_dbe0c22b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-04-28T14:03:11Z",
+      "side": 1,
+      "message": "Hi Lucas, \nThis CL fixes targetSdk. gate for excluded routes (should be enabled for T+)\nPlease review.",
+      "revId": "af3c360ed4f1d20ced3d542f280bbdb541323970",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
