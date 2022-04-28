@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b25d254_2d3f69c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-04-28T15:11:04Z",
+      "side": 1,
+      "message": "Prog *$opt has been loaded successfully\n\n08-11 13:38:00.158  root     0     0 D         : c7   1031 LibBpfLoader: bpf_prog_load lib call for /apex/com.android.tethering/etc/bpf/offload.o (schedcls_tether_downstream4_rawip$opt) returned fd: 21 (no error)\n08-11 13:38:00.158  root     0     0 D         : c7   1031 LibBpfLoader: bpf_prog_load lib call for /apex/com.android.tethering/etc/bpf/offload.o (schedcls_tether_upstream4_rawip$opt) returned fd: 22 (no error)\n08-11 13:38:00.159  root     0     0 D         : c7   1031 LibBpfLoader: bpf_prog_load lib call for /apex/com.android.tethering/etc/bpf/offload.o (schedcls_tether_downstream4_ether$opt) returned fd: 23 (no error)\n08-11 13:38:00.159  root     0     0 D         : c7   1031 LibBpfLoader: bpf_prog_load lib call for /apex/com.android.tethering/etc/bpf/offload.o (schedcls_tether_upstream4_ether$opt) returned fd: 24 (no error)",
+      "parentUuid": "e83b9920_61aa11ef",
+      "revId": "d5a0254b62e52e84cdead1fb100fdd2ecbd8b2d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f151179_c81e2c18",
