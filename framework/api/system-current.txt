@@ -192,6 +192,7 @@ package android.net {
     method @NonNull public java.util.List<java.net.InetAddress> getPcscfServers();
     method @Nullable public String getTcpBufferSizes();
     method @NonNull public java.util.List<java.net.InetAddress> getValidatedPrivateDnsServers();
+    method public boolean hasExcludeRoute();
     method public boolean hasGlobalIpv6Address();
     method public boolean hasIpv4Address();
     method public boolean hasIpv4DefaultRoute();
