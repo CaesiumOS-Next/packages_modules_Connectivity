@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8785bff3_c1aee248",
+        "filename": "framework-t/src/android/net/EthernetManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-04-28T05:15:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "198f522f_adbd9798",
+      "range": {
+        "startLine": 66,
+        "startChar": 36,
+        "endLine": 66,
+        "endChar": 42
+      },
+      "revId": "478088c42e28e3f0d5897203c4b243b5cb2a85a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d4eebba_0b6d5353",
+        "filename": "framework-t/src/android/net/EthernetManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-04-28T05:15:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c908d7e_7419626b",
+      "range": {
+        "startLine": 66,
+        "startChar": 18,
+        "endLine": 66,
+        "endChar": 35
+      },
+      "revId": "478088c42e28e3f0d5897203c4b243b5cb2a85a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "300a293a_b9c04535",
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7795c58_889a0f26",
+        "filename": "framework-t/src/android/net/EthernetManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-04-28T05:15:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "300a293a_b9c04535",
+      "range": {
+        "startLine": 74,
+        "startChar": 40,
+        "endLine": 74,
+        "endChar": 47
+      },
+      "revId": "478088c42e28e3f0d5897203c4b243b5cb2a85a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e520afe_2795d9f8",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-04-27T09:36:22Z",
       "side": 1,
       "message": "Remove \"maybe\" from the name because this method always adds the listener.",
+      "range": {
+        "startLine": 341,
+        "startChar": 17,
+        "endLine": 341,
+        "endChar": 22
+      },
+      "revId": "478088c42e28e3f0d5897203c4b243b5cb2a85a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b29c3127_2b86e5c1",
+        "filename": "framework-t/src/android/net/EthernetManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-04-28T05:15:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e520afe_2795d9f8",
       "range": {
         "startLine": 341,
         "startChar": 17,
