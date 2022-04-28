@@ -142,6 +142,30 @@
       },
       "revId": "37a892323d810f21e777f46783f1ec729c91f067",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95fbccb3_67d85b9a",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1268571
+      },
+      "writtenOn": "2022-04-28T03:47:44Z",
+      "side": 1,
+      "message": "This is getting embarrassing. Sorry, forgot to actually do the offset for the ADRP now. One more try for today.\n\n```\nLDR             W8, [X22]\nADRP            X11, #0x14000  \u003c-- This is libnetworkstats.so+0x7240\n                               \u003c-- \u003d 0x695a5a2000 + 0x7240 -\u003e on page 0x695a5a9000\n\u003e\u003e X11 \u003d 0x695a5a9000 + 0x14000 \u003d 0x695a5bd000\nMOVK            X11, #0xB400,LSL#48\n\u003e\u003e X11 \u003d 0xb40000695a5bd000\nEOR             X9, X28, #0x40\nADD             X11, X11, #0x10\n\u003e\u003e X11 \u003d 0xb40000695a5bd010\nMOVI            V0.2D, #0\nEOR             X10, X28, #0x30\nADD             X12, SP, #0x2B0+statsMap\nADD             X0, X11, X8,LSL#3 ; _QWORD\n\u003e\u003e X0 \u003d 0xb40000695a5bd010 + X8 * 8\nMOV             X8, #0x101010101010101\nAND             X11, X9, #0xFF\nADD             X13, SP, #0x2B0+statsMap\nMOV             W14, #4\nORR             X12, X12, X10,LSL#56\nMUL             X8, X11, X8\nSUB             X11, X29, #-var_C0\nBL              __hwasan_check_x0_3_short_v2\n\nX0 is 0xb40000695a5be018 as per the crash.\n\n0xb40000695a5be018 \u003d 0xb40000695a5bd010 + X8 * 8\nX8 \u003d (0xb40000695a5be018 - 0xb40000695a5bd010) / 8 \u003d 513\n```",
+      "parentUuid": "9442aef3_15135c14",
+      "range": {
+        "startLine": 208,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 69
+      },
+      "revId": "37a892323d810f21e777f46783f1ec729c91f067",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
