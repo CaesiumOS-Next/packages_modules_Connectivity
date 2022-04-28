@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3da2aa51_ee5181de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-04-28T12:01:58Z",
+      "side": 1,
+      "message": "only failure is\n[error] apct/device_boot_health_check_extra on wembley_2GB-userdebug on git_master\nbut \u0027Found Open Bugs\u0027 although it does seem like this might be a regression...\n\n(even though we don\u0027t actually support android go\u0027s tethering model)",
+      "revId": "d5a0254b62e52e84cdead1fb100fdd2ecbd8b2d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
