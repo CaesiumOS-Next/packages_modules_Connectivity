@@ -16,6 +16,86 @@
       "message": "only failure is\n[error] apct/device_boot_health_check_extra on wembley_2GB-userdebug on git_master\nbut \u0027Found Open Bugs\u0027 although it does seem like this might be a regression...\n\n(even though we don\u0027t actually support android go\u0027s tethering model)",
       "revId": "d5a0254b62e52e84cdead1fb100fdd2ecbd8b2d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e83b9920_61aa11ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-04-28T15:03:52Z",
+      "side": 1,
+      "message": "Verified on coral (unit test and iperf). Need Lorenzo\u0027s input for this commit\n\n1. Unit test is pass\n[3/8] android.net.EthernetTetheringTest#testTetherUdpV4FromS: PASSED (2.870s)\n\n2. After running iperf, BPF stats shows that UDP packet is bpf offloaded\n\niperf udp ipv4 download with bandwidth 1m\n```\niperf3 -c speedtest.uztelecom.uz -u -R -4 -b 1m\nConnecting to host speedtest.uztelecom.uz, port 5201\nReverse mode, remote host speedtest.uztelecom.uz is sending\n[  5] local 192.168.163.128 port 37138 connected to 195.69.189.215 port 5201\n[ ID] Interval           Transfer     Bitrate         Jitter    Lost/Total Datagrams\n[  5]   0.00-10.00  sec  1.20 MBytes  1.01 Mbits/sec  0.000 ms  0/885 (0%)  sender\n[  5]   0.00-10.00  sec  1.19 MBytes   997 Kbits/sec  0.682 ms  0/885 (0%)  receiver\n```\n\nBPF stats RX increase 1445608B (1.38M \u003e iperf transfer data 1.19M).\n```\nBefore:\nBPF stats:\n  ifindex: 12: rxPackets: 88258, rxBytes: 20345861, rxErrors: 0, txPackets: 132745, txBytes: 70313735, txErrors: 0\n  After\nBPF stats:\n  ifindex: 12: rxPackets: 90537, rxBytes: 21791469, rxErrors: 0, txPackets: 134899, txBytes: 71460569, txErrors: 0\n```\n\nNON_TCP counter increases 0.\n```\nbefore:\n    Forwarding counters:\n      NON_TCP_UDP: 12\nafter:\n    Forwarding counters:\n      NON_TCP_UDP: 12\n```\n\n",
+      "revId": "d5a0254b62e52e84cdead1fb100fdd2ecbd8b2d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f151179_c81e2c18",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-04-28T15:03:52Z",
+      "side": 1,
+      "message": "maybe copy the commit message here for explaining the reason",
+      "revId": "d5a0254b62e52e84cdead1fb100fdd2ecbd8b2d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ae60518_4e6f2752",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-04-28T15:03:52Z",
+      "side": 1,
+      "message": "/*is_tcp*/",
+      "range": {
+        "startLine": 634,
+        "startChar": 73,
+        "endLine": 634,
+        "endChar": 74
+      },
+      "revId": "d5a0254b62e52e84cdead1fb100fdd2ecbd8b2d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "535586b7_5dc50186",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-04-28T15:03:52Z",
+      "side": 1,
+      "message": "/*is_tcp*/",
+      "range": {
+        "startLine": 637,
+        "startChar": 74,
+        "endLine": 637,
+        "endChar": 75
+      },
+      "revId": "d5a0254b62e52e84cdead1fb100fdd2ecbd8b2d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
