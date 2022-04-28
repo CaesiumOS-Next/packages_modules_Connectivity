@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7566ad92_eb965575",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-28T08:05:14Z",
+      "side": 1,
+      "message": "Typo: memory",
+      "range": {
+        "startLine": 7,
+        "startChar": 23,
+        "endLine": 7,
+        "endChar": 30
+      },
+      "revId": "acd4d3dbae860ac0390a364fcff9e300121ac7e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74fc1626_67712a15",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-28T08:05:14Z",
+      "side": 1,
+      "message": "Nit: long line\n\nBut you\u0027d probably want something like \"which holds a reference to a ConnectivityManager instance causes the Context referenced by that instance to never be GCed\"",
+      "range": {
+        "startLine": 9,
+        "startChar": 54,
+        "endLine": 9,
+        "endChar": 73
+      },
+      "revId": "acd4d3dbae860ac0390a364fcff9e300121ac7e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f341e2c2_3cd43aa9",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-28T08:05:14Z",
+      "side": 1,
+      "message": "Nit: private",
+      "range": {
+        "startLine": 468,
+        "startChar": 2,
+        "endLine": 468,
+        "endChar": 3
+      },
+      "revId": "acd4d3dbae860ac0390a364fcff9e300121ac7e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d95120ba_66e3e782",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-28T08:05:14Z",
+      "side": 1,
+      "message": "It would be nice to have a comment to explain why this is done like this; maybe mention that first GC ensures that objects are collected for finalization, then second GC ensures they\u0027re garbage-collected after being finalized\n\n(that\u0027s what this test suggests: https://cs.android.com/android/platform/superproject/+/master:frameworks/base/apct-tests/perftests/core/src/android/libcore/ReferencePerfTest.java;drc\u003d4ca7bb87d7f3dfbe249549c44bc5aec6ef392b81;l\u003d111)",
+      "range": {
+        "startLine": 480,
+        "startChar": 15,
+        "endLine": 480,
+        "endChar": 17
+      },
+      "revId": "acd4d3dbae860ac0390a364fcff9e300121ac7e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e92dfc65_02f37e0e",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-04-28T08:05:14Z",
+      "side": 1,
+      "message": "Typo: memory",
+      "range": {
+        "startLine": 484,
+        "startChar": 21,
+        "endLine": 484,
+        "endChar": 28
+      },
+      "revId": "acd4d3dbae860ac0390a364fcff9e300121ac7e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
