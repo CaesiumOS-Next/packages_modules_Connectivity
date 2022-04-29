@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b679ad49_c6b8f31f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-04-29T07:58:08Z",
+      "side": 1,
+      "message": "patchset#22, fix TH failure - can\u0027t get ra prefix options until timeout (migrate test commit aosp/2076202)\n\nLog:\nhttps://android-build.googleplex.com/builds/tests/view?invocationId\u003dI09000010042341631\u0026testResultId\u003dTR95627994872494811\n",
+      "revId": "c93fda2f5baa8a929d98538a8c9741c1fc31be81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
