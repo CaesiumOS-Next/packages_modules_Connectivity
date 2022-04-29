@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e354e27_230d536b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-04-29T08:38:04Z",
+      "side": 1,
+      "message": "Please add a blank line above.\n\nPlease also add Bug tag with relevant bug id \ne.g. Bug: 230058738",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 30
+      },
+      "revId": "169d74b260c9fcc2b825e0e1859b6ae920e05bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c22de251_8ac07087",
+        "filename": "tests/common/java/android/net/LinkPropertiesTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1264,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-04-29T08:38:04Z",
+      "side": 1,
+      "message": "should this be Build.VERSION_CODES.S_V2 instead?\nwe likely want to run this test only on T+, right?",
+      "range": {
+        "startLine": 1264,
+        "startChar": 22,
+        "endLine": 1264,
+        "endChar": 44
+      },
+      "revId": "169d74b260c9fcc2b825e0e1859b6ae920e05bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
