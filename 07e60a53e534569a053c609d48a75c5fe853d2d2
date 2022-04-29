@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5690e2e_e6b7c777",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-29T09:12:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efa55e2f_c24f672a",
+      "range": {
+        "startLine": 709,
+        "startChar": 20,
+        "endLine": 709,
+        "endChar": 23
+      },
+      "revId": "07e60a53e534569a053c609d48a75c5fe853d2d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75f221d9_deebb247",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c96a1af8_7c0d57b1",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-29T09:12:51Z",
+      "side": 1,
+      "message": "Add verification to check network capabilities is updated in VPN\n\nIf we would like to verify the whole call path, we may need to do in some kind of integration test",
+      "parentUuid": "75f221d9_deebb247",
+      "range": {
+        "startLine": 719,
+        "startChar": 12,
+        "endLine": 719,
+        "endChar": 25
+      },
+      "revId": "07e60a53e534569a053c609d48a75c5fe853d2d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54c6c478_a8abfc49",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-04-29T05:58:34Z",
       "side": 1,
       "message": "Do we need to test anything regarding permissions?",
+      "range": {
+        "startLine": 728,
+        "startChar": 0,
+        "endLine": 728,
+        "endChar": 5
+      },
+      "revId": "07e60a53e534569a053c609d48a75c5fe853d2d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbf26d37_db708ab3",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-04-29T09:12:51Z",
+      "side": 1,
+      "message": "The only permission related check in Vpn.java is restricted user check. \n\nAdd test to verify it.",
+      "parentUuid": "54c6c478_a8abfc49",
       "range": {
         "startLine": 728,
         "startChar": 0,
