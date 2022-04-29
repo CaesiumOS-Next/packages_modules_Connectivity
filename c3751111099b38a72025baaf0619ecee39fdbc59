@@ -67,6 +67,23 @@
       "message": "Hi Lorenzo, \nplease take a look",
       "revId": "c3751111099b38a72025baaf0619ecee39fdbc59",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88b77353_b6046d40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-04-29T08:35:01Z",
+      "side": 1,
+      "message": "Hi Sudheer, \nsince @lorenzo is ooo today and next week, could you please take a look at this CL for code-owners approval?",
+      "revId": "c3751111099b38a72025baaf0619ecee39fdbc59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
