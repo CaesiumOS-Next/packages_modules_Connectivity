@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efa55e2f_c24f672a",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-29T05:58:34Z",
+      "side": 1,
+      "message": "Nit: suggest adding the verbs to show what actions you\u0027re testing:\n\ntestSetAndGetAppExclusionList",
+      "range": {
+        "startLine": 709,
+        "startChar": 20,
+        "endLine": 709,
+        "endChar": 23
+      },
+      "revId": "07e60a53e534569a053c609d48a75c5fe853d2d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75f221d9_deebb247",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-29T05:58:34Z",
+      "side": 1,
+      "message": "Is there any way to test that we updated the network capabilities?\n\n(In the long term, it may make sense to have a proxy of the network agent, so we can actually mock and test it.)",
+      "range": {
+        "startLine": 719,
+        "startChar": 12,
+        "endLine": 719,
+        "endChar": 25
+      },
+      "revId": "07e60a53e534569a053c609d48a75c5fe853d2d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54c6c478_a8abfc49",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-04-29T05:58:34Z",
+      "side": 1,
+      "message": "Do we need to test anything regarding permissions?",
+      "range": {
+        "startLine": 728,
+        "startChar": 0,
+        "endLine": 728,
+        "endChar": 5
+      },
+      "revId": "07e60a53e534569a053c609d48a75c5fe853d2d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
