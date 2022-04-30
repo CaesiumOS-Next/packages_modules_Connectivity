@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "365886e2_3dbab959",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-30T20:58:10Z",
+      "side": 1,
+      "message": "Renamed this for two reasons:\n\n- IMO is more consistent given the existence of \"listener2\" (arguable).\n- The \"listener\" naming in the for loops on l.226 and l.232 were shadowing this object.\n\nGiven the two reasons above, seemed to make more sense to rename this instance to \"listener1\".",
+      "range": {
+        "startLine": 207,
+        "startChar": 12,
+        "endLine": 207,
+        "endChar": 21
+      },
+      "revId": "2a7a79faccdd085027aea497f69b6e89e98700d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dee0ec7b_af62dd37",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-30T20:58:10Z",
+      "side": 1,
+      "message": "validateListenerOnRegistration() could be moved into addInterfaceStateListener(). If so, maybe it would be worth renaming addInterfaceStateListener to something like addAndVerifyInterfaceStateListener() or the like.",
+      "range": {
+        "startLine": 209,
+        "startChar": 8,
+        "endLine": 209,
+        "endChar": 49
+      },
+      "revId": "2a7a79faccdd085027aea497f69b6e89e98700d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbd5f6cd_2416cfd5",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-30T20:58:10Z",
+      "side": 1,
+      "message": "This method will verify all interfaces for a listener are:\n\n- returned\n- returned only once\n- if an iface was created in the test, it will also verify link state and role.\n- finally verify no unexpected callbacks were returned.",
+      "range": {
+        "startLine": 242,
+        "startChar": 16,
+        "endLine": 242,
+        "endChar": 46
+      },
+      "revId": "2a7a79faccdd085027aea497f69b6e89e98700d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

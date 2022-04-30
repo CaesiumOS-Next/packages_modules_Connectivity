@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "017c1826_31538432",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-04-30T20:58:10Z",
+      "side": 0,
+      "message": "public is the default modifier in Kotlin so removed this redundant code as part of this CL.",
+      "range": {
+        "startLine": 237,
+        "startChar": 4,
+        "endLine": 237,
+        "endChar": 10
+      },
+      "revId": "134d5ec8841030c916e35604ef81071994f2bda0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
