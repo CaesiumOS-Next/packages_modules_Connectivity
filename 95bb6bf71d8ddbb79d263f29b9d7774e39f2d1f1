@@ -22,6 +22,30 @@
       },
       "revId": "95bb6bf71d8ddbb79d263f29b9d7774e39f2d1f1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2877c54_887f2ad0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-02T22:32:40Z",
+      "side": 1,
+      "message": "I\u0027ve been meaning to enable it for offload in a follow up commit.\nJust want it separate to ease rollback, and want to do more testing.",
+      "parentUuid": "7c4ea3e1_ad9a249f",
+      "range": {
+        "startLine": 9,
+        "startChar": 10,
+        "endLine": 9,
+        "endChar": 17
+      },
+      "revId": "95bb6bf71d8ddbb79d263f29b9d7774e39f2d1f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
