@@ -3,6 +3,69 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9baa7a62_57a19601",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-02T06:02:19Z",
+      "side": 1,
+      "message": "Actually I\u0027m not sure if this is the cause of the leak. See inline.",
+      "revId": "5c7c2b22fc972cc4619726cb6329d8afd676347e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5315e69_15426cda",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsObservers.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-02T06:02:19Z",
+      "side": 1,
+      "message": "This will allocate a NetworkUsageRequestInfo for every request that is registered. I don\u0027t see anything that prevents an app from registering hundreds or thousands of these. Could that be the problem here? If an app registers hundreds of these without unregistering, that could cause the system server to run out of memory? Do we need a limit to the number of requests that can be registered by a given UID?",
+      "range": {
+        "startLine": 83,
+        "startChar": 35,
+        "endLine": 83,
+        "endChar": 47
+      },
+      "revId": "5c7c2b22fc972cc4619726cb6329d8afd676347e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4d54675_64dfe2d3",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsObservers.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-02T06:02:19Z",
+      "side": 1,
+      "message": "Is there actually a leak here? I may be misreading the code, but ISTM that:\n\n- If the app calls unregister, then this RequestInfo will be freed. So I think it doesn\u0027t matter that this RequestInfo maintains a strong reference to NetworkStatsObservers: if the RequestInfo is freed, then the reference to the NetworkStatsObservers object will go away.\n- If the app crashes / dies, then binderDied will do the same.\n\nThat assumes that the RequestInfo objects are actually freed by unregister. If they are not, then we have a memory leak, but we can\u0027t fix it by doing this.\n\nAnother reason why I\u0027m not sure this is a leak is that AFAICT NetworkStatsObservers is a singleton: there is only one instance of them in the system, and it\u0027s in NetworkStatsService#mStatsObservers. Nothing else constructs new NetworkStatsObservers objects. If that\u0027s the case, then I think this WeakReference won\u0027t help: there is only one NetworkStatsObservers instance on the system, and it will never get garbage collected.\n\nFinally, opening the trace given in the bugreport in perfetto:\n\nhttp://go/trace-uuid/a9273736-0733-ccb4-25ef-f0a7a0d8df38 (https://screenshot.googleplex.com/UAsZqShREvABPfP\n\nsuggests there are 24691 instances of NetworkUsageRequestInfo stored in the map. So the leak is because we have too many NetworkUsageRequestInfo objects, not because they hold a reference to NetworkStatsObservers.\n\nBut I could be wrong and the leak is more complicated than I think.\n\n\nIf there is a leak, can you add a comment here explaining what the leak is, and how it is prevented by making this a WeakReference instead of a regular strong reference?",
+      "range": {
+        "startLine": 249,
+        "startChar": 33,
+        "endLine": 249,
+        "endChar": 46
+      },
+      "revId": "5c7c2b22fc972cc4619726cb6329d8afd676347e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a7be1f1a_cdd822da",
         "filename": "tests/unit/java/com/android/server/net/NetworkStatsObserversTest.java",
         "patchSetId": 3
