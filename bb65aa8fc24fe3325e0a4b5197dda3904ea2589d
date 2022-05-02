@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6977e7bf_d21563e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-02T07:11:19Z",
+      "side": 1,
+      "message": "The only presubmit failure is the errorprone build on git_master, which is already failing with an unrelated error:\n\nerror: external/rust/crates/openssl/Android.bp:15:1: \"libopenssl\" depends on undefined module \"libbssl_ffi\"",
+      "revId": "bb65aa8fc24fe3325e0a4b5197dda3904ea2589d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
