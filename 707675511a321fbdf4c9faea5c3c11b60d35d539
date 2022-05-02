@@ -1,5 +1,98 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e95e3bc_5705c2a9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 3437,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-02T00:43:30Z",
+      "side": 1,
+      "message": "You might want to move this before the requests, because those can be dozens of lines long.",
+      "range": {
+        "startLine": 3434,
+        "startChar": 0,
+        "endLine": 3437,
+        "endChar": 32
+      },
+      "revId": "707675511a321fbdf4c9faea5c3c11b60d35d539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bcbafd1_7a4b47f0",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-02T00:43:30Z",
+      "side": 1,
+      "message": "We seem to have code like this all over the place. (In fact, there are two just in this CL.)\n\nCan we aadd a utility method for this somewhere in frameworks/libs/net? It looks like such a method would need to only take the string name, the header line (here, \"BPF ingress map: iif nat64Prefix v6Addr -\u003e v4Addr oif\"), a lambda that knows how to dump each line, and the PrintWriter.",
+      "range": {
+        "startLine": 752,
+        "startChar": 0,
+        "endLine": 757,
+        "endChar": 32
+      },
+      "revId": "707675511a321fbdf4c9faea5c3c11b60d35d539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79d1053b_415c9e93",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-02T00:43:30Z",
+      "side": 1,
+      "message": "Can this iteration throw ConcurrentModificationException? If so, I think that will be hard to debug because ConcurrentModificationException is not Parcelable and cannot be sent back to the caller of dump(). Would suggest catching the ConcurrentModificationException and re-throwing a parcelable exception such as IllegalStateException. You can find the list of parcelable exceptions here:\n\nhttps://source.corp.google.com/aosp-master/frameworks/base/core/java/android/os/Parcel.java;l\u003d341",
+      "range": {
+        "startLine": 766,
+        "startChar": 8,
+        "endLine": 766,
+        "endChar": 9
+      },
+      "revId": "707675511a321fbdf4c9faea5c3c11b60d35d539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e64df684_bb337f69",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-02T00:43:30Z",
+      "side": 1,
+      "message": "not started",
+      "range": {
+        "startLine": 543,
+        "startChar": 29,
+        "endLine": 543,
+        "endChar": 38
+      },
+      "revId": "707675511a321fbdf4c9faea5c3c11b60d35d539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
