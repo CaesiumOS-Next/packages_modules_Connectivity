@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3a0324b_91868e2c",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-02T01:01:06Z",
+      "side": 1,
+      "message": "Typo, waiting. Also, waiting is not a transitive verb, so you can\u0027t say \"waiting result\". You can say \"awaiting result\" or \"waiting for result\".",
+      "range": {
+        "startLine": 461,
+        "startChar": 33,
+        "endLine": 461,
+        "endChar": 39
+      },
+      "revId": "be431976455658e0edcdfe43c82a55701a57be3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c50d3dc0_0d762799",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-02T01:01:06Z",
+      "side": 1,
+      "message": "It\u0027s confusing that this method waits for a callback even though it\u0027s called \"WithoutWaitingResult\". Maybe call this method startWifiTethering and rename the other method to startWifiTetheringAndAwaitCallbacks?",
+      "range": {
+        "startLine": 478,
+        "startChar": 31,
+        "endLine": 478,
+        "endChar": 53
+      },
+      "revId": "be431976455658e0edcdfe43c82a55701a57be3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed3224ce_a859931e",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-02T01:01:06Z",
+      "side": 1,
+      "message": "Is there a reason you cannot test this here? The TelephonyManagerTest version of overrideCarrierConfig waits for a carrier config changed broadcast, so tethering will get the broadcast and it will stop tethering.\n\nhttps://source.corp.google.com/aosp-master/cts/tests/tests/telephony/current/src/android/telephony/cts/TelephonyManagerTest.java;l\u003d495\n\nMaybe we can do the same here?",
+      "range": {
+        "startLine": 418,
+        "startChar": 25,
+        "endLine": 419,
+        "endChar": 39
+      },
+      "revId": "be431976455658e0edcdfe43c82a55701a57be3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f981e89_22c9e13e",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-02T01:01:06Z",
+      "side": 1,
+      "message": "Unsupport is not a word. \"Unsupported\"? \"Not supported\"?",
+      "range": {
+        "startLine": 422,
+        "startChar": 43,
+        "endLine": 422,
+        "endChar": 52
+      },
+      "revId": "be431976455658e0edcdfe43c82a55701a57be3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9beb8ab3_821c8415",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-02T01:01:06Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 443,
+        "startChar": 43,
+        "endLine": 443,
+        "endChar": 52
+      },
+      "revId": "be431976455658e0edcdfe43c82a55701a57be3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9b26783_0bed43b3",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-02T01:01:06Z",
+      "side": 1,
+      "message": "Looks like this test is testing non-mainline code. I wonder if it should be in CTS instead?\n\nActually... Mark, is there any reason this test is in MTS and *not* in CTS? Seems like any Android device should pass these tests when shipped, no? So can we move these tests to CTS and then include them in MTS as well?",
+      "range": {
+        "startLine": 448,
+        "startChar": 8,
+        "endLine": 448,
+        "endChar": 31
+      },
+      "revId": "be431976455658e0edcdfe43c82a55701a57be3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
