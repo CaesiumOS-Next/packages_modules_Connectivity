@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24dc8240_9dda454e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10658,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-02T13:21:18Z",
+      "side": 1,
+      "message": "Pre-existing, but for clarity would add an explicit setPreference(PROFILE_NETWORK_PREFERENCE_DEFAULT) to this call.",
+      "range": {
+        "startLine": 10658,
+        "startChar": 65,
+        "endLine": 10658,
+        "endChar": 67
+      },
+      "revId": "16e1be6dd6659e790be39ab7ca9822b4cc0ac67d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e50399d_3294280f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10676,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-02T13:21:18Z",
+      "side": 1,
+      "message": "Pre-existing, so perhaps not for this CL, but shouldn\u0027t this be inside the for loop? Otherwise if an app passes in:\n\n    {\n        PREFERENCE_ENTERPRISE_NO_FALLBACK: uids [111, 222] -\u003e enterpriseId 1,\n        PREFERENCE_ENTERPRISE: uids [123, 456] -\u003e enterpriseId 2,\n    }\n\nthen the preference for UIDs 123, 456 will also have no fallback.",
+      "range": {
+        "startLine": 10676,
+        "startChar": 8,
+        "endLine": 10676,
+        "endChar": 37
+      },
+      "revId": "16e1be6dd6659e790be39ab7ca9822b4cc0ac67d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e923c2f3_6495b360",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10681,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-02T13:21:18Z",
+      "side": 1,
+      "message": "Why doesn\u0027t this calculate a uidRangeSet like the other two modes? It looks like it should, because otherwise if an app says:\n\n    {\n        PREFERENCE_ENTERPRISE: uids [111, 222] -\u003e enterpriseId 1,\n        PREFERENCE_ENTERPRISE_DEFAULT: uids [444, 555],\n        PREFERENCE_ENTERPRISE: uids [123, 456] -\u003e enterpriseId 2,\n    }\n \nthen the code won\u0027t do the right thing? Or am I misreading and this will work as expected because PREFERENCE_DEFAULT is the same as no preference?\n\nThinking about it some more... what should PREFERENCE_DEFAULT really even mean if it\u0027s in a list with other preferences? Is incorrect? Should we throw an exception if a caller passes in a list of preferences that includes both PREFERENCE_DEFAULT and anything else?",
+      "range": {
+        "startLine": 10681,
+        "startChar": 20,
+        "endLine": 10681,
+        "endChar": 29
+      },
+      "revId": "16e1be6dd6659e790be39ab7ca9822b4cc0ac67d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1df50fa_53bee327",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10760,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-02T13:21:18Z",
+      "side": 1,
+      "message": "This is no longer true, right? It means PREFERENCE_DEFAULT but technically it can appear with other PREFERENCE_* values in a list. Perhaps we should prevent that?",
+      "range": {
+        "startLine": 10760,
+        "startChar": 65,
+        "endLine": 10760,
+        "endChar": 96
+      },
+      "revId": "16e1be6dd6659e790be39ab7ca9822b4cc0ac67d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d7f79b1_d70726b9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10816,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-02T13:21:18Z",
+      "side": 1,
+      "message": "only contains",
+      "range": {
+        "startLine": 10816,
+        "startChar": 26,
+        "endLine": 10816,
+        "endChar": 34
+      },
+      "revId": "16e1be6dd6659e790be39ab7ca9822b4cc0ac67d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82fc1131_a9824157",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10816,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-02T13:21:18Z",
+      "side": 1,
+      "message": "(enforced by getUidListToBeAppliedForNetworkPreference).",
+      "range": {
+        "startLine": 10816,
+        "startChar": 86,
+        "endLine": 10816,
+        "endChar": 87
+      },
+      "revId": "16e1be6dd6659e790be39ab7ca9822b4cc0ac67d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48cf19e6_77c5a33f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10820,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-02T13:21:18Z",
+      "side": 1,
+      "message": "Why check that this is non-empty? I don\u0027t think it can ever happen, setProfileNetworkPreferences will always pass in a list with at least one element.",
+      "range": {
+        "startLine": 10820,
+        "startChar": 34,
+        "endLine": 10820,
+        "endChar": 35
+      },
+      "revId": "16e1be6dd6659e790be39ab7ca9822b4cc0ac67d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
