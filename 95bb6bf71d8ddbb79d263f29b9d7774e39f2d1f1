@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c4ea3e1_ad9a249f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1115183
+      },
+      "writtenOn": "2022-05-02T22:22:50Z",
+      "side": 1,
+      "message": "I actually had a (fairly hacky) idea to handle this by building 2 versions with \u0026 without `-g` and then using objcopy\u0027s `--dump-section` and `--add-section` options to insert the .BTF section into the version compiled without `-g`. This seemed to work when I tried it out locally (earlier bpfloaders just ignore the actual .BTF section, the backward incompatibility is due to unrelated side effects of building with `-g`) but would need to be integrated properly into soong, which I haven\u0027t had a chance to pursue",
+      "range": {
+        "startLine": 9,
+        "startChar": 10,
+        "endLine": 9,
+        "endChar": 17
+      },
+      "revId": "95bb6bf71d8ddbb79d263f29b9d7774e39f2d1f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
