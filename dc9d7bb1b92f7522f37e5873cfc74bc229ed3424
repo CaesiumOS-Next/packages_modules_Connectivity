@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50ed61ec_a779c6c0",
+        "filename": "service/src/com/android/server/connectivity/ProfileNetworkPreferenceList.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-05-02T06:13:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32eaccf8_36137d74",
+      "range": {
+        "startLine": 74,
+        "startChar": 46,
+        "endLine": 74,
+        "endChar": 57
+      },
+      "revId": "dc9d7bb1b92f7522f37e5873cfc74bc229ed3424",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dcc7d827_46490daf",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e4032e7_804b4825",
+        "filename": "service/src/com/android/server/connectivity/ProfileNetworkPreferenceList.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-05-02T06:13:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcc7d827_46490daf",
+      "range": {
+        "startLine": 75,
+        "startChar": 20,
+        "endLine": 75,
+        "endChar": 31
+      },
+      "revId": "dc9d7bb1b92f7522f37e5873cfc74bc229ed3424",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11a0a0c5_1c8022d7",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-05-02T02:49:27Z",
       "side": 1,
       "message": "This isn\u0027t true any more, is it?\n\nPer discussion: let\u0027s first add more tests for the current behaviour, in a separate CL. The use cases we want to test are:\n1. Test that adding a new preference replaces the existing preference.\n2. Test that passing in null removes the existing preference.\n3. Test that if we pass in two simultaneous preferences for the same user (e.g., two different groups of apps), the second overrides the first.\n\n#3 is confirming the bug that we are trying to fix here, i.e., expects the broken behaviour. Hopefully this test is basically already written: it\u0027s the new test you have in this CL, except what you have in this CL expects the fixed behaviour. We\u0027d want to change that to expecting the broken behaviour and merge the test CL.\n\n\nThen, in this CL, we can fix the bug and update that test. That will ensure that we know exactly how the code behaves in these use cases and that you are fixing the bug and making no other changes.\n\nSorry for asking you to do this now, but the fact that we almost broke this code (we would have, if we hadn\u0027t spotted this in code review) suggests that this code is under-tested and needs more coverage. It\u0027s particularly concerning that if we break this behaviour, we\u0027ll break existing use cases in the field running on S.",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 48
+      },
+      "revId": "dc9d7bb1b92f7522f37e5873cfc74bc229ed3424",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e32f9173_6668273d",
+        "filename": "service/src/com/android/server/connectivity/ProfileNetworkPreferenceList.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-05-02T06:13:16Z",
+      "side": 1,
+      "message": "Comment is still valid. User should still pass a null capaility to remove the user preference.\n\nRegarding #2. This is tested in almost all test cases. Only way to pass null capability is by passing Preference as DEFAULT. This is tested in almost all test cases already at the end and it verifies that the preference is removed.\n\nAdded 1 and 3 in",
+      "parentUuid": "11a0a0c5_1c8022d7",
       "range": {
         "startLine": 76,
         "startChar": 0,
