@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b152b4a_d256680f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-03T15:28:23Z",
+      "side": 1,
+      "message": "Nits: explain why you can\u0027t just use adoptShellPermissionIdentity to have permission access scan result. In WifiManager#getScanResults, it would clearCallingIdentity then checking whether caller uid and its package name have proper permission instead.",
+      "revId": "17d9e6478f37657f5e3a4846fe14332831bc22e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f7273fe_af5a4234",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-03T15:28:23Z",
+      "side": 1,
+      "message": "LGTM assume comment fix.\n\n+ lorenzo@ for owner vote",
+      "revId": "17d9e6478f37657f5e3a4846fe14332831bc22e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
