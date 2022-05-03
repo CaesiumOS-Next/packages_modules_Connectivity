@@ -63,10 +63,12 @@ public class IkeSessionTestUtils {
                 new IkeSessionParams.Builder()
                         .setServerHostname(testServer)
                         .setLocalIdentification(new IkeFqdnIdentification(TEST_IDENTITY))
-                        .setRemoteIdentification(testIpv6
-                                ? new IkeIpv6AddrIdentification((Inet6Address) addr)
-                                : new IkeIpv4AddrIdentification((Inet4Address) addr))
+                        .setRemoteIdentification(
+                                testIpv6
+                                        ? new IkeIpv6AddrIdentification((Inet6Address) addr)
+                                        : new IkeIpv4AddrIdentification((Inet4Address) addr))
                         .setAuthPsk(TEST_PSK)
+                        .addIkeOption(IkeSessionParams.IKE_OPTION_MOBIKE)
                         .addSaProposal(getIkeSaProposals());
 
         return ikeOptionsBuilder.build();
