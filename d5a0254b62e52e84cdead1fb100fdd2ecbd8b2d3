@@ -53,6 +53,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e4cfe5b_06fa3f5d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-05-03T09:19:55Z",
+      "side": 1,
+      "message": "LGTM if the comments are fixed.\n\nPer talked with maze@, this workaround splits existing function into two pisses for cheating 4.14 bpf verifier. It doesn\u0027t change the behavior and is safe. Merge it first for fixing the CTS bug. We still needs Lorenzo\u0027s comment while cherry-pick this from aosp to internal branch. If he doesn\u0027t agree this, we still can revert this workaround on aosp.",
+      "revId": "d5a0254b62e52e84cdead1fb100fdd2ecbd8b2d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f151179_c81e2c18",
