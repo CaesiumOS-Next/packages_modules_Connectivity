@@ -16,6 +16,24 @@
       "message": "A bit worried about potential flakiness of the test, so I created this run:\nhttps://android-build.googleplex.com/builds/abtd/run/L47500000954325220\n\nPlease only submit if it shows there\u0027s no flake",
       "revId": "d201566169824201aad7997d7644ac4e06b199f3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aaea907c_a20af540",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-03T02:45:59Z",
+      "side": 1,
+      "message": "All 100 runs passed, thanks for help.",
+      "parentUuid": "199bbe53_b657152a",
+      "revId": "d201566169824201aad7997d7644ac4e06b199f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
