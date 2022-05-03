@@ -103,6 +103,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72c4f2c3_edb58b0f",
+        "filename": "tests/cts/hostside/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-05-03T17:00:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0e242ca_0a136a85",
+      "revId": "c3751111099b38a72025baaf0619ecee39fdbc59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7672d4a7_a2abdaf2",
@@ -116,6 +134,30 @@
       "writtenOn": "2022-05-03T06:02:08Z",
       "side": 1,
       "message": "It is recommended to leave the device in the same state as before running the test. So, if we are manually installing new apks, then it is better to also uninstall them at the end of the test run.",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "c3751111099b38a72025baaf0619ecee39fdbc59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c48a820d_87417c43",
+        "filename": "tests/cts/hostside/src/com/android/cts/net/HostsideLinkPropertiesGatingTests.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-05-03T17:00:18Z",
+      "side": 1,
+      "message": "Done, uninstalling package in `tearDown` method",
+      "parentUuid": "7672d4a7_a2abdaf2",
       "range": {
         "startLine": 35,
         "startChar": 8,

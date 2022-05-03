@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0f89f11_ef4c8b3a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-05-03T17:00:18Z",
+      "side": 1,
+      "message": "Hi Sudheer, \nI\u0027ve resolved your comments, ptal",
+      "revId": "f112ab30e12cc94f4b232f2231c03731e279dd36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
