@@ -84,6 +84,46 @@
       "message": "Hi Sudheer, \nsince @lorenzo is ooo today and next week, could you please take a look at this CL for code-owners approval?",
       "revId": "c3751111099b38a72025baaf0619ecee39fdbc59",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0e242ca_0a136a85",
+        "filename": "tests/cts/hostside/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2022-05-03T06:02:08Z",
+      "side": 1,
+      "message": "We need to add the new apps to https://googleplex-android.googlesource.com/platform/packages/modules/Connectivity/+/master/tests/cts/hostside/Android.bp#37.",
+      "revId": "c3751111099b38a72025baaf0619ecee39fdbc59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7672d4a7_a2abdaf2",
+        "filename": "tests/cts/hostside/src/com/android/cts/net/HostsideLinkPropertiesGatingTests.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2022-05-03T06:02:08Z",
+      "side": 1,
+      "message": "It is recommended to leave the device in the same state as before running the test. So, if we are manually installing new apks, then it is better to also uninstall them at the end of the test run.",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "c3751111099b38a72025baaf0619ecee39fdbc59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
