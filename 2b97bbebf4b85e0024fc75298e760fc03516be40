@@ -16,6 +16,29 @@
       "message": "Hi Lucas, \nPlease take a look",
       "revId": "2b97bbebf4b85e0024fc75298e760fc03516be40",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1474a78c_88213312",
+        "filename": "tests/common/java/android/net/LinkPropertiesTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1266,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-05-03T12:22:45Z",
+      "side": 1,
+      "message": "Suggest adding final here if the var won\u0027t be assigned again.\nBut there is no need to respin since this commit has presubmit-verified +2.",
+      "range": {
+        "startLine": 1266,
+        "startChar": 8,
+        "endLine": 1266,
+        "endChar": 9
+      },
+      "revId": "2b97bbebf4b85e0024fc75298e760fc03516be40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
