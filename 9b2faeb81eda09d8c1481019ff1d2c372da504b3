@@ -16,6 +16,23 @@
       "message": "Failure is\n\nThere are untracked SELinux denials on boot:\nThere are untracked SELinux denials on boot:\ngo/how-to-track-an-selinux-denial\n05-03 10:45:04.691   594   594 I auditd  : type\u003d1400 audit(0.0:103): avc: denied { write } for comm\u003d\"tombstone_trans\" name\u003d\"tombstones\" dev\u003d\"dm-61\" ino\u003d24 scontext\u003du:r:tombstone_transmit:s0 tcontext\u003du:object_r:tombstone_data_file:s0 tclass\u003ddir permissive\u003d0\n\nwhich looks unrelated.  Retry.",
       "revId": "9b2faeb81eda09d8c1481019ff1d2c372da504b3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea2f8178_8019b58b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-05-03T12:43:59Z",
+      "side": 1,
+      "message": "Hi Maze\n\nI have two questions:\n1. If we install T module on a device which uses kernel which doesn\u0027t support btf, does this break anything?\n2. Where do we plan to use btf for debugging? The bugreport doesn\u0027t dump each map in btf format. Each map owner may have a parser to extract map into human readable format for debugging. \n\nFor example (clat maps):\n\nDUMPSYS:\n$ adb shell dumpsys connectivity --short\n  ClatCoordinator:\n    Forwarding rules:\n      BPF ingress map: iif nat64Prefix v6Addr -\u003e v4Addr oif\n        47 /64:ff9b::/96 /2a00:79e1:abc:6f02:dbd8:9644:d74b:58fb -\u003e /192.0.0.4 52\n      BPF egress map: iif v4Addr -\u003e v6Addr nat64Prefix oif\n        52 /192.0.0.4 -\u003e /2a00:79e1:abc:6f02:dbd8:9644:d74b:58fb /64:ff9b::/96 47 ether\n\nBTF:\n$ adb shell cat /sys/fs/bpf/net_shared/map_clatd_clat_ingress6_map\n{47,{{[],[25600,39935,0,0,0,0,0,0,],[2617205760,0,0,0,],},},{{[\u0027*\u0027,],[42,57721,48138,623,55515,17558,19415,64344,],[3782803498,40877066,1150736603,4216867799,],},},}: {52,{67109056,},}\n\n$ adb shell cat /sys/fs/bpf/net_shared/map_clatd_clat_egress4_map\n{52,{67109056,},}: {47,{{[\u0027*\u0027,],[42,57721,48138,623,55515,17558,19415,64344,],[3782803498,40877066,1150736603,4216867799,],},},{{[],[25600,39935,0,0,0,0,0,0,],[2617205760,0,0,0,],},},1,[],}\n",
+      "revId": "9b2faeb81eda09d8c1481019ff1d2c372da504b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
