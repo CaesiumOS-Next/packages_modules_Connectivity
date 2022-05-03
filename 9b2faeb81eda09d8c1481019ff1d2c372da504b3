@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "464810f5_f3e2bb74",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-03T11:33:02Z",
+      "side": 1,
+      "message": "Failure is\n\nThere are untracked SELinux denials on boot:\nThere are untracked SELinux denials on boot:\ngo/how-to-track-an-selinux-denial\n05-03 10:45:04.691   594   594 I auditd  : type\u003d1400 audit(0.0:103): avc: denied { write } for comm\u003d\"tombstone_trans\" name\u003d\"tombstones\" dev\u003d\"dm-61\" ino\u003d24 scontext\u003du:r:tombstone_transmit:s0 tcontext\u003du:object_r:tombstone_data_file:s0 tclass\u003ddir permissive\u003d0\n\nwhich looks unrelated.  Retry.",
+      "revId": "9b2faeb81eda09d8c1481019ff1d2c372da504b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
