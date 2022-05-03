@@ -26,6 +26,8 @@ import static android.system.OsConstants.IPPROTO_UDP;
 
 import android.os.ParcelFileDescriptor;
 
+import com.android.internal.util.HexDump;
+
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -68,6 +70,22 @@ public class IkeTunUtils extends TunUtils {
         return request;
     }
 
+    /** Await a series of expected IKE requests and inject a series of IKE responses. */
+    public void awaitReqAndInjectRespSeries(
+            long expectedInitIkeSpi,
+            int startingExpectedMsgId,
+            boolean encapExpected,
+            String[] respIkePktHex)
+            throws Exception {
+        for (String respHex : respIkePktHex) {
+            awaitReqAndInjectResp(
+                    expectedInitIkeSpi,
+                    startingExpectedMsgId++,
+                    encapExpected,
+                    HexDump.hexStringToByteArray(respHex));
+        }
+    }
+
     private byte[] awaitIkePacket(long expectedInitIkeSpi, int expectedMsgId, boolean expectEncap)
             throws Exception {
         return super.awaitPacket(pkt -> isIke(pkt, expectedInitIkeSpi, expectedMsgId, expectEncap));
@@ -75,36 +93,32 @@ public class IkeTunUtils extends TunUtils {
 
     private static boolean isIke(
             byte[] pkt, long expectedInitIkeSpi, int expectedMsgId, boolean encapExpected) {
-        final int ipProtocolOffset;
-        final int ikeOffset;
+        final boolean isIpv6 = isIpv6(pkt);
 
-        if (isIpv6(pkt)) {
-            ipProtocolOffset = IP6_PROTO_OFFSET;
-            ikeOffset = IP6_HDRLEN + UDP_HDRLEN;
-        } else {
-            if (encapExpected && !hasNonEspMarkerv4(pkt)) {
-                return false;
-            }
-
-            // Use default IPv4 header length (assuming no options)
-            final int encapMarkerLen = encapExpected ? NON_ESP_MARKER.length : 0;
-            ipProtocolOffset = IP4_PROTO_OFFSET;
-            ikeOffset = IP4_HDRLEN + UDP_HDRLEN + encapMarkerLen;
+        if (encapExpected && !hasNonEspMarker(isIpv6, pkt)) {
+            return false;
         }
+
+        final int encapMarkerLen = encapExpected ? NON_ESP_MARKER.length : 0;
+        final int ipProtocolOffset = isIpv6 ? IP6_PROTO_OFFSET : IP4_PROTO_OFFSET;
+        final int ipHeaderLen = isIpv6 ? IP6_HDRLEN : IP4_HDRLEN;
+        final int ikeOffset = ipHeaderLen + UDP_HDRLEN + encapMarkerLen;
 
         return pkt[ipProtocolOffset] == IPPROTO_UDP
                 && areSpiAndMsgIdEqual(pkt, ikeOffset, expectedInitIkeSpi, expectedMsgId);
     }
 
-    /** Checks if the provided IPv4 packet has a UDP-encapsulation NON-ESP marker */
-    private static boolean hasNonEspMarkerv4(byte[] ipv4Pkt) {
-        final int nonEspMarkerOffset = IP4_HDRLEN + UDP_HDRLEN;
-        if (ipv4Pkt.length < nonEspMarkerOffset + NON_ESP_MARKER.length) {
+    /** Checks if the provided packet has a UDP-encapsulation NON-ESP marker */
+    private static boolean hasNonEspMarker(boolean isIpv6, byte[] pkt) {
+        final int ipHeaderLen = isIpv6 ? IP6_HDRLEN : IP4_HDRLEN;
+        final int nonEspMarkerOffset = ipHeaderLen + UDP_HDRLEN;
+        if (pkt.length < nonEspMarkerOffset + NON_ESP_MARKER.length) {
             return false;
         }
 
-        final byte[] nonEspMarker = Arrays.copyOfRange(
-                ipv4Pkt, nonEspMarkerOffset, nonEspMarkerOffset + NON_ESP_MARKER.length);
+        final byte[] nonEspMarker =
+                Arrays.copyOfRange(
+                        pkt, nonEspMarkerOffset, nonEspMarkerOffset + NON_ESP_MARKER.length);
         return Arrays.equals(NON_ESP_MARKER, nonEspMarker);
     }
 
