@@ -16,6 +16,29 @@
       "message": "Hi Sudheer, \nI\u0027ve resolved your comments, ptal",
       "revId": "f112ab30e12cc94f4b232f2231c03731e279dd36",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "027032d0_51f78d8a",
+        "filename": "tests/cts/hostside/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2022-05-03T20:41:44Z",
+      "side": 1,
+      "message": "Add CtsHostsideNetworkTestsApp3PreT too?",
+      "range": {
+        "startLine": 41,
+        "startChar": 10,
+        "endLine": 41,
+        "endChar": 37
+      },
+      "revId": "f112ab30e12cc94f4b232f2231c03731e279dd36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
