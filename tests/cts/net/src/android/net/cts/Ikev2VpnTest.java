@@ -155,11 +155,101 @@ public class Ikev2VpnTest {
                     + "57a26f6bc5b337b9b9496d54bdde0333d7a32e6e1335c9ee730c3ecd607a8689aa7b0577b74f"
                     + "3bf437696a9fd5fc0aee3ed346cd9e15d1dda293df89eb388a8719388a60ca7625754de12cdb"
                     + "efe4c886c5c401";
+
+    private static final String MOBIKE_IKE_INIT_RESP_V4 =
+            "46b8eca1e0d72a1827354a05992f77e12120222000000000000002d8220000300000002c01010004030000"
+                    + "0c0100000c800e0100030000080300000c030000080200000400000008040000102800020800"
+                    + "100000456ac5b15451deb5990991d7a147de89f595ef908bb07f2642a993e0f0dc699e701d73"
+                    + "c3738ba81113e4ac17612b419c15363888ab37970fd65c68363cdb52401b559bf39ba4d5bb94"
+                    + "51f55cea7cd480fc3786f73d87a40c8961a27e630bb6e1c8689a7b5f669abbb0790809a9678d"
+                    + "ef365cd6f27911cd0cdf6d22ec82612237b961d81936577b951ca30beb17c8f6a9671760ff4f"
+                    + "814a48993e7e77e680577bd3d5c2bc397d10efc6a0db547e7f09dba9f081689f3af7d4b54b50"
+                    + "2e862594b686b2e1d5b8011b1aa9af725e0c07de3057dc969aab6d6d243f190e0aaf2921622c"
+                    + "14c118375e18fd61a38e70e6f4590940d8e74284a41acedcb6f5537e68691be91e7d64d23f08"
+                    + "657147c64bb1f5a6e2f2436e4c05f5dd8ad73a41129ddb1cf294196d9b2f1e752a598bc9b6a3"
+                    + "5e0f4a4cb8a17013971e26f96635a24d1b687506188fdbeea3f8884d4c0f902fa198a86f960e"
+                    + "2977fa647397c90e5dd5b2aa4af9f0755f3ae0b53cfa6c1ca9cf754bdd1db5cc7149676b0763"
+                    + "f6a54c758e076a010a31d0e5d1e681dce8b64b41d7695304626845dd9c4d119d15bf13e90c39"
+                    + "f6996c4def4750aa45f558947be23d47e5f34a4b837f000a831e9f041da7794fca8f26f0f890"
+                    + "f1790c4f72696752845c13ea03ef2335fc56b5491a7ef599ccf16f6eb6fbd1315e2c6aee0466"
+                    + "0098a2100a292c26b1683df81421a0bacd2ec7b4ff29000024a81f11b59e93049cfea9dc67cb"
+                    + "9061eb354040c8ba533c3c8b18a6e581de0c0b2900001c000040040d315a21566415d5bcf0a7"
+                    + "bc5afd38258e42b0b42900001c000040055a138039a2ca3f777db2ecb2779bf2a46f683a2529"
+                    + "0000080000402e290000100000402f0002000300040005290000080000402200000008000040"
+                    + "14";
+    private static final String MOBIKE_IKE_AUTH_RESP_V4 =
+            "46b8eca1e0d72a1827354a05992f77e12e2023200000000100000100240000e47ca5b2291164bfc1210d02"
+                    + "97c184a130d202781bde408ad96da5c0a5c6fde1fdbcf88d496ee099a49faddbae0045df1e1d"
+                    + "1cdc3ef3df2a0fabff56b003acc492c6286a73b5a8726f9ecae8db4937ed3c0c80ff4ae14be9"
+                    + "9eb7bbd9629eccbbbd65a00161b5e93762c337128db2e485f81d9732199b63ae190562bb1be4"
+                    + "c36a9fecf033444b9ae7103860fe6dc75b4c7afa23e496351c322bc10c38ace06af11c57e2b8"
+                    + "463cd35f1a847cf163767ea2998d1cf40dff7de7aeb13b01ca07e47de7fb4bacd65881e04523"
+                    + "0de2460c61617a3a58352229613df68e5e764f2a8dde88";
+    private static final String MOBIKE_INFO_RESP_V4 =
+            "46b8eca1e0d72a1827354a05992f77e12e202520000000020000008029000064f2ab4e8f587b5a7e320b50"
+                    + "91b4157c1ab3282147327815f2e7a7cbc70c4f62900fc4b1cb6ddbf58c90672f20fec7eb6897"
+                    + "197b272507e352b53d6f4d75521541d34ac1818f7b73766edd2acdf6bfe6ddd2f1a3ecbc2c04"
+                    + "611e781a58e8b114f5";
+    private static final String MOBIKE_REKEY_CREATE_RESP_V4 =
+            "46b8eca1e0d72a1827354a05992f77e12e20242000000003000000c0210000a412c14486e3279555af0e4e"
+                    + "15ce9cc38f102addbf3fa05bdb10dfd30a9319435808a2e41995fe9a8568e9e985b1dca11baf"
+                    + "a48388123fb62b4d930c41b0991ba893a74b97dfd689a6ac6050faf7bcca8a7ff41c90011de8"
+                    + "017f796d556ca12f6625416808ae51de21dcb6100ca1500bc0a64e844c4a699f278a1bb6a148"
+                    + "901d4a4e3fa04273ed589bf33bf60a33bb80a86411cb2c2fd32ca5ba546b27ed08f20c";
+    private static final String MOBIKE_REKEY_DEL_RESP_V4 =
+            "46b8eca1e0d72a1827354a05992f77e12e20252000000004000000502a000034afc399661a664444f794d2"
+                    + "e764130bdfa4d5dc6ae04cb3d9beeff86fa5658662e4811a82962dbba6b479775f70a7eafc";
+
+    private static final String MOBIKE_IKE_INIT_RESP_V6 =
+            "46b8eca1e0d72a18476c85c56672fed92120222000000000000002a0220000300000002c01010004030000"
+                    + "0c0100000c800e0100030000080300000c030000080200000400000008040000102800020800"
+                    + "100000db853755a0df24f29ce3f066011d6760ac8f762c2ec47b2c07446cc013a43ad9d7b762"
+                    + "f2c8248318528aeaed0b699bc33a374180a5489752e6192fddcfaca3dc78e10f1c090bc62a37"
+                    + "1bf5e2a5ed17569fc0906c9ef3e2358621d407edeb156e650c632481d9336594844dd5dc9304"
+                    + "efe045f8127125c2123178d046bdcdec5e97facf73450d77637b288723882f6e764f0d07d166"
+                    + "28750f4029af6bbe1102dbfd5dc424a8c418a657d3ef6726595b05da6b980f7ab898b6b33acf"
+                    + "32e1917d2d667a9e5ee9fa71d032791fa5fd46d8e8f6b5777a7c3d138fe68c1c1d5d5b66aa5a"
+                    + "4cdc7a99b4c64a7edb1b863b8de705933cd36252b74458a01c6f99626b964a9180225f2c55d3"
+                    + "4f41347f89d00a3981ade9290c059696540b856389ffd937966ed26bef3036b0018eebe65782"
+                    + "2b86e36eda203cbeeeb47245507ddb063f7bd1c13ed4a68aba5e7a89989f8c4d84a109aaf0cb"
+                    + "94a394c9e585b188f8c72ae567c7d711fff6d938878ff40af31482fef5a31693745cd5473e02"
+                    + "b85d5e9f597b1ceeef517bdc1dcb1faa51f8008890b5f4d1f064ec384e2335a5798645d614da"
+                    + "15ece5ed2047d7c15b810a4ca1bd6724ee7c1cbebf988530058e639486398a5cffabda9f3091"
+                    + "f33a427d632e35d1395d7f9508a97f88094576276e058e1c45b7f623cd56887ee28353e16a1a"
+                    + "810028159f399aa989039985ba0c1bfb66932e043629000024da27d4b5e207f8bf62affa2f67"
+                    + "93a1b18e73c582c8f9c4700d4fdca2630eee7f290000080000402e290000100000402f000200"
+                    + "030004000529000008000040220000000800004014";
+    private static final String MOBIKE_IKE_AUTH_RESP_V6 =
+            "46b8eca1e0d72a18476c85c56672fed92e2023200000000100000100240000e414d806096bcd24c0196eb8"
+                    + "898ea98c721d331cb4f91b2b87750cd300c77b0e8ee0124b9c80a8135484a408e94e7b8d52f9"
+                    + "d502728a7bea7ab2264db6d83ab0bb3164ab09dbcbfe02928e1e5de81ec44b1376d5f1c26272"
+                    + "c686296b7edf253ffa92dfecdf3068bd4e57ccfcee65f7e448bf74987b5645001b599683431a"
+                    + "efa505b06c9751bc00ffc53ea2961791a354d78531f51b037f86ddf9816aeeb32d44f77c2266"
+                    + "4a61b99c0230809e9d0cdc2e31db6109756f1d456f7194faa4453dc56a614e0787477d805888"
+                    + "eeb02f8b5098e901af57e3ed0a735f6fe6624b498eaec1";
+    private static final String MOBIKE_INFO_RESP_V6 =
+            "46b8eca1e0d72a18476c85c56672fed92e2025200000000200000050000000345be0bcb81824042c8a6e60"
+                    + "8a4bcf2e9ccff4c59c04b798fe5df8c8ba207d15ff899f53110bee2d1e1aaf637b5f4a76ab";
+    private static final String MOBIKE_REKEY_CREATE_RESP_V6 =
+            "46b8eca1e0d72a18476c85c56672fed92e20242000000003000000c0210000a4b3ae19e3d573efd42881f5"
+                    + "f17dd9d2c149d045f4e32d02005765e691f8baee5ef2c3d0abfbaa311cd81ca819a9dff5c2f7"
+                    + "1fc0237838e194ba7f0725e549ddecaa55a2db1349b497ea1d0380a4261d23e0e656009a35ae"
+                    + "983265f3584e576f0e2ce81f06038214cfa563dc096d031be7d1ae7bf98c71dfb6e845e18150"
+                    + "005582283c28ab0444bb86242a8bf3f095e4057a9b49586f1f0fb5029c126ba847e0e0";
+    private static final String MOBIKE_REKEY_DEL_RESP_V6 =
+            "46b8eca1e0d72a18476c85c56672fed92e20252000000004000000502a0000341d6429a5dbc422af5dbcc7"
+                    + "e1fe45cce13e9dcdd5299e995ace45194517fb91866dfe7d279dd69dc72bce7597a81c5c40";
+
     private static final long IKE_INITIATOR_SPI = Long.parseLong("46B8ECA1E0D72A18", 16);
 
     private static final InetAddress LOCAL_OUTER_4 = InetAddress.parseNumericAddress("192.0.2.1");
     private static final InetAddress LOCAL_OUTER_6 =
             InetAddress.parseNumericAddress("2001:db8::1");
+
+    private static final InetAddress LOCAL_OUTER_4_NEW =
+            InetAddress.parseNumericAddress("192.0.2.100");
+    private static final InetAddress LOCAL_OUTER_6_NEW =
+            InetAddress.parseNumericAddress("2001:db8::100");
 
     private static final int IP4_PREFIX_LEN = 32;
     private static final int IP6_PREFIX_LEN = 128;
@@ -473,14 +563,21 @@ public class Ikev2VpnTest {
         }
     }
 
-    private void checkStartStopVpnProfileBuildsNetworks(@NonNull IkeTunUtils tunUtils,
-            boolean testIpv6, boolean requiresValidation, boolean testSessionKey,
-            boolean testIkeTunConnParams)
+    private void checkStartStopVpnProfileBuildsNetworks(
+            @NonNull IkeTunUtils tunUtils,
+            boolean testIpv6,
+            boolean requiresValidation,
+            boolean testSessionKey,
+            boolean testIkeTunConnParams,
+            boolean shouldTeardownVpnNetwork,
+            String testInitResp,
+            String testAuthResp)
             throws Exception {
         String serverAddr = testIpv6 ? TEST_SERVER_ADDR_V6 : TEST_SERVER_ADDR_V4;
-        String initResp = testIpv6 ? SUCCESSFUL_IKE_INIT_RESP_V6 : SUCCESSFUL_IKE_INIT_RESP_V4;
-        String authResp = testIpv6 ? SUCCESSFUL_IKE_AUTH_RESP_V6 : SUCCESSFUL_IKE_AUTH_RESP_V4;
         boolean hasNat = !testIpv6;
+
+        String initResp = testInitResp;
+        String authResp = testAuthResp;
 
         // Requires MANAGE_TEST_NETWORKS to provision a test-mode profile.
         mCtsNetUtils.setAppopPrivileged(AppOpsManager.OP_ACTIVATE_PLATFORM_VPN, true);
@@ -554,11 +651,106 @@ public class Ikev2VpnTest {
                             .hasCapability(NET_CAPABILITY_VALIDATED));
         }
 
-        sVpnMgr.stopProvisionedVpnProfile();
-        // Using expectCallback may cause the test to be flaky since test may receive other
-        // callbacks such as linkproperties change.
-        cb.eventuallyExpect(CallbackEntry.LOST, TIMEOUT_MS,
-                lost -> vpnNetwork.equals(lost.getNetwork()));
+        if (shouldTeardownVpnNetwork) {
+            sVpnMgr.stopProvisionedVpnProfile();
+            // Using expectCallback may cause the test to be flaky since test may receive other
+            // callbacks such as linkproperties change.
+            cb.eventuallyExpect(
+                    CallbackEntry.LOST, TIMEOUT_MS, lost -> vpnNetwork.equals(lost.getNetwork()));
+        }
+    }
+
+    private void checkStartStopVpnProfileBuildsAndTearsDownNetwork(
+            @NonNull IkeTunUtils tunUtils,
+            boolean testIpv6,
+            boolean requiresValidation,
+            boolean testSessionKey,
+            boolean testIkeTunConnParams)
+            throws Exception {
+
+        String initResp = testIpv6 ? SUCCESSFUL_IKE_INIT_RESP_V6 : SUCCESSFUL_IKE_INIT_RESP_V4;
+        String authResp = testIpv6 ? SUCCESSFUL_IKE_AUTH_RESP_V6 : SUCCESSFUL_IKE_AUTH_RESP_V4;
+
+        checkStartStopVpnProfileBuildsNetworks(
+                tunUtils,
+                testIpv6,
+                requiresValidation,
+                testSessionKey,
+                testIkeTunConnParams,
+                true /* shouldTeardownVpnNetwork */,
+                initResp,
+                authResp);
+    }
+
+    private void checkStartVpnProfileBuildsNetworks(
+            @NonNull IkeTunUtils tunUtils,
+            boolean testIpv6,
+            boolean testIkeTunConnParams,
+            String initResp,
+            String authResp)
+            throws Exception {
+        checkStartStopVpnProfileBuildsNetworks(
+                tunUtils,
+                testIpv6,
+                false /* requiresValidation */,
+                false /* testSessionKey */,
+                testIkeTunConnParams,
+                false /* shouldTeardownVpnNetwork */,
+                initResp,
+                authResp);
+    }
+
+    private void checkVpnHandlesNetworkChange(boolean isMobikeEnabled, boolean isIpv6,
+            boolean testIkeTunConnParams, String... respHex) throws Exception {
+
+        InetAddress localAddress = isIpv6 ? LOCAL_OUTER_6 : LOCAL_OUTER_4;
+        InetAddress newLocalAddress = isIpv6 ? LOCAL_OUTER_6_NEW : LOCAL_OUTER_4_NEW;
+
+        try (TestNetworkWrapper testNetworkWrapper = new TestNetworkWrapper(localAddress)) {
+            checkStartVpnProfileBuildsNetworks(
+                    testNetworkWrapper.tunUtils,
+                    isIpv6 /* testIpv6 */,
+                    testIkeTunConnParams,
+                    respHex[0],
+                    respHex[1]);
+
+            // Upon network change, VPN is expected to migrate or re-setup
+            try (TestNetworkWrapper newTestNetworkWrapper =
+                    new TestNetworkWrapper(newLocalAddress)) {
+                testNetworkWrapper.close();
+
+                final IkeTunUtils newIkeTunUtils = newTestNetworkWrapper.tunUtils;
+
+                if (isMobikeEnabled) {
+                    // IKE setup costs two exchanges
+                    final int startingExpectedMsgId = 2;
+
+                    // Verify that IKE migrates to the new network
+                    newIkeTunUtils.awaitReqAndInjectRespSeries(
+                            IKE_INITIATOR_SPI,
+                            startingExpectedMsgId,
+                            true /* encapExpected */,
+                            Arrays.copyOfRange(respHex, 2, respHex.length - 1));
+                } else {
+                    int expectedMsgId = 0;
+
+                    // Verify that IKE setup triggered on new network
+                    newIkeTunUtils.awaitReqAndInjectResp(
+                            IKE_INITIATOR_SPI,
+                            expectedMsgId++,
+                            false /* encapExpected */,
+                            HexDump.hexStringToByteArray(respHex[2]));
+                    newIkeTunUtils.awaitReqAndInjectResp(
+                            IKE_INITIATOR_SPI,
+                            expectedMsgId++,
+                            !isIpv6,
+                            HexDump.hexStringToByteArray(respHex[3]));
+                }
+            } finally {
+                sVpnMgr.stopProvisionedVpnProfile();
+            }
+        }
+
     }
 
     private void registerNetworkCallback(NetworkRequest request, TestableNetworkCallback callback) {
@@ -592,8 +784,8 @@ public class Ikev2VpnTest {
                 throws Exception {
             final IkeTunUtils tunUtils = new IkeTunUtils(testIface.getFileDescriptor());
 
-            checkStartStopVpnProfileBuildsNetworks(tunUtils, mTestIpv6Only, mRequiresValidation,
-                    mTestSessionKey, mTestIkeTunConnParams);
+            checkStartStopVpnProfileBuildsAndTearsDownNetwork(tunUtils, mTestIpv6Only,
+                    mRequiresValidation, mTestSessionKey, mTestIkeTunConnParams);
         }
 
         @Override
@@ -618,6 +810,104 @@ public class Ikev2VpnTest {
         runWithShellPermissionIdentity(
                 new TestNetworkRunnable(new VerifyStartStopVpnProfileTest(
                         testIpv6Only, requiresValidation, testSessionKey , testIkeTunConnParams)));
+    }
+
+    private void checkVpnMigratesWithMobike(boolean isIpv6, boolean testIkeTunConnParams)
+            throws Exception {
+        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+        runWithShellPermissionIdentity(
+                () -> {
+                    if (isIpv6) {
+                        checkVpnHandlesNetworkChange(
+                                true /* isMobikeEnabled */,
+                                true /* isIpv6 */,
+                                testIkeTunConnParams,
+                                MOBIKE_IKE_INIT_RESP_V6,
+                                MOBIKE_IKE_AUTH_RESP_V6,
+                                MOBIKE_INFO_RESP_V6,
+                                MOBIKE_REKEY_CREATE_RESP_V6,
+                                MOBIKE_REKEY_DEL_RESP_V6);
+                    } else {
+                        checkVpnHandlesNetworkChange(
+                                true /* isMobikeEnabled */,
+                                false /* isIpv6 */,
+                                testIkeTunConnParams,
+                                MOBIKE_IKE_INIT_RESP_V4,
+                                MOBIKE_IKE_AUTH_RESP_V4,
+                                MOBIKE_INFO_RESP_V4,
+                                MOBIKE_REKEY_CREATE_RESP_V4,
+                                MOBIKE_REKEY_DEL_RESP_V4);
+                    }
+
+                });
+    }
+
+    @Test
+    public void testVpnMigratesWithMobikeV4() throws Exception {
+        checkVpnMigratesWithMobike(false /* isIpv6 */, false /* testIkeTunConnParams */);
+    }
+
+    @Test
+    public void testVpnMigratesWithMobikeV4WithIkeTunnelConnectionParams() throws Exception {
+        checkVpnMigratesWithMobike(false /* isIpv6 */, true /* testIkeTunConnParams */);
+    }
+
+    @Test
+    public void testVpnMigratesWithMobikeV6() throws Exception {
+        checkVpnMigratesWithMobike(true /* isIpv6 */, false /* testIkeTunConnParams */);
+    }
+
+    @Test
+    public void testVpnMigratesWithMobikeV6WithIkeTunnelConnectionParams() throws Exception {
+        checkVpnMigratesWithMobike(true /* isIpv6 */, true /* testIkeTunConnParams */);
+    }
+
+    private void checkVpnReestablishesWithoutMobike(boolean isIpv6, boolean testIkeTunConnParams)
+            throws Exception {
+        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+        runWithShellPermissionIdentity(
+                () -> {
+                    if (isIpv6) {
+                        checkVpnHandlesNetworkChange(
+                                false /* isMobikeEnabled */,
+                                true /* isIpv6 */,
+                                testIkeTunConnParams,
+                                SUCCESSFUL_IKE_INIT_RESP_V6,
+                                SUCCESSFUL_IKE_AUTH_RESP_V6,
+                                SUCCESSFUL_IKE_INIT_RESP_V6,
+                                SUCCESSFUL_IKE_AUTH_RESP_V6);
+                    } else {
+                        checkVpnHandlesNetworkChange(
+                                false /* isMobikeEnabled */,
+                                false /* isIpv6 */,
+                                testIkeTunConnParams,
+                                SUCCESSFUL_IKE_INIT_RESP_V4,
+                                SUCCESSFUL_IKE_AUTH_RESP_V4,
+                                SUCCESSFUL_IKE_INIT_RESP_V4,
+                                SUCCESSFUL_IKE_AUTH_RESP_V4);
+                    }
+
+                });
+    }
+
+    @Test
+    public void testVpnReestablishesV4() throws Exception {
+        checkVpnReestablishesWithoutMobike(false /* isIpv6 */, false /* testIkeTunConnParams */);
+    }
+
+    @Test
+    public void testVpnReestablishesV4WithIkeTunnelConnectionParams() throws Exception {
+        checkVpnReestablishesWithoutMobike(false /* isIpv6 */, true /* testIkeTunConnParams */);
+    }
+
+    @Test
+    public void testVpnReestablishes() throws Exception {
+        checkVpnReestablishesWithoutMobike(true /* isIpv6 */, false /* testIkeTunConnParams */);
+    }
+
+    @Test
+    public void testVpnReestablishesWithIkeTunnelConnectionParams() throws Exception {
+        checkVpnReestablishesWithoutMobike(true /* isIpv6 */, true /* testIkeTunConnParams */);
     }
 
     @Test
