@@ -99,6 +99,18 @@ public class TunUtils {
         return Arrays.copyOf(inBytes, bytesRead);
     }
 
+    public static String byteArrayToHexString(byte[] data) {
+        if (data == null || data.length == 0) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (byte b : data) {
+            sb.append(String.format(java.util.Locale.US, "%02X", b));
+        }
+        return sb.toString();
+    }
+
     private byte[] getFirstMatchingPacket(Predicate<byte[]> verifier, int startIndex) {
         synchronized (mPackets) {
             for (int i = startIndex; i < mPackets.size(); i++) {
