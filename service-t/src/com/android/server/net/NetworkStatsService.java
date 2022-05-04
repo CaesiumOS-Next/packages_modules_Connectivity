@@ -159,6 +159,7 @@ import java.time.Clock;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -374,9 +375,10 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
     private long mLastStatsSessionPoll;
 
-    /** Map from UID to number of opened sessions */
-    @GuardedBy("mOpenSessionCallsPerUid")
-    private final SparseIntArray mOpenSessionCallsPerUid = new SparseIntArray();
+    /** Map from key {@code OpenSessionKey} to number of opened sessions */
+    @GuardedBy("mOpenSessionCalls")
+    private final ArrayMap<OpenSessionKey, OpenSessionCountInfo> mOpenSessionCalls =
+             new ArrayMap<>();
 
     private final static int DUMP_STATS_SESSION_COUNT = 20;
 
@@ -405,6 +407,73 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     private static @NonNull Clock getDefaultClock() {
         return new BestClock(ZoneOffset.UTC, SystemClock.currentNetworkTimeClock(),
                 Clock.systemUTC());
+    }
+
+    /**
+     * This class is a key that used in {@link OpenSessionCountInfo} object to identify the count
+     * of the caller.
+     */
+    private static class OpenSessionKey {
+        public final int mPid;
+        public final int mUid;
+        public final String mPackage;
+
+        OpenSessionKey(int pid, int uid, @NonNull String packageName) {
+            mPid = pid;
+            mUid = uid;
+            mPackage = packageName;
+        }
+
+        @Override
+        public String toString() {
+            final StringBuilder sb = new StringBuilder();
+            sb.append("{");
+            sb.append("pid=").append(mPid).append(",");
+            sb.append("uid=").append(mUid).append(",");
+            sb.append("package=").append(mPackage);
+            sb.append("}");
+            return sb.toString();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o.getClass() != getClass()) return false;
+            if (o instanceof OpenSessionKey) {
+                final OpenSessionKey key = (OpenSessionKey) o;
+                return mPid == key.mPid && mUid == key.mUid
+                        && TextUtils.equals(mPackage, key.mPackage);
+            }
+            return false;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(mPid, mUid, mPackage);
+        }
+    }
+
+    /** A class to hold count of the open session caller */
+    private static class OpenSessionCountInfo {
+        private final OpenSessionKey mKey;
+        private int mCount;
+
+        OpenSessionCountInfo(@NonNull OpenSessionKey key) {
+            mKey = key;
+            mCount = 0;
+        }
+
+        public void increaseCount() {
+            mCount = mCount + 1;
+        }
+
+        public int getCount() {
+            return mCount;
+        }
+
+        public OpenSessionKey getKey() {
+            return mKey;
+        }
     }
 
     private final class NetworkStatsHandler extends Handler {
@@ -794,24 +863,32 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         return openSessionInternal(flags, callingPackage);
     }
 
-    private boolean isRateLimitedForPoll(int callingUid) {
-        if (callingUid == android.os.Process.SYSTEM_UID) {
-            return false;
-        }
-
+    private boolean isRateLimitedForPoll(@NonNull OpenSessionKey key) {
         final long lastCallTime;
         final long now = SystemClock.elapsedRealtime();
-        synchronized (mOpenSessionCallsPerUid) {
-            int calls = mOpenSessionCallsPerUid.get(callingUid, 0);
-            mOpenSessionCallsPerUid.put(callingUid, calls + 1);
+
+        synchronized (mOpenSessionCalls) {
+            OpenSessionCountInfo calls = mOpenSessionCalls.get(key);
+            if (calls == null) {
+                OpenSessionCountInfo count = new OpenSessionCountInfo(key);
+                count.increaseCount();
+                mOpenSessionCalls.put(count.getKey(), count);
+            } else {
+                calls.increaseCount();
+                mOpenSessionCalls.put(calls.getKey(), calls);
+            }
             lastCallTime = mLastStatsSessionPoll;
             mLastStatsSessionPoll = now;
+        }
+
+        if (key.mUid == android.os.Process.SYSTEM_UID) {
+            return false;
         }
 
         return now - lastCallTime < POLL_RATE_LIMIT_MS;
     }
 
-    private int restrictFlagsForCaller(int flags) {
+    private int restrictFlagsForCaller(int flags, String callingPackage) {
         // All non-privileged callers are not allowed to turn off POLL_ON_OPEN.
         final boolean isPrivileged = PermissionUtils.checkAnyPermissionOf(mContext,
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK,
@@ -820,15 +897,17 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             flags |= NetworkStatsManager.FLAG_POLL_ON_OPEN;
         }
         // Non-system uids are rate limited for POLL_ON_OPEN.
+        final int callingPid = Binder.getCallingPid();
         final int callingUid = Binder.getCallingUid();
-        flags = isRateLimitedForPoll(callingUid)
+        final OpenSessionKey key = new OpenSessionKey(callingPid, callingUid, callingPackage);
+        flags = isRateLimitedForPoll(key)
                 ? flags & (~NetworkStatsManager.FLAG_POLL_ON_OPEN)
                 : flags;
         return flags;
     }
 
     private INetworkStatsSession openSessionInternal(final int flags, final String callingPackage) {
-        final int restrictedFlags = restrictFlagsForCaller(flags);
+        final int restrictedFlags = restrictFlagsForCaller(flags, callingPackage);
         if ((restrictedFlags & (NetworkStatsManager.FLAG_POLL_ON_OPEN
                 | NetworkStatsManager.FLAG_POLL_FORCE)) != 0) {
             final long ident = Binder.clearCallingIdentity();
@@ -2060,25 +2139,21 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             pw.decreaseIndent();
 
             // Get the top openSession callers
-            final SparseIntArray calls;
-            synchronized (mOpenSessionCallsPerUid) {
-                calls = mOpenSessionCallsPerUid.clone();
+            final ArrayMap calls;
+            synchronized (mOpenSessionCalls) {
+                calls = new ArrayMap<>(mOpenSessionCalls);
             }
 
-            final int N = calls.size();
-            final long[] values = new long[N];
-            for (int j = 0; j < N; j++) {
-                values[j] = ((long) calls.valueAt(j) << 32) | calls.keyAt(j);
-            }
-            Arrays.sort(values);
-
-            pw.println("Top openSession callers (uid=count):");
+            final List<OpenSessionCountInfo> list = new ArrayList<>(calls.values());
+            Collections.sort(list,
+                    (left, right) -> Integer.compare(left.getCount(), right.getCount()));
+            final int num = list.size();
+            final int end = Math.max(0, num - DUMP_STATS_SESSION_COUNT);
+            pw.println("Top openSession callers:");
             pw.increaseIndent();
-            final int end = Math.max(0, N - DUMP_STATS_SESSION_COUNT);
-            for (int j = N - 1; j >= end; j--) {
-                final int uid = (int) (values[j] & 0xffffffff);
-                final int count = (int) (values[j] >> 32);
-                pw.print(uid); pw.print("="); pw.println(count);
+            for (int j = num - 1; j >= end; j--) {
+                final OpenSessionCountInfo countInfo = list.get(j);
+                pw.print(countInfo.getKey()); pw.print("="); pw.println(countInfo.getCount());
             }
             pw.decreaseIndent();
             pw.println();
