@@ -374,9 +374,9 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
     private long mLastStatsSessionPoll;
 
-    /** Map from UID to number of opened sessions */
-    @GuardedBy("mOpenSessionCallsPerUid")
-    private final SparseIntArray mOpenSessionCallsPerUid = new SparseIntArray();
+    /** Map from key {@code OpenSessionKey} to number of opened sessions */
+    @GuardedBy("mOpenSessionCalls")
+    private final ArrayMap<OpenSessionKey, Integer> mOpenSessionCalls = new ArrayMap<>();
 
     private final static int DUMP_STATS_SESSION_COUNT = 20;
 
@@ -405,6 +405,44 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     private static @NonNull Clock getDefaultClock() {
         return new BestClock(ZoneOffset.UTC, SystemClock.currentNetworkTimeClock(),
                 Clock.systemUTC());
+    }
+
+    private class OpenSessionKey {
+        public final int mPid;
+        public final int mUid;
+        public final String mPackage;
+
+        OpenSessionKey(int pid, int uid, String packageName) {
+            mPid = pid;
+            mUid = uid;
+            mPackage = packageName;
+        }
+
+        @Override
+        public String toString() {
+            final StringBuilder sb = new StringBuilder();
+            sb.append("{");
+            sb.append("pid=").append(mPid).append(",");
+            sb.append("uid=").append(mUid).append(",");
+            sb.append("package=").append(mPackage);
+            sb.append("}");
+            return sb.toString();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (o instanceof OpenSessionKey) {
+                final OpenSessionKey key = (OpenSessionKey) o;
+                return mPid == key.mPid && mUid == key.mUid
+                        && TextUtils.equals(mPackage, key.mPackage);
+            }
+            return false;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(mPid, mUid, mPackage);
+        }
     }
 
     private final class NetworkStatsHandler extends Handler {
@@ -794,24 +832,29 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         return openSessionInternal(flags, callingPackage);
     }
 
-    private boolean isRateLimitedForPoll(int callingUid) {
-        if (callingUid == android.os.Process.SYSTEM_UID) {
-            return false;
-        }
-
+    private boolean isRateLimitedForPoll(OpenSessionKey key) {
         final long lastCallTime;
         final long now = SystemClock.elapsedRealtime();
-        synchronized (mOpenSessionCallsPerUid) {
-            int calls = mOpenSessionCallsPerUid.get(callingUid, 0);
-            mOpenSessionCallsPerUid.put(callingUid, calls + 1);
+
+        synchronized (mOpenSessionCalls) {
+            Integer calls = mOpenSessionCalls.get(key);
+            if (calls == null) {
+                mOpenSessionCalls.put(key, 1);
+            } else {
+                mOpenSessionCalls.put(key, Integer.sum(mOpenSessionCalls.get(key), 1));
+            }
             lastCallTime = mLastStatsSessionPoll;
             mLastStatsSessionPoll = now;
+        }
+
+        if (key.mUid == android.os.Process.SYSTEM_UID) {
+            return false;
         }
 
         return now - lastCallTime < POLL_RATE_LIMIT_MS;
     }
 
-    private int restrictFlagsForCaller(int flags) {
+    private int restrictFlagsForCaller(int flags, String callingPackage) {
         // All non-privileged callers are not allowed to turn off POLL_ON_OPEN.
         final boolean isPrivileged = PermissionUtils.checkAnyPermissionOf(mContext,
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK,
@@ -821,14 +864,16 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         }
         // Non-system uids are rate limited for POLL_ON_OPEN.
         final int callingUid = Binder.getCallingUid();
-        flags = isRateLimitedForPoll(callingUid)
+        final int callingPid = Binder.getCallingPid();
+        final OpenSessionKey key = new OpenSessionKey(callingUid, callingPid, callingPackage);
+        flags = isRateLimitedForPoll(key)
                 ? flags & (~NetworkStatsManager.FLAG_POLL_ON_OPEN)
                 : flags;
         return flags;
     }
 
     private INetworkStatsSession openSessionInternal(final int flags, final String callingPackage) {
-        final int restrictedFlags = restrictFlagsForCaller(flags);
+        final int restrictedFlags = restrictFlagsForCaller(flags, callingPackage);
         if ((restrictedFlags & (NetworkStatsManager.FLAG_POLL_ON_OPEN
                 | NetworkStatsManager.FLAG_POLL_FORCE)) != 0) {
             final long ident = Binder.clearCallingIdentity();
@@ -2060,28 +2105,22 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             pw.decreaseIndent();
 
             // Get the top openSession callers
-            final SparseIntArray calls;
-            synchronized (mOpenSessionCallsPerUid) {
-                calls = mOpenSessionCallsPerUid.clone();
+            final ArrayMap calls;
+            synchronized (mOpenSessionCalls) {
+                calls = new ArrayMap<>(mOpenSessionCalls);
             }
 
             final int N = calls.size();
-            final long[] values = new long[N];
-            for (int j = 0; j < N; j++) {
-                values[j] = ((long) calls.valueAt(j) << 32) | calls.keyAt(j);
-            }
-            Arrays.sort(values);
-
-            pw.println("Top openSession callers (uid=count):");
+            pw.println("Top openSession callers:");
             pw.increaseIndent();
-            final int end = Math.max(0, N - DUMP_STATS_SESSION_COUNT);
-            for (int j = N - 1; j >= end; j--) {
-                final int uid = (int) (values[j] & 0xffffffff);
-                final int count = (int) (values[j] >> 32);
-                pw.print(uid); pw.print("="); pw.println(count);
+            for (int j = N - 1; j >= 0; j--) {
+                final OpenSessionKey key = mOpenSessionCalls.keyAt(j);
+                final int count = mOpenSessionCalls.valueAt(j);
+                pw.print(key); pw.print("="); pw.println(count);
             }
             pw.decreaseIndent();
             pw.println();
+
 
             pw.println("Stats Providers:");
             pw.increaseIndent();
