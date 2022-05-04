@@ -201,14 +201,26 @@ public class PermissionMonitor {
         }
     }
 
+    /**
+     * Interface that this monitor uses to delegate event handling to ConnectivityService.
+     */
+    public interface Delegate {
+        /**
+         * Notify that the UIDS_ALLOWED_ON_RESTRICTED_NETWORKS setting has changed.
+         */
+        void onUidAllowedOnRestrictedNetworksChanged();
+    }
+    private final Delegate mDelegate;
+
     public PermissionMonitor(@NonNull final Context context, @NonNull final INetd netd,
-            @NonNull final BpfNetMaps bpfNetMaps) {
-        this(context, netd, bpfNetMaps, new Dependencies());
+            @NonNull final BpfNetMaps bpfNetMaps, @NonNull final Delegate delegate) {
+        this(context, netd, bpfNetMaps, delegate, new Dependencies());
     }
 
     @VisibleForTesting
     PermissionMonitor(@NonNull final Context context, @NonNull final INetd netd,
             @NonNull final BpfNetMaps bpfNetMaps,
+            @NonNull final Delegate delegate,
             @NonNull final Dependencies deps) {
         mPackageManager = context.getPackageManager();
         mUserManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
@@ -217,6 +229,7 @@ public class PermissionMonitor {
         mDeps = deps;
         mContext = context;
         mBpfNetMaps = bpfNetMaps;
+        mDelegate = delegate;
     }
 
     private int getPackageNetdNetworkPermission(@NonNull final PackageInfo app) {
@@ -376,6 +389,7 @@ public class PermissionMonitor {
                     @Override
                     public void onChange(boolean selfChange) {
                         onSettingChanged();
+                        mDelegate.onUidAllowedOnRestrictedNetworksChanged();
                     }
                 });
 
@@ -421,7 +435,14 @@ public class PermissionMonitor {
         if (appInfo == null) return false;
         // Check whether package's uid is in allowed on restricted networks uid list. If so, this
         // uid can have netd system permission.
-        return mUidsAllowedOnRestrictedNetworks.contains(appInfo.uid);
+        return isUidAllowedOnRestrictedNetworks(appInfo.uid);
+    }
+
+    /**
+     * Returns whether the given uid is in allowed on restricted networks list.
+     */
+    public synchronized boolean isUidAllowedOnRestrictedNetworks(final int uid) {
+        return mUidsAllowedOnRestrictedNetworks.contains(uid);
     }
 
     @VisibleForTesting

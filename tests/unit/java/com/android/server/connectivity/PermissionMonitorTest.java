@@ -195,7 +195,8 @@ public class PermissionMonitorTest {
         // by default.
         doReturn(VERSION_Q).when(mDeps).getDeviceFirstSdkInt();
 
-        mPermissionMonitor = new PermissionMonitor(mContext, mNetdService, mBpfNetMaps, mDeps);
+        mPermissionMonitor = new PermissionMonitor(mContext, mNetdService, mBpfNetMaps,
+                () -> {}, mDeps);
         mNetdMonitor = new NetdMonitor(mNetdService);
         mBpfMapMonitor = new BpfMapMonitor(mBpfNetMaps);
 
@@ -964,7 +965,7 @@ public class PermissionMonitorTest {
         // necessary permission.
         final Context realContext = InstrumentationRegistry.getContext();
         final PermissionMonitor monitor = new PermissionMonitor(realContext, mNetdService,
-                mBpfNetMaps);
+                mBpfNetMaps, () -> {});
         final PackageManager manager = realContext.getPackageManager();
         final PackageInfo systemInfo = manager.getPackageInfo(REAL_SYSTEM_PACKAGE_NAME,
                 GET_PERMISSIONS | MATCH_ANY_USER);
