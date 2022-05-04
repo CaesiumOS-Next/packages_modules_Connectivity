@@ -727,6 +727,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static final int EVENT_INGRESS_RATE_LIMIT_CHANGED = 56;
 
     /**
+     * Used internally when UIDS_ALLOWED_ON_RESTRICTED_NETWORKS setting changed.
+     */
+    private static final int EVENT_UIDS_ALLOWED_ON_RESTRICTED_NETWORKS_CHANGED = 57;
+
+    /**
      * Argument for {@link #EVENT_PROVISIONING_NOTIFICATION} to indicate that the notification
      * should be shown.
      */
@@ -850,6 +855,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
     // ConnectivitySettingsManager#INGRESS_RATE_LIMIT_BYTES_PER_SECOND}
     // Only the handler thread is allowed to access this field.
     private long mIngressRateLimit = -1;
+
+    // A set of uids that allow to request restricted networks.
+    @NonNull
+    private Set<Integer> mUidsAllowedOnRestrictedNetworks = new ArraySet<>();
+
+    // A set of NetworkRequestInfo that request restricted networks without connectivity restricted
+    // permissions.
+    @NonNull
+    private Set<NetworkRequestInfo> mRestrictedNetworkRequests = new ArraySet<>();
 
     /**
      * Implements support for the legacy "one network per network type" model.
@@ -1777,6 +1791,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 Settings.Global.getUriFor(
                         ConnectivitySettingsManager.INGRESS_RATE_LIMIT_BYTES_PER_SECOND),
                 EVENT_INGRESS_RATE_LIMIT_CHANGED);
+
+        // Watch for uids allowed on restricted networks changes.
+        mSettingsObserver.observe(Settings.Global.getUriFor(
+                ConnectivitySettingsManager.UIDS_ALLOWED_ON_RESTRICTED_NETWORKS),
+                EVENT_UIDS_ALLOWED_ON_RESTRICTED_NETWORKS_CHANGED);
     }
 
     private void registerPrivateDnsSettingsCallbacks() {
@@ -2613,7 +2632,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         verifyCallingUidAndPackage(callingPackageName, mDeps.getCallingUid());
         enforceChangePermission(callingPackageName, callingAttributionTag);
         if (mProtectedNetworks.contains(networkType)) {
-            enforceConnectivityRestrictedNetworksPermission();
+            enforceConnectivityRestrictedNetworksPermission(true /* checkUidsAllowedList */);
         }
 
         InetAddress addr;
@@ -2967,18 +2986,34 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 android.Manifest.permission.NETWORK_SETTINGS);
     }
 
-    private void enforceConnectivityRestrictedNetworksPermission() {
-        try {
-            mContext.enforceCallingOrSelfPermission(
-                    android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS,
-                    "ConnectivityService");
-            return;
-        } catch (SecurityException e) { /* fallback to ConnectivityInternalPermission */ }
-        //  TODO: Remove this fallback check after all apps have declared
-        //   CONNECTIVITY_USE_RESTRICTED_NETWORKS.
-        mContext.enforceCallingOrSelfPermission(
-                android.Manifest.permission.CONNECTIVITY_INTERNAL,
-                "ConnectivityService");
+    private boolean checkConnectivityRestrictedNetworksPermission(int callingUid,
+            boolean checkUidsAllowedList) {
+        if (PermissionUtils.checkAnyPermissionOf(mContext,
+                android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS)) {
+            return true;
+        }
+
+        /* fallback to ConnectivityInternalPermission */
+        // TODO: Remove this fallback check after all apps have declared
+        //  CONNECTIVITY_USE_RESTRICTED_NETWORKS.
+        if (PermissionUtils.checkAnyPermissionOf(mContext,
+                android.Manifest.permission.CONNECTIVITY_INTERNAL)) {
+            return true;
+        }
+
+        // Check whether uid is in allowed on restricted networks list.
+        if (checkUidsAllowedList && mUidsAllowedOnRestrictedNetworks.contains(callingUid)) {
+            return true;
+        }
+        return false;
+    }
+
+    private void enforceConnectivityRestrictedNetworksPermission(boolean checkUidsAllowedList) {
+        final int callingUid = mDeps.getCallingUid();
+        if (!checkConnectivityRestrictedNetworksPermission(callingUid, checkUidsAllowedList)) {
+            throw new SecurityException("ConnectivityService: user " + callingUid
+                    + " has no permission to access restricted network.");
+        }
     }
 
     private void enforceKeepalivePermission() {
@@ -3098,6 +3133,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // ready. Normally, the empty uid list means to clear the uids rules on netd.
         if (!ConnectivitySettingsManager.getMobileDataPreferredUids(mContext).isEmpty()) {
             updateMobileDataPreferredUids();
+        }
+
+        // Update uids allowed on restricted networks if necessary.
+        if (!ConnectivitySettingsManager.getUidsAllowedOnRestrictedNetworks(mContext).isEmpty()) {
+            mHandler.sendEmptyMessage(EVENT_UIDS_ALLOWED_ON_RESTRICTED_NETWORKS_CHANGED);
         }
     }
 
@@ -4521,6 +4561,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         }
                     }
                 }
+                if (!req.hasCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                        && !checkConnectivityRestrictedNetworksPermission(nri.mPid, nri.mUid)
+                        && mUidsAllowedOnRestrictedNetworks.contains(nri.mUid)) {
+                    if (DBG) {
+                        log("handleRegisterNetworkRequests: It's a allowed on restricted network"
+                                + " request. nri=" + nri);
+                    }
+                    mRestrictedNetworkRequests.add(nri);
+                }
                 if (req.hasCapability(NetworkCapabilities.NET_CAPABILITY_CBS)) {
                     if (!hasCarrierPrivilegeForNetworkCaps(nri.mUid, req.networkCapabilities)
                             && !checkConnectivityRestrictedNetworksPermission(
@@ -5468,6 +5517,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     break;
                 case EVENT_INGRESS_RATE_LIMIT_CHANGED:
                     handleIngressRateLimitChanged();
+                    break;
+                case EVENT_UIDS_ALLOWED_ON_RESTRICTED_NETWORKS_CHANGED:
+                    handleUidsAllowedOnRestrictedNetworksChanged();
                     break;
             }
         }
@@ -6699,7 +6751,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             String callingPackageName, String callingAttributionTag) {
         if (networkCapabilities.hasCapability(NET_CAPABILITY_NOT_RESTRICTED) == false) {
             if (!networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CBS)) {
-                enforceConnectivityRestrictedNetworksPermission();
+                enforceConnectivityRestrictedNetworksPermission(true /* checkUidsAllowedList */);
             }
         } else {
             enforceChangePermission(callingPackageName, callingAttributionTag);
@@ -10605,7 +10657,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (callback == null) throw new IllegalArgumentException("callback must be non-null");
 
         if (!nai.networkCapabilities.hasCapability(NET_CAPABILITY_NOT_RESTRICTED)) {
-            enforceConnectivityRestrictedNetworksPermission();
+            enforceConnectivityRestrictedNetworksPermission(false /* checkUidsAllowedList */);
         }
         mQosCallbackTracker.registerCallback(callback, filter, nai);
     }
@@ -10869,6 +10921,26 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     mDeps.enableIngressRateLimit(networkAgent.linkProperties.getInterfaceName(),
                             mIngressRateLimit);
                 }
+            }
+        }
+    }
+
+    private void handleUidsAllowedOnRestrictedNetworksChanged() {
+        // Update uids allowed on restricted networks list.
+        mUidsAllowedOnRestrictedNetworks =
+                ConnectivitySettingsManager.getUidsAllowedOnRestrictedNetworks(mContext);
+
+        // Release request if the uid is not in allowed list.
+        final Set<NetworkRequestInfo> nris = new ArraySet<>(mRestrictedNetworkRequests);
+        for (NetworkRequestInfo nri : mRestrictedNetworkRequests) {
+            if (!mUidsAllowedOnRestrictedNetworks.contains(nri.mUid)) {
+                if (DBG) {
+                    log("handleUidsAllowedOnRestrictedNetworksChanged: uid=" + nri.mUid
+                            + " is not in allowed list. Release request=" + nri);
+                }
+                handleReleaseNetworkRequest(
+                        nri.mRequests.get(0), nri.mUid, true /* callOnUnavailable */);
+                mRestrictedNetworkRequests.remove(nri);
             }
         }
     }

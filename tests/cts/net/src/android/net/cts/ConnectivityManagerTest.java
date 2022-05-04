@@ -52,6 +52,7 @@ import static android.net.ConnectivityManager.TYPE_MOBILE_SUPL;
 import static android.net.ConnectivityManager.TYPE_PROXY;
 import static android.net.ConnectivityManager.TYPE_VPN;
 import static android.net.ConnectivityManager.TYPE_WIFI_P2P;
+import static android.net.ConnectivitySettingsManager.setUidsAllowedOnRestrictedNetworks;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_FOREGROUND;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_IMS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
@@ -288,6 +289,7 @@ public class ConnectivityManagerTest {
     private static final String LOCALHOST_HOSTNAME = "localhost";
     // Re-connecting to the AP, obtaining an IP address, revalidating can take a long time
     private static final long WIFI_CONNECT_TIMEOUT_MS = 60_000L;
+    private static final int INTERVAL_UIDS_ALLOWED_ON_RESTRICTED_NETWORKS_UPDATE_MS = 500;
 
     private Context mContext;
     private Instrumentation mInstrumentation;
@@ -3225,9 +3227,8 @@ public class ConnectivityManagerTest {
         // because it has been just installed to device. In case the uid is existed in setting
         // mistakenly, try to remove the uid and set correct uids to setting.
         originalUidsAllowedOnRestrictedNetworks.remove(uid);
-        runWithShellPermissionIdentity(() ->
-                ConnectivitySettingsManager.setUidsAllowedOnRestrictedNetworks(
-                        mContext, originalUidsAllowedOnRestrictedNetworks), NETWORK_SETTINGS);
+        runWithShellPermissionIdentity(() -> setUidsAllowedOnRestrictedNetworks(
+                mContext, originalUidsAllowedOnRestrictedNetworks), NETWORK_SETTINGS);
 
         final TestableNetworkCallback testNetworkCb = new TestableNetworkCallback();
         final NetworkRequest testRequest = new NetworkRequest.Builder()
@@ -3259,9 +3260,8 @@ public class ConnectivityManagerTest {
             final Set<Integer> newUidsAllowedOnRestrictedNetworks =
                     new ArraySet<>(originalUidsAllowedOnRestrictedNetworks);
             newUidsAllowedOnRestrictedNetworks.add(uid);
-            runWithShellPermissionIdentity(() ->
-                    ConnectivitySettingsManager.setUidsAllowedOnRestrictedNetworks(
-                            mContext, newUidsAllowedOnRestrictedNetworks), NETWORK_SETTINGS);
+            runWithShellPermissionIdentity(() -> setUidsAllowedOnRestrictedNetworks(
+                    mContext, newUidsAllowedOnRestrictedNetworks), NETWORK_SETTINGS);
             // Wait a while for sending allowed uids on the restricted network to netd.
             // TODD: Have a significant signal to know the uids has been send to netd.
             assertBindSocketToNetworkSuccess(network);
@@ -3269,9 +3269,8 @@ public class ConnectivityManagerTest {
             agent.unregister();
 
             // Restore setting.
-            runWithShellPermissionIdentity(() ->
-                    ConnectivitySettingsManager.setUidsAllowedOnRestrictedNetworks(
-                            mContext, originalUidsAllowedOnRestrictedNetworks), NETWORK_SETTINGS);
+            runWithShellPermissionIdentity(() -> setUidsAllowedOnRestrictedNetworks(
+                    mContext, originalUidsAllowedOnRestrictedNetworks), NETWORK_SETTINGS);
         }
     }
 
@@ -3293,6 +3292,78 @@ public class ConnectivityManagerTest {
         dumpOutput = DumpTestUtils.dumpServiceWithShellPermission(
                 Context.CONNECTIVITY_SERVICE, args[1]);
         assertTrue(dumpOutput, dumpOutput.contains("BPF map content"));
+    }
+
+    @AppModeFull(reason = "WRITE_SECURE_SETTINGS permission can't be granted to instant apps")
+    @Test
+    public void testAllowUidsToRequestRestrictedNetworks() throws Exception {
+        assumeTrue(TestUtils.shouldTestSApis());
+
+        // TODO (b/175199465): figure out a reasonable permission check for
+        //  setUidsAllowedOnRestrictedNetworks that allows tests but not system-external callers.
+        assumeTrue(Build.isDebuggable());
+
+        final int uid = mPackageManager.getPackageUid(mContext.getPackageName(), 0 /* flag */);
+        final Set<Integer> originalUidsAllowedOnRestrictedNetworks =
+                ConnectivitySettingsManager.getUidsAllowedOnRestrictedNetworks(mContext);
+        // CtsNetTestCases uid should not list in UIDS_ALLOWED_ON_RESTRICTED_NETWORKS setting
+        // because it has been just installed to device. In case the uid is existed in setting
+        // mistakenly, try to remove the uid and set correct uids to setting.
+        originalUidsAllowedOnRestrictedNetworks.remove(uid);
+        runWithShellPermissionIdentity(() -> setUidsAllowedOnRestrictedNetworks(
+                mContext, originalUidsAllowedOnRestrictedNetworks), NETWORK_SETTINGS);
+
+        final TestableNetworkCallback testNetworkCb = new TestableNetworkCallback();
+        final NetworkRequest testRequest = new NetworkRequest.Builder()
+                .addTransportType(NetworkCapabilities.TRANSPORT_TEST)
+                .removeCapability(NetworkCapabilities.NET_CAPABILITY_TRUSTED)
+                .removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
+                .setNetworkSpecifier(CompatUtil.makeTestNetworkSpecifier(
+                        TEST_RESTRICTED_NW_IFACE_NAME))
+                .build();
+
+        // Uid is not in allowed list and no permissions. Try to request restricted network and
+        // expect that SecurityException will throw.
+        assertThrows(SecurityException.class,
+                () -> mCm.requestNetwork(testRequest, testNetworkCb));
+
+        // Set uid to allowed list.
+        final Set<Integer> newUidsAllowedOnRestrictedNetworks =
+                new ArraySet<>(originalUidsAllowedOnRestrictedNetworks);
+        newUidsAllowedOnRestrictedNetworks.add(uid);
+        runWithShellPermissionIdentity(() -> setUidsAllowedOnRestrictedNetworks(
+                mContext, newUidsAllowedOnRestrictedNetworks), NETWORK_SETTINGS);
+
+        // Wait for setting update to CS. Then request restricted network again.
+        SystemClock.sleep(INTERVAL_UIDS_ALLOWED_ON_RESTRICTED_NETWORKS_UPDATE_MS);
+        requestNetwork(testRequest, testNetworkCb);
+
+        final NetworkAgent agent = createRestrictedNetworkAgent(mContext);
+        final Network network = agent.getNetwork();
+
+        testAndCleanup(() -> {
+            // Verify that the network is restricted.
+            testNetworkCb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED,
+                    NETWORK_CALLBACK_TIMEOUT_MS,
+                    entry -> network.equals(entry.getNetwork())
+                            && (!((CallbackEntry.CapabilitiesChanged) entry).getCaps()
+                            .hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)));
+
+            // Remove uid from allowed list.
+            runWithShellPermissionIdentity(() -> setUidsAllowedOnRestrictedNetworks(
+                    mContext, originalUidsAllowedOnRestrictedNetworks), NETWORK_SETTINGS);
+
+            // Wait for setting update to CS. Expect that unavailable callback will receive.
+            SystemClock.sleep(INTERVAL_UIDS_ALLOWED_ON_RESTRICTED_NETWORKS_UPDATE_MS);
+            testNetworkCb.eventuallyExpect(CallbackEntry.UNAVAILABLE, NETWORK_CALLBACK_TIMEOUT_MS,
+                    c -> c instanceof CallbackEntry.Unavailable);
+        }, () -> {
+                agent.unregister();
+
+                // Restore setting.
+                runWithShellPermissionIdentity(() -> setUidsAllowedOnRestrictedNetworks(
+                        mContext, originalUidsAllowedOnRestrictedNetworks), NETWORK_SETTINGS);
+            });
     }
 
     private void unregisterRegisteredCallbacks() {
