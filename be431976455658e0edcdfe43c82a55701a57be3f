@@ -137,6 +137,30 @@
       },
       "revId": "be431976455658e0edcdfe43c82a55701a57be3f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26ad8f1c_88ea55c0",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-04T09:10:10Z",
+      "side": 1,
+      "message": "Maybe the comment message \"[Tethering] Add MTS method to TetheringManagerTest.\" confuse you. But this is CTS for sure that it is under packages/modules/Connectivity/tests/cts/..., and MTS would also run this test.",
+      "parentUuid": "b9b26783_0bed43b3",
+      "range": {
+        "startLine": 448,
+        "startChar": 8,
+        "endLine": 448,
+        "endChar": 31
+      },
+      "revId": "be431976455658e0edcdfe43c82a55701a57be3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
