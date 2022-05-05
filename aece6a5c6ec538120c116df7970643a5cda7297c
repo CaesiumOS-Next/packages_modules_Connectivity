@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3056fadf_d13e7eb4",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-05T10:54:06Z",
+      "side": 1,
+      "message": "Maybe use entrySet instead of creating a new class.\nhttps://developer.android.com/reference/android/util/ArrayMap#entrySet()",
+      "range": {
+        "startLine": 380,
+        "startChar": 43,
+        "endLine": 380,
+        "endChar": 63
+      },
+      "revId": "aece6a5c6ec538120c116df7970643a5cda7297c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
