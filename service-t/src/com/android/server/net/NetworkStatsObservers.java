@@ -44,6 +44,7 @@ import android.util.Log;
 import android.util.SparseArray;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.PerUidCounter;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -61,9 +62,16 @@ class NetworkStatsObservers {
     private static final int MSG_UNREGISTER = 2;
     private static final int MSG_UPDATE_STATS = 3;
 
+    // The maximum number of request allowed per uid before an exception is thrown.
+    @VisibleForTesting
+    static final int MAX_REQUESTS_PER_UID = 100;
+
     // All access to this map must be done from the handler thread.
     // indexed by DataUsageRequest#requestId
     private final SparseArray<RequestInfo> mDataUsageRequests = new SparseArray<>();
+
+    // Request counters per uid, this is thread safe.
+    private final PerUidCounter mDataUsageRequestsPerUid = new PerUidCounter(MAX_REQUESTS_PER_UID);
 
     // Sequence number of DataUsageRequests
     private final AtomicInteger mNextDataUsageRequestId = new AtomicInteger();
@@ -87,8 +95,9 @@ class NetworkStatsObservers {
         DataUsageRequest request = buildRequest(context, inputRequest, callingUid);
         RequestInfo requestInfo = buildRequestInfo(request, callback, callingPid, callingUid,
                 callingPackage, accessLevel);
-
         if (LOG) Log.d(TAG, "Registering observer for " + requestInfo);
+        mDataUsageRequestsPerUid.incrementCountOrThrow(callingUid);
+
         getHandler().sendMessage(mHandler.obtainMessage(MSG_REGISTER, requestInfo));
         return request;
     }
@@ -187,6 +196,7 @@ class NetworkStatsObservers {
 
         if (LOG) Log.d(TAG, "Unregistering " + requestInfo);
         mDataUsageRequests.remove(request.requestId);
+        mDataUsageRequestsPerUid.decrementCount(callingUid);
         requestInfo.unlinkDeathRecipient();
         requestInfo.callCallback(NetworkStatsManager.CALLBACK_RELEASED);
     }
