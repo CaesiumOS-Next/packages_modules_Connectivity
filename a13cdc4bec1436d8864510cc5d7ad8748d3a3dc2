@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4a21b752_72237d71",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-05T08:30:09Z",
+      "side": 1,
+      "message": "You could let IBpfMap extend autoclosable, then let BpfMap implement IBpfMap. So you don\u0027t need to replace IBpfMap as BpfMap",
+      "range": {
+        "startLine": 121,
+        "startChar": 12,
+        "endLine": 121,
+        "endChar": 54
+      },
+      "revId": "a13cdc4bec1436d8864510cc5d7ad8748d3a3dc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "19e00418_4671e44c",
         "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
         "patchSetId": 3
