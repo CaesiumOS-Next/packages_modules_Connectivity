@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4580244f_1bc84815",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-05T03:07:34Z",
+      "side": 1,
+      "message": "IIUC it is pid\u003d2879, uid\u003d1000",
+      "range": {
+        "startLine": 18,
+        "startChar": 3,
+        "endLine": 18,
+        "endChar": 20
+      },
+      "revId": "3b98fa9dbe5625d945ad76d179135140c3740d28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e000c60_4c84d143",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-05T03:07:34Z",
+      "side": 1,
+      "message": "Maybe add javadoc to describe the purpose of this class",
+      "range": {
+        "startLine": 410,
+        "startChar": 4,
+        "endLine": 410,
+        "endChar": 11
+      },
+      "revId": "3b98fa9dbe5625d945ad76d179135140c3740d28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8bfbfe8_49049437",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-05T03:07:34Z",
+      "side": 1,
+      "message": "static",
+      "range": {
+        "startLine": 410,
+        "startChar": 11,
+        "endLine": 410,
+        "endChar": 12
+      },
+      "revId": "3b98fa9dbe5625d945ad76d179135140c3740d28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d353273e_2c15ab1f",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-05T03:07:34Z",
+      "side": 1,
+      "message": "@NonNull? @Nullable?",
+      "range": {
+        "startLine": 415,
+        "startChar": 40,
+        "endLine": 415,
+        "endChar": 41
+      },
+      "revId": "3b98fa9dbe5625d945ad76d179135140c3740d28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b580bd56_71344402",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-05T03:07:34Z",
+      "side": 1,
+      "message": "This might allow sub-classes, maybe \nif (this \u003d\u003d o) return true;\nif (o.getClass() !\u003d getClass()) return false; \n            ?",
+      "range": {
+        "startLine": 434,
+        "startChar": 18,
+        "endLine": 434,
+        "endChar": 28
+      },
+      "revId": "3b98fa9dbe5625d945ad76d179135140c3740d28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4c65f4e_cfdc8d81",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-05T03:07:34Z",
+      "side": 1,
+      "message": "nit: @NonNull?",
+      "range": {
+        "startLine": 835,
+        "startChar": 41,
+        "endLine": 835,
+        "endChar": 55
+      },
+      "revId": "3b98fa9dbe5625d945ad76d179135140c3740d28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b654aa5_af9a5727",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-05T03:07:34Z",
+      "side": 1,
+      "message": "nit: \nfinal int callingPid \u003d Binder.getCallingPid();\nfinal int callingUid \u003d Binder.getCallingUid();",
+      "range": {
+        "startLine": 866,
+        "startChar": 7,
+        "endLine": 867,
+        "endChar": 54
+      },
+      "revId": "3b98fa9dbe5625d945ad76d179135140c3740d28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cc52412_589ea5a4",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-05T03:07:34Z",
+      "side": 1,
+      "message": "IIUC this is wrong.\ncallingPid, callingUid?",
+      "range": {
+        "startLine": 868,
+        "startChar": 54,
+        "endLine": 868,
+        "endChar": 76
+      },
+      "revId": "3b98fa9dbe5625d945ad76d179135140c3740d28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84e3bf44_99f0c23c",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2124,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-05T03:07:34Z",
+      "side": 1,
+      "message": "redundant new line?",
+      "revId": "3b98fa9dbe5625d945ad76d179135140c3740d28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
