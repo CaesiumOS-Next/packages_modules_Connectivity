@@ -33,6 +33,24 @@
       "message": "Hi Maze\n\nI have two questions:\n1. If we install T module on a device which uses kernel which doesn\u0027t support btf, does this break anything?\n2. Where do we plan to use btf for debugging? The bugreport doesn\u0027t dump each map in btf format. Each map owner may have a parser to extract map into human readable format for debugging. \n\nFor example (clat maps):\n\nDUMPSYS:\n$ adb shell dumpsys connectivity --short\n  ClatCoordinator:\n    Forwarding rules:\n      BPF ingress map: iif nat64Prefix v6Addr -\u003e v4Addr oif\n        47 /64:ff9b::/96 /2a00:79e1:abc:6f02:dbd8:9644:d74b:58fb -\u003e /192.0.0.4 52\n      BPF egress map: iif v4Addr -\u003e v6Addr nat64Prefix oif\n        52 /192.0.0.4 -\u003e /2a00:79e1:abc:6f02:dbd8:9644:d74b:58fb /64:ff9b::/96 47 ether\n\nBTF:\n$ adb shell cat /sys/fs/bpf/net_shared/map_clatd_clat_ingress6_map\n{47,{{[],[25600,39935,0,0,0,0,0,0,],[2617205760,0,0,0,],},},{{[\u0027*\u0027,],[42,57721,48138,623,55515,17558,19415,64344,],[3782803498,40877066,1150736603,4216867799,],},},}: {52,{67109056,},}\n\n$ adb shell cat /sys/fs/bpf/net_shared/map_clatd_clat_egress4_map\n{52,{67109056,},}: {47,{{[\u0027*\u0027,],[42,57721,48138,623,55515,17558,19415,64344,],[3782803498,40877066,1150736603,4216867799,],},},{{[],[25600,39935,0,0,0,0,0,0,],[2617205760,0,0,0,],},},1,[],}\n",
       "revId": "9b2faeb81eda09d8c1481019ff1d2c372da504b3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee3fe3b1_762a2d70",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-05T15:23:35Z",
+      "side": 1,
+      "message": "ad 1) btf isn\u0027t so much a kernel feature, as a bpfloader feature.  The kernel needs to support it sure, but more importantly the bpfloader must feed the data to the kernel.\n\nSince bpfloader on S doesn\u0027t support it, there\u0027s no risk there, besides S bpfloader somehow misparsing the newer fatter .o\n\nEither this won\u0027t happen, because these .o files live in a location that the S bpfloader doesn\u0027t look at.\n\nie. this CL will only affect .o\u0027s looked at by T bpfloader, which does support bpfloader.\n\nSo the BTF will be fed to the kernel.  Technically this could fail if the kernel doesn\u0027t support BTF, but there\u0027s fallback... Also we\u0027d get TH complains on flame/coral which run 4.14 kernels (the oldest supported by T).\n\n--\n\nad 2) As for where to use it?  Whenever we don\u0027t trust the code we\u0027ve written to dump the maps in a prettier format.  Or when we\u0027ve not yet written the code to dump them.  Or when we want to make sure the dump functions truly work.  Etc.\n\nI\u0027m hoping that eventually the kernel will actually learn to print these things out in a prettier format.  Just knowing how to print out IPv4 and IPv6 addresses, and to print some fields in hex would help a *lot* with readability.\n\nHowever, already the current format, while hard to deal with, is something that can be manually converted to something that can be understood without any additional on device tooling.  Which is not the case before this CL, because there simply is no way to view the raw content of the maps without installing some cli utility like bpftool.\n\nie. sure, it\u0027s not as good as \u0027proper\u0027 C++/java dump with annotations, but it\u0027s still much better than nothing.\n\nAnd there have been a few cases where our dump functions have printed out misleading information (by dumping java maps instead of the content of the bpf map itself)",
+      "parentUuid": "ea2f8178_8019b58b",
+      "revId": "9b2faeb81eda09d8c1481019ff1d2c372da504b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
