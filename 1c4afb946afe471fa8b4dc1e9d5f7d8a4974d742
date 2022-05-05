@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "802cf864_10b1ab00",
+        "filename": "service/src/com/android/server/connectivity/QosCallbackAgentConnection.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-05-05T08:44:22Z",
+      "side": 1,
+      "message": "We have confirmed that Pixel has not yet commercialized RCS chat using this QosCallback API. Therefore, this change will not affect previous Pixel products. However, some OEMs may use this API. Of course I checked this code with test binaries, but I don\u0027t know how OEMs utilize this API, so I added SDK version check before sending error callbacks to avoid crashing OEM application with this error callback and give them time to check this change.",
+      "parentUuid": "ea796484_270127e2",
+      "range": {
+        "startLine": 154,
+        "startChar": 8,
+        "endLine": 154,
+        "endChar": 36
+      },
+      "revId": "1c4afb946afe471fa8b4dc1e9d5f7d8a4974d742",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e9ffd6a_0201d664",
