@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89f0f170_66adc15e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-05-05T08:56:14Z",
+      "side": 1,
+      "message": "Chiachang may want to take a look. +1 first.",
+      "revId": "c259e615e68aacc3bc47b729de03449b5798a1b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
