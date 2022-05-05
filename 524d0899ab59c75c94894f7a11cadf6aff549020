@@ -33,6 +33,24 @@
       "message": "but nr is missing leading \u00272\u0027",
       "revId": "524d0899ab59c75c94894f7a11cadf6aff549020",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d06f65b3_c4d290ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-05-05T07:30:16Z",
+      "side": 1,
+      "message": "Yes, need more discussion. By the way, FileDescriptor hides setInt$(fd) which mainline module can\u0027t use. In the other words, we can\u0027t use a native fd to initialize a FileDescriptor object. \n```\nhttps://source.corp.google.com/aosp-master/libcore/ojluni/src/main/java/java/io/FileDescriptor.java;l\u003d168\n    /**\n     * @hide internal use only\n     */\n    public final void setInt$(int fd) {\n        this.descriptor \u003d fd;\n    }\n```\n\nMoreover, JNI AFileDescriptor_create() has limited on sdk level after 31\n```\nlibnativehelper/include_platform/nativehelper/JNIPlatformHelp.h:93:30: error: \u0027AFileDescriptor_create\u0027 is only available on Android 31 or newer [-Werror,-Wunguarded-availability]\n    jobject fileDescriptor \u003d AFileDescriptor_create(env);\n\n```",
+      "parentUuid": "d661ea9f_d4d6fa1c",
+      "revId": "524d0899ab59c75c94894f7a11cadf6aff549020",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
