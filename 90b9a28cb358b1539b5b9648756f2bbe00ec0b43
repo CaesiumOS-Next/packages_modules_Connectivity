@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92ccb518_6af2316c",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1229,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-05T05:57:08Z",
+      "side": 1,
+      "message": "need to update this?",
+      "range": {
+        "startLine": 1227,
+        "startChar": 5,
+        "endLine": 1229,
+        "endChar": 7
+      },
+      "revId": "90b9a28cb358b1539b5b9648756f2bbe00ec0b43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3722d247_29bcef83",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1231,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-05T05:57:08Z",
+      "side": 1,
+      "message": "1. Is there any way to prevent from passing a boolean?\nConsider that if someone add new feature check in future we\u0027ll have multiple booleans as arguments, which might not be a good thing.\n\n2. Is hasAutomotiveFeature or hasSystemFeatureAutomotive clearer?",
+      "range": {
+        "startLine": 1231,
+        "startChar": 48,
+        "endLine": 1231,
+        "endChar": 60
+      },
+      "revId": "90b9a28cb358b1539b5b9648756f2bbe00ec0b43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc9e2713_5a2ceb2a",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 14904,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-05T05:57:08Z",
+      "side": 1,
+      "message": "Maybe also test for false and verify the capability is blocked accordingly?",
+      "range": {
+        "startLine": 14904,
+        "startChar": 64,
+        "endLine": 14904,
+        "endChar": 68
+      },
+      "revId": "90b9a28cb358b1539b5b9648756f2bbe00ec0b43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
