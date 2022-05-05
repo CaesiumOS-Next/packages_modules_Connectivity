@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c236eb78_a2dc695d",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-05-05T15:10:12Z",
+      "side": 1,
+      "message": "Thanks for the suggestion.  I used the suggestion below for the next update.",
+      "parentUuid": "e3a0324b_91868e2c",
+      "range": {
+        "startLine": 461,
+        "startChar": 33,
+        "endLine": 461,
+        "endChar": 39
+      },
+      "revId": "be431976455658e0edcdfe43c82a55701a57be3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c50d3dc0_0d762799",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-02T01:01:06Z",
       "side": 1,
       "message": "It\u0027s confusing that this method waits for a callback even though it\u0027s called \"WithoutWaitingResult\". Maybe call this method startWifiTethering and rename the other method to startWifiTetheringAndAwaitCallbacks?",
+      "range": {
+        "startLine": 478,
+        "startChar": 31,
+        "endLine": 478,
+        "endChar": 53
+      },
+      "revId": "be431976455658e0edcdfe43c82a55701a57be3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1893129c_6d94b991",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-05-05T15:10:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c50d3dc0_0d762799",
       "range": {
         "startLine": 478,
         "startChar": 31,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47f324fa_9c7479b5",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-05-05T15:10:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed3224ce_a859931e",
+      "range": {
+        "startLine": 418,
+        "startChar": 25,
+        "endLine": 419,
+        "endChar": 39
+      },
+      "revId": "be431976455658e0edcdfe43c82a55701a57be3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f981e89_22c9e13e",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b9b983e_f1e0c0e5",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-05-05T15:10:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f981e89_22c9e13e",
+      "range": {
+        "startLine": 422,
+        "startChar": 43,
+        "endLine": 422,
+        "endChar": 52
+      },
+      "revId": "be431976455658e0edcdfe43c82a55701a57be3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9beb8ab3_821c8415",
@@ -106,6 +202,30 @@
       "writtenOn": "2022-05-02T01:01:06Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 443,
+        "startChar": 43,
+        "endLine": 443,
+        "endChar": 52
+      },
+      "revId": "be431976455658e0edcdfe43c82a55701a57be3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb82e364_7445ac5a",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-05-05T15:10:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9beb8ab3_821c8415",
       "range": {
         "startLine": 443,
         "startChar": 43,
@@ -153,6 +273,30 @@
       "side": 1,
       "message": "Maybe the comment message \"[Tethering] Add MTS method to TetheringManagerTest.\" confuse you. But this is CTS for sure that it is under packages/modules/Connectivity/tests/cts/..., and MTS would also run this test.",
       "parentUuid": "b9b26783_0bed43b3",
+      "range": {
+        "startLine": 448,
+        "startChar": 8,
+        "endLine": 448,
+        "endChar": 31
+      },
+      "revId": "be431976455658e0edcdfe43c82a55701a57be3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82ed7305_6d31c4a2",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-05-05T15:10:12Z",
+      "side": 1,
+      "message": "Thanks Mark\u0027s explanation.\n\nFor the action test.\n\ncts/tests/tests/settings/src/android/settings/cts/TetherProvisioningCarrierDialogActivityTest.java\n\nHere is the CTS test already added.\n\nThus, remove it from here",
+      "parentUuid": "26ad8f1c_88ea55c0",
       "range": {
         "startLine": 448,
         "startChar": 8,
