@@ -3,6 +3,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "be807145_d4292ec8",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsObservers.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-05-05T06:41:22Z",
+      "side": 1,
+      "message": "Nit: maybe not related this commit and similar to Aaron\u0027s comment. Do you want to annotate the nullability for the others?",
+      "range": {
+        "startLine": 83,
+        "startChar": 37,
+        "endLine": 83,
+        "endChar": 38
+      },
+      "revId": "49fe1575cc91a90300e02ae1fdfff52e30b97945",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44b6d6dd_001b6df0",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsObservers.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-05-05T06:41:22Z",
+      "side": 1,
+      "message": "optional: change to .d for clearer log difference",
+      "range": {
+        "startLine": 90,
+        "startChar": 21,
+        "endLine": 90,
+        "endChar": 22
+      },
+      "revId": "49fe1575cc91a90300e02ae1fdfff52e30b97945",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "467daba2_b7f01a66",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsObservers.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-05-05T06:41:22Z",
+      "side": 1,
+      "message": "optional: might be worthy to change to .w similar to the case below.",
+      "range": {
+        "startLine": 179,
+        "startChar": 25,
+        "endLine": 179,
+        "endChar": 26
+      },
+      "revId": "49fe1575cc91a90300e02ae1fdfff52e30b97945",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dca7fce3_ba37a2fd",
         "filename": "service-t/src/com/android/server/net/NetworkStatsObservers.java",
         "patchSetId": 2
@@ -42,6 +111,29 @@
         "startChar": 16,
         "endLine": 395,
         "endChar": 37
+      },
+      "revId": "49fe1575cc91a90300e02ae1fdfff52e30b97945",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "654a93ff_0f8e9078",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2106,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-05-05T06:41:22Z",
+      "side": 1,
+      "message": "This is not guarded by anything. This may be access from random threads. The information inside may be changed during your dump. Can we still say it\u0027s \"locked\" ?  i.e. should mStatsObservers be guarded?",
+      "range": {
+        "startLine": 2106,
+        "startChar": 12,
+        "endLine": 2106,
+        "endChar": 27
       },
       "revId": "49fe1575cc91a90300e02ae1fdfff52e30b97945",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
