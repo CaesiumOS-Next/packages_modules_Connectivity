@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b23787d9_473fc337",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1188,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-05T07:23:32Z",
+      "side": 1,
+      "message": "sendReport at l.1210 (leave IpServer#BaseServingState) seems enough ?",
+      "revId": "7f895811ca9c11ae90c89c0c29eb62cc8c52ef6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a250d35d_75f04b49",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-05T07:23:32Z",
+      "side": 1,
+      "message": "You could verify update TETHER_ERROR_NO_ERROR and send report for tethering metrics",
+      "revId": "7f895811ca9c11ae90c89c0c29eb62cc8c52ef6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d39ba638_07e35682",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-05T07:23:32Z",
+      "side": 1,
+      "message": "ditto, you could verify TETHER_ERROR_TETHER_IFACE_ERROR for metrics",
+      "revId": "7f895811ca9c11ae90c89c0c29eb62cc8c52ef6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf82d1e6_62b64d4c",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-05T07:23:32Z",
+      "side": 1,
+      "message": "You could verify update TETHER_ERROR_ENABLE_FORWARDING_ERROR and send report for Tethering metrics here.",
+      "revId": "7f895811ca9c11ae90c89c0c29eb62cc8c52ef6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f70e30b_a409e4bb",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2863,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-05T07:23:32Z",
+      "side": 1,
+      "message": "verify whether you have create report first, then verify update update TETHER_ERROR_SERVICE_UNAVAIL and send report for metrics",
+      "revId": "7f895811ca9c11ae90c89c0c29eb62cc8c52ef6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
