@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a2b0585_0b1c903c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-05-05T01:37:22Z",
+      "side": 1,
+      "message": "Partial review",
+      "revId": "b5d50a530be3dfe1281627c46b0a78a27cbd2ad8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3e21ce8_56ea25fa",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-05-05T01:37:22Z",
+      "side": 1,
+      "message": "Quick question; can these actually replace the v4 ones above? If so, perhaps we can avoid having another duplicate set of init, auth responses",
+      "range": {
+        "startLine": 163,
+        "startChar": 32,
+        "endLine": 163,
+        "endChar": 55
+      },
+      "revId": "b5d50a530be3dfe1281627c46b0a78a27cbd2ad8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fcca607_0419991b",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-05-05T01:37:22Z",
+      "side": 1,
+      "message": "Suggest \"testNetworkPermanentlyLost\"",
+      "range": {
+        "startLine": 673,
+        "startChar": 12,
+        "endLine": 673,
+        "endChar": 20
+      },
+      "revId": "b5d50a530be3dfe1281627c46b0a78a27cbd2ad8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
