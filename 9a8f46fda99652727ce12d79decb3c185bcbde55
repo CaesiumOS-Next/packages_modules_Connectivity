@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e397f86_bf7f8cd9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-05-05T09:46:39Z",
+      "side": 1,
+      "message": "Make this commit to stand alone from topic \"ignore_udp_offload_on_kernel_4_14\n\" because code owner is OOO. I would like to merge other part first for fixing bug 230359047 and then do CTS clean up later.",
+      "revId": "9a8f46fda99652727ce12d79decb3c185bcbde55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
