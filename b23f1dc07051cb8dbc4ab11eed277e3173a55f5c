@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0272822f_8b5b58eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-05T09:38:45Z",
+      "side": 1,
+      "message": "LGTM, only nits.",
+      "revId": "b23f1dc07051cb8dbc4ab11eed277e3173a55f5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3daaf45_c3a210d2",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-05T09:38:45Z",
+      "side": 1,
+      "message": "nits: maybe struct these into function, then it could be reused in l.385\n\nprivate void closeEgressMap() {\n   ...\n}\n\nprivate void closeIngressMap() {\n    ...\n}",
+      "range": {
+        "startLine": 741,
+        "startChar": 0,
+        "endLine": 753,
+        "endChar": 27
+      },
+      "revId": "b23f1dc07051cb8dbc4ab11eed277e3173a55f5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
