@@ -39,7 +39,6 @@ import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BpfMap;
-import com.android.net.module.util.IBpfMap;
 import com.android.net.module.util.InterfaceParams;
 import com.android.net.module.util.TcUtils;
 import com.android.net.module.util.bpf.ClatEgress4Key;
@@ -116,10 +115,12 @@ public class ClatCoordinator {
     private final INetd mNetd;
     @NonNull
     private final Dependencies mDeps;
+    // BpfMap objects {mIngressMap, mEgressMap} are initialized in #clatStart and closed in
+    // #clatStop.
     @Nullable
-    private final IBpfMap<ClatIngress6Key, ClatIngress6Value> mIngressMap;
+    private BpfMap<ClatIngress6Key, ClatIngress6Value> mIngressMap;
     @Nullable
-    private final IBpfMap<ClatEgress4Key, ClatEgress4Value> mEgressMap;
+    private BpfMap<ClatEgress4Key, ClatEgress4Value> mEgressMap;
     @Nullable
     private ClatdTracker mClatdTracker = null;
 
@@ -247,7 +248,7 @@ public class ClatCoordinator {
 
         /** Get ingress6 BPF map. */
         @Nullable
-        public IBpfMap<ClatIngress6Key, ClatIngress6Value> getBpfIngress6Map() {
+        public BpfMap<ClatIngress6Key, ClatIngress6Value> getBpfIngress6Map() {
             // Pre-T devices don't use ClatCoordinator to access clat map. Since Nat464Xlat
             // initializes a ClatCoordinator object to avoid redundant null pointer check
             // while using, ignore the BPF map initialization on pre-T devices.
@@ -264,7 +265,7 @@ public class ClatCoordinator {
 
         /** Get egress4 BPF map. */
         @Nullable
-        public IBpfMap<ClatEgress4Key, ClatEgress4Value> getBpfEgress4Map() {
+        public BpfMap<ClatEgress4Key, ClatEgress4Value> getBpfEgress4Map() {
             // Pre-T devices don't use ClatCoordinator to access clat map. Since Nat464Xlat
             // initializes a ClatCoordinator object to avoid redundant null pointer check
             // while using, ignore the BPF map initialization on pre-T devices.
@@ -373,8 +374,6 @@ public class ClatCoordinator {
     public ClatCoordinator(@NonNull Dependencies deps) {
         mDeps = deps;
         mNetd = mDeps.getNetd();
-        mIngressMap = mDeps.getBpfIngress6Map();
-        mEgressMap = mDeps.getBpfEgress4Map();
     }
 
     private void maybeStartBpf(final ClatdTracker tracker) {
@@ -683,6 +682,8 @@ public class ClatCoordinator {
                 pid, cookie);
 
         // [7] Start BPF
+        mIngressMap = mDeps.getBpfIngress6Map();
+        mEgressMap = mDeps.getBpfEgress4Map();
         maybeStartBpf(mClatdTracker);
 
         return v6Str;
@@ -740,6 +741,28 @@ public class ClatCoordinator {
         mDeps.untagSocket(mClatdTracker.cookie);
 
         Log.i(TAG, "clatd on " + mClatdTracker.iface + " stopped");
+
+        // Manual close BPF map file descriptors. Don't rely on that GC releasing to close
+        // the file descriptors even if class BpfMap supports close file descriptor in
+        // finalize(). If the interfaces are added and removed quickly, unclosed file
+        // descriptors may cause system server crash with error "aborting due to fd leak".
+        // See b/230880517.
+        if (mIngressMap != null) {
+            try {
+                mIngressMap.close();
+            } catch (ErrnoException e) {
+                Log.e(TAG, "Cannot close ingress6 map: " + e);
+            }
+            mIngressMap = null;
+        }
+        if (mEgressMap != null) {
+            try {
+                mEgressMap.close();
+            } catch (ErrnoException e) {
+                Log.e(TAG, "Cannot close egress4 map: " + e);
+            }
+            mEgressMap = null;
+        }
         mClatdTracker = null;
     }
 
@@ -790,7 +813,7 @@ public class ClatCoordinator {
     }
 
     /**
-     * Dump the cordinator information.
+     * Dump the cordinator information. Only called when clat is started. See Nat464Xlat#dump.
      *
      * @param pw print writer.
      */
