@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e6bc105_f650c2ea",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1229,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-05-05T23:02:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92ccb518_6af2316c",
+      "range": {
+        "startLine": 1227,
+        "startChar": 5,
+        "endLine": 1229,
+        "endChar": 7
+      },
+      "revId": "90b9a28cb358b1539b5b9648756f2bbe00ec0b43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3722d247_29bcef83",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28048340_9d320d3f",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1231,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-05-05T23:02:02Z",
+      "side": 1,
+      "message": "1. The boolean could be removed completely, but then the automotive feature would have to be checked inside the method which would require an instance of package manager. Similarly, the method could have static removed which would allow for access to the non-static context object to source package manager from. In this particular case, I thought it simplest to add the boolean given the above. Since it is an internal method, it can always be updated in the future if new feature checks are included adding rationale for such changes.\n\n2. Done. Changed to hasAutomotiveFeature.",
+      "parentUuid": "3722d247_29bcef83",
+      "range": {
+        "startLine": 1231,
+        "startChar": 48,
+        "endLine": 1231,
+        "endChar": 60
+      },
+      "revId": "90b9a28cb358b1539b5b9648756f2bbe00ec0b43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc9e2713_5a2ceb2a",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-05-05T05:57:08Z",
       "side": 1,
       "message": "Maybe also test for false and verify the capability is blocked accordingly?",
+      "range": {
+        "startLine": 14904,
+        "startChar": 64,
+        "endLine": 14904,
+        "endChar": 68
+      },
+      "revId": "90b9a28cb358b1539b5b9648756f2bbe00ec0b43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbc38287_1cd8ec4d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 14904,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-05-05T23:02:02Z",
+      "side": 1,
+      "message": "Yep. Already done in the helper method on l.15016\n\n    ...\n    /* Test setting UIDs is rejected when expected */\n    if (TRANSPORT_ETHERNET \u003d\u003d transportUnderTest) {\n        mockHasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE, false);\n    }\n    ...",
+      "parentUuid": "cc9e2713_5a2ceb2a",
       "range": {
         "startLine": 14904,
         "startChar": 64,
