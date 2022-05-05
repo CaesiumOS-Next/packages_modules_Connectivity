@@ -87,6 +87,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e2f762a_4914d013",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-05T09:46:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f151179_c81e2c18",
+      "revId": "d5a0254b62e52e84cdead1fb100fdd2ecbd8b2d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ae60518_4e6f2752",
@@ -110,6 +128,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2df19fe1_89c8566f",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-05T09:46:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ae60518_4e6f2752",
+      "range": {
+        "startLine": 634,
+        "startChar": 73,
+        "endLine": 634,
+        "endChar": 74
+      },
+      "revId": "d5a0254b62e52e84cdead1fb100fdd2ecbd8b2d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "535586b7_5dc50186",
@@ -123,6 +165,30 @@
       "writtenOn": "2022-04-28T15:03:52Z",
       "side": 1,
       "message": "/*is_tcp*/",
+      "range": {
+        "startLine": 637,
+        "startChar": 74,
+        "endLine": 637,
+        "endChar": 75
+      },
+      "revId": "d5a0254b62e52e84cdead1fb100fdd2ecbd8b2d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7471223_daa13f43",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-05T09:46:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "535586b7_5dc50186",
       "range": {
         "startLine": 637,
         "startChar": 74,
