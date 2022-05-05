@@ -22,6 +22,30 @@
       },
       "revId": "aece6a5c6ec538120c116df7970643a5cda7297c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5fba3f3_690e09ae",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-05-05T19:10:25Z",
+      "side": 1,
+      "message": "EntrySet doesn\u0027t support toArray(), I got an exception when new an ArrayList\n   final List\u003cMap.Entry\u003cOpenSessionKey, Integer\u003e\u003e list \u003d new ArrayList\u003c\u003e(calls.entrySet());\n\nhttps://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/util/MapCollections.java;drc\u003da9f632187cec8873f3f2429022a25b867b2b7d4b;l\u003d169\n\nSo use HashMap instead, please review if this is OK for you.",
+      "parentUuid": "3056fadf_d13e7eb4",
+      "range": {
+        "startLine": 380,
+        "startChar": 43,
+        "endLine": 380,
+        "endChar": 63
+      },
+      "revId": "aece6a5c6ec538120c116df7970643a5cda7297c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
