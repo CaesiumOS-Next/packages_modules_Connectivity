@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19e00418_4671e44c",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-05T07:38:07Z",
+      "side": 1,
+      "message": "Move these into maybeStartBpf ?",
+      "range": {
+        "startLine": 685,
+        "startChar": 0,
+        "endLine": 686,
+        "endChar": 46
+      },
+      "revId": "a13cdc4bec1436d8864510cc5d7ad8748d3a3dc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ce9a3d8_0001fcd3",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-05T07:38:07Z",
+      "side": 1,
+      "message": "Move this into maybeStopBpf, then you don\u0027t need to check whether mIngressMap and mEgressMap are null again. And it make sense to close fd if bpf offload is stopped.",
+      "range": {
+        "startLine": 750,
+        "startChar": 0,
+        "endLine": 765,
+        "endChar": 9
+      },
+      "revId": "a13cdc4bec1436d8864510cc5d7ad8748d3a3dc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
