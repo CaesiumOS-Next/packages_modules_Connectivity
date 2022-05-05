@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f2dbbaa_da5621af",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsObservers.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-05T07:53:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be807145_d4292ec8",
+      "range": {
+        "startLine": 83,
+        "startChar": 37,
+        "endLine": 83,
+        "endChar": 38
+      },
+      "revId": "49fe1575cc91a90300e02ae1fdfff52e30b97945",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44b6d6dd_001b6df0",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-05T06:41:22Z",
       "side": 1,
       "message": "optional: change to .d for clearer log difference",
+      "range": {
+        "startLine": 90,
+        "startChar": 21,
+        "endLine": 90,
+        "endChar": 22
+      },
+      "revId": "49fe1575cc91a90300e02ae1fdfff52e30b97945",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b76504ae_2306513e",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsObservers.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-05T07:53:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44b6d6dd_001b6df0",
       "range": {
         "startLine": 90,
         "startChar": 21,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11f27a2e_ed61a471",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsObservers.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-05T07:53:31Z",
+      "side": 1,
+      "message": "Done, choose .d",
+      "parentUuid": "467daba2_b7f01a66",
+      "range": {
+        "startLine": 179,
+        "startChar": 25,
+        "endLine": 179,
+        "endChar": 26
+      },
+      "revId": "49fe1575cc91a90300e02ae1fdfff52e30b97945",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dca7fce3_ba37a2fd",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-05-05T06:12:59Z",
       "side": 1,
       "message": "@NonNull",
+      "range": {
+        "startLine": 352,
+        "startChar": 16,
+        "endLine": 352,
+        "endChar": 37
+      },
+      "revId": "49fe1575cc91a90300e02ae1fdfff52e30b97945",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c774449e_3a35c2ee",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsObservers.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-05T07:53:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dca7fce3_ba37a2fd",
       "range": {
         "startLine": 352,
         "startChar": 16,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcc19e42_79ad312b",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsObservers.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-05T07:53:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edb82888_e4193e18",
+      "range": {
+        "startLine": 395,
+        "startChar": 16,
+        "endLine": 395,
+        "endChar": 37
+      },
+      "revId": "49fe1575cc91a90300e02ae1fdfff52e30b97945",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "654a93ff_0f8e9078",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-05-05T06:41:22Z",
       "side": 1,
       "message": "This is not guarded by anything. This may be access from random threads. The information inside may be changed during your dump. Can we still say it\u0027s \"locked\" ?  i.e. should mStatsObservers be guarded?",
+      "range": {
+        "startLine": 2106,
+        "startChar": 12,
+        "endLine": 2106,
+        "endChar": 27
+      },
+      "revId": "49fe1575cc91a90300e02ae1fdfff52e30b97945",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3541b775_cae16761",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2106,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-05T07:53:31Z",
+      "side": 1,
+      "message": "No, IIUC this whole block is inside mStatsLock synchronized block at l.2004, right?",
+      "parentUuid": "654a93ff_0f8e9078",
       "range": {
         "startLine": 2106,
         "startChar": 12,
