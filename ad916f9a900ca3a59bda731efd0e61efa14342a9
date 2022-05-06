@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dc1ad63_27439b07",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2922,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-06T03:45:44Z",
+      "side": 1,
+      "message": "Previous design didn\u0027t check caller pid, is any reason that you need to change the design?",
+      "range": {
+        "startLine": 2922,
+        "startChar": 33,
+        "endLine": 2922,
+        "endChar": 53
+      },
+      "revId": "ad916f9a900ca3a59bda731efd0e61efa14342a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0425eb8f_f6a9bc3f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6533,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-06T03:45:44Z",
+      "side": 1,
+      "message": "Do carrier privilege apps request other connections(MCX, RCS...)? If so, should we remove this check?",
+      "range": {
+        "startLine": 6533,
+        "startChar": 70,
+        "endLine": 6533,
+        "endChar": 88
+      },
+      "revId": "ad916f9a900ca3a59bda731efd0e61efa14342a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d44dcd77_e970dd81",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 5844,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-06T03:45:44Z",
+      "side": 1,
+      "message": "There is no unavailable callback now. Maybe remove this.",
+      "range": {
+        "startLine": 5844,
+        "startChar": 16,
+        "endLine": 5844,
+        "endChar": 28
+      },
+      "revId": "ad916f9a900ca3a59bda731efd0e61efa14342a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10581900_cd748ad8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 5853,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-06T03:45:44Z",
+      "side": 1,
+      "message": "SecurityException?",
+      "range": {
+        "startLine": 5853,
+        "startChar": 48,
+        "endLine": 5853,
+        "endChar": 50
+      },
+      "revId": "ad916f9a900ca3a59bda731efd0e61efa14342a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
