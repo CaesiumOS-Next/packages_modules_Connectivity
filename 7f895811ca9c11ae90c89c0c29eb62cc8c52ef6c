@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "432ec3d8_bde2b383",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1188,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-05-06T09:18:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b23787d9_473fc337",
+      "revId": "7f895811ca9c11ae90c89c0c29eb62cc8c52ef6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a250d35d_75f04b49",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-05-05T07:23:32Z",
       "side": 1,
       "message": "You could verify update TETHER_ERROR_NO_ERROR and send report for tethering metrics",
+      "revId": "7f895811ca9c11ae90c89c0c29eb62cc8c52ef6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f273c1fc_bea9d6fb",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-05-06T09:18:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a250d35d_75f04b49",
       "revId": "7f895811ca9c11ae90c89c0c29eb62cc8c52ef6c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "817fc49f_74c2e5f9",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-05-06T09:18:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d39ba638_07e35682",
+      "revId": "7f895811ca9c11ae90c89c0c29eb62cc8c52ef6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf82d1e6_62b64d4c",
@@ -69,6 +123,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cadb2c1e_eb5cf84f",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-05-06T09:18:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf82d1e6_62b64d4c",
+      "revId": "7f895811ca9c11ae90c89c0c29eb62cc8c52ef6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f70e30b_a409e4bb",
@@ -82,6 +154,24 @@
       "writtenOn": "2022-05-05T07:23:32Z",
       "side": 1,
       "message": "verify whether you have create report first, then verify update update TETHER_ERROR_SERVICE_UNAVAIL and send report for metrics",
+      "revId": "7f895811ca9c11ae90c89c0c29eb62cc8c52ef6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7773dc9_1fd12799",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2863,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-05-06T09:18:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f70e30b_a409e4bb",
       "revId": "7f895811ca9c11ae90c89c0c29eb62cc8c52ef6c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
