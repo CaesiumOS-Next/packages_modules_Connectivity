@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0713bed3_8afb1228",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 14605,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-05-06T07:27:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b54f97f3_91ee8177",
+      "range": {
+        "startLine": 14605,
+        "startChar": 8,
+        "endLine": 14605,
+        "endChar": 32
+      },
+      "revId": "ff6fa0e3c78650b4a1e794528279d1b1c609075b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "975d0c4c_d688b7d8",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-02T08:42:45Z",
       "side": 1,
       "message": "// BUG: the second preference silently replaces the first because they are both for testHandle.",
+      "range": {
+        "startLine": 14626,
+        "startChar": 8,
+        "endLine": 14626,
+        "endChar": 14
+      },
+      "revId": "ff6fa0e3c78650b4a1e794528279d1b1c609075b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfecd766_397a5bf7",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 14626,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-05-06T07:27:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "975d0c4c_d688b7d8",
       "range": {
         "startLine": 14626,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c989307b_3634513b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 14629,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-05-06T07:27:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0978af78_0f60394e",
+      "range": {
+        "startLine": 14628,
+        "startChar": 16,
+        "endLine": 14629,
+        "endChar": 41
+      },
+      "revId": "ff6fa0e3c78650b4a1e794528279d1b1c609075b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5d42c0a_6d360bff",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75595e88_a1bf3680",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 14634,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-05-06T07:27:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5d42c0a_6d360bff",
+      "range": {
+        "startLine": 14634,
+        "startChar": 8,
+        "endLine": 14634,
+        "endChar": 32
+      },
+      "revId": "ff6fa0e3c78650b4a1e794528279d1b1c609075b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dedb14c6_671ca228",
@@ -106,6 +202,30 @@
       "writtenOn": "2022-05-02T08:42:45Z",
       "side": 1,
       "message": "The code in this test seems almost identical to the previous test. Instead of having two almost-identical tests, can you merge them? You could have a single test that does the following:\n\n1. Map app 1 to enterprise network 1 and enterprise network 2, check that app 1 is overwritten by app 2.\n2. Map app 3 to enterprise network1, check that the preference overwrites the one for app 2.\n3. Set a preference for a different profile, check that that works and doesn\u0027t touch the previously-set preferences for the first profile. (Unless we already have test coverage for this - do we?)\n4. Set preference to default, check that the preferences are deleted.\n\nOnce the bug is fixed, you can change the assertions in steps #1 and #2.",
+      "range": {
+        "startLine": 14666,
+        "startChar": 16,
+        "endLine": 14666,
+        "endChar": 49
+      },
+      "revId": "ff6fa0e3c78650b4a1e794528279d1b1c609075b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9146a549_71f03335",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 14666,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-05-06T07:27:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dedb14c6_671ca228",
       "range": {
         "startLine": 14666,
         "startChar": 16,
