@@ -46,6 +46,30 @@
       },
       "revId": "aece6a5c6ec538120c116df7970643a5cda7297c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ed17821_915e571b",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-05-06T07:28:12Z",
+      "side": 1,
+      "message": "More precisely,\n- The EntrySet used in ArrayMap is from MapCollections class and it doesn\u0027t support toArray.\n- The EntrySet used in HashMap is just defined in HashMap class so they are different.\n\nhttps://cs.android.com/android/platform/superproject/+/master:libcore/ojluni/src/main/java/java/util/HashMap.java;l\u003d1011?q\u003dHashMap\u0026sq\u003dpackage:aosp-master%20file:.",
+      "parentUuid": "f5fba3f3_690e09ae",
+      "range": {
+        "startLine": 380,
+        "startChar": 43,
+        "endLine": 380,
+        "endChar": 63
+      },
+      "revId": "aece6a5c6ec538120c116df7970643a5cda7297c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
