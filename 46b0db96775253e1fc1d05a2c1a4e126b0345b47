@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dd54fbc_ad2a6e7e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-06T04:16:45Z",
+      "side": 1,
+      "message": "If you rename the existing public function name, please also cleanup all the callers.\n\nSee the comment inline.",
+      "revId": "46b0db96775253e1fc1d05a2c1a4e126b0345b47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dba4515_f21b8cc0",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-06T04:16:45Z",
+      "side": 1,
+      "message": "If you rename the existing public function name, please cleanup all the callers.\n\nAt least ConnectivityManagerTest also use this.\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java;l\u003d2537",
+      "range": {
+        "startLine": 459,
+        "startChar": 30,
+        "endLine": 459,
+        "endChar": 65
+      },
+      "revId": "46b0db96775253e1fc1d05a2c1a4e126b0345b47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fce15120_f5cdfd09",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-06T04:16:45Z",
+      "side": 1,
+      "message": "Maybe also check softap is disabled ?\n\nmCtsTetheringUtils.expectSoftApDisabled();",
+      "revId": "46b0db96775253e1fc1d05a2c1a4e126b0345b47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
