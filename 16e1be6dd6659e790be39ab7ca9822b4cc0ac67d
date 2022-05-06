@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4c9b301_e9f9283a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10658,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-05-06T07:27:56Z",
+      "side": 1,
+      "message": "This also I will address as part of  b/231670730 as not directly related to this cl",
+      "parentUuid": "24dc8240_9dda454e",
+      "range": {
+        "startLine": 10658,
+        "startChar": 65,
+        "endLine": 10658,
+        "endChar": 67
+      },
+      "revId": "16e1be6dd6659e790be39ab7ca9822b4cc0ac67d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e50399d_3294280f",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-02T13:21:18Z",
       "side": 1,
       "message": "Pre-existing, so perhaps not for this CL, but shouldn\u0027t this be inside the for loop? Otherwise if an app passes in:\n\n    {\n        PREFERENCE_ENTERPRISE_NO_FALLBACK: uids [111, 222] -\u003e enterpriseId 1,\n        PREFERENCE_ENTERPRISE: uids [123, 456] -\u003e enterpriseId 2,\n    }\n\nthen the preference for UIDs 123, 456 will also have no fallback.",
+      "range": {
+        "startLine": 10676,
+        "startChar": 8,
+        "endLine": 10676,
+        "endChar": 37
+      },
+      "revId": "16e1be6dd6659e790be39ab7ca9822b4cc0ac67d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e45775cd_4bc1d50f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10676,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-05-06T07:27:56Z",
+      "side": 1,
+      "message": "will handle as separate cl for b/231670730",
+      "parentUuid": "0e50399d_3294280f",
       "range": {
         "startLine": 10676,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a17ab42_b013e5d7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10681,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-05-06T07:27:56Z",
+      "side": 1,
+      "message": "that is correct. DEFAULT should not be sent with other list. I will throw an exception as part of  b/231670730",
+      "parentUuid": "e923c2f3_6495b360",
+      "range": {
+        "startLine": 10681,
+        "startChar": 20,
+        "endLine": 10681,
+        "endChar": 29
+      },
+      "revId": "16e1be6dd6659e790be39ab7ca9822b4cc0ac67d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1df50fa_53bee327",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-05-02T13:21:18Z",
       "side": 1,
       "message": "This is no longer true, right? It means PREFERENCE_DEFAULT but technically it can appear with other PREFERENCE_* values in a list. Perhaps we should prevent that?",
+      "range": {
+        "startLine": 10760,
+        "startChar": 65,
+        "endLine": 10760,
+        "endChar": 96
+      },
+      "revId": "16e1be6dd6659e790be39ab7ca9822b4cc0ac67d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65d0c47b_4f84454e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10760,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-05-06T07:27:56Z",
+      "side": 1,
+      "message": "Yes will be throwing exception as mentioned above",
+      "parentUuid": "b1df50fa_53bee327",
       "range": {
         "startLine": 10760,
         "startChar": 65,
@@ -139,6 +235,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5eece179_564afef0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10816,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-05-06T07:27:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82fc1131_a9824157",
+      "range": {
+        "startLine": 10816,
+        "startChar": 86,
+        "endLine": 10816,
+        "endChar": 87
+      },
+      "revId": "16e1be6dd6659e790be39ab7ca9822b4cc0ac67d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "661b4cfc_96d989f2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10816,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-05-06T07:27:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d7f79b1_d70726b9",
+      "range": {
+        "startLine": 10816,
+        "startChar": 26,
+        "endLine": 10816,
+        "endChar": 34
+      },
+      "revId": "16e1be6dd6659e790be39ab7ca9822b4cc0ac67d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48cf19e6_77c5a33f",
@@ -152,6 +296,30 @@
       "writtenOn": "2022-05-02T13:21:18Z",
       "side": 1,
       "message": "Why check that this is non-empty? I don\u0027t think it can ever happen, setProfileNetworkPreferences will always pass in a list with at least one element.",
+      "range": {
+        "startLine": 10820,
+        "startChar": 34,
+        "endLine": 10820,
+        "endChar": 35
+      },
+      "revId": "16e1be6dd6659e790be39ab7ca9822b4cc0ac67d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c345224a_1effc3ed",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10820,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-05-06T07:27:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48cf19e6_77c5a33f",
       "range": {
         "startLine": 10820,
         "startChar": 34,
