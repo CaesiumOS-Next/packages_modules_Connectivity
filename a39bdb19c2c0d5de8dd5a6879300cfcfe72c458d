@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff3c1feb_171dac31",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-06T06:54:06Z",
+      "side": 1,
+      "message": "It is weird to call TetheringMannager#startTethering here.\n\nI think more clean way is implement this feature outside of EthernetTracker.\n\nThere are two options I can think of:\nOption 1, have a separate service (ExtendedEthernetService ?) to handle this feature:\n    1. When permanent ethernet tethering feature enabled,  ExtendedEtherentService call EthernetManager#requestTetheredInterface(executor, TetheredInterfaceCallback) to keep ethernet in server mode and call TetheringManager#startTethering to trigger ethetnet tethering.\n    2. If TetheredInterfaceCallback#onAvailable get called, call TetheringManager#startTethering to enable ethernet tethering again.\n    \nOption 2, have new API in TetheringManager to start/stop permanent ethernet tethering, then tethering won\u0027t release EthernetIfaceRequest till permanent ethernet tethering is stopped.",
+      "range": {
+        "startLine": 619,
+        "startChar": 12,
+        "endLine": 619,
+        "endChar": 93
+      },
+      "revId": "a39bdb19c2c0d5de8dd5a6879300cfcfe72c458d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
