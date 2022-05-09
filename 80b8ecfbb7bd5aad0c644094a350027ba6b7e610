@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bd95525_f56918f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-09T09:34:49Z",
+      "side": 1,
+      "message": "ACK",
+      "parentUuid": "e9aec0d6_b53537a5",
+      "revId": "80b8ecfbb7bd5aad0c644094a350027ba6b7e610",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "974c8af3_49ff8323",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee1e9468_1e79969e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-09T09:34:49Z",
+      "side": 1,
+      "message": "A boolean inside NetworkRequestInfo should be feasilbe solution. But per discussion, we don\u0027t send the onUnavailable callback now. So this won\u0027t be necessary.",
+      "parentUuid": "974c8af3_49ff8323",
+      "range": {
+        "startLine": 864,
+        "startChar": 36,
+        "endLine": 864,
+        "endChar": 62
+      },
+      "revId": "80b8ecfbb7bd5aad0c644094a350027ba6b7e610",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18455f73_3ee529cc",
@@ -54,6 +96,30 @@
       "writtenOn": "2022-05-09T07:02:46Z",
       "side": 1,
       "message": "Per discussion: the reason we have false here is that if we set it to true we would need to ensure that either a) any QoS callback registered on this network was unregistered when the app loses permission or b) no QoS callbacks are sent for restricted networks unless the app currently has permission to access restricted networks.\n\nCan we add a TODO to explain this?",
+      "range": {
+        "startLine": 10673,
+        "startChar": 60,
+        "endLine": 10673,
+        "endChar": 65
+      },
+      "revId": "80b8ecfbb7bd5aad0c644094a350027ba6b7e610",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1de122b2_3e02ee57",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 10673,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-09T09:34:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18455f73_3ee529cc",
       "range": {
         "startLine": 10673,
         "startChar": 60,
@@ -89,6 +155,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3e0ffd8b_98195750",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 10957,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-09T09:34:49Z",
+      "side": 1,
+      "message": "Will try to move PermissionMonitor SettingsObserver registers on the ConnectivityService handler thread in follow up commit.",
+      "parentUuid": "f5436e1d_e5003ae8",
+      "range": {
+        "startLine": 10957,
+        "startChar": 17,
+        "endLine": 10957,
+        "endChar": 61
+      },
+      "revId": "80b8ecfbb7bd5aad0c644094a350027ba6b7e610",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6f44a3e2_dfc290a7",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 2
@@ -100,6 +190,24 @@
       "writtenOn": "2022-05-09T07:02:46Z",
       "side": 1,
       "message": "Nit: no need to make this copy, you can just iterate over the whole set and then clear it once the iteration is finishes. If some other code is modifying this on another thread then this code is incorrect anyway.",
+      "revId": "80b8ecfbb7bd5aad0c644094a350027ba6b7e610",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01caa69e_54973cd9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 10959,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-09T09:34:49Z",
+      "side": 1,
+      "message": "This code is gone.",
+      "parentUuid": "6f44a3e2_dfc290a7",
       "revId": "80b8ecfbb7bd5aad0c644094a350027ba6b7e610",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -117,6 +225,30 @@
       "writtenOn": "2022-05-09T07:02:46Z",
       "side": 1,
       "message": "Per discussion: what if we leave this to a future CL? It\u0027s unlikely that any deployed device actually does this. And I think onUnavailable is actually not the best thing to do here, the most appropriate response would be onLost.\n\nonLost could be sent by either removing the NOT_RESTRICTED capability from the app\u0027s request (but we\u0027ve never done that before once a request was registered) or by changing NetworkAgentInfo#satisfies() method so it checks that app\u0027s permissions instead. This latter path is what Jean and I had in mind when we were talking about changing the semantics of NOT_RESTRICTED to mean \"NOT_RESTRICTED for the particular caller of the requwst / recipient of the callback\".",
+      "range": {
+        "startLine": 10966,
+        "startChar": 16,
+        "endLine": 10966,
+        "endChar": 43
+      },
+      "revId": "80b8ecfbb7bd5aad0c644094a350027ba6b7e610",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "576947a8_452000da",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 10966,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-09T09:34:49Z",
+      "side": 1,
+      "message": "Ack. Will do it in follow up commit.",
+      "parentUuid": "18a9d71e_82c70266",
       "range": {
         "startLine": 10966,
         "startChar": 16,
@@ -150,6 +282,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78adae48_652be25d",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-09T09:34:49Z",
+      "side": 1,
+      "message": "This is unnecessary now. We don\u0027t need to notify the setting change since the onUnavailable callback would not be send. Moreover, if setting observer move to cs handler thread, I think it doens\u0027t need this either.",
+      "parentUuid": "090a7a09_b6a9b67c",
+      "range": {
+        "startLine": 207,
+        "startChar": 21,
+        "endLine": 207,
+        "endChar": 29
+      },
+      "revId": "80b8ecfbb7bd5aad0c644094a350027ba6b7e610",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7971393a_5c4a8f14",
@@ -163,6 +319,30 @@
       "writtenOn": "2022-05-09T07:02:46Z",
       "side": 1,
       "message": "Would it be safe to register this observer on the CS handler thread? That way it cannot run at the same time as CS is unregistering the requests caused by the permissions change.\n\nSilly example of how the code you currently have could be incorrect.\n\n1. App loses permission. SettingsObserver fires. We remover the UID from the list and tell CS that the permissions have changed.\n2. App gains permission again. SettingsObserver fires. we add the UID to the list and tell CS that the permission has changed.\n3. CS processes the permission change. It concludes that the app never lost permisison and the request is not unregsitered.\n\nGranted, this is not a big problem. But if the observer runs on the CS handler thread we could prevent it.",
+      "range": {
+        "startLine": 394,
+        "startChar": 16,
+        "endLine": 394,
+        "endChar": 19
+      },
+      "revId": "80b8ecfbb7bd5aad0c644094a350027ba6b7e610",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6a4cc3e_af0ce79c",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-09T09:34:49Z",
+      "side": 1,
+      "message": "Ack. Per discussion, will do it in followup commit.",
+      "parentUuid": "7971393a_5c4a8f14",
       "range": {
         "startLine": 394,
         "startChar": 16,
