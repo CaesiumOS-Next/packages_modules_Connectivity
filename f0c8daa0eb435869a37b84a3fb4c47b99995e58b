@@ -1,5 +1,92 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a698351b_f99a6f34",
+        "filename": "tests/cts/hostside/app3/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-09T02:27:59Z",
+      "side": 1,
+      "message": "Should this include some mts suite as well, such as mts-tethering? Otherwise we won\u0027t run this test on mainline module releases.",
+      "range": {
+        "startLine": 30,
+        "startChar": 13,
+        "endLine": 30,
+        "endChar": 14
+      },
+      "revId": "f0c8daa0eb435869a37b84a3fb4c47b99995e58b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cba6803a_d1bd751e",
+        "filename": "tests/cts/hostside/app3/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-09T02:27:59Z",
+      "side": 1,
+      "message": "Is there a reason we added a new app3, instead of adding this code to app2? Now someone adding a new test will have to decide whether to put it into app2 or app3. We can definitely have two versions of app2, one targeting SDK current and one targeting SDK 31.",
+      "revId": "f0c8daa0eb435869a37b84a3fb4c47b99995e58b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3e0d5b7_0440cb36",
+        "filename": "tests/cts/hostside/app3/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-09T02:27:59Z",
+      "side": 1,
+      "message": "Probably want to call this -Sdk31 instead of -PreT.",
+      "range": {
+        "startLine": 44,
+        "startChar": 38,
+        "endLine": 44,
+        "endChar": 42
+      },
+      "revId": "f0c8daa0eb435869a37b84a3fb4c47b99995e58b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e39b1066_b9eabc55",
+        "filename": "tests/cts/hostside/src/com/android/cts/net/HostsideLinkPropertiesGatingTests.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-09T02:27:59Z",
+      "side": 1,
+      "message": "How long does it take to install this package? If it\u0027s slow (e.g., 5-10 seconds or more) then we might want to ensure that we don\u0027t install/uninstall it unless we have to.\n\nFor example, we could have one test method install the SDK 31 app, run testExcludedRoutesChangeDisabled, then enable the flag and run testExcludedRoutesChangeEnabled. And another test method would run all the tests that require the SDK current app to be installed.",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 22
+      },
+      "revId": "f0c8daa0eb435869a37b84a3fb4c47b99995e58b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
