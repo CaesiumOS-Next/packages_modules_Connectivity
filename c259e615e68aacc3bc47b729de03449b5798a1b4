@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e9590bfc_77134d7b",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsObservers.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-09T04:07:41Z",
+      "side": 1,
+      "message": "Should be e? This is always an error, right?",
+      "range": {
+        "startLine": 180,
+        "startChar": 25,
+        "endLine": 180,
+        "endChar": 26
+      },
+      "revId": "c259e615e68aacc3bc47b729de03449b5798a1b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "53ed34ce_592306c2",
         "filename": "service-t/src/com/android/server/net/NetworkStatsObservers.java",
         "patchSetId": 5
@@ -36,6 +59,29 @@
         "startChar": 16,
         "endLine": 395,
         "endChar": 17
+      },
+      "revId": "c259e615e68aacc3bc47b729de03449b5798a1b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a896850_25df7c99",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsObservers.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-09T04:07:41Z",
+      "side": 1,
+      "message": "This coul dpotentially print tens of thousands of lines to the bugreport. Also if anything changes the array during iteration (e.g., while a bug report is being taken) the system might crash. The simplest thing would be something like:\n\n    if (i \u003e 200) break;",
+      "range": {
+        "startLine": 468,
+        "startChar": 8,
+        "endLine": 468,
+        "endChar": 9
       },
       "revId": "c259e615e68aacc3bc47b729de03449b5798a1b4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
