@@ -22,6 +22,30 @@
       },
       "revId": "95e02c5d5a216037720d16888678f5f0fe0b54c8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b74fd039_cbb2f2a5",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 14683,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-09T09:13:04Z",
+      "side": 1,
+      "message": "(but feel free to ignore this if you\u0027re going to remove this comment in the subsequent CL anyway)",
+      "parentUuid": "65f0600a_65e6b0ed",
+      "range": {
+        "startLine": 14683,
+        "startChar": 20,
+        "endLine": 14683,
+        "endChar": 37
+      },
+      "revId": "95e02c5d5a216037720d16888678f5f0fe0b54c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
