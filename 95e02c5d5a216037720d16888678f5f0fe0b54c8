@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65f0600a_65e6b0ed",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 14683,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-09T09:12:27Z",
+      "side": 1,
+      "message": "preference for TEST_APP_ID",
+      "range": {
+        "startLine": 14683,
+        "startChar": 20,
+        "endLine": 14683,
+        "endChar": 37
+      },
+      "revId": "95e02c5d5a216037720d16888678f5f0fe0b54c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
