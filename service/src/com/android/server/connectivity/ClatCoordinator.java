@@ -117,11 +117,24 @@ public class ClatCoordinator {
     @NonNull
     private final Dependencies mDeps;
     @Nullable
-    private final IBpfMap<ClatIngress6Key, ClatIngress6Value> mIngressMap;
-    @Nullable
-    private final IBpfMap<ClatEgress4Key, ClatEgress4Value> mEgressMap;
-    @Nullable
     private ClatdTracker mClatdTracker = null;
+
+    /**
+     * Make ingress and egress maps to be static for sharing map fd between
+     * different objects of interface. The map fd can't set final because
+     * constructor may replace the test maps via Dependencies injection.
+     * Once map fd has been openned, the fd will not be closed.
+     * TODO: probably consider the follows:
+     * - Create map fd in ConnectivityService and pass fd:
+     *   NetworkAgentInfo -> Nat464Xlat -> ClatCoordinator.
+     * - Wrap BPF map access into try-catch section in #maybeStartBpf, #maybeStopBpf,
+     *   #dumpBpfIngress, #dumpBpfEgress. Rely on AutoCloseable to release fd.
+     * - Centralize every interface clat control as BpfCoordinator.
+     */
+    @Nullable
+    private static IBpfMap<ClatIngress6Key, ClatIngress6Value> sIngressMap = null;
+    @Nullable
+    private static IBpfMap<ClatEgress4Key, ClatEgress4Value> sEgressMap = null;
 
     /**
      * Dependencies of ClatCoordinator which makes ConnectivityService injection
@@ -373,12 +386,14 @@ public class ClatCoordinator {
     public ClatCoordinator(@NonNull Dependencies deps) {
         mDeps = deps;
         mNetd = mDeps.getNetd();
-        mIngressMap = mDeps.getBpfIngress6Map();
-        mEgressMap = mDeps.getBpfEgress4Map();
+
+        // Only initialize map fd in constructor.
+        if (sIngressMap == null) sIngressMap = mDeps.getBpfIngress6Map();
+        if (sEgressMap == null) sEgressMap = mDeps.getBpfEgress4Map();
     }
 
     private void maybeStartBpf(final ClatdTracker tracker) {
-        if (mIngressMap == null || mEgressMap == null) return;
+        if (sIngressMap == null || sEgressMap == null) return;
 
         final boolean isEthernet;
         try {
@@ -392,7 +407,7 @@ public class ClatCoordinator {
         final ClatEgress4Value txValue = new ClatEgress4Value(tracker.ifIndex, tracker.v6,
                 tracker.pfx96, (short) (isEthernet ? 1 /* ETHER */ : 0 /* RAWIP */));
         try {
-            mEgressMap.insertEntry(txKey, txValue);
+            sEgressMap.insertEntry(txKey, txValue);
         } catch (ErrnoException | IllegalStateException e) {
             Log.e(TAG, "Could not insert entry (" + txKey + ", " + txValue + ") on egress map: "
                     + e);
@@ -404,12 +419,12 @@ public class ClatCoordinator {
         final ClatIngress6Value rxValue = new ClatIngress6Value(tracker.v4ifIndex,
                 tracker.v4);
         try {
-            mIngressMap.insertEntry(rxKey, rxValue);
+            sIngressMap.insertEntry(rxKey, rxValue);
         } catch (ErrnoException | IllegalStateException e) {
             Log.e(TAG, "Could not insert entry (" + rxKey + ", " + rxValue + ") ingress map: "
                     + e);
             try {
-                mEgressMap.deleteEntry(txKey);
+                sEgressMap.deleteEntry(txKey);
             } catch (ErrnoException | IllegalStateException e2) {
                 Log.e(TAG, "Could not delete entry (" + txKey + ") from egress map: " + e2);
             }
@@ -426,12 +441,12 @@ public class ClatCoordinator {
             Log.e(TAG, "tc qdisc add dev (" + tracker.v4ifIndex + "[" + tracker.v4iface
                     + "]) failure: " + e);
             try {
-                mEgressMap.deleteEntry(txKey);
+                sEgressMap.deleteEntry(txKey);
             } catch (ErrnoException | IllegalStateException e2) {
                 Log.e(TAG, "Could not delete entry (" + txKey + ") from egress map: " + e2);
             }
             try {
-                mIngressMap.deleteEntry(rxKey);
+                sIngressMap.deleteEntry(rxKey);
             } catch (ErrnoException | IllegalStateException e3) {
                 Log.e(TAG, "Could not delete entry (" + rxKey + ") from ingress map: " + e3);
             }
@@ -453,12 +468,12 @@ public class ClatCoordinator {
             // the clsact has no clat filter now. It should not break anything.
 
             try {
-                mEgressMap.deleteEntry(txKey);
+                sEgressMap.deleteEntry(txKey);
             } catch (ErrnoException | IllegalStateException e2) {
                 Log.e(TAG, "Could not delete entry (" + txKey + ") from egress map: " + e2);
             }
             try {
-                mIngressMap.deleteEntry(rxKey);
+                sIngressMap.deleteEntry(rxKey);
             } catch (ErrnoException | IllegalStateException e3) {
                 Log.e(TAG, "Could not delete entry (" + rxKey + ") from ingress map: " + e3);
             }
@@ -485,12 +500,12 @@ public class ClatCoordinator {
                         + "]) egress prio PRIO_CLAT protocol ip failure: " + e2);
             }
             try {
-                mEgressMap.deleteEntry(txKey);
+                sEgressMap.deleteEntry(txKey);
             } catch (ErrnoException | IllegalStateException e3) {
                 Log.e(TAG, "Could not delete entry (" + txKey + ") from egress map: " + e3);
             }
             try {
-                mIngressMap.deleteEntry(rxKey);
+                sIngressMap.deleteEntry(rxKey);
             } catch (ErrnoException | IllegalStateException e4) {
                 Log.e(TAG, "Could not delete entry (" + rxKey + ") from ingress map: " + e4);
             }
@@ -689,7 +704,7 @@ public class ClatCoordinator {
     }
 
     private void maybeStopBpf(final ClatdTracker tracker) {
-        if (mIngressMap == null || mEgressMap == null) return;
+        if (sIngressMap == null || sEgressMap == null) return;
 
         try {
             mDeps.tcFilterDelDev(tracker.ifIndex, INGRESS, (short) PRIO_CLAT, (short) ETH_P_IPV6);
@@ -710,7 +725,7 @@ public class ClatCoordinator {
 
         final ClatEgress4Key txKey = new ClatEgress4Key(tracker.v4ifIndex, tracker.v4);
         try {
-            mEgressMap.deleteEntry(txKey);
+            sEgressMap.deleteEntry(txKey);
         } catch (ErrnoException | IllegalStateException e) {
             Log.e(TAG, "Could not delete entry (" + txKey + "): " + e);
         }
@@ -718,7 +733,7 @@ public class ClatCoordinator {
         final ClatIngress6Key rxKey = new ClatIngress6Key(tracker.ifIndex, tracker.pfx96,
                 tracker.v6);
         try {
-            mIngressMap.deleteEntry(rxKey);
+            sIngressMap.deleteEntry(rxKey);
         } catch (ErrnoException | IllegalStateException e) {
             Log.e(TAG, "Could not delete entry (" + rxKey + "): " + e);
         }
@@ -744,18 +759,18 @@ public class ClatCoordinator {
     }
 
     private void dumpBpfIngress(@NonNull IndentingPrintWriter pw) {
-        if (mIngressMap == null) {
+        if (sIngressMap == null) {
             pw.println("No BPF ingress6 map");
             return;
         }
 
         try {
-            if (mIngressMap.isEmpty()) {
+            if (sIngressMap.isEmpty()) {
                 pw.println("<empty>");
             }
             pw.println("BPF ingress map: iif nat64Prefix v6Addr -> v4Addr oif");
             pw.increaseIndent();
-            mIngressMap.forEach((k, v) -> {
+            sIngressMap.forEach((k, v) -> {
                 // TODO: print interface name
                 pw.println(String.format("%d %s/96 %s -> %s %d", k.iif, k.pfx96, k.local6,
                         v.local4, v.oif));
@@ -767,18 +782,18 @@ public class ClatCoordinator {
     }
 
     private void dumpBpfEgress(@NonNull IndentingPrintWriter pw) {
-        if (mEgressMap == null) {
+        if (sEgressMap == null) {
             pw.println("No BPF egress4 map");
             return;
         }
 
         try {
-            if (mEgressMap.isEmpty()) {
+            if (sEgressMap.isEmpty()) {
                 pw.println("<empty>");
             }
             pw.println("BPF egress map: iif v4Addr -> v6Addr nat64Prefix oif");
             pw.increaseIndent();
-            mEgressMap.forEach((k, v) -> {
+            sEgressMap.forEach((k, v) -> {
                 // TODO: print interface name
                 pw.println(String.format("%d %s -> %s %s/96 %d %s", k.iif, k.local4, v.local6,
                         v.pfx96, v.oif, v.oifIsEthernet != 0 ? "ether" : "rawip"));
