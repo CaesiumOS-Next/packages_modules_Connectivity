@@ -22,6 +22,30 @@
       },
       "revId": "9a75b57251513140e3f282438545828170b2265c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d636fc11_a1ca80e3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-05-09T10:19:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f8b69d1_cded4da2",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 28
+      },
+      "revId": "9a75b57251513140e3f282438545828170b2265c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
