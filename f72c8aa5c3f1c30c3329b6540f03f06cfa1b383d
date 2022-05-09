@@ -1,5 +1,52 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58986a9d_697226a9",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-09T08:51:32Z",
+      "side": 1,
+      "message": "Doesn\u0027t moving this code from line 358 to line 441 make it really hard to find the history of this code in git blame? Couldn\u0027t we have kept it where it was and just split the function in two?",
+      "range": {
+        "startLine": 549,
+        "startChar": 0,
+        "endLine": 551,
+        "endChar": 55
+      },
+      "revId": "f72c8aa5c3f1c30c3329b6540f03f06cfa1b383d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6ae6bef_ac8e322d",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-09T08:51:32Z",
+      "side": 1,
+      "message": "Is this comment still current? Seems like this issue is handled by the if statement at line 637.",
+      "range": {
+        "startLine": 620,
+        "startChar": 0,
+        "endLine": 623,
+        "endChar": 72
+      },
+      "revId": "f72c8aa5c3f1c30c3329b6540f03f06cfa1b383d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
