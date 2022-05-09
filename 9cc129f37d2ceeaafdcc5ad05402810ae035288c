@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc3e8b9e_1c0356a3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 10846,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-09T09:32:11Z",
+      "side": 1,
+      "message": "Pre-existing, but this method will crash the system if the preferences are not valid. If we get here, has some code already guaranteed that the preferences are valid and will not trip this particular check? But if so, then why is this check here? Just as an additional safety check?",
+      "range": {
+        "startLine": 10846,
+        "startChar": 12,
+        "endLine": 10846,
+        "endChar": 65
+      },
+      "revId": "9cc129f37d2ceeaafdcc5ad05402810ae035288c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "548e2a72_c4d97985",
+        "filename": "service/src/com/android/server/connectivity/ProfileNetworkPreferenceList.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-09T09:32:11Z",
+      "side": 1,
+      "message": "Nit: withoutUser? excludingUser? copyWithoutUser?",
+      "range": {
+        "startLine": 90,
+        "startChar": 40,
+        "endLine": 90,
+        "endChar": 49
+      },
+      "revId": "9cc129f37d2ceeaafdcc5ad05402810ae035288c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
