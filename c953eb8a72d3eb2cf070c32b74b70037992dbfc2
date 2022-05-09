@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c167717_dadab105",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2936,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-09T06:22:39Z",
+      "side": 1,
+      "message": "Prefer mDeps.getCallingUid so that unit tests can override the return value.",
+      "range": {
+        "startLine": 2936,
+        "startChar": 31,
+        "endLine": 2936,
+        "endChar": 53
+      },
+      "revId": "c953eb8a72d3eb2cf070c32b74b70037992dbfc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
