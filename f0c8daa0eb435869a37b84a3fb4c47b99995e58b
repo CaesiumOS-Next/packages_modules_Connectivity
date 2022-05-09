@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cc64653_fda4aac8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-05-09T17:39:23Z",
+      "side": 1,
+      "message": "Hi Lorenzo, \nthanks for your comments.\n\nSince this CL is already merged, I\u0027ll fix your comments in a follow-up CL.\nMeanwhile, please approve cherry-pick of this CL into tm-dev: ag/18186122",
+      "revId": "f0c8daa0eb435869a37b84a3fb4c47b99995e58b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a698351b_f99a6f34",
