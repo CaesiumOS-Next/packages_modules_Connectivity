@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a6262cb_8100feb7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-09T14:30:23Z",
+      "side": 1,
+      "message": "Maybe add comment to explain?",
+      "range": {
+        "startLine": 292,
+        "startChar": 29,
+        "endLine": 292,
+        "endChar": 83
+      },
+      "revId": "3d4aacc95522a18452b765fe0a69c2b22d88f61f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bd5b4f1_46a4c546",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3299,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-09T14:30:23Z",
+      "side": 1,
+      "message": "Do we need to add @IgnoreUpTo(SC_V2) ?",
+      "range": {
+        "startLine": 3299,
+        "startChar": 16,
+        "endLine": 3299,
+        "endChar": 56
+      },
+      "revId": "3d4aacc95522a18452b765fe0a69c2b22d88f61f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42d435c6_5dccb702",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3300,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-09T14:30:23Z",
+      "side": 1,
+      "message": "Question: Why do we need this check? Maybe add comment?",
+      "range": {
+        "startLine": 3300,
+        "startChar": 19,
+        "endLine": 3300,
+        "endChar": 48
+      },
+      "revId": "3d4aacc95522a18452b765fe0a69c2b22d88f61f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfce9867_b5256b59",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3303,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-09T14:30:23Z",
+      "side": 1,
+      "message": "Question: what is the current behavior?",
+      "range": {
+        "startLine": 3302,
+        "startChar": 31,
+        "endLine": 3303,
+        "endChar": 97
+      },
+      "revId": "3d4aacc95522a18452b765fe0a69c2b22d88f61f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d3402c9_568474ee",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3338,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-09T14:30:23Z",
+      "side": 1,
+      "message": "IIUC this unconditionally sleep 500ms on all devices.\nMaybe it is too long for high-end devices, and too short for cuttlefish.\n1. Does check result of getUidsAllowedOnRestrictedNetworks helps?\n2. Do we have similar solution somewhere?",
+      "range": {
+        "startLine": 3338,
+        "startChar": 8,
+        "endLine": 3338,
+        "endChar": 82
+      },
+      "revId": "3d4aacc95522a18452b765fe0a69c2b22d88f61f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec8deae6_1e5b7a08",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3357,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-09T14:30:23Z",
+      "side": 1,
+      "message": "This does not restore CtsNetTestCases uid.\nIs it better to assert originalUidsAllowedOnRestrictedNetworks doesn\u0027t contain CtsNetTestCases uid instead of removing it from the list but does not add back?",
+      "range": {
+        "startLine": 3357,
+        "startChar": 34,
+        "endLine": 3357,
+        "endChar": 73
+      },
+      "revId": "3d4aacc95522a18452b765fe0a69c2b22d88f61f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
