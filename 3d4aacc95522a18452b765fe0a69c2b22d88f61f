@@ -3,6 +3,98 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0051aecd_286454d4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2992,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-09T15:36:13Z",
+      "side": 1,
+      "message": "For consistency, use // for comments instead of /* */",
+      "range": {
+        "startLine": 2992,
+        "startChar": 8,
+        "endLine": 2992,
+        "endChar": 56
+      },
+      "revId": "3d4aacc95522a18452b765fe0a69c2b22d88f61f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0a6d022_350750b1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2994,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-09T15:36:13Z",
+      "side": 1,
+      "message": "Not for this CL, but... maybe we can do this already? it looks like PermissionMonitor#hasRestrictedNetworkPermission doesn\u0027t check for it at all, so even if this check passes and the app can request a restricted network, it won\u0027t be able to bind to it or use it. Consider adding a TODO.",
+      "range": {
+        "startLine": 2993,
+        "startChar": 0,
+        "endLine": 2994,
+        "endChar": 49
+      },
+      "revId": "3d4aacc95522a18452b765fe0a69c2b22d88f61f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85202d16_bf8db973",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6745,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-09T15:36:13Z",
+      "side": 1,
+      "message": "Can we remove this and make all callers use the new method in line 2985 instead? Or (maybe better), can we remove the new one and instead add the \"boolean checkUidsAllowedList\" parameter to this one? If we have two methods that do similar things I think folks will be confused and call the wrong one. We should only have one method, and callers of that method should be explicit about whether they want to check the UIDS allowed list or not.",
+      "range": {
+        "startLine": 6745,
+        "startChar": 94,
+        "endLine": 6745,
+        "endChar": 95
+      },
+      "revId": "3d4aacc95522a18452b765fe0a69c2b22d88f61f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f0a1a19_b2b7c49a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10646,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-09T15:36:13Z",
+      "side": 1,
+      "message": "is",
+      "range": {
+        "startLine": 10646,
+        "startChar": 32,
+        "endLine": 10646,
+        "endChar": 35
+      },
+      "revId": "3d4aacc95522a18452b765fe0a69c2b22d88f61f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3a6262cb_8100feb7",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 3
@@ -72,6 +164,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0089faf0_38edb9b8",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3300,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-09T15:36:13Z",
+      "side": 1,
+      "message": "There are already 6 comments next to similar lines in this file. I wonder if we should instead add this comment to shouldTestSApis? Or maybe have a private method in this file that has the comment and then calls TestUtils.shouldTestSApis()?",
+      "parentUuid": "42d435c6_5dccb702",
+      "range": {
+        "startLine": 3300,
+        "startChar": 19,
+        "endLine": 3300,
+        "endChar": 48
+      },
+      "revId": "3d4aacc95522a18452b765fe0a69c2b22d88f61f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dfce9867_b5256b59",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 3
@@ -95,6 +211,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0354ac4c_394cf3c0",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3335,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-09T15:36:13Z",
+      "side": 1,
+      "message": "Looks like all the code before here is a copy of the existing testUidsAllowedOnRestrictedNetworks test. Can you just add the new checks to that test? It would reduce a lot of duplicated code.",
+      "range": {
+        "startLine": 3334,
+        "startChar": 0,
+        "endLine": 3335,
+        "endChar": 1
+      },
+      "revId": "3d4aacc95522a18452b765fe0a69c2b22d88f61f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d3402c9_568474ee",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 3
@@ -106,6 +245,30 @@
       "writtenOn": "2022-05-09T14:30:23Z",
       "side": 1,
       "message": "IIUC this unconditionally sleep 500ms on all devices.\nMaybe it is too long for high-end devices, and too short for cuttlefish.\n1. Does check result of getUidsAllowedOnRestrictedNetworks helps?\n2. Do we have similar solution somewhere?",
+      "range": {
+        "startLine": 3338,
+        "startChar": 8,
+        "endLine": 3338,
+        "endChar": 82
+      },
+      "revId": "3d4aacc95522a18452b765fe0a69c2b22d88f61f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b65a6901_0d1f0cc7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3338,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-09T15:36:13Z",
+      "side": 1,
+      "message": "+1. I think this gets a lot easier if you merge this test with testUidsAllowedOnRestrictedNetworks. You can simply run most of testUidsAllowedOnRestrictedNetworks. Then, just after here in the existing test:\n\n        runWithShellPermissionIdentity(() -\u003e requestNetwork(testRequest, testNetworkCb),\n                CONNECTIVITY_USE_RESTRICTED_NETWORKS);\n\nyou could add code to assert that calling requestNetwork without CONNECTIVITY_USE_RESTRICTED_NETWORKS results in a SecurityException.\n\nThen, just after here in the existing test:\n\n            // Wait a while for sending allowed uids on the restricted network to netd.\n            // TODD: Have a significant signal to know the uids has been send to netd.\n            assertBindSocketToNetworkSuccess(network);\n\nyou could assert that calling requestNetwork results in getting onAvailable.",
+      "parentUuid": "0d3402c9_568474ee",
       "range": {
         "startLine": 3338,
         "startChar": 8,

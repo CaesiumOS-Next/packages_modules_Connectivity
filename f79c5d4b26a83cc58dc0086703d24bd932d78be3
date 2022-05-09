@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a01e2c1_326cd3ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-09T15:36:13Z",
+      "side": 1,
+      "message": "Code mostly LGTM but please try to reduce code duplication in the permission check method and in the test. See inline.",
+      "revId": "f79c5d4b26a83cc58dc0086703d24bd932d78be3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
