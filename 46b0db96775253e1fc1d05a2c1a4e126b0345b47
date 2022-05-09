@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b9a8036_eda72705",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-05-09T14:47:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8dba4515_f21b8cc0",
+      "range": {
+        "startLine": 459,
+        "startChar": 30,
+        "endLine": 459,
+        "endChar": 65
+      },
+      "revId": "46b0db96775253e1fc1d05a2c1a4e126b0345b47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fce15120_f5cdfd09",
@@ -54,6 +78,24 @@
       "writtenOn": "2022-05-06T04:16:45Z",
       "side": 1,
       "message": "Maybe also check softap is disabled ?\n\nmCtsTetheringUtils.expectSoftApDisabled();",
+      "revId": "46b0db96775253e1fc1d05a2c1a4e126b0345b47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "751f9f71_a68caece",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-05-09T14:47:08Z",
+      "side": 1,
+      "message": "sure",
+      "parentUuid": "fce15120_f5cdfd09",
       "revId": "46b0db96775253e1fc1d05a2c1a4e126b0345b47",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

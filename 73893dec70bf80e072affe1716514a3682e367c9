@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51f51b1b_7ddd2579",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-05-09T14:47:08Z",
+      "side": 1,
+      "message": "ok, thansk for the suggestion.",
+      "parentUuid": "8b1c1465_d6bbfc05",
+      "range": {
+        "startLine": 474,
+        "startChar": 0,
+        "endLine": 482,
+        "endChar": 36
+      },
+      "revId": "73893dec70bf80e072affe1716514a3682e367c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da6bde39_a566a952",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f00c37a2_ca36361c",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-05-09T14:47:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da6bde39_a566a952",
+      "range": {
+        "startLine": 489,
+        "startChar": 0,
+        "endLine": 501,
+        "endChar": 45
+      },
+      "revId": "73893dec70bf80e072affe1716514a3682e367c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "401bd47f_82ba199a",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-05-06T04:16:45Z",
       "side": 1,
       "message": "For the one time listener, you could simply it like this:\n\nprivate static class CarrierConfigBroadcastListener extends BroadcastReceiver {\n    CountDownLatch mLatch \u003d new CountDownLatch(1);\n    \n    public void startListening(Context ctx) {\n        IntentFilter filter \u003d new IntentFilter();\n        filter.addAction(ACTION_CARRIER_CONFIG_CHANGED);\n        ctx.registerReceiver(this, filter);\n    }\n    \n    public void waitingForResult(long waitingTime) {\n        mLatch.await(waitingTime, TimeUnit.MILLISECONDS);\n    }\n    \n    @Override\n    public void onReceive(Context context, Intent intent) {\n        int subId \u003d i.getIntExtra(CarrierConfigManager.EXTRA_SUBSCRIPTION_INDEX, -1);\n        if (currentSubId \u003d\u003d subId) mLatch.countDown();\n    }\n}",
+      "range": {
+        "startLine": 559,
+        "startChar": 0,
+        "endLine": 615,
+        "endChar": 5
+      },
+      "revId": "73893dec70bf80e072affe1716514a3682e367c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b9fab97_03995264",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-05-09T14:47:08Z",
+      "side": 1,
+      "message": "ok!",
+      "parentUuid": "401bd47f_82ba199a",
       "range": {
         "startLine": 559,
         "startChar": 0,
