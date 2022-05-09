@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4ff927f_abbdf0f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-09T10:27:12Z",
+      "side": 1,
+      "message": "LGTM, assume comment addressed.",
+      "revId": "573559688ad4caffc9989eea093fd1655572dfd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a72a25e1_9756904b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-09T10:27:12Z",
+      "side": 1,
+      "message": "nits: statBuilder already in mBuilderMap. You could just remove this line.",
+      "revId": "573559688ad4caffc9989eea093fd1655572dfd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
