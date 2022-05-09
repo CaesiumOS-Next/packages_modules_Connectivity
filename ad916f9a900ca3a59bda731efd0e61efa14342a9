@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "143ac100_8aaf44cc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2922,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-09T15:10:04Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "8dc1ad63_27439b07",
+      "range": {
+        "startLine": 2922,
+        "startChar": 33,
+        "endLine": 2922,
+        "endChar": 53
+      },
+      "revId": "ad916f9a900ca3a59bda731efd0e61efa14342a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0425eb8f_f6a9bc3f",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-06T03:45:44Z",
       "side": 1,
       "message": "Do carrier privilege apps request other connections(MCX, RCS...)? If so, should we remove this check?",
+      "range": {
+        "startLine": 6533,
+        "startChar": 70,
+        "endLine": 6533,
+        "endChar": 88
+      },
+      "revId": "ad916f9a900ca3a59bda731efd0e61efa14342a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d70d582a_6a143ea4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6533,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-09T15:10:04Z",
+      "side": 1,
+      "message": "Not sure what do you mean? This check is specifically for carrier app who request CBS, the app might request with other capabilities but we don\u0027t really care about it, right?",
+      "parentUuid": "0425eb8f_f6a9bc3f",
       "range": {
         "startLine": 6533,
         "startChar": 70,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9b3f2a6_ed0bcb84",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 5844,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-09T15:10:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d44dcd77_e970dd81",
+      "range": {
+        "startLine": 5844,
+        "startChar": 16,
+        "endLine": 5844,
+        "endChar": 28
+      },
+      "revId": "ad916f9a900ca3a59bda731efd0e61efa14342a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10581900_cd748ad8",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-05-06T03:45:44Z",
       "side": 1,
       "message": "SecurityException?",
+      "range": {
+        "startLine": 5853,
+        "startChar": 48,
+        "endLine": 5853,
+        "endChar": 50
+      },
+      "revId": "ad916f9a900ca3a59bda731efd0e61efa14342a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c96cabba_3ebac5f3",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 5853,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-09T15:10:04Z",
+      "side": 1,
+      "message": "it means the service.",
+      "parentUuid": "10581900_cd748ad8",
       "range": {
         "startLine": 5853,
         "startChar": 48,
