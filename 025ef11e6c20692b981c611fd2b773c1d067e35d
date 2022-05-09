@@ -16,6 +16,24 @@
       "message": "Can you expain why we want to do this?",
       "revId": "025ef11e6c20692b981c611fd2b773c1d067e35d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8ebffc3_e2b70c59",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-09T09:35:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3666850a_284d2a30",
+      "revId": "025ef11e6c20692b981c611fd2b773c1d067e35d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
