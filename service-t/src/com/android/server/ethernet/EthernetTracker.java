@@ -548,7 +548,7 @@ public class EthernetTracker {
     }
 
     private void maybeTrackInterface(String iface) {
-        if (!iface.matches(mIfaceMatch)) {
+        if (!iface.matches(mIfaceMatch) || mEthernetState == ETHERNET_STATE_DISABLED) {
             return;
         }
 
