@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4941c689_0ebff56e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10658,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-05-09T23:26:03Z",
+      "side": 1,
+      "message": "Can you please clarify this comment.",
+      "parentUuid": "e4c9b301_e9f9283a",
+      "range": {
+        "startLine": 10658,
+        "startChar": 65,
+        "endLine": 10658,
+        "endChar": 67
+      },
+      "revId": "16e1be6dd6659e790be39ab7ca9822b4cc0ac67d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0e50399d_3294280f",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 6
