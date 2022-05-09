@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0b21c3e_3a432294",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-05-09T17:33:27Z",
+      "side": 1,
+      "message": "Checked with Remi on the apex module name prefix, for tethering module, it should be always \"com.android.tethering\", also verified the folder path via adb shell, and log out the IP_CONFIG_FILE_LEGACY and IP_CONFIG_FILE_APEX, such as:\n\nIP_CONFIG_FILE_APEX: /data/misc/apexdata/com.android.tethering/misc/ethernet/ipconfig.txt\nIP_CONFIG_FILE_LEGACY: /data/misc/ethernet/ipconfig.txt",
+      "parentUuid": "8a1e4d66_c97566b0",
+      "range": {
+        "startLine": 36,
+        "startChar": 13,
+        "endLine": 36,
+        "endChar": 34
+      },
+      "revId": "f64e42a338764412c503eb5f1fbd59f38e5c9409",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8b460ee_983a2312",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-28T08:00:34Z",
       "side": 1,
       "message": "return new File(...).exists();",
+      "range": {
+        "startLine": 48,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 31
+      },
+      "revId": "f64e42a338764412c503eb5f1fbd59f38e5c9409",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06b88f10_ee94365b",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-05-09T17:33:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8b460ee_983a2312",
       "range": {
         "startLine": 48,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "287dc510_848f3cc1",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-05-09T17:33:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ea71a92_7059069c",
+      "range": {
+        "startLine": 66,
+        "startChar": 19,
+        "endLine": 66,
+        "endChar": 40
+      },
+      "revId": "f64e42a338764412c503eb5f1fbd59f38e5c9409",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd7a3d5b_85da4729",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-04-28T08:00:34Z",
       "side": 1,
       "message": "Given that this was already a legacy format in S, can we stop supporting this in the new format?",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 9
+      },
+      "revId": "f64e42a338764412c503eb5f1fbd59f38e5c9409",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6da6c82e_8d1df625",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-05-09T17:33:27Z",
+      "side": 1,
+      "message": "Updated, IIUC, looks like in the old file version (less than 3) the id key was 0 to represent the first interface to be tracked, \"eth0\" is used in the latest file version(3), this function might be invoked for both of legacy file path and apex file path, then we can differentiate the key of default interface in the config file and read that out for mIpConfigurationForDefaultInterface member, does this make sense?",
+      "parentUuid": "dd7a3d5b_85da4729",
       "range": {
         "startLine": 76,
         "startChar": 0,
