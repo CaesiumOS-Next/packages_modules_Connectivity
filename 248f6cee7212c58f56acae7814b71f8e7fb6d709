@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60a8f58d_2dffe7ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-10T09:34:57Z",
+      "side": 1,
+      "message": "Can we give this commit a better description? Something like:\n\nCheck carrier privilege for CBS network requests synchronously.\n\nNormally if an app calls requestNetwork with capabilities that it\ndoes not have permission to request, it gets a SecurityException,\nexcept if it requests NET_CAPABILITY_CBS, in which case the request\nwill not throw but the app will get an onUnavailable callback.\n\nMake this codepath throw as well. This simplifies the code and makes\nthe app-visible behaviour more consistent (and consistent with what\nhappens in S and below). The reason the code was written this way is because the carrier privilege app should receive a callback if it\nloses permission. But onUnavailable is also not the best callback to \nsend, since it is used very rarely and also releases the app\u0027s\nrequest. It seems better to leave the request registered and send\nonLost.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 28
+      },
+      "revId": "248f6cee7212c58f56acae7814b71f8e7fb6d709",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f2a5d9e_b9413031",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-10T09:34:57Z",
+      "side": 1,
+      "message": "LGTM assuming commit message is improved.",
+      "revId": "248f6cee7212c58f56acae7814b71f8e7fb6d709",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
