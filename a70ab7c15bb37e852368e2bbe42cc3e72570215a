@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e979524_8b1b2299",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-10T11:58:51Z",
+      "side": 1,
+      "message": "LGTM assuming the nit will be addressed.",
+      "revId": "a70ab7c15bb37e852368e2bbe42cc3e72570215a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

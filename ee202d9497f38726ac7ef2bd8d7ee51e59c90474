@@ -140,6 +140,30 @@
       },
       "revId": "ee202d9497f38726ac7ef2bd8d7ee51e59c90474",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a9f328e_b0514a1c",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-10T11:58:51Z",
+      "side": 1,
+      "message": "you might need to add comment to say why this is needed to put after system uid check?",
+      "parentUuid": "84cfa5e3_e2e89619",
+      "range": {
+        "startLine": 864,
+        "startChar": 0,
+        "endLine": 870,
+        "endChar": 9
+      },
+      "revId": "ee202d9497f38726ac7ef2bd8d7ee51e59c90474",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
