@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a6ff0f8_9a438b99",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-10T03:34:52Z",
+      "side": 1,
+      "message": "LGTM with nits that could be ignored.",
+      "revId": "5cc97a56948596f21785555f9173a4c637067032",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9240d991_2aca6bc3",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3186,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-10T03:34:52Z",
+      "side": 1,
+      "message": "Maybe add comment to say why we ignore SecurityException?",
+      "range": {
+        "startLine": 3186,
+        "startChar": 29,
+        "endLine": 3186,
+        "endChar": 46
+      },
+      "revId": "5cc97a56948596f21785555f9173a4c637067032",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

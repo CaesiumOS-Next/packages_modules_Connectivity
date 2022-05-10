@@ -564,6 +564,30 @@
       },
       "revId": "3d4aacc95522a18452b765fe0a69c2b22d88f61f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd4749bb_4dbf2ff6",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3357,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-10T03:34:52Z",
+      "side": 1,
+      "message": "If so I think it should be explained instead of silently discarded.\nMaybe:\n// Restore setting, but except CtsNetTestCases uid.",
+      "parentUuid": "1bf69460_7b73b5b4",
+      "range": {
+        "startLine": 3357,
+        "startChar": 34,
+        "endLine": 3357,
+        "endChar": 73
+      },
+      "revId": "3d4aacc95522a18452b765fe0a69c2b22d88f61f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
