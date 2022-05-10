@@ -377,6 +377,12 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
     private long mLastStatsSessionPoll;
 
+    /**
+     * Map from UID to number of opened sessions, this is used for rate-limt an app to open
+     * session frequently
+     */
+    @GuardedBy("mOpenSessionCallsPerUid")
+    private final SparseIntArray mOpenSessionCallsPerUid = new SparseIntArray();
     /** Map from key {@code OpenSessionKey} to count of opened sessions */
     @GuardedBy("mOpenSessionCallsPerCaller")
     private final HashMap<OpenSessionKey, Integer> mOpenSessionCallsPerCaller = new HashMap<>();
@@ -839,23 +845,28 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         return openSessionInternal(flags, callingPackage);
     }
 
-    private boolean isRateLimitedForPoll(@NonNull OpenSessionKey key) {
+    private boolean isRateLimitedForPoll(int callingUid, @NonNull OpenSessionKey key) {
         final long lastCallTime;
         final long now = SystemClock.elapsedRealtime();
 
         synchronized (mOpenSessionCallsPerCaller) {
-            Integer calls = mOpenSessionCallsPerCaller.get(key);
-            if (calls == null) {
+            Integer callsPerCaller = mOpenSessionCallsPerCaller.get(key);
+            if (callsPerCaller == null) {
                 mOpenSessionCallsPerCaller.put((key), 1);
             } else {
-                mOpenSessionCallsPerCaller.put(key, Integer.sum(calls, 1));
+                mOpenSessionCallsPerCaller.put(key, Integer.sum(callsPerCaller, 1));
             }
-            lastCallTime = mLastStatsSessionPoll;
-            mLastStatsSessionPoll = now;
         }
 
-        if (key.mUid == android.os.Process.SYSTEM_UID) {
+        if (callingUid == android.os.Process.SYSTEM_UID) {
             return false;
+        }
+
+        synchronized (mOpenSessionCallsPerUid) {
+            int callsPerUid = mOpenSessionCallsPerUid.get(callingUid, 0);
+            mOpenSessionCallsPerUid.put(callingUid, callsPerUid + 1);
+            lastCallTime = mLastStatsSessionPoll;
+            mLastStatsSessionPoll = now;
         }
 
         return now - lastCallTime < POLL_RATE_LIMIT_MS;
@@ -873,7 +884,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         final int callingPid = Binder.getCallingPid();
         final int callingUid = Binder.getCallingUid();
         final OpenSessionKey key = new OpenSessionKey(callingPid, callingUid, callingPackage);
-        flags = isRateLimitedForPoll(key)
+        flags = isRateLimitedForPoll(callingUid, key)
                 ? flags & (~NetworkStatsManager.FLAG_POLL_ON_OPEN)
                 : flags;
         return flags;
