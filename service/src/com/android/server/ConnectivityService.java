@@ -247,8 +247,10 @@ import com.android.internal.util.MessageUtils;
 import com.android.modules.utils.BasicShellCommandHandler;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
+import com.android.net.module.util.BpfMap;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.DeviceConfigUtils;
+import com.android.net.module.util.IBpfMap;
 import com.android.net.module.util.InterfaceParams;
 import com.android.net.module.util.LinkPropertiesUtils.CompareOrUpdateResult;
 import com.android.net.module.util.LinkPropertiesUtils.CompareResult;
@@ -256,6 +258,10 @@ import com.android.net.module.util.LocationPermissionChecker;
 import com.android.net.module.util.NetworkCapabilitiesUtils;
 import com.android.net.module.util.PermissionUtils;
 import com.android.net.module.util.TcUtils;
+import com.android.net.module.util.bpf.ClatEgress4Key;
+import com.android.net.module.util.bpf.ClatEgress4Value;
+import com.android.net.module.util.bpf.ClatIngress6Key;
+import com.android.net.module.util.bpf.ClatIngress6Value;
 import com.android.net.module.util.netlink.InetDiagMessage;
 import com.android.server.connectivity.AutodestructReference;
 import com.android.server.connectivity.CarrierPrivilegeAuthenticator;
@@ -846,6 +852,37 @@ public class ConnectivityService extends IConnectivityManager.Stub
     // Only the handler thread is allowed to access this field.
     private long mIngressRateLimit = -1;
 
+    private static IBpfMap<ClatIngress6Key, ClatIngress6Value> getBpfIngress6Map() {
+        if (!SdkLevel.isAtLeastT()) return null;
+        try {
+            return new BpfMap<>(ClatCoordinator.CLAT_INGRESS6_MAP_PATH,
+                BpfMap.BPF_F_RDWR, ClatIngress6Key.class, ClatIngress6Value.class);
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Cannot create ingress6 map: " + e);
+            return null;
+        }
+    }
+
+    private static IBpfMap<ClatEgress4Key, ClatEgress4Value> getBpfEgress4Map() {
+        if (!SdkLevel.isAtLeastT()) return null;
+        try {
+            return new BpfMap<>(ClatCoordinator.CLAT_EGRESS4_MAP_PATH,
+                BpfMap.BPF_F_RDWR, ClatEgress4Key.class, ClatEgress4Value.class);
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Cannot create egress4 map: " + e);
+            return null;
+        }
+    }
+
+    // Used for sharing both clat ingress and egress map file descriptor with each interface
+    // ClatCoordinator object. Apply static because it is used in static class Dependencies.
+    @Nullable
+    private static final IBpfMap<ClatIngress6Key, ClatIngress6Value> sClatIngressMap =
+            getBpfIngress6Map();
+    @Nullable
+    private static final IBpfMap<ClatEgress4Key, ClatEgress4Value> sClatEgressMap =
+            getBpfEgress4Map();
+
     /**
      * Implements support for the legacy "one network per network type" model.
      *
@@ -1410,6 +1447,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     public INetd getNetd() {
                         return netd;
                     }
+                    @Nullable
+                    public IBpfMap<ClatIngress6Key, ClatIngress6Value> getBpfIngress6Map() {
+                        return sClatIngressMap;
+                    }
+                    @Nullable
+                    public IBpfMap<ClatEgress4Key, ClatEgress4Value> getBpfEgress4Map() {
+                        return sClatEgressMap;
+                    }
                 });
         }
 
@@ -1635,6 +1680,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         mIngressRateLimit = ConnectivitySettingsManager.getIngressRateLimitInBytesPerSecond(
                 mContext);
+
+        try {
+            if (sClatIngressMap != null) sClatIngressMap.clear();
+        } catch (ErrnoException e) {
+            loge("Unable to clear clat ingress map");
+        }
+        try {
+            if (sClatEgressMap != null) sClatEgressMap.clear();
+        } catch (ErrnoException e) {
+            loge("Unable to clear clat egress map");
+        }
     }
 
     /**
