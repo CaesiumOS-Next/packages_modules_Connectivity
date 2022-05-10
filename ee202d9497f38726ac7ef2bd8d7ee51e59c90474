@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b29943e_2b06966f",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-10T09:50:41Z",
+      "side": 1,
+      "message": "I can imagine the reader will be very confuse about these 2.\nMaybe add comment to specify this is only for debugging?",
+      "range": {
+        "startLine": 386,
+        "startChar": 72,
+        "endLine": 386,
+        "endChar": 74
+      },
+      "revId": "ee202d9497f38726ac7ef2bd8d7ee51e59c90474",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d108e410_c3cfad2a",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-10T09:50:41Z",
+      "side": 1,
+      "message": "IIUC callingUid is part of key?",
+      "range": {
+        "startLine": 848,
+        "startChar": 45,
+        "endLine": 848,
+        "endChar": 55
+      },
+      "revId": "ee202d9497f38726ac7ef2bd8d7ee51e59c90474",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2012d76c_a14fb5ef",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-10T09:50:41Z",
+      "side": 1,
+      "message": "Is it better to align these two counters.\nMaybe move this before l.860?",
+      "range": {
+        "startLine": 864,
+        "startChar": 0,
+        "endLine": 870,
+        "endChar": 9
+      },
+      "revId": "ee202d9497f38726ac7ef2bd8d7ee51e59c90474",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
