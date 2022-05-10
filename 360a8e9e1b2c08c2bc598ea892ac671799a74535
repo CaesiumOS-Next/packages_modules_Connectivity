@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b22aabab_60ba5343",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-10T11:41:41Z",
+      "side": 1,
+      "message": "It\u0027s a bit unfortunate that this will return FAILURE_INTERNAL_ERROR to the app. (It\u0027s not an internal error, it\u0027s likely because the network disconnected.) But it doesn\u0027t look like there\u0027s a better code defined right now, and we\u0027re past API freeze so there\u0027s no way to add one in T. Maybe add a TODO to return a better error code in the future?",
+      "range": {
+        "startLine": 745,
+        "startChar": 12,
+        "endLine": 745,
+        "endChar": 24
+      },
+      "revId": "360a8e9e1b2c08c2bc598ea892ac671799a74535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
