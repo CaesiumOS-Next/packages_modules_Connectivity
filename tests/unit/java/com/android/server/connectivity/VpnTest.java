@@ -777,6 +777,7 @@ public class VpnTest {
 
         checkProvisionVpnProfile(
                 vpn, true /* expectedResult */, AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
+        verifyNoAppopsGranted();
     }
 
     @Test
@@ -787,6 +788,7 @@ public class VpnTest {
         // had neither.
         checkProvisionVpnProfile(vpn, false /* expectedResult */,
                 AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN, AppOpsManager.OPSTR_ACTIVATE_VPN);
+        verifyNoAppopsGranted();
     }
 
     @Test
@@ -794,6 +796,27 @@ public class VpnTest {
         final Vpn vpn = createVpnAndSetupUidChecks(AppOpsManager.OPSTR_ACTIVATE_VPN);
 
         checkProvisionVpnProfile(vpn, true /* expectedResult */, AppOpsManager.OPSTR_ACTIVATE_VPN);
+        verifyNoAppopsGranted();
+    }
+
+    private void verifyNoAppopsGranted() {
+        verify(mAppOps, never()).setMode(
+                any(), eq(Process.myUid()), eq(TEST_VPN_PKG), eq(AppOpsManager.MODE_ALLOWED));
+    }
+
+    @Test
+    public void testProvisionVpnProfileControlVpn() throws Exception {
+        final Vpn vpn = createVpnAndSetupUidChecks();
+        doReturn(PERMISSION_GRANTED).when(mContext).checkCallingOrSelfPermission(CONTROL_VPN);
+
+        // Expect that VPN was granted ACTIVATE_PLATFORM_VPN
+        checkProvisionVpnProfile(vpn, true /* expectedResult */);
+        verify(mAppOps)
+                .setMode(
+                        eq(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN),
+                        eq(Process.myUid()),
+                        eq(TEST_VPN_PKG),
+                        eq(AppOpsManager.MODE_ALLOWED));
     }
 
     @Test
