@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54f86b3a_553cd82a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-10T06:23:33Z",
+      "side": 1,
+      "message": "Per discussion, as regards testing this code:\n\n- We already need to fix the current bug that when ethernet is disabled, plugging in an ethernet interface will start ethernet on that interface.\n- We will probably fix that bug by improving the code in setEthernetEnabled that disasbles ethernet. For example, it will need to unregister the listener, or it will need to ensure that the listener does nothing if mEthernetState is disabled.\n- We can also make the disable code clear mIpConfigurations, mIpConfigForDefaultInterface, and mConfigStore. Then, when ethernet is enabled, we could reload the configuration from the files.\n- Once we do the above, we can add a test method that tells the code \"when you start up next time, read the configuration from this file instead of the usual location\" (or even, \"start up with this configuration file\"). That will allow you to test the config read/write code.",
+      "revId": "cf4eff2c9a39b71d51c866265d304eecb9bb6df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
