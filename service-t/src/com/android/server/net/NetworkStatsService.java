@@ -377,8 +377,18 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
     private long mLastStatsSessionPoll;
 
-    /** Map from key {@code OpenSessionKey} to count of opened sessions */
-    @GuardedBy("mOpenSessionCallsPerCaller")
+    private final Object mOpenSessionCallsLock = new Object();
+    /**
+     * Map from UID to number of opened sessions. This is used for rate-limt an app to open
+     * session frequently
+     */
+    @GuardedBy("mOpenSessionCallsLock")
+    private final SparseIntArray mOpenSessionCallsPerUid = new SparseIntArray();
+    /**
+     * Map from key {@code OpenSessionKey} to count of opened sessions. This is for recording
+     * the caller of open session and it is only for debugging.
+     */
+    @GuardedBy("mOpenSessionCallsLock")
     private final HashMap<OpenSessionKey, Integer> mOpenSessionCallsPerCaller = new HashMap<>();
 
     private final static int DUMP_STATS_SESSION_COUNT = 20;
@@ -843,19 +853,24 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         final long lastCallTime;
         final long now = SystemClock.elapsedRealtime();
 
-        synchronized (mOpenSessionCallsPerCaller) {
-            Integer calls = mOpenSessionCallsPerCaller.get(key);
-            if (calls == null) {
+        synchronized (mOpenSessionCallsLock) {
+            Integer callsPerCaller = mOpenSessionCallsPerCaller.get(key);
+            if (callsPerCaller == null) {
                 mOpenSessionCallsPerCaller.put((key), 1);
             } else {
-                mOpenSessionCallsPerCaller.put(key, Integer.sum(calls, 1));
+                mOpenSessionCallsPerCaller.put(key, Integer.sum(callsPerCaller, 1));
             }
+
+            if (key.mUid == android.os.Process.SYSTEM_UID) {
+                return false;
+            }
+
+            // To avoid a non-system user to be rate-limited after a system user open a session,
+            // so maintain mOpenSessionCallsPerUid after checked if the uid is SYSTEM_UID.
+            int callsPerUid = mOpenSessionCallsPerUid.get(key.mUid, 0);
+            mOpenSessionCallsPerUid.put(key.mUid, callsPerUid + 1);
             lastCallTime = mLastStatsSessionPoll;
             mLastStatsSessionPoll = now;
-        }
-
-        if (key.mUid == android.os.Process.SYSTEM_UID) {
-            return false;
         }
 
         return now - lastCallTime < POLL_RATE_LIMIT_MS;
@@ -2114,7 +2129,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
             // Get the top openSession callers
             final HashMap calls;
-            synchronized (mOpenSessionCallsPerCaller) {
+            synchronized (mOpenSessionCallsLock) {
                 calls = new HashMap<>(mOpenSessionCallsPerCaller);
             }
             final List<Map.Entry<OpenSessionKey, Integer>> list = new ArrayList<>(calls.entrySet());
