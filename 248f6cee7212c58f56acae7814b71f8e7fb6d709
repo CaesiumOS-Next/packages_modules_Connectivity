@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "afa776e2_346726d6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-10T09:41:17Z",
+      "side": 1,
+      "message": "Shamelessly copied.",
+      "parentUuid": "60a8f58d_2dffe7ff",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 28
+      },
+      "revId": "248f6cee7212c58f56acae7814b71f8e7fb6d709",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4f2a5d9e_b9413031",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 8
