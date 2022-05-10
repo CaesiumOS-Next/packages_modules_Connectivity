@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ce37458_d0797f0f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-05-10T00:32:06Z",
+      "side": 1,
+      "message": "An example target that has a restricted eth network is aosp_cf_x86_64_phone.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 27
+      },
+      "revId": "b16e9a6a7e5d37520c5a98491dc60d7c5fc889ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "446a27e3_0caa9ec8",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetServiceImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-05-10T00:32:06Z",
+      "side": 1,
+      "message": "This uses the same logic as getAvailableInterfaces() on l.93 to determine which networks to return callbacks for. getAvailableInterfaces() however is no longer available to CTS (now behind a hidden method in eth manager).",
+      "range": {
+        "startLine": 149,
+        "startChar": 8,
+        "endLine": 149,
+        "endChar": 69
+      },
+      "revId": "b16e9a6a7e5d37520c5a98491dc60d7c5fc889ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
