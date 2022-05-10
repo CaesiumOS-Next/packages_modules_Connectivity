@@ -80,6 +80,30 @@
       },
       "revId": "5cc97a56948596f21785555f9173a4c637067032",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f292e7d_4667d11c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3186,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-10T10:13:29Z",
+      "side": 1,
+      "message": "Per talked in chat, rollback to previous design and file network request after binding socket check done.",
+      "parentUuid": "07d6d659_ea9bee48",
+      "range": {
+        "startLine": 3186,
+        "startChar": 29,
+        "endLine": 3186,
+        "endChar": 46
+      },
+      "revId": "5cc97a56948596f21785555f9173a4c637067032",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
