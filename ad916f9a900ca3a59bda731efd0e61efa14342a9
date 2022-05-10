@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "96b8bccb_a8c1d512",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6533,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-10T03:46:04Z",
+      "side": 1,
+      "message": "AFAICT no.\nThis change is specifically for CBS.\nBut add Sooraj to double confirm.",
+      "parentUuid": "5dbeb587_e17ccb1a",
+      "range": {
+        "startLine": 6533,
+        "startChar": 70,
+        "endLine": 6533,
+        "endChar": 88
+      },
+      "revId": "ad916f9a900ca3a59bda731efd0e61efa14342a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d44dcd77_e970dd81",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 6
