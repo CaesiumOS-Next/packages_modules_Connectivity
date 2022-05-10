@@ -839,7 +839,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         return openSessionInternal(flags, callingPackage);
     }
 
-    private boolean isRateLimitedForPoll(@NonNull OpenSessionKey key) {
+    private boolean isRateLimitedForPoll(int callingUid, @NonNull OpenSessionKey key) {
         final long lastCallTime;
         final long now = SystemClock.elapsedRealtime();
 
@@ -850,13 +850,14 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             } else {
                 mOpenSessionCallsPerCaller.put(key, Integer.sum(calls, 1));
             }
+
+            if (callingUid == android.os.Process.SYSTEM_UID) {
+                return false;
+            }
             lastCallTime = mLastStatsSessionPoll;
             mLastStatsSessionPoll = now;
         }
 
-        if (key.mUid == android.os.Process.SYSTEM_UID) {
-            return false;
-        }
 
         return now - lastCallTime < POLL_RATE_LIMIT_MS;
     }
@@ -873,7 +874,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         final int callingPid = Binder.getCallingPid();
         final int callingUid = Binder.getCallingUid();
         final OpenSessionKey key = new OpenSessionKey(callingPid, callingUid, callingPackage);
-        flags = isRateLimitedForPoll(key)
+        flags = isRateLimitedForPoll(callingPid, key)
                 ? flags & (~NetworkStatsManager.FLAG_POLL_ON_OPEN)
                 : flags;
         return flags;
