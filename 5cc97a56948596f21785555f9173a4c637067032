@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecbbcd1e_952ab58c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-10T09:43:11Z",
+      "side": 1,
+      "message": "Code mostly LGTM but please try to reduce code duplication in the permission check method and in the test. See inline.",
+      "revId": "5cc97a56948596f21785555f9173a4c637067032",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9240d991_2aca6bc3",
@@ -31,6 +48,30 @@
       "writtenOn": "2022-05-10T03:34:52Z",
       "side": 1,
       "message": "Maybe add comment to say why we ignore SecurityException?",
+      "range": {
+        "startLine": 3186,
+        "startChar": 29,
+        "endLine": 3186,
+        "endChar": 46
+      },
+      "revId": "5cc97a56948596f21785555f9173a4c637067032",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07d6d659_ea9bee48",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3186,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-10T09:43:11Z",
+      "side": 1,
+      "message": "Yes, this looks quite strange. In fact, why change this code from bindSocket to requestNetwork at all?\n\nISTM that after this method has succeeded, after line 3267, we can call requestNetwork and expect onAvailable. Am I missing something?",
+      "parentUuid": "9240d991_2aca6bc3",
       "range": {
         "startLine": 3186,
         "startChar": 29,
