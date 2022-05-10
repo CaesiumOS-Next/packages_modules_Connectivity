@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "698264c0_9874ec7a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-10T09:00:37Z",
+      "side": 1,
+      "message": "Why ? Is it possible that some OEM sends the broadcast to have tethering started, but also does this on their models that do not support the feature ?",
+      "range": {
+        "startLine": 17,
+        "startChar": 25,
+        "endLine": 18,
+        "endChar": 19
+      },
+      "revId": "a992ac756b25eb90dac5ffb0b070da51b894145e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "025623e7_a0f889e3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-10T09:00:37Z",
+      "side": 1,
+      "message": "Nit: also explain what the error is",
+      "range": {
+        "startLine": 1392,
+        "startChar": 78,
+        "endLine": 1392,
+        "endChar": 79
+      },
+      "revId": "a992ac756b25eb90dac5ffb0b070da51b894145e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99e9f549_dff4e56e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-10T09:00:37Z",
+      "side": 1,
+      "message": "I don\u0027t understand why it\u0027s an error at this point, is there always an ifname passed in on T+ (why ?), and should there always be a corresponding TetherState with the same interface name (why) ? It\u0027s kind of explained in the commit message, but not very understandable when looking at the code (commit message is good to explain the change to reviewers compared to the previous version; but the latest code should be self-explanatory by itself).\n\nYou should probably at least add a comment, at best refactor to make it clearer (having these \"return\" in the middle make it hard to follow what is supposed to happen on T, and what is supposed to happen before)",
+      "range": {
+        "startLine": 1392,
+        "startChar": 22,
+        "endLine": 1392,
+        "endChar": 27
+      },
+      "revId": "a992ac756b25eb90dac5ffb0b070da51b894145e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87df66a4_d3bf47f9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1423,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-10T09:00:37Z",
+      "side": 1,
+      "message": "This is just an empty or null string",
+      "range": {
+        "startLine": 1423,
+        "startChar": 68,
+        "endLine": 1423,
+        "endChar": 74
+      },
+      "revId": "a992ac756b25eb90dac5ffb0b070da51b894145e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36c5fd72_39d5c769",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1909,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-10T09:00:37Z",
+      "side": 1,
+      "message": "Can you also have coverage for behavior pre-T ?",
+      "range": {
+        "startLine": 1909,
+        "startChar": 15,
+        "endLine": 1909,
+        "endChar": 22
+      },
+      "revId": "a992ac756b25eb90dac5ffb0b070da51b894145e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
