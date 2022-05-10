@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3313a5bd_f4c031b5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-10T07:47:15Z",
+      "side": 1,
+      "message": "\u0026\u0026 wifiManager !\u003d null, since the check above indicates that it could be null",
+      "range": {
+        "startLine": 451,
+        "startChar": 33,
+        "endLine": 451,
+        "endChar": 34
+      },
+      "revId": "597319217ed8c2e814fe4ead443ff2be21ee6e9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b69bbf93_21a6ce91",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-10T07:47:15Z",
+      "side": 1,
+      "message": "Nit: This is marked as RequiresPermission(NEARBY_WIFI_DEVICES), but looking at the code I see there\u0027s a bypass for apps with MAINLINE_NETWORK_STACK permission.\n\nMaybe mention it in a comment ? It\u0027s hard to figure out why it\u0027s OK to call the method otherwise.",
+      "range": {
+        "startLine": 453,
+        "startChar": 28,
+        "endLine": 453,
+        "endChar": 66
+      },
+      "revId": "597319217ed8c2e814fe4ead443ff2be21ee6e9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9f98fb1_798f6399",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-10T07:47:15Z",
+      "side": 1,
+      "message": "Nit: could reuse the callback created above instead of creating a new one ?",
+      "range": {
+        "startLine": 454,
+        "startChar": 24,
+        "endLine": 454,
+        "endChar": 53
+      },
+      "revId": "597319217ed8c2e814fe4ead443ff2be21ee6e9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bced873_0a0304b9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-10T07:47:15Z",
+      "side": 1,
+      "message": "Nit: If you\u0027re not including the stacktrace (because \"+ e\" instead of \", e\"), maybe make the message more explicit about where it\u0027s logged (\"registerLocalOnlyHotspotSoftApCallback API is not supported\" for example)",
+      "range": {
+        "startLine": 459,
+        "startChar": 29,
+        "endLine": 459,
+        "endChar": 56
+      },
+      "revId": "597319217ed8c2e814fe4ead443ff2be21ee6e9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59a5d8be_71b43c25",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-10T07:47:15Z",
+      "side": 1,
+      "message": "updateConnectedClients (and ConnectedClientsTracker) assume that they are passed in the full list of all clients every time. But now this isn\u0027t obvious, since each callback would only pass in the clients that are respectively on normal and local-only softAp right ?\n\nI think this would cause all wifi clients to be considered disconnected when the local only hotspot callback is fired, and vice-versa. But from what I read in the bug, it\u0027s not possible to have local-only and hotspot enabled at the same time ?\n\nWhere is that enforced ? I think you should at least mention it in a comment, and at the place where that is enforced, mention that onConnectedClientsChanged should be updated if it is made possible to enable both simultaneously.\n\nIf it is not strictly enforced by Tethering, it\u0027s possible OEMs have actually implemented it, so this should be either forbidden or supported and tested.",
+      "range": {
+        "startLine": 558,
+        "startChar": 35,
+        "endLine": 558,
+        "endChar": 42
+      },
+      "revId": "597319217ed8c2e814fe4ead443ff2be21ee6e9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a07d4e2_b87677b6",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2594,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-10T07:47:15Z",
+      "side": 1,
+      "message": "\"updateMacOnlyWifiTetheringClient\" and \"updateTetheredClients\" have similar naming, but they do very different things: the first one sends the wifi L2 change callback, the second one sends the onLeasesChanged callback.\n\n\"updateMacOnlyWifiTetheringClient\" also suggests that this is for a special type of wifi client that \"only has mac\", but actually all wifi clients should be in the same situation here.\n\nI\u0027d suggest naming closer to the callback that is being called, like \"notifyConnectedWifiClientsChanged\" and \"notifyDhcpLeasesChanged\"; even if the methods return TetheredClients (which is already self-explanatory when looking at the call), the \"action\" they do is to call the callback.",
+      "range": {
+        "startLine": 2594,
+        "startChar": 27,
+        "endLine": 2594,
+        "endChar": 59
+      },
+      "revId": "597319217ed8c2e814fe4ead443ff2be21ee6e9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
