@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cc6163c3_00f4d1e6",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 8987,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T15:12:53Z",
+      "side": 1,
+      "message": "We shouldn\u0027t skip this test if we can avoid it. ConnectivityService runs on S devices as well and the test should check S behaviour too.\n\nHopefully it shouldn\u0027t be too hard to have it pass on S as well, maybe we can just put some \"if (SdkLevel.isAtLeastT())\" statements in the body of the test when calculating the UID ranges?",
+      "range": {
+        "startLine": 8987,
+        "startChar": 10,
+        "endLine": 8987,
+        "endChar": 28
+      },
+      "revId": "f0f8ff1459ba413f6e9e988d26e39675f5ff2b0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2a181ab5_2f64a8af",
         "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
         "patchSetId": 3
