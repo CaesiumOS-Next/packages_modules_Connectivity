@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0f9d1f3_0cb57d9b",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-05-11T22:22:05Z",
+      "side": 1,
+      "message": "I will also need SUCCESSFUL_IKE_INIT_RESP_V4, which does not include Notify(MOBIKE_SUPPORTED) to test underlying network switch when MOBIKE is disabled.",
+      "parentUuid": "b3e21ce8_56ea25fa",
+      "range": {
+        "startLine": 163,
+        "startChar": 32,
+        "endLine": 163,
+        "endChar": 55
+      },
+      "revId": "b5d50a530be3dfe1281627c46b0a78a27cbd2ad8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7fcca607_0419991b",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-05-05T01:37:22Z",
       "side": 1,
       "message": "Suggest \"testNetworkPermanentlyLost\"",
+      "range": {
+        "startLine": 673,
+        "startChar": 12,
+        "endLine": 673,
+        "endChar": 20
+      },
+      "revId": "b5d50a530be3dfe1281627c46b0a78a27cbd2ad8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56b93a76_90a5c472",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-05-11T22:22:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fcca607_0419991b",
       "range": {
         "startLine": 673,
         "startChar": 12,
