@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92b111f9_4cbf3b3c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-11T08:31:30Z",
+      "side": 1,
+      "message": "Yes, you are correct. And I remove this comment since the new patchSet narrow the scope that only effect wifi/p2p in processInterfaceStateChange instead of all types after T.",
+      "parentUuid": "ca5319f2_7bdcdf62",
+      "range": {
+        "startLine": 36,
+        "startChar": 34,
+        "endLine": 36,
+        "endChar": 62
+      },
+      "revId": "f1ebe95734fa383c5bc75ba0fa4384f88058e31a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a3590f2_88023d94",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-10T09:44:40Z",
       "side": 1,
       "message": "As per discussion, it seems it could use it to call ensureIpServerStopped before",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 40
+      },
+      "revId": "f1ebe95734fa383c5bc75ba0fa4384f88058e31a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3a248ec_8dae479d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-11T08:31:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a3590f2_88023d94",
       "range": {
         "startLine": 39,
         "startChar": 4,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "166b7e40_e90a045a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-11T08:31:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57c6743b_53a6362e",
+      "range": {
+        "startLine": 568,
+        "startChar": 12,
+        "endLine": 568,
+        "endChar": 33
+      },
+      "revId": "f1ebe95734fa383c5bc75ba0fa4384f88058e31a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "edab9d2e_ec9cb072",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-05-10T09:44:40Z",
       "side": 1,
       "message": "I find this a bit hard to follow; basically you want to guess the interfaceName based on the type before T, if there\u0027s no known TetherState for the passed-in name, but you want to call ensureIpServerStopped in any case.\n\nI\u0027d find the following easier to follow:\n\n  // Attempt to guess the interface name before T\n  // (also explain when/why that may be necessary)\n  if (!mTetherStates.containsKey(ifname) \u0026\u0026 !isAtLeastT()) {\n    for (...) {\n      if (ipServer.interfaceType() \u003d\u003d tetheringType) {\n        ifname \u003d ipServer.interfaceName();\n      }\n    }\n  }\n  if (!ensureIpServerStopped(ifname)) { // Return false when no matching iface\n    mLog.log(...)\n  }",
+      "range": {
+        "startLine": 1399,
+        "startChar": 8,
+        "endLine": 1399,
+        "endChar": 11
+      },
+      "revId": "f1ebe95734fa383c5bc75ba0fa4384f88058e31a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8f40d6e_fde09aaa",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1399,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-11T08:31:30Z",
+      "side": 1,
+      "message": "I have updated some comment in parent CL:https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1731710\n\nSee l.1408 ~ 1411, the pure AOSP flow should never go to here because wifi always pass the reasonable ifname to stop wifi tethering.",
+      "parentUuid": "edab9d2e_ec9cb072",
       "range": {
         "startLine": 1399,
         "startChar": 8,
