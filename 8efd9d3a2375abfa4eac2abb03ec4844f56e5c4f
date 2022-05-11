@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fedd189_5d48f479",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T12:11:46Z",
+      "side": 1,
+      "message": "Nit: if we expect this to be small (and it probably is, since NetworkStatsManager is probably not an API that many apps will use) then this would be better as an ArrayMap which is more memory efficient.",
+      "range": {
+        "startLine": 392,
+        "startChar": 84,
+        "endLine": 392,
+        "endChar": 91
+      },
+      "revId": "8efd9d3a2375abfa4eac2abb03ec4844f56e5c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d1d9772_ea261229",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T12:11:46Z",
+      "side": 1,
+      "message": "Actually I don\u0027t think we want the PID here. PIDs change all the time, so over time mOpenSessionCallsPerCaller will become full of entries for PIDs that don\u0027t exist any more. That doesn\u0027t seem useful.",
+      "range": {
+        "startLine": 428,
+        "startChar": 25,
+        "endLine": 428,
+        "endChar": 29
+      },
+      "revId": "8efd9d3a2375abfa4eac2abb03ec4844f56e5c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f65021c5_44d38787",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T12:11:46Z",
+      "side": 1,
+      "message": "Since these are public final, they should not start with m. They should be \"uid\" and \"package\".",
+      "range": {
+        "startLine": 430,
+        "startChar": 28,
+        "endLine": 430,
+        "endChar": 36
+      },
+      "revId": "8efd9d3a2375abfa4eac2abb03ec4844f56e5c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b81700b3_a1ce6faa",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T12:11:46Z",
+      "side": 1,
+      "message": "Seems like we should do this for SYSTEM_UID as well? It doesn\u0027t seem to make sense to track SYSTEM_UID in mOpenSessionCallsPerCaller but not in mOpenSessionCallsPerUid. Maybe just put these two lines before line 864?",
+      "range": {
+        "startLine": 870,
+        "startChar": 0,
+        "endLine": 871,
+        "endChar": 67
+      },
+      "revId": "8efd9d3a2375abfa4eac2abb03ec4844f56e5c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b50e1dc_77fd9474",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2008,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T12:11:46Z",
+      "side": 1,
+      "message": "Optional: should this remove the UID\u0027s entries from mOpenSessionCallsPerUid and mOpenSessionCallsPerCaller? Or move those entries to a special \"uninstalled\" entry with a UID of Process.INVALID_UID and a package of \"uninstalled\"?",
+      "range": {
+        "startLine": 2008,
+        "startChar": 4,
+        "endLine": 2008,
+        "endChar": 5
+      },
+      "revId": "8efd9d3a2375abfa4eac2abb03ec4844f56e5c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
