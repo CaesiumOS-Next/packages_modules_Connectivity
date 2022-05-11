@@ -183,11 +183,16 @@ public class BpfNetMaps {
      *               be received.
      * @param uids   an array of UIDs which the filtering rules will be set
      * @throws RemoteException when netd has crashed.
+     * @throws IllegalArgumentException if ifName is null with the legacy netd
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
      */
     public void addUidInterfaceRules(final String ifName, final int[] uids) throws RemoteException {
         if (USE_NETD) {
+            if (ifName == null) {
+                throw new IllegalArgumentException(
+                        "ifName can not be null with netd used in pre-T devices");
+            }
             mNetd.firewallAddUidInterfaceRules(ifName, uids);
             return;
         }
