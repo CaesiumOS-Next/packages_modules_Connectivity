@@ -1,0 +1,320 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d85c3ef4_fa3cdbf0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T10:44:25Z",
+      "side": 1,
+      "message": "LGTM. Comments can be addressed in a follow-up I think.",
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2924876_d7965576",
+        "filename": "framework/Android.bp",
+        "patchSetId": 17
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T10:44:25Z",
+      "side": 1,
+      "message": "Per discussion: if by any chance there is OEM code that is using reflection to access one of the hidden bootclasspath classes defined in this JAR (e.g., android.net.TcpSocketKeepalive), then that code could break.\n\nOEMs should never be doing this, but for safety, we might want to add these classes to the exclude list and ask OEMs to test? We could ensure that the FRC (which is heavily tested by OEMs on T) won\u0027t have the exclude list, by only merging the exclude list into tm-mainline-prod and not tm-dev. This has the following effect:\n- On T devices, the the FRC has the full jarjar rename and the first update after it does not. This is almost certainly safe, because any OEM that has code that refers to the old name would not work.\n- On R and S devices, the classes will not be renamed at all. We can give OEMs a heads up and some time to audit/test (e.g., a couple of months) and then remove the exclude list.\n\nThis is less of a problem for libraries we depend on (e.g., BitUtils) because the OEM will simply be using the framework copy. It\u0027s also less of a problem with the service-connectivity classes because AIUI those are loaded using a different classloader.",
+      "range": {
+        "startLine": 106,
+        "startChar": 11,
+        "endLine": 106,
+        "endChar": 44
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fcc59dc_65014034",
+        "filename": "framework/Android.bp",
+        "patchSetId": 17
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T10:44:25Z",
+      "side": 1,
+      "message": "Out of curiosity, why is this necessary in this change?",
+      "range": {
+        "startLine": 114,
+        "startChar": 8,
+        "endLine": 114,
+        "endChar": 42
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8693f17_094e85df",
+        "filename": "framework/Android.bp",
+        "patchSetId": 17
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T10:44:25Z",
+      "side": 1,
+      "message": "Nit: is this the expected indentation? Might want to run bpfmt. Actually, might want to add bpfmt to the upload hooks. In aosp/17293708 paulduffin@ suggested:\n\n[Builtin Hooks]\nbpfmt \u003d true\n\n\nin PREUPLOAD.cfg and then running:\n\nbpfmt -w $(find -name \\*.bp)",
+      "range": {
+        "startLine": 244,
+        "startChar": 12,
+        "endLine": 244,
+        "endChar": 65
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3553c3e1_4d667588",
+        "filename": "tests/common/Android.bp",
+        "patchSetId": 17
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T10:44:25Z",
+      "side": 1,
+      "message": "Similar to framework-connectivity-test-defaults above but uses pre-jarjar class names.",
+      "range": {
+        "startLine": 143,
+        "startChar": 80,
+        "endLine": 143,
+        "endChar": 81
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a42bdf3_9b2eea52",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T10:44:25Z",
+      "side": 1,
+      "message": "Is there a reason this is a top-level global? I think that\u0027s generally discouraged. Could it be a local variable in main? Or a local variable in a ParseArguments function that returns args?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 6
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec70a33d_65e9a9d9",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T10:44:25Z",
+      "side": 1,
+      "message": "Say how these multiple paths are separated. Per https://docs.python.org/3/library/argparse.html#nargs maybe this should say \"multiple paths separated by spaces\"?",
+      "range": {
+        "startLine": 29,
+        "startChar": 88,
+        "endLine": 29,
+        "endChar": 89
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed07a95d_8ab24634",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T10:44:25Z",
+      "side": 1,
+      "message": "Must this end in .? Or must it end without .?",
+      "range": {
+        "startLine": 31,
+        "startChar": 72,
+        "endLine": 31,
+        "endChar": 79
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f08bb1d0_37b794aa",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T10:44:25Z",
+      "side": 1,
+      "message": "separated by spaces",
+      "range": {
+        "startLine": 37,
+        "startChar": 86,
+        "endLine": 37,
+        "endChar": 87
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "030f52ca_447de6b1",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T10:44:25Z",
+      "side": 1,
+      "message": "separated by spaces",
+      "range": {
+        "startLine": 42,
+        "startChar": 24,
+        "endLine": 42,
+        "endChar": 25
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aea80579_f5ba774f",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T10:44:25Z",
+      "side": 1,
+      "message": "This help text implies only one file, but actually it supports multiple files. Fix help text?",
+      "range": {
+        "startLine": 45,
+        "startChar": 10,
+        "endLine": 45,
+        "endChar": 22
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3641afe_915579b5",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T10:44:25Z",
+      "side": 1,
+      "message": "Nit: is there a reason to make this configurable? Is it for testing?",
+      "range": {
+        "startLine": 49,
+        "startChar": 17,
+        "endLine": 49,
+        "endChar": 34
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea38899e_1adc93de",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T10:44:25Z",
+      "side": 1,
+      "message": "What\u0027s a \"toplevel\" class? Anything that\u0027s not an inner class? Or...? A comment would be helpful.",
+      "range": {
+        "startLine": 74,
+        "startChar": 10,
+        "endLine": 74,
+        "endChar": 18
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bbe43ca_98cecf9e",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T10:44:25Z",
+      "side": 1,
+      "message": "If we get here, does that mean the file is invalid?\nIf so, should the code complain or fail?\nIf not, maybe add a comment explaining how this can happen? I could see how empty lines might be present, but anything other than that seems like it should be invalid?",
+      "range": {
+        "startLine": 103,
+        "startChar": 16,
+        "endLine": 103,
+        "endChar": 24
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
