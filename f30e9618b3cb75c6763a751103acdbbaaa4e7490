@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e678d42_2de5cfd9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T04:13:36Z",
+      "side": 1,
+      "message": "The errorprone build is broken with:\n\npackages/modules/Connectivity/tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java:874: error: [JUnit4TestNotRun] This looks like a test method but is not run; please add @Test and @Ignore, or, if this is a helper method, reduce its visibility.\n    public void testDataMigrationUtils() throws Exception {",
+      "revId": "f30e9618b3cb75c6763a751103acdbbaaa4e7490",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
