@@ -132,6 +132,8 @@ enum UidOwnerMatchType {
     RESTRICTED_MATCH = (1 << 5),
     LOW_POWER_STANDBY_MATCH = (1 << 6),
     IIF_MATCH = (1 << 7),
+    //TODO update to (1 << 8)
+    LOCKDOWN_MATCH = (1 << 1),
 };
 
 enum BpfPermissionMatch {
