@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "464a8c55_0f7ac15c",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 8987,
+      "author": {
+        "id": 1013030
+      },
+      "writtenOn": "2022-05-11T19:22:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc6163c3_00f4d1e6",
+      "range": {
+        "startLine": 8987,
+        "startChar": 10,
+        "endLine": 8987,
+        "endChar": 28
+      },
+      "revId": "f0f8ff1459ba413f6e9e988d26e39675f5ff2b0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a181ab5_2f64a8af",
@@ -73,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "273b7263_753faecc",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1013030
+      },
+      "writtenOn": "2022-05-11T19:22:30Z",
+      "side": 1,
+      "message": "From discussion with Lorenzo yesterday he seemed ok with this class only running on T, but did suggest fixing ConnectivityServiceTest to run on S also, so I did that.",
+      "parentUuid": "e44397e2_1533d465",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 48
+      },
+      "revId": "f0f8ff1459ba413f6e9e988d26e39675f5ff2b0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "391bde4f_d1e3edb0",
         "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
         "patchSetId": 3
@@ -84,6 +132,30 @@
       "writtenOn": "2022-05-11T13:10:01Z",
       "side": 1,
       "message": "Is it better if we refactor these function call to a method that takes a continuous range with a list of uids we want to exclude?",
+      "range": {
+        "startLine": 481,
+        "startChar": 65,
+        "endLine": 484,
+        "endChar": 98
+      },
+      "revId": "f0f8ff1459ba413f6e9e988d26e39675f5ff2b0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ec00269_c8e4ac48",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1013030
+      },
+      "writtenOn": "2022-05-11T19:22:30Z",
+      "side": 1,
+      "message": "I added a function in the other file; I\u0027m not sure what\u0027s a good place to put it such that it can be used here as well. But if possible I\u0027ll address that in a follow-up CL.",
+      "parentUuid": "391bde4f_d1e3edb0",
       "range": {
         "startLine": 481,
         "startChar": 65,
