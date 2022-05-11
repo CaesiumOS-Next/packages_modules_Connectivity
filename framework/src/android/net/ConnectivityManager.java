@@ -982,6 +982,13 @@ public class ConnectivityManager {
     @SystemApi(client = MODULE_LIBRARIES)
     public static final int FIREWALL_CHAIN_LOW_POWER_STANDBY = 5;
 
+    /**
+     * Firewall chain used for VPN Lockdown.
+     * Denylist of apps that do not have incoming traffic access.
+     * @hide
+     */
+    public static final int FIREWALL_CHAIN_LOCKDOWN = 6;
+
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(flag = false, prefix = "FIREWALL_CHAIN_", value = {
@@ -989,7 +996,8 @@ public class ConnectivityManager {
         FIREWALL_CHAIN_STANDBY,
         FIREWALL_CHAIN_POWERSAVE,
         FIREWALL_CHAIN_RESTRICTED,
-        FIREWALL_CHAIN_LOW_POWER_STANDBY
+        FIREWALL_CHAIN_LOW_POWER_STANDBY,
+        FIREWALL_CHAIN_LOCKDOWN
     })
     public @interface FirewallChain {}
     // LINT.ThenChange(packages/modules/Connectivity/service/native/include/Common.h)
