@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9515184_7b62c77a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10846,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T03:29:12Z",
+      "side": 0,
+      "message": "This was the only caller of validateNetworkCapabilitiesOfProfileNetworkPreference. Delete the method as well?",
+      "range": {
+        "startLine": 10846,
+        "startChar": 12,
+        "endLine": 10846,
+        "endChar": 65
+      },
+      "revId": "28fc2c6da4df8a29f19e7de3dea96014ed21137d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

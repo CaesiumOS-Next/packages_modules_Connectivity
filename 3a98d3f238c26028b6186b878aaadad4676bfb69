@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81bffa8a_92db3238",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T03:29:12Z",
+      "side": 1,
+      "message": "Thanks for the in-depth test coverage!",
+      "revId": "3a98d3f238c26028b6186b878aaadad4676bfb69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4c9bbae_8eef3941",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10680,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T03:29:12Z",
+      "side": 1,
+      "message": "Per discussion:\n\n        if (preferences.size() \u003d\u003d 0) {\n            final ProfileNetworkPreference pref \u003d new ProfileNetworkPreference.Builder()\n                    .setPreference(PROFILE_NETWORK_PREFERENCE_DEFAULT)\n                    .build();\n            preferences.add(pref);\n        }",
+      "range": {
+        "startLine": 10680,
+        "startChar": 12,
+        "endLine": 10680,
+        "endChar": 78
+      },
+      "revId": "3a98d3f238c26028b6186b878aaadad4676bfb69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "562dd740_91d92464",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10698,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T03:29:12Z",
+      "side": 1,
+      "message": "hasDefaultPreference",
+      "range": {
+        "startLine": 10698,
+        "startChar": 16,
+        "endLine": 10698,
+        "endChar": 18
+      },
+      "revId": "3a98d3f238c26028b6186b878aaadad4676bfb69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06794aea_458d1849",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10715,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-11T03:29:12Z",
+      "side": 1,
+      "message": "Per discussion: add a comment that this code is needed even though there is a check later on, because isRangeAlreadyInPreferenceList assumes that every preference has a UID list?",
+      "range": {
+        "startLine": 10715,
+        "startChar": 20,
+        "endLine": 10715,
+        "endChar": 46
+      },
+      "revId": "3a98d3f238c26028b6186b878aaadad4676bfb69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
