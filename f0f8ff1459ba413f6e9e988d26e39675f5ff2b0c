@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a181ab5_2f64a8af",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-11T13:10:01Z",
+      "side": 1,
+      "message": "This skips whole test in S, IIUC some tests are still needed for S.\nAlternatively, you should be able to mark some test methods with this annotation.\nOr use if condition to distinguish different behavior of different version of code.\nYou should be able to refer to !SdkLevel.isAtLeastS() checks in the same file.",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 48
+      },
+      "revId": "f0f8ff1459ba413f6e9e988d26e39675f5ff2b0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "391bde4f_d1e3edb0",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-11T13:10:01Z",
+      "side": 1,
+      "message": "Is it better if we refactor these function call to a method that takes a continuous range with a list of uids we want to exclude?",
+      "range": {
+        "startLine": 481,
+        "startChar": 65,
+        "endLine": 484,
+        "endChar": 98
+      },
+      "revId": "f0f8ff1459ba413f6e9e988d26e39675f5ff2b0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
