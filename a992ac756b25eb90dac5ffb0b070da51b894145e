@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cba243b3_b8a48bdb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-11T06:25:40Z",
+      "side": 1,
+      "message": "Although I don\u0027t think OEM would send wifi_ap_state_change intent if WifiManager is null. Checking the corresponding feature is available before handling state change intent.",
+      "parentUuid": "698264c0_9874ec7a",
+      "range": {
+        "startLine": 17,
+        "startChar": 25,
+        "endLine": 18,
+        "endChar": 19
+      },
+      "revId": "a992ac756b25eb90dac5ffb0b070da51b894145e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "025623e7_a0f889e3",
@@ -70,6 +94,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1b69667_75db009e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-11T06:25:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "025623e7_a0f889e3",
+      "range": {
+        "startLine": 1392,
+        "startChar": 78,
+        "endLine": 1392,
+        "endChar": 79
+      },
+      "revId": "a992ac756b25eb90dac5ffb0b070da51b894145e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f92fb1be_7ae3c5cc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-11T06:25:40Z",
+      "side": 1,
+      "message": "In AOSP code, the ifname is passed in from wifi intent. But not all the OEMs take wifi mainline module. Since I am not sure whether OEM would modify the code to send state change with null ifname, so I only make the change only apply after T. The error here means: after T, if wifi notify tethering to disable a not tethered ifname, tethering can\u0027t disable corresponding ipserver.\n\nBefore T: when wifi notify tethering to disable a wifi tethering with wrong ifname, tethering would disable the first wifi ipserver if tethering can\u0027t find corresponding ipserver.",
+      "parentUuid": "99e9f549_dff4e56e",
+      "range": {
+        "startLine": 1392,
+        "startChar": 22,
+        "endLine": 1392,
+        "endChar": 27
+      },
+      "revId": "a992ac756b25eb90dac5ffb0b070da51b894145e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87df66a4_d3bf47f9",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1196529_95e0b423",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1423,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-11T06:25:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87df66a4_d3bf47f9",
+      "range": {
+        "startLine": 1423,
+        "startChar": 68,
+        "endLine": 1423,
+        "endChar": 74
+      },
+      "revId": "a992ac756b25eb90dac5ffb0b070da51b894145e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36c5fd72_39d5c769",
@@ -106,6 +202,30 @@
       "writtenOn": "2022-05-10T09:00:37Z",
       "side": 1,
       "message": "Can you also have coverage for behavior pre-T ?",
+      "range": {
+        "startLine": 1909,
+        "startChar": 15,
+        "endLine": 1909,
+        "endChar": 22
+      },
+      "revId": "a992ac756b25eb90dac5ffb0b070da51b894145e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e185d1dc_fe6200b4",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1909,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-11T06:25:40Z",
+      "side": 1,
+      "message": "pre-T is covered:\n\nl. 940 and l. 1513 test WIFI_AP_STATE_DISABLED with interface could stop wifi tethering. They both cover both T and pre-T.\n\nThe test here is testing WIFI_AP_STATE_DISABLED with null interface. After T, tethering would ignore this intent. Before T, it still can stop hotspot.",
+      "parentUuid": "36c5fd72_39d5c769",
       "range": {
         "startLine": 1909,
         "startChar": 15,
