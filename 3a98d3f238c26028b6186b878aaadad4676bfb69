@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d2c9643_01c97b67",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10680,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-05-11T05:12:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4c9bbae_8eef3941",
+      "range": {
+        "startLine": 10680,
+        "startChar": 12,
+        "endLine": 10680,
+        "endChar": 78
+      },
+      "revId": "3a98d3f238c26028b6186b878aaadad4676bfb69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "562dd740_91d92464",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "600d9845_b91ae458",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10698,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-05-11T05:12:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "562dd740_91d92464",
+      "range": {
+        "startLine": 10698,
+        "startChar": 16,
+        "endLine": 10698,
+        "endChar": 18
+      },
+      "revId": "3a98d3f238c26028b6186b878aaadad4676bfb69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06794aea_458d1849",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-05-11T03:29:12Z",
       "side": 1,
       "message": "Per discussion: add a comment that this code is needed even though there is a check later on, because isRangeAlreadyInPreferenceList assumes that every preference has a UID list?",
+      "range": {
+        "startLine": 10715,
+        "startChar": 20,
+        "endLine": 10715,
+        "endChar": 46
+      },
+      "revId": "3a98d3f238c26028b6186b878aaadad4676bfb69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d39139f8_601122ff",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10715,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-05-11T05:12:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06794aea_458d1849",
       "range": {
         "startLine": 10715,
         "startChar": 20,
