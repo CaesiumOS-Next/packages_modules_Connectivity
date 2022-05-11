@@ -42,6 +42,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.lang.ref.WeakReference;
 import java.net.InetAddress;
 import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -50,6 +51,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RunWith(DevSdkIgnoreRunner.class)
 @IgnoreUpTo(Build.VERSION_CODES.R)
 public final class BpfMapTest {
+    private static final int FINALIZE_ATTEMPTS = 100;
+    private static final long FINALIZE_WAIT_INTERVAL_MS = 50;
     // Sync from packages/modules/Connectivity/bpf_progs/offload.c.
     private static final int TEST_MAP_SIZE = 16;
     private static final String TETHER_DOWNSTREAM6_FS_PATH =
@@ -402,4 +405,65 @@ public final class BpfMapTest {
             assertEquals(OsConstants.ENOENT, expected.errno);
         }
     }
+
+    @Test
+    public void testCloseMap() throws Exception {
+        assertTrue(mTestMap.getMapFdForTesting() > 0);
+
+        // Close a map.
+        mTestMap.close();
+        assertEquals(-1, mTestMap.getMapFdForTesting());
+
+        // Close an already-closed map. Ignore the closing.
+        // Expect that there is no EBADF excetion.
+        mTestMap.close();
+        assertEquals(-1, mTestMap.getMapFdForTesting());
+    }
+
+    private void forceGc() {
+        System.gc();
+        System.runFinalization();
+        System.gc();
+    }
+
+    private <T extends WeakReference> void waitForFinalized(T weakRef)
+            throws Exception {
+        for (int i = 0; i < FINALIZE_ATTEMPTS; i++) {
+            forceGc();
+            if (weakRef.get() == null) break;
+
+            Thread.sleep(FINALIZE_WAIT_INTERVAL_MS);
+        }
+        assertNull("Weak reference still not null after " + FINALIZE_ATTEMPTS
+                + " attempts ", weakRef.get());
+    }
+
+    @Test
+    public void testFinalizeWithoutClosing() throws Exception {
+        // Expect no excetion.
+        BpfMap<TetherDownstream6Key, Tether6Value> testMap = new BpfMap<>(
+                TETHER_DOWNSTREAM6_FS_PATH, BpfMap.BPF_F_RDWR,
+                TetherDownstream6Key.class, Tether6Value.class);
+        final WeakReference<BpfMap> weakMap = new WeakReference(testMap);
+        assertTrue(testMap.getMapFdForTesting() > 0);
+
+        testMap = null;
+        forceGc();
+        waitForFinalized(weakMap);
+    }
+
+//    @Test
+//    public void testFinalizeWithClosing() throws Exception {
+//        // Expect no excetion.
+//        BpfMap<TetherDownstream6Key, Tether6Value> testMap = new BpfMap<>(
+//                TETHER_DOWNSTREAM6_FS_PATH, BpfMap.BPF_F_RDWR,
+//                TetherDownstream6Key.class, Tether6Value.class);
+//        final WeakReference<BpfMap> weakMap = new WeakReference(testMap);
+//        assertTrue(testMap.getMapFdForTesting() > 0);
+//
+//        testMap.close();
+//        testMap = null;
+//        forceGc();
+//        waitForFinalized(weakMap);
+//    }
 }
