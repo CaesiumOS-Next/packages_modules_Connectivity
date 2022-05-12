@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d25e0638_7337f5c8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-12T10:15:58Z",
+      "side": 1,
+      "message": "Compare with the change: I3be9422a431a5b5bc1478960ce332a89377bd632, this new change include nearby related progurad keep rules which should be added by other changes. Since nearby are not public to AOSP yet, so those rule just be no-op in AOSP and keep consistency between aosp and internal branch have the benefit for less conflict. So LGTM.",
+      "revId": "c6f8fb0c4f1204bd85a2ec75958076787d769b0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
