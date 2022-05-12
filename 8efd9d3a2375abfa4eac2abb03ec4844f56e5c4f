@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "94b2ae00_8a484122",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T14:01:28Z",
+      "side": 1,
+      "message": "Do we? In general I think the \"android\" package basically means the system server.\n\nIn any case, I really don\u0027t think we should add the PID here. It will cause mOpenSessionCallsLock to grow indefinitely over time. And once a PID is gone it\u0027s difficult to tell what it was without looking at logs.",
+      "parentUuid": "f49cca84_5e2baa21",
+      "range": {
+        "startLine": 428,
+        "startChar": 25,
+        "endLine": 428,
+        "endChar": 29
+      },
+      "revId": "8efd9d3a2375abfa4eac2abb03ec4844f56e5c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f65021c5_44d38787",
         "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
         "patchSetId": 10
@@ -202,6 +226,30 @@
       "writtenOn": "2022-05-11T12:11:46Z",
       "side": 1,
       "message": "Optional: should this remove the UID\u0027s entries from mOpenSessionCallsPerUid and mOpenSessionCallsPerCaller? Or move those entries to a special \"uninstalled\" entry with a UID of Process.INVALID_UID and a package of \"uninstalled\"?",
+      "range": {
+        "startLine": 2008,
+        "startChar": 4,
+        "endLine": 2008,
+        "endChar": 5
+      },
+      "revId": "8efd9d3a2375abfa4eac2abb03ec4844f56e5c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b909058_ba52e456",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2008,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T14:01:28Z",
+      "side": 1,
+      "message": "Can you add add a TODO to consider this?",
+      "parentUuid": "2b50e1dc_77fd9474",
       "range": {
         "startLine": 2008,
         "startChar": 4,
