@@ -1986,6 +1986,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         mUidRecorder.removeUidsLocked(uids);
         mUidTagRecorder.removeUidsLocked(uids);
 
+        mStatsFactory.removeUids(uids);
+
         // Clear kernel stats associated with UID
         for (int uid : uids) {
             deleteKernelTagData(uid);
