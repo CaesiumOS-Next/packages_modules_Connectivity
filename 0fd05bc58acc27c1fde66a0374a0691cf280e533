@@ -277,6 +277,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9bee1c6_71bbd172",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-05-12T09:21:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "305c02b1_0c1a3e42",
+      "range": {
+        "startLine": 688,
+        "startChar": 45,
+        "endLine": 688,
+        "endChar": 53
+      },
+      "revId": "0fd05bc58acc27c1fde66a0374a0691cf280e533",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da7f70a0_b428d69b",
