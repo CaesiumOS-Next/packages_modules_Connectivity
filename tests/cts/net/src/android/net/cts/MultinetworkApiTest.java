@@ -18,17 +18,30 @@ package android.net.cts;
 
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+
+import android.app.UiAutomation;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkUtils;
 import android.net.cts.util.CtsNetUtils;
+import android.os.Build;
+import android.os.ParcelFileDescriptor;
+import android.os.ParcelFileDescriptor.AutoCloseInputStream;
+import android.os.ParcelFileDescriptor.AutoCloseOutputStream;
 import android.platform.test.annotations.AppModeFull;
 import android.system.ErrnoException;
 import android.system.OsConstants;
 import android.test.AndroidTestCase;
+import android.util.Log;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class MultinetworkApiTest extends AndroidTestCase {
 
@@ -38,6 +51,8 @@ public class MultinetworkApiTest extends AndroidTestCase {
 
     private static final String TAG = "MultinetworkNativeApiTest";
     static final String GOOGLE_PRIVATE_DNS_SERVER = "dns.google";
+
+    private static final long TCPDUMP_START_DELAY_MS = 1000L;
 
     /**
      * @return 0 on success
@@ -138,11 +153,63 @@ public class MultinetworkApiTest extends AndroidTestCase {
 
     public void testNativeDatagramTransmission() throws ErrnoException {
         for (Network network : mCtsNetUtils.getTestableNetworks()) {
-            int errno = runDatagramCheck(network.getNetworkHandle());
+            int errno = runDatagramCheck(network.getNetworkHandle()) + 1;
             if (errno != 0) {
+                if (Build.isDebuggable()) {
+                    Log.i(TAG, "Test failed; re-running to get tcpdump");
+                    try {
+                        tryNativeDatagramTransmissionWithDump(network);
+                    } catch (Exception e) {
+                        Log.e(TAG, "Error re-running test to get tcpdump", e);
+                    }
+                }
+
                 throw new ErrnoException(
                         "DatagramCheck on " + mCM.getNetworkInfo(network), -errno);
             }
+        }
+    }
+
+    private void tryNativeDatagramTransmissionWithDump(Network network) throws Exception {
+        final LinkProperties lp = mCM.getLinkProperties(network);
+        if (lp == null) {
+            Log.e(TAG, "Network is gone: " + network);
+            return;
+        }
+        final UiAutomation automation = getInstrumentation().getUiAutomation();
+        // executeShellCommand won't tokenize quoted arguments containing spaces properly, so pass
+        // in the command in stdin instead of using sh -c 'command'
+        final ParcelFileDescriptor[] fds = automation.executeShellCommandRw("sh");
+
+        final ParcelFileDescriptor out = fds[0];
+        final ParcelFileDescriptor in = fds[1];
+        try (AutoCloseOutputStream writer = new AutoCloseOutputStream(in)) {
+            writer.write(("echo $$; exec su 0 tcpdump -xx -n -i " + lp.getInterfaceName()
+                    + " udp port 443 or udp port 53 or icmp or icmp6 or arp")
+                    .getBytes(StandardCharsets.UTF_8));
+        }
+        // There is no good way to get notified that tcpdump is listening, or to reliably poll for
+        // an event, so a hardcoded delay is used here. This should generally be avoided, but is not
+        // problematic here as tcpdump is only for diagnostics purposes in this attempt.
+        Thread.sleep(TCPDUMP_START_DELAY_MS);
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(new AutoCloseInputStream(out)))) {
+            final int pid = Integer.parseInt(reader.readLine());
+            Log.i(TAG, "Running tcpdump as pid " + pid);
+
+            final int errno = runDatagramCheck(network.getNetworkHandle());
+            Log.i(TAG, "Test run finished with status " + (-errno) + ". tcpdump:");
+
+            // Similarly to the delay before starting the test, tcpdump needs to get enough time
+            // to capture/output the packets. Hardcoded delays should generally be avoided, but
+            // is not problematic here as tcpdump is only for diagnostics purposes in this attempt.
+            Thread.sleep(TCPDUMP_START_DELAY_MS);
+            try (AutoCloseInputStream killReader = new AutoCloseInputStream(
+                    automation.executeShellCommand("su 0 kill " + pid))) {
+                // Read stdout to the end to ensure the command finishes
+                killReader.readAllBytes();
+            }
+            reader.lines().forEach(l -> Log.i(TAG, l));
         }
     }
 
