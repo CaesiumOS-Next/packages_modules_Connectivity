@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9899eb4_2fec75b1",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-05-12T06:50:12Z",
+      "side": 1,
+      "message": "Yes, you\u0027re right. Originally I used ArrayMap to implement this, but the keys need to be converted to a list at l.2135, the entrySet() used in ArrayMap doesn\u0027t support toArray(). So I changed it to HashMap.",
+      "parentUuid": "0fedd189_5d48f479",
+      "range": {
+        "startLine": 392,
+        "startChar": 84,
+        "endLine": 392,
+        "endChar": 91
+      },
+      "revId": "8efd9d3a2375abfa4eac2abb03ec4844f56e5c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d1d9772_ea261229",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-11T12:11:46Z",
       "side": 1,
       "message": "Actually I don\u0027t think we want the PID here. PIDs change all the time, so over time mOpenSessionCallsPerCaller will become full of entries for PIDs that don\u0027t exist any more. That doesn\u0027t seem useful.",
+      "range": {
+        "startLine": 428,
+        "startChar": 25,
+        "endLine": 428,
+        "endChar": 29
+      },
+      "revId": "8efd9d3a2375abfa4eac2abb03ec4844f56e5c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f49cca84_5e2baa21",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-05-12T06:50:12Z",
+      "side": 1,
+      "message": "If open session happens on UID\u003d1000 and package\u003dandroid, probably we have chance to get some information by the PID?",
+      "parentUuid": "7d1d9772_ea261229",
       "range": {
         "startLine": 428,
         "startChar": 25,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6296347c_ec9a9e61",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-05-12T06:50:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f65021c5_44d38787",
+      "range": {
+        "startLine": 430,
+        "startChar": 28,
+        "endLine": 430,
+        "endChar": 36
+      },
+      "revId": "8efd9d3a2375abfa4eac2abb03ec4844f56e5c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b81700b3_a1ce6faa",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-05-11T12:11:46Z",
       "side": 1,
       "message": "Seems like we should do this for SYSTEM_UID as well? It doesn\u0027t seem to make sense to track SYSTEM_UID in mOpenSessionCallsPerCaller but not in mOpenSessionCallsPerUid. Maybe just put these two lines before line 864?",
+      "range": {
+        "startLine": 870,
+        "startChar": 0,
+        "endLine": 871,
+        "endChar": 67
+      },
+      "revId": "8efd9d3a2375abfa4eac2abb03ec4844f56e5c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1023a78a_0be129c3",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-05-12T06:50:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b81700b3_a1ce6faa",
       "range": {
         "startLine": 870,
         "startChar": 0,
