@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dc37c1ec_f555fbac",
+        "filename": "framework/Android.bp",
+        "patchSetId": 17
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-12T10:12:19Z",
+      "side": 1,
+      "message": "ACK; this is an additional change to do in tm-mainline-prod, so not to be merged here",
+      "parentUuid": "e2924876_d7965576",
+      "range": {
+        "startLine": 106,
+        "startChar": 11,
+        "endLine": 106,
+        "endChar": 44
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1fcc59dc_65014034",
         "filename": "framework/Android.bp",
         "patchSetId": 17
@@ -54,6 +78,30 @@
       "writtenOn": "2022-05-11T10:44:25Z",
       "side": 1,
       "message": "Out of curiosity, why is this necessary in this change?",
+      "range": {
+        "startLine": 114,
+        "startChar": 8,
+        "endLine": 114,
+        "endChar": 42
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfd8a3e6_fdd2f047",
+        "filename": "framework/Android.bp",
+        "patchSetId": 17
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-12T10:12:19Z",
+      "side": 1,
+      "message": "I\u0027m not completely sure why it used to build without this, it\u0027s likely because framework-connectivity-pre-jarjar was only used as a \"lib\" so only its symbols mattered, not its contents. But in this change framework-connectivity-pre-jarjar contents are examined by the generator, so additional build steps seem to be taken and wifi symbols would not be found without this.\n\nSo framework-wifi.stubs.module_lib should have been here from the start (also consistent with framework-tethering), and not having them now would fail, so added them.",
+      "parentUuid": "1fcc59dc_65014034",
       "range": {
         "startLine": 114,
         "startChar": 8,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5d1e626_43102984",
+        "filename": "framework/Android.bp",
+        "patchSetId": 17
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-12T10:12:19Z",
+      "side": 1,
+      "message": "Reformatted with bpfmt",
+      "parentUuid": "c8693f17_094e85df",
+      "range": {
+        "startLine": 244,
+        "startChar": 12,
+        "endLine": 244,
+        "endChar": 65
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3553c3e1_4d667588",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-05-11T10:44:25Z",
       "side": 1,
       "message": "Similar to framework-connectivity-test-defaults above but uses pre-jarjar class names.",
+      "range": {
+        "startLine": 143,
+        "startChar": 80,
+        "endLine": 143,
+        "endChar": 81
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f02bd2a9_d8e363e7",
+        "filename": "tests/common/Android.bp",
+        "patchSetId": 17
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-12T10:12:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3553c3e1_4d667588",
       "range": {
         "startLine": 143,
         "startChar": 80,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53e0615f_bba6aa31",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-12T10:12:19Z",
+      "side": 1,
+      "message": "Added a function to parse args (it\u0027s useful in tests)",
+      "parentUuid": "8a42bdf3_9b2eea52",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 6
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec70a33d_65e9a9d9",
@@ -146,6 +266,30 @@
       "writtenOn": "2022-05-11T10:44:25Z",
       "side": 1,
       "message": "Say how these multiple paths are separated. Per https://docs.python.org/3/library/argparse.html#nargs maybe this should say \"multiple paths separated by spaces\"?",
+      "range": {
+        "startLine": 29,
+        "startChar": 88,
+        "endLine": 29,
+        "endChar": 89
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c2735bf_a2d6d9eb",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-12T10:12:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec70a33d_65e9a9d9",
       "range": {
         "startLine": 29,
         "startChar": 88,
@@ -179,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e12c6cf_b28f8405",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-12T10:12:19Z",
+      "side": 1,
+      "message": "Done with dots",
+      "parentUuid": "ed07a95d_8ab24634",
+      "range": {
+        "startLine": 31,
+        "startChar": 72,
+        "endLine": 31,
+        "endChar": 79
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f08bb1d0_37b794aa",
@@ -192,6 +360,30 @@
       "writtenOn": "2022-05-11T10:44:25Z",
       "side": 1,
       "message": "separated by spaces",
+      "range": {
+        "startLine": 37,
+        "startChar": 86,
+        "endLine": 37,
+        "endChar": 87
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6aa221c_08ddf54c",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-12T10:12:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f08bb1d0_37b794aa",
       "range": {
         "startLine": 37,
         "startChar": 86,
@@ -225,6 +417,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ede91c9c_43438ac7",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-12T10:12:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "030f52ca_447de6b1",
+      "range": {
+        "startLine": 42,
+        "startChar": 24,
+        "endLine": 42,
+        "endChar": 25
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aea80579_f5ba774f",
@@ -238,6 +454,30 @@
       "writtenOn": "2022-05-11T10:44:25Z",
       "side": 1,
       "message": "This help text implies only one file, but actually it supports multiple files. Fix help text?",
+      "range": {
+        "startLine": 45,
+        "startChar": 10,
+        "endLine": 45,
+        "endChar": 22
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e52e20f_facf126e",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-12T10:12:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aea80579_f5ba774f",
       "range": {
         "startLine": 45,
         "startChar": 10,
@@ -271,6 +511,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "895076f7_6227b068",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-12T10:12:19Z",
+      "side": 1,
+      "message": "When used in a genrule, the dexdump used shouldn\u0027t really be the one on the PATH, but rather the one requested in the \"tools\" requirements of the genrule. The path of the tool will be provided by the genrule, so it needs to be an argument.",
+      "parentUuid": "c3641afe_915579b5",
+      "range": {
+        "startLine": 49,
+        "startChar": 17,
+        "endLine": 49,
+        "endChar": 34
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea38899e_1adc93de",
@@ -294,6 +558,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82b56581_54b709e2",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-12T10:12:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea38899e_1adc93de",
+      "range": {
+        "startLine": 74,
+        "startChar": 10,
+        "endLine": 74,
+        "endChar": 18
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3bbe43ca_98cecf9e",
@@ -307,6 +595,30 @@
       "writtenOn": "2022-05-11T10:44:25Z",
       "side": 1,
       "message": "If we get here, does that mean the file is invalid?\nIf so, should the code complain or fail?\nIf not, maybe add a comment explaining how this can happen? I could see how empty lines might be present, but anything other than that seems like it should be invalid?",
+      "range": {
+        "startLine": 103,
+        "startChar": 16,
+        "endLine": 103,
+        "endChar": 24
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2c5ea0a_7b2148e1",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-12T10:12:19Z",
+      "side": 1,
+      "message": "Replaced with assert",
+      "parentUuid": "3bbe43ca_98cecf9e",
       "range": {
         "startLine": 103,
         "startChar": 16,
