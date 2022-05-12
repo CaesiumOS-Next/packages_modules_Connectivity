@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "420be353_fdec0104",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-05-12T13:02:52Z",
+      "side": 1,
+      "message": "I found the root cause of test failed.\n```\njava.lang.AssertionError: stopSoftAp Timeout\njava.lang.AssertionError: stopSoftAp Timeout\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat android.net.cts.util.CtsTetheringUtils$StopSoftApCallback.waitForSoftApStopped(CtsTetheringUtils.java:493)\n\tat android.net.cts.util.CtsTetheringUtils.expectSoftApDisabled(CtsTetheringUtils.java:509)\n\tat android.tethering.test.TetheringManagerTest.testEnableTethering_carrierUnsupportByConfigChange_noTetheringActive(TetheringManagerTest.java:457)\n```\n\nThis is because mCtsTetheringUtils.expectSoftApDisabled(); is to detect that wifi ap is enable or disable. In CTS, if wifi is turn on, and it does not call mTM.stopTethering(TETHERING_WIFI);, wifimanager will send the callback of WifiManager#WIFI_AP_STATE_ENABLED, and this will cause  the CTS test filtered and keep waiting WIFI_AP_STATE_DISABLED. So that the test finally get timeout event.\n\n\n```\n        @Override\n        public void onStateChanged(int state, int failureReason) {\n            if (state \u003d\u003d WifiManager.WIFI_AP_STATE_DISABLED) mWaiting.open();\n        }\n```\n\nIf we want to get WIFI_AP_STATE_DISABLED from WifiManager, we need to call mTM.stopTethering(TETHERING_WIFI).",
+      "revId": "4e13e6416be5602496597e9b0fcc64cf2e44aca8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
