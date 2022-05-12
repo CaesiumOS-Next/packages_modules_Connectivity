@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e968a282_657bf96b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-05-12T15:56:07Z",
+      "side": 1,
+      "message": "Update what I found.\n\nIt seems like the CTS device keep connecting to WiFi network, so that make the test failed.\n\nI decide  turn off the wifi during the CTS test process.",
+      "revId": "6d8af480937e4331a8d41cb5f14e74ce9a21e4bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
