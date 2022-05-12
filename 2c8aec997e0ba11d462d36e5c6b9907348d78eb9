@@ -87,6 +87,30 @@
       },
       "revId": "2c8aec997e0ba11d462d36e5c6b9907348d78eb9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d1b09b6_ad8f4e0f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T14:35:00Z",
+      "side": 1,
+      "message": "You could perhaps add it to UidRangeUtils. It\u0027s not too different from UidRangeUtils#removeRangeSetFromUidRange which is already used in this test. Or in fact you might be able to use that method already?\n\nFailing that, for test-only utilities somewhere in frameworks/libs/net/common/testutils/devicetests/ would be appropriate.",
+      "parentUuid": "1d6a8c3f_7862e3db",
+      "range": {
+        "startLine": 809,
+        "startChar": 55,
+        "endLine": 809,
+        "endChar": 65
+      },
+      "revId": "2c8aec997e0ba11d462d36e5c6b9907348d78eb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

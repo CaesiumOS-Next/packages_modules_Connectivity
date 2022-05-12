@@ -16,6 +16,52 @@
       "message": "(PS5 is a rebase)",
       "revId": "021d8b08c19a91f4b862d4b6b681ea46de017cb8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "068f62bf_2ae4c529",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T14:35:00Z",
+      "side": 1,
+      "message": "Out of curiosity, would int... have worked here instead of Integer...? (That seems better.)",
+      "range": {
+        "startLine": 815,
+        "startChar": 65,
+        "endLine": 815,
+        "endChar": 72
+      },
+      "revId": "021d8b08c19a91f4b862d4b6b681ea46de017cb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbf3aa96_1c4b7fbe",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T14:35:00Z",
+      "side": 1,
+      "message": "Nit: I think if excludedUid is \u003e 99999 the ranges would be incorrect. If tht happens might want to throw IAE if that happens, or just silently break out of the loop.",
+      "range": {
+        "startLine": 823,
+        "startChar": 54,
+        "endLine": 823,
+        "endChar": 65
+      },
+      "revId": "021d8b08c19a91f4b862d4b6b681ea46de017cb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
