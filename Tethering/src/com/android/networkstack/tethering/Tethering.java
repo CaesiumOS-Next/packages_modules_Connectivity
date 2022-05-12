@@ -548,16 +548,30 @@ public class Tethering {
         }
     }
 
-    // This method needs to exist because TETHERING_BLUETOOTH before Android T and TETHERING_WIGIG
-    // can't use enableIpServing.
     private void processInterfaceStateChange(final String iface, boolean enabled) {
+        final int type = ifaceNameToType(iface);
         // Do not listen to USB interface state changes or USB interface add/removes. USB tethering
         // is driven only by USB_ACTION broadcasts.
-        final int type = ifaceNameToType(iface);
         if (type == TETHERING_USB || type == TETHERING_NCM) return;
 
-        if (type == TETHERING_BLUETOOTH && SdkLevel.isAtLeastT()) return;
+        if (SdkLevel.isAtLeastT()) {
+            // Start from T, start/stop WIFI/P2P ipServer are only driven by state change intent
+            // broadcasts.
+            if (type == TETHERING_WIFI || type == TETHERING_WIFI_P2P) return;
 
+            // PanService don't notify tethering to start/stop IpServer before T. The interface
+            // configuration is implemented in PanService side and TETHERING_BLUETOOTH need to
+            // start/stop IpServer base on interface state change.
+            if (type == TETHERING_BLUETOOTH) return;
+        }
+
+        // TETHERING_ETHERNT would stop ipServer when NetdCallback#onInterfaceRemoved or
+        // EthernetCallback#onUnavailable is called.
+        // TODO: only stop ethernet ipServer when ethernet ask tethering to stop by
+        // EthernetCallback#onUnavailable.
+        //
+        // TETHERING_WIGIG need to start/stop ipServer by interface state change but WIGIG only
+        // support before S.
         if (enabled) {
             ensureIpServerStarted(iface);
         } else {
@@ -1384,7 +1398,12 @@ public class Tethering {
     }
 
     private void disableWifiIpServingCommon(int tetheringType, String ifname) {
-        if (!mTetherStates.containsKey(ifname) && !SdkLevel.isAtLeastT()) {
+        if (SdkLevel.isAtLeastT()) {
+            ensureIpServerStopped(ifname);
+            return;
+        }
+
+        if (!mTetherStates.containsKey(ifname)) {
             // Attempt to guess the interface name before T. Pure AOSP code should never enter here
             // because WIFI_AP_STATE_CHANGED intent always include ifname and it should be tracked
             // by mTetherStates. In case OEMs have some modification in wifi side which pass null
@@ -1404,15 +1423,12 @@ public class Tethering {
             return;
         }
 
-        final TetherState ts = mTetherStates.get(ifname);
-        if (ts != null) ts.ipServer.unwanted();
+        mTetherStates.get(ifname).ipServer.unwanted();
     }
 
     private void disableWifiIpServing(String ifname, int apState) {
         // Regardless of whether we requested this transition, the AP has gone
         // down.  Don't try to tether again unless we're requested to do so.
-        // TODO: Remove this altogether, once Wi-Fi reliably gives us an
-        // interface name with every broadcast.
         mWifiTetherRequested = false;
 
         mLog.log("Canceling WiFi tethering request - interface=" + ifname + " state=" + apState);
