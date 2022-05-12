@@ -1,0 +1,458 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dca4b5b9_e45e3ad7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T08:10:06Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 7,
+        "startChar": 16,
+        "endLine": 7,
+        "endChar": 23
+      },
+      "revId": "c760c1f61fc448a98c45956fbaf74aa959b8711f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22f0e588_3a754425",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T08:10:06Z",
+      "side": 1,
+      "message": "Nit: incoming",
+      "range": {
+        "startLine": 9,
+        "startChar": 51,
+        "endLine": 9,
+        "endChar": 60
+      },
+      "revId": "c760c1f61fc448a98c45956fbaf74aa959b8711f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5d69cf5_9885fe9c",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 19
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T08:10:06Z",
+      "side": 1,
+      "message": "We can\u0027t make any API changes in T any more. Does this actually need to be in the API surface though? I think it could just be @hide though, since all usage is within the tethering mainline module?",
+      "range": {
+        "startLine": 53,
+        "startChar": 34,
+        "endLine": 53,
+        "endChar": 57
+      },
+      "revId": "c760c1f61fc448a98c45956fbaf74aa959b8711f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63c5301c_03d7dd28",
+        "filename": "service/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T08:10:06Z",
+      "side": 1,
+      "message": "Can this actually happen?",
+      "range": {
+        "startLine": 140,
+        "startChar": 31,
+        "endLine": 140,
+        "endChar": 41
+      },
+      "revId": "c760c1f61fc448a98c45956fbaf74aa959b8711f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89b41aa0_e66b385c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 5975,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T08:10:06Z",
+      "side": 1,
+      "message": "I think this is actually incorrect because as mentioned in the comment in line 5957, the list of UID ranges subject to lockdown can contain duplicates.",
+      "range": {
+        "startLine": 5975,
+        "startChar": 71,
+        "endLine": 5975,
+        "endChar": 85
+      },
+      "revId": "c760c1f61fc448a98c45956fbaf74aa959b8711f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51a355bd_9aaf992f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 5975,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T08:10:06Z",
+      "side": 1,
+      "message": "Suggest renaming to either \"updateVpnLockdownUidRanges\", or, if you want to use a passive term (which we generally do for callbacks and similar methods), \"onVpnLockdownUidRangesUpdated\".",
+      "range": {
+        "startLine": 5975,
+        "startChar": 31,
+        "endLine": 5975,
+        "endChar": 58
+      },
+      "revId": "c760c1f61fc448a98c45956fbaf74aa959b8711f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3c5445f_a145cabd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 8258,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T08:10:06Z",
+      "side": 1,
+      "message": "Could we do something like:\n\n    if (!prevRanges.isEmpty() \u0026\u0026 (wasFiltering || wasWildcard)) {\n        mPermissionMonitor.onVpnUidRangesRemoved(\n                wasFiltering ? iface : null,\n                prevRanges, prevNc.getOwnerUid());",
+      "range": {
+        "startLine": 8256,
+        "startChar": 0,
+        "endLine": 8258,
+        "endChar": 62
+      },
+      "revId": "c760c1f61fc448a98c45956fbaf74aa959b8711f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85a28354_bbc34fd4",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T08:10:06Z",
+      "side": 1,
+      "message": "VPNs which enable interface filtering",
+      "range": {
+        "startLine": 116,
+        "startChar": 26,
+        "endLine": 116,
+        "endChar": 64
+      },
+      "revId": "c760c1f61fc448a98c45956fbaf74aa959b8711f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a070248a_df660716",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T08:10:06Z",
+      "side": 1,
+      "message": "Consider ArrayMap (Android-specific) to save memory. It\u0027s appropriate for containers with a small number of elements, which is definitely the case here since there are only a few network interfaces active at any time.",
+      "range": {
+        "startLine": 118,
+        "startChar": 74,
+        "endLine": 118,
+        "endChar": 81
+      },
+      "revId": "c760c1f61fc448a98c45956fbaf74aa959b8711f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01d6a603_a4a321f2",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T08:10:06Z",
+      "side": 1,
+      "message": "VPNs which are connected but do not enable interface filtering\n\nBTW, any reason why this information could not be stored in mVpnInterfaceUidRanges under a key of null or \"\"? Is the code simpler this way?",
+      "range": {
+        "startLine": 120,
+        "startChar": 33,
+        "endLine": 120,
+        "endChar": 79
+      },
+      "revId": "c760c1f61fc448a98c45956fbaf74aa959b8711f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a738e777_be2833fb",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T08:10:06Z",
+      "side": 1,
+      "message": "Per discussion: this actually can\u0027t be a set because the contract of ConnectivityManager#setRequireVpnForUids allows the caller to pass in duplicates. Additionally, the implementation allows the caller to pass in ranges that are already subject to lockdown, and maintains them in a list.",
+      "range": {
+        "startLine": 126,
+        "startChar": 18,
+        "endLine": 126,
+        "endChar": 21
+      },
+      "revId": "c760c1f61fc448a98c45956fbaf74aa959b8711f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5326a83a_4c552fdf",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T08:10:06Z",
+      "side": 1,
+      "message": "the app is allowed to receive packets on all interfaces.",
+      "range": {
+        "startLine": 882,
+        "startChar": 87,
+        "endLine": 883,
+        "endChar": 62
+      },
+      "revId": "c760c1f61fc448a98c45956fbaf74aa959b8711f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f61e8cc3_5cb44457",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T08:10:06Z",
+      "side": 1,
+      "message": ": if an app is not installed, it cannot receive any packets, so dropping packets to that UID is fine.",
+      "range": {
+        "startLine": 892,
+        "startChar": 26,
+        "endLine": 892,
+        "endChar": 27
+      },
+      "revId": "c760c1f61fc448a98c45956fbaf74aa959b8711f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9bec5e4_bc2fe8fc",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T08:10:06Z",
+      "side": 1,
+      "message": "setRequireVpnForUids doesn\u0027t really have any concept of which VPNs are running or not. It just says, \"here are the UIDs that must receive connectivity through a VPN\". I think this is still safe though. Maybe say:\n\nSo the generated uid list might contain apps that are installed only on some users but not others. But that\u0027s safe: if an app is not installed, it cannot receive any packets, so dropping packets to that UID is fine.",
+      "range": {
+        "startLine": 944,
+        "startChar": 71,
+        "endLine": 944,
+        "endChar": 98
+      },
+      "revId": "c760c1f61fc448a98c45956fbaf74aa959b8711f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fc8d85c_4ca2d8b5",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T08:10:06Z",
+      "side": 1,
+      "message": "\"changed\" suggests that the behaviour for these UIDs is changed by this method call. But it\u0027s not, right? The caller of this method always passes in the complete set of ranges subject to lockdown, and this method always writes all of them to the map. Maybe \"affectedUids\"?\n\nThat said - since \"changedUids\" is what is used in other methods in this file such as onVpnUidRanegsAdded, maybe we can just leave it as is for now, and then optionally update all of them together in a future CL.",
+      "range": {
+        "startLine": 946,
+        "startChar": 27,
+        "endLine": 946,
+        "endChar": 34
+      },
+      "revId": "c760c1f61fc448a98c45956fbaf74aa959b8711f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "014ffb3e_7c85cd41",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T08:10:06Z",
+      "side": 1,
+      "message": "Per discussion: I think this is correct. We might want a comment here explaining that the behaviour is consistent with how lockdown works for outgoing packets, but the implementation is different: while setRequireVpnForUids does not exclude privileged apps from the prohibit routing rules used to implement lockdown, privileged apps can still bypass VPN lockdown because the prohibit rules observe the protected from VPN bit.",
+      "range": {
+        "startLine": 947,
+        "startChar": 44,
+        "endLine": 947,
+        "endChar": 45
+      },
+      "revId": "c760c1f61fc448a98c45956fbaf74aa959b8711f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26ea0ab9_511833d5",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T08:10:06Z",
+      "side": 1,
+      "message": "-1 /* vpnAppUid */",
+      "range": {
+        "startLine": 947,
+        "startChar": 41,
+        "endLine": 947,
+        "endChar": 43
+      },
+      "revId": "c760c1f61fc448a98c45956fbaf74aa959b8711f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7932a2c_a5c6ef05",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T08:10:06Z",
+      "side": 1,
+      "message": "I don\u0027t think this will work because the list of UIDs subject to lockdown can contain duplicates. As discussed, maybe we need to keep a counter for each range? Perhaps a Set\u003cUidRange, Integer\u003e?",
+      "range": {
+        "startLine": 954,
+        "startChar": 34,
+        "endLine": 954,
+        "endChar": 43
+      },
+      "revId": "c760c1f61fc448a98c45956fbaf74aa959b8711f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43d49532_143f6b2d",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 996,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T08:10:06Z",
+      "side": 1,
+      "message": "Could this be just int?",
+      "range": {
+        "startLine": 996,
+        "startChar": 35,
+        "endLine": 996,
+        "endChar": 42
+      },
+      "revId": "c760c1f61fc448a98c45956fbaf74aa959b8711f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30f7aa96_66011a43",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 996,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-12T08:10:06Z",
+      "side": 1,
+      "message": "Looks identical to hasRestrictedNetworksPermission, use that instead?",
+      "revId": "c760c1f61fc448a98c45956fbaf74aa959b8711f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
