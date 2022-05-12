@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf40bc2a_997cd893",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-12T01:21:26Z",
+      "side": 1,
+      "message": "I would agree it\u0027s fine to skip this on older releases (before T). This test covers functionalities that are fully implemented in Vpn.java, and Vpn.java isn\u0027t updatable, so running it on older releases doesn\u0027t bring much value compared to the cost of keeping it passing (Vpn.java doesn\u0027t use stable APIs so it\u0027s hard to keep the test backwards compatible).\n\nIt\u0027s also a unit test, so doesn\u0027t test what is preloaded on the device, only what was built into the test APK (which is always new).",
+      "parentUuid": "273b7263_753faecc",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 48
+      },
+      "revId": "f0f8ff1459ba413f6e9e988d26e39675f5ff2b0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "391bde4f_d1e3edb0",
         "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
         "patchSetId": 3
