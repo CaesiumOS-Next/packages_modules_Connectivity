@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8f69002_7dcdd5d1",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-05-12T02:51:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a33c79c9_265cd63b",
+      "range": {
+        "startLine": 334,
+        "startChar": 8,
+        "endLine": 334,
+        "endChar": 20
+      },
+      "revId": "53d2508973c9e80af3e21acee6f52201d8e39286",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a430d3c_126acecb",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-05-11T12:17:03Z",
       "side": 1,
       "message": "FWIW these can be on the same line if you want:\n\n    @Test @IgnoreUpTo(S_V2)",
+      "range": {
+        "startLine": 753,
+        "startChar": 0,
+        "endLine": 754,
+        "endChar": 9
+      },
+      "revId": "53d2508973c9e80af3e21acee6f52201d8e39286",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f887bab6_f8230b24",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-05-12T02:51:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a430d3c_126acecb",
       "range": {
         "startLine": 753,
         "startChar": 0,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "67bb68eb_51546f35",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-05-12T02:51:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1904879_04d71def",
+      "range": {
+        "startLine": 760,
+        "startChar": 24,
+        "endLine": 760,
+        "endChar": 69
+      },
+      "revId": "53d2508973c9e80af3e21acee6f52201d8e39286",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4a5656d_55555dc3",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-05-11T12:17:03Z",
       "side": 1,
       "message": "Suggest statically importing com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo and shortening these annotations.",
+      "range": {
+        "startLine": 768,
+        "startChar": 4,
+        "endLine": 768,
+        "endChar": 32
+      },
+      "revId": "53d2508973c9e80af3e21acee6f52201d8e39286",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0787fe0f_007fc1a0",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-05-12T02:51:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4a5656d_55555dc3",
       "range": {
         "startLine": 768,
         "startChar": 4,
