@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e513488_c1928894",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-12T07:09:33Z",
+      "side": 1,
+      "message": "Can we pass it through parameters?",
+      "range": {
+        "startLine": 809,
+        "startChar": 55,
+        "endLine": 809,
+        "endChar": 65
+      },
+      "revId": "2c8aec997e0ba11d462d36e5c6b9907348d78eb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

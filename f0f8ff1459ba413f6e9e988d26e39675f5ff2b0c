@@ -143,6 +143,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c06777f_8925e231",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-12T07:09:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cf40bc2a_997cd893",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 48
+      },
+      "revId": "f0f8ff1459ba413f6e9e988d26e39675f5ff2b0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "391bde4f_d1e3edb0",
@@ -180,6 +204,30 @@
       "side": 1,
       "message": "I added a function in the other file; I\u0027m not sure what\u0027s a good place to put it such that it can be used here as well. But if possible I\u0027ll address that in a follow-up CL.",
       "parentUuid": "391bde4f_d1e3edb0",
+      "range": {
+        "startLine": 481,
+        "startChar": 65,
+        "endLine": 484,
+        "endChar": 98
+      },
+      "revId": "f0f8ff1459ba413f6e9e988d26e39675f5ff2b0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9eff32a7_63733b98",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-12T07:09:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7ec00269_c8e4ac48",
       "range": {
         "startLine": 481,
         "startChar": 65,
