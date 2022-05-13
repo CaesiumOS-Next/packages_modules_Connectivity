@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b439c8fa_59bbcd4b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-13T09:15:37Z",
+      "side": 1,
+      "message": "BTW, tethering module already have \".next\" and \"for release\" variant. Maybe service-connectivity also need to separate as current (for next) and stable (for release), then it could more easily to maintain.",
+      "revId": "ed02d6150655edf8bcef50d9897874596c8b8768",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
