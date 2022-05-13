@@ -349,6 +349,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "98ae45a6_3fe2cd7a",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-13T14:44:57Z",
+      "side": 1,
+      "message": "No, I mean - would be good to say if the prefix must end with a dot (e.g., com.android.connectivity.jarjar.) or not (e.g., com.android.connectivity.jarjar).",
+      "parentUuid": "6e12c6cf_b28f8405",
+      "range": {
+        "startLine": 31,
+        "startChar": 72,
+        "endLine": 31,
+        "endChar": 79
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f08bb1d0_37b794aa",
         "filename": "tools/gen_jarjar.py",
         "patchSetId": 17
