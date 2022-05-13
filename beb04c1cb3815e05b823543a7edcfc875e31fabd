@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e13a04c_64f2a761",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-13T03:15:01Z",
+      "side": 1,
+      "message": "urim.kim: do you already have an issuetracker issue for this test improvement? If so, please add it to the commit message via a Bug: line. If not, please open one.\n\nEtan: is this the right fix? I do see that the the wifi service calls clearCallingIdentity, but is that working as intended? How does this test pass on other devices such as Pixel? AFAIK it\u0027s in presubmit...",
+      "revId": "beb04c1cb3815e05b823543a7edcfc875e31fabd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
