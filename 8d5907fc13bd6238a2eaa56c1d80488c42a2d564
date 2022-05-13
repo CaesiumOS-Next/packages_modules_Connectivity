@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7e82cd7_2fb16a77",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-13T05:34:54Z",
+      "side": 1,
+      "message": "Nit: this could just be \"callsPerCaller + 1\".",
+      "range": {
+        "startLine": 857,
+        "startChar": 52,
+        "endLine": 857,
+        "endChar": 82
+      },
+      "revId": "8d5907fc13bd6238a2eaa56c1d80488c42a2d564",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
