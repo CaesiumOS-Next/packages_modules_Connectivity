@@ -70,6 +70,24 @@
       "parentUuid": "e76c788c_d93d0400",
       "revId": "beb04c1cb3815e05b823543a7edcfc875e31fabd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08185803_578bab6f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1039103
+      },
+      "writtenOn": "2022-05-13T04:44:34Z",
+      "side": 1,
+      "message": "Hmm, we did have some bypasses for shell (e.g. `callingUid !\u003d Process.SHELL_UID`) - but I don\u0027t see one for `getScanResults()`. Still not clear to me what the failure mode would be (empty results vs. a `SecurityException`).",
+      "parentUuid": "a7ce9762_c9f137f9",
+      "revId": "beb04c1cb3815e05b823543a7edcfc875e31fabd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
