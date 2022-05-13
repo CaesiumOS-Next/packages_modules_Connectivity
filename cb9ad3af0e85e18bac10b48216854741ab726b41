@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "173628a7_9e642eb5",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 853,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-13T02:47:02Z",
+      "side": 1,
+      "message": "Sorry for missing this, but this looks wrong - it would have been better to keep the IgnoreUpTo annotation. Can you upload a follow-up CL to fix it?",
+      "range": {
+        "startLine": 853,
+        "startChar": 8,
+        "endLine": 853,
+        "endChar": 43
+      },
+      "revId": "cb9ad3af0e85e18bac10b48216854741ab726b41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
