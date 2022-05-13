@@ -22,6 +22,30 @@
       },
       "revId": "cb9ad3af0e85e18bac10b48216854741ab726b41",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffee60ce_eeb89967",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 853,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-13T02:52:40Z",
+      "side": 1,
+      "message": "Since the test is using JUnit3, which doesn\u0027t support rules\nor assumeTrue, the IgnoreUpTo rule does not take effect.\n\nA follow-up will be submitted since we move it to JUnit4 now.",
+      "parentUuid": "173628a7_9e642eb5",
+      "range": {
+        "startLine": 853,
+        "startChar": 8,
+        "endLine": 853,
+        "endChar": 43
+      },
+      "revId": "cb9ad3af0e85e18bac10b48216854741ab726b41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
