@@ -88,6 +88,24 @@
       "parentUuid": "a7ce9762_c9f137f9",
       "revId": "beb04c1cb3815e05b823543a7edcfc875e31fabd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfcfad58_d1318a7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-13T04:53:49Z",
+      "side": 1,
+      "message": "If I read the code and bugreport correctly, it is empty result.\n\nhttps://source.corp.google.com/android/packages/modules/Wifi/service/java/com/android/server/wifi/WifiServiceImpl.java;l\u003d3981",
+      "parentUuid": "08185803_578bab6f",
+      "revId": "beb04c1cb3815e05b823543a7edcfc875e31fabd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
