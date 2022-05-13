@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f38e891_125d82ba",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-13T09:29:44Z",
+      "side": 1,
+      "message": "This assumes that softAp and localOnlyHotspot can\u0027t be started at the same time, but it seems that there aren\u0027t strong guarantees for that.\n\nCould you add some check to make sure that is never the case on T+ ? You could Log.wtf on all API levels, and never start tethering twice on the same tethering type on T+.",
+      "range": {
+        "startLine": 561,
+        "startChar": 12,
+        "endLine": 561,
+        "endChar": 34
+      },
+      "revId": "a08c61f997b67202564269bdb84cecd6eca4305a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ca22820_68d4cf6c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1244,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-13T09:29:44Z",
+      "side": 1,
+      "message": "It seems this isn\u0027t where it\u0027s enforced that multiple softAp (local-only and normal) can\u0027t be enabled simultaneously; in fact as per discussion it possibly could happen if a different interface name is used for them, although other problems may appear.\n\nSo we could possibly add support for it without modifying this location ? In which case the comment would become stale and wasn\u0027t noticed.\n\nMaybe just having it in onConnectedClientsChanged would be better in that case; at least it would be at the location that should be updated.",
+      "revId": "a08c61f997b67202564269bdb84cecd6eca4305a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
