@@ -16,6 +16,24 @@
       "message": "urim.kim: do you already have an issuetracker issue for this test improvement? If so, please add it to the commit message via a Bug: line. If not, please open one.\n\nEtan: is this the right fix? I do see that the the wifi service calls clearCallingIdentity, but is that working as intended? How does this test pass on other devices such as Pixel? AFAIK it\u0027s in presubmit...",
       "revId": "beb04c1cb3815e05b823543a7edcfc875e31fabd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ae36aef_e346e5df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-13T03:40:05Z",
+      "side": 1,
+      "message": "This is for b/228289369, update some history here but Etan/urim.kim could correct me if my analysis is wrong.\n\nDue to carrier request, LG have preload AP list (e.g. \"5G_U+zone\"). Since Pixel don\u0027t have preload AP list, so even if getScanResult fail using the first AP would successful.\nCompare with wifi cts (WifiManagerTest in this case) why it don\u0027t have such problem, it declare the Location permissions. So I just suggest urim.kim follow wifi cts to also add the location permissions to tethering cts.",
+      "parentUuid": "1e13a04c_64f2a761",
+      "revId": "beb04c1cb3815e05b823543a7edcfc875e31fabd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
