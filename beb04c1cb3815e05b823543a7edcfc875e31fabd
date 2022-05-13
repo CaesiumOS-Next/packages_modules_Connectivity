@@ -34,6 +34,24 @@
       "parentUuid": "1e13a04c_64f2a761",
       "revId": "beb04c1cb3815e05b823543a7edcfc875e31fabd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e76c788c_d93d0400",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1039103
+      },
+      "writtenOn": "2022-05-13T04:36:12Z",
+      "side": 1,
+      "message": "clearCallingIdentity is done after we obtain the UID, we check the permissions on the UID. Nothing should be lost, lost permissions would result in a SecurityException not empty results.",
+      "parentUuid": "0ae36aef_e346e5df",
+      "revId": "beb04c1cb3815e05b823543a7edcfc875e31fabd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
