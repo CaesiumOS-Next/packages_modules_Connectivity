@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ff049f9_9238e2d7",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-05-13T09:57:19Z",
+      "side": 1,
+      "message": "Nit: Not for this commit, maybe name it \"policyPartialParams\" and \"policyAllParams\" for policy2.\nIt will be clearer.",
+      "range": {
+        "startLine": 635,
+        "startChar": 12,
+        "endLine": 635,
+        "endChar": 18
+      },
+      "revId": "e849ea4dbea9267977d4a8ac53d367ea14e9c9c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
