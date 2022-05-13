@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b94801a3_32de124f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-13T17:21:15Z",
+      "side": 1,
+      "message": "This comment explain why we need to listen interface change before T. I have change the comment to avoid confusion.",
+      "parentUuid": "07a9e036_72fc4625",
+      "range": {
+        "startLine": 563,
+        "startChar": 63,
+        "endLine": 564,
+        "endChar": 66
+      },
+      "revId": "3a38615611a23b571af28d381a6ff924ecee243e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5dc6aa9d_b6bf2ee1",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-13T10:03:50Z",
       "side": 1,
       "message": "Typo: ETHERNET",
+      "range": {
+        "startLine": 568,
+        "startChar": 21,
+        "endLine": 568,
+        "endChar": 28
+      },
+      "revId": "3a38615611a23b571af28d381a6ff924ecee243e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c345a773_a6f4ebc4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-13T17:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5dc6aa9d_b6bf2ee1",
       "range": {
         "startLine": 568,
         "startChar": 21,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac709dd3_73caa98e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-13T17:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae66f37f_8fe8438b",
+      "range": {
+        "startLine": 573,
+        "startChar": 91,
+        "endLine": 574,
+        "endChar": 18
+      },
+      "revId": "3a38615611a23b571af28d381a6ff924ecee243e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf1a3d2e_e082a3e2",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-05-13T10:03:50Z",
       "side": 1,
       "message": "This repeats what is on L.847, and it\u0027s hard to follow/maintain the test with a lot of branches like that.\n\nMaybe you could have a method like \"verifyWifiInterfaceAdded\", which would have the contents of this if/else ? I think it could be used on L.847, L.926, here, and L.1494",
+      "range": {
+        "startLine": 1464,
+        "startChar": 8,
+        "endLine": 1464,
+        "endChar": 10
+      },
+      "revId": "3a38615611a23b571af28d381a6ff924ecee243e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69ac5709_284062da",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1464,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-13T17:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf1a3d2e_e082a3e2",
       "range": {
         "startLine": 1464,
         "startChar": 8,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d05a1367_fab26c7e",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1492,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-13T17:21:15Z",
+      "side": 1,
+      "message": "Oops, yes.",
+      "parentUuid": "dcec5973_02223890",
+      "range": {
+        "startLine": 1492,
+        "startChar": 51,
+        "endLine": 1492,
+        "endChar": 57
+      },
+      "revId": "3a38615611a23b571af28d381a6ff924ecee243e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "814fd5ae_12626d5c",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-05-13T10:03:50Z",
       "side": 1,
       "message": "Can you comment why there\u0027s a difference here ? Could this also be included in the \"verifyWifiInterfaceAdded\" method ?",
+      "range": {
+        "startLine": 1912,
+        "startChar": 8,
+        "endLine": 1912,
+        "endChar": 10
+      },
+      "revId": "3a38615611a23b571af28d381a6ff924ecee243e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53e9ddc2_6fd6e77d",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1912,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-13T17:21:15Z",
+      "side": 1,
+      "message": "This test case focus on the tethering event callback behavior. Since \"verifyWifiInterfaceAdded\" by other test case, I would like to keep it as is.",
+      "parentUuid": "814fd5ae_12626d5c",
       "range": {
         "startLine": 1912,
         "startChar": 8,
