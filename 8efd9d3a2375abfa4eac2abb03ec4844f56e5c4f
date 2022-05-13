@@ -119,6 +119,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71c9ddda_ff768aa3",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-05-13T04:32:24Z",
+      "side": 1,
+      "message": "Done, okay, remove PID from OpenSessionKey.",
+      "parentUuid": "94b2ae00_8a484122",
+      "range": {
+        "startLine": 428,
+        "startChar": 25,
+        "endLine": 428,
+        "endChar": 29
+      },
+      "revId": "8efd9d3a2375abfa4eac2abb03ec4844f56e5c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f65021c5_44d38787",
@@ -250,6 +274,30 @@
       "side": 1,
       "message": "Can you add add a TODO to consider this?",
       "parentUuid": "2b50e1dc_77fd9474",
+      "range": {
+        "startLine": 2008,
+        "startChar": 4,
+        "endLine": 2008,
+        "endChar": 5
+      },
+      "revId": "8efd9d3a2375abfa4eac2abb03ec4844f56e5c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4222c92_14bd47ed",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2008,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-05-13T04:32:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b909058_ba52e456",
       "range": {
         "startLine": 2008,
         "startChar": 4,
