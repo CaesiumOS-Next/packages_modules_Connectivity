@@ -15,6 +15,7 @@
  */
 package android.net.cts
 
+import android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS
 import android.Manifest.permission.MANAGE_TEST_NETWORKS
 import android.Manifest.permission.NETWORK_SETTINGS
 import android.content.Context
@@ -36,6 +37,7 @@ import android.os.Handler
 import android.os.HandlerExecutor
 import android.os.Looper
 import android.os.OutcomeReceiver
+import android.os.Process
 import android.platform.test.annotations.AppModeFull
 import android.util.ArraySet
 import android.util.Log
@@ -58,6 +60,7 @@ import com.android.testutils.RouterAdvertisementResponder
 import com.android.testutils.SC_V2
 import com.android.testutils.TapPacketReader
 import com.android.testutils.TestableNetworkCallback
+import com.android.testutils.assertThrows
 import com.android.testutils.runAsShell
 import com.android.testutils.waitForIdle
 import org.junit.After
@@ -65,8 +68,10 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.io.IOException
 import java.net.Inet6Address
 import java.net.NetworkInterface
+import java.net.Socket
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
@@ -88,7 +93,10 @@ private val DEFAULT_IP_CONFIGURATION = IpConfiguration(IpConfiguration.IpAssignm
 private val TEST_REQUEST = NetworkRequest.Builder()
         .clearCapabilities()
         .addTransportType(NetworkCapabilities.TRANSPORT_TEST)
-        .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
+        .build()
+private val TEST_CAPABILITIES = NetworkCapabilities.Builder()
+        .addTransportType(NetworkCapabilities.TRANSPORT_TEST)
+        .removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
         .build()
 private val LOCAL_LINK_ADDRESS = LinkAddress(LOCAL_IP_ADDRESS)
 private val LOCAL_STATIC_IP_CONFIG = StaticIpConfiguration.Builder()
@@ -122,7 +130,7 @@ class EthernetManagerTest {
         val interfaceName get() = tapInterface.interfaceName
 
         init {
-            tapInterface = runAsShell(MANAGE_TEST_NETWORKS) {
+            tapInterface = runAsShell<TestNetworkInterface>(MANAGE_TEST_NETWORKS) {
                 val tnm = context.getSystemService(TestNetworkManager::class.java)
                 tnm.createTapInterface(false /* bringUp */)
             }
@@ -361,9 +369,7 @@ class EthernetManagerTest {
         val testIface = createInterface()
 
         Log.i(TAG, "Created test interface " + testIface.interfaceName)
-        val nc = NetworkCapabilities.Builder()
-                .addTransportType(NetworkCapabilities.TRANSPORT_TEST).build()
-        val iface = updateConfiguration(testIface.interfaceName, LOCAL_IP_CONFIG, nc)
+        val iface = updateConfiguration(testIface.interfaceName, LOCAL_IP_CONFIG, TEST_CAPABILITIES)
         assertEquals(testIface.interfaceName, iface,
                 "The test iface does not match the iface updated")
         return testIface.interfaceName
@@ -372,7 +378,7 @@ class EthernetManagerTest {
     @Throws(Exception::class)
     private fun updateConfiguration(
         iface: String,
-        ipConfig: IpConfiguration,
+        ipConfig: IpConfiguration?,
         nc: NetworkCapabilities
     ): String {
         val listener = EthernetConfigCallback()
@@ -392,8 +398,10 @@ class EthernetManagerTest {
     }
 
     private fun requestNetwork(request: NetworkRequest, cb: TestableNetworkCallback) {
-        cm.requestNetwork(request, cb)
-        addedCallbacks.add(cb)
+        runAsShell(CONNECTIVITY_USE_RESTRICTED_NETWORKS) {
+            cm.requestNetwork(request, cb)
+            addedCallbacks.add(cb)
+        }
     }
 
     @Test
@@ -431,8 +439,8 @@ class EthernetManagerTest {
         // UpdateConfiguration() currently does a restarts on the ethernet interface therefore lost
         // will be expected first before available, as part of the restart.
         cb.expectCallback<Lost>(n)
-
         cb.expectCallback<Available>()
+
         cb.expectCapabilitiesThat(cb.lastAvailableNetwork!!, CB_TIMEOUT_MS) {
             netcap: NetworkCapabilities -> netcap.hasCapability(testCapability)
         }
@@ -441,6 +449,40 @@ class EthernetManagerTest {
             val linkAddr = lp.linkAddresses[0]
             linkAddr.address == newAddr.address && linkAddr.prefixLength == newAddr.prefixLength
         }
+
+        // Cleanup, only needed if the above statements are successful.
+        disableInterface(iface)
+        cb.eventuallyExpect(LOST, CB_TIMEOUT_MS)
+    }
+
+    @Test
+    fun testUpdateConfigurationAllowedUids() {
+        val cb = TestableNetworkCallback()
+        requestNetwork(TEST_REQUEST, cb)
+        val iface: String = createTestNetwork()
+        cb.expectAvailableThenValidatedCallbacks(CB_TIMEOUT_MS)
+        val n1 = assertNotNull(cb.lastAvailableNetwork)
+
+        // The test network is restricted therefore binding to it when available will fail.
+        Socket().use { socket ->
+            assertThrows(IOException::class.java, { n1.bindSocket(socket) })
+        }
+
+        // Add the test process UID to the allowed UIDs for the test network.
+        val allowedUids = ArraySet<Int>()
+        allowedUids.add(Process.myUid())
+        val nc = NetworkCapabilities.Builder(TEST_CAPABILITIES)
+                .setAllowedUids(allowedUids)
+                .build()
+        updateConfiguration(iface, null /* ipConfig */, nc)
+        // UpdateConfiguration() currently does a restart on the ethernet interface therefore lost
+        // will be expected first before available, as part of the restart.
+        cb.expectCallback<Lost>(n1)
+        cb.expectCallback<Available>()
+        val n2 = assertNotNull(cb.lastAvailableNetwork)
+
+        // With the test process UID allowed, binding to a restricted network should be successful.
+        Socket().use { socket -> n2.bindSocket(socket) }
 
         // Cleanup, only needed if the above statements are successful.
         disableInterface(iface)
