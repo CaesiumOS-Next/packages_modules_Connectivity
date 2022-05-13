@@ -41,6 +41,7 @@ import android.net.LinkAddress
 import android.net.MacAddress
 import android.net.Network
 import android.net.NetworkCapabilities
+import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED
 import android.net.NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED
 import android.net.NetworkCapabilities.NET_CAPABILITY_TRUSTED
 import android.net.NetworkCapabilities.TRANSPORT_ETHERNET
@@ -55,6 +56,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.os.OutcomeReceiver
+import android.os.Process
 import android.platform.test.annotations.AppModeFull
 import android.util.ArraySet
 import androidx.test.platform.app.InstrumentationRegistry
@@ -72,6 +74,7 @@ import com.android.testutils.SkipPresubmit
 import com.android.testutils.TapPacketReader
 import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.anyNetwork
+import com.android.testutils.assertThrows
 import com.android.testutils.runAsShell
 import com.android.testutils.waitForIdle
 import org.junit.After
@@ -79,8 +82,10 @@ import org.junit.Assume.assumeTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.io.IOException
 import java.net.Inet6Address
 import java.util.Random
+import java.net.Socket
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.TimeUnit
@@ -97,7 +102,7 @@ import kotlin.test.fail
 private const val TAG = "EthernetManagerTest"
 // TODO: try to lower this timeout in the future. Currently, ethernet tests are still flaky because
 // the interface is not ready fast enough (mostly due to the up / up / down / up issue).
-private const val TIMEOUT_MS = 2000L
+private const val TIMEOUT_MS = 4000L
 // Timeout used to confirm no callbacks matching given criteria are received. Must be long enough to
 // process all callbacks including ip provisioning when using the updateConfiguration API.
 private const val NO_CALLBACK_TIMEOUT_MS = 500L
@@ -826,5 +831,38 @@ class EthernetManagerTest {
         cb.expectLost(network)
         cb.expectAvailable()
         cb.expectCapabilitiesWithCapability(testCapability)
+    }
+
+    @Test
+    fun testUpdateConfiguration_forAllowedUids() {
+        // Configure a restricted network.
+        val iface = createInterface()
+        val request = NetworkRequest.Builder(ETH_REQUEST.copyWithEthernetSpecifier(iface.name))
+                .removeCapability(NET_CAPABILITY_NOT_RESTRICTED).build()
+        updateConfiguration(iface, capabilities = request.networkCapabilities)
+                .expectResult(iface.name)
+
+        // Request the restricted network as the shell with CONNECTIVITY_USE_RESTRICTED_NETWORKS.
+        val cb = runAsShell(CONNECTIVITY_USE_RESTRICTED_NETWORKS) { requestNetwork(request) }
+        val network = cb.expectAvailable()
+        cb.assertNeverLost(network)
+
+        // The network is restricted therefore binding to it when available will fail.
+        Socket().use { socket ->
+            assertThrows(IOException::class.java, { network.bindSocket(socket) })
+        }
+
+        // Add the test process UID to the allowed UIDs for the network and ultimately bind again.
+        val allowedUids = setOf(Process.myUid())
+        val nc = NetworkCapabilities.Builder(request.networkCapabilities)
+                .setAllowedUids(allowedUids).build()
+        updateConfiguration(iface, capabilities = nc).expectResult(iface.name)
+
+        // UpdateConfiguration() currently does a restart on the ethernet interface therefore lost
+        // will be expected first before available, as part of the restart.
+        cb.expectLost(network)
+        val updatedNetwork = cb.expectAvailable()
+        // With the test process UID allowed, binding to a restricted network should be successful.
+        Socket().use { socket -> updatedNetwork.bindSocket(socket) }
     }
 }
