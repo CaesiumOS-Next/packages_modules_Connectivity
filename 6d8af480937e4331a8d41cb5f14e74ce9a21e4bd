@@ -16,6 +16,29 @@
       "message": "Update what I found.\n\nIt seems like the CTS device keep connecting to WiFi network, so that make the test failed.\n\nI decide  turn off the wifi during the CTS test process.",
       "revId": "6d8af480937e4331a8d41cb5f14e74ce9a21e4bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a166e3f2_eafece79",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-13T11:08:15Z",
+      "side": 1,
+      "message": "I think the reason you want to turn off wifi because you need tethering use cellular as upstream then check whether tethering is not active due to carrier unsupported.\n\nSo you probably need to explicitly check whether there cellular is default network.\nLike what testTetheringUpstream do in l.534 ~ 545. Note: don\u0027t just copy the code, you could extract the code to a function and reuse it.",
+      "range": {
+        "startLine": 429,
+        "startChar": 15,
+        "endLine": 429,
+        "endChar": 29
+      },
+      "revId": "6d8af480937e4331a8d41cb5f14e74ce9a21e4bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
