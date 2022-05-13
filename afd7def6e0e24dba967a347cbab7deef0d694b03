@@ -33,6 +33,23 @@
       "message": "Hi Lorenzo, \ngentle ping on this CL",
       "revId": "afd7def6e0e24dba967a347cbab7deef0d694b03",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a6d1d44_7e3c614a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-13T15:39:58Z",
+      "side": 1,
+      "message": "Presubmit is failing because the test is crashing in pretty much all branches/suites with:\n\n[INSTRUMENTATION_CRASH|520200|SYSTEM_UNDER_TEST_CRASHED] Instrumentation run failed due to \u0027Process crashed.\u0027\nNative Crash Messages sorted from most recent:\nfingerprint: generic/aosp_cf_x86_64_phone/vsoc_x86_64:UpsideDownCake/AOSP.MASTER/P34829096:userdebug/test-keys\napp: android.net.cts\nBuild fingerprint: \u0027generic/aosp_cf_x86_64_phone/vsoc_x86_64:UpsideDownCake/AOSP.MASTER/P34829096:userdebug/test-keys\u0027\nRevision: \u00270\u0027\nABI: \u0027x86_64\u0027\nTimestamp: 2022-05-13 09:37:04.100250892+0000\nProcess uptime: 4s\nCmdline: android.net.cts\npid: 3571, tid: 3597, name: pool-2-thread-1  \u003e\u003e\u003e android.net.cts \u003c\u003c\u003c\nuid: 10093\nsignal 6 (SIGABRT), code -1 (SI_QUEUE), fault addr --------\nAbort message: \u0027JNI DETECTED ERROR IN APPLICATION: JNI NewStringUTF called with pending exception java.io.IOException: Try again\n  at int android.net.LocalSocketImpl.read_native(java.io.FileDescriptor) (LocalSocketImpl.java:-2)\n  at int android.net.LocalSocketImpl.-$$Nest$mread_native(android.net.LocalSocketImpl, java.io.FileDescriptor) (LocalSocketImpl.java:-1)\n  at int android.net.LocalSocketImpl$SocketInputStream.read() (LocalSocketImpl.java:88)\n  at android.net.cts.LocalSocketTest$Result android.net.cts.LocalSocketTest.lambda$testSetSoTimeout_readTimeout$11(android.net.LocalSocket) (LocalSocketTest.java:213)\n\n\nThat test is pretty solid green at HEAD:\n\nhttps://android-build.googleplex.com/builds/tests/view?invocationId\u003dI81800010049980793\u0026testResultId\u003dTR85228031314097202\n\nso it looks like the failure is caused by this CL. Maybe setting the APK to debuggable causes it to crash due to an error that would be silently ignored if the APK was not debuggable?",
+      "revId": "afd7def6e0e24dba967a347cbab7deef0d694b03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
