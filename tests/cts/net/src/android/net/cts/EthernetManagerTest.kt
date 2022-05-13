@@ -41,6 +41,7 @@ import android.net.LinkAddress
 import android.net.MacAddress
 import android.net.Network
 import android.net.NetworkCapabilities
+import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED
 import android.net.NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED
 import android.net.NetworkCapabilities.NET_CAPABILITY_TRUSTED
 import android.net.NetworkCapabilities.TRANSPORT_ETHERNET
@@ -55,6 +56,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.os.OutcomeReceiver
+import android.os.Process
 import android.platform.test.annotations.AppModeFull
 import android.util.ArraySet
 import androidx.test.platform.app.InstrumentationRegistry
@@ -71,6 +73,7 @@ import com.android.testutils.RouterAdvertisementResponder
 import com.android.testutils.TapPacketReader
 import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.anyNetwork
+import com.android.testutils.assertThrows
 import com.android.testutils.runAsShell
 import com.android.testutils.waitForIdle
 import org.junit.After
@@ -78,7 +81,9 @@ import org.junit.Assume.assumeTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.io.IOException
 import java.net.Inet6Address
+import java.net.Socket
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.TimeUnit
@@ -443,7 +448,7 @@ class EthernetManagerTest {
 
     // NetworkRequest.Builder does not create a copy of the passed NetworkRequest, so in order to
     // keep ETH_REQUEST as it is, a defensive copy is created here.
-    private fun NetworkRequest.createCopyWithEthernetSpecifier(ifaceName: String) =
+    private fun NetworkRequest.createCopyWithEthSpecifier(ifaceName: String) =
         NetworkRequest.Builder(NetworkRequest(ETH_REQUEST))
             .setNetworkSpecifier(EthernetNetworkSpecifier(ifaceName)).build()
 
@@ -641,7 +646,7 @@ class EthernetManagerTest {
         val iface1 = createInterface()
         val iface2 = createInterface()
 
-        val cb = requestNetwork(ETH_REQUEST.createCopyWithEthernetSpecifier(iface2.name))
+        val cb = requestNetwork(ETH_REQUEST.createCopyWithEthSpecifier(iface2.name))
 
         val network = cb.expectAvailable()
         cb.expectCapabilitiesWithInterfaceName(iface2.name)
@@ -674,8 +679,8 @@ class EthernetManagerTest {
         val iface1 = createInterface()
         val iface2 = createInterface()
 
-        val cb1 = requestNetwork(ETH_REQUEST.createCopyWithEthernetSpecifier(iface1.name))
-        val cb2 = requestNetwork(ETH_REQUEST.createCopyWithEthernetSpecifier(iface2.name))
+        val cb1 = requestNetwork(ETH_REQUEST.createCopyWithEthSpecifier(iface1.name))
+        val cb2 = requestNetwork(ETH_REQUEST.createCopyWithEthSpecifier(iface2.name))
         val cb3 = requestNetwork(ETH_REQUEST)
 
         cb1.expectAvailable()
@@ -752,7 +757,7 @@ class EthernetManagerTest {
     @Test
     fun testUpdateConfiguration_forBothIpConfigAndCapabilities() {
         val iface = createInterface()
-        val cb = requestNetwork(ETH_REQUEST.createCopyWithEthernetSpecifier(iface.name))
+        val cb = requestNetwork(ETH_REQUEST.createCopyWithEthSpecifier(iface.name))
         val network = cb.expectAvailable()
         cb.assertNeverLost()
 
@@ -775,7 +780,7 @@ class EthernetManagerTest {
     @Test
     fun testUpdateConfiguration_forOnlyIpConfig() {
         val iface: EthernetTestInterface = createInterface()
-        val cb = requestNetwork(ETH_REQUEST.createCopyWithEthernetSpecifier(iface.name))
+        val cb = requestNetwork(ETH_REQUEST.createCopyWithEthSpecifier(iface.name))
         val network = cb.expectAvailable()
         cb.assertNeverLost()
 
@@ -793,7 +798,7 @@ class EthernetManagerTest {
     @Test
     fun testUpdateConfiguration_forOnlyCapabilities() {
         val iface: EthernetTestInterface = createInterface()
-        val cb = requestNetwork(ETH_REQUEST.createCopyWithEthernetSpecifier(iface.name))
+        val cb = requestNetwork(ETH_REQUEST.createCopyWithEthSpecifier(iface.name))
         val network = cb.expectAvailable()
         cb.assertNeverLost()
 
@@ -809,5 +814,40 @@ class EthernetManagerTest {
         cb.expectLost(network)
         cb.expectAvailable()
         cb.expectCapabilitiesWithCapability(testCapability)
+    }
+
+    @Test
+    fun testUpdateConfiguration_forAllowedUids() {
+        // Configure a restricted network.
+        val iface: EthernetTestInterface = createInterface()
+        val restrictedCaps = NetworkCapabilities
+                .Builder(ETH_REQUEST.createCopyWithEthSpecifier(iface.name).networkCapabilities)
+                .removeCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                .build()
+        updateConfiguration(iface, capabilities = restrictedCaps)
+
+        // Request the restricted network as the shell with CONNECTIVITY_USE_RESTRICTED_NETWORKS.
+        val cb = runAsShell(CONNECTIVITY_USE_RESTRICTED_NETWORKS) {
+            requestNetwork(NetworkRequest.Builder().setCapabilities(restrictedCaps).build())
+        }
+        val network = cb.expectAvailable()
+        cb.assertNeverLost(network)
+
+        // The network is restricted therefore binding to it when available will fail.
+        Socket().use { socket ->
+            assertThrows(IOException::class.java, { network.bindSocket(socket) })
+        }
+
+        // Add the test process UID to the allowed UIDs for the network and ultimately bind again.
+        val allowedUids = setOf(Process.myUid())
+        val nc = NetworkCapabilities.Builder(restrictedCaps).setAllowedUids(allowedUids).build()
+        updateConfiguration(iface, capabilities = nc)
+
+        // UpdateConfiguration() currently does a restart on the ethernet interface therefore lost
+        // will be expected first before available, as part of the restart.
+        cb.expectLost(network)
+        val updatedNetwork = cb.expectAvailable()
+        // With the test process UID allowed, binding to a restricted network should be successful.
+        Socket().use { socket -> updatedNetwork.bindSocket(socket) }
     }
 }
