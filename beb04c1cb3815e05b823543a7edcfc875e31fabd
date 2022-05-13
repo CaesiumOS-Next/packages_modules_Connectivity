@@ -52,6 +52,24 @@
       "parentUuid": "0ae36aef_e346e5df",
       "revId": "beb04c1cb3815e05b823543a7edcfc875e31fabd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7ce9762_c9f137f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-13T04:41:51Z",
+      "side": 1,
+      "message": "Hmm... but the way this variant of adoptShellPermissionIdentity works is that the caller keeps its UID but adopts some permissions from the shell. So if the code checks the permission on the calling UID (CTS) it will not find the location permission.",
+      "parentUuid": "e76c788c_d93d0400",
+      "revId": "beb04c1cb3815e05b823543a7edcfc875e31fabd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
