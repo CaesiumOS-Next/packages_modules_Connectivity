@@ -97,6 +97,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fd1f81a6_f115f4eb",
+        "filename": "framework-t/src/android/net/NetworkStatsHistory.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-13T16:36:27Z",
+      "side": 1,
+      "message": "Looks like this is in hiddenapi-max-target-o-low-priority.txt. That potentially means it could be used by apps targeting O. If we\u0027re concerned about that, we could leave the method the same and change its behaviour. But I think it\u0027s probably fine to rename it at this point. It\u0027s unlikely that many apps are using this, it\u0027s probably in the list because it was used by OEM code.\n\nIf we do rename the method, we should probably remove it from the hiddenapi files? Might be best to do that in a separate CL because those are covered by separate OWNERS.",
+      "range": {
+        "startLine": 686,
+        "startChar": 16,
+        "endLine": 686,
+        "endChar": 35
+      },
+      "revId": "6470608bdd085d0b46134b488589d389960f9245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07c7ba3f_a37b8d3c",
         "filename": "service-t/src/com/android/server/net/NetworkStatsRecorder.java",
         "patchSetId": 5
@@ -226,6 +249,30 @@
       "side": 1,
       "message": "In the plan it only runs one time so I guess this is fine?\nThe risk of memory usage spike at that time is expected and already assessed by system health review.",
       "parentUuid": "fa5d2b14_b3c2b26f",
+      "range": {
+        "startLine": 521,
+        "startChar": 21,
+        "endLine": 521,
+        "endChar": 40
+      },
+      "revId": "6470608bdd085d0b46134b488589d389960f9245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bab2a6b9_eef1a4ad",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsRecorder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-13T16:36:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1c4c20e4_d65c8501",
       "range": {
         "startLine": 521,
         "startChar": 21,
