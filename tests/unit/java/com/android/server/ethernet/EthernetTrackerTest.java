@@ -35,16 +35,15 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.net.EthernetManager;
-import android.net.InetAddresses;
-import android.net.INetworkInterfaceOutcomeReceiver;
 import android.net.IEthernetServiceListener;
 import android.net.INetd;
+import android.net.INetworkInterfaceOutcomeReceiver;
+import android.net.InetAddresses;
+import android.net.InterfaceConfigurationParcel;
 import android.net.IpConfiguration;
 import android.net.IpConfiguration.IpAssignment;
 import android.net.IpConfiguration.ProxySettings;
-import android.net.InterfaceConfigurationParcel;
 import android.net.LinkAddress;
 import android.net.NetworkCapabilities;
 import android.net.StaticIpConfiguration;
@@ -54,7 +53,6 @@ import android.os.RemoteException;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
-import com.android.connectivity.resources.R;
 import com.android.testutils.HandlerUtils;
 
 import org.junit.After;
@@ -443,6 +441,7 @@ public class EthernetTrackerTest {
         verify(listener).onEthernetStateChanged(eq(EthernetManager.ETHERNET_STATE_DISABLED));
         verify(listener).onInterfaceStateChanged(eq(testIface), eq(EthernetManager.STATE_ABSENT),
                 anyInt(), any());
+        verify(mNetd).unregisterUnsolicitedEventListener(any());
         reset(listener);
 
         doReturn(EthernetManager.STATE_LINK_UP).when(mFactory).getInterfaceState(eq(testIface));
@@ -452,5 +451,6 @@ public class EthernetTrackerTest {
         verify(listener).onEthernetStateChanged(eq(EthernetManager.ETHERNET_STATE_ENABLED));
         verify(listener).onInterfaceStateChanged(eq(testIface), eq(EthernetManager.STATE_LINK_UP),
                 anyInt(), any());
+        verify(mNetd).registerUnsolicitedEventListener(any());
     }
 }

@@ -108,6 +108,7 @@ public class EthernetTracker {
     private final EthernetNetworkFactory mFactory;
     private final EthernetConfigStore mConfigStore;
     private final Dependencies mDeps;
+    private final InterfaceObserver mInterfaceObserver;
 
     private final RemoteCallbackList<IEthernetServiceListener> mListeners =
             new RemoteCallbackList<>();
@@ -159,6 +160,7 @@ public class EthernetTracker {
         mFactory = factory;
         mNetd = netd;
         mDeps = deps;
+        mInterfaceObserver = new InterfaceObserver();
 
         // Interface match regex.
         updateIfaceMatchRegexp();
@@ -172,6 +174,24 @@ public class EthernetTracker {
         mConfigStore = new EthernetConfigStore();
     }
 
+    private void registerUnsolicitedEventListener(@NonNull final InterfaceObserver observer) {
+        try {
+            PermissionUtils.enforceNetworkStackPermission(mContext);
+            mNetd.registerUnsolicitedEventListener(observer);
+        } catch (RemoteException | ServiceSpecificException e) {
+            Log.e(TAG, "Could not register InterfaceObserver " + e);
+        }
+    }
+
+    private void unregisterUnsolicitedEventListener(@NonNull final InterfaceObserver observer) {
+        try {
+            PermissionUtils.enforceNetworkStackPermission(mContext);
+            mNetd.unregisterUnsolicitedEventListener(observer);
+        } catch (RemoteException | ServiceSpecificException e) {
+            Log.e(TAG, "Could not unregister InterfaceObserver " + e);
+        }
+    }
+
     void start() {
         mFactory.register();
         mConfigStore.read();
@@ -183,13 +203,7 @@ public class EthernetTracker {
             mIpConfigurations.put(configs.keyAt(i), configs.valueAt(i));
         }
 
-        try {
-            PermissionUtils.enforceNetworkStackPermission(mContext);
-            mNetd.registerUnsolicitedEventListener(new InterfaceObserver());
-        } catch (RemoteException | ServiceSpecificException e) {
-            Log.e(TAG, "Could not register InterfaceObserver " + e);
-        }
-
+        registerUnsolicitedEventListener(mInterfaceObserver);
         mHandler.post(this::trackAvailableInterfaces);
     }
 
@@ -462,8 +476,10 @@ public class EthernetTracker {
         removeInterface(iface);
         if (iface.equals(mDefaultInterface)) {
             mDefaultInterface = null;
+            mIpConfigForDefaultInterface = null;
         }
         broadcastInterfaceStateChange(iface);
+        mIpConfigurations.remove(iface);
     }
 
     private void addInterface(String iface) {
@@ -593,7 +609,10 @@ public class EthernetTracker {
             if (DBG) {
                 Log.i(TAG, "interfaceLinkStateChanged, iface: " + iface + ", up: " + up);
             }
-            mHandler.post(() -> updateInterfaceState(iface, up));
+            mHandler.post(() -> {
+                if (mInterfaceObserver != this) return;
+                updateInterfaceState(iface, up);
+            });
         }
 
         @Override
@@ -601,7 +620,10 @@ public class EthernetTracker {
             if (DBG) {
                 Log.i(TAG, "onInterfaceAdded, iface: " + iface);
             }
-            mHandler.post(() -> maybeTrackInterface(iface));
+            mHandler.post(() -> {
+                if (mInterfaceObserver != this) return;
+                maybeTrackInterface(iface);
+            });
         }
 
         @Override
@@ -609,7 +631,10 @@ public class EthernetTracker {
             if (DBG) {
                 Log.i(TAG, "onInterfaceRemoved, iface: " + iface);
             }
-            mHandler.post(() -> stopTrackingInterface(iface));
+            mHandler.post(() -> {
+                if (mInterfaceObserver != this) return;
+                stopTrackingInterface(iface);
+            });
         }
     }
 
@@ -844,14 +869,19 @@ public class EthernetTracker {
             int newState = enabled ? ETHERNET_STATE_ENABLED : ETHERNET_STATE_DISABLED;
             if (mEthernetState == newState) return;
 
-            mEthernetState = newState;
-
             if (enabled) {
+                // If previous Ethernet setting state was disabled, register the interface
+                // observer when turning on the Ethernet settings again.
+                if (mEthernetState == ETHERNET_STATE_DISABLED) {
+                    registerUnsolicitedEventListener(mInterfaceObserver);
+                }
                 trackAvailableInterfaces();
             } else {
                 // TODO: maybe also disable server mode interface as well.
                 untrackFactoryInterfaces();
+                unregisterUnsolicitedEventListener(mInterfaceObserver);
             }
+            mEthernetState = newState;
             broadcastEthernetStateChange(mEthernetState);
         });
     }
