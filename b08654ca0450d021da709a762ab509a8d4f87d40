@@ -1,0 +1,458 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d770d46_e1167e7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 36
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-16T16:19:10Z",
+      "side": 1,
+      "message": "LGTM. I don\u0027t think any of these comments should block submission, so if you like you can merge this CL as is (it\u0027s treehugged) and address the comments in a follow-up.",
+      "revId": "b08654ca0450d021da709a762ab509a8d4f87d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aecbd8e8_72f89b5a",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 1003,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-16T16:19:10Z",
+      "side": 1,
+      "message": "Nit: this is actually not a valid value for any of the connectivity APIs that takes an argument annotated with @FirewallChain (setUidFirewallRule, setFirewallChainEnabled, replaceFirewallChain), right? If it isn\u0027t, we shouldn\u0027t add it to this @IntDef since that is used to document what the valid parameters are.\n\nMore in general: the fact that FIREWALL_CHAIN_LOCKDOWN_VPN cannot be passed to setUidFirewallRule, setFirewallChainEnabled, or replaceFirewallChain suggests that FIREWALL_CHAIN_LOCKDOWN_VPN isn\u0027t a firewall chain at all, but something different. The iif match isn\u0027t a firewall chain either.\n\nActually I think this constant is needed only because this CL uses BpfNetMaps#setUidRule to add and remove LOCKDOWN_VPN entries. I think we could delete it, see comment in TrafficController.cpp. But not necessary in this CL.",
+      "range": {
+        "startLine": 1003,
+        "startChar": 8,
+        "endLine": 1003,
+        "endChar": 35
+      },
+      "revId": "b08654ca0450d021da709a762ab509a8d4f87d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "850a3f01_7fdd1bfd",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-16T16:19:10Z",
+      "side": 1,
+      "message": "Per comment in ConnectivityManager, this isn\u0027t really a firewall chain. I think we could remove this, the LOCKDOWN case in changeUidOwnerRule below, and the ConnectivityManager#FIREWALL_CHAIN_LOCKDOWN_VPN constant if we added code to BpfNetMaps to specifically support lockdown VPN rules.\n\nNot for this CL, but maybe add a TODO?",
+      "range": {
+        "startLine": 336,
+        "startChar": 13,
+        "endLine": 336,
+        "endChar": 21
+      },
+      "revId": "b08654ca0450d021da709a762ab509a8d4f87d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6687b731_2340d6f3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 7755,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-16T16:19:10Z",
+      "side": 1,
+      "message": "Do we need this check? It looks like the previous code would have crashed if ranges was null, because onVpnUidRangesRemoved or onVpnUidRangesAdded would have iterated over the ranges and that would have thrown an NPE.\n\nIf ranges can\u0027t be null here then I would prefer not to check for null. Not having the null check makes the code easier to read and reason about.\n\nIf the ranges are empty, I think the previous code would have been a no-op. But checking for empty ranges is an improvement because it saves useless work.",
+      "range": {
+        "startLine": 7755,
+        "startChar": 12,
+        "endLine": 7755,
+        "endChar": 26
+      },
+      "revId": "b08654ca0450d021da709a762ab509a8d4f87d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "500db937_4bc8bac4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 7767,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-16T16:19:10Z",
+      "side": 1,
+      "message": "Does this comment belong here? It seems like it would be better in requiresVpnAllowRule, in the comment where we explain that the rules are always necessary on T and above. Or maybe in getVpnIsolationInterface?",
+      "range": {
+        "startLine": 7765,
+        "startChar": 0,
+        "endLine": 7767,
+        "endChar": 52
+      },
+      "revId": "b08654ca0450d021da709a762ab509a8d4f87d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9265b87_905e5738",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 8094,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-16T16:19:10Z",
+      "side": 1,
+      "message": "Nit: I wonder if this would be clearer? Up to you.\n\n    // Allow rules are always needed if VPN isolation is enabled.\n    if (filterIface !\u003d null) return true;\n\n    // On T and above, allow rules are needed for all VPNs.\n    return SdkLevel.isAtLeastT()\n            \u0026\u0026 nai.isVPN() \u0026\u0026 lp !\u003d null \u0026\u0026 lp.getInterfaceName() !\u003d null;",
+      "range": {
+        "startLine": 8094,
+        "startChar": 8,
+        "endLine": 8094,
+        "endChar": 70
+      },
+      "revId": "b08654ca0450d021da709a762ab509a8d4f87d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae45e1ae_a91514ed",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 8096,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-16T16:19:10Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 8096,
+        "startChar": 11,
+        "endLine": 8096,
+        "endChar": 17
+      },
+      "revId": "b08654ca0450d021da709a762ab509a8d4f87d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98f34277_d66e03df",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 8243,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-16T16:19:10Z",
+      "side": 1,
+      "message": "Ditto, should this comment be in requiresVpnAllowRule or getVpnIsolationInterface?",
+      "range": {
+        "startLine": 8241,
+        "startChar": 0,
+        "endLine": 8243,
+        "endChar": 70
+      },
+      "revId": "b08654ca0450d021da709a762ab509a8d4f87d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "447909e7_f8d0311a",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-16T16:19:10Z",
+      "side": 1,
+      "message": "Not for this CL, but your change to this method made me notice that it could be optimized a bit: instead of building a new set, we could make it call a new updateVpnUidInterfaceRule method that just calls into mBpfNetMaps. updateVpnUidsInterfaceRules could be modified to call this new updateVpnUidInterfaceRule method.\n\nAdditionally, this method could return after updating the map; right now it iterates through all of it even if the rule has been added already.",
+      "range": {
+        "startLine": 679,
+        "startChar": 0,
+        "endLine": 680,
+        "endChar": 37
+      },
+      "revId": "b08654ca0450d021da709a762ab509a8d4f87d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b9ba103_808536d1",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-16T16:19:10Z",
+      "side": 1,
+      "message": "Nit: you might want to put the check for hasRestrictedNetworksPermission first, since it\u0027s simpler and might be faster (just a hashtable lookup instead of a linear scan of UID ranges). Something like:\n\n        // Apps that can use restricted networks can always bypass VPNs.\n        if (hasRestrictedNetworksPermission(uid)) {\n            return;\n        }\n\n        if (UidRange.containsUid(mVpnLockdownUidRanges.getSet(), uid) {\n            updateLockdownUidRule(uid, add);\n        }\n\nOn the other hand, it\u0027s true that app installs and uninstalls are mostly of non-privileged applications, so the hasRestrictedNetworksPermission check will mostly fail. So probably won\u0027t be much faster :-). Up to you.",
+      "range": {
+        "startLine": 688,
+        "startChar": 16,
+        "endLine": 688,
+        "endChar": 56
+      },
+      "revId": "b08654ca0450d021da709a762ab509a8d4f87d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7e95e73_3e463daf",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-16T16:19:10Z",
+      "side": 1,
+      "message": "Nit: this is correct, but it looks a bit strange for add() to return 0 the first time the element was added. It seems more intuitive for it to return the current size, i.e., 1. Up to you whether to change it. I think what you have now simplifies the implementation of add() and remove() a bit maybe?",
+      "range": {
+        "startLine": 985,
+        "startChar": 53,
+        "endLine": 985,
+        "endChar": 57
+      },
+      "revId": "b08654ca0450d021da709a762ab509a8d4f87d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e73ed977_391616e2",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-16T16:19:10Z",
+      "side": 1,
+      "message": "ditto: if remove() returned the number after removal instead of returning the number before removal, this would be \"\u003d\u003d 0\". That seems more natural. Up to you.",
+      "range": {
+        "startLine": 991,
+        "startChar": 56,
+        "endLine": 991,
+        "endChar": 60
+      },
+      "revId": "b08654ca0450d021da709a762ab509a8d4f87d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c5f491d_2e05100a",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 1262,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-16T16:19:10Z",
+      "side": 1,
+      "message": "Nit: I think you don\u0027t need this toString, it\u0027s implicit.",
+      "range": {
+        "startLine": 1262,
+        "startChar": 39,
+        "endLine": 1262,
+        "endChar": 50
+      },
+      "revId": "b08654ca0450d021da709a762ab509a8d4f87d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06baa24c_f9e6cd57",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 9521,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-16T16:19:10Z",
+      "side": 1,
+      "message": "I think lucaslin@ is trying to remove dependencies between ConnectivityServiceTest and VPN code. These dependencies are difficult to deal with because ConnectivityServiceTest has to run on S and T, but it bundles VPN code which depends on T.\n\nI think this is fine for now, but in the future it would probably be easier for Lucas if you called mConnectivityManager.setRequireVpnForUids instead of calling into VpnManagerService.",
+      "range": {
+        "startLine": 9520,
+        "startChar": 0,
+        "endLine": 9521,
+        "endChar": 48
+      },
+      "revId": "b08654ca0450d021da709a762ab509a8d4f87d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40417a77_4e756d90",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 10477,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-16T16:19:10Z",
+      "side": 1,
+      "message": "This comment is the same as the one above. Consider not repeating it.\n\nActually, it looks like lines 10474-10492 are the same as 10441-10459. Refactor out to a function?",
+      "range": {
+        "startLine": 10474,
+        "startChar": 0,
+        "endLine": 10477,
+        "endChar": 52
+      },
+      "revId": "b08654ca0450d021da709a762ab509a8d4f87d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44b0424f_36651277",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-16T16:19:10Z",
+      "side": 1,
+      "message": "Uid",
+      "range": {
+        "startLine": 767,
+        "startChar": 23,
+        "endLine": 767,
+        "endChar": 26
+      },
+      "revId": "b08654ca0450d021da709a762ab509a8d4f87d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6f32b72_0e20c767",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-16T16:19:10Z",
+      "side": 1,
+      "message": "Nit: would indent these buildPackageInfo statements all on the same column.",
+      "range": {
+        "startLine": 860,
+        "startChar": 25,
+        "endLine": 860,
+        "endChar": 41
+      },
+      "revId": "b08654ca0450d021da709a762ab509a8d4f87d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "894664ea_bf3686aa",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-16T16:19:10Z",
+      "side": 1,
+      "message": "is subject to the",
+      "range": {
+        "startLine": 867,
+        "startChar": 49,
+        "endLine": 867,
+        "endChar": 58
+      },
+      "revId": "b08654ca0450d021da709a762ab509a8d4f87d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63540e97_991d369f",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-16T16:19:10Z",
+      "side": 1,
+      "message": "Nit: lockdownRange?",
+      "range": {
+        "startLine": 868,
+        "startChar": 25,
+        "endLine": 868,
+        "endChar": 34
+      },
+      "revId": "b08654ca0450d021da709a762ab509a8d4f87d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9e8b440_0f2ced39",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-16T16:19:10Z",
+      "side": 1,
+      "message": "Why isn\u0027t a lockdown rule added for VPN_UID as well? That\u0027s in the VPN range too, isn\u0027t it? Did you just miss it because of the reset(mBpfNetMaps) in line 881? If so, consider not calling reset(). Or you can use verifyNoMoreInteractions() to confirm that no other operations are run.",
+      "range": {
+        "startLine": 878,
+        "startChar": 47,
+        "endLine": 878,
+        "endChar": 48
+      },
+      "revId": "b08654ca0450d021da709a762ab509a8d4f87d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -394,6 +394,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "554fdc51_cd813909",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-16T16:19:10Z",
+      "side": 1,
+      "message": "SGTM. As I said, I don\u0027t think any caller will actually ever do this. You could consider add a TODO in the code expaining how this might be implemented (basically your suggestion above). Or not.",
+      "parentUuid": "aee6d52d_38ce166b",
+      "range": {
+        "startLine": 952,
+        "startChar": 20,
+        "endLine": 952,
+        "endChar": 49
+      },
+      "revId": "cc1e4f308d0bbf46df2d0560235ddd32d9d2a941",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "203bf527_d78c8947",
