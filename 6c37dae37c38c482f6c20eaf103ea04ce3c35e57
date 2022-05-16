@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44117708_4ff95a56",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-16T08:06:18Z",
+      "side": 1,
+      "message": "LGTM assume comment fix.",
+      "revId": "6c37dae37c38c482f6c20eaf103ea04ce3c35e57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e4a4959_79e38a50",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-16T08:06:18Z",
+      "side": 1,
+      "message": "mCtsTetheringUtils.unregisterTetheringEventCallback(tetherEventCallback);",
+      "revId": "6c37dae37c38c482f6c20eaf103ea04ce3c35e57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00f7aaa2_9781b3cd",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-16T08:06:18Z",
+      "side": 1,
+      "message": "mCtsTetheringUtils.unregisterTetheringEventCallback(tetherEventCallback);",
+      "revId": "6c37dae37c38c482f6c20eaf103ea04ce3c35e57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dd18f9d_a620675d",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-16T08:06:18Z",
+      "side": 1,
+      "message": "final boolean previousWifiEnabledState \u003d mWm.isWifiEnabled();",
+      "range": {
+        "startLine": 549,
+        "startChar": 8,
+        "endLine": 550,
+        "endChar": 55
+      },
+      "revId": "6c37dae37c38c482f6c20eaf103ea04ce3c35e57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
