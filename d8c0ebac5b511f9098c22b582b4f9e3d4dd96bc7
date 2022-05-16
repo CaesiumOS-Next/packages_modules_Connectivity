@@ -371,6 +371,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad5dc34c_74bfaa2e",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-16T09:11:15Z",
+      "side": 1,
+      "message": "Oh I see, done in aosp/2098175",
+      "parentUuid": "98ae45a6_3fe2cd7a",
+      "range": {
+        "startLine": 31,
+        "startChar": 72,
+        "endLine": 31,
+        "endChar": 79
+      },
+      "revId": "d8c0ebac5b511f9098c22b582b4f9e3d4dd96bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f08bb1d0_37b794aa",
