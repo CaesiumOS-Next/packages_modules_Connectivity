@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f625ae4_07bc2417",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-16T09:47:01Z",
+      "side": 1,
+      "message": "It should still be no-op. If wifi or p2p feature is not supported, there are no ipServer created. So the changeInterfaceState would also failed.\n\nchangeInerfaceState would call #tether and end up with below check.\n\nif (tetherState \u003d\u003d null) {\n    Log.e(TAG, \"Tried to Tether an unknown iface: \" + iface + \", ignoring\");\n    return TETHER_ERROR_UNKNOWN_IFACE;\n}",
+      "parentUuid": "976b7560_a2a9cd4b",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 30
+      },
+      "revId": "da3058c80d305a8b7b925aef3f347622c5d1dcce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70ce90da_b5c4fa1d",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-05-16T08:42:14Z",
       "side": 1,
       "message": "Also mention that you\u0027re splitting enableWifiIpServing into enableWifiIpServing and enableWifiP2pIpServing",
+      "revId": "da3058c80d305a8b7b925aef3f347622c5d1dcce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dd0ba65_09caf7e0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-16T09:47:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70ce90da_b5c4fa1d",
       "revId": "da3058c80d305a8b7b925aef3f347622c5d1dcce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -82,6 +124,54 @@
         "startChar": 0,
         "endLine": 1387,
         "endChar": 13
+      },
+      "revId": "da3058c80d305a8b7b925aef3f347622c5d1dcce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "292f7460_babf14e5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1387,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-16T09:47:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83c125d2_2ec6cd81",
+      "range": {
+        "startLine": 1387,
+        "startChar": 0,
+        "endLine": 1387,
+        "endChar": 13
+      },
+      "revId": "da3058c80d305a8b7b925aef3f347622c5d1dcce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bbe68df_9214ecb5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1387,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-16T09:47:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33b4c9b8_44349022",
+      "range": {
+        "startLine": 1387,
+        "startChar": 27,
+        "endLine": 1387,
+        "endChar": 38
       },
       "revId": "da3058c80d305a8b7b925aef3f347622c5d1dcce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
