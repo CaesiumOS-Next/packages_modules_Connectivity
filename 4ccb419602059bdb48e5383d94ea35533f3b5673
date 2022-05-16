@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce6b05f3_22d4fbbd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-16T07:38:44Z",
+      "side": 1,
+      "message": "Do you have a pending change or bug to track that ?",
+      "range": {
+        "startLine": 567,
+        "startChar": 11,
+        "endLine": 568,
+        "endChar": 21
+      },
+      "revId": "4ccb419602059bdb48e5383d94ea35533f3b5673",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
