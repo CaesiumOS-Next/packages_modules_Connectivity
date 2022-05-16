@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "976b7560_a2a9cd4b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-16T08:42:14Z",
+      "side": 1,
+      "message": "Is it expected to be a no-op ? If no, why is that OK ?\n\nFrom what I can see, if the wifi or p2p feature wasn\u0027t supported before, it would still call changeInterfaceState without creating an IpServer, but now it doesn\u0027t anymore, so this doesn\u0027t seem to be a no-op.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 30
+      },
+      "revId": "da3058c80d305a8b7b925aef3f347622c5d1dcce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70ce90da_b5c4fa1d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-16T08:42:14Z",
+      "side": 1,
+      "message": "Also mention that you\u0027re splitting enableWifiIpServing into enableWifiIpServing and enableWifiP2pIpServing",
+      "revId": "da3058c80d305a8b7b925aef3f347622c5d1dcce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33b4c9b8_44349022",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1387,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-16T08:42:14Z",
+      "side": 1,
+      "message": "To be equivalent to previous code (easier to review, as the change asserts that it doesn\u0027t change behavior before T here) you should use TextUtils.isEmpty(ifname) || !mTetherStates.containsKey(ifname)\n\nThat only matters if mTetherStates can contain empty ifname, which is unlikely, but it takes a lot of time to check in review if not already explained in commit message or comments",
+      "range": {
+        "startLine": 1387,
+        "startChar": 27,
+        "endLine": 1387,
+        "endChar": 38
+      },
+      "revId": "da3058c80d305a8b7b925aef3f347622c5d1dcce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83c125d2_2ec6cd81",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1387,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-16T08:42:14Z",
+      "side": 1,
+      "message": "Nit: code would be clearer if you invert this condition (instead of indenting a long block)",
+      "range": {
+        "startLine": 1387,
+        "startChar": 0,
+        "endLine": 1387,
+        "endChar": 13
+      },
+      "revId": "da3058c80d305a8b7b925aef3f347622c5d1dcce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
