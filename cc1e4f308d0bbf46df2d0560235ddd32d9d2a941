@@ -372,6 +372,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aee6d52d_38ce166b",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-05-16T09:29:55Z",
+      "side": 1,
+      "message": "I think we can maintains the set of whole uids which subject to lockdown.\nAnd, in updateVpnLockdownUidRanges, generate the next set by intersectUids(mVpnLockdownUidRanges.getSet(), mAllApps);\nAnd update the rule based on diff.\n\nBut I don’t think I can finish this quickly, so I added the comment that this function does not accept uid range overlap.",
+      "parentUuid": "14bb6464_04afb054",
+      "range": {
+        "startLine": 952,
+        "startChar": 20,
+        "endLine": 952,
+        "endChar": 49
+      },
+      "revId": "cc1e4f308d0bbf46df2d0560235ddd32d9d2a941",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "203bf527_d78c8947",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 27
