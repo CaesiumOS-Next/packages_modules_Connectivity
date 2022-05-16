@@ -46,6 +46,30 @@
       },
       "revId": "b5af43d891479fd5f659b2c055e45c31d13fa7d8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93608aba_77dda24d",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-16T23:49:22Z",
+      "side": 1,
+      "message": "The NetworkOffer is essentially an \"offer\" to CS to bring up a NetworkAgent. This means that the offer should exist as long as the interface exists (and is up) because that when we could bring up a NetworkAgent. Stopping a network / unregistering a NetworkAgent should not affect the offer (connectivity is still there if CS decides to use it).\n\nI think I am answering my own question here, unregisterNetworkOffer *must* be called when an interface is removed or goes down. For some reason I remember that being a little painful, but cannot directly recall what the issue was. Let me take another look.",
+      "parentUuid": "0966ae29_c10c9a67",
+      "range": {
+        "startLine": 649,
+        "startChar": 0,
+        "endLine": 649,
+        "endChar": 79
+      },
+      "revId": "b5af43d891479fd5f659b2c055e45c31d13fa7d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
