@@ -68,6 +68,30 @@
       },
       "revId": "d91a11b418ed109eb898f32b8fd6f65d00f87ace",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c3eaafa_7069b45a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityFrameworkInitializerTiramisuTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-16T08:44:48Z",
+      "side": 1,
+      "message": "(removed in latest patchset)",
+      "parentUuid": "5346ddb5_15570f85",
+      "range": {
+        "startLine": 47,
+        "startChar": 19,
+        "endLine": 47,
+        "endChar": 48
+      },
+      "revId": "d91a11b418ed109eb898f32b8fd6f65d00f87ace",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
