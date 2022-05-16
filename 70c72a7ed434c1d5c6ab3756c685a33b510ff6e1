@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a75f7fc7_35918df3",
+        "filename": "bpf_progs/bpf_shared.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-16T23:32:10Z",
+      "side": 1,
+      "message": "Since we are trying to get rid of netd (...eventually), does it make sense to name this path netd_shared? It\u0027s also visually hard to distinguish from net_shared. That being said, I don\u0027t have a better name and it is consistent with netd.c and I guess the bpf loader change is already merged.",
+      "range": {
+        "startLine": 101,
+        "startChar": 35,
+        "endLine": 101,
+        "endChar": 46
+      },
+      "revId": "70c72a7ed434c1d5c6ab3756c685a33b510ff6e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
