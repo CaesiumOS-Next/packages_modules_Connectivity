@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed8e7152_1ecef886",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-16T12:47:57Z",
+      "side": 1,
+      "message": "I\u0027m not sure the word \"standard\" is very meaningful (or inclusive) here. Maybe change to \"non-ASCII\"?",
+      "range": {
+        "startLine": 7,
+        "startChar": 26,
+        "endLine": 7,
+        "endChar": 34
+      },
+      "revId": "002c68447c96996004bf3021001f02b9369a1f23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4bc5ee7_b200701b",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-16T12:47:57Z",
+      "side": 1,
+      "message": "AsCiI",
+      "range": {
+        "startLine": 616,
+        "startChar": 43,
+        "endLine": 616,
+        "endChar": 51
+      },
+      "revId": "002c68447c96996004bf3021001f02b9369a1f23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
