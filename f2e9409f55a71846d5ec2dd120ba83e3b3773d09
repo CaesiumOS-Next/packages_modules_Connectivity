@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aedb2306_a8ac1feb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 2756,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-16T13:33:06Z",
+      "side": 1,
+      "message": "(as per discussion on chat, extracted to use in enable wifi/p2pipserving so that the same feature checks are still done before T, even if the regexes are incorrect)",
+      "range": {
+        "startLine": 2756,
+        "startChar": 20,
+        "endLine": 2756,
+        "endChar": 39
+      },
+      "revId": "f2e9409f55a71846d5ec2dd120ba83e3b3773d09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
