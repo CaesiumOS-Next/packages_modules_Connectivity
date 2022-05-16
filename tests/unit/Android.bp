@@ -90,6 +90,7 @@ filegroup {
         "java/com/android/server/net/IpConfigStoreTest.java",
         "java/com/android/server/net/NetworkStats*.java",
         "java/com/android/server/net/TestableUsageCallback.kt",
+        "java/com/android/server/connectivity/mdns/*.java",
     ]
 }
 
