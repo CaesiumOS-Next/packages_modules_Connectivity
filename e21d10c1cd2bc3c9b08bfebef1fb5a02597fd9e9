@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "241cf5de_0fc3b4c0",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsRecorder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-17T09:47:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f92cd918_d9ca5f6a",
+      "revId": "e21d10c1cd2bc3c9b08bfebef1fb5a02597fd9e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43eef632_5c459ce8",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-05-17T09:05:23Z",
       "side": 1,
       "message": "is used to",
+      "range": {
+        "startLine": 239,
+        "startChar": 25,
+        "endLine": 239,
+        "endChar": 32
+      },
+      "revId": "e21d10c1cd2bc3c9b08bfebef1fb5a02597fd9e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db832b0a_88ac52a5",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-17T09:47:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43eef632_5c459ce8",
       "range": {
         "startLine": 239,
         "startChar": 25,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cb7ba96_f895af7b",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-17T09:47:48Z",
+      "side": 1,
+      "message": "Not sure how to reword this properly, see if it works for you.",
+      "parentUuid": "26eaf1ce_fa62aff1",
+      "range": {
+        "startLine": 240,
+        "startChar": 35,
+        "endLine": 240,
+        "endChar": 36
+      },
+      "revId": "e21d10c1cd2bc3c9b08bfebef1fb5a02597fd9e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3aa68609_28a39d50",
@@ -77,6 +143,30 @@
       "writtenOn": "2022-05-17T09:05:23Z",
       "side": 1,
       "message": "Q: Why leave this as a TODO?",
+      "range": {
+        "startLine": 243,
+        "startChar": 4,
+        "endLine": 243,
+        "endChar": 41
+      },
+      "revId": "e21d10c1cd2bc3c9b08bfebef1fb5a02597fd9e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "542b4dfc_9912cf4a",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-17T09:47:48Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "3aa68609_28a39d50",
       "range": {
         "startLine": 243,
         "startChar": 4,
