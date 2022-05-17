@@ -582,16 +582,6 @@ std::string getProgramStatus(const char *path) {
     return StringPrintf("check Program %s error: %s", path, strerror(errno));
 }
 
-std::string getMapStatus(const base::unique_fd& map_fd, const char* path) {
-    if (map_fd.get() < 0) {
-        return StringPrintf("map fd lost");
-    }
-    if (access(path, F_OK) != 0) {
-        return StringPrintf("map not pinned to location: %s", path);
-    }
-    return StringPrintf("OK");
-}
-
 // NOLINTNEXTLINE(google-runtime-references): grandfathered pass by non-const reference
 void dumpBpfMap(const std::string& mapName, DumpWriter& dw, const std::string& header) {
     dw.blankline();
@@ -611,24 +601,15 @@ void TrafficController::dump(int fd, bool verbose) {
     ScopedIndent indentPreBpfModule(dw);
 
     dw.blankline();
-    dw.println("mCookieTagMap status: %s",
-               getMapStatus(mCookieTagMap.getMap(), COOKIE_TAG_MAP_PATH).c_str());
-    dw.println("mUidCounterSetMap status: %s",
-               getMapStatus(mUidCounterSetMap.getMap(), UID_COUNTERSET_MAP_PATH).c_str());
-    dw.println("mAppUidStatsMap status: %s",
-               getMapStatus(mAppUidStatsMap.getMap(), APP_UID_STATS_MAP_PATH).c_str());
-    dw.println("mStatsMapA status: %s",
-               getMapStatus(mStatsMapA.getMap(), STATS_MAP_A_PATH).c_str());
-    dw.println("mStatsMapB status: %s",
-               getMapStatus(mStatsMapB.getMap(), STATS_MAP_B_PATH).c_str());
-    dw.println("mIfaceIndexNameMap status: %s",
-               getMapStatus(mIfaceIndexNameMap.getMap(), IFACE_INDEX_NAME_MAP_PATH).c_str());
-    dw.println("mIfaceStatsMap status: %s",
-               getMapStatus(mIfaceStatsMap.getMap(), IFACE_STATS_MAP_PATH).c_str());
-    dw.println("mConfigurationMap status: %s",
-               getMapStatus(mConfigurationMap.getMap(), CONFIGURATION_MAP_PATH).c_str());
-    dw.println("mUidOwnerMap status: %s",
-               getMapStatus(mUidOwnerMap.getMap(), UID_OWNER_MAP_PATH).c_str());
+    dw.println("mCookieTagMap status: %s", mCookieTagMap.getMapStatus().c_str());
+    dw.println("mUidCounterSetMap status: %s", mUidCounterSetMap.getMapStatus().c_str());
+    dw.println("mAppUidStatsMap status: %s", mAppUidStatsMap.getMapStatus().c_str());
+    dw.println("mStatsMapA status: %s", mStatsMapA.getMapStatus().c_str());
+    dw.println("mStatsMapB status: %s", mStatsMapB.getMapStatus().c_str());
+    dw.println("mIfaceIndexNameMap status: %s", mIfaceIndexNameMap.getMapStatus().c_str());
+    dw.println("mIfaceStatsMap status: %s", mIfaceStatsMap.getMapStatus().c_str());
+    dw.println("mConfigurationMap status: %s", mConfigurationMap.getMapStatus().c_str());
+    dw.println("mUidOwnerMap status: %s", mUidOwnerMap.getMapStatus().c_str());
 
     dw.blankline();
     dw.println("Cgroup ingress program status: %s",

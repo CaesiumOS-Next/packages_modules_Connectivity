@@ -188,8 +188,8 @@ int BpfHandler::tagSocket(int sockFd, uint32_t tag, uid_t chargeUid, uid_t realU
     };
     auto configuration = mConfigurationMap.readValue(CURRENT_STATS_MAP_CONFIGURATION_KEY);
     if (!configuration.ok()) {
-        ALOGE("Failed to get current configuration: %s, fd: %d",
-              strerror(configuration.error().code()), mConfigurationMap.getMap().get());
+        ALOGE("Failed to get current configuration: %s (%s)",
+              strerror(configuration.error().code()), mConfigurationMap.getMapStatus().c_str());
         return -configuration.error().code();
     }
     if (configuration.value() != SELECT_MAP_A && configuration.value() != SELECT_MAP_B) {
@@ -201,8 +201,8 @@ int BpfHandler::tagSocket(int sockFd, uint32_t tag, uid_t chargeUid, uid_t realU
             (configuration.value() == SELECT_MAP_A) ? mStatsMapA : mStatsMapB;
     base::Result<void> res = currentMap.iterate(countUidStatsEntries);
     if (!res.ok()) {
-        ALOGE("Failed to count the stats entry in map %d: %s", currentMap.getMap().get(),
-              strerror(res.error().code()));
+        ALOGE("Failed to count the stats entry: %s (%s)",
+              strerror(res.error().code()), currentMap.getMapStatus().c_str());
         return -res.error().code();
     }
 
@@ -220,8 +220,8 @@ int BpfHandler::tagSocket(int sockFd, uint32_t tag, uid_t chargeUid, uid_t realU
     // should be fine to cocurrently update the map while eBPF program is running.
     res = mCookieTagMap.writeValue(sock_cookie, newKey, BPF_ANY);
     if (!res.ok()) {
-        ALOGE("Failed to tag the socket: %s, fd: %d", strerror(res.error().code()),
-              mCookieTagMap.getMap().get());
+        ALOGE("Failed to tag the socket: %s (%s)", strerror(res.error().code()),
+              mCookieTagMap.getMapStatus().c_str());
         return -res.error().code();
     }
     return 0;
