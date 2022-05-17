@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62b7a6a6_a900a677",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-05-17T07:43:22Z",
+      "side": 1,
+      "message": "This is one line? It looks like this line contains too many words.",
+      "range": {
+        "startLine": 9,
+        "startChar": 69,
+        "endLine": 9,
+        "endChar": 75
+      },
+      "revId": "0992e0a4121966f161a125c4331e93f1c4537110",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d0b66a6_905ce008",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-05-17T07:43:22Z",
+      "side": 1,
+      "message": "Bug: 209360825",
+      "revId": "0992e0a4121966f161a125c4331e93f1c4537110",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe8f742c_1a620284",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-05-17T07:43:22Z",
+      "side": 1,
+      "message": "style: please add a white space after synchronized.",
+      "range": {
+        "startLine": 490,
+        "startChar": 19,
+        "endLine": 490,
+        "endChar": 20
+      },
+      "revId": "0992e0a4121966f161a125c4331e93f1c4537110",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
