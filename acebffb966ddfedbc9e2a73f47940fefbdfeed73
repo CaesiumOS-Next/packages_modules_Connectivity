@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50f621c0_748155e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-05-17T09:15:59Z",
+      "side": 1,
+      "message": "is there any following commit which moves netd.o? currently, it seems to be still under net_shared\n\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/bpf_progs/Android.bp;l\u003d124\n    name: \"netd.o\",\n    sub_dir: \"net_shared\",",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 30
+      },
+      "revId": "acebffb966ddfedbc9e2a73f47940fefbdfeed73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ec51204_0af21b8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-05-17T09:15:59Z",
+      "side": 1,
+      "message": "LGTM.\n",
+      "revId": "acebffb966ddfedbc9e2a73f47940fefbdfeed73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
