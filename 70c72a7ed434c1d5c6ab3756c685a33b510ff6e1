@@ -46,6 +46,30 @@
       },
       "revId": "70c72a7ed434c1d5c6ab3756c685a33b510ff6e1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f285244_697bd904",
+        "filename": "bpf_progs/bpf_shared.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-17T00:21:23Z",
+      "side": 1,
+      "message": "(also... while the goal is to get rid of netd... we\u0027re *very* far away from that goal, definitely not in U, don\u0027t really see it happening in V either - we\u0027ll try to keep on shrinking it though of course)\n\nFurthermore, we can mark the netd.o file as bpfloader max version X and thus effectively not have the .o file load on W+ or whatever - if the need arises.",
+      "parentUuid": "a64227b7_33ca4967",
+      "range": {
+        "startLine": 101,
+        "startChar": 35,
+        "endLine": 101,
+        "endChar": 46
+      },
+      "revId": "70c72a7ed434c1d5c6ab3756c685a33b510ff6e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
