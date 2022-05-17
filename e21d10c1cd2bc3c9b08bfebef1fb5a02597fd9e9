@@ -3,6 +3,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f92cd918_d9ca5f6a",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsRecorder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-05-17T09:05:23Z",
+      "side": 1,
+      "message": "Can you add a javadoc for this method?",
+      "revId": "e21d10c1cd2bc3c9b08bfebef1fb5a02597fd9e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43eef632_5c459ce8",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-05-17T09:05:23Z",
+      "side": 1,
+      "message": "is used to",
+      "range": {
+        "startLine": 239,
+        "startChar": 25,
+        "endLine": 239,
+        "endChar": 32
+      },
+      "revId": "e21d10c1cd2bc3c9b08bfebef1fb5a02597fd9e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "26eaf1ce_fa62aff1",
         "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
         "patchSetId": 5
@@ -19,6 +59,29 @@
         "startChar": 35,
         "endLine": 240,
         "endChar": 36
+      },
+      "revId": "e21d10c1cd2bc3c9b08bfebef1fb5a02597fd9e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3aa68609_28a39d50",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-05-17T09:05:23Z",
+      "side": 1,
+      "message": "Q: Why leave this as a TODO?",
+      "range": {
+        "startLine": 243,
+        "startChar": 4,
+        "endLine": 243,
+        "endChar": 41
       },
       "revId": "e21d10c1cd2bc3c9b08bfebef1fb5a02597fd9e9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
