@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa8f6726_11d3e638",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-17T02:29:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed8e7152_1ecef886",
+      "range": {
+        "startLine": 7,
+        "startChar": 26,
+        "endLine": 7,
+        "endChar": 34
+      },
+      "revId": "002c68447c96996004bf3021001f02b9369a1f23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4bc5ee7_b200701b",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-16T12:47:57Z",
       "side": 1,
       "message": "AsCiI",
+      "range": {
+        "startLine": 616,
+        "startChar": 43,
+        "endLine": 616,
+        "endChar": 51
+      },
+      "revId": "002c68447c96996004bf3021001f02b9369a1f23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e170b563_c9cdb3f9",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-17T02:29:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4bc5ee7_b200701b",
       "range": {
         "startLine": 616,
         "startChar": 43,
