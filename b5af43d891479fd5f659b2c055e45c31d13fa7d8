@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d690e0ba_ac684569",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-17T03:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e39432ff_3ed1bce7",
+      "range": {
+        "startLine": 67,
+        "startChar": 3,
+        "endLine": 68,
+        "endChar": 54
+      },
+      "revId": "b5af43d891479fd5f659b2c055e45c31d13fa7d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "82589181_2ca71612",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-17T02:41:51Z",
       "side": 1,
       "message": "add iface.destroy(); destroy() should call maybeSendNetworkManagementCallbackForAbort(), stop() and remove network offer.",
+      "range": {
+        "startLine": 249,
+        "startChar": 12,
+        "endLine": 249,
+        "endChar": 25
+      },
+      "revId": "b5af43d891479fd5f659b2c055e45c31d13fa7d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa5883f2_e4e3c4cf",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-17T03:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82589181_2ca71612",
       "range": {
         "startLine": 249,
         "startChar": 12,
@@ -131,6 +179,30 @@
       "writtenOn": "2022-05-17T03:29:26Z",
       "side": 1,
       "message": "Ok yes, that makes sense. Thanks for the info!",
+      "parentUuid": "93608aba_77dda24d",
+      "range": {
+        "startLine": 649,
+        "startChar": 0,
+        "endLine": 649,
+        "endChar": 79
+      },
+      "revId": "b5af43d891479fd5f659b2c055e45c31d13fa7d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "200528b5_e3b04e77",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-17T03:32:59Z",
+      "side": 1,
+      "message": "Done",
       "parentUuid": "93608aba_77dda24d",
       "range": {
         "startLine": 649,
