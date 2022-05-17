@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "408578cb_074ae838",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-05-17T04:09:53Z",
+      "side": 1,
+      "message": "I\u0027m assuming you meant NETWORK_SETTINGS as per your comment:\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2075319/comments/77560d23_14cc6218\n\nCONNECTIVITY_USE_RESTRICTED_NETWORKS was actually not in patchset 6 but now in patchset 7 as per the above referenced comment.\n\nIf I misunderstood the above, please let me know otherwise I\u0027ll finish up the review with Patrick and reach back out for code-owners once I have a +2. Thanks!",
+      "parentUuid": "c8749fb2_278347cd",
+      "revId": "7cfc0fac94b3da890dab2dc20ae1c9da073572d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77560d23_14cc6218",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-05-17T02:24:44Z",
       "side": 1,
       "message": "Do we actually need this? We can acquire CONNECTIVITY_USE_RESTRICTED_NETWORKS in tests, because the shell does have that permission.",
+      "range": {
+        "startLine": 77,
+        "startChar": 36,
+        "endLine": 77,
+        "endChar": 52
+      },
+      "revId": "7cfc0fac94b3da890dab2dc20ae1c9da073572d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9854143e_7d2386e5",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetServiceImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-05-17T04:09:53Z",
+      "side": 1,
+      "message": "For some reason, I didn\u0027t think the shell had access to CONNECTIVITY_USE_RESTRICTED_NETWORKS. Thanks for clearing that up. \n\nChange to include NETWORK_SETTINGS removed and I\u0027ve updated the test to instead use CONNECTIVITY_USE_RESTRICTED_NETWORKS.",
+      "parentUuid": "77560d23_14cc6218",
       "range": {
         "startLine": 77,
         "startChar": 36,
