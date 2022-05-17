@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8749fb2_278347cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-17T02:24:44Z",
+      "side": 1,
+      "message": "The code change seems incorrect here. Can we avoid making it by using adoptShellPermissionIdentity to get the USE_RESTRICTED_NETWORKS permission? Other than that, I think the test mostly LGTM, but Patrick should have a look.",
+      "revId": "7cfc0fac94b3da890dab2dc20ae1c9da073572d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77560d23_14cc6218",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetServiceImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-17T02:24:44Z",
+      "side": 1,
+      "message": "Do we actually need this? We can acquire CONNECTIVITY_USE_RESTRICTED_NETWORKS in tests, because the shell does have that permission.",
+      "range": {
+        "startLine": 77,
+        "startChar": 36,
+        "endLine": 77,
+        "endChar": 52
+      },
+      "revId": "7cfc0fac94b3da890dab2dc20ae1c9da073572d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
