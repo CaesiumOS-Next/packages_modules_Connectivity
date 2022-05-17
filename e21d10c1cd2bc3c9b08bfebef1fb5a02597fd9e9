@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26eaf1ce_fa62aff1",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-17T08:39:45Z",
+      "side": 1,
+      "message": "Maybe explain why this is a deviceconfig flag instead of, say, a setting? Is it because the deviceconfig gets rolled back if the module gets rolled back?",
+      "range": {
+        "startLine": 240,
+        "startChar": 35,
+        "endLine": 240,
+        "endChar": 36
+      },
+      "revId": "e21d10c1cd2bc3c9b08bfebef1fb5a02597fd9e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
