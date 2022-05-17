@@ -22,6 +22,30 @@
       },
       "revId": "38080c84d42864df1b1b1b908e8ef3a967191fe7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7aac897_994efa4f",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-05-17T21:18:29Z",
+      "side": 1,
+      "message": "Hi Patrick, yeah that sounds good, let\u0027s address in a follow-up CL. Thanks!",
+      "parentUuid": "b7bcc990_0be07bb1",
+      "range": {
+        "startLine": 245,
+        "startChar": 16,
+        "endLine": 245,
+        "endChar": 46
+      },
+      "revId": "38080c84d42864df1b1b1b908e8ef3a967191fe7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
