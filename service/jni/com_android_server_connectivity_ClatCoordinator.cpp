@@ -448,8 +448,8 @@ static jlong com_android_server_connectivity_ClatCoordinator_tagSocketAsClat(
     UidTagValue newKey = {.uid = (uint32_t)AID_CLAT, .tag = 0 /* unused */};
     res = cookieTagMap.writeValue(sock_cookie, newKey, BPF_ANY);
     if (!res.ok()) {
-        jniThrowExceptionFmt(env, "java/io/IOException", "Failed to tag the socket: %s, fd: %d",
-                             strerror(res.error().code()), cookieTagMap.getMap().get());
+        jniThrowExceptionFmt(env, "java/io/IOException", "Failed to tag the socket: %s (%s)",
+                             strerror(res.error().code()), cookieTagMap.getMapStatus().c_str());
         return -1;
     }
 
