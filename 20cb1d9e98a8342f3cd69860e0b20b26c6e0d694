@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52e5d9b8_e1fd7aa9",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-17T15:54:31Z",
+      "side": 1,
+      "message": "I think we should do this check outside of the handler thread (if we can, we may need to make mEthernetState volatile). It\u0027s probably more correct to ignore all interface updates while ethernet is disabled; checking this on the handler thread could lead to a situation where onInterfaceAdded() is called when ethernet is disabled, but the lambda isn\u0027t executed until later when ethernet may have been enabled (since we also call trackAvailableInterfaces when enabling ethernet again, this could lead to some weird behavior).",
+      "revId": "20cb1d9e98a8342f3cd69860e0b20b26c6e0d694",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb7287ca_41ca2271",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-17T15:54:31Z",
+      "side": 1,
+      "message": "I actually don\u0027t think we need to do that, right? The listener is still registered, as long as mEthernetState !\u003d ETHERNET_STATE_DISABLED we receive updates from it again.",
+      "range": {
+        "startLine": 864,
+        "startChar": 16,
+        "endLine": 866,
+        "endChar": 17
+      },
+      "revId": "20cb1d9e98a8342f3cd69860e0b20b26c6e0d694",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
