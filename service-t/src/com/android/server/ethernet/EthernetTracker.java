@@ -586,14 +586,18 @@ public class EthernetTracker {
         }
     }
 
-    private class InterfaceObserver extends BaseNetdUnsolicitedEventListener {
+    @VisibleForTesting
+    class InterfaceObserver extends BaseNetdUnsolicitedEventListener {
 
         @Override
         public void onInterfaceLinkStateChanged(String iface, boolean up) {
             if (DBG) {
                 Log.i(TAG, "interfaceLinkStateChanged, iface: " + iface + ", up: " + up);
             }
-            mHandler.post(() -> updateInterfaceState(iface, up));
+            mHandler.post(() -> {
+                if (mEthernetState == ETHERNET_STATE_DISABLED) return;
+                updateInterfaceState(iface, up);
+            });
         }
 
         @Override
@@ -601,7 +605,10 @@ public class EthernetTracker {
             if (DBG) {
                 Log.i(TAG, "onInterfaceAdded, iface: " + iface);
             }
-            mHandler.post(() -> maybeTrackInterface(iface));
+            mHandler.post(() -> {
+                if (mEthernetState == ETHERNET_STATE_DISABLED) return;
+                maybeTrackInterface(iface);
+            });
         }
 
         @Override
@@ -609,7 +616,10 @@ public class EthernetTracker {
             if (DBG) {
                 Log.i(TAG, "onInterfaceRemoved, iface: " + iface);
             }
-            mHandler.post(() -> stopTrackingInterface(iface));
+            mHandler.post(() -> {
+                if (mEthernetState == ETHERNET_STATE_DISABLED) return;
+                stopTrackingInterface(iface);
+            });
         }
     }
 
