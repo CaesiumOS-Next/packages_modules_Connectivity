@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "24203ab5_73fdc378",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-17T13:25:27Z",
+      "side": 1,
+      "message": "Yes the previous one in the stack.",
+      "parentUuid": "50f621c0_748155e8",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 30
+      },
+      "revId": "acebffb966ddfedbc9e2a73f47940fefbdfeed73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4ec51204_0af21b8a",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
