@@ -116,6 +116,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3fe869f_9ab38250",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-05-17T05:03:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d8c2788_1f061a2b",
+      "range": {
+        "startLine": 613,
+        "startChar": 16,
+        "endLine": 613,
+        "endChar": 55
+      },
+      "revId": "3c2461c3c8b6cd4ae141e4fbef1a17e3cf391967",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84bcffa0_e2b25538",
@@ -129,6 +153,30 @@
       "writtenOn": "2022-05-16T07:49:53Z",
       "side": 1,
       "message": "Maybe unregister first, then untrackFactoryInterfaces() ? Then we can make sure there is no new interface be tracked while we are doing untrack...",
+      "range": {
+        "startLine": 882,
+        "startChar": 16,
+        "endLine": 882,
+        "endChar": 50
+      },
+      "revId": "3c2461c3c8b6cd4ae141e4fbef1a17e3cf391967",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5256e67f_8ff524e2",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-05-17T05:03:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84bcffa0_e2b25538",
       "range": {
         "startLine": 882,
         "startChar": 16,
