@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "440df549_42ed14df",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsRecorder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-05-17T13:36:08Z",
+      "side": 1,
+      "message": "Use androidx one in the module",
+      "range": {
+        "startLine": 24,
+        "startChar": 7,
+        "endLine": 24,
+        "endChar": 14
+      },
+      "revId": "90eda56425cd2ebeae3daaa954038440ea807328",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bc56352_e83c4924",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsRecorder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-05-17T13:36:08Z",
+      "side": 1,
+      "message": "what does it lock?",
+      "range": {
+        "startLine": 466,
+        "startChar": 32,
+        "endLine": 466,
+        "endChar": 38
+      },
+      "revId": "90eda56425cd2ebeae3daaa954038440ea807328",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
