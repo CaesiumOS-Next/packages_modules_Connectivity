@@ -22,6 +22,30 @@
       },
       "revId": "70c72a7ed434c1d5c6ab3756c685a33b510ff6e1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a64227b7_33ca4967",
+        "filename": "bpf_progs/bpf_shared.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-17T00:18:15Z",
+      "side": 1,
+      "message": "Yeah, I guess the name is not ideal...\n\nMy thinking was:\n\nnetd_shared - shared with netd process (and system server / network stack)\nnet_shared - network stack, shared with system server\nnet_private - private to network stack\n\nPerhaps should have thought more about the naming...\n\nBut as you say, it is what it is, since the changes are in the beta3 branch already.\n\nAdditionally I don\u0027t actually have a better name even now...",
+      "parentUuid": "a75f7fc7_35918df3",
+      "range": {
+        "startLine": 101,
+        "startChar": 35,
+        "endLine": 101,
+        "endChar": 46
+      },
+      "revId": "70c72a7ed434c1d5c6ab3756c685a33b510ff6e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
