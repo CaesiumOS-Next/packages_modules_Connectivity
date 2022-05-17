@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e39432ff_3ed1bce7",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-17T02:41:51Z",
+      "side": 1,
+      "message": "this comment should probably be removed as well.",
+      "range": {
+        "startLine": 67,
+        "startChar": 3,
+        "endLine": 68,
+        "endChar": 54
+      },
+      "revId": "b5af43d891479fd5f659b2c055e45c31d13fa7d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82589181_2ca71612",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-17T02:41:51Z",
+      "side": 1,
+      "message": "add iface.destroy(); destroy() should call maybeSendNetworkManagementCallbackForAbort(), stop() and remove network offer.",
+      "range": {
+        "startLine": 249,
+        "startChar": 12,
+        "endLine": 249,
+        "endChar": 25
+      },
+      "revId": "b5af43d891479fd5f659b2c055e45c31d13fa7d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b617a35f_718640f8",
         "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
         "patchSetId": 11
