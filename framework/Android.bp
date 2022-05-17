@@ -19,6 +19,12 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
+aidl_library {
+    name: "framework-connectivity-aidl-headers",
+    strip_import_prefix: "aidl-export",
+    hdrs: ["aidl-export/**/*.aidl"],
+}
+
 filegroup {
     name: "framework-connectivity-internal-sources",
     srcs: [
