@@ -19,6 +19,12 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
+aidl_interface_headers {
+    name: "framework-connectivity-aidl-headers",
+    base: "aidl-export",
+    srcs: ["aidl-export/**/*.aidl"],
+}
+
 filegroup {
     name: "framework-connectivity-internal-sources",
     srcs: [
@@ -77,6 +83,8 @@ java_defaults {
             "frameworks/native/aidl/binder", // For PersistableBundle.aidl
         ],
     },
+
+
     stub_only_libs: [
         "framework-connectivity-t.stubs.module_lib",
     ],
