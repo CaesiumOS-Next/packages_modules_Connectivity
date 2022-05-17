@@ -116,6 +116,30 @@
       },
       "revId": "b5af43d891479fd5f659b2c055e45c31d13fa7d8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f660fc66_b5e2f40e",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-05-17T03:29:26Z",
+      "side": 1,
+      "message": "Ok yes, that makes sense. Thanks for the info!",
+      "parentUuid": "93608aba_77dda24d",
+      "range": {
+        "startLine": 649,
+        "startChar": 0,
+        "endLine": 649,
+        "endChar": 79
+      },
+      "revId": "b5af43d891479fd5f659b2c055e45c31d13fa7d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
