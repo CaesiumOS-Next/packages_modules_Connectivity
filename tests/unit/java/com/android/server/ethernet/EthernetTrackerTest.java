@@ -16,7 +16,10 @@
 
 package com.android.server.ethernet;
 
+import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
 import static android.net.TestNetworkManager.TEST_TAP_PREFIX;
+
+import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -29,38 +32,43 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import android.app.Instrumentation;
 import android.content.Context;
-import android.content.res.Resources;
 import android.net.EthernetManager;
-import android.net.InetAddresses;
-import android.net.INetworkInterfaceOutcomeReceiver;
 import android.net.IEthernetServiceListener;
 import android.net.INetd;
+import android.net.INetworkInterfaceOutcomeReceiver;
+import android.net.InetAddresses;
+import android.net.InterfaceConfigurationParcel;
 import android.net.IpConfiguration;
 import android.net.IpConfiguration.IpAssignment;
 import android.net.IpConfiguration.ProxySettings;
-import android.net.InterfaceConfigurationParcel;
 import android.net.LinkAddress;
 import android.net.NetworkCapabilities;
 import android.net.StaticIpConfiguration;
+import android.net.TestNetworkInterface;
+import android.net.TestNetworkManager;
 import android.os.HandlerThread;
 import android.os.RemoteException;
 
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
-import com.android.connectivity.resources.R;
 import com.android.testutils.HandlerUtils;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -452,5 +460,60 @@ public class EthernetTrackerTest {
         verify(listener).onEthernetStateChanged(eq(EthernetManager.ETHERNET_STATE_ENABLED));
         verify(listener).onInterfaceStateChanged(eq(testIface), eq(EthernetManager.STATE_LINK_UP),
                 anyInt(), any());
+    }
+
+    private TestNetworkInterface createInterface() {
+        final Instrumentation inst = InstrumentationRegistry.getInstrumentation();
+        final TestNetworkInterface iface = runAsShell(MANAGE_TEST_NETWORKS, () -> {
+            final TestNetworkManager tnm =
+                    inst.getContext().getSystemService(TestNetworkManager.class);
+            return tnm.createTapInterface();
+        });
+        return iface;
+    }
+
+    @Test
+    public void testListenEthernetStateChange_unsolicitedEventListener() throws Exception {
+        when(mNetd.interfaceGetList()).thenReturn(new String[] {});
+        doReturn(new String[] {}).when(mFactory).getAvailableInterfaces(anyBoolean());
+
+        tracker.setIncludeTestInterfaces(true);
+        tracker.start();
+
+        final ArgumentCaptor<EthernetTracker.InterfaceObserver> captor =
+                ArgumentCaptor.forClass(EthernetTracker.InterfaceObserver.class);
+        verify(mNetd, timeout(TIMEOUT_MS)).registerUnsolicitedEventListener(captor.capture());
+        EthernetTracker.InterfaceObserver observer = captor.getValue();
+
+        tracker.setEthernetEnabled(false);
+        waitForIdle();
+        reset(mFactory);
+        reset(mNetd);
+
+        final TestNetworkInterface iface = createInterface();
+        final String ifaceName = iface.getInterfaceName();
+        observer.onInterfaceAdded(ifaceName);
+        verify(mFactory, never()).addInterface(eq(ifaceName), anyString(), any(), any());
+        observer.onInterfaceRemoved(ifaceName);
+        verify(mFactory, never()).removeInterface(ifaceName);
+
+        final InterfaceConfigurationParcel ifaceParcel = new InterfaceConfigurationParcel();
+        ifaceParcel.ifName = ifaceName;
+        ifaceParcel.hwAddr = "11:22:33:44:55:66";
+        ifaceParcel.flags = new String[] {INetd.IF_STATE_UP};
+
+        when(mNetd.interfaceGetList()).thenReturn(new String[] {ifaceName});
+        when(mNetd.interfaceGetCfg(eq(ifaceName))).thenReturn(ifaceParcel);
+        doReturn(new String[] {ifaceName}).when(mFactory).getAvailableInterfaces(anyBoolean());
+        tracker.setEthernetEnabled(true);
+        waitForIdle();
+        verify(mNetd, timeout(TIMEOUT_MS)).registerUnsolicitedEventListener(captor.capture());
+        observer = captor.getValue();
+        reset(mFactory);
+
+        final TestNetworkInterface iface2 = createInterface();
+        final String iface2Name = iface2.getInterfaceName();
+        observer.onInterfaceRemoved(iface2Name);
+        verify(mFactory, timeout(TIMEOUT_MS)).removeInterface(iface2Name);
     }
 }
