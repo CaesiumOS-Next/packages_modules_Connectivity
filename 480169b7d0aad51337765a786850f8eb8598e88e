@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25c90055_99bd71c4",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 922,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-18T05:30:05Z",
+      "side": 1,
+      "message": "Could you dump mEthernetState for debugging ? Then if ethernet doesn\u0027t work even if interface already show up, we could know whether it is because the mEthernetState is false.",
+      "revId": "480169b7d0aad51337765a786850f8eb8598e88e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "037dcec8_9e503db3",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-18T05:30:05Z",
+      "side": 1,
+      "message": "Why you need to create tap interface ?\n\nLooking to your use case: you could just define a string for ifaceName like testListenEthernetStateChange ?\n\nfinal String ifaceName \u003d \"testtap123\";",
+      "range": {
+        "startLine": 493,
+        "startChar": 8,
+        "endLine": 494,
+        "endChar": 58
+      },
+      "revId": "480169b7d0aad51337765a786850f8eb8598e88e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
