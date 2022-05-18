@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "074389c1_0ceb0812",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-18T22:06:22Z",
+      "side": 1,
+      "message": "it looks fine, in a perfect world we would combine these with aosp/2063049 and put them in the common tests.",
+      "revId": "9ec58343dd8f024f7fdd64dd32971f7210e4db52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
