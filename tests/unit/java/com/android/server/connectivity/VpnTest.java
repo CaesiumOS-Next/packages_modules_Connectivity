@@ -1314,6 +1314,18 @@ public class VpnTest {
         if (errorType == VpnManager.ERROR_CLASS_NOT_RECOVERABLE) {
             verify(mConnectivityManager, timeout(TEST_TIMEOUT_MS))
                     .unregisterNetworkCallback(eq(cb));
+        } else if (errorType == VpnManager.ERROR_CLASS_RECOVERABLE) {
+            // To prevent spending much time to test the retry function, only retry 2 times here.
+            int retryIndex = 0;
+            verify(mIkev2SessionCreator,
+                    timeout(((Vpn.IkeV2VpnRunner) vpn.mVpnRunner).getNextRetryDelay(retryIndex++)
+                            + TEST_TIMEOUT_MS))
+                    .createIkeSession(any(), any(), any(), any(), captor.capture(), any());
+            ikeCb.onClosedWithException(exception);
+            verify(mIkev2SessionCreator,
+                    timeout(((Vpn.IkeV2VpnRunner) vpn.mVpnRunner).getNextRetryDelay(retryIndex++)
+                            + TEST_TIMEOUT_MS))
+                    .createIkeSession(any(), any(), any(), any(), captor.capture(), any());
         }
     }
 
