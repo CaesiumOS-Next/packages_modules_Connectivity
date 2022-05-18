@@ -92,6 +92,7 @@ class EthernetManagerTest {
                 val tnm = context.getSystemService(TestNetworkManager::class.java)
                 tnm.createTapInterface(false /* bringUp */)
             }
+            Thread.sleep(1000)
             val mtu = NetworkInterface.getByName(tapInterface.interfaceName).getMTU()
             packetReader = TapPacketReader(handler, tapInterface.fileDescriptor.fileDescriptor, mtu)
             raResponder = RouterAdvertisementResponder(packetReader)
