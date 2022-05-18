@@ -53,8 +53,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.net.Inet6Address
-import java.net.NetworkInterface
-import java.util.concurrent.Executor
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNull
