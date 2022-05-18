@@ -70,6 +70,9 @@ android_library {
         "NetworkStackTestsLib",
         "TetheringTestsLatestSdkLib",
         "TetheringIntegrationTestsLatestSdkLib",
+        // TODO: remove after FrameworksUtilTests moved into frameworks/libs/modules-utils/ which
+        // is opened for module development.
+        "modules-utilstest-statemachine",
     ],
     jarjar_rules: ":ConnectivityCoverageJarJarRules",
     manifest: "AndroidManifest_coverage.xml",
