@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "595e360e_6552f896",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-18T05:08:49Z",
+      "side": 1,
+      "message": "I discussed this with Xiao and I was wrong. setEthernetEnabled does its work on the handler thread, so we should be checking the state on the handler thread as well to stay synchronized.",
+      "parentUuid": "52e5d9b8_e1fd7aa9",
+      "revId": "20cb1d9e98a8342f3cd69860e0b20b26c6e0d694",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb7287ca_41ca2271",
