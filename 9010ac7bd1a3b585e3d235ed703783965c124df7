@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "407cf535_daf29f5c",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-05-18T06:03:20Z",
+      "side": 1,
+      "message": "This is always going to be 0 and 1; that would probably be easier to read.",
+      "range": {
+        "startLine": 733,
+        "startChar": 28,
+        "endLine": 733,
+        "endChar": 40
+      },
+      "revId": "9010ac7bd1a3b585e3d235ed703783965c124df7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91901932_accf1f02",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-05-18T06:03:20Z",
+      "side": 1,
+      "message": "Comments would help readability somewhat; this is getting to be pretty intertwined code.\n\n```\n// Upon network change, VPN migrates the old session seamlessly\n```",
+      "range": {
+        "startLine": 736,
+        "startChar": 0,
+        "endLine": 736,
+        "endChar": 59
+      },
+      "revId": "9010ac7bd1a3b585e3d235ed703783965c124df7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bd4a940_7f2c5011",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-05-18T06:03:20Z",
+      "side": 1,
+      "message": "Comments would help readability here a lot:\n\n```\n// Upon network change, VPN is expected to re-setup on new network\n```",
+      "range": {
+        "startLine": 771,
+        "startChar": 0,
+        "endLine": 771,
+        "endChar": 59
+      },
+      "revId": "9010ac7bd1a3b585e3d235ed703783965c124df7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3335329d_6f05ce71",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-05-18T06:03:20Z",
+      "side": 1,
+      "message": "// Verify that IKE setup triggered on new network.",
+      "range": {
+        "startLine": 778,
+        "startChar": 0,
+        "endLine": 778,
+        "endChar": 53
+      },
+      "revId": "9010ac7bd1a3b585e3d235ed703783965c124df7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
