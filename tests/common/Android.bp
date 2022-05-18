@@ -44,6 +44,14 @@ java_library {
     ],
 }
 
+java_library {
+    name: "FrameworksCoreUtilisTestsLib",
+    defaults: ["framework-connectivity-test-defaults"],
+    static_libs: [
+        "framework-core-utils-tests-shared",
+    ],
+}
+
 // Combine Connectivity, NetworkStack and Tethering jarjar rules for coverage target.
 // The jarjar files are simply concatenated in the order specified in srcs.
 // jarjar stops at the first matching rule, so order of concatenation affects the output.
@@ -64,12 +72,14 @@ android_library {
     name: "ConnectivityCoverageTestsLib",
     min_sdk_version: "30",
     static_libs: [
+        "FrameworksCoreUtilisTestsLib",
         "FrameworksNetTestsLib",
         "NetdStaticLibTestsLib",
         "NetworkStaticLibTestsLib",
         "NetworkStackTestsLib",
         "TetheringTestsLatestSdkLib",
         "TetheringIntegrationTestsLatestSdkLib",
+
     ],
     jarjar_rules: ":ConnectivityCoverageJarJarRules",
     manifest: "AndroidManifest_coverage.xml",
