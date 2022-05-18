@@ -249,9 +249,11 @@ class NsdManagerTest {
     fun setUp() {
         handlerThread.start()
 
-        runAsShell(MANAGE_TEST_NETWORKS) {
-            testNetwork1 = createTestNetwork()
-            testNetwork2 = createTestNetwork()
+        if (ConstantsShim.VERSION > SC_V2) {
+            runAsShell(MANAGE_TEST_NETWORKS) {
+                testNetwork1 = createTestNetwork()
+                testNetwork2 = createTestNetwork()
+            }
         }
     }
 
@@ -290,9 +292,11 @@ class NsdManagerTest {
 
     @After
     fun tearDown() {
-        runAsShell(MANAGE_TEST_NETWORKS) {
-            testNetwork1.close(cm)
-            testNetwork2.close(cm)
+        if (ConstantsShim.VERSION > SC_V2) {
+            runAsShell(MANAGE_TEST_NETWORKS) {
+                testNetwork1.close(cm)
+                testNetwork2.close(cm)
+            }
         }
         handlerThread.quitSafely()
     }
