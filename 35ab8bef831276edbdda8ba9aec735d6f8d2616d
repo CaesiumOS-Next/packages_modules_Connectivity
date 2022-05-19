@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18c2214e_55727229",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-05-19T21:07:28Z",
+      "side": 1,
+      "message": "Why not encapsulate the listener register/unregister as part of creating the interface here since it is the only place it is used? Seems to be more cohesive/readable and removes the need for the 1-off class member listener?\n\nSomething like:\n\n    val ifaceListener \u003d EthernetStateListener()\n    addInterfaceStateListener(ifaceListener)\n    val iface \u003d EthernetTestInterface(\n        context,\n        Handler(Looper.getMainLooper())\n    ).also { createdIfaces.add(it) }\n    ifaceListener.eventuallyExpect(iface, STATE_LINK_UP, ROLE_CLIENT)\n    em.removeInterfaceStateListener(ifaceListener)\n    return iface\n    \nI know this method will be called multiple times but I\u0027m guessing it should be fine?",
+      "range": {
+        "startLine": 197,
+        "startChar": 16,
+        "endLine": 197,
+        "endChar": 33
+      },
+      "revId": "35ab8bef831276edbdda8ba9aec735d6f8d2616d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
