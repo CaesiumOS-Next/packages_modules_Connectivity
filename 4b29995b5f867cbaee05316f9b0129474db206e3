@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ef7ed3d_6e15056b",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-05-19T20:54:48Z",
+      "side": 1,
+      "message": "Should this fail if it doesn\u0027t become idle after a particular timeout period similar to what is done in HandlerUtils#waitForIdle?\nhttps://source.corp.google.com/android/frameworks/libs/net/common/testutils/devicetests/com/android/testutils/HandlerUtils.kt?q\u003dHandler%5C.waitforidle%20f:handlerutils\u0026sq\u003dpackage:%5Eandroid$",
+      "range": {
+        "startLine": 168,
+        "startChar": 12,
+        "endLine": 168,
+        "endChar": 66
+      },
+      "revId": "4b29995b5f867cbaee05316f9b0129474db206e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
