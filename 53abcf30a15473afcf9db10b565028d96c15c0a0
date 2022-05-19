@@ -16,6 +16,41 @@
       "message": "This is unfortunate but if we really need to unblock the tests quickly then LGTM; please remove it ASAP.\n\nPer discussion: if the reason we call NetworkInterface is to get the MAC address, then we should add a method to TestNetworkInterface to return the MAC address.\n\nThe system server should have permission to call NetworkInterface.getByName even if the interface does not yet have an IP address. If that doesn\u0027t work, then we can presumably use the raw SIOCGIFADDR ioctl in TestNetworkService.cpp.",
       "revId": "53abcf30a15473afcf9db10b565028d96c15c0a0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "769f7b92_d800aa46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-19T02:41:34Z",
+      "side": 1,
+      "message": "... I mean SIOCGIFHWADDR.",
+      "parentUuid": "08285c18_56639683",
+      "revId": "53abcf30a15473afcf9db10b565028d96c15c0a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a0bb878_3e741f6f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-19T02:41:34Z",
+      "side": 1,
+      "message": "Also - if we can remove this sleep by assuming the MTU of all Ethernet interfaces is 1500, I\u0027d much prefer we do that instead.",
+      "revId": "53abcf30a15473afcf9db10b565028d96c15c0a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
