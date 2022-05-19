@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "725ef808_4fcb1ebc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 7828,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-05-19T05:21:20Z",
+      "side": 1,
+      "message": "I think this should be ok. Also did a quick code search to confirm:\nhttp://source/search?q\u003dPackageManager%5C.FEATURE_AUTOMOTIVE\u0026sq\u003dpackage:%5Eandroid$\u0026start\u003d11",
+      "parentUuid": "f9960e8b_94fdf14a",
+      "range": {
+        "startLine": 7828,
+        "startChar": 45,
+        "endLine": 7828,
+        "endChar": 96
+      },
+      "revId": "46491d7546e2238e9530539884326592d511e378",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c707b58_eb3c2065",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2f8264c_a38c82b5",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1259,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-05-19T05:21:20Z",
+      "side": 1,
+      "message": "Done in follow-up https://r.android.com/2101472. Also, I didn\u0027t need to include TEST since it is already covered on l.1256.",
+      "parentUuid": "0c707b58_eb3c2065",
+      "range": {
+        "startLine": 1259,
+        "startChar": 15,
+        "endLine": 1259,
+        "endChar": 27
+      },
+      "revId": "46491d7546e2238e9530539884326592d511e378",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ef06a1b_5ac92f54",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-05-19T04:33:12Z",
       "side": 1,
       "message": "Instead of guessing whether this is for automotive based on the transport, we should probably pass in a forAutomotive boolean?",
+      "range": {
+        "startLine": 15598,
+        "startChar": 12,
+        "endLine": 15598,
+        "endChar": 52
+      },
+      "revId": "46491d7546e2238e9530539884326592d511e378",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "046b7d44_1058b9e6",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 15598,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-05-19T05:21:20Z",
+      "side": 1,
+      "message": "Done in follow-up https://r.android.com/2101472.",
+      "parentUuid": "2ef06a1b_5ac92f54",
       "range": {
         "startLine": 15598,
         "startChar": 12,
