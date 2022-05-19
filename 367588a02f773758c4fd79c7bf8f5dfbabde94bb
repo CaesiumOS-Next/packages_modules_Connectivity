@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c58a1a39_51f4a839",
+        "filename": "tests/mts/bpf_existence_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-05-19T01:58:52Z",
+      "side": 1,
+      "message": "are porg_*_block_port supported since T kernel 5.4?\n\ntest failure:\nhttps://fusion2.corp.google.com/invocations/f21fe292-fe52-47d4-9f43-7c1b0b9382d0/targets/armeabi-v7a%20bpf_existence_test;config\u003ddefault/tests\n```\n/sys/fs/bpf/net_shared/prog_block_bind4_block_port does not exist\n/sys/fs/bpf/net_shared/prog_block_bind6_block_port does not exist\n```\n\nsrc\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/bpf_progs/block.c;l\u003d60\n```\nDEFINE_BPF_PROG_KVER(\"bind4/block_port\", AID_ROOT, AID_SYSTEM,\n                     bind4_block_port, KVER(5, 4, 0))\nDEFINE_BPF_PROG_KVER(\"bind6/block_port\", AID_ROOT, AID_SYSTEM,\n                     bind6_block_port, KVER(5, 4, 0))\n```",
+      "range": {
+        "startLine": 126,
+        "startChar": 44,
+        "endLine": 126,
+        "endChar": 45
+      },
+      "revId": "367588a02f773758c4fd79c7bf8f5dfbabde94bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
