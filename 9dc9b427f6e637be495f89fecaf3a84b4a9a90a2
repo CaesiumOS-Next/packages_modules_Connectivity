@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c37a4ef5_7f9d00e9",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-19T01:39:10Z",
+      "side": 1,
+      "message": "If this call is made before the overrideCarrierConfig call above completes, the test will fail, right? Can we do what the telephony test does and call waitForCarrierConfigChanged?",
+      "range": {
+        "startLine": 434,
+        "startChar": 31,
+        "endLine": 434,
+        "endChar": 49
+      },
+      "revId": "9dc9b427f6e637be495f89fecaf3a84b4a9a90a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cabbba0f_3af39bd1",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-19T01:39:10Z",
+      "side": 1,
+      "message": "If this doesn\u0027t happen, the test should fail, right? If so you probably want to do something like:\n\n    final int timeoutMs \u003d 5_000;\n    assertTrue(\"No carrier config broadcast received after \" + timeoutMs + \"milliseconds\"\n            , mLatch.await());",
+      "range": {
+        "startLine": 509,
+        "startChar": 8,
+        "endLine": 509,
+        "endChar": 20
+      },
+      "revId": "9dc9b427f6e637be495f89fecaf3a84b4a9a90a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35eb7bf3_738a4e6e",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-19T01:39:10Z",
+      "side": 1,
+      "message": "What about devices that don\u0027t have cellular connectivity? This test must not fail on those devices. Is the test already skipped for some reason?",
+      "range": {
+        "startLine": 550,
+        "startChar": 20,
+        "endLine": 550,
+        "endChar": 50
+      },
+      "revId": "9dc9b427f6e637be495f89fecaf3a84b4a9a90a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d34a3c32_d8af70f6",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-19T01:39:10Z",
+      "side": 1,
+      "message": "FWIW I think you can just do:\n\n    assertNotNull(mCm.getActiveNetwork());",
+      "range": {
+        "startLine": 556,
+        "startChar": 0,
+        "endLine": 563,
+        "endChar": 9
+      },
+      "revId": "9dc9b427f6e637be495f89fecaf3a84b4a9a90a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
