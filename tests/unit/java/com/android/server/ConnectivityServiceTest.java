@@ -51,9 +51,6 @@ import static android.net.ConnectivityManager.BLOCKED_REASON_NONE;
 import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 import static android.net.ConnectivityManager.EXTRA_NETWORK_INFO;
 import static android.net.ConnectivityManager.EXTRA_NETWORK_TYPE;
-import static android.net.ConnectivityManager.FIREWALL_CHAIN_LOCKDOWN_VPN;
-import static android.net.ConnectivityManager.FIREWALL_RULE_ALLOW;
-import static android.net.ConnectivityManager.FIREWALL_RULE_DENY;
 import static android.net.ConnectivityManager.PROFILE_NETWORK_PREFERENCE_DEFAULT;
 import static android.net.ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE;
 import static android.net.ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE_NO_FALLBACK;
@@ -9522,10 +9519,8 @@ public class ConnectivityServiceTest {
         waitForIdle();
 
         // Lockdown rule is set to apps uids
-        verify(mBpfNetMaps).setUidRule(
-                eq(FIREWALL_CHAIN_LOCKDOWN_VPN), eq(APP1_UID), eq(FIREWALL_RULE_DENY));
-        verify(mBpfNetMaps).setUidRule(
-                eq(FIREWALL_CHAIN_LOCKDOWN_VPN), eq(APP2_UID), eq(FIREWALL_RULE_DENY));
+        verify(mBpfNetMaps).updateUidLockdownRule(eq(APP1_UID), eq(true) /* add */);
+        verify(mBpfNetMaps).updateUidLockdownRule(eq(APP2_UID), eq(true) /* add */);
 
         reset(mBpfNetMaps);
 
@@ -9535,10 +9530,8 @@ public class ConnectivityServiceTest {
         waitForIdle();
 
         // Lockdown rule is removed from apps uids
-        verify(mBpfNetMaps).setUidRule(
-                eq(FIREWALL_CHAIN_LOCKDOWN_VPN), eq(APP1_UID), eq(FIREWALL_RULE_ALLOW));
-        verify(mBpfNetMaps).setUidRule(
-                eq(FIREWALL_CHAIN_LOCKDOWN_VPN), eq(APP2_UID), eq(FIREWALL_RULE_ALLOW));
+        verify(mBpfNetMaps).updateUidLockdownRule(eq(APP1_UID), eq(false) /* add */);
+        verify(mBpfNetMaps).updateUidLockdownRule(eq(APP2_UID), eq(false) /* add */);
 
         // Interface rules are not changed by Lockdown mode enable/disable
         verify(mBpfNetMaps, never()).addUidInterfaceRules(any(), any());
