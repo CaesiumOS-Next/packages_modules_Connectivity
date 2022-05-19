@@ -55,6 +55,7 @@ import org.junit.runner.RunWith
 import java.net.Inet6Address
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 import kotlin.test.fail
@@ -152,9 +153,19 @@ class EthernetManagerTest {
             return events.poll(TIMEOUT_MS) ?: fail("Did not receive callback after ${TIMEOUT_MS}ms")
         }
 
+        fun eventuallyExpect(expected: CallbackEntry) = events.poll(TIMEOUT_MS) { it == expected }
+
+        fun eventuallyExpect(iface: EthernetTestInterface, state: Int, role: Int) {
+            assertNotNull(eventuallyExpect(createChangeEvent(iface, state, role)))
+        }
+
         fun assertNoCallback() {
             val cb = events.poll(NO_CALLBACK_TIMEOUT_MS)
             assertNull(cb, "Expected no callback but got $cb")
+        }
+
+        fun waitForIdle() {
+            while (events.poll(NO_CALLBACK_TIMEOUT_MS) != null) {}
         }
     }
 
