@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efc97a53_53d600b8",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-19T08:29:50Z",
+      "side": 1,
+      "message": "Since close is no-op now, also remove try with resource everywhere. e.g. l.126, l. 136",
+      "range": {
+        "startLine": 116,
+        "startChar": 8,
+        "endLine": 116,
+        "endChar": 13
+      },
+      "revId": "4426a84111b0a7bc66aab995ceefb8036a5541fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
