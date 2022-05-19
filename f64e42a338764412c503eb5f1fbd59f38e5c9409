@@ -187,6 +187,30 @@
       },
       "revId": "f64e42a338764412c503eb5f1fbd59f38e5c9409",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "770ac566_a54f3b0a",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-05-19T13:31:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6da6c82e_8d1df625",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 9
+      },
+      "revId": "f64e42a338764412c503eb5f1fbd59f38e5c9409",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
