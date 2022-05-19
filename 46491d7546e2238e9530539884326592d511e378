@@ -1,5 +1,75 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9960e8b_94fdf14a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 7828,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-19T04:33:12Z",
+      "side": 1,
+      "message": "Is it guaranteed that non-auto form factors do not have FEATURE_AUTOMOTIVE? Should we check the absence of other form factors too?",
+      "range": {
+        "startLine": 7828,
+        "startChar": 45,
+        "endLine": 7828,
+        "endChar": 96
+      },
+      "revId": "46491d7546e2238e9530539884326592d511e378",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c707b58_eb3c2065",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1259,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-19T04:33:12Z",
+      "side": 1,
+      "message": "I think this is too a bit too vague becuause for example it would be true for a VPN that runs on top of Ethernet. It should probably check that ETHERNET is the only transport (or ETHERNET|TEST).",
+      "range": {
+        "startLine": 1259,
+        "startChar": 15,
+        "endLine": 1259,
+        "endChar": 27
+      },
+      "revId": "46491d7546e2238e9530539884326592d511e378",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ef06a1b_5ac92f54",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 15598,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-19T04:33:12Z",
+      "side": 1,
+      "message": "Instead of guessing whether this is for automotive based on the transport, we should probably pass in a forAutomotive boolean?",
+      "range": {
+        "startLine": 15598,
+        "startChar": 12,
+        "endLine": 15598,
+        "endChar": 52
+      },
+      "revId": "46491d7546e2238e9530539884326592d511e378",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
