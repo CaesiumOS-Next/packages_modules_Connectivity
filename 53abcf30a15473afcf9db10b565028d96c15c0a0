@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08285c18_56639683",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-19T02:38:44Z",
+      "side": 1,
+      "message": "This is unfortunate but if we really need to unblock the tests quickly then LGTM; please remove it ASAP.\n\nPer discussion: if the reason we call NetworkInterface is to get the MAC address, then we should add a method to TestNetworkInterface to return the MAC address.\n\nThe system server should have permission to call NetworkInterface.getByName even if the interface does not yet have an IP address. If that doesn\u0027t work, then we can presumably use the raw SIOCGIFADDR ioctl in TestNetworkService.cpp.",
+      "revId": "53abcf30a15473afcf9db10b565028d96c15c0a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
