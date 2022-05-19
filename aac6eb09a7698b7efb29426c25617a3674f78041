@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff94cf8f_603859fe",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1318,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-05-19T01:50:42Z",
+      "side": 1,
+      "message": "Can we inject the retry times via dependencies? That\u0027d at least reduce the time spent in this timeout by 3s total.\n\nOr the other easy way is to inject the ScheduledThreadPoolExecutor and spy a real instance, and then verify the retry delays that are called.",
+      "range": {
+        "startLine": 1318,
+        "startChar": 0,
+        "endLine": 1318,
+        "endChar": 97
+      },
+      "revId": "aac6eb09a7698b7efb29426c25617a3674f78041",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
