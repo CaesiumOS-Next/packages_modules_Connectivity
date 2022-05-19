@@ -189,7 +189,7 @@ class TrafficControllerTest : public ::testing::Test {
         checkEachUidValue(uids, match);
     }
 
-    void expectUidOwnerMapValues(const std::vector<uint32_t>& appUids, uint8_t expectedRule,
+    void expectUidOwnerMapValues(const std::vector<uint32_t>& appUids, uint32_t expectedRule,
                                  uint32_t expectedIif) {
         for (uint32_t uid : appUids) {
             Result<UidOwnerValue> value = mFakeUidOwnerMap.readValue(uid);
@@ -307,7 +307,6 @@ TEST_F(TrafficControllerTest, TestChangeUidOwnerRule) {
     checkUidOwnerRuleForChain(POWERSAVE, POWERSAVE_MATCH);
     checkUidOwnerRuleForChain(RESTRICTED, RESTRICTED_MATCH);
     checkUidOwnerRuleForChain(LOW_POWER_STANDBY, LOW_POWER_STANDBY_MATCH);
-    checkUidOwnerRuleForChain(LOCKDOWN, LOCKDOWN_VPN_MATCH);
     ASSERT_EQ(-EINVAL, mTc.changeUidOwnerRule(NONE, TEST_UID, ALLOW, ALLOWLIST));
     ASSERT_EQ(-EINVAL, mTc.changeUidOwnerRule(INVALID_CHAIN, TEST_UID, ALLOW, ALLOWLIST));
 }
@@ -430,6 +429,21 @@ TEST_F(TrafficControllerTest, TestRemoveUidInterfaceFilteringRules) {
 
     // Remove everything
     ASSERT_TRUE(isOk(mTc.removeUidInterfaceRules({1000})));
+    expectMapEmpty(mFakeUidOwnerMap);
+}
+
+TEST_F(TrafficControllerTest, TestUpdateUidLockdownRule) {
+    // Add Lockdown rules
+    ASSERT_TRUE(isOk(mTc.updateUidLockdownRule(1000, true /* add */)));
+    ASSERT_TRUE(isOk(mTc.updateUidLockdownRule(1001, true /* add */)));
+    expectUidOwnerMapValues({1000, 1001}, LOCKDOWN_VPN_MATCH, 0);
+
+    // Remove one of Lockdown rules
+    ASSERT_TRUE(isOk(mTc.updateUidLockdownRule(1000, false /* add */)));
+    expectUidOwnerMapValues({1001}, LOCKDOWN_VPN_MATCH, 0);
+
+    // Remove remaining Lockdown rule
+    ASSERT_TRUE(isOk(mTc.updateUidLockdownRule(1001, false /* add */)));
     expectMapEmpty(mFakeUidOwnerMap);
 }
 
