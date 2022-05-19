@@ -241,13 +241,13 @@ class EthernetManagerTest {
 
         // Removing interfaces first sends link down, then STATE_ABSENT/ROLE_NONE.
         removeInterface(iface)
-        for (listener in addedListeners) {
+        for (listener in listOf(listener1, listener2)) {
             listener.expectCallback(iface, STATE_LINK_DOWN, ROLE_CLIENT)
             listener.expectCallback(iface, STATE_ABSENT, ROLE_NONE)
         }
 
         removeInterface(iface2)
-        for (listener in addedListeners) {
+        for (listener in listOf(listener1, listener2)) {
             listener.expectCallback(iface2, STATE_LINK_DOWN, ROLE_CLIENT)
             listener.expectCallback(iface2, STATE_ABSENT, ROLE_NONE)
             listener.assertNoCallback()
