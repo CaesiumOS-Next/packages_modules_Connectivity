@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e16b9315_0e5d6421",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-05-19T21:01:17Z",
+      "side": 1,
+      "message": "Would it be cleaner to just put this inside the @before method?\n\n    addedListeners \u003d ArrayList\u003cEthernetStateListener\u003e()\n    \nTBH, it does seem a bit strange that although all the listeners are unregistered in the @after method, they are not again reinitialized in the @before method. I can imagine this could cause problems in the future.\n\nThoughts?",
+      "range": {
+        "startLine": 238,
+        "startChar": 25,
+        "endLine": 238,
+        "endChar": 53
+      },
+      "revId": "d7e2edc565149efb7ddc31711b1cd51fcce38ed5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
