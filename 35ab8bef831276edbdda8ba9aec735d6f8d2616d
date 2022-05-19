@@ -22,6 +22,30 @@
       },
       "revId": "35ab8bef831276edbdda8ba9aec735d6f8d2616d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ce0c2e8_0d80f221",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-19T22:48:23Z",
+      "side": 1,
+      "message": "But that means we would create a listener for every single interface created? I think I prefer a global listener for right now, but can always do that in the future.",
+      "parentUuid": "18c2214e_55727229",
+      "range": {
+        "startLine": 197,
+        "startChar": 16,
+        "endLine": 197,
+        "endChar": 33
+      },
+      "revId": "35ab8bef831276edbdda8ba9aec735d6f8d2616d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
