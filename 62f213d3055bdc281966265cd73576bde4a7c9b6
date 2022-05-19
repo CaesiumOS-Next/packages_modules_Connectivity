@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a2dd228_fb786caf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-19T08:19:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96a89a12_88d459f8",
+      "range": {
+        "startLine": 7,
+        "startChar": 9,
+        "endLine": 7,
+        "endChar": 17
+      },
+      "revId": "62f213d3055bdc281966265cd73576bde4a7c9b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e735b57_36dc0d31",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ae99695_18c2ecea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-19T08:19:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e735b57_36dc0d31",
+      "range": {
+        "startLine": 11,
+        "startChar": 55,
+        "endLine": 11,
+        "endChar": 62
+      },
+      "revId": "62f213d3055bdc281966265cd73576bde4a7c9b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cdfaac81_16a0cac1",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-05-19T08:15:17Z",
       "side": 1,
       "message": "Can\u0027t we just run the test without this config?",
+      "range": {
+        "startLine": 15,
+        "startChar": 12,
+        "endLine": 15,
+        "endChar": 24
+      },
+      "revId": "62f213d3055bdc281966265cd73576bde4a7c9b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "608c031f_48a470f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-19T08:19:11Z",
+      "side": 1,
+      "message": "Oops, it\u0027s unnecessary. Thanks for your reminder. Removed.",
+      "parentUuid": "cdfaac81_16a0cac1",
       "range": {
         "startLine": 15,
         "startChar": 12,
