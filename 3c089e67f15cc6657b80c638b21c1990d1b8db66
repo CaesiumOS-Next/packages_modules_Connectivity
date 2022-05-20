@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ac49d55_abb710c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-20T20:06:19Z",
+      "side": 1,
+      "message": "Hey Xiao, James is OOO for the next couple of days. Since you have some experience with this code, could you take a look on Monday?",
+      "revId": "3c089e67f15cc6657b80c638b21c1990d1b8db66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
