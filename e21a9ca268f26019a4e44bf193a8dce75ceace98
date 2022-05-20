@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d970ea8_d36a55da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-05-20T23:55:17Z",
+      "side": 1,
+      "message": "Could you review exposing APIs for QosCallback that supports DatagramSocket?\n\nWe added an abstract method to QosFilter for this feature. However API rules doesn\u0027t allow adding a new abstract method to abstract class, so presubmit verification is failed.\n\n~~~~~~~~~~~\nerror: Added method android.net.QosFilter.matchesProtocol(int) [AddedAbstractMethod]\nAborting: Found compatibility problems checking the public API\n~~~~~~~~~~~\n\nHowever for classes that are only extended by the platform code itself, this is a bit overzealous, so if nobody besides platform extends QosFilter, we can ignore this.\n(refer: https://groups.google.com/a/google.com/g/android-api-council/c/iSiYHIzC97g/m/8ySrqgeUBAAJ)\nHow can I skip the API check so that presubmit can be validated?",
+      "revId": "e21a9ca268f26019a4e44bf193a8dce75ceace98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
