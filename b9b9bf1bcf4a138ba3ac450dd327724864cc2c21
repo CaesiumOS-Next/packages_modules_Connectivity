@@ -16,6 +16,24 @@
       "message": "Please CP to tm-dev as well 😊",
       "revId": "b9b9bf1bcf4a138ba3ac450dd327724864cc2c21",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3e7e8ea_12c4bba1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-05-20T18:24:16Z",
+      "side": 1,
+      "message": "Will do. Usually I will submit in AOSP first and then CP to tm-dev",
+      "parentUuid": "0c472a96_8c8a307c",
+      "revId": "b9b9bf1bcf4a138ba3ac450dd327724864cc2c21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
