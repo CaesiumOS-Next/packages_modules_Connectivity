@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b23580ac_8b738b20",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-20T08:50:37Z",
+      "side": 1,
+      "message": "It\u0027s done here though right ?\naosp/2098750\n\nI think the problem is that even if T shims are used but the device is S, the tests would get run ?",
+      "range": {
+        "startLine": 13,
+        "startChar": 2,
+        "endLine": 16,
+        "endChar": 57
+      },
+      "revId": "be5ed7e43ac7d6c5e60045b67c94ad19c47cf618",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7ca94fd_2207fdc8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-20T08:50:37Z",
+      "side": 1,
+      "message": "LGTM assuming commit message corrected",
+      "revId": "be5ed7e43ac7d6c5e60045b67c94ad19c47cf618",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
