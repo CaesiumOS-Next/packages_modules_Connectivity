@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab098a71_1770dd66",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-20T02:19:00Z",
+      "side": 1,
+      "message": "LGTM. Feel free to address comment in a follow-up if you like.",
+      "revId": "cef48f5be572a45d8aa0c15f8cfaba001b904355",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb255a0f_0269b62a",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-20T02:19:00Z",
+      "side": 1,
+      "message": "Nit: we often use methods called \"waitForIdle\" - including in this test - but I think they do not do the same thing as this method. Maybe rename this method to something else? failIfNoCallback? Or remove?",
+      "range": {
+        "startLine": 168,
+        "startChar": 12,
+        "endLine": 168,
+        "endChar": 23
+      },
+      "revId": "cef48f5be572a45d8aa0c15f8cfaba001b904355",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
