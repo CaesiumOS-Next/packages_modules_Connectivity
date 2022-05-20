@@ -59,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9e0dd6c_67697abf",
+        "filename": "framework-t/src/android/net/IpSecManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-05-20T22:46:10Z",
+      "side": 1,
+      "message": "Since we throw IAE now, merge this line with the existing doc.",
+      "parentUuid": "55482462_b88ca5c4",
+      "range": {
+        "startLine": 823,
+        "startChar": 27,
+        "endLine": 823,
+        "endChar": 33
+      },
+      "revId": "b9b9bf1bcf4a138ba3ac450dd327724864cc2c21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "892eb512_21e0d455",
@@ -129,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4676948f_860f08ab",
+        "filename": "framework-t/src/android/net/IpSecManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-05-20T22:46:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d6be657_7d6fb107",
+      "range": {
+        "startLine": 824,
+        "startChar": 83,
+        "endLine": 824,
+        "endChar": 98
+      },
+      "revId": "b9b9bf1bcf4a138ba3ac450dd327724864cc2c21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b1598a1_3e32fbc4",
@@ -142,6 +190,30 @@
       "writtenOn": "2022-05-20T22:17:19Z",
       "side": 1,
       "message": "IllegalArgumentException?",
+      "range": {
+        "startLine": 825,
+        "startChar": 41,
+        "endLine": 825,
+        "endChar": 62
+      },
+      "revId": "b9b9bf1bcf4a138ba3ac450dd327724864cc2c21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c0562cd_b854ccfe",
+        "filename": "framework-t/src/android/net/IpSecManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-05-20T22:46:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b1598a1_3e32fbc4",
       "range": {
         "startLine": 825,
         "startChar": 41,
