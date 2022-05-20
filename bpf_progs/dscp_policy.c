@@ -155,12 +155,12 @@ static inline __always_inline void match_policy(struct __sk_buff* skb, bool ipv4
         }
     }
 
-    if (existingRule && v6_equal(srcIp, existingRule->srcIp) &&
-                v6_equal(dstIp, existingRule->dstIp) &&
-                skb->ifindex == existingRule->ifindex &&
-                ntohs(sport) == htons(existingRule->srcPort) &&
-                ntohs(dport) == htons(existingRule->dstPort) &&
-                protocol == existingRule->proto) {
+    if (existingRule && !(v6_not_equal(srcIp, existingRule->srcIp) |
+                v6_not_equal(dstIp, existingRule->dstIp) |
+                (skb->ifindex ^ existingRule->ifindex) |
+                (sport ^ existingRule->srcPort) |
+                (dport ^ existingRule->dstPort) |
+                (protocol ^ existingRule->proto))) {
         if (ipv4) {
             int ecn = tos & 3;
             uint8_t newDscpVal = (existingRule->dscpVal << 2) + ecn;
@@ -199,29 +199,29 @@ static inline __always_inline void match_policy(struct __sk_buff* skb, bool ipv4
         if (!policy || policy->presentFields == 0 || policy->ifindex != skb->ifindex)
             continue;
 
-        if ((policy->presentFields & SRC_IP_MASK_FLAG) == SRC_IP_MASK_FLAG &&
-                v6_equal(srcIp, policy->srcIp)) {
+        if (!(((policy->presentFields & SRC_IP_MASK_FLAG) ^ SRC_IP_MASK_FLAG) |
+                v6_not_equal(srcIp, policy->srcIp))) {
             score++;
             tempMask |= SRC_IP_MASK_FLAG;
         }
-        if ((policy->presentFields & DST_IP_MASK_FLAG) == DST_IP_MASK_FLAG &&
-                v6_equal(dstIp, policy->dstIp)) {
+        if (!(((policy->presentFields & DST_IP_MASK_FLAG) ^ DST_IP_MASK_FLAG) |
+                v6_not_equal(dstIp, policy->dstIp))) {
             score++;
             tempMask |= DST_IP_MASK_FLAG;
         }
-        if ((policy->presentFields & SRC_PORT_MASK_FLAG) == SRC_PORT_MASK_FLAG &&
-                ntohs(sport) == htons(policy->srcPort)) {
+        if (!(((policy->presentFields & SRC_PORT_MASK_FLAG) ^ SRC_PORT_MASK_FLAG) |
+                (sport ^ policy->srcPort))) {
             score++;
             tempMask |= SRC_PORT_MASK_FLAG;
         }
         if ((policy->presentFields & DST_PORT_MASK_FLAG) == DST_PORT_MASK_FLAG &&
-                ntohs(dport) >= htons(policy->dstPortStart) &&
-                ntohs(dport) <= htons(policy->dstPortEnd)) {
+                ntohs(dport) >= ntohs(policy->dstPortStart) &&
+                ntohs(dport) <= ntohs(policy->dstPortEnd)) {
             score++;
             tempMask |= DST_PORT_MASK_FLAG;
         }
-        if ((policy->presentFields & PROTO_MASK_FLAG) == PROTO_MASK_FLAG &&
-                protocol == policy->proto) {
+        if (!(((policy->presentFields & PROTO_MASK_FLAG) ^ PROTO_MASK_FLAG) |
+                (protocol ^ policy->proto))) {
             score++;
             tempMask |= PROTO_MASK_FLAG;
         }
@@ -232,7 +232,7 @@ static inline __always_inline void match_policy(struct __sk_buff* skb, bool ipv4
         }
     }
 
-    uint8_t new_tos= 0; // Can 0 be used as default forwarding value?
+    uint8_t new_tos = 0; // Can 0 be used as default forwarding value?
     uint8_t new_priority = 0;
     uint8_t new_flow_lbl = 0;
     if (bestScore > 0) {
