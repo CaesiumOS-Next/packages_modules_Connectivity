@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ae1577f_682ed3b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-20T20:02:45Z",
+      "side": 1,
+      "message": "Hey James, can you please take another look at this? Just want to make sure nothing is missed here. In the meantime, will work on fixing the unit tests, so hopefully this can be submitted very soon.",
+      "revId": "d4f79c09bd50d273438a135e7825f43a6419dd1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2073a58c_dd81cdcd",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-20T20:02:45Z",
+      "side": 1,
+      "message": "Found this bug while testing; if a NetworkOffer is removed, we also need to clear out its requests.",
+      "range": {
+        "startLine": 658,
+        "startChar": 12,
+        "endLine": 658,
+        "endChar": 30
+      },
+      "revId": "d4f79c09bd50d273438a135e7825f43a6419dd1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

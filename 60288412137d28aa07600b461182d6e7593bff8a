@@ -22,6 +22,30 @@
       },
       "revId": "60288412137d28aa07600b461182d6e7593bff8a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a8c64fa_867b95dc",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetNetworkFactoryTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-20T20:02:45Z",
+      "side": 0,
+      "message": "CTS added, but unit test fixes are still outstanding.",
+      "parentUuid": "933ab99a_7f3afcb0",
+      "range": {
+        "startLine": 381,
+        "startChar": 3,
+        "endLine": 408,
+        "endChar": 5
+      },
+      "revId": "60288412137d28aa07600b461182d6e7593bff8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
