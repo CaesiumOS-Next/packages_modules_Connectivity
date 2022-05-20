@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c472a96_8c8a307c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1626001
+      },
+      "writtenOn": "2022-05-20T05:37:18Z",
+      "side": 1,
+      "message": "Please CP to tm-dev as well 😊",
+      "revId": "b9b9bf1bcf4a138ba3ac450dd327724864cc2c21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
