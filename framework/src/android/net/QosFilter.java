@@ -97,8 +97,10 @@ public abstract class QosFilter {
      * @param protocol the protocol such as TCP or UDP included in IP packet filter set of a QoS
      *                 flow assigned on {@link Network}.
      * @return whether the parameters match the socket type of the filter
-     * @hide
      */
-    public abstract boolean matchesProtocol(int protocol);
+    public boolean matchesProtocol(int protocol){
+        throw new UnsupportedOperationException(
+                "This method must be overridden to provide an implementation.");      
+    }
 }
 
