@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71143cba_59a448e2",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-05-20T04:51:39Z",
+      "side": 1,
+      "message": "Not sure what the telephony test is. I improved the mehtod of overrideCarrierConfig to have a similar way as waitForCarrierConfigChanged.\n\n\u003e If this call is made before the overrideCarrierConfig call above completes, the test will fail, right? \n\nIt may like testEnableTethering_carrierUnsupportByConfigChange_noTetheringActive",
+      "parentUuid": "c37a4ef5_7f9d00e9",
+      "range": {
+        "startLine": 434,
+        "startChar": 31,
+        "endLine": 434,
+        "endChar": 49
+      },
+      "revId": "9dc9b427f6e637be495f89fecaf3a84b4a9a90a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cabbba0f_3af39bd1",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-19T01:39:10Z",
       "side": 1,
       "message": "If this doesn\u0027t happen, the test should fail, right? If so you probably want to do something like:\n\n    final int timeoutMs \u003d 5_000;\n    assertTrue(\"No carrier config broadcast received after \" + timeoutMs + \"milliseconds\"\n            , mLatch.await());",
+      "range": {
+        "startLine": 509,
+        "startChar": 8,
+        "endLine": 509,
+        "endChar": 20
+      },
+      "revId": "9dc9b427f6e637be495f89fecaf3a84b4a9a90a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1472c975_2223ecd9",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-05-20T04:51:39Z",
+      "side": 1,
+      "message": "Yap, once carrier config change does not happen in time, any tests related to this shall fail.\n\nFor the code suggested, I think this is really better. Thanks a lot.",
+      "parentUuid": "cabbba0f_3af39bd1",
       "range": {
         "startLine": 509,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4551b18e_c198e838",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-05-20T04:51:39Z",
+      "side": 1,
+      "message": "No Cellular data means there is no necessary to trigger entitlement check.\n\nThat is why I focus on the condition of Cellular data existed and to test the logic is good or bad.",
+      "parentUuid": "35eb7bf3_738a4e6e",
+      "range": {
+        "startLine": 550,
+        "startChar": 20,
+        "endLine": 550,
+        "endChar": 50
+      },
+      "revId": "9dc9b427f6e637be495f89fecaf3a84b4a9a90a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d34a3c32_d8af70f6",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-05-19T01:39:10Z",
       "side": 1,
       "message": "FWIW I think you can just do:\n\n    assertNotNull(mCm.getActiveNetwork());",
+      "range": {
+        "startLine": 556,
+        "startChar": 0,
+        "endLine": 563,
+        "endChar": 9
+      },
+      "revId": "9dc9b427f6e637be495f89fecaf3a84b4a9a90a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc5e9320_aae92b39",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-05-20T04:51:39Z",
+      "side": 1,
+      "message": "Excellent!! Thanks for this suggestion. It simplified the code!",
+      "parentUuid": "d34a3c32_d8af70f6",
       "range": {
         "startLine": 556,
         "startChar": 0,
