@@ -19,9 +19,15 @@ import android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS
 import android.Manifest.permission.MANAGE_TEST_NETWORKS
 import android.Manifest.permission.NETWORK_SETTINGS
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.EthernetNetworkSpecifier
 import android.net.InetAddresses
 import android.net.IpConfiguration
 import android.net.MacAddress
+import android.net.Network
+import android.net.NetworkCapabilities.NET_CAPABILITY_TRUSTED
+import android.net.NetworkCapabilities.TRANSPORT_TEST
+import android.net.NetworkRequest
 import android.net.TestNetworkInterface
 import android.net.TestNetworkManager
 import android.net.cts.EthernetManagerTest.EthernetStateListener.CallbackEntry.InterfaceStateChanged
@@ -41,10 +47,14 @@ import com.android.networkstack.apishim.common.EthernetManagerShim.ROLE_NONE
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_ABSENT
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_LINK_DOWN
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_LINK_UP
+import com.android.testutils.anyNetwork
 import com.android.testutils.DevSdkIgnoreRule
+import com.android.testutils.RecorderCallback.CallbackEntry.Available
+import com.android.testutils.RecorderCallback.CallbackEntry.Lost
 import com.android.testutils.RouterAdvertisementResponder
 import com.android.testutils.SC_V2
 import com.android.testutils.TapPacketReader
+import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.runAsShell
 import com.android.testutils.waitForIdle
 import org.junit.After
@@ -64,6 +74,11 @@ private const val TIMEOUT_MS = 1000L
 private const val NO_CALLBACK_TIMEOUT_MS = 200L
 private val DEFAULT_IP_CONFIGURATION = IpConfiguration(IpConfiguration.IpAssignment.DHCP,
     IpConfiguration.ProxySettings.NONE, null, null)
+private val ETH_REQUEST: NetworkRequest = NetworkRequest.Builder()
+    .addTransportType(TRANSPORT_TEST)
+    // .addTransportType(TRANSPORT_ETHERNET)
+    .removeCapability(NET_CAPABILITY_TRUSTED)
+    .build()
 
 @AppModeFull(reason = "Instant apps can't access EthernetManager")
 @RunWith(AndroidJUnit4::class)
@@ -74,6 +89,7 @@ class EthernetManagerTest {
 
     private val context by lazy { InstrumentationRegistry.getInstrumentation().context }
     private val em by lazy { EthernetManagerShimImpl.newInstance(context) }
+    private val cm by lazy { context.getSystemService(ConnectivityManager::class.java) }
 
     private val ifaceListener = EthernetStateListener()
     private val createdIfaces = ArrayList<EthernetTestInterface>()
@@ -293,5 +309,83 @@ class EthernetManagerTest {
         assertTrue(ifaces.contains(iface2.interfaceName))
 
         removeInterface(iface2)
+    }
+
+    // It can take multiple (>5) seconds for the network to become available. EthernetTracker
+    // currently adds an interface and brings it up right away, before the down and subsequent up
+    // callbacks are executed. This means that the network is brought up twice and only then will
+    // become available.
+    // TODO: fix EthernetTracker and reduce timeout.
+    private fun TestableNetworkCallback.expectAvailable() =
+        expectCallback<Available>(anyNetwork(), 10000/*timeout*/).network
+
+    private fun TestableNetworkCallback.eventuallyExpectLost(n: Network? = null) =
+        eventuallyExpect<Lost>(TIMEOUT_MS) { n?.equals(it.network) ?: true }
+
+    private fun TestableNetworkCallback.assertNotLost(n: Network? = null) =
+        assertNoCallbackThat(TIMEOUT_MS) { it is Lost && (n?.equals(it.network) ?: true) }
+
+    @Test
+    fun testNetworkRequest_withSingleExistingInterface() {
+        setIncludeTestInterfaces(true)
+        createInterface()
+
+        // install a listener which will later be used to verify the Lost callback
+        val listenerCb = TestableNetworkCallback()
+        cm.registerNetworkCallback(ETH_REQUEST, listenerCb)
+
+        val cb = TestableNetworkCallback()
+        cm.requestNetwork(ETH_REQUEST, cb)
+        val network = cb.expectAvailable()
+
+        // TODO: add an eventuallyExpectValidated check and a check for no more interactions instead
+        // of using assertNotLost()
+        cb.assertNotLost()
+        cm.unregisterNetworkCallback(cb)
+        listenerCb.eventuallyExpectLost(network)
+    }
+
+    @Test
+    fun testNetworkRequest_beforeSingleInterfaceIsUp() {
+        setIncludeTestInterfaces(true)
+
+        val cb = TestableNetworkCallback()
+        cm.requestNetwork(ETH_REQUEST, cb)
+
+        // bring up interface after network has been requested
+        val iface = createInterface()
+        val network = cb.expectAvailable()
+
+        // remove interface before network request has been removed
+        cb.assertNotLost()
+        removeInterface(iface)
+        cb.eventuallyExpectLost()
+
+        cm.unregisterNetworkCallback(cb)
+    }
+
+    @Test
+    fun testNetworkRequest_withMultipleInterfaces() {
+        setIncludeTestInterfaces(true)
+
+        val iface1 = createInterface()
+        val iface2 = createInterface()
+
+        val ethSpecifier = EthernetNetworkSpecifier(iface2.interfaceName)
+        val specifierRequest =
+            NetworkRequest.Builder(NetworkRequest(ETH_REQUEST)).setNetworkSpecifier(ethSpecifier)
+                .build()
+        val cb = TestableNetworkCallback()
+        cm.requestNetwork(specifierRequest, cb)
+
+        val network = cb.expectAvailable()
+        cb.expectCapabilitiesThat(network) { it.networkSpecifier == ethSpecifier }
+
+        removeInterface(iface1)
+        cb.assertNotLost()
+        removeInterface(iface2)
+        cb.eventuallyExpectLost()
+
+        cm.unregisterNetworkCallback(cb)
     }
 }
