@@ -73,6 +73,10 @@ import android.os.HandlerThread
 import android.os.Message
 import android.os.SystemClock
 import android.platform.test.annotations.AppModeFull
+import android.system.OsConstants.IPPROTO_TCP
+import android.system.OsConstants.IPPROTO_UDP
+import android.system.OsConstants.SOCK_STREAM
+import android.system.OsConstants.SOCK_DGRAM
 import android.telephony.TelephonyManager
 import android.telephony.data.EpsBearerQosSessionAttributes
 import android.util.DebugUtils.valueToString
@@ -175,6 +179,7 @@ class NetworkAgentTest {
     private val agentsToCleanUp = mutableListOf<NetworkAgent>()
     private val callbacksToCleanUp = mutableListOf<TestableNetworkCallback>()
     private var qosTestSocket: Socket? = null
+    private var qosTestDatagramSocket: DatagramSocket? = null
 
     @Before
     fun setUp() {
@@ -187,6 +192,7 @@ class NetworkAgentTest {
         agentsToCleanUp.forEach { it.unregister() }
         callbacksToCleanUp.forEach { mCM.unregisterNetworkCallback(it) }
         qosTestSocket?.close()
+        qosTestDatagramSocket?.close()
         mHandlerThread.quitSafely()
         instrumentation.getUiAutomation().dropShellPermissionIdentity()
     }
@@ -946,18 +952,67 @@ class NetworkAgentTest {
         return Pair(agent, qosTestSocket!!)
     }
 
+    private fun setupForQosCallbackTestingWithDatagramSocket():
+                            Pair<TestableNetworkAgent, DatagramSocket> {
+        val request = NetworkRequest.Builder()
+                .clearCapabilities()
+                .addTransportType(TRANSPORT_TEST)
+                .build()
+
+        val callback = TestableNetworkCallback(timeoutMs = DEFAULT_TIMEOUT_MS)
+        requestNetwork(request, callback)
+        val (agent, _) = createConnectedNetworkAgent()
+        qosTestDatagramSocket =
+                DatagramSocket(InetSocketAddress(InetAddress.getLoopbackAddress(), 0))
+        return Pair(agent, qosTestDatagramSocket!!)
+    }
+
     @AppModeFull(reason = "Instant apps don't have permission to bind sockets.")
     @Test
-    fun testQosCallbackRegisterWithUnregister() {
-        val (agent, socket) = setupForQosCallbackTesting()
+    fun testQosCallbackRegisterAndUnregister() {
+        validateQosCallbackRegisterWithUnregister()
+    }
+
+    @AppModeFull(reason = "Instant apps don't have permission to bind sockets.")
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S)
+    fun testQosCallbackRegisterAndUnregisterWithDatagramSocket() {
+        validateQosCallbackRegisterWithUnregister(SOCK_DGRAM)
+    }
+
+    private fun validateQosCallbackRegisterWithUnregister(sockType: Int = SOCK_STREAM) {
+        var socket: Socket? = null
+        var socketDatagram: DatagramSocket? = null
+        val agent: TestableNetworkAgent
+        if (sockType == SOCK_DGRAM) {
+        val (agent1, socket1) = setupForQosCallbackTestingWithDatagramSocket()
+            agent = agent1
+            socketDatagram = socket1
+        } else {
+            val (agent2, socket2) = setupForQosCallbackTesting()
+            agent = agent2
+            socket = socket2
+        }
 
         val qosCallback = TestableQosCallback()
         var callbackId = -1
         Executors.newSingleThreadExecutor().let { executor ->
             try {
-                val info = QosSocketInfo(agent.network!!, socket)
+                val info: QosSocketInfo
+                if (sockType == SOCK_DGRAM) {
+                    info = QosSocketInfo(agent.network!!, socketDatagram)
+                } else {
+                    info = QosSocketInfo(agent.network!!, socket)
+                }
                 mCM.registerQosCallback(info, executor, qosCallback)
-                callbackId = agent.expectCallback<OnRegisterQosCallback>().callbackId
+                agent.expectCallback<OnRegisterQosCallback>().let {
+                    callbackId = it.callbackId
+                    if (sockType == SOCK_STREAM) {
+                        assertTrue(it.filter.matchesProtocol(IPPROTO_TCP))
+                    } else {
+                        assertTrue(it.filter.matchesProtocol(IPPROTO_UDP))
+                    }
+                }
 
                 assertFailsWith<QosCallbackRegistrationException>(
                         "The same callback cannot be " +
@@ -965,7 +1020,8 @@ class NetworkAgentTest {
                     mCM.registerQosCallback(info, executor, qosCallback)
                 }
             } finally {
-                socket.close()
+                socket?.close()
+                socketDatagram?.close()
                 mCM.unregisterQosCallback(qosCallback)
                 agent.expectCallback<OnUnregisterQosCallback> { it.callbackId == callbackId }
                 executor.shutdown()
@@ -976,11 +1032,38 @@ class NetworkAgentTest {
     @AppModeFull(reason = "Instant apps don't have permission to bind sockets.")
     @Test
     fun testQosCallbackOnQosSession() {
-        val (agent, socket) = setupForQosCallbackTesting()
+        validateQosCallbackOnQosSession()
+    }
+
+    @AppModeFull(reason = "Instant apps don't have permission to bind sockets.")
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S)
+    fun testQosCallbackOnQosSessionWithDatagramSocket() {
+        validateQosCallbackOnQosSession(SOCK_DGRAM)
+    }
+
+    private fun validateQosCallbackOnQosSession(sockType: Int = SOCK_STREAM) {
+        var socket: Socket? = null
+        var socketDatagram: DatagramSocket? = null
+        val agent: TestableNetworkAgent
+        if (sockType == SOCK_DGRAM) {
+        val (agent1, socket1) = setupForQosCallbackTestingWithDatagramSocket()
+            agent = agent1
+            socketDatagram = socket1
+        } else {
+            val (agent2, socket2) = setupForQosCallbackTesting()
+            agent = agent2
+            socket = socket2
+        }
         val qosCallback = TestableQosCallback()
         Executors.newSingleThreadExecutor().let { executor ->
             try {
-                val info = QosSocketInfo(agent.network!!, socket)
+                val info: QosSocketInfo
+                if (sockType == SOCK_DGRAM) {
+                    info = QosSocketInfo(agent.network!!, socketDatagram)
+                } else {
+                    info = QosSocketInfo(agent.network!!, socket)
+                }
                 assertEquals(agent.network, info.getNetwork())
                 mCM.registerQosCallback(info, executor, qosCallback)
                 val callbackId = agent.expectCallback<OnRegisterQosCallback>().callbackId
@@ -1009,7 +1092,8 @@ class NetworkAgentTest {
                 agent.sendQosSessionLost(callbackId, sessId, QosSession.TYPE_EPS_BEARER)
                 qosCallback.assertNoCallback()
             } finally {
-                socket.close()
+                socket?.close()
+                socketDatagram?.close()
 
                 // safety precaution
                 mCM.unregisterQosCallback(qosCallback)

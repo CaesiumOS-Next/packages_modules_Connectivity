@@ -24,6 +24,8 @@ import android.net.NetworkReleasedException;
 import android.net.QosCallbackException;
 import android.net.SocketLocalAddressChangedException;
 import android.net.SocketNotBoundException;
+import android.net.SocketNotConnectedException;
+import android.net.SocketRemoteAddressChangedException;
 import android.os.Build;
 
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
@@ -39,8 +41,12 @@ public class QosCallbackExceptionTest {
     private static final String ERROR_MSG_SOCK_NOT_BOUND = "The socket is unbound";
     private static final String ERROR_MSG_NET_RELEASED =
             "The network was released and is no longer available";
-    private static final String ERROR_MSG_SOCK_ADDR_CHANGED =
+    private static final String ERROR_MSG_SOCK_LOCAL_ADDRESS_CHANGED =
             "The local address of the socket changed";
+    private static final String ERROR_MSG_SOCK_NOT_CONNECTED =
+            "The socket is not connected";
+    private static final String ERROR_MSG_SOCK_REMOTE_ADDRESS_CHANGED =
+            "The remote address of the socket changed";
 
 
     @Test
@@ -77,13 +83,39 @@ public class QosCallbackExceptionTest {
 
     @Test
     public void testSocketLocalAddressChangedExceptions() throws  Exception {
-        final Throwable localAddrChangedException = new SocketLocalAddressChangedException();
-        final QosCallbackException exception = new QosCallbackException(localAddrChangedException);
+        final Throwable localAddressChangedException = new SocketLocalAddressChangedException();
+        final QosCallbackException exception =
+                new QosCallbackException(localAddressChangedException);
 
         assertTrue(exception.getCause() instanceof SocketLocalAddressChangedException);
-        assertEquals(localAddrChangedException, exception.getCause());
-        assertTrue(exception.getMessage().contains(ERROR_MSG_SOCK_ADDR_CHANGED));
-        assertThrowableMessageContains(exception, ERROR_MSG_SOCK_ADDR_CHANGED);
+        assertEquals(localAddressChangedException, exception.getCause());
+        assertTrue(exception.getMessage().contains(ERROR_MSG_SOCK_LOCAL_ADDRESS_CHANGED));
+        assertThrowableMessageContains(exception, ERROR_MSG_SOCK_LOCAL_ADDRESS_CHANGED);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S)
+    public void testSocketNotConnectedExceptions() throws Exception {
+        final Throwable sockNotConnectedException = new SocketNotConnectedException();
+        final QosCallbackException exception = new QosCallbackException(sockNotConnectedException);
+
+        assertTrue(exception.getCause() instanceof SocketNotConnectedException);
+        assertEquals(sockNotConnectedException, exception.getCause());
+        assertTrue(exception.getMessage().contains(ERROR_MSG_SOCK_NOT_CONNECTED));
+        assertThrowableMessageContains(exception, ERROR_MSG_SOCK_NOT_CONNECTED);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S)
+    public void testSocketRemoteAddressChangedExceptions() throws  Exception {
+        final Throwable remoteAddressChangedException = new SocketRemoteAddressChangedException();
+        final QosCallbackException exception =
+                new QosCallbackException(remoteAddressChangedException);
+
+        assertTrue(exception.getCause() instanceof SocketRemoteAddressChangedException);
+        assertEquals(remoteAddressChangedException, exception.getCause());
+        assertTrue(exception.getMessage().contains(ERROR_MSG_SOCK_REMOTE_ADDRESS_CHANGED));
+        assertThrowableMessageContains(exception, ERROR_MSG_SOCK_REMOTE_ADDRESS_CHANGED);
     }
 
     private void assertThrowableMessageContains(QosCallbackException exception, String errorMsg)
