@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "40c3c0a4_83e6b52a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-22T14:23:35Z",
+      "side": 1,
+      "message": "Yes. Those target T+ NsdManagerTest would fail on S image because aosp/2098750 updated ConstantsShim to 33, so the ConstantsShim.VERSION check will be true. Then these tests will run on S image but fails with no api found. Thus the pre-check should include platform check(T+).",
+      "parentUuid": "b23580ac_8b738b20",
+      "range": {
+        "startLine": 13,
+        "startChar": 2,
+        "endLine": 16,
+        "endChar": 57
+      },
+      "revId": "be5ed7e43ac7d6c5e60045b67c94ad19c47cf618",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c7ca94fd_2207fdc8",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
