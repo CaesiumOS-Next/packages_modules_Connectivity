@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0a2b2a2_0559769d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-23T22:35:02Z",
+      "side": 1,
+      "message": "out of curiosity, what was the original load time?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 24
+      },
+      "revId": "0ed5f0a76cee7d718b25587ca67bfdf9af321700",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be5bfd49_c51d8b5a",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-23T22:35:02Z",
+      "side": 1,
+      "message": "These do become a lot harder to read now, so it may not be a bad idea to put a comment with the original statement above them.",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 203,
+        "endChar": 54
+      },
+      "revId": "0ed5f0a76cee7d718b25587ca67bfdf9af321700",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0b0c497_64892ae2",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-23T22:35:02Z",
+      "side": 1,
+      "message": "was this a bug?",
+      "range": {
+        "startLine": 218,
+        "startChar": 16,
+        "endLine": 219,
+        "endChar": 37
+      },
+      "revId": "0ed5f0a76cee7d718b25587ca67bfdf9af321700",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

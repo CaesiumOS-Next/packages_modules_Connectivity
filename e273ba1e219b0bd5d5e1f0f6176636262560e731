@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edbe8e14_8bac2858",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-23T22:35:02Z",
+      "side": 0,
+      "message": "I don\u0027t understand this line to begin with, why did we convert to host byte order on one side and to network byte order on the other?",
+      "range": {
+        "startLine": 161,
+        "startChar": 16,
+        "endLine": 161,
+        "endChar": 60
+      },
+      "revId": "e273ba1e219b0bd5d5e1f0f6176636262560e731",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00b3f63a_3bf2630e",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-23T22:35:02Z",
+      "side": 0,
+      "message": "same here, I don\u0027t understand this",
+      "range": {
+        "startLine": 213,
+        "startChar": 16,
+        "endLine": 213,
+        "endChar": 37
+      },
+      "revId": "e273ba1e219b0bd5d5e1f0f6176636262560e731",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
