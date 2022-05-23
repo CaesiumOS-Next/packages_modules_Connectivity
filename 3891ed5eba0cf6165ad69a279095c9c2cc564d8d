@@ -22,6 +22,30 @@
       },
       "revId": "3891ed5eba0cf6165ad69a279095c9c2cc564d8d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d867cac4_e3adefdf",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3238,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-23T13:30:21Z",
+      "side": 1,
+      "message": "Can we mark the whole test as @ConnectivityModuleTest? It primarily/only tests code in the tethering module, and that\u0027s what @ConnectivityModuleTest is for, right?\n\nIf we can\u0027t mark the whole test as @ConnectivityModuleTest, then... not sure how we can separate the test into two without duplicating much of its code. I guess we could refactor/rename this method and have something like:\n\n    private void doTestUidsAllowedOnRestrictedNetworks(boolean shouldTestTApis) {\n        ... existing code...\n\n        if (shouldTestTApis) {\n            // Uid is in allowed list. Try file network request again.\n            requestNetwork(restrictedRequest, restrictedNetworkCb);\n            ...\n        }\n        ...\n    }\n\n    @AppModeFull(reason \u003d \"WRITE_SECURE_SETTINGS permission can\u0027t be granted to instant apps\")\n    @Test\n    public void testAllowedUidsCanUseRestrictedNetworks() throws Exception {\n        doTestUidsAllowedOnRestrictedNetworks(false);\n    }\n\n    @AppModeFull(reason \u003d \"WRITE_SECURE_SETTINGS permission can\u0027t be granted to instant apps\")\n    @Test\n    @ConnectivityModuleTest\n    public void testAllowedUidsCanRequestAndUseRestrictedNetworks() throws Exception {\n        assumeTrue(shouldTestTApis());\n        doTestUidsAllowedOnRestrictedNetworks(true);\n    }\n\nNot great, but better than lots of code duplication. I\u0027d prefer marking the whole test @ConnectivityModuleTest if that works.",
+      "parentUuid": "ed5d6c45_0ce305c5",
+      "range": {
+        "startLine": 3238,
+        "startChar": 12,
+        "endLine": 3238,
+        "endChar": 46
+      },
+      "revId": "3891ed5eba0cf6165ad69a279095c9c2cc564d8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
