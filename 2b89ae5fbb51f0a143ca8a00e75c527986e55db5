@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65c5afad_d1a83874",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-23T02:08:46Z",
+      "side": 1,
+      "message": "LGTM, but this still seems pretty error-prone. Could we make it easier if we ensured that @IgnoreUpTo checked the shim version as well as the current SDK version? Will @IgnoreUpTo will also prevent setUp from running?",
+      "revId": "2b89ae5fbb51f0a143ca8a00e75c527986e55db5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
