@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "baca7bad_d501617e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-05-23T13:57:22Z",
+      "side": 1,
+      "message": "btw, do we know the reason why up-up-down-up callbacks happen when creating a new interface?",
+      "range": {
+        "startLine": 15,
+        "startChar": 32,
+        "endLine": 15,
+        "endChar": 60
+      },
+      "revId": "3c089e67f15cc6657b80c638b21c1990d1b8db66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "1ac49d55_abb710c0",
