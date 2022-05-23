@@ -51,13 +51,27 @@ public class DelayedDiskWrite {
      * Do a delayed data write to a given output stream opened from filePath.
      */
     public void write(final String filePath, final Writer w) {
-        write(filePath, w, true);
+        write(filePath, w, true, null /* handler */);
     }
 
     /**
      * Do a delayed data write to a given output stream opened from filePath.
      */
     public void write(final String filePath, final Writer w, final boolean open) {
+        write(filePath, w, open, null /* handler */);
+    }
+
+    /**
+     * Do a delayed data write to a given output stream opened from filePath.
+     *
+     * @param filePath the path of file to be written
+     * @param w interface Writer instance
+     * @param open whether opening a new output data stream is required
+     * @param handler the handler on which write operates. If handler is null, then
+     *                create a handler thread and handler upon write starts.
+     */
+    void write(final String filePath, final Writer w, final boolean open,
+            final Handler handler) {
         if (TextUtils.isEmpty(filePath)) {
             throw new IllegalArgumentException("empty file path");
         }
@@ -65,21 +79,25 @@ public class DelayedDiskWrite {
         /* Do a delayed write to disk on a separate handler thread */
         synchronized (this) {
             if (++mWriteSequence == 1) {
-                mDiskWriteHandlerThread = new HandlerThread("DelayedDiskWriteThread");
-                mDiskWriteHandlerThread.start();
-                mDiskWriteHandler = new Handler(mDiskWriteHandlerThread.getLooper());
+                if (handler == null) {
+                    mDiskWriteHandlerThread = new HandlerThread("DelayedDiskWriteThread");
+                    mDiskWriteHandlerThread.start();
+                    mDiskWriteHandler = new Handler(mDiskWriteHandlerThread.getLooper());
+                } else {
+                    mDiskWriteHandler = handler;
+                }
             }
         }
 
         mDiskWriteHandler.post(new Runnable() {
             @Override
             public void run() {
-                doWrite(filePath, w, open);
+                doWrite(filePath, w, open, handler);
             }
         });
     }
 
-    private void doWrite(String filePath, Writer w, boolean open) {
+    private void doWrite(String filePath, Writer w, boolean open, Handler handler) {
         DataOutputStream out = null;
         try {
             if (open) {
@@ -99,9 +117,11 @@ public class DelayedDiskWrite {
             // Quit if no more writes sent
             synchronized (this) {
                 if (--mWriteSequence == 0) {
-                    mDiskWriteHandler.getLooper().quit();
+                    if (handler == null) {
+                        mDiskWriteHandler.getLooper().quit();
+                        mDiskWriteHandlerThread = null;
+                    }
                     mDiskWriteHandler = null;
-                    mDiskWriteHandlerThread = null;
                 }
             }
         }

@@ -18,7 +18,6 @@ package com.android.server.ethernet;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import android.content.Context;
 import android.net.InetAddresses;
@@ -28,10 +27,14 @@ import android.net.IpConfiguration.ProxySettings;
 import android.net.LinkAddress;
 import android.net.ProxyInfo;
 import android.net.StaticIpConfiguration;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.util.ArrayMap;
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
+
+import com.android.testutils.HandlerUtils;
 
 import org.junit.After;
 import org.junit.Before;
@@ -45,6 +48,7 @@ import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
 public class EthernetConfigStoreTest {
+    private static final int TIMEOUT_MS = 2_000;
     private static final LinkAddress LINKADDR = new LinkAddress("192.168.1.100/25");
     private static final InetAddress GATEWAY = InetAddresses.parseNumericAddress("192.168.1.1");
     private static final InetAddress DNS1 = InetAddresses.parseNumericAddress("8.8.8.8");
@@ -62,6 +66,9 @@ public class EthernetConfigStoreTest {
     private static final IpConfiguration LEGACY_IP_CONFIG =
             new IpConfiguration(IpAssignment.STATIC, ProxySettings.STATIC, STATIC_IP_CONFIG,
                     PROXY_INFO);
+
+    private HandlerThread mHandlerThread;
+    private Handler mHandler;
 
     private EthernetConfigStore mEthernetConfigStore;
     private File mApexTestDir;
@@ -83,34 +90,37 @@ public class EthernetConfigStoreTest {
     public void setUp() {
         createTestDir();
         mEthernetConfigStore = new EthernetConfigStore();
+
+        mHandlerThread = new HandlerThread("EthernetConfigStoreTest");
+        mHandlerThread.start();
+        mHandler = new Handler(mHandlerThread.getLooper());
     }
 
     @After
     public void tearDown() {
         mApexTestDir.delete();
         mLegacyTestDir.delete();
+
+        mHandlerThread.quitSafely();
+        mHandler = null;
     }
 
-    private void assertConfigFileExist(final String filepath) {
+    private void assertFileExist(final String filepath) {
         assertTrue(new File(filepath).exists());
     }
 
-    /** Wait for the delayed write operation completes. */
-    private void waitForMs(long ms) {
-        try {
-            Thread.sleep(ms);
-        } catch (final InterruptedException e) {
-            fail("Thread was interrupted");
-        }
+    private void writeFileTo(final String iface, final IpConfiguration config,
+            final String filepath, final Handler handler) {
+        mEthernetConfigStore.write(iface, config, filepath, handler);
     }
 
     @Test
-    public void testWriteIpConfigToApexFilePathAndRead() throws Exception {
+    public void testReadIpConfigFromApexFilePath() throws Exception {
         // Write the config file to the apex file path, pretend the config file exits and
         // check if IP config should be read from apex file path.
         mApexConfigFile = new File(mApexTestDir.getPath(), "test.txt");
-        mEthernetConfigStore.write("eth0", APEX_IP_CONFIG, mApexConfigFile.getPath());
-        waitForMs(50);
+        writeFileTo("eth0", APEX_IP_CONFIG, mApexConfigFile.getPath(), mHandler);
+        HandlerUtils.waitForIdle(mHandler, TIMEOUT_MS);
 
         mEthernetConfigStore.read(mApexTestDir.getPath(), mLegacyTestDir.getPath(), "/test.txt");
         final ArrayMap<String, IpConfiguration> ipConfigurations =
@@ -121,12 +131,12 @@ public class EthernetConfigStoreTest {
     }
 
     @Test
-    public void testWriteIpConfigToLegacyFilePathAndRead() throws Exception {
+    public void testReadIpConfigFromLegacyFilePath() throws Exception {
         // Write the config file to the legacy file path, pretend the config file exits and
         // check if IP config should be read from legacy file path.
         mLegacyConfigFile = new File(mLegacyTestDir, "test.txt");
-        mEthernetConfigStore.write("0", LEGACY_IP_CONFIG, mLegacyConfigFile.getPath());
-        waitForMs(50);
+        writeFileTo("0", LEGACY_IP_CONFIG, mLegacyConfigFile.getPath(), mHandler);
+        HandlerUtils.waitForIdle(mHandler, TIMEOUT_MS);
 
         mEthernetConfigStore.read(mApexTestDir.getPath(), mLegacyTestDir.getPath(), "/test.txt");
         final ArrayMap<String, IpConfiguration> ipConfigurations =
@@ -134,7 +144,7 @@ public class EthernetConfigStoreTest {
         assertEquals(LEGACY_IP_CONFIG, ipConfigurations.get("0"));
 
         // Check the same config file in apex file path is created.
-        assertConfigFileExist(mApexTestDir.getPath() + "/test.txt");
+        assertFileExist(mApexTestDir.getPath() + "/test.txt");
 
         final File apexConfigFile = new File(mApexTestDir.getPath() + "/test.txt");
         apexConfigFile.delete();

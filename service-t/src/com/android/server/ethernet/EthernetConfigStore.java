@@ -22,6 +22,7 @@ import android.annotation.Nullable;
 import android.content.ApexEnvironment;
 import android.net.IpConfiguration;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.ArrayMap;
 import android.util.AtomicFile;
 import android.util.Log;
@@ -39,11 +40,12 @@ import java.io.IOException;
 public class EthernetConfigStore {
     private static final String TAG = EthernetConfigStore.class.getSimpleName();
     private static final String CONFIG_FILE = "ipconfig.txt";
-    private static final String FILE_PATH = "/misc/ethernet/";
+    // legacy file path: "/data/misc/ethernet/".
     private static final String LEGACY_IP_CONFIG_FILE_PATH = Environment.getDataDirectory()
-            + FILE_PATH;
+            + "/misc/ethernet/";
+    // apex file path: "/data/misc/apexdata/com.android.tethering/ethernet/".
     private static final String APEX_IP_CONFIG_FILE_PATH = ApexEnvironment.getApexEnvironment(
-            TETHERING_MODULE_NAME).getDeviceProtectedDataDir() + FILE_PATH;
+            TETHERING_MODULE_NAME).getDeviceProtectedDataDir() + "/ethernet/";
 
     private IpConfigStore mStore = new IpConfigStore();
     private final ArrayMap<String, IpConfiguration> mIpConfigurations;
@@ -61,9 +63,7 @@ public class EthernetConfigStore {
     private void writeLegacyIpConfigToApexPath(final String newFilePath, final String oldFilePath,
             final String filename) {
         final File directory = new File(newFilePath);
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
+        directory.mkdirs();
 
         // Write the legacy IP config to the apex file path.
         FileOutputStream fos = null;
@@ -109,15 +109,16 @@ public class EthernetConfigStore {
     private void loadConfigFileLocked(final String filepath) {
         final ArrayMap<String, IpConfiguration> configs =
                 IpConfigStore.readIpConfigurations(filepath);
+        mIpConfigurations.clear();
         mIpConfigurations.putAll(configs);
     }
 
     public void write(String iface, IpConfiguration config) {
-        write(iface, config, APEX_IP_CONFIG_FILE_PATH + CONFIG_FILE);
+        write(iface, config, APEX_IP_CONFIG_FILE_PATH + CONFIG_FILE, null /* handler */);
     }
 
     @VisibleForTesting
-    void write(String iface, IpConfiguration config, String filepath) {
+    void write(String iface, IpConfiguration config, String filepath, Handler handler) {
         boolean modified;
 
         synchronized (mSync) {
@@ -129,7 +130,7 @@ public class EthernetConfigStore {
             }
 
             if (modified) {
-                mStore.writeIpConfigurations(filepath, mIpConfigurations);
+                mStore.writeIpConfigurations(filepath, mIpConfigurations, handler);
             }
         }
     }
@@ -140,6 +141,7 @@ public class EthernetConfigStore {
         }
     }
 
+    // TODO: remove this method along with the cleanup of default ethernet interface usages.
     @Nullable
     public IpConfiguration getIpConfigurationForDefaultInterface() {
         return null;
