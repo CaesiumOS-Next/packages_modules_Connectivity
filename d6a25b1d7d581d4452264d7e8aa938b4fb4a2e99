@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0de5757_abf4cae4",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-23T01:05:29Z",
+      "side": 1,
+      "message": "Do you still need to split this method into two? It looks like the new tests you added all call startWifiTetheringAndAwaitCallbacks. That new method behaves the same as the startWifiTethering method currently behaves. So it seems like you can simply not touch this file at all in this CL?",
+      "range": {
+        "startLine": 459,
+        "startChar": 30,
+        "endLine": 459,
+        "endChar": 65
+      },
+      "revId": "d6a25b1d7d581d4452264d7e8aa938b4fb4a2e99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b1fbd13_7d0443f6",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-23T01:05:29Z",
+      "side": 1,
+      "message": "If this assumption fails, the finally block will call connectToWifi. You probably don\u0027t want to do that? Suggest moving assumeWifiTetheringSupported to before the try block. Also in the other tests.",
+      "range": {
+        "startLine": 425,
+        "startChar": 32,
+        "endLine": 425,
+        "endChar": 60
+      },
+      "revId": "d6a25b1d7d581d4452264d7e8aa938b4fb4a2e99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72a68316_d9c158d9",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-23T01:05:29Z",
+      "side": 1,
+      "message": "Local variables should not be called mFoo because readers will assume that they are class members.\n\nAlso - I think you don\u0027t need this. The latch should be an implementation detail of CarrierConfigBroadcastListener that its callers do not need to know about. You can initialize it in the CarrierConfigBroadcastListener constructor. But see other comment about not using that class at all.",
+      "range": {
+        "startLine": 501,
+        "startChar": 23,
+        "endLine": 501,
+        "endChar": 29
+      },
+      "revId": "d6a25b1d7d581d4452264d7e8aa938b4fb4a2e99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0098cd7f_778419d4",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-23T01:05:29Z",
+      "side": 1,
+      "message": "It seems better to have this in CarrierConfigBroadcastListener itself. Something like:\n\n    public void awaitConfigBroadcast() {\n        try {\n            assertTrue(\"No matching carrier config broadcast received after \" + timeoutMs + \" milliseconds.\",\n                    mLatch.await(timeoutMs, TimeUnit.MILLISECONDS));\n        } finally {\n            mContext.unregisterReceiver(this);\n        }\n    }\n\nThen you can delete the stopListening method. But see other comment about not using that class at all.",
+      "range": {
+        "startLine": 509,
+        "startChar": 0,
+        "endLine": 511,
+        "endChar": 64
+      },
+      "revId": "d6a25b1d7d581d4452264d7e8aa938b4fb4a2e99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bb5c0e0_fd47cee5",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-23T01:05:29Z",
+      "side": 1,
+      "message": "I don\u0027t think you need most of this method, you can just use mCtsNetUtils.ensureWifiDisconnected(null) instead. You might still need the check for Ethernet.",
+      "range": {
+        "startLine": 552,
+        "startChar": 20,
+        "endLine": 552,
+        "endChar": 50
+      },
+      "revId": "d6a25b1d7d581d4452264d7e8aa938b4fb4a2e99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2fb143f_e855f7e9",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-23T01:05:29Z",
+      "side": 1,
+      "message": "This duplicates most of the functionality of the CarrierConfigReceiver we have in ConnectivityDiagnosticsManagerTest, except that that one seems to be more capable (e.g., it has a way to check that the broadcast matches).\n\nInstead of adding a new class here, can you move that class to a common location (e.g., frameworks/libs/net/common/testutils/devicetests/com/android/testutils/TestCarrierConfigReceiver) and use that? In order to do so, you\u0027ll have to factor out the bits of code in CarrierConfigReceiver#onReceive that are only relevant to ConnectivityDiagnosticsManagerTest (specifically, the code that checks the contents of KEY_CARRIER_CERTIFICATE_STRING_ARRAY).\n\nThose could go into a method that checks that the broadcast matches what the test expects. Something like:\n\n\n    public class TestCarrierConfigReceiver extends BroadcastReceiver {\n        ... existing code...\n\n        /**\n         * Subclasses should override this method to ensure that the\n         * broadcast matches their expectations. If this method returns\n         * false, the broadcast will be ignored. If this method throws\n         * an exception, the exception will be stored and re-thrown by\n         * waitForCarrierConfigChanged.\n         */\n        public abstract boolean matchesBroadcast(PersistableBundle configs) throws Exception {\n            return true;\n        }\n    }\n\nThe CarrierConfigReceiver in ConnectivityDiagnosticsManagerTest would then do:\n\n    private class CarrierConfigReceiver extends TestCarrierConfigReceiver {\n        @Override\n        public boolean matchesBroadcast(PersistableBundle configs) throws Exception {\n            final String[] certs \u003d carrierConfigs.getStringArray(\n                    CarrierConfigManager.KEY_CARRIER_CERTIFICATE_STRING_ARRAY);\n            ... if certs match return true, otherwise return false or throw\n        }\n    }\n\nFor this test, the matchesBroadcast method would check that if the bundle that was passed by overrideCarrierConfig was not null, that all the keys in that bundle match the keys in configs.",
+      "range": {
+        "startLine": 571,
+        "startChar": 25,
+        "endLine": 571,
+        "endChar": 55
+      },
+      "revId": "d6a25b1d7d581d4452264d7e8aa938b4fb4a2e99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0446a744_48ec977e",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-23T01:05:29Z",
+      "side": 1,
+      "message": "This should probably be private final and initialized in the constructor.",
+      "range": {
+        "startLine": 573,
+        "startChar": 8,
+        "endLine": 573,
+        "endChar": 15
+      },
+      "revId": "d6a25b1d7d581d4452264d7e8aa938b4fb4a2e99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1022ad8a_50ebf994",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-23T01:05:29Z",
+      "side": 1,
+      "message": "It looks like this class will accept the first broadcast that it receives, regardless of whether it matches the requested settings. This makes the test flaky because it will fail if there are any other broadcasts while the test is running. Instead I would suggest storing the requested settings in the class (e.g., \"private final PersistableBundle mRequestedConfig\") so it can ignore any broadcast that does not have the settings that were requested.",
+      "range": {
+        "startLine": 579,
+        "startChar": 56,
+        "endLine": 579,
+        "endChar": 59
+      },
+      "revId": "d6a25b1d7d581d4452264d7e8aa938b4fb4a2e99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
