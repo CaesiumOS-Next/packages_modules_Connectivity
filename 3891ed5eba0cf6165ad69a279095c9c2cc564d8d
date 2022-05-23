@@ -46,6 +46,30 @@
       },
       "revId": "3891ed5eba0cf6165ad69a279095c9c2cc564d8d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1caa8aa2_e903bc2d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3238,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-23T13:49:48Z",
+      "side": 1,
+      "message": "Will address the annotation part in follow-up commit.",
+      "parentUuid": "d867cac4_e3adefdf",
+      "range": {
+        "startLine": 3238,
+        "startChar": 12,
+        "endLine": 3238,
+        "endChar": 46
+      },
+      "revId": "3891ed5eba0cf6165ad69a279095c9c2cc564d8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
