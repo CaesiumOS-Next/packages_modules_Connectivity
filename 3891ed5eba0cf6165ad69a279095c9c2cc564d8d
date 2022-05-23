@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed5d6c45_0ce305c5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3238,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-23T06:43:05Z",
+      "side": 1,
+      "message": "Since this applies to all runs that have an updated connectivity/tethering module, you should separate out this part to a different test case, and annotate that test case with @ConnectivityModuleTest\n\nThis will ensure that the test is run on all S+ devices (because you include assumeTestSApis()) when the connectivity/tethering module is up-to-date (because you include @ConnectivityModuleTest)",
+      "range": {
+        "startLine": 3238,
+        "startChar": 12,
+        "endLine": 3238,
+        "endChar": 46
+      },
+      "revId": "3891ed5eba0cf6165ad69a279095c9c2cc564d8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
