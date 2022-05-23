@@ -23,6 +23,7 @@ import static android.system.OsConstants.IPPROTO_RAW;
 import static android.system.OsConstants.SOCK_DGRAM;
 import static android.system.OsConstants.SOCK_NONBLOCK;
 import static android.system.OsConstants.SOCK_RAW;
+import static android.system.OsConstants.ENODEV;
 
 import android.net.util.SocketUtils;
 import android.os.Handler;
@@ -131,7 +132,20 @@ public class NeighborPacketForwarder extends PacketReader {
                                                         ETH_P_IPV6, mListenIfaceParams.index);
             Os.bind(mFd, bindAddress);
         } catch (ErrnoException | SocketException e) {
-            Log.wtf(mTag, "Failed to create  socket", e);
+            // An ENODEV(No such device) will rise if tethering stopped before this function, this
+            // may happen when enable/disable tethering quickly.
+            boolean isWTF = true;
+            if (e instanceof ErrnoException) {
+                ErrnoException errnoExpt = (ErrnoException)e;
+                if (errnoExpt.errno == ENODEV) {
+                    isWTF = false;
+                }
+            }
+            if (isWTF) {
+                Log.wtf(mTag, "Failed to create  socket", e);
+            } else {
+                Log.w(mTag, "Failed to create  socket", e);
+            }
             closeSocketQuietly(mFd);
             return null;
         }
