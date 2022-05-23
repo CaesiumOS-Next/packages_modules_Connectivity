@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "599c9309_a5aa1656",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-05-23T10:24:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf92d417_2cd5a077",
+      "range": {
+        "startLine": 46,
+        "startChar": 65,
+        "endLine": 46,
+        "endChar": 74
+      },
+      "revId": "47641d75d991a26e8616a239b717021810dee798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d09dbc7_212be331",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-05-20T02:38:49Z",
       "side": 1,
       "message": "Nit: this is not specific to config files, it will work on any file. Also I don\u0027t think it\u0027s any more readable than \"File.exists(...)\". Up to you.",
+      "range": {
+        "startLine": 57,
+        "startChar": 27,
+        "endLine": 57,
+        "endChar": 46
+      },
+      "revId": "47641d75d991a26e8616a239b717021810dee798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81f0260c_e8075391",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-05-23T10:24:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6d09dbc7_212be331",
       "range": {
         "startLine": 57,
         "startChar": 27,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99e267e8_053aef54",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-05-23T10:24:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e31f2d5_99cecae1",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 34
+      },
+      "revId": "47641d75d991a26e8616a239b717021810dee798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4eb93626_3d14db20",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-05-20T02:38:49Z",
       "side": 1,
       "message": "Do you need this? Or will finishWrite do it for you?",
+      "range": {
+        "startLine": 77,
+        "startChar": 20,
+        "endLine": 77,
+        "endChar": 25
+      },
+      "revId": "47641d75d991a26e8616a239b717021810dee798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9733d5f6_985d4e30",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-05-23T10:24:28Z",
+      "side": 1,
+      "message": "Looks like the finishWrite doesn\u0027t do flush by itself, it does FileUtils.sync but requires the stream must be flushed but not close yet.\nhttps://source.corp.google.com/aosp-master/frameworks/base/core/java/android/os/FileUtils.java;l\u003d247?q\u003dFileUtils\u0026ss\u003dpiper%2FGoogle%2Faosp-master",
+      "parentUuid": "4eb93626_3d14db20",
       "range": {
         "startLine": 77,
         "startChar": 20,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8dfdf96_8a8132a3",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-05-23T10:24:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be51e856_df6de4f2",
+      "range": {
+        "startLine": 112,
+        "startChar": 26,
+        "endLine": 112,
+        "endChar": 32
+      },
+      "revId": "47641d75d991a26e8616a239b717021810dee798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7308aa9_fb8549a1",
@@ -146,6 +266,30 @@
       "writtenOn": "2022-05-20T02:38:49Z",
       "side": 1,
       "message": "Can we remove this method now? If not, maybe add a TODO?",
+      "range": {
+        "startLine": 144,
+        "startChar": 27,
+        "endLine": 144,
+        "endChar": 64
+      },
+      "revId": "47641d75d991a26e8616a239b717021810dee798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c050fc39_de016fa3",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-05-23T10:24:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7308aa9_fb8549a1",
       "range": {
         "startLine": 144,
         "startChar": 27,
@@ -179,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "edd143dd_f4efad09",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetConfigStoreTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-05-23T10:24:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66dc150f_09d8dc72",
+      "range": {
+        "startLine": 108,
+        "startChar": 16,
+        "endLine": 108,
+        "endChar": 54
+      },
+      "revId": "47641d75d991a26e8616a239b717021810dee798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c55b7a87_5c2f3b44",
@@ -202,6 +370,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83744a90_6c7ee189",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetConfigStoreTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-05-23T10:24:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c55b7a87_5c2f3b44",
+      "range": {
+        "startLine": 113,
+        "startChar": 8,
+        "endLine": 113,
+        "endChar": 17
+      },
+      "revId": "47641d75d991a26e8616a239b717021810dee798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aab36a18_7c3db291",
@@ -215,6 +407,30 @@
       "writtenOn": "2022-05-20T02:38:49Z",
       "side": 1,
       "message": "testReadIpConfigFromLegacyFilePath?",
+      "range": {
+        "startLine": 124,
+        "startChar": 16,
+        "endLine": 124,
+        "endChar": 56
+      },
+      "revId": "47641d75d991a26e8616a239b717021810dee798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "710cbe56_82bf8e2d",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetConfigStoreTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-05-23T10:24:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aab36a18_7c3db291",
       "range": {
         "startLine": 124,
         "startChar": 16,
