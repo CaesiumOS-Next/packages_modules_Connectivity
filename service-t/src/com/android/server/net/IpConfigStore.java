@@ -24,6 +24,7 @@ import android.net.LinkAddress;
 import android.net.ProxyInfo;
 import android.net.StaticIpConfiguration;
 import android.net.Uri;
+import android.os.Handler;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.util.SparseArray;
@@ -203,12 +204,23 @@ public class IpConfigStore {
      */
     public void writeIpConfigurations(String filePath,
                                       ArrayMap<String, IpConfiguration> networks) {
-        mWriter.write(filePath, out -> {
-            out.writeInt(IPCONFIG_FILE_VERSION);
-            for (int i = 0; i < networks.size(); i++) {
-                writeConfig(out, networks.keyAt(i), networks.valueAt(i));
-            }
-        });
+        writeIpConfigurations(filePath, networks, null /* handler */);
+    }
+
+    /**
+     *  Write the IP configuration associated to the target networks to the destination path.
+     */
+    public void writeIpConfigurations(String filePath,
+                                      ArrayMap<String, IpConfiguration> networks,
+                                      Handler handler) {
+        mWriter.write(filePath,
+                out -> {
+                    out.writeInt(IPCONFIG_FILE_VERSION);
+                    for (int i = 0; i < networks.size(); i++) {
+                        writeConfig(out, networks.keyAt(i), networks.valueAt(i));
+                    }
+                },
+                true /* open */, handler);
     }
 
     /**

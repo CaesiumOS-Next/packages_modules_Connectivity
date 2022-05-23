@@ -27,6 +27,7 @@ import android.net.IpConfiguration.ProxySettings;
 import android.net.LinkAddress;
 import android.net.ProxyInfo;
 import android.net.StaticIpConfiguration;
+import android.os.Handler;
 import android.util.ArrayMap;
 
 import androidx.test.runner.AndroidJUnit4;
@@ -146,7 +147,7 @@ public class IpConfigStoreTest {
         final ByteArrayOutputStream mByteStream = new ByteArrayOutputStream();
 
         @Override
-        public void write(String filePath, Writer w) {
+        public void write(String filePath, Writer w, boolean open, Handler handler) {
             DataOutputStream outputStream = new DataOutputStream(mByteStream);
 
             try {
