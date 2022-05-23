@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b76de0c_a5b7bc76",
+        "filename": "tests/common/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-23T09:38:53Z",
+      "side": 1,
+      "message": "Why not just use modules-utilstest-statemachine here ?",
+      "range": {
+        "startLine": 76,
+        "startChar": 9,
+        "endLine": 76,
+        "endChar": 30
+      },
+      "revId": "095f9d4c8fff414ed5b697693e954fb88139293e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
