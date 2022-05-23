@@ -39,18 +39,22 @@ import java.io.IOException;
 public class EthernetConfigStore {
     private static final String TAG = EthernetConfigStore.class.getSimpleName();
     private static final String CONFIG_FILE = "ipconfig.txt";
-    private static final String FILE_PATH = "/misc/ethernet/";
     private static final String LEGACY_IP_CONFIG_FILE_PATH = Environment.getDataDirectory()
-            + FILE_PATH;
+            + "/misc/ethernet/";
     private static final String APEX_IP_CONFIG_FILE_PATH = ApexEnvironment.getApexEnvironment(
-            TETHERING_MODULE_NAME).getDeviceProtectedDataDir() + FILE_PATH;
+            TETHERING_MODULE_NAME).getDeviceProtectedDataDir() + "/ethernet/";
 
-    private IpConfigStore mStore = new IpConfigStore();
-    private final ArrayMap<String, IpConfiguration> mIpConfigurations;
-    private IpConfiguration mIpConfigurationForDefaultInterface;
+    private ArrayMap<String, IpConfiguration> mIpConfigurations;
+    private final IpConfigStore mStore;
     private final Object mSync = new Object();
 
     public EthernetConfigStore() {
+        this(new IpConfigStore());
+    }
+
+    @VisibleForTesting
+    EthernetConfigStore(IpConfigStore store) {
+        mStore = store;
         mIpConfigurations = new ArrayMap<>(0);
     }
 
@@ -61,9 +65,7 @@ public class EthernetConfigStore {
     private void writeLegacyIpConfigToApexPath(final String newFilePath, final String oldFilePath,
             final String filename) {
         final File directory = new File(newFilePath);
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
+        directory.mkdirs();
 
         // Write the legacy IP config to the apex file path.
         FileOutputStream fos = null;
@@ -92,7 +94,7 @@ public class EthernetConfigStore {
         synchronized (mSync) {
             // Attempt to read the IP configuration from apex file path first.
             if (doesConfigFileExist(newFilePath + filename)) {
-                loadConfigFileLocked(newFilePath + filename);
+                mIpConfigurations = IpConfigStore.readIpConfigurations(newFilePath + filename);
                 return;
             }
 
@@ -101,15 +103,9 @@ public class EthernetConfigStore {
             // apex config file path, this should just happen on the first boot. New or updated
             // config entries are only written to the apex config file later.
             if (!doesConfigFileExist(oldFilePath + filename)) return;
-            loadConfigFileLocked(oldFilePath + filename);
+            mIpConfigurations = IpConfigStore.readIpConfigurations(newFilePath + filename);
             writeLegacyIpConfigToApexPath(newFilePath, oldFilePath, filename);
         }
-    }
-
-    private void loadConfigFileLocked(final String filepath) {
-        final ArrayMap<String, IpConfiguration> configs =
-                IpConfigStore.readIpConfigurations(filepath);
-        mIpConfigurations.putAll(configs);
     }
 
     public void write(String iface, IpConfiguration config) {
@@ -140,6 +136,7 @@ public class EthernetConfigStore {
         }
     }
 
+    // TODO: remove this method along with the cleanup of default ethernet interface usages.
     @Nullable
     public IpConfiguration getIpConfigurationForDefaultInterface() {
         return null;

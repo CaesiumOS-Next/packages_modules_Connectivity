@@ -46,7 +46,7 @@ public class DelayedDiskWrite {
     }
 
     @VisibleForTesting
-    DelayedDiskWrite(Dependencies deps) {
+    public DelayedDiskWrite(Dependencies deps) {
         mDeps = deps;
     }
 
@@ -54,7 +54,7 @@ public class DelayedDiskWrite {
      * Dependencies class of DelayedDiskWrite, used for injection in tests.
      */
     @VisibleForTesting
-    static class Dependencies {
+    public static class Dependencies {
         /**
          * Create a HandlerThread to use in DelayedDiskWrite.
          */
