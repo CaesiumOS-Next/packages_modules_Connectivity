@@ -22,6 +22,30 @@
       },
       "revId": "932ef5b220fa25a5d9afe1b05b3b0c0ff4747e3b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9412e7f_55948a5b",
+        "filename": "service/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-24T17:52:28Z",
+      "side": 1,
+      "message": "An inline function has no way that I\u0027m aware of to use __func__ meaningfully.\n\nhttps://www.ibm.com/docs/en/i/7.4?topic\u003didentifiers-func-predefined-identifier",
+      "parentUuid": "31fcc326_6e715ac5",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 13
+      },
+      "revId": "932ef5b220fa25a5d9afe1b05b3b0c0ff4747e3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
