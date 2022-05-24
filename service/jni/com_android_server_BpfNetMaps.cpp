@@ -39,20 +39,24 @@ static android::net::TrafficController mTc;
 
 namespace android {
 
+#define CHECK_LOGE(status) \
+  if (!isOk(status)) \
+    ALOGE("%s failed, error code = %d", __func__, status.code());
+
+#define CHECK_LOGD(status) \
+  if (!isOk(status)) \
+    ALOGD("%s failed, error code = %d", __func__, status.code());
+
 static void native_init(JNIEnv* env, jobject clazz) {
   Status status = mTc.start();
-   if (!isOk(status)) {
-    ALOGE("%s failed, error code = %d", __func__, status.code());
-  }
+  CHECK_LOGE(status);
 }
 
 static jint native_addNaughtyApp(JNIEnv* env, jobject clazz, jint uid) {
   const uint32_t appUids = static_cast<uint32_t>(abs(uid));
   Status status = mTc.updateUidOwnerMap(appUids, PENALTY_BOX_MATCH,
       TrafficController::IptOp::IptOpInsert);
-  if (!isOk(status)) {
-    ALOGE("%s failed, error code = %d", __func__, status.code());
-  }
+  CHECK_LOGE(status);
   return (jint)status.code();
 }
 
@@ -60,9 +64,7 @@ static jint native_removeNaughtyApp(JNIEnv* env, jobject clazz, jint uid) {
   const uint32_t appUids = static_cast<uint32_t>(abs(uid));
   Status status = mTc.updateUidOwnerMap(appUids, PENALTY_BOX_MATCH,
       TrafficController::IptOp::IptOpDelete);
-  if (!isOk(status)) {
-    ALOGE("%s failed, error code = %d", __func__, status.code());
-  }
+  CHECK_LOGE(status);
   return (jint)status.code();
 }
 
@@ -70,9 +72,7 @@ static jint native_addNiceApp(JNIEnv* env, jobject clazz, jint uid) {
   const uint32_t appUids = static_cast<uint32_t>(abs(uid));
   Status status = mTc.updateUidOwnerMap(appUids, HAPPY_BOX_MATCH,
       TrafficController::IptOp::IptOpInsert);
-  if (!isOk(status)) {
-    ALOGE("%s failed, error code = %d", __func__, status.code());
-  }
+  CHECK_LOGE(status);
   return (jint)status.code();
 }
 
@@ -80,9 +80,7 @@ static jint native_removeNiceApp(JNIEnv* env, jobject clazz, jint uid) {
   const uint32_t appUids = static_cast<uint32_t>(abs(uid));
   Status status = mTc.updateUidOwnerMap(appUids, HAPPY_BOX_MATCH,
       TrafficController::IptOp::IptOpDelete);
-  if (!isOk(status)) {
-    ALOGD("%s failed, error code = %d", __func__, status.code());
-  }
+  CHECK_LOGD(status);
   return (jint)status.code();
 }
 
@@ -153,9 +151,7 @@ static jint native_addUidInterfaceRules(JNIEnv* env, jobject clazz, jstring ifNa
     static_assert(sizeof(*(uids.get())) == sizeof(int32_t));
     std::vector<int32_t> data ((int32_t *)&uids[0], (int32_t*)&uids[size]);
     Status status = mTc.addUidInterfaceRules(ifIndex, data);
-    if (!isOk(status)) {
-        ALOGE("%s failed, error code = %d", __func__, status.code());
-    }
+    CHECK(status);
     return (jint)status.code();
 }
 
@@ -169,17 +165,13 @@ static jint native_removeUidInterfaceRules(JNIEnv* env, jobject clazz, jintArray
     static_assert(sizeof(*(uids.get())) == sizeof(int32_t));
     std::vector<int32_t> data ((int32_t *)&uids[0], (int32_t*)&uids[size]);
     Status status = mTc.removeUidInterfaceRules(data);
-    if (!isOk(status)) {
-        ALOGE("%s failed, error code = %d", __func__, status.code());
-    }
+    CHECK(status);
     return (jint)status.code();
 }
 
 static jint native_swapActiveStatsMap(JNIEnv* env, jobject clazz) {
     Status status = mTc.swapActiveStatsMap();
-    if (!isOk(status)) {
-        ALOGD("%s failed, error code = %d", __func__, status.code());
-    }
+    CHECK(status);
     return (jint)status.code();
 }
 
