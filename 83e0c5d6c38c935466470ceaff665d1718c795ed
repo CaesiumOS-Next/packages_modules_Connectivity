@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "916a8e54_a0e67ca2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-24T19:44:06Z",
+      "side": 1,
+      "message": "UGH\n\nNote this shouldn\u0027t be talking about \u0027launched on S+\u0027\n\nTechnically we could have a device\n\noriginally launched on R (or Q)\nlater upgraded with an S kernel (that is \u003e\u003d4.14)\nrunning T (or T gsi)\n\nand the test should run (and pass)\n\nThat\u0027s why what we care about is the *kernel* being S+, not the device originally being released on S+.\n\nThe situation is complicated by new Android S devices only launching on 5.4 \u0026 5.10 and thus there not really *being* an 4.14-S kernel tree (instead there\u0027s 4.14-stable which is really R \u0026 later)...\n\nIn particular\n\nPixel 4/4xl/4a were originally launched on Android 10 / Q with a 4.14-Q kernel.  But they\u0027ve since been upgraded and have new enough kernels.\n\n$ buildz\ngoogle/flame/flame:13/TM/eng.maze.20220523.055808:userdebug/dev-keys\n\n$ adbz shell getprop | egrep api_level\n[ro.product.first_api_level]: [29]\n[ro.vendor.api_level]: [29]\n\nThe above claims to be vendor.api_level 29 [ie. Android 10/Q], but this doesn\u0027t seem right...\n\nPerhaps this actually proves it is incorrect to check vendor.api_level???\n\n---\n\nI think the relevant 4.14 commit is\n  \u0027BACKPORT: bpf: add bpf_ktime_get_boot_ns()\u0027\n\nhttps://android-review.googlesource.com/c/kernel/common/+/1585587\nhttps://android-review.googlesource.com/c/kernel/common/+/1586830\nhttps://android-review.googlesource.com/c/kernel/common/+/1586829\n\nafaict the first and last of those are in the pixel 4 kernel tree.\nThe above commits are all on top of 4.14.221, so a requirement of 4.14.222+ would perhaps work.\n\nThe relevant 4.19 commits are:\n\nhttps://android-review.googlesource.com/c/kernel/common/+/1586828\nhttps://android-review.googlesource.com/c/kernel/common/+/1585606\n\nwhich are on top of 4.19.175, so we could test for 4.19.176+\n\nand this is actually documented at\n\nhttps://source.corp.google.com/aosp-master/kernel/tests/net/test/bpf_test.py;l\u003d90\n\n\n# bpf_ktime_get_ns() was made non-GPL requiring in 5.8 and at the same time\n# bpf_ktime_get_boot_ns() was added, both of these changes were backported to\n# Android Common Kernel in 4.14.221, 4.19.175, 5.4.97.\n# As such we require 4.14.222+ 4.19.176+ 5.4.98+ 5.8.0+,\n# but since we only really care about LTS releases:\nHAVE_EBPF_KTIME_GET_NS_APACHE2 \u003d (\n    ((LINUX_VERSION \u003e (4, 14, 221)) and (LINUX_VERSION \u003c (4, 19, 0))) or\n    ((LINUX_VERSION \u003e (4, 19, 175)) and (LINUX_VERSION \u003c (5, 4, 0))) or\n    (LINUX_VERSION \u003e (5, 4, 97))\n)\nHAVE_EBPF_KTIME_GET_BOOT_NS \u003d HAVE_EBPF_KTIME_GET_NS_APACHE2\n\n\nCould/should we replicate that test?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 68
+      },
+      "revId": "83e0c5d6c38c935466470ceaff665d1718c795ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7ae3638d_9d79def3",
         "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
         "patchSetId": 1
