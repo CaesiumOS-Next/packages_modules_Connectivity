@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ae3638d_9d79def3",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1078,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-24T16:58:33Z",
+      "side": 1,
+      "message": "what does this return on aosp and/or x-plus-aosp branches?\n\nwould it make more sense to change the default 0 to 9999 so that missing api_level is treated as S+?",
+      "range": {
+        "startLine": 1078,
+        "startChar": 0,
+        "endLine": 1078,
+        "endChar": 94
+      },
+      "revId": "83e0c5d6c38c935466470ceaff665d1718c795ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
