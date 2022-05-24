@@ -90,6 +90,16 @@ public class RemoteSocketFactoryClient {
         return fd;
     }
 
+    public FileDescriptor openDatagramSocketFd()
+            throws RemoteException, ErrnoException, IOException {
+        // Dup the filedescriptor so ParcelFileDescriptor's finalizer doesn't garbage collect it
+        // and cause our fd to become invalid. http://b/35927643 .
+        ParcelFileDescriptor pfd = mService.openDatagramSocketFd();
+        FileDescriptor fd = Os.dup(pfd.getFileDescriptor());
+        pfd.close();
+        return fd;
+    }
+
     public String getPackageName() throws RemoteException {
         return mService.getPackageName();
     }
