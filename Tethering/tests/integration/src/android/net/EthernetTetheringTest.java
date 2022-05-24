@@ -1072,8 +1072,10 @@ public class EthernetTetheringTest {
         // Kernel version which is older than 4.14 doesn't support UDP offload absolutely. Kernel
         // version which is between 4.14 and 5.8 support UDP offload probably. Simply apply kernel
         // 4.14 to be threshold first and monitor on what devices tests fail for improving the
-        // offload support checking.
-        return DeviceInfoUtils.compareMajorMinorVersion(kVersionString, "4.14") >= 0;
+        // offload support checking. Note that IPv4 tethering offload support is required for
+        // devices launching with Android S+ and having 4.14+ kernel version.
+        return DeviceInfoUtils.compareMajorMinorVersion(kVersionString, "4.14") >= 0
+                && SystemProperties.getInt("ro.vendor.api_level", 0) >= Build.VERSION_CODES.S;
     }
 
     @Test
@@ -1083,7 +1085,9 @@ public class EthernetTetheringTest {
         boolean usingBpf = isUdpOffloadSupportedByKernel();
         if (!usingBpf) {
             Log.i(TAG, "testTetherUdpV4AfterR will skip BPF offload test for kernel "
-                    + VintfRuntimeInfo.getKernelVersion());
+                    + VintfRuntimeInfo.getKernelVersion()
+                    + " and ro.vendor.api_level "
+                    + SystemProperties.getInt("ro.vendor.api_level", 0));
         }
         runUdp4Test(new TetheringTester(mDownstreamReader), new RemoteResponder(mUpstreamReader),
                 usingBpf);
