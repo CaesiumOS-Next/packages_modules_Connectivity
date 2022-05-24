@@ -16,6 +16,24 @@
       "message": "The test was afaik already fixed by https://android-review.googlesource.com/c/platform/frameworks/base/+/2103684",
       "revId": "6373153fcd6b7a3a34858276991ba310d8d1f1dd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f32f6c89_8926243b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-24T13:25:54Z",
+      "side": 1,
+      "message": "Hmm or maybe that\u0027s a fix for a different failure caused by the same commit...",
+      "parentUuid": "503e0249_f0965a93",
+      "revId": "6373153fcd6b7a3a34858276991ba310d8d1f1dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
