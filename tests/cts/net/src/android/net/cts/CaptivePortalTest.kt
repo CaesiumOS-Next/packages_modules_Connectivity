@@ -38,8 +38,8 @@ import android.net.cts.NetworkValidationTestUtil.setHttpUrlDeviceConfig
 import android.net.cts.NetworkValidationTestUtil.setHttpsUrlDeviceConfig
 import android.net.cts.NetworkValidationTestUtil.setUrlExpirationDeviceConfig
 import android.net.cts.util.CtsNetUtils
-import android.net.util.NetworkStackUtils.TEST_CAPTIVE_PORTAL_HTTPS_URL
-import android.net.util.NetworkStackUtils.TEST_CAPTIVE_PORTAL_HTTP_URL
+import com.android.net.module.util.NetworkStackConstants.TEST_CAPTIVE_PORTAL_HTTPS_URL
+import com.android.net.module.util.NetworkStackConstants.TEST_CAPTIVE_PORTAL_HTTP_URL
 import android.os.Build
 import android.platform.test.annotations.AppModeFull
 import android.provider.DeviceConfig
@@ -48,6 +48,7 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.runner.AndroidJUnit4
+import com.android.net.module.util.NetworkStackConstants
 import com.android.testutils.RecorderCallback
 import com.android.testutils.TestHttpServer
 import com.android.testutils.TestHttpServer.Request
@@ -105,8 +106,8 @@ class CaptivePortalTest {
             // Verify that the test URLs are not normally set on the device, but do not fail if the
             // test URLs are set to what this test uses (URLs on localhost), in case the test was
             // interrupted manually and rerun.
-            assertEmptyOrLocalhostUrl(TEST_CAPTIVE_PORTAL_HTTPS_URL)
-            assertEmptyOrLocalhostUrl(TEST_CAPTIVE_PORTAL_HTTP_URL)
+            assertEmptyOrLocalhostUrl(NetworkStackConstants.TEST_CAPTIVE_PORTAL_HTTPS_URL)
+            assertEmptyOrLocalhostUrl(NetworkStackConstants.TEST_CAPTIVE_PORTAL_HTTP_URL)
         }
         clearValidationTestUrlsDeviceConfig()
         server.start()

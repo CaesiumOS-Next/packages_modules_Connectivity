@@ -17,10 +17,10 @@
 package android.net.cts
 
 import android.Manifest
-import android.net.util.NetworkStackUtils
 import android.provider.DeviceConfig
 import android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY
 import android.util.Log
+import com.android.net.module.util.NetworkStackConstants
 import com.android.testutils.runAsShell
 import com.android.testutils.tryTest
 import java.util.concurrent.CompletableFuture
@@ -46,26 +46,26 @@ internal object NetworkValidationTestUtil {
     /**
      * Set the test validation HTTPS URL.
      *
-     * @see NetworkStackUtils.TEST_CAPTIVE_PORTAL_HTTPS_URL
+     * @see NetworkStackConstants.TEST_CAPTIVE_PORTAL_HTTPS_URL
      */
     @JvmStatic fun setHttpsUrlDeviceConfig(url: String?) =
-            setConfig(NetworkStackUtils.TEST_CAPTIVE_PORTAL_HTTPS_URL, url)
+            setConfig(NetworkStackConstants.TEST_CAPTIVE_PORTAL_HTTPS_URL, url)
 
     /**
      * Set the test validation HTTP URL.
      *
-     * @see NetworkStackUtils.TEST_CAPTIVE_PORTAL_HTTP_URL
+     * @see NetworkStackConstants.TEST_CAPTIVE_PORTAL_HTTP_URL
      */
     @JvmStatic fun setHttpUrlDeviceConfig(url: String?) =
-            setConfig(NetworkStackUtils.TEST_CAPTIVE_PORTAL_HTTP_URL, url)
+            setConfig(NetworkStackConstants.TEST_CAPTIVE_PORTAL_HTTP_URL, url)
 
     /**
      * Set the test validation URL expiration.
      *
-     * @see NetworkStackUtils.TEST_URL_EXPIRATION_TIME
+     * @see NetworkStackConstants.TEST_URL_EXPIRATION_TIME
      */
     @JvmStatic fun setUrlExpirationDeviceConfig(timestamp: Long?) =
-            setConfig(NetworkStackUtils.TEST_URL_EXPIRATION_TIME, timestamp?.toString())
+            setConfig(NetworkStackConstants.TEST_URL_EXPIRATION_TIME, timestamp?.toString())
 
     private fun setConfig(configKey: String, value: String?): String? {
         Log.i(TAG, "Setting config \"$configKey\" to \"$value\"")
