@@ -63,6 +63,30 @@
       },
       "revId": "8a290efda30a9f2886406ae88b00a419694cd7dc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec3ad414_788a1742",
+        "filename": "tools/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2022-05-24T11:26:25Z",
+      "side": 1,
+      "message": "I have worked around the issue. I hope you don\u0027t mind but I took the liberty of uploading the fix for you. I reproduced the problem and after this change the test passes.\n\nBTW the bug I raised against Soong is http://b/233723405.",
+      "parentUuid": "07b9664e_e3e5b5be",
+      "range": {
+        "startLine": 63,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 57
+      },
+      "revId": "8a290efda30a9f2886406ae88b00a419694cd7dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
