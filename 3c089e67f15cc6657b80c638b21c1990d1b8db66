@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6520e82_37538e6d",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetNetworkFactoryTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-24T03:25:31Z",
+      "side": 0,
+      "message": "Would be good to add a test for this in the new CTS tests that we\u0027re adding as part of this work. Per discussion, you could try to create a tun (not a tap), and set it to ARPHRD_ETHER while it\u0027s down, and then use TUNSETCARRIER to set link up or down.",
+      "range": {
+        "startLine": 444,
+        "startChar": 16,
+        "endLine": 444,
+        "endChar": 54
+      },
+      "revId": "3c089e67f15cc6657b80c638b21c1990d1b8db66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2577da53_ea099d72",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetNetworkFactoryTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-24T03:25:31Z",
+      "side": 0,
+      "message": "Is this still a concern?",
+      "range": {
+        "startLine": 455,
+        "startChar": 21,
+        "endLine": 455,
+        "endChar": 32
+      },
+      "revId": "3c089e67f15cc6657b80c638b21c1990d1b8db66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
