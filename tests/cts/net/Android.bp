@@ -72,9 +72,9 @@ java_defaults {
 android_test {
     name: "CtsNetTestCases",
     defaults: ["CtsNetTestCasesDefaults", "ConnectivityNextEnableDefaults"],
-    // TODO: CTS should not depend on the entirety of the networkstack code.
     static_libs: [
-        "NetworkStackApiCurrentLib",
+        "DhcpPacketLib",
+        "NetworkStackApiCurrentShims",
     ],
     test_suites: [
         "cts",
@@ -100,6 +100,10 @@ android_test {
     defaults: [
         "CtsNetTestCasesDefaults",
         "CtsNetTestCasesApiStableDefaults",
+    ],
+    static_libs: [
+        "DhcpPacketLib",
+        "NetworkStackApiStableShims",
     ],
     target_sdk_version: "33",
     test_suites: [
