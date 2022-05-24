@@ -39,6 +39,7 @@ import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ROUTER_AD
 import static com.android.testutils.TestNetworkTrackerKt.initTestNetwork;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -1067,23 +1068,59 @@ public class EthernetTetheringTest {
                 false /* usingBpf */);
     }
 
-    private static boolean isUdpOffloadSupportedByKernel() {
-        final String kVersionString = VintfRuntimeInfo.getKernelVersion();
-        // Kernel version which is older than 4.14 doesn't support UDP offload absolutely. Kernel
-        // version which is between 4.14 and 5.8 support UDP offload probably. Simply apply kernel
-        // 4.14 to be threshold first and monitor on what devices tests fail for improving the
-        // offload support checking.
-        return DeviceInfoUtils.compareMajorMinorVersion(kVersionString, "4.14") >= 0;
+    private static boolean isKernelInRange(final String actual, final String min,
+            final String max) {
+        return DeviceInfoUtils.compareMajorMinorSubminorVersion(actual, min) >= 0
+                && DeviceInfoUtils.compareMajorMinorSubminorVersion(actual, max) <= 0;
     }
 
+    private static boolean isKernelAtLeast(final String actual, final String min) {
+        return DeviceInfoUtils.compareMajorMinorSubminorVersion(actual, min) >= 0;
+    }
+
+    /* IPv4 UDP BPF offload requires that kernel supports bpf_ktime_get_ns(). The changes were
+     * backported on Android Common Kernel in 4.14.221, 4.19.175, 5.4.97.
+     * As such we require 4.14.222+ 4.19.176+ 5.4.98+ 5.8.0+,
+     * See HAVE_EBPF_KTIME_GET_NS_APACHE2 in kernel/tests/net/test/bpf_test.py
+     */
+    private static boolean isUdpOffloadSupportedByKernel(final String kernelVersion) {
+        // Set Integer.MAX_VALUE (2147483647) to subminor number for maximum upbound in specific
+        // range.
+        return isKernelInRange(kernelVersion, "4.14.222", "4.18.2147483647")
+                || isKernelInRange(kernelVersion, "4.19.176", "5.3.2147483647")
+                || isKernelAtLeast(kernelVersion, "5.4.98");
+    }
+
+    @Test
+    public void testIsUdpOffloadSupportedByKernel() throws Exception {
+        assertFalse(isUdpOffloadSupportedByKernel("4.14.221"));
+        assertTrue(isUdpOffloadSupportedByKernel("4.14.222"));
+        assertTrue(isUdpOffloadSupportedByKernel("4.16.000"));
+        assertTrue(isUdpOffloadSupportedByKernel("4.18.000"));
+        assertFalse(isUdpOffloadSupportedByKernel("4.19.000"));
+
+        assertFalse(isUdpOffloadSupportedByKernel("4.19.175"));
+        assertTrue(isUdpOffloadSupportedByKernel("4.19.176"));
+        assertTrue(isUdpOffloadSupportedByKernel("5.2.000"));
+        assertTrue(isUdpOffloadSupportedByKernel("5.3.000"));
+        assertFalse(isUdpOffloadSupportedByKernel("5.4.000"));
+
+        assertFalse(isUdpOffloadSupportedByKernel("5.4.097"));
+        assertTrue(isUdpOffloadSupportedByKernel("5.4.098"));
+        assertTrue(isUdpOffloadSupportedByKernel("5.10.000"));
+    }
+
+    // TODO: refactor test testTetherUdpV4* into IPv4 UDP non-offload and offload tests.
+    // That can be easier to know which feature is verified from test results.
     @Test
     @IgnoreUpTo(Build.VERSION_CODES.R)
     public void testTetherUdpV4AfterR() throws Exception {
         initializeTethering();
-        boolean usingBpf = isUdpOffloadSupportedByKernel();
+        final String kernelVersion = VintfRuntimeInfo.getKernelVersion();
+        boolean usingBpf = isUdpOffloadSupportedByKernel(kernelVersion);
         if (!usingBpf) {
             Log.i(TAG, "testTetherUdpV4AfterR will skip BPF offload test for kernel "
-                    + VintfRuntimeInfo.getKernelVersion());
+                    + kernelVersion);
         }
         runUdp4Test(new TetheringTester(mDownstreamReader), new RemoteResponder(mUpstreamReader),
                 usingBpf);
