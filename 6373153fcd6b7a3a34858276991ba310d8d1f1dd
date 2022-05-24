@@ -34,6 +34,41 @@
       "parentUuid": "503e0249_f0965a93",
       "revId": "6373153fcd6b7a3a34858276991ba310d8d1f1dd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73813487_11862370",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1949138
+      },
+      "writtenOn": "2022-05-24T13:53:52Z",
+      "side": 1,
+      "message": "Yes, this revert corresponds to a different breakage caused by the same commit. I will update the bug (233698500) for this CL with more info, but ATM there are breakages over 5 branches caused by this commit.",
+      "parentUuid": "f32f6c89_8926243b",
+      "revId": "6373153fcd6b7a3a34858276991ba310d8d1f1dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c087e0bf_c0996e0c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1949138
+      },
+      "writtenOn": "2022-05-24T13:53:52Z",
+      "side": 1,
+      "message": "prohr@, please fix the breakage at 233698500 ASAP in a way that does not break aosp/2103684.",
+      "revId": "6373153fcd6b7a3a34858276991ba310d8d1f1dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
