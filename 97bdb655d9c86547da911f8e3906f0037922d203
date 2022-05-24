@@ -1,0 +1,331 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b0f151d_2bbbf496",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-24T03:03:44Z",
+      "side": 1,
+      "message": "Feel free to address comments in a follow-up.",
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc4f11d9_9cf2c9d4",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-24T03:03:44Z",
+      "side": 1,
+      "message": "Can this be const val?",
+      "range": {
+        "startLine": 78,
+        "startChar": 8,
+        "endLine": 78,
+        "endChar": 11
+      },
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "424eff14_053cb0cd",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-24T03:03:44Z",
+      "side": 1,
+      "message": "if these ar ecallbacks, rename to networkCallbacks or callbacksToUnregister or callbacksRegistered or registeredCallbacks (this last seems most consistent)",
+      "range": {
+        "startLine": 98,
+        "startChar": 16,
+        "endLine": 98,
+        "endChar": 31
+      },
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab0bdecd_6127e8de",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-24T03:03:44Z",
+      "side": 1,
+      "message": "releaseRequest?",
+      "range": {
+        "startLine": 245,
+        "startChar": 16,
+        "endLine": 245,
+        "endChar": 30
+      },
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db613612_0daec6a0",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-24T03:03:44Z",
+      "side": 1,
+      "message": "per vc: explain why the copy constructor",
+      "range": {
+        "startLine": 251,
+        "startChar": 31,
+        "endLine": 251,
+        "endChar": 45
+      },
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5c95c64_2787fe40",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-24T03:03:44Z",
+      "side": 1,
+      "message": "Space before comment?",
+      "range": {
+        "startLine": 256,
+        "startChar": 52,
+        "endLine": 256,
+        "endChar": 66
+      },
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fb2936d_23ab3017",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-24T03:03:44Z",
+      "side": 1,
+      "message": "assertNeverLost?",
+      "range": {
+        "startLine": 263,
+        "startChar": 40,
+        "endLine": 263,
+        "endChar": 53
+      },
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11fc84dc_165be54e",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-24T03:03:44Z",
+      "side": 1,
+      "message": "Could this be in setUp?",
+      "range": {
+        "startLine": 348,
+        "startChar": 8,
+        "endLine": 348,
+        "endChar": 38
+      },
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ac4b0f0_b2931406",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-24T03:03:44Z",
+      "side": 1,
+      "message": "Do we need a function that does this?\n\nDo we care what thread the callback runs on? If so, use the Handler or Executor version. If not, callbacks will run on the singleton ConnectivityThread.",
+      "range": {
+        "startLine": 353,
+        "startChar": 0,
+        "endLine": 354,
+        "endChar": 39
+      },
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fe44235_7efc7976",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-24T03:03:44Z",
+      "side": 1,
+      "message": "Do we care if this interface is created before the CS handler thread runs and the request is actually active? Maybe just add a comment that this can happen but it\u0027s really unlikely and doesn\u0027t really matter.",
+      "range": {
+        "startLine": 371,
+        "startChar": 20,
+        "endLine": 371,
+        "endChar": 35
+      },
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9da8da8e_d514d6c1",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-24T03:03:44Z",
+      "side": 1,
+      "message": "not needed. Also everywhere else that uses the local requestNetwork method.",
+      "range": {
+        "startLine": 379,
+        "startChar": 8,
+        "endLine": 379,
+        "endChar": 26
+      },
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7672a361_1ae5b97c",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-24T03:03:44Z",
+      "side": 1,
+      "message": "Per discussion: might want to add a test for the infamous bug where when apps release a NetworkRequest, Ethernet goes down :)",
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25d0dc67_cbd1a8ad",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-24T03:03:44Z",
+      "side": 1,
+      "message": "Might want to add:\n\n1. Request the first interface and see that it comes up.\n\n2. File an ethernet request with no specifier and see what happens. based on reading NetworkRanker#getBestNetworkByPolicy and FullScore#makeProspectiveScore, I think iface1 might get brought up? Maybe it\u0027s non-deterministic? This does not seem ideal but I guess it\u0027s acceptable given the semantics of the request API. You might be able to fix this by using the transport_primary bit on whichever interface is the \"default interface\" (assuming that the factory has that concept).",
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25a575a7_51a96295",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-24T03:03:44Z",
+      "side": 1,
+      "message": "Is it easy to check that this actually uses iface2 and the one above uses iface1? Might be useful.",
+      "range": {
+        "startLine": 435,
+        "startChar": 27,
+        "endLine": 435,
+        "endChar": 29
+      },
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3bdb938_dcb22323",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-24T03:03:44Z",
+      "side": 1,
+      "message": "Per previous comment, this one might be non-deterministic?",
+      "range": {
+        "startLine": 436,
+        "startChar": 12,
+        "endLine": 436,
+        "endChar": 27
+      },
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
