@@ -1314,6 +1314,18 @@ public class VpnTest {
         if (errorType == VpnManager.ERROR_CLASS_NOT_RECOVERABLE) {
             verify(mConnectivityManager, timeout(TEST_TIMEOUT_MS))
                     .unregisterNetworkCallback(eq(cb));
+        } else if (errorType == VpnManager.ERROR_CLASS_RECOVERABLE) {
+            // To prevent spending much time to test the retry function, only retry 2 times here.
+            int retryIndex = 0;
+            verify(mIkev2SessionCreator,
+                    timeout(((TestDeps) vpn.mDeps).getNextRetryDelay(retryIndex++)
+                            + TEST_TIMEOUT_MS))
+                    .createIkeSession(any(), any(), any(), any(), captor.capture(), any());
+            ikeCb.onClosedWithException(exception);
+            verify(mIkev2SessionCreator,
+                    timeout(((TestDeps) vpn.mDeps).getNextRetryDelay(retryIndex++)
+                            + TEST_TIMEOUT_MS))
+                    .createIkeSession(any(), any(), any(), any(), captor.capture(), any());
         }
     }
 
@@ -1661,6 +1673,15 @@ public class VpnTest {
 
         @Override
         public void setBlocking(FileDescriptor fd, boolean blocking) {}
+
+        @Override
+        public long getNextRetryDelay(int retryCount) {
+            if (retryCount >= 2) {
+                return TEST_TIMEOUT_MS * 2;
+            } else {
+                return TEST_TIMEOUT_MS;
+            }
+        }
     }
 
     /**
