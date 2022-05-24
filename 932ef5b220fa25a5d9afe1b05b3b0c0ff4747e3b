@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31fcc326_6e715ac5",
+        "filename": "service/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-24T17:47:27Z",
+      "side": 1,
+      "message": "Is there a reason for this to be a macro over an inline function?",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 13
+      },
+      "revId": "932ef5b220fa25a5d9afe1b05b3b0c0ff4747e3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
