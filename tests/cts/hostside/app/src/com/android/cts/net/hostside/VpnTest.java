@@ -16,10 +16,12 @@
 
 package com.android.cts.net.hostside;
 
+import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
 import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.content.pm.PackageManager.FEATURE_TELEPHONY;
 import static android.content.pm.PackageManager.FEATURE_WIFI;
 import static android.net.ConnectivityManager.TYPE_VPN;
+import static android.net.InetAddresses.parseNumericAddress;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.os.Process.INVALID_UID;
 import static android.system.OsConstants.AF_INET;
@@ -35,6 +37,8 @@ import static android.test.MoreAsserts.assertNotEqual;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
 import static com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity;
+import static com.android.networkstack.apishim.ConstantsShim.BLOCKED_REASON_LOCKDOWN_VPN;
+import static com.android.networkstack.apishim.ConstantsShim.BLOCKED_REASON_NONE;
 import static com.android.testutils.Cleanup.testAndCleanup;
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
@@ -59,12 +63,15 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.ConnectivityManager.NetworkCallback;
+import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.net.Proxy;
 import android.net.ProxyInfo;
+import android.net.TestNetworkInterface;
+import android.net.TestNetworkManager;
 import android.net.TransportInfo;
 import android.net.Uri;
 import android.net.VpnManager;
@@ -90,11 +97,13 @@ import android.telephony.TelephonyManager;
 import android.test.MoreAsserts;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Range;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.android.compatibility.common.util.BlockingBroadcastReceiver;
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.module.util.PacketBuilder;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.RecorderCallback;
@@ -113,12 +122,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -1574,6 +1585,155 @@ public class VpnTest {
 
         public long get(long timeout, TimeUnit unit) throws Exception {
             return future.get(timeout, unit);
+        }
+    }
+
+    @Test
+    public void testBlockIncomingPacket() throws Exception {
+        assumeTrue(supportedHardware());
+
+        // Create a TUN interface
+        final FileDescriptor tunFd = runWithShellPermissionIdentity(() -> {
+            final TestNetworkManager tnm =
+                    getInstrumentation().getContext().getSystemService(TestNetworkManager.class);
+            final TestNetworkInterface iface = tnm.createTunInterface(List.of(
+                    new LinkAddress("198.51.100.2/24"), new LinkAddress("2001:db8:1:3::2/64")));
+            assertNotNull("Failed to create test network interface", iface);
+            return iface.getFileDescriptor().getFileDescriptor();
+        }, MANAGE_TEST_NETWORKS);
+
+        // Create a remote UDP socket
+        final FileDescriptor remoteUdpFd =
+                mRemoteSocketFactoryClient.openUserDatagramSocketFd(7777 /* port */);
+
+        // The remote UDP socket can receive packet coming from the TUN interface
+        checkBlockIncomingPacket(tunFd, remoteUdpFd, false /* expectBlock */);
+
+        // Lockdown uid that has the remote UDP socket
+        runWithShellPermissionIdentity(() -> {
+            final int remoteUid = mRemoteSocketFactoryClient.getUid();
+            final Network network = mCM.getActiveNetwork();
+            assertNotNull("Requires a working Internet connection", network);
+
+            final DetailedBlockedStatusCallback remoteUidCallback =
+                    new DetailedBlockedStatusCallback();
+            mCM.registerDefaultNetworkCallbackForUid(remoteUid, remoteUidCallback,
+                    new Handler(Looper.getMainLooper()));
+            remoteUidCallback.expectAvailableCallbacks(network);
+
+            mCM.setRequireVpnForUids(true /* requireVpn */ ,
+                    List.of(new Range<>(remoteUid, remoteUid)));
+
+            // setRequireVpnForUids setup a lockdown rule asynchronously. So we need to wait
+            // BlockedStatusCallback is fired before check the incoming packets block status.
+            remoteUidCallback.expectBlockedStatusCallback(network, BLOCKED_REASON_LOCKDOWN_VPN);
+            mCM.unregisterNetworkCallback(remoteUidCallback);
+        }, NETWORK_SETTINGS);
+
+        if (SdkLevel.isAtLeastT()) {
+            // On T and above, incoming packets are dropped by lockdown regardless of the VPN
+            // connectivity. The remote UDP socket can not receive packet coming from the TUN
+            // interface.
+            checkBlockIncomingPacket(tunFd, remoteUdpFd, true /* expectBlock */);
+        }
+
+        // Start the VPN that has default routes. This VPN should have interface filtering rule for
+        // incoming packet and drop packets not coming from lo nor the VPN interface.
+        final String allowedApps = mRemoteSocketFactoryClient.getPackageName() + "," + mPackageName;
+        startVpn(new String[]{"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
+                new String[]{"0.0.0.0/0", "::/0"}, allowedApps, "" /* disallowedApplications */,
+                null /* proxyInfo */, null /* underlyingNetworks */, false /* isAlwaysMetered */);
+
+        // The remote UDP socket can not receive UDP packet coming from the TUN interface.
+        checkBlockIncomingPacket(tunFd, remoteUdpFd, true /* expectBlock */);
+
+        Os.close(tunFd);
+        Os.close(remoteUdpFd);
+    }
+
+    private ByteBuffer buildIpv4UdpPacket(byte[] payload) throws IOException {
+        final ByteBuffer buffer = PacketBuilder.allocate(false /* hasEther */,
+                OsConstants.IPPROTO_IP, OsConstants.IPPROTO_UDP, payload.length);
+
+        final PacketBuilder packetBuilder = new PacketBuilder(buffer);
+        packetBuilder.writeIpv4Header(
+                (byte) 0 /* TOS */,
+                (short) 27149 /* ID */,
+                (short) 0x4000 /* flags=DF, offset=0 */,
+                (byte) 64 /* TTL */,
+                (byte) OsConstants.IPPROTO_UDP,
+                (Inet4Address) parseNumericAddress("198.51.100.1") /* src IP */,
+                (Inet4Address) parseNumericAddress("198.51.100.2") /* dst IP */);
+        packetBuilder.writeUdpHeader((short) 5555 /* src port */, (short) 7777 /* dst port */);
+        buffer.put(payload);
+
+        return packetBuilder.finalizePacket();
+    }
+
+    private ByteBuffer buildIpv6UdpPacket(byte[] payload) throws IOException {
+        final ByteBuffer buffer = PacketBuilder.allocate(false /* hasEther */,
+                OsConstants.IPPROTO_IPV6, OsConstants.IPPROTO_UDP, payload.length);
+        final PacketBuilder packetBuilder = new PacketBuilder(buffer);
+
+        packetBuilder.writeIpv6Header(
+                0x60000000 /* version=6, traffic class=0, flow label=0 */,
+                (byte) OsConstants.IPPROTO_UDP,
+                (short) 64 /* hop limit */,
+                (Inet6Address) parseNumericAddress("2001:db8:1:3::1") /* src IP */,
+                (Inet6Address) parseNumericAddress("2001:db8:1:3::2") /* dst IP */);
+        packetBuilder.writeUdpHeader((short) 5555 /* src port */, (short) 7777 /* dst port */);
+        buffer.put(payload);
+
+        return packetBuilder.finalizePacket();
+    }
+
+    private void checkUdpReception(
+            final FileDescriptor srcTunFd,
+            final FileDescriptor dstUdpFd,
+            final boolean v6,
+            final boolean expectBlock) throws Exception {
+        // Put random payload to identify the received packet.
+        final Random random = new Random();
+        final byte[] sendData = new byte[100];
+        random.nextBytes(sendData);
+        final ByteBuffer buffer = v6 ? buildIpv6UdpPacket(sendData) : buildIpv4UdpPacket(sendData);
+
+        Os.write(srcTunFd, buffer);
+
+        final StructPollfd pollfd = new StructPollfd();
+        pollfd.events = (short) POLLIN;
+        pollfd.fd = dstUdpFd;
+        final int ret = Os.poll(new StructPollfd[]{pollfd}, SOCKET_TIMEOUT_MS);
+
+        if (expectBlock) {
+            assertEquals("Expected not to receive a packet", 0, ret);
+        } else {
+            assertEquals("Expected to receive a packet", 1, ret);
+            final byte[] recvData = new byte[sendData.length];
+            final int read = Os.read(dstUdpFd, recvData, 0 /* byteOffset */, recvData.length);
+            assertEquals(recvData.length, read);
+            MoreAsserts.assertEquals(sendData, recvData);
+        }
+    }
+
+    private void checkBlockIncomingPacket(
+            final FileDescriptor srcTunFd,
+            final FileDescriptor dstUdpFd,
+            final boolean expectBlock) throws Exception {
+        checkUdpReception(srcTunFd, dstUdpFd, false /* v6 */, expectBlock);
+        checkUdpReception(srcTunFd, dstUdpFd, true /* v6 */, expectBlock);
+    }
+
+    private class DetailedBlockedStatusCallback extends TestableNetworkCallback {
+        public void expectAvailableCallbacks(Network network) {
+            super.expectAvailableCallbacks(network, false /* suspended */, true /* validated */,
+                    BLOCKED_REASON_NONE, NETWORK_CALLBACK_TIMEOUT_MS);
+        }
+        public void expectBlockedStatusCallback(Network network, int blockedStatus) {
+            super.expectBlockedStatusCallback(blockedStatus, network, NETWORK_CALLBACK_TIMEOUT_MS);
+        }
+        public void onBlockedStatusChanged(Network network, int blockedReasons) {
+            getHistory().add(new CallbackEntry.BlockedStatusInt(network, blockedReasons));
         }
     }
 }
