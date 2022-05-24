@@ -85,7 +85,6 @@ import com.android.net.module.util.structs.UdpHeader;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
-import com.android.testutils.DeviceInfoUtils;
 import com.android.testutils.DumpTestUtils;
 import com.android.testutils.HandlerUtils;
 import com.android.testutils.TapPacketReader;
@@ -117,6 +116,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RunWith(AndroidJUnit4.class)
 @MediumTest
@@ -1067,15 +1068,54 @@ public class EthernetTetheringTest {
                 false /* usingBpf */);
     }
 
-    private static boolean isUdpOffloadSupportedByKernel() {
-        final String kVersionString = VintfRuntimeInfo.getKernelVersion();
-        // Kernel version which is older than 4.14 doesn't support UDP offload absolutely. Kernel
-        // version which is between 4.14 and 5.8 support UDP offload probably. Simply apply kernel
-        // 4.14 to be threshold first and monitor on what devices tests fail for improving the
-        // offload support checking.
-        return DeviceInfoUtils.compareMajorMinorVersion(kVersionString, "4.14") >= 0;
+    /* Combine a three-part version number into 32-bits integer which is easier to compare
+     * version number.
+     *
+     * 0                   1                   2                   3
+     * 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+     * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     * |          subminor             |     minor     |    major      |
+     * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     */
+    private static int kernelVersionToInt(int major, int minor, int sub) {
+        return ((major & 0xff) << 24) | ((minor & 0xff) << 16) | (sub & 0xffff);
     }
 
+    /* Get a kernel version from a given string. The return kernel version numbers are combined to
+     * 32-bits integer. See #kernelVersionToInt.
+     */
+    private static int getKernelVersionFromString(String version) {
+        // The kernel version is a three-part version number (major, minor and subminor). Get
+        // the three-part version numbers and discard the remaining stuff. For example:
+        // 4.19.220-g500ede0aed22-ab8272303
+        // Major number is 4. Minor number is 19. Subminor number is 220. Discard
+        // "-g500ede0aed22-ab8272303" in this case.
+        final Pattern versionPattern = Pattern.compile("^(\\d+)\\.(\\d+)\\.(\\d+)*");
+        final Matcher m = versionPattern.matcher(version);
+        if (m.matches()) {
+            final int major = Integer.parseInt(m.group(1));
+            final int minor = Integer.parseInt(m.group(2));
+            final int sub = Integer.parseInt(m.group(3));
+            // discard the remaining stuff.
+            return kernelVersionToInt(major, minor, sub);
+        } else {
+            return 0;
+        }
+    }
+
+    /* IPv4 UDP BPF offload requires that kernel supports bpf_ktime_get_ns(). The changes were
+     * backported on Android Common Kernel in 4.14.221, 4.19.175, 5.4.97.
+     * See HAVE_EBPF_KTIME_GET_NS_APACHE2 in kernel/tests/net/test/bpf_test.py
+     */
+    private static boolean isUdpOffloadSupportedByKernel() {
+        final int ver = getKernelVersionFromString(VintfRuntimeInfo.getKernelVersion());
+        return ((ver > kernelVersionToInt(4, 14, 221)) && (ver < kernelVersionToInt(4, 19, 0)))
+                || ((ver > kernelVersionToInt(4, 19, 175)) && (ver < kernelVersionToInt(5, 4, 0)))
+                || (ver > kernelVersionToInt(5, 4, 97));
+    }
+
+    // TODO: refactor test testTetherUdpV4* into IPv4 UDP non-offload and offload tests.
+    // That can be easier to know which feature is verified from test results.
     @Test
     @IgnoreUpTo(Build.VERSION_CODES.R)
     public void testTetherUdpV4AfterR() throws Exception {
