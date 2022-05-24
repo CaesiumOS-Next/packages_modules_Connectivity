@@ -20,6 +20,7 @@ import android.os.ParcelFileDescriptor;
 
 interface IRemoteSocketFactory {
     ParcelFileDescriptor openSocketFd(String host, int port, int timeoutMs);
+    ParcelFileDescriptor openDatagramSocketFd(int port);
     String getPackageName();
     int getUid();
 }
