@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bef829f5_9188dda9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-24T19:45:20Z",
+      "side": 1,
+      "message": "Looking at http://b/232332847#comment24 I see \u0027Linux version 4.19.160-g85b17737b5f2-ab7508408\u0027 so the above would indeed work.",
+      "parentUuid": "916a8e54_a0e67ca2",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 68
+      },
+      "revId": "83e0c5d6c38c935466470ceaff665d1718c795ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7ae3638d_9d79def3",
         "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
         "patchSetId": 1
