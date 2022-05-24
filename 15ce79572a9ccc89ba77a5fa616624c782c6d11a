@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dfd8f86_f56b0156",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10480,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-24T13:27:12Z",
+      "side": 1,
+      "message": "that does not provide a default route should",
+      "range": {
+        "startLine": 10480,
+        "startChar": 47,
+        "endLine": 10480,
+        "endChar": 53
+      },
+      "revId": "15ce79572a9ccc89ba77a5fa616624c782c6d11a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
