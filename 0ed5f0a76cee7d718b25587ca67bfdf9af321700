@@ -68,6 +68,30 @@
       },
       "revId": "0ed5f0a76cee7d718b25587ca67bfdf9af321700",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d05109f4_2905e3c0",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-24T07:31:35Z",
+      "side": 1,
+      "message": "It could have potentially been on architectures we don\u0027t support, (and not even clear if they exist) so not really.\n\nUsually also \u0027s\u0027hort is 2 bytes and those can either be in the right order or the reworse... I\u0027ve never seen bits get jumbled as well (though they could).",
+      "parentUuid": "c0b0c497_64892ae2",
+      "range": {
+        "startLine": 218,
+        "startChar": 16,
+        "endLine": 219,
+        "endChar": 37
+      },
+      "revId": "0ed5f0a76cee7d718b25587ca67bfdf9af321700",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

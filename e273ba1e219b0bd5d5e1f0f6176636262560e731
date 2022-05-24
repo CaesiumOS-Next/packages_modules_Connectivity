@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab2a59af_8c63de87",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-24T07:31:35Z",
+      "side": 0,
+      "message": "This is just a naming mistake ntohs and htons are identical functions on both bigendian and littleendian machines - often with one #define\u0027d to the other.\n\nThey\u0027re only different on weird endian machines - which basically don\u0027t exist.\n\nFurthermore Android already only supports natively little endian architectures.\n(though I\u0027m not sure of the bpf architectures endianness).\n\nie. fixing htons\u003d\u003dntohs is just a matter of using consistent naming.",
+      "parentUuid": "edbe8e14_8bac2858",
+      "range": {
+        "startLine": 161,
+        "startChar": 16,
+        "endLine": 161,
+        "endChar": 60
+      },
+      "revId": "e273ba1e219b0bd5d5e1f0f6176636262560e731",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00b3f63a_3bf2630e",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-23T22:35:02Z",
       "side": 0,
       "message": "same here, I don\u0027t understand this",
+      "range": {
+        "startLine": 213,
+        "startChar": 16,
+        "endLine": 213,
+        "endChar": 37
+      },
+      "revId": "e273ba1e219b0bd5d5e1f0f6176636262560e731",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84096d04_2fa9bb53",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-24T07:31:35Z",
+      "side": 0,
+      "message": "See above, same reasoning.  Just naming confusion.",
+      "parentUuid": "00b3f63a_3bf2630e",
       "range": {
         "startLine": 213,
         "startChar": 16,
