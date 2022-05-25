@@ -164,6 +164,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
@@ -215,7 +217,7 @@ public class VpnTest {
      */
     static final String[] PKGS = {"com.example", "org.example", "net.example", "web.vpn"};
     static final String PKGS_BYTES = getPackageByteString(List.of(PKGS));
-    static final int[] PKG_UIDS = {10066, 10077, 10078, 10400};
+    static final Integer[] PKG_UIDS = {10066, 10077, 10078, 10400};
 
     // Mock packages
     static final Map<String, Integer> mPackages = new ArrayMap<>();
@@ -827,6 +829,57 @@ public class VpnTest {
                 primaryUser.id, null, Arrays.asList(PKGS)),
                 vpn.mNetworkCapabilities.getUids());
         assertEquals(Arrays.asList(PKGS), vpn.getAppExclusionList(TEST_VPN_PKG));
+    }
+
+    @Test @IgnoreUpTo(S_V2)
+    public void testRefreshPlatformVpnAppExclusionList() throws Exception {
+        final Vpn vpn = prepareVpnForVerifyAppExclusionList();
+        vpn.setAppExclusionList(TEST_VPN_PKG, Arrays.asList(PKGS));
+        assertEquals(Arrays.asList(PKGS), vpn.getAppExclusionList(TEST_VPN_PKG));
+
+        // Remove one of the package
+        List<Integer> newExcludedUids = new ArrayList(Arrays.asList(PKG_UIDS));
+        newExcludedUids.remove(PKG_UIDS[0]);
+        mPackages.remove(PKGS[0]);
+        vpn.refreshPlatformVpnAppExclusionList();
+        // List in the keystore is not changed.
+        assertEquals(Arrays.asList(PKGS), vpn.getAppExclusionList(TEST_VPN_PKG));
+        assertEquals(makeExcludedUidRange(primaryUser.id, newExcludedUids),
+                vpn.mNetworkCapabilities.getUids());
+
+        // Add the package back
+        newExcludedUids.add(PKG_UIDS[0]);
+        mPackages.put(PKGS[0], PKG_UIDS[0]);
+        vpn.refreshPlatformVpnAppExclusionList();
+        // List in the keystore is not changed.
+        assertEquals(Arrays.asList(PKGS), vpn.getAppExclusionList(TEST_VPN_PKG));
+        assertEquals(makeExcludedUidRange(primaryUser.id, newExcludedUids),
+                vpn.mNetworkCapabilities.getUids());
+    }
+
+    private Set<Range<Integer>> makeExcludedUidRange(int userId, List<Integer> excludedList) {
+        final SortedSet<Integer> list = new TreeSet<>();
+        int userBase = userId * 100000;
+        for (int uid : excludedList) {
+            list.add(userBase + uid);
+            list.add(userBase + uid + 10000); // Add Sdk Sandbox UID
+        }
+        int minUid = userBase;
+        int maxUid = userBase + 99999;
+        Set<Range<Integer>> ranges = new ArraySet<>();
+        int start = minUid;
+        for (int uid : list) {
+            if (uid == start) {
+                start++;
+            } else {
+                ranges.add(new Range<>(start, uid - 1));
+                start = uid + 1;
+            }
+        }
+        if (start <= maxUid) {
+            ranges.add(new Range<>(start, maxUid));
+        }
+        return ranges;
     }
 
     @Test @IgnoreUpTo(S_V2)
