@@ -34,6 +34,24 @@
       "parentUuid": "3d970ea8_d36a55da",
       "revId": "e21a9ca268f26019a4e44bf193a8dce75ceace98",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b308016d_a5279206",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-05-25T04:33:57Z",
+      "side": 1,
+      "message": "I added method \u0027matchesProtocol(int)\u0027 that has default implementation in QosFilter based on suggestion from api-council.\nhttps://groups.google.com/a/google.com/g/android-api-council/c/_QucGTXeLLg",
+      "parentUuid": "51a02364_a8c9581b",
+      "revId": "e21a9ca268f26019a4e44bf193a8dce75ceace98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
