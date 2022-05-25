@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73b37bde_27116a04",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-25T03:05:27Z",
+      "side": 1,
+      "message": "Can\u0027t you just use: `mIpConfigurations \u003d IpConfigStore.readIpConfigurations(filepath);`",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 42
+      },
+      "revId": "8cda2d06fcc39d465d52ecfb8a863fe41e5e39d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "191c2426_bf52a2ee",
+        "filename": "service-t/src/com/android/server/net/IpConfigStore.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-25T03:05:27Z",
+      "side": 1,
+      "message": "Instead of a Handler, should this take an Executor?",
+      "range": {
+        "startLine": 223,
+        "startChar": 33,
+        "endLine": 223,
+        "endChar": 40
+      },
+      "revId": "8cda2d06fcc39d465d52ecfb8a863fe41e5e39d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb8434e6_58f3dfbc",
+        "filename": "service/src/com/android/server/net/DelayedDiskWrite.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-25T03:05:27Z",
+      "side": 1,
+      "message": "Should this be annotated @VisibleForTesting?",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 27
+      },
+      "revId": "8cda2d06fcc39d465d52ecfb8a863fe41e5e39d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b38c7963_45f6a5af",
+        "filename": "service/src/com/android/server/net/DelayedDiskWrite.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-25T03:05:27Z",
+      "side": 1,
+      "message": "maybe add a method: getDefaultExecutor()? And then call this version this way: `write(filePath, w, true, getDefaultExecutor())`",
+      "range": {
+        "startLine": 83,
+        "startChar": 20,
+        "endLine": 85,
+        "endChar": 89
+      },
+      "revId": "8cda2d06fcc39d465d52ecfb8a863fe41e5e39d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a79760ba_7f59c0fc",
+        "filename": "service/src/com/android/server/net/DelayedDiskWrite.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-25T03:05:27Z",
+      "side": 1,
+      "message": "I wonder if it would be better if we added a done() method that does the looper quit explicitly? Or work with postDelayed()? I don\u0027t know tbh.",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 17
+      },
+      "revId": "8cda2d06fcc39d465d52ecfb8a863fe41e5e39d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
