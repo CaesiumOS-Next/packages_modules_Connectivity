@@ -40,6 +40,8 @@ import android.net.ip.IpClientCallbacks;
 import android.net.ip.IpClientManager;
 import android.net.ip.IpClientUtil;
 import android.net.shared.ProvisioningConfiguration;
+import android.net.vcn.VcnManager;
+import android.net.vcn.VcnNetworkPolicyResult;
 import android.os.ConditionVariable;
 import android.os.Handler;
 import android.os.Looper;
@@ -503,7 +505,10 @@ public class EthernetNetworkFactory extends NetworkFactory {
         }
 
         private void setCapabilities(@NonNull final NetworkCapabilities capabilities) {
-            mCapabilities = new NetworkCapabilities(capabilities);
+            mCapabilities =
+                    new NetworkCapabilities.Builder(capabilities)
+                            .setSubscriptionIds(Collections.singleton(1))
+                            .build();
             mLegacyType = getLegacyType(mCapabilities);
         }
 
@@ -574,22 +579,35 @@ public class EthernetNetworkFactory extends NetworkFactory {
                     .setLegacyTypeName(NETWORK_TYPE)
                     .setLegacyExtraInfo(mHwAddress)
                     .build();
-            mNetworkAgent = mDeps.makeEthernetNetworkAgent(mContext, mHandler.getLooper(),
-                    mCapabilities, mLinkProperties, config, mNetworkProvider,
-                    new EthernetNetworkAgent.Callbacks() {
-                        @Override
-                        public void onNetworkUnwanted() {
-                            // if mNetworkAgent is null, we have already called stop.
-                            if (mNetworkAgent == null) return;
 
-                            if (this == mNetworkAgent.getCallbacks()) {
-                                stop();
-                            } else {
-                                Log.d(TAG, "Ignoring unwanted as we have a more modern " +
-                                        "instance");
-                            }
-                        }
-                    });
+            final VcnNetworkPolicyResult vcnPolicy =
+                    mContext.getSystemService(VcnManager.class)
+                            .applyVcnNetworkPolicy(mCapabilities, mLinkProperties);
+
+            mNetworkAgent =
+                    mDeps.makeEthernetNetworkAgent(
+                            mContext,
+                            mHandler.getLooper(),
+                            vcnPolicy.getNetworkCapabilities(),
+                            mLinkProperties,
+                            config,
+                            mNetworkProvider,
+                            new EthernetNetworkAgent.Callbacks() {
+                                @Override
+                                public void onNetworkUnwanted() {
+                                    // if mNetworkAgent is null, we have already called stop.
+                                    if (mNetworkAgent == null) return;
+
+                                    if (this == mNetworkAgent.getCallbacks()) {
+                                        stop();
+                                    } else {
+                                        Log.d(
+                                                TAG,
+                                                "Ignoring unwanted as we have a more modern "
+                                                        + "instance");
+                                    }
+                                }
+                            });
             mNetworkAgent.register();
             mNetworkAgent.markConnected();
             realizeNetworkManagementCallback(name, null);
