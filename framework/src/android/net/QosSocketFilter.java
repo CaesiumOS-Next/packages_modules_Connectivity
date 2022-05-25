@@ -93,6 +93,7 @@ public class QosSocketFilter extends QosFilter {
         if (sa == null || (sa.getAddress().isAnyLocalAddress() && sa.getPort() == 0)) {
             return EX_TYPE_FILTER_SOCKET_NOT_BOUND;
         }
+        Log.e(TAG, "validate sa: " + sa);
 
         if (!sa.equals(mQosSocketInfo.getLocalSocketAddress())) {
             return EX_TYPE_FILTER_SOCKET_LOCAL_ADDRESS_CHANGED;
@@ -103,6 +104,7 @@ public class QosSocketFilter extends QosFilter {
             if (da == null) {
                 return EX_TYPE_FILTER_SOCKET_NOT_CONNECTED;
             }
+            Log.e(TAG, "validate da: " + da);
 
             if (!da.equals(mQosSocketInfo.getRemoteSocketAddress())) {
                 return EX_TYPE_FILTER_SOCKET_REMOTE_ADDRESS_CHANGED;
@@ -123,7 +125,7 @@ public class QosSocketFilter extends QosFilter {
     private InetSocketAddress getLocalAddressFromFileDescriptor() {
         final ParcelFileDescriptor parcelFileDescriptor = mQosSocketInfo.getParcelFileDescriptor();
         final FileDescriptor fd = parcelFileDescriptor.getFileDescriptor();
-
+        Log.e(TAG, "getLocalAddressFromFileDescriptor fd: " + fd.getInt$());
         final SocketAddress address;
         try {
             address = Os.getsockname(fd);
