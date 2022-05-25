@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "47058544_fada7b55",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-05-25T06:19:33Z",
+      "side": 1,
+      "message": "Thanks for your long reply. I think that you are right.\nThe title \"launched-in-S+\" is incorrect and ro.vendor.api_level can\u0027t use for our case.\n\nI tried on aosp_bramble-userdebug@8638361. ro.vendor.api_level 30 is  R but the bpf has been supported actually on this ROM (kernel 4.19.220 \u003e 4.19.175).\n```\n$ adb shell getprop ro.vendor.api_level\n30\n\n$ adb shell getprop ro.product.first_api_level \n30\n```\nbuild information\n```\nBuild: aosp_bramble-userdebug UpsideDownCake AOSP.MASTER 8638361 test-keys\nBuild fingerprint: \u0027Android/aosp_bramble/bramble:UpsideDownCake/AOSP.MASTER/8638361:userdebug/test-keys\u0027\nKernel: Linux version 4.19.220-g500ede0aed22-ab8272303\n```\n\nYour bpf_test.py looks nice. I will work out a new patchset. Thank you",
+      "parentUuid": "bef829f5_9188dda9",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 68
+      },
+      "revId": "83e0c5d6c38c935466470ceaff665d1718c795ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7ae3638d_9d79def3",
         "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
         "patchSetId": 1
@@ -61,6 +85,30 @@
       "writtenOn": "2022-05-24T16:58:33Z",
       "side": 1,
       "message": "what does this return on aosp and/or x-plus-aosp branches?\n\nwould it make more sense to change the default 0 to 9999 so that missing api_level is treated as S+?",
+      "range": {
+        "startLine": 1078,
+        "startChar": 0,
+        "endLine": 1078,
+        "endChar": 94
+      },
+      "revId": "83e0c5d6c38c935466470ceaff665d1718c795ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a46a848a_632fbb84",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1078,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-05-25T06:19:33Z",
+      "side": 1,
+      "message": "ro.vendor.api_level seems to not work for our case\n\naosp_bramble-userdebug@8638361\n```\n$ adb shell getprop ro.vendor.api_level\n30\n```\n\nI am trying to use kernel version range as your mentioned in:\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2105044/comment/916a8e54_a0e67ca2/\n\nthank you",
+      "parentUuid": "7ae3638d_9d79def3",
       "range": {
         "startLine": 1078,
         "startChar": 0,
