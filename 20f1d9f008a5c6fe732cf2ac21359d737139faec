@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49989236_1a2dbd7b",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1106,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-25T15:31:23Z",
+      "side": 1,
+      "message": "all the above belongs in some util class\n\nprobably along with some helpers along the lines of\n\nIsKernelAtLeast(4,9,200)  // \u003e\u003d 4.9.200\nIsKernelInRange(4,9,200, 4,14,0) // \u003e\u003d 4.9.200 \u0026\u0026 \u003c 4.14.0",
+      "range": {
+        "startLine": 1072,
+        "startChar": 4,
+        "endLine": 1106,
+        "endChar": 5
+      },
+      "revId": "20f1d9f008a5c6fe732cf2ac21359d737139faec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
