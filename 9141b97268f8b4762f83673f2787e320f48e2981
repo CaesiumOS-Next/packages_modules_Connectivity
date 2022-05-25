@@ -39,6 +39,30 @@
       },
       "revId": "9141b97268f8b4762f83673f2787e320f48e2981",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a52581e_2110e8a6",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetServiceImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-05-25T21:11:40Z",
+      "side": 1,
+      "message": "This test exists however it looks like it will need to be updated to cover these changes:\nhttps://source.corp.google.com/android/cts/tests/tests/permission/src/android/permission/cts/EthernetManagerPermissionTest.java;l\u003d44;bpv\u003d0",
+      "parentUuid": "1cb664c9_7856d1b6",
+      "range": {
+        "startLine": 269,
+        "startChar": 38,
+        "endLine": 269,
+        "endChar": 43
+      },
+      "revId": "9141b97268f8b4762f83673f2787e320f48e2981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
