@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfb6d830_53b884a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-25T15:37:01Z",
+      "side": 1,
+      "message": "For native code we have frameworks/libs/net/common/native/tcutils/kernelversion.h\n\nWe could just add a Kernel.java next to frameworks/libs/net/common/device/com/android/net/module/util/BpfMap.java\n\nor maybe someone on kernel/vintf teams has a better location (though a location which is already automerged for mainline would imho be best)",
+      "revId": "20f1d9f008a5c6fe732cf2ac21359d737139faec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49989236_1a2dbd7b",
