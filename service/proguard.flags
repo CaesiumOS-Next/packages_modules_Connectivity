@@ -1,10 +1,17 @@
-# Make sure proguard keeps all connectivity classes
-# TODO: instead of keeping everything, consider listing only "entry points"
-# (service loader, JNI registered methods, etc) and letting the optimizer do its job
--keep class android.net.** { *; }
--keep class com.android.connectivity.** { *; }
--keep class com.android.net.** { *; }
--keep class !com.android.server.nearby.**,com.android.server.** { *; }
+# Make sure R8 keeps all connectivity "entry points" that are used to
+# start all services. What is unreachable from these should be unused
+# and stripped out.
+-keep class com.android.server.ConnectivityServiceInitializer { *; }
+-keep class com.android.server.NetworkStatsServiceInitializer { *; }
+
+# Don't remove classes/methods that contain native methods even if
+# unused, otherwise JNI registration would fail and crash.
+-keepclasseswithmembers,allowshrinking,allowoptimization class ** {
+    native <methods>;
+}
+-keepclassmembers class ** {
+    native <methods>;
+}
 
 # Prevent proguard from stripping out any nearby-service and fast-pair-lite-protos fields.
 -keep class com.android.server.nearby.NearbyService { *; }
