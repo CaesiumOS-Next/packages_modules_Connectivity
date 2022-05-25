@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a78fb777_6cdf470f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-25T03:38:04Z",
+      "side": 1,
+      "message": "Is this only for target SDK T ? Is TetheringNext targeting SDK T (if not it probably should ?)\n\nIs this covered in some automated test, or in manually tested user journeys for module releases, so that it would be caught in a test ? If not, can you make sure this gets added to the tethering user journeys (probably file a bug to engprod describing the testing procedure) ?",
+      "revId": "c60c40a8f5868d5d97da9fbfc130d1932b19c4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4949117_53a8ee23",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-25T03:38:04Z",
+      "side": 1,
+      "message": "Can you also check that p2p fails without the permission, and passes with the permission ? And report the results here; it would be a more valuable test to document in the commit message.",
+      "range": {
+        "startLine": 14,
+        "startChar": 6,
+        "endLine": 15,
+        "endChar": 57
+      },
+      "revId": "c60c40a8f5868d5d97da9fbfc130d1932b19c4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d92f0c6d_f86d8853",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-25T03:38:04Z",
+      "side": 1,
+      "message": "LGTM but make sure to test before/after locally (I think you did already) and to mention what you did in the commit message.\n\nAlso I think we need to make sure regression testing is in place before forgetting about it.",
+      "revId": "c60c40a8f5868d5d97da9fbfc130d1932b19c4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
