@@ -40,6 +40,8 @@ import android.net.ip.IpClientCallbacks;
 import android.net.ip.IpClientManager;
 import android.net.ip.IpClientUtil;
 import android.net.shared.ProvisioningConfiguration;
+import android.net.vcn.VcnManager;
+import android.net.vcn.VcnNetworkPolicyResult;
 import android.os.ConditionVariable;
 import android.os.Handler;
 import android.os.Looper;
@@ -503,7 +505,7 @@ public class EthernetNetworkFactory extends NetworkFactory {
         }
 
         private void setCapabilities(@NonNull final NetworkCapabilities capabilities) {
-            mCapabilities = new NetworkCapabilities(capabilities);
+            mCapabilities = new NetworkCapabilities.Builder(capabilities).setSubscriptionIds(Collections.singleton(1)).build();
             mLegacyType = getLegacyType(mCapabilities);
         }
 
@@ -574,8 +576,11 @@ public class EthernetNetworkFactory extends NetworkFactory {
                     .setLegacyTypeName(NETWORK_TYPE)
                     .setLegacyExtraInfo(mHwAddress)
                     .build();
+
+            final VcnNetworkPolicyResult vcnPolicy = mContext.getSystemService(VcnManager.class).applyVcnNetworkPolicy(mCapabilities, mLinkProperties);
+
             mNetworkAgent = mDeps.makeEthernetNetworkAgent(mContext, mHandler.getLooper(),
-                    mCapabilities, mLinkProperties, config, mNetworkProvider,
+                    vcnPolicy.getNetworkCapabilities(), mLinkProperties, config, mNetworkProvider,
                     new EthernetNetworkAgent.Callbacks() {
                         @Override
                         public void onNetworkUnwanted() {
