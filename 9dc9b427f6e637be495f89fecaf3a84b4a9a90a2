@@ -166,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d16e6232_4371a313",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-05-25T12:54:29Z",
+      "side": 1,
+      "message": "ok, Thanks for the explanation. Indeed, FEATURE_TELEPHONY is the necessary condition for the entitlement. I will add these both conditions below into the test method.\n\n        assumeTrue(mTM.isTetheringSupported());\n        assumeTrue(mPm.hasSystemFeature(FEATURE_TELEPHONY));",
+      "parentUuid": "23f8bd5b_6804a36b",
+      "range": {
+        "startLine": 550,
+        "startChar": 20,
+        "endLine": 550,
+        "endChar": 50
+      },
+      "revId": "9dc9b427f6e637be495f89fecaf3a84b4a9a90a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d34a3c32_d8af70f6",
