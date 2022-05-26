@@ -1067,6 +1067,17 @@ public class EthernetTetheringTest {
                 false /* usingBpf */);
     }
 
+    private static boolean isKernelInRange(final String actual, final String min,
+            final String max) {
+        // Check the kernel version in the given range [min, max).
+        return DeviceInfoUtils.compareMajorMinorSubminorVersion(actual, min) >= 0
+                && DeviceInfoUtils.compareMajorMinorSubminorVersion(actual, max) < 0;
+    }
+
+    private static boolean isKernelAtLeast(final String actual, final String min) {
+        return DeviceInfoUtils.compareMajorMinorSubminorVersion(actual, min) >= 0;
+    }
+
     private static boolean isUdpOffloadSupportedByKernel() {
         final String kVersionString = VintfRuntimeInfo.getKernelVersion();
         // Kernel version which is older than 4.14 doesn't support UDP offload absolutely. Kernel
