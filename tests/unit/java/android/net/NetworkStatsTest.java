@@ -36,11 +36,12 @@ import static android.net.NetworkStats.TAG_ALL;
 import static android.net.NetworkStats.TAG_NONE;
 import static android.net.NetworkStats.UID_ALL;
 
+import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import android.os.Build;
 import android.os.Process;
 import android.util.ArrayMap;
 
@@ -61,7 +62,7 @@ import java.util.Iterator;
 
 @RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
-@DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
+@DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
 public class NetworkStatsTest {
 
     private static final String TEST_IFACE = "test0";

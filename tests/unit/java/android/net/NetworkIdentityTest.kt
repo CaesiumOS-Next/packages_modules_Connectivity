@@ -29,9 +29,9 @@ import android.net.NetworkIdentity.OEM_PRIVATE
 import android.net.NetworkIdentity.getOemBitfield
 import android.app.usage.NetworkStatsManager
 import android.telephony.TelephonyManager
-import android.os.Build
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
+import com.android.testutils.SC_V2
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
@@ -47,7 +47,7 @@ private const val TEST_SUBID1 = 1
 private const val TEST_SUBID2 = 2
 
 @RunWith(DevSdkIgnoreRunner::class)
-@DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
+@DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
 class NetworkIdentityTest {
     private val mockContext = mock(Context::class.java)
 

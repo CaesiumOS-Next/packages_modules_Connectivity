@@ -46,11 +46,11 @@ import android.net.NetworkTemplate.buildTemplateWifi
 import android.net.NetworkTemplate.buildTemplateWifiWildcard
 import android.net.NetworkTemplate.normalize
 import android.net.wifi.WifiInfo
-import android.os.Build
 import android.telephony.TelephonyManager
 import com.android.net.module.util.NetworkStatsUtils.SUBSCRIBER_ID_MATCH_RULE_EXACT
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
+import com.android.testutils.SC_V2
 import com.android.testutils.assertParcelSane
 import org.junit.Before
 import org.junit.Test
@@ -70,7 +70,7 @@ private const val TEST_WIFI_KEY1 = "wifiKey1"
 private const val TEST_WIFI_KEY2 = "wifiKey2"
 
 @RunWith(DevSdkIgnoreRunner::class)
-@DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
+@DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
 class NetworkTemplateTest {
     private val mockContext = mock(Context::class.java)
     private val mockWifiInfo = mock(WifiInfo::class.java)

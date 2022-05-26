@@ -20,12 +20,12 @@ import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.fail;
-
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
@@ -35,8 +35,8 @@ import android.Manifest;
 import android.annotation.NonNull;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.net.INetworkInterfaceOutcomeReceiver;
 import android.net.EthernetNetworkUpdateRequest;
+import android.net.INetworkInterfaceOutcomeReceiver;
 import android.net.IpConfiguration;
 import android.net.NetworkCapabilities;
 import android.os.Handler;
@@ -47,8 +47,6 @@ import androidx.test.runner.AndroidJUnit4;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest
@@ -69,14 +67,17 @@ public class EthernetServiceImplTest {
                     .build();
     private static final INetworkInterfaceOutcomeReceiver NULL_LISTENER = null;
     private EthernetServiceImpl mEthernetServiceImpl;
-    @Mock private Context mContext;
-    @Mock private Handler mHandler;
-    @Mock private EthernetTracker mEthernetTracker;
-    @Mock private PackageManager mPackageManager;
+    private Context mContext;
+    private Handler mHandler;
+    private EthernetTracker mEthernetTracker;
+    private PackageManager mPackageManager;
 
     @Before
     public void setup() {
-        MockitoAnnotations.initMocks(this);
+        mContext = mock(Context.class);
+        mHandler = mock(Handler.class);
+        mEthernetTracker = mock(EthernetTracker.class);
+        mPackageManager = mock(PackageManager.class);
         doReturn(mPackageManager).when(mContext).getPackageManager();
         mEthernetServiceImpl = new EthernetServiceImpl(mContext, mHandler, mEthernetTracker);
         mEthernetServiceImpl.mStarted.set(true);

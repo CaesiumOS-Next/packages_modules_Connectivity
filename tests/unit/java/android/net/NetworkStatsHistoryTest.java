@@ -33,12 +33,13 @@ import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 import static android.text.format.DateUtils.WEEK_IN_MILLIS;
 import static android.text.format.DateUtils.YEAR_IN_MILLIS;
 
+import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import android.content.Context;
-import android.os.Build;
 import android.util.Log;
 
 import androidx.test.InstrumentationRegistry;
@@ -60,7 +61,7 @@ import java.util.Random;
 
 @RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
-@DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
+@DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
 public class NetworkStatsHistoryTest {
     private static final String TAG = "NetworkStatsHistoryTest";
 

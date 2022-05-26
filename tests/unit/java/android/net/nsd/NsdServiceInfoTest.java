@@ -16,13 +16,14 @@
 
 package android.net.nsd;
 
+import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import android.net.Network;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.StrictMode;
@@ -42,7 +43,7 @@ import java.util.Map;
 
 @RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
-@DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
+@DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
 public class NsdServiceInfoTest {
 
     public final static InetAddress LOCALHOST;

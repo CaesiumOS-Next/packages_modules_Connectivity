@@ -16,6 +16,8 @@
 
 package android.app.usage;
 
+import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
+
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
@@ -36,7 +38,6 @@ import android.net.INetworkStatsSession;
 import android.net.NetworkStats.Entry;
 import android.net.NetworkStatsHistory;
 import android.net.NetworkTemplate;
-import android.os.Build;
 import android.os.RemoteException;
 
 import androidx.test.InstrumentationRegistry;
@@ -54,7 +55,7 @@ import org.mockito.invocation.InvocationOnMock;
 
 @RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
-@DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
+@DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
 public class NetworkStatsManagerTest {
     private static final String TEST_SUBSCRIBER_ID = "subid";
 
