@@ -75,6 +75,7 @@ android_test {
     static_libs: [
         "NetworkStackApiCurrentLib",
     ],
+    target_sdk_version: "33",
     test_suites: [
         "cts",
         "general-tests",
