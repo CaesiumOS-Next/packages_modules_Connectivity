@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e23bb44_d6ad5155",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1387063
+      },
+      "writtenOn": "2022-05-26T12:21:47Z",
+      "side": 1,
+      "message": "Will carrier config report anything when no subscriptions available ?",
+      "revId": "767a56d2e08ecea5b518f4348469d02f31a40601",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
