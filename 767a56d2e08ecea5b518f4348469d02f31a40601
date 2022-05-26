@@ -34,6 +34,24 @@
       "parentUuid": "3e23bb44_d6ad5155",
       "revId": "767a56d2e08ecea5b518f4348469d02f31a40601",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0ff2ef2_f444b300",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-05-26T13:44:07Z",
+      "side": 1,
+      "message": "This is a CTS/MTS and I assume it has ensured cellular data and has FEATURE_TELEPHONY. Therefore, no subscription shall not happen.\n\n```\n        assumeTrue(mTM.isTetheringSupported());\n        assumeTrue(mPm.hasSystemFeature(FEATURE_TELEPHONY));\n        \n        assertTrue(activeNetCap.hasTransport(TRANSPORT_CELLULAR));\n\n```",
+      "parentUuid": "a79b2395_a30d17da",
+      "revId": "767a56d2e08ecea5b518f4348469d02f31a40601",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
