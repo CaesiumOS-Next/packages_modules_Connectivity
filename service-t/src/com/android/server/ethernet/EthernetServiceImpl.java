@@ -22,6 +22,7 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.EthernetNetworkManagementException;
 import android.net.EthernetNetworkUpdateRequest;
 import android.net.IEthernetManager;
 import android.net.IEthernetServiceListener;
@@ -259,6 +260,29 @@ public class EthernetServiceImpl extends IEthernetManager.Stub {
                 iface, request.getIpConfiguration(), request.getNetworkCapabilities(), listener);
     }
 
+    private void setInterfaceEnabled(String iface, boolean enabled,
+            INetworkInterfaceOutcomeReceiver listener) {
+        mHandler.post(() -> {
+            // TODO: create a wrapper class for INetworkInterfaceOutcomeReceiver.
+            if (mTracker.setInterfaceEnabled(iface, enabled)) {
+                try {
+                    if (listener != null) listener.onResult(iface);
+                } catch (RemoteException e) {
+                    Log.e(TAG, "Failed to report result to OutcomeReceiver", e);
+                }
+            } else {
+                try {
+                    if (listener != null) {
+                        listener.onError(new EthernetNetworkManagementException(
+                                "Failed to change interface enabled state"));
+                    }
+                } catch (RemoteException e) {
+                    Log.e(TAG, "Failed to report error to OutcomeReceiver", e);
+                }
+            }
+        });
+    }
+
     @Override
     public void enableInterface(@NonNull final String iface,
             @Nullable final INetworkInterfaceOutcomeReceiver listener) {
@@ -268,8 +292,9 @@ public class EthernetServiceImpl extends IEthernetManager.Stub {
 
         enforceAdminPermission(iface, false, "enableInterface()");
 
-        mTracker.enableInterface(iface, listener);
+        setInterfaceEnabled(iface, true, listener);
     }
+
 
     @Override
     public void disableInterface(@NonNull final String iface,
@@ -280,7 +305,7 @@ public class EthernetServiceImpl extends IEthernetManager.Stub {
 
         enforceAdminPermission(iface, false, "disableInterface()");
 
-        mTracker.disableInterface(iface, listener);
+        setInterfaceEnabled(iface, false, listener);
     }
 
     @Override
