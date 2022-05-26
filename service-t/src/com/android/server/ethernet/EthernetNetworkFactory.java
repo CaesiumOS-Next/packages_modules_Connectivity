@@ -60,7 +60,9 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * {@link NetworkProvider} that manages NetworkOffers for Ethernet networks.
+ * Class that manages NetworkOffers for Ethernet networks.
+ *
+ * TODO: this class should be merged into EthernetTracker.
  */
 public class EthernetNetworkFactory {
     private final static String TAG = EthernetNetworkFactory.class.getSimpleName();
@@ -221,11 +223,13 @@ public class EthernetNetworkFactory {
     }
 
     @VisibleForTesting(visibility = VisibleForTesting.Visibility.PACKAGE)
-    protected void removeInterface(String interfaceName) {
+    protected boolean removeInterface(String interfaceName) {
         NetworkInterfaceState iface = mTrackingInterfaces.remove(interfaceName);
         if (iface != null) {
-            iface.destroy();
+            iface.unregisterNetworkOfferAndStop();
+            return true;
         }
+        return false;
     }
 
     /** Returns true if state has been modified */
@@ -292,7 +296,7 @@ public class EthernetNetworkFactory {
         private boolean mLinkUp;
         private int mLegacyType;
         private LinkProperties mLinkProperties = new LinkProperties();
-        private Set<NetworkRequest> mRequests = new ArraySet<>();
+        private final Set<Integer> mRequestIds = new ArraySet<>();
 
         private volatile @Nullable IpClientManager mIpClient;
         private @NonNull NetworkCapabilities mCapabilities;
@@ -401,7 +405,7 @@ public class EthernetNetworkFactory {
                 // existing requests.
                 // ConnectivityService filters requests for us based on the NetworkCapabilities
                 // passed in the registerNetworkOffer() call.
-                mRequests.add(request);
+                mRequestIds.add(request.requestId);
                 // if the network is already started, this is a no-op.
                 start();
             }
@@ -412,8 +416,8 @@ public class EthernetNetworkFactory {
                     Log.d(TAG,
                             String.format("%s: onNetworkUnneeded for request: %s", name, request));
                 }
-                mRequests.remove(request);
-                if (mRequests.isEmpty()) {
+                mRequestIds.remove(request.requestId);
+                if (mRequestIds.isEmpty()) {
                     // not currently serving any requests, stop the network.
                     stop();
                 }
@@ -454,7 +458,7 @@ public class EthernetNetworkFactory {
                     + "transport type.");
         }
 
-        private static NetworkScore getBestNetworkScore() {
+        private static NetworkScore getNetworkScore() {
             return new NetworkScore.Builder().build();
         }
 
@@ -465,9 +469,7 @@ public class EthernetNetworkFactory {
             if (mLinkUp) {
                 // registering a new network offer will update the existing one, not install a
                 // new one.
-                mNetworkProvider.registerNetworkOffer(getBestNetworkScore(),
-                        new NetworkCapabilities(capabilities), cmd -> mHandler.post(cmd),
-                        mNetworkOfferCallback);
+                registerNetworkOffer();
             }
         }
 
@@ -631,14 +633,12 @@ public class EthernetNetworkFactory {
 
             if (!up) { // was up, goes down
                 // retract network offer and stop IpClient.
-                destroy();
+                unregisterNetworkOfferAndStop();
                 // If only setting the interface down, send a callback to signal completion.
                 EthernetNetworkFactory.maybeSendNetworkManagementCallback(listener, name, null);
             } else { // was down, goes up
                 // register network offer
-                mNetworkProvider.registerNetworkOffer(getBestNetworkScore(),
-                        new NetworkCapabilities(mCapabilities), (cmd) -> mHandler.post(cmd),
-                        mNetworkOfferCallback);
+                registerNetworkOffer();
             }
 
             return true;
@@ -660,11 +660,17 @@ public class EthernetNetworkFactory {
             mLinkProperties.clear();
         }
 
-        public void destroy() {
+        public void registerNetworkOffer() {
+            mNetworkProvider.registerNetworkOffer(getNetworkScore(),
+                    new NetworkCapabilities(mCapabilities), cmd -> mHandler.post(cmd),
+                    mNetworkOfferCallback);
+        }
+
+        public void unregisterNetworkOfferAndStop() {
             mNetworkProvider.unregisterNetworkOffer(mNetworkOfferCallback);
             maybeSendNetworkManagementCallbackForAbort();
             stop();
-            mRequests.clear();
+            mRequestIds.clear();
         }
 
         private static void provisionIpClient(@NonNull final IpClientManager ipClient,
