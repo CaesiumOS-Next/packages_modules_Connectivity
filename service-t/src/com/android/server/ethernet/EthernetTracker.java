@@ -52,6 +52,7 @@ import com.android.internal.util.IndentingPrintWriter;
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
 import com.android.net.module.util.NetdUtils;
 import com.android.net.module.util.PermissionUtils;
+import com.android.server.ethernet.EthernetNetworkFactory.NetworkInterfaceState;
 
 import java.io.FileDescriptor;
 import java.net.InetAddress;
@@ -284,16 +285,18 @@ public class EthernetTracker {
         });
     }
 
-    @VisibleForTesting(visibility = PACKAGE)
-    protected void enableInterface(@NonNull final String iface,
-            @Nullable final INetworkInterfaceOutcomeReceiver listener) {
-        mHandler.post(() -> updateInterfaceState(iface, true, listener));
-    }
-
-    @VisibleForTesting(visibility = PACKAGE)
-    protected void disableInterface(@NonNull final String iface,
-            @Nullable final INetworkInterfaceOutcomeReceiver listener) {
-        mHandler.post(() -> updateInterfaceState(iface, false, listener));
+    /**
+     * Enable / disable interface.
+     *
+     * Note: this function must be called on the handler thread.
+     * @param iface the name of the interface.
+     * @param enabled -- true to enable, false to disable.
+     * @return true if successful, false otherwise.
+     */
+    public boolean setInterfaceEnabled(String iface, boolean enabled) {
+        ensureRunningOnEthernetServiceThread();
+        // TODO: setInterfaceEnabled should not affect the link state.
+        return updateInterfaceState(iface, enabled);
     }
 
     IpConfiguration getIpConfiguration(String iface) {
@@ -532,19 +535,19 @@ public class EthernetTracker {
         }
     }
 
-    private void updateInterfaceState(String iface, boolean up) {
-        updateInterfaceState(iface, up, null /* listener */);
-    }
-
-    private void updateInterfaceState(@NonNull final String iface, final boolean up,
-            @Nullable final INetworkInterfaceOutcomeReceiver listener) {
-        final int mode = getInterfaceMode(iface);
-        final boolean factoryLinkStateUpdated = (mode == INTERFACE_MODE_CLIENT)
-                && mFactory.updateInterfaceLinkState(iface, up, listener);
-
-        if (factoryLinkStateUpdated) {
-            broadcastInterfaceStateChange(iface);
+    private boolean updateInterfaceState(String ifName, boolean up) {
+        if (getInterfaceMode(ifName) != INTERFACE_MODE_CLIENT) {
+            return false;
         }
+        NetworkInterfaceState iface = mFactory.getInterface(ifName);
+        if (iface == null) {
+            return false;
+        }
+        if (!iface.updateLinkState(up)) {
+            return false;
+        }
+        broadcastInterfaceStateChange(ifName);
+        return true;
     }
 
     private void maybeUpdateServerModeInterfaceState(String iface, boolean available) {
