@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f185f43_0cc73e97",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-26T05:33:42Z",
+      "side": 1,
+      "message": "I don\u0027t think this change will fix b/233553525 since that is about CtsNetTestCases and not CtsNetTestCasesLatestSdk, but this change is correct regardless.",
+      "revId": "7a1639ff5fd1d7acfa5e32330062ec89c1516aaf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
