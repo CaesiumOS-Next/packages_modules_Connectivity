@@ -50,6 +50,7 @@ import android.net.LinkAddress;
 import android.net.NetworkCapabilities;
 import android.net.StaticIpConfiguration;
 import android.os.Build;
+import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.RemoteException;
 
@@ -80,8 +81,10 @@ public class EthernetTrackerTest {
     private static final INetworkInterfaceOutcomeReceiver NULL_LISTENER = null;
     private EthernetTracker tracker;
     private HandlerThread mHandlerThread;
+    private Handler mHandler;
     @Mock private Context mContext;
     @Mock private EthernetNetworkFactory mFactory;
+    @Mock private EthernetNetworkFactory.NetworkInterfaceState mInterfaceState;
     @Mock private INetd mNetd;
     @Mock private EthernetTracker.Dependencies mDeps;
 
@@ -89,17 +92,17 @@ public class EthernetTrackerTest {
     public void setUp() throws RemoteException {
         MockitoAnnotations.initMocks(this);
         initMockResources();
-        when(mFactory.updateInterfaceLinkState(anyString(), anyBoolean(), any())).thenReturn(false);
         when(mNetd.interfaceGetList()).thenReturn(new String[0]);
         mHandlerThread = new HandlerThread(THREAD_NAME);
         mHandlerThread.start();
-        tracker = new EthernetTracker(mContext, mHandlerThread.getThreadHandler(), mFactory, mNetd,
+        mHandler = mHandlerThread.getThreadHandler();
+        tracker = new EthernetTracker(mContext, mHandler, mFactory, mNetd,
                 mDeps);
     }
 
     @After
     public void cleanUp() {
-        mHandlerThread.quitSafely();
+        if (mHandlerThread != null) mHandlerThread.quitSafely();
     }
 
     private void initMockResources() {
@@ -109,6 +112,14 @@ public class EthernetTrackerTest {
 
     private void waitForIdle() {
         HandlerUtils.waitForIdle(mHandlerThread, TIMEOUT_MS);
+    }
+
+    private void setInterfaceEnabled(String iface, boolean enabled) {
+        mHandler.post(() -> {
+            // setInterfaceEnabled has to be called on the handler thread.
+            tracker.setInterfaceEnabled(iface, enabled);
+        });
+        waitForIdle();
     }
 
     /**
@@ -356,20 +367,20 @@ public class EthernetTrackerTest {
 
     @Test
     public void testEnableInterfaceCorrectlyCallsFactory() {
-        tracker.enableInterface(TEST_IFACE, NULL_LISTENER);
-        waitForIdle();
+        when(mFactory.getInterface(eq(TEST_IFACE))).thenReturn(mInterfaceState);
 
-        verify(mFactory).updateInterfaceLinkState(eq(TEST_IFACE), eq(true /* up */),
-                eq(NULL_LISTENER));
+        setInterfaceEnabled(TEST_IFACE, true);
+
+        verify(mInterfaceState).updateLinkState(eq(true /* up */));
     }
 
     @Test
     public void testDisableInterfaceCorrectlyCallsFactory() {
-        tracker.disableInterface(TEST_IFACE, NULL_LISTENER);
-        waitForIdle();
+        when(mFactory.getInterface(eq(TEST_IFACE))).thenReturn(mInterfaceState);
 
-        verify(mFactory).updateInterfaceLinkState(eq(TEST_IFACE), eq(false /* up */),
-                eq(NULL_LISTENER));
+        setInterfaceEnabled(TEST_IFACE, false);
+
+        verify(mInterfaceState).updateLinkState(eq(false /* down */));
     }
 
     @Test
