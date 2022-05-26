@@ -16,6 +16,24 @@
       "message": "Will carrier config report anything when no subscriptions available ?",
       "revId": "767a56d2e08ecea5b518f4348469d02f31a40601",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a79b2395_a30d17da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1387063
+      },
+      "writtenOn": "2022-05-26T12:33:42Z",
+      "side": 1,
+      "message": "The major concern here is the timeout (5000 ms) which might slow down the progress of testing, and a detection over the existance of subscription might avoid from this situation.",
+      "parentUuid": "3e23bb44_d6ad5155",
+      "revId": "767a56d2e08ecea5b518f4348469d02f31a40601",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
