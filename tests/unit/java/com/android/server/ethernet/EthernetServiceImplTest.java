@@ -44,12 +44,15 @@ import android.net.NetworkCapabilities;
 import android.net.StringNetworkSpecifier;
 import android.os.Build;
 import android.os.Handler;
+import android.os.HandlerThread;
 
 import androidx.test.filters.SmallTest;
 
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
+import com.android.testutils.HandlerUtils;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -59,6 +62,7 @@ import org.junit.runner.RunWith;
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
 public class EthernetServiceImplTest {
     private static final String TEST_IFACE = "test123";
+    private static final int TIMEOUT_MS = 1000;
     private static final NetworkCapabilities DEFAULT_CAPS = new NetworkCapabilities.Builder()
             .addTransportType(TRANSPORT_ETHERNET)
             .setNetworkSpecifier(new EthernetNetworkSpecifier(TEST_IFACE))
@@ -79,6 +83,7 @@ public class EthernetServiceImplTest {
     private static final INetworkInterfaceOutcomeReceiver NULL_LISTENER = null;
     private EthernetServiceImpl mEthernetServiceImpl;
     private Context mContext;
+    private HandlerThread mHandlerThread;
     private Handler mHandler;
     private EthernetTracker mEthernetTracker;
     private PackageManager mPackageManager;
@@ -86,14 +91,25 @@ public class EthernetServiceImplTest {
     @Before
     public void setup() {
         mContext = mock(Context.class);
-        mHandler = mock(Handler.class);
         mEthernetTracker = mock(EthernetTracker.class);
         mPackageManager = mock(PackageManager.class);
         doReturn(mPackageManager).when(mContext).getPackageManager();
+        mHandlerThread = new HandlerThread("EthernetServiceImplTest");
+        mHandlerThread.start();
+        mHandler = mHandlerThread.getThreadHandler();
         mEthernetServiceImpl = new EthernetServiceImpl(mContext, mHandler, mEthernetTracker);
         mEthernetServiceImpl.mStarted.set(true);
         toggleAutomotiveFeature(true);
         shouldTrackIface(TEST_IFACE, true);
+    }
+
+    @After
+    public void tearDown() {
+        mHandlerThread.quitSafely();
+    }
+
+    private void waitForIdle() {
+        HandlerUtils.waitForIdle(mHandlerThread, TIMEOUT_MS);
     }
 
     private void toggleAutomotiveFeature(final boolean isEnabled) {
@@ -309,13 +325,15 @@ public class EthernetServiceImplTest {
     @Test
     public void testEnableInterface() {
         mEthernetServiceImpl.enableInterface(TEST_IFACE, NULL_LISTENER);
-        verify(mEthernetTracker).enableInterface(eq(TEST_IFACE), eq(NULL_LISTENER));
+        waitForIdle();
+        verify(mEthernetTracker).setInterfaceEnabled(eq(TEST_IFACE), eq(true));
     }
 
     @Test
     public void testDisableInterface() {
         mEthernetServiceImpl.disableInterface(TEST_IFACE, NULL_LISTENER);
-        verify(mEthernetTracker).disableInterface(eq(TEST_IFACE), eq(NULL_LISTENER));
+        waitForIdle();
+        verify(mEthernetTracker).setInterfaceEnabled(eq(TEST_IFACE), eq(false));
     }
 
     @Test
@@ -379,7 +397,8 @@ public class EthernetServiceImplTest {
         denyManageEthPermission();
 
         mEthernetServiceImpl.enableInterface(TEST_IFACE, NULL_LISTENER);
-        verify(mEthernetTracker).enableInterface(eq(TEST_IFACE), eq(NULL_LISTENER));
+        waitForIdle();
+        verify(mEthernetTracker).setInterfaceEnabled(eq(TEST_IFACE), eq(true));
     }
 
     @Test
@@ -389,7 +408,8 @@ public class EthernetServiceImplTest {
         denyManageEthPermission();
 
         mEthernetServiceImpl.disableInterface(TEST_IFACE, NULL_LISTENER);
-        verify(mEthernetTracker).disableInterface(eq(TEST_IFACE), eq(NULL_LISTENER));
+        waitForIdle();
+        verify(mEthernetTracker).setInterfaceEnabled(eq(TEST_IFACE), eq(false));
     }
 
     private void denyPermissions(String... permissions) {
