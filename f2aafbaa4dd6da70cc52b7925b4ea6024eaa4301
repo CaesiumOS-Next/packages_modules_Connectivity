@@ -33,6 +33,23 @@
       "message": "+Mark to review this change.",
       "revId": "f2aafbaa4dd6da70cc52b7925b4ea6024eaa4301",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd770912_7b0f8714",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1453063
+      },
+      "writtenOn": "2022-05-26T21:59:59Z",
+      "side": 1,
+      "message": "Friendly ping. This prevents use of a new compiler; and will likely in future prevent a toolchain roll.",
+      "revId": "f2aafbaa4dd6da70cc52b7925b4ea6024eaa4301",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
