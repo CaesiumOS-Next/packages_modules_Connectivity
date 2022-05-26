@@ -46,6 +46,30 @@
       },
       "revId": "67f966d9bdd067fbb5e6a27def03009c1895c988",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b0798b2_5d6f85c2",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1070,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-05-26T14:48:14Z",
+      "side": 1,
+      "message": "I have done above approach in the following topic. Do you prefer that one? \n\nhttps://android-review.googlesource.com/q/topic:test_udpv4_offload_by_three_part_kernel_version_v2",
+      "parentUuid": "28d0ddc9_62052ede",
+      "range": {
+        "startLine": 1070,
+        "startChar": 0,
+        "endLine": 1070,
+        "endChar": 81
+      },
+      "revId": "67f966d9bdd067fbb5e6a27def03009c1895c988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
