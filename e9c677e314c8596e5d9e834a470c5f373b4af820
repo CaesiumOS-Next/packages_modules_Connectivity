@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9353e408_c02fedf7",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1079,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-05-26T11:42:11Z",
+      "side": 1,
+      "message": "Done (aosp/2108065)",
+      "parentUuid": "e61905bb_c0734bf6",
+      "range": {
+        "startLine": 1071,
+        "startChar": 0,
+        "endLine": 1079,
+        "endChar": 5
+      },
+      "revId": "e9c677e314c8596e5d9e834a470c5f373b4af820",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b059661_576ddf1a",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-26T11:02:33Z",
       "side": 1,
       "message": "this should be 4.19.0 and the range should be [x,y) not [x,y]\n(ie. \u003e\u003dx \u003cy)\n\nsince this is just really hard to read.",
+      "range": {
+        "startLine": 1089,
+        "startChar": 59,
+        "endLine": 1089,
+        "endChar": 74
+      },
+      "revId": "e9c677e314c8596e5d9e834a470c5f373b4af820",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c13cffa0_9878ae1b",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1089,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-05-26T11:42:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b059661_576ddf1a",
       "range": {
         "startLine": 1089,
         "startChar": 59,
