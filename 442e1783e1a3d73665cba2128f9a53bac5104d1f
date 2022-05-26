@@ -16,6 +16,23 @@
       "message": "turns out we also need to fix definitions of mFakeConfigurationMap\n\nhttps://source.corp.google.com/search?q\u003dp:aosp-master%20mFakeConfigurationMap\n",
       "revId": "442e1783e1a3d73665cba2128f9a53bac5104d1f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b93ebbe3_0cf9068d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-26T11:57:21Z",
+      "side": 1,
+      "message": "in general the tests using map.reset(dup(otherMap)) is terrible for reliability - not sure why this just doesn\u0027t use map \u003d otherMap, and we need the bpfmap itself to enforce the key/value sizes match the kernel\u0027s view, or we\u0027ll be chasing bugs down forever...",
+      "revId": "442e1783e1a3d73665cba2128f9a53bac5104d1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
