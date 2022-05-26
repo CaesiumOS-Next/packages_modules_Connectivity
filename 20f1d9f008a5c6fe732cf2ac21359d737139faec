@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60f5b688_54a31192",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-05-26T10:37:34Z",
+      "side": 1,
+      "message": "Put kernel version helper in frameworks/libs/net/../testutils/DeviceInfoUtils.java first. There has one version helper (compareMajorMinorVersion) already",
+      "parentUuid": "cfb6d830_53b884a4",
+      "revId": "20f1d9f008a5c6fe732cf2ac21359d737139faec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49989236_1a2dbd7b",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-05-25T15:31:23Z",
       "side": 1,
       "message": "all the above belongs in some util class\n\nprobably along with some helpers along the lines of\n\nIsKernelAtLeast(4,9,200)  // \u003e\u003d 4.9.200\nIsKernelInRange(4,9,200, 4,14,0) // \u003e\u003d 4.9.200 \u0026\u0026 \u003c 4.14.0",
+      "range": {
+        "startLine": 1072,
+        "startChar": 4,
+        "endLine": 1106,
+        "endChar": 5
+      },
+      "revId": "20f1d9f008a5c6fe732cf2ac21359d737139faec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccacb498_42559163",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1106,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-05-26T10:37:34Z",
+      "side": 1,
+      "message": "Move the above code to frameworks/libs/net/../testutils/DeviceInfoUtils.java (aosp/2107827).\n\nKeep IsKernelAtLeast and IsKernelInRange here because DeviceInfoUtils has two-part kernel version comparison (compareMajorMinorVersion). Maybe also need to define another helper for it. Or may be confused that IsKernelAtLeast and IsKernelInRange handles two or three parts version",
+      "parentUuid": "49989236_1a2dbd7b",
       "range": {
         "startLine": 1072,
         "startChar": 4,
