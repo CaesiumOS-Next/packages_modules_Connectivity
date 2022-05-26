@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30a28c56_cb2d0fc8",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1070,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-26T12:00:17Z",
+      "side": 1,
+      "message": "the version which accepts actual should probably be protected / visiblefortesting, and a public version which doesn\u0027t take actual???",
+      "range": {
+        "startLine": 1070,
+        "startChar": 0,
+        "endLine": 1070,
+        "endChar": 81
+      },
+      "revId": "67f966d9bdd067fbb5e6a27def03009c1895c988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
