@@ -232,23 +232,6 @@ public class EthernetNetworkFactory {
         return false;
     }
 
-    /** Returns true if state has been modified */
-    @VisibleForTesting(visibility = VisibleForTesting.Visibility.PACKAGE)
-    protected boolean updateInterfaceLinkState(@NonNull final String ifaceName, final boolean up,
-            @Nullable final INetworkInterfaceOutcomeReceiver listener) {
-        if (!hasInterface(ifaceName)) {
-            maybeSendNetworkManagementCallbackForUntracked(ifaceName, listener);
-            return false;
-        }
-
-        if (DBG) {
-            Log.d(TAG, "updateInterfaceLinkState, iface: " + ifaceName + ", up: " + up);
-        }
-
-        NetworkInterfaceState iface = mTrackingInterfaces.get(ifaceName);
-        return iface.updateLinkState(up, listener);
-    }
-
     private void maybeSendNetworkManagementCallbackForUntracked(
             String ifaceName, INetworkInterfaceOutcomeReceiver listener) {
         maybeSendNetworkManagementCallback(listener, null,
@@ -256,9 +239,14 @@ public class EthernetNetworkFactory {
                         ifaceName + " can't be updated as it is not available."));
     }
 
-    @VisibleForTesting
-    protected boolean hasInterface(String ifaceName) {
+    /** Check if the interface exists */
+    public boolean hasInterface(String ifaceName) {
         return mTrackingInterfaces.containsKey(ifaceName);
+    }
+
+    /** Get the interface or null */
+    public NetworkInterfaceState getInterface(String ifaceName) {
+        return mTrackingInterfaces.get(ifaceName);
     }
 
     private static void maybeSendNetworkManagementCallback(
@@ -281,7 +269,7 @@ public class EthernetNetworkFactory {
     }
 
     @VisibleForTesting
-    static class NetworkInterfaceState {
+    public static class NetworkInterfaceState {
         final String name;
 
         private final String mHwAddress;
@@ -621,26 +609,19 @@ public class EthernetNetworkFactory {
         }
 
         /** Returns true if state has been modified */
-        boolean updateLinkState(final boolean up,
-                @Nullable final INetworkInterfaceOutcomeReceiver listener) {
-            if (mLinkUp == up)  {
-                EthernetNetworkFactory.maybeSendNetworkManagementCallback(listener, null,
-                        new EthernetNetworkManagementException(
-                                "No changes with requested link state " + up + " for " + name));
+        public boolean updateLinkState(final boolean up) {
+            if (mLinkUp == up) {
                 return false;
             }
             mLinkUp = up;
 
-            if (!up) { // was up, goes down
+            if (mLinkUp) { // was down, goes up
+                // register network offer enabled
+                registerNetworkOffer();
+            } else { // was up, goes down
                 // retract network offer and stop IpClient.
                 unregisterNetworkOfferAndStop();
-                // If only setting the interface down, send a callback to signal completion.
-                EthernetNetworkFactory.maybeSendNetworkManagementCallback(listener, name, null);
-            } else { // was down, goes up
-                // register network offer
-                registerNetworkOffer();
             }
-
             return true;
         }
 
