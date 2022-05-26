@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4342ea2c_46956add",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-05-26T14:49:53Z",
+      "side": 1,
+      "message": "Another approach, class Version has isInRange() and isAtLeast() for helping to check current kernel version support range",
+      "revId": "9c24b41467fc751745bde3075d3463da41c7bb5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
