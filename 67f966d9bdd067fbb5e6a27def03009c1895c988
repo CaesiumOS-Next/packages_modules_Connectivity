@@ -22,6 +22,30 @@
       },
       "revId": "67f966d9bdd067fbb5e6a27def03009c1895c988",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28d0ddc9_62052ede",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1070,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-05-26T13:50:28Z",
+      "side": 1,
+      "message": "isKernelInRange is only used in test class and it can be private. \nthree arguments (target, from, to) likes the follows\n\nhttps://cs.android.com/android/platform/superproject/+/master:cts/tests/tests/widget/src/android/widget/cts/HorizontalScrollViewTest.java;l\u003d967\n```\n    private boolean isInRange(int current, int from, int to) {\n        if (from \u003c to) {\n            return current \u003e\u003d from \u0026\u0026 current \u003c\u003d to;\n        }\n        return current \u003c\u003d from \u0026\u0026 current \u003e\u003d to;\n    }\n```\n\n\nIf we really want to get rid of isKernelInRange and isKernelAtLeast. Maybe we could do this way:\n\n1. implement isInRange() and isAtleast() in class Version\n```\npublic static class Version {\n    public boolean isInRange(final Version from, final Version to) {\n        return this.compareTo(from) \u003e\u003d 0 \u0026\u0026 this.compareTo(to) \u003c 0;\n    }\n\n    public boolean isAtleast(final Version from) {\n        return this.compareTo(from) \u003e\u003d 0;\n    }\n```\n\n2. Invoke the isInRange() and isAtleast()\n```\nprivate static boolean isUdpOffloadSupportedByKernel(final String kernelVersion) {\n        DeviceInfoUtils.Version current \u003d DeviceInfoUtils.getMajorMinorSubminorVersion(kernelVersion);\n        \n        return current.isInRange(new Version(4, 14, 222), new Version(4, 19, 0))\n                || current.isInRange(new Version(4, 19, 176), new Version(5, 4, 0))\n                || current.isAtleast(new Version(5, 4, 98));\n    }\n\n```\n\naosp/2107827 has +2ed. If we go this way, maybe leave it as todo? because this refactor needs related tests as well",
+      "parentUuid": "30a28c56_cb2d0fc8",
+      "range": {
+        "startLine": 1070,
+        "startChar": 0,
+        "endLine": 1070,
+        "endChar": 81
+      },
+      "revId": "67f966d9bdd067fbb5e6a27def03009c1895c988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
