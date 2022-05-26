@@ -84,7 +84,6 @@ import java.util.concurrent.TimeUnit;
 public class EthernetNetworkFactoryTest {
     private static final int TIMEOUT_MS = 2_000;
     private static final String TEST_IFACE = "test123";
-    private static final INetworkInterfaceOutcomeReceiver NULL_LISTENER = null;
     private static final String IP_ADDR = "192.0.2.2/25";
     private static final LinkAddress LINK_ADDR = new LinkAddress(IP_ADDR);
     private static final String HW_ADDR = "01:02:03:04:05:06";
@@ -186,6 +185,11 @@ public class EthernetNetworkFactoryTest {
         mLooper.dispatchAll();
     }
 
+    private boolean updateLinkState(String iface, boolean up) {
+        return mNetFactory.hasInterface(iface)
+            && mNetFactory.getInterface(iface).updateLinkState(up);
+    }
+
     private NetworkCapabilities createDefaultFilterCaps() {
         return NetworkCapabilities.Builder.withoutDefaultCapabilities()
                 .addTransportType(NetworkCapabilities.TRANSPORT_ETHERNET)
@@ -241,7 +245,7 @@ public class EthernetNetworkFactoryTest {
         final IpConfiguration ipConfig = createDefaultIpConfig();
         mNetFactory.addInterface(iface, HW_ADDR, ipConfig,
                 createInterfaceCapsBuilder(transportType).build());
-        assertTrue(mNetFactory.updateInterfaceLinkState(iface, true, NULL_LISTENER));
+        assertTrue(updateLinkState(iface, true));
 
         ArgumentCaptor<NetworkOfferCallback> captor = ArgumentCaptor.forClass(
                 NetworkOfferCallback.class);
@@ -295,7 +299,7 @@ public class EthernetNetworkFactoryTest {
         // then calling onNetworkUnwanted.
         mNetFactory.addInterface(iface, HW_ADDR, createDefaultIpConfig(),
                 createInterfaceCapsBuilder(NetworkCapabilities.TRANSPORT_ETHERNET).build());
-        assertTrue(mNetFactory.updateInterfaceLinkState(iface, true, NULL_LISTENER));
+        assertTrue(updateLinkState(iface, true));
 
         clearInvocations(mIpClient);
         clearInvocations(mNetworkAgent);
@@ -308,12 +312,10 @@ public class EthernetNetworkFactoryTest {
         final TestNetworkManagementListener listener = new TestNetworkManagementListener();
 
         // verify that the IpClient gets shut down when interface state changes to down.
-        final boolean ret =
-                mNetFactory.updateInterfaceLinkState(TEST_IFACE, false /* up */, listener);
+        final boolean ret = updateLinkState(TEST_IFACE, false /* up */);
 
         assertTrue(ret);
         verify(mIpClient).shutdown();
-        assertEquals(listener.expectOnResult(), TEST_IFACE);
     }
 
     @Test
@@ -322,12 +324,10 @@ public class EthernetNetworkFactoryTest {
         createAndVerifyProvisionedInterface(TEST_IFACE);
         final TestNetworkManagementListener listener = new TestNetworkManagementListener();
 
-        final boolean ret =
-                mNetFactory.updateInterfaceLinkState(TEST_IFACE, false /* up */, listener);
+        final boolean ret = updateLinkState(TEST_IFACE, false /* up */);
 
         assertTrue(ret);
         verifyStop();
-        assertEquals(listener.expectOnResult(), TEST_IFACE);
     }
 
     @Test
@@ -336,15 +336,13 @@ public class EthernetNetworkFactoryTest {
         createUnprovisionedInterface(TEST_IFACE);
         final TestNetworkManagementListener listener = new TestNetworkManagementListener();
 
-        final boolean ret =
-                mNetFactory.updateInterfaceLinkState(TEST_IFACE, false /* up */, listener);
+        final boolean ret = updateLinkState(TEST_IFACE, false /* up */);
 
         assertTrue(ret);
         // There should not be an active IPClient or NetworkAgent.
         verify(mDeps, never()).makeIpClient(any(), any(), any());
         verify(mDeps, never())
                 .makeEthernetNetworkAgent(any(), any(), any(), any(), any(), any(), any());
-        assertEquals(listener.expectOnResult(), TEST_IFACE);
     }
 
     @Test
@@ -353,12 +351,10 @@ public class EthernetNetworkFactoryTest {
         final TestNetworkManagementListener listener = new TestNetworkManagementListener();
 
         // if interface was never added, link state cannot be updated.
-        final boolean ret =
-                mNetFactory.updateInterfaceLinkState(TEST_IFACE, true /* up */, listener);
+        final boolean ret = updateLinkState(TEST_IFACE, true /* up */);
 
         assertFalse(ret);
         verifyNoStopOrStart();
-        listener.expectOnError();
     }
 
     @Test
@@ -367,12 +363,10 @@ public class EthernetNetworkFactoryTest {
         createAndVerifyProvisionedInterface(TEST_IFACE);
         final TestNetworkManagementListener listener = new TestNetworkManagementListener();
 
-        final boolean ret =
-                mNetFactory.updateInterfaceLinkState(TEST_IFACE, true /* up */, listener);
+        final boolean ret = updateLinkState(TEST_IFACE, true /* up */);
 
         assertFalse(ret);
         verifyNoStopOrStart();
-        listener.expectOnError();
     }
 
     @Test
@@ -625,7 +619,7 @@ public class EthernetNetworkFactoryTest {
         initEthernetNetworkFactory();
         verifyNetworkManagementCallIsAbortedWhenInterrupted(
                 TEST_IFACE,
-                () -> mNetFactory.updateInterfaceLinkState(TEST_IFACE, false, NULL_LISTENER));
+                () -> updateLinkState(TEST_IFACE, false));
     }
 
     @Test
