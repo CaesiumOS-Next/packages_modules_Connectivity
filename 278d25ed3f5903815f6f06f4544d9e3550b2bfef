@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05856386_894b715f",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-05-27T21:38:28Z",
+      "side": 1,
+      "message": "Suggest flipping this to something operative:\n\n\"shouldTeardownVpnNetwork\"",
+      "range": {
+        "startLine": 572,
+        "startChar": 20,
+        "endLine": 572,
+        "endChar": 46
+      },
+      "revId": "278d25ed3f5903815f6f06f4544d9e3550b2bfef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee25642b_c458e5e1",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-05-27T21:38:28Z",
+      "side": 1,
+      "message": "Suggest renaming this to checkStartStopVpnProfileBuildsAndTearsDownNetwork\n\n(see context on l.685)",
+      "range": {
+        "startLine": 663,
+        "startChar": 17,
+        "endLine": 663,
+        "endChar": 55
+      },
+      "revId": "278d25ed3f5903815f6f06f4544d9e3550b2bfef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8f43038_fcb17a8c",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-05-27T21:38:28Z",
+      "side": 1,
+      "message": "Unclear why this one has testNetworkPermanentlyLost, where the other one doesn\u0027t. It\u0027s hard to distinguish one from the other.\n\nSuggest renaming? \"checkStartVpnProfileBuildsNetwork\" to remove the checks for the stop?",
+      "range": {
+        "startLine": 685,
+        "startChar": 17,
+        "endLine": 685,
+        "endChar": 51
+      },
+      "revId": "278d25ed3f5903815f6f06f4544d9e3550b2bfef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d7838ec_6700e97d",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-05-27T21:38:28Z",
+      "side": 1,
+      "message": "Hmm, this isn\u0027t \"migrating\" but rather reestablishing\n\nperhaps \"checkVpnReestablishesMobikeDisabled\" or \"checkVpnReestablishesWithoutMobike\"",
+      "range": {
+        "startLine": 739,
+        "startChar": 17,
+        "endLine": 739,
+        "endChar": 45
+      },
+      "revId": "278d25ed3f5903815f6f06f4544d9e3550b2bfef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a05fe7ec_1908be3b",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-05-27T21:38:28Z",
+      "side": 1,
+      "message": "Nit, once we have more than two ternaries, suggest using if/else statements.\n\n```\nif (isIpv6) {\n    ...\n} else {\n    ...\n}\n```",
+      "range": {
+        "startLine": 845,
+        "startChar": 0,
+        "endLine": 849,
+        "endChar": 88
+      },
+      "revId": "278d25ed3f5903815f6f06f4544d9e3550b2bfef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7350dff_d8f6296d",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-05-27T21:38:28Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 881,
+        "startChar": 0,
+        "endLine": 884,
+        "endChar": 96
+      },
+      "revId": "278d25ed3f5903815f6f06f4544d9e3550b2bfef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce2918f6_ace06918",
+        "filename": "tests/cts/net/src/android/net/cts/TestNetworkWrapper.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-05-27T21:38:28Z",
+      "side": 1,
+      "message": "Can this be statically imported from IKE? or VCN CTS?",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 58
+      },
+      "revId": "278d25ed3f5903815f6f06f4544d9e3550b2bfef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9651387_3962840c",
+        "filename": "tests/cts/net/src/android/net/cts/TunUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-05-27T21:38:28Z",
+      "side": 1,
+      "message": "Is this needed? Seems to be unused?",
+      "range": {
+        "startLine": 102,
+        "startChar": 25,
+        "endLine": 102,
+        "endChar": 45
+      },
+      "revId": "278d25ed3f5903815f6f06f4544d9e3550b2bfef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
