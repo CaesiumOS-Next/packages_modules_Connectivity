@@ -104,3 +104,20 @@ android_test {
     ],
     test_config_template: "AndroidTestTemplate.xml",
 }
+
+android_test {
+    name: "CtsNetTestCasesMaxTargetSdk31",
+    defaults: ["CtsNetTestCasesDefaults"],
+    // TODO: CTS should not depend on the entirety of the networkstack code.
+    static_libs: [
+        "NetworkStackApiStableLib",
+    ],
+    jni_uses_sdk_apis: true,
+    min_sdk_version: "29",
+    target_sdk_version: "31",
+    test_config_template: "AndroidTestTemplate.xml",
+    test_suites: [
+        "mts-networking",
+    ],
+}
+
