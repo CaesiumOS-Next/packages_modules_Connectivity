@@ -235,6 +235,30 @@
       },
       "revId": "0035829e17ad549082a5a446bc3048db85ade446",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e89163c2_1c001404",
+        "filename": "tests/native/NetNativeTestConfigTemplate.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-05-27T16:13:38Z",
+      "side": 1,
+      "message": "Yes, see b/147785146. The bug was filed 2 years ago. But so far code coverage is still running on 32-bit image.\n\nhttps://atp.googleplex.com/test-run/207068944\n```\ncf_x86_phone-userdebug_coverage \u0027--{device}build-id\u0027 8582272 \u0027\n```",
+      "parentUuid": "71c49534_d9681b6f",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 16
+      },
+      "revId": "0035829e17ad549082a5a446bc3048db85ade446",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
