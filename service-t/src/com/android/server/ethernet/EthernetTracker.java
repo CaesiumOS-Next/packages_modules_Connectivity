@@ -293,10 +293,27 @@ public class EthernetTracker {
      * @param enabled -- true to enable, false to disable.
      * @return true if successful, false otherwise.
      */
-    public boolean setInterfaceEnabled(String iface, boolean enabled) {
+    public boolean setInterfaceEnabled(String ifName, boolean enabled) {
         ensureRunningOnEthernetServiceThread();
-        // TODO: setInterfaceEnabled should not affect the link state.
-        return updateInterfaceState(iface, enabled);
+
+        if (getInterfaceMode(ifName) != INTERFACE_MODE_CLIENT) {
+            // Ethernet service only manages the server mode interface to the extent that it does
+            // not register a network offer for it. Everything else is handled by the tethering
+            // code.
+            // If the user wants to disable an interface in server mode, tethering needs to be
+            // disabled first (which puts the interface in client mode).
+            Log.e(TAG, "Cannot disable interface in server mode.");
+            return false;
+        }
+        NetworkInterfaceState iface = mFactory.getInterface(ifName);
+        if (iface == null) {
+            return false;
+        }
+        if (!iface.setEnabled(enabled)) {
+            return false;
+        }
+        broadcastInterfaceStateChange(ifName);
+        return true;
     }
 
     IpConfiguration getIpConfiguration(String iface) {
