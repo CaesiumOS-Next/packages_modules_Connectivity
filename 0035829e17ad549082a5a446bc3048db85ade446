@@ -3,6 +3,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "04ccb45e_2fdf5b5a",
+        "filename": "netd/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-27T07:20:08Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 76,
+        "startChar": 23,
+        "endLine": 76,
+        "endChar": 27
+      },
+      "revId": "0035829e17ad549082a5a446bc3048db85ade446",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8e0a5ff_9fbaf82f",
+        "filename": "service-t/native/libs/libnetworkstats/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-27T07:20:08Z",
+      "side": 1,
+      "message": "Does this work? If you add this test to test/mts/tools/mts-tradefed/res/config/mts-tethering-tests-list-eng-only.xml  does it continue to work?\n\nIIRC when I added bpf_existence_test to MTS I couldn\u0027t get the MTS package to build successfully unless I set compile_multilib to \"first\".\n\nSince this library is only used by the system server, it doesn\u0027t need to be multilib, right? We can just use the primary architecture of the device?",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 29
+      },
+      "revId": "0035829e17ad549082a5a446bc3048db85ade446",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94976bda_c8e9315e",
+        "filename": "service/native/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-27T07:20:08Z",
+      "side": 1,
+      "message": "Ditto, do we need this to run in 32-bit mode as well?",
+      "range": {
+        "startLine": 75,
+        "startChar": 23,
+        "endLine": 75,
+        "endChar": 27
+      },
+      "revId": "0035829e17ad549082a5a446bc3048db85ade446",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2a564c77_27b2844e",
         "filename": "tests/native/NetNativeTestConfigTemplate.xml",
         "patchSetId": 2
