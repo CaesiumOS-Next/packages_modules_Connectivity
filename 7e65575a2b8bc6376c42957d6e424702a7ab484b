@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "922e813c_33eac1dc",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T04:29:11Z",
+      "side": 1,
+      "message": "notifyTetheredInterfaceAvailable doesn\u0027t actually affect the interface state, right? Can you move this to where the interface state change happens (I believe that is setDefaultInterfaceMode())?",
+      "range": {
+        "startLine": 416,
+        "startChar": 8,
+        "endLine": 416,
+        "endChar": 37
+      },
+      "revId": "7e65575a2b8bc6376c42957d6e424702a7ab484b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

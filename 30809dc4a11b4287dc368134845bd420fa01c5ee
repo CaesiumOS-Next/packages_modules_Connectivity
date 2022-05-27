@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff165e23_3d474a51",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T04:29:11Z",
+      "side": 0,
+      "message": "I don\u0027t think this is entirely correct as this will return ROLE_SERVER for interfaces that do not exist.",
+      "range": {
+        "startLine": 442,
+        "startChar": 7,
+        "endLine": 442,
+        "endChar": 76
+      },
+      "revId": "30809dc4a11b4287dc368134845bd420fa01c5ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
