@@ -46,6 +46,30 @@
       },
       "revId": "516d5dc0ea82a6e1381c640316608964494ade22",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a962f85_a0bb6415",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetServiceImplTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T21:23:30Z",
+      "side": 1,
+      "message": "Hey Paul, have you created a bug for this yet? Just stumbled upon this will fixing some conflicts for my CL. Let\u0027s create a comment in the code that references the bug, so we aren\u0027t wondering about this in the future. :)",
+      "parentUuid": "e14b131f_19804fe4",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 39
+      },
+      "revId": "516d5dc0ea82a6e1381c640316608964494ade22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
