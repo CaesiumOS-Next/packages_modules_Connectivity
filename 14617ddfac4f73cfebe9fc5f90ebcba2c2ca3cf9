@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "332b4912_89468b94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T20:12:23Z",
+      "side": 1,
+      "message": "Three potential pitfalls:\n- if an interface is lost / removed and rediscovered / added, it will be re-enabled automatically. (I am not sure if we could even prevent that, as we only have the interface name to go off of.)\n- if an interface is put in server mode (tethering is enabled) and back in client mode (tethering is disabled), it will be re-enabled even if it was previously disabled.\n- and as an extension to point 2: the default interface (the one tethering uses) can be disabled. This does not affect any tethering functionality. In fact, it can be put in server mode and back in client mode to be \"re-enabled\" as described above.\n\n\n----\nI think this still needs some further thought.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 51
+      },
+      "revId": "14617ddfac4f73cfebe9fc5f90ebcba2c2ca3cf9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
