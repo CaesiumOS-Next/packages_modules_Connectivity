@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "736fd4d3_11e49fbe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T21:35:27Z",
+      "side": 1,
+      "message": "Addressed most comments in aosp/2107601",
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc4f11d9_9cf2c9d4",
@@ -31,6 +48,30 @@
       "writtenOn": "2022-05-24T03:03:44Z",
       "side": 1,
       "message": "Can this be const val?",
+      "range": {
+        "startLine": 78,
+        "startChar": 8,
+        "endLine": 78,
+        "endChar": 11
+      },
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e1d6f49_4fc60d76",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T21:35:27Z",
+      "side": 1,
+      "message": "nope :( \"Only primitives and strings are allowed\"",
+      "parentUuid": "cc4f11d9_9cf2c9d4",
       "range": {
         "startLine": 78,
         "startChar": 8,
@@ -64,6 +105,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76e1a88f_2b8f94df",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T21:35:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "424eff14_053cb0cd",
+      "range": {
+        "startLine": 98,
+        "startChar": 16,
+        "endLine": 98,
+        "endChar": 31
+      },
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab0bdecd_6127e8de",
@@ -77,6 +142,30 @@
       "writtenOn": "2022-05-24T03:03:44Z",
       "side": 1,
       "message": "releaseRequest?",
+      "range": {
+        "startLine": 245,
+        "startChar": 16,
+        "endLine": 245,
+        "endChar": 30
+      },
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87787426_5561270d",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T21:35:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab0bdecd_6127e8de",
       "range": {
         "startLine": 245,
         "startChar": 16,
@@ -110,6 +199,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28529ee1_da2cdd67",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T21:35:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db613612_0daec6a0",
+      "range": {
+        "startLine": 251,
+        "startChar": 31,
+        "endLine": 251,
+        "endChar": 45
+      },
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5c95c64_2787fe40",
@@ -123,6 +236,30 @@
       "writtenOn": "2022-05-24T03:03:44Z",
       "side": 1,
       "message": "Space before comment?",
+      "range": {
+        "startLine": 256,
+        "startChar": 52,
+        "endLine": 256,
+        "endChar": 66
+      },
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f196e67_ee5c3e91",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T21:35:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5c95c64_2787fe40",
       "range": {
         "startLine": 256,
         "startChar": 52,
@@ -156,6 +293,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6913ff2c_f7cb413c",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T21:35:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fb2936d_23ab3017",
+      "range": {
+        "startLine": 263,
+        "startChar": 40,
+        "endLine": 263,
+        "endChar": 53
+      },
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11fc84dc_165be54e",
@@ -169,6 +330,30 @@
       "writtenOn": "2022-05-24T03:03:44Z",
       "side": 1,
       "message": "Could this be in setUp?",
+      "range": {
+        "startLine": 348,
+        "startChar": 8,
+        "endLine": 348,
+        "endChar": 38
+      },
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0815e7ac_c3fb11d6",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T21:35:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11fc84dc_165be54e",
       "range": {
         "startLine": 348,
         "startChar": 8,
@@ -202,6 +387,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04f6d5b1_eee201c1",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T21:35:27Z",
+      "side": 1,
+      "message": "Yep -- and no, I don\u0027t think we care what thread the callback runs on. It\u0027ll all eventually be \"synchronized\" by ArrayTrackRecord.",
+      "parentUuid": "6ac4b0f0_b2931406",
+      "range": {
+        "startLine": 353,
+        "startChar": 0,
+        "endLine": 354,
+        "endChar": 39
+      },
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8fe44235_7efc7976",
@@ -215,6 +424,30 @@
       "writtenOn": "2022-05-24T03:03:44Z",
       "side": 1,
       "message": "Do we care if this interface is created before the CS handler thread runs and the request is actually active? Maybe just add a comment that this can happen but it\u0027s really unlikely and doesn\u0027t really matter.",
+      "range": {
+        "startLine": 371,
+        "startChar": 20,
+        "endLine": 371,
+        "endChar": 35
+      },
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27a97d11_bdac099f",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T21:35:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fe44235_7efc7976",
       "range": {
         "startLine": 371,
         "startChar": 20,
@@ -248,6 +481,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a70e835_dc42e774",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T21:35:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9da8da8e_d514d6c1",
+      "range": {
+        "startLine": 379,
+        "startChar": 8,
+        "endLine": 379,
+        "endChar": 26
+      },
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7672a361_1ae5b97c",
@@ -261,6 +518,24 @@
       "writtenOn": "2022-05-24T03:03:44Z",
       "side": 1,
       "message": "Per discussion: might want to add a test for the infamous bug where when apps release a NetworkRequest, Ethernet goes down :)",
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5b17c55_d5a52e92",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T21:35:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7672a361_1ae5b97c",
       "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -295,6 +570,30 @@
       "writtenOn": "2022-05-24T03:03:44Z",
       "side": 1,
       "message": "Is it easy to check that this actually uses iface2 and the one above uses iface1? Might be useful.",
+      "range": {
+        "startLine": 435,
+        "startChar": 27,
+        "endLine": 435,
+        "endChar": 29
+      },
+      "revId": "97bdb655d9c86547da911f8e3906f0037922d203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95955467_b47b45d4",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T21:35:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25a575a7_51a96295",
       "range": {
         "startLine": 435,
         "startChar": 27,
