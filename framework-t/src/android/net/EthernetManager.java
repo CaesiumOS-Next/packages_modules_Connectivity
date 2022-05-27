@@ -591,6 +591,7 @@ public class EthernetManager {
      * Disables the specified interface. If this interface is in use in a connected
      * {@link android.net.Network}, then that {@code Network} will be torn down.
      * The provided {@link OutcomeReceiver} is called once the operation has finished execution.
+     * Note: An interface currently used for tethering cannot be disabled.
      *
      * @param iface the name of the interface to disable.
      * @param executor an {@link Executor} to execute the callback on. Optional if callback is null.
