@@ -2882,7 +2882,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
      */
     private NetworkStats getNetworkStatsUidDetail(String[] ifaces)
             throws RemoteException {
-        final NetworkStats uidSnapshot = readNetworkStatsUidDetail(UID_ALL,  ifaces, TAG_ALL);
+        final NetworkStats uidSnapshot = readNetworkStatsUidDetail(UID_ALL, ifaces, TAG_ALL);
 
         // fold tethering stats and operations into uid snapshot
         final NetworkStats tetherSnapshot = getNetworkStatsTethering(STATS_PER_UID);
@@ -2897,6 +2897,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         uidSnapshot.combineAllValues(providerStats);
 
         uidSnapshot.combineAllValues(mUidOperations);
+        uidSnapshot.filter(UID_ALL, ifaces, TAG_ALL);
 
         return uidSnapshot;
     }
