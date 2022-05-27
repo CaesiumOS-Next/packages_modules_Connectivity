@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef11b780_001014cb",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetServiceImplTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-27T08:47:04Z",
+      "side": 1,
+      "message": "Just curious: why change this ?",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 39
+      },
+      "revId": "516d5dc0ea82a6e1381c640316608964494ade22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
