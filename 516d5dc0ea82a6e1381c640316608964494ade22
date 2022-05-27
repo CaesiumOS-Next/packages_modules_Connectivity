@@ -22,6 +22,30 @@
       },
       "revId": "516d5dc0ea82a6e1381c640316608964494ade22",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e14b131f_19804fe4",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetServiceImplTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-27T09:19:44Z",
+      "side": 1,
+      "message": "I met a strange problem that MockitoAnnotations.initMocks() got an NPE on non-mock object UPDATE_*. I tried to move each UPDATE_* into every test then the problem was gone. Not sure why using mockito-extended will have this problem. So I just mock every object to replace @Mock annotation to fix the problem temporarily. Will file an issue to investigate the problem later.\n```\nSTACKTRACE:\njava.lang.NullPointerException: Attempt to invoke virtual method \u0027int android.net.ProxyInfo.hashCode()\u0027 on a null object reference\n\tat android.net.IpConfiguration.hashCode(IpConfiguration.java:221)\n\tat java.util.Arrays.hashCode(Arrays.java:4615)\n\tat java.util.Objects.hash(Objects.java:145)\n\tat android.net.EthernetNetworkUpdateRequest.hashCode(EthernetNetworkUpdateRequest.java:158)\n\tat java.util.HashMap.hash(HashMap.java:338)\n\tat java.util.HashMap.get(HashMap.java:556)\n\tat com.android.dx.mockito.inline.InlineStaticMockMaker.getInvocationHandlerAdapter(InlineStaticMockMaker.java:233)\n\tat com.android.dx.mockito.inline.InlineStaticMockMaker.getHandler(InlineStaticMockMaker.java:218)\n\tat com.android.dx.mockito.inline.MockMakerMultiplexer.getHandler(MockMakerMultiplexer.java:78)\n\tat org.mockito.internal.util.MockUtil.isMock(MockUtil.java:81)\n\tat org.mockito.internal.configuration.injection.scanner.MockScanner.isMockOrSpy(MockScanner.java:83)\n\tat org.mockito.internal.configuration.injection.scanner.MockScanner.preparedMock(MockScanner.java:71)\n\tat org.mockito.internal.configuration.injection.scanner.MockScanner.scan(MockScanner.java:59)\n\tat org.mockito.internal.configuration.injection.scanner.MockScanner.addPreparedMocks(MockScanner.java:45)\n\tat org.mockito.internal.configuration.InjectingAnnotationEngine.injectMocks(InjectingAnnotationEngine.java:82)\n\tat org.mockito.internal.configuration.InjectingAnnotationEngine.processInjectMocks(InjectingAnnotationEngine.java:48)\n\tat org.mockito.internal.configuration.InjectingAnnotationEngine.process(InjectingAnnotationEngine.java:42)\n\tat org.mockito.MockitoAnnotations.initMocks(MockitoAnnotations.java:69)\n\tat com.android.server.ethernet.EthernetServiceImplTest.setup(EthernetServiceImplTest.java:83)\n```",
+      "parentUuid": "ef11b780_001014cb",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 39
+      },
+      "revId": "516d5dc0ea82a6e1381c640316608964494ade22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
