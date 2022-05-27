@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2f197b0_c351e2fa",
+        "filename": "service-t/native/libs/libnetworkstats/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-05-27T09:42:25Z",
+      "side": 1,
+      "message": "Yes, it works. I tested it on bramble (arm64) and cf_x86_phone (32-bit).\n\nbramble\n```\n$ m mts \u0026\u0026 mts-tradefed run mts-tethering\n...\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d Results \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d Consumed Time \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n    arm64-v8a CtsNetTestCasesLatestSdk: 5m 10s\n    armeabi-v7a connectivity_native_test: 1m 28s\n    arm64-v8a connectivity_native_test: 1m 28s\n    armeabi-v7a NearbyUnitTests: 26s\n    arm64-v8a NearbyUnitTests: 24s\n    arm64-v8a CtsTetheringTestLatestSdk: 17s\n    arm64-v8a bpf_existence_test: 9s\n    armeabi-v7a bpf_existence_test: 9s\n    arm64-v8a libnetworkstats_test: 9s\n    arm64-v8a netd_updatable_unit_test: 9s\n    armeabi-v7a netd_updatable_unit_test: 9s\n    arm64-v8a traffic_controller_unit_test: 9s\n    armeabi-v7a libnetworkstats_test: 8s\n    armeabi-v7a traffic_controller_unit_test: 8s\n    arm64-v8a MtsTetheringTestLatestSdk: 7s\n    arm64-v8a CtsNearbyFastPairTestCases: 3s\n```\n\ncf_x86_phone\n```\n$ m mts \u0026\u0026 mts-tradefed run mts-tethering\n...\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d Results \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d Consumed Time \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n    x86 CtsNetTestCasesLatestSdk: 6m 20s\n    x86 CtsTetheringTestLatestSdk: 31s\n    x86 MtsTetheringTestLatestSdk: 18s\n    x86 bpf_existence_test: 1s\n    x86 libnetworkstats_test: 1s\n    x86 traffic_controller_unit_test: 1s\n    x86 connectivity_native_test: 997 ms\n    x86 netd_updatable_unit_test: 982 ms\n\n```\n\"both\" is required for code coverage because base image can only be 32-bit build target. (b/147785146)\n\nDNS resolver tests use \"both\" as well. https://osscs.corp.google.com/android/platform/superproject/+/master:packages/modules/DnsResolver/Android.bp;l\u003d142?q\u003dcompile_multilib:%20%22both%22\u0026ss\u003dandroid%2Fplatform%2Fsuperproject:packages%2Fmodules%2FDnsResolver%2F",
+      "parentUuid": "c8e0a5ff_9fbaf82f",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 29
+      },
+      "revId": "0035829e17ad549082a5a446bc3048db85ade446",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94976bda_c8e9315e",
