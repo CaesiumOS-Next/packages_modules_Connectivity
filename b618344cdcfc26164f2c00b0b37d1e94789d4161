@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18b92899_d31c3981",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-05-27T02:06:13Z",
+      "side": 1,
+      "message": "Why underscore?",
+      "range": {
+        "startLine": 93,
+        "startChar": 43,
+        "endLine": 93,
+        "endChar": 44
+      },
+      "revId": "b618344cdcfc26164f2c00b0b37d1e94789d4161",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
