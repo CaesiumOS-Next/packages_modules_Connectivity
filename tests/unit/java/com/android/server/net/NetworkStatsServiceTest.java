@@ -1174,45 +1174,69 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
 
     @Test
     public void testUidStatsForTransport() throws Exception {
-        // pretend that network comes online
+        // Pretend that network comes online
         mockDefaultSettings();
-        NetworkStateSnapshot[] states = new NetworkStateSnapshot[] {buildWifiState()};
-        mockNetworkStatsSummary(buildEmptyStats());
         mockNetworkStatsUidDetail(buildEmptyStats());
 
-        mService.notifyNetworkStatus(NETWORKS_WIFI, states, getActiveIface(states),
+        final NetworkStateSnapshot[] states = new NetworkStateSnapshot[] {
+                buildMobileState(TEST_IFACE2, IMSI_1, false /*isTemporarilyNotMetered*/,
+                false /*isRoaming*/), buildWifiState()};
+        mService.notifyNetworkStatus(NETWORKS_MOBILE, states, getActiveIface(states),
                 new UnderlyingNetworkInfo[0]);
+        setMobileRatTypeAndWaitForIdle(TelephonyManager.NETWORK_TYPE_LTE);
 
-        NetworkStats.Entry entry1 = new NetworkStats.Entry(
+        final NetworkStats.Entry entry1 = new NetworkStats.Entry(
                 TEST_IFACE, UID_RED, SET_DEFAULT, TAG_NONE, METERED_NO, ROAMING_NO,
                 DEFAULT_NETWORK_NO, 50L, 5L, 50L, 5L, 0L);
-        NetworkStats.Entry entry2 = new NetworkStats.Entry(
+        final NetworkStats.Entry entry2 = new NetworkStats.Entry(
                 TEST_IFACE, UID_RED, SET_DEFAULT, 0xF00D, METERED_NO, ROAMING_NO,
                 DEFAULT_NETWORK_NO, 50L, 5L, 50L, 5L, 0L);
-        NetworkStats.Entry entry3 = new NetworkStats.Entry(
+        final NetworkStats.Entry entry3 = new NetworkStats.Entry(
                 TEST_IFACE, UID_BLUE, SET_DEFAULT, 0xBEEF, METERED_NO, ROAMING_NO,
                 DEFAULT_NETWORK_NO, 1024L, 8L, 512L, 4L, 0L);
 
+        // The interfaces that expect to be used to query the stats.
+        final String[] ifacesToQuery = {TEST_IFACE};
         incrementCurrentTime(HOUR_IN_MILLIS);
         mockDefaultSettings();
-        mockNetworkStatsSummary(buildEmptyStats());
         mockNetworkStatsUidDetail(new NetworkStats(getElapsedRealtime(), 3)
                 .insertEntry(entry1)
                 .insertEntry(entry2)
-                .insertEntry(entry3));
+                .insertEntry(entry3), ifacesToQuery);
+
         mService.incrementOperationCount(UID_RED, 0xF00D, 1);
+        doReturn(ifacesToQuery).when(mStatsFactory).augmentWithStackedInterfaces(any());
+        final NetworkStats wifiStats =
+                mService.getUidStatsForTransport(NetworkCapabilities.TRANSPORT_WIFI);
 
-        NetworkStats stats = mService.getUidStatsForTransport(NetworkCapabilities.TRANSPORT_WIFI);
-
-        assertEquals(3, stats.size());
-        entry1.operations = 1;
+        assertEquals(3, wifiStats.size());
+        // Set the entries to expected return values.
+        // The iface field of the returned stats should be null.
         entry1.iface = null;
-        assertEquals(entry1, stats.getValues(0, null));
-        entry2.operations = 1;
         entry2.iface = null;
-        assertEquals(entry2, stats.getValues(1, null));
         entry3.iface = null;
-        assertEquals(entry3, stats.getValues(2, null));
+        assertEquals(entry1, wifiStats.getValues(0, null));
+        assertEquals(entry2, wifiStats.getValues(1, null));
+        assertEquals(entry3, wifiStats.getValues(2, null));
+
+        // The interfaces that expect to be used to query the stats.
+        final String[] ifacesToQuery2 = {TEST_IFACE2};
+        doReturn(ifacesToQuery2).when(mStatsFactory).augmentWithStackedInterfaces(any());
+        mockNetworkStatsUidDetail(buildEmptyStats(), ifacesToQuery2);
+        final NetworkStats mobileStats =
+                mService.getUidStatsForTransport(NetworkCapabilities.TRANSPORT_CELLULAR);
+
+        // Verify that the mobile stats should be increased on both TAG_NONE and 0xF00D entry.
+        final NetworkStats.Entry expectedEntry1 = new NetworkStats.Entry(
+                null, UID_RED, SET_DEFAULT, 0xF00D, METERED_NO, ROAMING_NO,
+                DEFAULT_NETWORK_NO, 0L, 0L, 0L, 0L, 1L);
+        final NetworkStats.Entry expectedEntry2 = new NetworkStats.Entry(
+                null, UID_RED, SET_DEFAULT, TAG_NONE, METERED_NO, ROAMING_NO,
+                DEFAULT_NETWORK_NO, 0L, 0L, 0L, 0L, 1L);
+
+        assertEquals(2, mobileStats.size());
+        assertEquals(expectedEntry1, mobileStats.getValues(0, null));
+        assertEquals(expectedEntry2, mobileStats.getValues(1, null));
     }
 
     @Test
@@ -2113,6 +2137,12 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         when(mStatsFactory.readNetworkStatsSummaryXt()).thenReturn(summary);
     }
 
+    private void mockNetworkStatsUidDetail(NetworkStats detail,
+            String[] ifaces) throws Exception {
+        final TetherStatsParcel[] tetherStatsParcels = {};
+        mockNetworkStatsUidDetail(detail, tetherStatsParcels, ifaces);
+    }
+
     private void mockNetworkStatsUidDetail(NetworkStats detail) throws Exception {
         final TetherStatsParcel[] tetherStatsParcels = {};
         mockNetworkStatsUidDetail(detail, tetherStatsParcels);
@@ -2120,7 +2150,12 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
 
     private void mockNetworkStatsUidDetail(NetworkStats detail,
             TetherStatsParcel[] tetherStatsParcels) throws Exception {
-        when(mStatsFactory.readNetworkStatsDetail(UID_ALL, INTERFACES_ALL, TAG_ALL))
+        mockNetworkStatsUidDetail(detail, tetherStatsParcels, INTERFACES_ALL);
+    }
+
+    private void mockNetworkStatsUidDetail(NetworkStats detail,
+            TetherStatsParcel[] tetherStatsParcels, String[] ifaces) throws Exception {
+        when(mStatsFactory.readNetworkStatsDetail(UID_ALL, ifaces, TAG_ALL))
                 .thenReturn(detail);
 
         // also include tethering details, since they are folded into UID
