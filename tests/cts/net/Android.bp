@@ -122,7 +122,8 @@ android_test {
         "NetworkStackApiStableLib",
     ],
     target_sdk_version: "31",
-    package_name: "android.net.cts.targetsdk31",  // CTS package names must be unique.
+    package_name: "android.net.cts.maxtargetsdk31",  // CTS package names must be unique.
+    instrumentation_target_package: "android.net.cts.maxtargetsdk31",
     test_suites: [
         "cts",
         "general-tests",
