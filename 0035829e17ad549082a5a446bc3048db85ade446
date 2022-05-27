@@ -22,6 +22,30 @@
       },
       "revId": "0035829e17ad549082a5a446bc3048db85ade446",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edbde3fe_5f5b4e24",
+        "filename": "tests/native/NetNativeTestConfigTemplate.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-05-27T06:44:44Z",
+      "side": 1,
+      "message": "Because the essential option \"append-bitness\" will cause mts-tethering fail (notice: not mts-tethering-coverage) on connectivity_native_test .\n\n```\n$ m mts \u0026\u0026 mts-tradefed run mts-tethering\n...\n05-27 09:10:03 D/ModuleDefinition: Running module x86 connectivity_native_test\n05-27 09:10:04 E/ModuleDefinition: Unexpected Exception from preparer: com.android.compatibility.common.tradefed.targetprep.FilePusher\n05-27 09:10:04 E/ModuleDefinition: Local source file \u0027connectivity_native_test\u0027 does not exist [0.0.0.0:6521 cutf:vsoc_x86 TP1A.220517.001]\ncom.android.tradefed.targetprep.TargetSetupError[CONFIGURED_ARTIFACT_NOT_FOUND|500006|CUSTOMER_ISSUE]: Local source file \u0027connectivity_native_test\u0027 does not exist [0.0.0.0:6521 cutf:vsoc_x86 TP1A.220517.001]\n\tat com.android.tradefed.targetprep.PushFilePreparer.fail(PushFilePreparer.java:153)\n\tat com.android.tradefed.targetprep.PushFilePreparer.evaluatePushingPair(PushFilePreparer.java:415)\n\n```\nI guess it\u0027s because the connectivity_native_test doesn\u0027t have multilib attribute. The multilib attribute is not required for the connectivity_native_test because it\u0027s not part of coverage test. Also, the AndroidTestTemplate.xml has been referenced by several tests. I try not to touch it to avoid unexpected failure in atest or tradefed or any other test runners/test plans.",
+      "parentUuid": "2a564c77_27b2844e",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 16
+      },
+      "revId": "0035829e17ad549082a5a446bc3048db85ade446",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
