@@ -57,6 +57,7 @@ cc_test {
     defaults: ["netd_defaults"],
     test_suites: ["general-tests"],
     require_root: true,  // required by setrlimitForTest()
+    // no-op change for testing
     header_libs: [
         "bpf_connectivity_headers",
     ],
