@@ -413,6 +413,7 @@ public class EthernetTracker {
         } catch (RemoteException e) {
             Log.e(TAG, "Error sending tethered interface available callback", e);
         }
+        broadcastInterfaceStateChange(iface);
     }
 
     private void notifyTetheredInterfaceUnavailable(ITetheredInterfaceCallback cb) {
@@ -439,7 +440,6 @@ public class EthernetTracker {
     }
 
     private int getInterfaceRole(final String iface) {
-        if (!mFactory.hasInterface(iface)) return EthernetManager.ROLE_NONE;
         final int mode = getInterfaceMode(iface);
         return (mode == INTERFACE_MODE_CLIENT)
                 ? EthernetManager.ROLE_CLIENT
