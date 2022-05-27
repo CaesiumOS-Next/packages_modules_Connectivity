@@ -281,6 +281,7 @@ public class EthernetNetworkFactory {
 
         private static String sTcpBufferSizes = null;  // Lazy initialized.
 
+        private boolean mEnabled = true;
         private boolean mLinkUp;
         private int mLegacyType;
         private LinkProperties mLinkProperties = new LinkProperties();
@@ -615,11 +616,42 @@ public class EthernetNetworkFactory {
             }
             mLinkUp = up;
 
+            if (!mEnabled) {
+                // Nothing left to do if the interface is disabled. There is no active NetworkOffer
+                // nor should there be. Return success.
+                return true;
+            }
             if (mLinkUp) { // was down, goes up
                 // register network offer enabled
                 registerNetworkOffer();
             } else { // was up, goes down
                 // retract network offer and stop IpClient.
+                unregisterNetworkOfferAndStop();
+            }
+            return true;
+        }
+
+        /**
+         * Enable / disable the interface.
+         *
+         * A NetworkOffer is only registered for an enabled interface that has link.
+         * @param enabled -- true to enable, false to disable.
+         * @return true if state has been modifiedq, false otherwise.
+         */
+        public boolean setEnabled(boolean enabled) {
+            if (mEnabled == enabled) {
+                return false;
+            }
+            mEnabled = enabled;
+
+            if (!mLinkUp) {
+                // Nothing left to do if link is down. There is no active NetworkOffer nor should
+                // there be. Return success.
+                return true;
+            }
+            if (mEnabled) { // was enabled, gets disabled
+                registerNetworkOffer();
+            } else { // was disabled, gets enabled
                 unregisterNetworkOfferAndStop();
             }
             return true;
