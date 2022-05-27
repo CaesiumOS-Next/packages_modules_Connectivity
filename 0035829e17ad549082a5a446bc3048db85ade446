@@ -211,6 +211,30 @@
       },
       "revId": "0035829e17ad549082a5a446bc3048db85ade446",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71c49534_d9681b6f",
+        "filename": "tests/native/NetNativeTestConfigTemplate.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-27T15:55:33Z",
+      "side": 1,
+      "message": "Are you saying that code coverage requires running 32-bit code? Do you know why? Is it because it runs on a 32-bit cuttlefish? That\u0027s a bit anachronistic...",
+      "parentUuid": "7b910744_a2e5dbba",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 16
+      },
+      "revId": "0035829e17ad549082a5a446bc3048db85ade446",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
