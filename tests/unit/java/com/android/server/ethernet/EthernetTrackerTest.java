@@ -373,7 +373,7 @@ public class EthernetTrackerTest {
 
         setInterfaceEnabled(TEST_IFACE, true);
 
-        verify(mInterfaceState).updateLinkState(eq(true /* up */));
+        verify(mInterfaceState).setEnabled(eq(true /* enabled */));
     }
 
     @Test
@@ -382,7 +382,7 @@ public class EthernetTrackerTest {
 
         setInterfaceEnabled(TEST_IFACE, false);
 
-        verify(mInterfaceState).updateLinkState(eq(false /* down */));
+        verify(mInterfaceState).setEnabled(eq(false /* disabled */));
     }
 
     @Test
