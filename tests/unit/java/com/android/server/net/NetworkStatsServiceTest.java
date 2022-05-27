@@ -1165,9 +1165,11 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
 
     @Test
     public void testUidStatsForTransport() throws Exception {
-        // pretend that network comes online
+        // The interfaces that expect to be used to query the stats.
+        final String[] ifacesToQuery = {TEST_IFACE};
+        // Pretend that network comes online
         expectDefaultSettings();
-        NetworkStateSnapshot[] states = new NetworkStateSnapshot[] {buildWifiState()};
+        final NetworkStateSnapshot[] states = new NetworkStateSnapshot[] {buildWifiState()};
         expectNetworkStatsSummary(buildEmptyStats());
         expectNetworkStatsUidDetail(buildEmptyStats());
 
@@ -1190,20 +1192,69 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         expectNetworkStatsUidDetail(new NetworkStats(getElapsedRealtime(), 3)
                 .insertEntry(entry1)
                 .insertEntry(entry2)
-                .insertEntry(entry3));
+                .insertEntry(entry3), ifacesToQuery);
         mService.incrementOperationCount(UID_RED, 0xF00D, 1);
+        doReturn(ifacesToQuery).when(mStatsFactory).augmentWithStackedInterfaces(any());
 
-        NetworkStats stats = mService.getUidStatsForTransport(NetworkCapabilities.TRANSPORT_WIFI);
+        final NetworkStats stats =
+                mService.getUidStatsForTransport(NetworkCapabilities.TRANSPORT_WIFI);
 
         assertEquals(3, stats.size());
-        entry1.operations = 1;
+        // Set the entries to expected return value.
+        // The iface field of the returned stats should be null.
         entry1.iface = null;
-        assertEquals(entry1, stats.getValues(0, null));
-        entry2.operations = 1;
         entry2.iface = null;
-        assertEquals(entry2, stats.getValues(1, null));
         entry3.iface = null;
+        entry1.operations = 1;
+        entry2.operations = 1;
+        assertEquals(entry1, stats.getValues(0, null));
+        assertEquals(entry2, stats.getValues(1, null));
         assertEquals(entry3, stats.getValues(2, null));
+
+        incrementCurrentTime(HOUR_IN_MILLIS);
+        // Pretend that mobile network comes online.
+        final NetworkStateSnapshot[] mobileStates = new NetworkStateSnapshot[] {
+                buildMobileState(TEST_IFACE2, IMSI_1, false /*isTemporarilyNotMetered*/,
+                false /*isRoaming*/)};
+        setMobileRatTypeAndWaitForIdle(TelephonyManager.NETWORK_TYPE_LTE);
+
+        mService.notifyNetworkStatus(NETWORKS_MOBILE, mobileStates, getActiveIface(mobileStates),
+                new UnderlyingNetworkInfo[0]);
+
+        expectDefaultSettings();
+        expectNetworkStatsSummary(buildEmptyStats());
+        // Set iface field back to TEST_IFACE and keep operations field as 1 for entry1 and entry2
+        // since they were incresed.
+        entry1.iface = TEST_IFACE;
+        entry2.iface = TEST_IFACE;
+        entry3.iface = TEST_IFACE;
+        expectNetworkStatsUidDetail(new NetworkStats(getElapsedRealtime(), 3)
+                // The stats that is already present.
+                .insertEntry(entry1)
+                .insertEntry(entry2)
+                .insertEntry(entry3), ifacesToQuery);
+
+        // Mobile interface is current active interface so the operation counts will increase on
+        // mobile interface.
+        mService.incrementOperationCount(UID_BLUE, 0xBEEF, 1);
+        doReturn(ifacesToQuery).when(mStatsFactory).augmentWithStackedInterfaces(any());
+        final NetworkStats stats2 =
+                mService.getUidStatsForTransport(NetworkCapabilities.TRANSPORT_WIFI);
+
+        // Verify that the stats for mobile interface will be filtered and only obtains stats for
+        // wifi interface.
+        assertEquals(3, stats2.size());
+        // Set entries to expected return values.
+        // The iface field of the returned stats should be null and the operation count should
+        // increase.
+        entry1.iface = null;
+        entry2.iface = null;
+        entry3.iface = null;
+        entry1.operations = 2;
+        entry2.operations = 2;
+        assertEquals(entry1, stats2.getValues(0, null));
+        assertEquals(entry2, stats2.getValues(1, null));
+        assertEquals(entry3, stats2.getValues(2, null));
     }
 
     @Test
@@ -2107,6 +2158,12 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         when(mStatsFactory.readNetworkStatsSummaryXt()).thenReturn(summary);
     }
 
+    private void expectNetworkStatsUidDetail(NetworkStats detail,
+            String[] ifaces) throws Exception {
+        final TetherStatsParcel[] tetherStatsParcels = {};
+        expectNetworkStatsUidDetail(detail, tetherStatsParcels, ifaces);
+    }
+
     private void expectNetworkStatsUidDetail(NetworkStats detail) throws Exception {
         final TetherStatsParcel[] tetherStatsParcels = {};
         expectNetworkStatsUidDetail(detail, tetherStatsParcels);
@@ -2114,7 +2171,12 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
 
     private void expectNetworkStatsUidDetail(NetworkStats detail,
             TetherStatsParcel[] tetherStatsParcels) throws Exception {
-        when(mStatsFactory.readNetworkStatsDetail(UID_ALL, INTERFACES_ALL, TAG_ALL))
+        expectNetworkStatsUidDetail(detail, tetherStatsParcels, INTERFACES_ALL);
+    }
+
+    private void expectNetworkStatsUidDetail(NetworkStats detail,
+            TetherStatsParcel[] tetherStatsParcels, String[] ifaces) throws Exception {
+        when(mStatsFactory.readNetworkStatsDetail(UID_ALL, ifaces, TAG_ALL))
                 .thenReturn(detail);
 
         // also include tethering details, since they are folded into UID
