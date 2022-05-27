@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3b6377e_3185db96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T21:33:41Z",
+      "side": 1,
+      "message": "Addresses some of these comments in aosp/2107600.",
+      "revId": "daca9ca74f04852ee699940c0fc2eabb55cb102b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed2e2a65_a35d3e79",
@@ -31,6 +48,30 @@
       "writtenOn": "2022-05-24T03:25:31Z",
       "side": 1,
       "message": "This doesn\u0027t subclass NetworkProvider :)",
+      "range": {
+        "startLine": 63,
+        "startChar": 10,
+        "endLine": 63,
+        "endChar": 25
+      },
+      "revId": "daca9ca74f04852ee699940c0fc2eabb55cb102b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37287c6f_2a5b847e",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T21:33:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed2e2a65_a35d3e79",
       "range": {
         "startLine": 63,
         "startChar": 10,
@@ -64,6 +105,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e354843_22932100",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T21:33:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4980fcf_7a8ae753",
+      "range": {
+        "startLine": 224,
+        "startChar": 14,
+        "endLine": 224,
+        "endChar": 18
+      },
+      "revId": "daca9ca74f04852ee699940c0fc2eabb55cb102b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c65fc9fe_cec88915",
@@ -77,6 +142,30 @@
       "writtenOn": "2022-05-24T03:25:31Z",
       "side": 1,
       "message": "It\u0027s strange to see the word \"best\" here since the returned scores are all the same.",
+      "range": {
+        "startLine": 457,
+        "startChar": 36,
+        "endLine": 457,
+        "endChar": 55
+      },
+      "revId": "daca9ca74f04852ee699940c0fc2eabb55cb102b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "720e67de_387ae89d",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T21:33:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c65fc9fe_cec88915",
       "range": {
         "startLine": 457,
         "startChar": 36,
@@ -110,6 +199,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14bf5b72_0605336b",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T21:33:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4cba783_6ccf18ec",
+      "range": {
+        "startLine": 639,
+        "startChar": 0,
+        "endLine": 641,
+        "endChar": 47
+      },
+      "revId": "daca9ca74f04852ee699940c0fc2eabb55cb102b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b32f5882_431e8c85",
@@ -123,6 +236,30 @@
       "writtenOn": "2022-05-24T03:25:31Z",
       "side": 1,
       "message": "Per discussion: consider \"tearDown\" or \"remove\" or \"unregisterOffer\".",
+      "range": {
+        "startLine": 663,
+        "startChar": 20,
+        "endLine": 663,
+        "endChar": 27
+      },
+      "revId": "daca9ca74f04852ee699940c0fc2eabb55cb102b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc689549_2215a218",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T21:33:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b32f5882_431e8c85",
       "range": {
         "startLine": 663,
         "startChar": 20,

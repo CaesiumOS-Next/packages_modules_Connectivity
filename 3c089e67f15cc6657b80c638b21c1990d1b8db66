@@ -45,6 +45,30 @@
       },
       "revId": "3c089e67f15cc6657b80c638b21c1990d1b8db66",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7eb424bd_0f6617d8",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetNetworkFactoryTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T21:33:41Z",
+      "side": 0,
+      "message": "There is no active NetworkOffer when the link is down, so all these weird issues should be resolved. But I hear you; we need more tests, specifically around link state. Working on it.",
+      "parentUuid": "2577da53_ea099d72",
+      "range": {
+        "startLine": 455,
+        "startChar": 21,
+        "endLine": 455,
+        "endChar": 32
+      },
+      "revId": "3c089e67f15cc6657b80c638b21c1990d1b8db66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
