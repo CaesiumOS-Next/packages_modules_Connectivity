@@ -22,6 +22,30 @@
       },
       "revId": "30809dc4a11b4287dc368134845bd420fa01c5ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22954c64_76ac71fe",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1520437
+      },
+      "writtenOn": "2022-05-27T04:41:42Z",
+      "side": 0,
+      "message": "If this code exists, we can\u0027t get SERVER state at all as eth0 is not in the EthernetNetworkFactory interface list.\n\nAs this is for just notifying ethernet role, I think sending ROLE_CLIENT as default is okay.\n\nIs there any other way we can get SERVER state?",
+      "parentUuid": "ff165e23_3d474a51",
+      "range": {
+        "startLine": 442,
+        "startChar": 7,
+        "endLine": 442,
+        "endChar": 76
+      },
+      "revId": "30809dc4a11b4287dc368134845bd420fa01c5ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
