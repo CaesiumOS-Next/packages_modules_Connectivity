@@ -46,6 +46,30 @@
       },
       "revId": "30809dc4a11b4287dc368134845bd420fa01c5ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b78d252d_a5d30a4d",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-05-27T04:47:58Z",
+      "side": 0,
+      "message": "Why not write:\n```\nprivate int getInterfaceRole(final String iface) {\n    if (mFactory.hasInterface(iface)) {\n        // only client mode interfaces are tracked by the factory.\n        return ROLE_CLIENT\n    }\n    if (getInterfaceMode(iface) \u003d\u003d INTERFACE_MODE_SERVER) {\n        return ROLE_SERVER;\n    }\n    return ROLE_NONE;\n}\n```",
+      "parentUuid": "22954c64_76ac71fe",
+      "range": {
+        "startLine": 442,
+        "startChar": 7,
+        "endLine": 442,
+        "endChar": 76
+      },
+      "revId": "30809dc4a11b4287dc368134845bd420fa01c5ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
