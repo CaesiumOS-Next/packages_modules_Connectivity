@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5650e92d_37cac594",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-27T00:01:50Z",
+      "side": 1,
+      "message": "bramble",
+      "range": {
+        "startLine": 18,
+        "startChar": 16,
+        "endLine": 18,
+        "endChar": 23
+      },
+      "revId": "9c24b41467fc751745bde3075d3463da41c7bb5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4342ea2c_46956add",
@@ -14,6 +37,75 @@
       "writtenOn": "2022-05-26T14:49:53Z",
       "side": 1,
       "message": "Another approach, class Version has isInRange() and isAtLeast() for helping to check current kernel version support range",
+      "revId": "9c24b41467fc751745bde3075d3463da41c7bb5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10297a8e_b8d23b28",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1075,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-27T00:01:50Z",
+      "side": 1,
+      "message": "would it look better if || was at end of previous line instead?",
+      "range": {
+        "startLine": 1075,
+        "startChar": 15,
+        "endLine": 1075,
+        "endChar": 19
+      },
+      "revId": "9c24b41467fc751745bde3075d3463da41c7bb5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68f7aa55_5d011406",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1083,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-27T00:01:50Z",
+      "side": 1,
+      "message": "note that .000 is weird, since this should just be .0",
+      "range": {
+        "startLine": 1083,
+        "startChar": 50,
+        "endLine": 1083,
+        "endChar": 58
+      },
+      "revId": "9c24b41467fc751745bde3075d3463da41c7bb5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f33d18e_50bb7da9",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-27T00:01:50Z",
+      "side": 1,
+      "message": "97\n\n097 is according to some interpretations invalid octal",
+      "range": {
+        "startLine": 1093,
+        "startChar": 55,
+        "endLine": 1093,
+        "endChar": 58
+      },
       "revId": "9c24b41467fc751745bde3075d3463da41c7bb5e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
