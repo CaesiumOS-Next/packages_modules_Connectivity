@@ -30,12 +30,15 @@ import static com.android.server.connectivity.ClatCoordinator.PRIO_CLAT;
 import static com.android.testutils.MiscAsserts.assertThrows;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.argThat;
 import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 
 import android.annotation.NonNull;
 import android.net.INetd;
@@ -101,12 +104,12 @@ public class ClatCoordinatorTest {
     private static final int RAW_SOCK_FD = 535;
     private static final int PACKET_SOCK_FD = 536;
     private static final long RAW_SOCK_COOKIE = 27149;
-    private static final ParcelFileDescriptor TUN_PFD = new ParcelFileDescriptor(
-            new FileDescriptor());
-    private static final ParcelFileDescriptor RAW_SOCK_PFD = new ParcelFileDescriptor(
-            new FileDescriptor());
-    private static final ParcelFileDescriptor PACKET_SOCK_PFD = new ParcelFileDescriptor(
-            new FileDescriptor());
+    private static final ParcelFileDescriptor TUN_PFD = spy(new ParcelFileDescriptor(
+            new FileDescriptor()));
+    private static final ParcelFileDescriptor RAW_SOCK_PFD = spy(new ParcelFileDescriptor(
+            new FileDescriptor()));
+    private static final ParcelFileDescriptor PACKET_SOCK_PFD = spy(new ParcelFileDescriptor(
+            new FileDescriptor()));
 
     private static final String EGRESS_PROG_PATH =
             "/sys/fs/bpf/net_shared/prog_clatd_schedcls_egress4_clat_rawip";
@@ -504,5 +507,169 @@ public class ClatCoordinatorTest {
 
         // Expected mtu is that CLAT_MAX_MTU(65536) minus MTU_DELTA(28).
         assertEquals(65508, ClatCoordinator.adjustMtu(CLAT_MAX_MTU + 1 /* over maximum mtu */));
+    }
+
+    @Test
+    public void testStartClatdWithInvalidPrefix() throws Exception {
+        final ClatCoordinator coordinator = makeClatCoordinator();
+        final IpPrefix invalidPrefix = new IpPrefix("2001:db8::/64");
+        assertThrows(IOException.class,
+                () -> coordinator.clatStart(BASE_IFACE, NETID, invalidPrefix));
+    }
+
+    private void assertStartClatd(final TestDependencies deps) throws Exception {
+        final ClatCoordinator coordinator = new ClatCoordinator(deps);
+        assertNotNull(coordinator.clatStart(BASE_IFACE, NETID, NAT64_IP_PREFIX));
+    }
+
+    private void assertNotStartClatd(final TestDependencies deps) {
+        final ClatCoordinator coordinator = new ClatCoordinator(deps);
+        assertThrows(IOException.class,
+                () -> coordinator.clatStart(BASE_IFACE, NETID, NAT64_IP_PREFIX));
+    }
+
+    private void checkNotStartClatdBy(final TestDependencies target, final boolean verifyTunFd,
+            final boolean verifyPacketSockFd, final boolean verifyRawSockFd) throws Exception {
+        // [1] Expect that modified TestDependencies can't start clatd.
+        clearInvocations(TUN_PFD, RAW_SOCK_PFD, PACKET_SOCK_PFD);
+        assertNotStartClatd(target);
+        if (verifyTunFd) verify(TUN_PFD).close();
+        if (verifyPacketSockFd) verify(PACKET_SOCK_PFD).close();
+        if (verifyRawSockFd) verify(RAW_SOCK_PFD).close();
+
+        // [2] Expect that unmodified TestDependencies can start clatd.
+        // Used to make sure that the above modified TestDependencies has really broken the
+        // clatd starting.
+        assertStartClatd(new TestDependencies());
+    }
+
+    // testNotStartClatd* tests are used to test bunches of code for unwinding the native method
+    // failure.
+    @Test
+    public void testNotStartClatdWithNativeSelectIpv4Address() throws Exception {
+        class FailureDependencies extends TestDependencies {
+            @Override
+            public String selectIpv4Address(@NonNull String v4addr, int prefixlen)
+                    throws IOException {
+                throw new IOException();
+            }
+        }
+        checkNotStartClatdBy(new FailureDependencies(), false /* verifyTunFd */,
+                false /* verifyPacketSockFd */, false /* verifyRawSockFd */);
+    }
+
+    @Test
+    public void testNotStartClatdWithNativeGenerateIpv6Address() throws Exception {
+        class FailureDependencies extends TestDependencies {
+            @Override
+            public String generateIpv6Address(@NonNull String iface, @NonNull String v4,
+                    @NonNull String prefix64) throws IOException {
+                throw new IOException();
+            }
+        }
+        checkNotStartClatdBy(new FailureDependencies(), false /* verifyTunFd */,
+                false /* verifyPacketSockFd */, false /* verifyRawSockFd */);
+    }
+
+    @Test
+    public void testNotStartClatdWithNativeCreateTunInterface() throws Exception {
+        class FailureDependencies extends TestDependencies {
+            @Override
+            public int createTunInterface(@NonNull String tuniface) throws IOException {
+                throw new IOException();
+            }
+        }
+        checkNotStartClatdBy(new FailureDependencies(), false /* verifyTunFd */,
+                false /* verifyPacketSockFd */, false /* verifyRawSockFd */);
+    }
+
+    @Test
+    public void testNotStartClatdWithNativeDetectMtu() throws Exception {
+        class FailureDependencies extends TestDependencies {
+            @Override
+            public int detectMtu(@NonNull String platSubnet, int platSuffix, int mark)
+                    throws IOException {
+                throw new IOException();
+            }
+        }
+        checkNotStartClatdBy(new FailureDependencies(), true /* verifyTunFd */,
+                false /* verifyPacketSockFd */, false /* verifyRawSockFd */);
+    }
+
+    @Test
+    public void testNotStartClatdWithNativeOpenPacketSocket() throws Exception {
+        class FailureDependencies extends TestDependencies {
+            @Override
+            public int openPacketSocket() throws IOException {
+                throw new IOException();
+            }
+        }
+        checkNotStartClatdBy(new FailureDependencies(), true /* verifyTunFd */,
+                false /* verifyPacketSockFd */, false /* verifyRawSockFd */);
+    }
+
+    @Test
+    public void testNotStartClatdWithNativeOpenRawSocket6() throws Exception {
+        class FailureDependencies extends TestDependencies {
+            @Override
+            public int openRawSocket6(int mark) throws IOException {
+                throw new IOException();
+            }
+        }
+        checkNotStartClatdBy(new FailureDependencies(), true /* verifyTunFd */,
+                true /* verifyPacketSockFd */, false /* verifyRawSockFd */);
+    }
+
+    @Test
+    public void testNotStartClatdWithNativeAddAnycastSetsockopt() throws Exception {
+        class FailureDependencies extends TestDependencies {
+            @Override
+            public void addAnycastSetsockopt(@NonNull FileDescriptor sock, String v6,
+                    int ifindex) throws IOException {
+                throw new IOException();
+            }
+        }
+        checkNotStartClatdBy(new FailureDependencies(), true /* verifyTunFd */,
+                true /* verifyPacketSockFd */, true /* verifyRawSockFd */);
+    }
+
+    @Test
+    public void testNotStartClatdWithNativeTagSocketAsClat() throws Exception {
+        class FailureDependencies extends TestDependencies {
+            @Override
+            public long tagSocketAsClat(@NonNull FileDescriptor sock) throws IOException {
+                throw new IOException();
+            }
+        }
+        checkNotStartClatdBy(new FailureDependencies(), true /* verifyTunFd */,
+                true /* verifyPacketSockFd */, true /* verifyRawSockFd */);
+    }
+
+    @Test
+    public void testNotStartClatdWithNativeConfigurePacketSocket() throws Exception {
+        class FailureDependencies extends TestDependencies {
+            @Override
+            public void configurePacketSocket(@NonNull FileDescriptor sock, String v6,
+                    int ifindex) throws IOException {
+                throw new IOException();
+            }
+        }
+        checkNotStartClatdBy(new FailureDependencies(), true /* verifyTunFd */,
+                true /* verifyPacketSockFd */, true /* verifyRawSockFd */);
+    }
+
+    @Test
+    public void testNotStartClatdWithNativeStartClatd() throws Exception {
+        class FailureDependencies extends TestDependencies {
+            @Override
+            public int startClatd(@NonNull FileDescriptor tunfd, @NonNull FileDescriptor readsock6,
+                    @NonNull FileDescriptor writesock6, @NonNull String iface,
+                    @NonNull String pfx96, @NonNull String v4, @NonNull String v6)
+                    throws IOException {
+                throw new IOException();
+            }
+        }
+        checkNotStartClatdBy(new FailureDependencies(), true /* verifyTunFd */,
+                true /* verifyPacketSockFd */, true /* verifyRawSockFd */);
     }
 }
