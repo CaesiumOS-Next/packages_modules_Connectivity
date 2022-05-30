@@ -22,6 +22,30 @@
       },
       "revId": "b618344cdcfc26164f2c00b0b37d1e94789d4161",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1df44924_5e3b926b",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-05-30T01:31:52Z",
+      "side": 1,
+      "message": "It\u0027s for readability but this is removed now.",
+      "parentUuid": "18b92899_d31c3981",
+      "range": {
+        "startLine": 93,
+        "startChar": 43,
+        "endLine": 93,
+        "endChar": 44
+      },
+      "revId": "b618344cdcfc26164f2c00b0b37d1e94789d4161",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
