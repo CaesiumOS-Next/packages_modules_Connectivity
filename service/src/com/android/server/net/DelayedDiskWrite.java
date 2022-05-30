@@ -21,6 +21,8 @@ import android.os.HandlerThread;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.android.internal.annotations.VisibleForTesting;
+
 import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
@@ -34,8 +36,17 @@ public class DelayedDiskWrite {
 
     private HandlerThread mDiskWriteHandlerThread;
     private Handler mDiskWriteHandler;
-    /* Tracks multiple writes on the same thread */
-    private int mWriteSequence = 0;
+
+    @VisibleForTesting
+    DelayedDiskWrite(Handler handler) {
+        mDiskWriteHandler = handler;
+    }
+
+    public DelayedDiskWrite() {
+        mDiskWriteHandlerThread = new HandlerThread("DelayedDiskWriteThread");
+        mDiskWriteHandlerThread.start();
+        mDiskWriteHandler = new Handler(mDiskWriteHandlerThread.getLooper());
+    }
 
     /**
      * Used to do a delayed data write to a given {@link OutputStream}.
@@ -62,15 +73,6 @@ public class DelayedDiskWrite {
             throw new IllegalArgumentException("empty file path");
         }
 
-        /* Do a delayed write to disk on a separate handler thread */
-        synchronized (this) {
-            if (++mWriteSequence == 1) {
-                mDiskWriteHandlerThread = new HandlerThread("DelayedDiskWriteThread");
-                mDiskWriteHandlerThread.start();
-                mDiskWriteHandler = new Handler(mDiskWriteHandlerThread.getLooper());
-            }
-        }
-
         mDiskWriteHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -95,15 +97,6 @@ public class DelayedDiskWrite {
                     out.close();
                 } catch (Exception e) { }
             }
-
-            // Quit if no more writes sent
-            synchronized (this) {
-                if (--mWriteSequence == 0) {
-                    mDiskWriteHandler.getLooper().quit();
-                    mDiskWriteHandler = null;
-                    mDiskWriteHandlerThread = null;
-                }
-            }
         }
     }
 
@@ -111,4 +104,3 @@ public class DelayedDiskWrite {
         Log.e(TAG, s);
     }
 }
-
