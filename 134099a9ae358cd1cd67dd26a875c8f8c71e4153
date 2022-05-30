@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71b4bc29_c7013823",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-30T02:43:23Z",
+      "side": 1,
+      "message": "Could you add it to TEST_MAPPING too ?",
+      "range": {
+        "startLine": 109,
+        "startChar": 11,
+        "endLine": 109,
+        "endChar": 40
+      },
+      "revId": "134099a9ae358cd1cd67dd26a875c8f8c71e4153",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d878185_57327cef",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-30T02:43:23Z",
+      "side": 1,
+      "message": "Should this be in CTS too, like CtsNetTestCases ?",
+      "range": {
+        "startLine": 119,
+        "startChar": 4,
+        "endLine": 119,
+        "endChar": 15
+      },
+      "revId": "134099a9ae358cd1cd67dd26a875c8f8c71e4153",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
