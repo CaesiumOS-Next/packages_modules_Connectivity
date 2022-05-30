@@ -21,6 +21,8 @@ import android.os.HandlerThread;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.android.internal.annotations.VisibleForTesting;
+
 import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
@@ -32,10 +34,20 @@ import java.io.IOException;
 public class DelayedDiskWrite {
     private static final String TAG = "DelayedDiskWrite";
 
-    private HandlerThread mDiskWriteHandlerThread;
-    private Handler mDiskWriteHandler;
-    /* Tracks multiple writes on the same thread */
-    private int mWriteSequence = 0;
+    private final HandlerThread mDiskWriteHandlerThread;
+    private final Handler mDiskWriteHandler;
+
+    @VisibleForTesting
+    DelayedDiskWrite(Handler handler) {
+        mDiskWriteHandler = handler;
+        mDiskWriteHandlerThread = null;
+    }
+
+    public DelayedDiskWrite() {
+        mDiskWriteHandlerThread = new HandlerThread("DelayedDiskWriteThread");
+        mDiskWriteHandlerThread.start();
+        mDiskWriteHandler = new Handler(mDiskWriteHandlerThread.getLooper());
+    }
 
     /**
      * Used to do a delayed data write to a given {@link OutputStream}.
@@ -61,22 +73,7 @@ public class DelayedDiskWrite {
         if (TextUtils.isEmpty(filePath)) {
             throw new IllegalArgumentException("empty file path");
         }
-
-        /* Do a delayed write to disk on a separate handler thread */
-        synchronized (this) {
-            if (++mWriteSequence == 1) {
-                mDiskWriteHandlerThread = new HandlerThread("DelayedDiskWriteThread");
-                mDiskWriteHandlerThread.start();
-                mDiskWriteHandler = new Handler(mDiskWriteHandlerThread.getLooper());
-            }
-        }
-
-        mDiskWriteHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                doWrite(filePath, w, open);
-            }
-        });
+        mDiskWriteHandler.post(() -> doWrite(filePath, w, open));
     }
 
     private void doWrite(String filePath, Writer w, boolean open) {
@@ -95,15 +92,6 @@ public class DelayedDiskWrite {
                     out.close();
                 } catch (Exception e) { }
             }
-
-            // Quit if no more writes sent
-            synchronized (this) {
-                if (--mWriteSequence == 0) {
-                    mDiskWriteHandler.getLooper().quit();
-                    mDiskWriteHandler = null;
-                    mDiskWriteHandlerThread = null;
-                }
-            }
         }
     }
 
@@ -111,4 +99,3 @@ public class DelayedDiskWrite {
         Log.e(TAG, s);
     }
 }
-
