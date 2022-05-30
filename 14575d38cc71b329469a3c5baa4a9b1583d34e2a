@@ -16,6 +16,24 @@
       "message": "BTW, just roughly looking the test that it won\u0027t prevent running in S and R device. It seems fine that I don\u0027t see it use S+ specific but could you double confirm it work in R and S device ?",
       "revId": "14575d38cc71b329469a3c5baa4a9b1583d34e2a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18a36c3c_28095027",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-05-30T08:33:08Z",
+      "side": 1,
+      "message": "It\u0027s configured in net_native_test_config_template.\nhttps://osscs.corp.google.com/android/platform/superproject/+/master:packages/modules/Connectivity/tests/native/NetNativeTestConfigTemplate.xml;l\u003d19?q\u003dNetNativeTestConfigTemplate.xml%20Sdk33ModuleController\u0026ss\u003dandroid%2Fplatform%2Fsuperproject",
+      "parentUuid": "0ab40ef8_7f704004",
+      "revId": "14575d38cc71b329469a3c5baa4a9b1583d34e2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
