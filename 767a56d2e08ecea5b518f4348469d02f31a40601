@@ -52,6 +52,75 @@
       "parentUuid": "a79b2395_a30d17da",
       "revId": "767a56d2e08ecea5b518f4348469d02f31a40601",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81acce3d_f43e0239",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-30T08:22:17Z",
+      "side": 1,
+      "message": "I think you should move this into first line after try at l. 430. Otherwise if assume wifi tethering fail, unregisterTetheringEventCallback(at l.443) won\u0027t be called. At this case, previousWifiEnabledState would be false so this test won\u0027t call connectToWifi (at l.445).",
+      "range": {
+        "startLine": 427,
+        "startChar": 8,
+        "endLine": 427,
+        "endChar": 67
+      },
+      "revId": "767a56d2e08ecea5b518f4348469d02f31a40601",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c883c8ef_f351e088",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-30T08:22:17Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 459,
+        "startChar": 0,
+        "endLine": 459,
+        "endChar": 67
+      },
+      "revId": "767a56d2e08ecea5b518f4348469d02f31a40601",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da5f0fa5_5d156b76",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-30T08:22:17Z",
+      "side": 1,
+      "message": "If you implement startListening in TestCarrierConfigReceiver, then you could just use TestCarrierConfigReceiver here without having CarrierConfigBroadcastListener extends TestCarrierConfigReceiver.\n\nTestCarrierConfigReceiver configListener \u003d new TestCarrierConfigReceiver(mContext, currentSubId, timeoutMs, bundle) {\n    @Override\n    public boolean matchesBroadcast(PersistableBundle configs) throws Exception {\n        boolean receiveConfigValue \u003d configs.getBoolean(mCarrierConfigName);\n        boolean requestConfigValue \u003d mRequestedConfig.getBoolean(mCarrierConfigName);\n            return Objects.equals(receiveConfigValue, requestConfigValue);\n    }\n};",
+      "range": {
+        "startLine": 512,
+        "startChar": 0,
+        "endLine": 513,
+        "endChar": 94
+      },
+      "revId": "767a56d2e08ecea5b518f4348469d02f31a40601",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
