@@ -49,6 +49,7 @@ import android.os.ParcelFileDescriptor;
 
 import androidx.test.filters.SmallTest;
 
+import com.android.internal.util.IndentingPrintWriter;
 import com.android.net.module.util.IBpfMap;
 import com.android.net.module.util.bpf.ClatEgress4Key;
 import com.android.net.module.util.bpf.ClatEgress4Value;
@@ -56,6 +57,7 @@ import com.android.net.module.util.bpf.ClatIngress6Key;
 import com.android.net.module.util.bpf.ClatIngress6Value;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
+import com.android.testutils.TestBpfMap;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -67,6 +69,7 @@ import org.mockito.Spy;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.util.Objects;
@@ -124,10 +127,13 @@ public class ClatCoordinatorTest {
     private static final ClatIngress6Value INGRESS_VALUE = new ClatIngress6Value(STACKED_IFINDEX,
             INET4_LOCAL4);
 
+    private final TestBpfMap<ClatIngress6Key, ClatIngress6Value> mIngressMap =
+            spy(new TestBpfMap<>(ClatIngress6Key.class, ClatIngress6Value.class));
+    private final TestBpfMap<ClatEgress4Key, ClatEgress4Value> mEgressMap =
+            spy(new TestBpfMap<>(ClatEgress4Key.class, ClatEgress4Value.class));
+
     @Mock private INetd mNetd;
     @Spy private TestDependencies mDeps = new TestDependencies();
-    @Mock private IBpfMap<ClatIngress6Key, ClatIngress6Value> mIngressMap;
-    @Mock private IBpfMap<ClatEgress4Key, ClatEgress4Value> mEgressMap;
 
     /**
       * The dependency injection class is used to mock the JNI functions and system functions
@@ -671,5 +677,26 @@ public class ClatCoordinatorTest {
         }
         checkNotStartClatdBy(new FailureDependencies(), true /* verifyTunFd */,
                 true /* verifyPacketSockFd */, true /* verifyRawSockFd */);
+    }
+
+    @Test
+    public void testDump() throws Exception {
+        final ClatCoordinator coordinator = makeClatCoordinator();
+        final StringWriter stringWriter = new StringWriter();
+        final IndentingPrintWriter ipw = new IndentingPrintWriter(stringWriter, " ");
+        coordinator.clatStart(BASE_IFACE, NETID, NAT64_IP_PREFIX);
+        coordinator.dump(ipw);
+
+        final String[] dumpStrings = stringWriter.toString().split("\n");
+        assertEquals(5, dumpStrings.length);
+        assertEquals("Forwarding rules:", dumpStrings[0].trim());
+        assertEquals("BPF ingress map: iif nat64Prefix v6Addr -> v4Addr oif",
+                dumpStrings[1].trim());
+        assertEquals("1000 /64:ff9b::/96 /2001:db8:0:b11::464 -> /192.0.0.46 1001",
+                dumpStrings[2].trim());
+        assertEquals("BPF egress map: iif v4Addr -> v6Addr nat64Prefix oif",
+                dumpStrings[3].trim());
+        assertEquals("1001 /192.0.0.46 -> /2001:db8:0:b11::464 /64:ff9b::/96 1000 ether",
+                dumpStrings[4].trim());
     }
 }
