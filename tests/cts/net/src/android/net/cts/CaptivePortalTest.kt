@@ -60,6 +60,7 @@ import org.junit.After
 import org.junit.Assume.assumeTrue
 import org.junit.Assume.assumeFalse
 import org.junit.Before
+import org.junit.BeforeClass
 import org.junit.runner.RunWith
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.TimeUnit
@@ -99,32 +100,36 @@ class CaptivePortalTest {
 
     private val server = TestHttpServer("localhost")
 
+    companion object {
+        @JvmStatic @BeforeClass
+        fun setUpClass() {
+            runAsShell(READ_DEVICE_CONFIG) {
+                // Verify that the test URLs are not normally set on the device, but do not fail if the
+                // test URLs are set to what this test uses (URLs on localhost), in case the test was
+                // interrupted manually and rerun.
+                assertEmptyOrLocalhostUrl(TEST_CAPTIVE_PORTAL_HTTPS_URL)
+                assertEmptyOrLocalhostUrl(TEST_CAPTIVE_PORTAL_HTTP_URL)
+            }
+        }
+
+        private fun assertEmptyOrLocalhostUrl(urlKey: String) {
+            val url = DeviceConfig.getProperty(NAMESPACE_CONNECTIVITY, urlKey)
+            assertTrue(TextUtils.isEmpty(url) || LOCALHOST_HOSTNAME == Uri.parse(url).host,
+                    "$urlKey must not be set in production scenarios (current value: $url)")
+        }
+    }
+
     @Before
     fun setUp() {
-        runAsShell(READ_DEVICE_CONFIG) {
-            // Verify that the test URLs are not normally set on the device, but do not fail if the
-            // test URLs are set to what this test uses (URLs on localhost), in case the test was
-            // interrupted manually and rerun.
-            assertEmptyOrLocalhostUrl(TEST_CAPTIVE_PORTAL_HTTPS_URL)
-            assertEmptyOrLocalhostUrl(TEST_CAPTIVE_PORTAL_HTTP_URL)
-        }
-        clearValidationTestUrlsDeviceConfig()
         server.start()
     }
 
     @After
     fun tearDown() {
-        clearValidationTestUrlsDeviceConfig()
         if (pm.hasSystemFeature(FEATURE_WIFI)) {
             reconnectWifi()
         }
         server.stop()
-    }
-
-    private fun assertEmptyOrLocalhostUrl(urlKey: String) {
-        val url = DeviceConfig.getProperty(NAMESPACE_CONNECTIVITY, urlKey)
-        assertTrue(TextUtils.isEmpty(url) || LOCALHOST_HOSTNAME == Uri.parse(url).host,
-                "$urlKey must not be set in production scenarios (current value: $url)")
     }
 
     @Test
