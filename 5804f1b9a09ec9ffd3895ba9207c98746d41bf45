@@ -22,6 +22,30 @@
       },
       "revId": "5804f1b9a09ec9ffd3895ba9207c98746d41bf45",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e337b0a1_b0c79bd4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9255,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-31T09:51:38Z",
+      "side": 1,
+      "message": "Done, took some of the text from Jean\u0027s original change in aosp/1987887 so it stays captured here.",
+      "parentUuid": "054e081c_32836c3a",
+      "range": {
+        "startLine": 9255,
+        "startChar": 12,
+        "endLine": 9255,
+        "endChar": 40
+      },
+      "revId": "5804f1b9a09ec9ffd3895ba9207c98746d41bf45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
