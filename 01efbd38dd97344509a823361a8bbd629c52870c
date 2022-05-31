@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c72a0e87_ccf4809c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-31T03:27:14Z",
+      "side": 1,
+      "message": "readIpConfiguration is not a api, remove this ?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 3
+      },
+      "revId": "01efbd38dd97344509a823361a8bbd629c52870c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ceffaa8_6008c3e2",
+        "filename": "service/src/com/android/server/net/DelayedDiskWrite.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-31T03:27:14Z",
+      "side": 1,
+      "message": "private final ? Both mDiskWriteHandlerThread and mDiskWriteHandler could be immutable which would be more easy to maintain.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 38
+      },
+      "revId": "01efbd38dd97344509a823361a8bbd629c52870c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79fa0fb2_15260e8f",
+        "filename": "service/src/com/android/server/net/DelayedDiskWrite.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-31T03:27:14Z",
+      "side": 1,
+      "message": "This could also be: mDiskWriteHandler.post(() -\u003e doWrite(filePath, w, open));",
+      "range": {
+        "startLine": 76,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 11
+      },
+      "revId": "01efbd38dd97344509a823361a8bbd629c52870c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53b78ddb_bbf9db5f",
+        "filename": "tests/unit/java/com/android/server/net/IpConfigStoreTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-31T03:27:14Z",
+      "side": 1,
+      "message": "You could just: return testDir.mkdirs();\n\nBut it seems you just get a existing path, why need to call mkdirs again ?\nDoes this work ?\n    return new File(context.getFilesDir().getPath());",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 23
+      },
+      "revId": "01efbd38dd97344509a823361a8bbd629c52870c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58d2bd46_67e43b62",
+        "filename": "tests/unit/java/com/android/server/net/IpConfigStoreTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-31T03:27:14Z",
+      "side": 1,
+      "message": "You can just use TestLooper ?\nTestLooper looper \u003d new TestLooper();\nfinal DelayedDiskWrite writer \u003d new DelayedDiskWrite(new Handler(looper));\nfinal IpConfigStore store \u003d new IpConfigStore(writer);\nstore.writeIpConfigurations(configFile.getPath(), expectedNetworks);\nlooper.dispatchAll();",
+      "range": {
+        "startLine": 143,
+        "startChar": 8,
+        "endLine": 145,
+        "endChar": 71
+      },
+      "revId": "01efbd38dd97344509a823361a8bbd629c52870c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
