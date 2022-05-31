@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03ccec4b_15811c53",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-31T06:00:39Z",
+      "side": 1,
+      "message": "It seems you\u0027ll need to mock this function mBpfNetMaps.swapActiveStatsMap();",
+      "range": {
+        "startLine": 254,
+        "startChar": 16,
+        "endLine": 254,
+        "endChar": 47
+      },
+      "revId": "4285815e355699b8efef2d8bfb278589271336e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
