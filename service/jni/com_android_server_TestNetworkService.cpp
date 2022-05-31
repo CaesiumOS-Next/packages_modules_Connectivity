@@ -21,6 +21,7 @@
 #include <arpa/inet.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <linux/if_arp.h>
 #include <linux/if.h>
 #include <linux/if_tun.h>
 #include <linux/ipv6_route.h>
@@ -56,11 +57,17 @@ static int createTunTapInterface(JNIEnv* env, bool isTun, const char* iface) {
     ifreq ifr{};
 
     // Allocate interface.
-    ifr.ifr_flags = (isTun ? IFF_TUN : IFF_TAP) | IFF_NO_PI;
+    ifr.ifr_flags = IFF_TUN | IFF_NO_PI;
     strlcpy(ifr.ifr_name, iface, IFNAMSIZ);
     if (ioctl(tun.get(), TUNSETIFF, &ifr)) {
         throwException(env, errno, "allocating", ifr.ifr_name);
         return -1;
+    }
+
+    if (!isTun) { // configure as tap interface
+      if (ioctl(tun.get(), TUNSETLINK, ARPHRD_ETHER)) {
+          throwException(env, errno, "set ether link", ifr.ifr_name);
+      }
     }
 
     // Activate interface using an unconnected datagram socket.
