@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04a2b0d8_7e262c89",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-05-31T05:27:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c72a0e87_ccf4809c",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 3
+      },
+      "revId": "01efbd38dd97344509a823361a8bbd629c52870c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ceffaa8_6008c3e2",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-31T03:27:14Z",
       "side": 1,
       "message": "private final ? Both mDiskWriteHandlerThread and mDiskWriteHandler could be immutable which would be more easy to maintain.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 38
+      },
+      "revId": "01efbd38dd97344509a823361a8bbd629c52870c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57b19e4e_c8c577f9",
+        "filename": "service/src/com/android/server/net/DelayedDiskWrite.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-05-31T05:27:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ceffaa8_6008c3e2",
       "range": {
         "startLine": 37,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09f4b04d_53e8f14e",
+        "filename": "service/src/com/android/server/net/DelayedDiskWrite.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-05-31T05:27:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79fa0fb2_15260e8f",
+      "range": {
+        "startLine": 76,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 11
+      },
+      "revId": "01efbd38dd97344509a823361a8bbd629c52870c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53b78ddb_bbf9db5f",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44d6b9ba_41a72843",
+        "filename": "tests/unit/java/com/android/server/net/IpConfigStoreTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-05-31T05:27:01Z",
+      "side": 1,
+      "message": "hmmm, looks like FileOutputStream can help us create a file if that\u0027s not exist but doable to create. Then yes, we don\u0027t need to create the directory by ourselves.\nhttps://docs.oracle.com/javase/7/docs/api/java/io/FileOutputStream.html#FileOutputStream(java.lang.String)",
+      "parentUuid": "53b78ddb_bbf9db5f",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 23
+      },
+      "revId": "01efbd38dd97344509a823361a8bbd629c52870c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58d2bd46_67e43b62",
@@ -106,6 +202,30 @@
       "writtenOn": "2022-05-31T03:27:14Z",
       "side": 1,
       "message": "You can just use TestLooper ?\nTestLooper looper \u003d new TestLooper();\nfinal DelayedDiskWrite writer \u003d new DelayedDiskWrite(new Handler(looper));\nfinal IpConfigStore store \u003d new IpConfigStore(writer);\nstore.writeIpConfigurations(configFile.getPath(), expectedNetworks);\nlooper.dispatchAll();",
+      "range": {
+        "startLine": 143,
+        "startChar": 8,
+        "endLine": 145,
+        "endChar": 71
+      },
+      "revId": "01efbd38dd97344509a823361a8bbd629c52870c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28c2e8ef_494cc802",
+        "filename": "tests/unit/java/com/android/server/net/IpConfigStoreTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-05-31T05:27:01Z",
+      "side": 1,
+      "message": "This should work as well, have no strong opinion, prefer to use HandlerUtils.waitForIdle(handler, TIMEOUT_MS) instead, that might be more explicit to know how why we need this refactor on the DelayedDiskWriter constructors.",
+      "parentUuid": "58d2bd46_67e43b62",
       "range": {
         "startLine": 143,
         "startChar": 8,
