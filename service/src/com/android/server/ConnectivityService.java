@@ -9252,7 +9252,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
             params.networkCapabilities = networkAgent.networkCapabilities;
             params.linkProperties = new LinkProperties(networkAgent.linkProperties,
                     true /* parcelSensitiveFields */);
-            networkAgent.networkMonitor().notifyNetworkConnected(params);
+            if (SdkLevel.isAtLeastT()) {
+                networkAgent.networkMonitor().notifyNetworkConnected(params);
+            } else {
+                networkAgent.networkMonitor().notifyNetworkConnected(params.linkProperties,
+                        params.networkCapabilities);
+            }
             scheduleUnvalidatedPrompt(networkAgent);
 
             // Whether a particular NetworkRequest listen should cause signal strength thresholds to
