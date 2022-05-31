@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cf6ed68_2e90a5a1",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-31T09:04:18Z",
+      "side": 1,
+      "message": "Maybe put this into  Dependencies as well?",
+      "range": {
+        "startLine": 182,
+        "startChar": 18,
+        "endLine": 182,
+        "endChar": 34
+      },
+      "revId": "5c16cdc19141b183deceeaba0798bac596a21af3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
