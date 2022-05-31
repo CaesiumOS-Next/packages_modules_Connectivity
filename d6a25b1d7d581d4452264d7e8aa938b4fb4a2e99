@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11dac4c7_82bab7f3",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-05-31T13:24:51Z",
+      "side": 1,
+      "message": "Connect to Wifi is to depend on the wifi status. Once the",
+      "parentUuid": "19ab33bf_c1d110be",
+      "range": {
+        "startLine": 425,
+        "startChar": 32,
+        "endLine": 425,
+        "endChar": 60
+      },
+      "revId": "d6a25b1d7d581d4452264d7e8aa938b4fb4a2e99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72a68316_d9c158d9",
