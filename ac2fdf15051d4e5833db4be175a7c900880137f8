@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3a0b2d7_ba07f8e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-31T06:28:56Z",
+      "side": 1,
+      "message": "Changing the threading model of a class is generally not something to be taken lightly because it can introduce breakage that is difficult to spot.\n\nIf you want to change the threading model i think we would first want to add multi-threaded tests to ensure that the change didn\u0027t break anything.\n\nAdditionally, this change consumes more memory because the thread is never garbage collected.\n\nBut in this case it looks like there\u0027s no need to change the threading model. You could just add a Dependencies class that has a makeHandlerThread method or similar.",
+      "revId": "ac2fdf15051d4e5833db4be175a7c900880137f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
