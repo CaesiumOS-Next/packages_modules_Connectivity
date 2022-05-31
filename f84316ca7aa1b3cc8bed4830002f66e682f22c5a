@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8f80329_e128f07f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-31T16:22:06Z",
+      "side": 1,
+      "message": "This CL includes both changes to tethering and to the existing ConnectivityDiagnosticsManagerTest\n\nCan you put the ConnectivityDiagnosticsManagerTest changes into a separate CL? That way we can merge that CL together with aosp/2106007 in a topic which is a pure refactoring change. Then we can merge this CL on top of that topic.",
+      "range": {
+        "startLine": 85,
+        "startChar": 29,
+        "endLine": 85,
+        "endChar": 54
+      },
+      "revId": "f84316ca7aa1b3cc8bed4830002f66e682f22c5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b650e29f_f510736c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-31T16:22:06Z",
+      "side": 1,
+      "message": "Subclasses of TestCarrierConfigReceiver should not be touching the latch. That is private, and should stay private. The only way they should be able to interact is by returning true or false or throwing. Also, there\u0027s no need to catch the exception if the code is just going to throw it again. So this method could just be:\n\n    @Override\n    public boolean matchesBroadcast(PersistableBundle config) throws Exception {\n        // Wait until the broadcast shows this package as carrier privileged.\n        final String[] certs \u003d configs.getStringArray(\n                CarrierConfigManager.KEY_CARRIER_CERTIFICATE_STRING_ARRAY);\n        return ArrayUtils.contains(certs, getCertHashForThisPackage());\n    }",
+      "range": {
+        "startLine": 263,
+        "startChar": 28,
+        "endLine": 263,
+        "endChar": 47
+      },
+      "revId": "f84316ca7aa1b3cc8bed4830002f66e682f22c5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59ca683d_c30145e8",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-05-31T16:22:06Z",
+      "side": 1,
+      "message": "Is this lock still needed? The intention of this lock is to ensure that two threads are not requesting the shell permission identity at the same time. The two threads in question are the thread that is running the test (i.e., running this code) and the broadcast thread which is executing the onReceive method of the BroadcastReceiver.\n\nBut in your new code, overrideCarrierConfigForTest waits for the broadcast and fails if the broadcast is not received, I don\u0027t think it\u0027s possible for these two threads to run at the same time. So maybe you can remove this lock?",
+      "range": {
+        "startLine": 275,
+        "startChar": 22,
+        "endLine": 275,
+        "endChar": 51
+      },
+      "revId": "f84316ca7aa1b3cc8bed4830002f66e682f22c5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
