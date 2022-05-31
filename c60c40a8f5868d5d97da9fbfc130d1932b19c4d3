@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bbde696_79efcf35",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-31T05:57:28Z",
+      "side": 1,
+      "message": "Tethering (both Next and current version) is not bumping the target sdk yet, so I don\u0027t this is only for target SDK T. File b/233978831 to make TetheringNext target with latest sdk.\n\nThere is test setup from nearby team in the lab, see https://b.corp.google.com/issues/229183910#comment40. (It is for MULTIDEVICE. There is a doc (https://docs.google.com/document/d/1erwP9mmCwzeDwcGCluq9mZnVil53rx4h8dcv-FXuHFA/edit#) for how to setup the test locally )",
+      "parentUuid": "a78fb777_6cdf470f",
+      "revId": "c60c40a8f5868d5d97da9fbfc130d1932b19c4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4949117_53a8ee23",
@@ -43,6 +61,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6b46a91d_3671699b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-31T05:57:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4949117_53a8ee23",
+      "range": {
+        "startLine": 14,
+        "startChar": 6,
+        "endLine": 15,
+        "endChar": 57
+      },
+      "revId": "c60c40a8f5868d5d97da9fbfc130d1932b19c4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d92f0c6d_f86d8853",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -54,6 +96,23 @@
       "writtenOn": "2022-05-25T03:38:04Z",
       "side": 1,
       "message": "LGTM but make sure to test before/after locally (I think you did already) and to mention what you did in the commit message.\n\nAlso I think we need to make sure regression testing is in place before forgetting about it.",
+      "revId": "c60c40a8f5868d5d97da9fbfc130d1932b19c4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f145a4bc_6e4e3743",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-05-31T05:57:28Z",
+      "side": 1,
+      "message": "I probably not needed anymore, the sender side plan to guard with TETHER_PRIVILEGED instead. See ag/18618731.",
       "revId": "c60c40a8f5868d5d97da9fbfc130d1932b19c4d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
