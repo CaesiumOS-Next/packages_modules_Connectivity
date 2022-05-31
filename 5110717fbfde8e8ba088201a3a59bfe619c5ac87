@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d9a30032_5ba79f96",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-31T04:06:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efed3373_22847d93",
+      "range": {
+        "startLine": 10,
+        "startChar": 46,
+        "endLine": 10,
+        "endChar": 53
+      },
+      "revId": "5110717fbfde8e8ba088201a3a59bfe619c5ac87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "00ef614c_855f4ca9",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -66,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a40f450d_58364b70",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-31T04:06:56Z",
+      "side": 1,
+      "message": "Unfortunately they can\u0027t; networking APIs are generally using Network objects, not interface names, so there isn\u0027t really a way to reference a tethering downstream. Here NsdService will do the right thing if you use the NsdServiceInfo that you obtained from discovery (which will have the interfaceIndex set) to resolve, but that\u0027s the only way to have it set for an app.\n\nIf it isn\u0027t set and there\u0027s no Network set (since there\u0027s no Network for tethering downstreams), it still works since it uses legacy behavior though.",
+      "parentUuid": "3f2349ed_0953322a",
+      "range": {
+        "startLine": 844,
+        "startChar": 16,
+        "endLine": 844,
+        "endChar": 52
+      },
+      "revId": "5110717fbfde8e8ba088201a3a59bfe619c5ac87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b352e07_a47e6a9b",
         "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
         "patchSetId": 2
@@ -77,6 +125,30 @@
       "writtenOn": "2022-05-31T03:41:38Z",
       "side": 1,
       "message": "Do you want to verify that Network is null?",
+      "range": {
+        "startLine": 382,
+        "startChar": 71,
+        "endLine": 382,
+        "endChar": 72
+      },
+      "revId": "5110717fbfde8e8ba088201a3a59bfe619c5ac87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2bdc61f_060984b6",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-31T04:06:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b352e07_a47e6a9b",
       "range": {
         "startLine": 382,
         "startChar": 71,
