@@ -114,6 +114,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e0cb65f0_6b68f28d",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-31T05:27:14Z",
+      "side": 1,
+      "message": "Note: go/localnetworkagents is supposed to help with that eventually",
+      "parentUuid": "a40f450d_58364b70",
+      "range": {
+        "startLine": 844,
+        "startChar": 16,
+        "endLine": 844,
+        "endChar": 52
+      },
+      "revId": "5110717fbfde8e8ba088201a3a59bfe619c5ac87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b352e07_a47e6a9b",
         "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
         "patchSetId": 2
