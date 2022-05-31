@@ -166,6 +166,30 @@
       },
       "revId": "37a892323d810f21e777f46783f1ec729c91f067",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "835e8ddc_6663b7a7",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-05-31T09:32:06Z",
+      "side": 1,
+      "message": "The issue was different bpf map declarations using different key sizes.\n\nSome would still use u8, others u32.\n\nWhen a u8 user would write a 1, the kernel would still use the actual map key size and write a u32, with 24 bits of garbage from the stack.\n\nThen when another spot would correctly read the full u32, it would get junk, and do an out of bounds memory access.\n\nThe beginning of key/value size enforcement on bpf maps is in https://android-review.googlesource.com/c/platform/frameworks/libs/net/+/2111144 which is helping to fix this commit up.  (that commit is still leaky - no java support and no .reset() checking)",
+      "parentUuid": "95fbccb3_67d85b9a",
+      "range": {
+        "startLine": 208,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 69
+      },
+      "revId": "37a892323d810f21e777f46783f1ec729c91f067",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
