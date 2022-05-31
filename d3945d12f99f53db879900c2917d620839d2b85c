@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e80224a2_b56d6408",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-31T01:35:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef5c9b1d_f76d121d",
+      "range": {
+        "startLine": 483,
+        "startChar": 24,
+        "endLine": 483,
+        "endChar": 45
+      },
+      "revId": "d3945d12f99f53db879900c2917d620839d2b85c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "155f467d_573f1bdd",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-05-30T16:07:29Z",
       "side": 1,
       "message": "Not for this CL, but having two similar rules is confusing and it seems quite difficult to decide which to use. Can we delete one of them? If everything were to use this one, would things work?",
+      "range": {
+        "startLine": 143,
+        "startChar": 86,
+        "endLine": 144,
+        "endChar": 46
+      },
+      "revId": "d3945d12f99f53db879900c2917d620839d2b85c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e5b28db_bac8e559",
+        "filename": "tests/common/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-31T01:35:19Z",
+      "side": 1,
+      "message": "We can\u0027t delete this one because it\u0027s necessary for unit tests, especially once the jarjar rules are auto-generated.\n\nI\u0027d delete the above one if possible, removing dependencies on hidden APIs from non-connectivity tests, but I think we\u0027re not quite there.\n\nActually once the jarjar rules are generated, maybe everyone could use this new defaults, since non-connectivity tests would see errors at runtime anyway when they try to use symbols that are hidden+jarjared (assuming they don\u0027t import our jarjar rules too). I think it would be good to do it after autogenerating the rules though, to make sure dependencies are not added in the meantime.",
+      "parentUuid": "155f467d_573f1bdd",
       "range": {
         "startLine": 143,
         "startChar": 86,
