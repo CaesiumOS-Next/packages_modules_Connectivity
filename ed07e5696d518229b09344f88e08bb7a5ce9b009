@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c7accc3_08c00359",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-05-31T08:08:36Z",
+      "side": 1,
+      "message": "We have such definition but we will never receive the disable state. Do you want to document it somewhere that the nsd service is never disabled?\n\nalso, can we say this is deprecated? since it will never happen?",
+      "range": {
+        "startLine": 178,
+        "startChar": 28,
+        "endLine": 178,
+        "endChar": 46
+      },
+      "revId": "ed07e5696d518229b09344f88e08bb7a5ce9b009",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d49eecd4_8e75eb4c",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-05-31T08:08:36Z",
+      "side": 1,
+      "message": "do you want to reassign the values?",
+      "range": {
+        "startLine": 233,
+        "startChar": 4,
+        "endLine": 238,
+        "endChar": 73
+      },
+      "revId": "ed07e5696d518229b09344f88e08bb7a5ce9b009",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
