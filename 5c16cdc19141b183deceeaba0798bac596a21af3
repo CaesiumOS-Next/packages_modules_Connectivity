@@ -22,6 +22,29 @@
       },
       "revId": "5c16cdc19141b183deceeaba0798bac596a21af3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb5c7743_6b8cf420",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-05-31T09:07:20Z",
+      "side": 1,
+      "message": "It looks like these 2 functions are very similar.\nCan we refactor them? Maybe ask aaron for more context.",
+      "range": {
+        "startLine": 523,
+        "startChar": 25,
+        "endLine": 523,
+        "endChar": 48
+      },
+      "revId": "5c16cdc19141b183deceeaba0798bac596a21af3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
