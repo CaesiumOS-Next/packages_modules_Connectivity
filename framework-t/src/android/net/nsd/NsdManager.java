@@ -312,9 +312,9 @@ public final class NsdManager {
             @Override
             public void onAvailable(@NonNull Network network) {
                 final DelegatingDiscoveryListener wrappedListener = new DelegatingDiscoveryListener(
-                        network, mBaseListener);
+                        network, mBaseListener, mBaseExecutor);
                 mPerNetworkListeners.put(network, wrappedListener);
-                discoverServices(mServiceType, mProtocolType, network, mBaseExecutor,
+                discoverServices(mServiceType, mProtocolType, network, Runnable::run,
                         wrappedListener);
             }
 
@@ -334,7 +334,8 @@ public final class NsdManager {
         public void start(@NonNull NetworkRequest request) {
             final ConnectivityManager cm = mContext.getSystemService(ConnectivityManager.class);
             cm.registerNetworkCallback(request, mNetworkCb, mHandler);
-            mHandler.post(() -> mBaseListener.onDiscoveryStarted(mServiceType));
+            mHandler.post(() -> mBaseExecutor.execute(() ->
+                    mBaseListener.onDiscoveryStarted(mServiceType)));
         }
 
         /**
@@ -399,14 +400,23 @@ public final class NsdManager {
             }
         }
 
+        /**
+         * A listener wrapping calls to an app-provided listener, while keeping track of found
+         * services, so they can all be reported lost when the underlying network is lost.
+         *
+         * This should be registered to run on the service handler.
+         */
         private class DelegatingDiscoveryListener implements DiscoveryListener {
             private final Network mNetwork;
             private final DiscoveryListener mWrapped;
+            private final Executor mWrappedExecutor;
             private final ArraySet<TrackedNsdInfo> mFoundInfo = new ArraySet<>();
 
-            private DelegatingDiscoveryListener(Network network, DiscoveryListener listener) {
+            private DelegatingDiscoveryListener(Network network, DiscoveryListener listener,
+                    Executor executor) {
                 mNetwork = network;
                 mWrapped = listener;
+                mWrappedExecutor = executor;
             }
 
             void notifyAllServicesLost() {
@@ -415,7 +425,7 @@ public final class NsdManager {
                     final NsdServiceInfo serviceInfo = new NsdServiceInfo(
                             trackedInfo.mServiceName, trackedInfo.mServiceType);
                     serviceInfo.setNetwork(mNetwork);
-                    mWrapped.onServiceLost(serviceInfo);
+                    mWrappedExecutor.execute(() -> mWrapped.onServiceLost(serviceInfo));
                 }
             }
 
@@ -444,7 +454,7 @@ public final class NsdManager {
                     // Do not report onStopDiscoveryFailed when some underlying listeners failed:
                     // this does not mean that all listeners did, and onStopDiscoveryFailed is not
                     // actionable anyway. Just report that discovery stopped.
-                    mWrapped.onDiscoveryStopped(serviceType);
+                    mWrappedExecutor.execute(() -> mWrapped.onDiscoveryStopped(serviceType));
                 }
             }
 
@@ -452,20 +462,20 @@ public final class NsdManager {
             public void onDiscoveryStopped(String serviceType) {
                 mPerNetworkListeners.remove(mNetwork);
                 if (mStopRequested && mPerNetworkListeners.size() == 0) {
-                    mWrapped.onDiscoveryStopped(serviceType);
+                    mWrappedExecutor.execute(() -> mWrapped.onDiscoveryStopped(serviceType));
                 }
             }
 
             @Override
             public void onServiceFound(NsdServiceInfo serviceInfo) {
                 mFoundInfo.add(new TrackedNsdInfo(serviceInfo));
-                mWrapped.onServiceFound(serviceInfo);
+                mWrappedExecutor.execute(() -> mWrapped.onServiceFound(serviceInfo));
             }
 
             @Override
             public void onServiceLost(NsdServiceInfo serviceInfo) {
                 mFoundInfo.remove(new TrackedNsdInfo(serviceInfo));
-                mWrapped.onServiceLost(serviceInfo);
+                mWrappedExecutor.execute(() -> mWrapped.onServiceLost(serviceInfo));
             }
         }
     }
