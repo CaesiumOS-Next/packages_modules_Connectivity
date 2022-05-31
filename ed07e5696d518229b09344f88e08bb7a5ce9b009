@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55559a52_51adf6c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-31T08:49:39Z",
+      "side": 1,
+      "message": "LGTM but see comments from Chiachang too",
+      "revId": "ed07e5696d518229b09344f88e08bb7a5ce9b009",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c7accc3_08c00359",
@@ -14,6 +31,30 @@
       "writtenOn": "2022-05-31T08:08:36Z",
       "side": 1,
       "message": "We have such definition but we will never receive the disable state. Do you want to document it somewhere that the nsd service is never disabled?\n\nalso, can we say this is deprecated? since it will never happen?",
+      "range": {
+        "startLine": 178,
+        "startChar": 28,
+        "endLine": 178,
+        "endChar": 46
+      },
+      "revId": "ed07e5696d518229b09344f88e08bb7a5ce9b009",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a1d52e4_de7cd9da",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-05-31T08:49:39Z",
+      "side": 1,
+      "message": "+1; actually I think this constant can be removed.\n\nThe broadcast should be deprecated and set to max target SDK T I think (so we don\u0027t send it starting from U). Probably not for this change, but you can file a bug targeting android_2023. The logic would be similar to RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS.",
+      "parentUuid": "6c7accc3_08c00359",
       "range": {
         "startLine": 178,
         "startChar": 28,
