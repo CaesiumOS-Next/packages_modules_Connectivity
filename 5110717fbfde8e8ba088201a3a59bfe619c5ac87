@@ -43,6 +43,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3f2349ed_0953322a",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-31T03:49:35Z",
+      "side": 1,
+      "message": "Question: IIUC, the interface index getter/setter is not public. How can client set/get this value?",
+      "range": {
+        "startLine": 844,
+        "startChar": 16,
+        "endLine": 844,
+        "endChar": 52
+      },
+      "revId": "5110717fbfde8e8ba088201a3a59bfe619c5ac87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b352e07_a47e6a9b",
         "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
         "patchSetId": 2
