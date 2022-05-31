@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efed3373_22847d93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-31T03:41:38Z",
+      "side": 1,
+      "message": "usable?",
+      "range": {
+        "startLine": 10,
+        "startChar": 46,
+        "endLine": 10,
+        "endChar": 53
+      },
+      "revId": "5110717fbfde8e8ba088201a3a59bfe619c5ac87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00ef614c_855f4ca9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-31T03:41:38Z",
+      "side": 1,
+      "message": "LGTM. Thanks for adding the test to verify the callback part. I think we should have more tests to verify callback because there is no test coverage now.",
+      "revId": "5110717fbfde8e8ba088201a3a59bfe619c5ac87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b352e07_a47e6a9b",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-05-31T03:41:38Z",
+      "side": 1,
+      "message": "Do you want to verify that Network is null?",
+      "range": {
+        "startLine": 382,
+        "startChar": 71,
+        "endLine": 382,
+        "endChar": 72
+      },
+      "revId": "5110717fbfde8e8ba088201a3a59bfe619c5ac87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
