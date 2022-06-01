@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a96a3690_b191d1ef",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-06-01T08:13:54Z",
+      "side": 1,
+      "message": "Nit: It seems to me we can just modify Dev test file and remove this argument.\nBut not feel strongly.",
+      "range": {
+        "startLine": 485,
+        "startChar": 12,
+        "endLine": 488,
+        "endChar": 13
+      },
+      "revId": "f8ca524197a535130e6c2ae45e49787631f285ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

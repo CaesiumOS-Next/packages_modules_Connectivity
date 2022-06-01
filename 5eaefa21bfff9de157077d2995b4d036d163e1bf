@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "128665a8_91029ed2",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-06-01T08:13:54Z",
+      "side": 0,
+      "message": "Nit: IIUC we need to remove these line as well.\n1.\nhttps://osscs.corp.google.com/android/platform/superproject/+/master:frameworks/base/core/java/Android.bp;l\u003d173?q\u003dProcFileReader%20android.bp\u0026ss\u003dandroid%2Fplatform%2Fsuperproject\n\n2.\nhttps://osscs.corp.google.com/android/platform/superproject/+/master:packages/modules/Connectivity/service/jarjar-rules.txt;l\u003d19?q\u003dProcFileReader%20file:txt\u0026ss\u003dandroid%2Fplatform%2Fsuperproject\n\nIt can be in follow-up CLs.\nOr just create a bug and assign to me if you wish.",
+      "range": {
+        "startLine": 36,
+        "startChar": 33,
+        "endLine": 36,
+        "endChar": 47
+      },
+      "revId": "5eaefa21bfff9de157077d2995b4d036d163e1bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
