@@ -11632,7 +11632,15 @@ public class ConnectivityServiceTest {
         final StringWriter stringWriter = new StringWriter();
 
         mService.dump(new FileDescriptor(), new PrintWriter(stringWriter), new String[0]);
+        assertFalse(stringWriter.toString().isEmpty());
 
+        // Verify dump with arguments.
+        final String [] highDumpArgs = {"--dump-priority", "HIGH"};
+        mService.dump(new FileDescriptor(), new PrintWriter(stringWriter), highDumpArgs);
+        assertFalse(stringWriter.toString().isEmpty());
+
+        final String [] normalDumpArgs = {"--dump-priority", "NORMAL"};
+        mService.dump(new FileDescriptor(), new PrintWriter(stringWriter), normalDumpArgs);
         assertFalse(stringWriter.toString().isEmpty());
     }
 
