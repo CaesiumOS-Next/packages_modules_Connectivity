@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4b5f9067_4cfacb95",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-06-01T05:48:49Z",
+      "side": 1,
+      "message": "This is public API, I think we can not remove it directly. Will file a bug and try to deprecate it from U.",
+      "parentUuid": "6a1d52e4_de7cd9da",
+      "range": {
+        "startLine": 178,
+        "startChar": 28,
+        "endLine": 178,
+        "endChar": 46
+      },
+      "revId": "ed07e5696d518229b09344f88e08bb7a5ce9b009",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d49eecd4_8e75eb4c",
         "filename": "framework-t/src/android/net/nsd/NsdManager.java",
         "patchSetId": 1
@@ -78,6 +102,30 @@
       "writtenOn": "2022-05-31T08:08:36Z",
       "side": 1,
       "message": "do you want to reassign the values?",
+      "range": {
+        "startLine": 233,
+        "startChar": 4,
+        "endLine": 238,
+        "endChar": 73
+      },
+      "revId": "ed07e5696d518229b09344f88e08bb7a5ce9b009",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc06a138_0c11b728",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-06-01T05:48:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d49eecd4_8e75eb4c",
       "range": {
         "startLine": 233,
         "startChar": 4,
