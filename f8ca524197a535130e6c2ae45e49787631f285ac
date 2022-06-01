@@ -22,6 +22,30 @@
       },
       "revId": "f8ca524197a535130e6c2ae45e49787631f285ac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02c26c28_06a95771",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-01T08:36:14Z",
+      "side": 1,
+      "message": "Ack. I guess I could not modify the test file soon to address this. Maybe address it later when we re-visit it.",
+      "parentUuid": "a96a3690_b191d1ef",
+      "range": {
+        "startLine": 485,
+        "startChar": 12,
+        "endLine": 488,
+        "endChar": 13
+      },
+      "revId": "f8ca524197a535130e6c2ae45e49787631f285ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
