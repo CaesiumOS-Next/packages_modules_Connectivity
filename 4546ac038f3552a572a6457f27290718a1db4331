@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b27342ab_7b9c8df0",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 894,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-01T11:36:14Z",
+      "side": 1,
+      "message": "You could simply have a new flag to indicate ip protocol, then you could reuse most of the code:\n\nprivate boolean isExpectedUdpPacket(@NonNull final byte[] rawPacket, boolean hasEther, boolean isIpv4, @NonNull final ByteBuffer payload) {\n        final ByteBuffer buf \u003d ByteBuffer.wrap(rawPacket);\n\n        if (hasEther) {\n            final EthernetHeader etherHeader \u003d Struct.parse(EthernetHeader.class, buf);\n            if (etherHeader \u003d\u003d null) return false;\n        }\n\n        if (isIpv4) {\n            final Ipv4Header ipv4Header \u003d Struct.parse(Ipv4Header.class, buf);\n            if (ipv4Header \u003d\u003d null) return false;\n        } else {\n            // parsing Ipv6Header\n        }\n\n        final UdpHeader udpHeader \u003d Struct.parse(UdpHeader.class, buf);\n        if (udpHeader \u003d\u003d null) return false;\n\n        if (buf.remaining() !\u003d payload.limit()) return false;\n\n        return Arrays.equals(Arrays.copyOfRange(buf.array(), buf.position(), buf.limit()),\n                payload.array());\n    }",
+      "range": {
+        "startLine": 894,
+        "startChar": 20,
+        "endLine": 894,
+        "endChar": 41
+      },
+      "revId": "4546ac038f3552a572a6457f27290718a1db4331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc048bda_81d76049",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-01T11:36:14Z",
+      "side": 1,
+      "message": "This is very similar as buildUdpv4Packet, maybe combine them as below.\n\n    @NonNull\n    private ByteBuffer buildUdpPacket(@Nullable final MacAddress srcMac,\n            @Nullable final MacAddress dstMac, short id,\n            @NonNull final InetAddress srcIp, @NonNull final InetAddress dstIp,\n            short srcPort, short dstPort, @Nullable final ByteBuffer payload)\n            throws Exception {\n        int ipProto;\n        short ethType;\n        If (srcIp instanceOf Inet4Address \u0026\u0026 dstIp instanceOf Inet4Address) {\n            ipProto \u003d IPPROTO_IP;\n            ethType \u003d (short) ETHER_TYPE_IPV4;\n        } else if (srcIp instanceOf Inet6Address \u0026\u0026 dstIp instanceOf Inet6Address) {\n            ipProto \u003d IPPROTO_IPV6;\n            ethType \u003d (short) ETHER_TYPE_IPV6;\n        } else {\n            // error handle but should not happen.\n        }\n        \n        final boolean hasEther \u003d (srcMac !\u003d null \u0026\u0026 dstMac !\u003d null);\n        final int payloadLen \u003d (payload \u003d\u003d null) ? 0 : payload.limit();\n        final ByteBuffer buffer \u003d PacketBuilder.allocate(hasEther, ipProto, IPPROTO_UDP, payloadLen);\n        final PacketBuilder packetBuilder \u003d new PacketBuilder(buffer);\n\n        if (hasEther) packetBuilder.writeL2Header(srcMac, dstMac, (short) ethType);\n        \n        if (ipProto \u003d\u003d IPPROTO_IP) {\n            packetBuilder.writeIpv4Header(TYPE_OF_SERVICE, ID, FLAGS_AND_FRAGMENT_OFFSET, TIME_TO_LIVE, (byte) IPPROTO_UDP, srcIp, dstIp);\n        } else {\n            packetBuilder.writeIpv6Header(VERSION_TRAFFICCLASS_FLOWLABEL, (byte) IPPROTO_UDP, HOP_LIMIT, srcIp, dstIp);\n        }\n        \n        packetBuilder.writeUdpHeader(srcPort, dstPort);\n        if (payload !\u003d null) {\n            buffer.put(payload);\n            // in case data might be reused by caller, restore the position and\n            // limit of bytebuffer.\n            payload.clear();\n        }\n\n        return packetBuilder.finalizePacket();\n    }",
+      "range": {
+        "startLine": 949,
+        "startChar": 0,
+        "endLine": 981,
+        "endChar": 5
+      },
+      "revId": "4546ac038f3552a572a6457f27290718a1db4331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ca13575_fe2e2dad",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1272,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-01T11:36:14Z",
+      "side": 1,
+      "message": "You don\u0027t need this code if taking above suggestion.",
+      "range": {
+        "startLine": 1253,
+        "startChar": 4,
+        "endLine": 1272,
+        "endChar": 5
+      },
+      "revId": "4546ac038f3552a572a6457f27290718a1db4331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
