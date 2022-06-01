@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69db310c_5257be34",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 11638,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-01T03:57:34Z",
+      "side": 1,
+      "message": "It\u0027s a private constant inside the private class. If it\u0027s changed it should be updated anyway, dumpstate also have hard-coded string there. \n\nWe should be able to catch that since the test will fail. Maybe keep it for now.",
+      "parentUuid": "f59ac876_354b6546",
+      "range": {
+        "startLine": 11638,
+        "startChar": 40,
+        "endLine": 11638,
+        "endChar": 57
+      },
+      "revId": "9976de942d1f8f2e632247a06a26460aee376c1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49779d1b_3553ac78",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-06-01T03:12:02Z",
       "side": 1,
       "message": "Also verifying this argument is null?",
+      "range": {
+        "startLine": 11643,
+        "startChar": 75,
+        "endLine": 11643,
+        "endChar": 89
+      },
+      "revId": "9976de942d1f8f2e632247a06a26460aee376c1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9377e95c_4e7bd3bd",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 11643,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-01T03:57:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49779d1b_3553ac78",
       "range": {
         "startLine": 11643,
         "startChar": 75,
