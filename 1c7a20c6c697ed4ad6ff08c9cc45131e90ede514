@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33e78910_27e0ab71",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-01T02:49:44Z",
+      "side": 1,
+      "message": "Failures are unrelated. The only failure is in suite/test-mapping-mainline-unbundled-presubmit-networking-S-image-S-tests, which is failing in the following modules:\n- FrameworksWifiApiTests(module-abi\u003dx86_64)\n- FrameworksWifiTests(module-abi\u003dx86_64)\n\nThis topic cannot be causing those failure because this topic only changes our tests.",
+      "revId": "1c7a20c6c697ed4ad6ff08c9cc45131e90ede514",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
