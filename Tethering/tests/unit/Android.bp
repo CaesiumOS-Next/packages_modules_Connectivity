@@ -98,7 +98,6 @@ android_library {
 
 android_test {
     name: "TetheringTests",
-    platform_apis: true,
     test_suites: [
         "device-tests",
         "mts-tethering",
