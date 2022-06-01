@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56683605_da04b9dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-01T15:59:22Z",
+      "side": 1,
+      "message": "CL looks great, but this CL is quite large and this code is known to be tricky and not super well tested.\n\nIn order to make this change safer, do you think it would be possible to split off the test changes (the changes to the test file, the dependencies, etc.) without touching the production code too much? I know most/all the production code you\u0027re touching is dead code, but still...\n\nIt\u0027s OK if the test code (e.g., javaReadNetworkStats) temporarily duplicates production code that we\u0027re about to delete.\n\nOr do you think this will be too difficult because the code and tests are tightly coupled?",
+      "revId": "510c3bba85946f21c39e55ec1ab50e4453b06b2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f7e3546_bedca95c",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-01T15:59:22Z",
+      "side": 1,
+      "message": "Would rename \"Details\" -\u003e \"Detail\" for consistency with the existing method name.",
+      "range": {
+        "startLine": 89,
+        "startChar": 28,
+        "endLine": 89,
+        "endChar": 50
+      },
+      "revId": "510c3bba85946f21c39e55ec1ab50e4453b06b2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8829743_98f696da",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-01T15:59:22Z",
+      "side": 1,
+      "message": "Perhaps not for this CL, but a lot of code in com_android_server_net_NetworkStatsFactory can be deleted as well. For example, legacyReadNetworkStatsDetail.",
+      "range": {
+        "startLine": 92,
+        "startChar": 28,
+        "endLine": 92,
+        "endChar": 56
+      },
+      "revId": "510c3bba85946f21c39e55ec1ab50e4453b06b2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c23ab064_d1fd7d5e",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-01T15:59:22Z",
+      "side": 1,
+      "message": "How will this code work in tests? I don\u0027t think tests have permission to call this. Doesn\u0027t that mean that none of the code in lines 265 onwards can actually be exercised by tests? Am I missing something?",
+      "range": {
+        "startLine": 259,
+        "startChar": 16,
+        "endLine": 259,
+        "endChar": 47
+      },
+      "revId": "510c3bba85946f21c39e55ec1ab50e4453b06b2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1d5d40b_a84101f6",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-01T15:59:22Z",
+      "side": 1,
+      "message": "Suggest renaming to isUidData or containsUidData.",
+      "range": {
+        "startLine": 475,
+        "startChar": 64,
+        "endLine": 475,
+        "endChar": 73
+      },
+      "revId": "510c3bba85946f21c39e55ec1ab50e4453b06b2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e43c8e5_639c8c15",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-01T15:59:22Z",
+      "side": 1,
+      "message": "Why is this called \"from native\"? There isn\u0027t any native code running here. Maybe statsFromResource?",
+      "range": {
+        "startLine": 539,
+        "startChar": 27,
+        "endLine": 539,
+        "endChar": 42
+      },
+      "revId": "510c3bba85946f21c39e55ec1ab50e4453b06b2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
