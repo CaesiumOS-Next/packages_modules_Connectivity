@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc2e7682_993624b0",
+        "filename": "service/src/com/android/server/net/DelayedDiskWrite.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-06-01T05:51:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22a5e66a_003b2417",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 33
+      },
+      "revId": "c4d15fe8ab164b832ff79c40b16a93473cfd7cb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "336470af_c443fb3c",
@@ -95,6 +119,30 @@
       "side": 1,
       "message": "+1 (except there\u0027s no point doing \"handlerThread \u003d null\" since that\u0027s just a local variable...)",
       "parentUuid": "336470af_c443fb3c",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 73,
+        "endChar": 0
+      },
+      "revId": "c4d15fe8ab164b832ff79c40b16a93473cfd7cb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d833b53_9069e94d",
+        "filename": "service/src/com/android/server/net/DelayedDiskWrite.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-06-01T05:51:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4075b110_6a509518",
       "range": {
         "startLine": 68,
         "startChar": 8,
@@ -152,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ce935d6_a8649bbe",
+        "filename": "service/src/com/android/server/net/DelayedDiskWrite.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-06-01T05:51:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2145902d_64e08b22",
+      "range": {
+        "startLine": 137,
+        "startChar": 20,
+        "endLine": 137,
+        "endChar": 91
+      },
+      "revId": "c4d15fe8ab164b832ff79c40b16a93473cfd7cb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d2a66397_aa27050a",
@@ -165,6 +237,30 @@
       "writtenOn": "2022-06-01T03:10:56Z",
       "side": 1,
       "message": "Seems better to have the code quit the thread here instead of in line 172. It makes the test more realistic.",
+      "range": {
+        "startLine": 143,
+        "startChar": 20,
+        "endLine": 143,
+        "endChar": 21
+      },
+      "revId": "c4d15fe8ab164b832ff79c40b16a93473cfd7cb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e95972e_2dc21e53",
+        "filename": "tests/unit/java/com/android/server/net/IpConfigStoreTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-06-01T05:51:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2a66397_aa27050a",
       "range": {
         "startLine": 143,
         "startChar": 20,
@@ -198,6 +294,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50ad919b_cae7ec9a",
+        "filename": "tests/unit/java/com/android/server/net/IpConfigStoreTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-06-01T05:51:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7bee916_c2893e03",
+      "range": {
+        "startLine": 153,
+        "startChar": 75,
+        "endLine": 153,
+        "endChar": 79
+      },
+      "revId": "c4d15fe8ab164b832ff79c40b16a93473cfd7cb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4976761e_b83be57e",
@@ -221,6 +341,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20cc9354_223e401d",
+        "filename": "tests/unit/java/com/android/server/net/IpConfigStoreTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-06-01T05:51:52Z",
+      "side": 1,
+      "message": "Yes, that\u0027s what we do here, expectedNetworks.get(IFACE_1) return IpConfiguration and then we check if it is the same with the expected one.",
+      "parentUuid": "4976761e_b83be57e",
+      "range": {
+        "startLine": 164,
+        "startChar": 80,
+        "endLine": 164,
+        "endChar": 81
+      },
+      "revId": "c4d15fe8ab164b832ff79c40b16a93473cfd7cb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "503ddd8a_b679539c",
@@ -234,6 +378,30 @@
       "writtenOn": "2022-06-01T03:10:56Z",
       "side": 1,
       "message": "Generally /dev/null is a more traditional way to specify a file that does not exist. If that works, would recommend using it.",
+      "range": {
+        "startLine": 168,
+        "startChar": 52,
+        "endLine": 168,
+        "endChar": 72
+      },
+      "revId": "c4d15fe8ab164b832ff79c40b16a93473cfd7cb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e21ec184_9dea1caf",
+        "filename": "tests/unit/java/com/android/server/net/IpConfigStoreTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-06-01T05:51:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "503ddd8a_b679539c",
       "range": {
         "startLine": 168,
         "startChar": 52,
