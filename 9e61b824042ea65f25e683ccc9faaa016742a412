@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56b60786_c766fb16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-01T02:52:17Z",
+      "side": 1,
+      "message": "Failures are unrelated. The only failure is in suite/test-mapping-mainline-unbundled-presubmit-networking-S-image-S-tests:\n\nhttps://android-build.googleplex.com/builds/tests/view?invocationId\u003dI84900010056341455\u0026testResultId\u003dTR35728065589445385\n\nThe failures are in the following modules:\n\nFrameworksWifiApiTests(module-abi\u003dx86_64)\nFrameworksWifiTests(module-abi\u003dx86_64)\n\nand this topic cannot be causing those failure because this topic only changes our tests.",
+      "revId": "9e61b824042ea65f25e683ccc9faaa016742a412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
