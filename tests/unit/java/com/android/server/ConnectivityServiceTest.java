@@ -51,8 +51,15 @@ import static android.net.ConnectivityManager.BLOCKED_REASON_NONE;
 import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 import static android.net.ConnectivityManager.EXTRA_NETWORK_INFO;
 import static android.net.ConnectivityManager.EXTRA_NETWORK_TYPE;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_DOZABLE;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_LOCKDOWN_VPN;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_LOW_POWER_STANDBY;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_POWERSAVE;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_RESTRICTED;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_STANDBY;
 import static android.net.ConnectivityManager.FIREWALL_RULE_ALLOW;
+import static android.net.ConnectivityManager.FIREWALL_RULE_DEFAULT;
 import static android.net.ConnectivityManager.FIREWALL_RULE_DENY;
 import static android.net.ConnectivityManager.PROFILE_NETWORK_PREFERENCE_DEFAULT;
 import static android.net.ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE;
@@ -505,6 +512,30 @@ public class ConnectivityServiceTest {
             "https://android.com/user/api/capport/";
     private static final String TEST_FRIENDLY_NAME = "Network friendly name";
     private static final String TEST_REDIRECT_URL = "http://example.com/firstPath";
+
+    private static final Map<Integer, Integer>  FIREWALL_DEFAULT_RULE =
+            new HashMap<Integer, Integer>() {
+                {
+                    put(FIREWALL_CHAIN_DOZABLE, FIREWALL_RULE_DENY);
+                    put(FIREWALL_CHAIN_STANDBY, FIREWALL_RULE_ALLOW);
+                    put(FIREWALL_CHAIN_POWERSAVE, FIREWALL_RULE_DENY);
+                    put(FIREWALL_CHAIN_RESTRICTED, FIREWALL_RULE_DENY);
+                    put(FIREWALL_CHAIN_LOW_POWER_STANDBY, FIREWALL_RULE_DENY);
+                    put(FIREWALL_CHAIN_OEM_DENY, FIREWALL_RULE_ALLOW);
+                }
+            };
+
+    private static final Map<Integer, String>  FIREWALL_LOCAL_NAME =
+            new HashMap<Integer, String>() {
+                {
+                    put(FIREWALL_CHAIN_DOZABLE, "fw_dozable");
+                    put(FIREWALL_CHAIN_STANDBY, "fw_standby");
+                    put(FIREWALL_CHAIN_POWERSAVE, "fw_powersave");
+                    put(FIREWALL_CHAIN_RESTRICTED, "fw_restricted");
+                    put(FIREWALL_CHAIN_LOW_POWER_STANDBY, "fw_low_power_standby");
+                    put(FIREWALL_CHAIN_OEM_DENY, "fw_oem_deny");
+                }
+            };
 
     private MockContext mServiceContext;
     private HandlerThread mCsHandlerThread;
@@ -16459,5 +16490,67 @@ public class ConnectivityServiceTest {
         waitForValidationBlock.block(150);
         mCm.reportNetworkConnectivity(mWiFiNetworkAgent.getNetwork(), false);
         mDefaultNetworkCallback.expectAvailableCallbacksValidated(mCellNetworkAgent);
+    }
+
+    @Test
+    public void testSetUidFirewallRule() throws Exception {
+        final int uid = 1001;
+
+        for (final Map.Entry<Integer, Integer> chainRule: FIREWALL_DEFAULT_RULE.entrySet()) {
+            final int chain = chainRule.getKey();
+            final int defaultRule = chainRule.getValue();
+            mCm.setUidFirewallRule(chain, uid, FIREWALL_RULE_ALLOW);
+            verify(mBpfNetMaps).setUidRule(chain, uid, FIREWALL_RULE_ALLOW);
+            reset(mBpfNetMaps);
+
+            mCm.setUidFirewallRule(chain, uid, FIREWALL_RULE_DENY);
+            verify(mBpfNetMaps).setUidRule(chain, uid, FIREWALL_RULE_DENY);
+            reset(mBpfNetMaps);
+
+            mCm.setUidFirewallRule(chain, uid, FIREWALL_RULE_DEFAULT);
+            verify(mBpfNetMaps).setUidRule(chain, uid, defaultRule);
+            reset(mBpfNetMaps);
+        }
+    }
+
+    @Test
+    public void testSetFirewallChainEnabled() throws Exception {
+        for (final int chain: FIREWALL_DEFAULT_RULE.keySet()) {
+            mCm.setFirewallChainEnabled(chain, true /* enabled */);
+            verify(mBpfNetMaps).setChildChain(chain, true);
+            reset(mBpfNetMaps);
+
+            mCm.setFirewallChainEnabled(chain, false /* enabled */);
+            verify(mBpfNetMaps).setChildChain(chain, false);
+            reset(mBpfNetMaps);
+        }
+    }
+
+    @Test
+    public void testReplaceFirewallChain() {
+        final int[] uids = new int[] {1001, 1002};
+        for (final Map.Entry<Integer, String> chainName: FIREWALL_LOCAL_NAME.entrySet()) {
+            final int chain = chainName.getKey();
+            final String name = chainName.getValue();
+            final boolean isAllowList = FIREWALL_DEFAULT_RULE.get(chain) == FIREWALL_RULE_DENY;
+            mCm.replaceFirewallChain(chain, uids);
+            verify(mBpfNetMaps).replaceUidChain(name, isAllowList, uids);
+            reset(mBpfNetMaps);
+        }
+    }
+
+    @Test
+    public void testInvalidFirewallChain() throws Exception {
+        final int uid = 1001;
+        final Class<IllegalArgumentException> expected = IllegalArgumentException.class;
+        assertThrows(expected, () -> mCm.setUidFirewallRule(-1, uid, FIREWALL_RULE_ALLOW));
+        assertThrows(expected, () -> mCm.replaceFirewallChain(-1, new int[]{uid}));
+    }
+
+    @Test
+    public void testInvalidFirewallRule() throws Exception {
+        final int uid = 1001;
+        final Class<IllegalArgumentException> expected = IllegalArgumentException.class;
+        assertThrows(expected, () -> mCm.setUidFirewallRule(FIREWALL_CHAIN_DOZABLE, uid, -1));
     }
 }

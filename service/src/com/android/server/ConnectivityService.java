@@ -11359,6 +11359,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final int defaultRule;
         switch (chain) {
             case ConnectivityManager.FIREWALL_CHAIN_STANDBY:
+            case ConnectivityManager.FIREWALL_CHAIN_OEM_1_DENY:
+            case ConnectivityManager.FIREWALL_CHAIN_OEM_2_DENY:
                 defaultRule = FIREWALL_RULE_ALLOW;
                 break;
             case ConnectivityManager.FIREWALL_CHAIN_DOZABLE:
@@ -11406,6 +11408,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     break;
                 case ConnectivityManager.FIREWALL_CHAIN_LOW_POWER_STANDBY:
                     mBpfNetMaps.replaceUidChain("fw_low_power_standby", true /* isAllowList */,
+                            uids);
+                    break;
+                case ConnectivityManager.FIREWALL_CHAIN_OEM_1_DENY:
+                    mBpfNetMaps.replaceUidChain("fw_oem_deny_1", false /* isAllowList */,
+                            uids);
+                    break;
+                case ConnectivityManager.FIREWALL_CHAIN_OEM_2_DENY:
+                    mBpfNetMaps.replaceUidChain("fw_oem_2_deny", false /* isAllowList */,
                             uids);
                     break;
                 default:
