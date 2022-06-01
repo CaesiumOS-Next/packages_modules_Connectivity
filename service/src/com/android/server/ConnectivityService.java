@@ -11408,6 +11408,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     mBpfNetMaps.replaceUidChain("fw_low_power_standby", true /* isAllowList */,
                             uids);
                     break;
+                case ConnectivityManager.FIREWALL_CHAIN_OEM_DENY:
+                    mBpfNetMaps.replaceUidChain("fw_oem_deny", false /* isAllowList */,
+                            uids);
+                    break;
                 default:
                     throw new IllegalArgumentException("replaceFirewallChain with invalid chain: "
                             + chain);

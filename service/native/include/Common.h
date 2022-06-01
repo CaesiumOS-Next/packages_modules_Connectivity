@@ -36,6 +36,7 @@ enum ChildChain {
     RESTRICTED = 4,
     LOW_POWER_STANDBY = 5,
     LOCKDOWN = 6,
+    OEM_DENY = 7,
     INVALID_CHAIN
 };
 // LINT.ThenChange(packages/modules/Connectivity/framework/src/android/net/ConnectivityManager.java)
