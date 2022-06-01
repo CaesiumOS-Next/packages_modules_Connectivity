@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7aaa50b4_5c5c92f8",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 894,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-01T18:09:25Z",
+      "side": 1,
+      "message": "nice advice. done",
+      "parentUuid": "b27342ab_7b9c8df0",
+      "range": {
+        "startLine": 894,
+        "startChar": 20,
+        "endLine": 894,
+        "endChar": 41
+      },
+      "revId": "4546ac038f3552a572a6457f27290718a1db4331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc048bda_81d76049",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "941dc939_22a99871",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-01T18:09:25Z",
+      "side": 1,
+      "message": "Done.\n\nRemove \"id\" argument (ipv4 only, L.942) as well since we have never check the value in tests and we rely on payload content to verify (L.918). Removing \"id\" argument can make the function argument list become consistency for both IPv 4 and IPv6",
+      "parentUuid": "dc048bda_81d76049",
+      "range": {
+        "startLine": 949,
+        "startChar": 0,
+        "endLine": 981,
+        "endChar": 5
+      },
+      "revId": "4546ac038f3552a572a6457f27290718a1db4331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ca13575_fe2e2dad",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-06-01T11:36:14Z",
       "side": 1,
       "message": "You don\u0027t need this code if taking above suggestion.",
+      "range": {
+        "startLine": 1253,
+        "startChar": 4,
+        "endLine": 1272,
+        "endChar": 5
+      },
+      "revId": "4546ac038f3552a572a6457f27290718a1db4331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2bfd5fc_9a453fb3",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1272,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-01T18:09:25Z",
+      "side": 1,
+      "message": "Done\n\nthanks for your advice",
+      "parentUuid": "2ca13575_fe2e2dad",
       "range": {
         "startLine": 1253,
         "startChar": 4,
