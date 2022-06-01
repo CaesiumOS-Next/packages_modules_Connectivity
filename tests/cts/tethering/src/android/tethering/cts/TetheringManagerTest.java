@@ -58,7 +58,6 @@ import android.net.TetheringManager.OnTetheringEntitlementResultListener;
 import android.net.TetheringManager.TetheringInterfaceRegexps;
 import android.net.TetheringManager.TetheringRequest;
 import android.net.cts.util.CtsNetUtils;
-import android.net.cts.util.CtsNetUtils.TestNetworkCallback;
 import android.net.cts.util.CtsTetheringUtils;
 import android.net.cts.util.CtsTetheringUtils.StartTetheringCallback;
 import android.net.cts.util.CtsTetheringUtils.TestTetheringEventCallback;
@@ -419,6 +418,7 @@ public class TetheringManagerTest {
     @Test
     @IgnoreUpTo(SC_V2)
     public void testEnableTethering_carrierUnsupported_noTetheringActive() throws Exception {
+        assumeTrue(mTM.isTetheringSupported());
         assumeTrue(mPm.hasSystemFeature(FEATURE_TELEPHONY));
 
         final TestTetheringEventCallback tetherEventCallback =
@@ -450,6 +450,7 @@ public class TetheringManagerTest {
     @IgnoreUpTo(SC_V2)
     public void testEnableTethering_carrierUnsupportByConfigChange_noTetheringActive()
             throws Exception {
+        assumeTrue(mTM.isTetheringSupported());
         assumeTrue(mPm.hasSystemFeature(FEATURE_TELEPHONY));
 
         final TestTetheringEventCallback tetherEventCallback =
@@ -563,16 +564,7 @@ public class TetheringManagerTest {
         if (previousWifiEnabledState) {
             mCtsNetUtils.ensureWifiDisconnected(null);
         }
-
-        final TestNetworkCallback networkCallback = new TestNetworkCallback();
-        Network activeNetwork = null;
-        try {
-            mCm.registerDefaultNetworkCallback(networkCallback);
-            activeNetwork = networkCallback.waitForAvailable();
-        } finally {
-            mCm.unregisterNetworkCallback(networkCallback);
-        }
-
+        Network activeNetwork = mCm.getActiveNetwork();
         assertNotNull("No active network. Please ensure the device has working mobile data.",
                 activeNetwork);
 
