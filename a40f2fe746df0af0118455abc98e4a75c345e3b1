@@ -16,6 +16,23 @@
       "message": "wifi tests are flaky\n\nhttps://android-build.googleplex.com/builds/tests/view?invocationId\u003dI65500010056549756\u0026testResultId\u003dTR15428066660118541\n```\nFrameworksWifiApiTests(module-abi\u003dx86_64)\nFrameworksWifiTests(module-abi\u003dx86_64)\nCtsWifiTestCases(module-abi\u003dx86_64)\n```",
       "revId": "a40f2fe746df0af0118455abc98e4a75c345e3b1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e9d05de_099d8771",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-01T15:14:50Z",
+      "side": 1,
+      "message": "The test fail doesn\u0027t related to this topic.",
+      "revId": "a40f2fe746df0af0118455abc98e4a75c345e3b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
