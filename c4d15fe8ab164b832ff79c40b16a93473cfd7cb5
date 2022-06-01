@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "336470af_c443fb3c",
+        "filename": "service/src/com/android/server/net/DelayedDiskWrite.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-01T02:29:21Z",
+      "side": 1,
+      "message": "The function name is releaseHandlerThread and the make function only create HandlerTherad. So this make me think kick Handler out of this function. WDYT ?\n\n        public void releaseHandlerThread(HandlerThread handlerThread) {\n            handlerThread.getLooper().quit();\n            handlerThread \u003d null;\n        }",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 73,
+        "endChar": 0
+      },
+      "revId": "c4d15fe8ab164b832ff79c40b16a93473cfd7cb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80ccbde9_48b0a1e5",
+        "filename": "service/src/com/android/server/net/DelayedDiskWrite.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-01T02:29:21Z",
+      "side": 1,
+      "message": "If you take suggestion above, you should null the handler here.\n\nmDiskWriteHandler \u003d null;\nmDeps.releaseHandlerThread(mDiskWriteHandlerThread, mDiskWriteHandler);",
+      "range": {
+        "startLine": 137,
+        "startChar": 20,
+        "endLine": 137,
+        "endChar": 91
+      },
+      "revId": "c4d15fe8ab164b832ff79c40b16a93473cfd7cb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
