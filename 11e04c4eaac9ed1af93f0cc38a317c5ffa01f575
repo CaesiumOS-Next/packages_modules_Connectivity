@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6fe4de1_37b58d4b",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-06-01T08:25:30Z",
+      "side": 1,
+      "message": "Would you be able to add tests for this change ? The corresponding tests are in NetworkStatsServiceTest.java",
+      "revId": "11e04c4eaac9ed1af93f0cc38a317c5ffa01f575",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
