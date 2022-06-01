@@ -56,6 +56,30 @@
       },
       "revId": "a40f2fe746df0af0118455abc98e4a75c345e3b1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6cde04e_0751eb50",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-01T15:26:07Z",
+      "side": 1,
+      "message": "Ack, agree we probably should have better shape for waitForIpv6TetherConnectivityVerified. But I feel like it put in EthernetTetheringTest would be more suitable. It should only be called once globally when tethering have upstream.\n\nCalling it in TetheringTester#TetheredDevice is wrong. Assume we may want to test multiple TetheredDevices case in the future. Second TetheredDevice would just fail in waitForIpv6TetherConnectivityVerified.",
+      "parentUuid": "7c1fdc85_2e4b4b27",
+      "range": {
+        "startLine": 829,
+        "startChar": 8,
+        "endLine": 829,
+        "endChar": 52
+      },
+      "revId": "a40f2fe746df0af0118455abc98e4a75c345e3b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
