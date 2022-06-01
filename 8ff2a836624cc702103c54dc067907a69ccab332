@@ -63,6 +63,30 @@
       },
       "revId": "8ff2a836624cc702103c54dc067907a69ccab332",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2fd0917_6b54c6ac",
+        "filename": "Tethering/jarjar-rules.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-01T08:44:20Z",
+      "side": 1,
+      "message": "tetheroffload HAL classes is not in bootclass path.\nI think tetheroffload HAL classes is safe without jarjared.\n1. It is not in bootclass path and tethering run in networkstack process that everything run in this process is mainlined.\n2. For inprocess tethering case, since tethering is the only user for this HIDL, it should still be safe. If add other user in system_server, it should still be fine because inprocess tethering is platform code.\n3. As its name, tethering probably be the only user of tetheroffload HAL",
+      "parentUuid": "ba74407a_216669ce",
+      "range": {
+        "startLine": 20,
+        "startChar": 5,
+        "endLine": 20,
+        "endChar": 22
+      },
+      "revId": "8ff2a836624cc702103c54dc067907a69ccab332",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
