@@ -16,7 +16,6 @@ rule com.android.internal.util.IndentingPrintWriter* android.net.connectivity.@0
 rule com.android.internal.util.MessageUtils* android.net.connectivity.@0
 rule com.android.internal.util.WakeupMessage* android.net.connectivity.@0
 rule com.android.internal.util.FileRotator* android.net.connectivity.@0
-rule com.android.internal.util.ProcFileReader* android.net.connectivity.@0
 
 # From framework-connectivity-protos
 rule com.google.protobuf.** android.net.connectivity.@0
