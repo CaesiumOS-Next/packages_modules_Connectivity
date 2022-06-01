@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fa6a376_39c92910",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-06-01T10:06:26Z",
+      "side": 1,
+      "message": "sure, use aosp/2112807 to do this work.",
+      "parentUuid": "c8f80329_e128f07f",
+      "range": {
+        "startLine": 85,
+        "startChar": 29,
+        "endLine": 85,
+        "endChar": 54
+      },
+      "revId": "f84316ca7aa1b3cc8bed4830002f66e682f22c5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b650e29f_f510736c",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4ce0901_e8033627",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-06-01T10:06:26Z",
+      "side": 1,
+      "message": "ok! Thanks a lot.",
+      "parentUuid": "b650e29f_f510736c",
+      "range": {
+        "startLine": 263,
+        "startChar": 28,
+        "endLine": 263,
+        "endChar": 47
+      },
+      "revId": "f84316ca7aa1b3cc8bed4830002f66e682f22c5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59ca683d_c30145e8",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-05-31T16:22:06Z",
       "side": 1,
       "message": "Is this lock still needed? The intention of this lock is to ensure that two threads are not requesting the shell permission identity at the same time. The two threads in question are the thread that is running the test (i.e., running this code) and the broadcast thread which is executing the onReceive method of the BroadcastReceiver.\n\nBut in your new code, overrideCarrierConfigForTest waits for the broadcast and fails if the broadcast is not received, I don\u0027t think it\u0027s possible for these two threads to run at the same time. So maybe you can remove this lock?",
+      "range": {
+        "startLine": 275,
+        "startChar": 22,
+        "endLine": 275,
+        "endChar": 51
+      },
+      "revId": "f84316ca7aa1b3cc8bed4830002f66e682f22c5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f68170d_f130fa97",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-06-01T10:06:26Z",
+      "side": 1,
+      "message": "sure.",
+      "parentUuid": "59ca683d_c30145e8",
       "range": {
         "startLine": 275,
         "startChar": 22,
