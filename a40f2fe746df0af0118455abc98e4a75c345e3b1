@@ -33,6 +33,29 @@
       "message": "The test fail doesn\u0027t related to this topic.",
       "revId": "a40f2fe746df0af0118455abc98e4a75c345e3b1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c1fdc85_2e4b4b27",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-01T15:15:18Z",
+      "side": 1,
+      "message": "any IPv6 test needs to call this function (if the caller knows this)\n\nmaybe put this back to TetheringTester as\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1817920/24/Tethering/tests/integration/src/android/net/TetheringTester.java#126\n\nneed a follow up commit to improve",
+      "range": {
+        "startLine": 829,
+        "startChar": 8,
+        "endLine": 829,
+        "endChar": 52
+      },
+      "revId": "a40f2fe746df0af0118455abc98e4a75c345e3b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
