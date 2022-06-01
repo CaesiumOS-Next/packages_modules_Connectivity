@@ -586,3 +586,4 @@ public class TetheringManagerTest {
         return previousWifiEnabledState;
     }
 }
+
