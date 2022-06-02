@@ -20,6 +20,14 @@ import android.Manifest.permission.MANAGE_TEST_NETWORKS
 import android.Manifest.permission.NETWORK_SETTINGS
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.EthernetManager
+import android.net.EthernetManager.InterfaceStateListener
+import android.net.EthernetManager.ROLE_CLIENT
+import android.net.EthernetManager.ROLE_NONE
+import android.net.EthernetManager.ROLE_SERVER
+import android.net.EthernetManager.STATE_ABSENT
+import android.net.EthernetManager.STATE_LINK_DOWN
+import android.net.EthernetManager.STATE_LINK_UP
 import android.net.EthernetNetworkSpecifier
 import android.net.InetAddresses
 import android.net.IpConfiguration
@@ -41,13 +49,6 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 import com.android.net.module.util.ArrayTrackRecord
 import com.android.net.module.util.TrackRecord
-import com.android.networkstack.apishim.EthernetManagerShimImpl
-import com.android.networkstack.apishim.common.EthernetManagerShim.InterfaceStateListener
-import com.android.networkstack.apishim.common.EthernetManagerShim.ROLE_CLIENT
-import com.android.networkstack.apishim.common.EthernetManagerShim.ROLE_NONE
-import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_ABSENT
-import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_LINK_DOWN
-import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_LINK_UP
 import com.android.testutils.anyNetwork
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.RecorderCallback.CallbackEntry.Available
@@ -91,7 +92,7 @@ class EthernetManagerTest {
     val ignoreRule = DevSdkIgnoreRule(ignoreClassUpTo = SC_V2)
 
     private val context by lazy { InstrumentationRegistry.getInstrumentation().context }
-    private val em by lazy { EthernetManagerShimImpl.newInstance(context) }
+    private val em by lazy { context.getSystemService(EthernetManager::class.java) }
     private val cm by lazy { context.getSystemService(ConnectivityManager::class.java) }
 
     private val ifaceListener = EthernetStateListener()
