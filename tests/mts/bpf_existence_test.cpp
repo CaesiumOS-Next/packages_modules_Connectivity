@@ -125,7 +125,6 @@ static const set<string> INTRODUCED_T_5_4 = {
     SHARED "prog_block_bind4_block_port",
     SHARED "prog_block_bind6_block_port",
     SHARED "prog_dscp_policy_schedcls_set_dscp_ether",
-    SHARED "prog_dscp_policy_schedcls_set_dscp_raw_ip",
 };
 
 static const set<string> REMOVED_T = {

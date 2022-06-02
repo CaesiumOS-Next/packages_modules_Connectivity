@@ -315,6 +315,7 @@ public class DscpPolicyTracker {
         try {
             NetworkInterface netIface = NetworkInterface.getByName(iface);
             boolean isEth = TcUtils.isEthernet(iface);
+            if (!isEth) throw new IOException("Only supports ethernet interfaces.");
             String path = PROG_PATH + (isEth ? "_ether" : "_raw_ip");
             TcUtils.tcFilterAddDevBpf(netIface.getIndex(), false, PRIO_DSCP, (short) ETH_P_ALL,
                     path);
