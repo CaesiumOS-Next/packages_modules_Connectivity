@@ -22,6 +22,30 @@
       },
       "revId": "0de59ba709cd9c81d8c924f24e8103c31b84814d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7d0b8c9_38579ffe",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-02T10:39:09Z",
+      "side": 1,
+      "message": "done in aosp/2114854\nthanks for your advice",
+      "parentUuid": "a9b12170_0b7fb102",
+      "range": {
+        "startLine": 572,
+        "startChar": 0,
+        "endLine": 580,
+        "endChar": 9
+      },
+      "revId": "0de59ba709cd9c81d8c924f24e8103c31b84814d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
