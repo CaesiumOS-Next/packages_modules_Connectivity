@@ -381,6 +381,8 @@ import com.android.testutils.RecorderCallback.CallbackEntry;
 import com.android.testutils.TestableNetworkCallback;
 import com.android.testutils.TestableNetworkOfferCallback;
 
+import kotlin.reflect.KClass;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -433,8 +435,6 @@ import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-
-import kotlin.reflect.KClass;
 
 /**
  * Tests for {@link ConnectivityService}.
@@ -1476,7 +1476,7 @@ public class ConnectivityServiceTest {
                     !mMockNetworkAgent.isBypassableVpn(), mVpnType));
             updateState(NetworkInfo.DetailedState.CONNECTED, "registerAgent");
             mNetworkCapabilities.set(mMockNetworkAgent.getNetworkCapabilities());
-            mNetworkAgent = mMockNetworkAgent.getNetworkAgent();
+            mNetworkAgent = new Vpn.VpnNetworkAgentWrapper(mMockNetworkAgent.getNetworkAgent());
         }
 
         private void registerAgent(Set<UidRange> uids) throws Exception {
