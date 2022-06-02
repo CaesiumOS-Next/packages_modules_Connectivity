@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d2e05e7_f8377c69",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-06-02T08:03:19Z",
+      "side": 1,
+      "message": "LGTM but Lorenzo should have a look probably.",
+      "revId": "5fe74c9bb059f484f2d88cc71e033f37731b97ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "727e22be_d0eb04f0",
