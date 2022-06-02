@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6bf74e5_7bd8237d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-02T08:47:48Z",
+      "side": 1,
+      "message": "Cool, this is helpful giving that the existing cleanup flow is easy to miss. And this seems detect a bug, we don\u0027t aware.",
+      "revId": "171377450fd7b4971a80993bf58601623dcd69bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
