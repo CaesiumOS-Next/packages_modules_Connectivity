@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "97a8e160_7d4c387e",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-06-02T10:16:39Z",
+      "side": 0,
+      "message": "it was failed for a reason previously, but I don\u0027t remember why.\nRestored.",
+      "parentUuid": "1127d22f_d6f46b4e",
+      "range": {
+        "startLine": 97,
+        "startChar": 16,
+        "endLine": 97,
+        "endChar": 38
+      },
+      "revId": "c0b2b37faa8f060c77f7c8b3011b348a9b40501d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b74efe5c_54371b96",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-01T15:59:22Z",
       "side": 0,
       "message": "Is there a reason this test is being deleted? I think it has been quite useful in the past to check 464xlat adjustments, which we broke several times. :(",
+      "range": {
+        "startLine": 475,
+        "startChar": 16,
+        "endLine": 475,
+        "endChar": 53
+      },
+      "revId": "c0b2b37faa8f060c77f7c8b3011b348a9b40501d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e023c4b7_151a72bc",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-06-02T10:16:39Z",
+      "side": 0,
+      "message": "Yes and no.\n\nThis test isn\u0027t useful for now because it test the factory read different snapshot from qtaguid, and test the stats attributes on the uid correctly.\nBut now that code path never runs (use bpf \u003d false), and NetworkStatsFactory always assuming we are reading differences, and that is covered by other test case e.g. testDoubleClatAccountingSimple.\nThus, this test sample cannot get pass and is not useful anymore.\nDelete the resource files as well.\nSee if it works for you.",
+      "parentUuid": "b74efe5c_54371b96",
       "range": {
         "startLine": 475,
         "startChar": 16,

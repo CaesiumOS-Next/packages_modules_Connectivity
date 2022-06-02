@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d93a4ee0_10446dd5",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-06-02T10:16:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f7e3546_bedca95c",
+      "range": {
+        "startLine": 89,
+        "startChar": 28,
+        "endLine": 89,
+        "endChar": 50
+      },
+      "revId": "510c3bba85946f21c39e55ec1ab50e4453b06b2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b8829743_98f696da",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-06-01T15:59:22Z",
       "side": 1,
       "message": "Perhaps not for this CL, but a lot of code in com_android_server_net_NetworkStatsFactory can be deleted as well. For example, legacyReadNetworkStatsDetail.",
+      "range": {
+        "startLine": 92,
+        "startChar": 28,
+        "endLine": 92,
+        "endChar": 56
+      },
+      "revId": "510c3bba85946f21c39e55ec1ab50e4453b06b2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a0d159c_2bc52543",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-06-02T10:16:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b8829743_98f696da",
       "range": {
         "startLine": 92,
         "startChar": 28,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "913bc513_131bcbe4",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-06-02T10:16:39Z",
+      "side": 1,
+      "message": "mBpfNetMaps is mocked by using dependencies object.\nThis function does nothing in the test.",
+      "parentUuid": "c23ab064_d1fd7d5e",
+      "range": {
+        "startLine": 259,
+        "startChar": 16,
+        "endLine": 259,
+        "endChar": 47
+      },
+      "revId": "510c3bba85946f21c39e55ec1ab50e4453b06b2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1d5d40b_a84101f6",
@@ -110,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49155012_82358363",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-06-02T10:16:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1d5d40b_a84101f6",
+      "range": {
+        "startLine": 475,
+        "startChar": 64,
+        "endLine": 475,
+        "endChar": 73
+      },
+      "revId": "510c3bba85946f21c39e55ec1ab50e4453b06b2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e43c8e5_639c8c15",
@@ -123,6 +219,30 @@
       "writtenOn": "2022-06-01T15:59:22Z",
       "side": 1,
       "message": "Why is this called \"from native\"? There isn\u0027t any native code running here. Maybe statsFromResource?",
+      "range": {
+        "startLine": 539,
+        "startChar": 27,
+        "endLine": 539,
+        "endChar": 42
+      },
+      "revId": "510c3bba85946f21c39e55ec1ab50e4453b06b2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7575b0a6_fc680daf",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-06-02T10:16:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e43c8e5_639c8c15",
       "range": {
         "startLine": 539,
         "startChar": 27,
