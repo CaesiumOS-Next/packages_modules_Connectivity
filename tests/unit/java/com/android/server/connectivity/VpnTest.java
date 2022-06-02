@@ -28,6 +28,7 @@ import static android.net.ConnectivityManager.NetworkCallback;
 import static android.net.INetd.IF_STATE_DOWN;
 import static android.net.INetd.IF_STATE_UP;
 import static android.net.VpnManager.TYPE_VPN_PLATFORM;
+import static android.net.ipsec.ike.IkeSessionConfiguration.EXTENSION_TYPE_MOBIKE;
 import static android.os.Build.VERSION_CODES.S_V2;
 import static android.os.UserHandle.PER_USER_RANGE;
 
@@ -82,7 +83,9 @@ import android.net.Ikev2VpnProfile;
 import android.net.InetAddresses;
 import android.net.InterfaceConfigurationParcel;
 import android.net.IpPrefix;
+import android.net.IpSecConfig;
 import android.net.IpSecManager;
+import android.net.IpSecTransform;
 import android.net.IpSecTunnelInterfaceResponse;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
@@ -99,7 +102,12 @@ import android.net.VpnManager;
 import android.net.VpnProfileState;
 import android.net.VpnService;
 import android.net.VpnTransportInfo;
+import android.net.ipsec.ike.ChildSessionCallback;
+import android.net.ipsec.ike.ChildSessionConfiguration;
 import android.net.ipsec.ike.IkeSessionCallback;
+import android.net.ipsec.ike.IkeSessionConfiguration;
+import android.net.ipsec.ike.IkeSessionConnectionInfo;
+import android.net.ipsec.ike.IkeTrafficSelector;
 import android.net.ipsec.ike.exceptions.IkeException;
 import android.net.ipsec.ike.exceptions.IkeNetworkLostException;
 import android.net.ipsec.ike.exceptions.IkeNonProtocolException;
@@ -119,6 +127,7 @@ import android.provider.Settings;
 import android.security.Credentials;
 import android.util.ArrayMap;
 import android.util.ArraySet;
+import android.util.Pair;
 import android.util.Range;
 
 import androidx.test.filters.SmallTest;
@@ -162,6 +171,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
@@ -195,11 +205,39 @@ public class VpnTest {
     static final Network EGRESS_NETWORK = new Network(101);
     static final String EGRESS_IFACE = "wlan0";
     static final String TEST_VPN_PKG = "com.testvpn.vpn";
+    private static final String TEST_VPN_CLIENT = "2.4.6.8";
     private static final String TEST_VPN_SERVER = "1.2.3.4";
     private static final String TEST_VPN_IDENTITY = "identity";
     private static final byte[] TEST_VPN_PSK = "psk".getBytes();
 
+    private static final int IP4_PREFIX_LEN = 32;
+    private static final int MIN_PORT = 0;
+    private static final int MAX_PORT = 65535;
+
+    private static final InetAddress TEST_VPN_CLIENT_IP =
+            InetAddresses.parseNumericAddress(TEST_VPN_CLIENT);
+    private static final InetAddress TEST_VPN_SERVER_IP =
+            InetAddresses.parseNumericAddress(TEST_VPN_SERVER);
+    private static final InetAddress TEST_VPN_CLIENT_IP_NEW =
+            InetAddresses.parseNumericAddress("192.0.2.200");
+    private static final InetAddress TEST_VPN_SERVER_IP_NEW =
+            InetAddresses.parseNumericAddress("192.0.2.201");
+    private static final InetAddress TEST_VPN_INTERNAL_IP =
+            InetAddresses.parseNumericAddress("198.51.100.10");
+    private static final InetAddress TEST_VPN_INTERNAL_DNS =
+            InetAddresses.parseNumericAddress("8.8.8.8");
+
+    private static final IkeTrafficSelector IN_TS =
+            new IkeTrafficSelector(MIN_PORT, MAX_PORT, TEST_VPN_INTERNAL_IP, TEST_VPN_INTERNAL_IP);
+    private static final IkeTrafficSelector OUT_TS =
+            new IkeTrafficSelector(
+                    MIN_PORT,
+                    MAX_PORT,
+                    InetAddresses.parseNumericAddress("0.0.0.0"),
+                    InetAddresses.parseNumericAddress("255.255.255.255"));
+
     private static final Network TEST_NETWORK = new Network(Integer.MAX_VALUE);
+    private static final Network TEST_NETWORK_NEW = new Network(Integer.MAX_VALUE - 1);
     private static final String TEST_IFACE_NAME = "TEST_IFACE";
     private static final int TEST_TUNNEL_RESOURCE_ID = 0x2345;
     private static final long TEST_TIMEOUT_MS = 500L;
@@ -231,6 +269,7 @@ public class VpnTest {
     @Mock private AppOpsManager mAppOps;
     @Mock private NotificationManager mNotificationManager;
     @Mock private Vpn.SystemServices mSystemServices;
+    @Mock private Vpn.IkeSessionWrapper mIkeSessionWrapper;
     @Mock private Vpn.Ikev2SessionCreator mIkev2SessionCreator;
     @Mock private ConnectivityManager mConnectivityManager;
     @Mock private IpSecService mIpSecService;
@@ -289,10 +328,19 @@ public class VpnTest {
                         IpSecManager.Status.OK, TEST_TUNNEL_RESOURCE_ID, TEST_IFACE_NAME);
         when(mIpSecService.createTunnelInterface(any(), any(), any(), any(), any()))
                 .thenReturn(tunnelResp);
+
         // The unit test should know what kind of permission it needs and set the permission by
         // itself, so set the default value of Context#checkCallingOrSelfPermission to
         // PERMISSION_DENIED.
         doReturn(PERMISSION_DENIED).when(mContext).checkCallingOrSelfPermission(any());
+
+        resetIkev2SessionCreator(mIkeSessionWrapper);
+    }
+
+    private void resetIkev2SessionCreator(Vpn.IkeSessionWrapper ikeSession) {
+        reset(mIkev2SessionCreator);
+        when(mIkev2SessionCreator.createIkeSession(any(), any(), any(), any(), any(), any()))
+                .thenReturn(ikeSession);
     }
 
     @After
@@ -1445,12 +1493,234 @@ public class VpnTest {
         return vpn;
     }
 
+    private IkeSessionConnectionInfo createIkeConnectInfo() {
+        return new IkeSessionConnectionInfo(TEST_VPN_CLIENT_IP, TEST_VPN_SERVER_IP, TEST_NETWORK);
+    }
+
+    private IkeSessionConnectionInfo createNewIkeConnectInfo() {
+        return new IkeSessionConnectionInfo(
+                TEST_VPN_CLIENT_IP_NEW, TEST_VPN_SERVER_IP_NEW, TEST_NETWORK_NEW);
+    }
+
+    private IkeSessionConfiguration createIkeConfig(
+            IkeSessionConnectionInfo ikeConnectInfo, boolean isMobikeEnabled) {
+        final IkeSessionConfiguration.Builder builder =
+                new IkeSessionConfiguration.Builder(ikeConnectInfo);
+
+        if (isMobikeEnabled) {
+            builder.addIkeExtension(EXTENSION_TYPE_MOBIKE);
+        }
+
+        return builder.build();
+    }
+
+    private ChildSessionConfiguration createChildConfig() {
+        return new ChildSessionConfiguration.Builder(Arrays.asList(IN_TS), Arrays.asList(OUT_TS))
+                .addInternalAddress(new LinkAddress(TEST_VPN_INTERNAL_IP, IP4_PREFIX_LEN))
+                .addInternalDnsServer(TEST_VPN_INTERNAL_DNS)
+                .build();
+    }
+
+    private IpSecTransform createIpSecTransform() {
+        return new IpSecTransform(mContext, new IpSecConfig());
+    }
+
+    private void verifyApplyTunnelModeTransforms(int expectedTimes) throws Exception {
+        verify(mIpSecService, times(expectedTimes))
+                .applyTunnelModeTransform(
+                        eq(TEST_TUNNEL_RESOURCE_ID),
+                        eq(IpSecManager.DIRECTION_IN),
+                        anyInt(),
+                        anyString());
+        verify(mIpSecService, times(expectedTimes))
+                .applyTunnelModeTransform(
+                        eq(TEST_TUNNEL_RESOURCE_ID),
+                        eq(IpSecManager.DIRECTION_OUT),
+                        anyInt(),
+                        anyString());
+    }
+
+    private interface PlatformVpnTestRunnable {
+        void runTest(
+                Vpn vpn,
+                NetworkCallback nwCb,
+                IkeSessionCallback ikeCb,
+                ChildSessionCallback childCb)
+                throws Exception;
+    }
+
+    private Pair<IkeSessionCallback, ChildSessionCallback> verifyCreateIkeAndCaptureCbs()
+            throws Exception {
+        final ArgumentCaptor<IkeSessionCallback> ikeCbCaptor =
+                ArgumentCaptor.forClass(IkeSessionCallback.class);
+        final ArgumentCaptor<ChildSessionCallback> childCbCaptor =
+                ArgumentCaptor.forClass(ChildSessionCallback.class);
+
+        verify(mIkev2SessionCreator, timeout(TEST_TIMEOUT_MS))
+                .createIkeSession(
+                        any(), any(), any(), any(), ikeCbCaptor.capture(), childCbCaptor.capture());
+        final IkeSessionCallback ikeCb = ikeCbCaptor.getValue();
+        final ChildSessionCallback childCb = childCbCaptor.getValue();
+
+        return new Pair<>(ikeCbCaptor.getValue(), childCbCaptor.getValue());
+    }
+
+    private void verifySetupPlatformVpn(
+            IkeSessionConfiguration ikeConfig, PlatformVpnTestRunnable testRunnable)
+            throws Exception {
+        final Vpn vpn = createVpnAndSetupUidChecks(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
+        when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
+                .thenReturn(mVpnProfile.encode());
+
+        try {
+            vpn.startVpnProfile(TEST_VPN_PKG);
+            final NetworkCallback nwCb = triggerOnAvailableAndGetCallback();
+
+            final Pair<IkeSessionCallback, ChildSessionCallback> cbPair =
+                    verifyCreateIkeAndCaptureCbs();
+            final IkeSessionCallback ikeCb = cbPair.first;
+            final ChildSessionCallback childCb = cbPair.second;
+
+            ikeCb.onOpened(ikeConfig);
+
+            childCb.onIpSecTransformCreated(createIpSecTransform(), IpSecManager.DIRECTION_IN);
+            childCb.onIpSecTransformCreated(createIpSecTransform(), IpSecManager.DIRECTION_OUT);
+            childCb.onOpened(createChildConfig());
+
+            verifyApplyTunnelModeTransforms(1);
+
+            ArgumentCaptor<LinkProperties> lpCaptor = ArgumentCaptor.forClass(LinkProperties.class);
+            ArgumentCaptor<NetworkCapabilities> ncCaptor =
+                    ArgumentCaptor.forClass(NetworkCapabilities.class);
+            verify(mConnectivityManager, timeout(TEST_TIMEOUT_MS))
+                    .registerNetworkAgent(
+                            any(),
+                            any(),
+                            lpCaptor.capture(),
+                            ncCaptor.capture(),
+                            any(),
+                            any(),
+                            anyInt());
+
+            // Check LinkProperties
+            final LinkProperties lp = lpCaptor.getValue();
+            final RouteInfo expectedRoute =
+                    new RouteInfo(
+                            new IpPrefix(Inet4Address.ANY, 0),
+                            null /*gateway*/,
+                            TEST_IFACE_NAME,
+                            RouteInfo.RTN_UNICAST);
+            final List<RouteInfo> actualRoutes = lp.getRoutes();
+            assertTrue(
+                    "Expected throw route (" + expectedRoute + ") not found in " + actualRoutes,
+                    actualRoutes.contains(expectedRoute));
+
+            // Check internal addresses
+            final List<LinkAddress> expectedAddresses =
+                    Arrays.asList(new LinkAddress(TEST_VPN_INTERNAL_IP, IP4_PREFIX_LEN));
+            assertEquals(expectedAddresses, lp.getLinkAddresses());
+
+            // Check internal DNS
+            assertEquals(Arrays.asList(TEST_VPN_INTERNAL_DNS), lp.getDnsServers());
+
+            // Check NetworkCapabilities
+            assertEquals(Arrays.asList(TEST_NETWORK), ncCaptor.getValue().getUnderlyingNetworks());
+
+            // Run additional tests after VPN is set up
+            testRunnable.runTest(vpn, nwCb, ikeCb, childCb);
+        } finally {
+            // Now interrupt the thread, unblock the runner and clean up.
+            vpn.mVpnRunner.exitVpnRunner();
+            vpn.mVpnRunner.join(10_000); // wait for up to 10s for the runner to die and cleanup
+        }
+    }
+
     @Test
     public void testStartPlatformVpn() throws Exception {
-        startLegacyVpn(createVpn(primaryUser.id), mVpnProfile);
-        // TODO: Test the Ikev2VpnRunner started up properly. Relies on utility methods added in
-        // a subsequent patch.
+        verifySetupPlatformVpn(
+                createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */),
+                (vpn, nwCb, ikeCb, childCb) -> {
+                    // Do nothing. No additional tests other than VPN setup.
+                });
     }
+
+    @Test
+    public void testStartPlatformVpnMobilityWithMobike() throws Exception {
+        verifySetupPlatformVpn(
+                createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */),
+                (vpn, nwCb, ikeCb, childCb) -> {
+                    nwCb.onLost(TEST_NETWORK);
+                    nwCb.onAvailable(TEST_NETWORK_NEW);
+
+                    // Verify MOBIKE is triggered
+                    verify(mIkeSessionWrapper).setNetwork(TEST_NETWORK_NEW);
+
+                    // Mock the MOBIKE procedure
+                    ikeCb.onIkeSessionConnectionInfoChanged(createNewIkeConnectInfo());
+                    childCb.onIpSecTransformsMigrated(
+                            createIpSecTransform(), createIpSecTransform());
+
+                    verify(mIpSecService)
+                            .setNetworkForTunnelInterface(
+                                    eq(TEST_TUNNEL_RESOURCE_ID), eq(TEST_NETWORK_NEW), anyString());
+
+                    // Expect 2 times: one for initial setup and one for MOBIKE
+                    verifyApplyTunnelModeTransforms(2);
+
+                    // Verify mNetworkCapabilities is updated
+                    assertEquals(
+                            Collections.singletonList(TEST_NETWORK_NEW),
+                            vpn.mNetworkCapabilities.getUnderlyingNetworks());
+
+                    // TODO: Verify mNetworkAgent is updated
+
+                });
+    }
+
+    @Test
+    public void testStartPlatformVpnReestablishesMobikeDisabled() throws Exception {
+        verifySetupPlatformVpn(
+                createIkeConfig(createIkeConnectInfo(), false /* isMobikeEnabled */),
+                (vpn, nwCb, ikeCb, childCb) -> {
+                    resetIkev2SessionCreator(mock(Vpn.IkeSessionWrapper.class));
+
+                    nwCb.onLost(TEST_NETWORK);
+                    nwCb.onAvailable(TEST_NETWORK_NEW);
+
+                    // Verify the old IKE Session is killed
+                    verify(mIkeSessionWrapper).kill();
+
+                    final Pair<IkeSessionCallback, ChildSessionCallback> cbPair =
+                            verifyCreateIkeAndCaptureCbs();
+                    final IkeSessionCallback ikeCbNew = cbPair.first;
+                    final ChildSessionCallback childCbNew = cbPair.second;
+
+                    ikeCbNew.onOpened(
+                            createIkeConfig(
+                                    createNewIkeConnectInfo(), false /* isMobikeEnabled */));
+
+                    childCbNew.onIpSecTransformCreated(
+                            createIpSecTransform(), IpSecManager.DIRECTION_IN);
+                    childCbNew.onIpSecTransformCreated(
+                            createIpSecTransform(), IpSecManager.DIRECTION_OUT);
+                    childCbNew.onOpened(createChildConfig());
+
+                    verifyApplyTunnelModeTransforms(2);
+
+                    // Verify mNetworkCapabilities is updated
+                    assertEquals(
+                            Collections.singletonList(TEST_NETWORK_NEW),
+                            vpn.mNetworkCapabilities.getUnderlyingNetworks());
+
+                    // TODO: Verify mNetworkAgent is updated
+
+                });
+    }
+
+    // TODO: Add a test for network loss without mobility
+
+    @Test
+    public void testStartPlatformVpnMobilityNetworkLostWithoutMobike() throws Exception {}
 
     @Test
     public void testStartRacoonNumericAddress() throws Exception {
@@ -1661,6 +1931,20 @@ public class VpnTest {
 
         @Override
         public void setBlocking(FileDescriptor fd, boolean blocking) {}
+
+        @Override
+        public ScheduledThreadPoolExecutor getScheduledThreadPoolExecutor() {
+            final ScheduledThreadPoolExecutor mockExecutor =
+                    mock(ScheduledThreadPoolExecutor.class);
+            doAnswer(
+                    (invocation) -> {
+                        ((Runnable) invocation.getArgument(0)).run();
+                        return null;
+                    })
+                .when(mockExecutor)
+                .execute(any());
+            return mockExecutor;
+        }
     }
 
     /**
