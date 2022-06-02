@@ -435,15 +435,19 @@ public class EthernetTracker {
         if (mDefaultInterface != null) {
             removeInterface(mDefaultInterface);
             addInterface(mDefaultInterface);
+            broadcastInterfaceStateChange(mDefaultInterface);
         }
     }
 
     private int getInterfaceRole(final String iface) {
-        if (!mFactory.hasInterface(iface)) return EthernetManager.ROLE_NONE;
-        final int mode = getInterfaceMode(iface);
-        return (mode == INTERFACE_MODE_CLIENT)
-                ? EthernetManager.ROLE_CLIENT
-                : EthernetManager.ROLE_SERVER;
+        if (mFactory.hasInterface(iface)) {
+            // only client mode interfaces are tracked by the factory.
+            return EthernetManager.ROLE_CLIENT;
+        }
+        if (getInterfaceMode(iface) == INTERFACE_MODE_SERVER) {
+            return EthernetManager.ROLE_SERVER;
+        }
+        return EthernetManager.ROLE_NONE;
     }
 
     private int getInterfaceMode(final String iface) {
