@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa0592ad_58a6b29d",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-06-02T11:13:36Z",
+      "side": 1,
+      "message": "This creates the NetworkStats with elapsedRealtime called here, even though it was called before requestSwapActiveStatsMapLocked before.\n\nSo on the next call to readNetworkStatsDetail, stats read from the map may start before the elapsedRealtime that was returned here (because the maps were swapped earlier), even though that might not have been possible before ?\n\nNot sure if that\u0027s a possible problem; if we\u0027re not sure, it may be safer to call getElapsedRealtime before calling requestSwapActiveStatsMapLocked",
+      "range": {
+        "startLine": 265,
+        "startChar": 45,
+        "endLine": 265,
+        "endChar": 66
+      },
+      "revId": "2482870d66a6b163b4da5026cd8893cd55347f9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
