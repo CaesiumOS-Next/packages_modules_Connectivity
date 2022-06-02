@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c952b306_f12dd7e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-02T03:59:31Z",
+      "side": 1,
+      "message": "LGTM, assume comment fixed.",
+      "revId": "958bd2e65fd147a84a02cf1a7fe237490aa806e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2736d34c_2dfe4a62",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-02T03:59:31Z",
+      "side": 1,
+      "message": "Looking this again, I think we could simply the code like:\n\nif (Struct.parse(EthernetHeader.class, buf) \u003d\u003d null) return false;",
+      "range": {
+        "startLine": 902,
+        "startChar": 12,
+        "endLine": 903,
+        "endChar": 50
+      },
+      "revId": "958bd2e65fd147a84a02cf1a7fe237490aa806e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9cd6992_df3d611d",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-02T03:59:31Z",
+      "side": 1,
+      "message": "if (Struct.parse(Ipv4Header.class, buf) \u003d\u003d null) return false;",
+      "range": {
+        "startLine": 907,
+        "startChar": 12,
+        "endLine": 908,
+        "endChar": 49
+      },
+      "revId": "958bd2e65fd147a84a02cf1a7fe237490aa806e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d36c4fd_0e807331",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-02T03:59:31Z",
+      "side": 1,
+      "message": "if (Struct.parse(Ipv6Header.class, buf) \u003d\u003d null) return false;",
+      "range": {
+        "startLine": 910,
+        "startChar": 12,
+        "endLine": 911,
+        "endChar": 49
+      },
+      "revId": "958bd2e65fd147a84a02cf1a7fe237490aa806e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69a6878d_a114acbe",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-02T03:59:31Z",
+      "side": 1,
+      "message": "if (Struct.parse(UdpHeader.class, buf) \u003d\u003d null) return false;",
+      "range": {
+        "startLine": 914,
+        "startChar": 8,
+        "endLine": 915,
+        "endChar": 44
+      },
+      "revId": "958bd2e65fd147a84a02cf1a7fe237490aa806e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c1a3fcf_365e8417",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 997,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-02T03:59:31Z",
+      "side": 1,
+      "message": "Don\u0027t need to change, just a tip that if you have overloading function as original one, then you don\u0027t need to change the caller everywhere.\n\nprivate boolean isExpectedUdpPacket(@NonNull final byte[] rawPacket, boolean hasEther, @NonNull final ByteBuffer payload) {\n    return isExpectedUdpPacket(rawPacket, hasEther, ture /* isIpv4 */, payload);\n}",
+      "range": {
+        "startLine": 997,
+        "startChar": 23,
+        "endLine": 997,
+        "endChar": 42
+      },
+      "revId": "958bd2e65fd147a84a02cf1a7fe237490aa806e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8efb77b8_2d90449c",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1255,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-02T03:59:31Z",
+      "side": 1,
+      "message": "Not for this CL: getClatIpv6Address, waitForIpv6TetherConnectivityVerified and isIpv4TetherConnectivityVerified are very similar and most of the code could be reused. Also consider to make the function name consistency and this three function should be in the same class.",
+      "range": {
+        "startLine": 1255,
+        "startChar": 25,
+        "endLine": 1255,
+        "endChar": 43
+      },
+      "revId": "958bd2e65fd147a84a02cf1a7fe237490aa806e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f69975d2_cc1e8849",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1277,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-02T03:59:31Z",
+      "side": 1,
+      "message": "ether",
+      "range": {
+        "startLine": 1277,
+        "startChar": 80,
+        "endLine": 1277,
+        "endChar": 85
+      },
+      "revId": "958bd2e65fd147a84a02cf1a7fe237490aa806e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
