@@ -28,6 +28,8 @@ import android.net.EthernetManager.ROLE_SERVER
 import android.net.EthernetManager.STATE_ABSENT
 import android.net.EthernetManager.STATE_LINK_DOWN
 import android.net.EthernetManager.STATE_LINK_UP
+import android.net.EthernetManager.TetheredInterfaceCallback
+import android.net.EthernetManager.TetheredInterfaceRequest
 import android.net.EthernetNetworkSpecifier
 import android.net.InetAddresses
 import android.net.IpConfiguration
@@ -65,7 +67,11 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.net.Inet6Address
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.ExecutionException
+import java.util.concurrent.TimeUnit
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
@@ -99,6 +105,8 @@ class EthernetManagerTest {
     private val createdIfaces = ArrayList<EthernetTestInterface>()
     private val addedListeners = ArrayList<EthernetStateListener>()
     private val networkRequests = ArrayList<TestableNetworkCallback>()
+
+    private var tetheredInterfaceRequest: TetheredInterfaceRequest? = null
 
     private class EthernetTestInterface(
         context: Context,
@@ -164,11 +172,11 @@ class EthernetManagerTest {
         }
 
         fun expectCallback(iface: EthernetTestInterface, state: Int, role: Int) {
-            expectCallback(createChangeEvent(iface, state, role))
+            expectCallback(createChangeEvent(iface.interfaceName, state, role))
         }
 
-        fun createChangeEvent(iface: EthernetTestInterface, state: Int, role: Int) =
-                InterfaceStateChanged(iface.interfaceName, state, role,
+        fun createChangeEvent(iface: String, state: Int, role: Int) =
+                InterfaceStateChanged(iface, state, role,
                         if (state != STATE_ABSENT) DEFAULT_IP_CONFIGURATION else null)
 
         fun pollForNextCallback(): CallbackEntry {
@@ -177,13 +185,43 @@ class EthernetManagerTest {
 
         fun eventuallyExpect(expected: CallbackEntry) = events.poll(TIMEOUT_MS) { it == expected }
 
+        fun eventuallyExpect(interfaceName: String, state: Int, role: Int) {
+            assertNotNull(eventuallyExpect(createChangeEvent(interfaceName, state, role)))
+        }
+
         fun eventuallyExpect(iface: EthernetTestInterface, state: Int, role: Int) {
-            assertNotNull(eventuallyExpect(createChangeEvent(iface, state, role)))
+            eventuallyExpect(iface.interfaceName, state, role)
         }
 
         fun assertNoCallback() {
             val cb = events.poll(NO_CALLBACK_TIMEOUT_MS)
             assertNull(cb, "Expected no callback but got $cb")
+        }
+    }
+
+    private class TetheredInterfaceListener : TetheredInterfaceCallback {
+        private val available = CompletableFuture<String>()
+
+        override fun onAvailable(iface: String) {
+            available.complete(iface)
+        }
+
+        override fun onUnavailable() {
+            available.completeExceptionally(IllegalStateException("onUnavailable was called"))
+        }
+
+        fun expectOnAvailable(): String {
+            return available.get(TIMEOUT_MS, TimeUnit.MILLISECONDS)
+        }
+
+        fun expectOnUnavailable() {
+            assertFailsWith(IllegalStateException::class) {
+                try {
+                    available.get(TIMEOUT_MS, TimeUnit.MILLISECONDS)
+                } catch (e: ExecutionException) {
+                    throw e.cause!!
+                }
+            }
         }
     }
 
@@ -204,6 +242,7 @@ class EthernetManagerTest {
             em.removeInterfaceStateListener(listener)
         }
         networkRequests.forEach { cm.unregisterNetworkCallback(it) }
+        tetheredInterfaceRequest?.release()
     }
 
     private fun addInterfaceStateListener(listener: EthernetStateListener) {
@@ -248,6 +287,16 @@ class EthernetManagerTest {
     private fun releaseNetwork(cb: TestableNetworkCallback) {
         cm.unregisterNetworkCallback(cb)
         networkRequests.remove(cb)
+    }
+
+    private fun requestTetheredInterface() = TetheredInterfaceListener().also {
+        tetheredInterfaceRequest =
+            em.requestTetheredInterface(HandlerExecutor(Handler(Looper.getMainLooper())), it)
+    }
+
+    private fun releaseTetheredInterface() {
+        tetheredInterfaceRequest!!.release()
+        tetheredInterfaceRequest = null
     }
 
     private fun NetworkRequest.createCopyWithEthernetSpecifier(ifaceName: String) =
@@ -302,6 +351,23 @@ class EthernetManagerTest {
         }
     }
 
+    @Test
+    fun testCallbacks_forServerModeInterfaces() {
+        val listener = EthernetStateListener()
+        addInterfaceStateListener(listener)
+
+        // it is possible that a physical interface is present, so it is not guaranteed that iface
+        // will be put into server mode. This should not matter for the test though. Calling
+        // createInterface() makes sure we have at least one interface available.
+        val iface = createInterface()
+        val cb = requestTetheredInterface()
+        val ifaceName = cb.expectOnAvailable()
+        listener.eventuallyExpect(ifaceName, STATE_LINK_UP, ROLE_SERVER)
+
+        releaseTetheredInterface()
+        listener.eventuallyExpect(ifaceName, STATE_LINK_UP, ROLE_CLIENT)
+    }
+
     /**
      * Validate all interfaces are returned for an EthernetStateListener upon registration.
      */
@@ -317,7 +383,10 @@ class EthernetManagerTest {
             assertTrue(ifaces.contains(iface), "Untracked interface $iface returned")
             // If the event's iface was created in the test, additional criteria can be validated.
             createdIfaces.find { it.interfaceName.equals(iface) }?.let {
-                assertEquals(event, listener.createChangeEvent(it, STATE_LINK_UP, ROLE_CLIENT))
+                assertEquals(event,
+                    listener.createChangeEvent(it.interfaceName,
+                                                        STATE_LINK_UP,
+                                                        ROLE_CLIENT))
             }
         }
         // Assert all callbacks are accounted for.
