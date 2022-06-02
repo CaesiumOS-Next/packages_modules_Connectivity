@@ -88,11 +88,17 @@ public final class TetheringTester {
 
     private final ArrayMap<MacAddress, TetheredDevice> mTetheredDevices;
     private final TapPacketReader mDownstreamReader;
+    private final TapPacketReader mUpstreamReader;
 
     public TetheringTester(TapPacketReader downstream) {
+        this(downstream, null);
+    }
+
+    public TetheringTester(TapPacketReader downstream, TapPacketReader upstream) {
         if (downstream == null) fail("Downstream reader could not be NULL");
 
         mDownstreamReader = downstream;
+        mUpstreamReader = upstream;
         mTetheredDevices = new ArrayMap<>();
     }
 
@@ -380,7 +386,7 @@ public final class TetheringTester {
         return false;
     }
 
-    public void sendPacket(ByteBuffer packet) throws Exception {
+    private void sendPacket(ByteBuffer packet) throws Exception {
         mDownstreamReader.sendResponse(packet);
     }
 
@@ -396,30 +402,25 @@ public final class TetheringTester {
         return null;
     }
 
-    public void verifyUpload(final RemoteResponder dst, final ByteBuffer packet,
-            final Predicate<byte[]> filter) throws Exception {
-        sendPacket(packet);
-        assertNotNull("Upload fail", dst.getNextMatchedPacket(filter));
+    public byte[] getNextMatchedRemotePacket(Predicate<byte[]> filter) {
+        return mUpstreamReader.poll(PACKET_READ_TIMEOUT_MS, filter);
     }
 
-    public static class RemoteResponder {
-        final TapPacketReader mUpstreamReader;
-        public RemoteResponder(TapPacketReader reader) {
-            mUpstreamReader = reader;
-        }
+    public byte[] verifyUpload(final ByteBuffer packet, final Predicate<byte[]> filter)
+            throws Exception {
+        sendPacket(packet);
+        byte[] result = getNextMatchedPacket(filter);
+        assertNotNull("Upload fail", result);
 
-        public void sendPacket(ByteBuffer packet) throws Exception {
-            mUpstreamReader.sendResponse(packet);
-        }
+        return result;
+    }
 
-        public byte[] getNextMatchedPacket(Predicate<byte[]> filter) throws Exception {
-            return mUpstreamReader.poll(PACKET_READ_TIMEOUT_MS, filter);
-        }
+    public byte[] verifyDownload(final ByteBuffer packet, final Predicate<byte[]> filter)
+            throws Exception {
+        mUpstreamReader.sendResponse(packet);
+        byte[] result = getNextMatchedRemotePacket(filter);
+        assertNotNull("Download fail", result);
 
-        public void verifyDownload(final TetheringTester dst, final ByteBuffer packet,
-                final Predicate<byte[]> filter) throws Exception {
-            sendPacket(packet);
-            assertNotNull("Download fail", dst.getNextMatchedPacket(filter));
-        }
+        return result;
     }
 }
