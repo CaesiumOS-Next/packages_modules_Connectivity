@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9b12170_0b7fb102",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-02T08:30:04Z",
+      "side": 1,
+      "message": "I think existing scheme are too easy to miss something cleanup when IOException happen.\nCould you at least have a test to test each operation IOException happen and verify the cleanup is correct.\n\nAlso maybe change the scheme like this, you could make each variable which need to cleanup default null, then only cleanup them when they are valid.\n\nParcelFileDescriptor tunFd \u003d null;\nParcelFileDescriptor readSock6 \u003d null;\nParcelFileDescriptor writeSock6 \u003d null;\n\nprivate void maybeCleanUp(ParcelFileDescriptor tunFd, ParcelFileDescriptor readSock6, ParcelFileDescriptor writeSocket6) {\n    if (tunFd !\u003d null) tunFd.close();\n    if (readSock6 !\u003d null) reaSock6.close();\n    if (writeSock6 !\u003d null) writeSock6.close();\n}\n\nCall maybeCleanUp every times when you handle IOException.",
+      "range": {
+        "startLine": 572,
+        "startChar": 0,
+        "endLine": 580,
+        "endChar": 9
+      },
+      "revId": "0de59ba709cd9c81d8c924f24e8103c31b84814d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
