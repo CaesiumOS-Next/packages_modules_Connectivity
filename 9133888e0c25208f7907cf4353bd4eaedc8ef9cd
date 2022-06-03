@@ -133,6 +133,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a8692e2_4c2fc4e6",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-06-03T09:06:31Z",
+      "side": 1,
+      "message": "This would catch onDiscoveryStopped being run on the wrong thread when there was no matching network, which is something Paul found in his review",
+      "parentUuid": "971e6bdb_62eefc2c",
+      "range": {
+        "startLine": 535,
+        "startChar": 8,
+        "endLine": 535,
+        "endChar": 67
+      },
+      "revId": "9133888e0c25208f7907cf4353bd4eaedc8ef9cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a341a71_5fe9379d",
