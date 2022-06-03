@@ -46,6 +46,30 @@
       },
       "revId": "2482870d66a6b163b4da5026cd8893cd55347f9d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccd5ebce_a2b6b263",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-06-03T02:23:02Z",
+      "side": 1,
+      "message": "Yes my concern was on the 2nd one. If you think it\u0027s OK (meaning, there\u0027s no user of this API that calls it repeatedly, and expects that the stats will always be newer than the timestamp of the last call; or it wouldn\u0027t crash or do anything noticeable), then SGTM.",
+      "parentUuid": "6308316c_f97c47f5",
+      "range": {
+        "startLine": 265,
+        "startChar": 45,
+        "endLine": 265,
+        "endChar": 66
+      },
+      "revId": "2482870d66a6b163b4da5026cd8893cd55347f9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
