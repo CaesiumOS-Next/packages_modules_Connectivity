@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8dfec76_af249f7d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T08:59:19Z",
+      "side": 1,
+      "message": "LGTM. Feel free to address comments in a follow-up.",
+      "revId": "9133888e0c25208f7907cf4353bd4eaedc8ef9cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c918280e_baa2f46a",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T08:59:19Z",
+      "side": 1,
+      "message": "You might want to add a comment just before here explaining that mListenerMap and mExecutorMap (and maybe mServiceMap too??) contain a mixture of callbacks passed in by the user, which run on the executor passed in by the user, and delegating listeners, which run inline on the handler thread and then post to executor passed in by the user.",
+      "range": {
+        "startLine": 290,
+        "startChar": 30,
+        "endLine": 290,
+        "endChar": 42
+      },
+      "revId": "9133888e0c25208f7907cf4353bd4eaedc8ef9cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cd60e99_561e1b7b",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T08:59:19Z",
+      "side": 1,
+      "message": "Could this be renamed to mUserExecutor or mUserSuppliedExecutor for clarity? That\u0027s what it is, right?\n\nSimilar comment for mBaseListener.",
+      "range": {
+        "startLine": 307,
+        "startChar": 23,
+        "endLine": 307,
+        "endChar": 36
+      },
+      "revId": "9133888e0c25208f7907cf4353bd4eaedc8ef9cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8d106c3_73f4816d",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T08:59:19Z",
+      "side": 1,
+      "message": "(e.g., while processing the SERVICE_FOUND message). The appropriate DelegatingDiscoveryListener method (e.g., onServiceFound) will then post the actual user callback to mUserExecutor.",
+      "range": {
+        "startLine": 317,
+        "startChar": 79,
+        "endLine": 317,
+        "endChar": 93
+      },
+      "revId": "9133888e0c25208f7907cf4353bd4eaedc8ef9cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d734d684_b090f620",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T08:59:19Z",
+      "side": 1,
+      "message": "Suggest:\n\n    message \u003d null;  // Ensure nothing uses message any more.",
+      "range": {
+        "startLine": 669,
+        "startChar": 42,
+        "endLine": 669,
+        "endChar": 43
+      },
+      "revId": "9133888e0c25208f7907cf4353bd4eaedc8ef9cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "971e6bdb_62eefc2c",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T08:59:19Z",
+      "side": 1,
+      "message": "Out of curiosity, why did you add this? Is there something tested here that\u0027s not tested by the other discovery tests?",
+      "range": {
+        "startLine": 535,
+        "startChar": 8,
+        "endLine": 535,
+        "endChar": 67
+      },
+      "revId": "9133888e0c25208f7907cf4353bd4eaedc8ef9cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a341a71_5fe9379d",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T08:59:19Z",
+      "side": 1,
+      "message": "It also requires T, right? shouldTestTApis checks that as well, but this comment doesn\u0027t mention that.",
+      "range": {
+        "startLine": 536,
+        "startChar": 30,
+        "endLine": 536,
+        "endChar": 35
+      },
+      "revId": "9133888e0c25208f7907cf4353bd4eaedc8ef9cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
