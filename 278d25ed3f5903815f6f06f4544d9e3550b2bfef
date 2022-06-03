@@ -164,6 +164,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a89b0642_e0904eb1",
+        "filename": "tests/cts/net/src/android/net/cts/TestNetworkWrapper.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-03T01:39:26Z",
+      "side": 1,
+      "message": "Both the TestNetworkWrapper in VCN and IKE have lots of other dependencies\n\nVCN\u0027 [TestNetworkWrapper](https://osscs.corp.google.com/android/platform/superproject/+/master:cts/tests/tests/vcn/src/android/net/vcn/cts/TestNetworkWrapper.java) has lots of VCN dependencies.\n\nSimilar for IKE\u0027s TestNetworkWrapper. which is still called [TunNetworkContext](https://osscs.corp.google.com/android/platform/superproject/+/master:packages/modules/IPsec/tests/cts/src/android/ipsec/ike/cts/IkeTestNetworkBase.java;l\u003d71;bpv\u003d1;bpt\u003d1?q\u003dTunNetworkContext\u0026ss\u003dandroid%2Fplatform%2Fsuperproject), and it\u0027s a inner class.\n\nThus I think it might require even bigger changes to reuse IKE or VCN\u0027s code and also in the future I want to make IKE and VCN to reuse the Connectivity\u0027s TestNetworkWrapper, and TunUtils",
+      "parentUuid": "ce2918f6_ace06918",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 58
+      },
+      "revId": "278d25ed3f5903815f6f06f4544d9e3550b2bfef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c9651387_3962840c",
         "filename": "tests/cts/net/src/android/net/cts/TunUtils.java",
         "patchSetId": 7
