@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcc57a7a_872cef9b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-03T05:06:24Z",
+      "side": 1,
+      "message": "Looks pretty good. few comments below :)",
+      "revId": "d9bd5470f6369630b1bcfce3cc3b6762bf6b4dc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3772753e_5ba37e01",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-03T05:06:24Z",
+      "side": 1,
+      "message": "[Readability] _2 or _MIGRATED or _NEW_NETWORK is clearer.\n\n\"New\" in Java has a very specific meaning, and that\u0027s what I jumped to first.",
+      "range": {
+        "startLine": 221,
+        "startChar": 56,
+        "endLine": 221,
+        "endChar": 59
+      },
+      "revId": "d9bd5470f6369630b1bcfce3cc3b6762bf6b4dc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89e4c899_a458145e",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-03T05:06:24Z",
+      "side": 1,
+      "message": "Is this actually necessary?\n\nMy understanding is that Junit actually creates a new instance per run",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 53
+      },
+      "revId": "d9bd5470f6369630b1bcfce3cc3b6762bf6b4dc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f3dff64_61ee2309",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1543,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-03T05:06:24Z",
+      "side": 1,
+      "message": "In general, the test runnable pattern is slightly harder to read than if we inlined it:\n\n```\npublic void testStartPlatformVpnMobilityWithMobike() {\n    setupAndVerifyPlatformVpn(ikeConfig);\n    \n    IkeSessionCallback ikeCb \u003d getIkeCb();\n    ChildSessionCallback childCb \u003d getChildCb();\n    NetworkCallback nwCb \u003d getNwCb();\n    \n    ...\n}\n```\n\nFYI: the pattern you\u0027re using of the test runnables is a very common functional programming pattern, called \"Continuation Passing Style\" or CPS for short. Unfortunately, because Java isn\u0027t a functional programming language at it\u0027s core, it\u0027s a little out of place.\n\nFYI2: The reason why we use this in CTS so much is that it allows us to have a try/finally to make 100% sure we clean up global device state. But given that unit tests by definition don\u0027t impact global state, the readability tradeoff isn\u0027t worth the \"safety\" guarantees.",
+      "range": {
+        "startLine": 1543,
+        "startChar": 22,
+        "endLine": 1543,
+        "endChar": 45
+      },
+      "revId": "d9bd5470f6369630b1bcfce3cc3b6762bf6b4dc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9580bac5_9da4f9d4",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1604,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-03T05:06:24Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be a throw route, right? Perhaps this was copied from somewhere?",
+      "range": {
+        "startLine": 1604,
+        "startChar": 30,
+        "endLine": 1604,
+        "endChar": 35
+      },
+      "revId": "d9bd5470f6369630b1bcfce3cc3b6762bf6b4dc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b5219e5_04d9c1a1",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1605,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-03T05:06:24Z",
+      "side": 1,
+      "message": "Should we verify that it\u0027s exactly what we expect?\n\nWe\u0027d probably need a IPv6 unreachable route though.",
+      "range": {
+        "startLine": 1605,
+        "startChar": 33,
+        "endLine": 1605,
+        "endChar": 41
+      },
+      "revId": "d9bd5470f6369630b1bcfce3cc3b6762bf6b4dc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
