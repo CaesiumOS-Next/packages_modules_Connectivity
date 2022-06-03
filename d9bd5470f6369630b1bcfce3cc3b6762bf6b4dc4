@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9c290b1_d1bd46dd",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-03T22:20:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3772753e_5ba37e01",
+      "range": {
+        "startLine": 221,
+        "startChar": 56,
+        "endLine": 221,
+        "endChar": 59
+      },
+      "revId": "d9bd5470f6369630b1bcfce3cc3b6762bf6b4dc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89e4c899_a458145e",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-06-03T05:06:24Z",
       "side": 1,
       "message": "Is this actually necessary?\n\nMy understanding is that Junit actually creates a new instance per run",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 53
+      },
+      "revId": "d9bd5470f6369630b1bcfce3cc3b6762bf6b4dc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3066c9ed_4acee7af",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-03T22:20:49Z",
+      "side": 1,
+      "message": "resetIkev2SessionCreator is created for testStartPlatformVpnReestablishesMobikeDisabled to call. And in setup() we just reuse method.",
+      "parentUuid": "89e4c899_a458145e",
       "range": {
         "startLine": 337,
         "startChar": 0,
@@ -110,6 +158,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b08222a_4e1c3b90",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1604,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-03T22:20:49Z",
+      "side": 1,
+      "message": "Oh, copied from startRacoon().",
+      "parentUuid": "9580bac5_9da4f9d4",
+      "range": {
+        "startLine": 1604,
+        "startChar": 30,
+        "endLine": 1604,
+        "endChar": 35
+      },
+      "revId": "d9bd5470f6369630b1bcfce3cc3b6762bf6b4dc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b5219e5_04d9c1a1",
@@ -123,6 +195,30 @@
       "writtenOn": "2022-06-03T05:06:24Z",
       "side": 1,
       "message": "Should we verify that it\u0027s exactly what we expect?\n\nWe\u0027d probably need a IPv6 unreachable route though.",
+      "range": {
+        "startLine": 1605,
+        "startChar": 33,
+        "endLine": 1605,
+        "endChar": 41
+      },
+      "revId": "d9bd5470f6369630b1bcfce3cc3b6762bf6b4dc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64e087cf_c5b42e20",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1605,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-03T22:20:49Z",
+      "side": 1,
+      "message": "I copied that from startRacoon. I thought the intention is to avoid a change detector test and only test the RouteInfo we care. I might be wrong.",
+      "parentUuid": "3b5219e5_04d9c1a1",
       "range": {
         "startLine": 1605,
         "startChar": 33,
