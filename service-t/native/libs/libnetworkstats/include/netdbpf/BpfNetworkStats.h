@@ -57,7 +57,7 @@ bool operator<(const stats_line& lhs, const stats_line& rhs);
 
 // For test only
 int bpfGetUidStatsInternal(uid_t uid, Stats* stats,
-                           const BpfMap<uint32_t, StatsValue>& appUidStatsMap);
+                           const BpfMapRO<uint32_t, StatsValue>& appUidStatsMap);
 // For test only
 int bpfGetIfaceStatsInternal(const char* iface, Stats* stats,
                              const BpfMap<uint32_t, StatsValue>& ifaceStatsMap,
