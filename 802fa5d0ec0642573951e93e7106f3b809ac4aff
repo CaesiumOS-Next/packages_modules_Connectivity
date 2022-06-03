@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c74237a9_1df0582a",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1158,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-03T04:41:57Z",
+      "side": 1,
+      "message": "Nit: Can we make this a utility method? \n\nSomething like \"verifyAddedToPowerSaveWhitelistAndReset(String pkg)\"\n\nIf we\u0027re doing the same thing so many times, it\u0027s helpful to make it just one utility.",
+      "range": {
+        "startLine": 1157,
+        "startChar": 8,
+        "endLine": 1158,
+        "endChar": 35
+      },
+      "revId": "802fa5d0ec0642573951e93e7106f3b809ac4aff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
