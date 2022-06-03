@@ -267,6 +267,42 @@ public final class TetheringTester {
         fail("Could not get RA multicast packet after " + READ_RA_ATTEMPTS + " attempts");
     }
 
+    private static final int TETHER_REACHABILITY_ATTEMPTS = 20;
+    private static final ByteBuffer TEST_REACHABILITY_PAYLOAD =
+            ByteBuffer.wrap(new byte[] { (byte) 0x55, (byte) 0xaa });
+    // TODO: remove this verification once upstream connected notification race is fixed.
+    // See EthernetTetheringTest#runUdp4Test.
+    public byte[] waitForIpv4TetherConnectivityVerified(TetheredDevice tethered) throws Exception {
+        final Inet4Address dstIp = (Inet4Address) parseNumericAddress("8.8.8.8");
+        final short srcPort = 123;
+        final short dstPort = 321;
+        final ByteBuffer probePacket = buildUdpPacket(tethered.macAddr,
+                tethered.routerMacAddr, tethered.ipv4Addr /* srcIp */,
+                dstIp, srcPort, dstPort, TEST_REACHABILITY_PAYLOAD);
+
+        // Send a UDP packet from client and check the packet can be found on upstream interface.
+        for (int i = 0; i < TETHER_REACHABILITY_ATTEMPTS; i++) {
+            byte[] expectedPacket = verifyUpload(probePacket, p -> {
+                return isExpectedUdpPacket(p, false /* hasEther */, true /* isIpv4 */,
+                        TEST_REACHABILITY_PAYLOAD);
+            });
+            if (expectedPacket != null) return expectedPacket;
+        }
+
+        fail("Can't reach ipv4 upstream after " + TETHER_REACHABILITY_ATTEMPTS + " attempts");
+        return null;
+    }
+
+    public Inet6Address getClatIpv6Address(TetheredDevice tethered) throws Exception {
+        // Send an IPv4 UDP packet from client and check that a CLAT translated IPv6 UDP packet can
+        // be found on upstream interface. Get CLAT IPv6 address from the CLAT translated IPv6 UDP
+        // packet.
+        byte[] expectedPacket = waitForIpv4TetherConnectivityVerified(tethered);
+
+        // Above has guaranteed that the found packet is an IPv6 packet without ether header.
+        return Struct.parse(Ipv6Header.class, ByteBuffer.wrap(expectedPacket)).srcIp;
+    }
+
     private List<PrefixInformationOption> getRaPrefixOptions(byte[] packet) {
         ByteBuffer buf = ByteBuffer.wrap(packet);
         if (!isIcmpv6Type(buf, true /* hasEth */, ICMPV6_ROUTER_ADVERTISEMENT)) return null;

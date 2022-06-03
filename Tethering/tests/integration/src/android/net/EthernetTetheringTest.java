@@ -807,30 +807,8 @@ public class EthernetTetheringTest {
 
     @Test
     public void testIcmpv6Echo() throws Exception {
-        assumeFalse(mEm.isAvailable());
-
-        // MyTetheringEventCallback currently only support await first available upstream. Tethering
-        // may select internet network as upstream if test network is not available and not be
-        // preferred yet. Create test upstream network before enable tethering.
-        mUpstreamTracker = createTestUpstream(toList(TEST_IP4_ADDR, TEST_IP6_ADDR),
-                toList(TEST_IP4_DNS, TEST_IP6_DNS));
-
-        mDownstreamIface = createTestInterface();
-        mEm.setIncludeTestInterfaces(true);
-
-        final String iface = mTetheredInterfaceRequester.getInterface();
-        assertEquals("TetheredInterfaceCallback for unexpected interface",
-                mDownstreamIface.getInterfaceName(), iface);
-
-        mTetheringEventCallback = enableEthernetTethering(mDownstreamIface.getInterfaceName(),
-                mUpstreamTracker.getNetwork());
-        assertEquals("onUpstreamChanged for unexpected network", mUpstreamTracker.getNetwork(),
-                mTetheringEventCallback.awaitUpstreamChanged());
-
-        mDownstreamReader = makePacketReader(mDownstreamIface);
-        mUpstreamReader = makePacketReader(mUpstreamTracker.getTestIface());
-
-        runPing6Test(new TetheringTester(mDownstreamReader, mUpstreamReader));
+        runPing6Test(initializeTethering(toList(TEST_IP4_ADDR, TEST_IP6_ADDR),
+                toList(TEST_IP4_DNS, TEST_IP6_DNS)));
     }
 
     private void runPing6Test(TetheringTester tester) throws Exception {
@@ -969,27 +947,6 @@ public class EthernetTetheringTest {
                 dstPort, payload);
     }
 
-    // TODO: remove this verification once upstream connected notification race is fixed.
-    // See #runUdp4Test.
-    private boolean isIpv4TetherConnectivityVerified(TetheringTester tester,
-            TetheredDevice tethered) throws Exception {
-        final ByteBuffer probePacket = buildUdpPacket(tethered.macAddr,
-                tethered.routerMacAddr, tethered.ipv4Addr /* srcIp */,
-                REMOTE_IP4_ADDR /* dstIp */, LOCAL_PORT /* srcPort */, REMOTE_PORT /* dstPort */,
-                TEST_REACHABILITY_PAYLOAD);
-
-        // Send a UDP packet from client and check the packet can be found on upstream interface.
-        for (int i = 0; i < TETHER_REACHABILITY_ATTEMPTS; i++) {
-            byte[] expectedPacket = tester.verifyUpload(probePacket, p -> {
-                Log.d(TAG, "Packet in upstream: " + dumpHexString(p));
-                return isExpectedUdpPacket(p, false /* hasEther */, true /* isIpv4 */,
-                        TEST_REACHABILITY_PAYLOAD);
-            });
-            if (expectedPacket != null) return true;
-        }
-        return false;
-    }
-
     private void runUdp4Test(TetheringTester tester, boolean usingBpf) throws Exception {
         final TetheredDevice tethered = tester.createTetheredDevice(MacAddress.fromString(
                 "1:2:3:4:5:6"), false /* hasIpv6 */);
@@ -1000,7 +957,7 @@ public class EthernetTetheringTest {
         // For short term plan, consider using IPv6 RA to get MAC address because the prefix comes
         // from upstream. That can guarantee that the routing is ready. Long term plan is that
         // refactors upstream connected notification from async to sync.
-        assertTrue(isIpv4TetherConnectivityVerified(tester, tethered));
+        tester.waitForIpv4TetherConnectivityVerified(tethered);
 
         // Send a UDP packet in original direction.
         final ByteBuffer originalPacket = buildUdpPacket(tethered.macAddr,
@@ -1107,8 +1064,8 @@ public class EthernetTetheringTest {
         }
     }
 
-    void initializeTethering(List<LinkAddress> upstreamAddresses, List<InetAddress> upstreamDnses)
-            throws Exception {
+    private TetheringTester initializeTethering(List<LinkAddress> upstreamAddresses,
+            List<InetAddress> upstreamDnses) throws Exception {
         assumeFalse(mEm.isAvailable());
 
         // MyTetheringEventCallback currently only support await first available upstream. Tethering
@@ -1130,13 +1087,15 @@ public class EthernetTetheringTest {
 
         mDownstreamReader = makePacketReader(mDownstreamIface);
         mUpstreamReader = makePacketReader(mUpstreamTracker.getTestIface());
+
+        return new TetheringTester(mDownstreamReader, mUpstreamReader);
     }
 
     @Test
     @IgnoreAfter(Build.VERSION_CODES.R)
     public void testTetherUdpV4UpToR() throws Exception {
-        initializeTethering(toList(TEST_IP4_ADDR), toList(TEST_IP4_DNS));
-        runUdp4Test(new TetheringTester(mDownstreamReader, mUpstreamReader), false /* usingBpf */);
+        runUdp4Test(initializeTethering(toList(TEST_IP4_ADDR), toList(TEST_IP4_DNS)),
+                false /* usingBpf */);
     }
 
     private static boolean isUdpOffloadSupportedByKernel(final String kernelVersion) {
@@ -1170,14 +1129,13 @@ public class EthernetTetheringTest {
     @Test
     @IgnoreUpTo(Build.VERSION_CODES.R)
     public void testTetherUdpV4AfterR() throws Exception {
-        initializeTethering(toList(TEST_IP4_ADDR), toList(TEST_IP4_DNS));
         final String kernelVersion = VintfRuntimeInfo.getKernelVersion();
         boolean usingBpf = isUdpOffloadSupportedByKernel(kernelVersion);
         if (!usingBpf) {
             Log.i(TAG, "testTetherUdpV4AfterR will skip BPF offload test for kernel "
                     + kernelVersion);
         }
-        runUdp4Test(new TetheringTester(mDownstreamReader, mUpstreamReader), usingBpf);
+        runUdp4Test(initializeTethering(toList(TEST_IP4_ADDR), toList(TEST_IP4_DNS)), usingBpf);
     }
 
     @Nullable
@@ -1236,34 +1194,6 @@ public class EthernetTetheringTest {
         return null;
     }
 
-    @Nullable
-    private Inet6Address getClatIpv6Address(TetheringTester tester, TetheredDevice tethered)
-            throws Exception {
-        final ByteBuffer probePacket = buildUdpPacket(tethered.macAddr,
-                tethered.routerMacAddr, tethered.ipv4Addr /* srcIp */,
-                REMOTE_IP4_ADDR /* dstIp */, LOCAL_PORT /* srcPort */, REMOTE_PORT /* dstPort */,
-                TEST_REACHABILITY_PAYLOAD);
-
-        // Send an IPv4 UDP packet from client and check that a CLAT translated IPv6 UDP packet can
-        // be found on upstream interface. Get CLAT IPv6 address from the CLAT translated IPv6 UDP
-        // packet.
-        byte[] expectedPacket = null;
-        for (int i = 0; i < TETHER_REACHABILITY_ATTEMPTS; i++) {
-            expectedPacket = tester.verifyUpload(probePacket, p -> {
-                Log.d(TAG, "Packet in upstream: " + dumpHexString(p));
-                return isExpectedUdpPacket(p, false /* hasEther */, false /* isIpv4 */,
-                        TEST_REACHABILITY_PAYLOAD);
-            });
-            if (expectedPacket != null) break;
-        }
-        if (expectedPacket == null) return null;
-
-        // Above has guaranteed that the found packet is an IPv6 packet without ether header.
-        final Ipv6Header ipv6Header = Struct.parse(Ipv6Header.class,
-                ByteBuffer.wrap(expectedPacket));
-        return ipv6Header.srcIp;
-    }
-
     // Test network topology:
     //
     //            public network (rawip)                 private network
@@ -1288,8 +1218,7 @@ public class EthernetTetheringTest {
                 "1:2:3:4:5:6"), true /* hasIpv6 */);
 
         // Get CLAT IPv6 address.
-        final Inet6Address clatAddr6 = getClatIpv6Address(tester, tethered);
-        assertNotNull(clatAddr6);
+        final Inet6Address clatAddr6 = tester.getClatIpv6Address(tethered);
 
         // Send an IPv4 UDP packet in original direction.
         // IPv4 packet -- CLAT translation --> IPv6 packet
@@ -1318,8 +1247,7 @@ public class EthernetTetheringTest {
     @Test
     public void testTetherClatUdp() throws Exception {
         // CLAT only starts on IPv6 only network.
-        initializeTethering(toList(TEST_IP6_ADDR), toList(TEST_IP6_DNS));
-        runClatUdpTest(new TetheringTester(mDownstreamReader, mUpstreamReader));
+        runClatUdpTest(initializeTethering(toList(TEST_IP6_ADDR), toList(TEST_IP6_DNS)));
     }
 
     private <T> List<T> toList(T... array) {
