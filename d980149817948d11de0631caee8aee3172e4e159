@@ -16,6 +16,29 @@
       "message": "Still LGTM.",
       "revId": "d980149817948d11de0631caee8aee3172e4e159",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8d19037_ecef8b74",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-03T12:34:54Z",
+      "side": 1,
+      "message": "It would be more efficient from a bpf verifier perspective to write this as\n\n#define DROP_IF_SET (OEM_DENY_1_MATCH | OEM_DENY_2_MATCH)\n\nif (enabledRules \u0026 DROP_IF_SET \u0026 uidRules) return BPF_DROP;\n\n(and can merge with other cases too)\n\nProbably needs a comment to explain what it\u0027s doing though.\n\nSimilarly:\n\n#define DROP_IF_NOT_SET (RESTRICTED_MATCH)\n\nif (enabledRules \u0026 DROP_IF_NOT_SET \u0026 (uidRules ^ DROP_IF_NOT_SET)) return BPF_DROP;",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 219,
+        "endChar": 81
+      },
+      "revId": "d980149817948d11de0631caee8aee3172e4e159",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
