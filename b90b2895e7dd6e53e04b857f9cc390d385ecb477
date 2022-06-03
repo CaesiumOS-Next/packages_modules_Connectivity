@@ -62,6 +62,30 @@
       },
       "revId": "b90b2895e7dd6e53e04b857f9cc390d385ecb477",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "452050d2_33b87775",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T03:12:50Z",
+      "side": 1,
+      "message": "Actually it does better, it only skips is ADB over tcp is detected. See EthernetTetheringTest#testPhysicalEthernet. You could do the same here.",
+      "parentUuid": "b12d9428_e4f1102e",
+      "range": {
+        "startLine": 363,
+        "startChar": 41,
+        "endLine": 363,
+        "endChar": 84
+      },
+      "revId": "b90b2895e7dd6e53e04b857f9cc390d385ecb477",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
