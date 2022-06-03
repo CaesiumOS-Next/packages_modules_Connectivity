@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf791bbf_c78cb369",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T08:09:57Z",
+      "side": 1,
+      "message": "The level of logic in this test is uncomfortably high.\n\nhttps://testing.googleblog.com/2014/07/testing-on-toilet-dont-put-logic-in.html\n\n:-)\n\nThat said, I think Patrick mentioned he wanted to remove this test because it\u0027s difficult to work with and provides little or no value on top of the CTS tests we have, so I this is probably fine for now. If we merge this change as is, maybe sync up with him to find a solution?",
+      "range": {
+        "startLine": 438,
+        "startChar": 8,
+        "endLine": 438,
+        "endChar": 62
+      },
+      "revId": "f33f276b291d8b24b680a02f64404fd1c94186ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
