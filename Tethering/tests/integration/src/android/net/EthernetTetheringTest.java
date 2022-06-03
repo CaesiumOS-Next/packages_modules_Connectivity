@@ -26,6 +26,7 @@ import static android.net.InetAddresses.parseNumericAddress;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
 import static android.net.TetheringManager.TETHERING_ETHERNET;
+import static android.net.TetheringTester.isExpectedUdpPacket;
 import static android.net.TetheringTester.isIcmpv6Type;
 import static android.system.OsConstants.IPPROTO_ICMPV6;
 import static android.system.OsConstants.IPPROTO_IP;
@@ -85,9 +86,7 @@ import com.android.net.module.util.bpf.TetherStatsKey;
 import com.android.net.module.util.bpf.TetherStatsValue;
 import com.android.net.module.util.structs.EthernetHeader;
 import com.android.net.module.util.structs.Icmpv6Header;
-import com.android.net.module.util.structs.Ipv4Header;
 import com.android.net.module.util.structs.Ipv6Header;
-import com.android.net.module.util.structs.UdpHeader;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
@@ -886,28 +885,6 @@ public class EthernetTetheringTest {
             ByteBuffer.wrap(new byte[] { (byte) 0x56, (byte) 0x78 });
     private static final ByteBuffer PAYLOAD3 =
             ByteBuffer.wrap(new byte[] { (byte) 0x9a, (byte) 0xbc });
-
-    private boolean isExpectedUdpPacket(@NonNull final byte[] rawPacket, boolean hasEther,
-            boolean isIpv4, @NonNull final ByteBuffer payload) {
-        final ByteBuffer buf = ByteBuffer.wrap(rawPacket);
-
-        if (hasEther) {
-            if (Struct.parse(EthernetHeader.class, buf) == null) return false;
-        }
-
-        if (isIpv4) {
-            if (Struct.parse(Ipv4Header.class, buf) == null) return false;
-        } else {
-            if (Struct.parse(Ipv6Header.class, buf) == null) return false;
-        }
-
-        if (Struct.parse(UdpHeader.class, buf) == null) return false;
-
-        if (buf.remaining() != payload.limit()) return false;
-
-        return Arrays.equals(Arrays.copyOfRange(buf.array(), buf.position(), buf.limit()),
-                payload.array());
-    }
 
     @NonNull
     private ByteBuffer buildUdpPacket(
