@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02240dce_4a124227",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T02:56:28Z",
+      "side": 1,
+      "message": "stop using?\n\n(this CL is not the CL that is actually deleting them)",
+      "range": {
+        "startLine": 7,
+        "startChar": 10,
+        "endLine": 7,
+        "endChar": 16
+      },
+      "revId": "bf2868dbe246b8cee48f5bb6d6e3d68a8f125e81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
