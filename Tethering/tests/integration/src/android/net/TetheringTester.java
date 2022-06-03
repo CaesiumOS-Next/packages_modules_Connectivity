@@ -18,11 +18,13 @@ package android.net;
 
 import static android.net.InetAddresses.parseNumericAddress;
 import static android.system.OsConstants.IPPROTO_ICMPV6;
+import static android.system.OsConstants.IPPROTO_UDP;
 
 import static com.android.net.module.util.NetworkStackConstants.ARP_REPLY;
 import static com.android.net.module.util.NetworkStackConstants.ARP_REQUEST;
 import static com.android.net.module.util.NetworkStackConstants.ETHER_ADDR_LEN;
 import static com.android.net.module.util.NetworkStackConstants.ETHER_BROADCAST;
+import static com.android.net.module.util.NetworkStackConstants.ETHER_TYPE_IPV4;
 import static com.android.net.module.util.NetworkStackConstants.ETHER_TYPE_IPV6;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ND_OPTION_PIO;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ND_OPTION_SLLA;
@@ -49,11 +51,13 @@ import com.android.net.module.util.Ipv6Utils;
 import com.android.net.module.util.Struct;
 import com.android.net.module.util.structs.EthernetHeader;
 import com.android.net.module.util.structs.Icmpv6Header;
+import com.android.net.module.util.structs.Ipv4Header;
 import com.android.net.module.util.structs.Ipv6Header;
 import com.android.net.module.util.structs.LlaOption;
 import com.android.net.module.util.structs.NsHeader;
 import com.android.net.module.util.structs.PrefixInformationOption;
 import com.android.net.module.util.structs.RaHeader;
+import com.android.net.module.util.structs.UdpHeader;
 import com.android.networkstack.arp.ArpPacket;
 import com.android.testutils.TapPacketReader;
 
@@ -62,6 +66,7 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeoutException;
@@ -367,21 +372,44 @@ public final class TetheringTester {
 
     private static boolean isIcmpv6Type(ByteBuffer buf, boolean hasEth, int type) {
         try {
-            if (hasEth) {
-                final EthernetHeader ethHdr = Struct.parse(EthernetHeader.class, buf);
-                if (ethHdr.etherType != ETHER_TYPE_IPV6) return false;
-            }
+            if (!isExpectedIpPakcet(buf, hasEth, false /* isIpv4 */, IPPROTO_ICMPV6)) return false;
 
-            final Ipv6Header ipv6Hdr = Struct.parse(Ipv6Header.class, buf);
-            if (ipv6Hdr.nextHeader != (byte) IPPROTO_ICMPV6) return false;
-
-            final Icmpv6Header icmpv6Hdr = Struct.parse(Icmpv6Header.class, buf);
-            return icmpv6Hdr.type == (short) type;
+            return Struct.parse(Icmpv6Header.class, buf).type == (short) type;
         } catch (Exception e) {
             // Parsing packet fail means it is not icmpv6 packet.
         }
 
         return false;
+    }
+
+    private static boolean isExpectedIpPakcet(@NonNull final ByteBuffer buf, boolean hasEther,
+            boolean isIpv4, int ipProto) throws Exception {
+        if (hasEther) {
+            final int expected = isIpv4 ? ETHER_TYPE_IPV4 : ETHER_TYPE_IPV6;
+            if (Struct.parse(EthernetHeader.class, buf).etherType != expected) return false;
+        }
+
+        if (isIpv4) return Struct.parse(Ipv4Header.class, buf).protocol == (byte) ipProto;
+
+        return Struct.parse(Ipv6Header.class, buf).nextHeader == (byte) ipProto;
+    }
+
+    public static boolean isExpectedUdpPacket(@NonNull final byte[] rawPacket, boolean hasEth,
+            boolean isIpv4, @NonNull final ByteBuffer payload) {
+        final ByteBuffer buf = ByteBuffer.wrap(rawPacket);
+        try {
+            if (!isExpectedIpPakcet(buf, hasEth, isIpv4, IPPROTO_UDP)) return false;
+
+            if (Struct.parse(UdpHeader.class, buf) == null) return false;
+        } catch (Exception e) {
+            // Parsing packet fail means it is not udp packet.
+            return false;
+        }
+
+        if (buf.remaining() != payload.limit()) return false;
+
+        return Arrays.equals(Arrays.copyOfRange(buf.array(), buf.position(), buf.limit()),
+                payload.array());
     }
 
     private void sendUploadPacket(ByteBuffer packet) throws Exception {
