@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8bcf94e_1d1a14f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T03:11:00Z",
+      "side": 1,
+      "message": "LGTM but I think we\u0027ll need to skip the test on devices that are using ADB over Ethernet.\n\nYou could only do this if you detect that adb over tcp is running. We used to do that in tests but now we do that in production code instead 8-|\n\nhttps://source.corp.google.com/aosp-master/system/netd/server/SockDiag.cpp;l\u003d58\n\nYou could still add such a check to this test.",
+      "revId": "b90b2895e7dd6e53e04b857f9cc390d385ecb477",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "055e6826_f5bf8974",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T03:11:00Z",
+      "side": 1,
+      "message": "This feels a bit clunky, and it\u0027s not immediately obvious that the ISE in quesiton is thrown by line 210 just above. Consider using two futures instead.\n\nI suppose this formulation does have the advantage that any time onUnavailable is called unexpectedly, the test fails in expectOnAvailable, which is good.",
+      "range": {
+        "startLine": 218,
+        "startChar": 28,
+        "endLine": 218,
+        "endChar": 49
+      },
+      "revId": "b90b2895e7dd6e53e04b857f9cc390d385ecb477",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b12d9428_e4f1102e",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T03:11:00Z",
+      "side": 1,
+      "message": "It might matter if the device is using ADB over ethernet though... in that case the test will disconnect the ADB connection and things will not go well.\n\nMaybe skip this this test if there are physical interfaces present? I think EthernetTetheringTest does this.",
+      "range": {
+        "startLine": 363,
+        "startChar": 41,
+        "endLine": 363,
+        "endChar": 84
+      },
+      "revId": "b90b2895e7dd6e53e04b857f9cc390d385ecb477",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
