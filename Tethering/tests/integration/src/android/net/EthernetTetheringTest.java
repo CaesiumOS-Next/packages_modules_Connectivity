@@ -28,7 +28,6 @@ import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
 import static android.net.TetheringManager.TETHERING_ETHERNET;
 import static android.net.TetheringTester.isExpectedUdpPacket;
 import static android.net.TetheringTester.isIcmpv6Type;
-import static android.system.OsConstants.IPPROTO_ICMPV6;
 import static android.system.OsConstants.IPPROTO_IP;
 import static android.system.OsConstants.IPPROTO_IPV6;
 import static android.system.OsConstants.IPPROTO_UDP;
@@ -84,8 +83,6 @@ import com.android.net.module.util.bpf.Tether4Key;
 import com.android.net.module.util.bpf.Tether4Value;
 import com.android.net.module.util.bpf.TetherStatsKey;
 import com.android.net.module.util.bpf.TetherStatsValue;
-import com.android.net.module.util.structs.EthernetHeader;
-import com.android.net.module.util.structs.Icmpv6Header;
 import com.android.net.module.util.structs.Ipv6Header;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
@@ -327,27 +324,13 @@ public class EthernetTetheringTest {
 
     }
 
-    private static boolean isRouterAdvertisement(byte[] pkt) {
-        if (pkt == null) return false;
-
-        ByteBuffer buf = ByteBuffer.wrap(pkt);
-
-        final EthernetHeader ethHdr = Struct.parse(EthernetHeader.class, buf);
-        if (ethHdr.etherType != ETHER_TYPE_IPV6) return false;
-
-        final Ipv6Header ipv6Hdr = Struct.parse(Ipv6Header.class, buf);
-        if (ipv6Hdr.nextHeader != (byte) IPPROTO_ICMPV6) return false;
-
-        final Icmpv6Header icmpv6Hdr = Struct.parse(Icmpv6Header.class, buf);
-        return icmpv6Hdr.type == (short) ICMPV6_ROUTER_ADVERTISEMENT;
-    }
-
     private static void expectRouterAdvertisement(TapPacketReader reader, String iface,
             long timeoutMs) {
         final long deadline = SystemClock.uptimeMillis() + timeoutMs;
         do {
             byte[] pkt = reader.popPacket(timeoutMs);
-            if (isRouterAdvertisement(pkt)) return;
+            if (isIcmpv6Type(pkt, true /* hasEth */, ICMPV6_ROUTER_ADVERTISEMENT)) return;
+
             timeoutMs = deadline - SystemClock.uptimeMillis();
         } while (timeoutMs > 0);
         fail("Did not receive router advertisement on " + iface + " after "
