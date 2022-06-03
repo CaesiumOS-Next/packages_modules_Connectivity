@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76e320b2_22bdfb89",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-03T04:09:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa8f0ef8_c3ef4068",
+      "range": {
+        "startLine": 438,
+        "startChar": 12,
+        "endLine": 438,
+        "endChar": 41
+      },
+      "revId": "417db678935aff0f4fd3cc8285d0fd1943b0eb06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c554c4f3_ea157621",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-03T02:55:30Z",
       "side": 1,
       "message": "TODO(b/...)",
+      "range": {
+        "startLine": 448,
+        "startChar": 15,
+        "endLine": 448,
+        "endChar": 18
+      },
+      "revId": "417db678935aff0f4fd3cc8285d0fd1943b0eb06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2044e87d_e61a9a8d",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-03T04:09:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c554c4f3_ea157621",
       "range": {
         "startLine": 448,
         "startChar": 15,
