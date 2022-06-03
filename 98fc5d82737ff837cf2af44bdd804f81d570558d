@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06875d05_e31e6a3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T08:04:43Z",
+      "side": 1,
+      "message": "LGTM. I think we need to disable the code that tests the existing firewall chains (see inline comment) but other than that, feel free to address comments in a follow-up.",
+      "revId": "98fc5d82737ff837cf2af44bdd804f81d570558d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c90baccd_29a846c2",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T08:04:43Z",
+      "side": 1,
+      "message": "It\u0027s unfortunate that we have to add iptables chain names even though iptables is long dead :-)\n\nThat\u0027s b/217624062 though. I\u0027ve added it to the core networking quality hotlist, hopefully someone will get to it. If you want to take a crack at it, just let Patrick know just in case he was planning to work on it himself.",
+      "range": {
+        "startLine": 77,
+        "startChar": 51,
+        "endLine": 77,
+        "endChar": 64
+      },
+      "revId": "98fc5d82737ff837cf2af44bdd804f81d570558d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dceaefe5_9c2825ff",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 3298,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T08:04:43Z",
+      "side": 1,
+      "message": "IPv4-only code is generally frowned upon. :-) Suggest ::1 instead.",
+      "range": {
+        "startLine": 3298,
+        "startChar": 48,
+        "endLine": 3298,
+        "endChar": 59
+      },
+      "revId": "98fc5d82737ff837cf2af44bdd804f81d570558d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c97f5526_d55059b7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 3298,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T08:04:43Z",
+      "side": 1,
+      "message": "Prefer InetAddresses.parseNumericAddress (slightly different class name) because it\u0027s an API.",
+      "range": {
+        "startLine": 3298,
+        "startChar": 16,
+        "endLine": 3298,
+        "endChar": 47
+      },
+      "revId": "98fc5d82737ff837cf2af44bdd804f81d570558d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08863fa3_0425cfbd",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 3319,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T08:04:43Z",
+      "side": 1,
+      "message": "It is generally not recommended to use fixed port numbers in tests. Some other process might be sitting on the same port, and the bind could fail. Or, for a tcp socket, the bind might fail with EADDRINUSE because there\u0027s a time_wait socket on that port.\n\nInstead suggest:\n\n1. Create the server socket and ask the kernel to bind to a free port.\n2. Get the port number from the socket.\n3. Use that port number in the client socket.\n\nAs for how to do #1: with the sockets API, just bind to 0 and the kernel will pick a free ephemeral port for you; with DatagramSocket I\u0027m not sure. But also note you can use the sockets API from java code by using the android.system.Os package. Something like:\n\n    FileDescriptor sock \u003d Os.socket(AF_INET6, SOCK_DGRAM, 0);\n\nThen you can use Os.bind, Os.connect, etc. I find these more intuitive and easier to use than java Socket and especially DatagramSocket.\n\nFor now this is probably fine since UDP does not have time-wait sockets. Also while, 5555 would be a very bad choice for a TCP port since it\u0027s the default port used by ADB, but ADB uses TCP, not UDP.",
+      "range": {
+        "startLine": 3319,
+        "startChar": 42,
+        "endLine": 3319,
+        "endChar": 72
+      },
+      "revId": "98fc5d82737ff837cf2af44bdd804f81d570558d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c00a04c4_b31f96cf",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 3322,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T08:04:43Z",
+      "side": 1,
+      "message": "Also suggest adding test where the list contains other UIDs but not Process.myUid, and check that the packet is sent and received. For the other UID, you could pick a UID just before Process.LAST_APPLICATION_UID, to minimize the chances of blocking networking for a real app.",
+      "range": {
+        "startLine": 3322,
+        "startChar": 37,
+        "endLine": 3322,
+        "endChar": 50
+      },
+      "revId": "98fc5d82737ff837cf2af44bdd804f81d570558d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c88fc30_e8597f83",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 3339,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T08:04:43Z",
+      "side": 1,
+      "message": "Nit: you could also do something like define:\n\n    private static final int EXPECT_PASS \u003d false;\n    private static final int EXPECT_BLOCK \u003d true;\n\njust before these tests, and use those instead of \"false /* expectBlock */\" etc.",
+      "range": {
+        "startLine": 3339,
+        "startChar": 56,
+        "endLine": 3339,
+        "endChar": 79
+      },
+      "revId": "98fc5d82737ff837cf2af44bdd804f81d570558d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "affc2795_503550dd",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 3341,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T08:04:43Z",
+      "side": 1,
+      "message": "This will affect the actual state of networking on the device after the test: all deny firewall chains will be disabled until something re-enables them. This might cause unexpected behaviour of the device, and might also cause other higher-level code to be confused, or tests for that higher-level code (e.g., CtsHostsideNetworkTests) to fail.\n\nWhat we do in other tests that affect global device state is fetch the current value before running the test, then run the test, then restore the previous value. It would be good to do that here too, but unfortunately I don\u0027t think we have a way to get the state of a firewall chain.\n\nMaybe in a follow-up CL we could add an @hide getFirewallChainEnabled(int chain) method in ConnectivityManager that you could call from this test?\n\nYou could implement it pretty simply in BpfNetMaps without JNI code by just opening the map using the Java BpfMap class and reading the value.\n\n\nFor now, maybe just test the two new OEM deny rules? That will minimize the risk of causing other tests to break. Hopefully by the time this code makes it out to OEMs we\u0027ll have added a getFirewallChainEnabled so this never impacts their testing.\n\nGiven that we want to get this change in ASAP, maybe just add a TODO to test the other rules, or even comment out the code that tests them?",
+      "range": {
+        "startLine": 3341,
+        "startChar": 16,
+        "endLine": 3341,
+        "endChar": 71
+      },
+      "revId": "98fc5d82737ff837cf2af44bdd804f81d570558d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2166a10f_4f674b7e",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 3370,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T08:04:43Z",
+      "side": 1,
+      "message": "This code is very similar to the code above. Is there a way to refactor it to a common method? Perhaps the common method could take the type of list (allow/deny) as a parameter?",
+      "range": {
+        "startLine": 3368,
+        "startChar": 0,
+        "endLine": 3370,
+        "endChar": 81
+      },
+      "revId": "98fc5d82737ff837cf2af44bdd804f81d570558d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ab7b45f_47c0ee1e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 9598,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T08:04:43Z",
+      "side": 1,
+      "message": "Nit: you don\u0027t need to use matchers like eq() if *none* of the parameters to the verified method are matchers (but if one parameter is a matcher, then all of them have to be matchers). So you can do:\n\n    verify(mBpfNetMaps).setChildChain(chain, false /* enable */);\n\nwhich is easier to read.\n\nAlso above in doTestSetUidFirewallRule.",
+      "range": {
+        "startLine": 9598,
+        "startChar": 46,
+        "endLine": 9598,
+        "endChar": 49
+      },
+      "revId": "98fc5d82737ff837cf2af44bdd804f81d570558d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f86eeb1_24a934d3",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 9628,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-03T08:04:43Z",
+      "side": 1,
+      "message": "Nit: might be worth adding a large number like 100 as well.",
+      "range": {
+        "startLine": 9628,
+        "startChar": 62,
+        "endLine": 9628,
+        "endChar": 64
+      },
+      "revId": "98fc5d82737ff837cf2af44bdd804f81d570558d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
