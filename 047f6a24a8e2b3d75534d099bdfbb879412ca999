@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6bc1d12f_15fcd5f5",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1489,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-03T01:28:36Z",
+      "side": 1,
+      "message": "Does this look better?",
+      "parentUuid": "e95cab6c_72e7cb67",
+      "range": {
+        "startLine": 1489,
+        "startChar": 57,
+        "endLine": 1489,
+        "endChar": 60
+      },
+      "revId": "047f6a24a8e2b3d75534d099bdfbb879412ca999",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "59a2f6fe_0fa22b5d",
         "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
         "patchSetId": 1
@@ -54,6 +78,30 @@
       "writtenOn": "2022-06-02T02:10:44Z",
       "side": 1,
       "message": "Can this use the VpnManager (startVpnProfile() or startVpnProfilePrivileged()) methods to trigger the startup? Legacy VPN has a few other edges that aren\u0027t pretty, and we don\u0027t really need to test them.",
+      "range": {
+        "startLine": 1518,
+        "startChar": 24,
+        "endLine": 1518,
+        "endChar": 38
+      },
+      "revId": "047f6a24a8e2b3d75534d099bdfbb879412ca999",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d2a7a2c_7f571842",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1518,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-03T01:28:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59a2f6fe_0fa22b5d",
       "range": {
         "startLine": 1518,
         "startChar": 24,
@@ -77,6 +125,30 @@
       "writtenOn": "2022-06-02T02:10:44Z",
       "side": 1,
       "message": "magic number :)\n\nAlso presumably we\u0027ll shorten this in the final patches.",
+      "range": {
+        "startLine": 1559,
+        "startChar": 49,
+        "endLine": 1559,
+        "endChar": 55
+      },
+      "revId": "047f6a24a8e2b3d75534d099bdfbb879412ca999",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73ba114c_2299b1b4",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1559,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-03T01:28:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e87abdcd_d6dba9a9",
       "range": {
         "startLine": 1559,
         "startChar": 49,
