@@ -905,8 +905,8 @@ public class EthernetTetheringTest {
 
     // TODO: remove this verification once upstream connected notification race is fixed.
     // See #runUdp4Test.
-    private boolean isIpv4TetherConnectivityVerified(TetheringTester tester,
-            TetheredDevice tethered) throws Exception {
+    private byte[] verifyIpv4TetherConnectivity(TetheringTester tester, TetheredDevice tethered,
+            boolean isClat) throws Exception {
         final ByteBuffer probePacket = buildUdpPacket(tethered.macAddr,
                 tethered.routerMacAddr, tethered.ipv4Addr /* srcIp */,
                 REMOTE_IP4_ADDR /* dstIp */, LOCAL_PORT /* srcPort */, REMOTE_PORT /* dstPort */,
@@ -916,12 +916,15 @@ public class EthernetTetheringTest {
         for (int i = 0; i < TETHER_REACHABILITY_ATTEMPTS; i++) {
             byte[] expectedPacket = tester.testUpload(probePacket, p -> {
                 Log.d(TAG, "Packet in upstream: " + dumpHexString(p));
-                return isExpectedUdpPacket(p, false /* hasEther */, true /* isIpv4 */,
+                return isExpectedUdpPacket(p, false /* hasEther */, !isClat /* isIpv4 */,
                         TEST_REACHABILITY_PAYLOAD);
             });
-            if (expectedPacket != null) return true;
+            if (expectedPacket != null) return expectedPacket;
         }
-        return false;
+
+        fail("Can't verify tethering connectivity after " + TETHER_REACHABILITY_ATTEMPTS
+                + " attempts");
+        return null;
     }
 
     private void runUdp4Test(TetheringTester tester, boolean usingBpf) throws Exception {
@@ -934,7 +937,7 @@ public class EthernetTetheringTest {
         // For short term plan, consider using IPv6 RA to get MAC address because the prefix comes
         // from upstream. That can guarantee that the routing is ready. Long term plan is that
         // refactors upstream connected notification from async to sync.
-        assertTrue(isIpv4TetherConnectivityVerified(tester, tethered));
+        verifyIpv4TetherConnectivity(tester, tethered, false /* isClat */);
 
         // Send a UDP packet in original direction.
         final ByteBuffer originalPacket = buildUdpPacket(tethered.macAddr,
@@ -1178,32 +1181,16 @@ public class EthernetTetheringTest {
         return null;
     }
 
-    @Nullable
+    @NonNull
     private Inet6Address getClatIpv6Address(TetheringTester tester, TetheredDevice tethered)
             throws Exception {
-        final ByteBuffer probePacket = buildUdpPacket(tethered.macAddr,
-                tethered.routerMacAddr, tethered.ipv4Addr /* srcIp */,
-                REMOTE_IP4_ADDR /* dstIp */, LOCAL_PORT /* srcPort */, REMOTE_PORT /* dstPort */,
-                TEST_REACHABILITY_PAYLOAD);
-
         // Send an IPv4 UDP packet from client and check that a CLAT translated IPv6 UDP packet can
         // be found on upstream interface. Get CLAT IPv6 address from the CLAT translated IPv6 UDP
         // packet.
-        byte[] expectedPacket = null;
-        for (int i = 0; i < TETHER_REACHABILITY_ATTEMPTS; i++) {
-            expectedPacket = tester.verifyUpload(probePacket, p -> {
-                Log.d(TAG, "Packet in upstream: " + dumpHexString(p));
-                return isExpectedUdpPacket(p, false /* hasEther */, false /* isIpv4 */,
-                        TEST_REACHABILITY_PAYLOAD);
-            });
-            if (expectedPacket != null) break;
-        }
-        if (expectedPacket == null) return null;
+        byte[] expectedPacket = verifyIpv4TetherConnectivity(tester, tethered, true /* isClat */);
 
         // Above has guaranteed that the found packet is an IPv6 packet without ether header.
-        final Ipv6Header ipv6Header = Struct.parse(Ipv6Header.class,
-                ByteBuffer.wrap(expectedPacket));
-        return ipv6Header.srcIp;
+        return Struct.parse(Ipv6Header.class, ByteBuffer.wrap(expectedPacket)).srcIp;
     }
 
     // Test network topology:
@@ -1226,7 +1213,6 @@ public class EthernetTetheringTest {
 
         // Get CLAT IPv6 address.
         final Inet6Address clatAddr6 = getClatIpv6Address(tester, tethered);
-        assertNotNull(clatAddr6);
 
         // Send an IPv4 UDP packet in original direction.
         // IPv4 packet -- CLAT translation --> IPv6 packet
