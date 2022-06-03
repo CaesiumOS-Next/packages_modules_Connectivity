@@ -87,6 +87,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "beb88a58_96f3ec34",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 3298,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-03T09:17:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c97f5526_d55059b7",
+      "range": {
+        "startLine": 3298,
+        "startChar": 16,
+        "endLine": 3298,
+        "endChar": 47
+      },
+      "revId": "98fc5d82737ff837cf2af44bdd804f81d570558d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef879691_fc027eef",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 3298,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-03T09:17:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dceaefe5_9c2825ff",
+      "range": {
+        "startLine": 3298,
+        "startChar": 48,
+        "endLine": 3298,
+        "endChar": 59
+      },
+      "revId": "98fc5d82737ff837cf2af44bdd804f81d570558d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08863fa3_0425cfbd",
@@ -100,6 +148,30 @@
       "writtenOn": "2022-06-03T08:04:43Z",
       "side": 1,
       "message": "It is generally not recommended to use fixed port numbers in tests. Some other process might be sitting on the same port, and the bind could fail. Or, for a tcp socket, the bind might fail with EADDRINUSE because there\u0027s a time_wait socket on that port.\n\nInstead suggest:\n\n1. Create the server socket and ask the kernel to bind to a free port.\n2. Get the port number from the socket.\n3. Use that port number in the client socket.\n\nAs for how to do #1: with the sockets API, just bind to 0 and the kernel will pick a free ephemeral port for you; with DatagramSocket I\u0027m not sure. But also note you can use the sockets API from java code by using the android.system.Os package. Something like:\n\n    FileDescriptor sock \u003d Os.socket(AF_INET6, SOCK_DGRAM, 0);\n\nThen you can use Os.bind, Os.connect, etc. I find these more intuitive and easier to use than java Socket and especially DatagramSocket.\n\nFor now this is probably fine since UDP does not have time-wait sockets. Also while, 5555 would be a very bad choice for a TCP port since it\u0027s the default port used by ADB, but ADB uses TCP, not UDP.",
+      "range": {
+        "startLine": 3319,
+        "startChar": 42,
+        "endLine": 3319,
+        "endChar": 72
+      },
+      "revId": "98fc5d82737ff837cf2af44bdd804f81d570558d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4133b49_cc98971f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 3319,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-03T09:17:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "08863fa3_0425cfbd",
       "range": {
         "startLine": 3319,
         "startChar": 42,
@@ -156,6 +228,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d96b526_734cc1a1",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 3339,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-03T09:17:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6c88fc30_e8597f83",
+      "range": {
+        "startLine": 3339,
+        "startChar": 56,
+        "endLine": 3339,
+        "endChar": 79
+      },
+      "revId": "98fc5d82737ff837cf2af44bdd804f81d570558d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "affc2795_503550dd",
@@ -169,6 +265,30 @@
       "writtenOn": "2022-06-03T08:04:43Z",
       "side": 1,
       "message": "This will affect the actual state of networking on the device after the test: all deny firewall chains will be disabled until something re-enables them. This might cause unexpected behaviour of the device, and might also cause other higher-level code to be confused, or tests for that higher-level code (e.g., CtsHostsideNetworkTests) to fail.\n\nWhat we do in other tests that affect global device state is fetch the current value before running the test, then run the test, then restore the previous value. It would be good to do that here too, but unfortunately I don\u0027t think we have a way to get the state of a firewall chain.\n\nMaybe in a follow-up CL we could add an @hide getFirewallChainEnabled(int chain) method in ConnectivityManager that you could call from this test?\n\nYou could implement it pretty simply in BpfNetMaps without JNI code by just opening the map using the Java BpfMap class and reading the value.\n\n\nFor now, maybe just test the two new OEM deny rules? That will minimize the risk of causing other tests to break. Hopefully by the time this code makes it out to OEMs we\u0027ll have added a getFirewallChainEnabled so this never impacts their testing.\n\nGiven that we want to get this change in ASAP, maybe just add a TODO to test the other rules, or even comment out the code that tests them?",
+      "range": {
+        "startLine": 3341,
+        "startChar": 16,
+        "endLine": 3341,
+        "endChar": 71
+      },
+      "revId": "98fc5d82737ff837cf2af44bdd804f81d570558d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cb9930a_f8afa4d4",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 3341,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-03T09:17:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "affc2795_503550dd",
       "range": {
         "startLine": 3341,
         "startChar": 16,
@@ -225,6 +345,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6eb6d965_75bb69ae",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 9598,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-03T09:17:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2ab7b45f_47c0ee1e",
+      "range": {
+        "startLine": 9598,
+        "startChar": 46,
+        "endLine": 9598,
+        "endChar": 49
+      },
+      "revId": "98fc5d82737ff837cf2af44bdd804f81d570558d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f86eeb1_24a934d3",
@@ -238,6 +382,30 @@
       "writtenOn": "2022-06-03T08:04:43Z",
       "side": 1,
       "message": "Nit: might be worth adding a large number like 100 as well.",
+      "range": {
+        "startLine": 9628,
+        "startChar": 62,
+        "endLine": 9628,
+        "endChar": 64
+      },
+      "revId": "98fc5d82737ff837cf2af44bdd804f81d570558d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf20f36a_078a1b31",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 9628,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-03T09:17:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5f86eeb1_24a934d3",
       "range": {
         "startLine": 9628,
         "startChar": 62,
