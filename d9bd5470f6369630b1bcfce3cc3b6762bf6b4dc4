@@ -135,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65b6bde0_c0b6bccd",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1543,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-04T01:26:53Z",
+      "side": 1,
+      "message": "Thanks for the context. I updated the code to let PlatformVpnSnapshot return PlatformVpnSnapshot. I think it will be more extensible",
+      "parentUuid": "0f3dff64_61ee2309",
+      "range": {
+        "startLine": 1543,
+        "startChar": 22,
+        "endLine": 1543,
+        "endChar": 45
+      },
+      "revId": "d9bd5470f6369630b1bcfce3cc3b6762bf6b4dc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9580bac5_9da4f9d4",
