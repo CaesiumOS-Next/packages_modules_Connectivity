@@ -30,6 +30,7 @@
 
 #include <gtest/gtest.h>
 
+#include <android-base/file.h>
 #include <android-base/stringprintf.h>
 #include <android-base/strings.h>
 #include <binder/Status.h>
@@ -49,6 +50,7 @@ namespace net {
 using android::netdutils::Status;
 using base::Result;
 using netdutils::isOk;
+using netdutils::statusFromErrno;
 
 constexpr int TEST_MAP_SIZE = 10;
 constexpr uid_t TEST_UID = 10086;
@@ -263,6 +265,33 @@ class TrafficControllerTest : public ::testing::Test {
            if(!isOk(ret)) break;
         }
         return ret;
+    }
+
+    Status dump(bool verbose, std::vector<std::string>& outputLines) {
+      if (!outputLines.empty()) return statusFromErrno(EUCLEAN, "No output buffer");
+
+      android::base::unique_fd localFd, remoteFd;
+      if (!Pipe(&localFd, &remoteFd)) return statusFromErrno(errno, "Failed on pipe");
+
+      // dump() blocks until another thread has consumed all its output.
+      std::thread dumpThread =
+          std::thread([this, remoteFd{std::move(remoteFd)}, verbose]() {
+            mTc.dump(remoteFd, verbose);
+          });
+
+      std::string dumpContent;
+      if (!android::base::ReadFdToString(localFd.get(), &dumpContent)) {
+        return statusFromErrno(errno, "Failed to read dump results from fd");
+      }
+      dumpThread.join();
+
+      std::stringstream dumpStream(std::move(dumpContent));
+      std::string line;
+      while (std::getline(dumpStream, line)) {
+        outputLines.push_back(line);
+      }
+
+      return netdutils::status::ok;
     }
 
 };
@@ -643,6 +672,20 @@ TEST_F(TrafficControllerTest, TestGrantDuplicatePermissionSlientlyFail) {
 
     mTc.setPermissionForUids(INetd::PERMISSION_NONE, appUids);
     expectPrivilegedUserSetEmpty();
+}
+
+TEST_F(TrafficControllerTest, TestDumpsys) {
+    std::vector<uid_t> appUid = {TEST_UID};
+    mTc.setPermissionForUids(INetd::PERMISSION_NONE, appUid);
+    std::vector<uid_t> appUid2 = {TEST_UID2};
+    mTc.setPermissionForUids(INetd::PERMISSION_UPDATE_DEVICE_STATS, appUid2);
+
+    std::vector<std::string> outputLines;
+    Status ret = dump(true, outputLines);
+    ASSERT_OK(ret) << "Trafficcontroller dump failed: " << netdutils::toString(ret);
+
+    for (const auto& s : outputLines)
+    std::cerr << __func__ << s << std::endl;
 }
 
 constexpr uint32_t SOCK_CLOSE_WAIT_US = 30 * 1000;
