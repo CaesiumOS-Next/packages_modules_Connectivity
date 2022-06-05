@@ -338,7 +338,6 @@ import com.android.net.module.util.ArrayTrackRecord;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.LocationPermissionChecker;
 import com.android.networkstack.apishim.NetworkAgentConfigShimImpl;
-import com.android.networkstack.apishim.api29.ConstantsShim;
 import com.android.server.ConnectivityService.ConnectivityDiagnosticsCallbackInfo;
 import com.android.server.ConnectivityService.NetworkRequestInfo;
 import com.android.server.ConnectivityServiceTest.ConnectivityServiceDependencies.ReportedInterfaces;
@@ -645,8 +644,7 @@ public class ConnectivityServiceTest {
         @Override
         public ComponentName startService(Intent service) {
             final String action = service.getAction();
-            if (!VpnConfig.SERVICE_INTERFACE.equals(action)
-                    && !ConstantsShim.ACTION_VPN_MANAGER_EVENT.equals(action)) {
+            if (!VpnConfig.SERVICE_INTERFACE.equals(action)) {
                 fail("Attempt to start unknown service, action=" + action);
             }
             return new ComponentName(service.getPackage(), "com.android.test.Service");
