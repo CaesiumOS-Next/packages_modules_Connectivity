@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddabd655_ae5ed0f8",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T09:14:32Z",
+      "side": 1,
+      "message": "per discussed offline, other maps need to add entries as well. Or dump will return at the first line of BpfMap.iterateWithValue. their dump code may not be covered by test\n\n\n```\nbase::Result\u003cvoid\u003e BpfMap\u003cKey, Value\u003e::iterateWithValue(\n        const std::function\u003cbase::Result\u003cvoid\u003e(const Key\u0026 key, const Value\u0026 value,\n                                               BpfMap\u003cKey, Value\u003e\u0026 map)\u003e\u0026 filter) {\n    base::Result\u003cKey\u003e curKey \u003d getFirstKey();\n```",
+      "range": {
+        "startLine": 699,
+        "startChar": 30,
+        "endLine": 699,
+        "endChar": 41
+      },
+      "revId": "2fb86362684b52a284c947e844d4444d22a38e2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
