@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40c404e9_2dfa416a",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-06-06T06:24:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d1a467f_db56d944",
+      "range": {
+        "startLine": 733,
+        "startChar": 34,
+        "endLine": 733,
+        "endChar": 35
+      },
+      "revId": "b53c365d4cb42e9d991084ab47a185dd29d97fdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d02afe17_6ad8d130",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-06-06T05:39:17Z",
       "side": 1,
       "message": "nit: SCOPED_TRACE",
+      "range": {
+        "startLine": 737,
+        "startChar": 43,
+        "endLine": 737,
+        "endChar": 44
+      },
+      "revId": "b53c365d4cb42e9d991084ab47a185dd29d97fdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a709619c_051e88dd",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-06-06T06:24:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d02afe17_6ad8d130",
       "range": {
         "startLine": 737,
         "startChar": 43,
