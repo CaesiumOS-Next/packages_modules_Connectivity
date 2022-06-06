@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74774d7f_3295f8ed",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-06T21:32:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05856386_894b715f",
+      "range": {
+        "startLine": 572,
+        "startChar": 20,
+        "endLine": 572,
+        "endChar": 46
+      },
+      "revId": "278d25ed3f5903815f6f06f4544d9e3550b2bfef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee25642b_c458e5e1",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-27T21:38:28Z",
       "side": 1,
       "message": "Suggest renaming this to checkStartStopVpnProfileBuildsAndTearsDownNetwork\n\n(see context on l.685)",
+      "range": {
+        "startLine": 663,
+        "startChar": 17,
+        "endLine": 663,
+        "endChar": 55
+      },
+      "revId": "278d25ed3f5903815f6f06f4544d9e3550b2bfef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea55baba_9253365b",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-06T21:32:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee25642b_c458e5e1",
       "range": {
         "startLine": 663,
         "startChar": 17,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b648abab_4562edd3",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-06T21:32:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8f43038_fcb17a8c",
+      "range": {
+        "startLine": 685,
+        "startChar": 17,
+        "endLine": 685,
+        "endChar": 51
+      },
+      "revId": "278d25ed3f5903815f6f06f4544d9e3550b2bfef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d7838ec_6700e97d",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-05-27T21:38:28Z",
       "side": 1,
       "message": "Hmm, this isn\u0027t \"migrating\" but rather reestablishing\n\nperhaps \"checkVpnReestablishesMobikeDisabled\" or \"checkVpnReestablishesWithoutMobike\"",
+      "range": {
+        "startLine": 739,
+        "startChar": 17,
+        "endLine": 739,
+        "endChar": 45
+      },
+      "revId": "278d25ed3f5903815f6f06f4544d9e3550b2bfef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d31f21c0_e47fa5c7",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-06T21:32:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d7838ec_6700e97d",
       "range": {
         "startLine": 739,
         "startChar": 17,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7dd6e4b2_0c4fef7a",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-06T21:32:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a05fe7ec_1908be3b",
+      "range": {
+        "startLine": 845,
+        "startChar": 0,
+        "endLine": 849,
+        "endChar": 88
+      },
+      "revId": "278d25ed3f5903815f6f06f4544d9e3550b2bfef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7350dff_d8f6296d",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-05-27T21:38:28Z",
       "side": 1,
       "message": "Ditto",
+      "range": {
+        "startLine": 881,
+        "startChar": 0,
+        "endLine": 884,
+        "endChar": 96
+      },
+      "revId": "278d25ed3f5903815f6f06f4544d9e3550b2bfef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81de5c52_6e5dcbd2",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-06T21:32:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7350dff_d8f6296d",
       "range": {
         "startLine": 881,
         "startChar": 0,
@@ -199,6 +343,30 @@
       "writtenOn": "2022-05-27T21:38:28Z",
       "side": 1,
       "message": "Is this needed? Seems to be unused?",
+      "range": {
+        "startLine": 102,
+        "startChar": 25,
+        "endLine": 102,
+        "endChar": 45
+      },
+      "revId": "278d25ed3f5903815f6f06f4544d9e3550b2bfef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39280e07_b649962f",
+        "filename": "tests/cts/net/src/android/net/cts/TunUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-06T21:32:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9651387_3962840c",
       "range": {
         "startLine": 102,
         "startChar": 25,
