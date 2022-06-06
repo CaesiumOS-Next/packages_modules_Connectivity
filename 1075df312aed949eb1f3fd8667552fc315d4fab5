@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0544125f_db2083f3",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-06-06T07:47:52Z",
+      "side": 1,
+      "message": "Well, if you don\u0027t provide anything for it to match, return true also sounds reasonable for me.\n\nAnyway, adding a check since the function is for testing only and returning true or false in that special case doesn\u0027t really matter.",
+      "parentUuid": "9387af3a_64a927af",
+      "range": {
+        "startLine": 297,
+        "startChar": 97,
+        "endLine": 297,
+        "endChar": 98
+      },
+      "revId": "1075df312aed949eb1f3fd8667552fc315d4fab5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb505f63_e5ea76d8",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-06-06T06:45:41Z",
       "side": 1,
       "message": "nit: C",
+      "range": {
+        "startLine": 302,
+        "startChar": 41,
+        "endLine": 302,
+        "endChar": 42
+      },
+      "revId": "1075df312aed949eb1f3fd8667552fc315d4fab5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cacd296d_11601f3d",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-06-06T07:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb505f63_e5ea76d8",
       "range": {
         "startLine": 302,
         "startChar": 41,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f4836af_5ccee938",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-06-06T07:47:52Z",
+      "side": 1,
+      "message": "Because double for-loops needs to run m x n times. Also, the order in expects will be ignored.\n\nFor example, this is unmatched in iterator version, matched in double for-loops version.\nOutput \u003d {1, 2, 3}\nexpect \u003d {3, 2}",
+      "parentUuid": "e6c3c6db_8908a97f",
+      "range": {
+        "startLine": 307,
+        "startChar": 0,
+        "endLine": 314,
+        "endChar": 9
+      },
+      "revId": "1075df312aed949eb1f3fd8667552fc315d4fab5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54ee928f_52944c5c",
@@ -110,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61a9535d_6326030a",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-06-06T07:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54ee928f_52944c5c",
+      "range": {
+        "startLine": 315,
+        "startChar": 15,
+        "endLine": 315,
+        "endChar": 57
+      },
+      "revId": "1075df312aed949eb1f3fd8667552fc315d4fab5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64ce4cc8_088e1bf2",
@@ -123,6 +219,30 @@
       "writtenOn": "2022-06-06T06:45:41Z",
       "side": 1,
       "message": "add a test for PERMISSION_INTERNET + additional permission (map won\u0027t be clean up) \ncan be done in a follow up commit\n\nmUidPermissionMap:\n      1000  BPF_PERMISSION_INTERNET BPF_PERMISSION_UPDATE_DEVICE_STATS",
+      "range": {
+        "startLine": 716,
+        "startChar": 53,
+        "endLine": 716,
+        "endChar": 54
+      },
+      "revId": "1075df312aed949eb1f3fd8667552fc315d4fab5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3856ad0b_4098dc6c",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-06-06T07:47:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "64ce4cc8_088e1bf2",
       "range": {
         "startLine": 716,
         "startChar": 53,
