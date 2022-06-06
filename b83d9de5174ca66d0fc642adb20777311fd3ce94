@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46583680_acf68623",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1324,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-06T18:37:09Z",
+      "side": 1,
+      "message": "It can pass because I didn\u0027t reset mIkev2SessionCreator, which causes \"verify(mIkev2SessionCreator, ....)\" always verifying the first invocation.\nAfter resetting mIkev2SessionCreator, the test will fail.\nAnd in order to verify the correct token, we should create a new IkeSessionCallback to capture the captor\u0027s value.\nPlease see the latest patch.",
+      "parentUuid": "83f71bc9_25a8aebd",
+      "range": {
+        "startLine": 1324,
+        "startChar": 12,
+        "endLine": 1324,
+        "endChar": 51
+      },
+      "revId": "b83d9de5174ca66d0fc642adb20777311fd3ce94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc4cbc03_5979579d",
@@ -84,6 +108,30 @@
       "writtenOn": "2022-06-01T05:29:11Z",
       "side": 1,
       "message": "If the VPN retry ignored the retry delay, and instead fired it immediately, would our test detect this? (if not, we probably should consider that case)",
+      "range": {
+        "startLine": 1324,
+        "startChar": 0,
+        "endLine": 1328,
+        "endChar": 91
+      },
+      "revId": "b83d9de5174ca66d0fc642adb20777311fd3ce94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46bb7ee5_c9ee3e42",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1328,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-06T18:37:09Z",
+      "side": 1,
+      "message": "From the current design, every retry will have a delay, so I think we don\u0027t have such a case, right?",
+      "parentUuid": "cc4cbc03_5979579d",
       "range": {
         "startLine": 1324,
         "startChar": 0,
