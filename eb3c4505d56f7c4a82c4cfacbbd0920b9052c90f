@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9123ba17_1a18a7fa",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T06:54:04Z",
+      "side": 1,
+      "message": "1. null /*upstream*/\n2. L.394 can be crash with upstream null pointer",
+      "range": {
+        "startLine": 94,
+        "startChar": 25,
+        "endLine": 94,
+        "endChar": 29
+      },
+      "revId": "eb3c4505d56f7c4a82c4cfacbbd0920b9052c90f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19376852_71660a54",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T06:54:04Z",
+      "side": 1,
+      "message": "rename to be a pair of L.393 (sendRemotePacket)",
+      "range": {
+        "startLine": 389,
+        "startChar": 17,
+        "endLine": 389,
+        "endChar": 27
+      },
+      "revId": "eb3c4505d56f7c4a82c4cfacbbd0920b9052c90f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f48a7b6e_cfe44ca3",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T06:54:04Z",
+      "side": 1,
+      "message": "can be null as L.94",
+      "range": {
+        "startLine": 394,
+        "startChar": 8,
+        "endLine": 394,
+        "endChar": 23
+      },
+      "revId": "eb3c4505d56f7c4a82c4cfacbbd0920b9052c90f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e794bee0_ab7bed79",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T06:54:04Z",
+      "side": 1,
+      "message": "rename to be a pair of L.409 (getNextMatchedRemotePacket)",
+      "range": {
+        "startLine": 397,
+        "startChar": 19,
+        "endLine": 397,
+        "endChar": 39
+      },
+      "revId": "eb3c4505d56f7c4a82c4cfacbbd0920b9052c90f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d0b0003_a11cb038",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T06:54:04Z",
+      "side": 1,
+      "message": "nit: maybe use direction \u0027Download\u0027 which is used by verifyDownload in L.422",
+      "range": {
+        "startLine": 409,
+        "startChar": 33,
+        "endLine": 409,
+        "endChar": 39
+      },
+      "revId": "eb3c4505d56f7c4a82c4cfacbbd0920b9052c90f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
