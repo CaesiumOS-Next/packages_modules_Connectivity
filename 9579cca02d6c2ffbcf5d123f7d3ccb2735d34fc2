@@ -16,6 +16,24 @@
       "message": "Patrick, what happened with this?",
       "revId": "9579cca02d6c2ffbcf5d123f7d3ccb2735d34fc2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38d9ad74_24f6b6e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-06T17:17:37Z",
+      "side": 1,
+      "message": "We ended up enforcing the kernel config in VTS, so there is not reason to make the support configurable.",
+      "parentUuid": "dd57fcff_9eca37be",
+      "revId": "9579cca02d6c2ffbcf5d123f7d3ccb2735d34fc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
