@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "681b780a_ec2fdfef",
+        "filename": "service/native/libs/libclat/clatutils_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-06T08:43:06Z",
+      "side": 1,
+      "message": "Instead of taking this change:\nMaybe just have a try that remove assumeFalse(mEm.isAvailable()) from #initializeTethering. So mainline testing would not be skip in cf and we could actually testing the behavior and have coverage from cf device ?\n\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/Tethering/tests/integration/src/android/net/EthernetTetheringTest.java;l\u003d1121\n\nI am fine for this change if we can not just simply make the test work. Please share the result if the suggestion doesn\u0027t work.",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 95
+      },
+      "revId": "2477caa08b71d9d1412f30406aef1e39cda9482e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
