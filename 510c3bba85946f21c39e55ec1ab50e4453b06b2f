@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9932f651_b51418bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-06-06T03:14:58Z",
+      "side": 1,
+      "message": "Hmmm, it seems to me they are tightly coupled.\nIf we are refactoring the tests and dependencies.\nThe production code need to be moved as well.\nWhile we are moving the code, \nkeeping the dead code there doesn\u0027t really make sense to me.\n\nWill do if you prefer that way.",
+      "parentUuid": "56683605_da04b9dd",
+      "revId": "510c3bba85946f21c39e55ec1ab50e4453b06b2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f7e3546_bedca95c",
