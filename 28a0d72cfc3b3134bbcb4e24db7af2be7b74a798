@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36a339a0_63973ab5",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T14:18:56Z",
+      "side": 1,
+      "message": "nit: TEST_IFACE or TEST_IFNAME",
+      "range": {
+        "startLine": 62,
+        "startChar": 15,
+        "endLine": 62,
+        "endChar": 22
+      },
+      "revId": "28a0d72cfc3b3134bbcb4e24db7af2be7b74a798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dde06e6_05b8775c",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T14:18:56Z",
+      "side": 1,
+      "message": "nit: TEST_IFINDEX",
+      "range": {
+        "startLine": 63,
+        "startChar": 14,
+        "endLine": 63,
+        "endChar": 27
+      },
+      "revId": "28a0d72cfc3b3134bbcb4e24db7af2be7b74a798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2de8b26_7f8e79e6",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T14:18:56Z",
+      "side": 1,
+      "message": "Define constants for rxPackets, rxBytes, txPackets, txBytes because L.762 and L.776 are hard to read the hard-code numbers.\n\nex:\n{.rxPackets \u003d RXPACKETS, .rxBytes \u003d RXBYTES, txPackets \u003d TXPACKETS, txBytes \u003d TXBYTES};",
+      "range": {
+        "startLine": 136,
+        "startChar": 36,
+        "endLine": 136,
+        "endChar": 66
+      },
+      "revId": "28a0d72cfc3b3134bbcb4e24db7af2be7b74a798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf7722a0_c0dea57e",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T14:18:56Z",
+      "side": 1,
+      "message": "} else {\n\n-or-\nlet false return first as L.326, 333\n```\nif (matched !\u003d expect.size()) {\n   for (const auto\u0026 o : output) std::cerr \u003c\u003c \"output: \" \u003c\u003c o \u003c\u003c std::endl;\n   for (const auto\u0026 e : expect) std::cerr \u003c\u003c \"expect: \" \u003c\u003c e \u003c\u003c std::endl;\n   return false;\n}\n\nreturn true;\n```",
+      "range": {
+        "startLine": 347,
+        "startChar": 0,
+        "endLine": 348,
+        "endChar": 14
+      },
+      "revId": "28a0d72cfc3b3134bbcb4e24db7af2be7b74a798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6751913a_6fb47bb8",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T14:18:56Z",
+      "side": 1,
+      "message": "leave a TODO to fix the double :: bug in TrafficController",
+      "range": {
+        "startLine": 760,
+        "startChar": 24,
+        "endLine": 760,
+        "endChar": 26
+      },
+      "revId": "28a0d72cfc3b3134bbcb4e24db7af2be7b74a798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb203f0f_da020e2e",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T14:18:56Z",
+      "side": 1,
+      "message": "ditto as L.136",
+      "range": {
+        "startLine": 762,
+        "startChar": 48,
+        "endLine": 762,
+        "endChar": 60
+      },
+      "revId": "28a0d72cfc3b3134bbcb4e24db7af2be7b74a798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c34c9370_53e59136",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T14:18:56Z",
+      "side": 1,
+      "message": "where does \"1 unknown\" come from?",
+      "range": {
+        "startLine": 765,
+        "startChar": 21,
+        "endLine": 765,
+        "endChar": 31
+      },
+      "revId": "28a0d72cfc3b3134bbcb4e24db7af2be7b74a798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "406fab9c_939a9c60",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T14:18:56Z",
+      "side": 1,
+      "message": "ditto as L.136",
+      "range": {
+        "startLine": 766,
+        "startChar": 60,
+        "endLine": 766,
+        "endChar": 72
+      },
+      "revId": "28a0d72cfc3b3134bbcb4e24db7af2be7b74a798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
