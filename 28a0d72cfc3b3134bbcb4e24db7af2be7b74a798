@@ -95,6 +95,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c3b162aa_0b6b1c5c",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T14:53:07Z",
+      "side": 1,
+      "message": "per discuss, use LOG(XXX) to print debug logging. it helps debugging on TH or other testing",
+      "range": {
+        "startLine": 350,
+        "startChar": 41,
+        "endLine": 350,
+        "endChar": 50
+      },
+      "revId": "28a0d72cfc3b3134bbcb4e24db7af2be7b74a798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6751913a_6fb47bb8",
         "filename": "service/native/TrafficControllerTest.cpp",
         "patchSetId": 1
