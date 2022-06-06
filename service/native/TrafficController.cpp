@@ -702,7 +702,7 @@ void TrafficController::dump(int fd, bool verbose) {
 
     // Print AppUidStatsMap content.
     std::string appUidStatsHeader = StringPrintf("uid rxBytes rxPackets txBytes txPackets");
-    dumpBpfMap("mAppUidStatsMap:", dw, appUidStatsHeader);
+    dumpBpfMap("mAppUidStatsMap", dw, appUidStatsHeader);
     auto printAppUidStatsInfo = [&dw](const uint32_t& key, const StatsValue& value,
                                       const BpfMap<uint32_t, StatsValue>&) {
         dw.println("%u %" PRIu64 " %" PRIu64 " %" PRIu64 " %" PRIu64, key, value.rxBytes,
@@ -758,7 +758,7 @@ void TrafficController::dump(int fd, bool verbose) {
     // Print ifaceStatsMap content
     std::string ifaceStatsHeader = StringPrintf("ifaceIndex ifaceName rxBytes rxPackets txBytes"
                                                 " txPackets");
-    dumpBpfMap("mIfaceStatsMap:", dw, ifaceStatsHeader);
+    dumpBpfMap("mIfaceStatsMap", dw, ifaceStatsHeader);
     const auto printIfaceStatsInfo = [&dw, this](const uint32_t& key, const StatsValue& value,
                                                  const BpfMap<uint32_t, StatsValue>&) {
         auto ifname = mIfaceIndexNameMap.readValue(key);
