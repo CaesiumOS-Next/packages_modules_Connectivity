@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b682e77f_baf026c7",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T08:53:07Z",
+      "side": 1,
+      "message": "i just feel that the follows is strange in semantics. \n\n```\n\"{1, 2, 3} contains {empty} (|expect|)\"\n```",
+      "parentUuid": "0544125f_db2083f3",
+      "range": {
+        "startLine": 297,
+        "startChar": 97,
+        "endLine": 297,
+        "endChar": 98
+      },
+      "revId": "1075df312aed949eb1f3fd8667552fc315d4fab5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb505f63_e5ea76d8",
@@ -149,6 +173,30 @@
       "side": 1,
       "message": "Because double for-loops needs to run m x n times. Also, the order in expects will be ignored.\n\nFor example, this is unmatched in iterator version, matched in double for-loops version.\nOutput \u003d {1, 2, 3}\nexpect \u003d {3, 2}",
       "parentUuid": "e6c3c6db_8908a97f",
+      "range": {
+        "startLine": 307,
+        "startChar": 0,
+        "endLine": 314,
+        "endChar": 9
+      },
+      "revId": "1075df312aed949eb1f3fd8667552fc315d4fab5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4805fdc8_5825fa37",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T08:53:07Z",
+      "side": 1,
+      "message": "nice. thanks for your example",
+      "parentUuid": "9f4836af_5ccee938",
       "range": {
         "startLine": 307,
         "startChar": 0,
