@@ -42,6 +42,7 @@
 #include "bpf/BpfUtils.h"
 #include "NetdUpdatablePublic.h"
 
+
 using namespace android::bpf;  // NOLINT(google-build-using-namespace): grandfathered
 
 namespace android {
@@ -714,6 +715,29 @@ TEST_F(TrafficControllerTest, TestDumpsys) {
         "mPrivilegedUser:",
     };
     EXPECT_TRUE(expectDumpsysContains(expectedLines));
+}
+
+TEST_F(TrafficControllerTest, getFirewallType) {
+    static const struct TestConfig {
+        ChildChain childChain;
+        FirewallType firewallType;
+    } testConfigs[] = {
+            // clang-format off
+            {NONE, DENYLIST},
+            {DOZABLE, ALLOWLIST},
+            {STANDBY, DENYLIST},
+            {POWERSAVE, ALLOWLIST},
+            {RESTRICTED, ALLOWLIST},
+            {LOW_POWER_STANDBY, ALLOWLIST},
+            {LOCKDOWN, DENYLIST},
+            {OEM_DENY_1, DENYLIST},
+            {OEM_DENY_2, DENYLIST},
+            // clang-format on
+    };
+
+    for (const auto& config : testConfigs) {
+        EXPECT_EQ(config.firewallType, mTc.getFirewallType(config.childChain));
+    }
 }
 
 constexpr uint32_t SOCK_CLOSE_WAIT_US = 30 * 1000;
