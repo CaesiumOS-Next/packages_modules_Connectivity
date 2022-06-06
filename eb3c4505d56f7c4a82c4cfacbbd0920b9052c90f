@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dda980bb_7308ddd9",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-06T08:47:21Z",
+      "side": 1,
+      "message": "Adding the protection, thanks for catching up.",
+      "parentUuid": "9123ba17_1a18a7fa",
+      "range": {
+        "startLine": 94,
+        "startChar": 25,
+        "endLine": 94,
+        "endChar": 29
+      },
+      "revId": "eb3c4505d56f7c4a82c4cfacbbd0920b9052c90f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19376852_71660a54",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-06T06:54:04Z",
       "side": 1,
       "message": "rename to be a pair of L.393 (sendRemotePacket)",
+      "range": {
+        "startLine": 389,
+        "startChar": 17,
+        "endLine": 389,
+        "endChar": 27
+      },
+      "revId": "eb3c4505d56f7c4a82c4cfacbbd0920b9052c90f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "600e2575_9f5f4306",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-06T08:47:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19376852_71660a54",
       "range": {
         "startLine": 389,
         "startChar": 17,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddbb7ede_798746ca",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-06T08:47:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f48a7b6e_cfe44ca3",
+      "range": {
+        "startLine": 394,
+        "startChar": 8,
+        "endLine": 394,
+        "endChar": 23
+      },
+      "revId": "eb3c4505d56f7c4a82c4cfacbbd0920b9052c90f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e794bee0_ab7bed79",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36f917e1_9a7636a3",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-06T08:47:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e794bee0_ab7bed79",
+      "range": {
+        "startLine": 397,
+        "startChar": 19,
+        "endLine": 397,
+        "endChar": 39
+      },
+      "revId": "eb3c4505d56f7c4a82c4cfacbbd0920b9052c90f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d0b0003_a11cb038",
@@ -106,6 +202,30 @@
       "writtenOn": "2022-06-06T06:54:04Z",
       "side": 1,
       "message": "nit: maybe use direction \u0027Download\u0027 which is used by verifyDownload in L.422",
+      "range": {
+        "startLine": 409,
+        "startChar": 33,
+        "endLine": 409,
+        "endChar": 39
+      },
+      "revId": "eb3c4505d56f7c4a82c4cfacbbd0920b9052c90f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de70ab7f_f093694e",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-06T08:47:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d0b0003_a11cb038",
       "range": {
         "startLine": 409,
         "startChar": 33,
