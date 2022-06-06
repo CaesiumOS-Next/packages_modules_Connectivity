@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7784fbe9_906c39db",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1321,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-06T06:01:42Z",
+      "side": 1,
+      "message": "Closing; let\u0027s focus on the other two correctness comments, we can optimize this later.",
+      "parentUuid": "7b2c5a34_5e1c9788",
+      "range": {
+        "startLine": 1321,
+        "startChar": 20,
+        "endLine": 1321,
+        "endChar": 50
+      },
+      "revId": "b83d9de5174ca66d0fc642adb20777311fd3ce94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83f71bc9_25a8aebd",
