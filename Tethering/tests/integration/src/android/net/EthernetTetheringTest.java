@@ -1118,8 +1118,6 @@ public class EthernetTetheringTest {
 
     void initializeTethering(List<LinkAddress> upstreamAddresses, List<InetAddress> upstreamDnses)
             throws Exception {
-        assumeFalse(mEm.isAvailable());
-
         // MyTetheringEventCallback currently only support await first available upstream. Tethering
         // may select internet network as upstream if test network is not available and not be
         // preferred yet. Create test upstream network before enable tethering.
