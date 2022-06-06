@@ -22,6 +22,30 @@
       },
       "revId": "2477caa08b71d9d1412f30406aef1e39cda9482e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "177723b5_e7e55fa2",
+        "filename": "service/native/libs/libclat/clatutils_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T13:25:55Z",
+      "side": 1,
+      "message": "Test on aosp/2114978 (remove assumeFalse(mEm.isAvailable()) \n\nIt seems to related TetheredInterfaceRequester. Under checking\n```\nmTetheredInterfaceRequester \u003d new TetheredInterfaceRequester(mHandler, mEm);\n```\n\nFail log\nhttps://android-build.googleplex.com/builds/tests/view?invocationId\u003dI68200010058295683\u0026testResultId\u003dTR84928074805593917\n```\norg.junit.ComparisonFailure: TetheredInterfaceCallback for unexpected interface expected:\u003c[testtap]1\u003e but was:\u003c[eth]1\u003e\norg.junit.ComparisonFailure: TetheredInterfaceCallback for unexpected interface expected:\u003c[testtap]1\u003e but was:\u003c[eth]1\u003e\n\tat org.junit.Assert.assertEquals(Assert.java:117)\n\tat android.net.EthernetTetheringTest.initializeTethering(EthernetTetheringTest.java:1130)\n\tat android.net.EthernetTetheringTest.testTetherClatUdp(EthernetTetheringTest.java:1333)\n```",
+      "parentUuid": "681b780a_ec2fdfef",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 95
+      },
+      "revId": "2477caa08b71d9d1412f30406aef1e39cda9482e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
