@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65d9618b_7978e7cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T06:45:41Z",
+      "side": 1,
+      "message": "LGTM. only nits ",
+      "revId": "1075df312aed949eb1f3fd8667552fc315d4fab5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9387af3a_64a927af",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T06:45:41Z",
+      "side": 1,
+      "message": "nit: maybe note that |expect| should not be empty or add a line: \nif (expect.empty()) return false;\n\nTo prevent coding error because empty |expect| can be treated true at L.315",
+      "range": {
+        "startLine": 297,
+        "startChar": 97,
+        "endLine": 297,
+        "endChar": 98
+      },
+      "revId": "1075df312aed949eb1f3fd8667552fc315d4fab5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb505f63_e5ea76d8",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T06:45:41Z",
+      "side": 1,
+      "message": "nit: C",
+      "range": {
+        "startLine": 302,
+        "startChar": 41,
+        "endLine": 302,
+        "endChar": 42
+      },
+      "revId": "1075df312aed949eb1f3fd8667552fc315d4fab5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6c3c6db_8908a97f",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T06:45:41Z",
+      "side": 1,
+      "message": "may i know why not just use for-loops but iterator? \n\nex:\n```\nfor (const auto\u0026 expect : expects) {\n    for (const auto\u0026 output : outputs) {\n        if (std::string::npos !\u003d output.find(expect)) {\n            matched++;\n        }\n    }\n}\n```",
+      "range": {
+        "startLine": 307,
+        "startChar": 0,
+        "endLine": 314,
+        "endChar": 9
+      },
+      "revId": "1075df312aed949eb1f3fd8667552fc315d4fab5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54ee928f_52944c5c",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T06:45:41Z",
+      "side": 1,
+      "message": "matched \u003d\u003d expect.size()",
+      "range": {
+        "startLine": 315,
+        "startChar": 15,
+        "endLine": 315,
+        "endChar": 57
+      },
+      "revId": "1075df312aed949eb1f3fd8667552fc315d4fab5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64ce4cc8_088e1bf2",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T06:45:41Z",
+      "side": 1,
+      "message": "add a test for PERMISSION_INTERNET + additional permission (map won\u0027t be clean up) \ncan be done in a follow up commit\n\nmUidPermissionMap:\n      1000  BPF_PERMISSION_INTERNET BPF_PERMISSION_UPDATE_DEVICE_STATS",
+      "range": {
+        "startLine": 716,
+        "startChar": 53,
+        "endLine": 716,
+        "endChar": 54
+      },
+      "revId": "1075df312aed949eb1f3fd8667552fc315d4fab5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

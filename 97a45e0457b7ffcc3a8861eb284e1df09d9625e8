@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5fce493_04c6cb9b",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T06:45:41Z",
+      "side": 1,
+      "message": "nit: only L.684 use it, do we need to remove it?",
+      "range": {
+        "startLine": 270,
+        "startChar": 16,
+        "endLine": 270,
+        "endChar": 30
+      },
+      "revId": "97a45e0457b7ffcc3a8861eb284e1df09d9625e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dfc5226_39be7657",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T06:45:41Z",
+      "side": 1,
+      "message": "nit: output buffer is not empty\n\nyou do have output buffer which is not empty.",
+      "range": {
+        "startLine": 271,
+        "startChar": 65,
+        "endLine": 271,
+        "endChar": 81
+      },
+      "revId": "97a45e0457b7ffcc3a8861eb284e1df09d9625e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
