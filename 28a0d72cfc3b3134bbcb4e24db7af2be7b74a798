@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c367dbf3_56d5046c",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-06-06T15:18:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36a339a0_63973ab5",
+      "range": {
+        "startLine": 62,
+        "startChar": 15,
+        "endLine": 62,
+        "endChar": 22
+      },
+      "revId": "28a0d72cfc3b3134bbcb4e24db7af2be7b74a798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5dde06e6_05b8775c",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-06T14:18:56Z",
       "side": 1,
       "message": "nit: TEST_IFINDEX",
+      "range": {
+        "startLine": 63,
+        "startChar": 14,
+        "endLine": 63,
+        "endChar": 27
+      },
+      "revId": "28a0d72cfc3b3134bbcb4e24db7af2be7b74a798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acb8df25_4c5d619c",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-06-06T15:18:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5dde06e6_05b8775c",
       "range": {
         "startLine": 63,
         "startChar": 14,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "877f23d7_a5825986",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-06-06T15:18:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2de8b26_7f8e79e6",
+      "range": {
+        "startLine": 136,
+        "startChar": 36,
+        "endLine": 136,
+        "endChar": 66
+      },
+      "revId": "28a0d72cfc3b3134bbcb4e24db7af2be7b74a798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf7722a0_c0dea57e",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-06-06T14:18:56Z",
       "side": 1,
       "message": "} else {\n\n-or-\nlet false return first as L.326, 333\n```\nif (matched !\u003d expect.size()) {\n   for (const auto\u0026 o : output) std::cerr \u003c\u003c \"output: \" \u003c\u003c o \u003c\u003c std::endl;\n   for (const auto\u0026 e : expect) std::cerr \u003c\u003c \"expect: \" \u003c\u003c e \u003c\u003c std::endl;\n   return false;\n}\n\nreturn true;\n```",
+      "range": {
+        "startLine": 347,
+        "startChar": 0,
+        "endLine": 348,
+        "endChar": 14
+      },
+      "revId": "28a0d72cfc3b3134bbcb4e24db7af2be7b74a798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "020ffa65_dbdc3596",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-06-06T15:18:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf7722a0_c0dea57e",
       "range": {
         "startLine": 347,
         "startChar": 0,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "511b419f_547b3efe",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-06-06T15:18:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3b162aa_0b6b1c5c",
+      "range": {
+        "startLine": 350,
+        "startChar": 41,
+        "endLine": 350,
+        "endChar": 50
+      },
+      "revId": "28a0d72cfc3b3134bbcb4e24db7af2be7b74a798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6751913a_6fb47bb8",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-06-06T14:18:56Z",
       "side": 1,
       "message": "leave a TODO to fix the double :: bug in TrafficController",
+      "range": {
+        "startLine": 760,
+        "startChar": 24,
+        "endLine": 760,
+        "endChar": 26
+      },
+      "revId": "28a0d72cfc3b3134bbcb4e24db7af2be7b74a798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd2e1325_dc8b67d2",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-06-06T15:18:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6751913a_6fb47bb8",
       "range": {
         "startLine": 760,
         "startChar": 24,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ac7efb3_ff9ed8fc",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-06-06T15:18:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb203f0f_da020e2e",
+      "range": {
+        "startLine": 762,
+        "startChar": 48,
+        "endLine": 762,
+        "endChar": 60
+      },
+      "revId": "28a0d72cfc3b3134bbcb4e24db7af2be7b74a798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c34c9370_53e59136",
@@ -185,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "819d095b_cc82a97e",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-06-06T15:18:46Z",
+      "side": 1,
+      "message": "It\u0027s from L.135. I changed it to TEST_IFINDEX in new patchset.",
+      "parentUuid": "c34c9370_53e59136",
+      "range": {
+        "startLine": 765,
+        "startChar": 21,
+        "endLine": 765,
+        "endChar": 31
+      },
+      "revId": "28a0d72cfc3b3134bbcb4e24db7af2be7b74a798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "406fab9c_939a9c60",
@@ -198,6 +390,30 @@
       "writtenOn": "2022-06-06T14:18:56Z",
       "side": 1,
       "message": "ditto as L.136",
+      "range": {
+        "startLine": 766,
+        "startChar": 60,
+        "endLine": 766,
+        "endChar": 72
+      },
+      "revId": "28a0d72cfc3b3134bbcb4e24db7af2be7b74a798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0794efe5_0fa6c63b",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-06-06T15:18:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "406fab9c_939a9c60",
       "range": {
         "startLine": 766,
         "startChar": 60,
