@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee8051e8_26340480",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T05:39:17Z",
+      "side": 1,
+      "message": "LGTM, nit can be done in a followup commit if required",
+      "revId": "b53c365d4cb42e9d991084ab47a185dd29d97fdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d1a467f_db56d944",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T05:39:17Z",
+      "side": 1,
+      "message": "nit: {INVALID_CHAIN, DENYLIST},\n\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/service/native/include/Common.h;l\u003d41",
+      "range": {
+        "startLine": 733,
+        "startChar": 34,
+        "endLine": 733,
+        "endChar": 35
+      },
+      "revId": "b53c365d4cb42e9d991084ab47a185dd29d97fdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d02afe17_6ad8d130",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-06T05:39:17Z",
+      "side": 1,
+      "message": "nit: SCOPED_TRACE",
+      "range": {
+        "startLine": 737,
+        "startChar": 43,
+        "endLine": 737,
+        "endChar": 44
+      },
+      "revId": "b53c365d4cb42e9d991084ab47a185dd29d97fdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
