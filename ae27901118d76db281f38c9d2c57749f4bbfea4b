@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4717db3_a8ff6821",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-07T07:33:48Z",
+      "side": 1,
+      "message": "cherry-pick of https://googleplex-android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/17822821",
+      "revId": "ae27901118d76db281f38c9d2c57749f4bbfea4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
