@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9240cb40_f4b62a24",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-07T14:25:13Z",
+      "side": 1,
+      "message": "maybe rename. ex: {create, init, get, ..}TetheringTester, .. (something can make people know that the return value is TetheringTester)\n\n\n\"initializeTethering\" is hard to realize that it returns a TetheringTester object.",
+      "range": {
+        "startLine": 793,
+        "startChar": 21,
+        "endLine": 793,
+        "endChar": 40
+      },
+      "revId": "6523e7b4dba349010a3afb30687a9bb168057042",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "696b8b77_d52c2a27",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-07T14:25:13Z",
+      "side": 1,
+      "message": "nit:  remove",
+      "range": {
+        "startLine": 1056,
+        "startChar": 8,
+        "endLine": 1056,
+        "endChar": 72
+      },
+      "revId": "6523e7b4dba349010a3afb30687a9bb168057042",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54cef67b_58c316ed",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1058,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-07T14:25:13Z",
+      "side": 1,
+      "message": "nit:  mTetheredInterfaceRequester.getInterface()",
+      "range": {
+        "startLine": 1058,
+        "startChar": 53,
+        "endLine": 1058,
+        "endChar": 58
+      },
+      "revId": "6523e7b4dba349010a3afb30687a9bb168057042",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "397dd358_de59d58c",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1072,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-07T14:25:13Z",
+      "side": 1,
+      "message": "nit: mDownstreamIface.getInterfaceName()\n\nunless read L.1058. It is hard to know that iface is downstream interface name",
+      "range": {
+        "startLine": 1072,
+        "startChar": 57,
+        "endLine": 1072,
+        "endChar": 62
+      },
+      "revId": "6523e7b4dba349010a3afb30687a9bb168057042",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
