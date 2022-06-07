@@ -189,6 +189,9 @@ static __always_inline BpfConfig getConfig(uint32_t configKey) {
     return *config;
 }
 
+#define DROP_IF_ANY_UNSET (DOZABLE_MATCH | POWERSAVE_MATCH | RESTRICTED_MATCH | LOW_POWER_STANDBY_MATCH)
+#define DROP_IF_ANY_SET (STANDBY_MATCH | OEM_DENY_1_MATCH | OEM_DENY_2_MATCH | OEM_DENY_3_MATCH)
+
 static inline int bpf_owner_match(struct __sk_buff* skb, uint32_t uid, int direction) {
     if (skip_owner_match(skb)) return BPF_PASS;
 
@@ -200,32 +203,9 @@ static inline int bpf_owner_match(struct __sk_buff* skb, uint32_t uid, int direc
     uint32_t uidRules = uidEntry ? uidEntry->rule : 0;
     uint32_t allowed_iif = uidEntry ? uidEntry->iif : 0;
 
-    if (enabledRules) {
-        if ((enabledRules & DOZABLE_MATCH) && !(uidRules & DOZABLE_MATCH)) {
-            return BPF_DROP;
-        }
-        if ((enabledRules & STANDBY_MATCH) && (uidRules & STANDBY_MATCH)) {
-            return BPF_DROP;
-        }
-        if ((enabledRules & POWERSAVE_MATCH) && !(uidRules & POWERSAVE_MATCH)) {
-            return BPF_DROP;
-        }
-        if ((enabledRules & RESTRICTED_MATCH) && !(uidRules & RESTRICTED_MATCH)) {
-            return BPF_DROP;
-        }
-        if ((enabledRules & LOW_POWER_STANDBY_MATCH) && !(uidRules & LOW_POWER_STANDBY_MATCH)) {
-            return BPF_DROP;
-        }
-        if ((enabledRules & OEM_DENY_1_MATCH) && (uidRules & OEM_DENY_1_MATCH)) {
-            return BPF_DROP;
-        }
-        if ((enabledRules & OEM_DENY_2_MATCH) && (uidRules & OEM_DENY_2_MATCH)) {
-            return BPF_DROP;
-        }
-        if ((enabledRules & OEM_DENY_3_MATCH) && (uidRules & OEM_DENY_3_MATCH)) {
-            return BPF_DROP;
-        }
-    }
+    if (enabledRules & DROP_IF_ANY_UNSET & ~uidRules) return BPF_DROP;
+    if (enabledRules & DROP_IF_ANY_SET & uidRules) return BPF_DROP;
+
     if (direction == BPF_INGRESS && skb->ifindex != 1) {
         if (uidRules & IIF_MATCH) {
             if (allowed_iif && skb->ifindex != allowed_iif) {
