@@ -16,6 +16,24 @@
       "message": "Since we don\u0027t want to impact coverage for code that\u0027s not yet in use, maybe you could move the files to packages/modules/Connectivity/service/mdns, and only include it in FrameworksNetTests (not FrameworksNetTestsLib/ConnectivityCoverageTests or service-connectivity) ?\n\nThis way we can make sure it keeps building and passing the tests, without impacting coverage or released code size, and we can add new tests to get the coverage up before moving the code to service-connectivity.",
       "revId": "3ff8130e34acd23fd54e6657f82b9226ad2cfedf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c50f567_ea93c906",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/ConnectivityMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-06-07T01:29:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bad5547_5289c710",
+      "revId": "3ff8130e34acd23fd54e6657f82b9226ad2cfedf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
