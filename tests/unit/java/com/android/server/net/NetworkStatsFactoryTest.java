@@ -34,7 +34,6 @@ import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doReturn;
 
@@ -90,7 +89,7 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
         // related to networkStatsFactory is compiled to a minimal native library and loaded here.
         System.loadLibrary("networkstatsfactorytestjni");
         doReturn(mBpfNetMaps).when(mDeps).createBpfNetMaps();
-        mFactory = new NetworkStatsFactory(mContext, mTestProc, true, mDeps);
+        mFactory = new NetworkStatsFactory(mContext, mDeps);
         mFactory.updateUnderlyingNetworkInfos(new UnderlyingNetworkInfo[0]);
     }
 
@@ -552,8 +551,8 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
         final NetworkStats statsFromResource = javaReadNetworkStats(resourceId,
                 24 /* initialSize */, true /* consumeHeader */, false /* checkActive */,
                 true /* isUidBase */);
-        doReturn(statsFromResource).when(mDeps).getNetworkStatsDetail(any(), anyInt(), any(),
-                anyInt(), anyBoolean());
+        doReturn(statsFromResource).when(mDeps).getNetworkStatsDetail(anyInt(), any(),
+                anyInt());
         return mFactory.readNetworkStatsDetail();
     }
 
