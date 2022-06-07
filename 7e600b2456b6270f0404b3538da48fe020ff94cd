@@ -16,6 +16,29 @@
       "message": "partial review",
       "revId": "7e600b2456b6270f0404b3538da48fe020ff94cd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "632a4651_f93178c4",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1738,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-07T19:14:12Z",
+      "side": 1,
+      "message": "Already done?",
+      "range": {
+        "startLine": 1738,
+        "startChar": 4,
+        "endLine": 1738,
+        "endChar": 57
+      },
+      "revId": "7e600b2456b6270f0404b3538da48fe020ff94cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
