@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16c74d46_646e3a79",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-07T13:22:01Z",
+      "side": 1,
+      "message": "nit: maybe in this style\n\n```\nif (isIpv4) {\n    return Struct.parse(Ipv4Header.class, buf).protocol \u003d\u003d (byte) ipProto;\n} else {\n    return Struct.parse(Ipv6Header.class, buf).nextHeader \u003d\u003d (byte) ipProto;\n}\n```",
+      "range": {
+        "startLine": 394,
+        "startChar": 0,
+        "endLine": 397,
+        "endChar": 80
+      },
+      "revId": "709025a9062ba4c6cfa0b379387db484752b7fef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

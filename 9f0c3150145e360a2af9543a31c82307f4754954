@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab454c26_29ccde1d",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-07T13:22:01Z",
+      "side": 1,
+      "message": "How about we separate the checking functions into layers {L2, L3, L4}? Similar as PacketBuilder\nThen, we can assemble the packet checking function layer by layer and make function naming consistent \n\nEx:\n```\nisExpectedEtherHeader(@NonNull final ByteBuffer buf, int etherType)\nisExpectedIpHeader(@NonNull final ByteBuffer buf, ipProto)\n\nisExpectedIcmpv6Packet(byte[] packet, boolean hasEth, int type) {\n  isExpectedEtherHeader(..)\n  isExpectedIpHeader(..)\n  return Struct.parse(Icmpv6Header.class, buf).type \u003d\u003d (short) type;\n}\n\nisExpectedUdpPacket(@NonNull final byte[] rawPacket, boolean hasEth,\n            boolean isIpv4, @NonNull final ByteBuffer payload) {\n  isExpectedEtherHeader(..)\n  isExpectedIpHeader(..)\n  if (Struct.parse(UdpHeader.class, buf) \u003d\u003d null) return false;  \n  // check payload\n}\n\n```",
+      "range": {
+        "startLine": 373,
+        "startChar": 4,
+        "endLine": 373,
+        "endChar": 83
+      },
+      "revId": "9f0c3150145e360a2af9543a31c82307f4754954",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1370204a_9e01e38a",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-07T13:22:01Z",
+      "side": 1,
+      "message": "this function doesn\u0027t check the whole packet. only ether and ip header. maybe separate L2, L3 as L.373 comment",
+      "range": {
+        "startLine": 385,
+        "startChar": 37,
+        "endLine": 385,
+        "endChar": 45
+      },
+      "revId": "9f0c3150145e360a2af9543a31c82307f4754954",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
