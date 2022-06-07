@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3150edc7_9b013440",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-06-07T13:08:04Z",
+      "side": 1,
+      "message": "LGTM. I think Lorenzo might want to take a look.",
+      "revId": "6396d6644703f24a7434edf2131aa00c25003759",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3279cdd_53273d7e",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-06-07T13:08:04Z",
+      "side": 1,
+      "message": "It looks like that this function won\u0027t throw IllegalStateException.",
+      "range": {
+        "startLine": 207,
+        "startChar": 15,
+        "endLine": 207,
+        "endChar": 36
+      },
+      "revId": "6396d6644703f24a7434edf2131aa00c25003759",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7985817b_52a6c0ed",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-06-07T13:08:04Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 218,
+        "startChar": 15,
+        "endLine": 218,
+        "endChar": 36
+      },
+      "revId": "6396d6644703f24a7434edf2131aa00c25003759",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
