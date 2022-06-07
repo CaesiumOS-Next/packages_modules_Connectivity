@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57cfd058_51a4b5d3",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-07T16:42:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab454c26_29ccde1d",
+      "range": {
+        "startLine": 373,
+        "startChar": 4,
+        "endLine": 373,
+        "endChar": 83
+      },
+      "revId": "9f0c3150145e360a2af9543a31c82307f4754954",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1370204a_9e01e38a",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-07T13:22:01Z",
       "side": 1,
       "message": "this function doesn\u0027t check the whole packet. only ether and ip header. maybe separate L2, L3 as L.373 comment",
+      "range": {
+        "startLine": 385,
+        "startChar": 37,
+        "endLine": 385,
+        "endChar": 45
+      },
+      "revId": "9f0c3150145e360a2af9543a31c82307f4754954",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c07d5bf_036ee4cb",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-07T16:42:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1370204a_9e01e38a",
       "range": {
         "startLine": 385,
         "startChar": 37,
