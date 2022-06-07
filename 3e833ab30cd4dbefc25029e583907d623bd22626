@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "622da5d8_e77ef758",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-07T06:09:51Z",
+      "side": 1,
+      "message": "Suggestion to remove this in the previous CL\nhttps://googleplex-android-review.git.corp.google.com/c/platform/cts/+/3816947/comments/d4899add_72e5a45d",
+      "revId": "3e833ab30cd4dbefc25029e583907d623bd22626",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
