@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b6eda73_c01983d2",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-07T19:23:15Z",
+      "side": 1,
+      "message": "Looks like the difference between the with and without mobike pieces is just the expected msgId reset, and the injecting of response series\n\nCan we combine these, and maybe just condition on a boolean parameter?",
+      "range": {
+        "startLine": 758,
+        "startChar": 0,
+        "endLine": 770,
+        "endChar": 66
+      },
+      "revId": "85f1bfd71422d09513992e41a570e4ca7fdc4395",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

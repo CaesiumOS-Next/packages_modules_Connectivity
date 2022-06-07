@@ -330,6 +330,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13b1b2b8_f1e48a74",
+        "filename": "tests/cts/net/src/android/net/cts/TestNetworkWrapper.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-07T19:23:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a89b0642_e0904eb1",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 58
+      },
+      "revId": "278d25ed3f5903815f6f06f4544d9e3550b2bfef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9651387_3962840c",
