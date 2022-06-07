@@ -77,6 +77,14 @@ static int createTunTapInterface(JNIEnv* env, bool isTun, const char* iface) {
     return tun.release();
 }
 
+// enable or disable  carrier on tun / tap interface.
+static void setTunTapCarrierEnabledImpl(JNIEnv* env, const char* iface, int tunFd, bool enabled) {
+    uint32_t carrierOn = enabled;
+    if (ioctl(tunFd, TUNSETCARRIER, &carrierOn)) {
+        throwException(env, errno, "set carrier", iface);
+    }
+}
+
 //------------------------------------------------------------------------------
 
 static jint create(JNIEnv* env, jobject /* thiz */, jboolean isTun, jstring jIface) {
@@ -92,10 +100,20 @@ static jint create(JNIEnv* env, jobject /* thiz */, jboolean isTun, jstring jIfa
     return tun;
 }
 
+static void setTunTapCarrierEnabled(JNIEnv* env, jobject /* thiz */, jstring
+                                    jIface, jint tunFd, jboolean enabled) {
+    ScopedUtfChars iface(env, jIface);
+    if (!iface.c_str()) {
+        jniThrowNullPointerException(env, "iface");
+    }
+    setTunTapCarrierEnabledImpl(env, iface.c_str(), tunFd, enabled);
+}
+
 //------------------------------------------------------------------------------
 
 static const JNINativeMethod gMethods[] = {
     {"jniCreateTunTap", "(ZLjava/lang/String;)I", (void*)create},
+    {"jniSetTunTapCarrierEnabled", "(Ljava/lang/String;IZ)V", (void*)setTunTapCarrierEnabled},
 };
 
 int register_com_android_server_TestNetworkService(JNIEnv* env) {
