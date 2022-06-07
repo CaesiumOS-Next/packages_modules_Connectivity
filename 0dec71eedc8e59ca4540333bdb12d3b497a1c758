@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b20c0979_918f181f",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1354,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-07T08:48:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88bc0481_8ed5e1cc",
+      "range": {
+        "startLine": 1354,
+        "startChar": 12,
+        "endLine": 1354,
+        "endChar": 72
+      },
+      "revId": "0dec71eedc8e59ca4540333bdb12d3b497a1c758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f02fbfac_6522836d",
@@ -94,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fe8f31a_c14664f5",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1715,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-07T08:48:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "94ac0ce8_a055a2cd",
+      "range": {
+        "startLine": 1715,
+        "startChar": 0,
+        "endLine": 1715,
+        "endChar": 55
+      },
+      "revId": "0dec71eedc8e59ca4540333bdb12d3b497a1c758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5725753_0e727307",
@@ -107,6 +155,30 @@
       "writtenOn": "2022-06-07T06:20:45Z",
       "side": 1,
       "message": "If we are are testing above that the timeouts are correct, suggest just returning retryCount\n\nIt\u0027ll slightly increase the run time, but it\u0027ll be much more useful.\n\nCould you also file a bug to mock out the executor, so we can test it without having timeouts?",
+      "range": {
+        "startLine": 1717,
+        "startChar": 12,
+        "endLine": 1717,
+        "endChar": 22
+      },
+      "revId": "0dec71eedc8e59ca4540333bdb12d3b497a1c758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33d15cbc_833dd589",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1717,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-07T08:48:37Z",
+      "side": 1,
+      "message": "ok, now the timeout will start from 0 second, so the test will spend 0 + 1 second.\n\nFor filing a bug to mock executor, I\u0027d like to discuss with you first.",
+      "parentUuid": "e5725753_0e727307",
       "range": {
         "startLine": 1717,
         "startChar": 12,
