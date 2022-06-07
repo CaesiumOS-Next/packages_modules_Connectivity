@@ -140,6 +140,30 @@
       },
       "revId": "b83d9de5174ca66d0fc642adb20777311fd3ce94",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d53d90d_d2fe4f8a",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1328,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-07T19:44:25Z",
+      "side": 1,
+      "message": "Technically not, but we will need a mock/spy executor to test this.",
+      "parentUuid": "46bb7ee5_c9ee3e42",
+      "range": {
+        "startLine": 1324,
+        "startChar": 0,
+        "endLine": 1328,
+        "endChar": 91
+      },
+      "revId": "b83d9de5174ca66d0fc642adb20777311fd3ce94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
