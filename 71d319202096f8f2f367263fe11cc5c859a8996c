@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad851752_cf36e691",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-06-07T13:08:15Z",
+      "side": 1,
+      "message": "LGTM. I think Lorenzo might want to take a look.",
+      "revId": "71d319202096f8f2f367263fe11cc5c859a8996c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "465cedf7_f2e0f38a",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-06-07T13:08:15Z",
+      "side": 1,
+      "message": "IIUC, not only XT?",
+      "range": {
+        "startLine": 498,
+        "startChar": 36,
+        "endLine": 498,
+        "endChar": 47
+      },
+      "revId": "71d319202096f8f2f367263fe11cc5c859a8996c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c04e416_50364c64",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-06-07T13:08:15Z",
+      "side": 1,
+      "message": "isUidData",
+      "range": {
+        "startLine": 554,
+        "startChar": 24,
+        "endLine": 554,
+        "endChar": 33
+      },
+      "revId": "71d319202096f8f2f367263fe11cc5c859a8996c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8d9c34a_a217d2c4",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-06-07T13:08:15Z",
+      "side": 1,
+      "message": "isUidData",
+      "range": {
+        "startLine": 562,
+        "startChar": 76,
+        "endLine": 562,
+        "endChar": 85
+      },
+      "revId": "71d319202096f8f2f367263fe11cc5c859a8996c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8368b24e_09eda952",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-06-07T13:08:15Z",
+      "side": 1,
+      "message": "isUidData",
+      "range": {
+        "startLine": 569,
+        "startChar": 76,
+        "endLine": 569,
+        "endChar": 85
+      },
+      "revId": "71d319202096f8f2f367263fe11cc5c859a8996c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

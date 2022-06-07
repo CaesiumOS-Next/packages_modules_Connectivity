@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5530a69_ecc3bbef",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-06-07T13:08:15Z",
+      "side": 0,
+      "message": "Can you help to remind me why this cannot be tested anymore?",
+      "range": {
+        "startLine": 475,
+        "startChar": 16,
+        "endLine": 475,
+        "endChar": 53
+      },
+      "revId": "86a800f91121c57e077ae9833e3a8697c8098b35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
