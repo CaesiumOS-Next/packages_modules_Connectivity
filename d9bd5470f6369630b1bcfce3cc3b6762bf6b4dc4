@@ -251,6 +251,30 @@
       },
       "revId": "d9bd5470f6369630b1bcfce3cc3b6762bf6b4dc4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1f16d3f_8e32be43",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1605,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-07T07:17:20Z",
+      "side": 1,
+      "message": "In this case, what are we sending back for the remote traffic selector?\n\nIf there\u0027s no IPv6, it\u0027s testing that IPv6 doesn\u0027t leak around the VPN, which we should test if we can",
+      "parentUuid": "64e087cf_c5b42e20",
+      "range": {
+        "startLine": 1605,
+        "startChar": 33,
+        "endLine": 1605,
+        "endChar": 41
+      },
+      "revId": "d9bd5470f6369630b1bcfce3cc3b6762bf6b4dc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
