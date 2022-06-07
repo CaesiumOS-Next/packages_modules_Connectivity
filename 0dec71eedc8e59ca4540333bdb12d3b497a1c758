@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86c0e048_1ebcd2f6",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1359,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-07T06:41:28Z",
+      "side": 1,
+      "message": "Ahh this was supposed to be \"do we need a times(2) here\"\n\nBut you reset the sessionCreator, so works fine",
+      "parentUuid": "f02fbfac_6522836d",
+      "range": {
+        "startLine": 1359,
+        "startChar": 45,
+        "endLine": 1359,
+        "endChar": 47
+      },
+      "revId": "0dec71eedc8e59ca4540333bdb12d3b497a1c758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94ac0ce8_a055a2cd",
