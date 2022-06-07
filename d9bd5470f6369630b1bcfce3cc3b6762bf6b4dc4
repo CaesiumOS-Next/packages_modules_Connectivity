@@ -275,6 +275,30 @@
       },
       "revId": "d9bd5470f6369630b1bcfce3cc3b6762bf6b4dc4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d2b7735_d464e302",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1605,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-07T17:16:50Z",
+      "side": 1,
+      "message": "Make sense to me. In the test case, the remote TS only has an IPv4 address, and thus we need to verify IPv6 doesn\u0027t leak",
+      "parentUuid": "f1f16d3f_8e32be43",
+      "range": {
+        "startLine": 1605,
+        "startChar": 33,
+        "endLine": 1605,
+        "endChar": 41
+      },
+      "revId": "d9bd5470f6369630b1bcfce3cc3b6762bf6b4dc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
