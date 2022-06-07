@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88bc0481_8ed5e1cc",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1354,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-07T06:20:45Z",
+      "side": 1,
+      "message": "Nit: Each time we have a comment to describe what we are doing after, we should have a line break above.\n\n(unless at the beginning of a code block like the first iteration is)",
+      "range": {
+        "startLine": 1354,
+        "startChar": 12,
+        "endLine": 1354,
+        "endChar": 72
+      },
+      "revId": "0dec71eedc8e59ca4540333bdb12d3b497a1c758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f02fbfac_6522836d",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1359,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-07T06:20:45Z",
+      "side": 1,
+      "message": "Do we need",
+      "range": {
+        "startLine": 1359,
+        "startChar": 45,
+        "endLine": 1359,
+        "endChar": 47
+      },
+      "revId": "0dec71eedc8e59ca4540333bdb12d3b497a1c758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94ac0ce8_a055a2cd",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1715,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-07T06:20:45Z",
+      "side": 1,
+      "message": "We should also test the retry intervals, so that if our retry count is something absurd, it stays capped to some value.",
+      "range": {
+        "startLine": 1715,
+        "startChar": 0,
+        "endLine": 1715,
+        "endChar": 55
+      },
+      "revId": "0dec71eedc8e59ca4540333bdb12d3b497a1c758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5725753_0e727307",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1717,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-07T06:20:45Z",
+      "side": 1,
+      "message": "If we are are testing above that the timeouts are correct, suggest just returning retryCount\n\nIt\u0027ll slightly increase the run time, but it\u0027ll be much more useful.\n\nCould you also file a bug to mock out the executor, so we can test it without having timeouts?",
+      "range": {
+        "startLine": 1717,
+        "startChar": 12,
+        "endLine": 1717,
+        "endChar": 22
+      },
+      "revId": "0dec71eedc8e59ca4540333bdb12d3b497a1c758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
