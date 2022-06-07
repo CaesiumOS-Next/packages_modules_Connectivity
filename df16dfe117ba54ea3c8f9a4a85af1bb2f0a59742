@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1af8a2bd_35cd4107",
+        "filename": "tests/cts/net/src/android/net/cts/CaptivePortalTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-06-07T06:37:58Z",
+      "side": 1,
+      "message": "I\u0027m not sure I fully understand your question, but here\u0027s how it is supposed to work when a retry is necessary:\n\n - The test runs the first time, and this line gets called, telling DeviceConfigRule that the URL should be set to TEST_HTTPS_URL_PATH\n - At some point later, the device syncs flags with the server, and the URL gets overwritten to some other value (or removed)\n - The test continues, and possibly fails on L.189/190 because the captive portal is not detected\n - DeviceConfigRule catches the failure, and checks if the flags were changed. It notices that the HTTPS URL is not TEST_HTTPS_URL_PATH anymore\n - DeviceConfigRule calls base.evaluate() again, which calls setup/test/teardown again\n - Repeat up to retryCountBeforeSIfConfigChanged times\n\nSo I think this should be working: we set the config here, and the config is changed later by some external process (around L.189). If that happens and the test fails, it will be rerun.",
+      "parentUuid": "ed286eeb_a115ed5d",
+      "range": {
+        "startLine": 166,
+        "startChar": 8,
+        "endLine": 167,
+        "endChar": 77
+      },
+      "revId": "df16dfe117ba54ea3c8f9a4a85af1bb2f0a59742",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7623a372_8c6ce743",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 2
