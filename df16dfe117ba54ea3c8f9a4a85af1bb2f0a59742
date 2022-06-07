@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1a42c2f6_5c9f1caa",
+        "filename": "tests/cts/net/src/android/net/cts/CaptivePortalTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-06-07T06:39:43Z",
+      "side": 1,
+      "message": "Forgot to mention: I verified that the retry works by having a process deleting the URL config running in a loop during the test, and seeing the test retry (then pass if the process is killed before the last retry)",
+      "parentUuid": "1af8a2bd_35cd4107",
+      "range": {
+        "startLine": 166,
+        "startChar": 8,
+        "endLine": 167,
+        "endChar": 77
+      },
+      "revId": "df16dfe117ba54ea3c8f9a4a85af1bb2f0a59742",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7623a372_8c6ce743",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 2
