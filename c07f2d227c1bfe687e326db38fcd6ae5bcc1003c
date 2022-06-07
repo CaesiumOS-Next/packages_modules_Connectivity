@@ -16,6 +16,23 @@
       "message": "Please take a look if the commit message is ok for you.\nNote that it looks like there\u0027s conflict with internal file.",
       "revId": "c07f2d227c1bfe687e326db38fcd6ae5bcc1003c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76fc46dd_5990a18f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-06-07T08:55:35Z",
+      "side": 1,
+      "message": "LGTM assuming the conflict will be solved.",
+      "revId": "c07f2d227c1bfe687e326db38fcd6ae5bcc1003c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
