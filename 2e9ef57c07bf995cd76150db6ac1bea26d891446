@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b889db7_38047048",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-07T23:34:32Z",
+      "side": 1,
+      "message": "nit: This is really hard to read now; I wonder if it would be better to drop the lambda, and add a comment `// drop if any unset`.",
+      "range": {
+        "startLine": 206,
+        "startChar": 8,
+        "endLine": 206,
+        "endChar": 40
+      },
+      "revId": "2e9ef57c07bf995cd76150db6ac1bea26d891446",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
