@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49826a94_5ddc0894",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-06-08T04:20:37Z",
+      "side": 1,
+      "message": "Per talked, the function\u0027s code line coverage has been covered by TrafficControllerTest#TestDumpsys.\n\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/service/native/TrafficControllerTest.cpp;l\u003d783?q\u003dpackages%2Fmodules%2FConnectivity%2Fservice%2Fnative%2FTrafficControllerTest.cpp\u0026sq\u003dpackage:%5Eaosp-master$",
+      "revId": "1d4d3d26959c0017b39f9569bdb2d0e872644576",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc44a688_740863e1",
