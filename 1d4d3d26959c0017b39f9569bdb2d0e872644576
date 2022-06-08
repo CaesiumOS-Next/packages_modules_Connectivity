@@ -39,6 +39,30 @@
       },
       "revId": "1d4d3d26959c0017b39f9569bdb2d0e872644576",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "932193ea_254f31cb",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-08T04:36:28Z",
+      "side": 1,
+      "message": "it is necessary because the match types will be attached together because of for-loop  \n\n10086  HAPPY_BOX_MATCH DOZABLE_MATCH STANDBY_MATCH POWERSAVE_MATCH RESTRICTED_MATCH LOW_POWER_STANDBY_MATCH IIF_MATCH LOCKDOWN_VPN_MATCH OEM_DENY_1_MATCH OEM_DENY_2_MATCH OEM_DENY_3_MATCH",
+      "parentUuid": "dc44a688_740863e1",
+      "range": {
+        "startLine": 827,
+        "startChar": 8,
+        "endLine": 829,
+        "endChar": 78
+      },
+      "revId": "1d4d3d26959c0017b39f9569bdb2d0e872644576",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
