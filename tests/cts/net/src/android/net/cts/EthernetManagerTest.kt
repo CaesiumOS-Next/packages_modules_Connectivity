@@ -44,7 +44,6 @@ import android.net.TestNetworkManager
 import android.net.cts.EthernetManagerTest.EthernetStateListener.CallbackEntry.InterfaceStateChanged
 import android.os.Build
 import android.os.Handler
-import android.os.HandlerExecutor
 import android.os.Looper
 import android.os.SystemProperties
 import android.platform.test.annotations.AppModeFull
@@ -100,6 +99,7 @@ class EthernetManagerTest {
     private val context by lazy { InstrumentationRegistry.getInstrumentation().context }
     private val em by lazy { context.getSystemService(EthernetManager::class.java) }
     private val cm by lazy { context.getSystemService(ConnectivityManager::class.java) }
+    private val handler by lazy { Handler(Looper.getMainLooper()) }
 
     private val ifaceListener = EthernetStateListener()
     private val createdIfaces = ArrayList<EthernetTestInterface>()
@@ -259,7 +259,7 @@ class EthernetManagerTest {
 
     private fun addInterfaceStateListener(listener: EthernetStateListener) {
         runAsShell(CONNECTIVITY_USE_RESTRICTED_NETWORKS) {
-            em.addInterfaceStateListener(HandlerExecutor(Handler(Looper.getMainLooper())), listener)
+            em.addInterfaceStateListener(handler::post, listener)
         }
         addedListeners.add(listener)
     }
@@ -267,7 +267,7 @@ class EthernetManagerTest {
     private fun createInterface(hasCarrier: Boolean = true): EthernetTestInterface {
         val iface = EthernetTestInterface(
             context,
-            Handler(Looper.getMainLooper()),
+            handler,
             hasCarrier
         ).also { createdIfaces.add(it) }
 
@@ -307,7 +307,7 @@ class EthernetManagerTest {
 
     private fun requestTetheredInterface() = TetheredInterfaceListener().also {
         tetheredInterfaceRequest = runAsShell(NETWORK_SETTINGS) {
-            em.requestTetheredInterface(HandlerExecutor(Handler(Looper.getMainLooper())), it)
+            em.requestTetheredInterface(handler::post, it)
         }
     }
 
