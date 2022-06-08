@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2c4daf8_54ac698e",
+        "filename": "service/jni/com_android_server_TestNetworkService.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-08T18:36:24Z",
+      "side": 1,
+      "message": "I wonder if I should write\n```\nuint32_t carrierOn \u003d enabled ? 1 : 0;\n```\ninstead. Might be a little cleaner / more explicit.",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 33
+      },
+      "revId": "2882edde8833b9ad2412df45015f9a1fe39900b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
