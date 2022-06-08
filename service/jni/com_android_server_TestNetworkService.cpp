@@ -51,7 +51,15 @@ static void throwException(JNIEnv* env, int error, const char* action, const cha
     jniThrowException(env, "java/lang/IllegalStateException", msg.c_str());
 }
 
-static int createTunTapImpl(JNIEnv* env, bool isTun, const char* iface) {
+// enable or disable  carrier on tun / tap interface.
+static void setTunTapCarrierEnabledImpl(JNIEnv* env, const char* iface, int tunFd, bool enabled) {
+    uint32_t carrierOn = enabled;
+    if (ioctl(tunFd, TUNSETCARRIER, &carrierOn)) {
+        throwException(env, errno, "set carrier", iface);
+    }
+}
+
+static int createTunTapImpl(JNIEnv* env, bool isTun, bool hasCarrier, const char* iface) {
     base::unique_fd tun(open("/dev/tun", O_RDWR | O_NONBLOCK));
     ifreq ifr{};
 
@@ -61,6 +69,11 @@ static int createTunTapImpl(JNIEnv* env, bool isTun, const char* iface) {
     if (ioctl(tun.get(), TUNSETIFF, &ifr)) {
         throwException(env, errno, "allocating", ifr.ifr_name);
         return -1;
+    }
+
+    if (!hasCarrier) {
+        // disable carrier before setting IFF_UP
+        setTunTapCarrierEnabledImpl(env, iface, tun.get(), hasCarrier);
     }
 
     // Activate interface using an unconnected datagram socket.
@@ -77,24 +90,17 @@ static int createTunTapImpl(JNIEnv* env, bool isTun, const char* iface) {
     return tun.release();
 }
 
-// enable or disable  carrier on tun / tap interface.
-static void setTunTapCarrierEnabledImpl(JNIEnv* env, const char* iface, int tunFd, bool enabled) {
-    uint32_t carrierOn = enabled;
-    if (ioctl(tunFd, TUNSETCARRIER, &carrierOn)) {
-        throwException(env, errno, "set carrier", iface);
-    }
-}
-
 //------------------------------------------------------------------------------
 
-static jint createTunTap(JNIEnv* env, jclass /* clazz */, jboolean isTun, jstring jIface) {
+static jint createTunTap(JNIEnv* env, jclass /* clazz */, jboolean isTun,
+                             jboolean hasCarrier, jstring jIface) {
     ScopedUtfChars iface(env, jIface);
     if (!iface.c_str()) {
         jniThrowNullPointerException(env, "iface");
         return -1;
     }
 
-    return createTunTapImpl(env, isTun, iface.c_str());
+    return createTunTapImpl(env, isTun, hasCarrier, iface.c_str());
 }
 
 static void setTunTapCarrierEnabled(JNIEnv* env, jclass /* clazz */, jstring
@@ -109,7 +115,7 @@ static void setTunTapCarrierEnabled(JNIEnv* env, jclass /* clazz */, jstring
 //------------------------------------------------------------------------------
 
 static const JNINativeMethod gMethods[] = {
-    {"jniCreateTunTap", "(ZLjava/lang/String;)I", (void*)createTunTap},
+    {"jniCreateTunTap", "(ZZLjava/lang/String;)I", (void*)createTunTap},
     {"jniSetTunTapCarrierEnabled", "(Ljava/lang/String;IZ)V", (void*)setTunTapCarrierEnabled},
 };
 
