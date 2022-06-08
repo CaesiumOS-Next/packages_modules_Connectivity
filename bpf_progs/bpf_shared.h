@@ -122,6 +122,7 @@ static const int UID_OWNER_MAP_SIZE = 2000;
 #define UID_OWNER_MAP_PATH BPF_NETD_PATH "map_netd_uid_owner_map"
 #define UID_PERMISSION_MAP_PATH BPF_NETD_PATH "map_netd_uid_permission_map"
 
+// LINT.IfChange(match_type)
 enum UidOwnerMatchType {
     NO_MATCH = 0,
     HAPPY_BOX_MATCH = (1 << 0),
@@ -137,6 +138,7 @@ enum UidOwnerMatchType {
     OEM_DENY_2_MATCH = (1 << 10),
     OEM_DENY_3_MATCH = (1 << 11),
 };
+// LINT.ThenChange(packages/modules/Connectivity/service/src/com/android/server/BpfNetMaps.java)
 
 enum BpfPermissionMatch {
     BPF_PERMISSION_INTERNET = 1 << 2,
