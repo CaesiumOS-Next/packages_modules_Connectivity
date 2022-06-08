@@ -16,15 +16,28 @@
 
 package com.android.server;
 
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_DOZABLE;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_LOW_POWER_STANDBY;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_1;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_2;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_3;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_POWERSAVE;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_RESTRICTED;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_STANDBY;
+import static android.system.OsConstants.ENOENT;
 import static android.system.OsConstants.EOPNOTSUPP;
 
 import android.net.INetd;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
+import android.system.ErrnoException;
 import android.system.Os;
 import android.util.Log;
+import android.util.SparseIntArray;
 
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.module.util.BpfMap;
+import com.android.net.module.util.Struct.U32;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -41,6 +54,43 @@ public class BpfNetMaps {
     private static final boolean USE_NETD = !SdkLevel.isAtLeastT();
     private static boolean sInitialized = false;
 
+    private static final String CONFIGURATION_MAP_PATH =
+            "/sys/fs/bpf/netd_shared/map_netd_configuration_map";
+    private static final U32 UID_RULES_CONFIGURATION_KEY = new U32(1);
+    private static BpfMap<U32, U32> sConfigurationMap = null;
+
+    // LINT.IfChange(match_type)
+    private static final int NO_MATCH = 0;
+    private static final int HAPPY_BOX_MATCH = (1 << 0);
+    private static final int PENALTY_BOX_MATCH = (1 << 1);
+    private static final int DOZABLE_MATCH = (1 << 2);
+    private static final int STANDBY_MATCH = (1 << 3);
+    private static final int POWERSAVE_MATCH = (1 << 4);
+    private static final int RESTRICTED_MATCH = (1 << 5);
+    private static final int LOW_POWER_STANDBY_MATCH = (1 << 6);
+    private static final int IIF_MATCH = (1 << 7);
+    private static final int LOCKDOWN_VPN_MATCH = (1 << 8);
+    private static final int OEM_DENY_1_MATCH = (1 << 9);
+    private static final int OEM_DENY_2_MATCH = (1 << 10);
+    private static final int OEM_DENY_3_MATCH = (1 << 11);
+    // LINT.ThenChange(packages/modules/Connectivity/bpf_progs/bpf_shared.h)
+
+    // TODO: Use Java BpfMap instead of JNI code (TrafficController) for map update.
+    // Currently, BpfNetMaps uses TrafficController for map update and TrafficController
+    // (changeUidOwnerRule and toggleUidOwnerMap) also does conversion from "firewall chain" to
+    // "match". Migrating map update from JNI to Java BpfMap will solve this duplication.
+    private static final SparseIntArray FIREWALL_CHAIN_TO_MATCH = new SparseIntArray();
+    static {
+        FIREWALL_CHAIN_TO_MATCH.put(FIREWALL_CHAIN_DOZABLE, DOZABLE_MATCH);
+        FIREWALL_CHAIN_TO_MATCH.put(FIREWALL_CHAIN_STANDBY, STANDBY_MATCH);
+        FIREWALL_CHAIN_TO_MATCH.put(FIREWALL_CHAIN_POWERSAVE, POWERSAVE_MATCH);
+        FIREWALL_CHAIN_TO_MATCH.put(FIREWALL_CHAIN_RESTRICTED, RESTRICTED_MATCH);
+        FIREWALL_CHAIN_TO_MATCH.put(FIREWALL_CHAIN_LOW_POWER_STANDBY, LOW_POWER_STANDBY_MATCH);
+        FIREWALL_CHAIN_TO_MATCH.put(FIREWALL_CHAIN_OEM_DENY_1, OEM_DENY_1_MATCH);
+        FIREWALL_CHAIN_TO_MATCH.put(FIREWALL_CHAIN_OEM_DENY_2, OEM_DENY_2_MATCH);
+        FIREWALL_CHAIN_TO_MATCH.put(FIREWALL_CHAIN_OEM_DENY_3, OEM_DENY_3_MATCH);
+    }
+
     /**
      * Initializes the class if it is not already initialized. This method will open maps but not
      * cause any other effects. This method may be called multiple times on any thread.
@@ -50,8 +100,18 @@ public class BpfNetMaps {
         if (!USE_NETD) {
             System.loadLibrary("service-connectivity");
             native_init();
+            sConfigurationMap = getConfigurationMap();
         }
         sInitialized = true;
+    }
+
+    private static BpfMap<U32, U32> getConfigurationMap() {
+        try {
+            return new BpfMap<>(CONFIGURATION_MAP_PATH, BpfMap.BPF_F_RDONLY, U32.class, U32.class);
+        } catch (ErrnoException e) {
+            Log.wtf(TAG, "Cannot open netd configuration map: " + e);
+            return null;
+        }
     }
 
     /** Constructor used after T that doesn't need to use netd anymore. */
@@ -131,6 +191,41 @@ public class BpfNetMaps {
     public void setChildChain(final int childChain, final boolean enable) {
         final int err = native_setChildChain(childChain, enable);
         maybeThrow(err, "Unable to set child chain");
+    }
+
+    /**
+     * Get the specified firewall chain status.
+     *
+     * @param childChain target chain
+     * @return {@code true} if chain is enabled, {@code false} if chain is not enabled.
+     * @throws UnsupportedOperationException if this function is called on pre-T devices.
+     * @throws IllegalArgumentException if {@code childChain} is a invalid value.
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     */
+    public boolean getChainEnabled(final int childChain) {
+        if (USE_NETD) {
+            throw new UnsupportedOperationException("getChainEnabled is not available on pre-T"
+                    + " devices");
+        }
+
+        final int match = FIREWALL_CHAIN_TO_MATCH.get(childChain, 0 /* valueIfKeyNotFound */);
+        if (match == 0) {
+            throw new IllegalArgumentException("Invalid firewall chain: " + childChain);
+        }
+
+        try {
+            final U32 config = sConfigurationMap.getValue(UID_RULES_CONFIGURATION_KEY);
+            if (config == null) {
+                throw new ServiceSpecificException(ENOENT,
+                        "Unable to get firewall chain status: sConfigurationMap does not have"
+                                + " entry for UID_RULES_CONFIGURATION_KEY");
+            }
+            return (config.val & match) != 0;
+        } catch (ErrnoException e) {
+            throw new ServiceSpecificException(e.errno,
+                    "Unable to get firewall chain status: " + Os.strerror(e.errno));
+        }
     }
 
     /**
