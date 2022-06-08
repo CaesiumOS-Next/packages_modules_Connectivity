@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab426aab_15246e63",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-08T22:25:19Z",
+      "side": 1,
+      "message": "(comment only changes since patchset 5 which was TH+1\u0027ed)",
+      "revId": "474512ac7a5dc713e715f8c5fc5d803fb9c24cfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
