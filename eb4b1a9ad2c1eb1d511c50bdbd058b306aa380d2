@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "615718bf_02df3097",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-08T22:55:29Z",
+      "side": 1,
+      "message": "These are the tests for aosp/2107603.",
+      "revId": "eb4b1a9ad2c1eb1d511c50bdbd058b306aa380d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
