@@ -110,17 +110,21 @@ class EthernetManagerTest {
 
     private class EthernetTestInterface(
         context: Context,
-        private val handler: Handler
+        private val handler: Handler,
+        hasCarrier: Boolean
     ) {
         private val tapInterface: TestNetworkInterface
         private val packetReader: TapPacketReader
         private val raResponder: RouterAdvertisementResponder
+        private val tnm: TestNetworkManager
         val name get() = tapInterface.interfaceName
 
         init {
+            tnm = runAsShell(MANAGE_TEST_NETWORKS) {
+                context.getSystemService(TestNetworkManager::class.java)
+            }
             tapInterface = runAsShell(MANAGE_TEST_NETWORKS) {
-                val tnm = context.getSystemService(TestNetworkManager::class.java)
-                tnm.createTapInterface(false /* bringUp */)
+                tnm.createTapInterface(hasCarrier, false /* bringUp */)
             }
             val mtu = 1500
             packetReader = TapPacketReader(handler, tapInterface.fileDescriptor.fileDescriptor, mtu)
@@ -130,6 +134,12 @@ class EthernetManagerTest {
 
             packetReader.startAsyncForTest()
             raResponder.start()
+        }
+
+        fun setCarrierEnabled(enabled: Boolean) {
+            runAsShell(MANAGE_TEST_NETWORKS) {
+                tnm.setCarrierEnabled(tapInterface, enabled)
+            }
         }
 
         fun destroy() {
@@ -254,15 +264,17 @@ class EthernetManagerTest {
         addedListeners.add(listener)
     }
 
-    private fun createInterface(): EthernetTestInterface {
+    private fun createInterface(hasCarrier: Boolean = true): EthernetTestInterface {
         val iface = EthernetTestInterface(
             context,
-            Handler(Looper.getMainLooper())
+            Handler(Looper.getMainLooper()),
+            hasCarrier
         ).also { createdIfaces.add(it) }
-        with(ifaceListener) {
-            // when an interface comes up, we should always see a down cb before an up cb.
-            eventuallyExpect(iface, STATE_LINK_DOWN, ROLE_CLIENT)
-            expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
+
+        // when an interface comes up, we should always see a down cb before an up cb.
+        ifaceListener.eventuallyExpect(iface, STATE_LINK_DOWN, ROLE_CLIENT)
+        if (hasCarrier) {
+            ifaceListener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
         }
         return iface
     }
@@ -328,6 +340,9 @@ class EthernetManagerTest {
 
     private fun TestableNetworkCallback.assertNeverLost(n: Network? = null) =
         assertNoCallbackThat() { it is Lost && (n?.equals(it.network) ?: true) }
+
+    private fun TestableNetworkCallback.assertNeverAvailable(n: Network? = null) =
+        assertNoCallbackThat() { it is Available && (n?.equals(it.network) ?: true) }
 
     private fun TestableNetworkCallback.expectCapabilitiesWithInterfaceName(name: String) =
         expectCapabilitiesThat(anyNetwork()) {
@@ -546,5 +561,19 @@ class EthernetManagerTest {
         cb2.assertNeverLost()
         releaseRequest(cb2)
         listener.eventuallyExpectLost(network)
+    }
+
+    @Test
+    fun testNetworkRequest_forInterfaceWhileTogglingCarrier() {
+        val iface = createInterface(false /* hasCarrier */)
+
+        val cb = requestNetwork(ETH_REQUEST)
+        cb.assertNeverAvailable()
+
+        iface.setCarrierEnabled(true)
+        cb.expectAvailable()
+
+        iface.setCarrierEnabled(false)
+        cb.eventuallyExpectLost()
     }
 }
