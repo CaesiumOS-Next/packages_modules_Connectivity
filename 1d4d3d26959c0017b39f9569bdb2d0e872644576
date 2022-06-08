@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc44a688_740863e1",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-06-08T04:18:51Z",
+      "side": 1,
+      "message": "nit: It\u0027s unnecessary because all maps in the test are not real maps in system, and all map are renewed in each test cases.",
+      "range": {
+        "startLine": 827,
+        "startChar": 8,
+        "endLine": 829,
+        "endChar": 78
+      },
+      "revId": "1d4d3d26959c0017b39f9569bdb2d0e872644576",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
