@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe2f95a3_e47c5593",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetNetworkFactoryTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-08T18:26:35Z",
+      "side": 0,
+      "message": "Very basic, but added in aosp/2120118.",
+      "parentUuid": "b6520e82_37538e6d",
+      "range": {
+        "startLine": 444,
+        "startChar": 16,
+        "endLine": 444,
+        "endChar": 54
+      },
+      "revId": "3c089e67f15cc6657b80c638b21c1990d1b8db66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2577da53_ea099d72",
