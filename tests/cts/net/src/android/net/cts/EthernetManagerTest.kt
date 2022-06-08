@@ -660,6 +660,23 @@ class EthernetManagerTest {
         cb.eventuallyExpectLost()
     }
 
+    /**
+     * Tests a common automotive use case where networks are requested with an ethernet specifier
+     * and link state changes often.
+     */
+    @Test
+    fun testNetworkRequest_withSpecifierWhileTogglingCarrier() {
+        val iface = createInterface(false /* hasCarrier */)
+        val cb = requestNetwork(ETH_REQUEST.createCopyWithEthernetSpecifier(iface.name))
+        cb.assertNeverAvailable()
+
+        iface.setCarrierEnabled(true)
+        cb.expectAvailable()
+
+        iface.setCarrierEnabled(false)
+        cb.eventuallyExpectLost()
+    }
+
     @Test
     fun testRemoveInterface_whileInServerMode() {
         assumeNoInterfaceForTetheringAvailable()
