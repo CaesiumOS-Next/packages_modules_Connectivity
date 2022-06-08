@@ -42,6 +42,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
@@ -178,6 +179,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
@@ -280,6 +282,8 @@ public class VpnTest {
     @Mock private ConnectivityManager mConnectivityManager;
     @Mock private IpSecService mIpSecService;
     @Mock private VpnProfileStore mVpnProfileStore;
+    @Mock private ScheduledThreadPoolExecutor mExecutor;
+    @Mock private ScheduledFuture mScheduledFuture;
     @Mock DeviceIdleInternal mDeviceIdleInternal;
     private final VpnProfile mVpnProfile;
 
@@ -344,6 +348,17 @@ public class VpnTest {
         doReturn(PERMISSION_DENIED).when(mContext).checkCallingOrSelfPermission(any());
 
         resetIkev2SessionCreator(mIkeSessionWrapper);
+
+        // Set up mExecutor
+        doAnswer(
+                (invocation) -> {
+                    ((Runnable) invocation.getArgument(0)).run();
+                    return null;
+                })
+            .when(mExecutor)
+            .execute(any());
+        when(mExecutor.schedule(
+                any(Runnable.class), anyLong(), any())).thenReturn(mScheduledFuture);
     }
 
     private void resetIkev2SessionCreator(Vpn.IkeSessionWrapper ikeSession) {
@@ -1667,9 +1682,13 @@ public class VpnTest {
         final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
                 createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */));
 
-        // Mock network switch
+        // Mock network loss and verify a cleanup task is scheduled
         vpnSnapShot.nwCb.onLost(TEST_NETWORK);
+        verify(mExecutor).schedule(any(Runnable.class), anyLong(), any());
+
+        // Mock new network comes up and the cleanup task is cancelled
         vpnSnapShot.nwCb.onAvailable(TEST_NETWORK_2);
+        verify(mScheduledFuture).cancel(anyBoolean());
 
         // Verify MOBIKE is triggered
         verify(mIkeSessionWrapper).setNetwork(TEST_NETWORK_2);
@@ -1735,7 +1754,32 @@ public class VpnTest {
         vpnSnapShot.vpn.mVpnRunner.exitVpnRunner();
     }
 
-    // TODO: Add a test for network loss without mobility
+    @Test
+    public void testStartPlatformVpnHandlesNetworkLossMobikeDisabled() throws Exception {
+        final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
+                createIkeConfig(createIkeConnectInfo(), false /* isMobikeEnabled */));
+
+        // Forget the #sendLinkProperties during first setup.
+        reset(mVpnNetworkAgentWrapper);
+
+        // Mock network loss
+        vpnSnapShot.nwCb.onLost(TEST_NETWORK);
+
+        // Verify interface name and route are cleared
+        final ArgumentCaptor<LinkProperties> lpCaptor =
+                ArgumentCaptor.forClass(LinkProperties.class);
+        verify(mVpnNetworkAgentWrapper).sendLinkProperties(lpCaptor.capture());
+        final LinkProperties lp = lpCaptor.getValue();
+
+        assertNull(lp.getInterfaceName());
+        final List<RouteInfo> expectedRoutes = Arrays.asList(
+                new RouteInfo(new IpPrefix(Inet4Address.ANY, 0), null /*gateway*/,
+                        null /*iface*/, RTN_UNREACHABLE),
+                new RouteInfo(new IpPrefix(Inet6Address.ANY, 0), null /*gateway*/,
+                        null /*iface*/, RTN_UNREACHABLE));
+        assertEquals(expectedRoutes, lp.getRoutes());
+
+    }
 
     @Test
     public void testStartRacoonNumericAddress() throws Exception {
@@ -1955,16 +1999,7 @@ public class VpnTest {
 
         @Override
         public ScheduledThreadPoolExecutor getScheduledThreadPoolExecutor() {
-            final ScheduledThreadPoolExecutor mockExecutor =
-                    mock(ScheduledThreadPoolExecutor.class);
-            doAnswer(
-                    (invocation) -> {
-                        ((Runnable) invocation.getArgument(0)).run();
-                        return null;
-                    })
-                .when(mockExecutor)
-                .execute(any());
-            return mockExecutor;
+            return mExecutor;
         }
     }
 
