@@ -11390,6 +11390,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     @Override
+    public boolean getFirewallChainEnabled(final int chain) {
+        enforceNetworkStackOrSettingsPermission();
+
+        try {
+            return mBpfNetMaps.getChainEnabled(chain);
+        } catch (ServiceSpecificException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    @Override
     public void replaceFirewallChain(final int chain, final int[] uids) {
         enforceNetworkStackOrSettingsPermission();
 
