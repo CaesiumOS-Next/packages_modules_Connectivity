@@ -1103,7 +1103,9 @@ public class EthernetTetheringTest {
 
     void initializeTethering(List<LinkAddress> upstreamAddresses, List<InetAddress> upstreamDnses)
             throws Exception {
-        assumeFalse(mEm.isAvailable());
+        Log.d(TAG, "EthernetTracker:: testEm :: setEthernetEnabled false +++");
+        mEm.setEthernetEnabled(false);
+        Log.d(TAG, "EthernetTracker:: testEm :: setEthernetEnabled false ---");
 
         // MyTetheringEventCallback currently only support await first available upstream. Tethering
         // may select internet network as upstream if test network is not available and not be
@@ -1112,6 +1114,10 @@ public class EthernetTetheringTest {
 
         mDownstreamIface = createTestInterface();
         mEm.setIncludeTestInterfaces(true);
+
+        Log.d(TAG, "EthernetTracker:: testEm :: setEthernetEnabled true +++");
+        mEm.setEthernetEnabled(true);
+        Log.d(TAG, "EthernetTracker:: testEm :: setEthernetEnabled true ---");
 
         final String iface = mTetheredInterfaceRequester.getInterface();
         assertEquals("TetheredInterfaceCallback for unexpected interface",
@@ -1320,6 +1326,17 @@ public class EthernetTetheringTest {
         initializeTethering(toList(TEST_IP6_ADDR), toList(TEST_IP6_DNS));
         runClatUdpTest(new TetheringTester(mDownstreamReader),
                 new RemoteResponder(mUpstreamReader));
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testEm() throws Exception {
+        initializeTethering(toList(TEST_IP6_ADDR), toList(TEST_IP6_DNS));
+
+        List<String> ifaces = mEm.getInterfaceList();
+        for (String iface : ifaces) {
+            Log.d(TAG, "EthernetTracker:: testEm ::  " + iface);
+        }
     }
 
     private <T> List<T> toList(T... array) {

@@ -577,10 +577,11 @@ public class EthernetTracker {
             if (DBG) Log.w(TAG, "Ignoring already-tracked interface " + iface);
             return;
         }
-        if (DBG) Log.i(TAG, "maybeTrackInterface: " + iface);
+        Log.i(TAG, "maybeTrackInterface: " + iface);  // debug
 
         // TODO: avoid making an interface default if it has configured NetworkCapabilities.
         if (mDefaultInterface == null) {
+            Log.i(TAG, "maybeTrackInterface: mDefaultInterface " + iface);  // debug
             mDefaultInterface = iface;
         }
 
@@ -598,6 +599,7 @@ public class EthernetTracker {
         try {
             final String[] ifaces = mNetd.interfaceGetList();
             for (String iface : ifaces) {
+                Log.i(TAG, "trackAvailableInterfacess: " + iface);  // + debug
                 maybeTrackInterface(iface);
             }
         } catch (RemoteException | ServiceSpecificException e) {
