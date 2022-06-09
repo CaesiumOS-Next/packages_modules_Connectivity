@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cc10471_c95b409a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-09T18:31:14Z",
+      "side": 1,
+      "message": "Addressed the nits. I ended up putting the suggested cleanups in this CL, as they seemed small enough.",
+      "revId": "d648e5c2e08147bbb312e62f62528dc41201fca5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

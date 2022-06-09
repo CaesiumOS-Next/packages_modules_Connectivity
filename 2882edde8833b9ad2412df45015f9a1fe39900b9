@@ -88,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9471c35_45554417",
+        "filename": "service/jni/com_android_server_TestNetworkService.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-09T18:31:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "629319c0_1a0d4481",
+      "range": {
+        "startLine": 90,
+        "startChar": 32,
+        "endLine": 90,
+        "endChar": 49
+      },
+      "revId": "2882edde8833b9ad2412df45015f9a1fe39900b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d017673e_6f12fcd0",
@@ -101,6 +125,30 @@
       "writtenOn": "2022-06-08T23:02:02Z",
       "side": 1,
       "message": "since you marked the method \u0027static\u0027 this is jclass /* clazz */",
+      "range": {
+        "startLine": 103,
+        "startChar": 49,
+        "endLine": 103,
+        "endChar": 67
+      },
+      "revId": "2882edde8833b9ad2412df45015f9a1fe39900b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66110770_421ef381",
+        "filename": "service/jni/com_android_server_TestNetworkService.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-09T18:31:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d017673e_6f12fcd0",
       "range": {
         "startLine": 103,
         "startChar": 49,
@@ -136,6 +184,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "079dc6be_94a060bf",
+        "filename": "service/jni/com_android_server_TestNetworkService.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-09T18:31:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91fca624_ed65059e",
+      "range": {
+        "startLine": 115,
+        "startChar": 57,
+        "endLine": 115,
+        "endChar": 63
+      },
+      "revId": "2882edde8833b9ad2412df45015f9a1fe39900b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f0aed793_4f566037",
         "filename": "service/src/com/android/server/TestNetworkService.java",
         "patchSetId": 2
@@ -147,6 +219,30 @@
       "writtenOn": "2022-06-08T23:02:02Z",
       "side": 1,
       "message": "convention in other places seems to be to use native as the prefix, though I guess jni is just as clear",
+      "range": {
+        "startLine": 82,
+        "startChar": 31,
+        "endLine": 82,
+        "endChar": 57
+      },
+      "revId": "2882edde8833b9ad2412df45015f9a1fe39900b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cb2bd95_99965b2f",
+        "filename": "service/src/com/android/server/TestNetworkService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-09T18:31:14Z",
+      "side": 1,
+      "message": "I changed it",
+      "parentUuid": "f0aed793_4f566037",
       "range": {
         "startLine": 82,
         "startChar": 31,
@@ -180,6 +276,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31dcc62b_ccd2265e",
+        "filename": "service/src/com/android/server/TestNetworkService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-09T18:31:14Z",
+      "side": 1,
+      "message": "yeah, just \"executes\" would do it.",
+      "parentUuid": "c0eb4bae_da9684cb",
+      "range": {
+        "startLine": 391,
+        "startChar": 47,
+        "endLine": 391,
+        "endChar": 55
+      },
+      "revId": "2882edde8833b9ad2412df45015f9a1fe39900b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d73c92f_48009963",
@@ -193,6 +313,30 @@
       "writtenOn": "2022-06-09T13:24:46Z",
       "side": 1,
       "message": "This looks like fd of the tap interface cannot be used any more after calling this API, is that intended behavior?",
+      "range": {
+        "startLine": 393,
+        "startChar": 38,
+        "endLine": 393,
+        "endChar": 45
+      },
+      "revId": "2882edde8833b9ad2412df45015f9a1fe39900b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "090cc0c0_9e34ba0c",
+        "filename": "service/src/com/android/server/TestNetworkService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-09T18:31:14Z",
+      "side": 1,
+      "message": "The binder driver dup\u0027s the fd during an binder IPC call. (I have just been learning on chatty that this may not be happening for in-process binder calls, but I guess that should not matter here: https://groups.google.com/a/google.com/g/android-chatty-eng/c/mQZEJ-fRY9U)",
+      "parentUuid": "7d73c92f_48009963",
       "range": {
         "startLine": 393,
         "startChar": 38,
