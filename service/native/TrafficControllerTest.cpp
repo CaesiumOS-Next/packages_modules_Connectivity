@@ -331,6 +331,8 @@ class TrafficControllerTest : public ::testing::Test {
     }
 
     // Strings in the |expect| must exist in dump results in order. But no need to be consecutive.
+    // |expect| must be two or more lines.
+    // TODO: consider support a single line |expect|.
     bool expectDumpsysContains(std::vector<std::string>& expect) {
         if (expect.empty()) return false;
 
@@ -842,20 +844,25 @@ TEST_F(TrafficControllerTest, TestDumpsys) {
 TEST_F(TrafficControllerTest, dumpsysInvalidMaps) {
     makeTrafficControllerMapsInvalid();
 
+    const std::string kErrIterate = "print end with error: Get firstKey map -1 failed: "
+            "Bad file descriptor";
+    const std::string kErrReadRulesConfig = "read ownerMatch configure failed with error: "
+            "Read value of map -1 failed: Bad file descriptor";
+    const std::string kErrReadStatsMapConfig = "read stats map configure failed with error: "
+            "Read value of map -1 failed: Bad file descriptor";
+
     std::vector<std::string> expectedLines = {
-        "mCookieTagMap print end with error: Get firstKey map -1 failed: Bad file descriptor",
-        "mUidCounterSetMap print end with error: Get firstKey map -1 failed: Bad file descriptor",
-        "mAppUidStatsMap print end with error: Get firstKey map -1 failed: Bad file descriptor",
-        "mStatsMapA print end with error: Get firstKey map -1 failed: Bad file descriptor",
-        "mStatsMapB print end with error: Get firstKey map -1 failed: Bad file descriptor",
-        "mIfaceIndexNameMap print end with error: Get firstKey map -1 failed: Bad file descriptor",
-        "mIfaceStatsMap print end with error: Get firstKey map -1 failed: Bad file descriptor",
-        "mConfigurationMap read ownerMatch configure failed with error: "
-                "Read value of map -1 failed: Bad file descriptor",
-        "mConfigurationMap read stats map configure failed with error: "
-                "Read value of map -1 failed: Bad file descriptor",
-        "mUidOwnerMap print end with error: Get firstKey map -1 failed: Bad file descriptor",
-        "mUidPermissionMap print end with error: Get firstKey map -1 failed: Bad file descriptor"};
+        fmt::format("mCookieTagMap {}", kErrIterate),
+        fmt::format("mUidCounterSetMap {}", kErrIterate),
+        fmt::format("mAppUidStatsMap {}", kErrIterate),
+        fmt::format("mStatsMapA {}", kErrIterate),
+        fmt::format("mStatsMapB {}", kErrIterate),
+        fmt::format("mIfaceIndexNameMap {}", kErrIterate),
+        fmt::format("mIfaceStatsMap {}", kErrIterate),
+        fmt::format("mConfigurationMap {}", kErrReadRulesConfig),
+        fmt::format("mConfigurationMap {}", kErrReadStatsMapConfig),
+        fmt::format("mUidOwnerMap {}", kErrIterate),
+        fmt::format("mUidPermissionMap {}", kErrIterate)};
     EXPECT_TRUE(expectDumpsysContains(expectedLines));
 }
 
