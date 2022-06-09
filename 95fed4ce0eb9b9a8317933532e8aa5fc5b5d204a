@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f2c907a_be6c774f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-09T17:56:25Z",
+      "side": 1,
+      "message": "nit: I think this change would have been better split up into 3 smaller changes -- 1.) add the updateUidLockdownRule() API with tests. 2.) get PermissionMonitor to call the new API. 3.) remove the LOCKDOWN_VPN IntDef.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 36
+      },
+      "revId": "95fed4ce0eb9b9a8317933532e8aa5fc5b5d204a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2667939_3d964cc7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-09T17:56:25Z",
+      "side": 1,
+      "message": "Is there CTS coverage for this, or should there be?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 21
+      },
+      "revId": "95fed4ce0eb9b9a8317933532e8aa5fc5b5d204a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1b3958a_82c50346",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-09T17:56:25Z",
+      "side": 1,
+      "message": "This should return result.",
+      "range": {
+        "startLine": 454,
+        "startChar": 11,
+        "endLine": 454,
+        "endChar": 33
+      },
+      "revId": "95fed4ce0eb9b9a8317933532e8aa5fc5b5d204a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d81fac4_789a4643",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-09T17:56:25Z",
+      "side": 1,
+      "message": "What\u0027s the reason for this change -- isn\u0027t expectedRule still a uint8?",
+      "range": {
+        "startLine": 218,
+        "startChar": 71,
+        "endLine": 218,
+        "endChar": 92
+      },
+      "revId": "95fed4ce0eb9b9a8317933532e8aa5fc5b5d204a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
