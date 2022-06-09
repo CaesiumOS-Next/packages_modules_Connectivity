@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a7aa74c_e6c6776a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 8090,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-09T07:13:37Z",
+      "side": 1,
+      "message": "Optional: This naming is not clear to me with the comment above when I look at the code here. I cannot easily understand why filterIface is not null equals to VPN isolation is enabled. Maybe isolationIface will be clearer to me. If it\u0027s clear to other reviewers, maybe it\u0027s fine as it is  since we could understand it from where the parameter is taken.",
+      "range": {
+        "startLine": 8090,
+        "startChar": 12,
+        "endLine": 8090,
+        "endChar": 23
+      },
+      "revId": "422a623f2fe569f382213a18c8fb7c8e5d54cbf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b5aca82_e3e3789f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 10554,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-09T07:13:37Z",
+      "side": 1,
+      "message": "Is this specific for legacy VPN? If yes, you may want to align it in the comment description in l.10528\n\n```\n// On T and above, legacy VPN should have rules for null interface. ...\n```\n\nBut from the design, it looks that it\u0027s not specific for legacy VPN? then maybe update the test name here to prevent confusing.",
+      "range": {
+        "startLine": 10554,
+        "startChar": 20,
+        "endLine": 10554,
+        "endChar": 26
+      },
+      "revId": "422a623f2fe569f382213a18c8fb7c8e5d54cbf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a150734c_f5808151",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-09T07:13:37Z",
+      "side": 1,
+      "message": "Isn\u0027t it covered by l.877 and l.878?\n\nDitto below",
+      "range": {
+        "startLine": 876,
+        "startChar": 8,
+        "endLine": 876,
+        "endChar": 90
+      },
+      "revId": "422a623f2fe569f382213a18c8fb7c8e5d54cbf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a44d4b3_f07143f5",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-09T07:13:37Z",
+      "side": 1,
+      "message": "Nit: This can omit this if you\u0027re looking for exact 1 interaction\n\nActually, I think it\u0027s not necessary as the reason above. It\u0027s verified in l.907, right?",
+      "range": {
+        "startLine": 906,
+        "startChar": 28,
+        "endLine": 906,
+        "endChar": 36
+      },
+      "revId": "422a623f2fe569f382213a18c8fb7c8e5d54cbf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
