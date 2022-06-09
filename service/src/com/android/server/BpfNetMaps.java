@@ -72,6 +72,7 @@ public class BpfNetMaps {
     private static final int OEM_DENY_1_MATCH = (1 << 9);
     private static final int OEM_DENY_2_MATCH = (1 << 10);
     private static final int OEM_DENY_3_MATCH = (1 << 11);
+    private static final int TEST_MATCH = (1 << 12);
     // LINT.ThenChange(packages/modules/Connectivity/bpf_progs/bpf_shared.h)
 
     private static final Map<Integer, Integer> FIREWALL_CHAIN_TO_MATCH = new ArrayMap<>();
