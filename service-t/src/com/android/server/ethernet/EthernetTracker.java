@@ -577,10 +577,10 @@ public class EthernetTracker {
             if (DBG) Log.w(TAG, "Ignoring already-tracked interface " + iface);
             return;
         }
-        if (DBG) Log.i(TAG, "maybeTrackInterface: " + iface);
 
         // TODO: avoid making an interface default if it has configured NetworkCapabilities.
         if (mDefaultInterface == null) {
+            Log.i(TAG, "maybeTrackInterface: mDefaultInterface " + iface);  // debug
             mDefaultInterface = iface;
         }
 
@@ -595,13 +595,40 @@ public class EthernetTracker {
     }
 
     private void trackAvailableInterfaces() {
+        final String[] ifaces;
         try {
-            final String[] ifaces = mNetd.interfaceGetList();
-            for (String iface : ifaces) {
-                maybeTrackInterface(iface);
-            }
+            ifaces = mNetd.interfaceGetList();
         } catch (RemoteException | ServiceSpecificException e) {
             Log.e(TAG, "Could not get list of interfaces " + e);
+            return;
+        }
+
+        // [1] Test interfaces are not included. Don't need to trace test interface first.
+        if (!mIncludeTestInterfaces) {
+            for (String iface : ifaces) {
+                Log.i(TAG, "trackAvailableInterfacess: " + iface);  // + debug
+                maybeTrackInterface(iface);
+            }
+            return;
+        }
+
+        // [2] Test interfaces are included. Prefer to track test interfaces first.
+        final List<String> generalIfaces = new ArrayList<>();
+        final List<String> testIfaces = new ArrayList<>();
+        for (String iface : ifaces) {
+            if (iface.matches(TEST_IFACE_REGEXP)) {
+                testIfaces.add(iface);
+            } else {
+                generalIfaces.add(iface);
+            }
+        }
+        for (String iface : testIfaces) {
+            Log.i(TAG, "trackAvailableInterfacess testIfaces: " + iface);  // + debug
+            maybeTrackInterface(iface);
+        }
+        for (String iface : generalIfaces) {
+            Log.i(TAG, "trackAvailableInterfacess generalIfaces: " + iface);  // + debug
+            maybeTrackInterface(iface);
         }
     }
 
