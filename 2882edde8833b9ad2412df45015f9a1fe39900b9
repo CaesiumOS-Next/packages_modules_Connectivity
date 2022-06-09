@@ -178,6 +178,29 @@
       },
       "revId": "2882edde8833b9ad2412df45015f9a1fe39900b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d73c92f_48009963",
+        "filename": "service/src/com/android/server/TestNetworkService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-06-09T13:24:46Z",
+      "side": 1,
+      "message": "This looks like fd of the tap interface cannot be used any more after calling this API, is that intended behavior?",
+      "range": {
+        "startLine": 393,
+        "startChar": 38,
+        "endLine": 393,
+        "endChar": 45
+      },
+      "revId": "2882edde8833b9ad2412df45015f9a1fe39900b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
