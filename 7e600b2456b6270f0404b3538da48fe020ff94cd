@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56c9da88_536f0bc6",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1666,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-09T20:50:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ce877fc_e6a9d919",
+      "range": {
+        "startLine": 1666,
+        "startChar": 36,
+        "endLine": 1666,
+        "endChar": 54
+      },
+      "revId": "7e600b2456b6270f0404b3538da48fe020ff94cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7145277a_615edd5c",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-06-09T17:30:24Z",
       "side": 1,
       "message": "Maybe \"WithMobikeDisabled\" or \"_MobikeDisabled\"?",
+      "range": {
+        "startLine": 1699,
+        "startChar": 49,
+        "endLine": 1699,
+        "endChar": 63
+      },
+      "revId": "7e600b2456b6270f0404b3538da48fe020ff94cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d15d9f74_e27a3efa",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1699,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-09T20:50:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7145277a_615edd5c",
       "range": {
         "startLine": 1699,
         "startChar": 49,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2f9ddd8_088777fd",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1715,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-09T20:50:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab6d0bae_1d5e04e4",
+      "range": {
+        "startLine": 1715,
+        "startChar": 33,
+        "endLine": 1715,
+        "endChar": 41
+      },
+      "revId": "7e600b2456b6270f0404b3538da48fe020ff94cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b60db617_f4f565c4",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-06-09T17:30:24Z",
       "side": 1,
       "message": "ditto.",
+      "range": {
+        "startLine": 1716,
+        "startChar": 35,
+        "endLine": 1716,
+        "endChar": 45
+      },
+      "revId": "7e600b2456b6270f0404b3538da48fe020ff94cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ccd75db_46c0cc6c",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1716,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-09T20:50:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b60db617_f4f565c4",
       "range": {
         "startLine": 1716,
         "startChar": 35,
@@ -170,6 +266,30 @@
       "writtenOn": "2022-06-09T17:30:24Z",
       "side": 1,
       "message": "May I know why do we return null here?",
+      "range": {
+        "startLine": 1963,
+        "startChar": 24,
+        "endLine": 1963,
+        "endChar": 36
+      },
+      "revId": "7e600b2456b6270f0404b3538da48fe020ff94cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8be92bb7_faf9fb06",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1963,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-09T20:50:37Z",
+      "side": 1,
+      "message": "This lambda expression is implementing  `T Answer#answer(InvocationOnMock)` which requires a return value. Otherwise, it won\u0027t compile.",
+      "parentUuid": "c34625e1_fc3695f8",
       "range": {
         "startLine": 1963,
         "startChar": 24,
