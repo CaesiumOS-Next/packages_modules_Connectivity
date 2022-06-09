@@ -22,6 +22,29 @@
       },
       "revId": "8cf58e438ad409bb567e8facb38ff6c3c0543c1d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6e7153c_2d30fdf0",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1758,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-09T17:30:31Z",
+      "side": 1,
+      "message": "Maybe NetworkLostWithMobikeDisabled or NetworkLost_MobikeDisabled?",
+      "range": {
+        "startLine": 1758,
+        "startChar": 43,
+        "endLine": 1758,
+        "endChar": 68
+      },
+      "revId": "8cf58e438ad409bb567e8facb38ff6c3c0543c1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
