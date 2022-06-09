@@ -20,6 +20,98 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4ce877fc_e6a9d919",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1666,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-09T17:30:24Z",
+      "side": 1,
+      "message": "Maybe \"Mobility\" here implies that the mobike is enabled?\nIf so, maybe testStartPlatformVpnMobility is enough?\nOr maybe \"MobilityWithMobikeEnabled\" or \"Mobility_MobikeEnabled\"?",
+      "range": {
+        "startLine": 1666,
+        "startChar": 36,
+        "endLine": 1666,
+        "endChar": 54
+      },
+      "revId": "7e600b2456b6270f0404b3538da48fe020ff94cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7145277a_615edd5c",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1699,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-09T17:30:24Z",
+      "side": 1,
+      "message": "Maybe \"WithMobikeDisabled\" or \"_MobikeDisabled\"?",
+      "range": {
+        "startLine": 1699,
+        "startChar": 49,
+        "endLine": 1699,
+        "endChar": 63
+      },
+      "revId": "7e600b2456b6270f0404b3538da48fe020ff94cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab6d0bae_1d5e04e4",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1715,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-09T17:30:24Z",
+      "side": 1,
+      "message": "Maybe newIkeCb?\n\nAnd in fact, there is no var which is named \"ikeCbOld\" or \"oldIkeCb\" here, so maybe you can just name it \"ikeCb\".",
+      "range": {
+        "startLine": 1715,
+        "startChar": 33,
+        "endLine": 1715,
+        "endChar": 41
+      },
+      "revId": "7e600b2456b6270f0404b3538da48fe020ff94cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b60db617_f4f565c4",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1716,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-09T17:30:24Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 1716,
+        "startChar": 35,
+        "endLine": 1716,
+        "endChar": 45
+      },
+      "revId": "7e600b2456b6270f0404b3538da48fe020ff94cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "632a4651_f93178c4",
         "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
         "patchSetId": 7
@@ -60,6 +152,29 @@
         "startChar": 4,
         "endLine": 1738,
         "endChar": 57
+      },
+      "revId": "7e600b2456b6270f0404b3538da48fe020ff94cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c34625e1_fc3695f8",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1963,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-09T17:30:24Z",
+      "side": 1,
+      "message": "May I know why do we return null here?",
+      "range": {
+        "startLine": 1963,
+        "startChar": 24,
+        "endLine": 1963,
+        "endChar": 36
       },
       "revId": "7e600b2456b6270f0404b3538da48fe020ff94cd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
