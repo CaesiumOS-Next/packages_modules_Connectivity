@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "fbc5030c_c70e7b7b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-09T13:26:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "523b94c2_22cef9ac",
+      "range": {
+        "startLine": 16,
+        "startChar": 16,
+        "endLine": 16,
+        "endChar": 17
+      },
+      "revId": "cd3af0f64b19bf855dcf24699626de6967200101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ee002b64_714004fc",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 9
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27323c44_dcecf400",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-09T13:26:34Z",
+      "side": 1,
+      "message": "They are hidden because we could not change API when I implement this.\nBut OEM uses them (b/208371987) and we can not update them.\n\nI should have uploaded CL to make them API.\nThanks you for reminds me this.\nI will upload another CL for this.",
+      "parentUuid": "1af65a57_df361220",
+      "range": {
+        "startLine": 985,
+        "startChar": 4,
+        "endLine": 1004,
+        "endChar": 58
+      },
+      "revId": "cd3af0f64b19bf855dcf24699626de6967200101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e95ce611_949fa1e3",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-06-09T01:21:19Z",
       "side": 1,
       "message": "Ditto here if you update the value in ConnectivityManager side",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 19
+      },
+      "revId": "cd3af0f64b19bf855dcf24699626de6967200101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5c0e82e_6a453506",
+        "filename": "service/native/include/Common.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-09T13:26:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e95ce611_949fa1e3",
       "range": {
         "startLine": 38,
         "startChar": 4,
