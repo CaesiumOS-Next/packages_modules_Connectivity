@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9b35054_66baf60c",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-09T06:15:55Z",
+      "side": 1,
+      "message": "JFYI, double-checking: There\u0027s also a Callable\u003cV\u003e version of this schedule call; do we need to mock that too?",
+      "range": {
+        "startLine": 361,
+        "startChar": 20,
+        "endLine": 361,
+        "endChar": 28
+      },
+      "revId": "8cf58e438ad409bb567e8facb38ff6c3c0543c1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
