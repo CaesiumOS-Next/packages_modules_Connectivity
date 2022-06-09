@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b50385d_4407cbdc",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-06-09T02:49:53Z",
+      "side": 1,
+      "message": "nit: Will it more decent to declare a string for error message?\n```\nstd::string err \u003d \" print end with error: Get firstKey map -1 failed: Bad file descriptor\";\n\nstd::vector\u003cstd::string\u003e expectedLines \u003d {\n        \"mCookieTagMap\" + err,\n        \"mUidCounterSetMap\" + err,\n        ...\n        \"mUidPermissionMap\" + err};\n```     \nThe cost of string concatenating is negligible.",
+      "range": {
+        "startLine": 846,
+        "startChar": 23,
+        "endLine": 846,
+        "endChar": 92
+      },
+      "revId": "410bb12d5fc39faa23b8253d788576ffc44d5759",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
