@@ -187,6 +187,30 @@
       },
       "revId": "0dec71eedc8e59ca4540333bdb12d3b497a1c758",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a852ec8_4d770f79",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1717,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-09T06:18:43Z",
+      "side": 1,
+      "message": "Oh, looks like Yan\u0027s added one in aosp/2120558. Closing these two outstanding comments.",
+      "parentUuid": "33d15cbc_833dd589",
+      "range": {
+        "startLine": 1717,
+        "startChar": 12,
+        "endLine": 1717,
+        "endChar": 22
+      },
+      "revId": "0dec71eedc8e59ca4540333bdb12d3b497a1c758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
