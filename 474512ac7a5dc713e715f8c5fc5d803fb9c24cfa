@@ -16,6 +16,23 @@
       "message": "(comment only changes since patchset 5 which was TH+1\u0027ed)",
       "revId": "474512ac7a5dc713e715f8c5fc5d803fb9c24cfa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ced782a8_3d374122",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-09T00:52:15Z",
+      "side": 1,
+      "message": "Also ran:\n  atest CtsNetTestCases:android.net.cts.ConnectivityManagerTest ConnectivityServiceTest\nbefore and after this change, with no regression in relevant tests.\n\nSeen failures in:\n\nx86_64 CtsNetTestCases: Passed: 55, Failed: 2, Ignored: 0, Assumption Failed: 0,    \nx86_64 FrameworksNetTests: Passed: 271, Failed: 1, Ignored: 0, Assumption Failed: 3,    \n\n3 tests failed\n--------------\nandroid.net.cts.ConnectivityManagerTest#testSocketKeepaliveLimitTelephony\nandroid.net.cts.ConnectivityManagerTest#testOpenConnection\ncom.android.server.ConnectivityServiceTest#testPreferenceForUserNetworkUpDownWithNoFallbackWithAlreadyConnectedWorkAgent\n\nbut those seem utterly unrelated.",
+      "revId": "474512ac7a5dc713e715f8c5fc5d803fb9c24cfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
