@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13ab9c95_0cff2c6e",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-09T21:55:17Z",
+      "side": 1,
+      "message": "I\u0027m aware there is another schedule method. Since we don\u0027t use that in the VPN code so I don\u0027t think we need to mock it.",
+      "parentUuid": "f9b35054_66baf60c",
+      "range": {
+        "startLine": 361,
+        "startChar": 20,
+        "endLine": 361,
+        "endChar": 28
+      },
+      "revId": "8cf58e438ad409bb567e8facb38ff6c3c0543c1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6e7153c_2d30fdf0",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-09T17:30:31Z",
       "side": 1,
       "message": "Maybe NetworkLostWithMobikeDisabled or NetworkLost_MobikeDisabled?",
+      "range": {
+        "startLine": 1758,
+        "startChar": 43,
+        "endLine": 1758,
+        "endChar": 68
+      },
+      "revId": "8cf58e438ad409bb567e8facb38ff6c3c0543c1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54f66d89_fafe2a69",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1758,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-09T21:55:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6e7153c_2d30fdf0",
       "range": {
         "startLine": 1758,
         "startChar": 43,
