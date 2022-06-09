@@ -22,6 +22,30 @@
       },
       "revId": "3e38afed50520ee4c6a8f43012ea7288d33c48b7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d4f9121_3961fb58",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-09T05:41:20Z",
+      "side": 1,
+      "message": "you are right. removed",
+      "parentUuid": "d5fa1883_96dcc0af",
+      "range": {
+        "startLine": 334,
+        "startChar": 4,
+        "endLine": 335,
+        "endChar": 56
+      },
+      "revId": "3e38afed50520ee4c6a8f43012ea7288d33c48b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
