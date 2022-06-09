@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0d48694_12c8eb94",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-09T21:51:08Z",
+      "side": 1,
+      "message": "Remov this dependency and avoid waiting for actual timeout in aosp/2120558",
+      "range": {
+        "startLine": 1377,
+        "startChar": 0,
+        "endLine": 1379,
+        "endChar": 50
+      },
+      "revId": "ada014b7183d3a374c183fd7d19a3afde93fddfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
