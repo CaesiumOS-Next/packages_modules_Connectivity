@@ -33,6 +33,24 @@
       "message": "LGTM assuming the conflict will be solved.",
       "revId": "c07f2d227c1bfe687e326db38fcd6ae5bcc1003c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "028ddb15_67c15797",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-06-09T02:36:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76fc46dd_5990a18f",
+      "revId": "c07f2d227c1bfe687e326db38fcd6ae5bcc1003c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
