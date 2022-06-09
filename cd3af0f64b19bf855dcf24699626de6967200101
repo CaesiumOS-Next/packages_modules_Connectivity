@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "523b94c2_22cef9ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-09T01:21:19Z",
+      "side": 1,
+      "message": "Nit: Generally, we should avoid using we in the comments or commit message(see go/avoidwe). I do not find \"I\" is documented but I think they\u0027re similar reason. Maybe avoid using \"I\" here?",
+      "range": {
+        "startLine": 16,
+        "startChar": 16,
+        "endLine": 16,
+        "endChar": 17
+      },
+      "revId": "cd3af0f64b19bf855dcf24699626de6967200101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee002b64_714004fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-09T01:21:19Z",
+      "side": 1,
+      "message": "Generally LGTM",
+      "revId": "cd3af0f64b19bf855dcf24699626de6967200101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1af65a57_df361220",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-09T01:21:19Z",
+      "side": 1,
+      "message": "This is not in the API surface. The value should be updateable. Do we want to update these value? Otherwise, when someone revisit it, it\u0027s not clear why we skip 6 here.\n\nFIREWALL_CHAIN_OEM_DENY_1   7 -\u003e 6\nFIREWALL_CHAIN_OEM_DENY_2   8 -\u003e 7\nFIREWALL_CHAIN_OEM_DENY_3   9 -\u003e 8",
+      "range": {
+        "startLine": 985,
+        "startChar": 4,
+        "endLine": 1004,
+        "endChar": 58
+      },
+      "revId": "cd3af0f64b19bf855dcf24699626de6967200101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e95ce611_949fa1e3",
+        "filename": "service/native/include/Common.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-09T01:21:19Z",
+      "side": 1,
+      "message": "Ditto here if you update the value in ConnectivityManager side",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 19
+      },
+      "revId": "cd3af0f64b19bf855dcf24699626de6967200101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
