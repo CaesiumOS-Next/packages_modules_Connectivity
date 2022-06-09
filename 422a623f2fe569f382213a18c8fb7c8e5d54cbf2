@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3fcecb8_582c0301",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 10554,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-09T14:46:17Z",
+      "side": 1,
+      "message": "This was legacy VPN because SYSTEM_UID establishes the VPN.\nBut owner uid was specified in checkInterfaceFilteringRuleWithNullInterface which was also used by testLocalIpv4OnlyVpnInterfaceFilteringRule.\nThis was confusing. So I updated each test to specify owner uid.",
+      "parentUuid": "3b5aca82_e3e3789f",
+      "range": {
+        "startLine": 10554,
+        "startChar": 20,
+        "endLine": 10554,
+        "endChar": 26
+      },
+      "revId": "422a623f2fe569f382213a18c8fb7c8e5d54cbf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a150734c_f5808151",
@@ -70,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04b006ab_273a9cba",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-09T14:46:17Z",
+      "side": 1,
+      "message": "I added this check to make sure updateUidLockdownRule was not called for other uid (e.g. MOCK_UID12)",
+      "parentUuid": "a150734c_f5808151",
+      "range": {
+        "startLine": 876,
+        "startChar": 8,
+        "endLine": 876,
+        "endChar": 90
+      },
+      "revId": "422a623f2fe569f382213a18c8fb7c8e5d54cbf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a44d4b3_f07143f5",
@@ -83,6 +131,30 @@
       "writtenOn": "2022-06-09T07:13:37Z",
       "side": 1,
       "message": "Nit: This can omit this if you\u0027re looking for exact 1 interaction\n\nActually, I think it\u0027s not necessary as the reason above. It\u0027s verified in l.907, right?",
+      "range": {
+        "startLine": 906,
+        "startChar": 28,
+        "endLine": 906,
+        "endChar": 36
+      },
+      "revId": "422a623f2fe569f382213a18c8fb7c8e5d54cbf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd524112_8c41cc86",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-09T14:46:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1a44d4b3_f07143f5",
       "range": {
         "startLine": 906,
         "startChar": 28,
