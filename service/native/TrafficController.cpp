@@ -329,6 +329,7 @@ Status TrafficController::updateUidOwnerMap(const uint32_t uid,
 }
 
 FirewallType TrafficController::getFirewallType(ChildChain chain) {
+    // NOLINTBEGIN(bugprone-branch-clone)
     switch (chain) {
         case DOZABLE:
             return ALLOWLIST;
@@ -352,6 +353,7 @@ FirewallType TrafficController::getFirewallType(ChildChain chain) {
         default:
             return DENYLIST;
     }
+    // NOLINTEND(bugprone-branch-clone)
 }
 
 int TrafficController::changeUidOwnerRule(ChildChain chain, uid_t uid, FirewallRule rule,
