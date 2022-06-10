@@ -161,6 +161,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e809af85_462e23ba",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1715,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-10T02:11:31Z",
+      "side": 1,
+      "message": "Heh, I\u0027d actually suggest reverting to ikeCbNew, because:\n\nJava has a keyword \"new\" which is appended in front of variables to create a new instance, so trying to make sure we clearly delineate between that and a \"new\" copy of the Ike Callbacks.\n\nAlso, that\u0027s more consistent with us naming in terms of numbers; in those cases the modifier of the object is at the end of the variable name:\n- ikeCb1\n- ikeCb2",
+      "parentUuid": "d2f9ddd8_088777fd",
+      "range": {
+        "startLine": 1715,
+        "startChar": 33,
+        "endLine": 1715,
+        "endChar": 41
+      },
+      "revId": "7e600b2456b6270f0404b3538da48fe020ff94cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b60db617_f4f565c4",
         "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
         "patchSetId": 7
