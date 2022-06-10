@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de0e11a7_8090d69e",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/RemoteSocketFactoryClient.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-10T00:55:35Z",
+      "side": 1,
+      "message": "extra space?",
+      "range": {
+        "startLine": 96,
+        "startChar": 64,
+        "endLine": 96,
+        "endChar": 65
+      },
+      "revId": "b1a9d64a54955d6303e687df06d5721dfcd135c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "082ffdce_be598d40",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/RemoteSocketFactoryClient.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-10T00:55:35Z",
+      "side": 1,
+      "message": "Maybe just \"cause fd\".",
+      "range": {
+        "startLine": 96,
+        "startChar": 15,
+        "endLine": 96,
+        "endChar": 27
+      },
+      "revId": "b1a9d64a54955d6303e687df06d5721dfcd135c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "376d5e51_77c0b30b",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/RemoteSocketFactoryClient.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-10T00:55:35Z",
+      "side": 1,
+      "message": "Can be final.",
+      "range": {
+        "startLine": 97,
+        "startChar": 8,
+        "endLine": 97,
+        "endChar": 28
+      },
+      "revId": "b1a9d64a54955d6303e687df06d5721dfcd135c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcb2bdfd_95222a9c",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/RemoteSocketFactoryClient.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-10T00:55:35Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 98,
+        "startChar": 8,
+        "endLine": 98,
+        "endChar": 22
+      },
+      "revId": "b1a9d64a54955d6303e687df06d5721dfcd135c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05b7011d_de7ee7c1",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1628,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-10T00:55:35Z",
+      "side": 1,
+      "message": "Did you miss \".getFileDescriptor()\"?\n\nremoteUdpFd is a FileDescriptor, don\u0027t you need to transfer to FileDescriptor?",
+      "range": {
+        "startLine": 1628,
+        "startChar": 75,
+        "endLine": 1628,
+        "endChar": 76
+      },
+      "revId": "b1a9d64a54955d6303e687df06d5721dfcd135c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ad59248_60ebfc34",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1639,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-10T00:55:35Z",
+      "side": 1,
+      "message": "go/avoidwe\n\nMaybe you can say something like: It needs to wait for BlockedStatusCallback to be fired before checking the blocking status of incoming packets.",
+      "range": {
+        "startLine": 1639,
+        "startChar": 77,
+        "endLine": 1639,
+        "endChar": 79
+      },
+      "revId": "b1a9d64a54955d6303e687df06d5721dfcd135c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c75d37b_93d521a5",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1641,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-10T00:55:35Z",
+      "side": 1,
+      "message": "It seems like this can be moved to l.1617, just after calling registerDefaultNetworkCallbackForUid()?",
+      "range": {
+        "startLine": 1641,
+        "startChar": 12,
+        "endLine": 1641,
+        "endChar": 64
+      },
+      "revId": "b1a9d64a54955d6303e687df06d5721dfcd135c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45ccfcde_9be283ab",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1668,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-10T00:55:35Z",
+      "side": 1,
+      "message": "Maybe you can try to use testAndCleanup to do these clean up stuff?\n\nYou can refer to l.855 in this file.\n\nAnd refer to aosp/1906252 for more detail.",
+      "range": {
+        "startLine": 1660,
+        "startChar": 10,
+        "endLine": 1668,
+        "endChar": 13
+      },
+      "revId": "b1a9d64a54955d6303e687df06d5721dfcd135c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "560e8df7_54b46f18",
+        "filename": "tests/cts/hostside/app2/src/com/android/cts/net/hostside/app2/RemoteSocketFactoryService.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-10T00:55:35Z",
+      "side": 1,
+      "message": "I\u0027m not sure if throwing IllegalArgumentException is proper or not since there is no argument for openDatagramSocketFd().\nI don\u0027t have a better suggestion right now, maybe just throw e?",
+      "range": {
+        "startLine": 63,
+        "startChar": 26,
+        "endLine": 63,
+        "endChar": 50
+      },
+      "revId": "b1a9d64a54955d6303e687df06d5721dfcd135c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
