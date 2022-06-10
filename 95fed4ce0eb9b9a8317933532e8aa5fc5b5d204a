@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95d7ba8f_523f726f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-10T03:16:08Z",
+      "side": 1,
+      "message": "That\u0027s true.\nI will keep that choice in my mind to keep CL smaller.",
+      "parentUuid": "4f2c907a_be6c774f",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 36
+      },
+      "revId": "95fed4ce0eb9b9a8317933532e8aa5fc5b5d204a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2667939_3d964cc7",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-09T17:56:25Z",
       "side": 1,
       "message": "Is there CTS coverage for this, or should there be?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 21
+      },
+      "revId": "95fed4ce0eb9b9a8317933532e8aa5fc5b5d204a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12f69db4_845f9886",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-10T03:16:08Z",
+      "side": 1,
+      "message": "There is a CTS for Lockdown (aosp/2107445)\nI have confirmed this CL passes test and updated message.",
+      "parentUuid": "e2667939_3d964cc7",
       "range": {
         "startLine": 21,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "714143dd_a04ee59a",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-10T03:16:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f1b3958a_82c50346",
+      "range": {
+        "startLine": 454,
+        "startChar": 11,
+        "endLine": 454,
+        "endChar": 33
+      },
+      "revId": "95fed4ce0eb9b9a8317933532e8aa5fc5b5d204a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d81fac4_789a4643",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-06-09T17:56:25Z",
       "side": 1,
       "message": "What\u0027s the reason for this change -- isn\u0027t expectedRule still a uint8?",
+      "range": {
+        "startLine": 218,
+        "startChar": 71,
+        "endLine": 218,
+        "endChar": 92
+      },
+      "revId": "95fed4ce0eb9b9a8317933532e8aa5fc5b5d204a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd2bba99_3427c6fb",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-10T03:16:08Z",
+      "side": 1,
+      "message": "We started using all 32bits in rule bits(aosp/2096813).\nBut I missed to update this expectedRule.\nI realized this because I added TestUpdateUidLockdownRule and LOCKDOWN_VPN_MATCH is (1 \u003c\u003c 8) that can not fit uint8_t.",
+      "parentUuid": "0d81fac4_789a4643",
       "range": {
         "startLine": 218,
         "startChar": 71,
