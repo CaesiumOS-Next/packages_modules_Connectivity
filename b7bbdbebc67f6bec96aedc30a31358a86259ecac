@@ -46,6 +46,30 @@
       },
       "revId": "b7bbdbebc67f6bec96aedc30a31358a86259ecac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2642e84d_52af8da2",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-10T03:46:52Z",
+      "side": 1,
+      "message": "yes, thanks for you fix on aosp/2121915",
+      "parentUuid": "e9492b69_00c63e71",
+      "range": {
+        "startLine": 600,
+        "startChar": 0,
+        "endLine": 600,
+        "endChar": 72
+      },
+      "revId": "b7bbdbebc67f6bec96aedc30a31358a86259ecac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
