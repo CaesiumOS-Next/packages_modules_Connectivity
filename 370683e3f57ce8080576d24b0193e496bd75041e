@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bdbc343_1c04934c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-10T16:16:03Z",
+      "side": 1,
+      "message": "LGTM once the typo \"avalible\" is fixed",
+      "revId": "370683e3f57ce8080576d24b0193e496bd75041e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
