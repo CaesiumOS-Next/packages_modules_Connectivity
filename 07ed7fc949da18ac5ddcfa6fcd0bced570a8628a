@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c3b2fc2_d89d44bd",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-10T17:35:26Z",
+      "side": 1,
+      "message": "\"isClat\" and \"isIpv4\" should be not able to convert directly to each other. maybe add a additional variable and comment to make people understand.\n\nex:\n// Clat enabled: downstream sends IPv4 packets and clat translates it  \nboolean isIpv4OnUpstream \u003d isClat ? false : true; // or something else",
+      "range": {
+        "startLine": 919,
+        "startChar": 68,
+        "endLine": 919,
+        "endChar": 75
+      },
+      "revId": "07ed7fc949da18ac5ddcfa6fcd0bced570a8628a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
