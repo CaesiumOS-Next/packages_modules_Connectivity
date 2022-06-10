@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4a7d068_af48a6c7",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-10T16:11:09Z",
+      "side": 1,
+      "message": "in the following comment mentioned a protection, may I know how does the protection work for mUpstreamReader \u003d null at L.392, 408,..\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2115077/3/Tethering/tests/integration/src/android/net/TetheringTester.java#94",
+      "range": {
+        "startLine": 392,
+        "startChar": 8,
+        "endLine": 392,
+        "endChar": 23
+      },
+      "revId": "39cba9e1860c3b3e2082afe5370516c52529195f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
