@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b728108_12109105",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1440,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-10T14:42:18Z",
+      "side": 1,
+      "message": "Is it guaranteed that the executor thread is always finishing the retry task before this line?\nDo we want to add a timeout here?",
+      "range": {
+        "startLine": 1440,
+        "startChar": 8,
+        "endLine": 1440,
+        "endChar": 36
+      },
+      "revId": "83afd5dc9378d91bacfbd0434b51a2f8e6d99fe5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
