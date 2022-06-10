@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff1d2127_1c76ec35",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/RemoteSocketFactoryClient.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-10T08:15:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "082ffdce_be598d40",
+      "range": {
+        "startLine": 96,
+        "startChar": 15,
+        "endLine": 96,
+        "endChar": 27
+      },
+      "revId": "b1a9d64a54955d6303e687df06d5721dfcd135c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aabd4e82_d2276fca",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/RemoteSocketFactoryClient.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-10T08:15:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "de0e11a7_8090d69e",
+      "range": {
+        "startLine": 96,
+        "startChar": 64,
+        "endLine": 96,
+        "endChar": 65
+      },
+      "revId": "b1a9d64a54955d6303e687df06d5721dfcd135c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "376d5e51_77c0b30b",
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6092dc27_5ee9116b",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/RemoteSocketFactoryClient.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-10T08:15:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "376d5e51_77c0b30b",
+      "range": {
+        "startLine": 97,
+        "startChar": 8,
+        "endLine": 97,
+        "endChar": 28
+      },
+      "revId": "b1a9d64a54955d6303e687df06d5721dfcd135c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fcb2bdfd_95222a9c",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-06-10T00:55:35Z",
       "side": 1,
       "message": "final",
+      "range": {
+        "startLine": 98,
+        "startChar": 8,
+        "endLine": 98,
+        "endChar": 22
+      },
+      "revId": "b1a9d64a54955d6303e687df06d5721dfcd135c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a3df86b_f794a76b",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/RemoteSocketFactoryClient.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-10T08:15:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fcb2bdfd_95222a9c",
       "range": {
         "startLine": 98,
         "startChar": 8,
@@ -118,6 +214,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f524ad00_93fc5ce7",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1628,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-10T08:15:45Z",
+      "side": 1,
+      "message": "RemoteSocketFactoryClient#openDatagramSocketFd returns FileDescriptor.",
+      "parentUuid": "05b7011d_de7ee7c1",
+      "range": {
+        "startLine": 1628,
+        "startChar": 75,
+        "endLine": 1628,
+        "endChar": 76
+      },
+      "revId": "b1a9d64a54955d6303e687df06d5721dfcd135c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3ad59248_60ebfc34",
         "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
         "patchSetId": 24
@@ -129,6 +249,30 @@
       "writtenOn": "2022-06-10T00:55:35Z",
       "side": 1,
       "message": "go/avoidwe\n\nMaybe you can say something like: It needs to wait for BlockedStatusCallback to be fired before checking the blocking status of incoming packets.",
+      "range": {
+        "startLine": 1639,
+        "startChar": 77,
+        "endLine": 1639,
+        "endChar": 79
+      },
+      "revId": "b1a9d64a54955d6303e687df06d5721dfcd135c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7bd72c3_63b8cb64",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1639,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-10T08:15:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3ad59248_60ebfc34",
       "range": {
         "startLine": 1639,
         "startChar": 77,
@@ -152,6 +296,30 @@
       "writtenOn": "2022-06-10T00:55:35Z",
       "side": 1,
       "message": "It seems like this can be moved to l.1617, just after calling registerDefaultNetworkCallbackForUid()?",
+      "range": {
+        "startLine": 1641,
+        "startChar": 12,
+        "endLine": 1641,
+        "endChar": 64
+      },
+      "revId": "b1a9d64a54955d6303e687df06d5721dfcd135c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99640d0b_78342805",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1641,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-10T08:15:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8c75d37b_93d521a5",
       "range": {
         "startLine": 1641,
         "startChar": 12,
@@ -187,6 +355,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e51e0003_39b083cd",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1668,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-10T08:15:45Z",
+      "side": 1,
+      "message": "Thanks! I did not know this.\n\nBut I tried to use testAndCleanup and I was not sure how to use this if I want to allocate some resource in test section with some variable and free the resource in cleanup section.\nBecause I can not assign to non final variable in test and cleanup section.\nFor example, I want to initialize tunFd in test section and free in cleanup section.\nBut, If I declare tunFd as final, I can not do `tunFd\u003d...` in test section.\n\nIf I\u0027m misunderstanding the use of testAndCleanup please tell me.\n\nI was checking testAndCleanup and realized that I need to care the exception in finally section.\nI have updated to take care the case `Os.close` throw exception.",
+      "parentUuid": "45ccfcde_9be283ab",
+      "range": {
+        "startLine": 1660,
+        "startChar": 10,
+        "endLine": 1668,
+        "endChar": 13
+      },
+      "revId": "b1a9d64a54955d6303e687df06d5721dfcd135c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "560e8df7_54b46f18",
         "filename": "tests/cts/hostside/app2/src/com/android/cts/net/hostside/app2/RemoteSocketFactoryService.java",
         "patchSetId": 24
@@ -198,6 +390,30 @@
       "writtenOn": "2022-06-10T00:55:35Z",
       "side": 1,
       "message": "I\u0027m not sure if throwing IllegalArgumentException is proper or not since there is no argument for openDatagramSocketFd().\nI don\u0027t have a better suggestion right now, maybe just throw e?",
+      "range": {
+        "startLine": 63,
+        "startChar": 26,
+        "endLine": 63,
+        "endChar": 50
+      },
+      "revId": "b1a9d64a54955d6303e687df06d5721dfcd135c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e85a518_c3093301",
+        "filename": "tests/cts/hostside/app2/src/com/android/cts/net/hostside/app2/RemoteSocketFactoryService.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-10T08:15:45Z",
+      "side": 1,
+      "message": "That\u0027s true.\nI don\u0027t think I can throw checked exception here.\nSo I updated to throw RuntimeException(e)",
+      "parentUuid": "560e8df7_54b46f18",
       "range": {
         "startLine": 63,
         "startChar": 26,
