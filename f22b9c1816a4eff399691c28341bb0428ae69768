@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16f905bd_05ec3a13",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-06-11T09:59:03Z",
+      "side": 1,
+      "message": "1. nit: sending data?\n\n2. maybe more specific?\nnot sure if the readers understand what \"data\" means.",
+      "range": {
+        "startLine": 7,
+        "startChar": 32,
+        "endLine": 7,
+        "endChar": 41
+      },
+      "revId": "f22b9c1816a4eff399691c28341bb0428ae69768",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c20a9578_6f129073",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-06-11T09:59:03Z",
+      "side": 1,
+      "message": "-1 because the changes in the computeNetworkReassignment does not look correct to me.",
+      "revId": "f22b9c1816a4eff399691c28341bb0428ae69768",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea477ee7_7b5ecc78",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 8812,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-06-11T09:59:03Z",
+      "side": 1,
+      "message": "I don\u0027t know if it is a good idea to have an IPC here.\nIt seems to me computeNetworkReassignment is the core of ConnectivityService, which  will be run very frequently so it has to be very fast.\nMaybe I miss something?",
+      "range": {
+        "startLine": 8812,
+        "startChar": 20,
+        "endLine": 8812,
+        "endChar": 47
+      },
+      "revId": "f22b9c1816a4eff399691c28341bb0428ae69768",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83723299_6fbd0bb1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 8822,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-06-11T09:59:03Z",
+      "side": 1,
+      "message": "The computeNetworkReassignment should only \"compute network reassignment\", instead of having any side effects, IIUC this is not a correct design. Do I miss something?",
+      "range": {
+        "startLine": 8822,
+        "startChar": 20,
+        "endLine": 8822,
+        "endChar": 61
+      },
+      "revId": "f22b9c1816a4eff399691c28341bb0428ae69768",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72a50639_1f04b20a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 11395,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-06-11T09:59:03Z",
+      "side": 1,
+      "message": "nit: private static @Nullable String getNetworkTypeOpstr(@NonNull NetworkAgentInfo nai)",
+      "range": {
+        "startLine": 11395,
+        "startChar": 4,
+        "endLine": 11395,
+        "endChar": 62
+      },
+      "revId": "f22b9c1816a4eff399691c28341bb0428ae69768",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1852252_33d8c576",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 11401,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-06-11T09:59:03Z",
+      "side": 1,
+      "message": "What about a network with both transports? such as a VPN which has wifi and cellular as its underlying network?",
+      "range": {
+        "startLine": 11398,
+        "startChar": 12,
+        "endLine": 11401,
+        "endChar": 75
+      },
+      "revId": "f22b9c1816a4eff399691c28341bb0428ae69768",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1948845e_13398c6a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 11408,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-06-11T09:59:03Z",
+      "side": 1,
+      "message": "Not sure if this can happen. Can you specify where it is?",
+      "range": {
+        "startLine": 11407,
+        "startChar": 18,
+        "endLine": 11408,
+        "endChar": 53
+      },
+      "revId": "f22b9c1816a4eff399691c28341bb0428ae69768",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ef9ba16_83ac7119",
+        "filename": "tests/integration/util/com/android/server/NetworkAgentWrapper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-06-11T09:59:03Z",
+      "side": 1,
+      "message": "Question: where does the number come from?",
+      "range": {
+        "startLine": 106,
+        "startChar": 65,
+        "endLine": 106,
+        "endChar": 67
+      },
+      "revId": "f22b9c1816a4eff399691c28341bb0428ae69768",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9a3d4c0_7992cfd3",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 15782,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-06-11T09:59:03Z",
+      "side": 1,
+      "message": "Can we also test the app get onUnavailable when it is not allowed and get onAvailable when it regains the permission?",
+      "range": {
+        "startLine": 15782,
+        "startChar": 5,
+        "endLine": 15782,
+        "endChar": 9
+      },
+      "revId": "f22b9c1816a4eff399691c28341bb0428ae69768",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
