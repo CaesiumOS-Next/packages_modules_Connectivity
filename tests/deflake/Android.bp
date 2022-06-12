@@ -40,7 +40,10 @@ java_test_host {
         "net-host-tests-utils",
     ],
     data: [":FrameworksNetTests"],
-    test_suites: ["device-tests"],
+    test_suites: [
+        "device-tests",
+        "automotive-tests",
+    ],
     // It will get build error if just set enabled to true. It fails with "windows_common"
     // depends on some disabled modules that are used by this test and it looks like set
     // enable_frameworks_net_deflake_test to true also enables "windows" variant. Thus,
