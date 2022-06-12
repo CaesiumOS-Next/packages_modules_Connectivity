@@ -582,6 +582,7 @@ public class EthernetTracker {
 
         // TODO: avoid making an interface default if it has configured NetworkCapabilities.
         if (mDefaultInterface == null) {
+            Log.i(TAG, "maybeTrackInterface: mDefaultInterface " + iface);
             mDefaultInterface = iface;
         }
 
@@ -607,6 +608,7 @@ public class EthernetTracker {
         // Test interfaces are not included. Don't need to trace test interface first.
         if (!mIncludeTestInterfaces) {
             for (String iface : ifaces) {
+                Log.i(TAG, "trackAvailableInterfacess: " + iface);  // + debug
                 maybeTrackInterface(iface);
             }
             return;
@@ -624,9 +626,11 @@ public class EthernetTracker {
             }
         }
         for (String iface : testIfaces) {
+            Log.i(TAG, "trackAvailableInterfacess testIfaces: " + iface);  // + debug
             maybeTrackInterface(iface);
         }
         for (String iface : generalIfaces) {
+            Log.i(TAG, "trackAvailableInterfacess generalIfaces: " + iface);  // + debug
             maybeTrackInterface(iface);
         }
     }

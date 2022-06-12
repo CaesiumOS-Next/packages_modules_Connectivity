@@ -1103,6 +1103,7 @@ public class EthernetTetheringTest {
     }
 
     void maybeSetEthernetEnabled(boolean enable) {
+        Log.d(TAG, "maybeSetEthernetEnabled " + enable);
         if (SdkLevel.isAtLeastT()) mEm.setEthernetEnabled(enable);
     }
 
