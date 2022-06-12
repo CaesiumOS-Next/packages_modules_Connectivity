@@ -139,7 +139,10 @@ android_test {
         "FrameworksNetTests-jni-defaults",
     ],
     jarjar_rules: ":connectivity-jarjar-rules",
-    test_suites: ["device-tests"],
+    test_suites: [
+        "device-tests",
+        "automotive-tests",
+    ],
     static_libs: [
         "services.core",
         "services.net",
