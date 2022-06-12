@@ -60,6 +60,7 @@ import android.net.TetheringManager.TetheringEventCallback;
 import android.net.TetheringManager.TetheringRequest;
 import android.net.TetheringTester.TetheredDevice;
 import android.os.Build;
+import android.os.ConditionVariable;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.SystemClock;
@@ -76,6 +77,7 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.MediumTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.Ipv6Utils;
 import com.android.net.module.util.PacketBuilder;
 import com.android.net.module.util.Struct;
@@ -120,6 +122,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.function.IntConsumer;
 
 @RunWith(AndroidJUnit4.class)
 @MediumTest
@@ -181,6 +184,35 @@ public class EthernetTetheringTest {
     private boolean mRunTests;
 
     private TestNetworkTracker mUpstreamTracker;
+
+    // EthernetStateListener supports since T+ devices. Any function touches this class member
+    // function needs to check sdk level is T+.
+    private class EthernetStateListener implements IntConsumer {
+        private int mEthernetState;
+        private final ConditionVariable mEthernetStateReceived = new ConditionVariable();
+
+        public void waitForState(int expected) {
+            if (!SdkLevel.isAtLeastT()) return;
+
+            Log.i(TAG, "Waiting for Ethernet state ..");
+            assertTrue(mEthernetStateReceived.block(TIMEOUT_MS));
+            assertEquals(expected, mEthernetState);
+
+            Log.i(TAG, "Ethernet state has got. Restart condition variable.");
+            mEthernetStateReceived.close();
+        }
+
+        @Override
+        public void accept(int state) {
+            mEthernetState = state;
+            mEthernetStateReceived.open();
+
+            final String stateStr = (state == EthernetManager.ETHERNET_STATE_ENABLED)
+                    ? "ENABLED" : "DISABLED";
+            Log.i(TAG, "Ethernet state " + stateStr);
+        }
+    }
+    private EthernetStateListener mEthernetStateListener = new EthernetStateListener();
 
     @Before
     public void setUp() throws Exception {
@@ -1041,9 +1073,35 @@ public class EthernetTetheringTest {
         }
     }
 
+    void maybeSetEthernetEnabled(boolean enable) {
+        if (!SdkLevel.isAtLeastT()) return;
+
+        Log.i(TAG, "Set ethernet enabled: " + enable);
+        mEm.setEthernetEnabled(enable);
+        int expectedState = enable
+                ? EthernetManager.ETHERNET_STATE_ENABLED
+                : EthernetManager.ETHERNET_STATE_DISABLED;
+        mEthernetStateListener.waitForState(expectedState);
+    }
+
+    void maybeAddEthernetStateListener() {
+        if (!SdkLevel.isAtLeastT()) return;
+
+        // Once listener is added, current state will be sent immediately. Default
+        // ethernet state is enabled. See mEthernetState, #addListener in EthernetTracker.
+        mEm.addEthernetStateListener(r -> mHandler.post(r), mEthernetStateListener);
+        mEthernetStateListener.waitForState(EthernetManager.ETHERNET_STATE_ENABLED);
+    }
+
+    void maybeRemoveEthernetStateListener() {
+        if (!SdkLevel.isAtLeastT()) return;
+        mEm.removeEthernetStateListener(mEthernetStateListener);
+    }
+
     private TetheringTester initTetheringTester(List<LinkAddress> upstreamAddresses,
             List<InetAddress> upstreamDnses) throws Exception {
-        assumeFalse(mEm.isAvailable());
+        // EthernetManager.setEthernetEnabled is supported on T+ devices.
+        if (!SdkLevel.isAtLeastT()) assumeFalse(mEm.isAvailable());
 
         // MyTetheringEventCallback currently only support await first available upstream. Tethering
         // may select internet network as upstream if test network is not available and not be
@@ -1052,6 +1110,21 @@ public class EthernetTetheringTest {
 
         mDownstreamIface = createTestInterface();
         mEm.setIncludeTestInterfaces(true);
+
+        // Used for cuttlefish which has additional ethernet interfaces since boot.
+        // The ethernet interfaces may be treated as the default ethernet interface but test
+        // interface which was created late in testing. Turn on/off ethernet interface trace
+        // after the test interface starts for making the test interface to be default.
+        // See EthernetTracker#trackAvailableInterfaces.
+        try {
+            maybeAddEthernetStateListener();
+
+            // Used for rescaning the test interface in EthernetTracker.
+            maybeSetEthernetEnabled(false);
+            maybeSetEthernetEnabled(true);
+        } finally {
+            maybeRemoveEthernetStateListener();
+        }
 
         // Make sure EtherentTracker use "mDownstreamIface" as server mode interface.
         assertEquals("TetheredInterfaceCallback for unexpected interface",
