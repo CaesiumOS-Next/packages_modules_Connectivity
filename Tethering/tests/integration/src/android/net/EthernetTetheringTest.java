@@ -76,6 +76,7 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.MediumTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.Ipv6Utils;
 import com.android.net.module.util.PacketBuilder;
 import com.android.net.module.util.Struct;
@@ -1101,9 +1102,14 @@ public class EthernetTetheringTest {
         }
     }
 
+    void maybeSetEthernetEnabled(boolean enable) {
+        if (SdkLevel.isAtLeastT()) mEm.setEthernetEnabled(enable);
+    }
+
     void initializeTethering(List<LinkAddress> upstreamAddresses, List<InetAddress> upstreamDnses)
             throws Exception {
-        assumeFalse(mEm.isAvailable());
+        // EthernetManager.setEthernetEnabled is supported on T+ devices.
+        if (!SdkLevel.isAtLeastT()) assumeFalse(mEm.isAvailable());
 
         // MyTetheringEventCallback currently only support await first available upstream. Tethering
         // may select internet network as upstream if test network is not available and not be
@@ -1112,6 +1118,14 @@ public class EthernetTetheringTest {
 
         mDownstreamIface = createTestInterface();
         mEm.setIncludeTestInterfaces(true);
+
+        // This is used for cuttlefish which has additional ethernet interface since boot.
+        // The ethernet interface may be treated as default ethernet interface but test interface.
+        // Disable/enable ethernet interface trace and enable again after test interface started.
+        // Expect test interface to be default interface.
+        // See EthernetTracker#trackAvailableInterfaces.
+        maybeSetEthernetEnabled(false);
+        maybeSetEthernetEnabled(true);
 
         final String iface = mTetheredInterfaceRequester.getInterface();
         assertEquals("TetheredInterfaceCallback for unexpected interface",
