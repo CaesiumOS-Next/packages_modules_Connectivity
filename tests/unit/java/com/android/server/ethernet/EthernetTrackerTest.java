@@ -28,6 +28,7 @@ import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.never;
@@ -95,8 +96,8 @@ public class EthernetTrackerTest {
         when(mNetd.interfaceGetList()).thenReturn(new String[0]);
         mHandlerThread = new HandlerThread(THREAD_NAME);
         mHandlerThread.start();
-        tracker = new EthernetTracker(mContext, mHandlerThread.getThreadHandler(), mFactory, mNetd,
-                mDeps);
+        tracker = spy(new EthernetTracker(mContext, mHandlerThread.getThreadHandler(), mFactory,
+                mNetd, mDeps));
     }
 
     @After
@@ -514,5 +515,52 @@ public class EthernetTrackerTest {
         final String testIface2 = "testtap2";
         observer.onInterfaceRemoved(testIface2);
         verify(mFactory, timeout(TIMEOUT_MS)).removeInterface(eq(testIface2));
+    }
+
+    @Test
+    public void testTrackAvailableInterfaces() throws Exception {
+        final String ethIface1 = "eth1";
+        final String ethIface2 = "eth2";
+        final String testIface1 = TEST_TAP_PREFIX + "1";
+        final String testIface2 = TEST_TAP_PREFIX + "2";
+        when(mNetd.interfaceGetList()).thenReturn(
+                new String[] {ethIface1, ethIface2, testIface1, testIface2});
+        // Used to make #maybeTrackInterface, #untrackFactoryInterfaces simply return earlier.
+        // That can help mocking less functions. We only care about the passing argument of
+        // #maybeTrackInterface which is called from #trackAvailableInterfaces.
+        doReturn(new String[0]).when(mFactory).getAvailableInterfaces(anyBoolean());
+        doAnswer(inv -> {
+            return true;
+        }).when(mFactory).hasInterface(any());
+
+        // [1] Test interfaces are not included. #maybeTrackInterface is called by interface order
+        // from #interfaceGetList returned.
+        tracker.setIncludeTestInterfaces(false);
+        waitForIdle();
+        tracker.setEthernetEnabled(false);
+        waitForIdle();
+        clearInvocations(tracker);
+
+        tracker.setEthernetEnabled(true);
+        waitForIdle();
+        verify(tracker).maybeTrackInterface(eq(ethIface1));
+        verify(tracker).maybeTrackInterface(eq(ethIface2));
+        verify(tracker).maybeTrackInterface(eq(testIface1));
+        verify(tracker).maybeTrackInterface(eq(testIface2));
+
+        // [2] Test interfaces are included. #maybeTrackInterface is called for test interfaces
+        // first.
+        tracker.setIncludeTestInterfaces(true);
+        waitForIdle();
+        tracker.setEthernetEnabled(false);
+        waitForIdle();
+        clearInvocations(tracker);
+
+        tracker.setEthernetEnabled(true);
+        waitForIdle();
+        verify(tracker).maybeTrackInterface(eq(testIface1));
+        verify(tracker).maybeTrackInterface(eq(testIface2));
+        verify(tracker).maybeTrackInterface(eq(ethIface1));
+        verify(tracker).maybeTrackInterface(eq(ethIface2));
     }
 }
