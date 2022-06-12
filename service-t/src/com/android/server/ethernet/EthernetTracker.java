@@ -566,7 +566,8 @@ public class EthernetTracker {
         mTetheredInterfaceWasAvailable = available;
     }
 
-    private void maybeTrackInterface(String iface) {
+    @VisibleForTesting(visibility = PACKAGE)
+    protected void maybeTrackInterface(String iface) {
         if (!iface.matches(mIfaceMatch)) {
             return;
         }
@@ -595,13 +596,38 @@ public class EthernetTracker {
     }
 
     private void trackAvailableInterfaces() {
+        final String[] ifaces;
         try {
-            final String[] ifaces = mNetd.interfaceGetList();
+            ifaces = mNetd.interfaceGetList();
+        } catch (RemoteException | ServiceSpecificException e) {
+            Log.e(TAG, "Could not get list of interfaces " + e);
+            return;
+        }
+
+        // Test interfaces are not included. Don't need to trace test interface first.
+        if (!mIncludeTestInterfaces) {
             for (String iface : ifaces) {
                 maybeTrackInterface(iface);
             }
-        } catch (RemoteException | ServiceSpecificException e) {
-            Log.e(TAG, "Could not get list of interfaces " + e);
+            return;
+        }
+
+        // Test interfaces are included. Prefer to track test interfaces first.
+        // This helps to mark the test interface, if any, as default first.
+        final List<String> testIfaces = new ArrayList<>();
+        final List<String> generalIfaces = new ArrayList<>();
+        for (String iface : ifaces) {
+            if (iface.matches(TEST_IFACE_REGEXP)) {
+                testIfaces.add(iface);
+            } else {
+                generalIfaces.add(iface);
+            }
+        }
+        for (String iface : testIfaces) {
+            maybeTrackInterface(iface);
+        }
+        for (String iface : generalIfaces) {
+            maybeTrackInterface(iface);
         }
     }
 
