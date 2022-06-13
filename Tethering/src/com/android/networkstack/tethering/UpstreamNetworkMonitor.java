@@ -85,11 +85,12 @@ public class UpstreamNetworkMonitor {
     private static final boolean DBG = false;
     private static final boolean VDBG = false;
 
-    public static final int EVENT_ON_CAPABILITIES   = 1;
-    public static final int EVENT_ON_LINKPROPERTIES = 2;
-    public static final int EVENT_ON_LOST           = 3;
-    public static final int EVENT_DEFAULT_SWITCHED  = 4;
-    public static final int NOTIFY_LOCAL_PREFIXES   = 10;
+    public static final int EVENT_ON_CAPABILITIES      = 1;
+    public static final int EVENT_ON_LINKPROPERTIES    = 2;
+    public static final int EVENT_ON_LOST              = 3;
+    public static final int EVENT_DEFAULT_SWITCHED     = 4;
+    public static final int EVENT_TEST_NETWORK_CHANGED = 5;
+    public static final int NOTIFY_LOCAL_PREFIXES      = 10;
     // This value is used by deprecated preferredUpstreamIfaceTypes selection which is default
     // disabled.
     @VisibleForTesting
@@ -326,6 +327,7 @@ public class UpstreamNetworkMonitor {
         final UpstreamNetworkState dfltState = (mDefaultInternetNetwork != null)
                 ? mNetworkMap.get(mDefaultInternetNetwork)
                 : null;
+
         if (mPreferTestNetworks) {
             final UpstreamNetworkState testState = findFirstTestNetwork(mNetworkMap.values());
             if (testState != null) return testState;
@@ -467,6 +469,24 @@ public class UpstreamNetworkMonitor {
         notifyTarget(EVENT_DEFAULT_SWITCHED, ns);
     }
 
+    private void maybeHandleTestNetwork(@NonNull Network network) {
+        if (!mPreferTestNetworks) return;
+
+        final UpstreamNetworkState ns = mNetworkMap.get(network);
+        if (ns == null) {
+            // Can never happen unless there is a bug in ConnectivityService. Entries are only
+            // removed from mNetworkMap when receiving onLost, and onLost for a given network can
+            // never be followed by any other callback on that network.
+            Log.wtf(TAG, "maybeHandleTestNetwork: no UpstreamNetworkState for " + network);
+            return;
+        }
+        if (!isTestNetwork(ns)) return;
+
+        // Test network changed. Notify tethering.
+        Log.d(TAG, "Handle test network: " + network);
+        notifyTarget(EVENT_TEST_NETWORK_CHANGED, ns);
+    }
+
     private void recomputeLocalPrefixes() {
         final HashSet<IpPrefix> localPrefixes = allLocalPrefixes(mNetworkMap.values());
         if (!mLocalPrefixes.equals(localPrefixes)) {
@@ -549,6 +569,12 @@ public class UpstreamNetworkMonitor {
             // So it's not useful to do this work for non-LISTEN_ALL callbacks.
             if (mCallbackType == CALLBACK_LISTEN_ALL) {
                 recomputeLocalPrefixes();
+
+                // When the LISTEN_ALL network callback calls onLinkPropertiesChanged, it means that
+                // all the network information for the network is known (because
+                // onLinkPropertiesChanged is called after onAvailable and onCapabilitiesChanged).
+                // Inform tethering that the test network might have changed.
+                maybeHandleTestNetwork(network);
             }
         }
 

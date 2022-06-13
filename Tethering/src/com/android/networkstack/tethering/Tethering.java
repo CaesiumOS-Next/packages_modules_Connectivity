@@ -1994,6 +1994,10 @@ public class Tethering {
                 return;
             }
 
+            if (arg1 == UpstreamNetworkMonitor.EVENT_TEST_NETWORK_CHANGED) {
+                chooseUpstreamType(true);
+            }
+
             if (ns == null || !pertainsToCurrentUpstream(ns)) {
                 // TODO: In future, this is where upstream evaluation and selection
                 // could be handled for notifications which include sufficient data.
