@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8f69916_a6b17a48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-13T06:00:24Z",
+      "side": 1,
+      "message": "Would you mind to explain more why you would like to do this?\n\nand from your commit, this is more likely to be \"adding the tests to automotive-tests\"? do you want these tests to be run while testing automotive-tests?\n",
+      "revId": "59157f0773261d3493e8631c364d0c1b559f6442",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
