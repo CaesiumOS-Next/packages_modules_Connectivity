@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7155eb04_0bf95be0",
+        "filename": "tests/cts/net/src/android/net/cts/IkeTunUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-06-13T02:08:47Z",
+      "side": 1,
+      "message": "Maybe use com.android.net.module.util.HexDump (should be already included in the test) to reduce dependencies on hidden APIs",
+      "range": {
+        "startLine": 29,
+        "startChar": 33,
+        "endLine": 29,
+        "endChar": 40
+      },
+      "revId": "c2cc0c8e5eee31b3c1d3a1a8b629e02996d63746",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d98f658_4d15f4be",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-06-13T02:08:47Z",
+      "side": 1,
+      "message": "android.net.InetAddresses.parseNumericAddress (InetAddress.parseNumericAddress is deprecated)",
+      "range": {
+        "startLine": 250,
+        "startChar": 12,
+        "endLine": 250,
+        "endChar": 43
+      },
+      "revId": "c2cc0c8e5eee31b3c1d3a1a8b629e02996d63746",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dceab731_90ffd4fb",
+        "filename": "tests/cts/net/src/android/net/cts/TestNetworkWrapper.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-06-13T02:08:47Z",
+      "side": 1,
+      "message": "This looks very similar to com.android.testutils.TestNetworkTracker, could you use/improve that instead ?",
+      "range": {
+        "startLine": 39,
+        "startChar": 13,
+        "endLine": 39,
+        "endChar": 31
+      },
+      "revId": "c2cc0c8e5eee31b3c1d3a1a8b629e02996d63746",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
