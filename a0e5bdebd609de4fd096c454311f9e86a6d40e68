@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7119f54e_31187ccd",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1128,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-13T07:23:57Z",
+      "side": 1,
+      "message": "Per talk, need to listen the ethernet state change callback and waiting callback fired to avoid flaky.",
+      "range": {
+        "startLine": 1128,
+        "startChar": 8,
+        "endLine": 1128,
+        "endChar": 31
+      },
+      "revId": "a0e5bdebd609de4fd096c454311f9e86a6d40e68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
