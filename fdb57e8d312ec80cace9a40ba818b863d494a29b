@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c908b64_266c7533",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-13T18:00:30Z",
+      "side": 1,
+      "message": "nit: how about the follows. or just keep examIpv4TetheringCapabilities. not strong opinion. \n\nprobeTetheringConnectivityV4\nprobeTetheringConnectivityV4AndGetResult\nprobeTetheringConnectivityV4AndGetTransport\nprobeTetheringConnectivityV4AndGetTransportResult",
+      "parentUuid": "74022745_4d55a815",
+      "range": {
+        "startLine": 908,
+        "startChar": 19,
+        "endLine": 908,
+        "endChar": 47
+      },
+      "revId": "fdb57e8d312ec80cace9a40ba818b863d494a29b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9803f14f_a7f35a50",
