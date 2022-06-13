@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb221b34_a1c4a652",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-13T20:59:13Z",
+      "side": 1,
+      "message": "I see that many items were marked as \"public\" in this patch; are those changes needed?\n\ngo/java-practices/visibility#minimize",
+      "range": {
+        "startLine": 243,
+        "startChar": 4,
+        "endLine": 243,
+        "endChar": 10
+      },
+      "revId": "a60f31895a54a55371ab91b8888bc60a911e6fca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c6bf067_1706911b",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-13T20:59:13Z",
+      "side": 1,
+      "message": "If you are going to change this class to be public (which I would recommend against), you can remove this annotation as it isn\u0027t needed.",
+      "range": {
+        "startLine": 271,
+        "startChar": 4,
+        "endLine": 271,
+        "endChar": 22
+      },
+      "revId": "a60f31895a54a55371ab91b8888bc60a911e6fca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c0a771f_cbed8b54",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetServiceImpl.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-13T20:59:13Z",
+      "side": 1,
+      "message": "nit: May be cleaner to abstract calling the listener in both the if/else statements into its own method.",
+      "range": {
+        "startLine": 268,
+        "startChar": 16,
+        "endLine": 272,
+        "endChar": 17
+      },
+      "revId": "a60f31895a54a55371ab91b8888bc60a911e6fca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55566503_7c8af2ae",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-13T20:59:13Z",
+      "side": 1,
+      "message": "May be worth mention what it means to be \"enabled\" of \"disabled\" for an interface.",
+      "range": {
+        "startLine": 293,
+        "startChar": 7,
+        "endLine": 293,
+        "endChar": 58
+      },
+      "revId": "a60f31895a54a55371ab91b8888bc60a911e6fca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "911c306e_b222ea1e",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-13T20:59:13Z",
+      "side": 1,
+      "message": "Does this need to be public?",
+      "range": {
+        "startLine": 296,
+        "startChar": 4,
+        "endLine": 296,
+        "endChar": 10
+      },
+      "revId": "a60f31895a54a55371ab91b8888bc60a911e6fca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bde3599b_ea81d7de",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-13T20:59:13Z",
+      "side": 1,
+      "message": "I\u0027m just curious what the thinking was here with removing the listener in updateInterfaceState? On one hand, I do agree that there is less code however that comes at the cost of having less useful error messages.\n\nIf removing the listener\u0027s more specific error messaging is the approach landed on, let\u0027s at least update updateInterfaceState to include logs as to why false was returned.\n\neg something like:\n        if (iface \u003d\u003d null) {\n            logw(TAG, \"interface link state is it was already set to \" + up);\n            return false;\n        }\n        \nThis way if there was an expectation that the link state was going to change, if we don\u0027t know why from the listener, at least there will be something explicit in the logs.",
+      "range": {
+        "startLine": 538,
+        "startChar": 20,
+        "endLine": 538,
+        "endChar": 40
+      },
+      "revId": "a60f31895a54a55371ab91b8888bc60a911e6fca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6abbbf5f_bf8bb738",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetServiceImplTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-13T20:59:13Z",
+      "side": 1,
+      "message": "Can tests also be added verifying the expected output for INetworkInterfaceOutcomeReceiver? As part of this CL\u0027s changes, that functionality was moved from eth factory into eth service. I see the coverage in the eth factory\u0027s tests was updated accordingly to remove checks for INetworkInterfaceOutcomeReceiver result however I don\u0027t see those same checks added to this test.",
+      "range": {
+        "startLine": 60,
+        "startChar": 13,
+        "endLine": 60,
+        "endChar": 36
+      },
+      "revId": "a60f31895a54a55371ab91b8888bc60a911e6fca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbb0d560_8081be56",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetTrackerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-13T20:59:13Z",
+      "side": 1,
+      "message": "Should these test names be changed since you\u0027re no longer calling the factory directly but instead an inner class in the interface state?",
+      "range": {
+        "startLine": 371,
+        "startChar": 16,
+        "endLine": 371,
+        "endChar": 56
+      },
+      "revId": "a60f31895a54a55371ab91b8888bc60a911e6fca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
