@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e445aee4_6a2e2d49",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1061164
+      },
+      "writtenOn": "2022-06-13T09:50:09Z",
+      "side": 1,
+      "message": "+Andrei, FYI. We should look into taking over this tool and making it available for all modules.",
+      "revId": "4a13d5ef177d089f6d37bdc446104eeb5b4e491a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
