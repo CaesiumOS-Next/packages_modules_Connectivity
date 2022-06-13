@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30cd8d6c_218d5566",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-13T02:40:57Z",
+      "side": 1,
+      "message": "Currently, TrafficController (changeUidOwnerRule and toggleUidOwnerMap) also does conversion from \"firewall chain\" to \"match type”.\nBut we hava a plan to use Java BpfMap and remove some JNI code for map updating.\nSo, after this migration, we will not have this duplicated logic.",
+      "revId": "91fb590cce3f6bac88673ce040e61a2b59598339",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
