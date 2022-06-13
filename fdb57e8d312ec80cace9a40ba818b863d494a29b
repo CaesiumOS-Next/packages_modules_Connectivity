@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74022745_4d55a815",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-13T09:48:41Z",
+      "side": 1,
+      "message": "How about rename to examIpv4TetheringCapabilities. Also add the comment above this function saying what this function does.",
+      "parentUuid": "aaeaf16e_87abef00",
+      "range": {
+        "startLine": 908,
+        "startChar": 19,
+        "endLine": 908,
+        "endChar": 47
+      },
+      "revId": "fdb57e8d312ec80cace9a40ba818b863d494a29b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9803f14f_a7f35a50",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-10T17:35:26Z",
       "side": 1,
       "message": "need to mention about \"IPv4\" and \"Clat\".\n\nex:\nif clat case (L.1229) is failed, the error message:\n\"Can\u0027t verify tethering connectivity after xxx attempts\"\n\nIt is hard to know that clat packet is not translated and the clat address is not extracted.",
+      "range": {
+        "startLine": 925,
+        "startChar": 27,
+        "endLine": 925,
+        "endChar": 49
+      },
+      "revId": "fdb57e8d312ec80cace9a40ba818b863d494a29b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00f38fda_e0478560",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-13T09:48:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9803f14f_a7f35a50",
       "range": {
         "startLine": 925,
         "startChar": 27,
