@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e02fb005_d64a2da5",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-13T22:58:29Z",
+      "side": 1,
+      "message": "Let\u0027s add some logs (warning?) if an interface is not brought up in this case. I\u0027m guessing it would be a bit confusing for someone to plug in ethernet and potentially not see it come up or be used so it would be helpful to log why that is the case.",
+      "range": {
+        "startLine": 619,
+        "startChar": 12,
+        "endLine": 619,
+        "endChar": 28
+      },
+      "revId": "9071bb80718689ae5bca7a17e0369c2283453695",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7831cffa_9d573c95",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-13T22:58:29Z",
+      "side": 1,
+      "message": "Can this be refactored to reduce code duplication with updateLinkState above on l.613? I think it would also help to better understand what\u0027s going on.",
+      "range": {
+        "startLine": 641,
+        "startChar": 23,
+        "endLine": 641,
+        "endChar": 33
+      },
+      "revId": "9071bb80718689ae5bca7a17e0369c2283453695",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9e39d7e_1decca6d",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-13T22:58:29Z",
+      "side": 1,
+      "message": "Can this be refactored since it looks to share almost all the same code as updateInterfaceState on l.555? The only difference looks to be calling iface.setEnabled vs iface.updateLinkState.",
+      "range": {
+        "startLine": 296,
+        "startChar": 19,
+        "endLine": 296,
+        "endChar": 38
+      },
+      "revId": "9071bb80718689ae5bca7a17e0369c2283453695",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       },
       "revId": "14617ddfac4f73cfebe9fc5f90ebcba2c2ca3cf9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e487b62_90cd6203",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-13T22:58:29Z",
+      "side": 1,
+      "message": "Some thoughts on how the enable/disable functionality could work are here:\nhttp://b/216169724\n\nThese are only initial thoughts and open to discussion.",
+      "parentUuid": "332b4912_89468b94",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 51
+      },
+      "revId": "14617ddfac4f73cfebe9fc5f90ebcba2c2ca3cf9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

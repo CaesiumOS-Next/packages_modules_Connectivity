@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c2ca3ac_9958db5f",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetTrackerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-13T22:58:29Z",
+      "side": 0,
+      "message": "Should there also be checks added for when INTERFACE_MODE_CLIENT is not the current mode?",
+      "range": {
+        "startLine": 371,
+        "startChar": 16,
+        "endLine": 371,
+        "endChar": 56
+      },
+      "revId": "a60f31895a54a55371ab91b8888bc60a911e6fca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
