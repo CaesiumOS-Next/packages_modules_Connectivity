@@ -22,6 +22,30 @@
       },
       "revId": "39cba9e1860c3b3e2082afe5370516c52529195f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8e9000b_f049fbb9",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-13T09:05:17Z",
+      "side": 1,
+      "message": "Oops, sorry that there is a new patchset forgot to upload....",
+      "parentUuid": "e4a7d068_af48a6c7",
+      "range": {
+        "startLine": 392,
+        "startChar": 8,
+        "endLine": 392,
+        "endChar": 23
+      },
+      "revId": "39cba9e1860c3b3e2082afe5370516c52529195f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
