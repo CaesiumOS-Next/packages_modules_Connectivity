@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f437313f_5cfaef22",
+        "filename": "tests/cts/net/src/android/net/cts/CaptivePortalTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-13T05:09:59Z",
+      "side": 1,
+      "message": "Thanks for the explanation. It\u0027s clearer to me.\n\nFor your verification, do you want to also say it in the commit message as a part of test?",
+      "parentUuid": "1a42c2f6_5c9f1caa",
+      "range": {
+        "startLine": 166,
+        "startChar": 8,
+        "endLine": 167,
+        "endChar": 77
+      },
+      "revId": "df16dfe117ba54ea3c8f9a4a85af1bb2f0a59742",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7623a372_8c6ce743",
@@ -85,6 +109,30 @@
       "writtenOn": "2022-06-06T13:30:45Z",
       "side": 1,
       "message": "It\u0027s a similar comment like the one in CaptivePortalTest. Do we not to rerty all the code that require the configured device configuration?\n\nTake this for example. The url sometimes reset here while we like to do the follow up action.",
+      "range": {
+        "startLine": 2784,
+        "startChar": 20,
+        "endLine": 2784,
+        "endChar": 48
+      },
+      "revId": "df16dfe117ba54ea3c8f9a4a85af1bb2f0a59742",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cab38eab_889fbfe7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2784,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-13T05:09:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7623a372_8c6ce743",
       "range": {
         "startLine": 2784,
         "startChar": 20,
