@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1caed9d8_385bf6dd",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-13T14:33:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2c4ad65_3424f8f9",
+      "range": {
+        "startLine": 133,
+        "startChar": 8,
+        "endLine": 133,
+        "endChar": 16
+      },
+      "revId": "9fa4055e31c987f9bbb73c40ddcb68582d5eb642",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6783c6db_1c581114",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-01T05:18:37Z",
       "side": 1,
       "message": "Let\u0027s make the commas consistent, all after the comments?",
+      "range": {
+        "startLine": 142,
+        "startChar": 21,
+        "endLine": 142,
+        "endChar": 22
+      },
+      "revId": "9fa4055e31c987f9bbb73c40ddcb68582d5eb642",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a6607e9_cbda0d31",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-13T14:33:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6783c6db_1c581114",
       "range": {
         "startLine": 142,
         "startChar": 21,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a391e64_8e212f79",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-13T14:33:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70f1e1f7_653a1e5d",
+      "range": {
+        "startLine": 161,
+        "startChar": 16,
+        "endLine": 161,
+        "endChar": 54
+      },
+      "revId": "9fa4055e31c987f9bbb73c40ddcb68582d5eb642",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "074e9f9e_0bbc8bb4",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0151fbed_ed1cffc4",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-13T14:33:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "074e9f9e_0bbc8bb4",
+      "range": {
+        "startLine": 162,
+        "startChar": 35,
+        "endLine": 162,
+        "endChar": 91
+      },
+      "revId": "9fa4055e31c987f9bbb73c40ddcb68582d5eb642",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b890cfd_9e95c3dc",
@@ -106,6 +202,30 @@
       "writtenOn": "2022-06-01T05:18:37Z",
       "side": 1,
       "message": "This should probably be it\u0027s own test.\n\ntestRefreshPlatformVpnAppExclusionList",
+      "range": {
+        "startLine": 823,
+        "startChar": 0,
+        "endLine": 840,
+        "endChar": 52
+      },
+      "revId": "9fa4055e31c987f9bbb73c40ddcb68582d5eb642",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a391a3b2_02a1dd14",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-13T14:33:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b890cfd_9e95c3dc",
       "range": {
         "startLine": 823,
         "startChar": 0,
