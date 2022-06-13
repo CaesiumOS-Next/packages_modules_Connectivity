@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55afbf2b_9023d576",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-13T08:52:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a1ea0bda_fc44a11a",
+      "range": {
+        "startLine": 207,
+        "startChar": 31,
+        "endLine": 207,
+        "endChar": 57
+      },
+      "revId": "00d2ee99a70d5ea2819bc20274754f75fc8de39d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d61873d_bf72a2ff",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-13T05:58:48Z",
       "side": 1,
       "message": "I think it\u0027s fine to expose the SSE directly to the caller. The existing methods throw ISE because they were used to replace legacy code which threw ISE, but this new method doesn\u0027t have any backwards compatibility issues.",
+      "range": {
+        "startLine": 11398,
+        "startChar": 0,
+        "endLine": 11399,
+        "endChar": 47
+      },
+      "revId": "00d2ee99a70d5ea2819bc20274754f75fc8de39d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e45d729_3c5fae41",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 11399,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-13T08:52:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0d61873d_bf72a2ff",
       "range": {
         "startLine": 11398,
         "startChar": 0,
