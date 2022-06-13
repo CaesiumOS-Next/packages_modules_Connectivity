@@ -112,6 +112,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59a97df7_eaa78157",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-13T02:29:26Z",
+      "side": 1,
+      "message": "aosp/2120227: CL to make them API",
+      "parentUuid": "27323c44_dcecf400",
+      "range": {
+        "startLine": 985,
+        "startChar": 4,
+        "endLine": 1004,
+        "endChar": 58
+      },
+      "revId": "cd3af0f64b19bf855dcf24699626de6967200101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e95ce611_949fa1e3",
