@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0c74776_add9b63c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-14T18:32:38Z",
+      "side": 1,
+      "message": "nit: could you also add something like: \"The test interface needs to be added first, so it becomes the default interface which is used for tethering.\"",
+      "range": {
+        "startLine": 10,
+        "startChar": 22,
+        "endLine": 11,
+        "endChar": 44
+      },
+      "revId": "0b64d7e24e77e8887982cdbabf57a1acd061f952",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3eb3141e_8e86b75b",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-14T18:32:38Z",
+      "side": 1,
+      "message": "Could you just do something like:\n```\nif (mIncludeTestInterfaces) {\n    ifaces.sort((o1, o2) -\u003e Boolean.compare(\n        !o1.matches(TEST_IFACE_REGEXP),\n        !o2.matches(TEST_IFACE_REGEXP)));\n}\n```\n\nor maybe:\n\n```\nif (mIncludeTestInterfaces) {\n    ifaces.sort(Comparator.comparing(\n        obj -\u003e obj.matches(TEST_IFACE_REGEXP), Boolean::compare).reversed());\n}\n```",
+      "range": {
+        "startLine": 607,
+        "startChar": 0,
+        "endLine": 631,
+        "endChar": 9
+      },
+      "revId": "0b64d7e24e77e8887982cdbabf57a1acd061f952",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02a65d3d_d736481c",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-14T18:32:38Z",
+      "side": 1,
+      "message": "This test is really complex, and it is one of my goals to move the unit tests into the CTS tests. I suggest you remove this test and add a CTS test to EthernetManagerTest that does something like the following:\n1. setIncludeTestInterfaces(false) \n2. call EthernetManager#getInterfaceList()\n3. create some test interfaces.\n4. setIncludeTestInterfaces(true)\n5. call EthernetManager#getInterfaceList()\n6. validate that result(4) is result(2) + test interfaces.\n\nThen add a second test that validates that requestTetheredInterface always returns a tap when one is available.",
+      "range": {
+        "startLine": 521,
+        "startChar": 16,
+        "endLine": 521,
+        "endChar": 44
+      },
+      "revId": "0b64d7e24e77e8887982cdbabf57a1acd061f952",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
