@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "284be463_8ce58ad0",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-14T11:10:40Z",
+      "side": 1,
+      "message": "move this to ContextUtils",
+      "parentUuid": "d7223565_4166b5cc",
+      "range": {
+        "startLine": 151,
+        "startChar": 21,
+        "endLine": 151,
+        "endChar": 32
+      },
+      "revId": "cb1eea09f577168e298053cfd834d082ba011a12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26a46a9a_cfb5d496",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-14T05:40:42Z",
       "side": 1,
       "message": "use of reset is generally frowned upon: \n\nhttps://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html#17\n\nInstead, suggest adding a times(1) and times(2) to make this explicit.",
+      "range": {
+        "startLine": 196,
+        "startChar": 8,
+        "endLine": 196,
+        "endChar": 20
+      },
+      "revId": "cb1eea09f577168e298053cfd834d082ba011a12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b6793ec_d6ba1743",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-14T11:10:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26a46a9a_cfb5d496",
       "range": {
         "startLine": 196,
         "startChar": 8,
@@ -93,6 +141,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df7cba91_39cd629d",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-14T11:10:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "159b03de_25eb5b58",
+      "range": {
+        "startLine": 845,
+        "startChar": 8,
+        "endLine": 845,
+        "endChar": 11
+      },
+      "revId": "cb1eea09f577168e298053cfd834d082ba011a12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07edd232_b8393d6a",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-14T11:10:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d082cd4_1c173ad4",
+      "range": {
+        "startLine": 845,
+        "startChar": 35,
+        "endLine": 845,
+        "endChar": 46
+      },
+      "revId": "cb1eea09f577168e298053cfd834d082ba011a12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8275dcd5_68652be3",
@@ -106,6 +202,30 @@
       "writtenOn": "2022-06-14T05:40:42Z",
       "side": 1,
       "message": "Question: did this come from anywhere? If so, suggest a comment above noting where this is a duplicate of.",
+      "range": {
+        "startLine": 860,
+        "startChar": 0,
+        "endLine": 860,
+        "endChar": 94
+      },
+      "revId": "cb1eea09f577168e298053cfd834d082ba011a12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50017c64_48226f41",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-14T11:10:40Z",
+      "side": 1,
+      "message": "It\u0027s similar to Vpn.addUserToRanges() but not really a duplicate of that. This is used to calculate the uid range. I think the logic is expected to be similar. Not sure if the comment helps.",
+      "parentUuid": "8275dcd5_68652be3",
       "range": {
         "startLine": 860,
         "startChar": 0,
