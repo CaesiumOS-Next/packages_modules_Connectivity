@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14e4e7b9_9f1dc162",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-14T23:36:13Z",
+      "side": 1,
+      "message": "Cherry-pick of ag/18802575 with no conflicts.",
+      "revId": "80bf8283bc7f9875b5f86689b530a0170ee3a253",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
