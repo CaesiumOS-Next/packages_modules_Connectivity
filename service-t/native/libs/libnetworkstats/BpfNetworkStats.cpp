@@ -45,7 +45,7 @@ using base::Result;
 static constexpr char const* STATS_MAP_PATH[] = {STATS_MAP_B_PATH, STATS_MAP_A_PATH};
 
 int bpfGetUidStatsInternal(uid_t uid, Stats* stats,
-                           const BpfMapRO<uint32_t, StatsValue>& appUidStatsMap) {
+                           const BpfMap<uint32_t, StatsValue>& appUidStatsMap) {
     auto statsEntry = appUidStatsMap.readValue(uid);
     if (statsEntry.ok()) {
         stats->rxPackets = statsEntry.value().rxPackets;
