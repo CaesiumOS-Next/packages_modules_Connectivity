@@ -46,6 +46,18 @@ int libnetd_updatable_untagSocket(int sockFd) {
     return android::net::gNetdUpdatable->mBpfHandler.untagSocket(sockFd);
 }
 
+const char* libnetd_updatable_getBpfPath(BpfNetdPathIndex index) {
+    switch (index) {
+        case XT_BPF_INGRESS_PROG: return XT_BPF_INGRESS_PROG_PATH;
+        case XT_BPF_EGRESS_PROG: return XT_BPF_EGRESS_PROG_PATH;
+        case XT_BPF_ALLOWLIST_PROG: return XT_BPF_ALLOWLIST_PROG_PATH;
+        case XT_BPF_DENYLIST_PROG: return XT_BPF_DENYLIST_PROG_PATH;
+        default:
+            LOG(ERROR) << __func__ << ": unknown index " << index;
+            return "";
+    }
+}
+
 namespace android {
 namespace net {
 

@@ -20,6 +20,8 @@
 #include <sys/cdefs.h>
 #include <sys/types.h>
 
+#include "bpf_shared.h"     // BpfProgMapIndex
+
 __BEGIN_DECLS
 
 /*
@@ -57,5 +59,14 @@ int libnetd_updatable_tagSocket(int sockFd, uint32_t tag, uid_t chargeUid,
  * Returns 0 on success, or a negative POSIX error code (see errno.h) on failure.
  */
 int libnetd_updatable_untagSocket(int sockFd);
+
+/*
+ * Get BPF program or map path.
+ *
+ * The |index| specifies the program or map that wants to get path.
+ *
+ * Returns a file path on success, or a null-terminated empty C string on failure.
+ */
+const char* libnetd_updatable_getBpfPath(BpfNetdPathIndex index);
 
 __END_DECLS

@@ -122,6 +122,26 @@ static const int UID_OWNER_MAP_SIZE = 2000;
 #define UID_OWNER_MAP_PATH BPF_NETD_PATH "map_netd_uid_owner_map"
 #define UID_PERMISSION_MAP_PATH BPF_NETD_PATH "map_netd_uid_permission_map"
 
+enum BpfNetdPathIndex {
+    BPF_EGRESS_PROG,
+    BPF_INGRESS_PROG,
+    XT_BPF_INGRESS_PROG,
+    XT_BPF_EGRESS_PROG,
+    XT_BPF_ALLOWLIST_PROG,
+    XT_BPF_DENYLIST_PROG,
+    CGROUP_SOCKET_PROG,
+    COOKIE_TAG_MAP,
+    UID_COUNTERSET_MAP,
+    APP_UID_STATS_MAP,
+    STATS_MAP_A,
+    STATS_MAP_B,
+    IFACE_INDEX_NAME_MAP,
+    IFACE_STATS_MAP,
+    CONFIGURATION_MAP,
+    UID_OWNER_MAP,
+    UID_PERMISSION_MAP,
+};
+
 enum UidOwnerMatchType {
     NO_MATCH = 0,
     HAPPY_BOX_MATCH = (1 << 0),
