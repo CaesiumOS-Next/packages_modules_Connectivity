@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1141e678_e98b3d46",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-14T04:40:34Z",
+      "side": 1,
+      "message": "Rename to probeV4TetheringConnectivity",
+      "parentUuid": "3c908b64_266c7533",
+      "range": {
+        "startLine": 908,
+        "startChar": 19,
+        "endLine": 908,
+        "endChar": 47
+      },
+      "revId": "fdb57e8d312ec80cace9a40ba818b863d494a29b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9803f14f_a7f35a50",
