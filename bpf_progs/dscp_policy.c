@@ -33,6 +33,9 @@
 #include "bpf_helpers.h"
 #include "dscp_policy.h"
 
+#define ECN_MASK 3
+#define IP4_OFFSET(field) (l2_header_size + offsetof(struct iphdr, field))
+
 DEFINE_BPF_MAP_GRW(switch_comp_map, ARRAY, int, uint64_t, 1, AID_SYSTEM)
 
 DEFINE_BPF_MAP_GRW(ipv4_socket_to_policies_map_A, HASH, uint64_t, RuleEntry, MAX_POLICIES,
@@ -162,11 +165,9 @@ static inline __always_inline void match_policy(struct __sk_buff* skb, bool ipv4
                 ntohs(dport) == htons(existingRule->dstPort) &&
                 protocol == existingRule->proto) {
         if (ipv4) {
-            int ecn = tos & 3;
-            uint8_t newDscpVal = (existingRule->dscpVal << 2) + ecn;
-            int oldDscpVal = tos >> 2;
-            bpf_l3_csum_replace(skb, 1, oldDscpVal, newDscpVal, sizeof(uint8_t));
-            bpf_skb_store_bytes(skb, 1, &newDscpVal, sizeof(uint8_t), 0);
+            uint8_t newTos = (existingRule->dscpVal << 2) | (tos & ECN_MASK);
+            bpf_l3_csum_replace(skb, IP4_OFFSET(check), htons(tos), htons(newTos), 2);
+            bpf_skb_store_bytes(skb, IP4_OFFSET(tos), &newTos, sizeof(newTos), 0);
         } else {
             uint8_t new_priority = (existingRule->dscpVal >> 2) + 0x60;
             uint8_t new_flow_label = ((existingRule->dscpVal & 0xf) << 6) + (priority >> 6);
@@ -232,7 +233,8 @@ static inline __always_inline void match_policy(struct __sk_buff* skb, bool ipv4
         }
     }
 
-    uint8_t new_tos= 0; // Can 0 be used as default forwarding value?
+    uint8_t new_tos = 0; // Can 0 be used as default forwarding value?
+    uint8_t new_dscp = 0;
     uint8_t new_priority = 0;
     uint8_t new_flow_lbl = 0;
     if (bestScore > 0) {
@@ -244,17 +246,13 @@ static inline __always_inline void match_policy(struct __sk_buff* skb, bool ipv4
         }
 
         if (policy) {
-            // TODO: if DSCP value is already set ignore?
+			new_dscp = policy->dscpVal;
             if (ipv4) {
                 int ecn = tos & 3;
-                new_tos = (policy->dscpVal << 2) + ecn;
+                new_tos = (new_dscp << 2) + ecn;
             } else {
-                new_priority = (policy->dscpVal >> 2) + 0x60;
-                new_flow_lbl = ((policy->dscpVal & 0xf) << 6) + (flow_lbl >> 6);
-
-                // Set IPv6 curDscp value to stored value and recalulate priority
-                // and flow label during next use.
-                new_tos = policy->dscpVal;
+                new_priority = (new_dscp >> 2) + 0x60;
+                new_flow_lbl = ((new_dscp & 0xf) << 6) + (flow_lbl >> 6);
             }
         }
     } else return;
@@ -266,7 +264,7 @@ static inline __always_inline void match_policy(struct __sk_buff* skb, bool ipv4
         .srcPort = sport,
         .dstPort = dport,
         .proto = protocol,
-        .dscpVal = new_tos,
+        .dscpVal = new_dscp,
     };
 
     //Update map with new policy.
@@ -286,12 +284,11 @@ static inline __always_inline void match_policy(struct __sk_buff* skb, bool ipv4
 
     // Need to store bytes after updating map or program will not load.
     if (ipv4 && new_tos != (tos & 252)) {
-        int oldDscpVal = tos >> 2;
-        bpf_l3_csum_replace(skb, 1, oldDscpVal, new_tos, sizeof(uint8_t));
-        bpf_skb_store_bytes(skb, 1, &new_tos, sizeof(uint8_t), 0);
+        bpf_l3_csum_replace(skb, IP4_OFFSET(check), htons(tos), htons(new_tos), 2);
+        bpf_skb_store_bytes(skb, IP4_OFFSET(tos), &new_tos, sizeof(new_tos), 0);
     } else if (!ipv4 && (new_priority != priority || new_flow_lbl != flow_lbl)) {
-        bpf_skb_store_bytes(skb, 0, &new_priority, sizeof(uint8_t), 0);
-        bpf_skb_store_bytes(skb, 1, &new_flow_lbl, sizeof(uint8_t), 0);
+        bpf_skb_store_bytes(skb, l2_header_size, &new_priority, sizeof(new_priority), 0);
+        bpf_skb_store_bytes(skb, l2_header_size + 1, &new_flow_lbl, sizeof(new_flow_lbl), 0);
     }
     return;
 }
