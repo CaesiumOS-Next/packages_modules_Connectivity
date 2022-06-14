@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7223565_4166b5cc",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-14T05:40:42Z",
+      "side": 1,
+      "message": "If this isn\u0027t already a generic utility, we should make it one. Is there one in the connectivity tests space?",
+      "range": {
+        "startLine": 151,
+        "startChar": 21,
+        "endLine": 151,
+        "endChar": 32
+      },
+      "revId": "cb1eea09f577168e298053cfd834d082ba011a12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26a46a9a_cfb5d496",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-14T05:40:42Z",
+      "side": 1,
+      "message": "use of reset is generally frowned upon: \n\nhttps://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html#17\n\nInstead, suggest adding a times(1) and times(2) to make this explicit.",
+      "range": {
+        "startLine": 196,
+        "startChar": 8,
+        "endLine": 196,
+        "endChar": 20
+      },
+      "revId": "cb1eea09f577168e298053cfd834d082ba011a12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d082cd4_1c173ad4",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-14T05:40:42Z",
+      "side": 1,
+      "message": "Suggest also describing the change to the generated uid ranges.\n\n\"List in keystore is not changed, but UID for the removed packages is no longer exempted\"",
+      "range": {
+        "startLine": 845,
+        "startChar": 35,
+        "endLine": 845,
+        "endChar": 46
+      },
+      "revId": "cb1eea09f577168e298053cfd834d082ba011a12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "159b03de_25eb5b58",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-14T05:40:42Z",
+      "side": 1,
+      "message": "Line break before logical block please :)\n\nand below",
+      "range": {
+        "startLine": 845,
+        "startChar": 8,
+        "endLine": 845,
+        "endChar": 11
+      },
+      "revId": "cb1eea09f577168e298053cfd834d082ba011a12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8275dcd5_68652be3",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-14T05:40:42Z",
+      "side": 1,
+      "message": "Question: did this come from anywhere? If so, suggest a comment above noting where this is a duplicate of.",
+      "range": {
+        "startLine": 860,
+        "startChar": 0,
+        "endLine": 860,
+        "endChar": 94
+      },
+      "revId": "cb1eea09f577168e298053cfd834d082ba011a12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
