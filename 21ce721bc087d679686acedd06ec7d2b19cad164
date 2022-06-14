@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ec9c941_5f56bf02",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-14T03:56:19Z",
+      "side": 1,
+      "message": "Can you also create a bug and link it here? We should probably try to fix this soon.",
+      "range": {
+        "startLine": 202,
+        "startChar": 7,
+        "endLine": 202,
+        "endChar": 11
+      },
+      "revId": "21ce721bc087d679686acedd06ec7d2b19cad164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
