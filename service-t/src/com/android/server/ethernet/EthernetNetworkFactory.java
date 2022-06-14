@@ -414,6 +414,7 @@ public class EthernetNetworkFactory {
                 }
                 mRequests.remove(request);
                 if (mRequests.isEmpty()) {
+                    maybeSendNetworkManagementCallbackForAbort();
                     // not currently serving any requests, stop the network.
                     stop();
                 }
