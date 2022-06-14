@@ -77,6 +77,7 @@ import java.net.Inet6Address
 import java.net.InetAddress
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
+import java.util.Arrays
 import java.util.regex.Pattern
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -132,6 +133,37 @@ class DscpPolicyTest {
     private fun kernelIsAtLeast(major: Int, minor: Int): Boolean {
         val version = getKernelVersion()
         return (version.get(0) > major || (version.get(0) == major && version.get(1) >= minor))
+    }
+
+    private fun addAndWrapForChecksum(currentChecksum: Int, value: Int): Int {
+        val newChecksum = currentChecksum + value.and(0x0000ffff)
+
+        // Wrap anything beyond the first 16 bits, and add to lower order bits
+        return newChecksum.ushr(16) + newChecksum.and(0x0000ffff)
+    }
+
+    private fun onesComplement(value: Int): Short {
+        val value = value.ushr(16) + value.and(0xffff)
+
+        if (value == 0) return 0
+        return ((value.inv()).and(0xffff)).toShort()
+    }
+
+    private fun calculateChecksum(bb: ByteBuffer): Short {
+        var checksum = 0
+
+        // Calculate sum of 16-bit values, excluding checksum. IPv4 headers are always 32-bit
+        // aligned, so no special cases needed for unaligned values.
+        val shortBuffer = ByteBuffer.wrap(Arrays.copyOfRange(bb.array(), 0,
+                bb.position())).asShortBuffer()
+        while (shortBuffer.hasRemaining()) {
+            val value = shortBuffer.get()
+
+            // Wrap as needed
+            checksum = addAndWrapForChecksum(checksum, value.toInt())
+        }
+
+        return onesComplement(checksum)
     }
 
     @Before
@@ -262,6 +294,11 @@ class DscpPolicyTest {
         val ttl = buffer.get()
         val ipType = buffer.get()
         val checksum = buffer.getShort()
+
+        // Validate checksum.
+        val calChecksum = calculateChecksum(buffer.duplicate())
+        assertEquals(checksum, checksum)
+
         return tos.toInt().shr(2)
     }
 
@@ -372,6 +409,9 @@ class DscpPolicyTest {
             assertEquals(DSCP_POLICY_STATUS_SUCCESS, it.status)
         }
         validatePacket(agent, dscpValue = 1, dstPort = 4444)
+        // Send a second packet to validate that the stored BPF policy
+        // is correct for subsequent packets.
+        validatePacket(agent, dscpValue = 1, dstPort = 4444)
 
         agent.sendRemoveDscpPolicy(1)
         agent.expectCallback<OnDscpPolicyStatusUpdated>().let {
@@ -409,6 +449,9 @@ class DscpPolicyTest {
             assertEquals(1, it.policyId)
             assertEquals(DSCP_POLICY_STATUS_SUCCESS, it.status)
         }
+        validatePacket(agent, true, dscpValue = 1, dstPort = 4444)
+        // Send a second packet to validate that the stored BPF policy
+        // is correct for subsequent packets.
         validatePacket(agent, true, dscpValue = 1, dstPort = 4444)
 
         agent.sendRemoveDscpPolicy(1)
