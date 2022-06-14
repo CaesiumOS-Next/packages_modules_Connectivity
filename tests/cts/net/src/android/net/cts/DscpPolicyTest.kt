@@ -372,6 +372,9 @@ class DscpPolicyTest {
             assertEquals(DSCP_POLICY_STATUS_SUCCESS, it.status)
         }
         validatePacket(agent, dscpValue = 1, dstPort = 4444)
+        // Send a second packet to validate that the stored BPF policy
+        // is correct for subsequent packets.
+        validatePacket(agent, dscpValue = 1, dstPort = 4444)
 
         agent.sendRemoveDscpPolicy(1)
         agent.expectCallback<OnDscpPolicyStatusUpdated>().let {
@@ -409,6 +412,9 @@ class DscpPolicyTest {
             assertEquals(1, it.policyId)
             assertEquals(DSCP_POLICY_STATUS_SUCCESS, it.status)
         }
+        validatePacket(agent, true, dscpValue = 1, dstPort = 4444)
+        // Send a second packet to validate that the stored BPF policy
+        // is correct for subsequent packets.
         validatePacket(agent, true, dscpValue = 1, dstPort = 4444)
 
         agent.sendRemoveDscpPolicy(1)
