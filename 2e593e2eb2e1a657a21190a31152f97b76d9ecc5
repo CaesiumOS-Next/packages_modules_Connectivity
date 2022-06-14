@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1840b99_321e0395",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-14T23:36:07Z",
+      "side": 1,
+      "message": "Expect pass on aosp/master, and failure on tm-mainline-prod, due to topic split (p/m/C is automerged, system/netd is not)",
+      "revId": "2e593e2eb2e1a657a21190a31152f97b76d9ecc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
