@@ -1,6 +1,52 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59bdcb7a_5eccd2ec",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1998,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-14T17:27:32Z",
+      "side": 1,
+      "message": "false",
+      "range": {
+        "startLine": 1998,
+        "startChar": 35,
+        "endLine": 1998,
+        "endChar": 39
+      },
+      "revId": "9124eb29c598635046bc5e809216d7d7266b5b9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d86cc7b_b85cf82d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-14T17:27:32Z",
+      "side": 1,
+      "message": "NOTIFY_TEST_NETWORK_AVAILABLE",
+      "range": {
+        "startLine": 92,
+        "startChar": 28,
+        "endLine": 92,
+        "endChar": 34
+      },
+      "revId": "9124eb29c598635046bc5e809216d7d7266b5b9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1c507f0_e8c32696",
@@ -14,6 +60,30 @@
       "writtenOn": "2022-06-14T06:13:40Z",
       "side": 1,
       "message": "if (network.equals(mTetheringUpstreamNetwork) || !isTestNewtork(ns)) return;",
+      "range": {
+        "startLine": 475,
+        "startChar": 0,
+        "endLine": 483,
+        "endChar": 39
+      },
+      "revId": "9124eb29c598635046bc5e809216d7d7266b5b9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "830f5ddf_911c7a29",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-14T17:27:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1c507f0_e8c32696",
       "range": {
         "startLine": 475,
         "startChar": 0,
