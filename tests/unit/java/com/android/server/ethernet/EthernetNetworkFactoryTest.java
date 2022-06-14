@@ -88,10 +88,13 @@ public class EthernetNetworkFactoryTest {
     private static final String IP_ADDR = "192.0.2.2/25";
     private static final LinkAddress LINK_ADDR = new LinkAddress(IP_ADDR);
     private static final String HW_ADDR = "01:02:03:04:05:06";
+    private final ArgumentCaptor<NetworkOfferCallback> mNetworkOfferCallbackCaptor =
+            ArgumentCaptor.forClass(NetworkOfferCallback.class);
     private TestLooper mLooper;
     private Handler mHandler;
     private EthernetNetworkFactory mNetFactory = null;
     private IpClientCallbacks mIpClientCallbacks;
+    private NetworkRequest mRequestToKeepNetworkUp;
     @Mock private Context mContext;
     @Mock private Resources mResources;
     @Mock private EthernetNetworkFactory.Dependencies mDeps;
@@ -241,10 +244,10 @@ public class EthernetNetworkFactoryTest {
                 createInterfaceCapsBuilder(transportType).build());
         assertTrue(mNetFactory.updateInterfaceLinkState(iface, true, NULL_LISTENER));
 
-        ArgumentCaptor<NetworkOfferCallback> captor = ArgumentCaptor.forClass(
-                NetworkOfferCallback.class);
-        verify(mNetworkProvider).registerNetworkOffer(any(), any(), any(), captor.capture());
-        captor.getValue().onNetworkNeeded(createDefaultRequest());
+        verify(mNetworkProvider).registerNetworkOffer(any(), any(), any(),
+                mNetworkOfferCallbackCaptor.capture());
+        mRequestToKeepNetworkUp = createDefaultRequest();
+        mNetworkOfferCallbackCaptor.getValue().onNetworkNeeded(mRequestToKeepNetworkUp);
 
         verifyStart(ipConfig);
         clearInvocations(mDeps);
@@ -622,6 +625,15 @@ public class EthernetNetworkFactoryTest {
         verifyNetworkManagementCallIsAbortedWhenInterrupted(
                 TEST_IFACE,
                 () -> mNetFactory.updateInterfaceLinkState(TEST_IFACE, false, NULL_LISTENER));
+    }
+
+    @Test
+    public void testUpdateInterfaceAbortsOnNetworkUneededRemovesAllRequests() throws Exception {
+        initEthernetNetworkFactory();
+        verifyNetworkManagementCallIsAbortedWhenInterrupted(
+                TEST_IFACE,
+                () -> mNetworkOfferCallbackCaptor.getValue()
+                        .onNetworkUnneeded(mRequestToKeepNetworkUp));
     }
 
     @Test
