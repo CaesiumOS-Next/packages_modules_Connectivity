@@ -22,6 +22,7 @@
          here. TODO: Remove CHANGE_NETWORK_STATE permission here and use adopt shell perssion to
          obtain CHANGE_NETWORK_STATE for testing once R device is no longer supported. -->
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application android:debuggable="true">
         <uses-library android:name="android.test.runner" />
