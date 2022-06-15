@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0819e2f_1c22ea86",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-15T00:16:30Z",
+      "side": 0,
+      "message": "note you\u0027re not consistent in naming... new_tos here newTosVal above... pick something and stick to it please",
+      "range": {
+        "startLine": 235,
+        "startChar": 12,
+        "endLine": 235,
+        "endChar": 19
+      },
+      "revId": "6d0b34ecb32cc080fb337e738b7f8065769eae7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c82d3cd9_35ea7bbc",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-15T00:16:30Z",
+      "side": 1,
+      "message": "I\u0027d suggest writing this as \n\n) | (tos \u0026 3)\n\nand there should be some appropriate constant for 3\n\nor just #define ECN_MASK 3 and use it here",
+      "range": {
+        "startLine": 168,
+        "startChar": 63,
+        "endLine": 168,
+        "endChar": 66
+      },
+      "revId": "2f982b3a8e3d52ebaa4d1504897f81c3f0df8bf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29e6605b_f4133a78",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-15T00:16:30Z",
+      "side": 1,
+      "message": "could also just call it newTos",
+      "range": {
+        "startLine": 168,
+        "startChar": 20,
+        "endLine": 168,
+        "endChar": 29
+      },
+      "revId": "2f982b3a8e3d52ebaa4d1504897f81c3f0df8bf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a81188cb_55d935d9",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-15T00:16:30Z",
+      "side": 1,
+      "message": "place first, or perhaps stick it straight into the #define?\n\nthat would also fix the \u003e100 warning",
+      "range": {
+        "startLine": 169,
+        "startChar": 57,
+        "endLine": 169,
+        "endChar": 71
+      },
+      "revId": "2f982b3a8e3d52ebaa4d1504897f81c3f0df8bf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "022b7ebc_621e12a6",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-15T00:16:30Z",
+      "side": 1,
+      "message": "suggest doing this before the if, and using it up above",
+      "range": {
+        "startLine": 257,
+        "startChar": 0,
+        "endLine": 257,
+        "endChar": 39
+      },
+      "revId": "2f982b3a8e3d52ebaa4d1504897f81c3f0df8bf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "233e2452_299873b9",
+        "filename": "bpf_progs/dscp_policy.c.bak",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-15T00:16:30Z",
+      "side": 1,
+      "message": "delete file",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 53
+      },
+      "revId": "2f982b3a8e3d52ebaa4d1504897f81c3f0df8bf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
