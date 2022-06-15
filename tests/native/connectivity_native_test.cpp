@@ -21,6 +21,7 @@
 #include <cutils/misc.h>  // FIRST_APPLICATION_UID
 #include <gtest/gtest.h>
 #include <netinet/in.h>
+#include <vintf/VintfObject.h>
 
 #include "bpf/BpfUtils.h"
 
@@ -44,6 +45,15 @@ class ConnectivityNativeBinderTest : public ::testing::Test {
         // Skip test case if not on 5.4 kernel which is required by bpf prog.
         if (!android::bpf::isAtLeastKernelVersion(5, 4, 0)) GTEST_SKIP() <<
                 "Kernel should be at least 5.4.";
+
+        // Skip test case if kernel level not on T+.
+        std::string error_msg;
+        const auto kernel_level =
+            android::vintf::VintfObject::GetInstance()->getKernelLevel(&error_msg);
+        if (kernel_level == android::vintf::Level::UNSPECIFIED) GTEST_SKIP() <<
+            "Fail to get kernel level versions: " << error_msg;
+        if (kernel_level < android::vintf::Level::T) GTEST_SKIP() <<
+            "Kernel level should be at least T";
 
         ASSERT_NE(nullptr, mService.get());
 
