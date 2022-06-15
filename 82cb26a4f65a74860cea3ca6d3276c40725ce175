@@ -70,6 +70,30 @@
       },
       "revId": "82cb26a4f65a74860cea3ca6d3276c40725ce175",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d41fce78_d9b30e3d",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-15T09:01:53Z",
+      "side": 1,
+      "message": "I think at least we need a TODO in updateConfiguration function mention this uncover behavior.",
+      "parentUuid": "809986c7_fee1f2ba",
+      "range": {
+        "startLine": 583,
+        "startChar": 42,
+        "endLine": 583,
+        "endChar": 62
+      },
+      "revId": "82cb26a4f65a74860cea3ca6d3276c40725ce175",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
