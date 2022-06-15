@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e61abf4e_f920597a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-15T12:12:08Z",
+      "side": 1,
+      "message": "Verified on CF \n\n(need to disable filter manually)\nhttps://android-build.googleplex.com/builds/tests/view?invocationId\u003dI97100010061413569\u0026testResultId\u003dTR25728092093346246\u0026redirect\u003dhttp%3A%2F%2Fsponge2%2Fa14d84e0-6bf9-435a-beac-c3a403d61f31\u0026tab\u003dresults",
+      "revId": "3987ca3bd13b09a4c00f631eb91e57b1be64c41a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
