@@ -922,6 +922,8 @@ public class EthernetTracker {
             pw.println("Ethernet State: "
                     + (mEthernetState == ETHERNET_STATE_ENABLED ? "enabled" : "disabled"));
             pw.println("Ethernet interface name filter: " + mIfaceMatch);
+            // Note that EthernetTetheringTest uses this line to check traced default interface.
+            // Beware of any change. See EthernetTetheringTest#isInterfaceForTetheringAvailable.
             pw.println("Default interface: " + mDefaultInterface);
             pw.println("Default interface mode: " + mDefaultInterfaceMode);
             pw.println("Tethered interface requests: "
