@@ -22,6 +22,30 @@
       },
       "revId": "6d0b34ecb32cc080fb337e738b7f8065769eae7c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bb3e7f5_6c386646",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-06-15T15:54:16Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "e0819e2f_1c22ea86",
+      "range": {
+        "startLine": 235,
+        "startChar": 12,
+        "endLine": 235,
+        "endChar": 19
+      },
+      "revId": "6d0b34ecb32cc080fb337e738b7f8065769eae7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
