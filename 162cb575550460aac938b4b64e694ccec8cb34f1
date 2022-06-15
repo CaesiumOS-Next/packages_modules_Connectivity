@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23b265c8_d923e7ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-15T15:34:10Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "162cb575550460aac938b4b64e694ccec8cb34f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2aadab5c_f91a3655",
+        "filename": "bpf_progs/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-15T15:34:10Z",
+      "side": 1,
+      "message": "This isn\u0027t great because it\u0027s a mainline dependency on platform that\u0027s not tracked by the build system. Do you know why this doesn\u0027t work? Is it just that the bpf rule doesn\u0027t support the header_libs property? If so, this is probably fine if you file a bug to fix this (go/soong-bug) and put a TODO here.",
+      "range": {
+        "startLine": 109,
+        "startChar": 4,
+        "endLine": 109,
+        "endChar": 51
+      },
+      "revId": "162cb575550460aac938b4b64e694ccec8cb34f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92ae79ac_855bc233",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-15T15:34:10Z",
+      "side": 1,
+      "message": "clat is not dead, it\u0027s very much alive. :-) Maybe call this something more precise, like clat_mark.h?",
+      "range": {
+        "startLine": 44,
+        "startChar": 10,
+        "endLine": 44,
+        "endChar": 18
+      },
+      "revId": "162cb575550460aac938b4b64e694ccec8cb34f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
