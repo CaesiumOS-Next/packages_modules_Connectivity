@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02f9853e_1edb62cc",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-15T04:34:46Z",
+      "side": 1,
+      "message": "We allow to update configuration outside of module that calling EthernetManager#updateConfiguration. Do we only don\u0027t want to make interface default for predefine configuration ? It is like that the configuration is updated and the interface is already be set to default.",
+      "range": {
+        "startLine": 583,
+        "startChar": 42,
+        "endLine": 583,
+        "endChar": 62
+      },
+      "revId": "82cb26a4f65a74860cea3ca6d3276c40725ce175",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
