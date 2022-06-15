@@ -16,6 +16,23 @@
       "message": "Verified on CF \n\n(need to disable filter manually)\nhttps://android-build.googleplex.com/builds/tests/view?invocationId\u003dI97100010061413569\u0026testResultId\u003dTR25728092093346246\u0026redirect\u003dhttp%3A%2F%2Fsponge2%2Fa14d84e0-6bf9-435a-beac-c3a403d61f31\u0026tab\u003dresults",
       "revId": "3987ca3bd13b09a4c00f631eb91e57b1be64c41a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfbb42ff_cd3903f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-15T13:22:32Z",
+      "side": 1,
+      "message": "Upstream flaky fix (aosp/2123812) is still required.\n[buried_eth0] becomes upstream interface but [testtunX]\n\nLog:\n2022-06-15T13:01:49.988464 - Found upstream interface(s): [buried_eth0]\n\nFlaky:\nhttps://android-build.googleplex.com/builds/tests/view?invocationId\u003dI05100010061427718\u0026testResultId\u003dTR45428092173346975\u0026redirect\u003dhttp://sponge2/cfea9ee8-d389-4ccc-b135-83c24155f8e2\n```\njava.lang.AssertionError: Did not receive upstream 114 callback after 5000ms\njava.lang.AssertionError: Did not receive upstream 114 callback after 5000ms\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat android.net.EthernetTetheringTest$MyTetheringEventCallback.awaitUpstreamChanged(EthernetTetheringTest.java:572)\n\tat android.net.EthernetTetheringTest.initTetheringTester(EthernetTetheringTest.java:1070)\n\tat android.net.EthernetTetheringTest.testTetherClatUdp(EthernetTetheringTest.java:1250)\n```",
+      "revId": "3987ca3bd13b09a4c00f631eb91e57b1be64c41a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
