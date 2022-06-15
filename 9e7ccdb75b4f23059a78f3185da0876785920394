@@ -118,6 +118,30 @@
       },
       "revId": "9e7ccdb75b4f23059a78f3185da0876785920394",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb37f9fe_6741f2f7",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-15T17:15:19Z",
+      "side": 1,
+      "message": "Yes, this would be expected.\n\nI.e., if an updateConfiguration is in-progress, if a second updateConfiguration call is made, it will abort the first one (and send a callback for the first one letting it know).\n\nThere is actually a test for this as well if helpful (in this patch it is on EthernetNetworkFactoryTest.java on l.640) named testUpdateInterfaceCallsListenerCorrectlyOnConcurrentRequests.\n\nYeah, they are a bit confusing but I actually think you\u0027re suggestion to move the  maybeSendNetworkManagementCallbackForAbort() into stop() in some ways make it less confusing; any time you stop() the interface, if an update is in progress, a them a callback is sent. \n\nThinking about it like that seems to make it simpler (at least IMO).",
+      "parentUuid": "552eecab_88de25a8",
+      "range": {
+        "startLine": 653,
+        "startChar": 12,
+        "endLine": 653,
+        "endChar": 54
+      },
+      "revId": "9e7ccdb75b4f23059a78f3185da0876785920394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
