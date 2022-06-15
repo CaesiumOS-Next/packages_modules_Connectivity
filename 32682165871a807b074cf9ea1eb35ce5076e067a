@@ -46,6 +46,30 @@
       },
       "revId": "32682165871a807b074cf9ea1eb35ce5076e067a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b493fdee_6526208e",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-15T11:25:26Z",
+      "side": 1,
+      "message": "Thank you\npatchset#5 fixed the problem. eth1 is not default interface anymore.\n\n# Default interface is null and Network Capabilities has eth1.\n\n$ adb shell dumpsys ethernet\n```\nCurrent Ethernet state: \n  EthernetTracker\n  Ethernet State: enabled\n  Ethernet interface name filter: eth\\d\n  Default interface: null\n  Default interface mode: 1\n  Tethered interface requests: 0\n  Listeners: 0\n  IP Configurations:\n  \n  Network Capabilities:\n    eth1: [ Transports: ETHERNET Capabilities: NOT_METERED\u0026INTERNET\u0026TRUSTED\u0026NOT_ROAMING\u0026NOT_CONGESTED\u0026NOT_SUSPENDED LinkUpBandwidth\u003e\u003d100000Kbps LinkDnBandwidth\u003e\u003d100000Kbps UnderlyingNetworks: Null]\n  \n  EthernetNetworkFactory\n  Tracking interfaces:\n    eth1:NetworkInterfaceState{ iface: eth1, up: true, hwAddress: 8a:f8:51:12:1e:08, networkCapabilities: [ Transports: ETHERNET Capabilities: NOT_METERED\u0026INTERNET\u0026TRUSTED\u0026NOT_ROAMING\u0026NOT_CONGESTED\u0026NOT_SUSPENDED LinkUpBandwidth\u003e\u003d100000Kbps LinkDnBandwidth\u003e\u003d100000Kbps Specifier: \u003cEthernetNetworkSpecifier (eth1)\u003e UnderlyingNetworks: Null], networkAgent: null, ipClient: null,linkProperties: {LinkAddresses: [ ] DnsAddresses: [ ] Domains: null MTU: 0 Routes: [ ]}}\n      IpClient is null\n```",
+      "parentUuid": "76f04f2e_f91c999d",
+      "range": {
+        "startLine": 585,
+        "startChar": 63,
+        "endLine": 585,
+        "endChar": 71
+      },
+      "revId": "32682165871a807b074cf9ea1eb35ce5076e067a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
