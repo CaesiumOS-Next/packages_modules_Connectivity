@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9853d079_f123dea5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-15T09:28:54Z",
+      "side": 1,
+      "message": "How can there be a race between parsing the configuration and tracking the interfaces?\n\nAFAICT mNetworkCapabilities is populated by parseEthernetConfig which is called by the constructor. Nothing else can possibly happen on any thread until start is called, and that can only happen after the constructor returns.",
+      "parentUuid": "5c923d3c_4a083616",
+      "revId": "82cb26a4f65a74860cea3ca6d3276c40725ce175",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02f9853e_1edb62cc",
@@ -120,6 +138,30 @@
       "side": 1,
       "message": "I think at least we need a TODO in updateConfiguration function mention this uncover behavior.",
       "parentUuid": "809986c7_fee1f2ba",
+      "range": {
+        "startLine": 583,
+        "startChar": 42,
+        "endLine": 583,
+        "endChar": 62
+      },
+      "revId": "82cb26a4f65a74860cea3ca6d3276c40725ce175",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0a8e346_ec4de5a6",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-15T09:28:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d41fce78_d9b30e3d",
       "range": {
         "startLine": 583,
         "startChar": 42,
