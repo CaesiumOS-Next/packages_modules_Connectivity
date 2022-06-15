@@ -330,6 +330,11 @@ public class TestConnectivityManager extends ConnectivityManager {
         }
 
         private static int toLegacyType(NetworkCapabilities nc) {
+            // Mapping TRANSPORT_TEST to legacy type TYPE_TEST.
+            // Just don't modify production code in
+            // ConnectivityManager.networkCapabilitiesForType which is not support TYPE_TEST.
+            if (nc.hasTransport(NetworkCapabilities.TRANSPORT_TEST)) return TYPE_TEST;
+
             for (int type = 0; type < ConnectivityManager.TYPE_TEST; type++) {
                 if (matchesLegacyType(nc, type)) return type;
             }

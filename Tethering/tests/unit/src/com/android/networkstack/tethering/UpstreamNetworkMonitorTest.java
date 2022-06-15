@@ -22,6 +22,7 @@ import static android.net.ConnectivityManager.TYPE_WIFI;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
+import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 
 import static com.android.modules.utils.build.SdkLevel.isAtLeastS;
@@ -91,6 +92,8 @@ public class UpstreamNetworkMonitorTest {
             .addTransportType(TRANSPORT_CELLULAR).addCapability(NET_CAPABILITY_DUN).build();
     private static final NetworkCapabilities WIFI_CAPABILITIES = new NetworkCapabilities.Builder()
             .addTransportType(TRANSPORT_WIFI).addCapability(NET_CAPABILITY_INTERNET).build();
+    private static final NetworkCapabilities TEST_CAPABILITIES = new NetworkCapabilities.Builder()
+            .addTransportType(TRANSPORT_TEST).addCapability(NET_CAPABILITY_INTERNET).build();
 
     @Mock private Context mContext;
     @Mock private EntitlementManager mEntitleMgr;
@@ -446,6 +449,41 @@ public class UpstreamNetworkMonitorTest {
         mUNM.setUpstreamConfig(true /* autoUpstream */, false /* dunRequired */);
         assertEquals(0, mCM.mRequested.size());
         assertFalse(isDunRequested());
+    }
+
+    @Test
+    public void testGetCurrentPreferredUpstream_TestNetworkPreferred() throws Exception {
+        final String ipv4Addr = "100.112.103.18/24";
+
+        mUNM.startTrackDefaultNetwork(mEntitleMgr);
+        mUNM.startObserveAllNetworks();
+        mUNM.setUpstreamConfig(true /* autoUpstream */, false /* dunRequired */);
+        mUNM.setTryCell(true);
+        mUNM.setPreferTestNetworks(true);
+
+        // [1] Mobile connects, DUN not required -> mobile selected.
+        final TestNetworkAgent cellAgent = new TestNetworkAgent(mCM, CELL_CAPABILITIES);
+        cellAgent.fakeConnect();
+        mCM.makeDefaultNetwork(cellAgent);
+        mLooper.dispatchAll();
+        assertEquals(cellAgent.networkId, mUNM.getCurrentPreferredUpstream().network);
+        assertEquals(0, mCM.mRequested.size());
+
+        // [2] Test network connects -> test network selected.
+        final TestNetworkAgent testAgent = new TestNetworkAgent(mCM, TEST_CAPABILITIES);
+        final LinkProperties testLp = testAgent.linkProperties;
+        testLp.setInterfaceName("testtun0");
+        addLinkAddresses(testLp, ipv4Addr);
+        mCM.sendLinkProperties(testAgent, false /* updateDefaultFirst */);
+        testAgent.fakeConnect();
+        mLooper.dispatchAll();
+        assertEquals(testAgent.networkId, mUNM.getCurrentPreferredUpstream().network);
+        assertEquals(0, mCM.mRequested.size());
+
+        // [3] Disable test networks preferred -> mobile selected.
+        mUNM.setPreferTestNetworks(false);
+        assertEquals(cellAgent.networkId, mUNM.getCurrentPreferredUpstream().network);
+        assertEquals(0, mCM.mRequested.size());
     }
 
     @Test
