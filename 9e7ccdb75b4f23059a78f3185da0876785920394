@@ -46,6 +46,30 @@
       },
       "revId": "9e7ccdb75b4f23059a78f3185da0876785920394",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5cb6625_fabac327",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-15T02:45:15Z",
+      "side": 1,
+      "message": "I\u0027ll resolve for now but feel free to reopen if you can see a flow where this doesn\u0027t work but AFAIK, it looks good as every case I see it being used, maybeSendNetworkManagementCallbackForAbort() was already being called and if it wasn\u0027t, it should have been.",
+      "parentUuid": "7c0f7efd_540babd2",
+      "range": {
+        "startLine": 653,
+        "startChar": 12,
+        "endLine": 653,
+        "endChar": 54
+      },
+      "revId": "9e7ccdb75b4f23059a78f3185da0876785920394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
