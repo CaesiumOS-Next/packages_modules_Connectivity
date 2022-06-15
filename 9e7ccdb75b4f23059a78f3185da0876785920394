@@ -22,6 +22,30 @@
       },
       "revId": "9e7ccdb75b4f23059a78f3185da0876785920394",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c0f7efd_540babd2",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-15T02:43:08Z",
+      "side": 1,
+      "message": "I actually looked at all the spots where restart() was called before making the change (I initially thought the same thing) and didn\u0027t see any issues. I think it is actually ok TBH. I also had existing unit test coverage to fall back on to confirm.\n\nIf you can think of a specific flow where it is an issue, we can revert back to the previous patch but having looked over the code and having the tests to validate, I think this patch actually does the trick in a cleaner fashion as you originally suggested.",
+      "parentUuid": "8dc2d80a_ca6153fd",
+      "range": {
+        "startLine": 653,
+        "startChar": 12,
+        "endLine": 653,
+        "endChar": 54
+      },
+      "revId": "9e7ccdb75b4f23059a78f3185da0876785920394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
