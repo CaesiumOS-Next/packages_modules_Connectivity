@@ -70,6 +70,30 @@
       },
       "revId": "32682165871a807b074cf9ea1eb35ce5076e067a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "389da954_f3b89707",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-15T11:28:22Z",
+      "side": 1,
+      "message": "Per mark\u0027s advice, EthernetTetheringTest can run on cf with this commit and aosp/2127493.",
+      "parentUuid": "b493fdee_6526208e",
+      "range": {
+        "startLine": 585,
+        "startChar": 63,
+        "endLine": 585,
+        "endChar": 71
+      },
+      "revId": "32682165871a807b074cf9ea1eb35ce5076e067a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
