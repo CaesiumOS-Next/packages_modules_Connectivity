@@ -22,6 +22,30 @@
       },
       "revId": "32682165871a807b074cf9ea1eb35ce5076e067a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76f04f2e_f91c999d",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-15T09:44:29Z",
+      "side": 1,
+      "message": "Oops. That\u0027s what you get for not writing tests. :-(\n\nWe do need tests for this CL, of course. Maybe request a tethering interface and expect a callback, then call updateConfiguration to set that interface\u0027s capabilities, then try to request a tethering interface again, and expect that no interface is returned?",
+      "parentUuid": "468865a8_7254b844",
+      "range": {
+        "startLine": 585,
+        "startChar": 63,
+        "endLine": 585,
+        "endChar": 71
+      },
+      "revId": "32682165871a807b074cf9ea1eb35ce5076e067a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
