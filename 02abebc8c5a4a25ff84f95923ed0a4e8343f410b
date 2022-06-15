@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6daaaa9_ccc6438b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-15T17:50:43Z",
+      "side": 1,
+      "message": "This CL relands aosp/2113906. Verified the only difference is this CL does not use VpnNetworkAgentWrapper anymore",
+      "revId": "02abebc8c5a4a25ff84f95923ed0a4e8343f410b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
