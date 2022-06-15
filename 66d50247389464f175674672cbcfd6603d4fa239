@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee29346d_ea8911e3",
+        "filename": "framework/src/android/net/TestNetworkManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-15T02:43:32Z",
+      "side": 1,
+      "message": "Can this be @hide? If it\u0027s only used in our CTS tests (which is likely the case, since it\u0027s in TestNetworkManager), then those test compile against our hidden APIs, so there\u0027s no need for this method to be a module-lib API.",
+      "range": {
+        "startLine": 243,
+        "startChar": 5,
+        "endLine": 243,
+        "endChar": 7
+      },
+      "revId": "66d50247389464f175674672cbcfd6603d4fa239",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
