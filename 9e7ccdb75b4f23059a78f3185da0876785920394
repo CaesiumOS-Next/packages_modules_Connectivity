@@ -3,6 +3,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9c5b06d8_adadd99a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-15T21:03:27Z",
+      "side": 1,
+      "message": "We desperately need thorough CTS tests for the updateConfiguration API.",
+      "range": {
+        "startLine": 26,
+        "startChar": 19,
+        "endLine": 26,
+        "endChar": 28
+      },
+      "revId": "9e7ccdb75b4f23059a78f3185da0876785920394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "811b55eb_a1658553",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-15T21:03:27Z",
+      "side": 1,
+      "message": "LGTM if comments addressed. James, could you work on rebasing your CTS tests for updateConfiguration, maybe on top of aosp/2120118 (this should give you a bunch of more useful functionality such as setting link state and will reduce the amount of merge conflicts that have to be resolved -- they should be trivial from here on out).",
+      "revId": "9e7ccdb75b4f23059a78f3185da0876785920394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8dc2d80a_ca6153fd",
         "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
         "patchSetId": 3
@@ -139,6 +179,52 @@
         "startChar": 12,
         "endLine": 653,
         "endChar": 54
+      },
+      "revId": "9e7ccdb75b4f23059a78f3185da0876785920394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e073243_f24fe258",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetNetworkFactoryTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-15T21:03:27Z",
+      "side": 1,
+      "message": "Instead of keeping the ArgumentCaptor\u003c\u003e around, let\u0027s put the NetworkOfferCallback here or implement suggestion below.",
+      "range": {
+        "startLine": 91,
+        "startChar": 55,
+        "endLine": 91,
+        "endChar": 82
+      },
+      "revId": "9e7ccdb75b4f23059a78f3185da0876785920394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "203f692e_6ad3eb7e",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetNetworkFactoryTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-15T21:03:27Z",
+      "side": 1,
+      "message": "Alternatively, you could just set link down -- that\u0027s much easier to test and should have the same effect.",
+      "range": {
+        "startLine": 630,
+        "startChar": 0,
+        "endLine": 637,
+        "endChar": 5
       },
       "revId": "9e7ccdb75b4f23059a78f3185da0876785920394",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
