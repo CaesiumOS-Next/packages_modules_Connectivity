@@ -103,6 +103,10 @@ bpf {
 bpf {
     name: "clatd.o",
     srcs: ["clatd.c"],
+    // The following doesn't work for bpf:
+    //   header_libs: ["netd_mainline_headers"],
+    // so instead we do:
+    include_dirs: ["system/netd/include/mainline"],
     btf: true,
     cflags: [
         "-Wall",
