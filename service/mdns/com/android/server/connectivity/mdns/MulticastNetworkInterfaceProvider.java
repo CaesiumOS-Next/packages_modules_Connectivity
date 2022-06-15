@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,16 +38,15 @@ import java.util.List;
  * instances that are currently available for multi-cast messaging.
  */
 public class MulticastNetworkInterfaceProvider {
-
     private static final String TAG = "MdnsNIProvider";
     private static final MdnsLogger LOGGER = new MdnsLogger(TAG);
     private static final boolean PREFER_IPV6 = MdnsConfigs.preferIpv6();
 
-    private final List<NetworkInterfaceWrapper> multicastNetworkInterfaces = new ArrayList<>();
+    private final List<NetworkInterfaceWrapper> mMulticastNetworkInterfaces = new ArrayList<>();
     // Only modifiable from tests.
     @VisibleForTesting
     ConnectivityMonitor connectivityMonitor;
-    private volatile boolean connectivityChanged = true;
+    private volatile boolean mConnectivityChanged = true;
 
     @SuppressWarnings("nullness:methodref.receiver.bound")
     public MulticastNetworkInterfaceProvider(@NonNull Context context) {
@@ -57,7 +56,7 @@ public class MulticastNetworkInterfaceProvider {
     }
 
     private void onConnectivityChanged() {
-        connectivityChanged = true;
+        mConnectivityChanged = true;
     }
 
     /**
@@ -78,22 +77,22 @@ public class MulticastNetworkInterfaceProvider {
      * messaging.
      */
     public synchronized List<NetworkInterfaceWrapper> getMulticastNetworkInterfaces() {
-        if (connectivityChanged) {
-            connectivityChanged = false;
+        if (mConnectivityChanged) {
+            mConnectivityChanged = false;
             updateMulticastNetworkInterfaces();
-            if (multicastNetworkInterfaces.isEmpty()) {
+            if (mMulticastNetworkInterfaces.isEmpty()) {
                 LOGGER.log("No network interface available for mDNS scanning.");
             }
         }
-        return new ArrayList<>(multicastNetworkInterfaces);
+        return new ArrayList<>(mMulticastNetworkInterfaces);
     }
 
     private void updateMulticastNetworkInterfaces() {
-        multicastNetworkInterfaces.clear();
+        mMulticastNetworkInterfaces.clear();
         List<NetworkInterfaceWrapper> networkInterfaceWrappers = getNetworkInterfaces();
         for (NetworkInterfaceWrapper interfaceWrapper : networkInterfaceWrappers) {
             if (canScanOnInterface(interfaceWrapper)) {
-                multicastNetworkInterfaces.add(interfaceWrapper);
+                mMulticastNetworkInterfaces.add(interfaceWrapper);
             }
         }
     }

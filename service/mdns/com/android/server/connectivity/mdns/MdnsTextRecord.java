@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import java.util.Objects;
 @SuppressWarnings("nullness")
 @VisibleForTesting
 public class MdnsTextRecord extends MdnsRecord {
-    private List<String> strings;
+    private List<String> mStrings;
 
     public MdnsTextRecord(String[] name, MdnsPacketReader reader) throws IOException {
         super(name, TYPE_TXT, reader);
@@ -37,21 +37,21 @@ public class MdnsTextRecord extends MdnsRecord {
 
     /** Returns the list of strings. */
     public List<String> getStrings() {
-        return Collections.unmodifiableList(strings);
+        return Collections.unmodifiableList(mStrings);
     }
 
     @Override
     protected void readData(MdnsPacketReader reader) throws IOException {
-        strings = new ArrayList<>();
+        mStrings = new ArrayList<>();
         while (reader.getRemaining() > 0) {
-            strings.add(reader.readString());
+            mStrings.add(reader.readString());
         }
     }
 
     @Override
     protected void writeData(MdnsPacketWriter writer) throws IOException {
-        if (strings != null) {
-            for (String string : strings) {
+        if (mStrings != null) {
+            for (String string : mStrings) {
                 writer.writeString(string);
             }
         }
@@ -61,8 +61,8 @@ public class MdnsTextRecord extends MdnsRecord {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("TXT: {");
-        if (strings != null) {
-            for (String string : strings) {
+        if (mStrings != null) {
+            for (String string : mStrings) {
                 sb.append(' ').append(string);
             }
         }
@@ -73,7 +73,7 @@ public class MdnsTextRecord extends MdnsRecord {
 
     @Override
     public int hashCode() {
-        return (super.hashCode() * 31) + Objects.hash(strings);
+        return (super.hashCode() * 31) + Objects.hash(mStrings);
     }
 
     @Override
@@ -85,6 +85,6 @@ public class MdnsTextRecord extends MdnsRecord {
             return false;
         }
 
-        return super.equals(other) && Objects.equals(strings, ((MdnsTextRecord) other).strings);
+        return super.equals(other) && Objects.equals(mStrings, ((MdnsTextRecord) other).mStrings);
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,17 +33,16 @@ import java.util.List;
 // TODO(b/177655645): Resolve nullness suppression.
 @SuppressWarnings("nullness")
 public class MdnsResponseDecoder {
-
     public static final int SUCCESS = 0;
     private static final String TAG = "MdnsResponseDecoder";
     private static final MdnsLogger LOGGER = new MdnsLogger(TAG);
-    private final String[] serviceType;
-    private final Clock clock;
+    private final String[] mServiceType;
+    private final Clock mClock;
 
     /** Constructs a new decoder that will extract responses for the given service type. */
     public MdnsResponseDecoder(@NonNull Clock clock, @Nullable String[] serviceType) {
-        this.clock = clock;
-        this.serviceType = serviceType;
+        mClock = clock;
+        mServiceType = serviceType;
     }
 
     private static void skipMdnsRecord(MdnsPacketReader reader) throws IOException {
@@ -238,11 +237,11 @@ public class MdnsResponseDecoder {
         for (MdnsRecord record : records) {
             if (record instanceof MdnsPointerRecord) {
                 String[] name = record.getName();
-                if ((serviceType == null)
-                        || Arrays.equals(name, serviceType)
-                        || ((name.length == (serviceType.length + 2))
+                if ((mServiceType == null)
+                        || Arrays.equals(name, mServiceType)
+                        || ((name.length == (mServiceType.length + 2))
                         && name[1].equals(MdnsConstants.SUBTYPE_LABEL)
-                        && MdnsRecord.labelsAreSuffix(serviceType, name))) {
+                        && MdnsRecord.labelsAreSuffix(mServiceType, name))) {
                     MdnsPointerRecord pointerRecord = (MdnsPointerRecord) record;
                     // Group PTR records that refer to the same service instance name into a single
                     // response.

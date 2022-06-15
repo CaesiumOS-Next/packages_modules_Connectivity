@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,19 +28,19 @@ import java.util.List;
 // TODO(b/177655645): Resolve nullness suppression.
 @SuppressWarnings("nullness")
 public class MdnsResponse {
-    private final List<MdnsRecord> records;
-    private final List<MdnsPointerRecord> pointerRecords;
-    private MdnsServiceRecord serviceRecord;
-    private MdnsTextRecord textRecord;
-    private MdnsInetAddressRecord inet4AddressRecord;
-    private MdnsInetAddressRecord inet6AddressRecord;
-    private long lastUpdateTime;
+    private final List<MdnsRecord> mRecords;
+    private final List<MdnsPointerRecord> mPointerRecords;
+    private MdnsServiceRecord mServiceRecord;
+    private MdnsTextRecord mTextRecord;
+    private MdnsInetAddressRecord mInet4AddressRecord;
+    private MdnsInetAddressRecord mInet6AddressRecord;
+    private long mLastUpdateTime;
 
     /** Constructs a new, empty response. */
     public MdnsResponse(long now) {
-        lastUpdateTime = now;
-        records = new LinkedList<>();
-        pointerRecords = new LinkedList<>();
+        mLastUpdateTime = now;
+        mRecords = new LinkedList<>();
+        mPointerRecords = new LinkedList<>();
     }
 
     // This generic typed helper compares records for equality.
@@ -57,9 +57,9 @@ public class MdnsResponse {
      * record is already present in the response.
      */
     public synchronized boolean addPointerRecord(MdnsPointerRecord pointerRecord) {
-        if (!pointerRecords.contains(pointerRecord)) {
-            pointerRecords.add(pointerRecord);
-            records.add(pointerRecord);
+        if (!mPointerRecords.contains(pointerRecord)) {
+            mPointerRecords.add(pointerRecord);
+            mRecords.add(pointerRecord);
             return true;
         }
 
@@ -69,20 +69,20 @@ public class MdnsResponse {
     /** Gets the pointer records. */
     public synchronized List<MdnsPointerRecord> getPointerRecords() {
         // Returns a shallow copy.
-        return new LinkedList<>(pointerRecords);
+        return new LinkedList<>(mPointerRecords);
     }
 
     public synchronized boolean hasPointerRecords() {
-        return !pointerRecords.isEmpty();
+        return !mPointerRecords.isEmpty();
     }
 
     @VisibleForTesting
     /* package */ synchronized void clearPointerRecords() {
-        pointerRecords.clear();
+        mPointerRecords.clear();
     }
 
     public synchronized boolean hasSubtypes() {
-        for (MdnsPointerRecord pointerRecord : pointerRecords) {
+        for (MdnsPointerRecord pointerRecord : mPointerRecords) {
             if (pointerRecord.hasSubtype()) {
                 return true;
             }
@@ -93,7 +93,7 @@ public class MdnsResponse {
     public synchronized List<String> getSubtypes() {
         List<String> subtypes = null;
 
-        for (MdnsPointerRecord pointerRecord : pointerRecords) {
+        for (MdnsPointerRecord pointerRecord : mPointerRecords) {
             if (pointerRecord.hasSubtype()) {
                 if (subtypes == null) {
                     subtypes = new LinkedList<>();
@@ -107,7 +107,7 @@ public class MdnsResponse {
 
     @VisibleForTesting
     public synchronized void removeSubtypes() {
-        Iterator<MdnsPointerRecord> iter = pointerRecords.iterator();
+        Iterator<MdnsPointerRecord> iter = mPointerRecords.iterator();
         while (iter.hasNext()) {
             MdnsPointerRecord pointerRecord = iter.next();
             if (pointerRecord.hasSubtype()) {
@@ -118,87 +118,87 @@ public class MdnsResponse {
 
     /** Sets the service record. */
     public synchronized boolean setServiceRecord(MdnsServiceRecord serviceRecord) {
-        if (recordsAreSame(this.serviceRecord, serviceRecord)) {
+        if (recordsAreSame(mServiceRecord, serviceRecord)) {
             return false;
         }
-        if (this.serviceRecord != null) {
-            records.remove(this.serviceRecord);
+        if (mServiceRecord != null) {
+            mRecords.remove(mServiceRecord);
         }
-        this.serviceRecord = serviceRecord;
-        if (this.serviceRecord != null) {
-            records.add(this.serviceRecord);
+        mServiceRecord = serviceRecord;
+        if (mServiceRecord != null) {
+            mRecords.add(mServiceRecord);
         }
         return true;
     }
 
     /** Gets the service record. */
     public synchronized MdnsServiceRecord getServiceRecord() {
-        return serviceRecord;
+        return mServiceRecord;
     }
 
     public synchronized boolean hasServiceRecord() {
-        return serviceRecord != null;
+        return mServiceRecord != null;
     }
 
     /** Sets the text record. */
     public synchronized boolean setTextRecord(MdnsTextRecord textRecord) {
-        if (recordsAreSame(this.textRecord, textRecord)) {
+        if (recordsAreSame(mTextRecord, textRecord)) {
             return false;
         }
-        if (this.textRecord != null) {
-            records.remove(this.textRecord);
+        if (mTextRecord != null) {
+            mRecords.remove(mTextRecord);
         }
-        this.textRecord = textRecord;
-        if (this.textRecord != null) {
-            records.add(this.textRecord);
+        mTextRecord = textRecord;
+        if (mTextRecord != null) {
+            mRecords.add(mTextRecord);
         }
         return true;
     }
 
     /** Gets the text record. */
     public synchronized MdnsTextRecord getTextRecord() {
-        return textRecord;
+        return mTextRecord;
     }
 
     public synchronized boolean hasTextRecord() {
-        return textRecord != null;
+        return mTextRecord != null;
     }
 
     /** Sets the IPv4 address record. */
     public synchronized boolean setInet4AddressRecord(MdnsInetAddressRecord newInet4AddressRecord) {
-        if (recordsAreSame(this.inet4AddressRecord, newInet4AddressRecord)) {
+        if (recordsAreSame(mInet4AddressRecord, newInet4AddressRecord)) {
             return false;
         }
-        if (this.inet4AddressRecord != null) {
-            records.remove(this.inet4AddressRecord);
+        if (mInet4AddressRecord != null) {
+            mRecords.remove(mInet4AddressRecord);
         }
         if (newInet4AddressRecord != null && newInet4AddressRecord.getInet4Address() != null) {
-            this.inet4AddressRecord = newInet4AddressRecord;
-            records.add(this.inet4AddressRecord);
+            mInet4AddressRecord = newInet4AddressRecord;
+            mRecords.add(mInet4AddressRecord);
         }
         return true;
     }
 
     /** Gets the IPv4 address record. */
     public synchronized MdnsInetAddressRecord getInet4AddressRecord() {
-        return inet4AddressRecord;
+        return mInet4AddressRecord;
     }
 
     public synchronized boolean hasInet4AddressRecord() {
-        return inet4AddressRecord != null;
+        return mInet4AddressRecord != null;
     }
 
     /** Sets the IPv6 address record. */
     public synchronized boolean setInet6AddressRecord(MdnsInetAddressRecord newInet6AddressRecord) {
-        if (recordsAreSame(this.inet6AddressRecord, newInet6AddressRecord)) {
+        if (recordsAreSame(mInet6AddressRecord, newInet6AddressRecord)) {
             return false;
         }
-        if (this.inet6AddressRecord != null) {
-            records.remove(this.inet6AddressRecord);
+        if (mInet6AddressRecord != null) {
+            mRecords.remove(mInet6AddressRecord);
         }
         if (newInet6AddressRecord != null && newInet6AddressRecord.getInet6Address() != null) {
-            this.inet6AddressRecord = newInet6AddressRecord;
-            records.add(this.inet6AddressRecord);
+            mInet6AddressRecord = newInet6AddressRecord;
+            mRecords.add(mInet6AddressRecord);
         }
         return true;
     }
@@ -206,16 +206,16 @@ public class MdnsResponse {
 
     /** Gets the IPv6 address record. */
     public synchronized MdnsInetAddressRecord getInet6AddressRecord() {
-        return inet6AddressRecord;
+        return mInet6AddressRecord;
     }
 
     public synchronized boolean hasInet6AddressRecord() {
-        return inet6AddressRecord != null;
+        return mInet6AddressRecord != null;
     }
 
     /** Gets all of the records. */
     public synchronized List<MdnsRecord> getRecords() {
-        return new LinkedList<>(records);
+        return new LinkedList<>(mRecords);
     }
 
     /**
@@ -224,7 +224,7 @@ public class MdnsResponse {
      * @return <code>true</code> if any records were added or updated.
      */
     public synchronized boolean mergeRecordsFrom(MdnsResponse other) {
-        lastUpdateTime = other.lastUpdateTime;
+        mLastUpdateTime = other.mLastUpdateTime;
 
         boolean updated = false;
 
@@ -267,18 +267,18 @@ public class MdnsResponse {
 
         // If the hostname in the service record no longer matches the hostname in either of the
         // address records, then drop the address records.
-        if (this.serviceRecord != null) {
+        if (mServiceRecord != null) {
             boolean dropAddressRecords = false;
 
-            if (this.inet4AddressRecord != null) {
+            if (mInet4AddressRecord != null) {
                 if (!Arrays.equals(
-                        this.serviceRecord.getServiceHost(), this.inet4AddressRecord.getName())) {
+                        mServiceRecord.getServiceHost(), mInet4AddressRecord.getName())) {
                     dropAddressRecords = true;
                 }
             }
-            if (this.inet6AddressRecord != null) {
+            if (mInet6AddressRecord != null) {
                 if (!Arrays.equals(
-                        this.serviceRecord.getServiceHost(), this.inet6AddressRecord.getName())) {
+                        mServiceRecord.getServiceHost(), mInet6AddressRecord.getName())) {
                     dropAddressRecords = true;
                 }
             }
@@ -298,10 +298,10 @@ public class MdnsResponse {
      * TXT, and A (for IPv4) or AAAA (for IPv6) records.
      */
     public synchronized boolean isComplete() {
-        return !pointerRecords.isEmpty()
-                && (serviceRecord != null)
-                && (textRecord != null)
-                && (inet4AddressRecord != null || inet6AddressRecord != null);
+        return !mPointerRecords.isEmpty()
+                && (mServiceRecord != null)
+                && (mTextRecord != null)
+                && (mInet4AddressRecord != null || mInet6AddressRecord != null);
     }
 
     /**
@@ -309,10 +309,10 @@ public class MdnsResponse {
      * name.
      */
     public synchronized String getServiceInstanceName() {
-        if (pointerRecords.isEmpty()) {
+        if (mPointerRecords.isEmpty()) {
             return null;
         }
-        String[] pointers = pointerRecords.get(0).getPointer();
+        String[] pointers = mPointerRecords.get(0).getPointer();
         return ((pointers != null) && (pointers.length > 0)) ? pointers[0] : null;
     }
 
@@ -322,7 +322,7 @@ public class MdnsResponse {
      */
     public synchronized boolean isGoodbye() {
         if (getServiceInstanceName() != null) {
-            for (MdnsRecord record : records) {
+            for (MdnsRecord record : mRecords) {
                 // Expiring PTR records with subtypes just signal a change in known supported
                 // criteria, not the device itself going offline, so ignore those.
                 if ((record instanceof MdnsPointerRecord)
@@ -350,28 +350,28 @@ public class MdnsResponse {
      */
     public synchronized int write(MdnsPacketWriter writer, long now) throws IOException {
         int count = 0;
-        for (MdnsPointerRecord pointerRecord : pointerRecords) {
+        for (MdnsPointerRecord pointerRecord : mPointerRecords) {
             pointerRecord.write(writer, now);
             ++count;
         }
 
-        if (serviceRecord != null) {
-            serviceRecord.write(writer, now);
+        if (mServiceRecord != null) {
+            mServiceRecord.write(writer, now);
             ++count;
         }
 
-        if (textRecord != null) {
-            textRecord.write(writer, now);
+        if (mTextRecord != null) {
+            mTextRecord.write(writer, now);
             ++count;
         }
 
-        if (inet4AddressRecord != null) {
-            inet4AddressRecord.write(writer, now);
+        if (mInet4AddressRecord != null) {
+            mInet4AddressRecord.write(writer, now);
             ++count;
         }
 
-        if (inet6AddressRecord != null) {
-            inet6AddressRecord.write(writer, now);
+        if (mInet6AddressRecord != null) {
+            mInet6AddressRecord.write(writer, now);
             ++count;
         }
 

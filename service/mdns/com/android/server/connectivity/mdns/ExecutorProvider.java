@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,21 +27,20 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
  * instances, and provides method to shutdown all the created executors.
  */
 public class ExecutorProvider {
-
-    private final Set<ScheduledExecutorService> serviceTypeClientSchedulerExecutors =
+    private final Set<ScheduledExecutorService> mSrviceTypeClientSchedulerExecutors =
             new ArraySet<>();
 
     /** Returns a new {@link ScheduledExecutorService} instance. */
     public ScheduledExecutorService newServiceTypeClientSchedulerExecutor() {
         // TODO: actually use a pool ?
         ScheduledExecutorService executor = new ScheduledThreadPoolExecutor(1);
-        serviceTypeClientSchedulerExecutors.add(executor);
+        mSrviceTypeClientSchedulerExecutors.add(executor);
         return executor;
     }
 
     /** Shuts down all the created {@link ScheduledExecutorService} instances. */
     public void shutdownAll() {
-        for (ScheduledExecutorService executor : serviceTypeClientSchedulerExecutors) {
+        for (ScheduledExecutorService executor : mSrviceTypeClientSchedulerExecutors) {
             executor.shutdownNow();
         }
     }

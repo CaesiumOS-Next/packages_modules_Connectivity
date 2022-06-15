@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -11,7 +11,7 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License
+ * limitations under the License.
  */
 
 package com.android.server.connectivity.mdns;
@@ -44,36 +44,36 @@ import java.util.List;
 public class MdnsResponseTests {
     private static final String TAG = "MdnsResponseTests";
     // MDNS response packet for name "test" with an IPv4 address of 10.1.2.3
-    private static final byte[] dataIn_ipv4_1 = HexDump.hexStringToByteArray(
+    private static final byte[] DATA_IN_IPV4_1 = HexDump.hexStringToByteArray(
             "0474657374000001" + "0001000011940004" + "0A010203");
     // MDNS response packet for name "tess" with an IPv4 address of 10.1.2.4
-    private static final byte[] dataIn_ipv4_2 = HexDump.hexStringToByteArray(
+    private static final byte[] DATA_IN_IPV4_2 = HexDump.hexStringToByteArray(
             "0474657373000001" + "0001000011940004" + "0A010204");
     // MDNS response w/name "test" & IPv6 address of aabb:ccdd:1122:3344:a0b0:c0d0:1020:3040
-    private static final byte[] dataIn_ipv6_1 = HexDump.hexStringToByteArray(
+    private static final byte[] DATA_IN_IPV6_1 = HexDump.hexStringToByteArray(
             "047465737400001C" + "0001000011940010" + "AABBCCDD11223344" + "A0B0C0D010203040");
     // MDNS response w/name "test" & IPv6 address of aabb:ccdd:1122:3344:a0b0:c0d0:1020:3030
-    private static final byte[] dataIn_ipv6_2 = HexDump.hexStringToByteArray(
+    private static final byte[] DATA_IN_IPV6_2 = HexDump.hexStringToByteArray(
             "047465737400001C" + "0001000011940010" + "AABBCCDD11223344" + "A0B0C0D010203030");
     // MDNS response w/name "test" & PTR to foo.bar.quxx
-    private static final byte[] dataIn_ptr_1 = HexDump.hexStringToByteArray(
+    private static final byte[] DATA_IN_PTR_1 = HexDump.hexStringToByteArray(
             "047465737400000C" + "000100001194000E" + "03666F6F03626172" + "047175787800");
     // MDNS response w/name "test" & PTR to foo.bar.quxy
-    private static final byte[] dataIn_ptr_2 = HexDump.hexStringToByteArray(
+    private static final byte[] DATA_IN_PTR_2 = HexDump.hexStringToByteArray(
             "047465737400000C" + "000100001194000E" + "03666F6F03626172" + "047175787900");
     // MDNS response w/name "test" & Service for host foo.bar.quxx
-    private static final byte[] dataIn_service_1 = HexDump.hexStringToByteArray(
+    private static final byte[] DATA_IN_SERVICE_1 = HexDump.hexStringToByteArray(
             "0474657374000021"
             + "0001000011940014"
             + "000100FF1F480366"
             + "6F6F036261720471"
             + "75787800");
     // MDNS response w/name "test" & Service for host test
-    private static final byte[] dataIn_service_2 = HexDump.hexStringToByteArray(
+    private static final byte[] DATA_IN_SERVICE_2 = HexDump.hexStringToByteArray(
             "0474657374000021" + "000100001194000B" + "000100FF1F480474" + "657374");
     // MDNS response w/name "test" & the following text strings:
     // "a=hello there", "b=1234567890", and "xyz=!$$$"
-    private static final byte[] dataIn_text_1 = HexDump.hexStringToByteArray(
+    private static final byte[] DATA_IN_TEXT_1 = HexDump.hexStringToByteArray(
             "0474657374000010"
             + "0001000011940024"
             + "0D613D68656C6C6F"
@@ -83,7 +83,7 @@ public class MdnsResponseTests {
             + "21242424");
     // MDNS response w/name "test" & the following text strings:
     // "a=hello there", "b=1234567890", and "xyz=!@#$"
-    private static final byte[] dataIn_text_2 = HexDump.hexStringToByteArray(
+    private static final byte[] DATA_IN_TEXT_2 = HexDump.hexStringToByteArray(
             "0474657374000010"
             + "0001000011940024"
             + "0D613D68656C6C6F"
@@ -95,13 +95,13 @@ public class MdnsResponseTests {
     // The following helper classes act as wrappers so that IPv4 and IPv6 address records can
     // be explicitly created by type using same constructor signature as all other records.
     static class MdnsInet4AddressRecord extends MdnsInetAddressRecord {
-        public MdnsInet4AddressRecord(String[] name, MdnsPacketReader reader) throws IOException {
+        MdnsInet4AddressRecord(String[] name, MdnsPacketReader reader) throws IOException {
             super(name, MdnsRecord.TYPE_A, reader);
         }
     }
 
     static class MdnsInet6AddressRecord extends MdnsInetAddressRecord {
-        public MdnsInet6AddressRecord(String[] name, MdnsPacketReader reader) throws IOException {
+        MdnsInet6AddressRecord(String[] name, MdnsPacketReader reader) throws IOException {
             super(name, MdnsRecord.TYPE_AAAA, reader);
         }
     }
@@ -113,12 +113,12 @@ public class MdnsResponseTests {
         public final byte[] packetData;
         public final Class<?> recordClass;
 
-        public PacketAndRecordClass() {
+        PacketAndRecordClass() {
             packetData = null;
             recordClass = null;
         }
 
-        public PacketAndRecordClass(byte[] data, Class<?> c) {
+        PacketAndRecordClass(byte[] data, Class<?> c) {
             packetData = data;
             recordClass = c;
         }
@@ -154,7 +154,7 @@ public class MdnsResponseTests {
 
     @Test
     public void getInet4AddressRecord_returnsAddedRecord() throws IOException {
-        DatagramPacket packet = new DatagramPacket(dataIn_ipv4_1, dataIn_ipv4_1.length);
+        DatagramPacket packet = new DatagramPacket(DATA_IN_IPV4_1, DATA_IN_IPV4_1.length);
         MdnsPacketReader reader = new MdnsPacketReader(packet);
         String[] name = reader.readLabels();
         reader.skip(2); // skip record type indication.
@@ -167,7 +167,7 @@ public class MdnsResponseTests {
 
     @Test
     public void getInet6AddressRecord_returnsAddedRecord() throws IOException {
-        DatagramPacket packet = new DatagramPacket(dataIn_ipv6_1, dataIn_ipv6_1.length);
+        DatagramPacket packet = new DatagramPacket(DATA_IN_IPV6_1, DATA_IN_IPV6_1.length);
         MdnsPacketReader reader = new MdnsPacketReader(packet);
         String[] name = reader.readLabels();
         reader.skip(2); // skip record type indication.
@@ -181,7 +181,7 @@ public class MdnsResponseTests {
 
     @Test
     public void getPointerRecords_returnsAddedRecord() throws IOException {
-        DatagramPacket packet = new DatagramPacket(dataIn_ptr_1, dataIn_ptr_1.length);
+        DatagramPacket packet = new DatagramPacket(DATA_IN_PTR_1, DATA_IN_PTR_1.length);
         MdnsPacketReader reader = new MdnsPacketReader(packet);
         String[] name = reader.readLabels();
         reader.skip(2); // skip record type indication.
@@ -197,7 +197,7 @@ public class MdnsResponseTests {
 
     @Test
     public void getServiceRecord_returnsAddedRecord() throws IOException {
-        DatagramPacket packet = new DatagramPacket(dataIn_service_1, dataIn_service_1.length);
+        DatagramPacket packet = new DatagramPacket(DATA_IN_SERVICE_1, DATA_IN_SERVICE_1.length);
         MdnsPacketReader reader = new MdnsPacketReader(packet);
         String[] name = reader.readLabels();
         reader.skip(2); // skip record type indication.
@@ -210,7 +210,7 @@ public class MdnsResponseTests {
 
     @Test
     public void getTextRecord_returnsAddedRecord() throws IOException {
-        DatagramPacket packet = new DatagramPacket(dataIn_text_1, dataIn_text_1.length);
+        DatagramPacket packet = new DatagramPacket(DATA_IN_TEXT_1, DATA_IN_TEXT_1.length);
         MdnsPacketReader reader = new MdnsPacketReader(packet);
         String[] name = reader.readLabels();
         reader.skip(2); // skip record type indication.
@@ -226,12 +226,12 @@ public class MdnsResponseTests {
         MdnsResponse response = makeMdnsResponse(
                 0,
                 Arrays.asList(
-                        new PacketAndRecordClass(dataIn_ipv4_1, MdnsInet4AddressRecord.class)));
+                        new PacketAndRecordClass(DATA_IN_IPV4_1, MdnsInet4AddressRecord.class)));
         // Now create a new response that updates the address.
         MdnsResponse response2 = makeMdnsResponse(
                 100,
                 Arrays.asList(
-                        new PacketAndRecordClass(dataIn_ipv4_2, MdnsInet4AddressRecord.class)));
+                        new PacketAndRecordClass(DATA_IN_IPV4_2, MdnsInet4AddressRecord.class)));
         assertTrue(response.mergeRecordsFrom(response2));
     }
 
@@ -240,12 +240,12 @@ public class MdnsResponseTests {
         MdnsResponse response = makeMdnsResponse(
                 0,
                 Arrays.asList(
-                        new PacketAndRecordClass(dataIn_ipv6_1, MdnsInet6AddressRecord.class)));
+                        new PacketAndRecordClass(DATA_IN_IPV6_1, MdnsInet6AddressRecord.class)));
         // Now create a new response that updates the address.
         MdnsResponse response2 = makeMdnsResponse(
                 100,
                 Arrays.asList(
-                        new PacketAndRecordClass(dataIn_ipv6_2, MdnsInet6AddressRecord.class)));
+                        new PacketAndRecordClass(DATA_IN_IPV6_2, MdnsInet6AddressRecord.class)));
         assertTrue(response.mergeRecordsFrom(response2));
     }
 
@@ -253,23 +253,21 @@ public class MdnsResponseTests {
     public void mergeRecordsFrom_indicates_change_on_text() throws IOException {
         MdnsResponse response = makeMdnsResponse(
                 0,
-                Arrays.asList(new PacketAndRecordClass(dataIn_text_1, MdnsTextRecord.class)));
+                Arrays.asList(new PacketAndRecordClass(DATA_IN_TEXT_1, MdnsTextRecord.class)));
         // Now create a new response that updates the address.
         MdnsResponse response2 = makeMdnsResponse(
                 100,
-                Arrays.asList(new PacketAndRecordClass(dataIn_text_2, MdnsTextRecord.class)));
+                Arrays.asList(new PacketAndRecordClass(DATA_IN_TEXT_2, MdnsTextRecord.class)));
         assertTrue(response.mergeRecordsFrom(response2));
     }
 
     @Test
     public void mergeRecordsFrom_indicates_change_on_service() throws IOException {
-        MdnsResponse response = makeMdnsResponse(
-                0,
-                Arrays.asList(new PacketAndRecordClass(dataIn_service_1, MdnsServiceRecord.class)));
+        MdnsResponse response = makeMdnsResponse(0, Arrays.asList(
+                new PacketAndRecordClass(DATA_IN_SERVICE_1, MdnsServiceRecord.class)));
         // Now create a new response that updates the address.
-        MdnsResponse response2 = makeMdnsResponse(
-                100,
-                Arrays.asList(new PacketAndRecordClass(dataIn_service_2, MdnsServiceRecord.class)));
+        MdnsResponse response2 = makeMdnsResponse(100, Arrays.asList(
+                new PacketAndRecordClass(DATA_IN_SERVICE_2, MdnsServiceRecord.class)));
         assertTrue(response.mergeRecordsFrom(response2));
     }
 
@@ -277,11 +275,11 @@ public class MdnsResponseTests {
     public void mergeRecordsFrom_indicates_change_on_pointer() throws IOException {
         MdnsResponse response = makeMdnsResponse(
                 0,
-                Arrays.asList(new PacketAndRecordClass(dataIn_ptr_1, MdnsPointerRecord.class)));
+                Arrays.asList(new PacketAndRecordClass(DATA_IN_PTR_1, MdnsPointerRecord.class)));
         // Now create a new response that updates the address.
         MdnsResponse response2 = makeMdnsResponse(
                 100,
-                Arrays.asList(new PacketAndRecordClass(dataIn_ptr_2, MdnsPointerRecord.class)));
+                Arrays.asList(new PacketAndRecordClass(DATA_IN_PTR_2, MdnsPointerRecord.class)));
         assertTrue(response.mergeRecordsFrom(response2));
     }
 
@@ -291,11 +289,11 @@ public class MdnsResponseTests {
         //MdnsConfigsFlagsImpl.useReducedMergeRecordUpdateEvents.override(true);
         List<PacketAndRecordClass> recordList =
                 Arrays.asList(
-                        new PacketAndRecordClass(dataIn_ipv4_1, MdnsInet4AddressRecord.class),
-                        new PacketAndRecordClass(dataIn_ipv6_1, MdnsInet6AddressRecord.class),
-                        new PacketAndRecordClass(dataIn_ptr_1, MdnsPointerRecord.class),
-                        new PacketAndRecordClass(dataIn_service_2, MdnsServiceRecord.class),
-                        new PacketAndRecordClass(dataIn_text_1, MdnsTextRecord.class));
+                        new PacketAndRecordClass(DATA_IN_IPV4_1, MdnsInet4AddressRecord.class),
+                        new PacketAndRecordClass(DATA_IN_IPV6_1, MdnsInet6AddressRecord.class),
+                        new PacketAndRecordClass(DATA_IN_PTR_1, MdnsPointerRecord.class),
+                        new PacketAndRecordClass(DATA_IN_SERVICE_2, MdnsServiceRecord.class),
+                        new PacketAndRecordClass(DATA_IN_TEXT_1, MdnsTextRecord.class));
         // Create a two identical responses.
         MdnsResponse response = makeMdnsResponse(0, recordList);
         MdnsResponse response2 = makeMdnsResponse(100, recordList);

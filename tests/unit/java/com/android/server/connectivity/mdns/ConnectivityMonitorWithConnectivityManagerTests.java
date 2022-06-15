@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -11,7 +11,7 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License
+ * limitations under the License.
  */
 
 package com.android.server.connectivity.mdns;
@@ -46,17 +46,19 @@ import org.mockito.MockitoAnnotations;
 @DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
 public class ConnectivityMonitorWithConnectivityManagerTests {
     @Mock private Context mContext;
-    @Mock private ConnectivityMonitor.Listener mockListener;
+    @Mock private ConnectivityMonitor.Listener mListener;
     @Mock private ConnectivityManager mConnectivityManager;
 
-    private ConnectivityMonitorWithConnectivityManager monitor;
+    private ConnectivityMonitorWithConnectivityManager mMonitor;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        doReturn(Context.CONNECTIVITY_SERVICE).when(mContext)
+                .getSystemServiceName(ConnectivityManager.class);
         doReturn(mConnectivityManager).when(mContext)
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
-        monitor = new ConnectivityMonitorWithConnectivityManager(mContext, mockListener);
+        mMonitor = new ConnectivityMonitorWithConnectivityManager(mContext, mListener);
     }
 
     @Test
@@ -67,7 +69,7 @@ public class ConnectivityMonitorWithConnectivityManagerTests {
 
     @Test
     public void testStartDiscovery_shouldRegisterNetworkCallback() {
-        monitor.startWatchingConnectivityChanges();
+        mMonitor.startWatchingConnectivityChanges();
 
         verifyNetworkCallbackRegistered(1 /* time */);
         verifyNetworkCallbackUnregistered(0 /* time */);
@@ -75,8 +77,8 @@ public class ConnectivityMonitorWithConnectivityManagerTests {
 
     @Test
     public void testStartDiscoveryTwice_shouldRegisterOneNetworkCallback() {
-        monitor.startWatchingConnectivityChanges();
-        monitor.startWatchingConnectivityChanges();
+        mMonitor.startWatchingConnectivityChanges();
+        mMonitor.startWatchingConnectivityChanges();
 
         verifyNetworkCallbackRegistered(1 /* time */);
         verifyNetworkCallbackUnregistered(0 /* time */);
@@ -84,8 +86,8 @@ public class ConnectivityMonitorWithConnectivityManagerTests {
 
     @Test
     public void testStopDiscovery_shouldUnregisterNetworkCallback() {
-        monitor.startWatchingConnectivityChanges();
-        monitor.stopWatchingConnectivityChanges();
+        mMonitor.startWatchingConnectivityChanges();
+        mMonitor.stopWatchingConnectivityChanges();
 
         verifyNetworkCallbackRegistered(1 /* time */);
         verifyNetworkCallbackUnregistered(1 /* time */);
@@ -93,9 +95,9 @@ public class ConnectivityMonitorWithConnectivityManagerTests {
 
     @Test
     public void testStopDiscoveryTwice_shouldUnregisterNetworkCallback() {
-        monitor.startWatchingConnectivityChanges();
-        monitor.stopWatchingConnectivityChanges();
-        monitor.stopWatchingConnectivityChanges();
+        mMonitor.startWatchingConnectivityChanges();
+        mMonitor.stopWatchingConnectivityChanges();
+        mMonitor.stopWatchingConnectivityChanges();
 
         verifyNetworkCallbackRegistered(1 /* time */);
         verifyNetworkCallbackUnregistered(1 /* time */);
@@ -103,8 +105,8 @@ public class ConnectivityMonitorWithConnectivityManagerTests {
 
     @Test
     public void testIntentFired_shouldNotifyListener() {
-        InOrder inOrder = inOrder(mockListener);
-        monitor.startWatchingConnectivityChanges();
+        InOrder inOrder = inOrder(mListener);
+        mMonitor.startWatchingConnectivityChanges();
 
         final ArgumentCaptor<NetworkCallback> callbackCaptor =
                 ArgumentCaptor.forClass(NetworkCallback.class);
@@ -116,15 +118,15 @@ public class ConnectivityMonitorWithConnectivityManagerTests {
 
         // Simulate network available.
         callback.onAvailable(testNetwork);
-        inOrder.verify(mockListener).onConnectivityChanged();
+        inOrder.verify(mListener).onConnectivityChanged();
 
         // Simulate network lost.
         callback.onLost(testNetwork);
-        inOrder.verify(mockListener).onConnectivityChanged();
+        inOrder.verify(mListener).onConnectivityChanged();
 
         // Simulate network unavailable.
         callback.onUnavailable();
-        inOrder.verify(mockListener).onConnectivityChanged();
+        inOrder.verify(mListener).onConnectivityChanged();
     }
 
     private void verifyNetworkCallbackRegistered(int time) {

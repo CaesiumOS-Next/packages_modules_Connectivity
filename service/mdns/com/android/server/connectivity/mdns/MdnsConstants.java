@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,8 +47,8 @@ public final class MdnsConstants {
     public static final String SUBTYPE_PREFIX = "_";
     private static final String MDNS_IPV4_HOST_ADDRESS = "224.0.0.251";
     private static final String MDNS_IPV6_HOST_ADDRESS = "FF02::FB";
-    private static InetAddress mdnsAddress;
-    private static Charset utf8Charset;
+    private static InetAddress sMdnsAddress;
+    private static Charset sUtf8Charset;
     private MdnsConstants() {
     }
 
@@ -60,8 +60,8 @@ public final class MdnsConstants {
             } catch (UnknownHostException e) {
                 /* won't happen */
             }
-            mdnsAddress = addr;
-            return mdnsAddress;
+            sMdnsAddress = addr;
+            return sMdnsAddress;
         }
     }
 
@@ -73,17 +73,17 @@ public final class MdnsConstants {
             } catch (UnknownHostException e) {
                 /* won't happen */
             }
-            mdnsAddress = addr;
-            return mdnsAddress;
+            sMdnsAddress = addr;
+            return sMdnsAddress;
         }
     }
 
     public static Charset getUtf8Charset() {
         synchronized (MdnsConstants.class) {
-            if (utf8Charset == null) {
-                utf8Charset = getUtf8CharsetOnKitKat();
+            if (sUtf8Charset == null) {
+                sUtf8Charset = getUtf8CharsetOnKitKat();
             }
-            return utf8Charset;
+            return sUtf8Charset;
         }
     }
 

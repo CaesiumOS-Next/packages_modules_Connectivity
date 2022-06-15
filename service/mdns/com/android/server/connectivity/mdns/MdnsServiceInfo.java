@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,6 @@ import java.util.Map;
  * @hide
  */
 public class MdnsServiceInfo implements Parcelable {
-
     /** @hide */
     public static final Parcelable.Creator<MdnsServiceInfo> CREATOR =
             new Parcelable.Creator<MdnsServiceInfo>() {
@@ -58,15 +57,15 @@ public class MdnsServiceInfo implements Parcelable {
                 }
             };
 
-    private final String serviceInstanceName;
-    private final String[] serviceType;
-    private final List<String> subtypes;
-    private final String[] hostName;
-    private final int port;
-    private final String ipv4Address;
-    private final String ipv6Address;
-    private final Map<String, String> attributes = new HashMap<>();
-    List<String> textStrings;
+    private final String mServiceInstanceName;
+    private final String[] mServiceType;
+    private final List<String> mSubtypes;
+    private final String[] mHostName;
+    private final int mPort;
+    private final String mIpv4Address;
+    private final String mIpv6Address;
+    private final Map<String, String> mAttributes = new HashMap<>();
+    List<String> mTextStrings;
 
     /**
      * Constructs a {@link MdnsServiceInfo} object with default values.
@@ -82,23 +81,23 @@ public class MdnsServiceInfo implements Parcelable {
             String ipv4Address,
             String ipv6Address,
             List<String> textStrings) {
-        this.serviceInstanceName = serviceInstanceName;
-        this.serviceType = serviceType;
-        this.subtypes = new ArrayList<>();
+        mServiceInstanceName = serviceInstanceName;
+        mServiceType = serviceType;
+        mSubtypes = new ArrayList<>();
         if (subtypes != null) {
-            this.subtypes.addAll(subtypes);
+            mSubtypes.addAll(subtypes);
         }
-        this.hostName = hostName;
-        this.port = port;
-        this.ipv4Address = ipv4Address;
-        this.ipv6Address = ipv6Address;
+        mHostName = hostName;
+        mPort = port;
+        mIpv4Address = ipv4Address;
+        mIpv6Address = ipv6Address;
         if (textStrings != null) {
             for (String text : textStrings) {
                 int pos = text.indexOf('=');
                 if (pos < 1) {
                     continue;
                 }
-                attributes.put(text.substring(0, pos).toLowerCase(Locale.ENGLISH),
+                mAttributes.put(text.substring(0, pos).toLowerCase(Locale.ENGLISH),
                         text.substring(++pos));
             }
         }
@@ -106,58 +105,58 @@ public class MdnsServiceInfo implements Parcelable {
 
     /** @return the name of this service instance. */
     public String getServiceInstanceName() {
-        return serviceInstanceName;
+        return mServiceInstanceName;
     }
 
     /** @return the type of this service instance. */
     public String[] getServiceType() {
-        return serviceType;
+        return mServiceType;
     }
 
     /** @return the list of subtypes supported by this service instance. */
     public List<String> getSubtypes() {
-        return new ArrayList<>(subtypes);
+        return new ArrayList<>(mSubtypes);
     }
 
     /**
      * @return {@code true} if this service instance supports any subtypes.
-     * @return {@code false} if this service instance does not support any subtypes.
+     *         {@code false} if this service instance does not support any subtypes.
      */
     public boolean hasSubtypes() {
-        return !subtypes.isEmpty();
+        return !mSubtypes.isEmpty();
     }
 
     /** @return the host name of this service instance. */
     public String[] getHostName() {
-        return hostName;
+        return mHostName;
     }
 
     /** @return the port number of this service instance. */
     public int getPort() {
-        return port;
+        return mPort;
     }
 
     /** @return the IPV4 address of this service instance. */
     public String getIpv4Address() {
-        return ipv4Address;
+        return mIpv4Address;
     }
 
     /** @return the IPV6 address of this service instance. */
     public String getIpv6Address() {
-        return ipv6Address;
+        return mIpv6Address;
     }
 
     /**
      * @return the attribute value for {@code key}.
-     * @return {@code null} if no attribute value exists for {@code key}.
+     *         {@code null} if no attribute value exists for {@code key}.
      */
     public String getAttributeByKey(@NonNull String key) {
-        return attributes.get(key.toLowerCase(Locale.ENGLISH));
+        return mAttributes.get(key.toLowerCase(Locale.ENGLISH));
     }
 
     /** @return an immutable map of all attributes. */
     public Map<String, String> getAttributes() {
-        return Collections.unmodifiableMap(attributes);
+        return Collections.unmodifiableMap(mAttributes);
     }
 
     @Override
@@ -167,22 +166,22 @@ public class MdnsServiceInfo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel out, int flags) {
-        if (textStrings == null) {
+        if (mTextStrings == null) {
             // Lazily initialize the parcelable field mTextStrings.
-            textStrings = new ArrayList<>(attributes.size());
-            for (Map.Entry<String, String> kv : attributes.entrySet()) {
-                textStrings.add(String.format(Locale.ROOT, "%s=%s", kv.getKey(), kv.getValue()));
+            mTextStrings = new ArrayList<>(mAttributes.size());
+            for (Map.Entry<String, String> kv : mAttributes.entrySet()) {
+                mTextStrings.add(String.format(Locale.ROOT, "%s=%s", kv.getKey(), kv.getValue()));
             }
         }
 
-        out.writeString(serviceInstanceName);
-        out.writeStringArray(serviceType);
-        out.writeStringList(subtypes);
-        out.writeStringArray(hostName);
-        out.writeInt(port);
-        out.writeString(ipv4Address);
-        out.writeString(ipv6Address);
-        out.writeStringList(textStrings);
+        out.writeString(mServiceInstanceName);
+        out.writeStringArray(mServiceType);
+        out.writeStringList(mSubtypes);
+        out.writeStringArray(mHostName);
+        out.writeInt(mPort);
+        out.writeString(mIpv4Address);
+        out.writeString(mIpv6Address);
+        out.writeStringList(mTextStrings);
     }
 
     @Override
@@ -190,9 +189,9 @@ public class MdnsServiceInfo implements Parcelable {
         return String.format(
                 Locale.ROOT,
                 "Name: %s, subtypes: %s, ip: %s, port: %d",
-                serviceInstanceName,
-                TextUtils.join(",", subtypes),
-                ipv4Address,
-                port);
+                mServiceInstanceName,
+                TextUtils.join(",", mSubtypes),
+                mIpv4Address,
+                mPort);
     }
 }

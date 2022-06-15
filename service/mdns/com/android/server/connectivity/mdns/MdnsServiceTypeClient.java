@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,25 +42,24 @@ import java.util.concurrent.TimeUnit;
 // TODO(b/177655645): Resolve nullness suppression.
 @SuppressWarnings("nullness")
 public class MdnsServiceTypeClient {
-
     private static final int DEFAULT_MTU = 1500;
     private static final MdnsLogger LOGGER = new MdnsLogger("MdnsServiceTypeClient");
 
-    private final String serviceType;
-    private final String[] serviceTypeLabels;
-    private final MdnsSocketClient socketClient;
-    private final ScheduledExecutorService executor;
-    private final Object lock = new Object();
-    private final Set<MdnsServiceBrowserListener> listeners = new ArraySet<>();
-    private final Map<String, MdnsResponse> instanceNameToResponse = new HashMap<>();
+    private final String mServiceType;
+    private final String[] mServiceTypeLabels;
+    private final MdnsSocketClient mSocketClient;
+    private final ScheduledExecutorService mExecutor;
+    private final Object mLock = new Object();
+    private final Set<MdnsServiceBrowserListener> mListeners = new ArraySet<>();
+    private final Map<String, MdnsResponse> mInstanceNameToResponse = new HashMap<>();
 
     // The session ID increases when startSendAndReceive() is called where we schedule a
     // QueryTask for
     // new subtypes. It stays the same between packets for same subtypes.
-    private long currentSessionId = 0;
+    private long mCurrentSessionId = 0;
 
     @GuardedBy("lock")
-    private Future<?> requestTaskFuture;
+    private Future<?> mRequestTaskFuture;
 
     /**
      * Constructor of {@link MdnsServiceTypeClient}.
@@ -72,10 +71,10 @@ public class MdnsServiceTypeClient {
             @NonNull String serviceType,
             @NonNull MdnsSocketClient socketClient,
             @NonNull ScheduledExecutorService executor) {
-        this.serviceType = serviceType;
-        this.socketClient = socketClient;
-        this.executor = executor;
-        serviceTypeLabels = TextUtils.split(serviceType, "\\.");
+        mServiceType = serviceType;
+        mSocketClient = socketClient;
+        mExecutor = executor;
+        mServiceTypeLabels = TextUtils.split(serviceType, "\\.");
     }
 
     private static MdnsServiceInfo buildMdnsServiceInfoFromResponse(
@@ -114,30 +113,30 @@ public class MdnsServiceTypeClient {
     public void startSendAndReceive(
             @NonNull MdnsServiceBrowserListener listener,
             @NonNull MdnsSearchOptions searchOptions) {
-        synchronized (lock) {
-            if (!listeners.contains(listener)) {
-                listeners.add(listener);
-                for (MdnsResponse existingResponse : instanceNameToResponse.values()) {
+        synchronized (mLock) {
+            if (!mListeners.contains(listener)) {
+                mListeners.add(listener);
+                for (MdnsResponse existingResponse : mInstanceNameToResponse.values()) {
                     if (existingResponse.isComplete()) {
                         listener.onServiceFound(
                                 buildMdnsServiceInfoFromResponse(existingResponse,
-                                        serviceTypeLabels));
+                                        mServiceTypeLabels));
                     }
                 }
             }
             // Cancel the next scheduled periodical task.
-            if (requestTaskFuture != null) {
-                requestTaskFuture.cancel(true);
+            if (mRequestTaskFuture != null) {
+                mRequestTaskFuture.cancel(true);
             }
             // Keep tracking the ScheduledFuture for the task so we can cancel it if caller is not
             // interested anymore.
-            requestTaskFuture =
-                    executor.submit(
+            mRequestTaskFuture =
+                    mExecutor.submit(
                             new QueryTask(
                                     new QueryTaskConfig(
                                             searchOptions.getSubtypes(),
                                             searchOptions.isPassiveMode(),
-                                            ++currentSessionId)));
+                                            ++mCurrentSessionId)));
         }
     }
 
@@ -149,18 +148,18 @@ public class MdnsServiceTypeClient {
      * listener}. Otherwise returns {@code false}.
      */
     public boolean stopSendAndReceive(@NonNull MdnsServiceBrowserListener listener) {
-        synchronized (lock) {
-            listeners.remove(listener);
-            if (listeners.isEmpty() && requestTaskFuture != null) {
-                requestTaskFuture.cancel(true);
-                requestTaskFuture = null;
+        synchronized (mLock) {
+            mListeners.remove(listener);
+            if (mListeners.isEmpty() && mRequestTaskFuture != null) {
+                mRequestTaskFuture.cancel(true);
+                mRequestTaskFuture = null;
             }
-            return listeners.isEmpty();
+            return mListeners.isEmpty();
         }
     }
 
     public String[] getServiceTypeLabels() {
-        return serviceTypeLabels;
+        return mServiceTypeLabels;
     }
 
     public synchronized void processResponse(@NonNull MdnsResponse response) {
@@ -172,21 +171,21 @@ public class MdnsServiceTypeClient {
     }
 
     public synchronized void onFailedToParseMdnsResponse(int receivedPacketNumber, int errorCode) {
-        for (MdnsServiceBrowserListener listener : listeners) {
+        for (MdnsServiceBrowserListener listener : mListeners) {
             listener.onFailedToParseMdnsResponse(receivedPacketNumber, errorCode);
         }
     }
 
     private void onResponseReceived(@NonNull MdnsResponse response) {
         MdnsResponse currentResponse;
-        currentResponse = instanceNameToResponse.get(response.getServiceInstanceName());
+        currentResponse = mInstanceNameToResponse.get(response.getServiceInstanceName());
 
         boolean newServiceFound = false;
         boolean existingServiceChanged = false;
         if (currentResponse == null) {
             newServiceFound = true;
             currentResponse = response;
-            instanceNameToResponse.put(response.getServiceInstanceName(), currentResponse);
+            mInstanceNameToResponse.put(response.getServiceInstanceName(), currentResponse);
         } else if (currentResponse.mergeRecordsFrom(response)) {
             existingServiceChanged = true;
         }
@@ -194,9 +193,9 @@ public class MdnsServiceTypeClient {
             return;
         }
         MdnsServiceInfo serviceInfo =
-                buildMdnsServiceInfoFromResponse(currentResponse, serviceTypeLabels);
+                buildMdnsServiceInfoFromResponse(currentResponse, mServiceTypeLabels);
 
-        for (MdnsServiceBrowserListener listener : listeners) {
+        for (MdnsServiceBrowserListener listener : mListeners) {
             if (newServiceFound) {
                 listener.onServiceFound(serviceInfo);
             } else {
@@ -206,8 +205,8 @@ public class MdnsServiceTypeClient {
     }
 
     private void onGoodbyeReceived(@NonNull String serviceInstanceName) {
-        instanceNameToResponse.remove(serviceInstanceName);
-        for (MdnsServiceBrowserListener listener : listeners) {
+        mInstanceNameToResponse.remove(serviceInstanceName);
+        for (MdnsServiceBrowserListener listener : mListeners) {
             listener.onServiceRemoved(serviceInstanceName);
         }
     }
@@ -221,7 +220,6 @@ public class MdnsServiceTypeClient {
     // Call to getConfigForNextRun returns a config that can be used to build the next query task.
     @VisibleForTesting
     static class QueryTaskConfig {
-
         private static final int INITIAL_TIME_BETWEEN_BURSTS_MS =
                 (int) MdnsConfigs.initialTimeBetweenBurstsMs();
         private static final int TIME_BETWEEN_BURSTS_MS = (int) MdnsConfigs.timeBetweenBurstsMs();
@@ -234,42 +232,42 @@ public class MdnsServiceTypeClient {
         // The following fields are used by QueryTask so we need to test them.
         @VisibleForTesting
         final List<String> subtypes;
-        private final boolean alwaysAskForUnicastResponse =
+        private final boolean mAlwaysAskForUnicastResponse =
                 MdnsConfigs.alwaysAskForUnicastResponseInEachBurst();
-        private final boolean usePassiveMode;
-        private final long sessionId;
+        private final boolean mUsePassiveMode;
+        private final long mSessionId;
         @VisibleForTesting
         int transactionId;
         @VisibleForTesting
         boolean expectUnicastResponse;
-        private int queriesPerBurst;
-        private int timeBetweenBurstsInMs;
-        private int burstCounter;
-        private int timeToRunNextTaskInMs;
-        private boolean isFirstBurst;
+        private int mQueriesPerBurst;
+        private int mTimeBetweenBurstsInMs;
+        private int mBurstCounter;
+        private int mTimeToRunNextTaskInMs;
+        private boolean mIsFirstBurst;
 
         QueryTaskConfig(@NonNull Collection<String> subtypes, boolean usePassiveMode,
                 long sessionId) {
-            this.usePassiveMode = usePassiveMode;
+            mUsePassiveMode = usePassiveMode;
             this.subtypes = new ArrayList<>(subtypes);
-            this.queriesPerBurst = QUERIES_PER_BURST;
-            this.burstCounter = 0;
+            mQueriesPerBurst = QUERIES_PER_BURST;
+            mBurstCounter = 0;
             this.transactionId = 1;
             this.expectUnicastResponse = true;
-            this.isFirstBurst = true;
-            this.sessionId = sessionId;
+            mIsFirstBurst = true;
+            mSessionId = sessionId;
             // Config the scan frequency based on the scan mode.
-            if (this.usePassiveMode) {
+            if (mUsePassiveMode) {
                 // In passive scan mode, sends a single burst of QUERIES_PER_BURST queries, and then
                 // in each TIME_BETWEEN_BURSTS interval, sends QUERIES_PER_BURST_PASSIVE_MODE
                 // queries.
-                this.timeBetweenBurstsInMs = TIME_BETWEEN_BURSTS_MS;
+                mTimeBetweenBurstsInMs = TIME_BETWEEN_BURSTS_MS;
             } else {
                 // In active scan mode, sends a burst of QUERIES_PER_BURST queries,
                 // TIME_BETWEEN_QUERIES_IN_BURST_MS apart, then waits for the scan interval, and
                 // then repeats. The scan interval starts as INITIAL_TIME_BETWEEN_BURSTS_MS and
                 // doubles until it maxes out at TIME_BETWEEN_BURSTS_MS.
-                this.timeBetweenBurstsInMs = INITIAL_TIME_BETWEEN_BURSTS_MS;
+                mTimeBetweenBurstsInMs = INITIAL_TIME_BETWEEN_BURSTS_MS;
             }
         }
 
@@ -279,32 +277,32 @@ public class MdnsServiceTypeClient {
             }
             // Only the first query expects uni-cast response.
             expectUnicastResponse = false;
-            if (++burstCounter == queriesPerBurst) {
-                burstCounter = 0;
+            if (++mBurstCounter == mQueriesPerBurst) {
+                mBurstCounter = 0;
 
-                if (alwaysAskForUnicastResponse) {
+                if (mAlwaysAskForUnicastResponse) {
                     expectUnicastResponse = true;
                 }
                 // In passive scan mode, sends a single burst of QUERIES_PER_BURST queries, and
                 // then in each TIME_BETWEEN_BURSTS interval, sends QUERIES_PER_BURST_PASSIVE_MODE
                 // queries.
-                if (isFirstBurst) {
-                    isFirstBurst = false;
-                    if (usePassiveMode) {
-                        queriesPerBurst = QUERIES_PER_BURST_PASSIVE_MODE;
+                if (mIsFirstBurst) {
+                    mIsFirstBurst = false;
+                    if (mUsePassiveMode) {
+                        mQueriesPerBurst = QUERIES_PER_BURST_PASSIVE_MODE;
                     }
                 }
                 // In active scan mode, sends a burst of QUERIES_PER_BURST queries,
                 // TIME_BETWEEN_QUERIES_IN_BURST_MS apart, then waits for the scan interval, and
                 // then repeats. The scan interval starts as INITIAL_TIME_BETWEEN_BURSTS_MS and
                 // doubles until it maxes out at TIME_BETWEEN_BURSTS_MS.
-                timeToRunNextTaskInMs = timeBetweenBurstsInMs;
-                if (timeBetweenBurstsInMs < TIME_BETWEEN_BURSTS_MS) {
-                    timeBetweenBurstsInMs = Math.min(timeBetweenBurstsInMs * 2,
+                mTimeToRunNextTaskInMs = mTimeBetweenBurstsInMs;
+                if (mTimeBetweenBurstsInMs < TIME_BETWEEN_BURSTS_MS) {
+                    mTimeBetweenBurstsInMs = Math.min(mTimeBetweenBurstsInMs * 2,
                             TIME_BETWEEN_BURSTS_MS);
                 }
             } else {
-                timeToRunNextTaskInMs = TIME_BETWEEN_QUERIES_IN_BURST_MS;
+                mTimeToRunNextTaskInMs = TIME_BETWEEN_QUERIES_IN_BURST_MS;
             }
             return this;
         }
@@ -313,10 +311,10 @@ public class MdnsServiceTypeClient {
     // A FutureTask that enqueues a single query, and schedule a new FutureTask for the next task.
     private class QueryTask implements Runnable {
 
-        private final QueryTaskConfig config;
+        private final QueryTaskConfig mConfig;
 
         QueryTask(@NonNull QueryTaskConfig config) {
-            this.config = config;
+            mConfig = config;
         }
 
         @Override
@@ -325,44 +323,44 @@ public class MdnsServiceTypeClient {
             try {
                 result =
                         new EnqueueMdnsQueryCallable(
-                                socketClient,
+                                mSocketClient,
                                 createMdnsPacketWriter(),
-                                serviceType,
-                                config.subtypes,
-                                config.expectUnicastResponse,
-                                config.transactionId)
+                                mServiceType,
+                                mConfig.subtypes,
+                                mConfig.expectUnicastResponse,
+                                mConfig.transactionId)
                                 .call();
             } catch (Exception e) {
                 LOGGER.e(String.format("Failed to run EnqueueMdnsQueryCallable for subtype: %s",
-                        TextUtils.join(",", config.subtypes)), e);
+                        TextUtils.join(",", mConfig.subtypes)), e);
                 result = null;
             }
-            synchronized (lock) {
+            synchronized (mLock) {
                 if (MdnsConfigs.useSessionIdToScheduleMdnsTask()) {
                     // In case that the task is not canceled successfully, use session ID to check
                     // if this task should continue to schedule more.
-                    if (config.sessionId != currentSessionId) {
+                    if (mConfig.mSessionId != mCurrentSessionId) {
                         return;
                     }
                 }
 
                 if (MdnsConfigs.shouldCancelScanTaskWhenFutureIsNull()) {
-                    if (requestTaskFuture == null) {
-                        // If requestTaskFuture is set to null, the task is cancelled. We can't use
+                    if (mRequestTaskFuture == null) {
+                        // If mRequestTaskFuture is set to null, the task is cancelled. We can't use
                         // isCancelled() here because this QueryTask is different from the future
                         // that is returned from executor.schedule(). See b/71646910.
                         return;
                     }
                 }
                 if ((result != null)) {
-                    for (MdnsServiceBrowserListener listener : listeners) {
+                    for (MdnsServiceBrowserListener listener : mListeners) {
                         listener.onDiscoveryQuerySent(result.second, result.first);
                     }
                 }
-                QueryTaskConfig config = this.config.getConfigForNextRun();
-                requestTaskFuture =
-                        executor.schedule(
-                                new QueryTask(config), config.timeToRunNextTaskInMs,
+                QueryTaskConfig config = mConfig.getConfigForNextRun();
+                mRequestTaskFuture =
+                        mExecutor.schedule(
+                                new QueryTask(config), config.mTimeToRunNextTaskInMs,
                                 TimeUnit.MILLISECONDS);
             }
         }

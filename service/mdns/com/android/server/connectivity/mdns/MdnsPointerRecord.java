@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import java.util.Arrays;
 @SuppressWarnings("nullness")
 @VisibleForTesting
 public class MdnsPointerRecord extends MdnsRecord {
-    private String[] pointer;
+    private String[] mPointer;
 
     public MdnsPointerRecord(String[] name, MdnsPacketReader reader) throws IOException {
         super(name, TYPE_PTR, reader);
@@ -34,35 +34,37 @@ public class MdnsPointerRecord extends MdnsRecord {
 
     /** Returns the pointer as an array of labels. */
     public String[] getPointer() {
-        return pointer;
+        return mPointer;
     }
 
     @Override
     protected void readData(MdnsPacketReader reader) throws IOException {
-        pointer = reader.readLabels();
+        mPointer = reader.readLabels();
     }
 
     @Override
     protected void writeData(MdnsPacketWriter writer) throws IOException {
-        writer.writeLabels(pointer);
+        writer.writeLabels(mPointer);
     }
 
     public boolean hasSubtype() {
-        return (name != null) && (name.length > 2) && name[1].equals(MdnsConstants.SUBTYPE_LABEL);
+        return (mName != null)
+                && (mName.length > 2)
+                && mName[1].equals(MdnsConstants.SUBTYPE_LABEL);
     }
 
     public String getSubtype() {
-        return hasSubtype() ? name[0] : null;
+        return hasSubtype() ? mName[0] : null;
     }
 
     @Override
     public String toString() {
-        return "PTR: " + labelsToString(name) + " -> " + labelsToString(pointer);
+        return "PTR: " + labelsToString(mName) + " -> " + labelsToString(mPointer);
     }
 
     @Override
     public int hashCode() {
-        return (super.hashCode() * 31) + Arrays.hashCode(pointer);
+        return (super.hashCode() * 31) + Arrays.hashCode(mPointer);
     }
 
     @Override
@@ -74,6 +76,6 @@ public class MdnsPointerRecord extends MdnsRecord {
             return false;
         }
 
-        return super.equals(other) && Arrays.equals(pointer, ((MdnsPointerRecord) other).pointer);
+        return super.equals(other) && Arrays.equals(mPointer, ((MdnsPointerRecord) other).mPointer);
     }
 }
