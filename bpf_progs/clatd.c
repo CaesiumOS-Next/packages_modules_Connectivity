@@ -36,15 +36,10 @@
 #include "bpf_helpers.h"
 #include "bpf_net_helpers.h"
 #include "bpf_shared.h"
+#include "clat_mark.h"
 
 // From kernel:include/net/ip.h
 #define IP_DF 0x4000  // Flag: "Don't Fragment"
-
-// Used for iptables drops ingress clat packet. Beware of clat mark change may break the device
-// which is using the old clat mark in netd platform code. The reason is that the clat mark is a
-// mainline constant since T+ but netd iptable rules (ex: bandwidth control, firewall, and so on)
-// are set in stone.
-#define CLAT_MARK 0xdeadc1a7
 
 DEFINE_BPF_MAP_GRW(clat_ingress6_map, HASH, ClatIngress6Key, ClatIngress6Value, 16, AID_SYSTEM)
 
@@ -105,7 +100,7 @@ static inline __always_inline int nat64(struct __sk_buff* skb, bool is_ethernet)
             // Mark ingress non-offloaded clat packet for dropping in ip6tables bw_raw_PREROUTING.
             // Non-offloaded clat packet is going to be handled by clat daemon and ip6tables. The
             // duplicate one in ip6tables is not necessary.
-            skb->mark = CLAT_MARK;
+            skb->mark = DEAD_CLAT_MARK;
             return TC_ACT_PIPE;
     }
 
@@ -155,7 +150,7 @@ static inline __always_inline int nat64(struct __sk_buff* skb, bool is_ethernet)
         // Mark ingress non-offloaded clat packet for dropping in ip6tables bw_raw_PREROUTING.
         // Non-offloaded clat packet is going to be handled by clat daemon and ip6tables. The
         // duplicate one in ip6tables is not necessary.
-        skb->mark = CLAT_MARK;
+        skb->mark = DEAD_CLAT_MARK;
         return TC_ACT_PIPE;
     }
 
