@@ -17,7 +17,6 @@
 package android.net;
 
 import static android.Manifest.permission.ACCESS_NETWORK_STATE;
-import static android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS;
 import static android.Manifest.permission.DUMP;
 import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
 import static android.Manifest.permission.NETWORK_SETTINGS;
@@ -95,6 +94,7 @@ import com.android.testutils.TestNetworkTracker;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -118,6 +118,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
@@ -165,6 +166,9 @@ public class EthernetTetheringTest {
     private static final int VERSION_TRAFFICCLASS_FLOWLABEL = 0x60000000;
     private static final short HOP_LIMIT = 0x40;
 
+    // Used to check if any available tethering interface existenion. Initialize in #setupOnce.
+    private static boolean sIsInterfaceForTetheringAvailable;
+
     private final Context mContext = InstrumentationRegistry.getContext();
     private final EthernetManager mEm = mContext.getSystemService(EthernetManager.class);
     private final TetheringManager mTm = mContext.getSystemService(TetheringManager.class);
@@ -184,6 +188,23 @@ public class EthernetTetheringTest {
 
     private TestNetworkTracker mUpstreamTracker;
 
+    @BeforeClass
+    public static void setupOnce() {
+        // TODO: figure out a better way to check default tethering interface existenion because
+        // this request probe may spend a few seconds until timeout of TetheredInterfaceRequester.
+        final Context context = InstrumentationRegistry.getContext();
+        final EthernetManager em = context.getSystemService(EthernetManager.class);
+        final TetheredInterfaceRequester requester = new TetheredInterfaceRequester(
+                r -> r.run(), em);
+        try {
+            sIsInterfaceForTetheringAvailable = requester.getInterface() != null;
+        } catch (Exception e) {  // TODO: consider limiting the exception range of getInterface()
+            sIsInterfaceForTetheringAvailable = false;
+        } finally {
+            requester.release();
+        }
+    }
+
     @Before
     public void setUp() throws Exception {
         // Needed to create a TestNetworkInterface, to call requestTetheredInterface, and to receive
@@ -193,7 +214,7 @@ public class EthernetTetheringTest {
         // functions via dumpsys output.
         mUiAutomation.adoptShellPermissionIdentity(
                 MANAGE_TEST_NETWORKS, NETWORK_SETTINGS, TETHER_PRIVILEGED, ACCESS_NETWORK_STATE,
-                CONNECTIVITY_USE_RESTRICTED_NETWORKS, DUMP);
+                DUMP);
         mHandlerThread = new HandlerThread(getClass().getSimpleName());
         mHandlerThread.start();
         mHandler = new Handler(mHandlerThread.getLooper());
@@ -246,7 +267,7 @@ public class EthernetTetheringTest {
     @Test
     public void testVirtualEthernetAlreadyExists() throws Exception {
         // This test requires manipulating packets. Skip if there is a physical Ethernet connected.
-        assumeFalse(mEm.isAvailable());
+        assumeFalse(sIsInterfaceForTetheringAvailable);
 
         mDownstreamIface = createTestInterface();
         // This must be done now because as soon as setIncludeTestInterfaces(true) is called, the
@@ -268,7 +289,7 @@ public class EthernetTetheringTest {
     @Test
     public void testVirtualEthernet() throws Exception {
         // This test requires manipulating packets. Skip if there is a physical Ethernet connected.
-        assumeFalse(mEm.isAvailable());
+        assumeFalse(sIsInterfaceForTetheringAvailable);
 
         CompletableFuture<String> futureIface = mTetheredInterfaceRequester.requestInterface();
 
@@ -285,7 +306,7 @@ public class EthernetTetheringTest {
 
     @Test
     public void testStaticIpv4() throws Exception {
-        assumeFalse(mEm.isAvailable());
+        assumeFalse(sIsInterfaceForTetheringAvailable);
 
         mEm.setIncludeTestInterfaces(true);
 
@@ -363,7 +384,7 @@ public class EthernetTetheringTest {
 
     @Test
     public void testLocalOnlyTethering() throws Exception {
-        assumeFalse(mEm.isAvailable());
+        assumeFalse(sIsInterfaceForTetheringAvailable);
 
         mEm.setIncludeTestInterfaces(true);
 
@@ -397,7 +418,7 @@ public class EthernetTetheringTest {
 
     @Test
     public void testPhysicalEthernet() throws Exception {
-        assumeTrue(mEm.isAvailable());
+        assumeTrue(sIsInterfaceForTetheringAvailable);
         // Do not run this test if adb is over network and ethernet is connected.
         // It is likely the adb run over ethernet, the adb would break when ethernet is switching
         // from client mode to server mode. See b/160389275.
@@ -683,14 +704,18 @@ public class EthernetTetheringTest {
     }
 
     private static final class TetheredInterfaceRequester implements TetheredInterfaceCallback {
-        private final Handler mHandler;
+        private final Executor mExecutor;
         private final EthernetManager mEm;
 
         private TetheredInterfaceRequest mRequest;
         private final CompletableFuture<String> mFuture = new CompletableFuture<>();
 
         TetheredInterfaceRequester(Handler handler, EthernetManager em) {
-            mHandler = handler;
+            this(handler::post, em);
+        }
+
+        TetheredInterfaceRequester(Executor executor, EthernetManager em) {
+            mExecutor = executor;
             mEm = em;
         }
 
@@ -708,7 +733,7 @@ public class EthernetTetheringTest {
         public CompletableFuture<String> requestInterface() {
             assertNull("BUG: more than one tethered interface request", mRequest);
             Log.d(TAG, "Requesting tethered interface");
-            mRequest = mEm.requestTetheredInterface(mHandler::post, this);
+            mRequest = mEm.requestTetheredInterface(mExecutor, this);
             return mFuture;
         }
 
@@ -1091,7 +1116,7 @@ public class EthernetTetheringTest {
 
     private TetheringTester initTetheringTester(List<LinkAddress> upstreamAddresses,
             List<InetAddress> upstreamDnses) throws Exception {
-        assumeFalse(mEm.isAvailable());
+        assumeFalse(sIsInterfaceForTetheringAvailable);
 
         // MyTetheringEventCallback currently only support await first available upstream. Tethering
         // may select internet network as upstream if test network is not available and not be
