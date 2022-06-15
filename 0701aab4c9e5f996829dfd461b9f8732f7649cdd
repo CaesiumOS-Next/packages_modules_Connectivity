@@ -39,6 +39,30 @@
       },
       "revId": "0701aab4c9e5f996829dfd461b9f8732f7649cdd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe5f89fc_cd01c2e1",
+        "filename": "framework/api/system-current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-15T17:02:28Z",
+      "side": 1,
+      "message": "Ack. will defer to your API guidance; added previously based on API council feedback in b/152238712",
+      "parentUuid": "e837ba1c_2e74e247",
+      "range": {
+        "startLine": 252,
+        "startChar": 11,
+        "endLine": 252,
+        "endChar": 21
+      },
+      "revId": "0701aab4c9e5f996829dfd461b9f8732f7649cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
