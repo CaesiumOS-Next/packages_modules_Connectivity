@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77ea8790_46abc5e5",
+        "filename": "framework/src/android/net/TestNetworkManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-15T03:05:31Z",
+      "side": 1,
+      "message": "CARRIER_UP?",
+      "range": {
+        "startLine": 230,
+        "startChar": 49,
+        "endLine": 230,
+        "endChar": 60
+      },
+      "revId": "b9eba1d7244533e0ce2edafae5f448a78468f388",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "939f85fc_a4202495",
+        "filename": "service/jni/com_android_server_TestNetworkService.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-15T03:05:31Z",
+      "side": 1,
+      "message": "Per discussion: let\u0027s look at the interaction of this IFF_UP with the code in TestNetworkService that calls NetdUtils.setInterfaceUp. That code was presumably added for a reason, but why, since this code is already setting the interface up?",
+      "range": {
+        "startLine": 81,
+        "startChar": 20,
+        "endLine": 81,
+        "endChar": 26
+      },
+      "revId": "b9eba1d7244533e0ce2edafae5f448a78468f388",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
