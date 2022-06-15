@@ -1,5 +1,46 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5540a4ea_84f3a9a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-15T06:37:02Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "1205737641d428c367fab896f41a905eee254c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d90c0f2_296bb6dc",
+        "filename": "bpf_progs/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-15T06:37:02Z",
+      "side": 1,
+      "message": "Can we fetch these from android_filesystem_config.h instead? MIN_SYSTEM_UID is 0, MAX_SYSTEM_UID is AID_APP_START - 1. PER_USER_RANGE is AID_USER_OFFSET.",
+      "range": {
+        "startLine": 124,
+        "startChar": 4,
+        "endLine": 124,
+        "endChar": 53
+      },
+      "revId": "1205737641d428c367fab896f41a905eee254c4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
