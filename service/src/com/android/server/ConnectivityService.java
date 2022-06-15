@@ -9276,6 +9276,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         } else if (networkAgent.created && (oldInfo.getState() == NetworkInfo.State.SUSPENDED ||
                 state == NetworkInfo.State.SUSPENDED)) {
             mLegacyTypeTracker.update(networkAgent);
+        } else if (networkAgent.created && oldInfo.getState() == NetworkInfo.State.SUSPENDED &&
+                state == NetworkInfo.State.CONNECTED) {
+            networkAgent.networkMonitor().forceReevaluation(mDeps.getCallingUid());
         }
     }
 
