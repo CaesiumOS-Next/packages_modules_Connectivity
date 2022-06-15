@@ -27,6 +27,7 @@ cc_test {
         "connectivity_native_aidl_interface-lateststable-ndk",
         "libcutils",
         "libmodules-utils-build",
+        "libvintf",
         "libutils",
     ],
     compile_multilib: "first",
