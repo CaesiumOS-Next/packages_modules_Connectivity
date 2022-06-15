@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d8ca72a_fc696da9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-15T09:15:17Z",
+      "side": 1,
+      "message": "LGTM but I don\u0027t think @CallSuper is useful here.",
+      "revId": "0701aab4c9e5f996829dfd461b9f8732f7649cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e837ba1c_2e74e247",
+        "filename": "framework/api/system-current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-15T09:15:17Z",
+      "side": 1,
+      "message": "I don\u0027t think @CallSuper adds much value here.\n- It\u0027s not used anywhere else in the class.\n- It pretty obvious that these methods cause the system to do work, and if the subclass method does not call the superclass method, then that work doesn\u0027t happen. (This is different from an onXyzHappened callback where it\u0027s not obvious that the subclass must call the superclass; in this case @CallSuper does provide value/clarity by saying that calling the superclass method is in fact required.).\n- On the other hand, the methods that *are* callbacks (basically, all the onXyz methods in the class) do not have @CallSuper.",
+      "range": {
+        "startLine": 252,
+        "startChar": 11,
+        "endLine": 252,
+        "endChar": 21
+      },
+      "revId": "0701aab4c9e5f996829dfd461b9f8732f7649cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
