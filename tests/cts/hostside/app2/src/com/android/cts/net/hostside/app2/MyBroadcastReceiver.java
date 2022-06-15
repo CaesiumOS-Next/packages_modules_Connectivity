@@ -42,6 +42,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
+import android.net.Network;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
@@ -162,34 +163,46 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         // TODO: connect to a hostside server instead
         final String address = "http://example.com";
         final NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        final Network network = cm.getActiveNetwork();
         Log.d(TAG, "Running checkNetworkStatus() on thread "
                 + Thread.currentThread().getName() + " for UID " + getUid(context)
                 + "\n\tactiveNetworkInfo: " + networkInfo + "\n\tURL: " + address);
-        boolean checkStatus = false;
-        String checkDetails = "N/A";
-        try {
-            final URL url = new URL(address);
-            final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(NETWORK_TIMEOUT_MS);
-            conn.setConnectTimeout(NETWORK_TIMEOUT_MS / 2);
-            conn.setRequestMethod("GET");
-            conn.setDoInput(true);
-            conn.connect();
-            final int response = conn.getResponseCode();
-            checkStatus = true;
-            checkDetails = "HTTP response for " + address + ": " + response;
-        } catch (Exception e) {
-            checkStatus = false;
-            checkDetails = "Exception getting " + address + ": " + e;
-        }
-        Log.d(TAG, checkDetails);
         final String state, detailedState;
+        String checkDetails = "N/A";
+
         if (networkInfo != null) {
             state = networkInfo.getState().name();
             detailedState = networkInfo.getDetailedState().name();
+
+            // If network is null but networkInfo is not null, which means there is a default
+            // network but the network is blocked for the caller.
+            if (network == null) {
+                checkDetails = "Network is blocked";
+            }
         } else {
             state = detailedState = "null";
         }
+
+        boolean checkStatus = false;
+        if (network != null) {
+            try {
+                final HttpURLConnection conn =
+                        (HttpURLConnection) network.openConnection(new URL(address));
+                conn.setReadTimeout(NETWORK_TIMEOUT_MS);
+                conn.setConnectTimeout(NETWORK_TIMEOUT_MS / 2);
+                conn.setRequestMethod("GET");
+                conn.setDoInput(true);
+                conn.connect();
+                final int response = conn.getResponseCode();
+                checkStatus = true;
+                checkDetails = "HTTP response for " + address + ": " + response;
+            } catch (Exception e) {
+                checkStatus = false;
+                checkDetails = "Exception getting " + address + ": " + e;
+            }
+        }
+
+        Log.d(TAG, checkDetails);
         final String status = String.format(NETWORK_STATUS_TEMPLATE, state, detailedState,
                 Boolean.valueOf(checkStatus), checkDetails, networkInfo);
         Log.d(TAG, "Offering " + status);
