@@ -41,6 +41,7 @@ import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ECHO_REQU
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ROUTER_ADVERTISEMENT;
 import static com.android.testutils.DeviceInfoUtils.KVersion;
 import static com.android.testutils.TestNetworkTrackerKt.initTestNetwork;
+import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -76,6 +77,7 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.MediumTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.Ipv6Utils;
 import com.android.net.module.util.PacketBuilder;
 import com.android.net.module.util.Struct;
@@ -185,13 +187,11 @@ public class EthernetTetheringTest {
     @Before
     public void setUp() throws Exception {
         // Needed to create a TestNetworkInterface, to call requestTetheredInterface, and to receive
-        // tethered client callbacks. The restricted networks permission is needed to ensure that
-        // EthernetManager#isAvailable will correctly return true on devices where Ethernet is
-        // marked restricted, like cuttlefish. The dump permission is needed to verify bpf related
-        // functions via dumpsys output.
+        // tethered client callbacks. The dump permission is needed to verify bpf related functions
+        // via dumpsys output.
         mUiAutomation.adoptShellPermissionIdentity(
                 MANAGE_TEST_NETWORKS, NETWORK_SETTINGS, TETHER_PRIVILEGED, ACCESS_NETWORK_STATE,
-                CONNECTIVITY_USE_RESTRICTED_NETWORKS, DUMP);
+                DUMP);
         mHandlerThread = new HandlerThread(getClass().getSimpleName());
         mHandlerThread.start();
         mHandler = new Handler(mHandlerThread.getLooper());
@@ -241,10 +241,21 @@ public class EthernetTetheringTest {
         }
     }
 
+    private boolean isEthernetInterfaceAvailable() {
+        if (SdkLevel.isAtLeastT()) {
+            return mEm.isAvailable();
+        }
+
+        // For pre-T devices, the restricted networks permission is needed to ensure that
+        // EthernetManager#isAvailable will correctly return true on devices where Ethernet is
+        // marked restricted, like cuttlefish.
+        return runAsShell(CONNECTIVITY_USE_RESTRICTED_NETWORKS, () -> mEm.isAvailable());
+    }
+
     @Test
     public void testVirtualEthernetAlreadyExists() throws Exception {
         // This test requires manipulating packets. Skip if there is a physical Ethernet connected.
-        assumeFalse(mEm.isAvailable());
+        assumeFalse(isEthernetInterfaceAvailable());
 
         mDownstreamIface = createTestInterface();
         // This must be done now because as soon as setIncludeTestInterfaces(true) is called, the
@@ -266,7 +277,7 @@ public class EthernetTetheringTest {
     @Test
     public void testVirtualEthernet() throws Exception {
         // This test requires manipulating packets. Skip if there is a physical Ethernet connected.
-        assumeFalse(mEm.isAvailable());
+        assumeFalse(isEthernetInterfaceAvailable());
 
         CompletableFuture<String> futureIface = mTetheredInterfaceRequester.requestInterface();
 
@@ -283,7 +294,7 @@ public class EthernetTetheringTest {
 
     @Test
     public void testStaticIpv4() throws Exception {
-        assumeFalse(mEm.isAvailable());
+        assumeFalse(isEthernetInterfaceAvailable());
 
         mEm.setIncludeTestInterfaces(true);
 
@@ -361,7 +372,7 @@ public class EthernetTetheringTest {
 
     @Test
     public void testLocalOnlyTethering() throws Exception {
-        assumeFalse(mEm.isAvailable());
+        assumeFalse(isEthernetInterfaceAvailable());
 
         mEm.setIncludeTestInterfaces(true);
 
@@ -395,7 +406,7 @@ public class EthernetTetheringTest {
 
     @Test
     public void testPhysicalEthernet() throws Exception {
-        assumeTrue(mEm.isAvailable());
+        assumeTrue(isEthernetInterfaceAvailable());
         // Do not run this test if adb is over network and ethernet is connected.
         // It is likely the adb run over ethernet, the adb would break when ethernet is switching
         // from client mode to server mode. See b/160389275.
@@ -1053,7 +1064,7 @@ public class EthernetTetheringTest {
 
     private TetheringTester initTetheringTester(List<LinkAddress> upstreamAddresses,
             List<InetAddress> upstreamDnses) throws Exception {
-        assumeFalse(mEm.isAvailable());
+        assumeFalse(isEthernetInterfaceAvailable());
 
         // MyTetheringEventCallback currently only support await first available upstream. Tethering
         // may select internet network as upstream if test network is not available and not be
