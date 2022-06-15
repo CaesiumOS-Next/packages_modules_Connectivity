@@ -17,7 +17,6 @@
 package android.net;
 
 import static android.Manifest.permission.ACCESS_NETWORK_STATE;
-import static android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS;
 import static android.Manifest.permission.DUMP;
 import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
 import static android.Manifest.permission.NETWORK_SETTINGS;
@@ -128,7 +127,7 @@ public class EthernetTetheringTest {
     public final DevSdkIgnoreRule mIgnoreRule = new DevSdkIgnoreRule();
 
     private static final String TAG = EthernetTetheringTest.class.getSimpleName();
-    private static final int TIMEOUT_MS = 5000;
+    private static final int TIMEOUT_MS = 2000;
     private static final int TETHER_REACHABILITY_ATTEMPTS = 20;
     private static final int DUMP_POLLING_MAX_RETRY = 100;
     private static final int DUMP_POLLING_INTERVAL_MS = 50;
@@ -193,7 +192,7 @@ public class EthernetTetheringTest {
         // functions via dumpsys output.
         mUiAutomation.adoptShellPermissionIdentity(
                 MANAGE_TEST_NETWORKS, NETWORK_SETTINGS, TETHER_PRIVILEGED, ACCESS_NETWORK_STATE,
-                CONNECTIVITY_USE_RESTRICTED_NETWORKS, DUMP);
+                DUMP);
         mHandlerThread = new HandlerThread(getClass().getSimpleName());
         mHandlerThread.start();
         mHandler = new Handler(mHandlerThread.getLooper());
@@ -243,10 +242,25 @@ public class EthernetTetheringTest {
         }
     }
 
+    private boolean isInterfaceForTetheringAvailable() throws Exception {
+        // TODO: figure out a better way to detect default tethering interface because this may
+        // spend a few seconds until timeout of TetheredInterfaceRequester.
+        final TetheredInterfaceRequester tetheredInterfaceRequester =
+                new TetheredInterfaceRequester(mHandler, mEm);
+        try {
+            tetheredInterfaceRequester.getInterface();
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        } finally {
+            tetheredInterfaceRequester.release();
+        }
+    }
+
     @Test
     public void testVirtualEthernetAlreadyExists() throws Exception {
         // This test requires manipulating packets. Skip if there is a physical Ethernet connected.
-        assumeFalse(mEm.isAvailable());
+        assumeFalse(isInterfaceForTetheringAvailable());
 
         mDownstreamIface = createTestInterface();
         // This must be done now because as soon as setIncludeTestInterfaces(true) is called, the
@@ -268,7 +282,7 @@ public class EthernetTetheringTest {
     @Test
     public void testVirtualEthernet() throws Exception {
         // This test requires manipulating packets. Skip if there is a physical Ethernet connected.
-        assumeFalse(mEm.isAvailable());
+        assumeFalse(isInterfaceForTetheringAvailable());
 
         CompletableFuture<String> futureIface = mTetheredInterfaceRequester.requestInterface();
 
@@ -285,7 +299,7 @@ public class EthernetTetheringTest {
 
     @Test
     public void testStaticIpv4() throws Exception {
-        assumeFalse(mEm.isAvailable());
+        assumeFalse(isInterfaceForTetheringAvailable());
 
         mEm.setIncludeTestInterfaces(true);
 
@@ -363,7 +377,7 @@ public class EthernetTetheringTest {
 
     @Test
     public void testLocalOnlyTethering() throws Exception {
-        assumeFalse(mEm.isAvailable());
+        assumeFalse(isInterfaceForTetheringAvailable());
 
         mEm.setIncludeTestInterfaces(true);
 
@@ -397,7 +411,7 @@ public class EthernetTetheringTest {
 
     @Test
     public void testPhysicalEthernet() throws Exception {
-        assumeTrue(mEm.isAvailable());
+        assumeTrue(isInterfaceForTetheringAvailable());
         // Do not run this test if adb is over network and ethernet is connected.
         // It is likely the adb run over ethernet, the adb would break when ethernet is switching
         // from client mode to server mode. See b/160389275.
@@ -1091,7 +1105,7 @@ public class EthernetTetheringTest {
 
     private TetheringTester initTetheringTester(List<LinkAddress> upstreamAddresses,
             List<InetAddress> upstreamDnses) throws Exception {
-        assumeFalse(mEm.isAvailable());
+        assumeFalse(isInterfaceForTetheringAvailable());
 
         // MyTetheringEventCallback currently only support await first available upstream. Tethering
         // may select internet network as upstream if test network is not available and not be
