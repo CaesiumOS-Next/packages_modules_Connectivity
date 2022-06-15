@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dc2d80a_ca6153fd",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-15T02:31:39Z",
+      "side": 1,
+      "message": "On further thought, this won\u0027t work because stop() is called in restart(). 😞 The callback execution paths are currently really hard to follow -- it may be worth to think about this a little more carefully.\nOne thing I have been trying to do is pulling out the callbacks from the NetworkInterfaceState. For this case, we may want to move them to updateInterface, right before calling restart. At that point, both IpConfig and NetworkCapabilities were updated (so updateConfiguration was successful!). The restart of the IpClient can be tracked via NetworkRequest already.",
+      "range": {
+        "startLine": 653,
+        "startChar": 12,
+        "endLine": 653,
+        "endChar": 54
+      },
+      "revId": "9e7ccdb75b4f23059a78f3185da0876785920394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
