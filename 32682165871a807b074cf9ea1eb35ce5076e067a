@@ -94,6 +94,30 @@
       },
       "revId": "32682165871a807b074cf9ea1eb35ce5076e067a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f0aae50_a1e00084",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-15T12:14:06Z",
+      "side": 1,
+      "message": "Verified on CF@T\n\n(need to disable filter manually)\nhttps://android-build.googleplex.com/builds/tests/view?invocationId\u003dI97100010061413569\u0026testResultId\u003dTR25728092093346246\u0026redirect\u003dhttp%3A%2F%2Fsponge2%2Fa14d84e0-6bf9-435a-beac-c3a403d61f31\u0026tab\u003dresults\n\nandroid.net.EthernetTetheringTest#testIcmpv6Echo\nPassed\n\nandroid.net.EthernetTetheringTest#testIsUdpOffloadSupportedByKernel\nPassed\n\nandroid.net.EthernetTetheringTest#testLocalOnlyTethering\nPassed\n\nandroid.net.EthernetTetheringTest#testStaticIpv4\nPassed\n\nandroid.net.EthernetTetheringTest#testTetherClatUdp\nPassed\n\nandroid.net.EthernetTetheringTest#testTetherUdpV4AfterR\nPassed\n\nandroid.net.EthernetTetheringTest#testVirtualEthernet\nPassed\n\nandroid.net.EthernetTetheringTest#testVirtualEthernetAlreadyExists\nPassed\n\nandroid.net.EthernetTetheringTest#testPhysicalEthernet\nIgnored\n\nandroid.net.EthernetTetheringTest#testTetherUdpV4UpToR\nIgnored",
+      "parentUuid": "389da954_f3b89707",
+      "range": {
+        "startLine": 585,
+        "startChar": 63,
+        "endLine": 585,
+        "endChar": 71
+      },
+      "revId": "32682165871a807b074cf9ea1eb35ce5076e067a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
