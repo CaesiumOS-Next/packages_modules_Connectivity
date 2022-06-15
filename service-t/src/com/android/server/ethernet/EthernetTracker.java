@@ -579,8 +579,8 @@ public class EthernetTracker {
         }
         if (DBG) Log.i(TAG, "maybeTrackInterface: " + iface);
 
-        // TODO: avoid making an interface default if it has configured NetworkCapabilities.
-        if (mDefaultInterface == null) {
+        // Do not make an interface default if it has configured NetworkCapabilities.
+        if (mDefaultInterface == null && !mNetworkCapabilities.contains(iface)) {
             mDefaultInterface = iface;
         }
 
