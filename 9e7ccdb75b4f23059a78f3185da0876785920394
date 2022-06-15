@@ -94,6 +94,30 @@
       },
       "revId": "9e7ccdb75b4f23059a78f3185da0876785920394",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76527282_d62562ba",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-15T17:09:51Z",
+      "side": 1,
+      "message": "Ah, I guess that\u0027s okay because the cb is handed in through start()? I guess I am making my original point here, these callbacks are very hard to keep track of. 😊",
+      "parentUuid": "552eecab_88de25a8",
+      "range": {
+        "startLine": 653,
+        "startChar": 12,
+        "endLine": 653,
+        "endChar": 54
+      },
+      "revId": "9e7ccdb75b4f23059a78f3185da0876785920394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
