@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c923d3c_4a083616",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-15T09:09:28Z",
+      "side": 1,
+      "message": "-1 to block this change first. Nucca find a bug that let this change don\u0027t actually fix the TODO. It seems there is race in parsing ethernet configuration and listen the interface added. If the ethernet interface is active from boot up, it may have chance that the make interface default would happen before paring configuration.",
+      "revId": "82cb26a4f65a74860cea3ca6d3276c40725ce175",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02f9853e_1edb62cc",
