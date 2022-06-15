@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e6be413_0b9eac1d",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-15T00:20:56Z",
+      "side": 1,
+      "message": "I think this should be called out of stop() (or maybe even out of the IpClientCallbacks object), right? It\u0027s also possible that the interface disappears or loses link while provisioning.",
+      "range": {
+        "startLine": 417,
+        "startChar": 20,
+        "endLine": 417,
+        "endChar": 62
+      },
+      "revId": "d9f25da3ae13d59b347e76f9d8d69e63c021a331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ebb89b2_5b25badd",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-15T00:20:56Z",
+      "side": 1,
+      "message": "The interface may not have link and should not be restarted in that case. We should also implement the TODO above and verify both in CTS.",
+      "range": {
+        "startLine": 497,
+        "startChar": 12,
+        "endLine": 497,
+        "endChar": 30
+      },
+      "revId": "d9f25da3ae13d59b347e76f9d8d69e63c021a331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
