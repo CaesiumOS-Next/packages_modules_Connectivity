@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0848e119_ae3bd6c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-15T22:10:04Z",
+      "side": 1,
+      "message": "Yep, test is here https://r.android.com/1991051 and in the process of rebasing.",
+      "parentUuid": "9c5b06d8_adadd99a",
+      "range": {
+        "startLine": 26,
+        "startChar": 19,
+        "endLine": 26,
+        "endChar": 28
+      },
+      "revId": "9e7ccdb75b4f23059a78f3185da0876785920394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "811b55eb_a1658553",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -37,6 +61,24 @@
       "writtenOn": "2022-06-15T21:03:27Z",
       "side": 1,
       "message": "LGTM if comments addressed. James, could you work on rebasing your CTS tests for updateConfiguration, maybe on top of aosp/2120118 (this should give you a bunch of more useful functionality such as setting link state and will reduce the amount of merge conflicts that have to be resolved -- they should be trivial from here on out).",
+      "revId": "9e7ccdb75b4f23059a78f3185da0876785920394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26fd5885_0cf52c86",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-15T22:10:04Z",
+      "side": 1,
+      "message": "Agreed. I have the test here https://r.android.com/1991051 which is on my TODO list to rebase in the next day or two. Thanks!",
+      "parentUuid": "811b55eb_a1658553",
       "revId": "9e7ccdb75b4f23059a78f3185da0876785920394",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -207,6 +249,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6a3d4db_47a58adb",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetNetworkFactoryTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-15T22:10:04Z",
+      "side": 1,
+      "message": "I was actually initially thinking the same but the one nice thing about using captor is that it can be marked final. In any case, I also see benefits of not having an instance of captor so I\u0027ll go with your approach.",
+      "parentUuid": "0e073243_f24fe258",
+      "range": {
+        "startLine": 91,
+        "startChar": 55,
+        "endLine": 91,
+        "endChar": 82
+      },
+      "revId": "9e7ccdb75b4f23059a78f3185da0876785920394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "203f692e_6ad3eb7e",
@@ -220,6 +286,30 @@
       "writtenOn": "2022-06-15T21:03:27Z",
       "side": 1,
       "message": "Alternatively, you could just set link down -- that\u0027s much easier to test and should have the same effect.",
+      "range": {
+        "startLine": 630,
+        "startChar": 0,
+        "endLine": 637,
+        "endChar": 5
+      },
+      "revId": "9e7ccdb75b4f23059a78f3185da0876785920394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff7162c1_16c36b18",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetNetworkFactoryTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-15T22:10:04Z",
+      "side": 1,
+      "message": "Good idea however that wouldn\u0027t cover this particular code flow but to your point a test does exist covering link down just above this test.",
+      "parentUuid": "203f692e_6ad3eb7e",
       "range": {
         "startLine": 630,
         "startChar": 0,
