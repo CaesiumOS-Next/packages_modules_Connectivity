@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60ac71a1_2303d28d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-15T10:36:29Z",
+      "side": 1,
+      "message": "This is mostly comments FYI so you understand why I didn\u0027t want this approach.",
+      "revId": "0218557478a0ddc8d587ec25ecfbecfc9116fc3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb434a6c_ecd1b032",
+        "filename": "bpf_progs/bpf_shared.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-15T10:36:29Z",
+      "side": 1,
+      "message": "FYI, I don\u0027t think will pursue this approach.\n\nBut just imagine what would happen if in aosp/master someone sorted these 4 entries.\n\nThe mainline module\u0027s view of the enum would not match T\u0027s netd\u0027s view.\n\nBut everything would still load/attach/boot (most likely) and instead we\u0027d have for example ingress accounting of egress traffic, and the reverse...\n\nWe would need to find a way to version this enum or prevent it being modified or something",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 0
+      },
+      "revId": "0218557478a0ddc8d587ec25ecfbecfc9116fc3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48d7e1c0_3898a49f",
+        "filename": "netd/NetdUpdatable.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-15T10:36:29Z",
+      "side": 1,
+      "message": "this seems pretty dangerous... should we just crash? why? why not?",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 66
+      },
+      "revId": "0218557478a0ddc8d587ec25ecfbecfc9116fc3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ead99ab_addf60cd",
+        "filename": "netd/include/NetdUpdatablePublic.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-15T10:36:29Z",
+      "side": 1,
+      "message": "dependencies from outside of p/m/C to p/m/C is exactly what we should be eliminating - not adding more of them.\n\nThe core problem isn\u0027t the new dependency, but rather that we end up depending on bpf_shared.h which simply has too much irrelevant stuff in it.\n\nie. we\u0027d need to split bpf_shared.h into smaller pieces and only include the piece we actually need",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 46
+      },
+      "revId": "0218557478a0ddc8d587ec25ecfbecfc9116fc3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16356c2b_81f6445d",
+        "filename": "netd/include/NetdUpdatablePublic.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-15T10:36:29Z",
+      "side": 1,
+      "message": "potentially might just be safer to add 4 arg less functions returning the 4 strings.\n\nor even just add four new non-function \u0027 extern const char * \u0027 exported variables (pointers)",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 65
+      },
+      "revId": "0218557478a0ddc8d587ec25ecfbecfc9116fc3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
