@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,6 @@ import java.util.Set;
  * @hide
  */
 public class MdnsSearchOptions implements Parcelable {
-
     /** @hide */
     public static final Parcelable.Creator<MdnsSearchOptions> CREATOR =
             new Parcelable.Creator<MdnsSearchOptions>() {
@@ -51,18 +50,17 @@ public class MdnsSearchOptions implements Parcelable {
                     return new MdnsSearchOptions[size];
                 }
             };
-    private static MdnsSearchOptions defaultOptions;
-    private final List<String> subtypes;
-
-    private final boolean isPassiveMode;
+    private static MdnsSearchOptions sDefaultOptions;
+    private final List<String> mSubtypes;
+    private final boolean mIsPassiveMode;
 
     /** Parcelable constructs for a {@link MdnsServiceInfo}. */
     MdnsSearchOptions(List<String> subtypes, boolean isPassiveMode) {
-        this.subtypes = new ArrayList<>();
+        mSubtypes = new ArrayList<>();
         if (subtypes != null) {
-            this.subtypes.addAll(subtypes);
+            mSubtypes.addAll(subtypes);
         }
-        this.isPassiveMode = isPassiveMode;
+        mIsPassiveMode = isPassiveMode;
     }
 
     /** Returns a {@link Builder} for {@link MdnsSearchOptions}. */
@@ -72,15 +70,15 @@ public class MdnsSearchOptions implements Parcelable {
 
     /** Returns a default search options. */
     public static synchronized MdnsSearchOptions getDefaultOptions() {
-        if (defaultOptions == null) {
-            defaultOptions = newBuilder().build();
+        if (sDefaultOptions == null) {
+            sDefaultOptions = newBuilder().build();
         }
-        return defaultOptions;
+        return sDefaultOptions;
     }
 
     /** @return the list of subtypes to search. */
     public List<String> getSubtypes() {
-        return subtypes;
+        return mSubtypes;
     }
 
     /**
@@ -88,7 +86,7 @@ public class MdnsSearchOptions implements Parcelable {
      * order to conserve battery and produce less network traffic.
      */
     public boolean isPassiveMode() {
-        return isPassiveMode;
+        return mIsPassiveMode;
     }
 
     @Override
@@ -98,17 +96,17 @@ public class MdnsSearchOptions implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel out, int flags) {
-        out.writeStringList(subtypes);
-        out.writeBoolean(isPassiveMode);
+        out.writeStringList(mSubtypes);
+        out.writeBoolean(mIsPassiveMode);
     }
 
     /** A builder to create {@link MdnsSearchOptions}. */
     public static final class Builder {
-        private final Set<String> subtypes;
-        private boolean isPassiveMode = true;
+        private final Set<String> mSubtypes;
+        private boolean mIsPassiveMode = true;
 
         private Builder() {
-            subtypes = new ArraySet<>();
+            mSubtypes = new ArraySet<>();
         }
 
         /**
@@ -120,7 +118,7 @@ public class MdnsSearchOptions implements Parcelable {
             if (TextUtils.isEmpty(subtype)) {
                 throw new IllegalArgumentException("Empty subtype");
             }
-            subtypes.add(subtype);
+            mSubtypes.add(subtype);
             return this;
         }
 
@@ -130,7 +128,7 @@ public class MdnsSearchOptions implements Parcelable {
          * @param subtypes The list of subtypes to add.
          */
         public Builder addSubtypes(@NonNull Collection<String> subtypes) {
-            this.subtypes.addAll(Objects.requireNonNull(subtypes));
+            mSubtypes.addAll(Objects.requireNonNull(subtypes));
             return this;
         }
 
@@ -143,13 +141,13 @@ public class MdnsSearchOptions implements Parcelable {
          *                      false}, active mode will be used.
          */
         public Builder setIsPassiveMode(boolean isPassiveMode) {
-            this.isPassiveMode = isPassiveMode;
+            mIsPassiveMode = isPassiveMode;
             return this;
         }
 
         /** Builds a {@link MdnsSearchOptions} with the arguments supplied to this builder. */
         public MdnsSearchOptions build() {
-            return new MdnsSearchOptions(new ArrayList<>(subtypes), isPassiveMode);
+            return new MdnsSearchOptions(new ArrayList<>(mSubtypes), mIsPassiveMode);
         }
     }
 }

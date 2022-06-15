@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,8 +31,8 @@ import java.util.Objects;
 @SuppressWarnings("nullness")
 @VisibleForTesting
 public class MdnsInetAddressRecord extends MdnsRecord {
-    private Inet6Address inet6Address;
-    private Inet4Address inet4Address;
+    private Inet6Address mInet6Address;
+    private Inet4Address mInet4Address;
 
     /**
      * Constructs the {@link MdnsRecord}
@@ -48,12 +48,12 @@ public class MdnsInetAddressRecord extends MdnsRecord {
 
     /** Returns the IPv6 address. */
     public Inet6Address getInet6Address() {
-        return inet6Address;
+        return mInet6Address;
     }
 
     /** Returns the IPv4 address. */
     public Inet4Address getInet4Address() {
-        return inet4Address;
+        return mInet4Address;
     }
 
     @Override
@@ -67,14 +67,14 @@ public class MdnsInetAddressRecord extends MdnsRecord {
         try {
             InetAddress address = InetAddress.getByAddress(buf);
             if (address instanceof Inet4Address) {
-                inet4Address = (Inet4Address) address;
-                inet6Address = null;
+                mInet4Address = (Inet4Address) address;
+                mInet6Address = null;
             } else if (address instanceof Inet6Address) {
-                inet4Address = null;
-                inet6Address = (Inet6Address) address;
+                mInet4Address = null;
+                mInet6Address = (Inet6Address) address;
             } else {
-                inet4Address = null;
-                inet6Address = null;
+                mInet4Address = null;
+                mInet6Address = null;
             }
         } catch (UnknownHostException e) {
             // Ignore exception
@@ -84,10 +84,10 @@ public class MdnsInetAddressRecord extends MdnsRecord {
     @Override
     protected void writeData(MdnsPacketWriter writer) throws IOException {
         byte[] buf = null;
-        if (inet4Address != null) {
-            buf = inet4Address.getAddress();
-        } else if (inet6Address != null) {
-            buf = inet6Address.getAddress();
+        if (mInet4Address != null) {
+            buf = mInet4Address.getAddress();
+        } else if (mInet6Address != null) {
+            buf = mInet6Address.getAddress();
         }
         if (buf != null) {
             writer.writeBytes(buf);
@@ -101,15 +101,15 @@ public class MdnsInetAddressRecord extends MdnsRecord {
             type = "A";
         }
         return String.format(
-                Locale.ROOT, "%s: Inet4Address: %s Inet6Address: %s", type, inet4Address,
-                inet6Address);
+                Locale.ROOT, "%s: Inet4Address: %s Inet6Address: %s", type, mInet4Address,
+                mInet6Address);
     }
 
     @Override
     public int hashCode() {
         return (super.hashCode() * 31)
-                + Objects.hashCode(inet4Address)
-                + Objects.hashCode(inet6Address);
+                + Objects.hashCode(mInet4Address)
+                + Objects.hashCode(mInet6Address);
     }
 
     @Override
@@ -122,7 +122,7 @@ public class MdnsInetAddressRecord extends MdnsRecord {
         }
 
         return super.equals(other)
-                && Objects.equals(inet4Address, ((MdnsInetAddressRecord) other).inet4Address)
-                && Objects.equals(inet6Address, ((MdnsInetAddressRecord) other).inet6Address);
+                && Objects.equals(mInet4Address, ((MdnsInetAddressRecord) other).mInet4Address)
+                && Objects.equals(mInet6Address, ((MdnsInetAddressRecord) other).mInet6Address);
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -11,7 +11,7 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License
+ * limitations under the License.
  */
 
 package com.android.server.connectivity.mdns;
@@ -54,28 +54,27 @@ import java.util.List;
 @RunWith(DevSdkIgnoreRunner.class)
 @DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
 public class MulticastNetworkInterfaceProviderTests {
+    @Mock private NetworkInterfaceWrapper mLoopbackInterface;
+    @Mock private NetworkInterfaceWrapper mPointToPointInterface;
+    @Mock private NetworkInterfaceWrapper mVirtualInterface;
+    @Mock private NetworkInterfaceWrapper mInactiveMulticastInterface;
+    @Mock private NetworkInterfaceWrapper mActiveIpv6MulticastInterface1;
+    @Mock private NetworkInterfaceWrapper mActiveIpv6MulticastInterface2;
+    @Mock private NetworkInterfaceWrapper mNonMulticastInterface;
+    @Mock private NetworkInterfaceWrapper mMulticastInterface1;
+    @Mock private NetworkInterfaceWrapper mMulticastInterface2;
 
-    @Mock private NetworkInterfaceWrapper loopbackInterface;
-    @Mock private NetworkInterfaceWrapper pointToPointInterface;
-    @Mock private NetworkInterfaceWrapper virtualInterface;
-    @Mock private NetworkInterfaceWrapper inactiveMulticastInterface;
-    @Mock private NetworkInterfaceWrapper activeIpv6MulticastInterface;
-    @Mock private NetworkInterfaceWrapper activeIpv6MulticastInterfaceTwo;
-    @Mock private NetworkInterfaceWrapper nonMulticastInterface;
-    @Mock private NetworkInterfaceWrapper multicastInterfaceOne;
-    @Mock private NetworkInterfaceWrapper multicastInterfaceTwo;
-
-    private final List<NetworkInterfaceWrapper> networkInterfaces = new ArrayList<>();
-    private MulticastNetworkInterfaceProvider provider;
-    private Context context;
+    private final List<NetworkInterfaceWrapper> mNetworkInterfaces = new ArrayList<>();
+    private MulticastNetworkInterfaceProvider mProvider;
+    private Context mContext;
 
     @Before
     public void setUp() throws SocketException, UnknownHostException {
         MockitoAnnotations.initMocks(this);
-        context = InstrumentationRegistry.getContext();
+        mContext = InstrumentationRegistry.getContext();
 
         setupNetworkInterface(
-                loopbackInterface,
+                mLoopbackInterface,
                 true /* isUp */,
                 true /* isLoopBack */,
                 false /* isPointToPoint */,
@@ -84,7 +83,7 @@ public class MulticastNetworkInterfaceProviderTests {
                 false /* isIpv6 */);
 
         setupNetworkInterface(
-                pointToPointInterface,
+                mPointToPointInterface,
                 true /* isUp */,
                 false /* isLoopBack */,
                 true /* isPointToPoint */,
@@ -93,7 +92,7 @@ public class MulticastNetworkInterfaceProviderTests {
                 false /* isIpv6 */);
 
         setupNetworkInterface(
-                virtualInterface,
+                mVirtualInterface,
                 true /* isUp */,
                 false /* isLoopBack */,
                 false /* isPointToPoint */,
@@ -102,7 +101,7 @@ public class MulticastNetworkInterfaceProviderTests {
                 false /* isIpv6 */);
 
         setupNetworkInterface(
-                inactiveMulticastInterface,
+                mInactiveMulticastInterface,
                 false /* isUp */,
                 false /* isLoopBack */,
                 false /* isPointToPoint */,
@@ -111,7 +110,7 @@ public class MulticastNetworkInterfaceProviderTests {
                 false /* isIpv6 */);
 
         setupNetworkInterface(
-                nonMulticastInterface,
+                mNonMulticastInterface,
                 true /* isUp */,
                 false /* isLoopBack */,
                 false /* isPointToPoint */,
@@ -120,7 +119,7 @@ public class MulticastNetworkInterfaceProviderTests {
                 false /* isIpv6 */);
 
         setupNetworkInterface(
-                activeIpv6MulticastInterface,
+                mActiveIpv6MulticastInterface1,
                 true /* isUp */,
                 false /* isLoopBack */,
                 false /* isPointToPoint */,
@@ -129,7 +128,7 @@ public class MulticastNetworkInterfaceProviderTests {
                 true /* isIpv6 */);
 
         setupNetworkInterface(
-                activeIpv6MulticastInterfaceTwo,
+                mActiveIpv6MulticastInterface2,
                 true /* isUp */,
                 false /* isLoopBack */,
                 false /* isPointToPoint */,
@@ -138,7 +137,7 @@ public class MulticastNetworkInterfaceProviderTests {
                 true /* isIpv6 */);
 
         setupNetworkInterface(
-                multicastInterfaceOne,
+                mMulticastInterface1,
                 true /* isUp */,
                 false /* isLoopBack */,
                 false /* isPointToPoint */,
@@ -147,7 +146,7 @@ public class MulticastNetworkInterfaceProviderTests {
                 false /* isIpv6 */);
 
         setupNetworkInterface(
-                multicastInterfaceTwo,
+                mMulticastInterface2,
                 true /* isUp */,
                 false /* isLoopBack */,
                 false /* isPointToPoint */,
@@ -155,11 +154,11 @@ public class MulticastNetworkInterfaceProviderTests {
                 true /* supportsMulticast */,
                 false /* isIpv6 */);
 
-        provider =
-                new MulticastNetworkInterfaceProvider(context) {
+        mProvider =
+                new MulticastNetworkInterfaceProvider(mContext) {
                     @Override
                     List<NetworkInterfaceWrapper> getNetworkInterfaces() {
-                        return networkInterfaces;
+                        return mNetworkInterfaces;
                     }
                 };
     }
@@ -168,81 +167,81 @@ public class MulticastNetworkInterfaceProviderTests {
     public void testGetMulticastNetworkInterfaces() {
         // getNetworkInterfaces returns 1 multicast interface and 5 interfaces that can not be used
         // to send and receive multicast packets.
-        networkInterfaces.add(loopbackInterface);
-        networkInterfaces.add(pointToPointInterface);
-        networkInterfaces.add(virtualInterface);
-        networkInterfaces.add(inactiveMulticastInterface);
-        networkInterfaces.add(nonMulticastInterface);
-        networkInterfaces.add(multicastInterfaceOne);
+        mNetworkInterfaces.add(mLoopbackInterface);
+        mNetworkInterfaces.add(mPointToPointInterface);
+        mNetworkInterfaces.add(mVirtualInterface);
+        mNetworkInterfaces.add(mInactiveMulticastInterface);
+        mNetworkInterfaces.add(mNonMulticastInterface);
+        mNetworkInterfaces.add(mMulticastInterface1);
 
-        assertEquals(Collections.singletonList(multicastInterfaceOne),
-                provider.getMulticastNetworkInterfaces());
+        assertEquals(Collections.singletonList(mMulticastInterface1),
+                mProvider.getMulticastNetworkInterfaces());
 
         // getNetworkInterfaces returns 2 multicast interfaces after a connectivity change.
-        networkInterfaces.clear();
-        networkInterfaces.add(multicastInterfaceOne);
-        networkInterfaces.add(multicastInterfaceTwo);
+        mNetworkInterfaces.clear();
+        mNetworkInterfaces.add(mMulticastInterface1);
+        mNetworkInterfaces.add(mMulticastInterface2);
 
-        provider.connectivityMonitor.notifyConnectivityChange();
+        mProvider.connectivityMonitor.notifyConnectivityChange();
 
-        assertEquals(networkInterfaces, provider.getMulticastNetworkInterfaces());
+        assertEquals(mNetworkInterfaces, mProvider.getMulticastNetworkInterfaces());
     }
 
     @Test
     public void testStartWatchingConnectivityChanges() {
         ConnectivityMonitor mockMonitor = mock(ConnectivityMonitor.class);
-        provider.connectivityMonitor = mockMonitor;
+        mProvider.connectivityMonitor = mockMonitor;
 
         InOrder inOrder = inOrder(mockMonitor);
 
-        provider.startWatchingConnectivityChanges();
+        mProvider.startWatchingConnectivityChanges();
         inOrder.verify(mockMonitor).startWatchingConnectivityChanges();
 
-        provider.stopWatchingConnectivityChanges();
+        mProvider.stopWatchingConnectivityChanges();
         inOrder.verify(mockMonitor).stopWatchingConnectivityChanges();
     }
 
     @Test
     public void testIpV6OnlyNetwork_EmptyNetwork() {
         // getNetworkInterfaces returns no network interfaces.
-        assertFalse(provider.isOnIpV6OnlyNetwork(networkInterfaces));
+        assertFalse(mProvider.isOnIpV6OnlyNetwork(mNetworkInterfaces));
     }
 
     @Test
     public void testIpV6OnlyNetwork_IPv4Only() {
         // getNetworkInterfaces returns two IPv4 network interface.
-        networkInterfaces.add(multicastInterfaceOne);
-        networkInterfaces.add(multicastInterfaceTwo);
-        assertFalse(provider.isOnIpV6OnlyNetwork(networkInterfaces));
+        mNetworkInterfaces.add(mMulticastInterface1);
+        mNetworkInterfaces.add(mMulticastInterface2);
+        assertFalse(mProvider.isOnIpV6OnlyNetwork(mNetworkInterfaces));
     }
 
     @Test
     public void testIpV6OnlyNetwork_MixedNetwork() {
         // getNetworkInterfaces returns one IPv6 network interface.
-        networkInterfaces.add(activeIpv6MulticastInterface);
-        networkInterfaces.add(multicastInterfaceOne);
-        networkInterfaces.add(activeIpv6MulticastInterfaceTwo);
-        networkInterfaces.add(multicastInterfaceTwo);
-        assertFalse(provider.isOnIpV6OnlyNetwork(networkInterfaces));
+        mNetworkInterfaces.add(mActiveIpv6MulticastInterface1);
+        mNetworkInterfaces.add(mMulticastInterface1);
+        mNetworkInterfaces.add(mActiveIpv6MulticastInterface2);
+        mNetworkInterfaces.add(mMulticastInterface2);
+        assertFalse(mProvider.isOnIpV6OnlyNetwork(mNetworkInterfaces));
     }
 
     @Test
     public void testIpV6OnlyNetwork_IPv6Only() {
         // getNetworkInterfaces returns one IPv6 network interface.
-        networkInterfaces.add(activeIpv6MulticastInterface);
-        networkInterfaces.add(activeIpv6MulticastInterfaceTwo);
-        assertTrue(provider.isOnIpV6OnlyNetwork(networkInterfaces));
+        mNetworkInterfaces.add(mActiveIpv6MulticastInterface1);
+        mNetworkInterfaces.add(mActiveIpv6MulticastInterface2);
+        assertTrue(mProvider.isOnIpV6OnlyNetwork(mNetworkInterfaces));
     }
 
     @Test
     public void testIpV6OnlyNetwork_IPv6Enabled() {
         // getNetworkInterfaces returns one IPv6 network interface.
-        networkInterfaces.add(activeIpv6MulticastInterface);
-        assertTrue(provider.isOnIpV6OnlyNetwork(networkInterfaces));
+        mNetworkInterfaces.add(mActiveIpv6MulticastInterface1);
+        assertTrue(mProvider.isOnIpV6OnlyNetwork(mNetworkInterfaces));
 
-        final List<NetworkInterfaceWrapper> interfaces = provider.getMulticastNetworkInterfaces();
+        final List<NetworkInterfaceWrapper> interfaces = mProvider.getMulticastNetworkInterfaces();
         assertEquals(1, interfaces.size());
-        assertEquals(Collections.singletonList(activeIpv6MulticastInterface), interfaces);
+        assertEquals(Collections.singletonList(mActiveIpv6MulticastInterface1), interfaces);
     }
 
     private void setupNetworkInterface(

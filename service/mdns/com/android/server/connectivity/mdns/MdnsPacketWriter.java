@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,10 +26,10 @@ import java.util.Map;
 /** Simple encoder for mDNS packets. */
 public class MdnsPacketWriter {
     private static final int MDNS_POINTER_MASK = 0xC000;
-    private final byte[] data;
-    private final Map<Integer, String[]> labelDictionary;
-    private int pos = 0;
-    private int savedWritePos = -1;
+    private final byte[] mData;
+    private final Map<Integer, String[]> mLabelDictionary;
+    private int mPosition = 0;
+    private int mSavedWritePosition = -1;
 
     /**
      * Constructs a writer for a new packet.
@@ -41,13 +41,13 @@ public class MdnsPacketWriter {
             throw new IllegalArgumentException("invalid size");
         }
 
-        data = new byte[maxSize];
-        labelDictionary = new HashMap<>();
+        mData = new byte[maxSize];
+        mLabelDictionary = new HashMap<>();
     }
 
     /** Returns the current write position. */
     public int getWritePosition() {
-        return pos;
+        return mPosition;
     }
 
     /**
@@ -60,12 +60,12 @@ public class MdnsPacketWriter {
      *                     already a rewind in effect.
      */
     public void rewind(int position) throws IOException {
-        if ((savedWritePos != -1) || (position > pos) || (position < 0)) {
+        if ((mSavedWritePosition != -1) || (position > mPosition) || (position < 0)) {
             throw new IOException("invalid rewind");
         }
 
-        savedWritePos = pos;
-        pos = position;
+        mSavedWritePosition = mPosition;
+        mPosition = position;
     }
 
     /**
@@ -74,16 +74,16 @@ public class MdnsPacketWriter {
      * @throws IOException If there was no rewind in effect.
      */
     public void unrewind() throws IOException {
-        if (savedWritePos == -1) {
+        if (mSavedWritePosition == -1) {
             throw new IOException("no rewind is in effect");
         }
-        pos = savedWritePos;
-        savedWritePos = -1;
+        mPosition = mSavedWritePosition;
+        mSavedWritePosition = -1;
     }
 
     /** Clears any rewind state. */
     public void clearRewind() {
-        savedWritePos = -1;
+        mSavedWritePosition = -1;
     }
 
     /**
@@ -94,7 +94,7 @@ public class MdnsPacketWriter {
      */
     public void writeUInt8(int value) throws IOException {
         checkRemaining(1);
-        data[pos++] = (byte) (value & 0xFF);
+        mData[mPosition++] = (byte) (value & 0xFF);
     }
 
     /**
@@ -105,8 +105,8 @@ public class MdnsPacketWriter {
      */
     public void writeUInt16(int value) throws IOException {
         checkRemaining(2);
-        data[pos++] = (byte) ((value >>> 8) & 0xFF);
-        data[pos++] = (byte) (value & 0xFF);
+        mData[mPosition++] = (byte) ((value >>> 8) & 0xFF);
+        mData[mPosition++] = (byte) (value & 0xFF);
     }
 
     /**
@@ -117,10 +117,10 @@ public class MdnsPacketWriter {
      */
     public void writeUInt32(long value) throws IOException {
         checkRemaining(4);
-        data[pos++] = (byte) ((value >>> 24) & 0xFF);
-        data[pos++] = (byte) ((value >>> 16) & 0xFF);
-        data[pos++] = (byte) ((value >>> 8) & 0xFF);
-        data[pos++] = (byte) (value & 0xFF);
+        mData[mPosition++] = (byte) ((value >>> 24) & 0xFF);
+        mData[mPosition++] = (byte) ((value >>> 16) & 0xFF);
+        mData[mPosition++] = (byte) ((value >>> 8) & 0xFF);
+        mData[mPosition++] = (byte) (value & 0xFF);
     }
 
     /**
@@ -131,8 +131,8 @@ public class MdnsPacketWriter {
      */
     public void writeBytes(byte[] data) throws IOException {
         checkRemaining(data.length);
-        System.arraycopy(data, 0, this.data, pos, data.length);
-        pos += data.length;
+        System.arraycopy(data, 0, mData, mPosition, data.length);
+        mPosition += data.length;
     }
 
     /**
@@ -160,7 +160,7 @@ public class MdnsPacketWriter {
         int suffixLength = 0;
         int suffixPointer = 0;
 
-        for (Map.Entry<Integer, String[]> entry : labelDictionary.entrySet()) {
+        for (Map.Entry<Integer, String[]> entry : mLabelDictionary.entrySet()) {
             int existingOffset = entry.getKey();
             String[] existingLabels = entry.getValue();
 
@@ -194,14 +194,14 @@ public class MdnsPacketWriter {
             for (int i = 0, len = labels.length; i < labels.length; ++i, --len) {
                 String[] value = new String[len];
                 System.arraycopy(labels, i, value, 0, len);
-                labelDictionary.put(offsets[i], value);
+                mLabelDictionary.put(offsets[i], value);
             }
         }
     }
 
     /** Returns the number of bytes that can still be written. */
     public int getRemaining() {
-        return data.length - pos;
+        return mData.length - mPosition;
     }
 
     // Writes a pointer to a label.
@@ -218,6 +218,6 @@ public class MdnsPacketWriter {
 
     /** Builds and returns the packet. */
     public DatagramPacket getPacket(SocketAddress destAddress) throws IOException {
-        return new DatagramPacket(data, pos, destAddress);
+        return new DatagramPacket(mData, mPosition, destAddress);
     }
 }

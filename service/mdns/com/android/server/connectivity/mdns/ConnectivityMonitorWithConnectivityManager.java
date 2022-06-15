@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,21 +31,20 @@ public class ConnectivityMonitorWithConnectivityManager implements ConnectivityM
     private static final String TAG = "ConnMntrWConnMgr";
     private static final MdnsLogger LOGGER = new MdnsLogger(TAG);
 
-    private final Listener listener;
-    private final ConnectivityManager.NetworkCallback networkCallback;
-    private final ConnectivityManager connectivityManager;
+    private final Listener mListener;
+    private final ConnectivityManager.NetworkCallback mNetworkCallback;
+    private final ConnectivityManager mConnectivityManager;
     // TODO(b/71901993): Ideally we shouldn't need this flag. However we still don't have clues why
     // the receiver is unregistered twice yet.
-    private boolean isCallbackRegistered = false;
+    private boolean mIsCallbackRegistered = false;
 
     @SuppressWarnings({"nullness:assignment", "nullness:method.invocation"})
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ConnectivityMonitorWithConnectivityManager(Context context, Listener listener) {
-        this.listener = listener;
+        mListener = listener;
 
-        connectivityManager =
-                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        networkCallback =
+        mConnectivityManager = context.getSystemService(ConnectivityManager.class);
+        mNetworkCallback =
                 new ConnectivityManager.NetworkCallback() {
                     @Override
                     public void onAvailable(Network network) {
@@ -69,7 +68,7 @@ public class ConnectivityMonitorWithConnectivityManager implements ConnectivityM
 
     @Override
     public void notifyConnectivityChange() {
-        listener.onConnectivityChanged();
+        mListener.onConnectivityChanged();
     }
 
     /**
@@ -80,15 +79,15 @@ public class ConnectivityMonitorWithConnectivityManager implements ConnectivityM
     @Override
     public void startWatchingConnectivityChanges() {
         LOGGER.log("Start watching connectivity changes");
-        if (isCallbackRegistered) {
+        if (mIsCallbackRegistered) {
             return;
         }
 
-        connectivityManager.registerNetworkCallback(
+        mConnectivityManager.registerNetworkCallback(
                 new NetworkRequest.Builder().addTransportType(
                         NetworkCapabilities.TRANSPORT_WIFI).build(),
-                networkCallback);
-        isCallbackRegistered = true;
+                mNetworkCallback);
+        mIsCallbackRegistered = true;
     }
 
     /** Stops monitoring changes of connectivity. */
@@ -96,11 +95,11 @@ public class ConnectivityMonitorWithConnectivityManager implements ConnectivityM
     @Override
     public void stopWatchingConnectivityChanges() {
         LOGGER.log("Stop watching connectivity changes");
-        if (!isCallbackRegistered) {
+        if (!mIsCallbackRegistered) {
             return;
         }
 
-        connectivityManager.unregisterNetworkCallback(networkCallback);
-        isCallbackRegistered = false;
+        mConnectivityManager.unregisterNetworkCallback(mNetworkCallback);
+        mIsCallbackRegistered = false;
     }
 }

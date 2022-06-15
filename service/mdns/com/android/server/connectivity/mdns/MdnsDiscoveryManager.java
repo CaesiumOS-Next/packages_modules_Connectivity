@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,18 +34,16 @@ import java.util.Map;
  * notify them when a mDNS service instance is found, updated, or removed?
  */
 public class MdnsDiscoveryManager implements MdnsSocketClient.Callback {
-
     private static final MdnsLogger LOGGER = new MdnsLogger("MdnsDiscoveryManager");
 
-    private final ExecutorProvider executorProvider;
-    private final MdnsSocketClient socketClient;
-
-    private final Map<String, MdnsServiceTypeClient> serviceTypeClients = new ArrayMap<>();
+    private final ExecutorProvider mExecutorProvider;
+    private final MdnsSocketClient mSocketClient;
+    private final Map<String, MdnsServiceTypeClient> mServiceTypeClients = new ArrayMap<>();
 
     public MdnsDiscoveryManager(
             @NonNull ExecutorProvider executorProvider, @NonNull MdnsSocketClient socketClient) {
-        this.executorProvider = executorProvider;
-        this.socketClient = socketClient;
+        mExecutorProvider = executorProvider;
+        mSocketClient = socketClient;
     }
 
     /**
@@ -65,20 +63,20 @@ public class MdnsDiscoveryManager implements MdnsSocketClient.Callback {
         LOGGER.log(
                 "Registering listener for subtypes: %s",
                 TextUtils.join(",", searchOptions.getSubtypes()));
-        if (serviceTypeClients.isEmpty()) {
+        if (mServiceTypeClients.isEmpty()) {
             // First listener. Starts the socket client.
             try {
-                socketClient.startDiscovery();
+                mSocketClient.startDiscovery();
             } catch (IOException e) {
                 LOGGER.e("Failed to start discover.", e);
                 return;
             }
         }
         // All listeners of the same service types shares the same MdnsServiceTypeClient.
-        MdnsServiceTypeClient serviceTypeClient = serviceTypeClients.get(serviceType);
+        MdnsServiceTypeClient serviceTypeClient = mServiceTypeClients.get(serviceType);
         if (serviceTypeClient == null) {
             serviceTypeClient = createServiceTypeClient(serviceType);
-            serviceTypeClients.put(serviceType, serviceTypeClient);
+            mServiceTypeClients.put(serviceType, serviceTypeClient);
         }
         serviceTypeClient.startSendAndReceive(listener, searchOptions);
     }
@@ -94,7 +92,7 @@ public class MdnsDiscoveryManager implements MdnsSocketClient.Callback {
     public synchronized void unregisterListener(
             @NonNull String serviceType, @NonNull MdnsServiceBrowserListener listener) {
         LOGGER.log("Unregistering listener for service type: %s", serviceType);
-        MdnsServiceTypeClient serviceTypeClient = serviceTypeClients.get(serviceType);
+        MdnsServiceTypeClient serviceTypeClient = mServiceTypeClients.get(serviceType);
         if (serviceTypeClient == null) {
             return;
         }
@@ -102,10 +100,10 @@ public class MdnsDiscoveryManager implements MdnsSocketClient.Callback {
             // No listener is registered for the service type anymore, remove it from the list of
           // the
             // service type clients.
-            serviceTypeClients.remove(serviceType);
-            if (serviceTypeClients.isEmpty()) {
+            mServiceTypeClients.remove(serviceType);
+            if (mServiceTypeClients.isEmpty()) {
                 // No discovery request. Stops the socket client.
-                socketClient.stopDiscovery();
+                mSocketClient.stopDiscovery();
             }
         }
     }
@@ -117,7 +115,7 @@ public class MdnsDiscoveryManager implements MdnsSocketClient.Callback {
                         ? null
                         : response.getPointerRecords().get(0).getName();
         if (name != null) {
-            for (MdnsServiceTypeClient serviceTypeClient : serviceTypeClients.values()) {
+            for (MdnsServiceTypeClient serviceTypeClient : mServiceTypeClients.values()) {
                 String[] serviceType = serviceTypeClient.getServiceTypeLabels();
                 if ((Arrays.equals(name, serviceType)
                         || ((name.length == (serviceType.length + 2))
@@ -132,7 +130,7 @@ public class MdnsDiscoveryManager implements MdnsSocketClient.Callback {
 
     @Override
     public synchronized void onFailedToParseMdnsResponse(int receivedPacketNumber, int errorCode) {
-        for (MdnsServiceTypeClient serviceTypeClient : serviceTypeClients.values()) {
+        for (MdnsServiceTypeClient serviceTypeClient : mServiceTypeClients.values()) {
             serviceTypeClient.onFailedToParseMdnsResponse(receivedPacketNumber, errorCode);
         }
     }
@@ -140,7 +138,7 @@ public class MdnsDiscoveryManager implements MdnsSocketClient.Callback {
     @VisibleForTesting
     MdnsServiceTypeClient createServiceTypeClient(@NonNull String serviceType) {
         return new MdnsServiceTypeClient(
-                serviceType, socketClient,
-                executorProvider.newServiceTypeClientSchedulerExecutor());
+                serviceType, mSocketClient,
+                mExecutorProvider.newServiceTypeClientSchedulerExecutor());
     }
 }

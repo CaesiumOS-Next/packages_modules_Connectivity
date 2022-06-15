@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,12 +46,12 @@ public abstract class MdnsRecord {
     /** Status indicating that the record should be refreshed (Less than half of TTL remains.) */
     public static final int STATUS_NEEDS_REFRESH = 2;
 
-    protected final String[] name;
-    private final int type;
-    private final int cls;
-    private final long receiptTimeMillis;
-    private final long ttlMillis;
-    private Object key;
+    protected final String[] mName;
+    private final int mType;
+    private final int mCls;
+    private final long mReceiptTimeMillis;
+    private final long mTtlMillis;
+    private Object mKey;
 
     /**
      * Constructs a new record with the given name and type.
@@ -60,14 +60,13 @@ public abstract class MdnsRecord {
      * @throws IOException If an error occurs while reading the packet.
      */
     protected MdnsRecord(String[] name, int type, MdnsPacketReader reader) throws IOException {
-        this.name = name;
-        this.type = type;
-        cls = reader.readUInt16();
-        ttlMillis = TimeUnit.SECONDS.toMillis(reader.readUInt32());
-        int dataLength = reader.readUInt16();
+        mName = name;
+        mType = type;
+        mCls = reader.readUInt16();
+        mTtlMillis = TimeUnit.SECONDS.toMillis(reader.readUInt32());
+        mReceiptTimeMillis = SystemClock.elapsedRealtime();
 
-        receiptTimeMillis = SystemClock.elapsedRealtime();
-
+        final int dataLength = reader.readUInt16();
         reader.setLimit(dataLength);
         readData(reader);
         reader.clearLimit();
@@ -104,22 +103,22 @@ public abstract class MdnsRecord {
 
     /** Returns the record's receipt (creation) time. */
     public final long getReceiptTime() {
-        return receiptTimeMillis;
+        return mReceiptTimeMillis;
     }
 
     /** Returns the record's name. */
     public String[] getName() {
-        return name;
+        return mName;
     }
 
     /** Returns the record's original TTL, in milliseconds. */
     public final long getTtl() {
-        return ttlMillis;
+        return mTtlMillis;
     }
 
     /** Returns the record's type. */
     public final int getType() {
-        return type;
+        return mType;
     }
 
     /**
@@ -129,12 +128,12 @@ public abstract class MdnsRecord {
      * @return The remaning TTL, in milliseconds.
      */
     public long getRemainingTTL(final long now) {
-        long age = now - receiptTimeMillis;
-        if (age > ttlMillis) {
+        long age = now - mReceiptTimeMillis;
+        if (age > mTtlMillis) {
             return 0;
         }
 
-        return ttlMillis - age;
+        return mTtlMillis - age;
     }
 
     /**
@@ -153,9 +152,9 @@ public abstract class MdnsRecord {
      */
     @VisibleForTesting
     public final void write(MdnsPacketWriter writer, long now) throws IOException {
-        writer.writeLabels(name);
-        writer.writeUInt16(type);
-        writer.writeUInt16(cls);
+        writer.writeLabels(mName);
+        writer.writeUInt16(mType);
+        writer.writeUInt16(mCls);
 
         writer.writeUInt32(TimeUnit.MILLISECONDS.toSeconds(getRemainingTTL(now)));
 
@@ -183,11 +182,11 @@ public abstract class MdnsRecord {
 
     /** Gets the status of the record. */
     public int getStatus(final long now) {
-        final long age = now - receiptTimeMillis;
-        if (age > ttlMillis) {
+        final long age = now - mReceiptTimeMillis;
+        if (age > mTtlMillis) {
             return STATUS_EXPIRED;
         }
-        if (age > (ttlMillis / 2)) {
+        if (age > (mTtlMillis / 2)) {
             return STATUS_NEEDS_REFRESH;
         }
         return STATUS_OK;
@@ -201,12 +200,12 @@ public abstract class MdnsRecord {
 
         MdnsRecord otherRecord = (MdnsRecord) other;
 
-        return Arrays.equals(name, otherRecord.name) && (type == otherRecord.type);
+        return Arrays.equals(mName, otherRecord.mName) && (mType == otherRecord.mType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Arrays.hashCode(name), type);
+        return Objects.hash(Arrays.hashCode(mName), mType);
     }
 
     /**
@@ -215,19 +214,19 @@ public abstract class MdnsRecord {
      * and name. Suitable for use as a key in caches.
      */
     public final Object getKey() {
-        if (key == null) {
-            key = new Key(type, name);
+        if (mKey == null) {
+            mKey = new Key(mType, mName);
         }
-        return key;
+        return mKey;
     }
 
     private static final class Key {
-        private final int recordType;
-        private final String[] recordName;
+        private final int mRecordType;
+        private final String[] mRecordName;
 
-        public Key(int recordType, String[] recordName) {
-            this.recordType = recordType;
-            this.recordName = recordName;
+        Key(int recordType, String[] recordName) {
+            mRecordType = recordType;
+            mRecordName = recordName;
         }
 
         @Override
@@ -241,13 +240,13 @@ public abstract class MdnsRecord {
 
             Key otherKey = (Key) other;
 
-            return (recordType == otherKey.recordType) && Arrays.equals(recordName,
-                    otherKey.recordName);
+            return (mRecordType == otherKey.mRecordType) && Arrays.equals(mRecordName,
+                    otherKey.mRecordName);
         }
 
         @Override
         public int hashCode() {
-            return (recordType * 31) + Arrays.hashCode(recordName);
+            return (mRecordType * 31) + Arrays.hashCode(mRecordName);
         }
     }
 }

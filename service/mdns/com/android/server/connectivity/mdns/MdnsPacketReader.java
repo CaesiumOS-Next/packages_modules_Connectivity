@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,19 +27,19 @@ import java.util.Locale;
 
 /** Simple decoder for mDNS packets. */
 public class MdnsPacketReader {
-    private final byte[] buf;
-    private final int count;
-    private final SparseArray<LabelEntry> labelDictionary;
-    private int pos;
-    private int limit;
+    private final byte[] mBuffer;
+    private final int mCount;
+    private final SparseArray<LabelEntry> mLabelDictionary;
+    private int mPosition;
+    private int mLimit;
 
     /** Constructs a reader for the given packet. */
     public MdnsPacketReader(DatagramPacket packet) {
-        buf = packet.getData();
-        count = packet.getLength();
-        pos = 0;
-        limit = -1;
-        labelDictionary = new SparseArray<>(16);
+        mBuffer = packet.getData();
+        mCount = packet.getLength();
+        mPosition = 0;
+        mLimit = -1;
+        mLabelDictionary = new SparseArray<>(16);
     }
 
     /**
@@ -51,22 +51,22 @@ public class MdnsPacketReader {
      */
     public void setLimit(int limit) throws IOException {
         if (limit >= 0) {
-            if (pos + limit <= count) {
-                this.limit = pos + limit;
+            if (mPosition + limit <= mCount) {
+                mLimit = mPosition + limit;
             } else {
                 throw new IOException(
                         String.format(
                                 Locale.ROOT,
                                 "attempt to set limit beyond available data: %d exceeds %d",
-                                pos + limit,
-                                count));
+                                mPosition + limit,
+                                mCount));
             }
         }
     }
 
     /** Clears the limit set by {@link #setLimit}. */
     public void clearLimit() {
-        limit = -1;
+        mLimit = -1;
     }
 
     /**
@@ -74,7 +74,7 @@ public class MdnsPacketReader {
      * limit (if set) or the end of the packet.
      */
     public int getRemaining() {
-        return (limit >= 0 ? limit : count) - pos;
+        return (mLimit >= 0 ? mLimit : mCount) - mPosition;
     }
 
     /**
@@ -85,7 +85,7 @@ public class MdnsPacketReader {
      */
     public int readUInt8() throws EOFException {
         checkRemaining(1);
-        byte val = buf[pos++];
+        byte val = mBuffer[mPosition++];
         return val & 0xFF;
     }
 
@@ -97,8 +97,8 @@ public class MdnsPacketReader {
      */
     public int readUInt16() throws EOFException {
         checkRemaining(2);
-        int val = (buf[pos++] & 0xFF) << 8;
-        val |= (buf[pos++]) & 0xFF;
+        int val = (mBuffer[mPosition++] & 0xFF) << 8;
+        val |= (mBuffer[mPosition++]) & 0xFF;
         return val;
     }
 
@@ -110,10 +110,10 @@ public class MdnsPacketReader {
      */
     public long readUInt32() throws EOFException {
         checkRemaining(4);
-        long val = (long) (buf[pos++] & 0xFF) << 24;
-        val |= (long) (buf[pos++] & 0xFF) << 16;
-        val |= (long) (buf[pos++] & 0xFF) << 8;
-        val |= buf[pos++] & 0xFF;
+        long val = (long) (mBuffer[mPosition++] & 0xFF) << 24;
+        val |= (long) (mBuffer[mPosition++] & 0xFF) << 16;
+        val |= (long) (mBuffer[mPosition++] & 0xFF) << 8;
+        val |= mBuffer[mPosition++] & 0xFF;
         return val;
     }
 
@@ -139,7 +139,7 @@ public class MdnsPacketReader {
                 break;
             }
 
-            int currentOffset = pos;
+            int currentOffset = mPosition;
 
             boolean isLabelPointer = (nextByte & 0xC0) == 0xC0;
             if (isLabelPointer) {
@@ -153,7 +153,7 @@ public class MdnsPacketReader {
                 // Follow the chain of labels starting at this pointer, adding all of them onto the
                 // result.
                 while (labelOffset != 0) {
-                    LabelEntry entry = labelDictionary.get(labelOffset);
+                    LabelEntry entry = mLabelDictionary.get(labelOffset);
                     if (entry == null) {
                         throw new IOException(
                                 String.format(Locale.ROOT, "Invalid label pointer: %04X",
@@ -168,7 +168,7 @@ public class MdnsPacketReader {
                 // it onto the result.
                 String val = readString();
                 LabelEntry newEntry = new LabelEntry(val);
-                labelDictionary.put(currentOffset, newEntry);
+                mLabelDictionary.put(currentOffset, newEntry);
 
                 if (previousEntry != null) {
                     previousEntry.nextOffset = currentOffset;
@@ -190,8 +190,8 @@ public class MdnsPacketReader {
     public String readString() throws EOFException {
         int len = readUInt8();
         checkRemaining(len);
-        String val = new String(buf, pos, len, MdnsConstants.getUtf8Charset());
-        pos += len;
+        String val = new String(mBuffer, mPosition, len, MdnsConstants.getUtf8Charset());
+        mPosition += len;
         return val;
     }
 
@@ -204,8 +204,8 @@ public class MdnsPacketReader {
      */
     public void readBytes(byte[] bytes) throws EOFException {
         checkRemaining(bytes.length);
-        System.arraycopy(buf, pos, bytes, 0, bytes.length);
-        pos += bytes.length;
+        System.arraycopy(mBuffer, mPosition, bytes, 0, bytes.length);
+        mPosition += bytes.length;
     }
 
     /**
@@ -217,7 +217,7 @@ public class MdnsPacketReader {
      */
     public void skip(int count) throws EOFException {
         checkRemaining(count);
-        pos += count;
+        mPosition += count;
     }
 
     /**
@@ -228,12 +228,12 @@ public class MdnsPacketReader {
      */
     public byte peekByte() throws EOFException {
         checkRemaining(1);
-        return buf[pos];
+        return mBuffer[mPosition];
     }
 
     /** Returns the current byte position of the reader for the data packet. */
     public int getPosition() {
-        return pos;
+        return mPosition;
     }
 
     // Checks if the number of remaining bytes to be read in the packet is at least |count|.
@@ -247,7 +247,7 @@ public class MdnsPacketReader {
         public final String label;
         public int nextOffset = 0;
 
-        public LabelEntry(String label) {
+        LabelEntry(String label) {
             this.label = label;
         }
     }

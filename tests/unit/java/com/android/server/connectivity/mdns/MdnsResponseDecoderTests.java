@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -11,7 +11,7 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License
+ * limitations under the License.
  */
 
 package com.android.server.connectivity.mdns;
@@ -45,7 +45,7 @@ import java.util.List;
 @RunWith(DevSdkIgnoreRunner.class)
 @DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
 public class MdnsResponseDecoderTests {
-    private static final byte[] data = HexDump.hexStringToByteArray(
+    private static final byte[] DATA = HexDump.hexStringToByteArray(
             "0000840000000004"
             + "00000003134A6F68"
             + "6E6E792773204368"
@@ -87,7 +87,7 @@ public class MdnsResponseDecoderTests {
             + "000011940009C00C"
             + "00050000800040");
 
-    private static final byte[] data6 = HexDump.hexStringToByteArray(
+    private static final byte[] DATA6 = HexDump.hexStringToByteArray(
             "0000840000000001000000030B5F676F6F676C656361737404"
             + "5F746370056C6F63616C00000C000100000078003330476F6F676C"
             + "652D486F6D652D4D61782D61363836666331323961366638636265"
@@ -110,39 +110,39 @@ public class MdnsResponseDecoderTests {
     private static final String[] DUMMY_CAST_SERVICE_TYPE =
             new String[] {DUMMY_CAST_SERVICE_NAME, "_tcp", "local"};
 
-    private final List<MdnsResponse> responses = new LinkedList<>();
+    private final List<MdnsResponse> mResponses = new LinkedList<>();
 
     private final Clock mClock = mock(Clock.class);
 
     @Before
     public void setUp() {
         MdnsResponseDecoder decoder = new MdnsResponseDecoder(mClock, DUMMY_CAST_SERVICE_TYPE);
-        assertNotNull(data);
-        DatagramPacket packet = new DatagramPacket(data, data.length);
+        assertNotNull(DATA);
+        DatagramPacket packet = new DatagramPacket(DATA, DATA.length);
         packet.setSocketAddress(
                 new InetSocketAddress(MdnsConstants.getMdnsIPv4Address(), MdnsConstants.MDNS_PORT));
-        responses.clear();
-        int errorCode = decoder.decode(packet, responses);
+        mResponses.clear();
+        int errorCode = decoder.decode(packet, mResponses);
         assertEquals(MdnsResponseDecoder.SUCCESS, errorCode);
-        assertEquals(1, responses.size());
+        assertEquals(1, mResponses.size());
     }
 
     @Test
     public void testDecodeWithNullServiceType() {
         MdnsResponseDecoder decoder = new MdnsResponseDecoder(mClock, null);
-        assertNotNull(data);
-        DatagramPacket packet = new DatagramPacket(data, data.length);
+        assertNotNull(DATA);
+        DatagramPacket packet = new DatagramPacket(DATA, DATA.length);
         packet.setSocketAddress(
                 new InetSocketAddress(MdnsConstants.getMdnsIPv4Address(), MdnsConstants.MDNS_PORT));
-        responses.clear();
-        int errorCode = decoder.decode(packet, responses);
+        mResponses.clear();
+        int errorCode = decoder.decode(packet, mResponses);
         assertEquals(MdnsResponseDecoder.SUCCESS, errorCode);
-        assertEquals(2, responses.size());
+        assertEquals(2, mResponses.size());
     }
 
     @Test
     public void testDecodeMultipleAnswerPacket() throws IOException {
-        MdnsResponse response = responses.get(0);
+        MdnsResponse response = mResponses.get(0);
         assertTrue(response.isComplete());
 
         MdnsInetAddressRecord inet4AddressRecord = response.getInet4AddressRecord();
@@ -188,16 +188,16 @@ public class MdnsResponseDecoderTests {
     @Test
     public void testDecodeIPv6AnswerPacket() throws IOException {
         MdnsResponseDecoder decoder = new MdnsResponseDecoder(mClock, DUMMY_CAST_SERVICE_TYPE);
-        assertNotNull(data6);
-        DatagramPacket packet = new DatagramPacket(data6, data6.length);
+        assertNotNull(DATA6);
+        DatagramPacket packet = new DatagramPacket(DATA6, DATA6.length);
         packet.setSocketAddress(
                 new InetSocketAddress(MdnsConstants.getMdnsIPv6Address(), MdnsConstants.MDNS_PORT));
 
-        responses.clear();
-        int errorCode = decoder.decode(packet, responses);
+        mResponses.clear();
+        int errorCode = decoder.decode(packet, mResponses);
         assertEquals(MdnsResponseDecoder.SUCCESS, errorCode);
 
-        MdnsResponse response = responses.get(0);
+        MdnsResponse response = mResponses.get(0);
         assertTrue(response.isComplete());
 
         MdnsInetAddressRecord inet6AddressRecord = response.getInet6AddressRecord();
@@ -212,25 +212,25 @@ public class MdnsResponseDecoderTests {
 
     @Test
     public void testIsComplete() {
-        MdnsResponse response = responses.get(0);
+        MdnsResponse response = mResponses.get(0);
         assertTrue(response.isComplete());
 
         response.clearPointerRecords();
         assertFalse(response.isComplete());
 
-        response = responses.get(0);
+        response = mResponses.get(0);
         response.setInet4AddressRecord(null);
         assertFalse(response.isComplete());
 
-        response = responses.get(0);
+        response = mResponses.get(0);
         response.setInet6AddressRecord(null);
         assertFalse(response.isComplete());
 
-        response = responses.get(0);
+        response = mResponses.get(0);
         response.setServiceRecord(null);
         assertFalse(response.isComplete());
 
-        response = responses.get(0);
+        response = mResponses.get(0);
         response.setTextRecord(null);
         assertFalse(response.isComplete());
     }

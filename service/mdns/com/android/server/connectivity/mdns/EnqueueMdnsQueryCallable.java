@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,6 @@ import java.util.concurrent.Callable;
 // TODO(b/177655645): Resolve nullness suppression.
 @SuppressWarnings("nullness")
 public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<String>>> {
-
     private static final String TAG = "MdnsQueryCallable";
     private static final MdnsLogger LOGGER = new MdnsLogger(TAG);
     private static final List<Integer> castShellEmulatorMdnsPorts;
@@ -59,12 +58,12 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
         }
     }
 
-    private final WeakReference<MdnsSocketClient> weakRequestSender;
-    private final MdnsPacketWriter packetWriter;
-    private final String[] serviceTypeLabels;
-    private final List<String> subtypes;
-    private final boolean expectUnicastResponse;
-    private final int transactionId;
+    private final WeakReference<MdnsSocketClient> mWeakRequestSender;
+    private final MdnsPacketWriter mPacketWriter;
+    private final String[] mServiceTypeLabels;
+    private final List<String> mSubtypes;
+    private final boolean mExpectUnicastResponse;
+    private final int mTransactionId;
 
     EnqueueMdnsQueryCallable(
             @NonNull MdnsSocketClient requestSender,
@@ -73,57 +72,57 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
             @NonNull Collection<String> subtypes,
             boolean expectUnicastResponse,
             int transactionId) {
-        weakRequestSender = new WeakReference<>(requestSender);
-        this.packetWriter = packetWriter;
-        serviceTypeLabels = TextUtils.split(serviceType, "\\.");
-        this.subtypes = new ArrayList<>(subtypes);
-        this.expectUnicastResponse = expectUnicastResponse;
-        this.transactionId = transactionId;
+        mWeakRequestSender = new WeakReference<>(requestSender);
+        mPacketWriter = packetWriter;
+        mServiceTypeLabels = TextUtils.split(serviceType, "\\.");
+        mSubtypes = new ArrayList<>(subtypes);
+        mExpectUnicastResponse = expectUnicastResponse;
+        mTransactionId = transactionId;
     }
 
     @Override
     public Pair<Integer, List<String>> call() {
         try {
-            MdnsSocketClient requestSender = weakRequestSender.get();
+            MdnsSocketClient requestSender = mWeakRequestSender.get();
             if (requestSender == null) {
                 return null;
             }
 
             int numQuestions = 1;
-            if (!subtypes.isEmpty()) {
-                numQuestions += subtypes.size();
+            if (!mSubtypes.isEmpty()) {
+                numQuestions += mSubtypes.size();
             }
 
             // Header.
-            packetWriter.writeUInt16(transactionId); // transaction ID
-            packetWriter.writeUInt16(MdnsConstants.FLAGS_QUERY); // flags
-            packetWriter.writeUInt16(numQuestions); // number of questions
-            packetWriter.writeUInt16(0); // number of answers (not yet known; will be written later)
-            packetWriter.writeUInt16(0); // number of authority entries
-            packetWriter.writeUInt16(0); // number of additional records
+            mPacketWriter.writeUInt16(mTransactionId); // transaction ID
+            mPacketWriter.writeUInt16(MdnsConstants.FLAGS_QUERY); // flags
+            mPacketWriter.writeUInt16(numQuestions); // number of questions
+            mPacketWriter.writeUInt16(0); // number of answers(not yet known; will be written later)
+            mPacketWriter.writeUInt16(0); // number of authority entries
+            mPacketWriter.writeUInt16(0); // number of additional records
 
             // Question(s). There will be one question for each (fqdn+subtype, recordType)
           // combination,
             // as well as one for each (fqdn, recordType) combination.
 
-            for (String subtype : subtypes) {
-                String[] labels = new String[serviceTypeLabels.length + 2];
+            for (String subtype : mSubtypes) {
+                String[] labels = new String[mServiceTypeLabels.length + 2];
                 labels[0] = MdnsConstants.SUBTYPE_PREFIX + subtype;
                 labels[1] = MdnsConstants.SUBTYPE_LABEL;
-                System.arraycopy(serviceTypeLabels, 0, labels, 2, serviceTypeLabels.length);
+                System.arraycopy(mServiceTypeLabels, 0, labels, 2, mServiceTypeLabels.length);
 
-                packetWriter.writeLabels(labels);
-                packetWriter.writeUInt16(MdnsRecord.TYPE_PTR);
-                packetWriter.writeUInt16(
+                mPacketWriter.writeLabels(labels);
+                mPacketWriter.writeUInt16(MdnsRecord.TYPE_PTR);
+                mPacketWriter.writeUInt16(
                         MdnsConstants.QCLASS_INTERNET
-                                | (expectUnicastResponse ? MdnsConstants.QCLASS_UNICAST : 0));
+                                | (mExpectUnicastResponse ? MdnsConstants.QCLASS_UNICAST : 0));
             }
 
-            packetWriter.writeLabels(serviceTypeLabels);
-            packetWriter.writeUInt16(MdnsRecord.TYPE_PTR);
-            packetWriter.writeUInt16(
+            mPacketWriter.writeLabels(mServiceTypeLabels);
+            mPacketWriter.writeUInt16(MdnsRecord.TYPE_PTR);
+            mPacketWriter.writeUInt16(
                     MdnsConstants.QCLASS_INTERNET
-                            | (expectUnicastResponse ? MdnsConstants.QCLASS_UNICAST : 0));
+                            | (mExpectUnicastResponse ? MdnsConstants.QCLASS_UNICAST : 0));
 
             InetAddress mdnsAddress = MdnsConstants.getMdnsIPv4Address();
             if (requestSender.isOnIPv6OnlyNetwork()) {
@@ -135,18 +134,18 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
             for (Integer emulatorPort : castShellEmulatorMdnsPorts) {
                 sendPacketTo(requestSender, new InetSocketAddress(mdnsAddress, emulatorPort));
             }
-            return Pair.create(transactionId, subtypes);
+            return Pair.create(mTransactionId, mSubtypes);
         } catch (IOException e) {
             LOGGER.e(String.format("Failed to create mDNS packet for subtype: %s.",
-                    TextUtils.join(",", subtypes)), e);
+                    TextUtils.join(",", mSubtypes)), e);
             return null;
         }
     }
 
     private void sendPacketTo(MdnsSocketClient requestSender, InetSocketAddress address)
             throws IOException {
-        DatagramPacket packet = packetWriter.getPacket(address);
-        if (expectUnicastResponse) {
+        final DatagramPacket packet = mPacketWriter.getPacket(address);
+        if (mExpectUnicastResponse) {
             requestSender.sendUnicastPacket(packet);
         } else {
             requestSender.sendMulticastPacket(packet);
