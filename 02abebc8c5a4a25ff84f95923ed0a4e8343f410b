@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b22f305_e784355f",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1554,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-16T23:51:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ad4affb_a636a505",
+      "range": {
+        "startLine": 1554,
+        "startChar": 43,
+        "endLine": 1554,
+        "endChar": 46
+      },
+      "revId": "02abebc8c5a4a25ff84f95923ed0a4e8343f410b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "69350635_f2ff99f2",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-06-16T15:45:06Z",
       "side": 1,
       "message": "Maybe you can just \"reset(mIpSecService)\" at the end of this method, so that you don\u0027t need to count how many times that these methods have been called.",
+      "range": {
+        "startLine": 1583,
+        "startChar": 30,
+        "endLine": 1583,
+        "endChar": 50
+      },
+      "revId": "02abebc8c5a4a25ff84f95923ed0a4e8343f410b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e603ced_9d9130c1",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1583,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-16T23:51:23Z",
+      "side": 1,
+      "message": "I try to avoid using reset unless I have good reasons (e.g. readability, maintainability)\n\nIn general using \"reset\" is not a good practice go/robtierney-java-readability-snippets#dont-reset",
+      "parentUuid": "69350635_f2ff99f2",
       "range": {
         "startLine": 1583,
         "startChar": 30,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22c92f82_a36f3769",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1600,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-16T23:51:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7895bd70_378b0f83",
+      "range": {
+        "startLine": 1600,
+        "startChar": 33,
+        "endLine": 1600,
+        "endChar": 38
+      },
+      "revId": "02abebc8c5a4a25ff84f95923ed0a4e8343f410b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29a72b8d_7c37ebbc",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-06-16T03:13:57Z",
       "side": 1,
       "message": "unused?",
+      "range": {
+        "startLine": 1601,
+        "startChar": 35,
+        "endLine": 1601,
+        "endChar": 42
+      },
+      "revId": "02abebc8c5a4a25ff84f95923ed0a4e8343f410b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0edbe3b4_b104541d",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1601,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-16T23:51:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29a72b8d_7c37ebbc",
       "range": {
         "startLine": 1601,
         "startChar": 35,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c043032_7ef0b906",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1646,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-16T23:51:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "822e6053_541f4f56",
+      "range": {
+        "startLine": 1646,
+        "startChar": 40,
+        "endLine": 1646,
+        "endChar": 41
+      },
+      "revId": "02abebc8c5a4a25ff84f95923ed0a4e8343f410b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed86ea66_dc25aef2",
@@ -146,6 +266,30 @@
       "writtenOn": "2022-06-16T15:45:06Z",
       "side": 1,
       "message": "Could you please describe more about why do we need to forget the first IKE creation?",
+      "range": {
+        "startLine": 1723,
+        "startChar": 8,
+        "endLine": 1723,
+        "endChar": 40
+      },
+      "revId": "02abebc8c5a4a25ff84f95923ed0a4e8343f410b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba2724c6_4997a77e",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1723,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-16T23:51:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed86ea66_dc25aef2",
       "range": {
         "startLine": 1723,
         "startChar": 8,
@@ -179,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2142c76c_f2a9734b",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1735,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-16T23:51:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fcad6dd_1f468ead",
+      "range": {
+        "startLine": 1735,
+        "startChar": 33,
+        "endLine": 1735,
+        "endChar": 41
+      },
+      "revId": "02abebc8c5a4a25ff84f95923ed0a4e8343f410b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f01c88f_8d79d5ff",
@@ -192,6 +360,30 @@
       "writtenOn": "2022-06-16T15:45:06Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 1736,
+        "startChar": 35,
+        "endLine": 1736,
+        "endChar": 45
+      },
+      "revId": "02abebc8c5a4a25ff84f95923ed0a4e8343f410b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "106057c2_2e58e92f",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1736,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-16T23:51:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f01c88f_8d79d5ff",
       "range": {
         "startLine": 1736,
         "startChar": 35,
