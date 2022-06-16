@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4dfc260_a702a8d0",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-16T08:57:32Z",
+      "side": 1,
+      "message": "Could you also add unit test for this change in BpfNetMapsTest.java ?\n\nYou can change this to:\n\n@VisibleForTesting\npublic static IBpfMap\u003cU32, U32\u003e getConfigurationMap() { ...\n\nIn the BpfNetMapsTest.java, you could have a MockBpfNetMaps extends BpfNetMaps, like:\n\nprivate TestBpfMap mConfiguartionMap \u003d null;\n\nclass MockBpfNetMaps extends BpfNetMaps {\n....\n    @Override\n    public static IBpfMap\u003cU32, U32\u003e getConfigurationMap() {\n        mConfiguartionMap \u003d new TestBpfMap\u003cU32, 32\u003e();\n        return mConfiguartionMap;\n    }\n....\n}\n\nMockBpfNetMaps mBPfNetMaps \u003d new MockBpfNetMaps();\n\n// add key/value to mConfiguartionMap and testing BpfNetMaps#getChainEnabled.\n\nThen you could fake configurationMap to a TestBpfMap to handle it just like a normal ConcurrentHashMap.",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 56
+      },
+      "revId": "3e6b97ba253b580b2a05c71117c8bc25211b0bca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fed30243_fce6835e",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-16T08:57:32Z",
+      "side": 1,
+      "message": "Don\u0027t have strong opinion, but maybe we also want to write BpfMap in BpfNetMaps as the TODO you add at l.78. If so, maybe this should be RDWR instead of RDONLY",
+      "range": {
+        "startLine": 110,
+        "startChar": 63,
+        "endLine": 110,
+        "endChar": 75
+      },
+      "revId": "3e6b97ba253b580b2a05c71117c8bc25211b0bca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31c436f4_d703f7dd",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-16T08:57:32Z",
+      "side": 1,
+      "message": "Either document this two Exception to ConnectivityManager#getFirewallChainEnabled or catch this two Exception in ConnectivityService and re-throw them as IllegalStateException which already documented in ConnectivityManager.",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 81
+      },
+      "revId": "3e6b97ba253b580b2a05c71117c8bc25211b0bca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b8b2775_fa8cebd1",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-16T08:57:32Z",
+      "side": 1,
+      "message": "NO_MATCH ?",
+      "range": {
+        "startLine": 212,
+        "startChar": 66,
+        "endLine": 212,
+        "endChar": 68
+      },
+      "revId": "3e6b97ba253b580b2a05c71117c8bc25211b0bca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c737c102_f14cfa62",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-16T08:57:32Z",
+      "side": 1,
+      "message": "NO_MATCH ?",
+      "range": {
+        "startLine": 213,
+        "startChar": 21,
+        "endLine": 213,
+        "endChar": 22
+      },
+      "revId": "3e6b97ba253b580b2a05c71117c8bc25211b0bca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abdcb77f_e42f8c07",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 11396,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-16T08:57:32Z",
+      "side": 1,
+      "message": "Catch ServiceSpecificException throw from mBpfNetMaps.getChainEnabled and re-throw it as IllegalStateException. Otherwise it would crash here when ServiceSpecificException happen.",
+      "range": {
+        "startLine": 11396,
+        "startChar": 9,
+        "endLine": 11396,
+        "endChar": 49
+      },
+      "revId": "3e6b97ba253b580b2a05c71117c8bc25211b0bca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
