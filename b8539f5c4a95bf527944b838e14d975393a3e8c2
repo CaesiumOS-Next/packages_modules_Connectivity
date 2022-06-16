@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de867ec4_bdcd34d6",
+        "filename": "service/native/include/TrafficController.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-16T09:15:35Z",
+      "side": 0,
+      "message": "This was removed in aosp/1958943.\nBut I guess when we moved the code in aosp/1953486 we missed this change.",
+      "revId": "b8539f5c4a95bf527944b838e14d975393a3e8c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f01f9a84_61a265cb",
+        "filename": "service/native/include/TrafficController.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-16T09:15:35Z",
+      "side": 0,
+      "message": "Looks all the user of hasUpdateDeviceStatsPermission was removed in aosp/1981648",
+      "revId": "b8539f5c4a95bf527944b838e14d975393a3e8c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
