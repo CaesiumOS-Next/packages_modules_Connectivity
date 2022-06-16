@@ -673,7 +673,7 @@ public class EthernetNetworkFactoryTest {
     }
 
     @Test
-    public void testUpdateInterfaceRestartsAgentCorrectly() throws Exception {
+    public void testUpdateInterfaceRestartsAgentWithExpectedValues() throws Exception {
         initEthernetNetworkFactory();
         createAndVerifyProvisionedInterface(TEST_IFACE);
         final NetworkCapabilities capabilities = createDefaultFilterCaps();
@@ -683,9 +683,13 @@ public class EthernetNetworkFactoryTest {
         mNetFactory.updateInterface(TEST_IFACE, ipConfiguration, capabilities, listener);
         triggerOnProvisioningSuccess();
 
+        // The specifier will always be set to the interface name even if not passed in on update.
+        final NetworkCapabilities ncWithSpecifier =
+                new NetworkCapabilities(capabilities)
+                        .setNetworkSpecifier(new EthernetNetworkSpecifier(TEST_IFACE));
         assertEquals(listener.expectOnResult(), TEST_IFACE);
         verify(mDeps).makeEthernetNetworkAgent(any(), any(),
-                eq(capabilities), any(), any(), any(), any());
+                eq(ncWithSpecifier), any(), any(), any(), any());
         verifyRestart(ipConfiguration);
     }
 

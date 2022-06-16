@@ -486,7 +486,10 @@ public class EthernetNetworkFactory {
                 mIpConfig = ipConfig;
             }
             if (null != capabilities) {
-                setCapabilities(capabilities);
+                final NetworkCapabilities ncWithSpecifier =
+                        new NetworkCapabilities(capabilities)
+                                .setNetworkSpecifier(new EthernetNetworkSpecifier(name));
+                setCapabilities(ncWithSpecifier);
             }
             // TODO: Update this logic to only do a restart if required. Although a restart may
             //  be required due to the capabilities or ipConfiguration values, not all
