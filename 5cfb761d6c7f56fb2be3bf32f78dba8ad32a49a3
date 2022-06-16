@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24f246ae_f95aa6e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-16T19:30:15Z",
+      "side": 1,
+      "message": "James, I have reordered my CLs a bit to make them more useful for you. If you are rebasing your tests for updateConfiguration, you can base them on this CL, so you will have support for updateConfiguration() and enable/disableInterface().",
+      "revId": "5cfb761d6c7f56fb2be3bf32f78dba8ad32a49a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
