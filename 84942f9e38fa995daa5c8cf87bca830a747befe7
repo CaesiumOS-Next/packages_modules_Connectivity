@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7b4d748_bef582f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-16T03:18:53Z",
+      "side": 1,
+      "message": "enabled?",
+      "range": {
+        "startLine": 7,
+        "startChar": 47,
+        "endLine": 7,
+        "endChar": 55
+      },
+      "revId": "84942f9e38fa995daa5c8cf87bca830a747befe7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c699b2d5_8740655f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-16T03:18:53Z",
+      "side": 1,
+      "message": "switch",
+      "range": {
+        "startLine": 10,
+        "startChar": 31,
+        "endLine": 10,
+        "endChar": 37
+      },
+      "revId": "84942f9e38fa995daa5c8cf87bca830a747befe7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5aac1cc_44483817",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1790,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-16T03:18:53Z",
+      "side": 1,
+      "message": "Do we have one to test that we do the same for network loss with mobike after a set number of seconds?",
+      "range": {
+        "startLine": 1790,
+        "startChar": 61,
+        "endLine": 1790,
+        "endChar": 69
+      },
+      "revId": "84942f9e38fa995daa5c8cf87bca830a747befe7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd8209e3_d0be0bbd",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1813,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-16T03:18:53Z",
+      "side": 1,
+      "message": "Nit remove extra line break?",
+      "revId": "84942f9e38fa995daa5c8cf87bca830a747befe7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
