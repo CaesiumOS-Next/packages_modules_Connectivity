@@ -27,11 +27,11 @@ cc_library_headers {
     host_supported: false,
     header_libs: [
         "bpf_headers",
-        "netd_mainline_headers",
+        "libnetdbinder_utils_headers",  // for XtBpfProgLocations.h
     ],
     export_header_lib_headers: [
         "bpf_headers",
-        "netd_mainline_headers",
+        "libnetdbinder_utils_headers",  // for XtBpfProgLocations.h
     ],
     export_include_dirs: ["."],
     cflags: [
