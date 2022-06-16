@@ -44,6 +44,7 @@ import static com.android.testutils.TestNetworkTrackerKt.initTestNetwork;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -1255,5 +1256,61 @@ public class EthernetTetheringTest {
 
     private <T> List<T> toList(T... array) {
         return Arrays.asList(array);
+    }
+
+    void maybeSetEthernetEnabled(final boolean enable) throws Exception {
+        Log.i(TAG, "Set ethernet enabled: " + enable);
+        mEm.setEthernetEnabled(enable);
+
+        final CountDownLatch latch = new CountDownLatch(1);
+        mEm.addEthernetStateListener(mHandler::post, actual -> {
+            final int expected = enable ? EthernetManager.ETHERNET_STATE_ENABLED
+                    : EthernetManager.ETHERNET_STATE_DISABLED;
+            if (expected == actual) latch.countDown();
+        });
+        latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testIfaceUsedInEthernetServerMode() throws Exception {
+        assumeFalse(mEm.isAvailable());
+        mEm.setIncludeTestInterfaces(true);
+
+        // Create a test iface. Now default interface is nonTetheredIface because it don't have
+        // defined capabilities.
+        final TestNetworkInterface nonTetheredIface = createTestInterface();
+        try {
+            final NetworkCapabilities cap = new NetworkCapabilities.Builder()
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_TRUSTED)
+                    .addTransportType(NetworkCapabilities.TRANSPORT_TEST)
+                    .build();
+            // Set capabilites to nonTetheredIface. To update configuration for test interface,
+            // updateConfiguration only can be called after setIncludeTestInterfaces(true).
+            mEm.updateConfiguration(nonTetheredIface.getInterfaceName(),
+                    new EthernetNetworkUpdateRequest.Builder().setNetworkCapabilities(cap).build(),
+                    mHandler::post, null);
+
+            // To reset default interface without shutdown nonTetheredIface, disable etherent.
+            maybeSetEthernetEnabled(false);
+            // Re-enable ethernet. Now default interface is null because nonTetheredIface has
+            // defined capabilites.
+            maybeSetEthernetEnabled(true);
+
+            // Create new test iface without setting capabilites.
+            mDownstreamIface = createTestInterface();
+            assertNotEquals(mDownstreamIface.getInterfaceName(),
+                    nonTetheredIface.getInterfaceName());
+
+            // After requesting, the tethered interface is the interface without defined
+            // capabilities.
+            assertEquals("unexpected tethered interface", mDownstreamIface.getInterfaceName(),
+                    mTetheredInterfaceRequester.getInterface());
+        } finally {
+            nonTetheredIface.getFileDescriptor().close();
+            maybeSetEthernetEnabled(true);
+        }
     }
 }
