@@ -99,8 +99,9 @@ public class DataSaverModeTest extends AbstractRestrictBackgroundNetworkTestCase
     public void testGetRestrictBackgroundStatus_enabled() throws Exception {
         setRestrictBackground(true);
         assertRestrictBackgroundChangedReceived(1);
-        assertDataSaverStatusOnBackground(RESTRICT_BACKGROUND_STATUS_ENABLED);
 
+        // Check network status when app is in foreground first to prevent DNS cache stores
+        // UnknownHostException, b/233989206.
         assertsForegroundAlwaysHasNetworkAccess();
         assertDataSaverStatusOnBackground(RESTRICT_BACKGROUND_STATUS_ENABLED);
 
@@ -138,8 +139,9 @@ public class DataSaverModeTest extends AbstractRestrictBackgroundNetworkTestCase
     public void testGetRestrictBackgroundStatus_blacklisted() throws Exception {
         addRestrictBackgroundBlacklist(mUid);
         assertRestrictBackgroundChangedReceived(1);
-        assertDataSaverStatusOnBackground(RESTRICT_BACKGROUND_STATUS_ENABLED);
 
+        // Check network status when app is in foreground first to prevent DNS cache stores
+        // UnknownHostException, b/233989206.
         assertsForegroundAlwaysHasNetworkAccess();
         assertRestrictBackgroundChangedReceived(1);
         assertDataSaverStatusOnBackground(RESTRICT_BACKGROUND_STATUS_ENABLED);
