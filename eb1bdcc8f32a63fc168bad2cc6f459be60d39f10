@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83d911e3_3b213a5c",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1276,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-16T17:49:57Z",
+      "side": 1,
+      "message": "I actually think this test would be better fitted for EthernetManagerTest. There we already have a lot of the boilerplate (including all the cleanup code) needed for this test.",
+      "range": {
+        "startLine": 1276,
+        "startChar": 16,
+        "endLine": 1276,
+        "endChar": 49
+      },
+      "revId": "eb1bdcc8f32a63fc168bad2cc6f459be60d39f10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e089b93_6e19dcc1",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1314,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-16T17:49:57Z",
+      "side": 1,
+      "message": "I think in EthernetManagerTest, all of this could boil down to:\n\n```\nassumeFalse(em.isAvailable())\n\nsetIncludeTestInterfaces(false)\n\nval iface1 \u003d createInterface()\nval iface2 \u003d createInterface()\n\nupdateConfiguration(iface1, capabilities \u003d nc)\n\nsetIncludeTestInterfaces(true)\n\nassertEquals(iface2.name, requestTetheredInterface().expectOnAvailable())\n```\n\nYou will have to add updateConfiguration. I would suggest doing something similar to aosp/2120129.",
+      "range": {
+        "startLine": 1277,
+        "startChar": 7,
+        "endLine": 1314,
+        "endChar": 9
+      },
+      "revId": "eb1bdcc8f32a63fc168bad2cc6f459be60d39f10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
