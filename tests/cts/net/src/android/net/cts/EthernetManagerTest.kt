@@ -654,4 +654,44 @@ class EthernetManagerTest {
         iface.setCarrierEnabled(false)
         cb.eventuallyExpectLost()
     }
+
+    @Test
+    fun testEnableDisableInterface_withActiveRequest() {
+        val iface = createInterface()
+        val cb = requestNetwork(ETH_REQUEST)
+        cb.expectAvailable()
+        cb.assertNeverLost()
+
+        disableInterface(iface).expectResult(iface.name)
+        cb.eventuallyExpectLost()
+
+        enableInterface(iface).expectResult(iface.name)
+        cb.expectAvailable()
+    }
+
+    @Test
+    fun testEnableDisableInterface_whileTogglingCarrier() {
+        // First, create interface with no carrier, then disable interface.
+        val iface = createInterface(false)
+        val cb = requestNetwork(ETH_REQUEST)
+        disableInterface(iface).expectResult(iface.name)
+
+        // Second, enable carrier, then enable interface.
+        iface.setCarrierEnabled(true)
+        cb.assertNeverAvailable()
+        enableInterface(iface).expectResult(iface.name)
+        cb.expectAvailable()
+
+        // Third, disable interface, then set link down.
+        disableInterface(iface).expectResult(iface.name)
+        cb.eventuallyExpectLost()
+        iface.setCarrierEnabled(false)
+        cb.assertNeverAvailable()
+
+        // Fourth, enable interface, then enable carrier.
+        enableInterface(iface).expectResult(iface.name)
+        cb.assertNeverAvailable()
+        iface.setCarrierEnabled(true)
+        cb.expectAvailable()
+    }
 }
