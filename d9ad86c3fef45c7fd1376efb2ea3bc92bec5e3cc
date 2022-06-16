@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b2a8bd1_bec9edb1",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-16T06:33:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5ba06ec_dfea8e39",
+      "revId": "d9ad86c3fef45c7fd1376efb2ea3bc92bec5e3cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af03780a_7d24266f",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "227cea60_25874a51",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-16T06:33:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af03780a_7d24266f",
+      "range": {
+        "startLine": 855,
+        "startChar": 8,
+        "endLine": 855,
+        "endChar": 11
+      },
+      "revId": "d9ad86c3fef45c7fd1376efb2ea3bc92bec5e3cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95d06216_4021012c",
@@ -54,6 +96,30 @@
       "writtenOn": "2022-06-16T04:30:33Z",
       "side": 1,
       "message": "Where are the logical blocks here? Where would it help readability if you added line breaks?",
+      "range": {
+        "startLine": 862,
+        "startChar": 0,
+        "endLine": 883,
+        "endChar": 0
+      },
+      "revId": "d9ad86c3fef45c7fd1376efb2ea3bc92bec5e3cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5086c61_898bb258",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-16T06:33:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95d06216_4021012c",
       "range": {
         "startLine": 862,
         "startChar": 0,
