@@ -49,6 +49,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "519b1e08_d6bfa0bf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-16T16:10:18Z",
+      "side": 1,
+      "message": "available",
+      "range": {
+        "startLine": 12,
+        "startChar": 32,
+        "endLine": 12,
+        "endChar": 41
+      },
+      "revId": "84942f9e38fa995daa5c8cf87bca830a747befe7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a761ecf_2c916cc6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-16T16:10:18Z",
+      "side": 1,
+      "message": "Not sure if you want to add the test that Ben suggested in this commit, +2 for this commit first to prevent blocking you to merge this commit.",
+      "revId": "84942f9e38fa995daa5c8cf87bca830a747befe7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e5aac1cc_44483817",
         "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
         "patchSetId": 7
