@@ -16,12 +16,14 @@
 
 package com.android.server.ethernet;
 
+import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.EthernetNetworkSpecifier;
 import android.net.EthernetNetworkUpdateRequest;
 import android.net.IEthernetManager;
 import android.net.IEthernetServiceListener;
@@ -216,16 +218,40 @@ public class EthernetServiceImpl extends IEthernetManager.Stub {
                 "EthernetServiceImpl");
     }
 
-    private void maybeValidateTestCapabilities(final String iface,
+    private void validateTestCapabilities(final String iface,
             @Nullable final NetworkCapabilities nc) {
-        if (!mTracker.isValidTestInterface(iface)) {
-            return;
-        }
         // For test interfaces, only null or capabilities that include TRANSPORT_TEST are
         // allowed.
         if (nc != null && !nc.hasTransport(TRANSPORT_TEST)) {
             throw new IllegalArgumentException(
                     "Updates to test interfaces must have NetworkCapabilities.TRANSPORT_TEST.");
+        }
+    }
+
+    private void maybeSetOrValidateSpecifier(final String iface,
+            @Nullable final NetworkCapabilities nc) {
+        if (nc == null) {
+            return;
+        }
+        if (!nc.hasSingleTransport(TRANSPORT_ETHERNET)) {
+            throw new IllegalArgumentException("Invalid transport type for request.");
+        }
+        if (nc.getNetworkSpecifier() != null) {
+            validateNetworkSpecifier(iface, nc);
+            return;
+        }
+        // Set the network specifier if not set so network requests using specifiers work.
+        nc.setNetworkSpecifier(new EthernetNetworkSpecifier(iface));
+    }
+
+    private void validateNetworkSpecifier(String iface, NetworkCapabilities nc) {
+        if (!(nc.getNetworkSpecifier() instanceof EthernetNetworkSpecifier)) {
+            throw new IllegalArgumentException("Invalid specifier type for request.");
+        }
+        final String specifierIface =
+                ((EthernetNetworkSpecifier) nc.getNetworkSpecifier()).getInterfaceName();
+        if (!iface.equals(specifierIface)) {
+            throw new IllegalArgumentException("Invalid interface name set on specifier.");
         }
     }
 
@@ -253,10 +279,15 @@ public class EthernetServiceImpl extends IEthernetManager.Stub {
         // only automotive devices are allowed to set the NetworkCapabilities using this API
         enforceAdminPermission(iface, request.getNetworkCapabilities() != null,
                 "updateConfiguration() with non-null capabilities");
-        maybeValidateTestCapabilities(iface, request.getNetworkCapabilities());
+        final NetworkCapabilities nc = request.getNetworkCapabilities();
+        if (mTracker.isValidTestInterface(iface)) {
+            validateTestCapabilities(iface, nc);
+        } else {
+            maybeSetOrValidateSpecifier(iface, nc);
+        }
 
         mTracker.updateConfiguration(
-                iface, request.getIpConfiguration(), request.getNetworkCapabilities(), listener);
+                iface, request.getIpConfiguration(), nc, listener);
     }
 
     @Override
