@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5a4d8f6_0a52576f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2022-06-16T23:51:16Z",
+      "side": 1,
+      "message": "I commented on the bug but would like to understand how this affects real users. Also, couple other questions:\n- Is the DNS cache global or is it per app? \n- Is this new in T? I\u0027m wondering why we didn\u0027t see this before.",
+      "revId": "dcd7010905efd77df76675068ad76788f32320d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
