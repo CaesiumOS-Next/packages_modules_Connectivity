@@ -16,6 +16,75 @@
       "message": "This CL relands aosp/2113906. Verified the only difference is this CL does not use VpnNetworkAgentWrapper anymore",
       "revId": "02abebc8c5a4a25ff84f95923ed0a4e8343f410b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ad4affb_a636a505",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1554,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-16T03:13:57Z",
+      "side": 1,
+      "message": "IkeConnectInfo_2?\n\nOtherwise it\u0027s hard to distinguish between new as in the java keyword, or new as in the second ike connection info.",
+      "range": {
+        "startLine": 1554,
+        "startChar": 43,
+        "endLine": 1554,
+        "endChar": 46
+      },
+      "revId": "02abebc8c5a4a25ff84f95923ed0a4e8343f410b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7895bd70_378b0f83",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1600,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-16T03:13:57Z",
+      "side": 1,
+      "message": "unused?",
+      "range": {
+        "startLine": 1600,
+        "startChar": 33,
+        "endLine": 1600,
+        "endChar": 38
+      },
+      "revId": "02abebc8c5a4a25ff84f95923ed0a4e8343f410b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29a72b8d_7c37ebbc",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1601,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-16T03:13:57Z",
+      "side": 1,
+      "message": "unused?",
+      "range": {
+        "startLine": 1601,
+        "startChar": 35,
+        "endLine": 1601,
+        "endChar": 42
+      },
+      "revId": "02abebc8c5a4a25ff84f95923ed0a4e8343f410b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
