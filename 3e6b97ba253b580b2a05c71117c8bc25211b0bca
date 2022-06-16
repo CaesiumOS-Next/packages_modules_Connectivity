@@ -137,6 +137,30 @@
       },
       "revId": "3e6b97ba253b580b2a05c71117c8bc25211b0bca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1baf5d05_e1231efa",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 11396,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-16T09:01:21Z",
+      "side": 1,
+      "message": "Ohh, ServiceSpecificException is RuntimeException. So it shouldn\u0027t crash here. If you don\u0027t rethrow it as IllegalStateException. You need document it in ConnectivityManager, so the caller can know what kind of Exception may happen.",
+      "parentUuid": "abdcb77f_e42f8c07",
+      "range": {
+        "startLine": 11396,
+        "startChar": 9,
+        "endLine": 11396,
+        "endChar": 49
+      },
+      "revId": "3e6b97ba253b580b2a05c71117c8bc25211b0bca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
