@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5ba06ec_dfea8e39",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-16T04:30:33Z",
+      "side": 1,
+      "message": "Nit: there shouldn\u0027t be a blank line at the start of a class",
+      "revId": "d9ad86c3fef45c7fd1376efb2ea3bc92bec5e3cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af03780a_7d24266f",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-16T04:30:33Z",
+      "side": 1,
+      "message": "Please go through the change and make sure these are separated?\n\nAlso, when I made the comment on l.846, it should apply to both that and this comment.",
+      "range": {
+        "startLine": 855,
+        "startChar": 8,
+        "endLine": 855,
+        "endChar": 11
+      },
+      "revId": "d9ad86c3fef45c7fd1376efb2ea3bc92bec5e3cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95d06216_4021012c",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-16T04:30:33Z",
+      "side": 1,
+      "message": "Where are the logical blocks here? Where would it help readability if you added line breaks?",
+      "range": {
+        "startLine": 862,
+        "startChar": 0,
+        "endLine": 883,
+        "endChar": 0
+      },
+      "revId": "d9ad86c3fef45c7fd1376efb2ea3bc92bec5e3cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

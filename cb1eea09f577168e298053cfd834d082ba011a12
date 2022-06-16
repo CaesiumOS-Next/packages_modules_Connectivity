@@ -234,6 +234,30 @@
       },
       "revId": "cb1eea09f577168e298053cfd834d082ba011a12",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2090bba_3d3b2881",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-16T04:30:33Z",
+      "side": 1,
+      "message": "sg. Wanted to know how this came about.",
+      "parentUuid": "50017c64_48226f41",
+      "range": {
+        "startLine": 860,
+        "startChar": 0,
+        "endLine": 860,
+        "endChar": 94
+      },
+      "revId": "cb1eea09f577168e298053cfd834d082ba011a12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
