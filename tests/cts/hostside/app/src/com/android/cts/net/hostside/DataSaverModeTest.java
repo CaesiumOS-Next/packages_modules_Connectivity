@@ -99,8 +99,12 @@ public class DataSaverModeTest extends AbstractRestrictBackgroundNetworkTestCase
     public void testGetRestrictBackgroundStatus_enabled() throws Exception {
         setRestrictBackground(true);
         assertRestrictBackgroundChangedReceived(1);
-        assertDataSaverStatusOnBackground(RESTRICT_BACKGROUND_STATUS_ENABLED);
 
+        // DNS cache will keep the result for 2 seconds, so if the test checks network status in
+        // background first and the host that the test tries to connect is never queried, the
+        // UnknownHostException will be saved into DNS cache, which will make the next test item get
+        // the UnknownHostException even though the test app is in foreground and has network
+        // access. Checking network status in foreground first to prevent this issue.
         assertsForegroundAlwaysHasNetworkAccess();
         assertDataSaverStatusOnBackground(RESTRICT_BACKGROUND_STATUS_ENABLED);
 
@@ -138,8 +142,12 @@ public class DataSaverModeTest extends AbstractRestrictBackgroundNetworkTestCase
     public void testGetRestrictBackgroundStatus_blacklisted() throws Exception {
         addRestrictBackgroundBlacklist(mUid);
         assertRestrictBackgroundChangedReceived(1);
-        assertDataSaverStatusOnBackground(RESTRICT_BACKGROUND_STATUS_ENABLED);
 
+        // DNS cache will keep the result for 2 seconds, so if the test checks network status in
+        // background first and the host that the test tries to connect is never queried, the
+        // UnknownHostException will be saved into DNS cache, which will make the next test item get
+        // the UnknownHostException even though the test app is in foreground and has network
+        // access. Checking network status in foreground first to prevent this issue.
         assertsForegroundAlwaysHasNetworkAccess();
         assertRestrictBackgroundChangedReceived(1);
         assertDataSaverStatusOnBackground(RESTRICT_BACKGROUND_STATUS_ENABLED);
