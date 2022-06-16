@@ -43,6 +43,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "69350635_f2ff99f2",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1583,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-16T15:45:06Z",
+      "side": 1,
+      "message": "Maybe you can just \"reset(mIpSecService)\" at the end of this method, so that you don\u0027t need to count how many times that these methods have been called.",
+      "range": {
+        "startLine": 1583,
+        "startChar": 30,
+        "endLine": 1583,
+        "endChar": 50
+      },
+      "revId": "02abebc8c5a4a25ff84f95923ed0a4e8343f410b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7895bd70_378b0f83",
         "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
         "patchSetId": 3
@@ -82,6 +105,98 @@
         "startChar": 35,
         "endLine": 1601,
         "endChar": 42
+      },
+      "revId": "02abebc8c5a4a25ff84f95923ed0a4e8343f410b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "822e6053_541f4f56",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1646,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-16T15:45:06Z",
+      "side": 1,
+      "message": "Please take a look at my comment in l.1583.",
+      "range": {
+        "startLine": 1646,
+        "startChar": 40,
+        "endLine": 1646,
+        "endChar": 41
+      },
+      "revId": "02abebc8c5a4a25ff84f95923ed0a4e8343f410b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed86ea66_dc25aef2",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1723,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-16T15:45:06Z",
+      "side": 1,
+      "message": "Could you please describe more about why do we need to forget the first IKE creation?",
+      "range": {
+        "startLine": 1723,
+        "startChar": 8,
+        "endLine": 1723,
+        "endChar": 40
+      },
+      "revId": "02abebc8c5a4a25ff84f95923ed0a4e8343f410b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fcad6dd_1f468ead",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1735,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-16T15:45:06Z",
+      "side": 1,
+      "message": "Although this is the second time that we use IkeSessionCallback in this test(the first time is in verifySetupPlatformVpn), maybe we can just use ikeCb since we don\u0027t declare other IkeSessionCallback in this function.",
+      "range": {
+        "startLine": 1735,
+        "startChar": 33,
+        "endLine": 1735,
+        "endChar": 41
+      },
+      "revId": "02abebc8c5a4a25ff84f95923ed0a4e8343f410b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f01c88f_8d79d5ff",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1736,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-16T15:45:06Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 1736,
+        "startChar": 35,
+        "endLine": 1736,
+        "endChar": 45
       },
       "revId": "02abebc8c5a4a25ff84f95923ed0a4e8343f410b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
