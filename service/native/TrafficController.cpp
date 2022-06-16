@@ -56,7 +56,6 @@ using base::unique_fd;
 using bpf::BpfMap;
 using bpf::synchronizeKernelRCU;
 using netdutils::DumpWriter;
-using netdutils::getIfaceList;
 using netdutils::NetlinkListener;
 using netdutils::NetlinkListenerInterface;
 using netdutils::ScopedIndent;
@@ -198,16 +197,6 @@ Status TrafficController::initMaps() {
 Status TrafficController::start() {
     RETURN_IF_NOT_OK(initMaps());
 
-    // Fetch the list of currently-existing interfaces. At this point NetlinkHandler is
-    // already running, so it will call addInterface() when any new interface appears.
-    // TODO: Clean-up addInterface() after interface monitoring is in
-    // NetworkStatsService.
-    std::map<std::string, uint32_t> ifacePairs;
-    ASSIGN_OR_RETURN(ifacePairs, getIfaceList());
-    for (const auto& ifacePair:ifacePairs) {
-        addInterface(ifacePair.first.c_str(), ifacePair.second);
-    }
-
     auto result = makeSkDestroyListener();
     if (!isOk(result)) {
         ALOGE("Unable to create SkDestroyListener: %s", toString(result).c_str());
@@ -243,22 +232,6 @@ Status TrafficController::start() {
     expectOk(mSkDestroyListener->subscribe(kSockDiagDoneMsgType, rxDoneHandler));
 
     return netdutils::status::ok;
-}
-
-int TrafficController::addInterface(const char* name, uint32_t ifaceIndex) {
-    IfaceValue iface;
-    if (ifaceIndex == 0) {
-        ALOGE("Unknown interface %s(%d)", name, ifaceIndex);
-        return -1;
-    }
-
-    strlcpy(iface.name, name, sizeof(IfaceValue));
-    Status res = mIfaceIndexNameMap.writeValue(ifaceIndex, iface, BPF_ANY);
-    if (!isOk(res)) {
-        ALOGE("Failed to add iface %s(%d): %s", name, ifaceIndex, strerror(res.code()));
-        return -res.code();
-    }
-    return 0;
 }
 
 Status TrafficController::updateOwnerMapEntry(UidOwnerMatchType match, uid_t uid, FirewallRule rule,
