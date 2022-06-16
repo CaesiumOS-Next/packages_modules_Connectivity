@@ -118,6 +118,30 @@
       },
       "revId": "32682165871a807b074cf9ea1eb35ce5076e067a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc520926_644ede90",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-16T03:05:18Z",
+      "side": 1,
+      "message": "Ack, adding the test in aosp/2128992 but have a little difference as suggestion above.",
+      "parentUuid": "6f0aae50_a1e00084",
+      "range": {
+        "startLine": 585,
+        "startChar": 63,
+        "endLine": 585,
+        "endChar": 71
+      },
+      "revId": "32682165871a807b074cf9ea1eb35ce5076e067a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
