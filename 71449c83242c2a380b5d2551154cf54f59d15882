@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f949e8ba_9a374012",
+        "filename": "netd/BpfHandlerTest.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-16T22:50:40Z",
+      "side": 1,
+      "message": "this looks out of place but I get why it\u0027s still here.",
+      "range": {
+        "startLine": 77,
+        "startChar": 7,
+        "endLine": 78,
+        "endChar": 80
+      },
+      "revId": "71449c83242c2a380b5d2551154cf54f59d15882",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
