@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4170b07_216c0c2c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-16T07:44:44Z",
+      "side": 1,
+      "message": "I guess when we moved the code in aosp/1953486 we missed the changes in aosp/1958943\nCould you confirm my understanding and ok to remove addInterface in TrafficController?",
+      "revId": "8a096a5af8d42309736089b92c20cff46b6886b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
