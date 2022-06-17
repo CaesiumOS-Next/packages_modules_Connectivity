@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7231f16_c1bbab53",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-17T03:42:41Z",
+      "side": 1,
+      "message": "May I know why do you pick these 3 tests in the packages?\n\nE.g. The connectivity module usually works very close with NetworkStack module.  Why do you not add NetworkStackTests as a part of automotive-tests?\n\nAlso, is there any bug that you\u0027re working on may be able to link with? I see your reply that you want to reduce the build time but I do not fully understand the intention here.\n\nSorry for clarifying more since I would like to ensure you will not lose the necessary test coverage.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 21
+      },
+      "revId": "4fe6b7455800ace8db90e025ca1995615f464011",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db28841c_283f81e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-17T03:42:41Z",
+      "side": 1,
+      "message": "The NetworkStack tests are quite related to Connectivity module. I think we will expect the tests are also passed, even the breakage not because of your change. In most cases, we won\u0027t bypass the presubmit in case we miss some corner cases unless it\u0027s very urgent and we believe it\u0027s very safe.\n\nPlease ensure the TH is happy though I know it may be painful.\n\n@Remi,\ndo you want to take a look? Except the unclear intention and unknown test_suite definition. I do not see other concern here.",
+      "revId": "4fe6b7455800ace8db90e025ca1995615f464011",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4060dee_7ac7ca74",
+        "filename": "tests/deflake/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-17T03:42:41Z",
+      "side": 1,
+      "message": "I do not find the test_suites definition in the codebase. Is there any other commit topic with this?\n\nAlso, can you add a comment here to explain the intention. If someone else is trying to update the code here, they may not be able to know why is set here or if other new tests should be applied into the same test_suite.",
+      "range": {
+        "startLine": 45,
+        "startChar": 9,
+        "endLine": 45,
+        "endChar": 25
+      },
+      "revId": "4fe6b7455800ace8db90e025ca1995615f464011",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
