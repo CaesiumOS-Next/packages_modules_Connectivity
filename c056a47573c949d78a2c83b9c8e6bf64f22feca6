@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b84a339_3e7130cc",
+        "filename": "tests/cts/net/native/src/BpfCompatTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-17T21:30:10Z",
+      "side": 0,
+      "message": "fix to be:\nif T+ ... else ...",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 11
+      },
+      "revId": "c056a47573c949d78a2c83b9c8e6bf64f22feca6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
