@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6010397a_0d36f1c8",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetServiceImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-17T17:34:00Z",
+      "side": 1,
+      "message": "This function call makes this code a little hard to follow. It\u0027s not immediately obvious that it is correct. I wonder if it would be better to split it up in:\n```\nvalidateOrSetNetworkSpecifier(String iface, NetworkCapabilities nc) {\n    final NetworkSpecifier spec \u003d nc.getNetworkSpecifier();\n    if (spec \u003d\u003d null) {\n        nc.setNetworkSpecifier(new EthernetNetworkSpecifier(iface));\n        return;\n    }\n    if (!(spec instanceof EthernetNetworkSpecifier)) {\n        throw ...\n    }\n    if (!(EthernetNetworkSpecifier)spec).getInterfaceName().matches(iface)) {\n        throw ...\n    }\n}\n\nmaybeValidateTestTransport(String iface, NetworkCapabilities nc) {\n    if (!mTracker.isValidTestInterface(iface)) {\n        return;\n    }\n    if (!nc.hasTransport(TRANSPORT_TEST)) {\n        throw ...\n    }\n}\n\nmaybeValidateEthernetTransport(String iface, NetworkCapabilities nc) {\n    if (mTracker.isValidTestInterface(iface)) {\n        return;\n    }\n    if (!nc.hasSingleTransport(TRANSPORT_ETHERNET)) {\n        throw ...\n    }\n}\n```\n\n```\nif (nc !\u003d null) {\n    validateOrSetNetworkSpecifier(iface, nc);\n    maybeValidateTestTransport(iface, nc);\n    maybeValidateEthernetTransport(iface, nc);\n}\n```\n\nThis does call isValidTestInterface twice, but I like how it keeps all if-statements to a single level of indentation which makes it very readable IMO.",
+      "range": {
+        "startLine": 240,
+        "startChar": 12,
+        "endLine": 240,
+        "endChar": 36
+      },
+      "revId": "ffee45359f1ce48a73ecbcd2619a342061fca87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3656935d_254b3a36",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetServiceImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-17T17:34:00Z",
+      "side": 1,
+      "message": "nit: if you put this two lines above, we can skip the second request.getNetworkCapabilities() call on line 280.",
+      "revId": "ffee45359f1ce48a73ecbcd2619a342061fca87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e11c47b6_9ca4e0ca",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetServiceImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-17T17:34:00Z",
+      "side": 1,
+      "message": "It may be worth validating the same capabilities on all interface, so test behavior is more in line with the production code (the only difference being the transport type for test vs regular interfaces).",
+      "range": {
+        "startLine": 283,
+        "startChar": 8,
+        "endLine": 287,
+        "endChar": 9
+      },
+      "revId": "ffee45359f1ce48a73ecbcd2619a342061fca87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75d5d258_923718e6",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetServiceImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-17T17:34:00Z",
+      "side": 1,
+      "message": "This test is better suited for CTS, I suggest not adding this here. Feel free to put it in a separate CL on top of this one. All my test CLs have merged, so this should be very easy to do in EthernetManagerTest now.",
+      "range": {
+        "startLine": 291,
+        "startChar": 1,
+        "endLine": 307,
+        "endChar": 5
+      },
+      "revId": "ffee45359f1ce48a73ecbcd2619a342061fca87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
