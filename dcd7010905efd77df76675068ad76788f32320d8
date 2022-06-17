@@ -16,6 +16,24 @@
       "message": "I commented on the bug but would like to understand how this affects real users. Also, couple other questions:\n- Is the DNS cache global or is it per app? \n- Is this new in T? I\u0027m wondering why we didn\u0027t see this before.",
       "revId": "dcd7010905efd77df76675068ad76788f32320d8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "018db945_7a36541e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-17T03:19:20Z",
+      "side": 1,
+      "message": "\u003e Is the DNS cache global or is it per app?\n\nIf the callers are using the same network to do the DNS lookup through InetAddress#getAllByName, they will get the same result. So basically, I think the DNS cache is global, but it still depends on what the network you\u0027re using.\n\n\u003e Is this new in T? I\u0027m wondering why we didn\u0027t see this before.\n\nThe DNS cache was there for few years, you can refer to https://source.corp.google.com/aosp-master/libcore/ojluni/src/main/java/java/net/Inet6AddressImpl.java;l\u003d117?q\u003dinet6addressimpl.java\u0026sq\u003dpackage:%5Eaosp-master$ and https://source.corp.google.com/aosp-master/libcore/luni/src/main/java/java/net/AddressCache.java;l\u003d38?q\u003daddressCache.java\u0026sq\u003dpackage:%5Eaosp-master$\nAnd this issue is only happened when the test is running independently and the host is never queried. But in most of cases, we will run the whole test module, which may make DNS cache have data for the specific host.",
+      "parentUuid": "a5a4d8f6_0a52576f",
+      "revId": "dcd7010905efd77df76675068ad76788f32320d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
