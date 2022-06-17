@@ -66,6 +66,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8fb78080_78724c9d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 8812,
+      "author": {
+        "id": 1237921
+      },
+      "writtenOn": "2022-06-17T13:55:28Z",
+      "side": 1,
+      "message": "As a result of discussion with AppOpsManager team, we concluded we should call AppOpsManager API with the actual Transport calculated by #computeNetworkReassignment. Because AppOpsManager needs to know the actual Transport when sending data.\n\nIt is possible to move the current implementation to #rematchNetworksAndRequests which is caller of #computeNetworkReassignment. But it also needs to work fast. Is my understanding correct?\n\nIf my understanding is correct, we have to discuss the design with reviewer of AppOpsManager. AppOpsManager has two functions, Tracking and Access control. They said they allow not to support the access control function if current design on ConnctivityService is not accepted. If we can ignore the return value, it is possible to move calling AppOpsManager API to a safer place.",
+      "parentUuid": "ea477ee7_7b5ecc78",
+      "range": {
+        "startLine": 8812,
+        "startChar": 20,
+        "endLine": 8812,
+        "endChar": 47
+      },
+      "revId": "f22b9c1816a4eff399691c28341bb0428ae69768",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "83723299_6fbd0bb1",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 3
