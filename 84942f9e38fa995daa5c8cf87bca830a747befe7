@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdf4abfa_6bc2fc59",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-17T00:10:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7b4d748_bef582f6",
+      "range": {
+        "startLine": 7,
+        "startChar": 47,
+        "endLine": 7,
+        "endChar": 55
+      },
+      "revId": "84942f9e38fa995daa5c8cf87bca830a747befe7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c699b2d5_8740655f",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfce4850_11442fae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-17T00:10:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c699b2d5_8740655f",
+      "range": {
+        "startLine": 10,
+        "startChar": 31,
+        "endLine": 10,
+        "endChar": 37
+      },
+      "revId": "84942f9e38fa995daa5c8cf87bca830a747befe7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "519b1e08_d6bfa0bf",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-06-16T16:10:18Z",
       "side": 1,
       "message": "available",
+      "range": {
+        "startLine": 12,
+        "startChar": 32,
+        "endLine": 12,
+        "endChar": 41
+      },
+      "revId": "84942f9e38fa995daa5c8cf87bca830a747befe7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3cf5702_e357360d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-17T00:10:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "519b1e08_d6bfa0bf",
       "range": {
         "startLine": 12,
         "startChar": 32,
@@ -110,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e4cc932_a1bec04c",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1790,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-17T00:10:59Z",
+      "side": 1,
+      "message": "added",
+      "parentUuid": "e5aac1cc_44483817",
+      "range": {
+        "startLine": 1790,
+        "startChar": 61,
+        "endLine": 1790,
+        "endChar": 69
+      },
+      "revId": "84942f9e38fa995daa5c8cf87bca830a747befe7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd8209e3_d0be0bbd",
@@ -123,6 +219,24 @@
       "writtenOn": "2022-06-16T03:18:53Z",
       "side": 1,
       "message": "Nit remove extra line break?",
+      "revId": "84942f9e38fa995daa5c8cf87bca830a747befe7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "946e3460_10b376e4",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1813,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-06-17T00:10:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd8209e3_d0be0bbd",
       "revId": "84942f9e38fa995daa5c8cf87bca830a747befe7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
