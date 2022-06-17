@@ -105,7 +105,10 @@ static const int UID_OWNER_MAP_SIZE = 2000;
 
 #ifdef __cplusplus
 
-#define BPF_NETD_PATH "/sys/fs/bpf/netd_shared/"
+#define BPF_PATH "/sys/fs/bpf/"
+
+#define BPF_SS_PATH BPF_PATH "net_shared/"
+#define BPF_NETD_PATH BPF_PATH "netd_shared/"
 
 #define BPF_EGRESS_PROG_PATH BPF_NETD_PATH "prog_netd_cgroupskb_egress_stats"
 #define BPF_INGRESS_PROG_PATH BPF_NETD_PATH "prog_netd_cgroupskb_ingress_stats"
@@ -133,17 +136,17 @@ ASSERT_STRING_EQUAL(XT_BPF_DENYLIST_PROG_PATH,  BPF_NETD_PATH "prog_netd_skfilte
 #define CGROUP_SOCKET_PROG_PATH BPF_NETD_PATH "prog_netd_cgroupsock_inet_create"
 
 #define TC_BPF_INGRESS_ACCOUNT_PROG_NAME "prog_netd_schedact_ingress_account"
-#define TC_BPF_INGRESS_ACCOUNT_PROG_PATH BPF_NETD_PATH TC_BPF_INGRESS_ACCOUNT_PROG_NAME
+#define TC_BPF_INGRESS_ACCOUNT_PROG_PATH BPF_SS_PATH TC_BPF_INGRESS_ACCOUNT_PROG_NAME
 
 #define COOKIE_TAG_MAP_PATH BPF_NETD_PATH "map_netd_cookie_tag_map"
-#define UID_COUNTERSET_MAP_PATH BPF_NETD_PATH "map_netd_uid_counterset_map"
-#define APP_UID_STATS_MAP_PATH BPF_NETD_PATH "map_netd_app_uid_stats_map"
+#define UID_COUNTERSET_MAP_PATH BPF_SS_PATH "map_netd_uid_counterset_map"
+#define APP_UID_STATS_MAP_PATH BPF_SS_PATH "map_netd_app_uid_stats_map"
 #define STATS_MAP_A_PATH BPF_NETD_PATH "map_netd_stats_map_A"
 #define STATS_MAP_B_PATH BPF_NETD_PATH "map_netd_stats_map_B"
-#define IFACE_INDEX_NAME_MAP_PATH BPF_NETD_PATH "map_netd_iface_index_name_map"
-#define IFACE_STATS_MAP_PATH BPF_NETD_PATH "map_netd_iface_stats_map"
+#define IFACE_INDEX_NAME_MAP_PATH BPF_SS_PATH "map_netd_iface_index_name_map"
+#define IFACE_STATS_MAP_PATH BPF_SS_PATH "map_netd_iface_stats_map"
 #define CONFIGURATION_MAP_PATH BPF_NETD_PATH "map_netd_configuration_map"
-#define UID_OWNER_MAP_PATH BPF_NETD_PATH "map_netd_uid_owner_map"
+#define UID_OWNER_MAP_PATH BPF_SS_PATH "map_netd_uid_owner_map"
 #define UID_PERMISSION_MAP_PATH BPF_NETD_PATH "map_netd_uid_permission_map"
 
 #endif // __cplusplus

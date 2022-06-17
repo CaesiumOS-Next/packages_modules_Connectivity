@@ -55,7 +55,7 @@
 
 // For maps netd does not need to access
 #define DEFINE_BPF_MAP_NO_NETD(the_map, TYPE, TypeOfKey, TypeOfValue, num_entries) \
-    DEFINE_BPF_MAP_EXT(the_map, TYPE, TypeOfKey, TypeOfValue, num_entries, AID_ROOT, AID_NET_BW_ACCT, 0060, "fs_bpf_net_shared", "", false)
+    DEFINE_BPF_MAP_EXT(the_map, TYPE, TypeOfKey, TypeOfValue, num_entries, AID_ROOT, AID_NET_BW_ACCT, 0060, "", "net_shared/", false)
 
 // For maps netd only needs read only access to
 #define DEFINE_BPF_MAP_RO_NETD(the_map, TYPE, TypeOfKey, TypeOfValue, num_entries) \
@@ -95,7 +95,7 @@ DEFINE_BPF_MAP_NO_NETD(iface_index_name_map, HASH, uint32_t, IfaceValue, IFACE_I
 // programs that only need to be usable by the system server
 #define DEFINE_SS_BPF_PROG(SECTION_NAME, prog_uid, prog_gid, the_prog) \
     DEFINE_BPF_PROG_EXT(SECTION_NAME, prog_uid, prog_gid, the_prog, \
-                        KVER_NONE, KVER_INF, false, "fs_bpf_net_shared", "")
+                        KVER_NONE, KVER_INF, false, "", "net_shared/")
 
 static __always_inline int is_system_uid(uint32_t uid) {
     // MIN_SYSTEM_UID is AID_ROOT == 0, so uint32_t is *always* >= 0
