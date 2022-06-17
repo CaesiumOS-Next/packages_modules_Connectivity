@@ -264,10 +264,10 @@ public class EthernetTracker {
             @Nullable final IpConfiguration ipConfig,
             @Nullable final NetworkCapabilities capabilities,
             @Nullable final INetworkInterfaceOutcomeReceiver listener) {
-        if (DBG) {
+
             Log.i(TAG, "updateConfiguration, iface: " + iface + ", capabilities: " + capabilities
                     + ", ipConfig: " + ipConfig);
-        }
+
 
         // TODO: do the right thing if the interface was in server mode: either fail this operation,
         // or take the interface out of server mode.
@@ -579,10 +579,16 @@ public class EthernetTracker {
             if (DBG) Log.w(TAG, "Ignoring already-tracked interface " + iface);
             return;
         }
-        if (DBG) Log.i(TAG, "maybeTrackInterface: " + iface);
+        Log.i(TAG, "maybeTrackInterface: " + iface);
 
         // Do not make an interface default if it has configured NetworkCapabilities.
+        Log.i(TAG, "mDefaultInterface: " + mDefaultInterface + "mNetworkCapabilities.containsKey(iface): " + mNetworkCapabilities.containsKey(iface) + ", iface: " + iface);
+        Log.i(TAG, "mNetworkCapabilities: " );
+        for (String ifaceCap : mNetworkCapabilities.keySet()) {
+            Log.i(TAG, "  " + ifaceCap + ": " + mNetworkCapabilities.get(ifaceCap));
+        }
         if (mDefaultInterface == null && !mNetworkCapabilities.containsKey(iface)) {
+            Log.i(TAG, "Set mDefaultInterface: " + iface);
             mDefaultInterface = iface;
         }
 
