@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.INetd;
+import android.net.InetAddresses;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.mdns.aidl.DiscoveryInfo;
@@ -57,7 +58,6 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.util.HashMap;
 
 /**
@@ -535,10 +535,12 @@ public class NsdService extends INsdManager.Stub {
                         final String address = info.address;
                         final int netId = info.netId;
                         InetAddress serviceHost = null;
-                        try {
-                            serviceHost = InetAddress.getByName(address);
-                        } catch (UnknownHostException e) {
-                            Log.wtf(TAG, "Invalid host in GET_ADDR_SUCCESS", e);
+                        if (address != null) {
+                            try {
+                                serviceHost = InetAddresses.parseNumericAddress(address);
+                            } catch (IllegalArgumentException e) {
+                                Log.wtf(TAG, "Invalid address in GET_ADDR_SUCCESS", e);
+                            }
                         }
 
                         // If the resolved service is on an interface without a network, consider it
