@@ -44,7 +44,6 @@ import android.net.dhcp.DhcpServingParamsParcel;
 import android.net.dhcp.DhcpServingParamsParcelExt;
 import android.net.dhcp.IDhcpEventCallbacks;
 import android.net.dhcp.IDhcpServer;
-import android.net.ip.IpNeighborMonitor.NeighborEvent;
 import android.net.ip.RouterAdvertisementDaemon.RaParams;
 import android.os.Handler;
 import android.os.Looper;
@@ -64,6 +63,9 @@ import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.InterfaceParams;
 import com.android.net.module.util.NetdUtils;
 import com.android.net.module.util.SharedLog;
+import com.android.net.module.util.ip.InterfaceController;
+import com.android.net.module.util.ip.IpNeighborMonitor;
+import com.android.net.module.util.ip.IpNeighborMonitor.NeighborEvent;
 import com.android.networkstack.tethering.BpfCoordinator;
 import com.android.networkstack.tethering.BpfCoordinator.ClientInfo;
 import com.android.networkstack.tethering.BpfCoordinator.Ipv6ForwardingRule;
@@ -75,6 +77,7 @@ import com.android.networkstack.tethering.util.PrefixUtils;
 
 import java.net.Inet4Address;
 import java.net.Inet6Address;
+import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -932,17 +935,18 @@ public class IpServer extends StateMachine {
         // If we're here to process a NeighborEvent, do so now.
         // mInterfaceParams must be non-null or the event would not have arrived.
         if (e == null) return;
-        if (!(e.ip instanceof Inet6Address) || e.ip.isMulticastAddress()
-                || e.ip.isLoopbackAddress() || e.ip.isLinkLocalAddress()) {
+        final InetAddress ip = e.getIpAddress();
+        if (!(ip instanceof Inet6Address) || ip.isMulticastAddress()
+                || ip.isLoopbackAddress() || ip.isLinkLocalAddress()) {
             return;
         }
 
         // When deleting rules, we still need to pass a non-null MAC, even though it's ignored.
         // Do this here instead of in the Ipv6ForwardingRule constructor to ensure that we never
         // add rules with a null MAC, only delete them.
-        MacAddress dstMac = e.isValid() ? e.macAddr : NULL_MAC_ADDRESS;
+        MacAddress dstMac = e.isValid() ? e.getMacAddress() : NULL_MAC_ADDRESS;
         Ipv6ForwardingRule rule = new Ipv6ForwardingRule(upstreamIfindex,
-                mInterfaceParams.index, (Inet6Address) e.ip, mInterfaceParams.macAddr, dstMac);
+                mInterfaceParams.index, (Inet6Address) ip, mInterfaceParams.macAddr, dstMac);
         if (e.isValid()) {
             addIpv6ForwardingRule(rule);
         } else {
@@ -957,17 +961,18 @@ public class IpServer extends StateMachine {
         if (!mUsingBpfOffload) return;
 
         if (e == null) return;
-        if (!(e.ip instanceof Inet4Address) || e.ip.isMulticastAddress()
-                || e.ip.isLoopbackAddress() || e.ip.isLinkLocalAddress()) {
+        final InetAddress ip = e.getIpAddress();
+        if (!(ip instanceof Inet4Address) || ip.isMulticastAddress()
+                || ip.isLoopbackAddress() || ip.isLinkLocalAddress()) {
             return;
         }
 
         // When deleting clients, IpServer still need to pass a non-null MAC, even though it's
         // ignored. Do this here instead of in the ClientInfo constructor to ensure that
         // IpServer never add clients with a null MAC, only delete them.
-        final MacAddress clientMac = e.isValid() ? e.macAddr : NULL_MAC_ADDRESS;
+        final MacAddress clientMac = e.isValid() ? e.getMacAddress() : NULL_MAC_ADDRESS;
         final ClientInfo clientInfo = new ClientInfo(mInterfaceParams.index,
-                mInterfaceParams.macAddr, (Inet4Address) e.ip, clientMac);
+                mInterfaceParams.macAddr, (Inet4Address) ip, clientMac);
         if (e.isValid()) {
             mBpfCoordinator.tetherOffloadClientAdd(this, clientInfo);
         } else {
@@ -977,7 +982,7 @@ public class IpServer extends StateMachine {
 
     private void handleNeighborEvent(NeighborEvent e) {
         if (mInterfaceParams != null
-                && mInterfaceParams.index == e.ifindex
+                && mInterfaceParams.index == e.getIfindex()
                 && mInterfaceParams.hasMacAddress) {
             updateIpv6ForwardingRules(mLastIPv6UpstreamIfindex, mLastIPv6UpstreamIfindex, e);
             updateClientInfoIpv4(e);
