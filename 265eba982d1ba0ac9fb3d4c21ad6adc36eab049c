@@ -16,6 +16,24 @@
       "message": "LGTM, but we really need tests for updateConfiguration inside EthernetManager CTS since this unit test doesn\u0027t really provide that much coverage.",
       "revId": "265eba982d1ba0ac9fb3d4c21ad6adc36eab049c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ca4b226_f53a5507",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-17T15:20:20Z",
+      "side": 1,
+      "message": "Ack. I have rebasing the CTS tests on my short-list and will plan to address in the very near future.",
+      "parentUuid": "762fc3c6_3953f9b8",
+      "revId": "265eba982d1ba0ac9fb3d4c21ad6adc36eab049c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
