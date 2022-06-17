@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "411ff858_723710df",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-17T00:41:27Z",
+      "side": 1,
+      "message": "FWIW, you can do something like call registerDefaultNetworkCallback and wait for onAvailable. That will guarantee that the handler thread has run. Maybe add a TODO to do that if this test becomes flaky?",
+      "range": {
+        "startLine": 466,
+        "startChar": 96,
+        "endLine": 466,
+        "endChar": 97
+      },
+      "revId": "8b9bea667bcaae83fc5bb4e9eda7e66fb2a21ba5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
