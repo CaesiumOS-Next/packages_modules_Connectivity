@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4727c84b_590069e3",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-17T08:54:08Z",
+      "side": 1,
+      "message": "This behavior was pretty strange.\nAnd realized configurationMap does not need to be static.\nWhen we opened the same map multiple times, BpfMap makes sure to reuses the fd previously opened.\nSo I updated to non static as other classes are doing (e.g. NetworkStatsService).",
+      "range": {
+        "startLine": 139,
+        "startChar": 52,
+        "endLine": 140,
+        "endChar": 22
+      },
+      "revId": "345af1135268bb0f1fb7a25634325dd4ff0fe5a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a396ab43_a7b2fcdb",
         "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
         "patchSetId": 25
@@ -31,6 +54,24 @@
       "writtenOn": "2022-06-17T04:32:28Z",
       "side": 1,
       "message": "Test throwing ServiceSpecificException if UID_RULES_CONFIGURATION_KEY don\u0027t have corresponding value here ?",
+      "revId": "345af1135268bb0f1fb7a25634325dd4ff0fe5a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9aa7473_dce21293",
+        "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-17T08:54:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a396ab43_a7b2fcdb",
       "revId": "345af1135268bb0f1fb7a25634325dd4ff0fe5a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -48,6 +89,30 @@
       "writtenOn": "2022-06-17T04:32:28Z",
       "side": 1,
       "message": "I think we should test multiple rules enabled case. So probably like below or similar:\n\n    final List\u003cInteger\u003e mAllChains \u003d List.of(\n                FIREWALL_CHAIN_DOZABLE,\n                FIREWALL_CHAIN_STANDBY,\n                FIREWALL_CHAIN_POWERSAVE,\n                FIREWALL_CHAIN_RESTRICTED,\n                FIREWALL_CHAIN_LOW_POWER_STANDBY,\n                FIREWALL_CHAIN_OEM_DENY_1,\n                FIREWALL_CHAIN_OEM_DENY_2,\n                FIREWALL_CHAIN_OEM_DENY_3\n        );\n\n    public void testGetChainEnabled() throws Exception {\n        // test throwing ServiceSpecificException at beginining as suggestion above.\n        \n        long match \u003d NO_MATACH;\n        final List\u003cInteger\u003e enabledChains \u003d new ArrayList\u003cInteger\u003e();\n        for (final int chain: mAllChains) {\n            enabledChains.add(chain);\n            match |\u003d mBpfNetMaps.getMatchByFirewallChain(chain);\n            mConfigurationMap.updateEntry(UID_RULES_CONFIGURATION_KEY, new U32(match));\n            verifyGetChainEnabled(match, enabledChain)\n\n        }\n        \n        private void verifyGetChainEnabled(final long match, List\u003cInteger\u003e enabledChain) {\n            for (final int chain: mAllChains) {\n                // verify that getChainEnabled should return true for enabled chain, false for others. \n            }      \n        }",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 9
+      },
+      "revId": "345af1135268bb0f1fb7a25634325dd4ff0fe5a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5a92270_91fd9188",
+        "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-17T08:54:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "33154fe5_afe3db94",
       "range": {
         "startLine": 117,
         "startChar": 0,
