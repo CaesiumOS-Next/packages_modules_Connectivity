@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44eb7cca_3c14308b",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 1607,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-17T09:21:21Z",
+      "side": 1,
+      "message": "I\u0027m thinking if this is necessary. Please take a look at my comment in l.1668.",
+      "range": {
+        "startLine": 1607,
+        "startChar": 8,
+        "endLine": 1607,
+        "endChar": 43
+      },
+      "revId": "43d4904b7dd4634ca8f8b31bc5543e200cbcbf72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e608434_61dcf32f",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 1650,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-17T09:21:21Z",
+      "side": 1,
+      "message": "Do we also want to test that the incoming packet won\u0027t be blocked before T?\n\nMaybe something like:\n```\n} else {\n    checkBlockIncomingPacket(tunFd, remoteUdpFd, EXPECT_PASS);\n}\n```",
+      "range": {
+        "startLine": 1650,
+        "startChar": 12,
+        "endLine": 1650,
+        "endChar": 13
+      },
+      "revId": "43d4904b7dd4634ca8f8b31bc5543e200cbcbf72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61a4a76e_57ecab35",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 1668,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-17T09:21:21Z",
+      "side": 1,
+      "message": "Maybe it\u0027s fine to always do this regardless if we did \"mCM.setRequireVpnForUids(true /* requireVpn */, lockdownRange);\" or not?\nIf so, maybe lockdownConfigured is unnecessary.",
+      "range": {
+        "startLine": 1668,
+        "startChar": 20,
+        "endLine": 1668,
+        "endChar": 84
+      },
+      "revId": "43d4904b7dd4634ca8f8b31bc5543e200cbcbf72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
