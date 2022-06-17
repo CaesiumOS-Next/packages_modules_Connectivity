@@ -22,6 +22,30 @@
       },
       "revId": "86a800f91121c57e077ae9833e3a8697c8098b35",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a042ec87_a27abc59",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-06-17T09:05:07Z",
+      "side": 0,
+      "message": "Refer to https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2110093/comments/b74efe5c_54371b96",
+      "parentUuid": "e5530a69_ecc3bbef",
+      "range": {
+        "startLine": 475,
+        "startChar": 16,
+        "endLine": 475,
+        "endChar": 53
+      },
+      "revId": "86a800f91121c57e077ae9833e3a8697c8098b35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
