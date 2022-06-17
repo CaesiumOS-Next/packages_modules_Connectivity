@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89e9600a_201a3aa9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-17T04:32:28Z",
+      "side": 1,
+      "message": "LGTM assume the comment fixed, the comments are for test.",
+      "revId": "345af1135268bb0f1fb7a25634325dd4ff0fe5a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a396ab43_a7b2fcdb",
+        "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-17T04:32:28Z",
+      "side": 1,
+      "message": "Test throwing ServiceSpecificException if UID_RULES_CONFIGURATION_KEY don\u0027t have corresponding value here ?",
+      "revId": "345af1135268bb0f1fb7a25634325dd4ff0fe5a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33154fe5_afe3db94",
+        "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-17T04:32:28Z",
+      "side": 1,
+      "message": "I think we should test multiple rules enabled case. So probably like below or similar:\n\n    final List\u003cInteger\u003e mAllChains \u003d List.of(\n                FIREWALL_CHAIN_DOZABLE,\n                FIREWALL_CHAIN_STANDBY,\n                FIREWALL_CHAIN_POWERSAVE,\n                FIREWALL_CHAIN_RESTRICTED,\n                FIREWALL_CHAIN_LOW_POWER_STANDBY,\n                FIREWALL_CHAIN_OEM_DENY_1,\n                FIREWALL_CHAIN_OEM_DENY_2,\n                FIREWALL_CHAIN_OEM_DENY_3\n        );\n\n    public void testGetChainEnabled() throws Exception {\n        // test throwing ServiceSpecificException at beginining as suggestion above.\n        \n        long match \u003d NO_MATACH;\n        final List\u003cInteger\u003e enabledChains \u003d new ArrayList\u003cInteger\u003e();\n        for (final int chain: mAllChains) {\n            enabledChains.add(chain);\n            match |\u003d mBpfNetMaps.getMatchByFirewallChain(chain);\n            mConfigurationMap.updateEntry(UID_RULES_CONFIGURATION_KEY, new U32(match));\n            verifyGetChainEnabled(match, enabledChain)\n\n        }\n        \n        private void verifyGetChainEnabled(final long match, List\u003cInteger\u003e enabledChain) {\n            for (final int chain: mAllChains) {\n                // verify that getChainEnabled should return true for enabled chain, false for others. \n            }      \n        }",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 9
+      },
+      "revId": "345af1135268bb0f1fb7a25634325dd4ff0fe5a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
