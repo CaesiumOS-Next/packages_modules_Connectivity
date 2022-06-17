@@ -191,6 +191,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "660d2de0_79405024",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1599,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-17T10:17:20Z",
+      "side": 1,
+      "message": "I think this should be ignored at least before S since registerDefaultNetworkCallbackForUid is not available until S.",
+      "range": {
+        "startLine": 1599,
+        "startChar": 4,
+        "endLine": 1599,
+        "endChar": 9
+      },
+      "revId": "b1a9d64a54955d6303e687df06d5721dfcd135c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "05b7011d_de7ee7c1",
         "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
         "patchSetId": 24
