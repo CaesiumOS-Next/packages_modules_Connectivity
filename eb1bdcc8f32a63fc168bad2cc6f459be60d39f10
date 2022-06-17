@@ -69,6 +69,30 @@
       },
       "revId": "eb1bdcc8f32a63fc168bad2cc6f459be60d39f10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7107c16_ad4a6881",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1314,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-17T06:35:25Z",
+      "side": 1,
+      "message": "That CL is now merged. Mark, perhaps you can move this test to EthernetManagerTest? Once Patrick is happy with it I should probably be able to review it quickly.",
+      "parentUuid": "bff063a5_2275bd8c",
+      "range": {
+        "startLine": 1277,
+        "startChar": 7,
+        "endLine": 1314,
+        "endChar": 9
+      },
+      "revId": "eb1bdcc8f32a63fc168bad2cc6f459be60d39f10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
