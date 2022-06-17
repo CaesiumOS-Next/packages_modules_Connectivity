@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c95c115_2d76501c",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetServiceImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-17T22:44:42Z",
+      "side": 1,
+      "message": "Yeah, looks good to me. Done.",
+      "parentUuid": "6010397a_0d36f1c8",
+      "range": {
+        "startLine": 240,
+        "startChar": 12,
+        "endLine": 240,
+        "endChar": 36
+      },
+      "revId": "ffee45359f1ce48a73ecbcd2619a342061fca87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3656935d_254b3a36",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-06-17T17:34:00Z",
       "side": 1,
       "message": "nit: if you put this two lines above, we can skip the second request.getNetworkCapabilities() call on line 280.",
+      "revId": "ffee45359f1ce48a73ecbcd2619a342061fca87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a0b0f01_ad854d9a",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetServiceImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-17T22:44:42Z",
+      "side": 1,
+      "message": "Good catch.",
+      "parentUuid": "3656935d_254b3a36",
       "revId": "ffee45359f1ce48a73ecbcd2619a342061fca87e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "098ceaa4_362075d8",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetServiceImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-17T22:44:42Z",
+      "side": 1,
+      "message": "Looks like this is good after resolving the other comment above by changing to:\n\n  if (nc !\u003d null) {\n      validateOrSetNetworkSpecifier(iface, nc);\n      maybeValidateTestTransport(iface, nc);\n      maybeValidateEthernetTransport(iface, nc);\n  }\n  \nFeel free to reopen if you meant something else.",
+      "parentUuid": "e11c47b6_9ca4e0ca",
+      "range": {
+        "startLine": 283,
+        "startChar": 8,
+        "endLine": 287,
+        "endChar": 9
+      },
+      "revId": "ffee45359f1ce48a73ecbcd2619a342061fca87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75d5d258_923718e6",
@@ -77,6 +143,30 @@
       "writtenOn": "2022-06-17T17:34:00Z",
       "side": 1,
       "message": "This test is better suited for CTS, I suggest not adding this here. Feel free to put it in a separate CL on top of this one. All my test CLs have merged, so this should be very easy to do in EthernetManagerTest now.",
+      "range": {
+        "startLine": 291,
+        "startChar": 1,
+        "endLine": 307,
+        "endChar": 5
+      },
+      "revId": "ffee45359f1ce48a73ecbcd2619a342061fca87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "428b1138_2f3f4cf4",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetServiceImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-17T22:44:42Z",
+      "side": 1,
+      "message": "As discussed offline, we\u0027ll keep the unit test and add a follow-up CTS test as tracker on bug http://b/236420528.",
+      "parentUuid": "75d5d258_923718e6",
       "range": {
         "startLine": 291,
         "startChar": 1,
