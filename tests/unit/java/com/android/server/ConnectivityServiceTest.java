@@ -5930,6 +5930,54 @@ public class ConnectivityServiceTest {
         assertThrows(SecurityException.class, () -> mCm.requestNetwork(nr, networkCallback));
     }
 
+    /**
+     * Validate the service accepts a restricted eth request with automotive enabled.
+     */
+    @Test
+    public void testEthRequestForRestrictedNetworksWithAutomotiveSucceeds() throws Exception {
+        mServiceContext.setPermission(CONNECTIVITY_USE_RESTRICTED_NETWORKS, PERMISSION_DENIED);
+        // A successful request requires an eth transport and feature automotive.
+        mockHasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE, true);
+        final NetworkRequest nr = new NetworkRequest.Builder().clearCapabilities()
+                .addTransportType(TRANSPORT_ETHERNET)
+                .build();
+
+        // File the request and expect the service not to throw.
+        mCm.requestNetwork(nr, new TestNetworkCallback());
+    }
+
+    /**
+     * Validate the service throws for eth request without automotive enabled.
+     */
+    @Test
+    public void testEthRequestForRestrictedNetworksWithoutAutomotiveThrows() throws Exception {
+        mServiceContext.setPermission(CONNECTIVITY_USE_RESTRICTED_NETWORKS, PERMISSION_DENIED);
+        // Automotive feature is disabled.
+        mockHasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE, false);
+        final NetworkRequest nr = new NetworkRequest.Builder().clearCapabilities()
+                .addTransportType(TRANSPORT_ETHERNET)
+                .build();
+
+        assertThrows(SecurityException.class,
+                () -> mCm.requestNetwork(nr, new TestNetworkCallback()));
+    }
+
+    /**
+     * Validate the service throws for a request without an ethernet transport.
+     */
+    @Test
+    public void testNonEthRequestForRestrictedNetworksThrows() throws Exception {
+        mServiceContext.setPermission(CONNECTIVITY_USE_RESTRICTED_NETWORKS, PERMISSION_DENIED);
+        mockHasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE, true);
+        // Invalid transport of TRANSPORT_WIFI
+        final NetworkRequest nr = new NetworkRequest.Builder().clearCapabilities()
+                .addTransportType(TRANSPORT_WIFI)
+                .build();
+
+        assertThrows(SecurityException.class,
+                () -> mCm.requestNetwork(nr, new TestNetworkCallback()));
+    }
+
     private static class TestKeepaliveCallback extends PacketKeepaliveCallback {
 
         public enum CallbackType { ON_STARTED, ON_STOPPED, ON_ERROR }
