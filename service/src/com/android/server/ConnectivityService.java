@@ -82,6 +82,7 @@ import static android.net.NetworkCapabilities.REDACT_FOR_ACCESS_FINE_LOCATION;
 import static android.net.NetworkCapabilities.REDACT_FOR_LOCAL_MAC_ADDRESS;
 import static android.net.NetworkCapabilities.REDACT_FOR_NETWORK_SETTINGS;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
+import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
@@ -6716,6 +6717,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // For T+ devices, callers with carrier privilege could request with CBS capabilities.
             if (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CBS)
                     && hasCarrierPrivilegeForNetworkCaps(callingUid, networkCapabilities)) {
+                return;
+            }
+            // Automotive callers can request restricted ethernet networks as they may be in its
+            // network capability allowed list.
+            if (mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE)
+                    && networkCapabilities.hasSingleTransport(TRANSPORT_ETHERNET)) {
                 return;
             }
             enforceConnectivityRestrictedNetworksPermission(true /* checkUidsAllowedList */);
