@@ -22,6 +22,30 @@
       },
       "revId": "c056a47573c949d78a2c83b9c8e6bf64f22feca6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30a53818_2fdd85b7",
+        "filename": "tests/cts/net/native/src/BpfCompatTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-19T16:00:14Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "6b84a339_3e7130cc",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 11
+      },
+      "revId": "c056a47573c949d78a2c83b9c8e6bf64f22feca6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
