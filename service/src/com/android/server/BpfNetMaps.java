@@ -24,6 +24,7 @@ import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_3;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_POWERSAVE;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_RESTRICTED;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_STANDBY;
+import static android.system.OsConstants.EINVAL;
 import static android.system.OsConstants.ENOENT;
 import static android.system.OsConstants.EOPNOTSUPP;
 
@@ -181,7 +182,7 @@ public class BpfNetMaps {
     public long getMatchByFirewallChain(final int chain) {
         final long match = FIREWALL_CHAIN_TO_MATCH.get(chain, NO_MATCH);
         if (match == NO_MATCH) {
-            throw new IllegalArgumentException("Invalid firewall chain: " + chain);
+            throw new ServiceSpecificException(EINVAL, "Invalid firewall chain: " + chain);
         }
         return match;
     }
@@ -253,13 +254,31 @@ public class BpfNetMaps {
      *
      * @param childChain target chain to enable
      * @param enable     whether to enable or disable child chain.
+     * @throws UnsupportedOperationException if called on pre-T devices.
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
      */
     public void setChildChain(final int childChain, final boolean enable) {
-        synchronized (sTcLock) {
-            final int err = native_setChildChain(childChain, enable);
-            maybeThrow(err, "Unable to set child chain");
+        if (USE_NETD) {
+            throw new UnsupportedOperationException("setChildChain is not available on pre-T"
+                    + " devices");
+        }
+
+        final long match = getMatchByFirewallChain(childChain);
+        try {
+            synchronized (sTcLock) {
+                final U32 config = sConfigurationMap.getValue(UID_RULES_CONFIGURATION_KEY);
+                if (config == null) {
+                    throw new ServiceSpecificException(ENOENT,
+                            "Unable to get firewall chain status: sConfigurationMap does not have"
+                                    + " entry for UID_RULES_CONFIGURATION_KEY");
+                }
+                final long newConfig = enable ? (config.val | match) : (config.val & (~match));
+                sConfigurationMap.updateEntry(UID_RULES_CONFIGURATION_KEY, new U32(newConfig));
+            }
+        } catch (ErrnoException e) {
+            throw new ServiceSpecificException(e.errno,
+                    "Unable to set child chain: " + Os.strerror(e.errno));
         }
     }
 
@@ -269,7 +288,6 @@ public class BpfNetMaps {
      * @param childChain target chain
      * @return {@code true} if chain is enabled, {@code false} if chain is not enabled.
      * @throws UnsupportedOperationException if called on pre-T devices.
-     * @throws IllegalArgumentException if {@code childChain} is a invalid value.
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
      */
