@@ -35,6 +35,7 @@ import android.system.Os;
 import android.util.Log;
 import android.util.SparseLongArray;
 
+import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BpfMap;
@@ -55,9 +56,12 @@ public class BpfNetMaps {
     private static final boolean USE_NETD = !SdkLevel.isAtLeastT();
     private static boolean sInitialized = false;
 
+    // sTcLock should be acquired to access bpf map or call JNI functions that access bpf map.
+    private static final Object sTcLock = new Object();
     private static final String CONFIGURATION_MAP_PATH =
             "/sys/fs/bpf/netd_shared/map_netd_configuration_map";
     private static final U32 UID_RULES_CONFIGURATION_KEY = new U32(0);
+    @GuardedBy("sTcLock")
     private static BpfMap<U32, U32> sConfigurationMap = null;
 
     // LINT.IfChange(match_type)
@@ -101,8 +105,10 @@ public class BpfNetMaps {
         if (sInitialized) return;
         if (!USE_NETD) {
             System.loadLibrary("service-connectivity");
-            native_init();
-            sConfigurationMap = deps.getConfigurationMap();
+            synchronized (sTcLock) {
+                native_init();
+                sConfigurationMap = deps.getConfigurationMap();
+            }
         }
         sInitialized = true;
     }
@@ -164,7 +170,10 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void addNaughtyApp(final int uid) {
-        final int err = native_addNaughtyApp(uid);
+        final int err;
+        synchronized (sTcLock) {
+            err = native_addNaughtyApp(uid);
+        }
         maybeThrow(err, "Unable to add naughty app");
     }
 
@@ -176,7 +185,10 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void removeNaughtyApp(final int uid) {
-        final int err = native_removeNaughtyApp(uid);
+        final int err;
+        synchronized (sTcLock) {
+            err = native_removeNaughtyApp(uid);
+        }
         maybeThrow(err, "Unable to remove naughty app");
     }
 
@@ -188,7 +200,10 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void addNiceApp(final int uid) {
-        final int err = native_addNiceApp(uid);
+        final int err;
+        synchronized (sTcLock) {
+            err = native_addNiceApp(uid);
+        }
         maybeThrow(err, "Unable to add nice app");
     }
 
@@ -200,7 +215,10 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void removeNiceApp(final int uid) {
-        final int err = native_removeNiceApp(uid);
+        final int err;
+        synchronized (sTcLock) {
+            err = native_removeNiceApp(uid);
+        }
         maybeThrow(err, "Unable to remove nice app");
     }
 
@@ -213,8 +231,31 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void setChildChain(final int childChain, final boolean enable) {
-        final int err = native_setChildChain(childChain, enable);
-        maybeThrow(err, "Unable to set child chain");
+        if (USE_NETD) {
+            throw new UnsupportedOperationException("getChainEnabled is not available on pre-T"
+                    + " devices");
+        }
+
+        final long match = FIREWALL_CHAIN_TO_MATCH.get(childChain, NO_MATCH);
+        if (match == NO_MATCH) {
+            throw new IllegalArgumentException("Invalid firewall chain: " + childChain);
+        }
+
+        try {
+            synchronized (sTcLock) {
+                final U32 config = sConfigurationMap.getValue(UID_RULES_CONFIGURATION_KEY);
+                if (config == null) {
+                    throw new ServiceSpecificException(ENOENT,
+                            "Unable to get firewall chain status: sConfigurationMap does not have"
+                                    + " entry for UID_RULES_CONFIGURATION_KEY");
+                }
+                final long newConfig = enable ? (config.val | match) : (config.val & (~match));
+                sConfigurationMap.updateEntry(UID_RULES_CONFIGURATION_KEY, new U32(newConfig));
+            }
+        } catch (ErrnoException e) {
+            throw new ServiceSpecificException(e.errno,
+                    "Unable to set child chain: " + Os.strerror(e.errno));
+        }
     }
 
     /**
@@ -235,7 +276,10 @@ public class BpfNetMaps {
 
         final long match = getMatchByFirewallChain(childChain);
         try {
-            final U32 config = sConfigurationMap.getValue(UID_RULES_CONFIGURATION_KEY);
+            final U32 config;
+            synchronized (sTcLock) {
+                config = sConfigurationMap.getValue(UID_RULES_CONFIGURATION_KEY);
+            }
             if (config == null) {
                 throw new ServiceSpecificException(ENOENT,
                         "Unable to get firewall chain status: sConfigurationMap does not have"
@@ -263,7 +307,10 @@ public class BpfNetMaps {
      */
     public int replaceUidChain(final String chainName, final boolean isAllowlist,
             final int[] uids) {
-        final int err = native_replaceUidChain(chainName, isAllowlist, uids);
+        final int err;
+        synchronized (sTcLock) {
+            err = native_replaceUidChain(chainName, isAllowlist, uids);
+        }
         if (err != 0) {
             Log.e(TAG, "replaceUidChain failed: " + Os.strerror(-err));
         }
@@ -280,7 +327,10 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void setUidRule(final int childChain, final int uid, final int firewallRule) {
-        final int err = native_setUidRule(childChain, uid, firewallRule);
+        final int err;
+        synchronized (sTcLock) {
+            err = native_setUidRule(childChain, uid, firewallRule);
+        }
         maybeThrow(err, "Unable to set uid rule");
     }
 
@@ -306,7 +356,10 @@ public class BpfNetMaps {
             mNetd.firewallAddUidInterfaceRules(ifName, uids);
             return;
         }
-        final int err = native_addUidInterfaceRules(ifName, uids);
+        final int err;
+        synchronized (sTcLock) {
+            err = native_addUidInterfaceRules(ifName, uids);
+        }
         maybeThrow(err, "Unable to add uid interface rules");
     }
 
@@ -326,7 +379,10 @@ public class BpfNetMaps {
             mNetd.firewallRemoveUidInterfaceRules(uids);
             return;
         }
-        final int err = native_removeUidInterfaceRules(uids);
+        final int err;
+        synchronized (sTcLock) {
+            err = native_removeUidInterfaceRules(uids);
+        }
         maybeThrow(err, "Unable to remove uid interface rules");
     }
 
@@ -350,7 +406,10 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void swapActiveStatsMap() {
-        final int err = native_swapActiveStatsMap();
+        final int err;
+        synchronized (sTcLock) {
+            err = native_swapActiveStatsMap();
+        }
         maybeThrow(err, "Unable to swap active stats map");
     }
 
@@ -369,7 +428,9 @@ public class BpfNetMaps {
             mNetd.trafficSetNetPermForUids(permissions, uids);
             return;
         }
-        native_setPermissionForUids(permissions, uids);
+        synchronized (sTcLock) {
+            native_setPermissionForUids(permissions, uids);
+        }
     }
 
     /**
@@ -386,21 +447,37 @@ public class BpfNetMaps {
                     EOPNOTSUPP, "dumpsys connectivity trafficcontroller dump not available on pre-T"
                     + " devices, use dumpsys netd trafficcontroller instead.");
         }
-        native_dump(fd, verbose);
+        synchronized (sTcLock) {
+            native_dump(fd, verbose);
+        }
     }
 
+    @GuardedBy("sTcLock")
     private static native void native_init();
+    @GuardedBy("sTcLock")
     private native int native_addNaughtyApp(int uid);
+    @GuardedBy("sTcLock")
     private native int native_removeNaughtyApp(int uid);
+    @GuardedBy("sTcLock")
     private native int native_addNiceApp(int uid);
+    @GuardedBy("sTcLock")
     private native int native_removeNiceApp(int uid);
+    @GuardedBy("sTcLock")
     private native int native_setChildChain(int childChain, boolean enable);
+    @GuardedBy("sTcLock")
     private native int native_replaceUidChain(String name, boolean isAllowlist, int[] uids);
+    @GuardedBy("sTcLock")
     private native int native_setUidRule(int childChain, int uid, int firewallRule);
+    @GuardedBy("sTcLock")
     private native int native_addUidInterfaceRules(String ifName, int[] uids);
+    @GuardedBy("sTcLock")
     private native int native_removeUidInterfaceRules(int[] uids);
+    @GuardedBy("sTcLock")
     private native int native_updateUidLockdownRule(int uid, boolean add);
+    @GuardedBy("sTcLock")
     private native int native_swapActiveStatsMap();
+    @GuardedBy("sTcLock")
     private native void native_setPermissionForUids(int permissions, int[] uids);
+    @GuardedBy("sTcLock")
     private native void native_dump(FileDescriptor fd, boolean verbose);
 }
