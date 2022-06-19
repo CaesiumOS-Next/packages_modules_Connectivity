@@ -24,7 +24,9 @@ import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_3;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_POWERSAVE;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_RESTRICTED;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_STANDBY;
+import static android.system.OsConstants.EINVAL;
 import static android.system.OsConstants.ENOENT;
+import static android.system.OsConstants.ENOTSUP;
 import static android.system.OsConstants.EOPNOTSUPP;
 
 import android.net.INetd;
@@ -58,7 +60,6 @@ public class BpfNetMaps {
 
     // sTcLock must be acquired to access bpf map or call JNI functions that access bpf map.
     private static final Object sTcLock = new Object();
-
     private static final String CONFIGURATION_MAP_PATH =
             "/sys/fs/bpf/netd_shared/map_netd_configuration_map";
     private static final U32 UID_RULES_CONFIGURATION_KEY = new U32(0);
@@ -164,9 +165,13 @@ public class BpfNetMaps {
         return match;
     }
 
+    private void throwException(final int err, final String msg) {
+        throw new ServiceSpecificException(err, msg + ": " + Os.strerror(err));
+    }
+
     private void maybeThrow(final int err, final String msg) {
         if (err != 0) {
-            throw new ServiceSpecificException(err, msg + ": " + Os.strerror(err));
+            throwException(err, msg);
         }
     }
 
@@ -235,9 +240,27 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void setChildChain(final int childChain, final boolean enable) {
-        synchronized (sTcLock) {
-            final int err = native_setChildChain(childChain, enable);
-            maybeThrow(err, "Unable to set child chain");
+        if (USE_NETD) {
+            throwException(ENOTSUP, "setChildChain is not available on pre-T devices");
+        }
+
+        final long match = FIREWALL_CHAIN_TO_MATCH.get(childChain, NO_MATCH);
+        if (match == NO_MATCH) {
+            throwException(EINVAL, "Invalid firewall chain(" + childChain + ")");
+        }
+
+        try {
+            synchronized (sTcLock) {
+                final U32 config = sConfigurationMap.getValue(UID_RULES_CONFIGURATION_KEY);
+                if (config == null) {
+                    throwException(ENOENT, "Unable to get firewall chain status, sConfigurationMap"
+                            + " does not have entry for UID_RULES_CONFIGURATION_KEY");
+                }
+                final long newConfig = enable ? (config.val | match) : (config.val & (~match));
+                sConfigurationMap.updateEntry(UID_RULES_CONFIGURATION_KEY, new U32(newConfig));
+            }
+        } catch (ErrnoException e) {
+            throwException(e.errno, "Unable to set child chain");
         }
     }
 
