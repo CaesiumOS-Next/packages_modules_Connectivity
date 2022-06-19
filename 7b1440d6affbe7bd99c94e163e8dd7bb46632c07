@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b38af65b_9fab83dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-19T12:02:05Z",
+      "side": 1,
+      "message": "Pass 100 runs of TetheringIntegrationTests on:\n\nBranch: git_tm-dev-plus-aosp\nTarget: aosp_cf_x86_64_phone-userdebug \n\nTest result:\nhttps://android-build.googleplex.com/builds/tests/view?invocationId\u003dI07300010062607709\u0026testResultId\u003dTR69528098549851498\u0026redirect\u003dhttp://sponge2/95f25f80-8ed2-406c-bcdc-5d462051adda\n\nForrest params:\nhttps://android-build.googleplex.com/builds/abtd/run/L49000000955173372\n",
+      "revId": "7b1440d6affbe7bd99c94e163e8dd7bb46632c07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
