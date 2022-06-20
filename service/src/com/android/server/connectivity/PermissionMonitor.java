@@ -540,6 +540,31 @@ public class PermissionMonitor {
         }
     }
 
+    private String hideNonePermission(SparseIntArray appIdsPermission) {
+        final int size = appIdsPermission.size();
+        if (size <= 0) {
+            return "{}";
+        }
+
+        StringBuilder buffer = new StringBuilder(size * 28);
+        buffer.append('{');
+        for (int i = 0; i < size; i++) {
+            final int value = appIdsPermission.valueAt(i);
+            if (value == PERMISSION_NONE) {
+                continue;
+            }
+            if (i > 0) {
+                buffer.append(", ");
+            }
+            final int key = appIdsPermission.keyAt(i);
+            buffer.append(key);
+            buffer.append('=');
+            buffer.append(value);
+        }
+        buffer.append('}');
+        return buffer.toString();
+    }
+
     /**
      * Called when a user is added. See {link #ACTION_USER_ADDED}.
      *
@@ -568,7 +593,7 @@ public class PermissionMonitor {
 
         // Log user added
         mPermissionUpdateLogs.log("New user(" + user.getIdentifier() + ") added: nPerm uids="
-                + uids + ", tPerm appIds=" + addedUserAppIds);
+                + uids + ", tPerm appIds=" + hideNonePermission(addedUserAppIds));
     }
 
     /**
@@ -616,7 +641,7 @@ public class PermissionMonitor {
 
         // Log user removed
         mPermissionUpdateLogs.log("User(" + user.getIdentifier() + ") removed: nPerm uids="
-                + removedUids + ", tPerm appIds=" + removedUserAppIds);
+                + removedUids + ", tPerm appIds=" + hideNonePermission(removedUserAppIds));
     }
 
     /**
