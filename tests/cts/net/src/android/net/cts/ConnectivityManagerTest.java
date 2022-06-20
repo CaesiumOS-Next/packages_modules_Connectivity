@@ -2088,24 +2088,18 @@ public class ConnectivityManagerTest {
 
         try {
             // Verify we cannot set Airplane Mode without correct permission:
-            try {
-                setAndVerifyAirplaneMode(true);
-                fail("SecurityException should have been thrown when setAirplaneMode was called"
-                        + "without holding permission NETWORK_AIRPLANE_MODE.");
-            } catch (SecurityException expected) {}
+            assertThrows(SecurityException.class, () -> setAndVerifyAirplaneMode(true));
 
             // disable airplane mode again to reach a known state
             runShellCommand("cmd connectivity airplane-mode disable");
 
-            // adopt shell permission which holds NETWORK_AIRPLANE_MODE
-            mUiAutomation.adoptShellPermissionIdentity();
-
-            // Verify we can enable Airplane Mode with correct permission:
+            // Verify we can enable Airplane Mode with correct permission.
+            // TODO: test that NETWORK_AIRPLANE_MODE works as well, once the shell has it.
             try {
-                setAndVerifyAirplaneMode(true);
+                runAsShell(NETWORK_SETTINGS, () -> setAndVerifyAirplaneMode(true));
             } catch (SecurityException e) {
                 fail("SecurityException should not have been thrown when setAirplaneMode(true) was"
-                        + "called whilst holding the NETWORK_AIRPLANE_MODE permission.");
+                        + " called whilst holding the NETWORK_SETTINGS permission: " + e);
             }
             // Verify that the enabling airplane mode takes effect as expected to prevent flakiness
             // caused by fast airplane mode switches. Ensure network lost before turning off
@@ -2115,10 +2109,10 @@ public class ConnectivityManagerTest {
 
             // Verify we can disable Airplane Mode with correct permission:
             try {
-                setAndVerifyAirplaneMode(false);
+                runAsShell(NETWORK_SETTINGS, () -> setAndVerifyAirplaneMode(false));
             } catch (SecurityException e) {
                 fail("SecurityException should not have been thrown when setAirplaneMode(false) was"
-                        + "called whilst holding the NETWORK_AIRPLANE_MODE permission.");
+                        + "called whilst holding the NETWORK_SETTINGS permission.");
             }
             // Verify that turning airplane mode off takes effect as expected.
             // connectToCell only registers a request, it cannot / does not need to be called twice
@@ -2129,7 +2123,6 @@ public class ConnectivityManagerTest {
             // Restore the previous state of airplane mode and permissions:
             runShellCommand("cmd connectivity airplane-mode "
                     + (isAirplaneModeEnabled ? "enable" : "disable"));
-            mUiAutomation.dropShellPermissionIdentity();
         }
     }
 
