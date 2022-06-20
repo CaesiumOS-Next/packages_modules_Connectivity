@@ -49,7 +49,8 @@ class DeviceConfigRule @JvmOverloads constructor(
     private val usedConfig = mutableMapOf<Pair<String, String>, String?>()
 
     /**
-     * Actions to be run after cleanup of the config, for the current test only.
+     * Actions to be run after cleanup of the config, for the current test only. There are no
+     * actions unless tests explicitly add some.
      */
     private val currentTestCleanupActions = mutableListOf<Runnable>()
 
@@ -118,7 +119,7 @@ class DeviceConfigRule @JvmOverloads constructor(
     /**
      * Add an action to be run after config cleanup when the current test case ends.
      */
-    fun runAfterNextCleanup(action: Runnable) {
+    fun runAfterFlagsRestored(action: Runnable) {
         currentTestCleanupActions.add(action)
     }
 }

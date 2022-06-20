@@ -131,7 +131,8 @@ class CaptivePortalTest {
     @After
     fun tearDown() {
         if (pm.hasSystemFeature(FEATURE_WIFI)) {
-            deviceConfigRule.runAfterNextCleanup { reconnectWifi() }
+            // Ensure wifi reconnects after clearing the test validation URL flags
+            deviceConfigRule.runAfterFlagsRestored { reconnectWifi() }
         }
         server.stop()
     }
