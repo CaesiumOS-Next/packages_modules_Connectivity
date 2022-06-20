@@ -212,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "425b32d7_8a4461f2",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1599,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-20T01:56:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "660d2de0_79405024",
+      "range": {
+        "startLine": 1599,
+        "startChar": 4,
+        "endLine": 1599,
+        "endChar": 9
+      },
+      "revId": "b1a9d64a54955d6303e687df06d5721dfcd135c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "05b7011d_de7ee7c1",
@@ -438,6 +462,30 @@
       "side": 1,
       "message": "For tunFd and remoteUdpFd, you can just declare them above testAndCleanup block, and if there is any exception when the variable is initialized, just let the test throw the exception.\n\nSo the code would be something like:\n\n```\n// Create a TUN interface\nfinal FileDescriptor tunFd \u003d runWithShellPermissionIdentity(() -\u003e {\n    final TestNetworkManager tnm \u003d getInstrumentation().getContext().getSystemService(\n            TestNetworkManager.class);\n    final TestNetworkInterface iface \u003d tnm.createTunInterface(List.of(\n            TEST_IP4_DST_ADDR, TEST_IP6_DST_ADDR));\n    return iface.getFileDescriptor().getFileDescriptor();\n}, MANAGE_TEST_NETWORKS);\n// Create a remote UDP socket\nfinal FileDescriptor remoteUdpFd \u003d mRemoteSocketFactoryClient.openDatagramSocketFd();\nfinal int remoteUid \u003d mRemoteSocketFactoryClient.getUid();\nfinal List\u003cRange\u003cInteger\u003e\u003e lockdownRange \u003d List.of(new Range\u003c\u003e(remoteUid, remoteUid));\nfinal DetailedBlockedStatusCallback remoteUidCallback \u003d new DetailedBlockedStatusCallback();\n\ntestAndCleanup(() -\u003e {\n    runWithShellPermissionIdentity(() -\u003e {\n        mCM.registerDefaultNetworkCallbackForUid(remoteUid, remoteUidCallback,\n                new Handler(Looper.getMainLooper()));\n    }, NETWORK_SETTINGS);\n\n    remoteUidCallback.expectAvailableCallbacks(network);\n\n    // The remote UDP socket can receive packets coming from the TUN interface\n    checkBlockIncomingPacket(tunFd, remoteUdpFd, EXPECT_PASS);\n\n    // Lockdown uid that has the remote UDP socket\n    runWithShellPermissionIdentity(() -\u003e {\n        mCM.setRequireVpnForUids(true /* requireVpn */, lockdownRange);\n    }, NETWORK_SETTINGS);\n\n    // setRequireVpnForUids setup a lockdown rule asynchronously. So it needs to wait for\n    // BlockedStatusCallback to be fired before checking the blocking status of incoming\n    // packets.\n    remoteUidCallback.expectBlockedStatusCallback(network, BLOCKED_REASON_LOCKDOWN_VPN);\n\n    if (SdkLevel.isAtLeastT()) {\n        // On T and above, lockdown rule drop packets not coming from lo regardless of the\n        // VPN connectivity.\n        checkBlockIncomingPacket(tunFd, remoteUdpFd, EXPECT_BLOCK);\n    }\n\n    // Start the VPN that has default routes. This VPN should have interface filtering rule\n    // for incoming packet and drop packets not coming from lo nor the VPN interface.\n    final String allowedApps \u003d\n            mRemoteSocketFactoryClient.getPackageName() + \",\" + mPackageName;\n    startVpn(new String[]{\"192.0.2.2/32\", \"2001:db8:1:2::ffe/128\"},\n            new String[]{\"0.0.0.0/0\", \"::/0\"}, allowedApps, \"\" /* disallowedApplications */,\n            null /* proxyInfo */, null /* underlyingNetworks */,\n            false /* isAlwaysMetered */);\n\n    checkBlockIncomingPacket(tunFd, remoteUdpFd, EXPECT_BLOCK);\n}, () -\u003e {\n        mCM.unregisterNetworkCallback(remoteUidCallback);\n    }, () -\u003e {\n        if (tunFd !\u003d null) {\n            Os.close(tunFd);\n        }\n    }, () -\u003e {\n        if (remoteUdpFd !\u003d null) {\n            Os.close(remoteUdpFd);\n        }\n    }, () -\u003e {\n        runWithShellPermissionIdentity(() -\u003e {\n            mCM.setRequireVpnForUids(false /* requireVpn */, lockdownRange);\n        }, NETWORK_SETTINGS);\n    });\n```",
       "parentUuid": "e51e0003_39b083cd",
+      "range": {
+        "startLine": 1660,
+        "startChar": 10,
+        "endLine": 1668,
+        "endChar": 13
+      },
+      "revId": "b1a9d64a54955d6303e687df06d5721dfcd135c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0f79e6f_7bb5e069",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1668,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-20T01:56:42Z",
+      "side": 1,
+      "message": "Thank you for your explanation!\n\n\u003e if there is any exception when the variable is initialized, just let the test throw the exception.\nI see, I tried to handle all exception and free the resources by myself.\nBut, they will be cleaned up eventually and they do not change device global configuration so this should be fine.",
+      "parentUuid": "43054859_e9b4f6e7",
       "range": {
         "startLine": 1660,
         "startChar": 10,
