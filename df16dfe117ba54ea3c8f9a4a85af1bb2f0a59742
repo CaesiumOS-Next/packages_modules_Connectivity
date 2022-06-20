@@ -233,6 +233,30 @@
       },
       "revId": "df16dfe117ba54ea3c8f9a4a85af1bb2f0a59742",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13f1c5a9_886ee285",
+        "filename": "tests/cts/net/src/android/net/cts/DeviceConfigRule.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-06-20T08:29:04Z",
+      "side": 1,
+      "message": "As we discussed, there isn\u0027t really a good way to do that because the class needs to track each flag changes done by the test, as it compares what it knows with the actual flag values in case of failure",
+      "parentUuid": "0321529f_8352a031",
+      "range": {
+        "startLine": 107,
+        "startChar": 8,
+        "endLine": 107,
+        "endChar": 17
+      },
+      "revId": "df16dfe117ba54ea3c8f9a4a85af1bb2f0a59742",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
