@@ -48,6 +48,53 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "70c06cc8_041b31ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-06-20T02:33:32Z",
+      "side": 1,
+      "message": "Agreed that it would be good to have a bug number for reference, and that the choice of tests doesn\u0027t seem very appropriate. We should discuss which ones you really want/need",
+      "parentUuid": "12d3fd73_59e62ff8",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 21
+      },
+      "revId": "4fe6b7455800ace8db90e025ca1995615f464011",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28295871_a9a01bcb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-06-20T02:33:32Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is a great choice of test to run on automotive; unit tests shouldn\u0027t be very important since as long as the code was not modified, and you\u0027d probably want CTS tests instead to check the overall behavior. If the code is modified in an auto branch, I think the tests should also only be marked as automotive-tests in that branch. There\u0027s some cost on our side to maintain the build rules/tests for the automotive-tests target, so we should make sure that what is included is really what we need.",
+      "range": {
+        "startLine": 13,
+        "startChar": 48,
+        "endLine": 13,
+        "endChar": 61
+      },
+      "revId": "4fe6b7455800ace8db90e025ca1995615f464011",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "db28841c_283f81e3",
@@ -119,6 +166,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "f4060dee_7ac7ca74",
+      "range": {
+        "startLine": 45,
+        "startChar": 9,
+        "endLine": 45,
+        "endChar": 25
+      },
+      "revId": "4fe6b7455800ace8db90e025ca1995615f464011",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91b83d66_fd0b50c7",
+        "filename": "tests/deflake/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-06-20T02:33:32Z",
+      "side": 1,
+      "message": "Agreed about having a comment explaining why automotive-tests is listing here (and not on other tests), otherwise it\u0027s hard to figure out whether it should be added/removed when creating new test suites.",
+      "parentUuid": "e2f5c143_c8d4fe09",
       "range": {
         "startLine": 45,
         "startChar": 9,
