@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "299c803e_d3a4137e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-20T01:47:57Z",
+      "side": 1,
+      "message": "Does this allow apps to request networks that then they won\u0027t be able to use? That seems incorrect, and I don\u0027t think we do it anywhere else.",
+      "range": {
+        "startLine": 17,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 66
+      },
+      "revId": "73edb7d43d6115d1ed23146cea77e37a1089b334",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "653cf7b3_15a92a75",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-20T01:47:57Z",
+      "side": 1,
+      "message": "It\u0027s not true that it\u0027s similar to the existing logic for carrier apps; that logic has a permission check.",
+      "range": {
+        "startLine": 23,
+        "startChar": 58,
+        "endLine": 24,
+        "endChar": 70
+      },
+      "revId": "73edb7d43d6115d1ed23146cea77e37a1089b334",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aea6957b_388a3622",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 6726,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-20T01:47:57Z",
+      "side": 1,
+      "message": "Why is there no permission check here? The code above in line 6719 does have a permission check, it\u0027s for carrier privileges.",
+      "range": {
+        "startLine": 6726,
+        "startChar": 16,
+        "endLine": 6726,
+        "endChar": 23
+      },
+      "revId": "73edb7d43d6115d1ed23146cea77e37a1089b334",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e294a7d_a6e73f84",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 6730,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-20T01:47:57Z",
+      "side": 1,
+      "message": "It seems incorrect to delete this permission check.",
+      "range": {
+        "startLine": 6730,
+        "startChar": 12,
+        "endLine": 6730,
+        "endChar": 35
+      },
+      "revId": "73edb7d43d6115d1ed23146cea77e37a1089b334",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
