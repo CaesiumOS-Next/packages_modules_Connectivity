@@ -465,8 +465,6 @@ public class BpfNetMaps {
     @GuardedBy("sTcLock")
     private native int native_removeNiceApp(int uid);
     @GuardedBy("sTcLock")
-    private native int native_setChildChain(int childChain, boolean enable);
-    @GuardedBy("sTcLock")
     private native int native_replaceUidChain(String name, boolean isAllowlist, int[] uids);
     @GuardedBy("sTcLock")
     private native int native_setUidRule(int childChain, int uid, int firewallRule);
