@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab7ea055_4b8d925d",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-20T01:41:33Z",
+      "side": 1,
+      "message": "I tried above change.\nBut dependencies will be used in the initialization which is done only once, so it’s strange that constructor take dependencies as argument, I felt.\nI have reverted my change in constructor and made `ensureInitialized` public for testing to inject dependencies.",
+      "parentUuid": "4727c84b_590069e3",
+      "range": {
+        "startLine": 139,
+        "startChar": 52,
+        "endLine": 140,
+        "endChar": 22
+      },
+      "revId": "345af1135268bb0f1fb7a25634325dd4ff0fe5a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a396ab43_a7b2fcdb",
