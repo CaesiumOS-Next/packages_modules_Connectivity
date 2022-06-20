@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c06fc9c_85f8c64d",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 36
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-20T02:00:24Z",
+      "side": 1,
+      "message": "This has been deleted.",
+      "range": {
+        "startLine": 45,
+        "startChar": 47,
+        "endLine": 45,
+        "endChar": 66
+      },
+      "revId": "265e115dee6108c8e373c7b02a9fe443d0e9566d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f76a52a8_3a1bacb7",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 36
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-20T02:00:24Z",
+      "side": 1,
+      "message": "This is really really long. Is the code really that slow? Why is TIMEOUT_MS (2s) not enough? Would 10 seconds suffice?",
+      "range": {
+        "startLine": 80,
+        "startChar": 34,
+        "endLine": 80,
+        "endChar": 41
+      },
+      "revId": "265e115dee6108c8e373c7b02a9fe443d0e9566d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c03bd12c_29308177",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 36
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-20T02:00:24Z",
+      "side": 1,
+      "message": "Do you use this? If not, maybe just do:\n\n    private const val LOCAL_ADDRESS \u003d LinkAddress(\"192.0.2.1/30\")",
+      "range": {
+        "startLine": 82,
+        "startChar": 18,
+        "endLine": 82,
+        "endChar": 34
+      },
+      "revId": "265e115dee6108c8e373c7b02a9fe443d0e9566d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e9e37a5_5c5771a4",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 36
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-20T02:00:24Z",
+      "side": 1,
+      "message": "Do you need this? Is there a reason to give this class access to the outer class\u0027s members? If not, it seems better to disallow such access.",
+      "range": {
+        "startLine": 112,
+        "startChar": 12,
+        "endLine": 112,
+        "endChar": 17
+      },
+      "revId": "265e115dee6108c8e373c7b02a9fe443d0e9566d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04aa075c_24112be2",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 36
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-20T02:00:24Z",
+      "side": 1,
+      "message": "Do you need this? I don\u0027t think we do it anywhere else.",
+      "range": {
+        "startLine": 638,
+        "startChar": 4,
+        "endLine": 638,
+        "endChar": 29
+      },
+      "revId": "265e115dee6108c8e373c7b02a9fe443d0e9566d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "788fcc6f_5146dc40",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 36
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-20T02:00:24Z",
+      "side": 1,
+      "message": "createInterfaceWithStaticIp?",
+      "range": {
+        "startLine": 639,
+        "startChar": 16,
+        "endLine": 639,
+        "endChar": 40
+      },
+      "revId": "265e115dee6108c8e373c7b02a9fe443d0e9566d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bee12399_c3fe3f1a",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 36
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-20T02:00:24Z",
+      "side": 1,
+      "message": "What Builder? NetworkRequest.Builder? Also, shouldn\u0027t this request have some more detailed capabilities? Maybe create it by passing in ETH_REQUEST?",
+      "range": {
+        "startLine": 643,
+        "startChar": 17,
+        "endLine": 643,
+        "endChar": 26
+      },
+      "revId": "265e115dee6108c8e373c7b02a9fe443d0e9566d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86ad87c0_54cc2ed9",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 36
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-20T02:00:24Z",
+      "side": 1,
+      "message": "Looks like a dup of line 324",
+      "range": {
+        "startLine": 654,
+        "startChar": 16,
+        "endLine": 654,
+        "endChar": 30
+      },
+      "revId": "265e115dee6108c8e373c7b02a9fe443d0e9566d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
