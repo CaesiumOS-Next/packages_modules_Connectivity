@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "933dd566_26737c1a",
+        "filename": "tests/cts/net/src/android/net/cts/CaptivePortalTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-06-20T10:11:37Z",
+      "side": 1,
+      "message": "Done in aosp/2131754",
+      "parentUuid": "674247ac_19ec3b59",
+      "range": {
+        "startLine": 134,
+        "startChar": 29,
+        "endLine": 134,
+        "endChar": 48
+      },
+      "revId": "df16dfe117ba54ea3c8f9a4a85af1bb2f0a59742",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed286eeb_a115ed5d",
@@ -189,6 +213,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e09d8de_62245483",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2834,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-06-20T10:11:37Z",
+      "side": 1,
+      "message": "This is a bit hard to follow, right; actually this can be moved to the util that configures the test URLs, which makes it much easier to understand (and makes try/finally unnecessary in a lot of cases).",
+      "parentUuid": "5eb68568_e7cf4c42",
+      "range": {
+        "startLine": 2834,
+        "startChar": 38,
+        "endLine": 2834,
+        "endChar": 57
+      },
+      "revId": "df16dfe117ba54ea3c8f9a4a85af1bb2f0a59742",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d58661f1_053da251",
@@ -202,6 +250,30 @@
       "writtenOn": "2022-06-16T08:05:20Z",
       "side": 1,
       "message": "Maybe say that there are no such actions unless the test explicitly adds some?",
+      "range": {
+        "startLine": 52,
+        "startChar": 79,
+        "endLine": 52,
+        "endChar": 80
+      },
+      "revId": "df16dfe117ba54ea3c8f9a4a85af1bb2f0a59742",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8c72d81_64ae0543",
+        "filename": "tests/cts/net/src/android/net/cts/DeviceConfigRule.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-06-20T10:11:37Z",
+      "side": 1,
+      "message": "Done in aosp/2131754",
+      "parentUuid": "d58661f1_053da251",
       "range": {
         "startLine": 52,
         "startChar": 79,
