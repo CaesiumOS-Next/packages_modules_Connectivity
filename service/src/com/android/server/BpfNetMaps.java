@@ -24,6 +24,8 @@ import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_3;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_POWERSAVE;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_RESTRICTED;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_STANDBY;
+import static android.net.ConnectivityManager.FIREWALL_RULE_ALLOW;
+import static android.net.ConnectivityManager.FIREWALL_RULE_DENY;
 import static android.system.OsConstants.EINVAL;
 import static android.system.OsConstants.ENOENT;
 import static android.system.OsConstants.ENOTSUP;
@@ -35,6 +37,7 @@ import android.os.ServiceSpecificException;
 import android.system.ErrnoException;
 import android.system.Os;
 import android.util.Log;
+import android.util.SparseIntArray;
 import android.util.SparseLongArray;
 
 import com.android.internal.annotations.GuardedBy;
@@ -62,9 +65,13 @@ public class BpfNetMaps {
     private static final Object sTcLock = new Object();
     private static final String CONFIGURATION_MAP_PATH =
             "/sys/fs/bpf/netd_shared/map_netd_configuration_map";
+    private static final String UID_OWNER_MAP_PATH =
+            "/sys/fs/bpf/netd_shared/map_netd_uid_owner_map";
     private static final U32 UID_RULES_CONFIGURATION_KEY = new U32(0);
     @GuardedBy("sTcLock")
     private static BpfMap<U32, U32> sConfigurationMap = null;
+    @GuardedBy("mTcLock")
+    private static BpfMap<U32, UidOwnerValue> sUidOwnerMap = null;
 
     // LINT.IfChange(match_type)
     private static final long NO_MATCH = 0;
@@ -98,6 +105,22 @@ public class BpfNetMaps {
         FIREWALL_CHAIN_TO_MATCH.put(FIREWALL_CHAIN_OEM_DENY_3, OEM_DENY_3_MATCH);
     }
 
+    // ALLOWLIST means the firewall denies all by default, uids must be explicitly ALLOWed
+    // DENYLIST means the firewall allows all by default, uids must be explicitly DENYed
+    private static final int FIREWALL_ALLOWLIST = 0;
+    private static final int FIREWALL_DENYLIST = 1;
+    private static final SparseIntArray FIREWALL_CHAIN_TO_TYPE = new SparseIntArray();
+    static {
+        FIREWALL_CHAIN_TO_TYPE.put(FIREWALL_CHAIN_DOZABLE, FIREWALL_ALLOWLIST);
+        FIREWALL_CHAIN_TO_TYPE.put(FIREWALL_CHAIN_STANDBY, FIREWALL_DENYLIST);
+        FIREWALL_CHAIN_TO_TYPE.put(FIREWALL_CHAIN_POWERSAVE, FIREWALL_ALLOWLIST);
+        FIREWALL_CHAIN_TO_TYPE.put(FIREWALL_CHAIN_RESTRICTED, FIREWALL_ALLOWLIST);
+        FIREWALL_CHAIN_TO_TYPE.put(FIREWALL_CHAIN_LOW_POWER_STANDBY, FIREWALL_ALLOWLIST);
+        FIREWALL_CHAIN_TO_TYPE.put(FIREWALL_CHAIN_OEM_DENY_1, FIREWALL_DENYLIST);
+        FIREWALL_CHAIN_TO_TYPE.put(FIREWALL_CHAIN_OEM_DENY_2, FIREWALL_DENYLIST);
+        FIREWALL_CHAIN_TO_TYPE.put(FIREWALL_CHAIN_OEM_DENY_3, FIREWALL_DENYLIST);
+    }
+
     /**
      * Initializes the class if it is not already initialized. This method will open maps but not
      * cause any other effects. This method may be called multiple times on any thread.
@@ -110,6 +133,7 @@ public class BpfNetMaps {
             synchronized (sTcLock) {
                 native_init();
                 sConfigurationMap = deps.getConfigurationMap();
+                sUidOwnerMap = deps.getUidOwnerMap();
             }
         }
         sInitialized = true;
@@ -129,6 +153,19 @@ public class BpfNetMaps {
                         CONFIGURATION_MAP_PATH, BpfMap.BPF_F_RDWR, U32.class, U32.class);
             } catch (ErrnoException e) {
                 Log.wtf(TAG, "Cannot open netd configuration map: " + e);
+                return null;
+            }
+        }
+
+        /**
+         * Get per-uid configuration BPF map.
+         */
+        public BpfMap<U32, UidOwnerValue> getUidOwnerMap() {
+            try {
+                return new BpfMap<>(
+                        UID_OWNER_MAP_PATH, BpfMap.BPF_F_RDWR, U32.class, UidOwnerValue.class);
+            } catch (ErrnoException e) {
+                Log.wtf(TAG, "Cannot open uid owner map: " + e);
                 return null;
             }
         }
@@ -153,9 +190,21 @@ public class BpfNetMaps {
     public long getMatchByFirewallChain(final int chain) {
         final long match = FIREWALL_CHAIN_TO_MATCH.get(chain, NO_MATCH);
         if (match == NO_MATCH) {
-            throw new IllegalArgumentException("Invalid firewall chain: " + chain);
+            throwException(EINVAL, "Invalid firewall chain(" + chain + ")");
         }
         return match;
+    }
+
+    /**
+     * Get if the chain is allow list or not.
+     */
+    @VisibleForTesting
+    public boolean isAllowList(final int chain) {
+        final int type = FIREWALL_CHAIN_TO_TYPE.get(chain, -1 /* valueIfKeyNotFound */);
+        if (type == -1) {
+            throwException(EINVAL, "Invalid firewall chain(" + chain + ")");
+        }
+        return type == FIREWALL_ALLOWLIST;
     }
 
     private void throwException(final int err, final String msg) {
@@ -165,6 +214,53 @@ public class BpfNetMaps {
     private void maybeThrow(final int err, final String msg) {
         if (err != 0) {
             throwException(err, msg);
+        }
+    }
+
+    @GuardedBy("sTcLock")
+    private void addRule(final int uid, final long match, final long iif) throws ErrnoException {
+        if (match != IIF_MATCH && iif != 0) {
+            throwException(EINVAL, "Non-interface match must have zero interface index");
+        }
+
+        final UidOwnerValue oldMatch = sUidOwnerMap.getValue(new U32(uid));
+
+        final UidOwnerValue newMatch;
+        if (oldMatch != null) {
+            newMatch = new UidOwnerValue(
+                    (match == IIF_MATCH) ? iif : oldMatch.iif,
+                    oldMatch.rule | match
+            );
+        } else {
+            newMatch = new UidOwnerValue(
+                    iif,
+                    match
+            );
+        }
+        sUidOwnerMap.updateEntry(new U32(uid), newMatch);
+    }
+
+    private void addRule(final int uid, final long match) throws ErrnoException {
+        addRule(uid, match, 0 /* iif */);
+    }
+
+    @GuardedBy("sTcLock")
+    private void removeRule(final int uid, final long match) throws ErrnoException {
+        final UidOwnerValue oldMatch = sUidOwnerMap.getValue(new U32(uid));
+
+        if (oldMatch == null) {
+            throwException(ENOENT, "sUidOwnerMap does not have entry for uid(" + uid + ")");
+        }
+
+        final UidOwnerValue newMatch = new UidOwnerValue(
+                (match == IIF_MATCH) ? 0 : oldMatch.iif,
+                oldMatch.rule & ~match
+        );
+
+        if (newMatch.rule == 0) {
+            sUidOwnerMap.deleteEntry(new U32(uid));
+        } else {
+            sUidOwnerMap.updateEntry(new U32(uid), newMatch);
         }
     }
 
@@ -263,7 +359,6 @@ public class BpfNetMaps {
      * @param childChain target chain
      * @return {@code true} if chain is enabled, {@code false} if chain is not enabled.
      * @throws UnsupportedOperationException if called on pre-T devices.
-     * @throws IllegalArgumentException if {@code childChain} is a invalid value.
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
      */
@@ -324,9 +419,25 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void setUidRule(final int childChain, final int uid, final int firewallRule) {
-        synchronized (sTcLock) {
-            final int err = native_setUidRule(childChain, uid, firewallRule);
-            maybeThrow(err, "Unable to set uid rule");
+        if (USE_NETD) {
+            throwException(ENOTSUP, "setUidRule is not available on pre-T devices");
+        }
+
+        final long match = getMatchByFirewallChain(childChain);
+        final boolean isAllowList = isAllowList(childChain);
+        final boolean add = (firewallRule == FIREWALL_RULE_ALLOW && isAllowList)
+                || (firewallRule == FIREWALL_RULE_DENY && !isAllowList);
+
+        try {
+            synchronized (sTcLock) {
+                if (add) {
+                    addRule(uid, match);
+                } else {
+                    removeRule(uid, match);
+                }
+            }
+        } catch (ErrnoException e) {
+            throwException(e.errno, "Unable to set uid rule");
         }
     }
 
