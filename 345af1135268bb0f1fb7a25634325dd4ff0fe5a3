@@ -115,6 +115,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f8d4db95_c877cdf5",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-21T12:58:48Z",
+      "side": 1,
+      "message": "or How about below? I updated CL with this.\nI will move initialization processes in `native_init` to `initialize` with java BpfMap.\n\n```\n    /**\n     * Only tests or BpfNetMaps#ensureInitialized can call this function.\n     */\n    @VisibleForTesting\n    public static void initialize(final Dependencies deps) {\n        sConfigurationMap \u003d deps.getConfigurationMap();\n    }\n\n    private static synchronized void ensureInitialized() {\n        if (sInitialized) return;\n        if (!USE_NETD) {\n            System.loadLibrary(\"service-connectivity\");\n            native_init();\n            initialize(new Dependencies());\n        }\n        sInitialized \u003d true;\n    }\n```",
+      "parentUuid": "7ac507d2_cdf37527",
+      "range": {
+        "startLine": 139,
+        "startChar": 52,
+        "endLine": 140,
+        "endChar": 22
+      },
+      "revId": "345af1135268bb0f1fb7a25634325dd4ff0fe5a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a396ab43_a7b2fcdb",
         "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
         "patchSetId": 25
