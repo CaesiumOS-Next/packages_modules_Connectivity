@@ -296,7 +296,7 @@ public class EthernetNetworkFactory {
         private boolean mLinkUp;
         private int mLegacyType;
         private LinkProperties mLinkProperties = new LinkProperties();
-        private Set<NetworkRequest> mRequests = new ArraySet<>();
+        private final Set<Integer> mRequestIds = new ArraySet<>();
 
         private volatile @Nullable IpClientManager mIpClient;
         private @NonNull NetworkCapabilities mCapabilities;
@@ -405,7 +405,7 @@ public class EthernetNetworkFactory {
                 // existing requests.
                 // ConnectivityService filters requests for us based on the NetworkCapabilities
                 // passed in the registerNetworkOffer() call.
-                mRequests.add(request);
+                mRequestIds.add(request.requestId);
                 // if the network is already started, this is a no-op.
                 start();
             }
@@ -416,8 +416,8 @@ public class EthernetNetworkFactory {
                     Log.d(TAG,
                             String.format("%s: onNetworkUnneeded for request: %s", name, request));
                 }
-                mRequests.remove(request);
-                if (mRequests.isEmpty()) {
+                mRequestIds.remove(request.requestId);
+                if (mRequestIds.isEmpty()) {
                     // not currently serving any requests, stop the network.
                     stop();
                 }
@@ -667,7 +667,7 @@ public class EthernetNetworkFactory {
         public void destroy() {
             mNetworkProvider.unregisterNetworkOffer(mNetworkOfferCallback);
             stop();
-            mRequests.clear();
+            mRequestIds.clear();
         }
 
         private static void provisionIpClient(@NonNull final IpClientManager ipClient,
