@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13b66212_8be301cc",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 37
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-21T05:02:39Z",
+      "side": 1,
+      "message": "does localIpConfig need to be a member?",
+      "range": {
+        "startLine": 121,
+        "startChar": 16,
+        "endLine": 121,
+        "endChar": 29
+      },
+      "revId": "499da17622b065b713b1f86d0bb3c3e47617fd02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec5b031e_a02627e6",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 37
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-21T05:02:39Z",
+      "side": 1,
+      "message": "I think this is already covered by aosp/2120129",
+      "range": {
+        "startLine": 678,
+        "startChar": 8,
+        "endLine": 678,
+        "endChar": 34
+      },
+      "revId": "499da17622b065b713b1f86d0bb3c3e47617fd02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e252e820_34b7967f",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 37
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-21T05:02:39Z",
+      "side": 1,
+      "message": "This should probably be split into at least two separate tests (if we already support all three, I can\u0027t remember):\n\n1) update IpConfiguration only\n2) update NetworkCapabilities only\n3) update both IpConfiguration and NetworkCapabilities",
+      "range": {
+        "startLine": 697,
+        "startChar": 8,
+        "endLine": 697,
+        "endChar": 31
+      },
+      "revId": "499da17622b065b713b1f86d0bb3c3e47617fd02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16652440_67ce4825",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 37
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-21T05:02:39Z",
+      "side": 1,
+      "message": "val cb \u003d requestNetwork(ETH_REQUEST)",
+      "range": {
+        "startLine": 699,
+        "startChar": 0,
+        "endLine": 699,
+        "endChar": 39
+      },
+      "revId": "499da17622b065b713b1f86d0bb3c3e47617fd02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4427911a_98e679c6",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 37
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-21T05:02:39Z",
+      "side": 1,
+      "message": "Let\u0027s get rid of this helper function. I would prefer adding some helpers for creating the IpConfiguration and NetworkCapabilities if they are needed. Otherwise this should just be two lines of code:\n```\nval iface \u003d createInterface()\nupdateConfiguration(iface, ipconfig, caps).expectResult(iface.name)\n```",
+      "range": {
+        "startLine": 700,
+        "startChar": 43,
+        "endLine": 700,
+        "endChar": 67
+      },
+      "revId": "499da17622b065b713b1f86d0bb3c3e47617fd02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f4083ac_0cec900e",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 37
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-21T05:02:39Z",
+      "side": 1,
+      "message": "Can you use expectAvailable()? Otherwise, I\u0027d suggest wrapping this in a helper analogous to expectAvailable. This makes the code much more readable.",
+      "range": {
+        "startLine": 702,
+        "startChar": 8,
+        "endLine": 702,
+        "endChar": 54
+      },
+      "revId": "499da17622b065b713b1f86d0bb3c3e47617fd02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90a84a7c_d6ce3bc2",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 37
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-21T05:02:39Z",
+      "side": 1,
+      "message": "Maybe look at createCopyWithEthernetSpecifier() and do something similar here?",
+      "range": {
+        "startLine": 705,
+        "startChar": 8,
+        "endLine": 708,
+        "endChar": 54
+      },
+      "revId": "499da17622b065b713b1f86d0bb3c3e47617fd02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa44ea6d_71bdbb82",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 37
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-21T05:02:39Z",
+      "side": 1,
+      "message": "nit: maybe we should add an expectLost(), similar to expectAvailable().",
+      "range": {
+        "startLine": 713,
+        "startChar": 0,
+        "endLine": 713,
+        "endChar": 34
+      },
+      "revId": "499da17622b065b713b1f86d0bb3c3e47617fd02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b69c4b8_d51b27f1",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 37
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-21T05:02:39Z",
+      "side": 1,
+      "message": "cb.expectAvailable() -- is slightly easier to read and more consistent with the other tests.",
+      "range": {
+        "startLine": 715,
+        "startChar": 0,
+        "endLine": 715,
+        "endChar": 38
+      },
+      "revId": "499da17622b065b713b1f86d0bb3c3e47617fd02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5ac6d84_ce92d359",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 37
+      },
+      "lineNbr": 718,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-21T05:02:39Z",
+      "side": 1,
+      "message": "Maybe move this in a helper -- see expectCapabilitiesWithInterfaceName",
+      "range": {
+        "startLine": 716,
+        "startChar": 8,
+        "endLine": 718,
+        "endChar": 9
+      },
+      "revId": "499da17622b065b713b1f86d0bb3c3e47617fd02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "629fca6f_3dfa3856",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 37
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-21T05:02:39Z",
+      "side": 1,
+      "message": "I think this would also be more readable in a helper:\n```\ncb.expectLinkPropertiesForStaticIpConfiguration(staticConfig)\n```",
+      "range": {
+        "startLine": 719,
+        "startChar": 8,
+        "endLine": 723,
+        "endChar": 9
+      },
+      "revId": "499da17622b065b713b1f86d0bb3c3e47617fd02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c741211b_f91c556c",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 37
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-21T05:02:39Z",
+      "side": 1,
+      "message": "cb.eventuallyExpectLost()",
+      "range": {
+        "startLine": 727,
+        "startChar": 0,
+        "endLine": 727,
+        "endChar": 48
+      },
+      "revId": "499da17622b065b713b1f86d0bb3c3e47617fd02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7931d7d7_a08ed56f",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 37
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-21T05:02:39Z",
+      "side": 1,
+      "message": "Cleanup is not necessary and disableInterface isn\u0027t the function under test. Can this be removed?",
+      "range": {
+        "startLine": 725,
+        "startChar": 8,
+        "endLine": 727,
+        "endChar": 48
+      },
+      "revId": "499da17622b065b713b1f86d0bb3c3e47617fd02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

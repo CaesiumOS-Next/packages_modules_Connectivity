@@ -308,6 +308,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f4a1bb13_c602ff14",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 35
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-21T05:02:39Z",
+      "side": 1,
+      "message": "(I think this would technically be okay, because ETH_REQUEST specifically includes the test transport).",
+      "parentUuid": "7eb5252a_5c8b8b14",
+      "range": {
+        "startLine": 405,
+        "startChar": 11,
+        "endLine": 405,
+        "endChar": 48
+      },
+      "revId": "3de5eeacd87c5a90b1282144e1cb26d26cacd81e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6715ec7a_0aa9bdc6",
         "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
         "patchSetId": 35
