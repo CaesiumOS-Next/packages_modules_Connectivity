@@ -96,10 +96,12 @@ import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.dx.mockito.inline.extended.ExtendedMockito;
+import com.android.internal.util.IndentingPrintWriter;
 import com.android.net.module.util.BpfMap;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.InterfaceParams;
 import com.android.net.module.util.NetworkStackConstants;
+import com.android.net.module.util.Struct.U32;
 import com.android.net.module.util.bpf.Tether4Key;
 import com.android.net.module.util.bpf.Tether4Value;
 import com.android.net.module.util.bpf.TetherStatsKey;
@@ -127,6 +129,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.MockitoSession;
 
+import java.io.StringWriter;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
@@ -360,7 +363,6 @@ public class BpfCoordinatorTest {
     @Mock private ConntrackMonitor mConntrackMonitor;
     @Mock private BpfMap<TetherDownstream6Key, Tether6Value> mBpfDownstream6Map;
     @Mock private BpfMap<TetherUpstream6Key, Tether6Value> mBpfUpstream6Map;
-    @Mock private BpfMap<TetherDevKey, TetherDevValue> mBpfDevMap;
 
     // Late init since methods must be called by the thread that created this object.
     private TestableNetworkStatsProviderCbBinder mTetherStatsProviderCb;
@@ -383,6 +385,10 @@ public class BpfCoordinatorTest {
             spy(new TestBpfMap<>(TetherStatsKey.class, TetherStatsValue.class));
     private final TestBpfMap<TetherLimitKey, TetherLimitValue> mBpfLimitMap =
             spy(new TestBpfMap<>(TetherLimitKey.class, TetherLimitValue.class));
+    private final TestBpfMap<TetherDevKey, TetherDevValue> mBpfDevMap =
+            spy(new TestBpfMap<>(TetherDevKey.class, TetherDevValue.class));
+    private final TestBpfMap<U32, U32> mBpfErrorMap =
+            spy(new TestBpfMap<>(U32.class, U32.class));
     private BpfCoordinator.Dependencies mDeps =
             spy(new BpfCoordinator.Dependencies() {
                     @NonNull
@@ -452,6 +458,10 @@ public class BpfCoordinatorTest {
                     @Nullable
                     public BpfMap<TetherDevKey, TetherDevValue> getBpfDevMap() {
                         return mBpfDevMap;
+                    }
+
+                    @Nullable public BpfMap<U32, U32> getBpfErrorMap() {
+                        return mBpfErrorMap;
                     }
             });
 
@@ -2063,5 +2073,18 @@ public class BpfCoordinatorTest {
         assertNull(mTetherClients.get(mIpServer));
         assertNull(mBpfUpstream4Map.getValue(upstream4KeyB));
         assertNull(mBpfDownstream4Map.getValue(downstream4KeyB));
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testDump() throws Exception {
+        // TODO: consider adding BPF entries for verifying map dump.
+        final BpfCoordinator coordinator = makeBpfCoordinator();
+        final StringWriter stringWriter = new StringWriter();
+        final IndentingPrintWriter ipw = new IndentingPrintWriter(stringWriter, " ");
+
+        coordinator.dump(ipw);
+        final String dumpOutput = stringWriter.toString();
+        assertTrue(dumpOutput, dumpOutput.contains("mIsBpfEnabled"));
     }
 }
