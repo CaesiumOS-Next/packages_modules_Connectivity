@@ -76,8 +76,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * <p>All public or package private methods must be thread-safe unless stated otherwise.
  */
-@VisibleForTesting(visibility = PACKAGE)
-public class EthernetTracker {
+class EthernetTracker {
     private static final int INTERFACE_MODE_CLIENT = 1;
     private static final int INTERFACE_MODE_SERVER = 2;
 

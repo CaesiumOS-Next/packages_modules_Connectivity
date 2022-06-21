@@ -36,7 +36,7 @@ import java.io.IOException;
 /**
  * This class provides an API to store and manage Ethernet network configuration.
  */
-public class EthernetConfigStore {
+class EthernetConfigStore {
     private static final String TAG = EthernetConfigStore.class.getSimpleName();
     private static final String CONFIG_FILE = "ipconfig.txt";
     private static final String FILE_PATH = "/misc/ethernet/";

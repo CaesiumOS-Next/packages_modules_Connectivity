@@ -16,6 +16,8 @@
 
 package com.android.server.ethernet;
 
+import android.annotation.NonNull;
+import android.annotation.Nullable;
 import android.content.Context;
 import android.net.LinkProperties;
 import android.net.NetworkAgent;
@@ -24,10 +26,8 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkProvider;
 import android.net.NetworkScore;
 import android.os.Looper;
-import android.annotation.NonNull;
-import android.annotation.Nullable;
 
-public class EthernetNetworkAgent extends NetworkAgent {
+class EthernetNetworkAgent extends NetworkAgent {
 
     private static final String TAG = "EthernetNetworkAgent";
 

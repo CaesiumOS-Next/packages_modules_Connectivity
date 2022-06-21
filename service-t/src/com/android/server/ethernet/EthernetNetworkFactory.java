@@ -64,7 +64,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * TODO: this class should be merged into EthernetTracker.
  */
-public class EthernetNetworkFactory {
+class EthernetNetworkFactory {
     private final static String TAG = EthernetNetworkFactory.class.getSimpleName();
     final static boolean DBG = true;
 
