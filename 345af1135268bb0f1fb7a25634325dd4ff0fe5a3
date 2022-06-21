@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7ac507d2_cdf37527",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-21T06:40:43Z",
+      "side": 1,
+      "message": "You mean like below?\n\n```\n    @VisibleForTesting\n    public BpfNetMaps(final INetd netd, final Dependencies deps) {\n        ensureInitialized();\n        mNetd \u003d netd;\n        mConfigurationMap \u003d deps.getConfigurationMap();\n    }\n```\n\nI thought, some/all steps in native_init also could use Java BPF map and, at that time, tests may want to inject dependencies to initialization.\nSo, I passed dependencies to initialization.\n\nHow about below to allow test to initialize multiple times if tests wants?\n\n``` \n    // Only tests or ensureInitialized in this class can call this.\n    @VisibleForTesting\n    public static void initialize(final Dependencies deps) {\n         if (!USE_NETD) {\n           System.loadLibrary(\"service-connectivity\");\n           native_init();\n           sConfigurationMap \u003d deps.getConfigurationMap(); \n         }\n    }\n    \n    private static synchronized void ensureInitialized() {\n        if (sInitialized) return;\n        initialize(new Dependencies());\n        sInitialized \u003d true;\n    }    \n    \n    public BpfNetMaps(final INetd netd) {\n        this(netd);\n    }\n    \n```",
+      "parentUuid": "db89b375_13e9bb52",
+      "range": {
+        "startLine": 139,
+        "startChar": 52,
+        "endLine": 140,
+        "endChar": 22
+      },
+      "revId": "345af1135268bb0f1fb7a25634325dd4ff0fe5a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a396ab43_a7b2fcdb",
         "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
         "patchSetId": 25
