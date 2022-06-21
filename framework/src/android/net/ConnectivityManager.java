@@ -5880,6 +5880,7 @@ public class ConnectivityManager {
      * @param uid uid to allow/deny.
      * @param rule firewall rule to allow/drop packets.
      * @throws IllegalStateException if updating firewall rule failed.
+     * @throws UnsupportedOperationException if called on pre-T devices.
      * @throws IllegalArgumentException if {@code rule} is not a valid rule.
      * @hide
      */
