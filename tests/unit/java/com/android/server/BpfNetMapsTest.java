@@ -24,10 +24,13 @@ import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_3;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_POWERSAVE;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_RESTRICTED;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_STANDBY;
+import static android.net.ConnectivityManager.FIREWALL_RULE_ALLOW;
+import static android.net.ConnectivityManager.FIREWALL_RULE_DENY;
 import static android.net.INetd.PERMISSION_INTERNET;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeFalse;
@@ -36,6 +39,7 @@ import static org.mockito.Mockito.verify;
 import android.net.INetd;
 import android.os.Build;
 import android.os.ServiceSpecificException;
+import android.system.ErrnoException;
 
 import androidx.test.filters.SmallTest;
 
@@ -87,6 +91,8 @@ public final class BpfNetMapsTest {
     @Mock INetd mNetd;
     private static final TestBpfMap<U32, U32> sConfigurationMap =
             new TestBpfMap<>(U32.class, U32.class);
+    private static final BpfMap<U32, UidOwnerValue> sUidOwnerMap =
+            new TestBpfMap<>(U32.class, UidOwnerValue.class);
 
     @Before
     public void setUp() throws Exception {
@@ -94,6 +100,7 @@ public final class BpfNetMapsTest {
         mBpfNetMaps = new BpfNetMaps(mNetd);
         BpfNetMaps.initialize(makeDependencies());
         sConfigurationMap.clear();
+        sUidOwnerMap.clear();
     }
 
     private static BpfNetMaps.Dependencies makeDependencies() {
@@ -101,6 +108,10 @@ public final class BpfNetMapsTest {
             @Override
             public BpfMap<U32, U32> getConfigurationMap() {
                 return sConfigurationMap;
+            }
+            @Override
+            public BpfMap<U32, UidOwnerValue> getUidOwnerMap() {
+                return sUidOwnerMap;
             }
         };
     }
@@ -189,17 +200,21 @@ public final class BpfNetMapsTest {
                 () -> mBpfNetMaps.getChainEnabled(FIREWALL_CHAIN_DOZABLE));
     }
 
-    private void doTestSetChildChain(final List<Integer> testChains) throws Exception {
-        long expectedMatch = 0;
-        for (final int chain: testChains) {
-            expectedMatch |= mBpfNetMaps.getMatchByFirewallChain(chain);
+    private long getMatch(final List<Integer> chains) {
+        long match = 0;
+        for (final int chain: chains) {
+            match |= mBpfNetMaps.getMatchByFirewallChain(chain);
         }
+        return match;
+    }
 
+    private void doTestSetChildChain(final List<Integer> testChains) throws Exception {
         assertEquals(0, sConfigurationMap.getValue(UID_RULES_CONFIGURATION_KEY).val);
 
         for (final int chain: testChains) {
             mBpfNetMaps.setChildChain(chain, true /* enable */);
         }
+        final long expectedMatch = getMatch(testChains);
         assertEquals(expectedMatch, sConfigurationMap.getValue(UID_RULES_CONFIGURATION_KEY).val);
 
         for (final int chain: testChains) {
@@ -264,5 +279,94 @@ public final class BpfNetMapsTest {
     public void testSetChildChainBeforeT() {
         assertThrows(ServiceSpecificException.class,
                 () -> mBpfNetMaps.setChildChain(FIREWALL_CHAIN_DOZABLE, true /* enable */));
+    }
+
+    private void doTestSetUidRule(final List<Integer> testChains) throws ErrnoException {
+        final UidOwnerValue match0 = sUidOwnerMap.getValue(new U32(TEST_UID));
+        assertNull(match0);
+
+        for (final int chain: testChains) {
+            final int ruleToAddMatch =
+                    mBpfNetMaps.isAllowList(chain) ? FIREWALL_RULE_ALLOW : FIREWALL_RULE_DENY;
+            mBpfNetMaps.setUidRule(chain, TEST_UID, ruleToAddMatch);
+        }
+        final long expectedMatch = getMatch(testChains);
+        final UidOwnerValue match1 = sUidOwnerMap.getValue(new U32(TEST_UID));
+        assertEquals(expectedMatch, match1.rule);
+        assertEquals(0, match1.iif);
+
+        for (final int chain: testChains) {
+            final int ruleToRemoveMatch =
+                    mBpfNetMaps.isAllowList(chain) ? FIREWALL_RULE_DENY : FIREWALL_RULE_ALLOW;
+            mBpfNetMaps.setUidRule(chain, TEST_UID, ruleToRemoveMatch);
+        }
+        final UidOwnerValue match2 = sUidOwnerMap.getValue(new U32(TEST_UID));
+        assertNull(match2);
+    }
+
+    private void doTestSetUidRule(final int testChain) throws ErrnoException {
+        doTestSetUidRule(List.of(testChain));
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testSetUidRule() throws Exception {
+        doTestSetUidRule(FIREWALL_CHAIN_DOZABLE);
+        doTestSetUidRule(FIREWALL_CHAIN_STANDBY);
+        doTestSetUidRule(FIREWALL_CHAIN_POWERSAVE);
+        doTestSetUidRule(FIREWALL_CHAIN_RESTRICTED);
+        doTestSetUidRule(FIREWALL_CHAIN_LOW_POWER_STANDBY);
+        doTestSetUidRule(FIREWALL_CHAIN_OEM_DENY_1);
+        doTestSetUidRule(FIREWALL_CHAIN_OEM_DENY_2);
+        doTestSetUidRule(FIREWALL_CHAIN_OEM_DENY_3);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testSetUidRuleMultipleChain() throws Exception {
+        doTestSetUidRule(List.of(
+                FIREWALL_CHAIN_DOZABLE,
+                FIREWALL_CHAIN_STANDBY));
+        doTestSetUidRule(List.of(
+                FIREWALL_CHAIN_DOZABLE,
+                FIREWALL_CHAIN_STANDBY,
+                FIREWALL_CHAIN_POWERSAVE,
+                FIREWALL_CHAIN_RESTRICTED));
+        doTestSetUidRule(FIREWALL_CHAINS);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testSetUidRuleRemoveRuleFromUidWithNoRule() {
+        final Class<ServiceSpecificException> expected = ServiceSpecificException.class;
+        assertThrows(expected,
+                () -> mBpfNetMaps.setUidRule(FIREWALL_CHAIN_DOZABLE, TEST_UID, FIREWALL_RULE_DENY));
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testSetUidRuleInvalidChain() {
+        final Class<ServiceSpecificException> expected = ServiceSpecificException.class;
+        assertThrows(expected,
+                () -> mBpfNetMaps.setUidRule(-1 /* childChain */, TEST_UID, FIREWALL_RULE_ALLOW));
+        assertThrows(expected,
+                () -> mBpfNetMaps.setUidRule(1000 /* childChain */, TEST_UID, FIREWALL_RULE_ALLOW));
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testSetUidRuleInvalidRule() {
+        final Class<ServiceSpecificException> expected = ServiceSpecificException.class;
+        assertThrows(expected, () ->
+                mBpfNetMaps.setUidRule(FIREWALL_CHAIN_DOZABLE, TEST_UID, -1 /* firewallRule */));
+        assertThrows(expected, () ->
+                mBpfNetMaps.setUidRule(FIREWALL_CHAIN_DOZABLE, TEST_UID, 1000 /* firewallRule */));
+    }
+
+    @Test
+    @IgnoreAfter(Build.VERSION_CODES.S_V2)
+    public void testSetUidRuleBeforeT() {
+        assertThrows(ServiceSpecificException.class, () ->
+                mBpfNetMaps.setUidRule(FIREWALL_CHAIN_DOZABLE, TEST_UID, FIREWALL_RULE_ALLOW));
     }
 }
