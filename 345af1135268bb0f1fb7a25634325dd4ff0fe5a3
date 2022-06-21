@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "db89b375_13e9bb52",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-21T04:16:45Z",
+      "side": 1,
+      "message": "I think only allow inject dependencies once globally like this may make the test hard to development in the future.\n\nHow about don\u0027t put Dependencies into ensureInitialized that create ConfigurationMap outside of ensureInitialized, like simply create it in constructor after ensureInitialized().",
+      "parentUuid": "ab7ea055_4b8d925d",
+      "range": {
+        "startLine": 139,
+        "startChar": 52,
+        "endLine": 140,
+        "endChar": 22
+      },
+      "revId": "345af1135268bb0f1fb7a25634325dd4ff0fe5a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a396ab43_a7b2fcdb",
         "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
         "patchSetId": 25
