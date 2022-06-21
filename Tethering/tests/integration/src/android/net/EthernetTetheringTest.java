@@ -1253,6 +1253,14 @@ public class EthernetTetheringTest {
         runClatUdpTest(initTetheringTester(toList(TEST_IP6_ADDR), toList(TEST_IP6_DNS)));
     }
 
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testTetherDumpsys() throws Exception {
+        final String dumpOutput = DumpTestUtils.dumpService(Context.TETHERING_SERVICE, "--short");
+        assertTrue(dumpOutput, dumpOutput.contains("Tethering"));
+        // not crash
+    }
+
     private <T> List<T> toList(T... array) {
         return Arrays.asList(array);
     }
