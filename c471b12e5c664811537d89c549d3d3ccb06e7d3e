@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2319db11_7cd56acf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-21T16:32:22Z",
+      "side": 1,
+      "message": "Can you add a quick CTS test that verifies that this fixes b/236294399:\n```\nSteps to reproduce:\n\nHave an available Ethernet network\nUpdate it using the EthernetManager#updateConfiguration API with an update request that does not have a specifier.\nExpected: The network to continue having the ethernet network specifier on it after the update as verifiable with adb shell dumpsys connectivity.\n```",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 0
+      },
+      "revId": "c471b12e5c664811537d89c549d3d3ccb06e7d3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
