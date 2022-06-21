@@ -21,6 +21,7 @@ import static android.os.Build.VERSION_CODES.S_V2;
 
 import static com.android.testutils.ContextUtils.mockService;
 import static com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
+import static com.android.testutils.MiscAsserts.assertThrows;
 
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -191,5 +192,18 @@ public class VpnManagerServiceTest {
         // Add the package back
         mService.onPackageAdded(PKGS.get(0), PKG_UIDS.get(0), false /* isReplacing */);
         verify(mVpn, times(2)).refreshPlatformVpnAppExclusionList();
+    }
+
+    @Test
+    public void testStartVpnProfileFromDiffPackage() {
+        final String notMyVpnPkg = "com.not.my.vpn";
+        assertThrows(
+                SecurityException.class, () -> mService.startVpnProfile(notMyVpnPkg));
+    }
+
+    @Test
+    public void testStopVpnProfileFromDiffPackage() {
+        final String notMyVpnPkg = "com.not.my.vpn";
+        assertThrows(SecurityException.class, () -> mService.stopVpnProfile(notMyVpnPkg));
     }
 }
