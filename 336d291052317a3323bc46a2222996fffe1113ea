@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b41f59f2_6176b0c5",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-21T17:29:37Z",
+      "side": 1,
+      "message": "Does someone else access the configuration map outside of BpfNetMaps? Seeing that it is in netd_shared, I am guessing that netd might. If that is the case, it would be nice to have a note that mentions this and the justification on why we think that is not a problem / what the possible effects are.",
+      "revId": "336d291052317a3323bc46a2222996fffe1113ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68c82073_c3bb8b4c",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-21T17:29:37Z",
+      "side": 1,
+      "message": "I would suggest putting this change in its own CL ahead of this one. This makes it easier to review which in turn gets your code reviewed more quickly. :)",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 55
+      },
+      "revId": "336d291052317a3323bc46a2222996fffe1113ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebd2c293_0cdff4cd",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-21T17:29:37Z",
+      "side": 1,
+      "message": "nit: I am not sure if it\u0027s worth wrapping a single throw statement. Since it\u0027s just a one liner, I think I would prefer the plain \"throw\" where maybeThrow isn\u0027t applicable.",
+      "range": {
+        "startLine": 168,
+        "startChar": 4,
+        "endLine": 176,
+        "endChar": 5
+      },
+      "revId": "336d291052317a3323bc46a2222996fffe1113ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70f8a359_0e3ecf6e",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-21T17:29:37Z",
+      "side": 1,
+      "message": "I think this should throw an UnsupportedOperationException instead of a ServiceSpecificException.",
+      "range": {
+        "startLine": 244,
+        "startChar": 12,
+        "endLine": 244,
+        "endChar": 26
+      },
+      "revId": "336d291052317a3323bc46a2222996fffe1113ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9193d272_12de5bfa",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-21T17:29:37Z",
+      "side": 1,
+      "message": "nit: I wonder if this should be implemented as a switch/case rather than a SparseLongArray.",
+      "range": {
+        "startLine": 247,
+        "startChar": 27,
+        "endLine": 247,
+        "endChar": 77
+      },
+      "revId": "336d291052317a3323bc46a2222996fffe1113ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
