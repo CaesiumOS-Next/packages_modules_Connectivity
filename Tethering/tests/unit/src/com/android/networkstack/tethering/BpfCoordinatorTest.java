@@ -96,6 +96,7 @@ import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.dx.mockito.inline.extended.ExtendedMockito;
+import com.android.internal.util.IndentingPrintWriter;
 import com.android.net.module.util.BpfMap;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.InterfaceParams;
@@ -127,6 +128,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.MockitoSession;
 
+import java.io.StringWriter;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
@@ -2063,5 +2065,18 @@ public class BpfCoordinatorTest {
         assertNull(mTetherClients.get(mIpServer));
         assertNull(mBpfUpstream4Map.getValue(upstream4KeyB));
         assertNull(mBpfDownstream4Map.getValue(downstream4KeyB));
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testDump() throws Exception {
+        // TODO: consider adding BPF entries for verifying map dump.
+        final BpfCoordinator coordinator = makeBpfCoordinator();
+        final StringWriter stringWriter = new StringWriter();
+        final IndentingPrintWriter ipw = new IndentingPrintWriter(stringWriter, " ");
+
+        coordinator.dump(ipw);
+        final String dumpOutput = stringWriter.toString();
+        assertTrue(dumpOutput, dumpOutput.contains("mIsBpfEnabled"));
     }
 }
