@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d68f0abe_f24594ae",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-22T00:27:10Z",
+      "side": 1,
+      "message": "Nit; is it work adding a log.w in case remove returns null?",
+      "range": {
+        "startLine": 419,
+        "startChar": 16,
+        "endLine": 419,
+        "endChar": 54
+      },
+      "revId": "9929c539b808c24207a34b57297996f2bc16c1a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
