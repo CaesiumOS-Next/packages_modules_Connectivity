@@ -50,6 +50,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.OutcomeReceiver
 import android.os.SystemProperties
+import android.os.VintfRuntimeInfo
 import android.platform.test.annotations.AppModeFull
 import android.util.ArraySet
 import androidx.test.platform.app.InstrumentationRegistry
@@ -57,6 +58,7 @@ import com.android.net.module.util.ArrayTrackRecord
 import com.android.net.module.util.TrackRecord
 import com.android.testutils.anyNetwork
 import com.android.testutils.ConnectivityModuleTest
+import com.android.testutils.DeviceInfoUtils
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.RecorderCallback.CallbackEntry.Available
@@ -67,6 +69,7 @@ import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.runAsShell
 import com.android.testutils.waitForIdle
 import org.junit.After
+import org.junit.Assume.assumeTrue
 import org.junit.Assume.assumeFalse
 import org.junit.Before
 import org.junit.Test
@@ -627,8 +630,19 @@ class EthernetManagerTest {
         listener.eventuallyExpectLost(network)
     }
 
+    private fun isKernelVersionAtLeast(target: String): Boolean {
+        val version = VintfRuntimeInfo.getKernelVersion()
+        val current = DeviceInfoUtils.getMajorMinorSubminorVersion(version)
+        val target = DeviceInfoUtils.getMajorMinorSubminorVersion(target)
+        return current.isAtLeast(target)
+    }
+
     @Test
     fun testNetworkRequest_forInterfaceWhileTogglingCarrier() {
+        // Notice this test case fails on devices running on an older kernel version(e.g. 4.14)
+        // that might not support ioctl new argument. Only run this test on 4.19 kernel or above.
+        assumeTrue(isKernelVersionAtLeast("4.19.0"))
+
         val iface = createInterface(false /* hasCarrier */)
 
         val cb = requestNetwork(ETH_REQUEST)
