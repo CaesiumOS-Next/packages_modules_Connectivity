@@ -53,6 +53,11 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.android.net.module.util.ArrayTrackRecord
 import com.android.net.module.util.TrackRecord
 import com.android.testutils.anyNetwork
+<<<<<<< HEAD   (49a829 ethernet: remove buggy test expectations for compatibility)
+=======
+import com.android.testutils.ConnectivityModuleTest
+import com.android.testutils.DeviceInfoUtils
+>>>>>>> CHANGE (1e34a5 Skip testNetworkRequest_forInterfaceWhileTogglingCarrier on )
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.RecorderCallback.CallbackEntry.Available
@@ -63,6 +68,7 @@ import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.runAsShell
 import com.android.testutils.waitForIdle
 import org.junit.After
+import org.junit.Assume.assumeTrue
 import org.junit.Assume.assumeFalse
 import org.junit.Assume.assumeTrue
 import org.junit.Before
@@ -532,8 +538,48 @@ class EthernetManagerTest {
         cb2.assertNotLost()
         cb3.assertNotLost()
 
+<<<<<<< HEAD   (49a829 ethernet: remove buggy test expectations for compatibility)
         releaseNetwork(cb1)
         releaseNetwork(cb2)
         releaseNetwork(cb3)
+=======
+    @Test
+    fun testNetworkRequest_ensureProperRefcounting() {
+        // create first request before interface is up / exists; create another request after it has
+        // been created; release one of them and check that the network stays up.
+        val listener = registerNetworkListener(ETH_REQUEST)
+        val cb1 = requestNetwork(ETH_REQUEST)
+
+        val iface = createInterface()
+        val network = cb1.expectAvailable()
+
+        val cb2 = requestNetwork(ETH_REQUEST)
+        cb2.expectAvailable()
+
+        // release the first request; this used to trigger b/197548738
+        releaseRequest(cb1)
+
+        cb2.assertNeverLost()
+        releaseRequest(cb2)
+        listener.eventuallyExpectLost(network)
+    }
+
+    @Test
+    fun testNetworkRequest_forInterfaceWhileTogglingCarrier() {
+        // Notice this test case fails on devices running on an older kernel version(e.g. 4.14)
+        // that might not support ioctl new argument. Only run this test on 4.19 kernel or above.
+        assumeTrue(DeviceInfoUtils.isKernelVersionAtLeast("4.19.0"))
+
+        val iface = createInterface(false /* hasCarrier */)
+
+        val cb = requestNetwork(ETH_REQUEST)
+        cb.assertNeverAvailable()
+
+        iface.setCarrierEnabled(true)
+        cb.expectAvailable()
+
+        iface.setCarrierEnabled(false)
+        cb.eventuallyExpectLost()
+>>>>>>> CHANGE (1e34a5 Skip testNetworkRequest_forInterfaceWhileTogglingCarrier on )
     }
 }
