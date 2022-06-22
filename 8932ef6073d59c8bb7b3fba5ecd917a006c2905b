@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3596d2fd_4143c597",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-22T22:02:19Z",
+      "side": 1,
+      "message": "I\u0027m very short on time, but could you please:\n(a) not rename types to lowercase\n(b) split the rename of fields into a separate CL that does nothing besides the renames\n(c) follow that up with the actual bugfix in it\u0027s own CL\nthanks\n[ie. rename field names, but not type names, this should reduce the amount of diff overall]\n\nIn general my comment about inconsistent naming on the previous patch set was about local variables.\nI do like what you\u0027re doing here, but please, one small change at a time, much easier to review.",
+      "revId": "8932ef6073d59c8bb7b3fba5ecd917a006c2905b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
