@@ -57,7 +57,7 @@ import com.android.net.module.util.ArrayTrackRecord
 import com.android.net.module.util.TrackRecord
 import com.android.testutils.anyNetwork
 import com.android.testutils.ConnectivityModuleTest
-import com.android.testutils.DeviceInfoUtils
+import com.android.testutils.DeviceInfoUtils.isKernelVersionAtLeast
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.RecorderCallback.CallbackEntry.Available
@@ -146,6 +146,8 @@ class EthernetManagerTest {
         }
 
         fun setCarrierEnabled(enabled: Boolean) {
+            assumeTrue("This test requires TUNSETCARRIER which was added in kernel 5.0",
+                isKernelVersionAtLeast("5.0.0"))
             runAsShell(MANAGE_TEST_NETWORKS) {
                 tnm.setCarrierEnabled(tapInterface, enabled)
             }
@@ -303,6 +305,10 @@ class EthernetManagerTest {
     }
 
     private fun createInterface(hasCarrier: Boolean = true): EthernetTestInterface {
+        if (!hasCarrier) {
+            assumeTrue("This test requires TUNSETCARRIER which was added in kernel 5.0",
+                isKernelVersionAtLeast("5.0.0"))
+        }
         val iface = EthernetTestInterface(
             context,
             handler,
@@ -631,10 +637,6 @@ class EthernetManagerTest {
 
     @Test
     fun testNetworkRequest_forInterfaceWhileTogglingCarrier() {
-        // Notice this test case fails on devices running on an older kernel version(e.g. 4.14)
-        // that might not support ioctl new argument. Only run this test on 4.19 kernel or above.
-        assumeTrue(DeviceInfoUtils.isKernelVersionAtLeast("4.19.0"))
-
         val iface = createInterface(false /* hasCarrier */)
 
         val cb = requestNetwork(ETH_REQUEST)
