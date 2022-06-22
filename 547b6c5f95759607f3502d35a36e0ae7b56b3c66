@@ -16,6 +16,29 @@
       "message": "I don\u0027t have time (still fighting T) for a real review, but:\n\nI think we should probably call this sConfigBpfMapLock and actually only require it on things that depends on the config map.\n\nOr even... call the lock sStatsMapSelectionLock or something like that?\nUltimately we care about which stats map is chosen right?\n\nIt seems to me like some of the accesses which are now locked are probably not in need of locking.\n\nIndividual bpf map operations - at the syscall level - are thread safe.\n\nIt\u0027s only when we have concurrent iteration - especially with concurrent insert/delete - that we start running into problems. ",
       "revId": "547b6c5f95759607f3502d35a36e0ae7b56b3c66",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04042e1e_838c86eb",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-22T19:12:46Z",
+      "side": 1,
+      "message": "ah, I do see this does a read/modify/write, and thus is subject to a locking need... but perhaps should be on a differently named lock?\n\nsUidOwnerMapLock...\n\nPerhaps ... if we switched from native code for these maps accesses to java code based on BpfMap\u003c\u003e class... and then used a global UidOwnerMap object, we could simply lock on the object itself??",
+      "range": {
+        "startLine": 246,
+        "startChar": 28,
+        "endLine": 246,
+        "endChar": 48
+      },
+      "revId": "547b6c5f95759607f3502d35a36e0ae7b56b3c66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
