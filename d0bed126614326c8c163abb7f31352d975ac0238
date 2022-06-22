@@ -22,6 +22,30 @@
       },
       "revId": "d0bed126614326c8c163abb7f31352d975ac0238",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ffc5b1c_67599cb4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-06-22T08:35:27Z",
+      "side": 1,
+      "message": "\u003e We also have it in the network request logs actually. Is that also a violation?\nI don\u0027t have answer for your question. Maybe you can reach to Nathan who report this issue to me.\n\nI think package name is not necessary info for debugging. I usually check the uid and permission info to know the permission status.",
+      "parentUuid": "e49acb87_64b7f748",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "d0bed126614326c8c163abb7f31352d975ac0238",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
