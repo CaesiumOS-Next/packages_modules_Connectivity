@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dfd5b397_23b033ac",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-22T12:19:26Z",
+      "side": 1,
+      "message": "I think this is a concern even without this CL because this sTcLock is equivalent to mMutex in TrafficController.\nAnd some bpf maps were accessed by outside of TrafficController currently.\n\nI have checked the usage of each map and added comments on aosp/2133161.",
+      "parentUuid": "b41f59f2_6176b0c5",
+      "revId": "336d291052317a3323bc46a2222996fffe1113ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "68c82073_c3bb8b4c",
         "filename": "service/src/com/android/server/BpfNetMaps.java",
         "patchSetId": 11
@@ -31,6 +49,30 @@
       "writtenOn": "2022-06-21T17:29:37Z",
       "side": 1,
       "message": "I would suggest putting this change in its own CL ahead of this one. This makes it easier to review which in turn gets your code reviewed more quickly. :)",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 55
+      },
+      "revId": "336d291052317a3323bc46a2222996fffe1113ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "beb04363_0f1fbdd3",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-22T12:19:26Z",
+      "side": 1,
+      "message": "Thank you for your suggestion!\nI created aosp/2133161 for sTcLock change.",
+      "parentUuid": "68c82073_c3bb8b4c",
       "range": {
         "startLine": 61,
         "startChar": 0,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9c6df5a_cc9c78b5",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-22T12:19:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ebd2c293_0cdff4cd",
+      "range": {
+        "startLine": 168,
+        "startChar": 4,
+        "endLine": 176,
+        "endChar": 5
+      },
+      "revId": "336d291052317a3323bc46a2222996fffe1113ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70f8a359_0e3ecf6e",
@@ -87,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66459a32_009a4b74",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-22T12:19:26Z",
+      "side": 1,
+      "message": "ConnectivityManager#setFirewallChainEnabled API calls BpfNetMaps#setChildChain.\nBefore this CL, if pre-T devices call setFirewallChainEnabled, they got ServiceSpecificException wrapped by IllegalStateException.\nSo, I throw ServiceSpecificException to keep this behavior.\n\nBut I realized when we did not have T, we did not have ConnectivityManager#setFirewallChainEnabled API and javadoc did not say this API throws IllegalStateException.\nSo, It seems fine to throw UnsupportedOperationException.\n\nI have updated.",
+      "parentUuid": "70f8a359_0e3ecf6e",
+      "range": {
+        "startLine": 244,
+        "startChar": 12,
+        "endLine": 244,
+        "endChar": 26
+      },
+      "revId": "336d291052317a3323bc46a2222996fffe1113ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9193d272_12de5bfa",
@@ -100,6 +190,30 @@
       "writtenOn": "2022-06-21T17:29:37Z",
       "side": 1,
       "message": "nit: I wonder if this should be implemented as a switch/case rather than a SparseLongArray.",
+      "range": {
+        "startLine": 247,
+        "startChar": 27,
+        "endLine": 247,
+        "endChar": 77
+      },
+      "revId": "336d291052317a3323bc46a2222996fffe1113ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c030c8f_63eb7960",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-22T12:19:26Z",
+      "side": 1,
+      "message": "I slightly prefer having conversion mapping like in line:91 ~ 98.\nIs it preferable to use switch/case maybe because memory efficiency, readability, or coding style in android?",
+      "parentUuid": "9193d272_12de5bfa",
       "range": {
         "startLine": 247,
         "startChar": 27,
