@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "867d825a_a0cce2e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-22T05:31:30Z",
+      "side": 1,
+      "message": "As offline discussed, could it be printed as something like:\n\n\u003e 4 {10064, 10066, ..}, 12 {10025, 20025, ...}\n\nIt may be able to reduce the logs.",
+      "range": {
+        "startLine": 16,
+        "startChar": 316,
+        "endLine": 16,
+        "endChar": 800
+      },
+      "revId": "8250840af4774e42f39cb814f71b41a0a65e7838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
