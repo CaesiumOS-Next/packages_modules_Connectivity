@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e49acb87_64b7f748",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-22T05:21:27Z",
+      "side": 1,
+      "message": "I do not have objection to remove the package name information in this commit if that is not a necessary information for debugging. \n\nHowever, the CDD is not actually for a connectivity bug report requirement but more like a telephony bug report since it\u0027s required if device implementations declare the android.hardware.telephony.\n\nI am not quite sure about what the definition of \"detailed profiles of user-installed applications/packages\".  If it\u0027s a necessary information, then it\u0027s allowed. It says that the package name is not allowed but basically, the package name is appeared in lots of sections. \n\nWe also have it in the network request logs actually. Is that also a violation?\n\n```\n2022-06-22T11:17:52.883356 - RELEASE uid/pid:10041/4128 activeRequest: 43 callbackRequest: 42 [NetworkRequest [ REQUEST id\u003d43, [ Capabilities: INTERNET\u0026NOT_RESTRICTED\u0026TRUSTED\u0026NOT_VCN_MANAGED Uid: 10041 RequestorUid: 10041 RequestorPkg: com.android.xxxxx UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647\n```",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "d0bed126614326c8c163abb7f31352d975ac0238",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
