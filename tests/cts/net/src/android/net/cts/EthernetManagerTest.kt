@@ -474,6 +474,32 @@ class EthernetManagerTest {
         listener.eventuallyExpect(ifaceName, STATE_LINK_UP, ROLE_CLIENT)
     }
 
+    @Test
+    fun testIfaceUsedInEthernetServerMode() {
+        // do not run this test if there is physical interface.
+        // assumeFalse(em.isAvailable())
+
+        setIncludeTestInterfaces(false)
+
+        val iface1 = EthernetTestInterface(context, handler, true).also { createdIfaces.add(it) }
+        val iface2 = EthernetTestInterface(context, handler, true).also { createdIfaces.add(it) }
+
+        val nc = NetworkCapabilities.Builder().addTransportType(TRANSPORT_TEST).build()
+        updateConfiguration(iface1, capabilities = nc)
+
+        setIncludeTestInterfaces(true)
+
+        val listener = EthernetStateListener()
+        addInterfaceStateListener(listener)
+
+        assertEquals(iface2.name, requestTetheredInterface().expectOnAvailable())
+
+        listener.eventuallyExpect(iface2.name, STATE_LINK_UP, ROLE_SERVER)
+
+        releaseTetheredInterface()
+        listener.eventuallyExpect(iface2.name, STATE_LINK_UP, ROLE_CLIENT)
+    }
+
     /**
      * Validate all interfaces are returned for an EthernetStateListener upon registration.
      */
