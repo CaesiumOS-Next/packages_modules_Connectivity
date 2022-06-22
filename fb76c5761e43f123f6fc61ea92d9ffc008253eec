@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "bdacf724_f45b903e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-06-22T11:10:53Z",
+      "side": 1,
+      "message": "Thanks for running a forrest. Also verified on a local flame device, this test returns assume false and ignore.",
+      "parentUuid": "3a17c162_7223f82c",
+      "range": {
+        "startLine": 14,
+        "startChar": 6,
+        "endLine": 14,
+        "endChar": 44
+      },
+      "revId": "fb76c5761e43f123f6fc61ea92d9ffc008253eec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e4beb3aa_ebf9434a",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -54,6 +78,30 @@
       "writtenOn": "2022-06-22T09:10:30Z",
       "side": 1,
       "message": "This seems like it belongs in a utility class, not a test. Maybe put it in DeviceInfoUtils?",
+      "range": {
+        "startLine": 633,
+        "startChar": 16,
+        "endLine": 633,
+        "endChar": 38
+      },
+      "revId": "fb76c5761e43f123f6fc61ea92d9ffc008253eec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "075b0cea_3429f41b",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-06-22T11:10:53Z",
+      "side": 1,
+      "message": "Done, move this method to DeviceInfoUtils in aosp/2132186.",
+      "parentUuid": "8a1fe786_564493eb",
       "range": {
         "startLine": 633,
         "startChar": 16,
