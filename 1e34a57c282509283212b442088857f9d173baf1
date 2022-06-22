@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75cb0a25_fd588b1a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-22T12:03:49Z",
+      "side": 1,
+      "message": "LGTM. I\u0027m not sure 4.19 is enough (I vaguely remember Patrick saying 5.x maybe?) but 4.19 will at least fix some devices, and we can always update to 5.x later.",
+      "revId": "1e34a57c282509283212b442088857f9d173baf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
