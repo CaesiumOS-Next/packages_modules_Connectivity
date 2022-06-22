@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb6bfee1_e6188e64",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-22T22:55:23Z",
+      "side": 1,
+      "message": "this should be handled as a single u16 or u32",
+      "range": {
+        "startLine": 288,
+        "startChar": 80,
+        "endLine": 291,
+        "endChar": 93
+      },
+      "revId": "6da82e8a4698084801cc4aeab9494e181d63843e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
