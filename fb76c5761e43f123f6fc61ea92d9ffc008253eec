@@ -3,6 +3,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3a17c162_7223f82c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-22T09:24:38Z",
+      "side": 1,
+      "message": "have tested on corel?\n\nIn the meanwhile, I have created a Forrest test.  \nhttps://android-build.googleplex.com/builds/abtd/run/L74800000955202105\nBranch: git_tm-mainline-prod\nTest name: v2/mainline-engprod/apct/mainline/tethering/T/coral-device-all\nRun target: coral\nChange number: 2133171",
+      "range": {
+        "startLine": 14,
+        "startChar": 6,
+        "endLine": 14,
+        "endChar": 44
+      },
+      "revId": "fb76c5761e43f123f6fc61ea92d9ffc008253eec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4beb3aa_ebf9434a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-22T09:24:38Z",
+      "side": 1,
+      "message": "need to know if it has tested on coral yet.",
+      "revId": "fb76c5761e43f123f6fc61ea92d9ffc008253eec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a1fe786_564493eb",
         "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
         "patchSetId": 1
@@ -19,6 +59,29 @@
         "startChar": 16,
         "endLine": 633,
         "endChar": 38
+      },
+      "revId": "fb76c5761e43f123f6fc61ea92d9ffc008253eec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "933afb1b_4f61e5b6",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-22T09:24:38Z",
+      "side": 1,
+      "message": "nit: L.633 and L.636 uses the same variable name (target) but different type. \ni am not familiar with kt. not sure if it is readable or confused.",
+      "range": {
+        "startLine": 636,
+        "startChar": 12,
+        "endLine": 636,
+        "endChar": 18
       },
       "revId": "fb76c5761e43f123f6fc61ea92d9ffc008253eec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
