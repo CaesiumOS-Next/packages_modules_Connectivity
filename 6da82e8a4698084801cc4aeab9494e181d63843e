@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c768afa_d56ce1f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-22T23:57:49Z",
+      "side": 1,
+      "message": "(perhaps move the rename earlier in the stack while you\u0027re at it, but that doesn\u0027t really matter)",
+      "revId": "6da82e8a4698084801cc4aeab9494e181d63843e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb6bfee1_e6188e64",
