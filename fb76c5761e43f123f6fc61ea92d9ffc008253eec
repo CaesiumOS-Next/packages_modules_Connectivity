@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a1fe786_564493eb",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-22T09:10:30Z",
+      "side": 1,
+      "message": "This seems like it belongs in a utility class, not a test. Maybe put it in DeviceInfoUtils?",
+      "range": {
+        "startLine": 633,
+        "startChar": 16,
+        "endLine": 633,
+        "endChar": 38
+      },
+      "revId": "fb76c5761e43f123f6fc61ea92d9ffc008253eec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
