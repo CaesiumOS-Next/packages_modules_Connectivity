@@ -516,19 +516,46 @@ class EthernetManagerTest {
         // do not run this test when adb might be connected over ethernet.
         assumeFalse(isAdbOverNetwork())
 
-        val listener = EthernetStateListener()
-        addInterfaceStateListener(listener)
-
         // it is possible that a physical interface is present, so it is not guaranteed that iface
         // will be put into server mode. This should not matter for the test though. Calling
         // createInterface() makes sure we have at least one interface available.
         val iface = createInterface()
+        runServerModeTest()
+    }
+
+    private fun runServerModeTest(expectedIface: String = "") {
+        val listener = EthernetStateListener()
+        addInterfaceStateListener(listener)
+
         val cb = requestTetheredInterface()
         val ifaceName = cb.expectOnAvailable()
+
+        if (!expectedIface.isEmpty()) assertEquals(expectedIface, ifaceName)
+
         listener.eventuallyExpect(ifaceName, STATE_LINK_UP, ROLE_SERVER)
 
         releaseTetheredInterface()
         listener.eventuallyExpect(ifaceName, STATE_LINK_UP, ROLE_CLIENT)
+    }
+
+    @Test
+    fun testIfaceUsedInEthernetServerMode() {
+        // do not run this test if there is physical interface.
+        assumeFalse(em.isAvailable())
+
+        // default interface is iface1
+        val iface1 = createInterface()
+        val iface2 = createInterface()
+
+        // set capabilities to iface1 and off/on ethernet to reset default interface.
+        val nc = NetworkCapabilities.Builder().addTransportType(TRANSPORT_TEST).build()
+        updateConfiguration(iface1, capabilities = nc)
+
+        setEthernetEnabled(false)
+        setEthernetEnabled(true)
+
+        // default interface should be iface2 which don't have defined capabilities.
+        runServerModeTest(iface2.name)
     }
 
     /**
