@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d380df93_cde1b14c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3377,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-22T06:30:51Z",
+      "side": 1,
+      "message": "Is this actually the reason? I don\u0027t see any call to bind(), or any socket being bound to a network, in doTestFirewallBlockingDenyRule or checkFirewallBlocking.",
+      "range": {
+        "startLine": 3377,
+        "startChar": 27,
+        "endLine": 3377,
+        "endChar": 45
+      },
+      "revId": "c4e6fcb6bc25630c5c8a67b425354028ae164644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
