@@ -22,6 +22,30 @@
       },
       "revId": "c4e6fcb6bc25630c5c8a67b425354028ae164644",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2627deca_a286d067",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3377,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-22T06:39:36Z",
+      "side": 1,
+      "message": "`new DatagramSocket()` will call bind.\nhttp://cs/aosp-master/libcore/ojluni/src/main/java/java/net/DatagramSocket.java;l\u003d264\n\n```\nCaused by: java.net.BindException: bind failed: EACCES (Permission denied)\n        at libcore.io.IoBridge.bind(IoBridge.java:149)\n        at java.net.PlainDatagramSocketImpl.bind0(PlainDatagramSocketImpl.java:105)\n        at java.net.AbstractPlainDatagramSocketImpl.bind(AbstractPlainDatagramSocketImpl.java:112)\n        at java.net.DatagramSocket.bind(DatagramSocket.java:414)\n        at java.net.DatagramSocket.\u0026lt;init\u0026gt;(DatagramSocket.java:264)\n        at java.net.DatagramSocket.\u0026lt;init\u0026gt;(DatagramSocket.java:218)\n        at android.net.cts.ConnectivityManagerTest.lambda$doTestFirewallBlockingDenyRule$91$android-net-cts-ConnectivityManagerTest(ConnectivityManagerTest.java:3360)\n        at android.net.cts.ConnectivityManagerTest$$ExternalSyntheticLambda20.run(Unknown Source:4)\n        at com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity(SystemUtil.java:286)\n        ... 12 more\n```",
+      "parentUuid": "d380df93_cde1b14c",
+      "range": {
+        "startLine": 3377,
+        "startChar": 27,
+        "endLine": 3377,
+        "endChar": 45
+      },
+      "revId": "c4e6fcb6bc25630c5c8a67b425354028ae164644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
