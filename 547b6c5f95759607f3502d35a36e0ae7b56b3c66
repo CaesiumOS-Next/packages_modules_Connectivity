@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab449913_af33785d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-22T19:08:50Z",
+      "side": 1,
+      "message": "I don\u0027t have time (still fighting T) for a real review, but:\n\nI think we should probably call this sConfigBpfMapLock and actually only require it on things that depends on the config map.\n\nOr even... call the lock sStatsMapSelectionLock or something like that?\nUltimately we care about which stats map is chosen right?\n\nIt seems to me like some of the accesses which are now locked are probably not in need of locking.\n\nIndividual bpf map operations - at the syscall level - are thread safe.\n\nIt\u0027s only when we have concurrent iteration - especially with concurrent insert/delete - that we start running into problems. ",
+      "revId": "547b6c5f95759607f3502d35a36e0ae7b56b3c66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
