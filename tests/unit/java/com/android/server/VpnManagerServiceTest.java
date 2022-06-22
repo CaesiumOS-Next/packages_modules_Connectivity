@@ -206,4 +206,21 @@ public class VpnManagerServiceTest {
         final String notMyVpnPkg = "com.not.my.vpn";
         assertThrows(SecurityException.class, () -> mService.stopVpnProfile(notMyVpnPkg));
     }
+
+    @Test @IgnoreUpTo(S_V2)
+    public void testGetProvisionedVpnProfileStateFromDiffPackage() {
+        final String notMyVpnPkg = "com.not.my.vpn";
+        assertThrows(SecurityException.class, () ->
+                mService.getProvisionedVpnProfileState(notMyVpnPkg));
+    }
+
+    @Test @IgnoreUpTo(S_V2)
+    public void testGetProvisionedVpnProfileState() {
+        // Add user to create vpn in mVpn
+        mService.onUserStarted(PRIMARY_USER);
+        assertNotNull(mService.mVpns.get(PRIMARY_USER));
+
+        mService.getProvisionedVpnProfileState(TEST_VPN_PKG);
+        verify(mVpn).getProvisionedVpnProfileState(TEST_VPN_PKG);
+    }
 }
