@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6060938a_f0e171eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1010056
+      },
+      "writtenOn": "2022-06-22T07:40:12Z",
+      "side": 1,
+      "message": "OWNERS ping. I\u0027d rather not have to GA+1, but will do so in a few days, since this blocks compiler updates otherwise.",
+      "revId": "20a996e1e18ca0d763d20a2a66c51d835b9eb805",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
