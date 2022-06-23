@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05284715_1a9dda3d",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetServiceImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-23T08:22:50Z",
+      "side": 1,
+      "message": "FWIW I think the original maybeValidateTestCapabilities name was better: this method doesn\u0027t get passed the transport, it gets passed the capabilities.",
+      "range": {
+        "startLine": 236,
+        "startChar": 17,
+        "endLine": 236,
+        "endChar": 43
+      },
+      "revId": "76344bdf142e89bc9ba9fa9f90c10eb9d9f0d6a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
