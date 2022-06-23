@@ -22,6 +22,30 @@
       },
       "revId": "c471b12e5c664811537d89c549d3d3ccb06e7d3e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a62a2cae_ec29ba64",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-23T02:35:56Z",
+      "side": 1,
+      "message": "I have a CTS test for it here:\nhttps://r.android.com/1991051\n\nIt was actually a bit simpler where I only needed to have a network request with a specifier and do an updateConfiguration without a specifier. \n\nWithout this change, the network request would never get callbacks therefore I can verify it does with this change in place.",
+      "parentUuid": "2319db11_7cd56acf",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 0
+      },
+      "revId": "c471b12e5c664811537d89c549d3d3ccb06e7d3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
