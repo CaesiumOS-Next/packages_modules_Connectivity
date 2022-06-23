@@ -45,6 +45,30 @@
       },
       "revId": "eb659f8f3a9089b2ef1407f25f46c449f4cb9ecc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e679b162_09ac2713",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-23T16:33:20Z",
+      "side": 1,
+      "message": "I was really on the fence about this change for just about those reasons. The one thing that bothered me about putting it at the top of every function: how are we going to prevent running into this problem again? I believe presubmit only runs on cuttlefish which always runs the newest kernel. I really wish there was some way to annotate methods with something like `@RequiresKernelVersion(\"5.0\")` and have let the test fail if the assumption wasn\u0027t explicitly checked when calling these methods.\nIn any case, I will wrap the assumption check in a function for readability and put it back to the top off the method. :)\n\n-\u003e fixed in aosp/2134523",
+      "parentUuid": "80f52788_74a73f70",
+      "range": {
+        "startLine": 308,
+        "startChar": 0,
+        "endLine": 311,
+        "endChar": 9
+      },
+      "revId": "eb659f8f3a9089b2ef1407f25f46c449f4cb9ecc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
