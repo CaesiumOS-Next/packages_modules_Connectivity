@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9d7599e_ab771cbb",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-23T19:09:09Z",
+      "side": 1,
+      "message": "Please also use a call to setEthernetEnabled(true) in tearDown. Otherwise, if any assertion fails in a test, it may not get reenabled and fail all subsequent tests.",
+      "range": {
+        "startLine": 298,
+        "startChar": 8,
+        "endLine": 298,
+        "endChar": 16
+      },
+      "revId": "2ee55d992dd61c4febe0bdfb1315dc5f6b27f723",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c1265fa_11335914",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-23T19:09:09Z",
+      "side": 1,
+      "message": "I suggest reuising ifaceListener. ifaceListener is only used to synchronize interface creation / destruction events, so it should be safe to use it for ethernet enabled state as well.\n\nIf you do this, you can move addEthernetStateListener() to setUp and removeEthernetStateListener() to tearDown and drop the try / finally. (If @Before runs, @After is guaranteed to run as well).",
+      "range": {
+        "startLine": 408,
+        "startChar": 12,
+        "endLine": 408,
+        "endChar": 20
+      },
+      "revId": "2ee55d992dd61c4febe0bdfb1315dc5f6b27f723",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a1fcb4a_33dfca83",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-23T19:09:09Z",
+      "side": 1,
+      "message": "nit: I think the following syntax is easier to read in this scenario:\n```\nenabled ? ETHERNET_STATE_ENABLED : ETHERNET_STATE_DISABLED\n```",
+      "range": {
+        "startLine": 412,
+        "startChar": 20,
+        "endLine": 412,
+        "endChar": 85
+      },
+      "revId": "2ee55d992dd61c4febe0bdfb1315dc5f6b27f723",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
