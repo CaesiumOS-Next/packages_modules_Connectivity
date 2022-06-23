@@ -330,6 +330,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "950ef0ea_7b480028",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 37
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-23T04:07:06Z",
+      "side": 1,
+      "message": "(I guess what I meant was to put the NetworkCapabilities as a global and have a createCopyWithCapabilities(vararg caps: Int) -- it\u0027s not necessary though, this code has become much more readable as it is)",
+      "parentUuid": "b4048a0f_9360eac8",
+      "range": {
+        "startLine": 705,
+        "startChar": 8,
+        "endLine": 708,
+        "endChar": 54
+      },
+      "revId": "499da17622b065b713b1f86d0bb3c3e47617fd02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa44ea6d_71bdbb82",

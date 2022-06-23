@@ -1,0 +1,314 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89fd4d5a_82d7efcc",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-23T04:07:06Z",
+      "side": 1,
+      "message": "Is this necessary? There is already a bunch of logging in the production code (but as you know, not nearly enough). Maybe we should add debug logging there instead?",
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7c12872_7abf7005",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-23T04:07:06Z",
+      "side": 1,
+      "message": "I have no idea what this does or why this is needed. Can you rename it to something more legible?",
+      "range": {
+        "startLine": 414,
+        "startChar": 40,
+        "endLine": 414,
+        "endChar": 61
+      },
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f5de167_5922dbca",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-23T04:07:06Z",
+      "side": 1,
+      "message": "This should probably not return Network (maybe just drop the .network?) and make Network optional. (Passing the network is mostly useful when using a listener; with a request that is already satisfied by a network, onLost() will always be called for that network).",
+      "range": {
+        "startLine": 417,
+        "startChar": 0,
+        "endLine": 418,
+        "endChar": 66
+      },
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f02b7bb_208e8bed",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-23T04:07:06Z",
+      "side": 1,
+      "message": "Suggest just using anyNetwork() for the same reason as expectLost(); or make it optional.",
+      "range": {
+        "startLine": 436,
+        "startChar": 73,
+        "endLine": 436,
+        "endChar": 83
+      },
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d0be49f_3217671f",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-23T04:07:06Z",
+      "side": 1,
+      "message": "(not something you have to do -- more of a note to self) but it would be really neat for cap to be a vararg. 😊",
+      "range": {
+        "startLine": 436,
+        "startChar": 40,
+        "endLine": 436,
+        "endChar": 95
+      },
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef7ea802_a5c9a07d",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-23T04:07:06Z",
+      "side": 1,
+      "message": "nit: you could go as far and name this expectLinkPropertiesWithStaticIpConfig and pass it in the StaticIpConfiguration object.",
+      "range": {
+        "startLine": 441,
+        "startChar": 40,
+        "endLine": 441,
+        "endChar": 75
+      },
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1911299_7a1ea63b",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-23T04:07:06Z",
+      "side": 1,
+      "message": "nit: maybe add a note why this can\u0027t use LinkAddress.equals() (I was actually wondering about that).",
+      "range": {
+        "startLine": 446,
+        "startChar": 0,
+        "endLine": 446,
+        "endChar": 86
+      },
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2699c467_060b334b",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-23T04:07:06Z",
+      "side": 1,
+      "message": "nit: suggest renaming these to match the (partially) existing pattern: testUpdateConfiguration_forBothIpConfigAndCapabilities()\n\n(I think it is slightly more readable and makes it immediately visible which API is being tested)",
+      "range": {
+        "startLine": 695,
+        "startChar": 8,
+        "endLine": 695,
+        "endChar": 58
+      },
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a0d3075_45f48555",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-23T04:07:06Z",
+      "side": 1,
+      "message": "I would prefer rolling this function into the test as updateConfiguration is what is being tested here. To me this makes the test more clear.",
+      "range": {
+        "startLine": 696,
+        "startChar": 19,
+        "endLine": 696,
+        "endChar": 70
+      },
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1621bccd_093d9b7e",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-23T04:07:06Z",
+      "side": 1,
+      "message": "Wait, why is updateConfiguration called twice in this test? If that\u0027s the case, I think we should just get rid of createInterfaceWithStaticIp entirely.",
+      "range": {
+        "startLine": 706,
+        "startChar": 8,
+        "endLine": 706,
+        "endChar": 27
+      },
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30a35108_0c1e0337",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-23T04:07:06Z",
+      "side": 1,
+      "message": "nit: Should this just be a global STATIC_IP_CONFIG and you can get the LinkAddress out of it?",
+      "range": {
+        "startLine": 706,
+        "startChar": 35,
+        "endLine": 706,
+        "endChar": 64
+      },
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5c6cfda_ab18ec15",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-23T04:07:06Z",
+      "side": 1,
+      "message": "expectAvailable() returns Network, so maybe use that or drop it all together. (I would vote for dropping it as this callback *has* to be for this network).",
+      "range": {
+        "startLine": 712,
+        "startChar": 44,
+        "endLine": 712,
+        "endChar": 69
+      },
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d77cdd9_ee4860af",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-23T04:07:06Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 713,
+        "startChar": 47,
+        "endLine": 713,
+        "endChar": 72
+      },
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "394f21f7_38a03f63",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-23T04:07:06Z",
+      "side": 1,
+      "message": "This line can be removed.",
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
