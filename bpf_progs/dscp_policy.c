@@ -166,8 +166,8 @@ static inline __always_inline void match_policy(struct __sk_buff* skb, bool ipv4
         } else {
             uint8_t new_priority = UPDATE_PRIORITY(existingRule->dscpVal);
             uint8_t new_flow_label = UPDATE_FLOW_LABEL(existingRule->dscpVal, flow_lbl);
-            bpf_skb_store_bytes(skb, 0 + l2_header_size, &new_priority, sizeof(uint8_t), 0);
-            bpf_skb_store_bytes(skb, 1 + l2_header_size, &new_flow_label, sizeof(uint8_t), 0);
+            uint16_t priority_flow = htons((new_priority << 8) | new_flow_lbl);
+            bpf_skb_store_bytes(skb, l2_header_size, &priority_flow, sizeof(priority_flow), 0);
         }
         return;
     }
@@ -281,8 +281,8 @@ static inline __always_inline void match_policy(struct __sk_buff* skb, bool ipv4
         bpf_l3_csum_replace(skb, IP4_OFFSET(check, l2_header_size), htons(tos), htons(new_tos), 2);
         bpf_skb_store_bytes(skb, IP4_OFFSET(tos, l2_header_size), &new_tos, sizeof(new_tos), 0);
     } else if (!ipv4 && (new_priority != priority || new_flow_lbl != flow_lbl)) {
-        bpf_skb_store_bytes(skb, l2_header_size, &new_priority, sizeof(new_priority), 0);
-        bpf_skb_store_bytes(skb, l2_header_size + 1, &new_flow_lbl, sizeof(new_flow_lbl), 0);
+        uint16_t priority_flow = htons((new_priority << 8) | new_flow_lbl);
+        bpf_skb_store_bytes(skb, l2_header_size, &priority_flow, sizeof(priority_flow), 0);
     }
     return;
 }
