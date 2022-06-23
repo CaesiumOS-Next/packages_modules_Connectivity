@@ -330,6 +330,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8963ff73_66f1c49e",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 35
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-23T02:33:34Z",
+      "side": 1,
+      "message": "I\u0027ve removed this test as per Patrick\u0027s comment regarding aosp/2120129. \n\nI will add the eth specifier however in the updateConfiguration test as per https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1991051/comments/6715ec7a_0aa9bdc6. \n\nTo Patrick\u0027s point above, this \"should\" work, but only as long as there wasn\u0027t another ETH|TEST network on the device which \"shouldn\u0027t\" happen. In any case, it\u0027ll be good to validate the eth specifier logic in CTS as well so I\u0027ll be including in testUpdateConfiguration.",
+      "parentUuid": "f4a1bb13_c602ff14",
+      "range": {
+        "startLine": 405,
+        "startChar": 11,
+        "endLine": 405,
+        "endChar": 48
+      },
+      "revId": "3de5eeacd87c5a90b1282144e1cb26d26cacd81e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6715ec7a_0aa9bdc6",
@@ -343,6 +367,30 @@
       "writtenOn": "2022-05-27T01:08:40Z",
       "side": 1,
       "message": "Ditto, this request should probably have a specifier.",
+      "range": {
+        "startLine": 422,
+        "startChar": 11,
+        "endLine": 422,
+        "endChar": 48
+      },
+      "revId": "3de5eeacd87c5a90b1282144e1cb26d26cacd81e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5217a414_e6f844b1",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 35
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-23T02:33:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6715ec7a_0aa9bdc6",
       "range": {
         "startLine": 422,
         "startChar": 11,
@@ -413,6 +461,30 @@
       "writtenOn": "2022-05-27T01:08:40Z",
       "side": 1,
       "message": "Should we also test that if the configuration is identical, the interface does not restart? Doesn\u0027t need to be in this CL.",
+      "range": {
+        "startLine": 432,
+        "startChar": 33,
+        "endLine": 432,
+        "endChar": 84
+      },
+      "revId": "3de5eeacd87c5a90b1282144e1cb26d26cacd81e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38ec3313_5ef11f2c",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 35
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-23T02:33:34Z",
+      "side": 1,
+      "message": "There currently isn\u0027t an existing check for this so any test will also need a platform change. I\u0027ve added a bug to track this work at http://b/236904661.",
+      "parentUuid": "f49c8148_50db3fbe",
       "range": {
         "startLine": 432,
         "startChar": 33,
