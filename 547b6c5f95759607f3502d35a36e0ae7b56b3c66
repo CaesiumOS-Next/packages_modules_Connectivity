@@ -39,6 +39,30 @@
       },
       "revId": "547b6c5f95759607f3502d35a36e0ae7b56b3c66",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b954e33_901c7e93",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-23T06:14:28Z",
+      "side": 1,
+      "message": "I used `sTcLock` as a lock equivalent to the mMutex in the current TrafficController.\nBut I agree that we can have different locks for each bpfMap or bpfMap entry and remove some locks.\nI will abandon this CL and add necessary lock for each map in the following CLs.",
+      "parentUuid": "04042e1e_838c86eb",
+      "range": {
+        "startLine": 246,
+        "startChar": 28,
+        "endLine": 246,
+        "endChar": 48
+      },
+      "revId": "547b6c5f95759607f3502d35a36e0ae7b56b3c66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
