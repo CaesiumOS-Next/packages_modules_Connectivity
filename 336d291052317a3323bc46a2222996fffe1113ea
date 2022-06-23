@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6a41b207_44bf3c06",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-23T06:31:19Z",
+      "side": 1,
+      "message": "Based on the comments in aosp/2133161 from maze@.\nI have introduced `sUidRulesConfigBpfMapLock` for sConfigurationMap entry for UID_RULES_CONFIGURATION_KEY instead of `sTcLock` for all the bpf map.",
+      "parentUuid": "dfd5b397_23b033ac",
+      "revId": "336d291052317a3323bc46a2222996fffe1113ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "68c82073_c3bb8b4c",
         "filename": "service/src/com/android/server/BpfNetMaps.java",
         "patchSetId": 11
