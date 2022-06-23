@@ -53,6 +53,11 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.android.net.module.util.ArrayTrackRecord
 import com.android.net.module.util.TrackRecord
 import com.android.testutils.anyNetwork
+<<<<<<< HEAD   (49a829 ethernet: remove buggy test expectations for compatibility)
+=======
+import com.android.testutils.ConnectivityModuleTest
+import com.android.testutils.DeviceInfoUtils.isKernelVersionAtLeast
+>>>>>>> CHANGE (e2e40d ethernet: skip test that uses TUNSETCARRIER on old kernels)
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.RecorderCallback.CallbackEntry.Available
@@ -133,6 +138,17 @@ class EthernetManagerTest {
             raResponder.start()
         }
 
+<<<<<<< HEAD   (49a829 ethernet: remove buggy test expectations for compatibility)
+=======
+        // WARNING: this function requires kernel support. Call assumeChangingCarrierSupported() at
+        // the top of your test.
+        fun setCarrierEnabled(enabled: Boolean) {
+            runAsShell(MANAGE_TEST_NETWORKS) {
+                tnm.setCarrierEnabled(tapInterface, enabled)
+            }
+        }
+
+>>>>>>> CHANGE (e2e40d ethernet: skip test that uses TUNSETCARRIER on old kernels)
         fun destroy() {
             raResponder.stop()
             handler.post({ packetReader.stop() })
@@ -253,6 +269,9 @@ class EthernetManagerTest {
         releaseTetheredInterface()
     }
 
+    // Setting the carrier up / down relies on TUNSETCARRIER which was added in kernel version 5.0.
+    private fun assumeChangingCarrierSupported() = assumeTrue(isKernelVersionAtLeast("5.0.0"))
+
     private fun addInterfaceStateListener(listener: EthernetStateListener) {
         runAsShell(CONNECTIVITY_USE_RESTRICTED_NETWORKS) {
             em.addInterfaceStateListener(HandlerExecutor(Handler(Looper.getMainLooper())), listener)
@@ -260,7 +279,13 @@ class EthernetManagerTest {
         addedListeners.add(listener)
     }
 
+<<<<<<< HEAD   (49a829 ethernet: remove buggy test expectations for compatibility)
     private fun createInterface(): EthernetTestInterface {
+=======
+    // WARNING: setting hasCarrier to false requires kernel support. Call
+    // assumeChangingCarrierSupported() at the top of your test.
+    private fun createInterface(hasCarrier: Boolean = true): EthernetTestInterface {
+>>>>>>> CHANGE (e2e40d ethernet: skip test that uses TUNSETCARRIER on old kernels)
         val iface = EthernetTestInterface(
             context,
             Handler(Looper.getMainLooper())
@@ -532,8 +557,46 @@ class EthernetManagerTest {
         cb2.assertNotLost()
         cb3.assertNotLost()
 
+<<<<<<< HEAD   (49a829 ethernet: remove buggy test expectations for compatibility)
         releaseNetwork(cb1)
         releaseNetwork(cb2)
         releaseNetwork(cb3)
+=======
+    @Test
+    fun testNetworkRequest_ensureProperRefcounting() {
+        // create first request before interface is up / exists; create another request after it has
+        // been created; release one of them and check that the network stays up.
+        val listener = registerNetworkListener(ETH_REQUEST)
+        val cb1 = requestNetwork(ETH_REQUEST)
+
+        val iface = createInterface()
+        val network = cb1.expectAvailable()
+
+        val cb2 = requestNetwork(ETH_REQUEST)
+        cb2.expectAvailable()
+
+        // release the first request; this used to trigger b/197548738
+        releaseRequest(cb1)
+
+        cb2.assertNeverLost()
+        releaseRequest(cb2)
+        listener.eventuallyExpectLost(network)
+    }
+
+    @Test
+    fun testNetworkRequest_forInterfaceWhileTogglingCarrier() {
+        assumeChangingCarrierSupported()
+
+        val iface = createInterface(false /* hasCarrier */)
+
+        val cb = requestNetwork(ETH_REQUEST)
+        cb.assertNeverAvailable()
+
+        iface.setCarrierEnabled(true)
+        cb.expectAvailable()
+
+        iface.setCarrierEnabled(false)
+        cb.eventuallyExpectLost()
+>>>>>>> CHANGE (e2e40d ethernet: skip test that uses TUNSETCARRIER on old kernels)
     }
 }
