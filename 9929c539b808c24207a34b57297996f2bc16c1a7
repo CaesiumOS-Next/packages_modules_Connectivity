@@ -22,6 +22,30 @@
       },
       "revId": "9929c539b808c24207a34b57297996f2bc16c1a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b6fe704_cc98896b",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-23T19:45:50Z",
+      "side": 1,
+      "message": "Yeah, actually may not be a bad idea to Log.wtf() (which I *think* this crashes the process on userdebug builds). This way we\u0027ll find out about it.",
+      "parentUuid": "d68f0abe_f24594ae",
+      "range": {
+        "startLine": 419,
+        "startChar": 16,
+        "endLine": 419,
+        "endChar": 54
+      },
+      "revId": "9929c539b808c24207a34b57297996f2bc16c1a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
