@@ -34,6 +34,29 @@
       "parentUuid": "bcd4a836_471e16b5",
       "revId": "c20e0c006f37a29631341158dfddeecc912e9573",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5db83b4_2329bc12",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-23T07:32:09Z",
+      "side": 1,
+      "message": "could this be done with api t annotations of some sort on the function itself?\n\nor on the entire class?\n\nCurrently this adds a line with guaranteed 0 coverage on T+ devices which don\u0027t use netd.\n\nWe should IMHO have a base class with abstract operations, and then 2 child classes - one for pre-T, one for T+ with alternative implementations.\n\nEach of those classes could be masked out of coverage by discarding the entire file for \u003cT or T+ coverage builds.",
+      "range": {
+        "startLine": 230,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 23
+      },
+      "revId": "c20e0c006f37a29631341158dfddeecc912e9573",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
