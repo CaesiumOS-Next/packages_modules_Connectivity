@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcd4a836_471e16b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-23T07:27:28Z",
+      "side": 1,
+      "message": "not really related to this CL, which I haven\u0027t looked at ...\n\nbut...\n\nI think BpfMap.java could/should gain something like an exclusivity mode or a singleton mode, where (within the same process) multiple instances of the same map (based on path - but not based on readonly vs readwrite flags) get a single lock.\n\nPerhaps something like the fd caching infrastructure that\u0027s already in place, could also be used to store a per-path locking Object.\n\nBonus points if you can figure out how to make a BpfMapArray\u003cK,V\u003e where the lock is per element instead of for the entire map.\n\nThen we could have a wrapper object around individual fields in the ConfigMap, each with it\u0027s own lock - enforcing correct locking.\n\nAnyway, I\u0027m not a Java expert, and I\u0027m not entirely sure what\u0027s possible in the language... and how much locking correctness detection we can automate with language features and/or annotation linters/checkers.  Maybe this is all too complex?\n\nJust having the BpfMap objects being singletons and locking on them would help a lot...\n\nand perhaps BpfMapReadWrite(\"foo\") should refuse to construct if BpfMapReadOnly(\"foo\") was already created?  [and the reverse]\n\nTechnically with proper inheritance (which we should add...) BpfMapRW should be a child of BpfMapRO.\n\nThis is something we need to fix in C++ too where it\u0027s a mess constantly getting in the way (our inheritance is the reverse: BpfMapRO inherits *from* BpfMap[RW]).",
+      "revId": "c20e0c006f37a29631341158dfddeecc912e9573",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
