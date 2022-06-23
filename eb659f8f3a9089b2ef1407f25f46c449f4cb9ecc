@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c544879_a2a74349",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-23T08:02:44Z",
+      "side": 1,
+      "message": "Similar to the other comment, I don\u0027t think it\u0027s a good idea to call assumeXyz in a utility method.",
+      "range": {
+        "startLine": 149,
+        "startChar": 12,
+        "endLine": 149,
+        "endChar": 22
+      },
+      "revId": "eb659f8f3a9089b2ef1407f25f46c449f4cb9ecc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80f52788_74a73f70",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-23T08:02:44Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s a good idea to put an assumeXyz inside an if statement. Doing so will skip the enclosing test, but this has two problems:\n1. It will be very difficult for humans to know what test is skipped.\n2. Tests can simply stop running in the middle. Consider:\n\n    @Test\n    fun testSomething() {\n        val iface1 \u003d createInterface()\n        ... test code that runs\n\n        val iface2 \u003d createInterface(false)\n        ... this code is skipped...\n\n        val iface 3 \u003d createInterface()\n        ... this code is skipped as well.\n    }\n\nI think that if we want to skip parts of tests, we should be very explicit, in the test code itself, about what parts are skipped. For example, we can easily do something like:\n\n    if (isKernelVersionAtLeast(\"5.0.0\")) {\n        // test stuff that can only be tested on newer kernels\n    } else {\n        ...\n    }\n    \n\nIf we\u0027re not going to skip parts of tests, then we should just use assumeXyz at the beginning of the test method and skip entire tests.\n\nIf writing isKernelVersionAtLeast(\"5.0.0\") is long, then we can do something like:\n\n    private fun isChangingCarrierSupported() : Boolean {\n        return isKernelVersionAtLeast(\"5.0.0\")\n    }",
+      "range": {
+        "startLine": 308,
+        "startChar": 0,
+        "endLine": 311,
+        "endChar": 9
+      },
+      "revId": "eb659f8f3a9089b2ef1407f25f46c449f4cb9ecc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
