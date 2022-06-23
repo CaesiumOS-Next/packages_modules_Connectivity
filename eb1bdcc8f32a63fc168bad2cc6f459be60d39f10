@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45c1bc8f_80576d0f",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1276,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-23T07:36:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "83d911e3_3b213a5c",
+      "range": {
+        "startLine": 1276,
+        "startChar": 16,
+        "endLine": 1276,
+        "endChar": 49
+      },
+      "revId": "eb1bdcc8f32a63fc168bad2cc6f459be60d39f10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e089b93_6e19dcc1",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "That CL is now merged. Mark, perhaps you can move this test to EthernetManagerTest? Once Patrick is happy with it I should probably be able to review it quickly.",
       "parentUuid": "bff063a5_2275bd8c",
+      "range": {
+        "startLine": 1277,
+        "startChar": 7,
+        "endLine": 1314,
+        "endChar": 9
+      },
+      "revId": "eb1bdcc8f32a63fc168bad2cc6f459be60d39f10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8cd9829_f55dec3e",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1314,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-23T07:36:46Z",
+      "side": 1,
+      "message": "Ack, I have move the test to EthernetManagerTest, but it is a little bit different as suggested above.\nThe suggested scheme doesn\u0027t work: if setIncludeTestInterfaces false, updateConfiguration with test iface would need manage etherent permission (shell doesn\u0027t have this permission). That is why I need to off/on ethernet to reset default interface.",
+      "parentUuid": "f7107c16_ad4a6881",
       "range": {
         "startLine": 1277,
         "startChar": 7,
