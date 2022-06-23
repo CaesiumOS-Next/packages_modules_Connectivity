@@ -49,7 +49,11 @@ import android.os.Build
 import android.os.Handler
 import android.os.HandlerExecutor
 import android.os.Looper
+<<<<<<< HEAD   (83b95f ethernet: wait for the interface listener to be registered)
 import android.os.SystemProperties
+=======
+import android.os.OutcomeReceiver
+>>>>>>> CHANGE (525c30 ethernet: enable testCallbacks_forServerModeInterfaces on CF)
 import android.platform.test.annotations.AppModeFull
 import android.util.ArraySet
 import androidx.test.platform.app.InstrumentationRegistry
@@ -66,7 +70,6 @@ import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.runAsShell
 import com.android.testutils.waitForIdle
 import org.junit.After
-import org.junit.Assume.assumeFalse
 import org.junit.Assume.assumeTrue
 import org.junit.Before
 import org.junit.Test
@@ -403,18 +406,39 @@ class EthernetManagerTest {
         }
     }
 
+<<<<<<< HEAD   (83b95f ethernet: wait for the interface listener to be registered)
     // TODO: this function is now used in two places (EthernetManagerTest and
     // EthernetTetheringTest), so it should be moved to testutils.
     private fun isAdbOverNetwork(): Boolean {
         // If adb TCP port opened, this test may running by adb over network.
         return (SystemProperties.getInt("persist.adb.tcp.port", -1) > -1 ||
                 SystemProperties.getInt("service.adb.tcp.port", -1) > -1)
+=======
+    private fun assumeNoInterfaceForTetheringAvailable() {
+        // Interfaces that have configured NetworkCapabilities will never be used for tethering,
+        // see aosp/2123900.
+        try {
+            // assumeException does not exist.
+            requestTetheredInterface().expectOnAvailable()
+            // interface used for tethering is available, throw an assumption error.
+            assumeTrue(false)
+        } catch (e: TimeoutException) {
+            // do nothing -- the TimeoutException indicates that no interface is available for
+            // tethering.
+            releaseTetheredInterface()
+        }
+>>>>>>> CHANGE (525c30 ethernet: enable testCallbacks_forServerModeInterfaces on CF)
     }
 
     @Test
     fun testCallbacks_forServerModeInterfaces() {
+<<<<<<< HEAD   (83b95f ethernet: wait for the interface listener to be registered)
         // do not run this test when adb might be connected over ethernet.
         assumeFalse(isAdbOverNetwork())
+=======
+        // do not run this test if an interface that can be used for tethering already exists.
+        assumeNoInterfaceForTetheringAvailable()
+>>>>>>> CHANGE (525c30 ethernet: enable testCallbacks_forServerModeInterfaces on CF)
 
         val listener = EthernetStateListener()
         addInterfaceStateListener(listener)
