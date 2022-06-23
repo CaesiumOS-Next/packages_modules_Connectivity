@@ -141,6 +141,30 @@
       },
       "revId": "eb1bdcc8f32a63fc168bad2cc6f459be60d39f10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "709e21f9_b0297145",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1314,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-23T19:15:22Z",
+      "side": 1,
+      "message": "Yep!\n\nOr you could move the setIncludeTestInterfaces(false) to after the call to updateConfiguration. But that\u0027s all very hacky and we need setEthernetEnabled() anyways, so I prefer your approach as well.",
+      "parentUuid": "f8cd9829_f55dec3e",
+      "range": {
+        "startLine": 1277,
+        "startChar": 7,
+        "endLine": 1314,
+        "endChar": 9
+      },
+      "revId": "eb1bdcc8f32a63fc168bad2cc6f459be60d39f10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
