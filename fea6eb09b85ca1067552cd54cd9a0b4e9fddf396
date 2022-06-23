@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a29ec8f3_2397f766",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-23T12:40:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a7535f5_dfada19b",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 5
+      },
+      "revId": "fea6eb09b85ca1067552cd54cd9a0b4e9fddf396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63fbba74_7680c192",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-06-23T06:13:43Z",
       "side": 1,
       "message": "Yup, this looks very similar; can this be merged?\n\n(After you upload, try to look through your own commit critically to see if there\u0027s stuff like this that you can consolidate for bonus points)",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 5
+      },
+      "revId": "fea6eb09b85ca1067552cd54cd9a0b4e9fddf396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ff125ce_216d67d9",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-23T12:40:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63fbba74_7680c192",
       "range": {
         "startLine": 150,
         "startChar": 0,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f8e6d33_c38b747b",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-23T12:40:09Z",
+      "side": 1,
+      "message": "It\u0027s for setting the packages mapping. The primitive types canonot as generic arguments in Java.\n\nUpdate to List\u003cInteger\u003e instead.",
+      "parentUuid": "73ecde3f_83ddeba6",
+      "range": {
+        "startLine": 220,
+        "startChar": 17,
+        "endLine": 220,
+        "endChar": 24
+      },
+      "revId": "fea6eb09b85ca1067552cd54cd9a0b4e9fddf396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9ebff85_d465a210",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-06-23T06:13:43Z",
       "side": 1,
       "message": "Optional: Suggest a postfix denoting what is expected:\n\ntestRefreshPlatformVpnAppExclusionList_updatesExcludedUids",
+      "range": {
+        "startLine": 835,
+        "startChar": 16,
+        "endLine": 835,
+        "endChar": 55
+      },
+      "revId": "fea6eb09b85ca1067552cd54cd9a0b4e9fddf396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca67c034_adb8d08b",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-23T12:40:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9ebff85_d465a210",
       "range": {
         "startLine": 835,
         "startChar": 16,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f4110cd_3b6a30af",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-23T12:40:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d70a98b_745f8694",
+      "range": {
+        "startLine": 859,
+        "startChar": 51,
+        "endLine": 859,
+        "endChar": 52
+      },
+      "revId": "fea6eb09b85ca1067552cd54cd9a0b4e9fddf396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b8a333d_d11d805c",
@@ -146,6 +266,30 @@
       "writtenOn": "2022-06-23T06:13:43Z",
       "side": 1,
       "message": "Suggest \"makeVpnUidRange\", since it\u0027s not just the excluded apps that this is making a range of?",
+      "range": {
+        "startLine": 862,
+        "startChar": 32,
+        "endLine": 862,
+        "endChar": 52
+      },
+      "revId": "fea6eb09b85ca1067552cd54cd9a0b4e9fddf396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0cbfba1_7f31aacb",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-23T12:40:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b8a333d_d11d805c",
       "range": {
         "startLine": 862,
         "startChar": 32,
