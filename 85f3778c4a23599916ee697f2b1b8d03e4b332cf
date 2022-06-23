@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f3c592d_b0244210",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-23T22:14:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89fd4d5a_82d7efcc",
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7c12872_7abf7005",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39fccc60_1c9b9d37",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-23T22:14:03Z",
+      "side": 1,
+      "message": "This has actually been removed as per our comment thread here:\nhttps://android-review.googlesource.com/c/platform/frameworks/libs/net/+/2029552/comments/ec3125eb_7fd63601\n\nI did have to bump up the timeout on NO_CALLBACK_TIMEOUT_MS however (200 to 500) and pass it in as the default timeout of 200ms was not enough to account for all the callbacks that happened after onAvailable.",
+      "parentUuid": "c7c12872_7abf7005",
+      "range": {
+        "startLine": 414,
+        "startChar": 40,
+        "endLine": 414,
+        "endChar": 61
+      },
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f5de167_5922dbca",
@@ -54,6 +96,30 @@
       "writtenOn": "2022-06-23T04:07:06Z",
       "side": 1,
       "message": "This should probably not return Network (maybe just drop the .network?) and make Network optional. (Passing the network is mostly useful when using a listener; with a request that is already satisfied by a network, onLost() will always be called for that network).",
+      "range": {
+        "startLine": 417,
+        "startChar": 0,
+        "endLine": 418,
+        "endChar": 66
+      },
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3839a47b_8203fe6e",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-23T22:14:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f5de167_5922dbca",
       "range": {
         "startLine": 417,
         "startChar": 0,
@@ -112,6 +178,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "27d5b57c_3b2855dc",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-23T22:14:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f02b7bb_208e8bed",
+      "range": {
+        "startLine": 436,
+        "startChar": 73,
+        "endLine": 436,
+        "endChar": 83
+      },
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ef7ea802_a5c9a07d",
         "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
         "patchSetId": 39
@@ -156,6 +246,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbb71add_60475305",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-23T22:14:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1911299_7a1ea63b",
+      "range": {
+        "startLine": 446,
+        "startChar": 0,
+        "endLine": 446,
+        "endChar": 86
+      },
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2699c467_060b334b",
@@ -179,6 +293,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e77b0ed_f06d7b61",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-23T22:14:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2699c467_060b334b",
+      "range": {
+        "startLine": 695,
+        "startChar": 8,
+        "endLine": 695,
+        "endChar": 58
+      },
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a0d3075_45f48555",
@@ -192,6 +330,30 @@
       "writtenOn": "2022-06-23T04:07:06Z",
       "side": 1,
       "message": "I would prefer rolling this function into the test as updateConfiguration is what is being tested here. To me this makes the test more clear.",
+      "range": {
+        "startLine": 696,
+        "startChar": 19,
+        "endLine": 696,
+        "endChar": 70
+      },
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94597ae0_0d077f09",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-23T22:14:03Z",
+      "side": 1,
+      "message": "This has been removed with explanation in another comment.",
+      "parentUuid": "8a0d3075_45f48555",
       "range": {
         "startLine": 696,
         "startChar": 19,
@@ -248,6 +410,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "912add0d_c4185dc9",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-23T22:14:03Z",
+      "side": 1,
+      "message": "Let\u0027s keep as-is for now and change if we want in the future.",
+      "parentUuid": "30a35108_0c1e0337",
+      "range": {
+        "startLine": 706,
+        "startChar": 35,
+        "endLine": 706,
+        "endChar": 64
+      },
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c84af24_87e24af2",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-23T22:14:03Z",
+      "side": 1,
+      "message": "The two calls are a historical relic that simply doesn\u0027t make any sense any more with the current setup. I\u0027ve removed the first call as requested.",
+      "parentUuid": "1621bccd_093d9b7e",
+      "range": {
+        "startLine": 706,
+        "startChar": 8,
+        "endLine": 706,
+        "endChar": 27
+      },
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5c6cfda_ab18ec15",
@@ -261,6 +471,30 @@
       "writtenOn": "2022-06-23T04:07:06Z",
       "side": 1,
       "message": "expectAvailable() returns Network, so maybe use that or drop it all together. (I would vote for dropping it as this callback *has* to be for this network).",
+      "range": {
+        "startLine": 712,
+        "startChar": 44,
+        "endLine": 712,
+        "endChar": 69
+      },
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eec4d86e_708d347b",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-23T22:14:03Z",
+      "side": 1,
+      "message": "Let me use the returned network if anything for just that added bit of test coverage in case the wrong network is ever returned for the callbacks for eth for whatever reason in the future.",
+      "parentUuid": "c5c6cfda_ab18ec15",
       "range": {
         "startLine": 712,
         "startChar": 44,
@@ -294,6 +528,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd2d4175_7e73461f",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-23T22:14:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d77cdd9_ee4860af",
+      "range": {
+        "startLine": 713,
+        "startChar": 47,
+        "endLine": 713,
+        "endChar": 72
+      },
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "394f21f7_38a03f63",
@@ -307,6 +565,24 @@
       "writtenOn": "2022-06-23T04:07:06Z",
       "side": 1,
       "message": "This line can be removed.",
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "170ea64b_e0651042",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-23T22:14:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "394f21f7_38a03f63",
       "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
