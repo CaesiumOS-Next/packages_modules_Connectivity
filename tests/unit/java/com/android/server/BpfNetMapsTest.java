@@ -87,6 +87,8 @@ public final class BpfNetMapsTest {
     @Mock INetd mNetd;
     private static final TestBpfMap<U32, U32> sConfigurationMap =
             new TestBpfMap<>(U32.class, U32.class);
+    private static final BpfMap<U32, UidOwnerValue> sUidOwnerMap =
+            new TestBpfMap<>(U32.class, UidOwnerValue.class);
 
     static {
         BpfNetMaps.ensureInitialized(makeDependencies());
@@ -104,6 +106,10 @@ public final class BpfNetMapsTest {
             @Override
             public BpfMap<U32, U32> getConfigurationMap() {
                 return sConfigurationMap;
+            }
+            @Override
+            public BpfMap<U32, UidOwnerValue> getUidOwnerMap() {
+                return sUidOwnerMap;
             }
         };
     }
