@@ -137,6 +137,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "116a1ce5_feb5adf9",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-24T08:57:39Z",
+      "side": 1,
+      "message": "Ack, I am fine for this scheme.",
+      "parentUuid": "f8d4db95_c877cdf5",
+      "range": {
+        "startLine": 139,
+        "startChar": 52,
+        "endLine": 140,
+        "endChar": 22
+      },
+      "revId": "345af1135268bb0f1fb7a25634325dd4ff0fe5a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a396ab43_a7b2fcdb",

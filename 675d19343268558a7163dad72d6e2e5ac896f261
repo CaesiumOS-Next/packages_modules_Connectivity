@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb1256d3_8feed80d",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-24T08:57:39Z",
+      "side": 1,
+      "message": "Ha, you find a bug by yourself.",
+      "range": {
+        "startLine": 60,
+        "startChar": 67,
+        "endLine": 60,
+        "endChar": 68
+      },
+      "revId": "675d19343268558a7163dad72d6e2e5ac896f261",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2105a958_8775d9f7",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-24T08:57:39Z",
+      "side": 1,
+      "message": "Could you check whether you would see this log while running BpfNetMapsTest ? If yes, you should either change wtf to e or just take my suggestion in earlier comment to avoid create real BpfMap in unit test (now you create bpfmap first then inject Dependencies). Otherwise, the test would crash in eng build device.",
+      "range": {
+        "startLine": 130,
+        "startChar": 16,
+        "endLine": 130,
+        "endChar": 73
+      },
+      "revId": "675d19343268558a7163dad72d6e2e5ac896f261",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
