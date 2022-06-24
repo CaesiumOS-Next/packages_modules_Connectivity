@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16155309_f8fd7327",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-24T20:03:06Z",
+      "side": 1,
+      "message": "Note that we don\u0027t have a way to disable this on S, but... S simply doesn\u0027t look at the extra section as it entirely lack btf support.\n\nWhile for T we will (a) have a way to turn this off for older kernels/bpfloaders and (b) already have it enabled for all the T+ programs",
+      "revId": "04aa90aaf1636b3c7eed9ddabca5e50a8be0156a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
