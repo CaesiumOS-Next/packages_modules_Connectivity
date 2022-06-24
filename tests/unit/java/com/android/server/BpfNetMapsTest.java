@@ -26,8 +26,14 @@ import static android.net.ConnectivityManager.FIREWALL_CHAIN_RESTRICTED;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_STANDBY;
 import static android.net.INetd.PERMISSION_INTERNET;
 
+import static com.android.server.BpfNetMaps.DOZABLE_MATCH;
+import static com.android.server.BpfNetMaps.PENALTY_BOX_MATCH;
+import static com.android.server.BpfNetMaps.POWERSAVE_MATCH;
+import static com.android.server.BpfNetMaps.RESTRICTED_MATCH;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeFalse;
@@ -99,6 +105,7 @@ public final class BpfNetMapsTest {
         MockitoAnnotations.initMocks(this);
         mBpfNetMaps = new BpfNetMaps(mNetd);
         sConfigurationMap.clear();
+        sUidOwnerMap.clear();
     }
 
     private static BpfNetMaps.Dependencies makeDependencies() {
@@ -273,5 +280,49 @@ public final class BpfNetMapsTest {
     public void testSetChildChainBeforeT() {
         assertThrows(UnsupportedOperationException.class,
                 () -> mBpfNetMaps.setChildChain(FIREWALL_CHAIN_DOZABLE, true /* enable */));
+    }
+
+    private void doTestRemoveNaughtyApp(final long enabledMatch) throws Exception {
+        sUidOwnerMap.updateEntry(new U32(TEST_UID), new UidOwnerValue(0 /* iif */, enabledMatch));
+
+        mBpfNetMaps.removeNaughtyApp(TEST_UID);
+
+        final long expectedMatch = enabledMatch & (~PENALTY_BOX_MATCH);
+        final UidOwnerValue newConfig = sUidOwnerMap.getValue(new U32(TEST_UID));
+        if (expectedMatch == 0) {
+            assertNull(newConfig);
+        } else {
+            assertEquals(0, newConfig.iif);
+            assertEquals(expectedMatch, newConfig.rule);
+        }
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testRemoveNaughtyApp() throws Exception {
+        doTestRemoveNaughtyApp(PENALTY_BOX_MATCH);
+
+        // PENALTY_BOX_MATCH with other matches
+        doTestRemoveNaughtyApp(PENALTY_BOX_MATCH | DOZABLE_MATCH);
+        doTestRemoveNaughtyApp(
+                PENALTY_BOX_MATCH | DOZABLE_MATCH | POWERSAVE_MATCH | RESTRICTED_MATCH);
+
+        // PENALTY_BOX_MATCH is not enabled
+        doTestRemoveNaughtyApp(DOZABLE_MATCH | POWERSAVE_MATCH | RESTRICTED_MATCH);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testRemoveNaughtyAppMissingUid() {
+        // sUidOwnerMap does not have entry for TEST_UID
+        assertThrows(ServiceSpecificException.class,
+                () -> mBpfNetMaps.removeNaughtyApp(TEST_UID));
+    }
+
+    @Test
+    @IgnoreAfter(Build.VERSION_CODES.S_V2)
+    public void testRemoveNaughtyAppBeforeT() {
+        assertThrows(UnsupportedOperationException.class,
+                () -> mBpfNetMaps.removeNaughtyApp(TEST_UID));
     }
 }
