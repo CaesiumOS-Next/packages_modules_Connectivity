@@ -70,6 +70,30 @@
       },
       "revId": "3b0bde5698e9615da82fb39165a17ec60b2cde1c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14c1357a_8da0ecf1",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-24T17:09:19Z",
+      "side": 1,
+      "message": "So... Beta 3.2\n\nLooking up TPB3.220610.004 I get to:\nhttps://android-build.googleplex.com/builds/branch-dashboard/git_tm-beta3-release?build_id\u003d8722590\n\nand oriole takes me to\nhttps://android-build.googleplex.com/builds/submitted/8722590/oriole-user/latest\n\nand the manifest.xml has\n\n\u003cproject path\u003d\"system/bpf\" name\u003d\"platform/system/bpf\" groups\u003d\"pdk\" revision\u003d\"0b9a32e641b9e256ff451a686e8d9b2b7b97bffc\" upstream\u003d\"tm-beta3-release\"/\u003e\n\nhttps://googleplex-android.googlesource.com/platform/system/bpf/+/0b9a32e641b9e256ff451a686e8d9b2b7b97bffc/libbpf_android/Loader.cpp\n\nis at BpfLoader v0.14\n\n\u003cproject path\u003d\"system/netd\" name\u003d\"platform/system/netd\" groups\u003d\"pdk\" revision\u003d\"0d4f9a29c0d86d83fe8e52f47d76a7df1124846b\" upstream\u003d\"tm-beta3-release\"/\u003e\n\nhttps://googleplex-android.googlesource.com/platform/system/netd/+/0d4f9a29c0d86d83fe8e52f47d76a7df1124846b/include/mainline/XtBpfProgLocations.h\n\nstill doesn\u0027t exist. so we should still be fetching from p/m/C\n\n\u003cproject path\u003d\"packages/modules/Connectivity\" name\u003d\"platform/packages/modules/Connectivity\" groups\u003d\"pdk-cw-fs,pdk-fs\" revision\u003d\"8396add0aa0d9da2062097be775b8eb560cbae23\" upstream\u003d\"tm-beta3-release\"/\u003e\n\nhttps://googleplex-android.googlesource.com/platform/packages/modules/Connectivity/+/8396add0aa0d9da2062097be775b8eb560cbae23/bpf_progs/bpf_shared.h\n\n#define BPF_NETD_PATH \"/sys/fs/bpf/netd_shared/\"\n\n...\n#define XT_BPF_INGRESS_PROG_PATH BPF_NETD_PATH \"prog_netd_skfilter_ingress_xtbpf\"\n#define XT_BPF_EGRESS_PROG_PATH BPF_NETD_PATH \"prog_netd_skfilter_egress_xtbpf\"\n#define XT_BPF_ALLOWLIST_PROG_PATH BPF_NETD_PATH \"prog_netd_skfilter_allowlist_xtbpf\"\n#define XT_BPF_DENYLIST_PROG_PATH BPF_NETD_PATH \"prog_netd_skfilter_denylist_xtbpf\"\n\nso we\u0027re now sing the new location.  The traffic accounting bug is fixed.",
+      "parentUuid": "d9b666bf_91b470d6",
+      "range": {
+        "startLine": 18,
+        "startChar": 26,
+        "endLine": 18,
+        "endChar": 51
+      },
+      "revId": "3b0bde5698e9615da82fb39165a17ec60b2cde1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
