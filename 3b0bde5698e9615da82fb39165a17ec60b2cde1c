@@ -118,6 +118,30 @@
       },
       "revId": "3b0bde5698e9615da82fb39165a17ec60b2cde1c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f501903_734bf3d8",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-24T17:20:31Z",
+      "side": 1,
+      "message": "Ah...\n\nIf we were to require 18 and not 19, then upgrading Beta 3.2 to be compatible would be easy: all one would need to do is to merge system/bpf up to and including \u0027disable bpfloader selinux_context support\u0027 https://googleplex-android.googlesource.com/platform/system/bpf/+/a529b323afab9c3ef6ea2204d21b758b5cab4077\n\nIf we do actually require 19 here, then you\u0027d need to either, pull in the above and manually bump the version to 19 (cheating) or pull up to https://googleplex-android.googlesource.com/platform/system/bpf/+/98ec8cf05b8a00bf94f6318850a4f8af77927699 - but then you also need the system/sepolicy change... which might not be trivial to do.",
+      "parentUuid": "6efc56b8_6a7abe2f",
+      "range": {
+        "startLine": 18,
+        "startChar": 26,
+        "endLine": 18,
+        "endChar": 51
+      },
+      "revId": "3b0bde5698e9615da82fb39165a17ec60b2cde1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
