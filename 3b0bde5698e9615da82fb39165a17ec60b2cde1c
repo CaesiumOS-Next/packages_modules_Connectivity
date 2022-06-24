@@ -94,6 +94,30 @@
       },
       "revId": "3b0bde5698e9615da82fb39165a17ec60b2cde1c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6efc56b8_6a7abe2f",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-24T17:15:16Z",
+      "side": 1,
+      "message": "And I think the takeaway from all this spelunking is that:\n\nT Beta \u003c 3.2 are already non functional with current mainline (ie. prior to this commit, either due to too old BpfLoader or due to netd vs mainline path mismatch on xtbpf programs)\n\nT Beta \u003e\u003d 4 should be functional with this change checked in (since it should include BpfLoader v0.19)\n\nT Beta \u003d 3.2 is functional with current mainline, but would be broken by this change (due to including only BpfLoader v0.14)\n\nI think this means we should at minimum wait for T Beta 4 to rollout to users.\nSo I guess we sit on this for a month or so...",
+      "parentUuid": "14c1357a_8da0ecf1",
+      "range": {
+        "startLine": 18,
+        "startChar": 26,
+        "endLine": 18,
+        "endChar": 51
+      },
+      "revId": "3b0bde5698e9615da82fb39165a17ec60b2cde1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
