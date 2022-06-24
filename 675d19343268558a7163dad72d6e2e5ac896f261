@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c3cc25f_d217a90a",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-24T09:12:52Z",
+      "side": 1,
+      "message": "Tests I added in aosp/2120224 (not yet merged) got failed.",
+      "parentUuid": "bb1256d3_8feed80d",
+      "range": {
+        "startLine": 60,
+        "startChar": 67,
+        "endLine": 60,
+        "endChar": 68
+      },
+      "revId": "675d19343268558a7163dad72d6e2e5ac896f261",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2105a958_8775d9f7",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-24T08:57:39Z",
       "side": 1,
       "message": "Could you check whether you would see this log while running BpfNetMapsTest ? If yes, you should either change wtf to e or just take my suggestion in earlier comment to avoid create real BpfMap in unit test (now you create bpfmap first then inject Dependencies). Otherwise, the test would crash in eng build device.",
+      "range": {
+        "startLine": 130,
+        "startChar": 16,
+        "endLine": 130,
+        "endChar": 73
+      },
+      "revId": "675d19343268558a7163dad72d6e2e5ac896f261",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5219f195_9bd71854",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-24T09:12:52Z",
+      "side": 1,
+      "message": "BpfNetMapsTest generates this log, so I updated to `Log.e`.\nThanks, I did not know wtf behave differently based on the build variants.",
+      "parentUuid": "2105a958_8775d9f7",
       "range": {
         "startLine": 130,
         "startChar": 16,
