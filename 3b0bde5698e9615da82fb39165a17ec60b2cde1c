@@ -46,6 +46,30 @@
       },
       "revId": "3b0bde5698e9615da82fb39165a17ec60b2cde1c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9b666bf_91b470d6",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-24T17:05:17Z",
+      "side": 1,
+      "message": "Looking up TPB3.220513.017.B1 I find myself at https://android-build.googleplex.com/builds/branch-dashboard/git_tm-beta3-release?build_id\u003d8698098\n\npicking raven I reach\nhttps://android-build.googleplex.com/builds/submitted/8698098/raven-user/latest\n\nand the manifest.xml says\n\n\u003cproject path\u003d\"system/bpf\" name\u003d\"platform/system/bpf\" groups\u003d\"pdk\" revision\u003d\"52560978fc146b54f4d4a9db45f2c7cae6b19c73\" upstream\u003d\"tm-beta3-release\"/\u003e\n\nhttps://googleplex-android.googlesource.com/platform/system/bpf/+/52560978fc146b54f4d4a9db45f2c7cae6b19c73/libbpf_android/Loader.cpp\n\nis at BpfLoader v0.13\n\n\u003cproject path\u003d\"system/netd\" name\u003d\"platform/system/netd\" groups\u003d\"pdk\" revision\u003d\"9b2f1f67b1bcbfe56989e06855bb401b39c10672\" upstream\u003d\"tm-beta3-release\"/\u003e\n\nhttps://googleplex-android.googlesource.com/platform/system/netd/+/9b2f1f67b1bcbfe56989e06855bb401b39c10672/include/mainline/XtBpfProgLocations.h\n\ndoesn\u0027t exist, so we should still be pulling from p/m/C\n\n\u003cproject path\u003d\"packages/modules/Connectivity\" name\u003d\"platform/packages/modules/Connectivity\" groups\u003d\"pdk-cw-fs,pdk-fs\" revision\u003d\"6f4b059dd45a97bc661ad223e047102e0090ca8b\" upstream\u003d\"tm-beta3-release\"/\u003e\n\nhttps://googleplex-android.googlesource.com/platform/packages/modules/Connectivity/+/6f4b059dd45a97bc661ad223e047102e0090ca8b/bpf_progs/bpf_shared.h\n\n#define BPF_PATH \"/sys/fs/bpf/net_shared/\"\n...\n#define XT_BPF_INGRESS_PROG_PATH BPF_PATH \"prog_netd_skfilter_ingress_xtbpf\"\n#define XT_BPF_EGRESS_PROG_PATH BPF_PATH \"prog_netd_skfilter_egress_xtbpf\"\n#define XT_BPF_ALLOWLIST_PROG_PATH BPF_PATH \"prog_netd_skfilter_allowlist_xtbpf\"\n#define XT_BPF_DENYLIST_PROG_PATH BPF_PATH \"prog_netd_skfilter_denylist_xtbpf\"\n\nso we see that beta 3.1 (and presumably beta 3.0 since it\u0027s older) already have the old path (net_shared instead of netd_shared) built into platform\u0027s netd binary.\n\nThis is of course the cause of traffic accounting doesn\u0027t work on beta 3 bug.\n\nBut this means that beta 3.1 is already not supported by the module.",
+      "parentUuid": "7bc68513_188ef57d",
+      "range": {
+        "startLine": 18,
+        "startChar": 26,
+        "endLine": 18,
+        "endChar": 51
+      },
+      "revId": "3b0bde5698e9615da82fb39165a17ec60b2cde1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
