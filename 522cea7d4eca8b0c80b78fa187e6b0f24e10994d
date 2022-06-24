@@ -16,6 +16,29 @@
       "message": "Clean cherry-pick from internal",
       "revId": "522cea7d4eca8b0c80b78fa187e6b0f24e10994d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e309e6f_7b5db93e",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1882,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-06-24T03:54:19Z",
+      "side": 1,
+      "message": "Since you\u0027re working on tests in this file, consider doing this in one of your changes :)\n(not this one, the cherrypick should be clean)",
+      "range": {
+        "startLine": 1882,
+        "startChar": 8,
+        "endLine": 1882,
+        "endChar": 93
+      },
+      "revId": "522cea7d4eca8b0c80b78fa187e6b0f24e10994d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
