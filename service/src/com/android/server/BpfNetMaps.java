@@ -76,19 +76,19 @@ public class BpfNetMaps {
     private static BpfMap<U32, UidOwnerValue> sUidOwnerMap = null;
 
     // LINT.IfChange(match_type)
-    private static final long NO_MATCH = 0;
-    private static final long HAPPY_BOX_MATCH = (1 << 0);
-    private static final long PENALTY_BOX_MATCH = (1 << 1);
-    private static final long DOZABLE_MATCH = (1 << 2);
-    private static final long STANDBY_MATCH = (1 << 3);
-    private static final long POWERSAVE_MATCH = (1 << 4);
-    private static final long RESTRICTED_MATCH = (1 << 5);
-    private static final long LOW_POWER_STANDBY_MATCH = (1 << 6);
-    private static final long IIF_MATCH = (1 << 7);
-    private static final long LOCKDOWN_VPN_MATCH = (1 << 8);
-    private static final long OEM_DENY_1_MATCH = (1 << 9);
-    private static final long OEM_DENY_2_MATCH = (1 << 10);
-    private static final long OEM_DENY_3_MATCH = (1 << 11);
+    @VisibleForTesting public static final long NO_MATCH = 0;
+    @VisibleForTesting public static final long HAPPY_BOX_MATCH = (1 << 0);
+    @VisibleForTesting public static final long PENALTY_BOX_MATCH = (1 << 1);
+    @VisibleForTesting public static final long DOZABLE_MATCH = (1 << 2);
+    @VisibleForTesting public static final long STANDBY_MATCH = (1 << 3);
+    @VisibleForTesting public static final long POWERSAVE_MATCH = (1 << 4);
+    @VisibleForTesting public static final long RESTRICTED_MATCH = (1 << 5);
+    @VisibleForTesting public static final long LOW_POWER_STANDBY_MATCH = (1 << 6);
+    @VisibleForTesting public static final long IIF_MATCH = (1 << 7);
+    @VisibleForTesting public static final long LOCKDOWN_VPN_MATCH = (1 << 8);
+    @VisibleForTesting public static final long OEM_DENY_1_MATCH = (1 << 9);
+    @VisibleForTesting public static final long OEM_DENY_2_MATCH = (1 << 10);
+    @VisibleForTesting public static final long OEM_DENY_3_MATCH = (1 << 11);
     // LINT.ThenChange(packages/modules/Connectivity/bpf_progs/bpf_shared.h)
 
     // TODO: Use Java BpfMap instead of JNI code (TrafficController) for map update.
@@ -199,6 +199,27 @@ public class BpfNetMaps {
         }
     }
 
+    @GuardedBy("sUidOwnerMap")
+    private void removeRule(final int uid, final long match) throws ErrnoException {
+        final UidOwnerValue oldMatch = sUidOwnerMap.getValue(new U32(uid));
+
+        if (oldMatch == null) {
+            throw new ServiceSpecificException(ENOENT,
+                    "sUidOwnerMap does not have entry for uid: " + uid);
+        }
+
+        final UidOwnerValue newMatch = new UidOwnerValue(
+                (match == IIF_MATCH) ? 0 : oldMatch.iif,
+                oldMatch.rule & ~match
+        );
+
+        if (newMatch.rule == 0) {
+            sUidOwnerMap.deleteEntry(new U32(uid));
+        } else {
+            sUidOwnerMap.updateEntry(new U32(uid), newMatch);
+        }
+    }
+
     /**
      * Add naughty app bandwidth rule for specific app
      *
@@ -221,9 +242,15 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void removeNaughtyApp(final int uid) {
-        synchronized (sUidOwnerMap) {
-            final int err = native_removeNaughtyApp(uid);
-            maybeThrow(err, "Unable to remove naughty app");
+        throwIfPreT("removeNaughtyApp is not available on pre-T devices");
+
+        try {
+            synchronized (sUidOwnerMap) {
+                removeRule(uid, PENALTY_BOX_MATCH);
+            }
+        } catch (ErrnoException e) {
+            throw new ServiceSpecificException(e.errno,
+                    "Unable to remove naughty app: " + Os.strerror(e.errno));
         }
     }
 
