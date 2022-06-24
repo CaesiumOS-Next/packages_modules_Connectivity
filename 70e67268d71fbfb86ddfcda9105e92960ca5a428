@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "082178f9_d44a3d75",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-06-24T09:59:00Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed",
+      "revId": "70e67268d71fbfb86ddfcda9105e92960ca5a428",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37e8409b_1db32455",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-06-24T09:59:00Z",
+      "side": 1,
+      "message": "The original code used a lock here, so it should probably be used",
+      "range": {
+        "startLine": 166,
+        "startChar": 29,
+        "endLine": 166,
+        "endChar": 44
+      },
+      "revId": "70e67268d71fbfb86ddfcda9105e92960ca5a428",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b34e06d8_811ecab0",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-06-24T09:59:00Z",
+      "side": 1,
+      "message": "Compared to the original code, processResponse assumes that shouldRemoveServiceAfterTtlExpires \u003d\u003d true. In that case, more things were done here\n\nThis should probably be added back",
+      "revId": "70e67268d71fbfb86ddfcda9105e92960ca5a428",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b93c0974_727ca439",
+        "filename": "tests/unit/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-06-24T09:59:00Z",
+      "side": 1,
+      "message": "Nit: probably **/*.java, otherwise you\u0027d miss subpackages (which don\u0027t exist today but...)",
+      "revId": "70e67268d71fbfb86ddfcda9105e92960ca5a428",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f512395_e999869b",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/ConnectivityMonitorWithConnectivityManagerTests.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-06-24T09:59:00Z",
+      "side": 1,
+      "message": "Is this necessary ? It looks duplicated",
+      "revId": "70e67268d71fbfb86ddfcda9105e92960ca5a428",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98dc20c7_50303d1d",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MulticastNetworkInterfaceProviderTests.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-06-24T09:59:00Z",
+      "side": 1,
+      "message": "Nit: not really necessary",
+      "range": {
+        "startLine": 244,
+        "startChar": 8,
+        "endLine": 244,
+        "endChar": 20
+      },
+      "revId": "70e67268d71fbfb86ddfcda9105e92960ca5a428",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
