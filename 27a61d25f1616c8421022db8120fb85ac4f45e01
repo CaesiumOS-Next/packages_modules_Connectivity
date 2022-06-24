@@ -22,6 +22,30 @@
       },
       "revId": "27a61d25f1616c8421022db8120fb85ac4f45e01",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1b80cc1_aa92c1fb",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-24T05:43:46Z",
+      "side": 1,
+      "message": "This is a lock for the entry for `UID_RULES_CONFIGURATION_KEY` in the `sConfigurationMap`.\nAnd I will introduce a lock for the entry for `CURRENT_STATS_MAP_CONFIGURATION_KEY` in the `sConfigurationMap` in the later CL.\nSo I avoided to use `sConfigurationMap` for lock name.\nBut I may update the name in the later CL.",
+      "parentUuid": "b2b7c17e_46cefaba",
+      "range": {
+        "startLine": 62,
+        "startChar": 32,
+        "endLine": 62,
+        "endChar": 57
+      },
+      "revId": "27a61d25f1616c8421022db8120fb85ac4f45e01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
