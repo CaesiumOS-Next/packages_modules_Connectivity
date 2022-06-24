@@ -22,6 +22,30 @@
       },
       "revId": "3b0bde5698e9615da82fb39165a17ec60b2cde1c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bc68513_188ef57d",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-24T16:54:28Z",
+      "side": 1,
+      "message": "Since I can\u0027t figure out how to look this up, I\u0027ll trust the internet...\n\nhttps://chromeunboxed.com/android-13-beta-3-and-3-1-released\nsays\n\nBeta 3 - TPB3.220513.017\nBeta 3.1 (build TPB3.220513.017.B1) - 2 days later\n\nhttps://9to5google.com/2022/06/16/android-13-beta-3-2-pixel-patch/\n\nAndroid 13 Beta 3.2 build TPB3.220610.004 (versus TPB3.220513.017.B1 previously)\n\nhttps://developer.android.com/about/versions/13/download\n\nalso currently has *-tpb3.220610.004\n\nSo I think those are the 3 we care about.",
+      "parentUuid": "3cb61cc1_c017492b",
+      "range": {
+        "startLine": 18,
+        "startChar": 26,
+        "endLine": 18,
+        "endChar": 51
+      },
+      "revId": "3b0bde5698e9615da82fb39165a17ec60b2cde1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
