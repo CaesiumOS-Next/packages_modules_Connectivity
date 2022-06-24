@@ -36,6 +36,7 @@ import android.system.Os;
 import android.util.Log;
 import android.util.SparseLongArray;
 
+import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BpfMap;
@@ -63,8 +64,12 @@ public class BpfNetMaps {
 
     private static final String CONFIGURATION_MAP_PATH =
             "/sys/fs/bpf/netd_shared/map_netd_configuration_map";
+    private static final String UID_OWNER_MAP_PATH =
+            "/sys/fs/bpf/netd_shared/map_netd_uid_owner_map";
     private static final U32 UID_RULES_CONFIGURATION_KEY = new U32(0);
     private static BpfMap<U32, U32> sConfigurationMap = null;
+    // BpfMap for UID_OWNER_MAP_PATH. This map is not accessed by others.
+    private static BpfMap<U32, UidOwnerValue> sUidOwnerMap = null;
 
     // LINT.IfChange(match_type)
     private static final long NO_MATCH = 0;
@@ -104,6 +109,7 @@ public class BpfNetMaps {
     @VisibleForTesting
     public static void initialize(final Dependencies deps) {
         sConfigurationMap = deps.getConfigurationMap();
+        sUidOwnerMap = deps.getUidOwnerMap();
     }
 
     /**
@@ -134,6 +140,19 @@ public class BpfNetMaps {
                         CONFIGURATION_MAP_PATH, BpfMap.BPF_F_RDWR, U32.class, U32.class);
             } catch (ErrnoException e) {
                 Log.e(TAG, "Cannot open netd configuration map: " + e);
+                return null;
+            }
+        }
+
+        /**
+         * Get per-uid configuration BPF map.
+         */
+        public BpfMap<U32, UidOwnerValue> getUidOwnerMap() {
+            try {
+                return new BpfMap<>(
+                        UID_OWNER_MAP_PATH, BpfMap.BPF_F_RDWR, U32.class, UidOwnerValue.class);
+            } catch (ErrnoException e) {
+                Log.e(TAG, "Cannot open uid owner map: " + e);
                 return null;
             }
         }
@@ -183,8 +202,10 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void addNaughtyApp(final int uid) {
-        final int err = native_addNaughtyApp(uid);
-        maybeThrow(err, "Unable to add naughty app");
+        synchronized (sUidOwnerMap) {
+            final int err = native_addNaughtyApp(uid);
+            maybeThrow(err, "Unable to add naughty app");
+        }
     }
 
     /**
@@ -195,8 +216,10 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void removeNaughtyApp(final int uid) {
-        final int err = native_removeNaughtyApp(uid);
-        maybeThrow(err, "Unable to remove naughty app");
+        synchronized (sUidOwnerMap) {
+            final int err = native_removeNaughtyApp(uid);
+            maybeThrow(err, "Unable to remove naughty app");
+        }
     }
 
     /**
@@ -207,8 +230,10 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void addNiceApp(final int uid) {
-        final int err = native_addNiceApp(uid);
-        maybeThrow(err, "Unable to add nice app");
+        synchronized (sUidOwnerMap) {
+            final int err = native_addNiceApp(uid);
+            maybeThrow(err, "Unable to add nice app");
+        }
     }
 
     /**
@@ -219,8 +244,10 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void removeNiceApp(final int uid) {
-        final int err = native_removeNiceApp(uid);
-        maybeThrow(err, "Unable to remove nice app");
+        synchronized (sUidOwnerMap) {
+            final int err = native_removeNiceApp(uid);
+            maybeThrow(err, "Unable to remove nice app");
+        }
     }
 
     /**
@@ -295,11 +322,13 @@ public class BpfNetMaps {
      */
     public int replaceUidChain(final String chainName, final boolean isAllowlist,
             final int[] uids) {
-        final int err = native_replaceUidChain(chainName, isAllowlist, uids);
-        if (err != 0) {
-            Log.e(TAG, "replaceUidChain failed: " + Os.strerror(-err));
+        synchronized (sUidOwnerMap) {
+            final int err = native_replaceUidChain(chainName, isAllowlist, uids);
+            if (err != 0) {
+                Log.e(TAG, "replaceUidChain failed: " + Os.strerror(-err));
+            }
+            return -err;
         }
-        return -err;
     }
 
     /**
@@ -312,8 +341,10 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void setUidRule(final int childChain, final int uid, final int firewallRule) {
-        final int err = native_setUidRule(childChain, uid, firewallRule);
-        maybeThrow(err, "Unable to set uid rule");
+        synchronized (sUidOwnerMap) {
+            final int err = native_setUidRule(childChain, uid, firewallRule);
+            maybeThrow(err, "Unable to set uid rule");
+        }
     }
 
     /**
@@ -338,8 +369,10 @@ public class BpfNetMaps {
             mNetd.firewallAddUidInterfaceRules(ifName, uids);
             return;
         }
-        final int err = native_addUidInterfaceRules(ifName, uids);
-        maybeThrow(err, "Unable to add uid interface rules");
+        synchronized (sUidOwnerMap) {
+            final int err = native_addUidInterfaceRules(ifName, uids);
+            maybeThrow(err, "Unable to add uid interface rules");
+        }
     }
 
     /**
@@ -358,8 +391,10 @@ public class BpfNetMaps {
             mNetd.firewallRemoveUidInterfaceRules(uids);
             return;
         }
-        final int err = native_removeUidInterfaceRules(uids);
-        maybeThrow(err, "Unable to remove uid interface rules");
+        synchronized (sUidOwnerMap) {
+            final int err = native_removeUidInterfaceRules(uids);
+            maybeThrow(err, "Unable to remove uid interface rules");
+        }
     }
 
     /**
@@ -371,8 +406,10 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void updateUidLockdownRule(final int uid, final boolean add) {
-        final int err = native_updateUidLockdownRule(uid, add);
-        maybeThrow(err, "Unable to update lockdown rule");
+        synchronized (sUidOwnerMap) {
+            final int err = native_updateUidLockdownRule(uid, add);
+            maybeThrow(err, "Unable to update lockdown rule");
+        }
     }
 
     /**
@@ -422,14 +459,23 @@ public class BpfNetMaps {
     }
 
     private static native void native_init();
+    @GuardedBy("sUidOwnerMap")
     private native int native_addNaughtyApp(int uid);
+    @GuardedBy("sUidOwnerMap")
     private native int native_removeNaughtyApp(int uid);
+    @GuardedBy("sUidOwnerMap")
     private native int native_addNiceApp(int uid);
+    @GuardedBy("sUidOwnerMap")
     private native int native_removeNiceApp(int uid);
+    @GuardedBy("sUidOwnerMap")
     private native int native_replaceUidChain(String name, boolean isAllowlist, int[] uids);
+    @GuardedBy("sUidOwnerMap")
     private native int native_setUidRule(int childChain, int uid, int firewallRule);
+    @GuardedBy("sUidOwnerMap")
     private native int native_addUidInterfaceRules(String ifName, int[] uids);
+    @GuardedBy("sUidOwnerMap")
     private native int native_removeUidInterfaceRules(int[] uids);
+    @GuardedBy("sUidOwnerMap")
     private native int native_updateUidLockdownRule(int uid, boolean add);
     private native int native_swapActiveStatsMap();
     private native void native_setPermissionForUids(int permissions, int[] uids);
