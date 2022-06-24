@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f5c82db_b4e85424",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-24T00:28:30Z",
+      "side": 1,
+      "message": "this *might* be hardcoding little-endianness, which deserves at least a comment.\n\nalternatively maybe this needs to be byte swapped and wrapped in a htons()\n\nhowever... the key thing about a u16 is it makes the logic easier\n\nThe first 2 bytes of an ipv6 header are (in network order)\n\nWWWWXXXXXXYYZZZZ\n\nW is the version \u00276\u0027\nX is the dscp field\nY is the ecn field\nZ is the first 4 bits of the flowlabel\n\n(with u32 this is a little easier to think of since you then have the full 20 bit flow label field)\n\nsomething like:\n\nread 2 bytes in network order, v \u003d read_u16(offset)\nconvert to host order, v \u003d ntohs(v)\nmask out appropriate 6 dscp bits: ie. v \u0026\u003d 0xF03F\nor in 6 dscp bits: ie. v |\u003d (new_dscp \u003c\u003c 6)\nconvert to network order, v \u003d htons(v)\nstore 2 bytes in network order, write_u16(offset, v)",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 74
+      },
+      "revId": "bbe7be60d3e63550301a1b37b4d80e4340a38c60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
