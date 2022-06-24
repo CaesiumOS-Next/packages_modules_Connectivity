@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2b7c17e_46cefaba",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-24T05:03:25Z",
+      "side": 1,
+      "message": "nit: sConfigurationMapLock may be a better name?",
+      "range": {
+        "startLine": 62,
+        "startChar": 32,
+        "endLine": 62,
+        "endChar": 57
+      },
+      "revId": "27a61d25f1616c8421022db8120fb85ac4f45e01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -258,6 +258,30 @@
       },
       "revId": "336d291052317a3323bc46a2222996fffe1113ea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ff2d610_192ec0da",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-24T05:03:25Z",
+      "side": 1,
+      "message": "It\u0027s just a preference, I find this easier to read:\n```\nswitch(chain) {\n    case FIREWALL_CHAIN_DOZABLE: return DOZABLE_MATCH;\n    case ...\n    default:\n        throw ...\n}\n```\nBut feel free to leave it this way if that\u0027s what you prefer.",
+      "parentUuid": "9c030c8f_63eb7960",
+      "range": {
+        "startLine": 247,
+        "startChar": 27,
+        "endLine": 247,
+        "endChar": 77
+      },
+      "revId": "336d291052317a3323bc46a2222996fffe1113ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
