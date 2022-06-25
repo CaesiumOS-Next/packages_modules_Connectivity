@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eecd1c85_7dd79fe7",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-25T06:47:19Z",
+      "side": 1,
+      "message": "is this the right annotation?\n\nwithout knowing java, based purely on english, I\u0027d assume GuardedBy to annotate variables or functions that don\u0027t grab the lock but need the lock to be held, and not functions that actually grab the lock\n\nhttps://errorprone.info/bugpattern/GuardedBy\nThe @GuardedBy annotation is used to document that a member (a field or a method) can only be accessed when the specified lock is held.\n\nthese probably need to be @LockMethod",
+      "range": {
+        "startLine": 474,
+        "startChar": 5,
+        "endLine": 474,
+        "endChar": 14
+      },
+      "revId": "72e8cf6713128283dd17185aa13cd0238543e200",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
