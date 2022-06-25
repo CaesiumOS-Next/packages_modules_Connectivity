@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78564d6d_e9a82a55",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-25T06:40:45Z",
+      "side": 1,
+      "message": "You have to remember I\u0027m not a Java programmer at all...\nI really don\u0027t like the way Java does things, or forces one to do things.\nIt\u0027s possible my comments are stupid ;-) and not the Java way of doing things.",
+      "revId": "18b287d285b457d563715bdcbb5f997c4e9a47ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57e26840_ab5702c3",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-25T06:40:45Z",
+      "side": 1,
+      "message": "I wonder if USE_NETD should really be PRE_T\n\nthrowIfPreT(... on pre-T devices\")\n\nmakes more logical sense",
+      "range": {
+        "startLine": 236,
+        "startChar": 8,
+        "endLine": 236,
+        "endChar": 22
+      },
+      "revId": "18b287d285b457d563715bdcbb5f997c4e9a47ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67c0e01d_c4ee31c8",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-25T06:40:45Z",
+      "side": 1,
+      "message": "impossible",
+      "range": {
+        "startLine": 242,
+        "startChar": 0,
+        "endLine": 242,
+        "endChar": 37
+      },
+      "revId": "18b287d285b457d563715bdcbb5f997c4e9a47ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bb9a6f4_24c2c8f1",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-25T06:40:45Z",
+      "side": 1,
+      "message": "spurious ()",
+      "range": {
+        "startLine": 247,
+        "startChar": 85,
+        "endLine": 247,
+        "endChar": 86
+      },
+      "revId": "18b287d285b457d563715bdcbb5f997c4e9a47ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4c79064_2f557127",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-25T06:40:45Z",
+      "side": 1,
+      "message": "I don\u0027t understand he benefit of these try catch rethrow blocks, what value do they add?",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 36
+      },
+      "revId": "18b287d285b457d563715bdcbb5f997c4e9a47ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
