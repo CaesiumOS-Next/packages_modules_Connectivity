@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b440b594_00eb8011",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 5909,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-25T06:33:49Z",
+      "side": 1,
+      "message": "should this not be on the new func too?",
+      "range": {
+        "startLine": 5909,
+        "startChar": 0,
+        "endLine": 5909,
+        "endChar": 41
+      },
+      "revId": "be3ff1e92310352c9f665a67f8568659dfeb7912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4b76a9f_644a0233",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 5924,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-25T06:33:49Z",
+      "side": 1,
+      "message": "probably should be\nchain\u0027s",
+      "range": {
+        "startLine": 5924,
+        "startChar": 39,
+        "endLine": 5924,
+        "endChar": 40
+      },
+      "revId": "be3ff1e92310352c9f665a67f8568659dfeb7912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b899fc6f_6e4523c4",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 5939,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-25T06:33:49Z",
+      "side": 1,
+      "message": "is there some annotation for requires api T that we could use here?",
+      "range": {
+        "startLine": 5939,
+        "startChar": 0,
+        "endLine": 5939,
+        "endChar": 76
+      },
+      "revId": "be3ff1e92310352c9f665a67f8568659dfeb7912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1003bb7d_d91ea1cd",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-25T06:33:49Z",
+      "side": 1,
+      "message": "not really appropriate for this CL, as it\u0027s the current style...\nbut...\nI think catching these exceptions is a mistake.\n\nthis should never fail, if it does we should crash and burn,\ninstead of pretending everything is ok.\n\nThere\u0027s no valid reason for the map open to fail, short of a code bug,\ncatching these just makes us miss bugs...",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 40
+      },
+      "revId": "be3ff1e92310352c9f665a67f8568659dfeb7912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbcf7b32_d3b9a96f",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-25T06:33:49Z",
+      "side": 1,
+      "message": "should this be isChainEnabled",
+      "range": {
+        "startLine": 237,
+        "startChar": 19,
+        "endLine": 237,
+        "endChar": 34
+      },
+      "revId": "be3ff1e92310352c9f665a67f8568659dfeb7912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d555a331_c9c5c4f3",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-25T06:33:49Z",
+      "side": 1,
+      "message": "the need for this function is sad :-(",
+      "range": {
+        "startLine": 243,
+        "startChar": 27,
+        "endLine": 243,
+        "endChar": 50
+      },
+      "revId": "be3ff1e92310352c9f665a67f8568659dfeb7912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9e49616_60022231",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-25T06:33:49Z",
+      "side": 1,
+      "message": "this can\u0027t actually happen any more... the map must exist, and it is an array, so it must have the key...",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 33
+      },
+      "revId": "be3ff1e92310352c9f665a67f8568659dfeb7912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22efad70_9c0cab56",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-06-25T06:33:49Z",
+      "side": 1,
+      "message": "basically all this error handling is just confusing...\n\nreturn sConfigurationMap.getValue(UID_RULES_CONFIGURATION_KEY).val \u0026 match;\n\n(possibly with !\u003d 0 if java doesn\u0027t autoconvert to boolean)\n\nis all we need.\n\nThe map must exist, it must be readable by us, the key must exist, it must be fetchable.\n\nThere\u0027s no sane way anything here can fail.  If it does... we should learn about it.",
+      "range": {
+        "startLine": 255,
+        "startChar": 8,
+        "endLine": 255,
+        "endChar": 9
+      },
+      "revId": "be3ff1e92310352c9f665a67f8568659dfeb7912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
