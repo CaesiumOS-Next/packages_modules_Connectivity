@@ -1125,12 +1125,18 @@ public class EthernetTetheringTest {
     @IgnoreUpTo(Build.VERSION_CODES.R)
     public void testTetherUdpV4AfterR() throws Exception {
         final String kernelVersion = VintfRuntimeInfo.getKernelVersion();
-        boolean usingBpf = isUdpOffloadSupportedByKernel(kernelVersion);
-        if (!usingBpf) {
+        final boolean isUdpOffloadSupported = isUdpOffloadSupportedByKernel(kernelVersion);
+        if (!isUdpOffloadSupported) {
             Log.i(TAG, "testTetherUdpV4AfterR will skip BPF offload test for kernel "
                     + kernelVersion);
         }
-        runUdp4Test(initTetheringTester(toList(TEST_IP4_ADDR), toList(TEST_IP4_DNS)), usingBpf);
+        final boolean areBpfMapsLoaded = areBpfMapsLoaded();
+        if (!areBpfMapsLoaded) {
+            Log.i(TAG, "testTetherUdpV4AfterR will skip BPF offload test "
+                    + "because BPF maps are not loaded.");
+        }
+        runUdp4Test(initTetheringTester(toList(TEST_IP4_ADDR), toList(TEST_IP4_DNS)),
+                isUdpOffloadSupported && areBpfMapsLoaded);
     }
 
     @Nullable
@@ -1187,6 +1193,28 @@ public class EthernetTetheringTest {
 
         fail("Cannot get rules after " + DUMP_POLLING_MAX_RETRY * DUMP_POLLING_INTERVAL_MS + "ms");
         return null;
+    }
+
+    private boolean areBpfMapsLoaded() throws Exception {
+        final String dumpStr = DumpTestUtils.dumpService(Context.TETHERING_SERVICE, "--short");
+
+        // Expect that all BPF maps are loaded.
+        // $ dumpsys tethering
+        //   Bpf shim: mBpfDownstream6Map{OK}, mBpfUpstream6Map{OK}, mBpfDownstream4Map{OK},
+        //             mBpfUpstream4Map{OK}, mBpfStatsMap{OK}, mBpfLimitMap{OK}, mBpfDevMap{OK}
+        // See #toString in packages/modules/Connectivity/Tethering/apishim/31/com/android/
+        //     networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java
+        boolean loaded = dumpStr.contains("mBpfDownstream6Map{OK}")
+                && dumpStr.contains("mBpfUpstream6Map{OK}")
+                && dumpStr.contains("mBpfDownstream4Map{OK}")
+                && dumpStr.contains("mBpfUpstream4Map{OK}")
+                && dumpStr.contains("mBpfStatsMap{OK}")
+                && dumpStr.contains("mBpfLimitMap{OK}")
+                && dumpStr.contains("mBpfDevMap{OK}");
+        if (!loaded) {
+            Log.d(TAG, "BPF maps are not loaded: " + dumpStr);
+        }
+        return loaded;
     }
 
     @NonNull

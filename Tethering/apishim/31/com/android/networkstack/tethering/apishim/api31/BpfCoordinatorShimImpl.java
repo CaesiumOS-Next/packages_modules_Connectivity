@@ -488,6 +488,8 @@ public class BpfCoordinatorShimImpl
 
     @Override
     public String toString() {
+        // Note that EthernetTetheringTest#areBpfMapsLoaded relies on this to check if BPF maps
+        // are loaded via dumpsys.
         return String.join(", ", new String[] {
                 mapStatus(mBpfDownstream6Map, "mBpfDownstream6Map"),
                 mapStatus(mBpfUpstream6Map, "mBpfUpstream6Map"),
