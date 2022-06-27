@@ -108,6 +108,30 @@
       },
       "revId": "18b287d285b457d563715bdcbb5f997c4e9a47ae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f43341ac_41680274",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-27T05:44:33Z",
+      "side": 1,
+      "message": "I did catch and re-throw to keep current API behavior.\nCurrently, ConnectivityManager#setFirewallChainEnabled will throw `IllegalStateException` that wraps `ServiceSpecificException`.",
+      "parentUuid": "a4c79064_2f557127",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 36
+      },
+      "revId": "18b287d285b457d563715bdcbb5f997c4e9a47ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
