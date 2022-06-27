@@ -99,10 +99,9 @@ public class BpfNetMaps {
     }
 
     /**
-     * Only tests or BpfNetMaps#ensureInitialized can call this function.
+     * Initialize bpf maps.
      */
-    @VisibleForTesting
-    public static void initialize(final Dependencies deps) {
+    private static void initialize(final Dependencies deps) {
         sConfigurationMap = deps.getConfigurationMap();
     }
 
@@ -110,12 +109,13 @@ public class BpfNetMaps {
      * Initializes the class if it is not already initialized. This method will open maps but not
      * cause any other effects. This method may be called multiple times on any thread.
      */
-    private static synchronized void ensureInitialized() {
+    @VisibleForTesting
+    public static synchronized void ensureInitialized(final Dependencies deps) {
         if (sInitialized) return;
         if (!PRE_T) {
             System.loadLibrary("service-connectivity");
             native_init();
-            initialize(new Dependencies());
+            initialize(deps);
         }
         sInitialized = true;
     }
@@ -133,8 +133,7 @@ public class BpfNetMaps {
                 return new BpfMap<>(
                         CONFIGURATION_MAP_PATH, BpfMap.BPF_F_RDWR, U32.class, U32.class);
             } catch (ErrnoException e) {
-                Log.e(TAG, "Cannot open netd configuration map: " + e);
-                return null;
+                throw new AssertionError("Cannot open netd configuration map", e);
             }
         }
     }
@@ -147,7 +146,7 @@ public class BpfNetMaps {
     }
 
     public BpfNetMaps(final INetd netd) {
-        ensureInitialized();
+        ensureInitialized(new Dependencies());
         mNetd = netd;
     }
 

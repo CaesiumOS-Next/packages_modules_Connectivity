@@ -88,11 +88,14 @@ public final class BpfNetMapsTest {
     private static final TestBpfMap<U32, U32> sConfigurationMap =
             new TestBpfMap<>(U32.class, U32.class);
 
+    static {
+        BpfNetMaps.ensureInitialized(makeDependencies());
+    }
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         mBpfNetMaps = new BpfNetMaps(mNetd);
-        BpfNetMaps.initialize(makeDependencies());
         sConfigurationMap.clear();
     }
 
