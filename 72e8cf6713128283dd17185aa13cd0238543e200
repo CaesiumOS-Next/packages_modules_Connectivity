@@ -22,6 +22,30 @@
       },
       "revId": "72e8cf6713128283dd17185aa13cd0238543e200",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0155501_d48275a6",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-27T14:20:28Z",
+      "side": 1,
+      "message": "I think this is a right annotation.\n\nI want to make sure BpfNetMaps call `native_addUidInterfaceRules` only when BpfNetMaps acquire lock of “sUidOwnerMap” which is done by `synchronized (sUidOwnerMap) {…}`.\nnative_addUidInterfaceRules internally hold mMutex lock but this lock is not shared with Java code.\nSo, while migration from JNI to Java codes, some BpfNetMaps API will acquire both lock of `sUidOwnerMap` in Java and `mMutex` in TrafficController.\nOtherwise, JNI could update the bpf map while java code is updating the bpf map.\nAfter migration, we can remove mMutex and BpfNetMaps will acquire lock of only `sUidOwnerMap` for sequential read and write.",
+      "parentUuid": "eecd1c85_7dd79fe7",
+      "range": {
+        "startLine": 474,
+        "startChar": 5,
+        "endLine": 474,
+        "endChar": 14
+      },
+      "revId": "72e8cf6713128283dd17185aa13cd0238543e200",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
