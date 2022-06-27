@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f564bf87_23477c17",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 43
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-27T23:21:33Z",
+      "side": 1,
+      "message": "Sure, removed (I\u0027ll do the same for expectLinkPropertiesWithLinkAddress() directly below as well). \n\nOne note; I see what you\u0027re saying but I would actually argue the opposite direction, mark the parameter as required vs either keeping optional or removing altogether. \n\nEverything you say above about TEST_TRANSPORT is valid however that assumes the system is working as expected. If that was ever to not be the case, having the added test coverage could help catch regressions earlier.\n\nIdeally issues with these particular callbacks would be caught in the ConnectivityManager tests (we really shouldn\u0027t duplicate test coverage if possible) however given how complex the stack is and since passing the network to the existing API for expectCapabilitiesThat is simple, it seems worth it for the added test coverage.\n\nIn any case, I think you make valid points and will go ahead and remove but wanted to give some insight into why I included network to begin with.",
+      "parentUuid": "0f84d184_cc54f383",
+      "range": {
+        "startLine": 434,
+        "startChar": 8,
+        "endLine": 434,
+        "endChar": 34
+      },
+      "revId": "1bff43e70fdc167298deb4456a8a0b3e0c36c872",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "851f5d5c_4792b7ac",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-27T20:20:11Z",
       "side": 1,
       "message": "for a follow up: we also need tests that cover:\n\n- updateConfiguration() before the network is requested.\n- updateConfiguration() before the interface is added.\n- updateConfiguration() with link state down (and maybe flip-flopping once).",
+      "range": {
+        "startLine": 687,
+        "startChar": 8,
+        "endLine": 687,
+        "endChar": 62
+      },
+      "revId": "1bff43e70fdc167298deb4456a8a0b3e0c36c872",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2e90b05_a32b9395",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 43
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-27T23:21:33Z",
+      "side": 1,
+      "message": "Sure, added here to track:\nhttp://b/210487893#comment11",
+      "parentUuid": "851f5d5c_4792b7ac",
       "range": {
         "startLine": 687,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "983e24c4_d2c1d6a7",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 43
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-27T23:21:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86368908_9796054c",
+      "range": {
+        "startLine": 691,
+        "startChar": 27,
+        "endLine": 691,
+        "endChar": 34
+      },
+      "revId": "1bff43e70fdc167298deb4456a8a0b3e0c36c872",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30486423_c59c7269",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-06-27T20:20:11Z",
       "side": 1,
       "message": "nit: It should be safe to drop updatedNetwork, right? Active ethernet networks should never be replaced, as they all have the same NetworkScore and generally, a NetworkRequest matches only one network at a time.",
+      "range": {
+        "startLine": 703,
+        "startChar": 8,
+        "endLine": 703,
+        "endChar": 29
+      },
+      "revId": "1bff43e70fdc167298deb4456a8a0b3e0c36c872",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2fe03b9_d0ee9a36",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 43
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-27T23:21:33Z",
+      "side": 1,
+      "message": "I\u0027d like to keep it in place however removing as per our comment thread here on the subject.\n\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1991051/comments/0f84d184_cc54f383",
+      "parentUuid": "30486423_c59c7269",
       "range": {
         "startLine": 703,
         "startChar": 8,

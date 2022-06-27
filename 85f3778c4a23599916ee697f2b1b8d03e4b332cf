@@ -54,6 +54,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ba1af4c_32f0f4dc",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-27T23:21:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad42d65d_c79c1cc1",
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7c12872_7abf7005",

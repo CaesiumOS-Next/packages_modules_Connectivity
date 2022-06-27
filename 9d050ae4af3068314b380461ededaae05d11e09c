@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a779fe0a_bce4aa4c",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-27T23:21:33Z",
+      "side": 1,
+      "message": "It doesn\u0027t appear to be needed after testing with the latest patch. Removed.",
+      "parentUuid": "84ebb7d6_dcf09b30",
+      "range": {
+        "startLine": 97,
+        "startChar": 18,
+        "endLine": 97,
+        "endChar": 40
+      },
+      "revId": "9d050ae4af3068314b380461ededaae05d11e09c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df110500_e5400e6e",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-27T20:20:11Z",
       "side": 1,
       "message": "Can you leave a comment on why 200 was not enough? Because this timeout will always be blocking, it directly affects the runtime of our tests, so we should keep it as short as possible. It would be useful to know where you saw this fail, so we have a starting point when we try to speed up these tests in the future.",
+      "range": {
+        "startLine": 98,
+        "startChar": 18,
+        "endLine": 98,
+        "endChar": 40
+      },
+      "revId": "9d050ae4af3068314b380461ededaae05d11e09c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "434f1f84_41a3ff20",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-27T23:21:33Z",
+      "side": 1,
+      "message": "Done. \n\nFor added context, in this particular case, sometimes a LinkPropertiesChanged callbacks would come in after the fact for tests using updateConfiguration. This is more easily visible when running the tests with \"--iterations 20\".\n\nSince I am using assertNeverLost() to go through all the callbacks as suggested in another CL vs checking the individual callbacks themselves (link below), I need to give it enough time so that no more callbacks are expected.\nhttps://android-review.googlesource.com/c/platform/frameworks/libs/net/+/2029552/comments/ec3125eb_7fd63601\n\nWith 500ms, I rarely get intermittent failures on Bramble but note, flake could happen on slower devices which could require bumping this number up again if so.\n\nWe have the option of refactoring the test a bit to pass in a timeout to assertNeverLost and I can then use the 500ms for the updateConfiguration tests (or higher if ever needed) so that those tests are the only ones that require the additional time vs the rest of the tests which can then be left at 200ms. \n\nFeel free to reopen this comment if you want to pursue that (or something else).",
+      "parentUuid": "df110500_e5400e6e",
       "range": {
         "startLine": 98,
         "startChar": 18,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a285948f_53c2280c",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-27T23:21:33Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "99f28b3d_4222e6c9",
+      "range": {
+        "startLine": 681,
+        "startChar": 0,
+        "endLine": 684,
+        "endChar": 5
+      },
+      "revId": "9d050ae4af3068314b380461ededaae05d11e09c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7762c4a2_51447d45",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-06-27T20:20:11Z",
       "side": 1,
       "message": "nit: the type is not needed here",
+      "range": {
+        "startLine": 688,
+        "startChar": 19,
+        "endLine": 688,
+        "endChar": 40
+      },
+      "revId": "9d050ae4af3068314b380461ededaae05d11e09c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c86c4009_02c3391b",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-27T23:21:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7762c4a2_51447d45",
       "range": {
         "startLine": 688,
         "startChar": 19,
