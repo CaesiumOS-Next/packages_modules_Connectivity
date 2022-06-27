@@ -40,7 +40,6 @@ import android.os.ServiceSpecificException;
 import androidx.test.filters.SmallTest;
 
 import com.android.modules.utils.build.SdkLevel;
-import com.android.net.module.util.BpfMap;
 import com.android.net.module.util.Struct.U32;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
@@ -91,18 +90,9 @@ public final class BpfNetMapsTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+        BpfNetMaps.setConfigurationMapForTest(sConfigurationMap);
         mBpfNetMaps = new BpfNetMaps(mNetd);
-        BpfNetMaps.initialize(makeDependencies());
         sConfigurationMap.clear();
-    }
-
-    private static BpfNetMaps.Dependencies makeDependencies() {
-        return new BpfNetMaps.Dependencies() {
-            @Override
-            public BpfMap<U32, U32> getConfigurationMap() {
-                return sConfigurationMap;
-            }
-        };
     }
 
     @Test
