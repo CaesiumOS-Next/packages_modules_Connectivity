@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6593bb9f_33e9a615",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 5909,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-27T05:43:38Z",
+      "side": 1,
+      "message": "Currently, new func is used only from test and we don\u0027t need to expose the new func to other users.\nSo I did not make new func as API.",
+      "parentUuid": "b440b594_00eb8011",
+      "range": {
+        "startLine": 5909,
+        "startChar": 0,
+        "endLine": 5909,
+        "endChar": 41
+      },
+      "revId": "be3ff1e92310352c9f665a67f8568659dfeb7912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4b76a9f_644a0233",
