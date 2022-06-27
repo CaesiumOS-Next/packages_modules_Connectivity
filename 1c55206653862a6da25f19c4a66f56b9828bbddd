@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14c1fb69_fe18c8b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-27T05:49:49Z",
+      "side": 1,
+      "message": "In general, whenever a change doubles in size due to a refactor, it should be a separate change.\n\nAlso, if it results in this much change, it might not be worth converting from Integer[] to List\u003cInteger\u003e. Suggest a helper method to convert int[] -\u003e List\u003cInteger\u003e instead. That\u0027d probably be cleaner.",
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "388a1765_c831196f",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-27T05:49:49Z",
+      "side": 1,
+      "message": "Nit these refactors should be a separate change (same with primaryUser -\u003e PRIMARY_USER)",
+      "range": {
+        "startLine": 687,
+        "startChar": 82,
+        "endLine": 687,
+        "endChar": 90
+      },
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be3ff052_84402432",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1014,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-27T05:49:49Z",
+      "side": 1,
+      "message": "Ditto, this should be in a separate change.",
+      "range": {
+        "startLine": 1014,
+        "startChar": 24,
+        "endLine": 1014,
+        "endChar": 43
+      },
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

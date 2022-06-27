@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7df7c03d_ff1fee68",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-27T05:49:49Z",
+      "side": 0,
+      "message": "I take it we don\u0027t need this anymore since it\u0027s non-mainline code?",
+      "range": {
+        "startLine": 902,
+        "startChar": 10,
+        "endLine": 902,
+        "endChar": 27
+      },
+      "revId": "522cea7d4eca8b0c80b78fa187e6b0f24e10994d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
