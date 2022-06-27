@@ -85,24 +85,15 @@ public final class BpfNetMapsTest {
     private BpfNetMaps mBpfNetMaps;
 
     @Mock INetd mNetd;
-    private static final TestBpfMap<U32, U32> sConfigurationMap =
+    private static final BpfMap<U32, U32> sConfigurationMap =
             new TestBpfMap<>(U32.class, U32.class);
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+        BpfNetMaps.setConfigurationMapForTest(sConfigurationMap);
         mBpfNetMaps = new BpfNetMaps(mNetd);
-        BpfNetMaps.initialize(makeDependencies());
         sConfigurationMap.clear();
-    }
-
-    private static BpfNetMaps.Dependencies makeDependencies() {
-        return new BpfNetMaps.Dependencies() {
-            @Override
-            public BpfMap<U32, U32> getConfigurationMap() {
-                return sConfigurationMap;
-            }
-        };
     }
 
     @Test
