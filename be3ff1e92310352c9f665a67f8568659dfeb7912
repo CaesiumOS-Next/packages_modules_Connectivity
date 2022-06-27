@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00ad1a75_597b53a1",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 5924,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-27T14:10:57Z",
+      "side": 1,
+      "message": "Ack aosp/2135061",
+      "parentUuid": "b4b76a9f_644a0233",
+      "range": {
+        "startLine": 5924,
+        "startChar": 39,
+        "endLine": 5924,
+        "endChar": 40
+      },
+      "revId": "be3ff1e92310352c9f665a67f8568659dfeb7912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b899fc6f_6e4523c4",
@@ -117,6 +141,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14a3fc53_c6c1d431",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-27T14:10:57Z",
+      "side": 1,
+      "message": "Ack aosp/2135063",
+      "parentUuid": "1003bb7d_d91ea1cd",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 40
+      },
+      "revId": "be3ff1e92310352c9f665a67f8568659dfeb7912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dbcf7b32_d3b9a96f",
@@ -130,6 +178,30 @@
       "writtenOn": "2022-06-25T06:33:49Z",
       "side": 1,
       "message": "should this be isChainEnabled",
+      "range": {
+        "startLine": 237,
+        "startChar": 19,
+        "endLine": 237,
+        "endChar": 34
+      },
+      "revId": "be3ff1e92310352c9f665a67f8568659dfeb7912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca77eb82_f194f25b",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-27T14:10:57Z",
+      "side": 1,
+      "message": "Ack aosp/2135061",
+      "parentUuid": "dbcf7b32_d3b9a96f",
       "range": {
         "startLine": 237,
         "startChar": 19,
@@ -176,6 +248,30 @@
       "writtenOn": "2022-06-25T06:33:49Z",
       "side": 1,
       "message": "this can\u0027t actually happen any more... the map must exist, and it is an array, so it must have the key...",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 33
+      },
+      "revId": "be3ff1e92310352c9f665a67f8568659dfeb7912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e152f1e8_761480ca",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-27T14:10:57Z",
+      "side": 1,
+      "message": "Ack aosp/2135063",
+      "parentUuid": "d9e49616_60022231",
       "range": {
         "startLine": 246,
         "startChar": 0,
