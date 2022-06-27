@@ -25,7 +25,6 @@ import static android.net.ConnectivityManager.FIREWALL_CHAIN_POWERSAVE;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_RESTRICTED;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_STANDBY;
 import static android.system.OsConstants.EINVAL;
-import static android.system.OsConstants.ENOENT;
 import static android.system.OsConstants.EOPNOTSUPP;
 
 import android.net.INetd;
@@ -110,12 +109,13 @@ public class BpfNetMaps {
      * Initializes the class if it is not already initialized. This method will open maps but not
      * cause any other effects. This method may be called multiple times on any thread.
      */
-    private static synchronized void ensureInitialized() {
+    @VisibleForTesting
+    public static synchronized void ensureInitialized(final Dependencies deps) {
         if (sInitialized) return;
         if (!USE_NETD) {
             System.loadLibrary("service-connectivity");
             native_init();
-            initialize(new Dependencies());
+            initialize(deps);
         }
         sInitialized = true;
     }
@@ -133,8 +133,7 @@ public class BpfNetMaps {
                 return new BpfMap<>(
                         CONFIGURATION_MAP_PATH, BpfMap.BPF_F_RDWR, U32.class, U32.class);
             } catch (ErrnoException e) {
-                Log.e(TAG, "Cannot open netd configuration map: " + e);
-                return null;
+                throw new ServiceSpecificException(e.errno, "Cannot open netd configuration map");
             }
         }
     }
@@ -147,7 +146,7 @@ public class BpfNetMaps {
     }
 
     public BpfNetMaps(final INetd netd) {
-        ensureInitialized();
+        ensureInitialized(new Dependencies());
         mNetd = netd;
     }
 
@@ -239,11 +238,6 @@ public class BpfNetMaps {
         try {
             synchronized (sUidRulesConfigBpfMapLock) {
                 final U32 config = sConfigurationMap.getValue(UID_RULES_CONFIGURATION_KEY);
-                if (config == null) {
-                    throw new ServiceSpecificException(ENOENT,
-                            "Unable to get firewall chain status: sConfigurationMap does not have"
-                                    + " entry for UID_RULES_CONFIGURATION_KEY");
-                }
                 final long newConfig = enable ? (config.val | match) : (config.val & (~match));
                 sConfigurationMap.updateEntry(UID_RULES_CONFIGURATION_KEY, new U32(newConfig));
             }
@@ -268,11 +262,6 @@ public class BpfNetMaps {
         final long match = getMatchByFirewallChain(childChain);
         try {
             final U32 config = sConfigurationMap.getValue(UID_RULES_CONFIGURATION_KEY);
-            if (config == null) {
-                throw new ServiceSpecificException(ENOENT,
-                        "Unable to get firewall chain status: sConfigurationMap does not have"
-                                + " entry for UID_RULES_CONFIGURATION_KEY");
-            }
             return (config.val & match) != 0;
         } catch (ErrnoException e) {
             throw new ServiceSpecificException(e.errno,

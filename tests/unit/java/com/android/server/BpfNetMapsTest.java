@@ -88,11 +88,14 @@ public final class BpfNetMapsTest {
     private static final TestBpfMap<U32, U32> sConfigurationMap =
             new TestBpfMap<>(U32.class, U32.class);
 
+    static {
+        BpfNetMaps.ensureInitialized(makeDependencies());
+    }
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         mBpfNetMaps = new BpfNetMaps(mNetd);
-        BpfNetMaps.initialize(makeDependencies());
         sConfigurationMap.clear();
     }
 
@@ -175,14 +178,6 @@ public final class BpfNetMapsTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
-    public void testGetChainEnabledMissingConfiguration() {
-        // sConfigurationMap does not have entry for UID_RULES_CONFIGURATION_KEY
-        assertThrows(ServiceSpecificException.class,
-                () -> mBpfNetMaps.getChainEnabled(FIREWALL_CHAIN_DOZABLE));
-    }
-
-    @Test
     @IgnoreAfter(Build.VERSION_CODES.S_V2)
     public void testGetChainEnabledBeforeT() {
         assertThrows(UnsupportedOperationException.class,
@@ -249,14 +244,6 @@ public final class BpfNetMapsTest {
                 () -> mBpfNetMaps.setChildChain(-1 /* childChain */, true /* enable */));
         assertThrows(expected,
                 () -> mBpfNetMaps.setChildChain(1000 /* childChain */, true /* enable */));
-    }
-
-    @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
-    public void testSetChildChainMissingConfiguration() {
-        // sConfigurationMap does not have entry for UID_RULES_CONFIGURATION_KEY
-        assertThrows(ServiceSpecificException.class,
-                () -> mBpfNetMaps.setChildChain(FIREWALL_CHAIN_DOZABLE, true /* enable */));
     }
 
     @Test
