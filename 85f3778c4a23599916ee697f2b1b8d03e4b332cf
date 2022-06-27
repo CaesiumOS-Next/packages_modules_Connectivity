@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ad42d65d_c79c1cc1",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 39
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-27T20:20:11Z",
+      "side": 1,
+      "message": "Sorry, my suggestion was to remove this here and add it to the ethernet module. I just checked and saw that EthernetTracker.InterfaceObserver already logs this, so I think this should just be removed here.",
+      "parentUuid": "8f3c592d_b0244210",
+      "revId": "85f3778c4a23599916ee697f2b1b8d03e4b332cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c7c12872_7abf7005",
         "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
         "patchSetId": 39

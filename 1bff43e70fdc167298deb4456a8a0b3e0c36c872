@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f84d184_cc54f383",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 43
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-27T20:20:11Z",
+      "side": 1,
+      "message": "Maybe move the optional argument to the back, so it\u0027s easier to call the function without it?\n\n---\n\nAfter thinking about this some more, I would just drop the argument altogether. Passing a network is only really useful for Available and Lost callbacks, which are the ones most likely used on a global listener. (This is safe specifically since these tests all work with TEST_TRANSPORT networks which all use the same NetworkScore. This means that an available network is never replaced, unless an interface is removed in which case Lost will be fired before the next call to Available.)",
+      "range": {
+        "startLine": 434,
+        "startChar": 8,
+        "endLine": 434,
+        "endChar": 34
+      },
+      "revId": "1bff43e70fdc167298deb4456a8a0b3e0c36c872",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "851f5d5c_4792b7ac",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 43
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-27T20:20:11Z",
+      "side": 1,
+      "message": "for a follow up: we also need tests that cover:\n\n- updateConfiguration() before the network is requested.\n- updateConfiguration() before the interface is added.\n- updateConfiguration() with link state down (and maybe flip-flopping once).",
+      "range": {
+        "startLine": 687,
+        "startChar": 8,
+        "endLine": 687,
+        "endChar": 62
+      },
+      "revId": "1bff43e70fdc167298deb4456a8a0b3e0c36c872",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86368908_9796054c",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 43
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-27T20:20:11Z",
+      "side": 1,
+      "message": "nit: I think `cb.assertNeverLost()` would be slightly preferable in this case. Receiving a Lost callback for any network would be wrong here (but realistically we would only ever receive a lost callback for network).",
+      "range": {
+        "startLine": 691,
+        "startChar": 27,
+        "endLine": 691,
+        "endChar": 34
+      },
+      "revId": "1bff43e70fdc167298deb4456a8a0b3e0c36c872",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30486423_c59c7269",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 43
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-27T20:20:11Z",
+      "side": 1,
+      "message": "nit: It should be safe to drop updatedNetwork, right? Active ethernet networks should never be replaced, as they all have the same NetworkScore and generally, a NetworkRequest matches only one network at a time.",
+      "range": {
+        "startLine": 703,
+        "startChar": 8,
+        "endLine": 703,
+        "endChar": 29
+      },
+      "revId": "1bff43e70fdc167298deb4456a8a0b3e0c36c872",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

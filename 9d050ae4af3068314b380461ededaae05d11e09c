@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84ebb7d6_dcf09b30",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-27T20:20:11Z",
+      "side": 1,
+      "message": "Why do we need another timeout value? Also why 5s? The reason I raised the timeout to 2s was to try and combat the up/up/down/up issue, which as it turns out has another cause altogether. All other tests were previously passing consistently on a 1s timeout.",
+      "range": {
+        "startLine": 97,
+        "startChar": 18,
+        "endLine": 97,
+        "endChar": 40
+      },
+      "revId": "9d050ae4af3068314b380461ededaae05d11e09c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df110500_e5400e6e",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-27T20:20:11Z",
+      "side": 1,
+      "message": "Can you leave a comment on why 200 was not enough? Because this timeout will always be blocking, it directly affects the runtime of our tests, so we should keep it as short as possible. It would be useful to know where you saw this fail, so we have a starting point when we try to speed up these tests in the future.",
+      "range": {
+        "startLine": 98,
+        "startChar": 18,
+        "endLine": 98,
+        "endChar": 40
+      },
+      "revId": "9d050ae4af3068314b380461ededaae05d11e09c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99f28b3d_4222e6c9",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-27T20:20:11Z",
+      "side": 1,
+      "message": "I was thinking this could just be a global val, couldn\u0027t it?\nSomething along the lines of:\n```\nprivate val STATIC_IP_CONFIGURATION \u003d IpConfiguration.Builder()\n    .setStaticIpConfiguration(StaticIpConfiguration.Builder()\n        .setIpAddress(LinkAddress(\"...\")))\n    .build()\n```\nor maybe\n```\nprivate val STATIC_IP_CONFIGURATION \u003d run {\n    val staticIpConfig \u003d StaticIpConfiguration.Builder()\n        .setIpAddress(LinkAddress(\"...\")).build()\n    IpConfiguration.Builder()\n        .setStaticIpConfiguration(staticIpConfig).build()\n}\n```\n\nThen in tests you can get the LinkAddress by calling:\n\n```\nSTATIC_IP_CONFIGURATION.staticIpConfiguration!!.ipAddress!!\n```\n\nIt feels a little overkill to have a function when the input is always the same.",
+      "range": {
+        "startLine": 681,
+        "startChar": 0,
+        "endLine": 684,
+        "endChar": 5
+      },
+      "revId": "9d050ae4af3068314b380461ededaae05d11e09c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7762c4a2_51447d45",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-27T20:20:11Z",
+      "side": 1,
+      "message": "nit: the type is not needed here",
+      "range": {
+        "startLine": 688,
+        "startChar": 19,
+        "endLine": 688,
+        "endChar": 40
+      },
+      "revId": "9d050ae4af3068314b380461ededaae05d11e09c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
