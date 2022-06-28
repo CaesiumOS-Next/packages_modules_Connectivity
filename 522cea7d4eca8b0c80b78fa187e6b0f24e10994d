@@ -22,6 +22,30 @@
       },
       "revId": "522cea7d4eca8b0c80b78fa187e6b0f24e10994d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3460694_24418f97",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-28T10:23:10Z",
+      "side": 0,
+      "message": "There is a class level annotation in VpnTest, so I remove it",
+      "parentUuid": "7df7c03d_ff1fee68",
+      "range": {
+        "startLine": 902,
+        "startChar": 10,
+        "endLine": 902,
+        "endChar": 27
+      },
+      "revId": "522cea7d4eca8b0c80b78fa187e6b0f24e10994d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

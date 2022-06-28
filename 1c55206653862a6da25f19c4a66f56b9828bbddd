@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9b8faa5_5f52ccb8",
+        "filename": "tests/unit/java/com/android/server/VpnTestBase.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-28T10:23:10Z",
+      "side": 1,
+      "message": "As discussed offline, it\u0027s moved from VpnTest. I think it\u0027s a note for 10077 and 10078 case that they\u0027re consecutive UIDs.",
+      "parentUuid": "575e590c_81f74a0a",
+      "range": {
+        "startLine": 43,
+        "startChar": 10,
+        "endLine": 43,
+        "endChar": 53
+      },
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af3fe50d_93324483",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-06-28T04:10:22Z",
       "side": 1,
       "message": "What about PRIMARY_USER_RANGE? I can\u0027t understand what PRI is in the beginning until I looked at \"PRIMARY_USER\".",
+      "range": {
+        "startLine": 237,
+        "startChar": 40,
+        "endLine": 237,
+        "endChar": 43
+      },
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "264669d7_b98c50a7",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-28T10:23:10Z",
+      "side": 1,
+      "message": "That\u0027s actually the existing code. I could update it in other commit.",
+      "parentUuid": "af3fe50d_93324483",
       "range": {
         "startLine": 237,
         "startChar": 40,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e71f7468_d15d5d48",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-28T10:23:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "835cbba4_dea9a1f9",
+      "range": {
+        "startLine": 650,
+        "startChar": 31,
+        "endLine": 650,
+        "endChar": 43
+      },
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "388a1765_c831196f",
@@ -110,6 +182,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e4ef9e6_03c26f96",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-28T10:23:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "388a1765_c831196f",
+      "range": {
+        "startLine": 687,
+        "startChar": 82,
+        "endLine": 687,
+        "endChar": 90
+      },
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1e1ca6e_97147e2f",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-28T10:23:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "388a1765_c831196f",
+      "range": {
+        "startLine": 687,
+        "startChar": 82,
+        "endLine": 687,
+        "endChar": 90
+      },
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf74b482_89cd2c0d",
@@ -123,6 +243,30 @@
       "writtenOn": "2022-06-28T04:10:22Z",
       "side": 1,
       "message": "Now, the package is added back, so the comment should be modified?",
+      "range": {
+        "startLine": 918,
+        "startChar": 44,
+        "endLine": 918,
+        "endChar": 99
+      },
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f9ad54d_6cd131f1",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-28T10:23:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf74b482_89cd2c0d",
       "range": {
         "startLine": 918,
         "startChar": 44,
@@ -179,6 +323,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "221c6dd5_1cd02579",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-28T10:23:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b99d0462_86d19a54",
+      "range": {
+        "startLine": 931,
+        "startChar": 8,
+        "endLine": 931,
+        "endChar": 11
+      },
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6d633ff_07b9fd45",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-28T10:23:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01e9229c_fb04ee67",
+      "range": {
+        "startLine": 931,
+        "startChar": 32,
+        "endLine": 931,
+        "endChar": 38
+      },
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af23755e_47c4086c",
@@ -192,6 +384,30 @@
       "writtenOn": "2022-06-28T04:10:22Z",
       "side": 1,
       "message": "Can we call UserHandle#getUid() in this file?",
+      "range": {
+        "startLine": 933,
+        "startChar": 21,
+        "endLine": 933,
+        "endChar": 35
+      },
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dcfdccb_f65b1c90",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 933,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-28T10:23:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af23755e_47c4086c",
       "range": {
         "startLine": 933,
         "startChar": 21,
@@ -225,6 +441,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5e24ef0_9374d8db",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-28T10:23:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4832433a_3f0073e1",
+      "range": {
+        "startLine": 937,
+        "startChar": 8,
+        "endLine": 937,
+        "endChar": 11
+      },
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27695e2a_b696be63",
@@ -248,6 +488,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc4f9ca5_130a8d05",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-28T10:23:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27695e2a_b696be63",
+      "range": {
+        "startLine": 938,
+        "startChar": 8,
+        "endLine": 938,
+        "endChar": 11
+      },
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be3ff052_84402432",
@@ -261,6 +525,30 @@
       "writtenOn": "2022-06-27T05:49:49Z",
       "side": 1,
       "message": "Ditto, this should be in a separate change.",
+      "range": {
+        "startLine": 1014,
+        "startChar": 24,
+        "endLine": 1014,
+        "endChar": 43
+      },
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ba8674f_263f1e46",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1014,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-28T10:23:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be3ff052_84402432",
       "range": {
         "startLine": 1014,
         "startChar": 24,
