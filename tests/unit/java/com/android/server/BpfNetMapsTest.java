@@ -27,6 +27,7 @@ import static android.net.ConnectivityManager.FIREWALL_CHAIN_STANDBY;
 import static android.net.INetd.PERMISSION_INTERNET;
 
 import static com.android.server.BpfNetMaps.DOZABLE_MATCH;
+import static com.android.server.BpfNetMaps.NO_MATCH;
 import static com.android.server.BpfNetMaps.PENALTY_BOX_MATCH;
 import static com.android.server.BpfNetMaps.POWERSAVE_MATCH;
 import static com.android.server.BpfNetMaps.RESTRICTED_MATCH;
@@ -324,5 +325,36 @@ public final class BpfNetMapsTest {
     public void testRemoveNaughtyAppBeforeT() {
         assertThrows(UnsupportedOperationException.class,
                 () -> mBpfNetMaps.removeNaughtyApp(TEST_UID));
+    }
+
+    private void doTestAddNaughtyApp(final long enabledMatch) throws Exception {
+        sUidOwnerMap.updateEntry(new U32(TEST_UID), new UidOwnerValue(0 /* iif */, enabledMatch));
+
+        mBpfNetMaps.addNaughtyApp(TEST_UID);
+
+        final long expectedMatch = enabledMatch | PENALTY_BOX_MATCH;
+        final UidOwnerValue newConfig = sUidOwnerMap.getValue(new U32(TEST_UID));
+        assertEquals(0, newConfig.iif);
+        assertEquals(expectedMatch, newConfig.rule);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testAddNaughtyApp() throws Exception {
+        doTestAddNaughtyApp(NO_MATCH);
+
+        // Other matches are enabled
+        doTestAddNaughtyApp(DOZABLE_MATCH);
+        doTestAddNaughtyApp(DOZABLE_MATCH | POWERSAVE_MATCH | RESTRICTED_MATCH);
+
+        // PENALTY_BOX_MATCH is already enabled
+        doTestAddNaughtyApp(PENALTY_BOX_MATCH | DOZABLE_MATCH);
+    }
+
+    @Test
+    @IgnoreAfter(Build.VERSION_CODES.S_V2)
+    public void testAddNaughtyAppBeforeT() {
+        assertThrows(UnsupportedOperationException.class,
+                () -> mBpfNetMaps.addNaughtyApp(TEST_UID));
     }
 }
