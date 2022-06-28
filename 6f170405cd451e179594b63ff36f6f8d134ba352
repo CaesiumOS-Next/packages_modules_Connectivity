@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca16e0f6_4e0a0a28",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-28T18:44:02Z",
+      "side": 1,
+      "message": "As I am writing this, I am just noticing a bug. setIncludeTestInterfaces(false) should be called after the interfaces are destroyed, otherwise the call to `ifaceListener.eventuallyExpect(ABSENT)` may receive callbacks out of order (and it doesn\u0027t actually wait on the interface being removed properly).\nSimilarly, setEthernetEnabled(true) has to be called right before destroying the interfaces, so the ABSENT callbacks are received. If you could fix both issues, that would be great. Preferably, also put a comment:\n```\n// Reenable ethernet, so ABSENT callbacks are received.\nsetEthernetEnabled(true)\nfor (iface in createdIfaces) {\n    iface.destroy()\n    ifaceListener.eventuallyExpect(...)\n}\n// After test interfaces are removed, disable tracking.\nsetIncludeTestInterfaces(false)\n```",
+      "range": {
+        "startLine": 317,
+        "startChar": 8,
+        "endLine": 317,
+        "endChar": 32
+      },
+      "revId": "6f170405cd451e179594b63ff36f6f8d134ba352",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
