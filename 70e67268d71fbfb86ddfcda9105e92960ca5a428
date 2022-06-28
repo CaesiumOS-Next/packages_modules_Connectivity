@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e20b6d39_bb9775fc",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-06-28T01:58:00Z",
+      "side": 1,
+      "message": "Using lock is part of \"Remove expired service\" feature and we don\u0027t have that in current version. I prefer to cherry pick entire feature later.",
+      "parentUuid": "37e8409b_1db32455",
+      "range": {
+        "startLine": 166,
+        "startChar": 29,
+        "endLine": 166,
+        "endChar": 44
+      },
+      "revId": "70e67268d71fbfb86ddfcda9105e92960ca5a428",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b34e06d8_811ecab0",
         "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
         "patchSetId": 6
@@ -54,6 +78,24 @@
       "writtenOn": "2022-06-24T09:59:00Z",
       "side": 1,
       "message": "Compared to the original code, processResponse assumes that shouldRemoveServiceAfterTtlExpires \u003d\u003d true. In that case, more things were done here\n\nThis should probably be added back",
+      "revId": "70e67268d71fbfb86ddfcda9105e92960ca5a428",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cab663f2_596a410a",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-06-28T01:58:00Z",
+      "side": 1,
+      "message": "Ditto. Will cherry pick missed feature later.",
+      "parentUuid": "b34e06d8_811ecab0",
       "revId": "70e67268d71fbfb86ddfcda9105e92960ca5a428",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -75,6 +117,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db971cdb_cb09e847",
+        "filename": "tests/unit/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-06-28T01:58:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b93c0974_727ca439",
+      "revId": "70e67268d71fbfb86ddfcda9105e92960ca5a428",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f512395_e999869b",
@@ -92,6 +152,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bb0a446_feedb3e4",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/ConnectivityMonitorWithConnectivityManagerTests.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-06-28T01:58:00Z",
+      "side": 1,
+      "message": "Oops. It\u0027s redundant. Removed.",
+      "parentUuid": "4f512395_e999869b",
+      "revId": "70e67268d71fbfb86ddfcda9105e92960ca5a428",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98dc20c7_50303d1d",
@@ -105,6 +183,30 @@
       "writtenOn": "2022-06-24T09:59:00Z",
       "side": 1,
       "message": "Nit: not really necessary",
+      "range": {
+        "startLine": 244,
+        "startChar": 8,
+        "endLine": 244,
+        "endChar": 20
+      },
+      "revId": "70e67268d71fbfb86ddfcda9105e92960ca5a428",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7af292bb_71d84e2c",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MulticastNetworkInterfaceProviderTests.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-06-28T01:58:00Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "98dc20c7_50303d1d",
       "range": {
         "startLine": 244,
         "startChar": 8,
