@@ -20,6 +20,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "575e590c_81f74a0a",
+        "filename": "tests/unit/java/com/android/server/VpnTestBase.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-28T04:10:22Z",
+      "side": 1,
+      "message": "Sorry, I don\u0027t understand what it means. Can you describe more about it?",
+      "range": {
+        "startLine": 43,
+        "startChar": 10,
+        "endLine": 43,
+        "endChar": 53
+      },
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af3fe50d_93324483",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-28T04:10:22Z",
+      "side": 1,
+      "message": "What about PRIMARY_USER_RANGE? I can\u0027t understand what PRI is in the beginning until I looked at \"PRIMARY_USER\".",
+      "range": {
+        "startLine": 237,
+        "startChar": 40,
+        "endLine": 237,
+        "endChar": 43
+      },
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "835cbba4_dea9a1f9",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-28T04:10:22Z",
+      "side": 1,
+      "message": "I think there is no need to change this, did you mis-replace it?",
+      "range": {
+        "startLine": 650,
+        "startChar": 31,
+        "endLine": 650,
+        "endChar": 43
+      },
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "388a1765_c831196f",
         "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
         "patchSetId": 11
@@ -36,6 +105,144 @@
         "startChar": 82,
         "endLine": 687,
         "endChar": 90
+      },
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf74b482_89cd2c0d",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-28T04:10:22Z",
+      "side": 1,
+      "message": "Now, the package is added back, so the comment should be modified?",
+      "range": {
+        "startLine": 918,
+        "startChar": 44,
+        "endLine": 918,
+        "endChar": 99
+      },
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01e9229c_fb04ee67",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-28T04:10:22Z",
+      "side": 1,
+      "message": "Not sure if we can call UserHandle#PER_USER_RANGE in this file?",
+      "range": {
+        "startLine": 931,
+        "startChar": 32,
+        "endLine": 931,
+        "endChar": 38
+      },
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b99d0462_86d19a54",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-28T04:10:22Z",
+      "side": 1,
+      "message": "final?",
+      "range": {
+        "startLine": 931,
+        "startChar": 8,
+        "endLine": 931,
+        "endChar": 11
+      },
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af23755e_47c4086c",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 933,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-28T04:10:22Z",
+      "side": 1,
+      "message": "Can we call UserHandle#getUid() in this file?",
+      "range": {
+        "startLine": 933,
+        "startChar": 21,
+        "endLine": 933,
+        "endChar": 35
+      },
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4832433a_3f0073e1",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-28T04:10:22Z",
+      "side": 1,
+      "message": "final?",
+      "range": {
+        "startLine": 937,
+        "startChar": 8,
+        "endLine": 937,
+        "endChar": 11
+      },
+      "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27695e2a_b696be63",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-28T04:10:22Z",
+      "side": 1,
+      "message": "final?",
+      "range": {
+        "startLine": 938,
+        "startChar": 8,
+        "endLine": 938,
+        "endChar": 11
       },
       "revId": "1c55206653862a6da25f19c4a66f56b9828bbddd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
