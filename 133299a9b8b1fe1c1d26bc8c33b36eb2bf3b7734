@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "913f25d6_201f4577",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-06-28T12:02:57Z",
+      "side": 1,
+      "message": "LGTM because getRequestedState() can return either STATE_LOCAL_ONLY or STATE_TETHERED on interface {USB, WIFI, ETHER, BT}\n\n\n# USB\n```\n    private int getServedUsbType(boolean forNcmFunction) {\n        if (forNcmFunction \u0026\u0026 !mConfig.isUsingNcm()) return TETHERING_NCM;\n\n        return TETHERING_USB;\n    }\n\n    private int getRequestedState(int type) {\n..\n        return connectivityScope \u003d\u003d CONNECTIVITY_SCOPE_LOCAL\n                ? IpServer.STATE_LOCAL_ONLY\n                : IpServer.STATE_TETHERED;\n    }\n\n    // requestedState has only STATE_LOCAL_ONLY or STATE_TETHERED\n    private void enableUsbIpServing(boolean forNcmFunction) {\n        final int tetheringType \u003d getServedUsbType(forNcmFunction); // TETHERING_NCM or TETHERING_USB\n        final int requestedState \u003d getRequestedState(tetheringType);  // STATE_LOCAL_ONLY or STATE_TETHERED\n\n            enableIpServing(tetheringType, iface, requestedState, forNcmFunction);\n```\n\n# WIFI\n```\n     private void enableWifiP2pIpServing(String ifname) {\n..\n        enableIpServing(type, ifname, IpServer.STATE_LOCAL_ONLY);\n```\n\n# ETHER\n```\nenableIpServing(TETHERING_ETHERNET, iface, getRequestedState(TETHERING_ETHERNET));\n```\n\n# BT\n```\nenableIpServing(TETHERING_BLUETOOTH, iface, getRequestedState(TETHERING_BLUETOOTH));\n```",
+      "revId": "133299a9b8b1fe1c1d26bc8c33b36eb2bf3b7734",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
