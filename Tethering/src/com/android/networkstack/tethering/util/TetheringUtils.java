@@ -17,12 +17,12 @@ package com.android.networkstack.tethering.util;
 
 import android.net.TetherStatsParcel;
 import android.net.TetheringRequestParcel;
+import android.net.module.util.bpf.TetherStatsValue;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.android.net.module.util.JniUtil;
-import com.android.net.module.util.bpf.TetherStatsValue;
 
 import java.io.FileDescriptor;
 import java.net.Inet6Address;
