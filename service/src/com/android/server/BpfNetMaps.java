@@ -213,6 +213,34 @@ public class BpfNetMaps {
         }
     }
 
+    @GuardedBy("sUidOwnerMap")
+    private void addRule(final int uid, final long match, final long iif) throws ErrnoException {
+        if (match != IIF_MATCH && iif != 0) {
+            throw new ServiceSpecificException(EINVAL,
+                    "Non-interface match must have zero interface index");
+        }
+
+        final UidOwnerValue oldMatch = sUidOwnerMap.getValue(new U32(uid));
+
+        final UidOwnerValue newMatch;
+        if (oldMatch != null) {
+            newMatch = new UidOwnerValue(
+                    (match == IIF_MATCH) ? iif : oldMatch.iif,
+                    oldMatch.rule | match
+            );
+        } else {
+            newMatch = new UidOwnerValue(
+                    iif,
+                    match
+            );
+        }
+        sUidOwnerMap.updateEntry(new U32(uid), newMatch);
+    }
+
+    private void addRule(final int uid, final long match) throws ErrnoException {
+        addRule(uid, match, 0 /* iif */);
+    }
+
     /**
      * Add naughty app bandwidth rule for specific app
      *
@@ -221,9 +249,15 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void addNaughtyApp(final int uid) {
-        synchronized (sUidOwnerMap) {
-            final int err = native_addNaughtyApp(uid);
-            maybeThrow(err, "Unable to add naughty app");
+        throwIfPreT("addNaughtyApp is not available on pre-T devices");
+
+        try {
+            synchronized (sUidOwnerMap) {
+                addRule(uid, PENALTY_BOX_MATCH);
+            }
+        } catch (ErrnoException e) {
+            throw new ServiceSpecificException(e.errno,
+                    "Unable to add naughty app: " + Os.strerror(e.errno));
         }
     }
 
