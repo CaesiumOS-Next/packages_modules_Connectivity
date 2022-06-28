@@ -158,6 +158,7 @@ java_library {
     static_libs: [
         // Do not add libs here if they are already included
         // in framework-connectivity
+        "connectivity-net-common-utils-bpf",
         "connectivity_native_aidl_interface-lateststable-java",
         "dnsresolver_aidl_interface-V9-java",
         "modules-utils-shell-command-handler",
@@ -272,4 +273,27 @@ filegroup {
     name: "traffic-controller-utils",
     srcs: ["src/com/android/server/BpfNetMaps.java"],
     visibility: ["//packages/modules/Connectivity:__subpackages__"],
+}
+
+java_library {
+    name: "connectivity-net-common-utils-bpf",
+    srcs: [
+        "common/src/android/net/module/util/bpf/*.java",
+    ],
+    sdk_version: "module_current",
+    min_sdk_version: "29",
+    visibility: [
+        "//packages/modules/Connectivity:__subpackages__",
+    ],
+    libs: [
+        "androidx.annotation_annotation",
+        "framework-connectivity.stubs.module_lib",
+    ],
+    static_libs: [
+        "net-utils-device-common-struct",
+    ],
+    apex_available: [
+        "com.android.tethering",
+    ],
+    lint: { strict_updatability_linting: true },
 }

@@ -25,6 +25,10 @@ import static com.android.net.module.util.NetworkStackConstants.IPV6_MIN_MTU;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.net.module.util.bpf.ClatEgress4Key;
+import android.net.module.util.bpf.ClatEgress4Value;
+import android.net.module.util.bpf.ClatIngress6Key;
+import android.net.module.util.bpf.ClatIngress6Value;
 import android.net.INetd;
 import android.net.InetAddresses;
 import android.net.InterfaceConfigurationParcel;
@@ -42,10 +46,6 @@ import com.android.net.module.util.BpfMap;
 import com.android.net.module.util.IBpfMap;
 import com.android.net.module.util.InterfaceParams;
 import com.android.net.module.util.TcUtils;
-import com.android.net.module.util.bpf.ClatEgress4Key;
-import com.android.net.module.util.bpf.ClatEgress4Value;
-import com.android.net.module.util.bpf.ClatIngress6Key;
-import com.android.net.module.util.bpf.ClatIngress6Value;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
