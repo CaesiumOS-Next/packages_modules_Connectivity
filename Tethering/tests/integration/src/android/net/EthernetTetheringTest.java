@@ -800,8 +800,7 @@ public class EthernetTetheringTest {
     }
 
     private void runPing6Test(TetheringTester tester) throws Exception {
-        TetheredDevice tethered = tester.createTetheredDevice(MacAddress.fromString("1:2:3:4:5:6"),
-                true /* hasIpv6 */);
+        TetheredDevice tethered = tester.createTetheredDevice(TEST_MAC, true /* hasIpv6 */);
         Inet6Address remoteIp6Addr = (Inet6Address) parseNumericAddress("2400:222:222::222");
         ByteBuffer request = Ipv6Utils.buildEchoRequestPacket(tethered.macAddr,
                 tethered.routerMacAddr, tethered.ipv6Addr, remoteIp6Addr);
@@ -841,12 +840,11 @@ public class EthernetTetheringTest {
     private static final short ID = 27149;
     private static final short FLAGS_AND_FRAGMENT_OFFSET = (short) 0x4000; // flags=DF, offset=0
     private static final byte TIME_TO_LIVE = (byte) 0x40;
+    // TODO: rename to PAYLOAD_TX and PAYLOAD_RX.
     private static final ByteBuffer PAYLOAD =
             ByteBuffer.wrap(new byte[] { (byte) 0x12, (byte) 0x34 });
     private static final ByteBuffer PAYLOAD2 =
             ByteBuffer.wrap(new byte[] { (byte) 0x56, (byte) 0x78 });
-    private static final ByteBuffer PAYLOAD3 =
-            ByteBuffer.wrap(new byte[] { (byte) 0x9a, (byte) 0xbc });
 
     @NonNull
     private ByteBuffer buildUdpPacket(
@@ -909,8 +907,9 @@ public class EthernetTetheringTest {
     }
 
     private void sendPacketUdp(boolean download, @NonNull final InetAddress srcIp,
-            @NonNull final InetAddress dstIp, @NonNull final TetheringTester tester,
-            @NonNull final TetheredDevice tethered) throws Exception {
+            @NonNull final InetAddress dstIp, boolean is464,
+            @NonNull final TetheringTester tester, @NonNull final TetheredDevice tethered)
+            throws Exception {
         final MacAddress srcMac = (download ? null : tethered.macAddr);
         final MacAddress dstMac = (download ? null : tethered.routerMacAddr);
         final short srcPort = (download ? REMOTE_PORT : LOCAL_PORT);
@@ -929,15 +928,20 @@ public class EthernetTetheringTest {
             return;
         }
 
+        // While testing CLAT (is464 = true), suppose that there are "4 to 6" and "6 to 4" cases.
+        // Under that conditions, the packet on downstream should be IPv4 and the packet on
+        // upstream should be IPv6.
         if (download) {
             tester.verifyDownload(testPacket, p -> {
                 Log.d(TAG, "Packet in downstream: " + dumpHexString(p));
-                return isExpectedUdpPacket(p, true /* hasEther */, isIpv4, PAYLOAD);
+                return isExpectedUdpPacket(p, true /* hasEther */,
+                        is464 ? true : isIpv4 /* isIpv4 */, PAYLOAD);
             });
         } else {
             tester.verifyUpload(testPacket, p -> {
                 Log.d(TAG, "Packet in upstream: " + dumpHexString(p));
-                return isExpectedUdpPacket(p, false /* hasEther */, isIpv4, PAYLOAD2);
+                return isExpectedUdpPacket(p, false /* hasEther */,
+                        is464 ? false : isIpv4 /* isIpv4 */, PAYLOAD2);
             });
         }
     }
@@ -949,8 +953,8 @@ public class EthernetTetheringTest {
         final TetheredDevice tethered = tester.createTetheredDevice(TEST_MAC, true /* hasIpv6 */);
         final InetAddress remoteIp = REMOTE_IP6_ADDR;
         final InetAddress tetheredIp = tethered.ipv6Addr;
-        sendPacketUdp(UPLOAD, tetheredIp, remoteIp, tester, tethered);
-        sendPacketUdp(DOWNLOAD, remoteIp, tetheredIp, tester, tethered);
+        sendPacketUdp(UPLOAD, tetheredIp, remoteIp, false /* is464 */, tester, tethered);
+        sendPacketUdp(DOWNLOAD, remoteIp, tetheredIp, false /* is464 */, tester, tethered);
 
         // TODO: test BPF offload maps {rule, stats}.
     }
@@ -986,9 +990,10 @@ public class EthernetTetheringTest {
         return null;
     }
 
-    private void runUdp4Test(TetheringTester tester, boolean usingBpf) throws Exception {
-        final TetheredDevice tethered = tester.createTetheredDevice(MacAddress.fromString(
-                "1:2:3:4:5:6"), false /* hasIpv6 */);
+    private void runUdp4Test(boolean usingBpf) throws Exception {
+        final TetheringTester tester = initTetheringTester(toList(TEST_IP4_ADDR),
+                toList(TEST_IP4_DNS));
+        final TetheredDevice tethered = tester.createTetheredDevice(TEST_MAC, false /* hasIpv6 */);
 
         // TODO: remove the connectivity verification for upstream connected notification race.
         // Because async upstream connected notification can't guarantee the tethering routing is
@@ -998,25 +1003,11 @@ public class EthernetTetheringTest {
         // refactors upstream connected notification from async to sync.
         probeV4TetheringConnectivity(tester, tethered, false /* is4To6 */);
 
-        // Send a UDP packet in original direction.
-        final ByteBuffer originalPacket = buildUdpPacket(tethered.macAddr,
-                tethered.routerMacAddr, tethered.ipv4Addr /* srcIp */,
-                REMOTE_IP4_ADDR /* dstIp */, LOCAL_PORT /* srcPort */, REMOTE_PORT /* dstPort */,
-                PAYLOAD /* payload */);
-        tester.verifyUpload(originalPacket, p -> {
-            Log.d(TAG, "Packet in upstream: " + dumpHexString(p));
-            return isExpectedUdpPacket(p, false /* hasEther */, true /* isIpv4 */, PAYLOAD);
-        });
-
-        // Send a UDP packet in reply direction.
-        final Inet4Address publicIp4Addr = (Inet4Address) TEST_IP4_ADDR.getAddress();
-        final ByteBuffer replyPacket = buildUdpPacket(REMOTE_IP4_ADDR /* srcIp */,
-                publicIp4Addr /* dstIp */, REMOTE_PORT /* srcPort */, LOCAL_PORT /* dstPort */,
-                PAYLOAD2 /* payload */);
-        tester.verifyDownload(replyPacket, p -> {
-            Log.d(TAG, "Packet in downstream: " + dumpHexString(p));
-            return isExpectedUdpPacket(p, true /* hasEther */, true /* isIpv4 */, PAYLOAD2);
-        });
+        final InetAddress remoteIp = REMOTE_IP4_ADDR;
+        final InetAddress publicIp = TEST_IP4_ADDR.getAddress();
+        final InetAddress tetheredIp = tethered.ipv4Addr;
+        sendPacketUdp(UPLOAD, tetheredIp, remoteIp, false /* is464 */, tester, tethered);
+        sendPacketUdp(DOWNLOAD, remoteIp, publicIp, false /* is464 */, tester, tethered);
 
         if (usingBpf) {
             // Send second UDP packet in original direction.
@@ -1028,14 +1019,7 @@ public class EthernetTetheringTest {
             // See kernel upstream commit b7b1d02fc43925a4d569ec221715db2dfa1ce4f5 and
             // nf_conntrack_udp_packet in net/netfilter/nf_conntrack_proto_udp.c
             Thread.sleep(UDP_STREAM_TS_MS);
-            final ByteBuffer originalPacket2 = buildUdpPacket(tethered.macAddr,
-                    tethered.routerMacAddr, tethered.ipv4Addr /* srcIp */,
-                    REMOTE_IP4_ADDR /* dstIp */, LOCAL_PORT /* srcPort */,
-                    REMOTE_PORT /* dstPort */, PAYLOAD3 /* payload */);
-            tester.verifyUpload(originalPacket2, p -> {
-                Log.d(TAG, "Packet in upstream: " + dumpHexString(p));
-                return isExpectedUdpPacket(p, false /* hasEther */, true /* isIpv4 */, PAYLOAD3);
-            });
+            sendPacketUdp(UPLOAD, tetheredIp, remoteIp, false /* is464 */, tester, tethered);
 
             // [1] Verify IPv4 upstream rule map.
             final HashMap<Tether4Key, Tether4Value> upstreamMap = pollRawMapFromDump(
@@ -1054,7 +1038,7 @@ public class EthernetTetheringTest {
             assertEquals(REMOTE_PORT, upstream4Key.dstPort);
 
             final Tether4Value upstream4Value = rule.getValue();
-            assertTrue(Arrays.equals(publicIp4Addr.getAddress(),
+            assertTrue(Arrays.equals(publicIp.getAddress(),
                     InetAddress.getByAddress(upstream4Value.src46).getAddress()));
             assertEquals(LOCAL_PORT, upstream4Value.srcPort);
             assertTrue(Arrays.equals(REMOTE_IP4_ADDR.getAddress(),
@@ -1068,18 +1052,12 @@ public class EthernetTetheringTest {
 
             // Send packets on original direction.
             for (int i = 0; i < TX_UDP_PACKET_COUNT; i++) {
-                tester.verifyUpload(originalPacket, p -> {
-                    Log.d(TAG, "Packet in upstream: " + dumpHexString(p));
-                    return isExpectedUdpPacket(p, false /* hasEther */, true /* isIpv4 */, PAYLOAD);
-                });
+                sendPacketUdp(UPLOAD, tetheredIp, remoteIp, false /* is464 */, tester, tethered);
             }
 
             // Send packets on reply direction.
             for (int i = 0; i < RX_UDP_PACKET_COUNT; i++) {
-                tester.verifyDownload(replyPacket, p -> {
-                    Log.d(TAG, "Packet in downstream: " + dumpHexString(p));
-                    return isExpectedUdpPacket(p, true /* hasEther */, true /* isIpv4 */, PAYLOAD2);
-                });
+                sendPacketUdp(DOWNLOAD, remoteIp, publicIp, false /* is464 */, tester, tethered);
             }
 
             // Dump stats map to verify.
@@ -1141,8 +1119,7 @@ public class EthernetTetheringTest {
     @Test
     @IgnoreAfter(Build.VERSION_CODES.R)
     public void testTetherUdpV4UpToR() throws Exception {
-        runUdp4Test(initTetheringTester(toList(TEST_IP4_ADDR), toList(TEST_IP4_DNS)),
-                false /* usingBpf */);
+        runUdp4Test(false /* usingBpf */);
     }
 
     private static boolean isUdpOffloadSupportedByKernel(final String kernelVersion) {
@@ -1187,8 +1164,7 @@ public class EthernetTetheringTest {
             Log.i(TAG, "testTetherUdpV4AfterR will skip BPF offload test "
                     + "because tethering config doesn't enable BPF offload.");
         }
-        runUdp4Test(initTetheringTester(toList(TEST_IP4_ADDR), toList(TEST_IP4_DNS)),
-                isUdpOffloadSupported && isTetherConfigBpfOffloadEnabled);
+        runUdp4Test(isUdpOffloadSupported && isTetherConfigBpfOffloadEnabled);
     }
 
     @Nullable
@@ -1288,33 +1264,26 @@ public class EthernetTetheringTest {
     // sending out an IPv4 packet and extracting the source address from CLAT translated IPv6
     // packet.
     //
-    private void runClatUdpTest(TetheringTester tester) throws Exception {
-        final TetheredDevice tethered = tester.createTetheredDevice(MacAddress.fromString(
-                "1:2:3:4:5:6"), true /* hasIpv6 */);
+    private void runClatUdpTest() throws Exception {
+        // CLAT only starts on IPv6 only network.
+        final TetheringTester tester = initTetheringTester(toList(TEST_IP6_ADDR),
+                toList(TEST_IP6_DNS));
+        final TetheredDevice tethered = tester.createTetheredDevice(TEST_MAC, true /* hasIpv6 */);
 
         // Get CLAT IPv6 address.
-        final Inet6Address clatAddr6 = getClatIpv6Address(tester, tethered);
+        final Inet6Address clatIp6 = getClatIpv6Address(tester, tethered);
 
         // Send an IPv4 UDP packet in original direction.
         // IPv4 packet -- CLAT translation --> IPv6 packet
-        final ByteBuffer originalPacket = buildUdpPacket(tethered.macAddr,
-                tethered.routerMacAddr, tethered.ipv4Addr /* srcIp */,
-                REMOTE_IP4_ADDR /* dstIp */, LOCAL_PORT /* srcPort */, REMOTE_PORT /* dstPort */,
-                PAYLOAD /* payload */);
-        tester.verifyUpload(originalPacket, p -> {
-            Log.d(TAG, "Packet in upstream: " + dumpHexString(p));
-            return isExpectedUdpPacket(p, false /* hasEther */, false /* isIpv4 */, PAYLOAD);
-        });
+        final InetAddress remoteIp4 = REMOTE_IP4_ADDR;
+        final InetAddress tetheredIp4 = tethered.ipv4Addr;
+        sendPacketUdp(UPLOAD, tetheredIp4, remoteIp4, true /* is464 */, tester, tethered);
 
         // Send an IPv6 UDP packet in reply direction.
         // IPv6 packet -- CLAT translation --> IPv4 packet
-        final ByteBuffer replyPacket = buildUdpPacket(REMOTE_NAT64_ADDR /* srcIp */,
-                clatAddr6 /* dstIp */, REMOTE_PORT /* srcPort */, LOCAL_PORT /* dstPort */,
-                PAYLOAD2 /* payload */);
-        tester.verifyDownload(replyPacket, p -> {
-            Log.d(TAG, "Packet in downstream: " + dumpHexString(p));
-            return isExpectedUdpPacket(p, true /* hasEther */, true /* isIpv4 */, PAYLOAD2);
-        });
+        final InetAddress remoteIp6 = REMOTE_NAT64_ADDR;
+        final InetAddress publicIp6 = clatIp6;
+        sendPacketUdp(DOWNLOAD, remoteIp6, publicIp6, true /* is464 */, tester, tethered);
 
         // TODO: test CLAT bpf maps.
     }
@@ -1322,8 +1291,7 @@ public class EthernetTetheringTest {
     @Test
     @IgnoreUpTo(Build.VERSION_CODES.R)
     public void testTetherClatUdp() throws Exception {
-        // CLAT only starts on IPv6 only network.
-        runClatUdpTest(initTetheringTester(toList(TEST_IP6_ADDR), toList(TEST_IP6_DNS)));
+        runClatUdpTest();
     }
 
     private <T> List<T> toList(T... array) {
