@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5384fd5a_c575db82",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-28T07:25:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9d7599e_ab771cbb",
+      "range": {
+        "startLine": 298,
+        "startChar": 8,
+        "endLine": 298,
+        "endChar": 16
+      },
+      "revId": "2ee55d992dd61c4febe0bdfb1315dc5f6b27f723",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c1265fa_11335914",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b995070_8d5f2d69",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-28T07:25:33Z",
+      "side": 1,
+      "message": "We don\u0027t have synchronized getEthernetEnabled API could query current etherent state. So I prefer this scheme because register new callback could give us the last ethernet state.\n\nReusing ifaceListener would have problem that there is no state change when we call setEthernetEnabled if the state is already enabled state.",
+      "parentUuid": "4c1265fa_11335914",
+      "range": {
+        "startLine": 408,
+        "startChar": 12,
+        "endLine": 408,
+        "endChar": 20
+      },
+      "revId": "2ee55d992dd61c4febe0bdfb1315dc5f6b27f723",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a1fcb4a_33dfca83",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-06-23T19:09:09Z",
       "side": 1,
       "message": "nit: I think the following syntax is easier to read in this scenario:\n```\nenabled ? ETHERNET_STATE_ENABLED : ETHERNET_STATE_DISABLED\n```",
+      "range": {
+        "startLine": 412,
+        "startChar": 20,
+        "endLine": 412,
+        "endChar": 85
+      },
+      "revId": "2ee55d992dd61c4febe0bdfb1315dc5f6b27f723",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19fd4999_e8c33fdb",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-28T07:25:33Z",
+      "side": 1,
+      "message": "Kotlin doesn\u0027t support ternary operator.",
+      "parentUuid": "4a1fcb4a_33dfca83",
       "range": {
         "startLine": 412,
         "startChar": 20,
