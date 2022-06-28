@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9019a487_3163166f",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-28T11:43:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcfa58c6_dd1a0b36",
+      "range": {
+        "startLine": 210,
+        "startChar": 10,
+        "endLine": 210,
+        "endChar": 27
+      },
+      "revId": "e9616963324a8257c2ad01505abd54a0eb2b7119",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f95b430_533959e7",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-06-28T07:00:19Z",
       "side": 1,
       "message": "Looks like this should put to setup() since we need a user for testing at least.",
+      "range": {
+        "startLine": 220,
+        "startChar": 8,
+        "endLine": 221,
+        "endChar": 56
+      },
+      "revId": "e9616963324a8257c2ad01505abd54a0eb2b7119",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3805d960_6e886ad1",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-28T11:43:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f95b430_533959e7",
       "range": {
         "startLine": 220,
         "startChar": 8,
