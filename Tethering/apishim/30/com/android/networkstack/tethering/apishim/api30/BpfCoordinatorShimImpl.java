@@ -19,6 +19,9 @@ package com.android.networkstack.tethering.apishim.api30;
 import android.net.INetd;
 import android.net.MacAddress;
 import android.net.TetherStatsParcel;
+import android.net.module.util.bpf.Tether4Key;
+import android.net.module.util.bpf.Tether4Value;
+import android.net.module.util.bpf.TetherStatsValue;
 import android.net.util.SharedLog;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
@@ -28,9 +31,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.net.module.util.IBpfMap.ThrowingBiConsumer;
-import com.android.net.module.util.bpf.Tether4Key;
-import com.android.net.module.util.bpf.Tether4Value;
-import com.android.net.module.util.bpf.TetherStatsValue;
 import com.android.networkstack.tethering.BpfCoordinator.Dependencies;
 import com.android.networkstack.tethering.BpfCoordinator.Ipv6ForwardingRule;
 
