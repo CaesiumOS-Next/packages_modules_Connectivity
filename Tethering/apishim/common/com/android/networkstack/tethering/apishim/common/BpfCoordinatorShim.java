@@ -17,15 +17,15 @@
 package com.android.networkstack.tethering.apishim.common;
 
 import android.net.MacAddress;
+import android.net.module.util.bpf.Tether4Key;
+import android.net.module.util.bpf.Tether4Value;
+import android.net.module.util.bpf.TetherStatsValue;
 import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.net.module.util.IBpfMap.ThrowingBiConsumer;
-import com.android.net.module.util.bpf.Tether4Key;
-import com.android.net.module.util.bpf.Tether4Value;
-import com.android.net.module.util.bpf.TetherStatsValue;
 import com.android.networkstack.tethering.BpfCoordinator.Dependencies;
 import com.android.networkstack.tethering.BpfCoordinator.Ipv6ForwardingRule;
 

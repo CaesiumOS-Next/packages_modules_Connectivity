@@ -45,6 +45,10 @@ import android.annotation.NonNull;
 import android.net.INetd;
 import android.net.InetAddresses;
 import android.net.IpPrefix;
+import android.net.module.util.bpf.ClatEgress4Key;
+import android.net.module.util.bpf.ClatEgress4Value;
+import android.net.module.util.bpf.ClatIngress6Key;
+import android.net.module.util.bpf.ClatIngress6Value;
 import android.os.Build;
 import android.os.ParcelFileDescriptor;
 
@@ -52,10 +56,6 @@ import androidx.test.filters.SmallTest;
 
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.net.module.util.IBpfMap;
-import com.android.net.module.util.bpf.ClatEgress4Key;
-import com.android.net.module.util.bpf.ClatEgress4Value;
-import com.android.net.module.util.bpf.ClatIngress6Key;
-import com.android.net.module.util.bpf.ClatIngress6Value;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.TestBpfMap;
