@@ -236,6 +236,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c460d4e_c14b8520",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-29T01:58:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "22f62057_8e11e071",
+      "range": {
+        "startLine": 224,
+        "startChar": 8,
+        "endLine": 224,
+        "endChar": 22
+      },
+      "revId": "ecc6888c735ef80bd5c070ee75ecea9be450de9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30fab8c0_fec38469",
@@ -414,6 +438,30 @@
       "side": 1,
       "message": "testPreSClients and testNoDaemonStartedWhenClientsConnect would connect two clients and it\u0027s clear to connect client in the test. So I think it can not move to setup().",
       "parentUuid": "b8a4f12d_930f5419",
+      "range": {
+        "startLine": 295,
+        "startChar": 8,
+        "endLine": 295,
+        "endChar": 52
+      },
+      "revId": "ecc6888c735ef80bd5c070ee75ecea9be450de9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b71d30b_f4341c93",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-29T01:58:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b9d9412e_fd5d194a",
       "range": {
         "startLine": 295,
         "startChar": 8,
