@@ -22,6 +22,30 @@
       },
       "revId": "08c9579145ce632b67cc152146213db3ca431eb7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c754316_35c72ad9",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 920,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-06-29T06:19:04Z",
+      "side": 1,
+      "message": "Per offline discussion, update to  final int maxUid \u003d  userBase + UserHandle.PER_USER_RANGE - 1.\n\nIt\u0027s clearer to me",
+      "parentUuid": "818a85c1_63c5d521",
+      "range": {
+        "startLine": 920,
+        "startChar": 27,
+        "endLine": 920,
+        "endChar": 43
+      },
+      "revId": "08c9579145ce632b67cc152146213db3ca431eb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
