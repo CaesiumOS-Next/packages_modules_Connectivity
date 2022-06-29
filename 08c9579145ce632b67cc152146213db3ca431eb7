@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "818a85c1_63c5d521",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 920,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-29T04:13:37Z",
+      "side": 1,
+      "message": "What about \"(userId + 1) * UserHandle.PER_USER_RANGE - 1\"?",
+      "range": {
+        "startLine": 920,
+        "startChar": 27,
+        "endLine": 920,
+        "endChar": 43
+      },
+      "revId": "08c9579145ce632b67cc152146213db3ca431eb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
