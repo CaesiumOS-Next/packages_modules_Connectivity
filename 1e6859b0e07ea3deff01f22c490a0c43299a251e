@@ -22,6 +22,30 @@
       },
       "revId": "1e6859b0e07ea3deff01f22c490a0c43299a251e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17c50d33_8a1fca80",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 44
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-06-29T21:28:51Z",
+      "side": 1,
+      "message": "Thanks for the input! Funny enough is that I had already pushed a patch with a fix for this if you want to take a look (feel free to reopen of start a new comment thread if you want to continue discussing)? \n\nI was not aware of isSameAddressAs() however (good find). I\u0027ve just pushed a new patch with that in place.",
+      "parentUuid": "ec8853b0_db4d212d",
+      "range": {
+        "startLine": 448,
+        "startChar": 8,
+        "endLine": 452,
+        "endChar": 9
+      },
+      "revId": "1e6859b0e07ea3deff01f22c490a0c43299a251e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
