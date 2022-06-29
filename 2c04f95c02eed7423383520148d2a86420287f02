@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bf810a4_7bb7e7e7",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-29T16:41:07Z",
+      "side": 1,
+      "message": "Can you add code that checks that the checksum is correct? That would have caught this particular bug, wouldn\u0027t it?",
+      "range": {
+        "startLine": 347,
+        "startChar": 8,
+        "endLine": 347,
+        "endChar": 9
+      },
+      "revId": "2c04f95c02eed7423383520148d2a86420287f02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
