@@ -136,8 +136,8 @@ class DscpPolicyTest {
 
     @Before
     fun setUp() {
-        // For BPF support kernel needs to be at least 5.4.
-        assumeTrue(kernelIsAtLeast(5, 4))
+        // For BPF support kernel needs to be at least 5.10.
+        assumeTrue(kernelIsAtLeast(5, 10))
 
         runAsShell(MANAGE_TEST_NETWORKS) {
             val tnm = realContext.getSystemService(TestNetworkManager::class.java)
