@@ -16,6 +16,24 @@
       "message": "Do we have a way to share these constants between C and java?",
       "revId": "d358cdf973c99eb00665e9e57ded57d94caa076e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50f99c76_90333cf6",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-06-29T02:16:40Z",
+      "side": 1,
+      "message": "It seems currently we can not.",
+      "parentUuid": "5f6d4251_f3da5d86",
+      "revId": "d358cdf973c99eb00665e9e57ded57d94caa076e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
