@@ -27,6 +27,7 @@ import static android.net.ConnectivityManager.FIREWALL_CHAIN_STANDBY;
 import static android.net.INetd.PERMISSION_INTERNET;
 
 import static com.android.server.BpfNetMaps.DOZABLE_MATCH;
+import static com.android.server.BpfNetMaps.HAPPY_BOX_MATCH;
 import static com.android.server.BpfNetMaps.NO_MATCH;
 import static com.android.server.BpfNetMaps.PENALTY_BOX_MATCH;
 import static com.android.server.BpfNetMaps.POWERSAVE_MATCH;
@@ -357,5 +358,42 @@ public final class BpfNetMapsTest {
     public void testAddNaughtyAppBeforeT() {
         assertThrows(UnsupportedOperationException.class,
                 () -> mBpfNetMaps.addNaughtyApp(TEST_UID));
+    }
+
+    private void doTestRemoveNiceApp(final long enabledMatch) throws Exception {
+        sUidOwnerMap.updateEntry(new U32(TEST_UID), new UidOwnerValue(0 /* iif */, enabledMatch));
+
+        mBpfNetMaps.removeNiceApp(TEST_UID);
+
+        checkUidOwnerValue(0 /* expectedIif */, enabledMatch & ~HAPPY_BOX_MATCH);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testRemoveNiceApp() throws Exception {
+        doTestRemoveNiceApp(HAPPY_BOX_MATCH);
+
+        // HAPPY_BOX_MATCH with other matches
+        doTestRemoveNiceApp(HAPPY_BOX_MATCH | DOZABLE_MATCH);
+        doTestRemoveNiceApp(
+                HAPPY_BOX_MATCH | DOZABLE_MATCH | POWERSAVE_MATCH | RESTRICTED_MATCH);
+
+        // HAPPY_BOX_MATCH is not enabled
+        doTestRemoveNiceApp(DOZABLE_MATCH | POWERSAVE_MATCH | RESTRICTED_MATCH);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testRemoveNiceAppMissingUid() {
+        // sUidOwnerMap does not have entry for TEST_UID
+        assertThrows(ServiceSpecificException.class,
+                () -> mBpfNetMaps.removeNiceApp(TEST_UID));
+    }
+
+    @Test
+    @IgnoreAfter(Build.VERSION_CODES.S_V2)
+    public void testRemoveNiceAppBeforeT() {
+        assertThrows(UnsupportedOperationException.class,
+                () -> mBpfNetMaps.removeNiceApp(TEST_UID));
     }
 }
