@@ -33,6 +33,24 @@
       "message": "The problem with Go devices is that they\u0027re using in process network stack, and that breaks the selinux/unix permission model.  We should fix that instead.  Or get them to run out of process network stack.",
       "revId": "0a9fc7556aa390d0dfcb9e4be174b6d488faf048",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a62bcf4_44bac52d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-29T07:04:52Z",
+      "side": 1,
+      "message": "+1, if we have this change and there is a bug make the map not load, we can\u0027t aware it by this test anymore.",
+      "parentUuid": "67f126a2_c8e10a79",
+      "revId": "0a9fc7556aa390d0dfcb9e4be174b6d488faf048",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
