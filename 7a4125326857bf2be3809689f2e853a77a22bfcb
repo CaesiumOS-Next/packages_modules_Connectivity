@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74d258da_5a7697c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 45
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-29T18:55:59Z",
+      "side": 1,
+      "message": "Note that this will not pass treehugger right now. There are at least two failures that I have seen:\n- Only the first LinkAddress is compared to the expected address (there should always be an Ipv6 address present).\n- There is an additional LinkProperties update where a second global ipv6 address gets added. This one I don\u0027t fully understand, and we should talk to xiaom@ to learn more about it:\nNetwork becomes available:\n```\n06-28 21:15:20.459  4685  4898 D TestableNetworkCallback: onAvailable 104\n06-28 21:15:20.460  4685  4898 D TestableNetworkCallback: onCapabilitiesChanged 104 [ Transports: ETHERNET|TEST Capabilities: NOT_METERED\u0026NOT_RESTRICTED\u0026NOT_VPN\u0026NOT_ROAMING\u0026FOREGROUND\u0026NOT_CONGESTED\u0026NOT_SUSPENDED\u0026NOT_VCN_MANAGED Specifier: \u003cEthernetNetworkSpecifier (testtap1)\u003e UnderlyingNetworks: Null]\n06-28 21:15:20.461  4685  4898 D TestableNetworkCallback: onLinkPropertiesChanged 104 {InterfaceName: testtap1 LinkAddresses: [ fe80::9b37:b5a6:6ea:7094/64,2001:db8::e0dc:9ff2:102d:9198/64 ] DnsAddresses: [ /2001:4860:4860::64 ] Domains: null MTU: 0 TcpBufferSizes: 524288,1048576,3145728,524288,1048576,2097152 Routes: [ fe80::/64 -\u003e :: testtap1 mtu 0,::/0 -\u003e fe80::abcd testtap1 mtu 0,2001:db8::/64 -\u003e :: testtap1 mtu 0 ]}\n06-28 21:15:20.461  4685  4898 D TestableNetworkCallback: onBlockedStatusChanged 104 false\n```\n\nNew global ipv6 address (2001:db8::8881:b07b:f08d:43ef/64) gets added:\n```\n06-28 21:15:21.003  4685  4898 D TestableNetworkCallback: onLinkPropertiesChanged 104 {InterfaceName: testtap1 LinkAddresses: [ fe80::9b37:b5a6:6ea:7094/64,2001:db8::e0dc:9ff2:102d:9198/64,2001:db8::8881:b07b:f08d:43ef/64 ] DnsAddresses: [ /2001:4860:4860::64 ] Domains: null MTU: 0 TcpBufferSizes: 524288,1048576,3145728,524288,1048576,2097152 Routes: [ fe80::/64 -\u003e :: testtap1 mtu 0,::/0 -\u003e fe80::abcd testtap1 mtu 0,2001:db8::/64 -\u003e :: testtap1 mtu 0 ]}\n```\n",
+      "revId": "7a4125326857bf2be3809689f2e853a77a22bfcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec8853b0_db4d212d",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 44
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-29T18:55:59Z",
+      "side": 1,
+      "message": "This assertion is failing in the presence of an IPv6 address:\n\n```\njava.lang.AssertionError: LinkProperties don\u0027t match expectations {InterfaceName: testtap24 LinkAddresses: [ fe80::59e3:53b0:caed:881e/64,192.0.2.1/30 ] DnsAddresses: [ ] Domains: null MTU: 0 TcpBufferSizes: 524288,1048576,3145728,524288,1048576,2097152 Routes: [ fe80::/64 -\u003e :: testtap24 mtu 0,192.0.2.0/30 -\u003e 0.0.0.0 testtap24 mtu 0 ]}\n```\n\nYou\u0027ll have to loop over all LinkAddresses. Also just saw LinkAddress#isSameAddressAs() -- is that usable from this test?",
+      "range": {
+        "startLine": 448,
+        "startChar": 8,
+        "endLine": 452,
+        "endChar": 9
+      },
+      "revId": "1e6859b0e07ea3deff01f22c490a0c43299a251e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
