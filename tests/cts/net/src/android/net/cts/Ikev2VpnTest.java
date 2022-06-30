@@ -20,10 +20,10 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.cts.util.CtsNetUtils.TestNetworkCallback;
+import static android.os.Build.VERSION_CODES.S_V2;
 
 import static com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity;
 import static com.android.modules.utils.build.SdkLevel.isAtLeastT;
-import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 import static com.android.testutils.TestableNetworkCallbackKt.anyNetwork;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -322,7 +322,7 @@ public class Ikev2VpnTest {
         }
     }
 
-    @IgnoreUpTo(SC_V2)
+    @IgnoreUpTo(S_V2)
     @Test
     public void testBuildIkev2VpnProfileWithIkeTunnelConnectionParams() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
@@ -626,7 +626,7 @@ public class Ikev2VpnTest {
                 false /* testSessionKey */, false /* testIkeTunConnParams */);
     }
 
-    @Test @IgnoreUpTo(SC_V2)
+    @Test @IgnoreUpTo(S_V2)
     public void testStartStopVpnProfileV4WithValidation() throws Exception {
         assumeTrue(TestUtils.shouldTestTApis());
         doTestStartStopVpnProfile(false /* testIpv6Only */, true /* requiresValidation */,
@@ -639,42 +639,42 @@ public class Ikev2VpnTest {
                 false /* testSessionKey */, false /* testIkeTunConnParams */);
     }
 
-    @Test @IgnoreUpTo(SC_V2)
+    @Test @IgnoreUpTo(S_V2)
     public void testStartStopVpnProfileV6WithValidation() throws Exception {
         assumeTrue(TestUtils.shouldTestTApis());
         doTestStartStopVpnProfile(true /* testIpv6Only */, true /* requiresValidation */,
                 false /* testSessionKey */, false /* testIkeTunConnParams */);
     }
 
-    @Test @IgnoreUpTo(SC_V2)
+    @Test @IgnoreUpTo(S_V2)
     public void testStartStopVpnProfileIkeTunConnParamsV4() throws Exception {
         assumeTrue(TestUtils.shouldTestTApis());
         doTestStartStopVpnProfile(false /* testIpv6Only */, false /* requiresValidation */,
                 false /* testSessionKey */, true /* testIkeTunConnParams */);
     }
 
-    @Test @IgnoreUpTo(SC_V2)
+    @Test @IgnoreUpTo(S_V2)
     public void testStartStopVpnProfileIkeTunConnParamsV4WithValidation() throws Exception {
         assumeTrue(TestUtils.shouldTestTApis());
         doTestStartStopVpnProfile(false /* testIpv6Only */, true /* requiresValidation */,
                 false /* testSessionKey */, true /* testIkeTunConnParams */);
     }
 
-    @Test @IgnoreUpTo(SC_V2)
+    @Test @IgnoreUpTo(S_V2)
     public void testStartStopVpnProfileIkeTunConnParamsV6() throws Exception {
         assumeTrue(TestUtils.shouldTestTApis());
         doTestStartStopVpnProfile(true /* testIpv6Only */, false /* requiresValidation */,
                 false /* testSessionKey */, true /* testIkeTunConnParams */);
     }
 
-    @Test @IgnoreUpTo(SC_V2)
+    @Test @IgnoreUpTo(S_V2)
     public void testStartStopVpnProfileIkeTunConnParamsV6WithValidation() throws Exception {
         assumeTrue(TestUtils.shouldTestTApis());
         doTestStartStopVpnProfile(true /* testIpv6Only */, true /* requiresValidation */,
                 false /* testSessionKey */, true /* testIkeTunConnParams */);
     }
 
-    @IgnoreUpTo(SC_V2)
+    @IgnoreUpTo(S_V2)
     @Test
     public void testStartProvisionedVpnV4ProfileSession() throws Exception {
         assumeTrue(TestUtils.shouldTestTApis());
@@ -682,7 +682,7 @@ public class Ikev2VpnTest {
                 true /* testSessionKey */, false /* testIkeTunConnParams */);
     }
 
-    @IgnoreUpTo(SC_V2)
+    @IgnoreUpTo(S_V2)
     @Test
     public void testStartProvisionedVpnV6ProfileSession() throws Exception {
         assumeTrue(TestUtils.shouldTestTApis());

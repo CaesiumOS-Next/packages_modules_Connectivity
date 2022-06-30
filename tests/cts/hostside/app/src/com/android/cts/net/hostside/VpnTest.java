@@ -21,6 +21,7 @@ import static android.content.pm.PackageManager.FEATURE_TELEPHONY;
 import static android.content.pm.PackageManager.FEATURE_WIFI;
 import static android.net.ConnectivityManager.TYPE_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
+import static android.os.Build.VERSION_CODES.S_V2;
 import static android.os.Process.INVALID_UID;
 import static android.system.OsConstants.AF_INET;
 import static android.system.OsConstants.AF_INET6;
@@ -36,7 +37,6 @@ import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentat
 
 import static com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity;
 import static com.android.testutils.Cleanup.testAndCleanup;
-import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -825,7 +825,7 @@ public class VpnTest {
                                 .getCaps().getUnderlyingNetworks())));
     }
 
-    @Test @IgnoreUpTo(SC_V2) // TODO: Use to Build.VERSION_CODES.SC_V2 when available
+    @Test @IgnoreUpTo(S_V2)
     public void testChangeUnderlyingNetworks() throws Exception {
         assumeTrue(supportedHardware());
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));

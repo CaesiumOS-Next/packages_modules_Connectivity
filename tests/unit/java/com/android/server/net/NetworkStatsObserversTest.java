@@ -27,9 +27,8 @@ import static android.net.NetworkStats.TAG_NONE;
 import static android.net.NetworkTemplate.buildTemplateMobileAll;
 import static android.net.NetworkTemplate.buildTemplateWifiWildcard;
 import static android.net.TrafficStats.MB_IN_BYTES;
+import static android.os.Build.VERSION_CODES.S_V2;
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
-
-import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
@@ -73,7 +72,7 @@ import java.util.Objects;
  */
 @RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
-@DevSdkIgnoreRule.IgnoreUpTo(SC_V2) // TODO: Use to Build.VERSION_CODES.SC_V2 when available
+@DevSdkIgnoreRule.IgnoreUpTo(S_V2)
 public class NetworkStatsObserversTest {
     private static final String TEST_IFACE = "test0";
     private static final String TEST_IFACE2 = "test1";

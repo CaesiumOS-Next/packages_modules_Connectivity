@@ -16,7 +16,7 @@
 
 package android.net.cts;
 
-import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
+import static android.os.Build.VERSION_CODES.S_V2;
 
 import android.os.Build;
 
@@ -41,7 +41,6 @@ public class TestUtils {
      * b) that the code be compiled against shims new enough to access these APIs.
      */
     public static boolean shouldTestTApis() {
-        // TODO: replace SC_V2 with Build.VERSION_CODES.S_V2 when it's available in mainline branch.
-        return SdkLevel.isAtLeastT() && ConstantsShim.VERSION > SC_V2;
+        return SdkLevel.isAtLeastT() && ConstantsShim.VERSION > S_V2;
     }
 }

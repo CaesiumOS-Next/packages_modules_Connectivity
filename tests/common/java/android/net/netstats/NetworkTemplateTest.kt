@@ -32,12 +32,12 @@ import android.net.NetworkTemplate.MATCH_WIFI
 import android.net.NetworkTemplate.MATCH_WIFI_WILDCARD
 import android.net.NetworkTemplate.NETWORK_TYPE_ALL
 import android.net.NetworkTemplate.OEM_MANAGED_ALL
+import android.os.Build.VERSION_CODES.S_V2
 import android.telephony.TelephonyManager
 import com.android.net.module.util.NetworkStatsUtils.SUBSCRIBER_ID_MATCH_RULE_ALL
 import com.android.net.module.util.NetworkStatsUtils.SUBSCRIBER_ID_MATCH_RULE_EXACT
 import com.android.testutils.ConnectivityModuleTest
 import com.android.testutils.DevSdkIgnoreRule
-import com.android.testutils.SC_V2
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -54,7 +54,7 @@ private const val TEST_WIFI_KEY2 = "wifiKey2"
 class NetworkTemplateTest {
     @Rule
     @JvmField
-    val ignoreRule = DevSdkIgnoreRule(ignoreClassUpTo = SC_V2)
+    val ignoreRule = DevSdkIgnoreRule(ignoreClassUpTo = S_V2)
 
     @Test
     fun testBuilderMatchRules() {

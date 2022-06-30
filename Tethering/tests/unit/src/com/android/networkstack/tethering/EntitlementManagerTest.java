@@ -32,6 +32,7 @@ import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static android.net.TetheringManager.TETHER_ERROR_ENTITLEMENT_UNKNOWN;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_PROVISIONING_FAILED;
+import static android.os.Build.VERSION_CODES.S_V2;
 import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 import static android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID;
 
@@ -39,7 +40,6 @@ import static com.android.dx.mockito.inline.extended.ExtendedMockito.doReturn;
 import static com.android.dx.mockito.inline.extended.ExtendedMockito.mockitoSession;
 import static com.android.networkstack.apishim.ConstantsShim.KEY_CARRIER_SUPPORTS_TETHERING_BOOL;
 import static com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
-import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -676,7 +676,7 @@ public final class EntitlementManagerTest {
     }
 
     @Test
-    @IgnoreUpTo(SC_V2)
+    @IgnoreUpTo(S_V2)
     public void requestLatestTetheringEntitlementResult_carrierDoesNotSupport_noProvisionCount()
             throws Exception {
         setupCarrierConfig(false);
@@ -695,7 +695,7 @@ public final class EntitlementManagerTest {
     }
 
     @Test
-    @IgnoreUpTo(SC_V2)
+    @IgnoreUpTo(S_V2)
     public void reevaluateSimCardProvisioning_carrierUnsupportAndSimswitch() {
         setupForRequiredProvisioning();
 
@@ -720,7 +720,7 @@ public final class EntitlementManagerTest {
     }
 
     @Test
-    @IgnoreUpTo(SC_V2)
+    @IgnoreUpTo(S_V2)
     public void startProvisioningIfNeeded_carrierUnsupport()
             throws Exception {
         setupCarrierConfig(false);

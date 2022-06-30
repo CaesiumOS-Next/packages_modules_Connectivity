@@ -16,8 +16,9 @@
 
 package com.android.server.connectivity.mdns;
 
+import static android.os.Build.VERSION_CODES.S_V2;
+
 import static com.android.server.connectivity.mdns.MdnsResponseDecoder.Clock;
-import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -43,7 +44,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @RunWith(DevSdkIgnoreRunner.class)
-@DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
+@DevSdkIgnoreRule.IgnoreUpTo(S_V2)
 public class MdnsResponseDecoderTests {
     private static final byte[] data = HexDump.hexStringToByteArray(
             "0000840000000004"

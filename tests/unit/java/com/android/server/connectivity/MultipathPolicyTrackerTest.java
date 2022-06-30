@@ -23,11 +23,11 @@ import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkPolicy.LIMIT_DISABLED;
 import static android.net.NetworkPolicy.SNOOZE_NEVER;
 import static android.net.NetworkPolicy.WARNING_DISABLED;
+import static android.os.Build.VERSION_CODES.S_V2;
 import static android.provider.Settings.Global.NETWORK_DEFAULT_DAILY_MULTIPATH_QUOTA_BYTES;
 
 import static com.android.server.net.NetworkPolicyManagerInternal.QUOTA_TYPE_MULTIPATH;
 import static com.android.server.net.NetworkPolicyManagerService.OPPORTUNISTIC_QUOTA_UNKNOWN;
-import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -406,7 +406,7 @@ public class MultipathPolicyTrackerTest {
                 any(), eq(DataUnit.MEGABYTES.toBytes(14)), any(), any());
     }
 
-    @DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
+    @DevSdkIgnoreRule.IgnoreUpTo(S_V2)
     @Test
     public void testOnThresholdReached() {
         prepareGetMultipathPreferenceTest(

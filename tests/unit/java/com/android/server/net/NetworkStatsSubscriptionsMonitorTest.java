@@ -16,10 +16,9 @@
 
 package com.android.server.net;
 
+import static android.os.Build.VERSION_CODES.S_V2;
 import static android.telephony.TelephonyDisplayInfo.OVERRIDE_NETWORK_TYPE_NONE;
 import static android.telephony.TelephonyDisplayInfo.OVERRIDE_NETWORK_TYPE_NR_NSA;
-
-import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -64,7 +63,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 @RunWith(DevSdkIgnoreRunner.class)
-@DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
+@DevSdkIgnoreRule.IgnoreUpTo(S_V2)
 public final class NetworkStatsSubscriptionsMonitorTest {
     private static final int TEST_SUBID1 = 3;
     private static final int TEST_SUBID2 = 5;

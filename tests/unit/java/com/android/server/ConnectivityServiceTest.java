@@ -142,6 +142,7 @@ import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.PREFI
 import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.PREFIX_OPERATION_REMOVED;
 import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.VALIDATION_RESULT_FAILURE;
 import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.VALIDATION_RESULT_SUCCESS;
+import static android.os.Build.VERSION_CODES.S_V2;
 import static android.os.Process.INVALID_UID;
 import static android.system.OsConstants.IPPROTO_TCP;
 
@@ -157,7 +158,6 @@ import static com.android.testutils.ConcurrentUtils.await;
 import static com.android.testutils.ConcurrentUtils.durationOf;
 import static com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import static com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
-import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 import static com.android.testutils.ExceptionUtils.ignoreExceptions;
 import static com.android.testutils.HandlerUtils.waitForIdleSerialExecutor;
 import static com.android.testutils.MiscAsserts.assertContainsAll;
@@ -9513,7 +9513,7 @@ public class ConnectivityServiceTest {
         b2.expectBroadcast();
     }
 
-    @Test @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    @Test @IgnoreUpTo(S_V2)
     public void testLockdownSetFirewallUidRule() throws Exception {
         final Set<Range<Integer>> lockdownRange = UidRange.toIntRanges(Set.of(PRIMARY_UIDRANGE));
         // Enable Lockdown
@@ -9558,7 +9558,7 @@ public class ConnectivityServiceTest {
         reset(mBpfNetMaps);
     }
 
-    @Test @IgnoreUpTo(SC_V2)
+    @Test @IgnoreUpTo(S_V2)
     public void testSetUidFirewallRule() throws Exception {
         doTestSetUidFirewallRule(FIREWALL_CHAIN_DOZABLE, FIREWALL_RULE_DENY);
         doTestSetUidFirewallRule(FIREWALL_CHAIN_STANDBY, FIREWALL_RULE_ALLOW);
@@ -9570,7 +9570,7 @@ public class ConnectivityServiceTest {
         doTestSetUidFirewallRule(FIREWALL_CHAIN_OEM_DENY_3, FIREWALL_RULE_ALLOW);
     }
 
-    @Test @IgnoreUpTo(SC_V2)
+    @Test @IgnoreUpTo(S_V2)
     public void testSetFirewallChainEnabled() throws Exception {
         final List<Integer> firewallChains = Arrays.asList(
                 FIREWALL_CHAIN_DOZABLE,
@@ -9600,7 +9600,7 @@ public class ConnectivityServiceTest {
         reset(mBpfNetMaps);
     }
 
-    @Test @IgnoreUpTo(SC_V2)
+    @Test @IgnoreUpTo(S_V2)
     public void testReplaceFirewallChain() {
         doTestReplaceFirewallChain(FIREWALL_CHAIN_DOZABLE, "fw_dozable", true);
         doTestReplaceFirewallChain(FIREWALL_CHAIN_STANDBY, "fw_standby", false);
@@ -9612,7 +9612,7 @@ public class ConnectivityServiceTest {
         doTestReplaceFirewallChain(FIREWALL_CHAIN_OEM_DENY_3, "fw_oem_deny_3", false);
     }
 
-    @Test @IgnoreUpTo(SC_V2)
+    @Test @IgnoreUpTo(S_V2)
     public void testInvalidFirewallChain() throws Exception {
         final int uid = 1001;
         final Class<IllegalArgumentException> expected = IllegalArgumentException.class;
@@ -9624,7 +9624,7 @@ public class ConnectivityServiceTest {
         assertThrows(expected, () -> mCm.replaceFirewallChain(100 /* chain */, new int[]{uid}));
     }
 
-    @Test @IgnoreUpTo(SC_V2)
+    @Test @IgnoreUpTo(S_V2)
     public void testInvalidFirewallRule() throws Exception {
         final Class<IllegalArgumentException> expected = IllegalArgumentException.class;
         assertThrows(expected,
@@ -12236,7 +12236,7 @@ public class ConnectivityServiceTest {
                         && session.getSessionType() == QosSession.TYPE_NR_BEARER));
     }
 
-    @Test @IgnoreUpTo(SC_V2)
+    @Test @IgnoreUpTo(S_V2)
     public void testQosCallbackAvailableOnValidationError() throws Exception {
         mQosCallbackMockHelper = new QosCallbackMockHelper();
         final NetworkAgentWrapper wrapper = mQosCallbackMockHelper.mAgentWrapper;
@@ -12272,7 +12272,7 @@ public class ConnectivityServiceTest {
                 .onError(eq(QosCallbackException.EX_TYPE_FILTER_SOCKET_REMOTE_ADDRESS_CHANGED));
     }
 
-    @Test @IgnoreUpTo(SC_V2)
+    @Test @IgnoreUpTo(S_V2)
     public void testQosCallbackLostOnValidationError() throws Exception {
         mQosCallbackMockHelper = new QosCallbackMockHelper();
         final int sessionId = 10;
@@ -16273,7 +16273,7 @@ public class ConnectivityServiceTest {
                 null /* callingAttributionTag */));
     }
 
-    @Test @IgnoreUpTo(SC_V2)
+    @Test @IgnoreUpTo(S_V2)
     public void testUpdateRateLimit_EnableDisable() throws Exception {
         final LinkProperties wifiLp = new LinkProperties();
         wifiLp.setInterfaceName(WIFI_IFNAME);
@@ -16312,7 +16312,7 @@ public class ConnectivityServiceTest {
                 it -> it.first == cellLp.getInterfaceName() && it.second == -1));
     }
 
-    @Test @IgnoreUpTo(SC_V2)
+    @Test @IgnoreUpTo(S_V2)
     public void testUpdateRateLimit_WhenNewNetworkIsAdded() throws Exception {
         final LinkProperties wifiLp = new LinkProperties();
         wifiLp.setInterfaceName(WIFI_IFNAME);
@@ -16338,7 +16338,7 @@ public class ConnectivityServiceTest {
                 && it.second == rateLimitInBytesPerSec));
     }
 
-    @Test @IgnoreUpTo(SC_V2)
+    @Test @IgnoreUpTo(S_V2)
     public void testUpdateRateLimit_OnlyAffectsInternetCapableNetworks() throws Exception {
         final LinkProperties wifiLp = new LinkProperties();
         wifiLp.setInterfaceName(WIFI_IFNAME);
@@ -16356,7 +16356,7 @@ public class ConnectivityServiceTest {
         assertNull(readHeadWifi.poll(TIMEOUT_MS, it -> it.first == wifiLp.getInterfaceName()));
     }
 
-    @Test @IgnoreUpTo(SC_V2)
+    @Test @IgnoreUpTo(S_V2)
     public void testUpdateRateLimit_DisconnectingResetsRateLimit()
             throws Exception {
         // Steps:
@@ -16392,7 +16392,7 @@ public class ConnectivityServiceTest {
         assertNull(readHeadWifi.poll(TIMEOUT_MS, it -> it.first == wifiLp.getInterfaceName()));
     }
 
-    @Test @IgnoreUpTo(SC_V2)
+    @Test @IgnoreUpTo(S_V2)
     public void testUpdateRateLimit_UpdateExistingRateLimit() throws Exception {
         final LinkProperties wifiLp = new LinkProperties();
         wifiLp.setInterfaceName(WIFI_IFNAME);
@@ -16422,7 +16422,7 @@ public class ConnectivityServiceTest {
                         && it.second == 2000));
     }
 
-    @Test @IgnoreAfter(SC_V2)
+    @Test @IgnoreAfter(S_V2)
     public void testUpdateRateLimit_DoesNothingBeforeT() throws Exception {
         final LinkProperties wifiLp = new LinkProperties();
         wifiLp.setInterfaceName(WIFI_IFNAME);
