@@ -177,7 +177,7 @@ class DscpPolicyTest {
     @After
     fun tearDown() {
         if (!kernelIsAtLeast(5, 4)) {
-            return;
+            return
         }
         raResponder.stop()
         arpResponder.stop()
@@ -269,11 +269,11 @@ class DscpPolicyTest {
 
         val originalPacket = testPacket.readAsArray()
         Os.sendto(socket, originalPacket, 0 /* bytesOffset */, originalPacket.size, 0 /* flags */,
-                if(sendV6) TEST_TARGET_IPV6_ADDR else TEST_TARGET_IPV4_ADDR, dstPort)
+                if (sendV6) TEST_TARGET_IPV6_ADDR else TEST_TARGET_IPV4_ADDR, dstPort)
         Os.close(socket)
     }
 
-    fun parseV4PacketDscp(buffer : ByteBuffer) : Int {
+    fun parseV4PacketDscp(buffer: ByteBuffer): Int {
         val ip_ver = buffer.get()
         val tos = buffer.get()
         val length = buffer.getShort()
@@ -285,7 +285,7 @@ class DscpPolicyTest {
         return tos.toInt().shr(2)
     }
 
-    fun parseV6PacketDscp(buffer : ByteBuffer) : Int {
+    fun parseV6PacketDscp(buffer: ByteBuffer): Int {
         val ip_ver = buffer.get()
         val tc = buffer.get()
         val fl = buffer.getShort()
@@ -299,9 +299,9 @@ class DscpPolicyTest {
     }
 
     fun parsePacketIp(
-        buffer : ByteBuffer,
-        sendV6 : Boolean
-    ) : Boolean {
+        buffer: ByteBuffer,
+        sendV6: Boolean
+    ): Boolean {
         val ipAddr = if (sendV6) ByteArray(16) else ByteArray(4)
         buffer.get(ipAddr)
         val srcIp = if (sendV6) Inet6Address.getByAddress(ipAddr)
@@ -314,10 +314,10 @@ class DscpPolicyTest {
 
         if ((sendV6 && srcIp == LOCAL_IPV6_ADDRESS && dstIp == TEST_TARGET_IPV6_ADDR) ||
                 (!sendV6 && srcIp == LOCAL_IPV4_ADDRESS && dstIp == TEST_TARGET_IPV4_ADDR)) {
-            Log.e(TAG, "IP return true");
+            Log.e(TAG, "IP return true")
             return true
         }
-        Log.e(TAG, "IP return false");
+        Log.e(TAG, "IP return false")
         return false
     }
 
@@ -325,7 +325,7 @@ class DscpPolicyTest {
         buffer: ByteBuffer,
         srcPort: Int,
         dstPort: Int
-    ) : Boolean {
+    ): Boolean {
         if (srcPort == 0 && dstPort == 0) return true
 
         val packetSrcPort = buffer.getShort().toInt()
@@ -335,20 +335,20 @@ class DscpPolicyTest {
 
         if ((srcPort == 0 || (srcPort != 0 && srcPort == packetSrcPort)) &&
                 (dstPort == 0 || (dstPort != 0 && dstPort == packetDstPort))) {
-            Log.e(TAG, "Port return true");
+            Log.e(TAG, "Port return true")
             return true
         }
-        Log.e(TAG, "Port return false");
+        Log.e(TAG, "Port return false")
         return false
     }
 
     fun validatePacket(
-        agent : TestableNetworkAgent,
-        sendV6 : Boolean = false,
-        dscpValue : Int = 0,
-        dstPort : Int = 0
+        agent: TestableNetworkAgent,
+        sendV6: Boolean = false,
+        dscpValue: Int = 0,
+        dstPort: Int = 0
     ) {
-        var packetFound = false;
+        var packetFound = false
         sendPacket(agent, sendV6, dstPort)
         // TODO: grab source port from socket in sendPacket
 
