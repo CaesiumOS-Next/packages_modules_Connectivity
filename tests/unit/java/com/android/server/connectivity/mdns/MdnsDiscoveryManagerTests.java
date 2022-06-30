@@ -16,7 +16,7 @@
 
 package com.android.server.connectivity.mdns;
 
-import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
+import static android.os.Build.VERSION_CODES.S_V2;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -39,7 +39,7 @@ import java.util.Collections;
 
 /** Tests for {@link MdnsDiscoveryManager}. */
 @RunWith(DevSdkIgnoreRunner.class)
-@DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
+@DevSdkIgnoreRule.IgnoreUpTo(S_V2)
 public class MdnsDiscoveryManagerTests {
 
     private static final String SERVICE_TYPE_1 = "_googlecast._tcp.local";

@@ -16,7 +16,7 @@
 
 package com.android.server.connectivity.mdns;
 
-import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
+import static android.os.Build.VERSION_CODES.S_V2;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -42,7 +42,7 @@ import java.util.List;
 // The record test data does not use compressed names (label pointers), since that would require
 // additional data to populate the label dictionary accordingly.
 @RunWith(DevSdkIgnoreRunner.class)
-@DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
+@DevSdkIgnoreRule.IgnoreUpTo(S_V2)
 public class MdnsRecordTests {
     private static final String TAG = "MdnsRecordTests";
     private static final int MAX_PACKET_SIZE = 4096;

@@ -16,7 +16,7 @@
 
 package android.net;
 
-import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
+import static android.os.Build.VERSION_CODES.S_V2;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doCallRealMethod;
@@ -44,7 +44,7 @@ import org.mockito.MockitoAnnotations;
 
 @RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
-@DevSdkIgnoreRule.IgnoreUpTo(SC_V2) // TODO: Use to Build.VERSION_CODES.SC_V2 when available
+@DevSdkIgnoreRule.IgnoreUpTo(S_V2)
 public class NetworkStatsAccessTest {
     private static final String TEST_PKG = "com.example.test";
     private static final int TEST_PID = 1234;

@@ -18,8 +18,7 @@ package android.net;
 
 import static android.net.cts.util.IkeSessionTestUtils.CHILD_PARAMS;
 import static android.net.cts.util.IkeSessionTestUtils.IKE_PARAMS_V6;
-
-import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
+import static android.os.Build.VERSION_CODES.S_V2;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -269,9 +268,7 @@ public class Ikev2VpnProfileTest {
         }
     }
 
-
-    // TODO: Refer to Build.VERSION_CODES.SC_V2 when it's available in AOSP and mainline branch
-    @DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
+    @DevSdkIgnoreRule.IgnoreUpTo(S_V2)
     @Test
     public void testBuildExcludeLocalRoutesSet() throws Exception {
         final Ikev2VpnProfile.Builder builder = getBuilderWithDefaultOptions();

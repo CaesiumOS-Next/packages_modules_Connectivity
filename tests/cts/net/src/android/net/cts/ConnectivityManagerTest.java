@@ -80,6 +80,7 @@ import static android.net.cts.util.CtsNetUtils.NETWORK_CALLBACK_ACTION;
 import static android.net.cts.util.CtsNetUtils.TEST_HOST;
 import static android.net.cts.util.CtsNetUtils.TestNetworkCallback;
 import static android.net.cts.util.CtsTetheringUtils.TestTetheringEventCallback;
+import static android.os.Build.VERSION_CODES.S_V2;
 import static android.os.MessageQueue.OnFileDescriptorEventListener.EVENT_INPUT;
 import static android.os.Process.INVALID_UID;
 import static android.provider.Settings.Global.NETWORK_METERED_MULTIPATH_PREFERENCE;
@@ -96,7 +97,6 @@ import static com.android.net.module.util.NetworkStackConstants.TEST_CAPTIVE_POR
 import static com.android.networkstack.apishim.ConstantsShim.BLOCKED_REASON_LOCKDOWN_VPN;
 import static com.android.networkstack.apishim.ConstantsShim.BLOCKED_REASON_NONE;
 import static com.android.testutils.Cleanup.testAndCleanup;
-import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 import static com.android.testutils.MiscAsserts.assertThrows;
 import static com.android.testutils.TestNetworkTrackerKt.initTestNetwork;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
@@ -607,7 +607,7 @@ public class ConnectivityManagerTest {
         return null;
     }
 
-    @DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
+    @IgnoreUpTo(S_V2)
     @AppModeFull(reason = "Cannot get installed packages in instant app mode")
     @Test
     public void testGetRedactedLinkPropertiesForPackage() throws Exception {
@@ -695,7 +695,7 @@ public class ConnectivityManagerTest {
         return mCm.getRedactedNetworkCapabilitiesForPackage(nc, uid, packageName);
     }
 
-    @DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
+    @IgnoreUpTo(S_V2)
     @AppModeFull(reason = "Cannot get installed packages in instant app mode")
     @Test
     public void testGetRedactedNetworkCapabilitiesForPackage() throws Exception {
@@ -3262,7 +3262,7 @@ public class ConnectivityManagerTest {
         assertTrue(dumpOutput, dumpOutput.contains("Active default network"));
     }
 
-    @Test @IgnoreUpTo(SC_V2)
+    @Test @IgnoreUpTo(S_V2)
     public void testDumpBpfNetMaps() throws Exception {
         final String[] args = new String[] {"--short", "trafficcontroller"};
         String dumpOutput = DumpTestUtils.dumpServiceWithShellPermission(
@@ -3358,7 +3358,7 @@ public class ConnectivityManagerTest {
         }, NETWORK_SETTINGS);
     }
 
-    @Test @IgnoreUpTo(SC_V2)
+    @Test @IgnoreUpTo(S_V2)
     @AppModeFull(reason = "Socket cannot bind in instant app mode")
     public void testFirewallBlocking() {
         // ALLOWLIST means the firewall denies all by default, uids must be explicitly allowed

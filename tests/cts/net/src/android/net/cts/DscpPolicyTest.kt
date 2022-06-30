@@ -46,6 +46,7 @@ import android.net.NetworkRequest
 import android.net.TestNetworkInterface
 import android.net.TestNetworkManager
 import android.net.RouteInfo
+import android.os.Build.VERSION_CODES.S_V2
 import android.os.HandlerThread
 import android.os.SystemClock
 import android.platform.test.annotations.AppModeFull
@@ -71,7 +72,6 @@ import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.assertParcelingIsLossless
 import com.android.testutils.RouterAdvertisementResponder
 import com.android.testutils.runAsShell
-import com.android.testutils.SC_V2
 import com.android.testutils.TapPacketReader
 import com.android.testutils.TestableNetworkAgent
 import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnNetworkCreated
@@ -110,7 +110,7 @@ private const val PACKET_TIMEOUT_MS = 2_000L
 class DscpPolicyTest {
     @JvmField
     @Rule
-    val ignoreRule = DevSdkIgnoreRule(ignoreClassUpTo = SC_V2)
+    val ignoreRule = DevSdkIgnoreRule(ignoreClassUpTo = S_V2)
 
     private val LOCAL_IPV4_ADDRESS = InetAddresses.parseNumericAddress("192.0.2.1")
     private val TEST_TARGET_IPV4_ADDR =
