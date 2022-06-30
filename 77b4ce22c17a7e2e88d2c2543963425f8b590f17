@@ -22,6 +22,30 @@
       },
       "revId": "77b4ce22c17a7e2e88d2c2543963425f8b590f17",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79da8323_e6fd7296",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-06-30T07:23:10Z",
+      "side": 1,
+      "message": "Please ignore this comment since only l.9516 refers to \"Build.VERSION_CODES.S_V2\".",
+      "parentUuid": "8499670e_bb488ecd",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 50
+      },
+      "revId": "77b4ce22c17a7e2e88d2c2543963425f8b590f17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
