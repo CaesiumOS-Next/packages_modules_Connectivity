@@ -56,6 +56,7 @@ public class BpfNetMaps {
     // Use legacy netd for releases before T.
     private static final boolean PRE_T = !SdkLevel.isAtLeastT();
     private static boolean sInitialized = false;
+    private static Dependencies sDeps = null;
 
     // Lock for sConfigurationMap entry for UID_RULES_CONFIGURATION_KEY.
     // This entry is not accessed by others.
@@ -107,6 +108,7 @@ public class BpfNetMaps {
      * Initialize bpf maps.
      */
     private static void initialize(final Dependencies deps) {
+        sDeps = deps;
         sConfigurationMap = deps.getConfigurationMap();
         sUidOwnerMap = deps.getUidOwnerMap();
     }
@@ -153,6 +155,13 @@ public class BpfNetMaps {
             } catch (ErrnoException e) {
                 throw new AssertionError("Cannot open uid owner map", e);
             }
+        }
+
+        /**
+         * Get interface index.
+         */
+        public int getIfIndex(final String ifName) {
+            return Os.if_nametoindex(ifName);
         }
     }
 
@@ -440,9 +449,16 @@ public class BpfNetMaps {
             mNetd.firewallAddUidInterfaceRules(ifName, uids);
             return;
         }
-        synchronized (sUidOwnerMap) {
-            final int err = native_addUidInterfaceRules(ifName, uids);
-            maybeThrow(err, "Unable to add uid interface rules");
+        final int ifIndex = ifName == null ? 0 : sDeps.getIfIndex(ifName);
+        try {
+            synchronized (sUidOwnerMap) {
+                for (final int uid: uids) {
+                    addRule(uid, IIF_MATCH, ifIndex);
+                }
+            }
+        } catch (ErrnoException e) {
+            throw new ServiceSpecificException(e.errno,
+                    "Unable to add uid interface rules: " + Os.strerror(e.errno));
         }
     }
 
