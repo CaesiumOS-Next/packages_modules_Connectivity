@@ -28,6 +28,7 @@ import static android.net.INetd.PERMISSION_INTERNET;
 
 import static com.android.server.BpfNetMaps.DOZABLE_MATCH;
 import static com.android.server.BpfNetMaps.HAPPY_BOX_MATCH;
+import static com.android.server.BpfNetMaps.LOCKDOWN_VPN_MATCH;
 import static com.android.server.BpfNetMaps.NO_MATCH;
 import static com.android.server.BpfNetMaps.PENALTY_BOX_MATCH;
 import static com.android.server.BpfNetMaps.POWERSAVE_MATCH;
@@ -423,5 +424,44 @@ public final class BpfNetMapsTest {
     public void testAddNiceAppBeforeT() {
         assertThrows(UnsupportedOperationException.class,
                 () -> mBpfNetMaps.addNiceApp(TEST_UID));
+    }
+
+    private void doTestUpdateUidLockdownRule(final long enabledMatch, final boolean add)
+            throws Exception {
+        sUidOwnerMap.updateEntry(new U32(TEST_UID), new UidOwnerValue(0 /* iif */, enabledMatch));
+
+        mBpfNetMaps.updateUidLockdownRule(TEST_UID, add);
+
+        final long expectedMatch = add
+                ? enabledMatch | LOCKDOWN_VPN_MATCH : enabledMatch & ~LOCKDOWN_VPN_MATCH;
+        checkUidOwnerValue(TEST_UID, 0 /* expectedIif */, expectedMatch);
+    }
+
+    private static final boolean ADD = true;
+    private static final boolean REMOVE = false;
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testUpdateUidLockdownRule() throws Exception {
+        doTestUpdateUidLockdownRule(NO_MATCH, ADD);
+
+        // Other matches are enabled
+        doTestUpdateUidLockdownRule(DOZABLE_MATCH, ADD);
+        doTestUpdateUidLockdownRule(DOZABLE_MATCH, REMOVE);
+        doTestUpdateUidLockdownRule(DOZABLE_MATCH | POWERSAVE_MATCH | RESTRICTED_MATCH, ADD);
+        doTestUpdateUidLockdownRule(DOZABLE_MATCH | POWERSAVE_MATCH | RESTRICTED_MATCH, REMOVE);
+
+        // LOCKDOWN_VPN_MATCH is enabled
+        doTestUpdateUidLockdownRule(LOCKDOWN_VPN_MATCH, ADD);
+        doTestUpdateUidLockdownRule(LOCKDOWN_VPN_MATCH, REMOVE);
+        doTestUpdateUidLockdownRule(LOCKDOWN_VPN_MATCH | DOZABLE_MATCH, ADD);
+        doTestUpdateUidLockdownRule(LOCKDOWN_VPN_MATCH | DOZABLE_MATCH, REMOVE);
+    }
+
+    @Test
+    @IgnoreAfter(Build.VERSION_CODES.S_V2)
+    public void testUpdateUidLockdownRuleBeforeT() {
+        assertThrows(UnsupportedOperationException.class,
+                () -> mBpfNetMaps.updateUidLockdownRule(TEST_UID, true /* add */));
     }
 }
