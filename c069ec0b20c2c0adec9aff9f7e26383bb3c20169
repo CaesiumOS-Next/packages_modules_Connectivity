@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc26c570_500aea21",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-06-30T13:03:51Z",
+      "side": 1,
+      "message": "Infra errors and unrelated build failures, trying again.",
+      "revId": "c069ec0b20c2c0adec9aff9f7e26383bb3c20169",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
