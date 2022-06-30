@@ -18,9 +18,8 @@ package com.android.server.connectivity;
 
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
+import static android.os.Build.VERSION_CODES.S_V2;
 import static android.telephony.TelephonyManager.ACTION_MULTI_SIM_CONFIG_CHANGED;
-
-import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -67,7 +66,7 @@ import java.util.List;
  *  runtest frameworks-net -c com.android.server.connectivity.CarrierPrivilegeAuthenticatorTest
  */
 @RunWith(DevSdkIgnoreRunner.class)
-@IgnoreUpTo(SC_V2) // TODO: Use to Build.VERSION_CODES.SC_V2 when available
+@IgnoreUpTo(S_V2)
 public class CarrierPrivilegeAuthenticatorTest {
     private static final int SUBSCRIPTION_COUNT = 2;
     private static final int TEST_SUBSCRIPTION_ID = 1;

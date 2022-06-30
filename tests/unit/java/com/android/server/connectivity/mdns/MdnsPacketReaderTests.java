@@ -16,7 +16,7 @@
 
 package com.android.server.connectivity.mdns;
 
-import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
+import static android.os.Build.VERSION_CODES.S_V2;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -32,7 +32,7 @@ import java.net.DatagramPacket;
 import java.util.Locale;
 
 @RunWith(DevSdkIgnoreRunner.class)
-@DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
+@DevSdkIgnoreRule.IgnoreUpTo(S_V2)
 public class MdnsPacketReaderTests {
 
     @Test

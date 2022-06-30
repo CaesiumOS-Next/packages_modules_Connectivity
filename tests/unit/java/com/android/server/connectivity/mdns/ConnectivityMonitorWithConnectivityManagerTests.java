@@ -16,7 +16,7 @@
 
 package com.android.server.connectivity.mdns;
 
-import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
+import static android.os.Build.VERSION_CODES.S_V2;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
@@ -43,7 +43,7 @@ import org.mockito.MockitoAnnotations;
 
 /** Tests for {@link ConnectivityMonitor}. */
 @RunWith(DevSdkIgnoreRunner.class)
-@DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
+@DevSdkIgnoreRule.IgnoreUpTo(S_V2)
 public class ConnectivityMonitorWithConnectivityManagerTests {
     @Mock private Context mContext;
     @Mock private ConnectivityMonitor.Listener mockListener;
