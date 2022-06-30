@@ -16,6 +16,29 @@
       "message": "Infra errors and unrelated build failures, trying again.",
       "revId": "c069ec0b20c2c0adec9aff9f7e26383bb3c20169",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1f11444_f65ed227",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-30T19:01:38Z",
+      "side": 1,
+      "message": "Also update kernel version check here.",
+      "range": {
+        "startLine": 161,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 9
+      },
+      "revId": "c069ec0b20c2c0adec9aff9f7e26383bb3c20169",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
