@@ -27,6 +27,7 @@ import android.net.InetAddresses
 import android.net.IpPrefix
 import android.net.LinkAddress
 import android.net.LinkProperties
+import android.net.MacAddress
 import android.net.NetworkAgent
 import android.net.NetworkAgent.DSCP_POLICY_STATUS_DELETED
 import android.net.NetworkAgent.DSCP_POLICY_STATUS_SUCCESS
@@ -56,9 +57,15 @@ import android.util.Log
 import android.util.Range
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
+import com.android.net.module.util.NetworkStackConstants.ETHER_TYPE_IPV4
+import com.android.net.module.util.NetworkStackConstants.ETHER_TYPE_IPV6
+import com.android.net.module.util.Struct
+import com.android.net.module.util.structs.EthernetHeader
+import com.android.testutils.ArpResponder
 import com.android.testutils.CompatUtil
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.assertParcelingIsLossless
+import com.android.testutils.RouterAdvertisementResponder
 import com.android.testutils.runAsShell
 import com.android.testutils.SC_V2
 import com.android.testutils.TapPacketReader
@@ -66,6 +73,7 @@ import com.android.testutils.TestableNetworkAgent
 import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnNetworkCreated
 import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnDscpPolicyStatusUpdated
 import com.android.testutils.TestableNetworkCallback
+import com.android.testutils.waitForIdle
 import org.junit.After
 import org.junit.Assume.assumeTrue
 import org.junit.Before
@@ -103,10 +111,11 @@ class DscpPolicyTest {
 
     private val LOCAL_IPV4_ADDRESS = InetAddresses.parseNumericAddress("192.0.2.1")
     private val TEST_TARGET_IPV4_ADDR =
-            InetAddresses.parseNumericAddress("8.8.8.8") as Inet4Address
+            InetAddresses.parseNumericAddress("203.0.113.1") as Inet4Address
     private val LOCAL_IPV6_ADDRESS = InetAddresses.parseNumericAddress("2001:db8::1")
     private val TEST_TARGET_IPV6_ADDR =
             InetAddresses.parseNumericAddress("2001:4860:4860::8888") as Inet6Address
+    private val TEST_TARGET_MAC_ADDR = MacAddress.fromString("12:34:56:78:9a:bc")
 
     private val realContext = InstrumentationRegistry.getContext()
     private val cm = realContext.getSystemService(ConnectivityManager::class.java)
@@ -119,6 +128,8 @@ class DscpPolicyTest {
     private lateinit var iface: TestNetworkInterface
     private lateinit var tunNetworkCallback: TestNetworkCallback
     private lateinit var reader: TapPacketReader
+    private lateinit var arpResponder: ArpResponder
+    private lateinit var raResponder: RouterAdvertisementResponder
 
     private fun getKernelVersion(): IntArray {
         // Example:
@@ -129,6 +140,7 @@ class DscpPolicyTest {
         return intArrayOf(Integer.parseInt(m.group(1)), Integer.parseInt(m.group(2)))
     }
 
+    // TODO: replace with DeviceInfoUtils#isKernelVersionAtLeast
     private fun kernelIsAtLeast(major: Int, minor: Int): Boolean {
         val version = getKernelVersion()
         return (version.get(0) > major || (version.get(0) == major && version.get(1) >= minor))
@@ -142,7 +154,7 @@ class DscpPolicyTest {
         runAsShell(MANAGE_TEST_NETWORKS) {
             val tnm = realContext.getSystemService(TestNetworkManager::class.java)
 
-            iface = tnm.createTunInterface(arrayOf(
+            iface = tnm.createTapInterface(arrayOf(
                     LinkAddress(LOCAL_IPV4_ADDRESS, IP4_PREFIX_LEN),
                     LinkAddress(LOCAL_IPV6_ADDRESS, IP6_PREFIX_LEN)))
             assertNotNull(iface)
@@ -154,6 +166,12 @@ class DscpPolicyTest {
                 iface.fileDescriptor.fileDescriptor,
                 MAX_PACKET_LENGTH)
         reader.startAsyncForTest()
+
+        arpResponder = ArpResponder(reader, mapOf(TEST_TARGET_IPV4_ADDR to TEST_TARGET_MAC_ADDR))
+        arpResponder.start()
+        raResponder = RouterAdvertisementResponder(reader)
+        raResponder.addRouterEntry(TEST_TARGET_MAC_ADDR, TEST_TARGET_IPV6_ADDR)
+        raResponder.start()
     }
 
     @After
@@ -161,13 +179,15 @@ class DscpPolicyTest {
         if (!kernelIsAtLeast(5, 4)) {
             return;
         }
+        raResponder.stop()
+        arpResponder.stop()
+
         agentsToCleanUp.forEach { it.unregister() }
         callbacksToCleanUp.forEach { cm.unregisterNetworkCallback(it) }
 
         // reader.stop() cleans up tun fd
         reader.handler.post { reader.stop() }
-        if (iface.fileDescriptor.fileDescriptor != null)
-            Os.close(iface.fileDescriptor.fileDescriptor)
+        reader.handler.waitForIdle(1_000 /* ms */)
         handlerThread.quitSafely()
     }
 
@@ -237,7 +257,7 @@ class DscpPolicyTest {
     fun sendPacket(
         agent: TestableNetworkAgent,
         sendV6: Boolean,
-        dstPort: Int = 0,
+        dstPort: Int = 0
     ) {
         val testString = "test string"
         val testPacket = ByteBuffer.wrap(testString.toByteArray(Charsets.UTF_8))
@@ -280,7 +300,7 @@ class DscpPolicyTest {
 
     fun parsePacketIp(
         buffer : ByteBuffer,
-        sendV6 : Boolean,
+        sendV6 : Boolean
     ) : Boolean {
         val ipAddr = if (sendV6) ByteArray(16) else ByteArray(4)
         buffer.get(ipAddr)
@@ -302,9 +322,9 @@ class DscpPolicyTest {
     }
 
     fun parsePacketPort(
-        buffer : ByteBuffer,
-        srcPort : Int,
-        dstPort : Int
+        buffer: ByteBuffer,
+        srcPort: Int,
+        dstPort: Int
     ) : Boolean {
         if (srcPort == 0 && dstPort == 0) return true
 
@@ -326,15 +346,22 @@ class DscpPolicyTest {
         agent : TestableNetworkAgent,
         sendV6 : Boolean = false,
         dscpValue : Int = 0,
-        dstPort : Int = 0,
+        dstPort : Int = 0
     ) {
         var packetFound = false;
         sendPacket(agent, sendV6, dstPort)
         // TODO: grab source port from socket in sendPacket
 
         Log.e(TAG, "find DSCP value:" + dscpValue)
-        generateSequence { reader.poll(PACKET_TIMEOUT_MS) }.forEach { packet ->
+        val packets = generateSequence { reader.poll(PACKET_TIMEOUT_MS) }
+        for (packet in packets) {
             val buffer = ByteBuffer.wrap(packet, 0, packet.size).order(ByteOrder.BIG_ENDIAN)
+            // TODO: consider using Struct.parse for all packet parsing.
+            val etherHdr = Struct.parse(EthernetHeader::class.java, buffer)
+            val expectedType = if (sendV6) ETHER_TYPE_IPV6 else ETHER_TYPE_IPV4
+            if (etherHdr.etherType != expectedType) {
+                continue
+            }
             val dscp = if (sendV6) parseV6PacketDscp(buffer) else parseV4PacketDscp(buffer)
             Log.e(TAG, "DSCP value:" + dscp)
 
