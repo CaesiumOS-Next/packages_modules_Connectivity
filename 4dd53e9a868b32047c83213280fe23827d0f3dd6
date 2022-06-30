@@ -16,6 +16,24 @@
       "message": "After this change, mEm.isAvailable() would return false in cf. But the change that don\u0027t tracker the interface which has defined capabilities only applied to T+. \n\nProbably we need:\n1. don\u0027t adopt all permission in setup, instead we could use com.android.testutils.TestPermissionUtil.runAsShell to obtain permission when needed. e.g. https://source.corp.google.com/aosp-master/packages/modules/Connectivity/tests/cts/net/src/android/net/cts/EthernetManagerTest.kt;l\u003d354?q\u003dethernetmanagertest.kt\n\n2. have code like this:\nprivate boolean isEthernetInterfaceAvailable() {\n    if (atLeastT()) {\n        return mEm.isAvailable();\n    }\n    \n    return runAsShell(CONNECTIVITY_USE_RESTRICTED_NETWORKS, () -\u003e mEm.isAvailable());\n}\n",
       "revId": "4dd53e9a868b32047c83213280fe23827d0f3dd6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "947f39b0_c6d25d14",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-06-30T04:32:06Z",
+      "side": 1,
+      "message": "Un-resolved",
+      "parentUuid": "1c58a75d_d3ee2f7e",
+      "revId": "4dd53e9a868b32047c83213280fe23827d0f3dd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
