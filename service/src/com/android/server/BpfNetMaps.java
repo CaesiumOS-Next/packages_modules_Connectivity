@@ -57,6 +57,7 @@ public class BpfNetMaps {
 
     private static final String TAG = "BpfNetMaps";
     private final INetd mNetd;
+    private final Dependencies mDeps;
     // Use legacy netd for releases before T.
     private static final boolean PRE_T = !SdkLevel.isAtLeastT();
     private static boolean sInitialized = false;
@@ -162,6 +163,19 @@ public class BpfNetMaps {
         sInitialized = true;
     }
 
+    /**
+     * Dependencies of BpfNetMaps, for injection in tests.
+     */
+    @VisibleForTesting
+    public static class Dependencies {
+        /**
+         * Get interface index.
+         */
+        public int getIfIndex(final String ifName) {
+            return Os.if_nametoindex(ifName);
+        }
+    }
+
     /** Constructor used after T that doesn't need to use netd anymore. */
     public BpfNetMaps() {
         this(null);
@@ -170,9 +184,15 @@ public class BpfNetMaps {
     }
 
     public BpfNetMaps(final INetd netd) {
+        this(netd, new Dependencies());
+    }
+
+    @VisibleForTesting
+    public BpfNetMaps(final INetd netd, final Dependencies deps) {
         setBpfMaps();
         ensureInitialized();
         mNetd = netd;
+        mDeps = deps;
     }
 
     /**
@@ -448,9 +468,16 @@ public class BpfNetMaps {
             mNetd.firewallAddUidInterfaceRules(ifName, uids);
             return;
         }
-        synchronized (sUidOwnerMap) {
-            final int err = native_addUidInterfaceRules(ifName, uids);
-            maybeThrow(err, "Unable to add uid interface rules");
+        final int ifIndex = ifName == null ? 0 : mDeps.getIfIndex(ifName);
+        try {
+            synchronized (sUidOwnerMap) {
+                for (final int uid: uids) {
+                    addRule(uid, IIF_MATCH, ifIndex);
+                }
+            }
+        } catch (ErrnoException e) {
+            throw new ServiceSpecificException(e.errno,
+                    "Unable to add uid interface rules: " + Os.strerror(e.errno));
         }
     }
 
