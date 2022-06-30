@@ -345,6 +345,7 @@ public class VpnTest {
         // itself, so set the default value of Context#checkCallingOrSelfPermission to
         // PERMISSION_DENIED.
         doReturn(PERMISSION_DENIED).when(mContext).checkCallingOrSelfPermission(any());
+        doReturn(PERMISSION_DENIED).when(mContext).checkPermission(any(), anyInt(), anyInt());
 
         // Set up mIkev2SessionCreator and mExecutor
         resetIkev2SessionCreator(mIkeSessionWrapper);
@@ -926,6 +927,33 @@ public class VpnTest {
         // had neither.
         checkProvisionVpnProfile(vpn, false /* expectedResult */,
                 AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN, AppOpsManager.OPSTR_ACTIVATE_VPN);
+    }
+
+    private void setAppOpsPermission() {
+        doAnswer(invocation -> {
+            when(mAppOps.noteOpNoThrow(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN,
+                    Process.myUid(), TEST_VPN_PKG,
+                    null /* attributionTag */, null /* message */))
+                    .thenReturn(AppOpsManager.MODE_ALLOWED);
+            return null;
+        }).when(mAppOps).setMode(
+                eq(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN),
+                eq(Process.myUid()),
+                eq(TEST_VPN_PKG),
+                eq(AppOpsManager.MODE_ALLOWED));
+    }
+
+    @Test
+    public void testProvisionVpnProfileNotPreconsented_withControlVpnPermission() throws Exception {
+        setAppOpsPermission();
+        doReturn(PERMISSION_GRANTED).when(mContext).checkPermission(eq(CONTROL_VPN), anyInt(),
+                anyInt());
+        doReturn(PERMISSION_GRANTED).when(mContext).checkCallingOrSelfPermission(CONTROL_VPN);
+        final Vpn vpn = createVpnAndSetupUidChecks();
+
+        // ACTIVATE_PLATFORM_VPN will be granted if VPN app has CONTROL_VPN permission.
+        checkProvisionVpnProfile(vpn, true /* expectedResult */,
+                AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
     }
 
     @Test
