@@ -16,9 +16,8 @@
 
 package com.android.server.net;
 
+import static android.os.Build.VERSION_CODES.S_V2;
 import static android.text.format.DateUtils.HOUR_IN_MILLIS;
-
-import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyLong;
@@ -48,7 +47,7 @@ import java.io.IOException;
 
 @RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
-@DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
+@DevSdkIgnoreRule.IgnoreUpTo(S_V2)
 public final class NetworkStatsRecorderTest {
     private static final String TAG = NetworkStatsRecorderTest.class.getSimpleName();
 
