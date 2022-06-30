@@ -547,4 +547,40 @@ public final class BpfNetMapsTest {
         assertThrows(UnsupportedOperationException.class,
                 () -> mBpfNetMaps.addUidInterfaceRules(TEST_IF_NAME, TEST_UIDS));
     }
+
+    private void doTestRemoveUidInterfaceRules(final long iif, final long enabledMatch)
+            throws Exception {
+        final int uid0 = TEST_UIDS[0];
+        final int uid1 = TEST_UIDS[1];
+        sUidOwnerMap.updateEntry(new U32(uid0), new UidOwnerValue(iif, enabledMatch));
+        sUidOwnerMap.updateEntry(new U32(uid1), new UidOwnerValue(iif, enabledMatch));
+
+        mBpfNetMaps.removeUidInterfaceRules(TEST_UIDS);
+
+        checkUidOwnerValue(uid0, 0 /* expectedIif */, enabledMatch & ~IIF_MATCH);
+        checkUidOwnerValue(uid1, 0 /* expectedIif */, enabledMatch & ~IIF_MATCH);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testRemoveUidInterfaceRules() throws Exception {
+        doTestRemoveUidInterfaceRules(TEST_IF_INDEX, IIF_MATCH);
+        doTestRemoveUidInterfaceRules(0 /* iif */, IIF_MATCH);
+
+        // IIF_MATCH and other matches are enabled
+        doTestRemoveUidInterfaceRules(TEST_IF_INDEX, IIF_MATCH | DOZABLE_MATCH);
+        doTestRemoveUidInterfaceRules(0 /* iif */, IIF_MATCH | DOZABLE_MATCH);
+
+        // IIF_MATCH is not enabled and other matches are enabled
+        doTestRemoveUidInterfaceRules(0 /* iif */, DOZABLE_MATCH);
+        doTestRemoveUidInterfaceRules(
+                0 /* iif */, DOZABLE_MATCH | POWERSAVE_MATCH | RESTRICTED_MATCH);
+    }
+
+    @Test
+    @IgnoreAfter(Build.VERSION_CODES.S_V2)
+    public void testRemoveUidInterfaceRulesBeforeT() {
+        assertThrows(UnsupportedOperationException.class,
+                () -> mBpfNetMaps.removeUidInterfaceRules(TEST_UIDS));
+    }
 }
