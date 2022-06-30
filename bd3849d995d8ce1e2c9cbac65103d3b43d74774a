@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83a90216_ae683bf0",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-30T18:44:42Z",
+      "side": 1,
+      "message": "This macro relies on a local variable name. Can you genericize this by passing in l2_header_size (or maybe just remove it from the macro entirely)?",
+      "revId": "bd3849d995d8ce1e2c9cbac65103d3b43d74774a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62eb2c52_e1365669",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-30T18:44:42Z",
+      "side": 1,
+      "message": "Question for maze@: This function performs a lot of comparisons to data_end -- is this safe for non-linear skbs, or does this prog have to call some variation of bpf_skb_pull_data() / try_make_writable()?",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 0
+      },
+      "revId": "bd3849d995d8ce1e2c9cbac65103d3b43d74774a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a965c48b_64332366",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-30T18:44:42Z",
+      "side": 1,
+      "message": "nit: should this just be `sizeof(struct iphdr)`?",
+      "range": {
+        "startLine": 89,
+        "startChar": 43,
+        "endLine": 89,
+        "endChar": 47
+      },
+      "revId": "bd3849d995d8ce1e2c9cbac65103d3b43d74774a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5f266b0_d412e0d9",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-30T18:44:42Z",
+      "side": 1,
+      "message": "nit: maybe calculate hdr_size in line 88 and then change the comparison to the following to improve readability:\n```\nhdr_size \u003d l2_header_size + sizeof(struct iphdr);\n// Must have ipv4 header\nif (data + hdr_size \u003e data_end) return;\n```",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 57
+      },
+      "revId": "bd3849d995d8ce1e2c9cbac65103d3b43d74774a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f5952c1_482d48e4",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-30T18:44:42Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 119,
+        "startChar": 8,
+        "endLine": 119,
+        "endChar": 59
+      },
+      "revId": "bd3849d995d8ce1e2c9cbac65103d3b43d74774a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfe5e6f5_d5294e78",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-30T18:44:42Z",
+      "side": 1,
+      "message": "It\u0027s not obvious what this is, maybe put it in a macro (not sure what to name it though. Maybe):\n```\n// bpf_l3_csum_replace flag used to call csum_replace2\n#define CSUM_REPLACE2 2\n```\n\nOr at the very least leave a comment inline:\n```\nbpf_l3_csum_replace(skb, IP4_OFFSET(check), htons(tos), htons(newTos), 2 /* flags: use csum_replace2 */);",
+      "range": {
+        "startLine": 169,
+        "startChar": 83,
+        "endLine": 169,
+        "endChar": 84
+      },
+      "revId": "bd3849d995d8ce1e2c9cbac65103d3b43d74774a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92ced549_bf0d92f0",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-30T18:44:42Z",
+      "side": 1,
+      "message": "does this need to be offset by l2_header_size?",
+      "range": {
+        "startLine": 174,
+        "startChar": 37,
+        "endLine": 174,
+        "endChar": 38
+      },
+      "revId": "bd3849d995d8ce1e2c9cbac65103d3b43d74774a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee0437ea_ff57a749",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-30T18:44:42Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 175,
+        "startChar": 37,
+        "endLine": 175,
+        "endChar": 38
+      },
+      "revId": "bd3849d995d8ce1e2c9cbac65103d3b43d74774a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3d1bb44_9af83c28",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-30T18:44:42Z",
+      "side": 1,
+      "message": "This looks identical to line 168, should it be updated too? Also maybe it makes sense to have a UPDATE_TOS macro?",
+      "range": {
+        "startLine": 250,
+        "startChar": 23,
+        "endLine": 252,
+        "endChar": 48
+      },
+      "revId": "bd3849d995d8ce1e2c9cbac65103d3b43d74774a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a625c56_f7b927d8",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-30T18:44:42Z",
+      "side": 1,
+      "message": "I think you meant to check the checksum against calChecksum?\nI would also suggest to add a message as an int comparison failure in the test logs is not very informative:\n```\nassertEquals(checksum, calChecksum, \"wrong v4 checksum\")\n```",
+      "range": {
+        "startLine": 300,
+        "startChar": 8,
+        "endLine": 300,
+        "endChar": 40
+      },
+      "revId": "bd3849d995d8ce1e2c9cbac65103d3b43d74774a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
