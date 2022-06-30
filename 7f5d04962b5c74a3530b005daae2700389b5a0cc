@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "315e4b2b_61b9a86d",
+        "filename": "tests/unit/java/com/android/server/VpnTestBase.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-06-30T01:14:58Z",
+      "side": 1,
+      "message": "Love it. I like this.\n\nJFYI: don\u0027t use this in system server; streams have terrible performance, last i checked, but in a test, this is super clean and nice.",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 71
+      },
+      "revId": "7f5d04962b5c74a3530b005daae2700389b5a0cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
