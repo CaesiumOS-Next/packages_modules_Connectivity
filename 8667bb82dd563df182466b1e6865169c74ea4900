@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54aa00a7_37b08e64",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-06-30T22:55:32Z",
+      "side": 1,
+      "message": "could you not add another constructor for tests instead? That\u0027s usually the pattern that we use in other places:\n```\npublic BpfNetMaps(final INetd netd) {\n    this(netd, new Dependencies());\n}\n\n@VisibleForTesting\npublic BpfNetMaps(INetd netd, Dependencides deps) {\n    ensureInitialized(deps);\n    mNetd \u003d netd;\n}\n```",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 5
+      },
+      "revId": "8667bb82dd563df182466b1e6865169c74ea4900",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
