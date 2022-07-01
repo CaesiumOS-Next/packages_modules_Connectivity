@@ -70,6 +70,30 @@
       },
       "revId": "8667bb82dd563df182466b1e6865169c74ea4900",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dfc141c_807a19ed",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-01T02:37:27Z",
+      "side": 1,
+      "message": "Ah, yeah, that is indeed not great. Maybe the best thing to do is to add a completely separate construction mechanism, just for tests (that doesn\u0027t involve any static initialization magic). I am not a java expert, this may be worth running by someone like Remi or Lorenzo.\n\n--\n\nOne additional point, static initialization in tests is usually bad, especially if it can fail / throw. Failures in static / class initializers aren\u0027t reported correctly, so they are not immediately obvious in the logs. This isn\u0027t directly an issue here, I don\u0027t think, but just something to keep in mind.",
+      "parentUuid": "2c7fe5ce_f663f0b1",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 5
+      },
+      "revId": "8667bb82dd563df182466b1e6865169c74ea4900",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
