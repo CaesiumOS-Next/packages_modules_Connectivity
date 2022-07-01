@@ -401,7 +401,7 @@ public class BpfNetMaps {
             mNetd.trafficSetNetPermForUids(permissions, uids);
             return;
         }
-        native_setPermissionForUids(permissions, uids);
+//        native_setPermissionForUids(permissions, uids);
     }
 
     /**
