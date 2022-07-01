@@ -382,8 +382,8 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void swapActiveStatsMap() {
-        final int err = native_swapActiveStatsMap();
-        maybeThrow(err, "Unable to swap active stats map");
+//        final int err = native_swapActiveStatsMap();
+//        maybeThrow(err, "Unable to swap active stats map");
     }
 
     /**
