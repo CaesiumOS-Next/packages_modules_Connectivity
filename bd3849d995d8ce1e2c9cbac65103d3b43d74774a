@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e19df74d_46c00e85",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-01T19:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83a90216_ae683bf0",
+      "revId": "bd3849d995d8ce1e2c9cbac65103d3b43d74774a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62eb2c52_e1365669",
@@ -88,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dc2888f_374c09ad",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-01T19:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a965c48b_64332366",
+      "range": {
+        "startLine": 89,
+        "startChar": 43,
+        "endLine": 89,
+        "endChar": 47
+      },
+      "revId": "bd3849d995d8ce1e2c9cbac65103d3b43d74774a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5f266b0_d412e0d9",
@@ -111,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "207c3f04_b9413959",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-01T19:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5f266b0_d412e0d9",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 57
+      },
+      "revId": "bd3849d995d8ce1e2c9cbac65103d3b43d74774a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f5952c1_482d48e4",
@@ -124,6 +190,30 @@
       "writtenOn": "2022-06-30T18:44:42Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 119,
+        "startChar": 8,
+        "endLine": 119,
+        "endChar": 59
+      },
+      "revId": "bd3849d995d8ce1e2c9cbac65103d3b43d74774a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd9fb491_4fe02be9",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-01T19:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f5952c1_482d48e4",
       "range": {
         "startLine": 119,
         "startChar": 8,
@@ -181,6 +271,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f56ba19_9ee7e493",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-01T19:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c59f237_fff2fd90",
+      "range": {
+        "startLine": 169,
+        "startChar": 83,
+        "endLine": 169,
+        "endChar": 84
+      },
+      "revId": "bd3849d995d8ce1e2c9cbac65103d3b43d74774a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92ced549_bf0d92f0",
@@ -204,6 +318,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3661cfa0_bc782cf8",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-01T19:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92ced549_bf0d92f0",
+      "range": {
+        "startLine": 174,
+        "startChar": 37,
+        "endLine": 174,
+        "endChar": 38
+      },
+      "revId": "bd3849d995d8ce1e2c9cbac65103d3b43d74774a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee0437ea_ff57a749",
@@ -217,6 +355,30 @@
       "writtenOn": "2022-06-30T18:44:42Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 175,
+        "startChar": 37,
+        "endLine": 175,
+        "endChar": 38
+      },
+      "revId": "bd3849d995d8ce1e2c9cbac65103d3b43d74774a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "191747b3_0cb455f8",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-01T19:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee0437ea_ff57a749",
       "range": {
         "startLine": 175,
         "startChar": 37,
@@ -311,6 +473,30 @@
       "side": 1,
       "message": "normally the way you check v4 checksum is by checking it is one\u0027s complement zero, which in practice means it should be 0xFFFF... ie. calculate the one\u0027s complement checksum of the entire ipv4 header - *including* the checksum field - fold it down to a u16 - check it is exactly the negative zero, ie. 0xFFFF (technically positive zero would be ok too, *but* it turns out that positive zero is impossible to achive for a non-all-zeroes buffer, due to how sum/fold work)",
       "parentUuid": "5a625c56_f7b927d8",
+      "range": {
+        "startLine": 300,
+        "startChar": 8,
+        "endLine": 300,
+        "endChar": 40
+      },
+      "revId": "bd3849d995d8ce1e2c9cbac65103d3b43d74774a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91239c9d_625c8379",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-01T19:02:04Z",
+      "side": 1,
+      "message": "fixed both",
+      "parentUuid": "2b842053_0982c9db",
       "range": {
         "startLine": 300,
         "startChar": 8,
