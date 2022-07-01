@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7b3c1aa2_5e268634",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-01T06:04:33Z",
+      "side": 1,
+      "message": "A call to t_m_w() with the size of max headers we support/need shouldn\u0027t hurt.  But I\u0027m not entirely certain what exactly is needed since some stuff is done via DPA and some stuff via bpf helpers - presumably careful analysis would be needed.  Additionally this is on transmit, and I\u0027m not sure if there aren\u0027t some reasonable guarantees wrt. packet linearity during phone transmit.",
+      "parentUuid": "62eb2c52_e1365669",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 0
+      },
+      "revId": "bd3849d995d8ce1e2c9cbac65103d3b43d74774a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a965c48b_64332366",
         "filename": "bpf_progs/dscp_policy.c",
         "patchSetId": 10
@@ -123,6 +147,30 @@
       "writtenOn": "2022-06-30T18:44:42Z",
       "side": 1,
       "message": "It\u0027s not obvious what this is, maybe put it in a macro (not sure what to name it though. Maybe):\n```\n// bpf_l3_csum_replace flag used to call csum_replace2\n#define CSUM_REPLACE2 2\n```\n\nOr at the very least leave a comment inline:\n```\nbpf_l3_csum_replace(skb, IP4_OFFSET(check), htons(tos), htons(newTos), 2 /* flags: use csum_replace2 */);",
+      "range": {
+        "startLine": 169,
+        "startChar": 83,
+        "endLine": 169,
+        "endChar": 84
+      },
+      "revId": "bd3849d995d8ce1e2c9cbac65103d3b43d74774a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c59f237_fff2fd90",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-01T06:04:33Z",
+      "side": 1,
+      "message": "perhaps sizeof(u16)",
+      "parentUuid": "dfe5e6f5_d5294e78",
       "range": {
         "startLine": 169,
         "startChar": 83,
@@ -239,6 +287,30 @@
       "writtenOn": "2022-06-30T18:44:42Z",
       "side": 1,
       "message": "I think you meant to check the checksum against calChecksum?\nI would also suggest to add a message as an int comparison failure in the test logs is not very informative:\n```\nassertEquals(checksum, calChecksum, \"wrong v4 checksum\")\n```",
+      "range": {
+        "startLine": 300,
+        "startChar": 8,
+        "endLine": 300,
+        "endChar": 40
+      },
+      "revId": "bd3849d995d8ce1e2c9cbac65103d3b43d74774a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b842053_0982c9db",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-01T06:04:33Z",
+      "side": 1,
+      "message": "normally the way you check v4 checksum is by checking it is one\u0027s complement zero, which in practice means it should be 0xFFFF... ie. calculate the one\u0027s complement checksum of the entire ipv4 header - *including* the checksum field - fold it down to a u16 - check it is exactly the negative zero, ie. 0xFFFF (technically positive zero would be ok too, *but* it turns out that positive zero is impossible to achive for a non-all-zeroes buffer, due to how sum/fold work)",
+      "parentUuid": "5a625c56_f7b927d8",
       "range": {
         "startLine": 300,
         "startChar": 8,
