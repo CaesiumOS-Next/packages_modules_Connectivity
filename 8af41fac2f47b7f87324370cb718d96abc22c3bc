@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5acc62d4_28512d45",
+        "filename": "framework/src/android/net/TestNetworkManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-07-01T06:14:34Z",
+      "side": 1,
+      "message": "looks like the purpose here is to assign the static IPv6 or IPv4 addresses without using IpClient. If that\u0027s true, do we need to assign the route/DNS... info as well? Then I think probably it\u0027s easier to use IpClient in the test?",
+      "range": {
+        "startLine": 205,
+        "startChar": 74,
+        "endLine": 205,
+        "endChar": 83
+      },
+      "revId": "8af41fac2f47b7f87324370cb718d96abc22c3bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
