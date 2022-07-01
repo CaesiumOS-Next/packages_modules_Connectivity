@@ -39,6 +39,7 @@ class TrafficController {
      * Initialize the whole controller
      */
     netdutils::Status start();
+    netdutils::Status start2();
 
     /*
      * Swap the stats map config from current active stats map to the idle one.

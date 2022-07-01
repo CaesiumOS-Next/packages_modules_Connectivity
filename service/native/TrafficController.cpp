@@ -188,6 +188,10 @@ Status TrafficController::initMaps() {
 
 Status TrafficController::start() {
     RETURN_IF_NOT_OK(initMaps());
+}
+
+Status TrafficController::start2() {
+    RETURN_IF_NOT_OK(initMaps());
 
     auto result = makeSkDestroyListener();
     if (!isOk(result)) {
