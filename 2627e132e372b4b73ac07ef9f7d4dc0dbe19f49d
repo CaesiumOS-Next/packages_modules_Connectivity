@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ea023c0_fa4368cb",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-01T17:19:48Z",
+      "side": 1,
+      "message": "Might be good to say what the bug actually is here? If the interface was deleted, then STATE_ABSENT, ROLE_NONE seems reasonable?",
+      "range": {
+        "startLine": 687,
+        "startChar": 30,
+        "endLine": 687,
+        "endChar": 43
+      },
+      "revId": "2627e132e372b4b73ac07ef9f7d4dc0dbe19f49d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
