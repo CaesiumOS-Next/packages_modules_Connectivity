@@ -22,6 +22,30 @@
       },
       "revId": "2627e132e372b4b73ac07ef9f7d4dc0dbe19f49d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7a6047f_eb396b7d",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-01T18:51:17Z",
+      "side": 1,
+      "message": "Indeed, turns out that this is not actually a bug! Well, one less to worry about 😊",
+      "parentUuid": "8ea023c0_fa4368cb",
+      "range": {
+        "startLine": 687,
+        "startChar": 30,
+        "endLine": 687,
+        "endChar": 43
+      },
+      "revId": "2627e132e372b4b73ac07ef9f7d4dc0dbe19f49d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
