@@ -22,6 +22,30 @@
       },
       "revId": "8667bb82dd563df182466b1e6865169c74ea4900",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bad10e10_0fc7051c",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-07-01T01:59:47Z",
+      "side": 1,
+      "message": "If we add dependencies to the argument of constructor, dependencies are used/injected only the first instantiation and depenencises passed to the constructor will be ignored from 2nd instantiation.\nI felt this is a bit confusing and  made `ensureInitialized` public for dependencies injection.",
+      "parentUuid": "54aa00a7_37b08e64",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 5
+      },
+      "revId": "8667bb82dd563df182466b1e6865169c74ea4900",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
