@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d9c5a053_9a557067",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-01T17:02:26Z",
+      "side": 1,
+      "message": "I don\u0027t think we use AssertionError often;  maybe IllegalStateException would be more consistent.",
+      "range": {
+        "startLine": 136,
+        "startChar": 22,
+        "endLine": 136,
+        "endChar": 40
+      },
+      "revId": "8667bb82dd563df182466b1e6865169c74ea4900",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "54aa00a7_37b08e64",
         "filename": "service/src/com/android/server/BpfNetMaps.java",
         "patchSetId": 11
