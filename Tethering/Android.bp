@@ -229,6 +229,7 @@ genrule {
     name: "statslog-tethering-java-gen",
     tools: ["stats-log-api-gen"],
     cmd: "$(location stats-log-api-gen) --java $(out) --module network_tethering" +
-         " --javaPackage com.android.networkstack.tethering.metrics --javaClass TetheringStatsLog",
+         " --javaPackage com.android.networkstack.tethering.metrics --javaClass TetheringStatsLog" +
+         "--minApiLevel 30",
     out: ["com/android/networkstack/tethering/metrics/TetheringStatsLog.java"],
 }
