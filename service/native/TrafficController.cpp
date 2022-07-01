@@ -189,39 +189,39 @@ Status TrafficController::initMaps() {
 Status TrafficController::start() {
     RETURN_IF_NOT_OK(initMaps());
 
-    auto result = makeSkDestroyListener();
-    if (!isOk(result)) {
-        ALOGE("Unable to create SkDestroyListener: %s", toString(result).c_str());
-    } else {
-        mSkDestroyListener = std::move(result.value());
-    }
-    // Rx handler extracts nfgenmsg looks up and invokes registered dispatch function.
-    const auto rxHandler = [this](const nlmsghdr&, const Slice msg) {
-        std::lock_guard guard(mMutex);
-        inet_diag_msg diagmsg = {};
-        if (extract(msg, diagmsg) < sizeof(inet_diag_msg)) {
-            ALOGE("Unrecognized netlink message: %s", toString(msg).c_str());
-            return;
-        }
-        uint64_t sock_cookie = static_cast<uint64_t>(diagmsg.id.idiag_cookie[0]) |
-                               (static_cast<uint64_t>(diagmsg.id.idiag_cookie[1]) << 32);
-
-        Status s = mCookieTagMap.deleteValue(sock_cookie);
-        if (!isOk(s) && s.code() != ENOENT) {
-            ALOGE("Failed to delete cookie %" PRIx64 ": %s", sock_cookie, toString(s).c_str());
-            return;
-        }
-    };
-    expectOk(mSkDestroyListener->subscribe(kSockDiagMsgType, rxHandler));
-
-    // In case multiple netlink message comes in as a stream, we need to handle the rxDone message
-    // properly.
-    const auto rxDoneHandler = [](const nlmsghdr&, const Slice msg) {
-        // Ignore NLMSG_DONE  messages
-        inet_diag_msg diagmsg = {};
-        extract(msg, diagmsg);
-    };
-    expectOk(mSkDestroyListener->subscribe(kSockDiagDoneMsgType, rxDoneHandler));
+//    auto result = makeSkDestroyListener();
+//    if (!isOk(result)) {
+//        ALOGE("Unable to create SkDestroyListener: %s", toString(result).c_str());
+//    } else {
+//        mSkDestroyListener = std::move(result.value());
+//    }
+//    // Rx handler extracts nfgenmsg looks up and invokes registered dispatch function.
+//    const auto rxHandler = [this](const nlmsghdr&, const Slice msg) {
+//        std::lock_guard guard(mMutex);
+//        inet_diag_msg diagmsg = {};
+//        if (extract(msg, diagmsg) < sizeof(inet_diag_msg)) {
+//            ALOGE("Unrecognized netlink message: %s", toString(msg).c_str());
+//            return;
+//        }
+//        uint64_t sock_cookie = static_cast<uint64_t>(diagmsg.id.idiag_cookie[0]) |
+//                               (static_cast<uint64_t>(diagmsg.id.idiag_cookie[1]) << 32);
+//
+//        Status s = mCookieTagMap.deleteValue(sock_cookie);
+//        if (!isOk(s) && s.code() != ENOENT) {
+//            ALOGE("Failed to delete cookie %" PRIx64 ": %s", sock_cookie, toString(s).c_str());
+//            return;
+//        }
+//    };
+//    expectOk(mSkDestroyListener->subscribe(kSockDiagMsgType, rxHandler));
+//
+//    // In case multiple netlink message comes in as a stream, we need to handle the rxDone message
+//    // properly.
+//    const auto rxDoneHandler = [](const nlmsghdr&, const Slice msg) {
+//        // Ignore NLMSG_DONE  messages
+//        inet_diag_msg diagmsg = {};
+//        extract(msg, diagmsg);
+//    };
+//    expectOk(mSkDestroyListener->subscribe(kSockDiagDoneMsgType, rxDoneHandler));
 
     return netdutils::status::ok;
 }
