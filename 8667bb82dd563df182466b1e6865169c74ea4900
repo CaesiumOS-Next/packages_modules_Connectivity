@@ -94,6 +94,30 @@
       },
       "revId": "8667bb82dd563df182466b1e6865169c74ea4900",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6df37f82_590014f2",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-01T10:12:11Z",
+      "side": 1,
+      "message": "Is this another case where we should have an abstract base class with most of the implementation and two sub classes - one real and one for testing the abstract base class with different initialization mechanisms?  They could differ purely in the provided constructor...",
+      "parentUuid": "4dfc141c_807a19ed",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 5
+      },
+      "revId": "8667bb82dd563df182466b1e6865169c74ea4900",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
