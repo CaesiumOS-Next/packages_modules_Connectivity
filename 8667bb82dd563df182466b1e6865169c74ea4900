@@ -46,6 +46,30 @@
       },
       "revId": "8667bb82dd563df182466b1e6865169c74ea4900",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c7fe5ce_f663f0b1",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-07-01T02:22:59Z",
+      "side": 1,
+      "message": "I saw other places use constructor for dependencies injection as you said.\nI want to follow that pattern but I’m not sure above behavior is acceptable or there is a better construction implementation.",
+      "parentUuid": "bad10e10_0fc7051c",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 5
+      },
+      "revId": "8667bb82dd563df182466b1e6865169c74ea4900",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
