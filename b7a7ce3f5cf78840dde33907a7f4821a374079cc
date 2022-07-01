@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54960397_ad6d1520",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1932329
+      },
+      "writtenOn": "2022-07-01T20:46:36Z",
+      "side": 1,
+      "message": "Hello, I\u0027ve added a new module type to allow the build system to better track include-only AIDL sources via `aidl_interface_headers`. This shouldn\u0027t have any effect on the build for this module.",
+      "revId": "b7a7ce3f5cf78840dde33907a7f4821a374079cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
