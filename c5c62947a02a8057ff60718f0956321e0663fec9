@@ -16,6 +16,24 @@
       "message": "removeRule throws Exception if the uid is not in the map.\nBut removeRule does not throw Exception even if the rule for the uid does not have the match.\n\nFor example, if the map has `uid1: match \u003d DOZABLE_MATCH` entry.\n`removeRule(uid1, PENALTY_BOX_MATCH)` does not get exception.\nBut `removeRule(uid2, PENALTY_BOX_MATCH)` gets exception.\n\nI feel this is a bit strange behavior, but current removeRule in TrafficController behave this way.\nSo, I kept this behavior. \nhttp://cs/aosp-master/packages/modules/Connectivity/service/native/TrafficController.cpp;l\u003d243;rcl\u003d422de9d1d0e325ccd4e911c6c446d2feb1f7c33a",
       "revId": "c5c62947a02a8057ff60718f0956321e0663fec9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93deeeb6_fb52de37",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-01T10:14:12Z",
+      "side": 1,
+      "message": "yeah this does seem weird.  I think we should assume that things not present in map are equivalent to present with some default value (possibly zero filled value struct), and never distinguish the two cases.",
+      "parentUuid": "ae3d98ee_30259d77",
+      "revId": "c5c62947a02a8057ff60718f0956321e0663fec9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
