@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "42d21934_8270a43c",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-01T17:06:23Z",
+      "side": 1,
+      "message": "The loading of libservice-connectivity is a bit messy today; it\u0027s actually done in NetworkStatsServiceInitializer or ConnectivityServiceInitializer, but there\u0027s a NetworkStatsService or NetworkStatsFactory do it again for tests, although it is a no-op outside of tests.\n\nFor consistency with NetworkStatsService and NetworkStatsFactory, I\u0027d move the loadLibrary to an actual static initializer though; because it\u0027s necessary to even load the class due to the native methods.\n\nnative_init is only needed at construction time, so the scheme you have here looks good to me (it also doesn\u0027t need dependencies).\n\ninitialize(deps) looks weird though. Dependencies are generally used to hold several dependencies as an instance member, but this is only used in a static init method. initialize() could just take the BpfMap as argument.\n\nBut I\u0027d actually do something like:\n - Lazy-init sConfigurationMap in the constructor with a production value\n - Have a static setConfigurationMapForTest(BpfMap\u003cU32, U32\u003e) method that replaces the value for tests\n \nThis would be consistent with utils like Log.setWtfHandler, or NetworkStack.setServiceForTest, or ConnectivityResources.setResourcesContextForTest, or a few others. I think it\u0027s a bit ugly, but at least a common pattern.",
+      "range": {
+        "startLine": 116,
+        "startChar": 19,
+        "endLine": 116,
+        "endChar": 30
+      },
+      "revId": "8667bb82dd563df182466b1e6865169c74ea4900",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d9c5a053_9a557067",
         "filename": "service/src/com/android/server/BpfNetMaps.java",
         "patchSetId": 11
