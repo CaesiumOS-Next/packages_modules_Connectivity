@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a766f006_ac1ba772",
+        "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-07-02T12:03:53Z",
+      "side": 1,
+      "message": "Maybe also add a test for (match !\u003d IIF_MATCH \u0026\u0026 iif !\u003d 0) error case, which gives you more code line coverage in addRule.\n\n```\nprivate void addRule(final int uid, final long match, final long iif) throws ErrnoException {\n    if (match !\u003d IIF_MATCH \u0026\u0026 iif !\u003d 0) {\n        throw new ServiceSpecificException(EINVAL,\n                \"Non-interface match must have zero interface index\");\n    }\n```",
+      "range": {
+        "startLine": 428,
+        "startChar": 8,
+        "endLine": 428,
+        "endChar": 51
+      },
+      "revId": "a279a335a24114cfa7bfb7e597dc3554a6ccd1da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
