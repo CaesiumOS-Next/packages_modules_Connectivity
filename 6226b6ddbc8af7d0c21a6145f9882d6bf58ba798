@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b09e031d_e39c29e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-03T00:02:36Z",
+      "side": 1,
+      "message": "(from my testing it doesn\u0027t seem to meaningfully affect boot time, but is very useful for debugging, worst case in the future we can limit it to only newer kernels [perhaps 5.15+ or even 5.20+ once that exists and cuttlefish upgrades to it] if we really need to)",
+      "revId": "6226b6ddbc8af7d0c21a6145f9882d6bf58ba798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
