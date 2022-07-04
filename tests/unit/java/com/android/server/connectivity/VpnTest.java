@@ -1270,7 +1270,7 @@ public class VpnTest extends VpnTestBase {
         // CATEGORY_EVENT_DEACTIVATED_BY_USER is not an error event, so both of errorClass and
         // errorCode won't be set.
         verifyVpnManagerEvent(sessionKey1, VpnManager.CATEGORY_EVENT_DEACTIVATED_BY_USER,
-                -1 /* errorClass */, -1 /* errorCode */, null /* profileState */);
+                -1 /* errorClass */, -1 /* errorCode */, (VpnProfileState) null /* profileState */);
         reset(mAppOps);
 
         // Test the case that the user chooses another vpn and the original one is replaced.
@@ -1283,7 +1283,7 @@ public class VpnTest extends VpnTestBase {
         // CATEGORY_EVENT_DEACTIVATED_BY_USER is not an error event, so both of errorClass and
         // errorCode won't be set.
         verifyVpnManagerEvent(sessionKey2, VpnManager.CATEGORY_EVENT_DEACTIVATED_BY_USER,
-                -1 /* errorClass */, -1 /* errorCode */, null /* profileState */);
+                -1 /* errorClass */, -1 /* errorCode */, (VpnProfileState) null /* profileState */);
     }
 
     @Test
@@ -1450,7 +1450,8 @@ public class VpnTest extends VpnTestBase {
 
         verifyPowerSaveTempWhitelistApp(TEST_VPN_PKG);
         reset(mDeviceIdleInternal);
-        verifyVpnManagerEvent(sessionKey, category, errorType, errorCode, null /* profileState */);
+        verifyVpnManagerEvent(sessionKey, category, errorType, errorCode,
+                (VpnProfileState) null /* profileState */);
         if (errorType == VpnManager.ERROR_CLASS_NOT_RECOVERABLE) {
             verify(mConnectivityManager, timeout(TEST_TIMEOUT_MS))
                     .unregisterNetworkCallback(eq(cb));
