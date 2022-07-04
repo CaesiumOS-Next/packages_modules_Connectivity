@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "466ac533_d0499cfc",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-07-04T12:28:53Z",
+      "side": 1,
+      "message": "Thank you for your suggestion.\n- Moved the loadLibrary to a static initialize block.\n- Updated constructor to call setBpfMaps that init sConfigurationMap with production value if sConfigurationMap is null. I made setBpfMaps static synchronized because multiple threads could call constructor concurrently. In the following CL that adds UidOwnerMap, I added initialization of UidOwnerMap to setBpfMaps.\n- Added static setConfigurationMapForTest and updated tests to call this for testBpfMap injection.",
+      "parentUuid": "42d21934_8270a43c",
+      "range": {
+        "startLine": 116,
+        "startChar": 19,
+        "endLine": 116,
+        "endChar": 30
+      },
+      "revId": "8667bb82dd563df182466b1e6865169c74ea4900",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d9c5a053_9a557067",
         "filename": "service/src/com/android/server/BpfNetMaps.java",
         "patchSetId": 11
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-01T17:02:26Z",
       "side": 1,
       "message": "I don\u0027t think we use AssertionError often;  maybe IllegalStateException would be more consistent.",
+      "range": {
+        "startLine": 136,
+        "startChar": 22,
+        "endLine": 136,
+        "endChar": 40
+      },
+      "revId": "8667bb82dd563df182466b1e6865169c74ea4900",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9ac84eb_b158394d",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-07-04T12:28:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d9c5a053_9a557067",
       "range": {
         "startLine": 136,
         "startChar": 22,
@@ -156,6 +204,30 @@
       "side": 1,
       "message": "Is this another case where we should have an abstract base class with most of the implementation and two sub classes - one real and one for testing the abstract base class with different initialization mechanisms?  They could differ purely in the provided constructor...",
       "parentUuid": "4dfc141c_807a19ed",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 5
+      },
+      "revId": "8667bb82dd563df182466b1e6865169c74ea4900",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91607208_655f6930",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-07-04T12:28:53Z",
+      "side": 1,
+      "message": "Thanks for the comments!\nFor this CL, I updated based on suggestion from Remi.",
+      "parentUuid": "6df37f82_590014f2",
       "range": {
         "startLine": 147,
         "startChar": 0,
