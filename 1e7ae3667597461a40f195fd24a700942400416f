@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56397174_c375d47c",
+        "filename": "Tethering/src/android/net/ip/NeighborPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-04T08:24:28Z",
+      "side": 1,
+      "message": "How about:\n    if (e instanceof ErrnoException \u0026\u0026 ((ErrnoException) e).errno \u003d\u003d ENODEV) {\n        Log.w(mTag, \"Failed to create socket because tethered Interface is gone\", e);\n    } else {\n        Log.wtf(mTag, \"Failed to create  socket\", e);\n    }",
+      "range": {
+        "startLine": 137,
+        "startChar": 12,
+        "endLine": 148,
+        "endChar": 13
+      },
+      "revId": "1e7ae3667597461a40f195fd24a700942400416f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
