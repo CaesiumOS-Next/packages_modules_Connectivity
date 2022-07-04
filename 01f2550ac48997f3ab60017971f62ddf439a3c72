@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df5dc376_622fdd30",
+        "filename": "common/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-04T07:04:39Z",
+      "side": 1,
+      "message": "I wonder if for in-process tethering platform doesn\u0027t need to end up here... we\u0027ll see...",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 32
+      },
+      "revId": "01f2550ac48997f3ab60017971f62ddf439a3c72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
