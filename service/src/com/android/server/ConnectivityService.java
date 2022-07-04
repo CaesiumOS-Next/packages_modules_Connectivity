@@ -307,6 +307,7 @@ import java.util.SortedSet;
 import java.util.StringJoiner;
 import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
 
 /**
  * @hide
@@ -1225,17 +1226,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         private void incrementCountOrThrow(final int uid, final int numToIncrement) {
             final int newRequestCount =
                     mUidToNetworkRequestCount.get(uid, 0) + numToIncrement;
-            if (newRequestCount >= mMaxCountPerUid
-                    // HACK : the system server is allowed to go over the request count limit
-                    // when it is creating requests on behalf of another app (but not itself,
-                    // so it can still detect its own request leaks). This only happens in the
-                    // per-app API flows in which case the old requests for that particular
-                    // UID will be removed soon.
-                    // TODO : instead of this hack, addPerAppDefaultNetworkRequests and other
-                    // users of transact() should unregister the requests to decrease the count
-                    // before they increase it again by creating a new NRI. Then remove the
-                    // transact() method.
-                    && (Process.myUid() == uid || Process.myUid() != Binder.getCallingUid())) {
+            if (newRequestCount >= mMaxCountPerUid) {
                 throw new ServiceSpecificException(
                         ConnectivityManager.Errors.TOO_MANY_REQUESTS,
                         "Uid " + uid + " exceeded its allotted requests limit");
@@ -10878,9 +10869,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mProfileNetworkPreferences = mProfileNetworkPreferences.plus(preference);
         }
 
-        removeDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_PROFILE);
-        addPerAppDefaultNetworkRequests(
-                createNrisFromProfileNetworkPreferences(mProfileNetworkPreferences));
+        replaceDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_PROFILE,
+                () -> createNrisFromProfileNetworkPreferences(mProfileNetworkPreferences));
+
         // Finally, rematch.
         rematchAllNetworksAndRequests();
 
@@ -10925,9 +10916,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void handleMobileDataPreferredUidsChanged() {
         mMobileDataPreferredUids = ConnectivitySettingsManager.getMobileDataPreferredUids(mContext);
-        removeDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED);
-        addPerAppDefaultNetworkRequests(
-                createNrisFromMobileDataPreferredUids(mMobileDataPreferredUids));
+        replaceDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED,
+                () -> createNrisFromMobileDataPreferredUids(mMobileDataPreferredUids));
         // Finally, rematch.
         rematchAllNetworksAndRequests();
     }
@@ -11052,9 +11042,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         mOemNetworkPreferencesLogs.log("UPDATE INITIATED: " + preference);
-        removeDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_OEM);
-        addPerAppDefaultNetworkRequests(new OemNetworkRequestFactory()
-                .createNrisFromOemNetworkPreferences(preference));
+        replaceDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_OEM,
+                () -> new OemNetworkRequestFactory()
+                        .createNrisFromOemNetworkPreferences(preference));
         mOemNetworkPreferences = preference;
 
         if (null != listener) {
@@ -11064,6 +11054,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 loge("Can't send onComplete in handleSetOemNetworkPreference", e);
             }
         }
+    }
+
+    private void replaceDefaultNetworkRequestsForPreference(final int preferenceOrder,
+            Supplier<Set<NetworkRequestInfo>> nriSupplier) {
+        // Always remove requests first to prevent counter exceeds the limit.
+        removeDefaultNetworkRequestsForPreference(preferenceOrder);
+        addPerAppDefaultNetworkRequests(nriSupplier.get());
     }
 
     private void removeDefaultNetworkRequestsForPreference(final int preferenceOrder) {
