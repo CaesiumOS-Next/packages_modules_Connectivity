@@ -1222,12 +1222,12 @@ public class VpnTest extends VpnTestBase {
     }
 
     private void verifyVpnManagerEvent(String sessionKey, String category, int errorClass,
-            int errorCode, VpnProfileState... profileState) {
+            int errorCode, @NonNull VpnProfileState... profileState) {
         final Context userContext =
                 mContext.createContextAsUser(UserHandle.of(PRIMARY_USER.id), 0 /* flags */);
         final ArgumentCaptor<Intent> intentArgumentCaptor = ArgumentCaptor.forClass(Intent.class);
 
-        final int verifyTimes = (profileState == null) ? 1 : profileState.length;
+        final int verifyTimes = (profileState.length == 0) ? 1 : profileState.length;
         verify(userContext, times(verifyTimes)).startService(intentArgumentCaptor.capture());
 
         for (int i = 0; i < verifyTimes; i++) {
@@ -1239,7 +1239,7 @@ public class VpnTest extends VpnTestBase {
                     intent.getIntExtra(VpnManager.EXTRA_ERROR_CLASS, -1 /* defaultValue */));
             assertEquals(errorCode,
                     intent.getIntExtra(VpnManager.EXTRA_ERROR_CODE, -1 /* defaultValue */));
-            if (profileState != null) {
+            if (profileState.length != 0) {
                 assertEquals(profileState[i], intent.getParcelableExtra(
                         VpnManager.EXTRA_VPN_PROFILE_STATE, VpnProfileState.class));
             }
@@ -1270,7 +1270,7 @@ public class VpnTest extends VpnTestBase {
         // CATEGORY_EVENT_DEACTIVATED_BY_USER is not an error event, so both of errorClass and
         // errorCode won't be set.
         verifyVpnManagerEvent(sessionKey1, VpnManager.CATEGORY_EVENT_DEACTIVATED_BY_USER,
-                -1 /* errorClass */, -1 /* errorCode */, null /* profileState */);
+                -1 /* errorClass */, -1 /* errorCode */);
         reset(mAppOps);
 
         // Test the case that the user chooses another vpn and the original one is replaced.
@@ -1283,7 +1283,7 @@ public class VpnTest extends VpnTestBase {
         // CATEGORY_EVENT_DEACTIVATED_BY_USER is not an error event, so both of errorClass and
         // errorCode won't be set.
         verifyVpnManagerEvent(sessionKey2, VpnManager.CATEGORY_EVENT_DEACTIVATED_BY_USER,
-                -1 /* errorClass */, -1 /* errorCode */, null /* profileState */);
+                -1 /* errorClass */, -1 /* errorCode */);
     }
 
     @Test
@@ -1450,7 +1450,7 @@ public class VpnTest extends VpnTestBase {
 
         verifyPowerSaveTempWhitelistApp(TEST_VPN_PKG);
         reset(mDeviceIdleInternal);
-        verifyVpnManagerEvent(sessionKey, category, errorType, errorCode, null /* profileState */);
+        verifyVpnManagerEvent(sessionKey, category, errorType, errorCode);
         if (errorType == VpnManager.ERROR_CLASS_NOT_RECOVERABLE) {
             verify(mConnectivityManager, timeout(TEST_TIMEOUT_MS))
                     .unregisterNetworkCallback(eq(cb));
