@@ -24,6 +24,8 @@ import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_3;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_POWERSAVE;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_RESTRICTED;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_STANDBY;
+import static android.net.ConnectivityManager.FIREWALL_RULE_ALLOW;
+import static android.net.ConnectivityManager.FIREWALL_RULE_DENY;
 import static android.system.OsConstants.EINVAL;
 import static android.system.OsConstants.ENODEV;
 import static android.system.OsConstants.ENOENT;
@@ -35,6 +37,7 @@ import android.os.ServiceSpecificException;
 import android.system.ErrnoException;
 import android.system.Os;
 import android.util.Log;
+import android.util.SparseIntArray;
 import android.util.SparseLongArray;
 
 import com.android.internal.annotations.GuardedBy;
@@ -109,6 +112,22 @@ public class BpfNetMaps {
         FIREWALL_CHAIN_TO_MATCH.put(FIREWALL_CHAIN_OEM_DENY_1, OEM_DENY_1_MATCH);
         FIREWALL_CHAIN_TO_MATCH.put(FIREWALL_CHAIN_OEM_DENY_2, OEM_DENY_2_MATCH);
         FIREWALL_CHAIN_TO_MATCH.put(FIREWALL_CHAIN_OEM_DENY_3, OEM_DENY_3_MATCH);
+    }
+
+    // ALLOWLIST means the firewall denies all by default, uids must be explicitly allowed
+    // DENYLIST means the firewall allows all by default, uids must be explicitly denyed
+    private static final int FIREWALL_ALLOWLIST = 0;
+    private static final int FIREWALL_DENYLIST = 1;
+    private static final SparseIntArray FIREWALL_CHAIN_TO_TYPE = new SparseIntArray();
+    static {
+        FIREWALL_CHAIN_TO_TYPE.put(FIREWALL_CHAIN_DOZABLE, FIREWALL_ALLOWLIST);
+        FIREWALL_CHAIN_TO_TYPE.put(FIREWALL_CHAIN_STANDBY, FIREWALL_DENYLIST);
+        FIREWALL_CHAIN_TO_TYPE.put(FIREWALL_CHAIN_POWERSAVE, FIREWALL_ALLOWLIST);
+        FIREWALL_CHAIN_TO_TYPE.put(FIREWALL_CHAIN_RESTRICTED, FIREWALL_ALLOWLIST);
+        FIREWALL_CHAIN_TO_TYPE.put(FIREWALL_CHAIN_LOW_POWER_STANDBY, FIREWALL_ALLOWLIST);
+        FIREWALL_CHAIN_TO_TYPE.put(FIREWALL_CHAIN_OEM_DENY_1, FIREWALL_DENYLIST);
+        FIREWALL_CHAIN_TO_TYPE.put(FIREWALL_CHAIN_OEM_DENY_2, FIREWALL_DENYLIST);
+        FIREWALL_CHAIN_TO_TYPE.put(FIREWALL_CHAIN_OEM_DENY_3, FIREWALL_DENYLIST);
     }
 
     /**
@@ -208,6 +227,18 @@ public class BpfNetMaps {
             throw new ServiceSpecificException(EINVAL, "Invalid firewall chain: " + chain);
         }
         return match;
+    }
+
+    /**
+     * Get if the chain is allow list or not.
+     */
+    @VisibleForTesting
+    public boolean isAllowList(final int chain) {
+        final int type = FIREWALL_CHAIN_TO_TYPE.get(chain, -1 /* valueIfKeyNotFound */);
+        if (type == -1) {
+            throw new ServiceSpecificException(EINVAL, "Invalid firewall chain: " + chain);
+        }
+        return type == FIREWALL_ALLOWLIST;
     }
 
     private void maybeThrow(final int err, final String msg) {
@@ -412,9 +443,17 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void setUidRule(final int childChain, final int uid, final int firewallRule) {
-        synchronized (sUidOwnerMap) {
-            final int err = native_setUidRule(childChain, uid, firewallRule);
-            maybeThrow(err, "Unable to set uid rule");
+        throwIfPreT("setUidRule is not available on pre-T devices");
+
+        final long match = getMatchByFirewallChain(childChain);
+        final boolean isAllowList = isAllowList(childChain);
+        final boolean add = (firewallRule == FIREWALL_RULE_ALLOW && isAllowList)
+                || (firewallRule == FIREWALL_RULE_DENY && !isAllowList);
+
+        if (add) {
+            addRule(uid, match, "setUidRule");
+        } else {
+            removeRule(uid, match, "setUidRule");
         }
     }
 
