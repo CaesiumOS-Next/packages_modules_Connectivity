@@ -39,6 +39,30 @@
       },
       "revId": "937fa2094aa60857eceb265a1045d273c7781ad6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66776cd9_c2d96b60",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1231,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-07-05T07:35:48Z",
+      "side": 1,
+      "message": "Exception cannot be tested since it is thrown on the handler thread, which will crash the service and cannot do further tests.\nLog:\nRUNNER ERROR: Instrumentation run failed due to \u0027Process crashed.\u0027\nJava Crash Messages sorted from most recent:\nUid 10106 exceeded its allotted requests limit (code 1)\nandroid.os.ServiceSpecificException: Uid 10106 exceeded its allotted requests limit (code 1)\n\tat com.android.server.ConnectivityService$PerUidCounter.incrementCountOrThrow(ConnectivityService.java:1229)\n\tat com.android.server.ConnectivityService$PerUidCounter.incrementCountOrThrow(ConnectivityService.java:1221)\n\tat com.android.server.ConnectivityService$NetworkRequestInfo.\u003cinit\u003e(ConnectivityService.java:6294)\n\tat com.android.server.ConnectivityService$NetworkRequestInfo.\u003cinit\u003e(ConnectivityService.java:6381)\n\tat com.android.server.ConnectivityService$OemNetworkRequestFactory.createNriFromOemNetworkPreferences(ConnectivityService.java:11253)\n\tat com.android.server.ConnectivityService$OemNetworkRequestFactory.createNrisFromOemNetworkPreferences(ConnectivityService.java:11166)\n\tat com.android.server.ConnectivityService.handleSetOemNetworkPreference(ConnectivityService.java:11047)",
+      "parentUuid": "0e37858d_60ccee5e",
+      "range": {
+        "startLine": 1229,
+        "startChar": 16,
+        "endLine": 1231,
+        "endChar": 80
+      },
+      "revId": "937fa2094aa60857eceb265a1045d273c7781ad6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
