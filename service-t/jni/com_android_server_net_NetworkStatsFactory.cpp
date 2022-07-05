@@ -326,12 +326,18 @@ static int readNetworkStatsDev(JNIEnv* env, jclass clazz, jobject stats) {
     return statsLinesToNetworkStats(env, clazz, stats, lines);
 }
 
+static jint synchronizeKernelRCU(JNIEnv* env, jobject self) {
+    return bpf::synchronizeKernelRCU();
+}
+
+
 static const JNINativeMethod gMethods[] = {
         { "nativeReadNetworkStatsDetail",
                 "(Landroid/net/NetworkStats;Ljava/lang/String;I[Ljava/lang/String;IZ)I",
                 (void*) readNetworkStatsDetail },
         { "nativeReadNetworkStatsDev", "(Landroid/net/NetworkStats;)I",
                 (void*) readNetworkStatsDev },
+        {"nativeSynchronizeKernelRCU", "()I", (void*) synchronizeKernelRCU},
 };
 
 int register_android_server_net_NetworkStatsFactory(JNIEnv* env) {

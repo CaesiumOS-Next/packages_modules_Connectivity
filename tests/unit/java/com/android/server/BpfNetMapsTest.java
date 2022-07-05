@@ -85,6 +85,7 @@ public final class BpfNetMapsTest {
     private static final int NULL_IIF = 0;
     private static final String CHAINNAME = "fw_dozable";
     private static final U32 UID_RULES_CONFIGURATION_KEY = new U32(0);
+    private static final U32 CURRENT_STATS_MAP_CONFIGURATION_KEY = new U32(1);
     private static final List<Integer> FIREWALL_CHAINS = List.of(
             FIREWALL_CHAIN_DOZABLE,
             FIREWALL_CHAIN_STANDBY,
