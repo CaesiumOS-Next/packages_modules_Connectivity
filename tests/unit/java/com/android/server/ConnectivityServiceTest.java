@@ -15771,7 +15771,7 @@ public class ConnectivityServiceTest {
             final int otherAppUid = UserHandle.getUid(TEST_WORK_PROFILE_USER_ID,
                     UserHandle.getAppId(Process.myUid() + 1));
             final int remainingCount = ConnectivityService.MAX_NETWORK_REQUESTS_PER_UID
-                    - mService.mNetworkRequestCounter.mUidToNetworkRequestCount.get(otherAppUid)
+                    - mService.mNetworkRequestCounter.get(otherAppUid)
                     - 1;
             final NetworkCallback[] callbacks = new NetworkCallback[remainingCount];
             doAsUid(otherAppUid, () -> {
@@ -15825,8 +15825,7 @@ public class ConnectivityServiceTest {
             @NonNull final ExceptionalRunnable r) throws Exception {
         final ArraySet<TestNetworkCallback> callbacks = new ArraySet<>();
         try {
-            final int requestCount = mService.mSystemNetworkRequestCounter
-                    .mUidToNetworkRequestCount.get(Process.myUid());
+            final int requestCount = mService.mSystemNetworkRequestCounter.get(Process.myUid());
             // The limit is hit when total requests = limit - 1, and exceeded with a crash when
             // total requests >= limit.
             final int countToFile =
@@ -15839,8 +15838,7 @@ public class ConnectivityServiceTest {
                     callbacks.add(cb);
                 }
                 assertEquals(MAX_NETWORK_REQUESTS_PER_SYSTEM_UID - 1 - countToLeaveAvailable,
-                        mService.mSystemNetworkRequestCounter
-                              .mUidToNetworkRequestCount.get(Process.myUid()));
+                        mService.mSystemNetworkRequestCounter.get(Process.myUid()));
             });
             // Code to run to check if it triggers a max request count limit error.
             r.run();
