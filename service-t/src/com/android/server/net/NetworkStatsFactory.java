@@ -27,15 +27,18 @@ import android.annotation.Nullable;
 import android.content.Context;
 import android.net.NetworkStats;
 import android.net.UnderlyingNetworkInfo;
-import android.os.ServiceSpecificException;
 import android.os.StrictMode;
 import android.os.SystemClock;
+import android.system.ErrnoException;
+import android.system.Os;
+import android.util.Log;
 
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.ProcFileReader;
+import com.android.net.module.util.BpfMap;
 import com.android.net.module.util.CollectionUtils;
-import com.android.server.BpfNetMaps;
+import com.android.net.module.util.Struct.U32;
 
 import libcore.io.IoUtils;
 
@@ -63,6 +66,11 @@ public class NetworkStatsFactory {
 
     private static final boolean USE_NATIVE_PARSING = true;
     private static final boolean VALIDATE_NATIVE_STATS = false;
+    private static final String CONFIGURATION_MAP_PATH =
+            "/sys/fs/bpf/netd_shared/map_netd_configuration_map";
+    private static final U32 CURRENT_STATS_MAP_CONFIGURATION_KEY = new U32(1);
+    private static final long STATS_SELECT_MAP_A = 0;
+    private static final long STATS_SELECT_MAP_B = 1;
 
     /** Path to {@code /proc/net/xt_qtaguid/iface_stat_all}. */
     private final File mStatsXtIfaceAll;
@@ -75,7 +83,12 @@ public class NetworkStatsFactory {
 
     private final Context mContext;
 
-    private final BpfNetMaps mBpfNetMaps;
+    private final Dependencies mDeps;
+
+    // NetworkStatsFactory writes after reads for the CURRENT_STATS_MAP_CONFIGURATION_KEY entry.
+    // NetworkStatsFactory is an only writer of this entry.
+    @GuardedBy("mPersistentDataLock")
+    private final BpfMap<U32, U32> mConfigurationMap;
 
     /**
      * Guards persistent data access in this class
@@ -164,22 +177,51 @@ public class NetworkStatsFactory {
     }
 
     public NetworkStatsFactory(@NonNull Context ctx) {
-        this(ctx, new File("/proc/"), true, new BpfNetMaps());
+        this(ctx, new File("/proc/"), true, new Dependencies());
     }
 
     @VisibleForTesting
     public NetworkStatsFactory(@NonNull Context ctx, File procRoot, boolean useBpfStats,
-            BpfNetMaps bpfNetMaps) {
+            Dependencies deps) {
         mStatsXtIfaceAll = new File(procRoot, "net/xt_qtaguid/iface_stat_all");
         mStatsXtIfaceFmt = new File(procRoot, "net/xt_qtaguid/iface_stat_fmt");
         mStatsXtUid = new File(procRoot, "net/xt_qtaguid/stats");
         mUseBpfStats = useBpfStats;
-        mBpfNetMaps = bpfNetMaps;
+        mDeps = deps;
+        mConfigurationMap = mDeps.getConfigurationMap();
+        try {
+            mConfigurationMap.updateEntry(CURRENT_STATS_MAP_CONFIGURATION_KEY,
+                    new U32(STATS_SELECT_MAP_A));
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Failed to initialize current stats config" + e);
+//            throw new IllegalStateException("Failed to initialize current stats config", e);
+        }
+
         synchronized (mPersistentDataLock) {
             mPersistSnapshot = new NetworkStats(SystemClock.elapsedRealtime(), -1);
             mTunAnd464xlatAdjustedStats = new NetworkStats(SystemClock.elapsedRealtime(), -1);
         }
         mContext = ctx;
+    }
+
+    /**
+     * Dependencies of NetworkStatsFactory, for injection in tests.
+     */
+    @VisibleForTesting
+    public static class Dependencies {
+        /** Gets the cookie tag map */
+        public BpfMap<U32, U32> getConfigurationMap() {
+            try {
+                return new BpfMap<>(CONFIGURATION_MAP_PATH, BpfMap.BPF_F_RDWR,
+                        U32.class, U32.class);
+            } catch (ErrnoException e) {
+                throw new IllegalStateException("Cannot open netd configuration map", e);
+            }
+        }
+        /**  Call synchronize_rcu() */
+        public int synchronizeKernelRCU() {
+            return nativeSynchronizeKernelRCU();
+        }
     }
 
     public NetworkStats readBpfNetworkStatsDev() throws IOException {
@@ -302,13 +344,27 @@ public class NetworkStatsFactory {
     }
 
     @GuardedBy("mPersistentDataLock")
-    private void requestSwapActiveStatsMapLocked() throws IOException {
-        try {
-            // Do a active map stats swap. Once the swap completes, this code
-            // can read and clean the inactive map without races.
-            mBpfNetMaps.swapActiveStatsMap();
-        } catch (ServiceSpecificException e) {
-            throw new IOException(e);
+    @VisibleForTesting public void requestSwapActiveStatsMapLocked() throws IOException {
+//        try {
+//            final long config = mConfigurationMap.getValue(
+//                    CURRENT_STATS_MAP_CONFIGURATION_KEY).val;
+//            final long newConfig =
+//                    (config == STATS_SELECT_MAP_A) ? STATS_SELECT_MAP_B : STATS_SELECT_MAP_A;
+//          mConfigurationMap.updateEntry(CURRENT_STATS_MAP_CONFIGURATION_KEY, new U32(newConfig));
+//        } catch (ErrnoException e) {
+//            throw new IOException("Failed to swap active stats map", e);
+//        }
+//
+        // After changing the config, it's needed to make sure all the current running eBPF programs
+        // are finished and all the CPUs are aware of this config change before the old map is
+        // modified. So special hack is needed here to wait for the kernel to do a
+        // synchronize_rcu(). Once the kernel called synchronize_rcu(), the updated config will be
+        // available to all cores and the next eBPF programs triggered inside the kernel will use
+        // the new map configuration. So once this function returns it is safe to modify the old
+        // stats map without concerning about race between the kernel and userspace.
+        final int ret = mDeps.synchronizeKernelRCU();
+        if (ret != 0) {
+            throw new IOException("Failed to synchronizeKernelRCU: " + Os.strerror(-ret));
         }
     }
 
@@ -497,6 +553,8 @@ public class NetworkStatsFactory {
 
     @VisibleForTesting
     public static native int nativeReadNetworkStatsDev(NetworkStats stats);
+
+    private static native int nativeSynchronizeKernelRCU();
 
     private static ProtocolException protocolExceptionWithCause(String message, Throwable cause) {
         ProtocolException pe = new ProtocolException(message);
