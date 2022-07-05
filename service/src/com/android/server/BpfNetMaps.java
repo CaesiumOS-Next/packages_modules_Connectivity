@@ -47,6 +47,11 @@ import com.android.net.module.util.Struct.U32;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * BpfNetMaps is responsible for providing traffic controller relevant functionality.
@@ -250,7 +255,7 @@ public class BpfNetMaps {
         }
     }
 
-    private void removeRule(final int uid, final long match, final String caller) {
+    private void removeRule(final long uid, final long match, final String caller) {
         try {
             synchronized (sUidOwnerMap) {
                 final UidOwnerValue oldMatch = sUidOwnerMap.getValue(new U32(uid));
@@ -277,7 +282,7 @@ public class BpfNetMaps {
         }
     }
 
-    private void addRule(final int uid, final long match, final long iif, final String caller) {
+    private void addRule(final long uid, final long match, final long iif, final String caller) {
         if (match != IIF_MATCH && iif != 0) {
             throw new ServiceSpecificException(EINVAL,
                     "Non-interface match must have zero interface index");
@@ -414,19 +419,33 @@ public class BpfNetMaps {
      * rules for the system UID range (0 to {@code UID_APP} - 1), RETURN rules for the specified
      * UIDs, and a DROP rule at the end. The chain will be created if it does not exist.
      *
-     * @param chainName   The name of the chain to replace.
-     * @param isAllowlist Whether this is an allowlist or denylist chain.
+     * @param chain       Target chain.
      * @param uids        The list of UIDs to allow/deny.
      * @return 0 if the chain was successfully replaced, errno otherwise.
      */
-    public int replaceUidChain(final String chainName, final boolean isAllowlist,
-            final int[] uids) {
-        synchronized (sUidOwnerMap) {
-            final int err = native_replaceUidChain(chainName, isAllowlist, uids);
-            if (err != 0) {
-                Log.e(TAG, "replaceUidChain failed: " + Os.strerror(-err));
+    public void replaceUidChain(final int chain, final int[] uids) {
+        throwIfPreT("replaceUidChain is not available on pre-T devices");
+
+        Set<Long> uidSet = new HashSet(Arrays.asList(uids));
+        List<Long> uidsToDeleteRule = new ArrayList<>();
+        final long match = getMatchByFirewallChain(chain);
+        try {
+            synchronized (sUidOwnerMap) {
+                sUidOwnerMap.forEach((uid, uidValue) -> {
+                    if (!uidSet.contains(uid.val) && (uidValue.rule & match) != 0) {
+                        uidsToDeleteRule.add(uid.val);
+                    }
+                });
+
+                for (final long uid : uidsToDeleteRule) {
+                    removeRule(uid, match, "replaceUidChain");
+                }
+                for (final int uid : uids) {
+                    addRule(uid, match, 0 /* iif */, "replaceUidChain");
+                }
             }
-            return -err;
+        } catch (ErrnoException | ServiceSpecificException e) {
+            Log.e(TAG, "replaceUidChain failed: " + e);
         }
     }
 
