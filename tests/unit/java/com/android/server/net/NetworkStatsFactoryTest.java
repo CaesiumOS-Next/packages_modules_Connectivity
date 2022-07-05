@@ -27,12 +27,15 @@ import static android.net.NetworkStats.SET_DEFAULT;
 import static android.net.NetworkStats.SET_FOREGROUND;
 import static android.net.NetworkStats.TAG_NONE;
 import static android.net.NetworkStats.UID_ALL;
+import static android.system.OsConstants.EPERM;
 
 import static com.android.server.net.NetworkStatsFactory.kernelToTag;
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.doReturn;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -44,9 +47,12 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
 
 import com.android.frameworks.tests.net.R;
-import com.android.server.BpfNetMaps;
+import com.android.net.module.util.BpfMap;
+import com.android.net.module.util.Struct;
+import com.android.net.module.util.Struct.U32;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
+import com.android.testutils.TestBpfMap;
 
 import libcore.io.IoUtils;
 import libcore.io.Streams;
@@ -62,6 +68,7 @@ import org.mockito.MockitoAnnotations;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -71,22 +78,28 @@ import java.io.OutputStream;
 @DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
 public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
     private static final String CLAT_PREFIX = "v4-";
+    private static final Struct.U32 CURRENT_STATS_MAP_CONFIGURATION_KEY = new Struct.U32(1);
+    private static final long STATS_SELECT_MAP_A = 0;
+    private static final long STATS_SELECT_MAP_B = 1;
 
     private File mTestProc;
     private NetworkStatsFactory mFactory;
     @Mock private Context mContext;
-    @Mock private BpfNetMaps mBpfNetMaps;
+    @Mock private NetworkStatsFactory.Dependencies mDeps;
+    private final BpfMap<U32, U32> mConfigurationMap = new TestBpfMap<>(U32.class, U32.class);
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+        doReturn(0).when(mDeps).synchronizeKernelRCU();
+        doReturn(mConfigurationMap).when(mDeps).getConfigurationMap();
         mTestProc = TestIoUtils.createTemporaryDirectory("proc");
 
         // The libandroid_servers which have the native method is not available to
         // applications. So in order to have a test support native library, the native code
         // related to networkStatsFactory is compiled to a minimal native library and loaded here.
         System.loadLibrary("networkstatsfactorytestjni");
-        mFactory = new NetworkStatsFactory(mContext, mTestProc, false, mBpfNetMaps);
+        mFactory = new NetworkStatsFactory(mContext, mTestProc, false, mDeps);
         mFactory.updateUnderlyingNetworkInfos(new UnderlyingNetworkInfo[0]);
     }
 
@@ -495,6 +508,30 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
         stats = parseDetailedStats(R.raw.xt_qtaguid_with_clat_100mb_download_after);
         assertStatsEntry(stats, "v4-wlan0", 10106, SET_FOREGROUND, 0x0, appRxBytesAfter, 7867488L);
         assertStatsEntry(stats, "wlan0", 0, SET_DEFAULT, 0x0, rootRxBytes, 0L);
+    }
+
+    @Test
+    public void testSwapActiveStatsMap() throws Exception {
+        mConfigurationMap.updateEntry(
+                CURRENT_STATS_MAP_CONFIGURATION_KEY, new U32(STATS_SELECT_MAP_A));
+
+        mFactory.requestSwapActiveStatsMapLocked();
+        assertEquals(STATS_SELECT_MAP_B,
+                mConfigurationMap.getValue(CURRENT_STATS_MAP_CONFIGURATION_KEY).val);
+
+        mFactory.requestSwapActiveStatsMapLocked();
+        assertEquals(STATS_SELECT_MAP_A,
+                mConfigurationMap.getValue(CURRENT_STATS_MAP_CONFIGURATION_KEY).val);
+    }
+
+    @Test
+    public void testSwapActiveStatsMapSynchronizeKernelRCUFail() throws Exception {
+        doReturn(-EPERM).when(mDeps).synchronizeKernelRCU();
+        mConfigurationMap.updateEntry(
+                CURRENT_STATS_MAP_CONFIGURATION_KEY, new U32(STATS_SELECT_MAP_A));
+
+        assertThrows(IOException.class,
+                () -> mFactory.requestSwapActiveStatsMapLocked());
     }
 
     /**
