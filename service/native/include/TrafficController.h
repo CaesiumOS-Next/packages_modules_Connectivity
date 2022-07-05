@@ -44,6 +44,7 @@ class TrafficController {
      * Swap the stats map config from current active stats map to the idle one.
      */
     netdutils::Status swapActiveStatsMap() EXCLUDES(mMutex);
+    netdutils::Status swapActiveStatsMap2() EXCLUDES(mMutex);
 
     int changeUidOwnerRule(ChildChain chain, const uid_t uid, FirewallRule rule, FirewallType type);
 

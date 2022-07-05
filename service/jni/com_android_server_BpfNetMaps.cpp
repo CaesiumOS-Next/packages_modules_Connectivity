@@ -151,7 +151,7 @@ static jint native_updateUidLockdownRule(JNIEnv* env, jobject self, jint uid, jb
 }
 
 static jint native_swapActiveStatsMap(JNIEnv* env, jobject self) {
-    Status status = mTc.swapActiveStatsMap();
+    Status status = mTc.swapActiveStatsMap2();
     CHECK_LOG(status);
     return (jint)status.code();
 }
