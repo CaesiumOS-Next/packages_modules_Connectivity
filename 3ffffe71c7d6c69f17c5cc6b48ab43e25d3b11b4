@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a9ba917_225ca16e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2899,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-07-05T11:59:12Z",
+      "side": 1,
+      "message": "Question: why do you not to use static import for this method? align with the others?",
+      "range": {
+        "startLine": 2899,
+        "startChar": 15,
+        "endLine": 2899,
+        "endChar": 51
+      },
+      "revId": "3ffffe71c7d6c69f17c5cc6b48ab43e25d3b11b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
