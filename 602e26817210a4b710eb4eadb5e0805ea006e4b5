@@ -22,6 +22,29 @@
       },
       "revId": "602e26817210a4b710eb4eadb5e0805ea006e4b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3b8a6f1_2e5323a1",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-05T18:50:25Z",
+      "side": 1,
+      "message": "Any reason for changing from generateSequence?",
+      "range": {
+        "startLine": 356,
+        "startChar": 8,
+        "endLine": 357,
+        "endChar": 33
+      },
+      "revId": "602e26817210a4b710eb4eadb5e0805ea006e4b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
