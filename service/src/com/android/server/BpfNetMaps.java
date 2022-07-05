@@ -47,6 +47,11 @@ import com.android.net.module.util.Struct.U32;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * BpfNetMaps is responsible for providing traffic controller relevant functionality.
@@ -214,16 +219,24 @@ public class BpfNetMaps {
         mDeps = deps;
     }
 
+    private long getMatchByFirewallChain(final int chain,
+            final boolean throwInvalidArgumentException) {
+        final long match = FIREWALL_CHAIN_TO_MATCH.get(chain, NO_MATCH);
+        if (match == NO_MATCH) {
+            if (throwInvalidArgumentException) {
+                throw new IllegalArgumentException("Invalid firewall chain: " + chain);
+            } else {
+                throw new ServiceSpecificException(EINVAL, "Invalid firewall chain: " + chain);
+            }
+        }
+        return match;
+    }
+
     /**
      * Get corresponding match from firewall chain.
      */
-    @VisibleForTesting
     public long getMatchByFirewallChain(final int chain) {
-        final long match = FIREWALL_CHAIN_TO_MATCH.get(chain, NO_MATCH);
-        if (match == NO_MATCH) {
-            throw new ServiceSpecificException(EINVAL, "Invalid firewall chain: " + chain);
-        }
-        return match;
+        return getMatchByFirewallChain(chain, false /* throwInvalidArgumentException */);
     }
 
     /**
@@ -250,7 +263,7 @@ public class BpfNetMaps {
         }
     }
 
-    private void removeRule(final int uid, final long match, final String caller) {
+    private void removeRule(final long uid, final long match, final String caller) {
         try {
             synchronized (sUidOwnerMap) {
                 final UidOwnerValue oldMatch = sUidOwnerMap.getValue(new U32(uid));
@@ -277,7 +290,7 @@ public class BpfNetMaps {
         }
     }
 
-    private void addRule(final int uid, final long match, final long iif, final String caller) {
+    private void addRule(final long uid, final long match, final long iif, final String caller) {
         if (match != IIF_MATCH && iif != 0) {
             throw new ServiceSpecificException(EINVAL,
                     "Non-interface match must have zero interface index");
@@ -408,25 +421,35 @@ public class BpfNetMaps {
 
     /**
      * Replaces the contents of the specified UID-based firewall chain.
+     * Enables the chain for specified uids and disables the chain for non-specified uids.
      *
-     * The chain may be an allowlist chain or a denylist chain. A denylist chain contains DROP
-     * rules for the specified UIDs and a RETURN rule at the end. An allowlist chain contains RETURN
-     * rules for the system UID range (0 to {@code UID_APP} - 1), RETURN rules for the specified
-     * UIDs, and a DROP rule at the end. The chain will be created if it does not exist.
-     *
-     * @param chainName   The name of the chain to replace.
-     * @param isAllowlist Whether this is an allowlist or denylist chain.
+     * @param chain       Target chain.
      * @param uids        The list of UIDs to allow/deny.
-     * @return 0 if the chain was successfully replaced, errno otherwise.
+     * @throws IllegalArgumentException if {@code chain} is not a valid chain.
      */
-    public int replaceUidChain(final String chainName, final boolean isAllowlist,
-            final int[] uids) {
-        synchronized (sUidOwnerMap) {
-            final int err = native_replaceUidChain(chainName, isAllowlist, uids);
-            if (err != 0) {
-                Log.e(TAG, "replaceUidChain failed: " + Os.strerror(-err));
+    public void replaceUidChain(final int chain, final int[] uids) {
+        throwIfPreT("replaceUidChain is not available on pre-T devices");
+
+        Set<Long> uidSet = new HashSet(Arrays.asList(uids));
+        List<Long> uidsToRemoveRule = new ArrayList<>();
+        final long match = getMatchByFirewallChain(chain, true /* throwInvalidArgumentException */);
+        try {
+            synchronized (sUidOwnerMap) {
+                sUidOwnerMap.forEach((uid, config) -> {
+                    if (!uidSet.contains(uid.val) && (config.rule & match) != 0) {
+                        uidsToRemoveRule.add(uid.val);
+                    }
+                });
+
+                for (final long uid : uidsToRemoveRule) {
+                    removeRule(uid, match, "replaceUidChain");
+                }
+                for (final long uid : uids) {
+                    addRule(uid, match, 0 /* iif */, "replaceUidChain");
+                }
             }
-            return -err;
+        } catch (ErrnoException | ServiceSpecificException e) {
+            Log.e(TAG, "replaceUidChain failed: " + e);
         }
     }
 
