@@ -777,5 +777,14 @@ void TrafficController::dump(int fd, bool verbose) {
     }
 }
 
+Status TrafficController::synchronizeKernelRCU() {
+    int ret = synchronizeKernelRCU();
+    if (ret) {
+        ALOGE("synchronizeRCU failed: %s", strerror(-ret));
+        return statusFromErrno(-ret, "synchronizeRCU() failed");
+    }
+    return netdutils::status::ok;
+}
+
 }  // namespace net
 }  // namespace android

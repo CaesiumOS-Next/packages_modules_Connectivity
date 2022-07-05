@@ -78,6 +78,8 @@ class TrafficController {
 
     FirewallType getFirewallType(ChildChain);
 
+    netdutils::Status synchronizeKernelRCU();
+
     static const char* LOCAL_DOZABLE;
     static const char* LOCAL_STANDBY;
     static const char* LOCAL_POWERSAVE;
