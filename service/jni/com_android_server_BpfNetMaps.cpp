@@ -176,6 +176,10 @@ static void native_dump(JNIEnv* env, jobject self, jobject javaFd, jboolean verb
     mTc.dump(fd, verbose);
 }
 
+static jint native_synchronizeKernelRCU(JNIEnv* env, jobject self) {
+    return bpf::synchronizeKernelRCU();
+}
+
 /*
  * JNI registration.
  */
@@ -208,6 +212,8 @@ static const JNINativeMethod gMethods[] = {
     (void*)native_setPermissionForUids},
     {"native_dump", "(Ljava/io/FileDescriptor;Z)V",
     (void*)native_dump},
+    {"native_synchronizeKernelRCU", "()I",
+    (void*)native_synchronizeKernelRCU},
 };
 // clang-format on
 
