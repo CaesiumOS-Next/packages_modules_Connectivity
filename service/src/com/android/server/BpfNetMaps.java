@@ -26,6 +26,9 @@ import static android.net.ConnectivityManager.FIREWALL_CHAIN_RESTRICTED;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_STANDBY;
 import static android.net.ConnectivityManager.FIREWALL_RULE_ALLOW;
 import static android.net.ConnectivityManager.FIREWALL_RULE_DENY;
+import static android.net.INetd.PERMISSION_INTERNET;
+import static android.net.INetd.PERMISSION_UNINSTALLED;
+import static android.net.INetd.PERMISSION_UPDATE_DEVICE_STATS;
 import static android.system.OsConstants.EINVAL;
 import static android.system.OsConstants.ENOENT;
 import static android.system.OsConstants.EOPNOTSUPP;
@@ -41,17 +44,21 @@ import android.util.SparseLongArray;
 
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.internal.util.IndentingPrintWriter;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BpfMap;
 import com.android.net.module.util.Struct.U32;
+import com.android.net.module.util.Struct.U8;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * BpfNetMaps is responsible for providing traffic controller relevant functionality.
@@ -79,10 +86,17 @@ public class BpfNetMaps {
             "/sys/fs/bpf/netd_shared/map_netd_configuration_map";
     private static final String UID_OWNER_MAP_PATH =
             "/sys/fs/bpf/netd_shared/map_netd_uid_owner_map";
+    private static final String UID_PERMISSION_MAP_PATH =
+            "/sys/fs/bpf/netd_shared/map_netd_uid_permission_map";
     private static final U32 UID_RULES_CONFIGURATION_KEY = new U32(0);
     private static BpfMap<U32, U32> sConfigurationMap = null;
     // BpfMap for UID_OWNER_MAP_PATH. This map is not accessed by others.
     private static BpfMap<U32, UidOwnerValue> sUidOwnerMap = null;
+    // Store uids that are used for INTERNET permission check.
+    private static BpfMap<U32, U8> sUidPermissionMap = null;
+
+    @VisibleForTesting public static Set<Integer> sPrivilegedUser =
+            Collections.newSetFromMap(new ConcurrentHashMap<>());
 
     // LINT.IfChange(match_type)
     @VisibleForTesting public static final long NO_MATCH = 0;
@@ -148,6 +162,14 @@ public class BpfNetMaps {
         sUidOwnerMap = uidOwnerMap;
     }
 
+    /**
+     * Set uidPermissionMap for test.
+     */
+    @VisibleForTesting
+    public static void setUidPermissionMapForTest(BpfMap<U32, U8> uidPermissionMap) {
+        sUidPermissionMap = uidPermissionMap;
+    }
+
     private static BpfMap<U32, U32> getConfigurationMap() {
         try {
             return new BpfMap<>(
@@ -166,12 +188,24 @@ public class BpfNetMaps {
         }
     }
 
+    private static BpfMap<U32, U8> getUidPermissionMap() {
+        try {
+            return new BpfMap<>(
+                    UID_PERMISSION_MAP_PATH, BpfMap.BPF_F_RDWR, U32.class, U8.class);
+        } catch (ErrnoException e) {
+            throw new IllegalStateException("Cannot open uid permission map", e);
+        }
+    }
+
     private static synchronized void setBpfMaps() {
         if (sConfigurationMap == null) {
             sConfigurationMap = getConfigurationMap();
         }
         if (sUidOwnerMap == null) {
             sUidOwnerMap = getUidOwnerMap();
+        }
+        if (sUidPermissionMap == null) {
+            sUidPermissionMap = getUidPermissionMap();
         }
     }
 
@@ -557,18 +591,65 @@ public class BpfNetMaps {
      * Assigns android.permission.INTERNET and/or android.permission.UPDATE_DEVICE_STATS to the uids
      * specified. Or remove all permissions from the uids.
      *
-     * @param permissions The permission to grant, it could be either PERMISSION_INTERNET and/or
+     * @param permission  The permission to grant, it could be either PERMISSION_INTERNET and/or
      *                    PERMISSION_UPDATE_DEVICE_STATS. If the permission is NO_PERMISSIONS, then
      *                    revoke all permissions for the uids.
      * @param uids        uid of users to grant permission
      * @throws RemoteException when netd has crashed.
      */
-    public void setNetPermForUids(final int permissions, final int[] uids) throws RemoteException {
+    public void setNetPermForUids(final int permission, final int[] uids) throws RemoteException {
         if (PRE_T) {
-            mNetd.trafficSetNetPermForUids(permissions, uids);
+            mNetd.trafficSetNetPermForUids(permission, uids);
             return;
         }
-        native_setPermissionForUids(permissions, uids);
+
+        if (permission == PERMISSION_UNINSTALLED) {
+            for (final int uid: uids) {
+                sPrivilegedUser.remove(uid);
+                try {
+                    sUidPermissionMap.deleteEntry(new U32(uid));
+                } catch (ErrnoException e) {
+                    Log.e(TAG, "Failed to clean up the permission for " + uid + ": " + e);
+                }
+            }
+            return;
+        }
+
+        for (final int uid: uids) {
+            if ((permission & PERMISSION_UPDATE_DEVICE_STATS) != 0) {
+                sPrivilegedUser.add(uid);
+            } else {
+                sPrivilegedUser.remove(uid);
+            }
+
+            // The map stores all the permissions that the UID has, except if the only permission
+            // the UID has is the INTERNET permission, then the UID should not appear in the map.
+            if (permission == PERMISSION_INTERNET) {
+                try {
+                    sUidPermissionMap.deleteEntry(new U32(uid));
+                } catch (ErrnoException e) {
+                    Log.e(TAG, "Failed to remove uid " + uid + " from permission map: " + e);
+                }
+            } else {
+                try {
+                    sUidPermissionMap.updateEntry(new U32(uid), new U8((short) permission));
+                } catch (ErrnoException e) {
+                    Log.e(TAG,
+                            "Failed to set permission " + permission + " to uid " + uid + ": " + e);
+                }
+            }
+        }
+    }
+
+    /**
+     * Dump sPrivilegedUser
+     */
+    @VisibleForTesting
+    public void dumpPrivilegedUser(final IndentingPrintWriter pw) {
+        pw.println("sPrivilegedUser:");
+        for (final int uid: sPrivilegedUser) {
+            pw.println(uid + " ALLOW_UPDATE_DEVICE_STATS");
+        }
     }
 
     /**
@@ -578,7 +659,7 @@ public class BpfNetMaps {
      * @throws IOException when file descriptor is invalid.
      * @throws ServiceSpecificException when the method is called on an unsupported device.
      */
-    public void dump(final FileDescriptor fd, boolean verbose)
+    public void dump(final IndentingPrintWriter pw, final FileDescriptor fd, boolean verbose)
             throws IOException, ServiceSpecificException {
         if (PRE_T) {
             throw new ServiceSpecificException(
@@ -586,6 +667,11 @@ public class BpfNetMaps {
                     + " devices, use dumpsys netd trafficcontroller instead.");
         }
         native_dump(fd, verbose);
+
+        // TODO: move native_dump to here with Java BpfMap
+        // setIndent(3) to align with native_dump
+        pw.setIndent(3);
+        dumpPrivilegedUser(pw);
     }
 
     private static native void native_init();
