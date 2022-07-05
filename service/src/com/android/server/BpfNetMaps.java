@@ -588,10 +588,6 @@ public class BpfNetMaps {
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
      */
-    public void swapActiveStatsMap() {
-        final int err = native_swapActiveStatsMap();
-        maybeThrow(err, "Unable to swap active stats map");
-    }
 
     /**
      * Assigns android.permission.INTERNET and/or android.permission.UPDATE_DEVICE_STATS to the uids
