@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b26c107_30192935",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-07-05T10:37:59Z",
+      "side": 1,
+      "message": "Nit: It\u0027s not a must item in the upload script. You could just skip it if you do not like to link to any bug.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 9
+      },
+      "revId": "b5c9cc8b78648f7594ddec2596a579efbc0ffa9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72cf4a45_c994361d",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-07-05T10:37:59Z",
+      "side": 1,
+      "message": "I wonder if it could be simplified more?",
+      "range": {
+        "startLine": 158,
+        "startChar": 36,
+        "endLine": 158,
+        "endChar": 44
+      },
+      "revId": "b5c9cc8b78648f7594ddec2596a579efbc0ffa9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3346d02a_3900580e",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-07-05T10:37:59Z",
+      "side": 1,
+      "message": "For vpn related tests, multi-context will be needed. Current utils does not seem to support it.",
+      "range": {
+        "startLine": 110,
+        "startChar": 8,
+        "endLine": 110,
+        "endChar": 50
+      },
+      "revId": "b5c9cc8b78648f7594ddec2596a579efbc0ffa9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
