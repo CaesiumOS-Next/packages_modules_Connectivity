@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78eac62c_02e7df4a",
+        "filename": "Tethering/apex/manifest.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1061164
+      },
+      "writtenOn": "2022-07-05T17:16:12Z",
+      "side": 1,
+      "message": "remove whitespace?",
+      "revId": "7c013132131b29bf93e98ec75229b0fc011cb793",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
