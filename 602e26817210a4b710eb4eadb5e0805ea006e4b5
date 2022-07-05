@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddda3abc_d2a711e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-05T20:02:05Z",
+      "side": 1,
+      "message": "Even with the TAP iface, I do not see the eth header in tcpdump.",
+      "revId": "602e26817210a4b710eb4eadb5e0805ea006e4b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6dc3dd61_cf5732c7",
