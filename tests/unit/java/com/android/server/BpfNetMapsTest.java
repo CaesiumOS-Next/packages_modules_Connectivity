@@ -39,6 +39,8 @@ import static com.android.server.BpfNetMaps.PERMISSION_UNINSTALLED;
 import static com.android.server.BpfNetMaps.PERMISSION_UPDATE_DEVICE_STATS;
 import static com.android.server.BpfNetMaps.POWERSAVE_MATCH;
 import static com.android.server.BpfNetMaps.RESTRICTED_MATCH;
+import static com.android.server.BpfNetMaps.STATS_SELECT_MAP_A;
+import static com.android.server.BpfNetMaps.STATS_SELECT_MAP_B;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -90,6 +92,7 @@ public final class BpfNetMapsTest {
     private static final int NULL_IIF = 0;
     private static final String CHAINNAME = "fw_dozable";
     private static final U32 UID_RULES_CONFIGURATION_KEY = new U32(0);
+    private static final U32 CURRENT_STATS_MAP_CONFIGURATION_KEY = new U32(1);
     private static final List<Integer> FIREWALL_CHAINS = List.of(
             FIREWALL_CHAIN_DOZABLE,
             FIREWALL_CHAIN_STANDBY,
@@ -123,6 +126,11 @@ public final class BpfNetMapsTest {
             @Override
             public int getIfIndex(String ifName) {
                 return TEST_IF_INDEX;
+            }
+
+            @Override
+            public int synchronizeKernelRCU() {
+                return 0;
             }
         };
     }
@@ -859,5 +867,20 @@ public final class BpfNetMapsTest {
         assertNull(mUidPermissionMap.getValue(new U32(uid0)));
         assertNull(mUidPermissionMap.getValue(new U32(uid1)));
         assertTrue(BpfNetMaps.sPrivilegedUser.isEmpty());
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testSwapActiveStatsMap() throws Exception {
+        mConfigurationMap.updateEntry(
+                CURRENT_STATS_MAP_CONFIGURATION_KEY, new U32(STATS_SELECT_MAP_A));
+
+        mBpfNetMaps.swapActiveStatsMap();
+        assertEquals(STATS_SELECT_MAP_B,
+                mConfigurationMap.getValue(CURRENT_STATS_MAP_CONFIGURATION_KEY).val);
+
+        mBpfNetMaps.swapActiveStatsMap();
+        assertEquals(STATS_SELECT_MAP_A,
+                mConfigurationMap.getValue(CURRENT_STATS_MAP_CONFIGURATION_KEY).val);
     }
 }

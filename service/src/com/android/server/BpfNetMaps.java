@@ -35,6 +35,7 @@ import android.os.RemoteException;
 import android.os.ServiceSpecificException;
 import android.system.ErrnoException;
 import android.system.Os;
+import android.system.OsConstants;
 import android.util.Log;
 import android.util.SparseIntArray;
 import android.util.SparseLongArray;
@@ -74,10 +75,20 @@ public class BpfNetMaps {
     private static final boolean PRE_T = !SdkLevel.isAtLeastT();
     private static boolean sInitialized = false;
 
+    // AF_KEY socket type. See include/linux/socket.h.
+    private static final int AF_KEY = 15;
+    // PFKEYv2 constants. See include/uapi/linux/pfkeyv2.h.
+    private static final int PF_KEY_V2 = 2;
+
     // Lock for sConfigurationMap entry for UID_RULES_CONFIGURATION_KEY.
     // This entry is not accessed by others.
     // BpfNetMaps acquires this lock while sequence of read, modify, and write.
     private static final Object sUidRulesConfigBpfMapLock = new Object();
+
+    // Lock for sConfigurationMap entry for CURRENT_STATS_MAP_CONFIGURATION_KEY.
+    // BpfHandler and BpfNetworkStats have one-shot reads which is safe.
+    // BpfNetMaps acquires this lock while sequence of read, modify, and write.
+    private static final Object sConfigCurrentStatsLock = new Object();
 
     private static final String CONFIGURATION_MAP_PATH =
             "/sys/fs/bpf/netd_shared/map_netd_configuration_map";
@@ -86,6 +97,7 @@ public class BpfNetMaps {
     private static final String UID_PERMISSION_MAP_PATH =
             "/sys/fs/bpf/netd_shared/map_netd_uid_permission_map";
     private static final U32 UID_RULES_CONFIGURATION_KEY = new U32(0);
+    private static final U32 CURRENT_STATS_MAP_CONFIGURATION_KEY = new U32(1);
     private static BpfMap<U32, U32> sConfigurationMap = null;
     // BpfMap for UID_OWNER_MAP_PATH. This map is not accessed by others.
     private static BpfMap<U32, UidOwnerValue> sUidOwnerMap = null;
@@ -147,6 +159,9 @@ public class BpfNetMaps {
     @VisibleForTesting public static final int PERMISSION_NONE = 0;
     @VisibleForTesting public static final int PERMISSION_INTERNET = 1 << 2;
     @VisibleForTesting public static final int PERMISSION_UPDATE_DEVICE_STATS = 1 << 3;
+
+    @VisibleForTesting public static final long STATS_SELECT_MAP_A = 0;
+    @VisibleForTesting public static final long STATS_SELECT_MAP_B = 1;
 
     /**
      * Set configurationMap for test.
@@ -231,6 +246,37 @@ public class BpfNetMaps {
          */
         public int getIfIndex(final String ifName) {
             return Os.if_nametoindex(ifName);
+        }
+
+        /**
+         * Call synchronize_rcu() to block until all existing RCU read-side critical sections have
+         * been completed.
+         * Note that BpfCoordinatorTest have no permissions to create or close pf_key socket. It is
+         * okay for now because the caller #bpfGetAndClearStats doesn't care the result of this
+         * function. The tests don't be broken.
+         * TODO: Wrap this function into Dependencies for mocking in tests.
+         */
+        public int synchronizeKernelRCU() {
+            // This is a temporary hack for network stats map swap on devices running
+            // 4.9 kernels. The kernel code of socket release on pf_key socket will
+            // explicitly call synchronize_rcu() which is exactly what we need.
+            FileDescriptor pfSocket;
+            try {
+                pfSocket = Os.socket(AF_KEY, OsConstants.SOCK_RAW | OsConstants.SOCK_CLOEXEC,
+                        PF_KEY_V2);
+            } catch (ErrnoException e) {
+                Log.e(TAG, "create PF_KEY socket failed: " + e);
+                throw new ServiceSpecificException(e.errno, "map swap synchronize_rcu() failed");
+            }
+
+            // When closing socket, synchronize_rcu() gets called in sock_release().
+            try {
+                Os.close(pfSocket);
+            } catch (ErrnoException e) {
+                Log.e(TAG, "failed to close the PF_KEY socket: ", e);
+                throw new ServiceSpecificException(e.errno, "map swap synchronize_rcu() failed");
+            }
+            return 0;
         }
     }
 
@@ -590,8 +636,29 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void swapActiveStatsMap() {
-        final int err = native_swapActiveStatsMap();
-        maybeThrow(err, "Unable to swap active stats map");
+        try {
+            synchronized (sConfigCurrentStatsLock) {
+                final long config = sConfigurationMap.getValue(
+                        CURRENT_STATS_MAP_CONFIGURATION_KEY).val;
+                final long newConfig =
+                        (config == STATS_SELECT_MAP_A) ? STATS_SELECT_MAP_B : STATS_SELECT_MAP_A;
+                sConfigurationMap.updateEntry(CURRENT_STATS_MAP_CONFIGURATION_KEY,
+                        new U32(newConfig));
+            }
+        } catch (ErrnoException e) {
+            throw new ServiceSpecificException(e.errno, "Failed to swap active stats map");
+        }
+
+        // After changing the config, we need to make sure all the current running
+        // eBPF programs are finished and all the CPUs are aware of this config change
+        // before we modify the old map. So we do a special hack here to wait for
+        // the kernel to do a synchronize_rcu(). Once the kernel called
+        // synchronize_rcu(), the config we just updated will be available to all cores
+        // and the next eBPF programs triggered inside the kernel will use the new
+        // map configuration. So once this function returns we can safely modify the
+        // old stats map without concerning about race between the kernel and
+        // userspace.
+        mDeps.synchronizeKernelRCU();
     }
 
     /**
