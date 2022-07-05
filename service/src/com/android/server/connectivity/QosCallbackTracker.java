@@ -18,6 +18,7 @@ package com.android.server.connectivity;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.net.ConnectivityManager;
 import android.net.IQosCallback;
 import android.net.Network;
 import android.net.QosCallbackException;
@@ -26,12 +27,13 @@ import android.net.QosSession;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.ServiceSpecificException;
 import android.telephony.data.EpsBearerQosSessionAttributes;
 import android.telephony.data.NrQosSessionAttributes;
 import android.util.Log;
 
 import com.android.net.module.util.CollectionUtils;
-import com.android.server.ConnectivityService;
+import com.android.net.module.util.PerUidCounter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +54,7 @@ public class QosCallbackTracker {
     private final Handler mConnectivityServiceHandler;
 
     @NonNull
-    private final ConnectivityService.PerUidCounter mNetworkRequestCounter;
+    private final PerUidCounter mNetworkRequestCounter;
 
     /**
      * Each agent gets a unique callback id that is used to proxy messages back to the original
@@ -78,7 +80,7 @@ public class QosCallbackTracker {
      *                              uid
      */
     public QosCallbackTracker(@NonNull final Handler connectivityServiceHandler,
-            final ConnectivityService.PerUidCounter networkRequestCounter) {
+            final PerUidCounter networkRequestCounter) {
         mConnectivityServiceHandler = connectivityServiceHandler;
         mNetworkRequestCounter = networkRequestCounter;
     }
@@ -94,7 +96,13 @@ public class QosCallbackTracker {
         final int uid = Binder.getCallingUid();
 
         // Enforce that the number of requests under this uid has exceeded the allowed number
-        mNetworkRequestCounter.incrementCountOrThrow(uid);
+        try {
+            mNetworkRequestCounter.incrementCountOrThrow(uid);
+        } catch (IllegalStateException e) {
+            throw new ServiceSpecificException(
+                    ConnectivityManager.Errors.TOO_MANY_REQUESTS,
+                    "Uid " + uid + " exceeded its allotted requests limit");
+        }
 
         mConnectivityServiceHandler.post(
                 () -> handleRegisterCallback(callback, filter, uid, networkAgentInfo));
@@ -109,7 +117,15 @@ public class QosCallbackTracker {
             if (DBG) log("handleRegisterCallback: added callback " + ac.getAgentCallbackId());
             mConnections.add(ac);
         } else {
-            mNetworkRequestCounter.decrementCount(uid);
+            decrementNetworkRequestCount(uid);
+        }
+    }
+
+    private void decrementNetworkRequestCount(int uid) {
+        try {
+            mNetworkRequestCounter.decrementCountOrThrow(uid);
+        } catch (IllegalStateException e) {
+            Log.wtf(TAG, "Exception when decrement per uid request count: ", e);
         }
     }
 
@@ -141,7 +157,7 @@ public class QosCallbackTracker {
         if (!ac.sendCmdRegisterCallback()) {
             // There was an issue when registering the agent
             if (DBG) log("handleRegisterCallback: error sending register callback");
-            mNetworkRequestCounter.decrementCount(uid);
+            decrementNetworkRequestCount(uid);
             return null;
         }
         return ac;
@@ -170,7 +186,7 @@ public class QosCallbackTracker {
                     + agentConnection.getAgentCallbackId());
         }
 
-        mNetworkRequestCounter.decrementCount(agentConnection.getUid());
+        decrementNetworkRequestCount(agentConnection.getUid());
         mConnections.remove(agentConnection);
 
         if (sendToNetworkAgent) {

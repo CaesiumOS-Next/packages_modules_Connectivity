@@ -257,6 +257,7 @@ import com.android.net.module.util.LinkPropertiesUtils.CompareOrUpdateResult;
 import com.android.net.module.util.LinkPropertiesUtils.CompareResult;
 import com.android.net.module.util.LocationPermissionChecker;
 import com.android.net.module.util.NetworkCapabilitiesUtils;
+import com.android.net.module.util.PerUidCounter;
 import com.android.net.module.util.PermissionUtils;
 import com.android.net.module.util.TcUtils;
 import com.android.net.module.util.netlink.InetDiagMessage;
@@ -1186,71 +1187,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     /**
-     * Keeps track of the number of requests made under different uids.
-     */
-    // TODO: Remove the hack and use com.android.net.module.util.PerUidCounter instead.
-    public static class PerUidCounter {
-        private final int mMaxCountPerUid;
-
-        // Map from UID to number of NetworkRequests that UID has filed.
-        @VisibleForTesting
-        @GuardedBy("mUidToNetworkRequestCount")
-        final SparseIntArray mUidToNetworkRequestCount = new SparseIntArray();
-
-        /**
-         * Constructor
-         *
-         * @param maxCountPerUid the maximum count per uid allowed
-         */
-        public PerUidCounter(final int maxCountPerUid) {
-            mMaxCountPerUid = maxCountPerUid;
-        }
-
-        /**
-         * Increments the request count of the given uid.  Throws an exception if the number
-         * of open requests for the uid exceeds the value of maxCounterPerUid which is the value
-         * passed into the constructor. see: {@link #PerUidCounter(int)}.
-         *
-         * @throws ServiceSpecificException with
-         * {@link ConnectivityManager.Errors.TOO_MANY_REQUESTS} if the number of requests for
-         * the uid exceed the allowed number.
-         *
-         * @param uid the uid that the request was made under
-         */
-        public void incrementCountOrThrow(final int uid) {
-            synchronized (mUidToNetworkRequestCount) {
-                final int newRequestCount = mUidToNetworkRequestCount.get(uid, 0) + 1;
-                if (newRequestCount >= mMaxCountPerUid) {
-                    throw new ServiceSpecificException(
-                            ConnectivityManager.Errors.TOO_MANY_REQUESTS,
-                            "Uid " + uid + " exceeded its allotted requests limit");
-                }
-                mUidToNetworkRequestCount.put(uid, newRequestCount);
-            }
-        }
-
-        /**
-         * Decrements the request count of the given uid.
-         *
-         * @param uid the uid that the request was made under
-         */
-        public void decrementCount(final int uid) {
-            synchronized (mUidToNetworkRequestCount) {
-                /* numToDecrement */
-                final int newRequestCount = mUidToNetworkRequestCount.get(uid, 0) - 1;
-                if (newRequestCount < 0) {
-                    logwtf("BUG: too small request count " + newRequestCount + " for UID " + uid);
-                } else if (newRequestCount == 0) {
-                    mUidToNetworkRequestCount.delete(uid);
-                } else {
-                    mUidToNetworkRequestCount.put(uid, newRequestCount);
-                }
-            }
-        }
-
-    }
-
-    /**
      * Dependencies of ConnectivityService, for injection in tests.
      */
     @VisibleForTesting
@@ -1464,8 +1400,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mNetIdManager = mDeps.makeNetIdManager();
         mContext = Objects.requireNonNull(context, "missing Context");
         mResources = deps.getResources(mContext);
-        mNetworkRequestCounter = new PerUidCounter(MAX_NETWORK_REQUESTS_PER_UID);
-        mSystemNetworkRequestCounter = new PerUidCounter(MAX_NETWORK_REQUESTS_PER_SYSTEM_UID);
+        // The legacy PerUidCounter is buggy and throwing exception at count == limit.
+        // Pass limit - 1 to maintain backward compatibility.
+        // TODO: Remove the workaround.
+        mNetworkRequestCounter = new PerUidCounter(MAX_NETWORK_REQUESTS_PER_UID - 1);
+        mSystemNetworkRequestCounter = new PerUidCounter(MAX_NETWORK_REQUESTS_PER_SYSTEM_UID - 1);
 
         mMetricsLog = logger;
         mNetworkRanker = new NetworkRanker();
@@ -6287,7 +6226,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mUid = mDeps.getCallingUid();
             mAsUid = asUid;
             mPerUidCounter = getRequestCounter(this);
-            mPerUidCounter.incrementCountOrThrow(mUid);
+            incrementRequestCountOrThrow();
             /**
              * Location sensitive data not included in pending intent. Only included in
              * {@link NetworkCallback}.
@@ -6321,7 +6260,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mAsUid = asUid;
             mPendingIntent = null;
             mPerUidCounter = getRequestCounter(this);
-            mPerUidCounter.incrementCountOrThrow(mUid);
+            incrementRequestCountOrThrow();
             mCallbackFlags = callbackFlags;
             mCallingAttributionTag = callingAttributionTag;
             mPreferenceOrder = PREFERENCE_ORDER_INVALID;
@@ -6361,7 +6300,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mAsUid = nri.mAsUid;
             mPendingIntent = nri.mPendingIntent;
             mPerUidCounter = nri.mPerUidCounter;
-            mPerUidCounter.incrementCountOrThrow(mUid);
+            incrementRequestCountOrThrow();
             mCallbackFlags = nri.mCallbackFlags;
             mCallingAttributionTag = nri.mCallingAttributionTag;
             mPreferenceOrder = PREFERENCE_ORDER_INVALID;
@@ -6396,8 +6335,24 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return Collections.unmodifiableList(tempRequests);
         }
 
+        // Keep backward compatibility since the ServiceSpecificException is used by
+        // the API surface, see {@link ConnectivityManager#convertServiceException}.
+        void incrementRequestCountOrThrow() {
+            try {
+                mPerUidCounter.incrementCountOrThrow(mUid);
+            } catch (IllegalStateException e) {
+                throw new ServiceSpecificException(
+                        ConnectivityManager.Errors.TOO_MANY_REQUESTS,
+                        "Uid " + mUid + " exceeded its allotted requests limit");
+            }
+        }
+
         void decrementRequestCount() {
-            mPerUidCounter.decrementCount(mUid);
+            try {
+                mPerUidCounter.decrementCountOrThrow(mUid);
+            } catch (IllegalStateException e) {
+                logwtf("Exception when decrement per uid request count: ", e);
+            }
         }
 
         void linkDeathRecipient() {
