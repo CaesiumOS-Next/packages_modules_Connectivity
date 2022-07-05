@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dc3dd61_cf5732c7",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-05T17:59:55Z",
+      "side": 1,
+      "message": "Since the target IPv6 address is unreachable the V6 tests fail. Is this a limitation of testing with eth headers for IPv6?",
+      "range": {
+        "startLine": 173,
+        "startChar": 57,
+        "endLine": 173,
+        "endChar": 78
+      },
+      "revId": "602e26817210a4b710eb4eadb5e0805ea006e4b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
