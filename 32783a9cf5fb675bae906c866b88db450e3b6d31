@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad218546_b0cdc189",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1273,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-07-05T01:49:49Z",
+      "side": 1,
+      "message": "I think you don\u0027t need to assign a null object to a varargs if you don\u0027t have a use case for null. Instead, you should just ignore this value if no VpnProfileState.",
+      "range": {
+        "startLine": 1273,
+        "startChar": 57,
+        "endLine": 1273,
+        "endChar": 98
+      },
+      "revId": "32783a9cf5fb675bae906c866b88db450e3b6d31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
