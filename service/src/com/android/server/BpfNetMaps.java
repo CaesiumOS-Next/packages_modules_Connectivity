@@ -80,6 +80,11 @@ public class BpfNetMaps {
     // BpfNetMaps acquires this lock while sequence of read, modify, and write.
     private static final Object sUidRulesConfigBpfMapLock = new Object();
 
+    // Lock for sConfigurationMap entry for CURRENT_STATS_MAP_CONFIGURATION_KEY.
+    // BpfNetMaps acquires this lock while sequence of read, modify, and write. BpfHandler and
+    // BpfNetworkStats access to this entry, but they only have read access. So this is safe.
+    private static final Object sConfigCurrentStatsLock = new Object();
+
     private static final String CONFIGURATION_MAP_PATH =
             "/sys/fs/bpf/netd_shared/map_netd_configuration_map";
     private static final String UID_OWNER_MAP_PATH =
@@ -87,6 +92,7 @@ public class BpfNetMaps {
     private static final String UID_PERMISSION_MAP_PATH =
             "/sys/fs/bpf/netd_shared/map_netd_uid_permission_map";
     private static final U32 UID_RULES_CONFIGURATION_KEY = new U32(0);
+    private static final U32 CURRENT_STATS_MAP_CONFIGURATION_KEY = new U32(1);
     private static BpfMap<U32, U32> sConfigurationMap = null;
     // BpfMap for UID_OWNER_MAP_PATH. This map is not accessed by others.
     private static BpfMap<U32, UidOwnerValue> sUidOwnerMap = null;
@@ -140,6 +146,9 @@ public class BpfNetMaps {
         FIREWALL_CHAIN_TO_TYPE.put(FIREWALL_CHAIN_OEM_DENY_2, FIREWALL_DENYLIST);
         FIREWALL_CHAIN_TO_TYPE.put(FIREWALL_CHAIN_OEM_DENY_3, FIREWALL_DENYLIST);
     }
+
+    @VisibleForTesting public static final long STATS_SELECT_MAP_A = 0;
+    @VisibleForTesting public static final long STATS_SELECT_MAP_B = 1;
 
     /**
      * Set configurationMap for test.
@@ -225,6 +234,17 @@ public class BpfNetMaps {
          */
         public int getIfIndex(final String ifName) {
             return Os.if_nametoindex(ifName);
+        }
+
+        /**
+         * Call synchronize_rcu()
+         */
+        public void synchronizeKernelRCU() {
+            int ret = native_synchronizeKernelRCU();
+            if (ret != 0) {
+                throw new ServiceSpecificException(-ret,
+                        "native_synchronizeKernelRCU failed: " + Os.strerror(-ret));
+            }
         }
     }
 
@@ -589,8 +609,29 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void swapActiveStatsMap() {
-        final int err = native_swapActiveStatsMap();
-        maybeThrow(err, "Unable to swap active stats map");
+        try {
+            synchronized (sConfigCurrentStatsLock) {
+                final long config = sConfigurationMap.getValue(
+                        CURRENT_STATS_MAP_CONFIGURATION_KEY).val;
+                final long newConfig =
+                        (config == STATS_SELECT_MAP_A) ? STATS_SELECT_MAP_B : STATS_SELECT_MAP_A;
+                sConfigurationMap.updateEntry(CURRENT_STATS_MAP_CONFIGURATION_KEY,
+                        new U32(newConfig));
+            }
+        } catch (ErrnoException e) {
+            throw new ServiceSpecificException(e.errno, "Failed to swap active stats map");
+        }
+
+        // After changing the config, we need to make sure all the current running
+        // eBPF programs are finished and all the CPUs are aware of this config change
+        // before we modify the old map. So we do a special hack here to wait for
+        // the kernel to do a synchronize_rcu(). Once the kernel called
+        // synchronize_rcu(), the config we just updated will be available to all cores
+        // and the next eBPF programs triggered inside the kernel will use the new
+        // map configuration. So once this function returns we can safely modify the
+        // old stats map without concerning about race between the kernel and
+        // userspace.
+        mDeps.synchronizeKernelRCU();
     }
 
     /**
@@ -679,4 +720,5 @@ public class BpfNetMaps {
     private native int native_swapActiveStatsMap();
     private native void native_setPermissionForUids(int permissions, int[] uids);
     private native void native_dump(FileDescriptor fd, boolean verbose);
+    private static native int native_synchronizeKernelRCU();
 }
