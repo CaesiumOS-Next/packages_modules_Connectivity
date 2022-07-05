@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d9801c5_07a055aa",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1230,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-07-05T02:32:36Z",
+      "side": 1,
+      "message": "I\u0027m not a big fan on this, it\u0027s really not intuitive. I checked the VPN code, looks like even VpnManager.CATEGORY_EVENT_DEACTIVATED_BY_USER case, it still have a VpnProfileState. Should we verify that VpnProfileState?",
+      "range": {
+        "startLine": 1230,
+        "startChar": 32,
+        "endLine": 1230,
+        "endChar": 62
+      },
+      "revId": "68a52a803a469cd8ca7bbaeab9f7b4240fc761a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e577528_c146659d",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1231,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-07-05T02:32:36Z",
+      "side": 1,
+      "message": "Not for this commit: This looks incorrect becasue it always captures last intent. If we have more than one intent, shouldn\u0027t we capture and verify the intent one by one?",
+      "range": {
+        "startLine": 1231,
+        "startChar": 8,
+        "endLine": 1231,
+        "endChar": 90
+      },
+      "revId": "68a52a803a469cd8ca7bbaeab9f7b4240fc761a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
