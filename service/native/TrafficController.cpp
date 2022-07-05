@@ -197,6 +197,7 @@ Status TrafficController::start() {
     }
     // Rx handler extracts nfgenmsg looks up and invokes registered dispatch function.
     const auto rxHandler = [this](const nlmsghdr&, const Slice msg) {
+        ALOGE("MDBG rxHandler");
         std::lock_guard guard(mMutex);
         inet_diag_msg diagmsg = {};
         if (extract(msg, diagmsg) < sizeof(inet_diag_msg)) {
@@ -217,6 +218,7 @@ Status TrafficController::start() {
     // In case multiple netlink message comes in as a stream, we need to handle the rxDone message
     // properly.
     const auto rxDoneHandler = [](const nlmsghdr&, const Slice msg) {
+        ALOGE("MDBG rxDoneHandler");
         // Ignore NLMSG_DONE  messages
         inet_diag_msg diagmsg = {};
         extract(msg, diagmsg);
