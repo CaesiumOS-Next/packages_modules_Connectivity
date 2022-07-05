@@ -79,6 +79,11 @@ public class BpfNetMaps {
     // BpfNetMaps acquires this lock while sequence of read, modify, and write.
     private static final Object sUidRulesConfigBpfMapLock = new Object();
 
+    // Lock for sConfigurationMap entry for CURRENT_STATS_MAP_CONFIGURATION_KEY.
+    // BpfNetMaps acquires this lock while sequence of read, modify, and write. BpfHandler and
+    // BpfNetworkStats access to this entry, but they only have read access. So this is safe.
+    private static final Object sConfigCurrentStatsLock = new Object();
+
     private static final String CONFIGURATION_MAP_PATH =
             "/sys/fs/bpf/netd_shared/map_netd_configuration_map";
     private static final String UID_OWNER_MAP_PATH =
@@ -86,6 +91,7 @@ public class BpfNetMaps {
     private static final String UID_PERMISSION_MAP_PATH =
             "/sys/fs/bpf/netd_shared/map_netd_uid_permission_map";
     private static final U32 UID_RULES_CONFIGURATION_KEY = new U32(0);
+    private static final U32 CURRENT_STATS_MAP_CONFIGURATION_KEY = new U32(1);
     private static BpfMap<U32, U32> sConfigurationMap = null;
     // BpfMap for UID_OWNER_MAP_PATH. This map is not accessed by others.
     private static BpfMap<U32, UidOwnerValue> sUidOwnerMap = null;
@@ -107,6 +113,9 @@ public class BpfNetMaps {
     @VisibleForTesting public static final long OEM_DENY_2_MATCH = (1 << 10);
     @VisibleForTesting public static final long OEM_DENY_3_MATCH = (1 << 11);
     // LINT.ThenChange(packages/modules/Connectivity/bpf_progs/bpf_shared.h)
+
+    @VisibleForTesting public static final long STATS_SELECT_MAP_A = 0;
+    @VisibleForTesting public static final long STATS_SELECT_MAP_B = 1;
 
     /**
      * Set configurationMap for test.
@@ -193,6 +202,13 @@ public class BpfNetMaps {
         public int getIfIndex(final String ifName) {
             return Os.if_nametoindex(ifName);
         }
+
+        /**
+         * Call synchronize_rcu()
+         */
+        public int synchronizeKernelRCU() {
+            return native_synchronizeKernelRCU();
+        }
     }
 
     /** Constructor used after T that doesn't need to use netd anymore. */
@@ -275,13 +291,6 @@ public class BpfNetMaps {
     private void throwIfPreT(final String msg) {
         if (PRE_T) {
             throw new UnsupportedOperationException(msg);
-        }
-    }
-
-    private void throwIfInvalidChain(final int chain) {
-        final long match = FIREWALL_CHAIN_TO_MATCH.get(chain, NO_MATCH);
-        if (match == NO_MATCH) {
-            throw new IllegalArgumentException("Invalid firewall chain: " + chain);
         }
     }
 
@@ -452,8 +461,12 @@ public class BpfNetMaps {
     public void replaceUidChain(final int chain, final int[] uids) {
         throwIfPreT("replaceUidChain is not available on pre-T devices");
 
-        throwIfInvalidChain(chain);
-        final long match = getMatchByFirewallChain(chain);
+        final long match;
+        try {
+            match = getMatchByFirewallChain(chain);
+        } catch (ServiceSpecificException e) {
+            throw new IllegalArgumentException("Invalid firewall chain: " + chain);
+        }
         final Set<Long> uidSet = new HashSet(Arrays.asList(uids));
         final List<Long> uidsToRemoveRule = new ArrayList<>();
         try {
@@ -592,8 +605,33 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void swapActiveStatsMap() {
-        final int err = native_swapActiveStatsMap();
-        maybeThrow(err, "Unable to swap active stats map");
+        try {
+            synchronized (sConfigCurrentStatsLock) {
+                final long config = sConfigurationMap.getValue(
+                        CURRENT_STATS_MAP_CONFIGURATION_KEY).val;
+                final long newConfig =
+                        (config == STATS_SELECT_MAP_A) ? STATS_SELECT_MAP_B : STATS_SELECT_MAP_A;
+                sConfigurationMap.updateEntry(CURRENT_STATS_MAP_CONFIGURATION_KEY,
+                        new U32(newConfig));
+            }
+        } catch (ErrnoException e) {
+            throw new ServiceSpecificException(e.errno, "Failed to swap active stats map");
+        }
+
+        // After changing the config, we need to make sure all the current running
+        // eBPF programs are finished and all the CPUs are aware of this config change
+        // before we modify the old map. So we do a special hack here to wait for
+        // the kernel to do a synchronize_rcu(). Once the kernel called
+        // synchronize_rcu(), the config we just updated will be available to all cores
+        // and the next eBPF programs triggered inside the kernel will use the new
+        // map configuration. So once this function returns we can safely modify the
+        // old stats map without concerning about race between the kernel and
+        // userspace.
+        final int ret = mDeps.synchronizeKernelRCU();
+        if (ret != 0) {
+            throw new ServiceSpecificException(-ret,
+                    "native_synchronizeKernelRCU failed: " + Os.strerror(-ret));
+        }
     }
 
     /**
@@ -682,4 +720,5 @@ public class BpfNetMaps {
     private native int native_swapActiveStatsMap();
     private native void native_setPermissionForUids(int permissions, int[] uids);
     private native void native_dump(FileDescriptor fd, boolean verbose);
+    private static native int native_synchronizeKernelRCU();
 }
