@@ -28,6 +28,7 @@ import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
 import static android.net.TetheringManager.TETHERING_ETHERNET;
 import static android.net.TetheringTester.isExpectedIcmpv6Packet;
 import static android.net.TetheringTester.isExpectedUdpPacket;
+import static android.system.OsConstants.ETH_P_IPV6;
 import static android.system.OsConstants.IPPROTO_IP;
 import static android.system.OsConstants.IPPROTO_IPV6;
 import static android.system.OsConstants.IPPROTO_UDP;
@@ -35,6 +36,7 @@ import static android.system.OsConstants.IPPROTO_UDP;
 import static com.android.net.module.util.BpfDump.BASE64_DELIMITER;
 import static com.android.net.module.util.ConnectivityUtils.isIPv6ULA;
 import static com.android.net.module.util.HexDump.dumpHexString;
+import static com.android.net.module.util.NetworkStackConstants.ETHER_MTU;
 import static com.android.net.module.util.NetworkStackConstants.ETHER_TYPE_IPV4;
 import static com.android.net.module.util.NetworkStackConstants.ETHER_TYPE_IPV6;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ECHO_REPLY_TYPE;
@@ -82,8 +84,10 @@ import com.android.net.module.util.PacketBuilder;
 import com.android.net.module.util.Struct;
 import com.android.net.module.util.bpf.Tether4Key;
 import com.android.net.module.util.bpf.Tether4Value;
+import com.android.net.module.util.bpf.Tether6Value;
 import com.android.net.module.util.bpf.TetherStatsKey;
 import com.android.net.module.util.bpf.TetherStatsValue;
+import com.android.net.module.util.bpf.TetherUpstream6Key;
 import com.android.net.module.util.structs.Ipv6Header;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
@@ -138,14 +142,19 @@ public class EthernetTetheringTest {
     // Kernel treats a confirmed UDP connection which active after two seconds as stream mode.
     // See upstream commit b7b1d02fc43925a4d569ec221715db2dfa1ce4f5.
     private static final int UDP_STREAM_TS_MS = 2000;
-    // Per RX UDP packet size: iphdr (20) + udphdr (8) + payload (2) = 30 bytes.
-    private static final int RX_UDP_PACKET_SIZE = 30;
+    // RX IPv4 UDP packet size: iphdr4 (20) + udphdr (8) + payload (2) = 30 bytes.
+    private static final int RX_V4_UDP_PACKET_SIZE = 30;
+    // RX IPv6 UDP packet size: iphdr6 (40) + udphdr (8) + payload (2) = 50 bytes.
+    private static final int RX_V6_UDP_PACKET_SIZE = 50;
     private static final int RX_UDP_PACKET_COUNT = 456;
-    // Per TX UDP packet size: ethhdr (14) + iphdr (20) + udphdr (8) + payload (2) = 44 bytes.
-    private static final int TX_UDP_PACKET_SIZE = 44;
+    // TX IPv4 UDP packet size: ethhdr (14) + iphdr4 (20) + udphdr (8) + payload (2) = 44 bytes.
+    private static final int TX_V4_UDP_PACKET_SIZE = 44;
+    // TX IPv6 UDP packet size: ethhdr (14) + iphdr6 (40) + udphdr (8) + payload (2) = 64 bytes.
+    private static final int TX_V6_UDP_PACKET_SIZE = 64;
     private static final int TX_UDP_PACKET_COUNT = 123;
     private static final long WAIT_RA_TIMEOUT_MS = 2000;
 
+    private static final MacAddress NULL_MAC_ADDRESS = MacAddress.fromString("00:00:00:00:00:00");
     private static final MacAddress TEST_MAC = MacAddress.fromString("1:2:3:4:5:6");
     private static final LinkAddress TEST_IP4_ADDR = new LinkAddress("10.0.0.1/8");
     private static final LinkAddress TEST_IP6_ADDR = new LinkAddress("2001:db8:1::101/64");
@@ -162,6 +171,7 @@ public class EthernetTetheringTest {
     private static final String DUMPSYS_TETHERING_RAWMAP_ARG = "bpfRawMap";
     private static final String DUMPSYS_RAWMAP_ARG_STATS = "--stats";
     private static final String DUMPSYS_RAWMAP_ARG_UPSTREAM4 = "--upstream4";
+    private static final String DUMPSYS_RAWMAP_ARG_UPSTREAM6 = "--upstream6";
     private static final String LINE_DELIMITER = "\\n";
 
     // version=6, traffic class=0x0, flowlabel=0x0;
@@ -946,8 +956,30 @@ public class EthernetTetheringTest {
         }
     }
 
-    @Test
-    public void testTetherUdpV6() throws Exception {
+    private void verifyTetherStatsMap(boolean isIpv4) throws Exception {
+        final int packetSizeRx = (isIpv4 ? RX_V4_UDP_PACKET_SIZE : RX_V6_UDP_PACKET_SIZE);
+        final int packetSizeTx = (isIpv4 ? TX_V4_UDP_PACKET_SIZE : TX_V6_UDP_PACKET_SIZE);
+
+        final HashMap<TetherStatsKey, TetherStatsValue> statsMap = pollRawMapFromDump(
+                TetherStatsKey.class, TetherStatsValue.class, DUMPSYS_RAWMAP_ARG_STATS);
+        assertNotNull(statsMap);
+        assertEquals(1, statsMap.size());
+
+        final Map.Entry<TetherStatsKey, TetherStatsValue> stats =
+                statsMap.entrySet().iterator().next();
+
+        // TODO: verify the upstream index in TetherStatsKey.
+
+        final TetherStatsValue statsValue = stats.getValue();
+        assertEquals(RX_UDP_PACKET_COUNT, statsValue.rxPackets);
+        assertEquals(RX_UDP_PACKET_COUNT * packetSizeRx, statsValue.rxBytes);
+        assertEquals(0, statsValue.rxErrors);
+        assertEquals(TX_UDP_PACKET_COUNT, statsValue.txPackets);
+        assertEquals(TX_UDP_PACKET_COUNT * packetSizeTx, statsValue.txBytes);
+        assertEquals(0, statsValue.txErrors);
+    }
+
+    void runUdp6Test(boolean usingBpf) throws Exception {
         final TetheringTester tester = initTetheringTester(toList(TEST_IP6_ADDR),
                 toList(TEST_IP6_DNS));
         final TetheredDevice tethered = tester.createTetheredDevice(TEST_MAC, true /* hasIpv6 */);
@@ -956,7 +988,52 @@ public class EthernetTetheringTest {
         sendPacketUdp(UPLOAD, tetheredIp, remoteIp, false /* is464 */, tester, tethered);
         sendPacketUdp(DOWNLOAD, remoteIp, tetheredIp, false /* is464 */, tester, tethered);
 
-        // TODO: test BPF offload maps {rule, stats}.
+        if (usingBpf) {
+            // [1] Verify IPv6 upstream rule map.
+            final HashMap<TetherUpstream6Key, Tether6Value> upstreamMap = pollRawMapFromDump(
+                    TetherUpstream6Key.class, Tether6Value.class, DUMPSYS_RAWMAP_ARG_UPSTREAM6);
+            assertNotNull(upstreamMap);
+            assertEquals(1, upstreamMap.size());
+
+            final Map.Entry<TetherUpstream6Key, Tether6Value> rule =
+                    upstreamMap.entrySet().iterator().next();
+
+            // TODO: verify iif
+            final TetherUpstream6Key tetherUpstream6Key = rule.getKey();
+            assertTrue(Arrays.equals(mDownstreamIface.getMacAddress().toByteArray(),
+                    tetherUpstream6Key.dstMac.toByteArray()));
+
+            // TODO: verify oif
+            final Tether6Value tether6Value = rule.getValue();
+            assertTrue(Arrays.equals(NULL_MAC_ADDRESS.toByteArray(),
+                    tether6Value.ethDstMac.toByteArray()));
+            assertTrue(Arrays.equals(NULL_MAC_ADDRESS.toByteArray(),
+                    tether6Value.ethSrcMac.toByteArray()));
+            assertEquals(ETH_P_IPV6, tether6Value.ethProto);
+            assertEquals(ETHER_MTU, tether6Value.pmtu);
+
+            // [2] Verify stats map.
+            // Transmit packets on both direction and verify stats.
+            for (int i = 0; i < TX_UDP_PACKET_COUNT; i++) {
+                sendPacketUdp(UPLOAD, tetheredIp, remoteIp, false /* is464 */, tester, tethered);
+            }
+            for (int i = 0; i < RX_UDP_PACKET_COUNT; i++) {
+                sendPacketUdp(DOWNLOAD, remoteIp, tetheredIp, false /* is464 */, tester, tethered);
+            }
+            verifyTetherStatsMap(false /* isIpv4 */);
+        }
+    }
+
+    @Test
+    @IgnoreAfter(Build.VERSION_CODES.R)
+    public void testTetherUdpV6UpToR() throws Exception {
+        runUdp6Test(false /* usingBpf */);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testTetherUdpV6AfterR() throws Exception {
+        runUdp6Test(isUsingBpfOffloadUdp());
     }
 
     // TODO: remove ipv4 verification (is4To6 = false) once upstream connected notification race is
@@ -1046,38 +1123,14 @@ public class EthernetTetheringTest {
             assertEquals(REMOTE_PORT, upstream4Value.dstPort);
 
             // [2] Verify stats map.
-            // Transmit packets on both direction for verifying stats. Because we only care the
-            // packet count in stats test, we just reuse the existing packets to increaes
-            // the packet count on both direction.
-
-            // Send packets on original direction.
+            // Transmit packets on both direction and verify stats.
             for (int i = 0; i < TX_UDP_PACKET_COUNT; i++) {
                 sendPacketUdp(UPLOAD, tetheredIp, remoteIp, false /* is464 */, tester, tethered);
             }
-
-            // Send packets on reply direction.
             for (int i = 0; i < RX_UDP_PACKET_COUNT; i++) {
                 sendPacketUdp(DOWNLOAD, remoteIp, publicIp, false /* is464 */, tester, tethered);
             }
-
-            // Dump stats map to verify.
-            final HashMap<TetherStatsKey, TetherStatsValue> statsMap = pollRawMapFromDump(
-                    TetherStatsKey.class, TetherStatsValue.class, DUMPSYS_RAWMAP_ARG_STATS);
-            assertNotNull(statsMap);
-            assertEquals(1, statsMap.size());
-
-            final Map.Entry<TetherStatsKey, TetherStatsValue> stats =
-                    statsMap.entrySet().iterator().next();
-
-            // TODO: verify the upstream index in TetherStatsKey.
-
-            final TetherStatsValue statsValue = stats.getValue();
-            assertEquals(RX_UDP_PACKET_COUNT, statsValue.rxPackets);
-            assertEquals(RX_UDP_PACKET_COUNT * RX_UDP_PACKET_SIZE, statsValue.rxBytes);
-            assertEquals(0, statsValue.rxErrors);
-            assertEquals(TX_UDP_PACKET_COUNT, statsValue.txPackets);
-            assertEquals(TX_UDP_PACKET_COUNT * TX_UDP_PACKET_SIZE, statsValue.txBytes);
-            assertEquals(0, statsValue.txErrors);
+            verifyTetherStatsMap(true /* isIpv4 */);
         }
     }
 
@@ -1148,11 +1201,7 @@ public class EthernetTetheringTest {
         assertTrue(isUdpOffloadSupportedByKernel("5.10.0"));
     }
 
-    // TODO: refactor test testTetherUdpV4* into IPv4 UDP non-offload and offload tests.
-    // That can be easier to know which feature is verified from test results.
-    @Test
-    @IgnoreUpTo(Build.VERSION_CODES.R)
-    public void testTetherUdpV4AfterR() throws Exception {
+    private boolean isUsingBpfOffloadUdp() throws Exception {
         final String kernelVersion = VintfRuntimeInfo.getKernelVersion();
         final boolean isUdpOffloadSupported = isUdpOffloadSupportedByKernel(kernelVersion);
         if (!isUdpOffloadSupported) {
@@ -1164,7 +1213,15 @@ public class EthernetTetheringTest {
             Log.i(TAG, "testTetherUdpV4AfterR will skip BPF offload test "
                     + "because tethering config doesn't enable BPF offload.");
         }
-        runUdp4Test(isUdpOffloadSupported && isTetherConfigBpfOffloadEnabled);
+        return isUdpOffloadSupported && isTetherConfigBpfOffloadEnabled;
+    }
+
+    // TODO: refactor test testTetherUdpV4* into IPv4 UDP non-offload and offload tests.
+    // That can be easier to know which feature is verified from test results.
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testTetherUdpV4AfterR() throws Exception {
+        runUdp4Test(isUsingBpfOffloadUdp());
     }
 
     @Nullable
