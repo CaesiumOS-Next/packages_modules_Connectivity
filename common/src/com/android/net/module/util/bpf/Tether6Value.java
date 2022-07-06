@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.networkstack.tethering;
+package com.android.net.module.util.bpf;
 
 import android.net.MacAddress;
 
