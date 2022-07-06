@@ -127,6 +127,7 @@ public class BpfCoordinator {
     private static final String TETHER_DEV_MAP_PATH = makeMapPath("dev");
     private static final String DUMPSYS_RAWMAP_ARG_STATS = "--stats";
     private static final String DUMPSYS_RAWMAP_ARG_UPSTREAM4 = "--upstream4";
+    private static final String DUMPSYS_RAWMAP_ARG_UPSTREAM6 = "--upstream6";
 
     /** The names of all the BPF counters defined in bpf_tethering.h. */
     public static final String[] sBpfCounterNames = getBpfCounterNames();
@@ -1123,6 +1124,15 @@ public class BpfCoordinator {
                 dumpRawMap(upstreamMap, pw);
             } catch (ErrnoException | IOException e) {
                 pw.println("Error dumping IPv4 map: " + e);
+            }
+            return;
+        }
+        if (CollectionUtils.contains(args, DUMPSYS_RAWMAP_ARG_UPSTREAM6)) {
+            try (BpfMap<TetherUpstream6Key, Tether6Value> upstreamMap =
+                    mDeps.getBpfUpstream6Map()) {
+                dumpRawMap(upstreamMap, pw);
+            } catch (ErrnoException | IOException e) {
+                pw.println("Error dumping IPv6 map: " + e);
             }
             return;
         }
