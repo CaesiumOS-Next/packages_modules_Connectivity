@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42e532df_3b959ed5",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-06T21:14:33Z",
+      "side": 1,
+      "message": "Isn\u0027t this functionally equivalent to:\n```\nassertEquals(calChecksum, 0, \"wrong v4 checksum\")\n```",
+      "range": {
+        "startLine": 291,
+        "startChar": 8,
+        "endLine": 291,
+        "endChar": 92
+      },
+      "revId": "39c07543110b8227a4e9d6c176dc65b792410a04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

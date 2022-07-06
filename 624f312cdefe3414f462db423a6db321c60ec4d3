@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b2352ed_d354f4da",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-06T21:14:33Z",
+      "side": 1,
+      "message": "nit, should this be:\n```\nbpf_skb_store_bytes(skb, l2_header_size, \u0026new_priority, sizeof(new_priority), 0);\nbpf_skb_store_bytes(skb, l2_header_size + 1, \u0026new_flow_label, sizeof(new_flow_label), 0);\n```\nto match lines 284/285?",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 94
+      },
+      "revId": "624f312cdefe3414f462db423a6db321c60ec4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
