@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e41e96a2_87eb96c1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1236,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-07-06T03:02:43Z",
+      "side": 0,
+      "message": "This does not seems to be guaranteed in current code. We may need to combine \nremoveDefaultNetworkRequestsForPreference and addPerAppDefaultNetworkRequests together into one method for per app flow to ensure new code never call only addPerAppDefaultNetworkRequests w/o decreasing the count first. Otherwise, someone add a new code in per app flow may miss this and cause the similar issue again.",
+      "range": {
+        "startLine": 1234,
+        "startChar": 52,
+        "endLine": 1236,
+        "endChar": 75
+      },
+      "revId": "e1ae9fd4695fdc17aeab18be65c87eec7aab1322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

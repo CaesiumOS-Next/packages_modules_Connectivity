@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea33ca9b_8a6a45da",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-07-06T03:02:43Z",
+      "side": 1,
+      "message": "I did not have observe it clearly from these two commits. Reading from the TODO, it looks to me that the TODO should be removed together when the transact() was removed but it didn\u0027t.\n\nWas there any concern so we did not remove this HACK? If there is any concern, is it addressed now?",
+      "range": {
+        "startLine": 9,
+        "startChar": 47,
+        "endLine": 11,
+        "endChar": 17
+      },
+      "revId": "459b2e3a068943fea9a6a078ba0025c1bb0be124",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
