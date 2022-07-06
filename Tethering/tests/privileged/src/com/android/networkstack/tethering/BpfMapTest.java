@@ -34,6 +34,8 @@ import android.system.OsConstants;
 import android.util.ArrayMap;
 
 import com.android.net.module.util.BpfMap;
+import com.android.net.module.util.bpf.Tether6Value;
+import com.android.net.module.util.bpf.TetherDownstream6Key;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.DevSdkIgnoreRunner;
 
