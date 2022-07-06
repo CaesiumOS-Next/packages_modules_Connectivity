@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "423063c3_c90d5239",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-06T21:16:07Z",
+      "side": 1,
+      "message": "replace tabs with spaces",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 3
+      },
+      "revId": "d4eb7647475e2f64614a0424c44eb4906bec1395",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
