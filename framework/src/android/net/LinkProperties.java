@@ -79,6 +79,7 @@ public final class LinkProperties implements Parcelable {
     private boolean mUsePrivateDns;
     private String mPrivateDnsServerName;
     private String mDomains;
+    private String mDomainSearchList;
     private ArrayList<RouteInfo> mRoutes = new ArrayList<>();
     private Inet4Address mDhcpServerAddress;
     private ProxyInfo mHttpProxy;
@@ -204,6 +205,7 @@ public final class LinkProperties implements Parcelable {
         mPrivateDnsServerName = source.mPrivateDnsServerName;
         mPcscfs.addAll(source.mPcscfs);
         mDomains = source.mDomains;
+        mDomainSearchList = source.mDomainSearchList;
         mRoutes.addAll(source.mRoutes);
         mHttpProxy = (source.mHttpProxy == null) ? null : new ProxyInfo(source.mHttpProxy);
         for (LinkProperties l: source.mStackedLinks.values()) {
@@ -638,6 +640,24 @@ public final class LinkProperties implements Parcelable {
     }
 
     /**
+     *
+     *
+     */
+
+    public void setDomainSearchList(@Nullable String domainSearchList) {
+        mDomainSearchList = domainSearchList;
+    }
+
+    /**
+     *
+     *
+     * @hide
+     */
+    public @Nullable String getDomainSearchList() {
+        return mDomainSearchList;
+    }
+
+    /**
      * Sets the Maximum Transmission Unit size to use on this link.  This should not be used
      * unless the system default (1500) is incorrect.  Values less than 68 or greater than
      * 10000 will be ignored.
@@ -913,6 +933,7 @@ public final class LinkProperties implements Parcelable {
         mPrivateDnsServerName = null;
         mPcscfs.clear();
         mDomains = null;
+        mDomainSearchList = null;
         mRoutes.clear();
         mHttpProxy = null;
         mStackedLinks.clear();
@@ -980,6 +1001,9 @@ public final class LinkProperties implements Parcelable {
 
         resultJoiner.add("Domains:");
         resultJoiner.add(mDomains);
+
+        resultJoiner.add("mDomainSearchList");
+        resultJoiner.add(mDomainSearchList);
 
         resultJoiner.add("MTU:");
         resultJoiner.add(Integer.toString(mMtu));
@@ -1719,6 +1743,7 @@ public final class LinkProperties implements Parcelable {
         dest.writeString(mPrivateDnsServerName);
         writeAddresses(dest, mPcscfs);
         dest.writeString(mDomains);
+        dest.writeString(mDomainSearchList);
         writeAddress(dest, mDhcpServerAddress);
         dest.writeInt(mMtu);
         dest.writeString(mTcpBufferSizes);
@@ -1812,6 +1837,7 @@ public final class LinkProperties implements Parcelable {
                     } catch (UnknownHostException e) { }
                 }
                 netProp.setDomains(in.readString());
+                netProp.setDomainSearchList(in.readString());
                 try {
                     netProp.setDhcpServerAddress((Inet4Address) InetAddress
                             .getByAddress(in.createByteArray()));

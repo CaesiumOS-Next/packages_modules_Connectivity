@@ -260,6 +260,7 @@ package android.net {
     method public boolean isWakeOnLanSupported();
     method public void setDhcpServerAddress(@Nullable java.net.Inet4Address);
     method public void setDnsServers(@NonNull java.util.Collection<java.net.InetAddress>);
+    method public void setDomainSearchList(@Nullable String);
     method public void setDomains(@Nullable String);
     method public void setHttpProxy(@Nullable android.net.ProxyInfo);
     method public void setInterfaceName(@Nullable String);
