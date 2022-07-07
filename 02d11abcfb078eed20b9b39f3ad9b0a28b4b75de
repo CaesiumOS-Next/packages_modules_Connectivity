@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d5f125f_6940b7be",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-07-07T08:32:16Z",
+      "side": 1,
+      "message": "It seems like we can just use @Mock?",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 33
+      },
+      "revId": "02d11abcfb078eed20b9b39f3ad9b0a28b4b75de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
