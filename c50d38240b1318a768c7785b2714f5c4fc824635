@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0674a7c6_61a2c2e4",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-07-07T07:22:31Z",
+      "side": 1,
+      "message": "This looks a little weird, do you want to create another mUserAllContext and return it?",
+      "range": {
+        "startLine": 118,
+        "startChar": 17,
+        "endLine": 118,
+        "endChar": 25
+      },
+      "revId": "c50d38240b1318a768c7785b2714f5c4fc824635",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
