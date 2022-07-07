@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08ea59e5_e85095a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-07T19:19:49Z",
+      "side": 1,
+      "message": "Turns out, only EthernetNetworkFactory currently calls unregisterNetworkOffer(). Both NetworkFactory and VcnNetworkProvider (the other users of the NetworkProvider API) do not.",
+      "revId": "c62de21fab4c34caff64513f01aa4d73d04c8d48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
