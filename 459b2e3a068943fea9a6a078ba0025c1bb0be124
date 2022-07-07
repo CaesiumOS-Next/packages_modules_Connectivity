@@ -22,6 +22,30 @@
       },
       "revId": "459b2e3a068943fea9a6a078ba0025c1bb0be124",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96670c52_0a06eea1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-07-07T06:31:08Z",
+      "side": 1,
+      "message": "I think it is just dead code that should be removed in aosp/1831293.\nWhere the CL makes system server never go over the limit.\n\nI\u0027ve tried to revert both CLs, and the test in aosp/1781202 failed.\nBut with aosp/1821293 but without aosp/1781202, the test passes.\n\nBut in case we missed any case that is fixed by aosp/1781202.\nI think we\u0027ll need to wait for Jean\u0027s review.\n\nLog (revert producetion code of both CLs):\n[1/1] com.android.server.ConnectivityServiceTest#testProfileNetworkPrefCountsRequestsCorrectlyOnSet: FAILED (1.790s)\n\nSTACKTRACE:\nTest failed to run to completion. Reason: \u0027Instrumentation run failed due to \u0027Process crashed.\u0027\u0027. Check device logcat for details\nJava Crash Messages sorted from most recent:\nUid 210100 exceeded its allotted requests limit (code 1)\nandroid.os.ServiceSpecificException: Uid 210100 exceeded its allotted requests limit (code 1)\n    at com.android.server.ConnectivityService$PerUidCounter.incrementCountOrThrow(ConnectivityService.java:1229)\n    at com.android.server.ConnectivityService$PerUidCounter.incrementCountOrThrow(ConnectivityService.java:1221)\n    at com.android.server.ConnectivityService$NetworkRequestInfo.\u003cinit\u003e(ConnectivityService.java:6400)\n    at com.android.server.ConnectivityService.createPerAppCallbackRequestsToRegister(ConnectivityService.java:11193)\n    at com.android.server.ConnectivityService.lambda$addPerAppDefaultNetworkRequests$14$com-android-server-ConnectivityService(ConnectivityService.java:11127)\n    at com.android.server.ConnectivityService$$ExternalSyntheticLambda6.run(Unknown Source:6)\n    at com.android.server.ConnectivityService$PerUidCounter.transact(ConnectivityService.java:1276)\n    at com.android.server.ConnectivityService.addPerAppDefaultNetworkRequests(ConnectivityService.java:11123)\n    at com.android.server.ConnectivityService.replaceDefaultNetworkRequestsForPreference(ConnectivityService.java:11114)\n    at com.android.server.ConnectivityService.lambda$handleSetProfileNetworkPreference$10$com-android-server-ConnectivityService(ConnectivityService.java:10908)\n    at com.android.server.ConnectivityService$$ExternalSyntheticLambda3.run(Unknown Source:2)\n    at com.android.server.ConnectivityService$PerUidCounter.transact(ConnectivityService.java:1276)\n    at com.android.server.ConnectivityService.handleSetProfileNetworkPreference(ConnectivityService.java:10903)",
+      "parentUuid": "ea33ca9b_8a6a45da",
+      "range": {
+        "startLine": 9,
+        "startChar": 47,
+        "endLine": 11,
+        "endChar": 17
+      },
+      "revId": "459b2e3a068943fea9a6a078ba0025c1bb0be124",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

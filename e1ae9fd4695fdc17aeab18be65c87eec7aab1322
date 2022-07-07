@@ -22,6 +22,30 @@
       },
       "revId": "e1ae9fd4695fdc17aeab18be65c87eec7aab1322",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e933f78f_3cc1bbc2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1236,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-07-07T06:31:08Z",
+      "side": 0,
+      "message": "Done.\nThis is a good idea but not sure how to make it better.\nSince all the callers are similar but not the same.\nIt seems to me to refactor this we\u0027ll need to introduce lambda.\nE.g.\nreplaceDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_PROFILE, () -\u003e createNrisFromProfileNetworkPreferences(mProfileNetworkPreferences));\n\n\nEnterprise:\nremoveDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_PROFILE);\n        addPerAppDefaultNetworkRequests(\n        createNrisFromProfileNetworkPreferences(mProfileNetworkPreferences));\n                \nMDO:\nremoveDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED);\n        addPerAppDefaultNetworkRequests(\n                createNrisFromMobileDataPreferredUids(mMobileDataPreferredUids));\n                \nOem:\nremoveDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_OEM);\n        addPerAppDefaultNetworkRequests(new OemNetworkRequestFactory()\n                .createNrisFromOemNetworkPreferences(preference));",
+      "parentUuid": "e41e96a2_87eb96c1",
+      "range": {
+        "startLine": 1234,
+        "startChar": 52,
+        "endLine": 1236,
+        "endChar": 75
+      },
+      "revId": "e1ae9fd4695fdc17aeab18be65c87eec7aab1322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
