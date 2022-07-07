@@ -22,6 +22,30 @@
       },
       "revId": "624f312cdefe3414f462db423a6db321c60ec4d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f482edc_eaec9dc4",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-07T16:00:23Z",
+      "side": 1,
+      "message": "This is fixed in https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2134527",
+      "parentUuid": "8b2352ed_d354f4da",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 94
+      },
+      "revId": "624f312cdefe3414f462db423a6db321c60ec4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
