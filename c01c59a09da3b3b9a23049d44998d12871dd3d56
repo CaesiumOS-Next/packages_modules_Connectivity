@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58cf3d16_8a8fa0b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-07-07T03:08:10Z",
+      "side": 1,
+      "message": "Thanks for uploading the change.\nThe change will be merged into mainline module and deliver to all devices.\nWe will need to ensure it works as intended. Could you also add an unit test to verify it works as intended? Thanks.",
+      "revId": "c01c59a09da3b3b9a23049d44998d12871dd3d56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
