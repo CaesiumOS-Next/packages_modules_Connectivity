@@ -92,12 +92,6 @@ public class TetheringConfiguration {
     public static final String OVERRIDE_TETHER_ENABLE_BPF_OFFLOAD =
             "override_tether_enable_bpf_offload";
 
-    /**
-     * Use the old dnsmasq DHCP server for tethering instead of the framework implementation.
-     */
-    public static final String TETHER_ENABLE_LEGACY_DHCP_SERVER =
-            "tether_enable_legacy_dhcp_server";
-
     public static final String USE_LEGACY_WIFI_P2P_DEDICATED_IP =
             "use_legacy_wifi_p2p_dedicated_ip";
 
@@ -546,9 +540,7 @@ public class TetheringConfiguration {
 
     private boolean getEnableLegacyDhcpServer(final Resources res) {
         return getResourceBoolean(
-                res, R.bool.config_tether_enable_legacy_dhcp_server, false /** defaultValue */)
-                || getDeviceConfigBoolean(
-                TETHER_ENABLE_LEGACY_DHCP_SERVER, false /** defaultValue */);
+                res, R.bool.config_tether_enable_legacy_dhcp_server, false /** defaultValue */);
     }
 
     private boolean getDeviceConfigBoolean(final String name, final boolean defaultValue) {

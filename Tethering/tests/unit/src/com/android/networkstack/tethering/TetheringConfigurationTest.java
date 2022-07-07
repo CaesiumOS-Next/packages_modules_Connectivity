@@ -160,9 +160,6 @@ public class TetheringConfigurationTest {
                 .strictness(Strictness.WARN)
                 .startMocking();
         DeviceConfigUtils.resetPackageVersionCacheForTest();
-        doReturn(null).when(
-                () -> DeviceConfig.getProperty(eq(NAMESPACE_CONNECTIVITY),
-                eq(TetheringConfiguration.TETHER_ENABLE_LEGACY_DHCP_SERVER)));
         setTetherForceUpstreamAutomaticFlagVersion(null);
 
         final PackageInfo pi = new PackageInfo();
@@ -394,40 +391,24 @@ public class TetheringConfigurationTest {
     }
 
     @Test
-    public void testNewDhcpServerDisabled() {
+    public void testDhcpServerConfiguration() {
+        // Test default disable legacy server.
+        final TetheringConfiguration defaultConfig =
+                new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID);
+        assertFalse(defaultConfig.useLegacyDhcpServer());
+
+
         when(mResources.getBoolean(R.bool.config_tether_enable_legacy_dhcp_server)).thenReturn(
                 true);
-        doReturn("false").when(
-                () -> DeviceConfig.getProperty(eq(NAMESPACE_CONNECTIVITY),
-                eq(TetheringConfiguration.TETHER_ENABLE_LEGACY_DHCP_SERVER)));
-
         final TetheringConfiguration enableByRes =
                 new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID);
         assertTrue(enableByRes.useLegacyDhcpServer());
 
         when(mResources.getBoolean(R.bool.config_tether_enable_legacy_dhcp_server)).thenReturn(
                 false);
-        doReturn("true").when(
-                () -> DeviceConfig.getProperty(eq(NAMESPACE_CONNECTIVITY),
-                eq(TetheringConfiguration.TETHER_ENABLE_LEGACY_DHCP_SERVER)));
-
-        final TetheringConfiguration enableByDevConfig =
+        final TetheringConfiguration disableByRes =
                 new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID);
-        assertTrue(enableByDevConfig.useLegacyDhcpServer());
-    }
-
-    @Test
-    public void testNewDhcpServerEnabled() {
-        when(mResources.getBoolean(R.bool.config_tether_enable_legacy_dhcp_server)).thenReturn(
-                false);
-        doReturn("false").when(
-                () -> DeviceConfig.getProperty(eq(NAMESPACE_CONNECTIVITY),
-                eq(TetheringConfiguration.TETHER_ENABLE_LEGACY_DHCP_SERVER)));
-
-        final TetheringConfiguration cfg =
-                new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID);
-
-        assertFalse(cfg.useLegacyDhcpServer());
+        assertFalse(disableByRes.useLegacyDhcpServer());
     }
 
     @Test
