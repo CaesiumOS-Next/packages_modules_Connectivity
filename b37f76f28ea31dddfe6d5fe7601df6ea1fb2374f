@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c6683ad_5bc95c37",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-07T10:21:25Z",
+      "side": 1,
+      "message": "We should file a TODO to effectively revert this change.\n\n(once android go bpf tethering selinux stuff is worked out, but that should be any day now)\n\nEven if bpf offload is disabled by vendor we should still have a way to test bpf offload works correctly on tun/tap interface setup.\n\nPerhaps a way to override the disable??? or enable it for a specific interface?\nOr just always ignore the vendor disable for tun/tap interfaces? etc...",
+      "revId": "b37f76f28ea31dddfe6d5fe7601df6ea1fb2374f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
