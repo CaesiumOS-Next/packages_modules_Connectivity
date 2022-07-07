@@ -16,6 +16,24 @@
       "message": "remove whitespace?",
       "revId": "7c013132131b29bf93e98ec75229b0fc011cb793",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3424133f_461e78fb",
+        "filename": "Tethering/apex/manifest.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1949655
+      },
+      "writtenOn": "2022-07-07T13:35:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78eac62c_02e7df4a",
+      "revId": "7c013132131b29bf93e98ec75229b0fc011cb793",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
