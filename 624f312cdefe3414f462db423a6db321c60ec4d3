@@ -46,6 +46,29 @@
       },
       "revId": "624f312cdefe3414f462db423a6db321c60ec4d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "280ab6cd_1d864a4e",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-07T17:03:38Z",
+      "side": 1,
+      "message": "I don\u0027t think this function is needed.\nYou can change the assertEquals to check that calChecksum equals 0xFFFF (ones complement zero) per maze@\u0027s comment. Currently this takes the ones complement of the ones complement and compares it to 0xFFFF.",
+      "range": {
+        "startLine": 145,
+        "startChar": 4,
+        "endLine": 151,
+        "endChar": 0
+      },
+      "revId": "624f312cdefe3414f462db423a6db321c60ec4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
