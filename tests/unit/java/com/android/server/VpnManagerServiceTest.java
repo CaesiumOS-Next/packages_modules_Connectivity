@@ -22,7 +22,9 @@ import static com.android.testutils.ContextUtils.mockService;
 import static com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import static com.android.testutils.MiscAsserts.assertThrows;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
@@ -44,10 +46,14 @@ import android.os.INetworkManagementService;
 import android.os.Looper;
 import android.os.UserHandle;
 import android.os.UserManager;
+import android.security.Credentials;
 
 import androidx.test.filters.SmallTest;
 
+import com.android.internal.net.VpnProfile;
 import com.android.server.connectivity.Vpn;
+import com.android.server.connectivity.VpnProfileStore;
+import com.android.server.net.LockdownVpnTracker;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.HandlerUtils;
@@ -59,6 +65,8 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.nio.charset.StandardCharsets;
 
 @RunWith(DevSdkIgnoreRunner.class)
 @IgnoreUpTo(R) // VpnManagerService is not available before R
@@ -79,6 +87,8 @@ public class VpnManagerServiceTest extends VpnTestBase {
     @Mock private UserManager mUserManager;
     @Mock private INetd mNetd;
     @Mock private PackageManager mPackageManager;
+    @Mock private VpnProfileStore mVpnProfileStore;
+    @Mock private LockdownVpnTracker mLockdownVpnTracker;
 
     private VpnManagerServiceDependencies mDeps;
     private VpnManagerService mService;
@@ -106,6 +116,17 @@ public class VpnManagerServiceTest extends VpnTestBase {
         public Vpn createVpn(Looper looper, Context context, INetworkManagementService nms,
                 INetd netd, @UserIdInt int userId) {
             return mVpn;
+        }
+
+        @Override
+        public VpnProfileStore getVpnProfileStore() {
+            return mVpnProfileStore;
+        }
+
+        @Override
+        public LockdownVpnTracker createLockDownVpnTracker(Context context, Handler handler,
+                Vpn vpn, VpnProfile profile) {
+            return mLockdownVpnTracker;
         }
     }
 
@@ -215,6 +236,21 @@ public class VpnManagerServiceTest extends VpnTestBase {
                 null /* packageName */, userId, -1 /* uid */, false /* isReplacing */));
     }
 
+    private void onUserUnlocked(int userId) {
+        sendIntent(buildIntent(Intent.ACTION_USER_UNLOCKED,
+                null /* packageName */, userId, -1 /* uid */, false /* isReplacing */));
+    }
+
+    private void onUserStopped(int userId) {
+        sendIntent(buildIntent(Intent.ACTION_USER_STOPPED,
+                null /* packageName */, userId, -1 /* uid */, false /* isReplacing */));
+    }
+
+    private void onLockDownReset() {
+        sendIntent(buildIntent(LockdownVpnTracker.ACTION_LOCKDOWN_RESET, null /* packageName */,
+                UserHandle.USER_NULL, -1 /* uid */, false /* isReplacing */));
+    }
+
     private void onPackageAdded(String packageName, int userId, int uid, boolean isReplacing) {
         sendIntent(buildIntent(Intent.ACTION_PACKAGE_ADDED, packageName, userId, uid, isReplacing));
     }
@@ -240,5 +276,91 @@ public class VpnManagerServiceTest extends VpnTestBase {
 
         assertThrows(IllegalStateException.class, () ->
                 mUserPresentReceiver.onReceive(mContext, new Intent(Intent.ACTION_USER_PRESENT)));
+    }
+
+    private void setupLockdownVpn(String packageName) {
+        final byte[] profileTag = packageName.getBytes(StandardCharsets.UTF_8);
+        doReturn(profileTag).when(mVpnProfileStore).get(Credentials.LOCKDOWN_VPN);
+    }
+
+    private void setupVpnProfile(String profileName) {
+        final VpnProfile profile = new VpnProfile(profileName);
+        profile.name = profileName;
+        profile.server = "192.0.2.1";
+        profile.dnsServers = "8.8.8.8";
+        profile.type = VpnProfile.TYPE_IPSEC_XAUTH_PSK;
+        final byte[] encodedProfile = profile.encode();
+        doReturn(encodedProfile).when(mVpnProfileStore).get(Credentials.VPN + profileName);
+    }
+
+    @Test
+    public void testUserPresent() {
+        // Verify that LockDownVpnTracker is not created.
+        verify(mLockdownVpnTracker, never()).init();
+
+        setupLockdownVpn(TEST_VPN_PKG);
+        setupVpnProfile(TEST_VPN_PKG);
+
+        final Handler h = mHandlerThread.getThreadHandler();
+
+        // mUserPresentReceiver register only ACTION_USER_PRESENT intent and do no verification on
+        // action, so a empty intent is enough.
+        h.post(() -> mUserPresentReceiver.onReceive(mSystemContext, new Intent()));
+        HandlerUtils.waitForIdle(mHandlerThread, TIMEOUT_MS);
+
+        verify(mLockdownVpnTracker).init();
+        verify(mSystemContext).unregisterReceiver(mUserPresentReceiver);
+        verify(mContext, never()).unregisterReceiver(any());
+    }
+
+    @Test
+    public void testUpdatelockDownVpn() {
+        setupLockdownVpn(TEST_VPN_PKG);
+        onUserUnlocked(SYSTEM_USER_ID);
+
+        // Will not create lockDownVpnTracker w/o valid profile configured in the keystore
+        verify(mLockdownVpnTracker, never()).init();
+
+        setupVpnProfile(TEST_VPN_PKG);
+
+        // Remove the user from mVpns
+        onUserStopped(SYSTEM_USER_ID);
+        onUserUnlocked(SYSTEM_USER_ID);
+        verify(mLockdownVpnTracker, never()).init();
+
+        // Add user back
+        onUserStarted(SYSTEM_USER_ID);
+        verify(mLockdownVpnTracker).init();
+
+        // Trigger another update. The existing LockDownVpnTracker should be shutdown and initialize
+        // another one.
+        onUserUnlocked(SYSTEM_USER_ID);
+        verify(mLockdownVpnTracker).shutdown();
+        verify(mLockdownVpnTracker, times(2)).init();
+    }
+
+    @Test
+    public void testLockDownReset() {
+        // Init LockdownVpnTracker
+        setupLockdownVpn(TEST_VPN_PKG);
+        setupVpnProfile(TEST_VPN_PKG);
+        onUserUnlocked(SYSTEM_USER_ID);
+        verify(mLockdownVpnTracker).init();
+
+        onLockDownReset();
+        verify(mLockdownVpnTracker).reset();
+    }
+
+    @Test
+    public void testIsVpnLockDownEnabled() {
+        // No Vpn created for SECONDARY_USER.
+        assertFalse(mService.isVpnLockdownEnabled(SECONDARY_USER.id));
+
+        // Vpn created but the VPN lock down is not enabled.
+        assertFalse(mService.isVpnLockdownEnabled(SYSTEM_USER_ID));
+
+        // Set lock down for the SYSTEM_USER_ID VPN.
+        doReturn(true).when(mVpn).getLockdown();
+        assertTrue(mService.isVpnLockdownEnabled(SYSTEM_USER_ID));
     }
 }
