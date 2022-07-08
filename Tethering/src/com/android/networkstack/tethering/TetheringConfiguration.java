@@ -194,7 +194,7 @@ public class TetheringConfiguration {
         isDunRequired = checkDunRequired(ctx);
 
         final boolean forceAutomaticUpstream = !SdkLevel.isAtLeastS()
-                && isFeatureEnabled(ctx, TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION);
+                && isConnectivityFeatureEnabled(ctx, TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION);
         chooseUpstreamAutomatically = forceAutomaticUpstream || getResourceBoolean(
                 res, R.bool.config_tether_upstream_automatic, false /** defaultValue */);
         preferredUpstreamIfaceTypes = getUpstreamIfaceTypes(res, isDunRequired);
@@ -563,9 +563,17 @@ public class TetheringConfiguration {
         return DeviceConfig.getProperty(NAMESPACE_TETHERING, name);
     }
 
+    private boolean isConnectivityFeatureEnabled(Context ctx, String featureVersionFlag) {
+        return isFeatureEnabled(ctx, NAMESPACE_CONNECTIVITY, featureVersionFlag);
+    }
+
+    private boolean isFeatureEnabled(Context ctx, String featureVersionFlag) {
+        return isFeatureEnabled(ctx, NAMESPACE_TETHERING, featureVersionFlag);
+    }
+
     @VisibleForTesting
-    protected boolean isFeatureEnabled(Context ctx, String featureVersionFlag) {
-        return DeviceConfigUtils.isFeatureEnabled(ctx, NAMESPACE_CONNECTIVITY, featureVersionFlag,
+    protected boolean isFeatureEnabled(Context ctx, String namespace, String featureVersionFlag) {
+        return DeviceConfigUtils.isFeatureEnabled(ctx, namespace, featureVersionFlag,
                 TETHERING_MODULE_NAME, false /* defaultEnabled */);
     }
 
