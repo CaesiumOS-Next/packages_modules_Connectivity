@@ -33,7 +33,8 @@ public class FakeTetheringConfiguration extends TetheringConfiguration {
     }
 
     @Override
-    protected boolean isFeatureEnabled(Context ctx, String featureVersionFlag) {
+    protected boolean isFeatureEnabled(Context ctx, String namespace, String featureVersionFlag,
+            boolean defaultEnabled) {
         return false;
     }
 
