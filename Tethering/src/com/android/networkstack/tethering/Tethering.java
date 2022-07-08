@@ -572,16 +572,26 @@ public class Tethering {
         }
     }
 
-    // This method needs to exist because TETHERING_BLUETOOTH before Android T and TETHERING_WIGIG
-    // can't use enableIpServing.
     private void processInterfaceStateChange(final String iface, boolean enabled) {
-        // Do not listen to USB interface state changes or USB interface add/removes. USB tethering
-        // is driven only by USB_ACTION broadcasts.
         final int type = ifaceNameToType(iface);
+        if (type == TETHERING_WIFI || type == TETHERING_WIFI_P2P) {
+            if (mConfig.isNoWifiIpServerChangeFromNetd()) return;
+        }
+
+        // TETHERING_USB and TETHERING_NCM are only driven by USB_ACTION broadcasts.
         if (type == TETHERING_USB || type == TETHERING_NCM) return;
 
+        // TETHERING_BLUETOOTH need to start/stop IpServer base on interface state change before T
+        // because interface configuration is implemented in PanService side.
         if (type == TETHERING_BLUETOOTH && SdkLevel.isAtLeastT()) return;
 
+        // TETHERING_ETHERNET would stop ipServer when NetdCallback#onInterfaceRemoved or
+        // EthernetCallback#onUnavailable is called.
+        // TODO: only stop ethernet ipServer when ethernet ask tethering to stop by
+        // EthernetCallback#onUnavailable.
+        //
+        // TETHERING_WIGIG need to start/stop ipServer by interface state change but WIGIG is only
+        // supported before S.
         if (enabled) {
             ensureIpServerStarted(iface);
         } else {
@@ -1411,7 +1421,11 @@ public class Tethering {
 
     private void disableWifiIpServingCommon(int tetheringType, String ifname) {
         if (!TextUtils.isEmpty(ifname) && mTetherStates.containsKey(ifname)) {
-            mTetherStates.get(ifname).ipServer.unwanted();
+            if (mConfig.isNoWifiIpServerChangeFromNetd()) {
+                ensureIpServerStopped(ifname);
+            } else {
+                mTetherStates.get(ifname).ipServer.unwanted();
+            }
             return;
         }
 

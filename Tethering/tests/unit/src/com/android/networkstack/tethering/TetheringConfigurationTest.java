@@ -31,6 +31,7 @@ import static com.android.dx.mockito.inline.extended.ExtendedMockito.doReturn;
 import static com.android.dx.mockito.inline.extended.ExtendedMockito.mockitoSession;
 import static com.android.networkstack.apishim.ConstantsShim.KEY_CARRIER_SUPPORTS_TETHERING_BOOL;
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_FORCE_USB_FUNCTIONS;
+import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_NO_WIFI_IPSERVER_CHANGE_FROM_NETD;
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_USB_NCM_FUNCTION;
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_USB_RNDIS_FUNCTION;
 
@@ -686,5 +687,38 @@ public class TetheringConfigurationTest {
         final TetheringConfiguration p2pCfg =
                 new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID);
         assertEquals(p2pLeasesSubnetPrefixLength, p2pCfg.getP2pLeasesSubnetPrefixLength());
+    }
+
+    private void setTetheringFeatureFlag(String flag, Long version) {
+        doReturn(version == null ? null : Long.toString(version)).when(
+                () -> DeviceConfig.getProperty(eq(NAMESPACE_TETHERING), eq(flag)));
+    }
+
+    private void assertNoWifiIpServerChangeFromNetdIs(boolean value) {
+        assertEquals(value, new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID)
+                .isNoWifiIpServerChangeFromNetd());
+    }
+
+    @Test
+    public void testNoWifiIpServerChangeFromNetd() throws Exception {
+        // test feature default off.
+        setTetheringFeatureFlag(TETHER_NO_WIFI_IPSERVER_CHANGE_FROM_NETD, null);
+        assertNoWifiIpServerChangeFromNetdIs(false);
+
+        // flag version zero means feature off.
+        setTetheringFeatureFlag(TETHER_NO_WIFI_IPSERVER_CHANGE_FROM_NETD, 0L);
+        assertNoWifiIpServerChangeFromNetdIs(false);
+
+        // enable feature, module version > flag version.
+        setTetheringFeatureFlag(TETHER_NO_WIFI_IPSERVER_CHANGE_FROM_NETD, TEST_PACKAGE_VERSION - 1);
+        assertNoWifiIpServerChangeFromNetdIs(true);
+
+        // enable feature, module version == flag version.
+        setTetheringFeatureFlag(TETHER_NO_WIFI_IPSERVER_CHANGE_FROM_NETD, TEST_PACKAGE_VERSION);
+        assertNoWifiIpServerChangeFromNetdIs(true);
+
+        // disable feature, module version < flag version.
+        setTetheringFeatureFlag(TETHER_NO_WIFI_IPSERVER_CHANGE_FROM_NETD, TEST_PACKAGE_VERSION + 1);
+        assertNoWifiIpServerChangeFromNetdIs(false);
     }
 }
