@@ -77,6 +77,7 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.MediumTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.net.module.util.DnsPacket;
 import com.android.net.module.util.Ipv6Utils;
 import com.android.net.module.util.PacketBuilder;
 import com.android.net.module.util.Struct;
@@ -84,7 +85,9 @@ import com.android.net.module.util.bpf.Tether4Key;
 import com.android.net.module.util.bpf.Tether4Value;
 import com.android.net.module.util.bpf.TetherStatsKey;
 import com.android.net.module.util.bpf.TetherStatsValue;
+import com.android.net.module.util.structs.Ipv4Header;
 import com.android.net.module.util.structs.Ipv6Header;
+import com.android.net.module.util.structs.UdpHeader;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
@@ -158,6 +161,8 @@ public class EthernetTetheringTest {
             (Inet6Address) parseNumericAddress("2002:db8:1::515:ca");
     private static final ByteBuffer TEST_REACHABILITY_PAYLOAD =
             ByteBuffer.wrap(new byte[] { (byte) 0x55, (byte) 0xaa });
+
+    private static final short DNS_PORT = 53;
 
     private static final String DUMPSYS_TETHERING_RAWMAP_ARG = "bpfRawMap";
     private static final String DUMPSYS_RAWMAP_ARG_STATS = "--stats";
@@ -899,6 +904,58 @@ public class EthernetTetheringTest {
     }
 
     @NonNull
+    private ByteBuffer buildUdpPacket(
+            @Nullable final MacAddress srcMac, @Nullable final MacAddress dstMac,
+            @NonNull final InetAddress srcIp, @NonNull final InetAddress dstIp,
+            short srcPort, short dstPort, short id, @Nullable final ByteBuffer payload)
+            throws Exception {
+        int ipProto;
+        short ethType;
+        if (srcIp instanceof Inet4Address && dstIp instanceof Inet4Address) {
+            ipProto = IPPROTO_IP;
+            ethType = (short) ETHER_TYPE_IPV4;
+        } else if (srcIp instanceof Inet6Address && dstIp instanceof Inet6Address) {
+            ipProto = IPPROTO_IPV6;
+            ethType = (short) ETHER_TYPE_IPV6;
+        } else {
+            fail("Unsupported conditions: srcIp " + srcIp + ", dstIp " + dstIp);
+            // Make compiler happy to the uninitialized ipProto and ethType.
+            return null;  // unreachable, the annotation @NonNull of function return value is true.
+        }
+
+        final boolean hasEther = (srcMac != null && dstMac != null);
+        final int payloadLen = (payload == null) ? 0 : payload.limit();
+        final ByteBuffer buffer = PacketBuilder.allocate(hasEther, ipProto, IPPROTO_UDP,
+                payloadLen);
+        final PacketBuilder packetBuilder = new PacketBuilder(buffer);
+
+        // [1] Ethernet header
+        if (hasEther) packetBuilder.writeL2Header(srcMac, dstMac, (short) ethType);
+
+        // [2] IP header
+        if (ipProto == IPPROTO_IP) {
+            packetBuilder.writeIpv4Header(TYPE_OF_SERVICE, id, FLAGS_AND_FRAGMENT_OFFSET,
+                    TIME_TO_LIVE, (byte) IPPROTO_UDP, (Inet4Address) srcIp, (Inet4Address) dstIp);
+        } else {
+            packetBuilder.writeIpv6Header(VERSION_TRAFFICCLASS_FLOWLABEL, (byte) IPPROTO_UDP,
+                    HOP_LIMIT, (Inet6Address) srcIp, (Inet6Address) dstIp);
+        }
+
+        // [3] UDP header
+        packetBuilder.writeUdpHeader(srcPort, dstPort);
+
+        // [4] Payload
+        if (payload != null) {
+            buffer.put(payload);
+            // in case data might be reused by caller, restore the position and
+            // limit of bytebuffer.
+            payload.clear();
+        }
+
+        return packetBuilder.finalizePacket();
+    }
+
+    @NonNull
     private ByteBuffer buildUdpPacket(@NonNull final InetAddress srcIp,
             @NonNull final InetAddress dstIp, short srcPort, short dstPort,
             @Nullable final ByteBuffer payload) throws Exception {
@@ -1292,6 +1349,127 @@ public class EthernetTetheringTest {
     @IgnoreUpTo(Build.VERSION_CODES.R)
     public void testTetherClatUdp() throws Exception {
         runClatUdpTest();
+    }
+
+
+    // scapy.DNS(id=0xdead, qr=0, qd=scapy.DNSQR(qname="hello.example.com"))
+    private static final ByteBuffer DNS_QUERY = ByteBuffer.wrap(new byte[] {
+        (byte) 0xde, (byte) 0xad, (byte) 0x01, (byte) 0x00, (byte) 0x00, (byte) 0x01, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x05, (byte) 0x68, (byte) 0x65, (byte) 0x6c,
+        (byte) 0x6c, (byte) 0x6f, (byte) 0x07, (byte) 0x65, (byte) 0x78, (byte) 0x61, (byte) 0x6d, (byte) 0x70, (byte) 0x6c, (byte) 0x65, (byte) 0x03, (byte) 0x63, (byte) 0x6f, (byte) 0x6d, (byte) 0x00, (byte) 0x00,
+        (byte) 0x01, (byte) 0x00, (byte) 0x01
+    });
+
+    // scapy.DNS(id=0xbeef,qr=1, qd=scapy.DNSQR(qname="hello.example.com"), an=scapy.DNSRR(rrname="hello.example.com", rdata='1.2.3.4'))
+    private static final ByteBuffer DNS_RESP = ByteBuffer.wrap(new byte[] {
+        (byte) 0xbe, (byte) 0xef, (byte) 0x81, (byte) 0x00, (byte) 0x00, (byte) 0x01, (byte) 0x00, (byte) 0x01, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x05, (byte) 0x68, (byte) 0x65, (byte) 0x6c,
+        (byte) 0x6c, (byte) 0x6f, (byte) 0x07, (byte) 0x65, (byte) 0x78, (byte) 0x61, (byte) 0x6d, (byte) 0x70, (byte) 0x6c, (byte) 0x65, (byte) 0x03, (byte) 0x63, (byte) 0x6f, (byte) 0x6d, (byte) 0x00, (byte) 0x00,
+        (byte) 0x01, (byte) 0x00, (byte) 0x01, (byte) 0x05, (byte) 0x68, (byte) 0x65, (byte) 0x6c, (byte) 0x6c, (byte) 0x6f, (byte) 0x07, (byte) 0x65, (byte) 0x78, (byte) 0x61, (byte) 0x6d, (byte) 0x70, (byte) 0x6c,
+        (byte) 0x65, (byte) 0x03, (byte) 0x63, (byte) 0x6f, (byte) 0x6d, (byte) 0x00, (byte) 0x00, (byte) 0x01, (byte) 0x00, (byte) 0x01, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x04,
+        (byte) 0x01, (byte) 0x02, (byte) 0x03, (byte) 0x04
+    });
+
+    private byte[] sendPacketDnsAndGetForwardedPacket(boolean download, @NonNull final InetAddress srcIp,
+            @NonNull final InetAddress dstIp, short srcPort, short dstPort, short id,
+            @NonNull final TetheringTester tester, @NonNull final TetheredDevice tethered)
+            throws Exception {
+        final MacAddress srcMac = (download ? null : tethered.macAddr);
+        final MacAddress dstMac = (download ? null : tethered.routerMacAddr);
+        //final short srcPort = (download ? DNS_PORT : LOCAL_PORT);
+        //final short dstPort = (download ? LOCAL_PORT : DNS_PORT);
+
+
+        // Replace ID of DNS response
+        final ByteBuffer cloneDnsResp = ByteBuffer.allocate(DNS_RESP.capacity());
+        Log.d(TAG, "cloneDnsResp1: " + cloneDnsResp);
+        DNS_RESP.rewind();
+        cloneDnsResp.put(DNS_RESP);
+        cloneDnsResp.rewind();
+        
+        byte[] bytes = new byte[cloneDnsResp.remaining()];
+        cloneDnsResp.get(bytes, 0, bytes.length);
+        Log.d(TAG, "cloneDnsResp2: " + dumpHexString(bytes));
+
+        cloneDnsResp.rewind();
+        if (download) {
+            cloneDnsResp.putShort(id);
+            cloneDnsResp.rewind();
+            //cloneDnsResp.flip();
+        }
+        
+        bytes = new byte[cloneDnsResp.remaining()];
+        cloneDnsResp.get(bytes, 0, bytes.length);
+        Log.d(TAG, "cloneDnsResp2: " + dumpHexString(bytes));
+        cloneDnsResp.rewind();
+
+        final ByteBuffer payload = download ? cloneDnsResp : DNS_QUERY;
+        final ByteBuffer testPacket = buildUdpPacket(srcMac, dstMac, srcIp, dstIp,
+                srcPort, dstPort, id, payload);
+
+        //final boolean isIpv4;
+        //if (srcIp instanceof Inet4Address && dstIp instanceof Inet4Address) {
+        //    isIpv4 = true;
+        //} else if (srcIp instanceof Inet6Address && dstIp instanceof Inet6Address) {
+        //    isIpv4 = false;
+        //} else {
+        //    fail("Unsupported conditions: srcIp " + srcIp + ", dstIp " + dstIp);
+        //    return;
+        //}
+
+        // While testing CLAT (is464 = true), suppose that there are "4 to 6" and "6 to 4" cases.
+        // Under that conditions, the packet on downstream should be IPv4 and the packet on
+        // upstream should be IPv6.
+        if (download) {
+            return tester.verifyDownload(testPacket, p -> {
+                Log.d(TAG, "Packet in downstream: " + dumpHexString(p));
+                return TetheringTester.isExpectedUdpDnsPacket(p, true /* hasEther */,
+                        true /* isIpv4 */, payload);
+            });
+        } else {
+            return tester.verifyUpload(testPacket, p -> {
+                Log.d(TAG, "Packet in upstream: " + dumpHexString(p));
+                return TetheringTester.isExpectedUdpDnsPacket(p, false /* hasEther */,
+                        true /* isIpv4 */, payload);
+            });
+        }
+    }
+
+    @Test
+    public void testTetherUdpV4Dns() throws Exception {
+        final TetheringTester tester = initTetheringTester(toList(TEST_IP4_ADDR),
+                toList(TEST_IP4_DNS));
+        final TetheredDevice tethered = tester.createTetheredDevice(TEST_MAC, false /* hasIpv6 */);
+
+        // TODO: remove the connectivity verification for upstream connected notification race.
+        // See the same reason in runUdp4Test().
+        probeV4TetheringConnectivity(tester, tethered, false /* is4To6 */);
+
+
+        // DNS query:
+        // tethered device --> downstream (gateway) --> dnsmasq forwarding --> DNS server
+        // DNS reply:
+        // DNS server --> dnsmasq forwarding --> downstream (gateway) --> tethered device
+        //
+        // dnsmasq forwarding may change change the UDP source port and DNS id for a new query.
+        // The testing DNS reply packet must extract them from DNS query packet and apply to
+        // testing DNS reply packet.
+        final InetAddress remoteIp = REMOTE_IP4_ADDR;
+        final InetAddress gatewayIp = tethered.ipv4Gatway;
+        final InetAddress publicIp = TEST_IP4_ADDR.getAddress();
+        final InetAddress tetheredIp = tethered.ipv4Addr;
+        final byte[] packet = sendPacketDnsAndGetForwardedPacket(UPLOAD, tetheredIp, gatewayIp, LOCAL_PORT, DNS_PORT, ID, tester, tethered);
+        final ByteBuffer buf = ByteBuffer.wrap(packet);
+        final Ipv4Header ipheader = Struct.parse(Ipv4Header.class, buf);
+        final UdpHeader udpheader = Struct.parse(UdpHeader.class, buf);
+        byte[] receivedPayload = new byte[buf.remaining()];
+        buf.get(receivedPayload);
+        Log.d("EthernetTetheringTest", "testTetherUdpV4Dns: receivedPayload: " + dumpHexString(receivedPayload));  //+debug
+        final TetheringTester.TestDnsPacket receivedDns = new TetheringTester.TestDnsPacket(receivedPayload);
+        final DnsPacket.DnsHeader receivedHeader = receivedDns.getHeader();
+        
+        Log.d(TAG, "dnsQuery: " + dumpHexString(packet));
+        // TODO: need to get the real port and id which dnsmasq forwards the packet.
+        sendPacketDnsAndGetForwardedPacket(DOWNLOAD, remoteIp, publicIp, DNS_PORT, (short) udpheader.srcPort, (short) receivedHeader.id, tester, tethered);
+        //sendPacketDns(DOWNLOAD, remoteIp, publicIp, false /* is464 */, tester, tethered);
     }
 
     private <T> List<T> toList(T... array) {

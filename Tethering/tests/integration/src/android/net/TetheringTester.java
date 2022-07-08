@@ -34,6 +34,7 @@ import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ROUTER_AD
 import static com.android.net.module.util.NetworkStackConstants.IPV6_ADDR_ALL_NODES_MULTICAST;
 import static com.android.net.module.util.NetworkStackConstants.NEIGHBOR_ADVERTISEMENT_FLAG_OVERRIDE;
 import static com.android.net.module.util.NetworkStackConstants.NEIGHBOR_ADVERTISEMENT_FLAG_SOLICITED;
+import static com.android.net.module.util.HexDump.dumpHexString; // debug
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -47,6 +48,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.android.net.module.util.DnsPacket;
 import com.android.net.module.util.Ipv6Utils;
 import com.android.net.module.util.Struct;
 import com.android.net.module.util.structs.EthernetHeader;
@@ -124,12 +126,14 @@ public final class TetheringTester {
         public final MacAddress macAddr;
         public final MacAddress routerMacAddr;
         public final Inet4Address ipv4Addr;
+        public final Inet4Address ipv4Gatway;
         public final Inet6Address ipv6Addr;
 
         private TetheredDevice(MacAddress mac, boolean hasIpv6) throws Exception {
             macAddr = mac;
             DhcpResults dhcpResults = runDhcp(macAddr.toByteArray());
             ipv4Addr = (Inet4Address) dhcpResults.ipAddress.getAddress();
+            ipv4Gatway = (Inet4Address) dhcpResults.gateway;
             routerMacAddr = getRouterMacAddressFromArp(ipv4Addr, macAddr,
                     dhcpResults.serverAddress);
             ipv6Addr = hasIpv6 ? runSlaac(macAddr, routerMacAddr) : null;
@@ -404,6 +408,72 @@ public final class TetheringTester {
 
         return Arrays.equals(Arrays.copyOfRange(buf.array(), buf.position(), buf.limit()),
                 payload.array());
+    }
+
+    public static class TestDnsPacket extends DnsPacket {
+        TestDnsPacket(byte[] data) throws DnsPacket.ParseException {
+            super(data);
+        }
+
+        public DnsHeader getHeader() {
+            return mHeader;
+        }
+        public List<DnsRecord> getRecordList(int secType) {
+            return mRecords[secType];
+        }
+    }
+
+    public static boolean isExpectedUdpDnsPacket(@NonNull final byte[] rawPacket, boolean hasEth,
+            boolean isIpv4, @NonNull final ByteBuffer payload) {
+        final ByteBuffer buf = ByteBuffer.wrap(rawPacket);
+        try {
+            Log.d("EthernetTetheringTest", "isExpectedUdpDnsPacket: 1"); // debug
+            if (hasEth && !hasExpectedEtherHeader(buf, isIpv4)) return false;
+
+            Log.d("EthernetTetheringTest", "isExpectedUdpDnsPacket: 2"); // debug
+            if (!hasExpectedIpHeader(buf, isIpv4, IPPROTO_UDP)) return false;
+
+            Log.d("EthernetTetheringTest", "isExpectedUdpDnsPacket: 3"); // debug
+            if (Struct.parse(UdpHeader.class, buf) == null) return false;
+
+            byte[] receivedPayload = new byte[buf.remaining()];
+            buf.get(receivedPayload);
+            Log.d("EthernetTetheringTest", "isExpectedUdpDnsPacket: receivedPayload: " + dumpHexString(receivedPayload));  //+debug
+            final TestDnsPacket receivedDns = new TestDnsPacket(receivedPayload);
+            if (receivedDns == null) return false;
+
+            byte[] sentPayload = new byte[payload.remaining()];
+            payload.get(sentPayload);
+            Log.d("EthernetTetheringTest", "isExpectedUdpDnsPacket: sentPayload: " + dumpHexString(sentPayload));
+            final TestDnsPacket sentDns = new TestDnsPacket(sentPayload);
+            if (receivedDns == null) return false;
+
+            final DnsPacket.DnsHeader receivedHeader = receivedDns.getHeader();
+            final DnsPacket.DnsHeader sentHeader = sentDns.getHeader();
+
+            Log.d("EthernetTetheringTest", "isExpectedUdpDnsPacket: 4"); // debug
+
+
+            // Don't compare the id because dnsmasq may generate a new id to query.
+            // See forward_query() in external/dnsmasq/src/forward.c.
+            if (sentHeader.isResponse() != receivedHeader.isResponse()) return false;
+
+            Log.d("EthernetTetheringTest", "isExpectedUdpDnsPacket: 5"); // debug
+            final List<DnsPacket.DnsRecord> qdRecordList =
+                    receivedDns.getRecordList(DnsPacket.QDSECTION);
+            if (qdRecordList.size() != 1) return false;
+
+            Log.d("EthernetTetheringTest", "isExpectedUdpDnsPacket: 6"); // debug
+            if (receivedHeader.isResponse()) {
+                List<DnsPacket.DnsRecord> anRecordList =
+                    receivedDns.getRecordList(DnsPacket.ANSECTION);
+                if (anRecordList.size() != 1) return false;
+            }
+        } catch (Exception e) {
+            // Parsing packet fail means it is not udp dns packet.
+            return false;
+        }
+        return true;
     }
 
     private void sendUploadPacket(ByteBuffer packet) throws Exception {
