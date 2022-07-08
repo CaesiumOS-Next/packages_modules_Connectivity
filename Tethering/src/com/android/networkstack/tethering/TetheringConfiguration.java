@@ -128,6 +128,12 @@ public class TetheringConfiguration {
      */
     public static final int DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS = 5000;
 
+    // Copying from android.provider.DeviceConfig.NAMESPACE_TETHERING which is added from T because
+    // R and S device can't find this API.
+    // TODO: replace this with android.provider.DeviceConfig.NAMESPACE_TETHERING when tethering
+    // mainline module don't need to support S device.
+    private static final String NAMESPACE_TETHERING = "tethering";
+
     public final String[] tetherableUsbRegexs;
     public final String[] tetherableWifiRegexs;
     public final String[] tetherableWigigRegexs;
@@ -194,7 +200,7 @@ public class TetheringConfiguration {
         isDunRequired = checkDunRequired(ctx);
 
         final boolean forceAutomaticUpstream = !SdkLevel.isAtLeastS()
-                && isFeatureEnabled(ctx, TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION);
+                && isConnectivityFeatureEnabled(ctx, TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION);
         chooseUpstreamAutomatically = forceAutomaticUpstream || getResourceBoolean(
                 res, R.bool.config_tether_upstream_automatic, false /** defaultValue */);
         preferredUpstreamIfaceTypes = getUpstreamIfaceTypes(res, isDunRequired);
@@ -565,9 +571,17 @@ public class TetheringConfiguration {
         return DeviceConfig.getProperty(NAMESPACE_CONNECTIVITY, name);
     }
 
+    private boolean isConnectivityFeatureEnabled(Context ctx, String featureVersionFlag) {
+        return isFeatureEnabled(ctx, NAMESPACE_CONNECTIVITY, featureVersionFlag);
+    }
+
+    private boolean isFeatureEnabled(Context ctx, String featureVersionFlag) {
+        return isFeatureEnabled(ctx, NAMESPACE_TETHERING, featureVersionFlag);
+    }
+
     @VisibleForTesting
-    protected boolean isFeatureEnabled(Context ctx, String featureVersionFlag) {
-        return DeviceConfigUtils.isFeatureEnabled(ctx, NAMESPACE_CONNECTIVITY, featureVersionFlag,
+    protected boolean isFeatureEnabled(Context ctx, String namespace, String featureVersionFlag) {
+        return DeviceConfigUtils.isFeatureEnabled(ctx, namespace, featureVersionFlag,
                 TETHERING_MODULE_NAME, false /* defaultEnabled */);
     }
 
