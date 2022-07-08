@@ -122,6 +122,12 @@ public class TetheringConfiguration {
      */
     public static final int DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS = 5000;
 
+    // Copying from android.provider.DeviceConfig.NAMESPACE_TETHERING which is added from T because
+    // R and S device can't find this API.
+    // TODO: replace this with android.provider.DeviceConfig.NAMESPACE_TETHERING when tethering
+    // mainline module don't need to support S device.
+    private static final String NAMESPACE_TETHERING = "tethering";
+
     public final String[] tetherableUsbRegexs;
     public final String[] tetherableWifiRegexs;
     public final String[] tetherableWigigRegexs;
@@ -554,7 +560,7 @@ public class TetheringConfiguration {
 
     @VisibleForTesting
     protected String getDeviceConfigProperty(String name) {
-        return DeviceConfig.getProperty(NAMESPACE_CONNECTIVITY, name);
+        return DeviceConfig.getProperty(NAMESPACE_TETHERING, name);
     }
 
     @VisibleForTesting

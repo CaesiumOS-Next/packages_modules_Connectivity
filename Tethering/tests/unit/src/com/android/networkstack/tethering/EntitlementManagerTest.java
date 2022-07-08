@@ -32,7 +32,6 @@ import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static android.net.TetheringManager.TETHER_ERROR_ENTITLEMENT_UNKNOWN;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_PROVISIONING_FAILED;
-import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 import static android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID;
 
 import static com.android.dx.mockito.inline.extended.ExtendedMockito.doReturn;
@@ -231,8 +230,7 @@ public final class EntitlementManagerTest {
         doReturn(false).when(
                 () -> SystemProperties.getBoolean(
                 eq(EntitlementManager.DISABLE_PROVISIONING_SYSPROP_KEY), anyBoolean()));
-        doReturn(null).when(
-                () -> DeviceConfig.getProperty(eq(NAMESPACE_CONNECTIVITY), anyString()));
+        doReturn(null).when(() -> DeviceConfig.getProperty(anyString(), anyString()));
         doReturn(mPm).when(mContext).getPackageManager();
         doReturn(TEST_PACKAGE_NAME).when(mContext).getPackageName();
         doReturn(new PackageInfo()).when(mPm).getPackageInfo(anyString(), anyInt());
