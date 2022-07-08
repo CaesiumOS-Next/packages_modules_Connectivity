@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94006e5c_39672b9b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-08T21:27:30Z",
+      "side": 1,
+      "message": "+Remi, FYI.\n\nI think this should be okay to submit. Only EthernetNetworkFactory uses the unregisterNetworkOffer() API, making this change a lot less risky. This of course only works correctly if unregisterNetworkOffer() is called on the same thread the Executor runs on, otherwise there will be a race between markStale() and any in flight callbacks (it is still safe to do that, but then the caller would have to take extra precautions to handle this situation correctly. I am not sure why anyone would ever do that though). The alternative to this change is creating a new callback object in EthernetNetworkFactory every time we register the offer and setting it to null when we unregister the offer. This means that the callbacks themselves have to check if they are called on the currently active callbacks object. While we use this pattern elsewhere, the API does not make this expectation obvious, which leads to this being missed often (this is not the first time this happens, ethernet suffered from the same problem with IpClientCallbacks and the WiFi code still does to this day, AFAIK). So I think overall, this is still a better approach.",
+      "revId": "546c722511d42c39c13f0b2a7e1c4f8c0b10b004",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
