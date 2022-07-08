@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e70235b_ee15c0e6",
+        "filename": "framework/src/android/net/TestNetworkManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-07-08T07:22:05Z",
+      "side": 1,
+      "message": "nit: indent.",
+      "revId": "8af41fac2f47b7f87324370cb718d96abc22c3bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5acc62d4_28512d45",
@@ -38,6 +55,30 @@
       "side": 1,
       "message": "It turns out, the CTS test does not have the privileges to use IpClient :(. Routes are configured via the NetworkAgent; this is all working as expected.",
       "parentUuid": "5acc62d4_28512d45",
+      "range": {
+        "startLine": 205,
+        "startChar": 74,
+        "endLine": 205,
+        "endChar": 83
+      },
+      "revId": "8af41fac2f47b7f87324370cb718d96abc22c3bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0f5d77d_e2e0790c",
+        "filename": "framework/src/android/net/TestNetworkManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-07-08T07:22:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9eb8c41_8a231273",
       "range": {
         "startLine": 205,
         "startChar": 74,
