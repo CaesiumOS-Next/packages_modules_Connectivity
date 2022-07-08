@@ -47,7 +47,7 @@ TEST(BpfTest, bpfStructSizeTestPreT) {
 }
 
 TEST(BpfTest, bpfStructSizeTest) {
-  doBpfStructSizeTest("/system/etc/bpf/gpu_mem.o");
+  doBpfStructSizeTest("/system/etc/bpf/gpuMem.o");
   doBpfStructSizeTest("/system/etc/bpf/time_in_state.o");
 }
 
