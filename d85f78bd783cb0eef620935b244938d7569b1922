@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7df93a53_8edb2414",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-07-11T06:27:32Z",
+      "side": 1,
+      "message": "Yes, I will separate the class for pre-T and T+ after this migration from trafficController JNI to java BpfMap. ( b/237039258)",
+      "parentUuid": "11c22fd5_44256372",
+      "revId": "d85f78bd783cb0eef620935b244938d7569b1922",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ec8ef57_c0cfbbd4",
