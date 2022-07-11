@@ -22,6 +22,30 @@
       },
       "revId": "a279a335a24114cfa7bfb7e597dc3554a6ccd1da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7e102ac_59b884f0",
+        "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-07-11T07:22:33Z",
+      "side": 1,
+      "message": "Thanks, let me add this test in a separate CL.",
+      "parentUuid": "a766f006_ac1ba772",
+      "range": {
+        "startLine": 428,
+        "startChar": 8,
+        "endLine": 428,
+        "endChar": 51
+      },
+      "revId": "a279a335a24114cfa7bfb7e597dc3554a6ccd1da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
