@@ -19,6 +19,8 @@ package com.android.server.net;
 import static android.Manifest.permission.NETWORK_STATS_PROVIDER;
 import static android.Manifest.permission.READ_NETWORK_USAGE_HISTORY;
 import static android.Manifest.permission.UPDATE_DEVICE_STATS;
+import static android.app.usage.NetworkStatsManager.FLAG_POLL_FORCE;
+import static android.app.usage.NetworkStatsManager.FLAG_POLL_ON_OPEN;
 import static android.app.usage.NetworkStatsManager.PREFIX_DEV;
 import static android.content.Intent.ACTION_SHUTDOWN;
 import static android.content.Intent.ACTION_UID_REMOVED;
@@ -433,7 +435,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
      * the caller of open session and it is only for debugging.
      */
     @GuardedBy("mOpenSessionCallsLock")
-    private final HashMap<OpenSessionKey, Integer> mOpenSessionCallsPerCaller = new HashMap<>();
+    private final HashMap<OpenSessionKey, Integer> mOpenSessionCallsPerCaller;
 
     private final static int DUMP_STATS_SESSION_COUNT = 20;
 
@@ -458,7 +460,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
      * This class is a key that used in {@code mOpenSessionCallsPerCaller} to identify the count of
      * the caller.
      */
-    private static class OpenSessionKey {
+    @VisibleForTesting
+    static class OpenSessionKey {
         public final int uid;
         public final String packageName;
 
@@ -582,6 +585,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         mStatsMapA = mDeps.getStatsMapA();
         mStatsMapB = mDeps.getStatsMapB();
         mAppUidStatsMap = mDeps.getAppUidStatsMap();
+        mOpenSessionCallsPerCaller = mDeps.makeOpenSessionCallsPerCaller();
     }
 
     /**
@@ -776,6 +780,11 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         /** Gets whether the build is userdebug. */
         public boolean isDebuggable() {
             return Build.isDebuggable();
+        }
+
+        /** Create OpenSesstionCallsPerCaller map to record the counts of the caller. */
+        public HashMap<OpenSessionKey, Integer> makeOpenSessionCallsPerCaller() {
+            return new HashMap<>();
         }
     }
 
@@ -1306,12 +1315,12 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
     private boolean isRateLimitedForPoll(@NonNull OpenSessionKey key) {
         final long lastCallTime;
-        final long now = SystemClock.elapsedRealtime();
+        final long now = mClock.millis();
 
         synchronized (mOpenSessionCallsLock) {
             Integer callsPerCaller = mOpenSessionCallsPerCaller.get(key);
             if (callsPerCaller == null) {
-                mOpenSessionCallsPerCaller.put((key), 1);
+                mOpenSessionCallsPerCaller.put(key, 1);
             } else {
                 mOpenSessionCallsPerCaller.put(key, Integer.sum(callsPerCaller, 1));
             }
@@ -1329,27 +1338,32 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         return now - lastCallTime < POLL_RATE_LIMIT_MS;
     }
 
-    private int restrictFlagsForCaller(int flags, @NonNull String callingPackage) {
+    @VisibleForTesting
+    int restrictFlagsForCaller(int flags, @NonNull String callingPackage) {
         // All non-privileged callers are not allowed to turn off POLL_ON_OPEN.
         final boolean isPrivileged = PermissionUtils.checkAnyPermissionOf(mContext,
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK,
                 android.Manifest.permission.NETWORK_STACK);
         if (!isPrivileged) {
-            flags |= NetworkStatsManager.FLAG_POLL_ON_OPEN;
+            flags |= FLAG_POLL_ON_OPEN;
         }
         // Non-system uids are rate limited for POLL_ON_OPEN.
         final int callingUid = Binder.getCallingUid();
         final OpenSessionKey key = new OpenSessionKey(callingUid, callingPackage);
-        flags = isRateLimitedForPoll(key)
-                ? flags & (~NetworkStatsManager.FLAG_POLL_ON_OPEN)
-                : flags;
+        flags = isRateLimitedForPoll(key) ? flags & (~FLAG_POLL_ON_OPEN) : flags;
         return flags;
+    }
+
+    @VisibleForTesting
+    boolean isRestrictForCaller(int flags) {
+        if ((flags & (FLAG_POLL_ON_OPEN | FLAG_POLL_FORCE)) != 0) return false;
+
+        return true;
     }
 
     private INetworkStatsSession openSessionInternal(final int flags, final String callingPackage) {
         final int restrictedFlags = restrictFlagsForCaller(flags, callingPackage);
-        if ((restrictedFlags & (NetworkStatsManager.FLAG_POLL_ON_OPEN
-                | NetworkStatsManager.FLAG_POLL_FORCE)) != 0) {
+        if (!isRestrictForCaller(restrictedFlags)) {
             final long ident = Binder.clearCallingIdentity();
             try {
                 performPoll(FLAG_PERSIST_ALL);
@@ -2465,8 +2479,21 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         // Clear kernel stats associated with UID
         for (int uid : uids) {
             deleteKernelTagData(uid);
+            removeOpenSessionCountsByUid(uid);
         }
         // TODO: Remove the UID's entries from mOpenSessionCallsPerCaller.
+    }
+
+    /**
+     * Remove entry that the key contains the given uid from {@code mOpenSessionCallsPerCaller}.
+     */
+    private void removeOpenSessionCountsByUid(int uid) {
+        final ArraySet<OpenSessionKey> keys = new ArraySet<>(mOpenSessionCallsPerCaller.keySet());
+        for (OpenSessionKey key : keys) {
+            if (key.uid == uid) {
+                mOpenSessionCallsPerCaller.remove(key);
+            }
+        }
     }
 
     /**
