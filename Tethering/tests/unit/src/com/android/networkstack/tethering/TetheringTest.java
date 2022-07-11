@@ -853,6 +853,20 @@ public class TetheringTest {
         mIntents.remove(bcast);
     }
 
+    // If tethering received an interface status changed from netd or intent
+    // then it creates a IpServer and sends out a broadcast indicating that the
+    // interface is "available".
+    private void verifyWifiIpServerAvailable() {
+        // There is 1 IpServer state change event: STATE_AVAILABLE
+        verifyTetheringBroadcast(TEST_WLAN_IFNAME, EXTRA_AVAILABLE_TETHER);
+        verify(mWifiManager).updateInterfaceIpState(
+                TEST_WLAN_IFNAME, WifiManager.IFACE_IP_MODE_UNSPECIFIED);
+    }
+
+    private void verifyNoTetherStateChangeBroadcast() {
+        assertTrue(mIntents.isEmpty());
+    }
+
     public void failingLocalOnlyHotspotLegacyApBroadcast(
             boolean emulateInterfaceStatusChanged) throws Exception {
         // Emulate externally-visible WifiManager effects, causing the
@@ -860,19 +874,17 @@ public class TetheringTest {
         // hotspot mode is to be started.
         if (emulateInterfaceStatusChanged) {
             mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
+            mLooper.dispatchAll();
+            verifyWifiIpServerAvailable();
+            verify(mNotificationUpdater).onDownstreamChanged(DOWNSTREAM_NONE);
+        } else {
+            verifyNoMoreInteractions(mWifiManager);
+            verifyNoTetherStateChangeBroadcast();
         }
+
         sendWifiApStateChanged(WIFI_AP_STATE_ENABLED);
 
-        // If, and only if, Tethering received an interface status changed then
-        // it creates a IpServer and sends out a broadcast indicating that the
-        // interface is "available".
-        if (emulateInterfaceStatusChanged) {
-            // There is 1 IpServer state change event: STATE_AVAILABLE
-            verify(mNotificationUpdater, times(1)).onDownstreamChanged(DOWNSTREAM_NONE);
-            verifyTetheringBroadcast(TEST_WLAN_IFNAME, EXTRA_AVAILABLE_TETHER);
-            verify(mWifiManager).updateInterfaceIpState(
-                    TEST_WLAN_IFNAME, WifiManager.IFACE_IP_MODE_UNSPECIFIED);
-        }
+        verifyNoTetherStateChangeBroadcast();
         verifyNoMoreInteractions(mNetd);
         verifyNoMoreInteractions(mWifiManager);
     }
@@ -941,16 +953,20 @@ public class TetheringTest {
         // hotspot mode is to be started.
         if (emulateInterfaceStatusChanged) {
             mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
+            mLooper.dispatchAll();
+            verifyWifiIpServerAvailable();
+        } else {
+            verifyNoMoreInteractions(mWifiManager);
+            verifyNoTetherStateChangeBroadcast();
         }
         sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_LOCAL_ONLY);
 
+        if (!emulateInterfaceStatusChanged) verifyWifiIpServerAvailable();
+
         verifyInterfaceServingModeStarted(TEST_WLAN_IFNAME);
-        verifyTetheringBroadcast(TEST_WLAN_IFNAME, EXTRA_AVAILABLE_TETHER);
         verify(mNetd, times(1)).ipfwdEnableForwarding(TETHERING_NAME);
         verify(mNetd, times(1)).tetherStartWithConfiguration(any());
         verifyNoMoreInteractions(mNetd);
-        verify(mWifiManager).updateInterfaceIpState(
-                TEST_WLAN_IFNAME, WifiManager.IFACE_IP_MODE_UNSPECIFIED);
         verify(mWifiManager).updateInterfaceIpState(
                 TEST_WLAN_IFNAME, WifiManager.IFACE_IP_MODE_LOCAL_ONLY);
         verifyNoMoreInteractions(mWifiManager);
@@ -2038,11 +2054,18 @@ public class TetheringTest {
             boolean emulateInterfaceStatusChanged) throws Exception {
         if (emulateInterfaceStatusChanged) {
             mTethering.interfaceStatusChanged(TEST_P2P_IFNAME, true);
+            mLooper.dispatchAll();
+            verifyTetheringBroadcast(TEST_P2P_IFNAME, EXTRA_AVAILABLE_TETHER);
+        } else {
+            verifyNoTetherStateChangeBroadcast();
         }
         sendWifiP2pConnectionChanged(true, true, TEST_P2P_IFNAME);
 
+        if (!emulateInterfaceStatusChanged) {
+            verifyTetheringBroadcast(TEST_P2P_IFNAME, EXTRA_AVAILABLE_TETHER);
+        }
+
         verifyInterfaceServingModeStarted(TEST_P2P_IFNAME);
-        verifyTetheringBroadcast(TEST_P2P_IFNAME, EXTRA_AVAILABLE_TETHER);
         verify(mNetd, times(1)).ipfwdEnableForwarding(TETHERING_NAME);
         verify(mNetd, times(1)).tetherStartWithConfiguration(any());
         verifyNoMoreInteractions(mNetd);
@@ -2077,9 +2100,15 @@ public class TetheringTest {
             boolean emulateInterfaceStatusChanged) throws Exception {
         if (emulateInterfaceStatusChanged) {
             mTethering.interfaceStatusChanged(TEST_P2P_IFNAME, true);
+            mLooper.dispatchAll();
+            verifyTetheringBroadcast(TEST_P2P_IFNAME, EXTRA_AVAILABLE_TETHER);
+        } else {
+            verifyNoTetherStateChangeBroadcast();
         }
+
         sendWifiP2pConnectionChanged(true, false, TEST_P2P_IFNAME);
 
+        verifyNoTetherStateChangeBroadcast();
         verify(mNetd, never()).interfaceSetCfg(any(InterfaceConfigurationParcel.class));
         verify(mNetd, never()).tetherInterfaceAdd(TEST_P2P_IFNAME);
         verify(mNetd, never()).networkAddInterface(INetd.LOCAL_NET_ID, TEST_P2P_IFNAME);
@@ -2126,6 +2155,7 @@ public class TetheringTest {
         }
         sendWifiP2pConnectionChanged(true, true, TEST_P2P_IFNAME);
 
+        verifyNoTetherStateChangeBroadcast();
         verify(mNetd, never()).interfaceSetCfg(any(InterfaceConfigurationParcel.class));
         verify(mNetd, never()).tetherInterfaceAdd(TEST_P2P_IFNAME);
         verify(mNetd, never()).networkAddInterface(INetd.LOCAL_NET_ID, TEST_P2P_IFNAME);
