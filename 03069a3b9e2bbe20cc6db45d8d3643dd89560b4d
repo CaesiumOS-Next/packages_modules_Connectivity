@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "496a9451_a68182d3",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-07-11T05:47:07Z",
+      "side": 1,
+      "message": "Nit: Can we use normal user here?",
+      "range": {
+        "startLine": 254,
+        "startChar": 16,
+        "endLine": 254,
+        "endChar": 36
+      },
+      "revId": "03069a3b9e2bbe20cc6db45d8d3643dd89560b4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92b49d53_da38f4f5",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-07-11T05:47:07Z",
+      "side": 1,
+      "message": "Per talked, these are similar code to sendIntent(). To avoid duplication, please refactor the method and use it.",
+      "range": {
+        "startLine": 307,
+        "startChar": 0,
+        "endLine": 312,
+        "endChar": 61
+      },
+      "revId": "03069a3b9e2bbe20cc6db45d8d3643dd89560b4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e842dc8_ce03f22e",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-07-11T05:47:07Z",
+      "side": 1,
+      "message": "Why you need to verify this? mContext doesn\u0027t reigster any receiver in VpnManagerService.",
+      "range": {
+        "startLine": 316,
+        "startChar": 8,
+        "endLine": 316,
+        "endChar": 60
+      },
+      "revId": "03069a3b9e2bbe20cc6db45d8d3643dd89560b4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b22a080_80358937",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-07-11T05:47:07Z",
+      "side": 1,
+      "message": "Nit: Should we verify the case that receive lockdown reset intent w/o mLockdownVpnTracker initialization?",
+      "range": {
+        "startLine": 355,
+        "startChar": 4,
+        "endLine": 355,
+        "endChar": 5
+      },
+      "revId": "03069a3b9e2bbe20cc6db45d8d3643dd89560b4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46a70ef8_4c4423dc",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-07-11T05:47:07Z",
+      "side": 1,
+      "message": "Nit: Maybe put this after l.367 then we assume that returning value is not from mVpn#getLockdown.",
+      "range": {
+        "startLine": 359,
+        "startChar": 8,
+        "endLine": 360,
+        "endChar": 70
+      },
+      "revId": "03069a3b9e2bbe20cc6db45d8d3643dd89560b4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a10f6b42_8a487fb7",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-07-11T05:47:07Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 372,
+        "startChar": 9,
+        "endLine": 373,
+        "endChar": 72
+      },
+      "revId": "03069a3b9e2bbe20cc6db45d8d3643dd89560b4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
