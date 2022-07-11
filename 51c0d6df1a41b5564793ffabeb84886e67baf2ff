@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdf5132d_f4ab7abf",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-11T20:16:55Z",
+      "side": 1,
+      "message": "Via cl/2125880\n\nI don\u0027t think this function is needed.\nYou can change the assertEquals to check that calChecksum equals 0xFFFF (ones complement zero) per maze@\u0027s comment. Currently this takes the ones complement of the ones complement and compares it to 0xFFFF.",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 30
+      },
+      "revId": "51c0d6df1a41b5564793ffabeb84886e67baf2ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
