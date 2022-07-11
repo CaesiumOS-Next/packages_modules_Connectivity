@@ -16,6 +16,46 @@
       "message": "+Remi, FYI.\n\nI think this should be okay to submit. Only EthernetNetworkFactory uses the unregisterNetworkOffer() API, making this change a lot less risky. This of course only works correctly if unregisterNetworkOffer() is called on the same thread the Executor runs on, otherwise there will be a race between markStale() and any in flight callbacks (it is still safe to do that, but then the caller would have to take extra precautions to handle this situation correctly. I am not sure why anyone would ever do that though). The alternative to this change is creating a new callback object in EthernetNetworkFactory every time we register the offer and setting it to null when we unregister the offer. This means that the callbacks themselves have to check if they are called on the currently active callbacks object. While we use this pattern elsewhere, the API does not make this expectation obvious, which leads to this being missed often (this is not the first time this happens, ethernet suffered from the same problem with IpClientCallbacks and the WiFi code still does to this day, AFAIK). So I think overall, this is still a better approach.",
       "revId": "546c722511d42c39c13f0b2a7e1c4f8c0b10b004",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96d9f1ce_559b2c85",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-11T05:40:08Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem unsafe but I think it doesn\u0027t really fix the problem (and attempts to introduce an invariant that is not actually always kept). Unless I\u0027m missing something I\u0027d prefer if we don\u0027t keep this long-term, and fix the provider instead.",
+      "revId": "546c722511d42c39c13f0b2a7e1c4f8c0b10b004",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e51c5f0_bb9be2e7",
+        "filename": "framework/src/android/net/NetworkProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-11T05:40:08Z",
+      "side": 1,
+      "message": "I\u0027m not sure this fully fixes the problem: I think it\u0027s still possible for mIsStale to be read on the executor thread, then unregisterNetworkOffer to be called on another thread, and then callback.onNetworkNeeded to be called; so NetworkProvider still doesn\u0027t guarantee that onNetworkNeeded won\u0027t ever be called \"after\" unregisterNetworkOffer was called. I think the previous code didn\u0027t try to keep that invariant, but if this change tries to introduce that invariant, the code would now have a race. In general it\u0027s pretty rare for volatile members to really fix threading issues.\n\nUltimately I don\u0027t think it\u0027s possible to give that guarantee without holding a lock during the call to callback.onNetworkNeeded, which is probably not desirable, or without forcing events to happen on a single thread, which is not possible with a generic Executor. I can\u0027t think of a good way to fix the issue without having the provider itself support getting onNetworkNeeded callbacks after unregisterNetworkOffer, since only the provider knows what kind of threading model its Executor uses. unregisterNetworkOffer would benefit from better documentation about that behavior, though.",
+      "range": {
+        "startLine": 212,
+        "startChar": 21,
+        "endLine": 212,
+        "endChar": 29
+      },
+      "revId": "546c722511d42c39c13f0b2a7e1c4f8c0b10b004",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
