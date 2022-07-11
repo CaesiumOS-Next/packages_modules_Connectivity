@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "822b9251_680a69ee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-07-11T08:08:25Z",
+      "side": 1,
+      "message": "Is it better if we also add/modify tests for this?\ne.g.\nhttps://osscs.corp.google.com/android/platform/superproject/+/master:packages/modules/Connectivity/tests/common/java/android/net/NetworkProviderTest.kt;l\u003d352?q\u003dNetworkProviderTest\u0026ss\u003dandroid",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 67
+      },
+      "revId": "546c722511d42c39c13f0b2a7e1c4f8c0b10b004",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "94006e5c_39672b9b",
@@ -53,6 +76,53 @@
         "startChar": 21,
         "endLine": 212,
         "endChar": 29
+      },
+      "revId": "546c722511d42c39c13f0b2a7e1c4f8c0b10b004",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ba65828_912eac4e",
+        "filename": "framework/src/android/net/NetworkProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-07-11T08:08:25Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "4e51c5f0_bb9be2e7",
+      "range": {
+        "startLine": 212,
+        "startChar": 21,
+        "endLine": 212,
+        "endChar": 29
+      },
+      "revId": "546c722511d42c39c13f0b2a7e1c4f8c0b10b004",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b18b74f4_452965ae",
+        "filename": "framework/src/android/net/NetworkProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-07-11T08:08:25Z",
+      "side": 1,
+      "message": "Is it possible for any case where we have a stale proxy but CS still have a networkOffer registered? It is unlikely to me.\ne.g. unofferNetwork does not succeed but we already markStale, so the callback never fires.",
+      "range": {
+        "startLine": 348,
+        "startChar": 61,
+        "endLine": 348,
+        "endChar": 75
       },
       "revId": "546c722511d42c39c13f0b2a7e1c4f8c0b10b004",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
