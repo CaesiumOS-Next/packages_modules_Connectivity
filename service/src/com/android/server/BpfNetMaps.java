@@ -48,6 +48,8 @@ import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BpfMap;
 import com.android.net.module.util.Struct.U32;
 import com.android.net.module.util.Struct.U8;
+import com.android.net.module.util.bpf.CookieTagMapKey;
+import com.android.net.module.util.bpf.CookieTagMapValue;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -92,6 +94,8 @@ public class BpfNetMaps {
             "/sys/fs/bpf/netd_shared/map_netd_uid_owner_map";
     private static final String UID_PERMISSION_MAP_PATH =
             "/sys/fs/bpf/netd_shared/map_netd_uid_permission_map";
+    private static final String COOKIE_TAG_MAP_PATH =
+            "/sys/fs/bpf/netd_shared/map_netd_cookie_tag_map";
     private static final U32 UID_RULES_CONFIGURATION_KEY = new U32(0);
     private static final U32 CURRENT_STATS_MAP_CONFIGURATION_KEY = new U32(1);
     private static BpfMap<U32, U32> sConfigurationMap = null;
@@ -99,6 +103,8 @@ public class BpfNetMaps {
     private static BpfMap<U32, UidOwnerValue> sUidOwnerMap = null;
     // Store uids that are used for INTERNET permission check.
     private static BpfMap<U32, U8> sUidPermissionMap = null;
+    // Store the corresponding tag and uid for a specific socket.
+    private static BpfMap<CookieTagMapKey, CookieTagMapValue> sCookieTagMap = null;
 
     // LINT.IfChange(match_type)
     @VisibleForTesting public static final long NO_MATCH = 0;
@@ -175,6 +181,15 @@ public class BpfNetMaps {
         sUidPermissionMap = uidPermissionMap;
     }
 
+    /**
+     * Set cookieTagMap for test.
+     */
+    @VisibleForTesting
+    public static void setCookieTagMapForTest(
+            BpfMap<CookieTagMapKey, CookieTagMapValue> cookieTagMap) {
+        sCookieTagMap = cookieTagMap;
+    }
+
     private static BpfMap<U32, U32> getConfigurationMap() {
         try {
             return new BpfMap<>(
@@ -202,6 +217,15 @@ public class BpfNetMaps {
         }
     }
 
+    private static BpfMap<CookieTagMapKey, CookieTagMapValue> getCookieTagMap() {
+        try {
+            return new BpfMap<>(COOKIE_TAG_MAP_PATH, BpfMap.BPF_F_RDWR,
+                    CookieTagMapKey.class, CookieTagMapValue.class);
+        } catch (ErrnoException e) {
+            throw new IllegalStateException("Cannot open cookie tag map", e);
+        }
+    }
+
     private static void setBpfMaps() {
         if (sConfigurationMap == null) {
             sConfigurationMap = getConfigurationMap();
@@ -211,6 +235,9 @@ public class BpfNetMaps {
         }
         if (sUidPermissionMap == null) {
             sUidPermissionMap = getUidPermissionMap();
+        }
+        if (sCookieTagMap == null) {
+            sCookieTagMap = getCookieTagMap();
         }
     }
 

@@ -62,6 +62,8 @@ import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BpfMap;
 import com.android.net.module.util.Struct.U32;
 import com.android.net.module.util.Struct.U8;
+import com.android.net.module.util.bpf.CookieTagMapKey;
+import com.android.net.module.util.bpf.CookieTagMapValue;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
@@ -114,6 +116,8 @@ public final class BpfNetMapsTest {
     private final BpfMap<U32, UidOwnerValue> mUidOwnerMap =
             new TestBpfMap<>(U32.class, UidOwnerValue.class);
     private final BpfMap<U32, U8> mUidPermissionMap = new TestBpfMap<>(U32.class, U8.class);
+    private final BpfMap<CookieTagMapKey, CookieTagMapValue> mCookieTagMap =
+            new TestBpfMap<>(CookieTagMapKey.class, CookieTagMapValue.class);
 
     @Before
     public void setUp() throws Exception {
@@ -123,6 +127,7 @@ public final class BpfNetMapsTest {
         BpfNetMaps.setConfigurationMapForTest(mConfigurationMap);
         BpfNetMaps.setUidOwnerMapForTest(mUidOwnerMap);
         BpfNetMaps.setUidPermissionMapForTest(mUidPermissionMap);
+        BpfNetMaps.setCookieTagMapForTest(mCookieTagMap);
         mBpfNetMaps = new BpfNetMaps(mNetd, mDeps);
     }
 
