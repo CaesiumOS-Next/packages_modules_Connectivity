@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54189a1c_12c4275d",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-11T17:13:03Z",
+      "side": 1,
+      "message": "I think this is overkill. Just call setIncludeTestInterfaces(false) right after destroying the interfaces (on line 313). That way it\u0027ll probably have taken effect by the end of tearDown. But even if it hasn\u0027t finished execution and a new interface is added in some entirely different test, by the time that code runs, setEthernetEnabled() should be guaranteed to have finished execution. I can\u0027t think of a case where this isn\u0027t safe by itself, as pretty much everything within the ethernet module runs on the same handler thread.",
+      "range": {
+        "startLine": 322,
+        "startChar": 0,
+        "endLine": 326,
+        "endChar": 51
+      },
+      "revId": "5a0cb54ff94967f89b8ca485331918e211eec1b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
