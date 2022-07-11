@@ -31,8 +31,11 @@ import static android.net.INetd.PERMISSION_UNINSTALLED;
 import static android.system.OsConstants.EINVAL;
 import static android.system.OsConstants.ENOENT;
 import static android.system.OsConstants.EOPNOTSUPP;
+import static android.system.OsConstants.NETLINK_INET_DIAG;
 
 import android.net.INetd;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
 import android.system.ErrnoException;
@@ -45,8 +48,15 @@ import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BpfMap;
+import com.android.net.module.util.SharedLog;
 import com.android.net.module.util.Struct.U32;
 import com.android.net.module.util.Struct.U8;
+import com.android.net.module.util.bpf.CookieTagMapKey;
+import com.android.net.module.util.bpf.CookieTagMapValue;
+import com.android.net.module.util.ip.NetlinkMonitor;
+import com.android.net.module.util.netlink.InetDiagMessage;
+import com.android.net.module.util.netlink.NetlinkMessage;
+import com.android.net.module.util.netlink.StructInetDiagSockId;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -91,6 +101,8 @@ public class BpfNetMaps {
             "/sys/fs/bpf/netd_shared/map_netd_uid_owner_map";
     private static final String UID_PERMISSION_MAP_PATH =
             "/sys/fs/bpf/netd_shared/map_netd_uid_permission_map";
+    private static final String COOKIE_TAG_MAP_PATH =
+            "/sys/fs/bpf/netd_shared/map_netd_cookie_tag_map";
     private static final U32 UID_RULES_CONFIGURATION_KEY = new U32(0);
     private static final U32 CURRENT_STATS_MAP_CONFIGURATION_KEY = new U32(1);
     private static BpfMap<U32, U32> sConfigurationMap = null;
@@ -98,6 +110,8 @@ public class BpfNetMaps {
     private static BpfMap<U32, UidOwnerValue> sUidOwnerMap = null;
     // Store uids that are used for INTERNET permission check.
     private static BpfMap<U32, U8> sUidPermissionMap = null;
+    // Store the corresponding tag and uid for a specific socket.
+    private static BpfMap<CookieTagMapKey, CookieTagMapValue> sCookieTagMap = null;
 
     // LINT.IfChange(match_type)
     @VisibleForTesting public static final long NO_MATCH = 0;
@@ -150,6 +164,11 @@ public class BpfNetMaps {
     @VisibleForTesting public static final long STATS_SELECT_MAP_A = 0;
     @VisibleForTesting public static final long STATS_SELECT_MAP_B = 1;
 
+    private static final int SKNLGRP_INET_TCP_DESTROY = 1;
+    private static final int SKNLGRP_INET_UDP_DESTROY = 2;
+    private static final int SKNLGRP_INET6_TCP_DESTROY = 3;
+    private static final int SKNLGRP_INET6_UDP_DESTROY = 4;
+
     /**
      * Set configurationMap for test.
      */
@@ -172,6 +191,15 @@ public class BpfNetMaps {
     @VisibleForTesting
     public static void setUidPermissionMapForTest(BpfMap<U32, U8> uidPermissionMap) {
         sUidPermissionMap = uidPermissionMap;
+    }
+
+    /**
+     * Set cookieTagMap for test.
+     */
+    @VisibleForTesting
+    public static void setCookieTagMapForTest(
+            BpfMap<CookieTagMapKey, CookieTagMapValue> cookieTagMap) {
+        sCookieTagMap = cookieTagMap;
     }
 
     private static BpfMap<U32, U32> getConfigurationMap() {
@@ -201,6 +229,15 @@ public class BpfNetMaps {
         }
     }
 
+    private static BpfMap<CookieTagMapKey, CookieTagMapValue> getCookieTagMap() {
+        try {
+            return new BpfMap<>(COOKIE_TAG_MAP_PATH, BpfMap.BPF_F_RDWR,
+                    CookieTagMapKey.class, CookieTagMapValue.class);
+        } catch (ErrnoException e) {
+            throw new IllegalStateException("Cannot open cookie tag map", e);
+        }
+    }
+
     private static void setBpfMaps() {
         if (sConfigurationMap == null) {
             sConfigurationMap = getConfigurationMap();
@@ -211,6 +248,45 @@ public class BpfNetMaps {
         if (sUidPermissionMap == null) {
             sUidPermissionMap = getUidPermissionMap();
         }
+        if (sCookieTagMap == null) {
+            sCookieTagMap = getCookieTagMap();
+        }
+    }
+
+    private static class SkDestroyListener extends NetlinkMonitor {
+        SkDestroyListener(Handler h) {
+            super(h, new SharedLog(TAG), "SkDestroyListener", NETLINK_INET_DIAG,
+                    1 << (SKNLGRP_INET_TCP_DESTROY - 1)
+                            | 1 << (SKNLGRP_INET_UDP_DESTROY - 1)
+                            | 1 << (SKNLGRP_INET6_TCP_DESTROY - 1)
+                            | 1 << (SKNLGRP_INET6_UDP_DESTROY - 1),
+                    512 * 1024);
+        }
+
+        @Override
+        public void processNetlinkMessage(NetlinkMessage nlMsg, final long whenMs) {
+            if (!(nlMsg instanceof InetDiagMessage)) {
+                mLog.e("non inet diag message");
+                return;
+            }
+            final StructInetDiagSockId sockId =
+                    ((InetDiagMessage) nlMsg).mStructInetDiagMsg.idiag_sock_id;
+            if (sockId == null) {
+                mLog.e("inet diag sock id is null");
+                return;
+            }
+
+            try {
+                sCookieTagMap.deleteEntry(new CookieTagMapKey(sockId.mCookie));
+            } catch (ErrnoException e) {
+                mLog.e("Failed to delete CookieTagMap entry: " + e);
+            }
+        }
+    }
+
+    private static void init() {
+        final SkDestroyListener listener = new SkDestroyListener(new Handler(Looper.myLooper()));
+        listener.start();
     }
 
     /**
@@ -220,6 +296,7 @@ public class BpfNetMaps {
     private static synchronized void ensureInitialized() {
         if (sInitialized) return;
         setBpfMaps();
+        init();
         native_init();
         sInitialized = true;
     }
