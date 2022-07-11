@@ -6081,6 +6081,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     @Override
     public void setAirplaneMode(boolean enable) {
+        log("setAirplaneMode: enable=" + enable);
         enforceAirplaneModePermission();
         final long ident = Binder.clearCallingIdentity();
         try {
@@ -6089,6 +6090,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             Intent intent = new Intent(Intent.ACTION_AIRPLANE_MODE_CHANGED);
             intent.putExtra("state", enable);
             mContext.sendBroadcastAsUser(intent, UserHandle.ALL);
+            log("Sent ACTION_AIRPLANE_MODE_CHANGED intent");
         } finally {
             Binder.restoreCallingIdentity(ident);
         }

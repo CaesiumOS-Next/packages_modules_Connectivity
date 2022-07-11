@@ -3528,6 +3528,7 @@ public class ConnectivityManager {
             android.Manifest.permission.NETWORK_STACK})
     @SystemApi
     public void setAirplaneMode(boolean enable) {
+        Log.d(TAG, "setAirplaneMode: enable=" + enable);
         try {
             mService.setAirplaneMode(enable);
         } catch (RemoteException e) {
