@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12da9fa9_bfdf60e1",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-11T19:35:52Z",
+      "side": 1,
+      "message": "nit: suggest naming this isInterfaceForTetheringAvailable() for clarity.",
+      "range": {
+        "startLine": 246,
+        "startChar": 20,
+        "endLine": 246,
+        "endChar": 48
+      },
+      "revId": "c183516d351f42407590b22b55d967b92259232e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2ca4192_b503b62d",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-11T19:35:52Z",
+      "side": 1,
+      "message": "Note, that this function isn\u0027t technically correct in all cases. All interfaces that have configured NetworkCapabilities cannot be used for tethering anymore; these interfaces don\u0027t have to be restricted (although it might be a reasonable assumption that they are). In any case, I think a better (implementation-agnostic) approach would be to request the tethered interface and see if anything is returned within X seconds. See https://source.corp.google.com/aosp-master/packages/modules/Connectivity/tests/cts/net/src/android/net/cts/EthernetManagerTest.kt;l\u003d456?q\u003dassumeNoInterfaceForTetheringAvailable",
+      "range": {
+        "startLine": 247,
+        "startChar": 6,
+        "endLine": 254,
+        "endChar": 89
+      },
+      "revId": "c183516d351f42407590b22b55d967b92259232e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
