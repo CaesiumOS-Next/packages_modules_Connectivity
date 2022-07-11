@@ -66,6 +66,7 @@ import com.android.testutils.TestableNetworkAgent
 import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnNetworkCreated
 import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnDscpPolicyStatusUpdated
 import com.android.testutils.TestableNetworkCallback
+import com.android.net.module.util.IpUtils
 import org.junit.After
 import org.junit.Assume.assumeTrue
 import org.junit.Before
@@ -77,6 +78,7 @@ import java.net.Inet6Address
 import java.net.InetAddress
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
+import java.util.Arrays
 import java.util.regex.Pattern
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -254,6 +256,9 @@ class DscpPolicyTest {
     }
 
     fun parseV4PacketDscp(buffer : ByteBuffer) : Int {
+        // Validate checksum before parsing packet.
+        assertEquals(0, IpUtils.ipChecksum(buffer.duplicate(), 0), "Invalid IPv4 header checksum")
+
         val ip_ver = buffer.get()
         val tos = buffer.get()
         val length = buffer.getShort()
@@ -262,6 +267,7 @@ class DscpPolicyTest {
         val ttl = buffer.get()
         val ipType = buffer.get()
         val checksum = buffer.getShort()
+
         return tos.toInt().shr(2)
     }
 
@@ -372,6 +378,9 @@ class DscpPolicyTest {
             assertEquals(DSCP_POLICY_STATUS_SUCCESS, it.status)
         }
         validatePacket(agent, dscpValue = 1, dstPort = 4444)
+        // Send a second packet to validate that the stored BPF policy
+        // is correct for subsequent packets.
+        validatePacket(agent, dscpValue = 1, dstPort = 4444)
 
         agent.sendRemoveDscpPolicy(1)
         agent.expectCallback<OnDscpPolicyStatusUpdated>().let {
@@ -409,6 +418,9 @@ class DscpPolicyTest {
             assertEquals(1, it.policyId)
             assertEquals(DSCP_POLICY_STATUS_SUCCESS, it.status)
         }
+        validatePacket(agent, true, dscpValue = 1, dstPort = 4444)
+        // Send a second packet to validate that the stored BPF policy
+        // is correct for subsequent packets.
         validatePacket(agent, true, dscpValue = 1, dstPort = 4444)
 
         agent.sendRemoveDscpPolicy(1)
