@@ -66,6 +66,7 @@ import com.android.testutils.TestableNetworkAgent
 import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnNetworkCreated
 import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnDscpPolicyStatusUpdated
 import com.android.testutils.TestableNetworkCallback
+import com.android.net.module.util.IpUtils
 import org.junit.After
 import org.junit.Assume.assumeTrue
 import org.junit.Before
@@ -77,6 +78,7 @@ import java.net.Inet6Address
 import java.net.InetAddress
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
+import java.util.Arrays
 import java.util.regex.Pattern
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -254,6 +256,9 @@ class DscpPolicyTest {
     }
 
     fun parseV4PacketDscp(buffer : ByteBuffer) : Int {
+        // Validate checksum before parsing packet.
+        val calCheck = IpUtils.ipChecksum(buffer.duplicate(), 0)
+
         val ip_ver = buffer.get()
         val tos = buffer.get()
         val length = buffer.getShort()
@@ -262,6 +267,8 @@ class DscpPolicyTest {
         val ttl = buffer.get()
         val ipType = buffer.get()
         val checksum = buffer.getShort()
+
+        assertEquals(0, calCheck, "Invalid IPv4 header checksum")
         return tos.toInt().shr(2)
     }
 
@@ -335,14 +342,19 @@ class DscpPolicyTest {
         Log.e(TAG, "find DSCP value:" + dscpValue)
         generateSequence { reader.poll(PACKET_TIMEOUT_MS) }.forEach { packet ->
             val buffer = ByteBuffer.wrap(packet, 0, packet.size).order(ByteOrder.BIG_ENDIAN)
-            val dscp = if (sendV6) parseV6PacketDscp(buffer) else parseV4PacketDscp(buffer)
-            Log.e(TAG, "DSCP value:" + dscp)
 
-            // TODO: Add source port comparison. Use 0 for now.
-            if (parsePacketIp(buffer, sendV6) && parsePacketPort(buffer, 0, dstPort)) {
-                Log.e(TAG, "DSCP value found")
-                assertEquals(dscpValue, dscp)
-                packetFound = true
+            // Ignore the packet if the ip version doesn't match
+            val ip_ver = buffer.duplicate().get()
+            if ((sendV6 && ip_ver.toInt().shr(4) == 6) || (!sendV6 && ip_ver.toInt().shr(4) == 4)) {
+                val dscp = if (sendV6) parseV6PacketDscp(buffer) else parseV4PacketDscp(buffer)
+                Log.e(TAG, "DSCP value:" + dscp)
+
+                // TODO: Add source port comparison. Use 0 for now.
+                if (parsePacketIp(buffer, sendV6) && parsePacketPort(buffer, 0, dstPort)) {
+                    Log.e(TAG, "DSCP value found")
+                    assertEquals(dscpValue, dscp)
+                    packetFound = true
+                }
             }
         }
         assertTrue(packetFound)
@@ -371,6 +383,9 @@ class DscpPolicyTest {
             assertEquals(1, it.policyId)
             assertEquals(DSCP_POLICY_STATUS_SUCCESS, it.status)
         }
+        validatePacket(agent, dscpValue = 1, dstPort = 4444)
+        // Send a second packet to validate that the stored BPF policy
+        // is correct for subsequent packets.
         validatePacket(agent, dscpValue = 1, dstPort = 4444)
 
         agent.sendRemoveDscpPolicy(1)
@@ -409,6 +424,9 @@ class DscpPolicyTest {
             assertEquals(1, it.policyId)
             assertEquals(DSCP_POLICY_STATUS_SUCCESS, it.status)
         }
+        validatePacket(agent, true, dscpValue = 1, dstPort = 4444)
+        // Send a second packet to validate that the stored BPF policy
+        // is correct for subsequent packets.
         validatePacket(agent, true, dscpValue = 1, dstPort = 4444)
 
         agent.sendRemoveDscpPolicy(1)
