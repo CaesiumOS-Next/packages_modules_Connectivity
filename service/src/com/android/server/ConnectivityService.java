@@ -6081,6 +6081,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     @Override
     public void setAirplaneMode(boolean enable) {
+        log("setAirplaneMode: enable=" + enable);
         enforceAirplaneModePermission();
         final long ident = Binder.clearCallingIdentity();
         try {
