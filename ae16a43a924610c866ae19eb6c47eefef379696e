@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d14ca0f9_a270da54",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-11T21:55:59Z",
+      "side": 1,
+      "message": "Please don\u0027t do this here. This makes the tests so much harder to read. Wherever possible, keep the test functionality in the test function. (Also, see go/tott/598)",
+      "range": {
+        "startLine": 523,
+        "startChar": 8,
+        "endLine": 523,
+        "endChar": 27
+      },
+      "revId": "ae16a43a924610c866ae19eb6c47eefef379696e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b84ad18_66241cef",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-11T21:55:59Z",
+      "side": 1,
+      "message": "I would suggest renaming this, so it becomes clearer of what is being tested:\n```\nfun testRequestTetheredInterface_doesNotReturnConfiguredIface()\n```\n\n(I like the pattern `test[FunctionBeingTested]_[TestScenarioOrSpecificExpectation]()` as it is easy to parse. Ideally, the name makes it immediately clear what the test does.)",
+      "range": {
+        "startLine": 542,
+        "startChar": 8,
+        "endLine": 542,
+        "endChar": 41
+      },
+      "revId": "ae16a43a924610c866ae19eb6c47eefef379696e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9850a624_4f166105",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-11T21:55:59Z",
+      "side": 1,
+      "message": "Use `assumeNoInterfaceForTetheringAvailable()` instead. (You may have to rebase, I just added it 😊).",
+      "range": {
+        "startLine": 544,
+        "startChar": 8,
+        "endLine": 544,
+        "endChar": 37
+      },
+      "revId": "ae16a43a924610c866ae19eb6c47eefef379696e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4926120e_8f68c941",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-11T21:55:59Z",
+      "side": 1,
+      "message": "nit: I am planning on replacing defaultInterface with interfaceUsedForTethering (as a \"default interface\" could be many things). If possible, let\u0027s try to avoid using this specific wording.",
+      "range": {
+        "startLine": 546,
+        "startChar": 11,
+        "endLine": 546,
+        "endChar": 28
+      },
+      "revId": "ae16a43a924610c866ae19eb6c47eefef379696e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "960e14f7_dc2af6bc",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-11T21:55:59Z",
+      "side": 1,
+      "message": "Instead of the comment above, you should just validate that iface1 is returned when requestTetheredInterface() is called.",
+      "range": {
+        "startLine": 547,
+        "startChar": 8,
+        "endLine": 548,
+        "endChar": 38
+      },
+      "revId": "ae16a43a924610c866ae19eb6c47eefef379696e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1df29671_b9185b2a",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-11T21:55:59Z",
+      "side": 1,
+      "message": "nit: same as above: s/default interface/interface used for tethering/",
+      "range": {
+        "startLine": 550,
+        "startChar": 66,
+        "endLine": 550,
+        "endChar": 84
+      },
+      "revId": "ae16a43a924610c866ae19eb6c47eefef379696e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9a9d2cd_920721c0",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-11T21:55:59Z",
+      "side": 1,
+      "message": "The entire function call can be replaced with one line:\n```\nassertEquals(iface2.name, requestTetheredInterface().expectOnAvailable())\n```",
+      "range": {
+        "startLine": 557,
+        "startChar": 0,
+        "endLine": 558,
+        "endChar": 38
+      },
+      "revId": "ae16a43a924610c866ae19eb6c47eefef379696e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
