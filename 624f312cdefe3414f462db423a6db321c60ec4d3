@@ -69,6 +69,30 @@
       },
       "revId": "624f312cdefe3414f462db423a6db321c60ec4d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f6fbc22_56df3fbf",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-11T20:16:49Z",
+      "side": 1,
+      "message": "moving comment to cl/2150094",
+      "parentUuid": "280ab6cd_1d864a4e",
+      "range": {
+        "startLine": 145,
+        "startChar": 4,
+        "endLine": 151,
+        "endChar": 0
+      },
+      "revId": "624f312cdefe3414f462db423a6db321c60ec4d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
