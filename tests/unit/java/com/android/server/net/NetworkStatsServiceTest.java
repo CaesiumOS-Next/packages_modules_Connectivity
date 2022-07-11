@@ -18,6 +18,9 @@ package com.android.server.net;
 
 import static android.Manifest.permission.READ_NETWORK_USAGE_HISTORY;
 import static android.Manifest.permission.UPDATE_DEVICE_STATS;
+import static android.app.usage.NetworkStatsManager.FLAG_AUGMENT_WITH_SUBSCRIPTION_PLAN;
+import static android.app.usage.NetworkStatsManager.FLAG_POLL_FORCE;
+import static android.app.usage.NetworkStatsManager.FLAG_POLL_ON_OPEN;
 import static android.app.usage.NetworkStatsManager.PREFIX_DEV;
 import static android.content.Intent.ACTION_UID_REMOVED;
 import static android.content.Intent.EXTRA_UID;
@@ -70,6 +73,7 @@ import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -116,6 +120,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.os.Process;
 import android.os.SimpleClock;
 import android.provider.Settings;
 import android.system.ErrnoException;
@@ -138,6 +143,7 @@ import com.android.net.module.util.bpf.CookieTagMapValue;
 import com.android.server.net.NetworkStatsService.AlertObserver;
 import com.android.server.net.NetworkStatsService.NetworkStatsSettings;
 import com.android.server.net.NetworkStatsService.NetworkStatsSettings.Config;
+import com.android.server.net.NetworkStatsService.OpenSessionKey;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.HandlerUtils;
@@ -164,6 +170,7 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -188,6 +195,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private static final String IMSI_1 = "310004";
     private static final String IMSI_2 = "310260";
     private static final String TEST_WIFI_NETWORK_KEY = "WifiNetworkKey";
+    private static final String TEST_PACKAGE = "test.package.name";
 
     private static NetworkTemplate sTemplateWifi = new NetworkTemplate.Builder(MATCH_WIFI)
             .setWifiNetworkKeys(Set.of(TEST_WIFI_NETWORK_KEY)).build();
@@ -254,6 +262,8 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private @Mock PersistentInt mImportLegacyFallbacksCounter;
     private @Mock Resources mResources;
     private Boolean mIsDebuggable;
+    private final HashMap<OpenSessionKey, Integer> mOpenSessionCallsPerCallerTestMap =
+            new HashMap<>();
 
     private class MockContext extends BroadcastInterceptingContext {
         private final Context mBaseContext;
@@ -479,6 +489,11 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
             @Override
             public boolean isDebuggable() {
                 return mIsDebuggable == Boolean.TRUE;
+            }
+
+            @Override
+            public HashMap<OpenSessionKey, Integer> makeOpenSessionCallsPerCaller() {
+                return mOpenSessionCallsPerCallerTestMap;
             }
         };
     }
@@ -829,6 +844,45 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         assertUidTotal(sTemplateWifi, UID_GREEN, 16L, 1L, 16L, 1L, 0);
         assertUidTotal(sTemplateWifi, UID_REMOVED, 4112L, 259L, 528L, 33L, 10);
 
+    }
+
+    @Test
+    public void testRestrictFlasgForCaller() throws Exception {
+        final int uid = Process.myUid();
+
+        // 1. Call restrictFlagsForCaller to simulate user opens a session and make a record
+        //    in mOpenSessionCallsPerCallerTestMap.
+        final int flag = FLAG_AUGMENT_WITH_SUBSCRIPTION_PLAN | FLAG_POLL_ON_OPEN;
+        mService.restrictFlagsForCaller(flag, TEST_PACKAGE);
+
+        // 2. Call again after 1 minutes later and it would not be limited. Thus, the flag
+        //    should not be changed and it won't be restricted.
+        incrementCurrentTime(MINUTE_IN_MILLIS);
+        final int flags = mService.restrictFlagsForCaller(flag, TEST_PACKAGE);
+        assertFalse(mService.isRestrictForCaller(flags));
+
+        // 3. Call again within 15 seconds, it should be rate limited. Thus, the FLAG_POLL_ON_OPEN
+        //    flag will be removed and the caller should be restricted.
+        incrementCurrentTime(3L);
+        final int flags2 = mService.restrictFlagsForCaller(flag, TEST_PACKAGE);
+        assertTrue(mService.isRestrictForCaller(flags2));
+
+        // 4. Call again within 15 seconds, it should be rate limited. Thus, the FLAG_POLL_ON_OPEN
+        //    flag will be removed. It should not be restricted since the flags contains
+        //    FLAG_POLL_FORCE.
+        incrementCurrentTime(3L);
+        final int flagWithPollForce = flag | FLAG_POLL_FORCE;
+        final int flags3 = mService.restrictFlagsForCaller(flagWithPollForce, TEST_PACKAGE);
+        final boolean isRestrict3 = mService.isRestrictForCaller(flags3);
+        assertTrue((flags3 & FLAG_POLL_ON_OPEN) == 0);
+        assertFalse(isRestrict3);
+
+        // 5. Sent user removed intent and verify the count is reset.
+        final Intent intent = new Intent(ACTION_UID_REMOVED);
+        intent.putExtra(EXTRA_UID, uid);
+        mServiceContext.sendBroadcast(intent);
+        final OpenSessionKey key = new OpenSessionKey(uid, TEST_PACKAGE);
+        assertNull(mOpenSessionCallsPerCallerTestMap.get(key));
     }
 
     @Test
