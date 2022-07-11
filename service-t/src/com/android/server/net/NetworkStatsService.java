@@ -420,12 +420,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     private long mLastStatsSessionPoll;
 
     private final Object mOpenSessionCallsLock = new Object();
-    /**
-     * Map from UID to number of opened sessions. This is used for rate-limt an app to open
-     * session frequently
-     */
-    @GuardedBy("mOpenSessionCallsLock")
-    private final SparseIntArray mOpenSessionCallsPerUid = new SparseIntArray();
+
     /**
      * Map from key {@code OpenSessionKey} to count of opened sessions. This is for recording
      * the caller of open session and it is only for debugging.
@@ -1309,13 +1304,10 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         synchronized (mOpenSessionCallsLock) {
             Integer callsPerCaller = mOpenSessionCallsPerCaller.get(key);
             if (callsPerCaller == null) {
-                mOpenSessionCallsPerCaller.put((key), 1);
+                mOpenSessionCallsPerCaller.put(key, 1);
             } else {
                 mOpenSessionCallsPerCaller.put(key, Integer.sum(callsPerCaller, 1));
             }
-
-            int callsPerUid = mOpenSessionCallsPerUid.get(key.uid, 0);
-            mOpenSessionCallsPerUid.put(key.uid, callsPerUid + 1);
 
             if (key.uid == android.os.Process.SYSTEM_UID) {
                 return false;
@@ -2465,10 +2457,20 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         // Clear kernel stats associated with UID
         for (int uid : uids) {
             deleteKernelTagData(uid);
+            removeOpenSessionCountsByUid(uid);
         }
+    }
 
-       // TODO: Remove the UID's entries from mOpenSessionCallsPerUid and
-       // mOpenSessionCallsPerCaller
+    /**
+     * Remove entry that the key contains the given uid from {@code mOpenSessionCallsPerCaller}.
+     */
+    private void removeOpenSessionCountsByUid(int uid) {
+        final ArraySet<OpenSessionKey> keys = new ArraySet<>(mOpenSessionCallsPerCaller.keySet());
+        for (OpenSessionKey key : keys) {
+            if (key.uid == uid) {
+                mOpenSessionCallsPerCaller.remove(key);
+            }
+        }
     }
 
     /**
