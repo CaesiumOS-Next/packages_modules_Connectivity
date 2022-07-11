@@ -31,8 +31,11 @@ import static android.net.INetd.PERMISSION_UNINSTALLED;
 import static android.system.OsConstants.EINVAL;
 import static android.system.OsConstants.ENOENT;
 import static android.system.OsConstants.EOPNOTSUPP;
+import static android.system.OsConstants.NETLINK_INET_DIAG;
 
 import android.net.INetd;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
 import android.system.ErrnoException;
@@ -45,10 +48,15 @@ import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BpfMap;
+import com.android.net.module.util.SharedLog;
 import com.android.net.module.util.Struct.U32;
 import com.android.net.module.util.Struct.U8;
 import com.android.net.module.util.bpf.CookieTagMapKey;
 import com.android.net.module.util.bpf.CookieTagMapValue;
+import com.android.net.module.util.ip.NetlinkMonitor;
+import com.android.net.module.util.netlink.InetDiagMessage;
+import com.android.net.module.util.netlink.NetlinkMessage;
+import com.android.net.module.util.netlink.StructInetDiagSockId;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -76,6 +84,8 @@ public class BpfNetMaps {
     private final Dependencies mDeps;
     // Use legacy netd for releases before T.
     private static boolean sInitialized = false;
+
+    private static SkDestroyListener sSkDestroyListener = null;
 
     // Lock for sConfigurationMap entry for UID_RULES_CONFIGURATION_KEY.
     // This entry is not accessed by others.
@@ -155,6 +165,11 @@ public class BpfNetMaps {
 
     @VisibleForTesting public static final long STATS_SELECT_MAP_A = 0;
     @VisibleForTesting public static final long STATS_SELECT_MAP_B = 1;
+
+    private static final int SKNLGRP_INET_TCP_DESTROY = 1;
+    private static final int SKNLGRP_INET_UDP_DESTROY = 2;
+    private static final int SKNLGRP_INET6_TCP_DESTROY = 3;
+    private static final int SKNLGRP_INET6_UDP_DESTROY = 4;
 
     /**
      * Set configurationMap for test.
@@ -240,6 +255,42 @@ public class BpfNetMaps {
         }
     }
 
+    private static class SkDestroyListener extends NetlinkMonitor {
+        SkDestroyListener(Handler h) {
+            super(h, new SharedLog(TAG), "SkDestroyListener", NETLINK_INET_DIAG,
+                    1 << (SKNLGRP_INET_TCP_DESTROY - 1)
+                            | 1 << (SKNLGRP_INET_UDP_DESTROY - 1)
+                            | 1 << (SKNLGRP_INET6_TCP_DESTROY - 1)
+                            | 1 << (SKNLGRP_INET6_UDP_DESTROY - 1),
+                    512 * 1024);
+        }
+
+        @Override
+        public void processNetlinkMessage(NetlinkMessage nlMsg, final long whenMs) {
+            if (!(nlMsg instanceof InetDiagMessage)) {
+                mLog.e("non inet diag message");
+                return;
+            }
+            final StructInetDiagSockId sockId =
+                    ((InetDiagMessage) nlMsg).mStructInetDiagMsg.id;
+            if (sockId == null) {
+                mLog.e("inet diag sock id is null");
+                return;
+            }
+
+            try {
+                sCookieTagMap.deleteEntry(new CookieTagMapKey(sockId.mCookie));
+            } catch (ErrnoException e) {
+                mLog.e("Failed to delete CookieTagMap entry: " + e);
+            }
+        }
+    }
+
+    private static void init() {
+        sSkDestroyListener = new SkDestroyListener(new Handler(Looper.myLooper()));
+        sSkDestroyListener.start();
+    }
+
     /**
      * Initializes the class if it is not already initialized. This method will open maps but not
      * cause any other effects. This method may be called multiple times on any thread.
@@ -247,6 +298,7 @@ public class BpfNetMaps {
     private static synchronized void ensureInitialized() {
         if (sInitialized) return;
         setBpfMaps();
+        init();
         native_init();
         sInitialized = true;
     }
