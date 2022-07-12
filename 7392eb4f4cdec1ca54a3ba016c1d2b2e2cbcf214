@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9eb4b5c_576c3eca",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-12T02:25:28Z",
+      "side": 1,
+      "message": "Not for this CL, removeRule looks not just used to remove ? It seems updateRule would be better name ?",
+      "range": {
+        "startLine": 312,
+        "startChar": 8,
+        "endLine": 312,
+        "endChar": 18
+      },
+      "revId": "7392eb4f4cdec1ca54a3ba016c1d2b2e2cbcf214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
