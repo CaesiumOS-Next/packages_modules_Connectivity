@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92cba2b2_bc8b567b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-12T12:35:19Z",
+      "side": 1,
+      "message": "So failures are in:\n\nInvocation: suite/test-mapping-mainline-presubmit-retry_cloud-tf-S-base-image\nBranch: git_tm-mainline-prod *or* git_master\nTarget: mainline_modules_x86_64-userdebug\n\nConnectivityCoverageTests(module-abi\u003dx86_64)\nandroid.net.EthernetTetheringTest#testTetherUdpV4AfterR\n\nand they seem pretty consistent.\n\nI guess this needs deeper debugging...\nthis change really shouldn\u0027t be able to cause a failure.\nCurious.",
+      "revId": "2cb24e97f76d7808d42b825401050848341dbeb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
