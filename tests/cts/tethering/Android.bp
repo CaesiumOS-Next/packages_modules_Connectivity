@@ -26,6 +26,7 @@ java_defaults {
 
     srcs: [
         "src/**/*.java",
+        "src/**/*.kt",
     ],
 
     static_libs: [
@@ -36,6 +37,7 @@ java_defaults {
         "ctstestrunner-axt",
         "junit",
         "junit-params",
+        "Harrier",
     ],
 
     jni_libs: [
