@@ -16,6 +16,24 @@
       "message": "Let\u0027s see if this passes tests... too lazy to try to replicate the setup, as I\u0027m unclear on how to go about doing it.",
       "revId": "6b6675a44913a60c037b9a951b987455e5273be1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c74176a_64ef4f68",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-12T13:24:47Z",
+      "side": 1,
+      "message": "An additional complication here is that the presubmit failures were on:\n\ngeneric/cf_x86_64_phone/vsoc_x86_64:12/SP1A.210812.008/7661745:userdebug/dev-keys\nLinux version 5.10.43-android12-9-00031-g5b153f189546-ab7618735\n\nI was under the impression that EthernetTetheringTest doesn\u0027t even run on cuttlefish targets... (without Nucca\u0027s as yet unsubmitted changes)\n\nIt certainly doesn\u0027t work on aosp/master @ HEAD...",
+      "parentUuid": "b4ab877a_dd11c746",
+      "revId": "6b6675a44913a60c037b9a951b987455e5273be1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
