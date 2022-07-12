@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9692989_6cda5cec",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-12T22:59:51Z",
+      "side": 1,
+      "message": "This should now be fixed. I also added NS/NA support to the RA responder.",
+      "parentUuid": "6dc3dd61_cf5732c7",
+      "range": {
+        "startLine": 173,
+        "startChar": 57,
+        "endLine": 173,
+        "endChar": 78
+      },
+      "revId": "602e26817210a4b710eb4eadb5e0805ea006e4b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3b8a6f1_2e5323a1",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-07-05T18:50:25Z",
       "side": 1,
       "message": "Any reason for changing from generateSequence?",
+      "range": {
+        "startLine": 356,
+        "startChar": 8,
+        "endLine": 357,
+        "endChar": 33
+      },
+      "revId": "602e26817210a4b710eb4eadb5e0805ea006e4b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87bd3870_751fd080",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-12T22:59:51Z",
+      "side": 1,
+      "message": "Mainly because \"continue\" on line 363 is more readable (and more explicit about its intent in this case) then \"return#forEach\".",
+      "parentUuid": "c3b8a6f1_2e5323a1",
       "range": {
         "startLine": 356,
         "startChar": 8,
