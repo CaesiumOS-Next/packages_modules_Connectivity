@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d014e2d_ed0c5d59",
+        "filename": "tests/cts/net/native/src/BpfCompatTest.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-12T11:33:16Z",
+      "side": 1,
+      "message": "or perhaps this code only runs on head... and this is guaranteed to be true and this test case should be deleted...\n\nI don\u0027t know.\n\nMaybe Lorenzo will...",
+      "range": {
+        "startLine": 44,
+        "startChar": 34,
+        "endLine": 44,
+        "endChar": 44
+      },
+      "revId": "656cffbbc16a2222a1dd702d88b306359afcba4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
