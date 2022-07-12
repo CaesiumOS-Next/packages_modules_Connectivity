@@ -22,6 +22,30 @@
       },
       "revId": "7392eb4f4cdec1ca54a3ba016c1d2b2e2cbcf214",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e088473c_5349e552",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-12T02:33:32Z",
+      "side": 1,
+      "message": "Ohh, sorry, ignore my comment. Looking the code again, it did flag remove for sure.",
+      "parentUuid": "a9eb4b5c_576c3eca",
+      "range": {
+        "startLine": 312,
+        "startChar": 8,
+        "endLine": 312,
+        "endChar": 18
+      },
+      "revId": "7392eb4f4cdec1ca54a3ba016c1d2b2e2cbcf214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
