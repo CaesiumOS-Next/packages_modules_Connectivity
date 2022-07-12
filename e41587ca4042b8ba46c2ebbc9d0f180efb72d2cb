@@ -22,6 +22,30 @@
       },
       "revId": "e41587ca4042b8ba46c2ebbc9d0f180efb72d2cb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b31b8cd_1f2415dd",
+        "filename": "tests/cts/net/native/src/BpfCompatTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-07-12T11:33:43Z",
+      "side": 1,
+      "message": "Yes. The CL is updated.",
+      "parentUuid": "51b35421_3cc07d05",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 0
+      },
+      "revId": "e41587ca4042b8ba46c2ebbc9d0f180efb72d2cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
