@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91159da6_576b5cd3",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2851,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-12T07:08:31Z",
+      "side": 1,
+      "message": "In a separate change, can you add a test with this being explicity set to false ? Since this is what was missed in the original change.",
+      "range": {
+        "startLine": 2851,
+        "startChar": 16,
+        "endLine": 2851,
+        "endChar": 53
+      },
+      "revId": "4bf22ae0765f2bf7175483af111d0b561602d526",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
