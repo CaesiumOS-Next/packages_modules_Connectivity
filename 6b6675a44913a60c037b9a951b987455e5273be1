@@ -34,6 +34,24 @@
       "parentUuid": "b4ab877a_dd11c746",
       "revId": "6b6675a44913a60c037b9a951b987455e5273be1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e2cdc8d_2f02a79b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-12T13:32:49Z",
+      "side": 1,
+      "message": "https://android.git.corp.google.com/platform/packages/modules/Connectivity/+/d7e713283d974f1c14ab974507671664834b4760%5E%21/\n\nclaims that:\n\nFor UDPv4 support, kernel require 4.14.222+ 4.19.176+ 5.4.98+, 5.8.0+\n\nwhich matches what I remember.  I think UDP tethering offload primary requirement\nwas the non-gpl-only presence of bpf_ktime_get_boot_ns() bpf helper.\n\nhttps://android.googlesource.com/kernel/common/+/5b153f189546d4dc818931f58fd5b5d16f445d41/kernel/bpf/helpers.c#155\n\nsuggests that the above kernel should have it.",
+      "parentUuid": "2c74176a_64ef4f68",
+      "revId": "6b6675a44913a60c037b9a951b987455e5273be1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
