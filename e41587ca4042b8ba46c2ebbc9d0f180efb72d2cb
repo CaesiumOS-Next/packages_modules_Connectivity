@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51b35421_3cc07d05",
+        "filename": "tests/cts/net/native/src/BpfCompatTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-12T11:11:14Z",
+      "side": 1,
+      "message": "I think there\u0027s a problem here, as this has to pass on older devices too.\n\nThis probably needs to be wrapper in an IsAtLeastU() check\n\nif isU\n  gpuMem\n  timeInState\nelse\n  gpu_mem\n  time_in_state",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 0
+      },
+      "revId": "e41587ca4042b8ba46c2ebbc9d0f180efb72d2cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
