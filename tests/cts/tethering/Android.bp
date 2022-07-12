@@ -36,6 +36,7 @@ java_defaults {
         "ctstestrunner-axt",
         "junit",
         "junit-params",
+        "Harrier",
     ],
 
     jni_libs: [
