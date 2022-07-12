@@ -16,6 +16,29 @@
       "message": "Request to start the review as soon as possible",
       "revId": "26a04b7ecfdf8429b9a187a334be964cad547d6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e003266b_4546780d",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-07-12T11:15:12Z",
+      "side": 1,
+      "message": "Can we use this API to fill in the domain search list?",
+      "range": {
+        "startLine": 628,
+        "startChar": 16,
+        "endLine": 628,
+        "endChar": 26
+      },
+      "revId": "26a04b7ecfdf8429b9a187a334be964cad547d6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
