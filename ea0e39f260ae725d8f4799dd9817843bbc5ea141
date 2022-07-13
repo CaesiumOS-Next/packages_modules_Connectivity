@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e49dcf41_3f5b74f2",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-07-13T03:33:44Z",
+      "side": 1,
+      "message": "Thanks for the catch",
+      "parentUuid": "e802b811_9fad7d18",
+      "range": {
+        "startLine": 444,
+        "startChar": 48,
+        "endLine": 444,
+        "endChar": 74
+      },
+      "revId": "ea0e39f260ae725d8f4799dd9817843bbc5ea141",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c29702f2_78ac5fa3",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-12T17:47:54Z",
       "side": 1,
       "message": "It may be a good idea to mock the dependencies instead, so you can adjust the return value and also test with a 0 return for when if_nametoindex returns an error.",
+      "range": {
+        "startLine": 113,
+        "startChar": 4,
+        "endLine": 120,
+        "endChar": 5
+      },
+      "revId": "ea0e39f260ae725d8f4799dd9817843bbc5ea141",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b291ca7a_b07f9c44",
+        "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-07-13T03:33:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c29702f2_78ac5fa3",
       "range": {
         "startLine": 113,
         "startChar": 4,
