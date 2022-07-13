@@ -107,7 +107,7 @@ public abstract class TetheringDependencies {
      */
     public TetheringConfiguration generateTetheringConfiguration(Context ctx, SharedLog log,
             int subId) {
-        return new TetheringConfiguration(ctx, log, subId);
+        return new TetheringConfiguration(ctx, log.forSubComponent("config"), subId);
     }
 
     /**
