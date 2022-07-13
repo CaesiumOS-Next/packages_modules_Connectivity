@@ -156,6 +156,7 @@ import com.android.net.module.util.IBpfMap;
 import com.android.net.module.util.LocationPermissionChecker;
 import com.android.net.module.util.NetworkStatsUtils;
 import com.android.net.module.util.PermissionUtils;
+import com.android.net.module.util.SharedLog;
 import com.android.net.module.util.Struct.U32;
 import com.android.net.module.util.Struct.U8;
 
@@ -445,6 +446,9 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     @NonNull
     private final BpfInterfaceMapUpdater mInterfaceMapUpdater;
 
+    @NonNull
+    private final SkDestroyListener mSkDestroyListener;
+
     private static @NonNull Clock getDefaultClock() {
         return new BestClock(ZoneOffset.UTC, SystemClock.currentNetworkTimeClock(),
                 Clock.systemUTC());
@@ -578,6 +582,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         mStatsMapA = mDeps.getStatsMapA();
         mStatsMapB = mDeps.getStatsMapB();
         mAppUidStatsMap = mDeps.getAppUidStatsMap();
+        mSkDestroyListener = new SkDestroyListener(mHandler, new SharedLog(TAG), mCookieTagMap);
+        mHandler.post(mSkDestroyListener::start);
     }
 
     /**
