@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91e6444e_30994cc5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-13T03:18:23Z",
+      "side": 1,
+      "message": "Hmm I\u0027m not sure this is completely safe; it\u0027s possible some OEMs have set this setting on older devices.\n\nI think you could instead:\n - Add a Log.wtf if the setting is true (just make sure it won\u0027t log too often if it happens)\n - Possibly stop reading it if isAtLeastU(), but that method isn\u0027t available yet :/\n\nIf we don\u0027t get WTF reports from the field after the release we can remove it",
+      "revId": "6bb32824b239d1dc29660d193880a9fde522ce53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
