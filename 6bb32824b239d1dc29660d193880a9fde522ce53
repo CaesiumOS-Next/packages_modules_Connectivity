@@ -34,6 +34,24 @@
       "parentUuid": "91e6444e_30994cc5",
       "revId": "6bb32824b239d1dc29660d193880a9fde522ce53",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78f24503_46cac08a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-13T07:17:01Z",
+      "side": 1,
+      "message": "Adding wtf log for monitor first.",
+      "parentUuid": "4174eb10_8991343e",
+      "revId": "6bb32824b239d1dc29660d193880a9fde522ce53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
