@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "613e3eea_29a169d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-07-13T08:24:08Z",
+      "side": 1,
+      "message": "Please fix merge conflict and it\u0027s better to have another reviewer to take a look. Thus only +1 first.",
+      "revId": "a457c54a1d28618c886da157c7d44eaa7ecc2694",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
