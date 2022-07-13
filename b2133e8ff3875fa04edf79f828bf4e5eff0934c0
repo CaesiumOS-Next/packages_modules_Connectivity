@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9979f44e_e60bedc4",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-13T16:39:02Z",
+      "side": 1,
+      "message": "I guess, I still don\u0027t get why it\u0027s worth going through all the trouble of adding a SparseIntArray when the entire code could just be:\n```\nprivate boolean isFirewallAllowlist(int chain) {\n    switch (chain) {\n        case FIREWALL_CHAIN_DOZABLE:\n        case FIREWALL_CHAIN_POWERSAVE:\n        case FIREWALL_CHAIN_RESTRICTED:\n        case FIREWALL_CHAIN_LOW_POWER_STANDBY:\n            return true;\n        case FIREWALL_CHAIN_STANDBY:\n        case FIREWALL_CHAIN_OEM_DENY_1:\n        case FIREWALL_CHAIN_OEM_DENY_2:\n        case FIREWALL_CHAIN_OEM_DENY_3:\n            return false;\n        default:\n            throw new ServiceSpecificException(EINVAL, \"Invalid firewall chain\");\n    }\n}\n```\nWhile the difference is probably not large, this switch/case should generate a single tableswitch instruction in bytecode, while the SparseIntArray performs a binary search. Plus, there is no static memory allocation. For the few entries here, that is not a big difference either -- but given that the switch/case is also less code and encapsulates everything in one function, I strongly prefer it over the SparseIntArray approach.",
+      "range": {
+        "startLine": 237,
+        "startChar": 0,
+        "endLine": 241,
+        "endChar": 42
+      },
+      "revId": "b2133e8ff3875fa04edf79f828bf4e5eff0934c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
