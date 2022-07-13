@@ -82,8 +82,6 @@ import java.util.Iterator;
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class TetheringConfigurationTest {
-    private final SharedLog mLog = new SharedLog("TetheringConfigurationTest");
-
     @Rule public final DevSdkIgnoreRule mIgnoreRule = new DevSdkIgnoreRule();
 
     private static final String[] PROVISIONING_APP_NAME = {"some", "app"};
@@ -92,6 +90,7 @@ public class TetheringConfigurationTest {
     private static final String TEST_PACKAGE_NAME = "com.android.tethering.test";
     private static final String APEX_NAME = "com.android.tethering";
     private static final long TEST_PACKAGE_VERSION = 1234L;
+    @Mock private SharedLog mLog;
     @Mock private ApplicationInfo mApplicationInfo;
     @Mock private Context mContext;
     @Mock private CarrierConfigManager mCarrierConfigManager;

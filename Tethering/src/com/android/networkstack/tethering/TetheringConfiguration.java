@@ -161,8 +161,6 @@ public class TetheringConfiguration {
     protected final ContentResolver mContentResolver;
 
     public TetheringConfiguration(Context ctx, SharedLog log, int id) {
-        final SharedLog configLog = log.forSubComponent("config");
-
         activeDataSubId = id;
         Resources res = getResources(ctx, activeDataSubId);
         mContentResolver = ctx.getContentResolver();
@@ -202,7 +200,7 @@ public class TetheringConfiguration {
         legacyDhcpRanges = getLegacyDhcpRanges(res);
         defaultIPv4DNS = copy(DEFAULT_IPV4_DNS);
         mEnableBpfOffload = getEnableBpfOffload(res);
-        mEnableLegacyDhcpServer = getEnableLegacyDhcpServer(res);
+        mEnableLegacyDhcpServer = getEnableLegacyDhcpServer(res, log);
 
         provisioningApp = getResourceStringArray(res, R.array.config_mobile_hotspot_provision_app);
         provisioningAppNoUi = getResourceString(res,
@@ -226,9 +224,9 @@ public class TetheringConfiguration {
                 R.bool.config_tether_enable_legacy_wifi_p2p_dedicated_ip,
                 false /* defaultValue */);
 
-        mP2pLeasesSubnetPrefixLength = getP2pLeasesSubnetPrefixLengthFromRes(res, configLog);
+        mP2pLeasesSubnetPrefixLength = getP2pLeasesSubnetPrefixLengthFromRes(res, log);
 
-        configLog.log(toString());
+        log.log(toString());
     }
 
     private int getP2pLeasesSubnetPrefixLengthFromRes(final Resources res, final SharedLog log) {
@@ -544,11 +542,15 @@ public class TetheringConfiguration {
         return getDeviceConfigBoolean(OVERRIDE_TETHER_ENABLE_BPF_OFFLOAD, defaultValue);
     }
 
-    private boolean getEnableLegacyDhcpServer(final Resources res) {
+    private boolean getEnableLegacyDhcpServer(final Resources res, final SharedLog log) {
+        if (getDeviceConfigBoolean(TETHER_ENABLE_LEGACY_DHCP_SERVER, false /** defaultValue */)) {
+            log.wtf("tether_enable_legacy_dhcp_server is enabled by deviceconfig");
+
+            return true;
+        }
+
         return getResourceBoolean(
-                res, R.bool.config_tether_enable_legacy_dhcp_server, false /** defaultValue */)
-                || getDeviceConfigBoolean(
-                TETHER_ENABLE_LEGACY_DHCP_SERVER, false /** defaultValue */);
+                res, R.bool.config_tether_enable_legacy_dhcp_server, false /** defaultValue */);
     }
 
     private boolean getDeviceConfigBoolean(final String name, final boolean defaultValue) {
