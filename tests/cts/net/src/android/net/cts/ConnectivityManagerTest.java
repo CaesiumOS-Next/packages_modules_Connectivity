@@ -2799,8 +2799,11 @@ public class ConnectivityManagerTest {
             // Wifi will not automatically reconnect to the network. ensureWifiDisconnected cannot
             // apply here. Thus, turn off wifi first and restart to restore.
             mTestValidationConfigRule.runAfterNextCleanup(() -> {
-                runShellCommand("svc wifi disable");
-                mCtsNetUtils.ensureWifiConnected();
+                try {
+                    mCtsNetUtils.toggleWifi();
+                } catch (Exception e) {
+                    fail("Toggling wifi threw an exception: " + e.getMessage());
+                }
             });
         }
     }
@@ -2841,8 +2844,11 @@ public class ConnectivityManagerTest {
             /// Wifi will not automatically reconnect to the network. ensureWifiDisconnected cannot
             // apply here. Thus, turn off wifi first and restart to restore.
             mTestValidationConfigRule.runAfterNextCleanup(() -> {
-                runShellCommand("svc wifi disable");
-                mCtsNetUtils.ensureWifiConnected();
+                try {
+                    mCtsNetUtils.toggleWifi();
+                } catch (Exception e) {
+                    fail("Toggling wifi threw an exception: " + e.getMessage());
+                }
             });
         }
     }
