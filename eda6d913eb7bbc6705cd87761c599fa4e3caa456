@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b78034c_20035f89",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-14T02:49:53Z",
+      "side": 1,
+      "message": "1) Yes it should have been, looks like cl/460859872 is a needed fix for the presubmit config\n\n2) I think that would be covered by making the constants API. I\u0027ll make a separate CL for that but this will need opinion from API councilors",
+      "parentUuid": "ac1a52df_c49d386a",
+      "range": {
+        "startLine": 12,
+        "startChar": 21,
+        "endLine": 12,
+        "endChar": 49
+      },
+      "revId": "eda6d913eb7bbc6705cd87761c599fa4e3caa456",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0f9645f4_6739dc68",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-14T02:38:58Z",
       "side": 1,
       "message": "Missing I at the front?\nI7102ae9ba7cb9e1cc8d06b252aad4dad75860f3e ?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 40
+      },
+      "revId": "eda6d913eb7bbc6705cd87761c599fa4e3caa456",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "198073d1_fb36f387",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-14T02:49:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f9645f4_6739dc68",
       "range": {
         "startLine": 17,
         "startChar": 0,
