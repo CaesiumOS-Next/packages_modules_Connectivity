@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "924dee83_46c4970e",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2800,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-07-14T10:39:01Z",
+      "side": 1,
+      "message": "This comment will not be valid after modification. I think this comment could be removed. Ditto in testRejectUnvalidated_TearDownNetwork",
+      "range": {
+        "startLine": 2799,
+        "startChar": 12,
+        "endLine": 2800,
+        "endChar": 76
+      },
+      "revId": "f8fbd01d493134248355750d805d2fae650eea9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd9a5d42_28933935",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2806,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-07-14T10:39:01Z",
+      "side": 1,
+      "message": "Sorry, I knew I suggested to use mCtsNetUtils.toggleWifi(), but I think replacing with reconnectWifi() should be more appropriate here after reviewing.  Reasons are:\n1. toggleWifi() will expect legacy broadcast. The intent broadcast will cause flaky depending on the system performance.\n2. toggleWifi() expects wifi to be system default which may not be guaranteed.\n\nreconnectWifi also ensure disconnect actually performed before calling connect. I think it should also work in your case.",
+      "range": {
+        "startLine": 2802,
+        "startChar": 16,
+        "endLine": 2806,
+        "endChar": 17
+      },
+      "revId": "f8fbd01d493134248355750d805d2fae650eea9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
