@@ -22,6 +22,30 @@
       },
       "revId": "b2133e8ff3875fa04edf79f828bf4e5eff0934c0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30fdd5c9_ae1ecd7f",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-07-14T02:11:41Z",
+      "side": 1,
+      "message": "Thanks for your explanation.\nI agree switch/case you suggested is better than the code with SparseIntArray.\nAnd I prefer to use same way in the isFirewallAllowList and getMatchByFirewallChain.\nSo I have updated getMatchByFirewallChain as well.",
+      "parentUuid": "9979f44e_e60bedc4",
+      "range": {
+        "startLine": 237,
+        "startChar": 0,
+        "endLine": 241,
+        "endChar": 42
+      },
+      "revId": "b2133e8ff3875fa04edf79f828bf4e5eff0934c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
