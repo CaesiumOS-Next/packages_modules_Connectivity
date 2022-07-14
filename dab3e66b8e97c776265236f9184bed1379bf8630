@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f7d5367_63bc98f5",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-07-14T02:22:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a0e328b_59ed9aae",
+      "range": {
+        "startLine": 290,
+        "startChar": 8,
+        "endLine": 290,
+        "endChar": 18
+      },
+      "revId": "dab3e66b8e97c776265236f9184bed1379bf8630",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "555c4370_d275f8e1",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-29T01:58:45Z",
       "side": 1,
       "message": "Nit: maybe add a comment to explain this idle?",
+      "range": {
+        "startLine": 409,
+        "startChar": 8,
+        "endLine": 409,
+        "endChar": 22
+      },
+      "revId": "dab3e66b8e97c776265236f9184bed1379bf8630",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b370cb98_17c7334f",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-07-14T02:22:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "555c4370_d275f8e1",
       "range": {
         "startLine": 409,
         "startChar": 8,
