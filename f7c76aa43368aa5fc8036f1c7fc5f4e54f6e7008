@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db877c31_e1790400",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-14T09:02:11Z",
+      "side": 1,
+      "message": "Nit: target SDK T",
+      "range": {
+        "startLine": 20,
+        "startChar": 51,
+        "endLine": 20,
+        "endChar": 53
+      },
+      "revId": "f7c76aa43368aa5fc8036f1c7fc5f4e54f6e7008",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "586dd045_b8259268",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-14T09:02:11Z",
+      "side": 1,
+      "message": "How about Lorenzo\u0027s other suggestions in aosp/1619104 ? This could be getNonThrowRoutes instead.\n\nIt would also be good to have a comment pointing out the problem noticed here (apps that added a throw route themselves will not see it in getRoutes on T+; but this is expected to be rare and typically only tests creating LinkProperties).",
+      "range": {
+        "startLine": 768,
+        "startChar": 48,
+        "endLine": 768,
+        "endChar": 64
+      },
+      "revId": "f7c76aa43368aa5fc8036f1c7fc5f4e54f6e7008",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
