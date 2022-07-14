@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a48dbd1_cd266996",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-07-14T14:54:05Z",
+      "side": 1,
+      "message": "This code follows TrafficController::setPermissionForUids but I removed mPrivilegedUser.\nmPrivilegedUser was used only in dump but dump shows the entries in mUidPermissionMap and this covers the information from mPrivilegedUser.\n\nhttp://cs/aosp-master/packages/modules/Connectivity/service/native/TrafficController.cpp;l\u003d492;rcl\u003d89557b4812ba5f23434fc25a7364e0cee706b4b5",
+      "revId": "068308ffa673c7a3245a38a9c39f354657d8ba3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
