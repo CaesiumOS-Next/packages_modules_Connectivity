@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee0940c3_4fc41d12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-14T03:36:55Z",
+      "side": 1,
+      "message": "Commit message says this change had no effect on the generated snapshot contents, so this looks good to me but will also let Remi take a look since he should have more context about this.\n\nBTW, not for this change, but I think we should correct the Android bp hierarchy:\n1. move tethering-module-sdk from p/m/C/Tethering/Android.bp into p/m/C/Tethering/apex/Android.bp\n2. move p/m/C/Tethering/apex/* to p/m/C/apex/*",
+      "revId": "1514c032f503e4ab7a4e06a61fadc5945850269a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
