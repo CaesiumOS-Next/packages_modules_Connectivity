@@ -428,6 +428,13 @@ package android.net {
   public final class QosCallbackException extends java.lang.Exception {
     ctor public QosCallbackException(@NonNull String);
     ctor public QosCallbackException(@NonNull Throwable);
+    field public static final int EX_TYPE_FILTER_NETWORK_RELEASED = 1; // 0x1
+    field public static final int EX_TYPE_FILTER_NONE = 0; // 0x0
+    field public static final int EX_TYPE_FILTER_NOT_SUPPORTED = 3; // 0x3
+    field public static final int EX_TYPE_FILTER_SOCKET_LOCAL_ADDRESS_CHANGED = 4; // 0x4
+    field public static final int EX_TYPE_FILTER_SOCKET_NOT_BOUND = 2; // 0x2
+    field public static final int EX_TYPE_FILTER_SOCKET_NOT_CONNECTED = 5; // 0x5
+    field public static final int EX_TYPE_FILTER_SOCKET_REMOTE_ADDRESS_CHANGED = 6; // 0x6
   }
 
   public abstract class QosFilter {

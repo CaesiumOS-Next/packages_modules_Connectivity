@@ -57,28 +57,39 @@ public final class QosCallbackException extends Exception {
     private static final String TAG = "QosCallbackException";
 
     // Types of exceptions supported //
-    // The constants are used for the sendQosCallbackError system API, so they must not be changed
-    // as there may be callers relying on their historical values to call that API.
-    // TODO: mark the constants as @SystemApi, since they are necessary to call a system API.
-    /** {@hide} */
+    /**
+     * There was no error.
+     */
     public static final int EX_TYPE_FILTER_NONE = 0;
 
-    /** {@hide} */
+    /**
+     * The {@link Network} was released and is no longer available.
+     */
     public static final int EX_TYPE_FILTER_NETWORK_RELEASED = 1;
 
-    /** {@hide} */
+    /**
+     * A previously bound socket became unbound.
+     */
     public static final int EX_TYPE_FILTER_SOCKET_NOT_BOUND = 2;
 
-    /** {@hide} */
+    /**
+     * The specified filter is not supported by the device.
+     */
     public static final int EX_TYPE_FILTER_NOT_SUPPORTED = 3;
 
-    /** {@hide} */
+    /**
+     * The local address of the socket has changed.
+     */
     public static final int EX_TYPE_FILTER_SOCKET_LOCAL_ADDRESS_CHANGED = 4;
 
-    /** {@hide} */
+    /**
+     * The specified socket is not connected.
+     */
     public static final int EX_TYPE_FILTER_SOCKET_NOT_CONNECTED = 5;
 
-    /** {@hide} */
+    /**
+     * The local address of the socket has changed.
+     */
     public static final int EX_TYPE_FILTER_SOCKET_REMOTE_ADDRESS_CHANGED = 6;
 
     /**
