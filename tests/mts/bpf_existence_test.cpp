@@ -34,6 +34,7 @@ using std::string;
 using android::modules::sdklevel::IsAtLeastR;
 using android::modules::sdklevel::IsAtLeastS;
 using android::modules::sdklevel::IsAtLeastT;
+using android::modules::sdklevel::IsAtLeastU;
 
 #define PLATFORM "/sys/fs/bpf/"
 #define TETHERING "/sys/fs/bpf/tethering/"
@@ -116,6 +117,9 @@ static const set<string> INTRODUCED_T = {
     NETD "prog_netd_skfilter_ingress_xtbpf",
 };
 
+static const set<string> REMOVED_T = {
+};
+
 static const set<string> INTRODUCED_T_5_4 = {
     SHARED "prog_block_bind4_block_port",
     SHARED "prog_block_bind6_block_port",
@@ -126,7 +130,34 @@ static const set<string> INTRODUCED_T_5_15 = {
     SHARED "prog_dscp_policy_schedcls_set_dscp_raw_ip",
 };
 
-static const set<string> REMOVED_T = {
+static const set<string> INTRODUCED_U = {
+    SHARED "map_dscpPolicy_ipv4_dscp_policies_map",
+    SHARED "map_dscpPolicy_ipv4_socket_to_policies_map_A",
+    SHARED "map_dscpPolicy_ipv4_socket_to_policies_map_B",
+    SHARED "map_dscpPolicy_ipv6_dscp_policies_map",
+    SHARED "map_dscpPolicy_ipv6_socket_to_policies_map_A",
+    SHARED "map_dscpPolicy_ipv6_socket_to_policies_map_B",
+    SHARED "map_dscpPolicy_switch_comp_map",
+};
+
+static const set<string> REMOVED_U = {
+    SHARED "map_dscp_policy_ipv4_dscp_policies_map",
+    SHARED "map_dscp_policy_ipv4_socket_to_policies_map_A",
+    SHARED "map_dscp_policy_ipv4_socket_to_policies_map_B",
+    SHARED "map_dscp_policy_ipv6_dscp_policies_map",
+    SHARED "map_dscp_policy_ipv6_socket_to_policies_map_A",
+    SHARED "map_dscp_policy_ipv6_socket_to_policies_map_B",
+    SHARED "map_dscp_policy_switch_comp_map",
+};
+
+static const set<string> INTRODUCED_U_5_15 = {
+    SHARED "prog_dscpPolicy_schedcls_set_dscp_ether",
+    SHARED "prog_dscpPolicy_schedcls_set_dscp_raw_ip",
+};
+
+static const set<string> REMOVED_U_5_15 = {
+    SHARED "prog_dscp_policy_schedcls_set_dscp_ether",
+    SHARED "prog_dscp_policy_schedcls_set_dscp_raw_ip",
 };
 
 void addAll(set<string>* a, const set<string>& b) {
@@ -148,6 +179,8 @@ void getFileLists(set<string>* expected, set<string>* unexpected) {
     addAll(unexpected, INTRODUCED_T);
     addAll(unexpected, INTRODUCED_T_5_4);
     addAll(unexpected, INTRODUCED_T_5_15);
+    addAll(unexpected, INTRODUCED_U);
+    addAll(unexpected, INTRODUCED_U_5_15);
 
     if (IsAtLeastR()) {
         removeAll(unexpected, INTRODUCED_R);
@@ -182,6 +215,21 @@ void getFileLists(set<string>* expected, set<string>* unexpected) {
 
         removeAll(expected, REMOVED_T);
         addAll(unexpected, REMOVED_T);
+    }
+    
+    if (IsAtLeastU()) {
+        removeAll(unexpected, INTRODUCED_U);
+        addAll(expected, INTRODUCED_U);
+
+        if (android::bpf::isAtLeastKernelVersion(5, 15, 0)) {
+            removeAll(unexpected, INTRODUCED_U_5_15);
+            addAll(expected, INTRODUCED_U_5_15);
+            removeAll(expected, REMOVED_U_5_15);
+            addAll(unexpected, REMOVED_U_5_15);
+        }
+
+        removeAll(expected, REMOVED_U);
+        addAll(unexpected, REMOVED_U);
     }
 }
 

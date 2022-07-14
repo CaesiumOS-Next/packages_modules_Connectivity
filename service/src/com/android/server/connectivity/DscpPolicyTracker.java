@@ -30,6 +30,7 @@ import android.system.ErrnoException;
 import android.util.Log;
 import android.util.SparseIntArray;
 
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BpfMap;
 import com.android.net.module.util.Struct;
 import com.android.net.module.util.TcUtils;
@@ -51,13 +52,14 @@ public class DscpPolicyTracker {
     static final short PRIO_DSCP = 5;
 
     private static final String TAG = DscpPolicyTracker.class.getSimpleName();
-    private static final String PROG_PATH =
-            "/sys/fs/bpf/net_shared/prog_dscp_policy_schedcls_set_dscp";
+    private static final String PROG_PATH = SdkLevel.isAtLeastU()
+            ? "/sys/fs/bpf/net_shared/prog_dscpPolicy_schedcls_set_dscp"
+            : "/sys/fs/bpf/net_shared/prog_dscp_policy_schedcls_set_dscp";
     // Name is "map + *.o + map_name + map". Can probably shorten this
-    private static final String IPV4_POLICY_MAP_PATH = makeMapPath(
-            "dscp_policy_ipv4_dscp_policies");
-    private static final String IPV6_POLICY_MAP_PATH = makeMapPath(
-            "dscp_policy_ipv6_dscp_policies");
+    private static final String IPV4_POLICY_MAP_PATH = makeMapPath(SdkLevel.isAtLeastU()
+            ? "dscpPolicy_ipv4_dscp_policies" : "dscp_policy_ipv4_dscp_policies");
+    private static final String IPV6_POLICY_MAP_PATH = makeMapPath(SdkLevel.isAtLeastU()
+            ? "dscpPolicy_ipv6_dscp_policies" : "dscp_policy_ipv6_dscp_policies");
     private static final int MAX_POLICIES = 16;
 
     private static String makeMapPath(String which) {
