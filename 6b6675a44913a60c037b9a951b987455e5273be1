@@ -86,6 +86,24 @@
       "message": "hi",
       "revId": "6b6675a44913a60c037b9a951b987455e5273be1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b7ca809_df481f3a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-14T12:51:49Z",
+      "side": 1,
+      "message": "ok.  found the root cause\n\nhttps://android.git.corp.google.com/platform/system/bpf/+/0ea4c6b242168dc7798bc0019cfcb73e4655281d%5E%21/\n\nbpfloader: don\u0027t depend on symtab ordering to find function name\n\nreadCodeSections implicitly assumes that a function\u0027s name will be the\nfirst symbol in its section to appear in the symbol table, but this is\nnot guaranteed. In particular, when compiling with -g the section name\ncan appear before it, resulting in a failure to find the bpf_prog_def\ninformation for that section\u0027s program.\n\nAdd a check for the STT_FUNC symbol type to narrow our search to the\nfunction name symbol we actually want.\n\nAlso, add a test to check that a program with a minimum kernel version\nof infinity will not be loaded, to verify that bpfloader successfully\nfinds bpf_prog_def information.\n\nTest: boot \u0026 confirm progs all have correct owners \u0026 permissions\nTest: build time_in_state.c with -g and confirm owner \u0026 permissions\nset correctly\nTest: libbpf_load_test now passes iff this fix is applied\nSigned-off-by: Connor O\u0027Brien \u003cconnoro@google.com\u003e\nChange-Id: I31db0c50d3adeed86ee5810b1a0fb972f56fdb47\n\nthis was merged between bpfloader versions 0.9 and 0.10\n\n---\n\nThis means btf cannot be enabled without a restriction to 0.10+\n\n---\n\n$ objdump -x test.o | sed -rn \u0027/^SYM/,$p\u0027\nSYMBOL TABLE:\n0000000000000000 l    d  xdp/drop_ipv4_udp_ether\t0000000000000000 xdp/drop_ipv4_udp_ether\n0000000000000000 g     F xdp/drop_ipv4_udp_ether\t0000000000000080 xdp_test\n0000000000000000 g     O maps\t0000000000000074 tether_downstream6_map\n0000000000000000 g     O .maps.tether_downstream6_map\t0000000000000030 ____btf_map_tether_downstream6_map\n0000000000000074 g     O maps\t0000000000000074 bitmap\n0000000000000000 g     O .maps.bitmap\t0000000000000010 ____btf_map_bitmap\n0000000000000000 g     O progs\t000000000000005c xdp_test_def\n0000000000000000 g     O bpfloader_min_ver\t0000000000000004 _bpfloader_min_ver\n0000000000000000 g     O bpfloader_max_ver\t0000000000000004 _bpfloader_max_ver\n0000000000000000 g     O size_of_bpf_map_def\t0000000000000008 _size_of_bpf_map_def\n0000000000000000 g     O size_of_bpf_prog_def\t0000000000000008 _size_of_bpf_prog_def\n0000000000000000 g     O license\t000000000000000b _license\n\nwhere previously there was no\n\n0000000000000000 l    d  xdp/drop_ipv4_udp_ether\t0000000000000000 xdp/drop_ipv4_udp_ether\n\nand only\n\n0000000000000000 g     F xdp/drop_ipv4_udp_ether\t0000000000000080 xdp_test",
+      "parentUuid": "9981295f_21cc9a98",
+      "revId": "6b6675a44913a60c037b9a951b987455e5273be1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
