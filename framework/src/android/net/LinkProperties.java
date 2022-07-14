@@ -29,6 +29,7 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.LinkPropertiesUtils;
 
 import java.net.Inet4Address;
@@ -759,7 +760,9 @@ public final class LinkProperties implements Parcelable {
      * @return An unmodifiable {@link List} of {@link RouteInfo} for this link.
      */
     public @NonNull List<RouteInfo> getRoutes() {
-        if (CompatChanges.isChangeEnabled(EXCLUDED_ROUTES)) {
+        // Before T, there's no throw routes because VpnService is not updatable, so no need to
+        // filter them out.
+        if (CompatChanges.isChangeEnabled(EXCLUDED_ROUTES) || !SdkLevel.isAtLeastT()) {
             return Collections.unmodifiableList(mRoutes);
         } else {
             return Collections.unmodifiableList(getUnicastRoutes());
