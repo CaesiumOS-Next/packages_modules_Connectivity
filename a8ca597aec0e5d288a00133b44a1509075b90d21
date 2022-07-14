@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4df5a8f3_7e85bf10",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-07-14T05:12:56Z",
+      "side": 1,
+      "message": "Hi Tyler\nThis commit breaks BpfExistenceTest#TestPrograms. Need to update the test for kernel requirement change (5.4 -\u003e 5.15)\n\nhttps://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/tests/mts/bpf_existence_test.cpp;l\u003d124\n```\nstatic const set\u003cstring\u003e INTRODUCED_T_5_4 \u003d {\n..\n    SHARED \"prog_dscp_policy_schedcls_set_dscp_ether\",\n    SHARED \"prog_dscp_policy_schedcls_set_dscp_raw_ip\",\n};\n```\n",
+      "revId": "a8ca597aec0e5d288a00133b44a1509075b90d21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
