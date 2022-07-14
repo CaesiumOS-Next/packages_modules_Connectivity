@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "941b9e99_7be05585",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-14T16:14:54Z",
+      "side": 1,
+      "message": "Patchset 4 presubmit attempt 2 has only 1 failure.\nThe failure is unrelated, and in:\n  NetworkStackTests(module-abi\u003dx86_64) com.android.server.connectivity.NetworkMonitorTest#testDataStall_StallDnsSuspectedAndSendMetricsOnCell\n\nSince this is a test change it can\u0027t be the cause of a different and unrelated test failing.\n\nThere\u0027s also a failure in:\n  adbd_test(module-abi\u003dx86_64) adbd_test.LocalSocketTest#read_from_closing_socket\nbut even TH marks that as already flaky and known failure.\n",
+      "revId": "b73da9658c705ba3eaf81895bff32177890f4391",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
