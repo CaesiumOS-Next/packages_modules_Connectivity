@@ -22,6 +22,30 @@
       },
       "revId": "bd23ac44479fd3e6471f81ffa40c8e9a7242d2d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18411223_ec5d0f54",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 11255,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-07-14T10:23:01Z",
+      "side": 1,
+      "message": "Not sure if this is a good idea since there might be multiple transports on single network.",
+      "parentUuid": "43f654a1_4655aa20",
+      "range": {
+        "startLine": 11234,
+        "startChar": 0,
+        "endLine": 11255,
+        "endChar": 9
+      },
+      "revId": "bd23ac44479fd3e6471f81ffa40c8e9a7242d2d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

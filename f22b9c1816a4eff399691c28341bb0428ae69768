@@ -90,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8104aa78_d4a4dcfd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 8812,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-07-14T10:23:01Z",
+      "side": 1,
+      "message": "Ok If I understand correctly,\nthere are 2 different requirements:\n1. Tracking:\nAppOpsManager need to collect information about what is the transport\nof a satisfied network request.\n2. Access Control:\nConnectivityService need to check if it is ok for an app to request a certain network by querying from AppOpsManager.\n\nIf so, I think the CL should be split into 2 if the code is not overlapped.\n\nFor Tracking:\n a. I still don\u0027t see why you need this functionality, can you show us the requirement or use case?\n b. Maybe add tracking code in notifyNetworkAvailable?\n c. Note there is no single transport for a single network anymore, maybe you want to pass an array?\n \nFor Access Control:\n a. Not sure if it is a good idea, it seems to me you are trying to decline a network request matching after the network is matched. In my opinion this should not happen at the first place.\n\n b. And, no, I think put IPC in rematchNetworksAndRequests is also not acceptable.\n\n c. Is it more reasonable if doing access control prior to the rematching?\nFor example:\n 1. Create API in ConnectivityManager#setAppOpsDenyList(Network network, UidRange uidRange);\n 2. In ConnectivityService, set this list to a NetworkAgentInfo, (maybe in NetworkCapabilities), call rematch when it is done. \n 3. When rematch, check this list to decide what network should be matched.\n 4. AppOpsManager call this API whenever the list changes.\n \n d. I still don\u0027t see why you need this functionality, can you show us the requirement or use case?\n\nI think in anyway \n a. we\u0027ll need jchalard@\u0027s input if it is availabe.\n b. Have a meeting to clarify the requirements and solutions.",
+      "parentUuid": "8fb78080_78724c9d",
+      "range": {
+        "startLine": 8812,
+        "startChar": 20,
+        "endLine": 8812,
+        "endChar": 47
+      },
+      "revId": "f22b9c1816a4eff399691c28341bb0428ae69768",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "83723299_6fbd0bb1",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 3
