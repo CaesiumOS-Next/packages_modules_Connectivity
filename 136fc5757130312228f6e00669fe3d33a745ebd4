@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "add8892e_e394e5eb",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2239,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-07-14T10:36:05Z",
+      "side": 1,
+      "message": "Can we be more specific?\nDoes ServiceSpecificException work for you? If so the description also need to be updated.",
+      "range": {
+        "startLine": 2239,
+        "startChar": 41,
+        "endLine": 2239,
+        "endChar": 56
+      },
+      "revId": "136fc5757130312228f6e00669fe3d33a745ebd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
