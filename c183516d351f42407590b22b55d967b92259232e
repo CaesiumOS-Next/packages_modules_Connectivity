@@ -45,6 +45,30 @@
       },
       "revId": "c183516d351f42407590b22b55d967b92259232e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70afa305_1b603f07",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-14T09:32:02Z",
+      "side": 1,
+      "message": "I don\u0027t prefer waiting X seconds approach. It would significant slow down our test and slow down the presubmit.\n\nIt is guaranteed that restricted ethernet network have configured NetworkCapabilities, so we can use this function to make sure we can use virtual interface to test ethernet tethering if there is no non-restricted ethernet interface.\n\nBut we still have problem for testPhysicalEthernet. We probably need to make sure all the available interface don\u0027t have configured NetworkCapabilities before running testPhysicalEthernet.",
+      "parentUuid": "a2ca4192_b503b62d",
+      "range": {
+        "startLine": 247,
+        "startChar": 6,
+        "endLine": 254,
+        "endChar": 89
+      },
+      "revId": "c183516d351f42407590b22b55d967b92259232e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
