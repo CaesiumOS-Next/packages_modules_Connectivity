@@ -2770,7 +2770,8 @@ public class ConnectivityManagerTest {
             expectNetworkHasCapability(network, NET_CAPABILITY_VALIDATED, WIFI_CONNECT_TIMEOUT_MS);
         } finally {
             mHttpServer.stop();
-            mTestValidationConfigRule.runAfterNextCleanup(this::reconnectWifi);
+            // Reconnect wifi in the same thread so it doesn't race with the tearDown.
+            reconnectWifi();
         }
     }
 
@@ -2796,12 +2797,8 @@ public class ConnectivityManagerTest {
             assertEquals(network, cb.waitForLost());
         } finally {
             mHttpServer.stop();
-            // Wifi will not automatically reconnect to the network. ensureWifiDisconnected cannot
-            // apply here. Thus, turn off wifi first and restart to restore.
-            mTestValidationConfigRule.runAfterNextCleanup(() -> {
-                runShellCommand("svc wifi disable");
-                mCtsNetUtils.ensureWifiConnected();
-            });
+            // Reconnect wifi in the same thread so it doesn't race with the tearDown.
+            reconnectWifi();
         }
     }
 
@@ -2838,11 +2835,12 @@ public class ConnectivityManagerTest {
             waitForLost(wifiCb);
         } finally {
             mHttpServer.stop();
-            /// Wifi will not automatically reconnect to the network. ensureWifiDisconnected cannot
-            // apply here. Thus, turn off wifi first and restart to restore.
             mTestValidationConfigRule.runAfterNextCleanup(() -> {
-                runShellCommand("svc wifi disable");
-                mCtsNetUtils.ensureWifiConnected();
+                try {
+                    mCtsNetUtils.toggleWifi();
+                } catch (Exception e) {
+                    fail("Toggling wifi threw an exception: " + e.getMessage());
+                }
             });
         }
     }
