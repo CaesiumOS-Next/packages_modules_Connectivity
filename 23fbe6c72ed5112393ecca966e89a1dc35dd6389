@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21c0dc42_330f4f74",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-15T21:48:51Z",
+      "side": 1,
+      "message": "nit: maybe leave a comment why setting the path to null is okay here and maybe a TODO to remove the path and useBpfStats arguments?\n\n```\n// TODO: remove both path and useBpfStats arguments.\n// The path is never used if useBpfStats is true.",
+      "range": {
+        "startLine": 92,
+        "startChar": 12,
+        "endLine": 93,
+        "endChar": 77
+      },
+      "revId": "23fbe6c72ed5112393ecca966e89a1dc35dd6389",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f09bb6f5_741af38f",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-15T21:48:51Z",
+      "side": 1,
+      "message": "Why is this being done? Is this change related to removing qtaguid, or could it be done in a separate CL?",
+      "range": {
+        "startLine": 256,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 13
+      },
+      "revId": "23fbe6c72ed5112393ecca966e89a1dc35dd6389",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
