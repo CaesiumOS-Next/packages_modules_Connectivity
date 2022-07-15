@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff9d4914_db61e090",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-07-15T20:51:08Z",
+      "side": 1,
+      "message": "Could this just be replaced with checking `mLinkUp`?\n\n if (!mLinkUp) {\n     return;\n }\n \nIf you did that, couldn\u0027t you also then back out all of the other changes to the file? It would only be two line diff then for eth factory. You could use the test you added to verify.",
+      "range": {
+        "startLine": 409,
+        "startChar": 16,
+        "endLine": 409,
+        "endChar": 32
+      },
+      "revId": "7c4e2a918c1d93aa721871f0f74ab71e93ff6006",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fd5f36b_e1f541fd",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-07-15T20:51:08Z",
+      "side": 1,
+      "message": "nit: may be worth logging when this happens.",
+      "range": {
+        "startLine": 427,
+        "startChar": 20,
+        "endLine": 427,
+        "endChar": 27
+      },
+      "revId": "7c4e2a918c1d93aa721871f0f74ab71e93ff6006",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
