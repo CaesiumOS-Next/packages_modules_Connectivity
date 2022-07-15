@@ -33,6 +33,24 @@
       "message": "Ping.",
       "revId": "1514c032f503e4ab7a4e06a61fadc5945850269a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f8d7ef5_f3ea4ff5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2022-07-15T09:38:17Z",
+      "side": 1,
+      "message": "Please be aware that if you do this you need to be very careful with how you handle visibility rules.\n\nWhen the sdk snapshot is generated the visibility rules are copied from the source modules to the prebuilt modules (and the source package is added to them automatically). Those visibility rules have to work across all branches that snapshot will target, e.g. S, and T. So, the visibility rules in the source need to be the union of all the visibilities needed by all the branches.\n\nI am flagging this now as I am currently working on fixing some issues caused by failing to do that and I wanted to avoid future problems.",
+      "parentUuid": "ee0940c3_4fc41d12",
+      "revId": "1514c032f503e4ab7a4e06a61fadc5945850269a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
