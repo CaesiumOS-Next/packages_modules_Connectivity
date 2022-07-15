@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9a7a471_d1d89496",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-15T02:45:51Z",
+      "side": 1,
+      "message": "This relies on being on the Ethernet handler to update mNetworkOfferCallback, but is a public method, so I\u0027d suggest calling ensureRunningOnEthernetHandlerThread here; in which case it would be good to do the same in registerNetworkOffer too (and/or can it be made private ?)",
+      "range": {
+        "startLine": 691,
+        "startChar": 20,
+        "endLine": 691,
+        "endChar": 49
+      },
+      "revId": "5e78a0ef7cdffd98e1d3e0c631c07a70d9c72244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a7de209_963193af",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-15T02:45:51Z",
+      "side": 1,
+      "message": "Nit: maybe add a comment to indicate setting the offer to null allows future callbacks to be identified as stale (so readers don\u0027t think it\u0027s just an ineffective optimization setting members to null for the GC)",
+      "range": {
+        "startLine": 693,
+        "startChar": 12,
+        "endLine": 693,
+        "endChar": 33
+      },
+      "revId": "5e78a0ef7cdffd98e1d3e0c631c07a70d9c72244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
