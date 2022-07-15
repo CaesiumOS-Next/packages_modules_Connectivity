@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e73dbcc8_5cc0c4f8",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2537,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-07-15T03:48:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bdeaa73_e46bd711",
+      "range": {
+        "startLine": 2537,
+        "startChar": 7,
+        "endLine": 2537,
+        "endChar": 12
+      },
+      "revId": "6284b868c8e0cf03ba01ce2e716bb09c300305f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23d02d8f_47ac8801",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-15T03:11:16Z",
       "side": 1,
       "message": "Question: Is this the right format? Shouldn\u0027t we use /** */?",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 79,
+        "endChar": 65
+      },
+      "revId": "6284b868c8e0cf03ba01ce2e716bb09c300305f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "657b0ea7_e201b2c5",
+        "filename": "service/src/com/android/server/connectivity/FullScore.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-07-15T03:48:47Z",
+      "side": 1,
+      "message": "Yes, if we would like to create javadoc, we should use /** */. \nI am not sure if we would like to change all the format(Change too much?) or just update the ones that are updated(The style are different?). \nSince it\u0027s hidden and no javadoc created, I just update the format but do not use  /** */ per offline discussed.",
+      "parentUuid": "23d02d8f_47ac8801",
       "range": {
         "startLine": 78,
         "startChar": 4,
