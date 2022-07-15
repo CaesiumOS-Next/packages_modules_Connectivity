@@ -77,6 +77,8 @@ import android.net.INetd;
 import android.net.UidRange;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Process;
 import android.os.SystemConfigManager;
 import android.os.UserHandle;
@@ -165,7 +167,7 @@ public class PermissionMonitorTest {
     private PermissionMonitor mPermissionMonitor;
     private NetdMonitor mNetdMonitor;
     private BpfMapMonitor mBpfMapMonitor;
-
+    private Handler mHandler;
     private ProcessShim mProcessShim = ProcessShimImpl.newInstance();
 
     @Before
@@ -195,7 +197,11 @@ public class PermissionMonitorTest {
         // by default.
         doReturn(VERSION_Q).when(mDeps).getDeviceFirstSdkInt();
 
-        mPermissionMonitor = new PermissionMonitor(mContext, mNetdService, mBpfNetMaps, mDeps);
+        final HandlerThread thread = new HandlerThread("PermissionMonitorTest");
+        thread.start();
+        mHandler = thread.getThreadHandler();
+        mPermissionMonitor =
+                new PermissionMonitor(mContext, mNetdService, mBpfNetMaps, mDeps, mHandler);
         mNetdMonitor = new NetdMonitor(mNetdService);
         mBpfMapMonitor = new BpfMapMonitor(mBpfNetMaps);
 
@@ -1134,7 +1140,7 @@ public class PermissionMonitorTest {
         // necessary permission.
         final Context realContext = InstrumentationRegistry.getContext();
         final PermissionMonitor monitor = new PermissionMonitor(realContext, mNetdService,
-                mBpfNetMaps);
+                mBpfNetMaps, mHandler);
         final PackageManager manager = realContext.getPackageManager();
         final PackageInfo systemInfo = manager.getPackageInfo(REAL_SYSTEM_PACKAGE_NAME,
                 GET_PERMISSIONS | MATCH_ANY_USER);

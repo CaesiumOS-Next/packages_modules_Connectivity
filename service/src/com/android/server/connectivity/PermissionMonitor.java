@@ -53,6 +53,7 @@ import android.net.UidRange;
 import android.net.Uri;
 import android.net.util.SharedLog;
 import android.os.Build;
+import android.os.Handler;
 import android.os.Process;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
@@ -98,6 +99,7 @@ public class PermissionMonitor {
     private final Dependencies mDeps;
     private final Context mContext;
     private final BpfNetMaps mBpfNetMaps;
+    private final Handler mHandler;
 
     private static final ProcessShim sProcessShim = ProcessShimImpl.newInstance();
 
@@ -243,14 +245,15 @@ public class PermissionMonitor {
     }
 
     public PermissionMonitor(@NonNull final Context context, @NonNull final INetd netd,
-            @NonNull final BpfNetMaps bpfNetMaps) {
-        this(context, netd, bpfNetMaps, new Dependencies());
+            @NonNull final BpfNetMaps bpfNetMaps, @NonNull final Handler handler) {
+        this(context, netd, bpfNetMaps, new Dependencies(), handler);
     }
 
     @VisibleForTesting
     PermissionMonitor(@NonNull final Context context, @NonNull final INetd netd,
             @NonNull final BpfNetMaps bpfNetMaps,
-            @NonNull final Dependencies deps) {
+            @NonNull final Dependencies deps,
+            @NonNull final Handler handler) {
         mPackageManager = context.getPackageManager();
         mUserManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
         mSystemConfigManager = context.getSystemService(SystemConfigManager.class);
@@ -258,6 +261,7 @@ public class PermissionMonitor {
         mDeps = deps;
         mContext = context;
         mBpfNetMaps = bpfNetMaps;
+        mHandler = handler;
     }
 
     private int getPackageNetdNetworkPermission(@NonNull final PackageInfo app) {
@@ -413,7 +417,7 @@ public class PermissionMonitor {
                 userAllContext,
                 Settings.Global.getUriFor(UIDS_ALLOWED_ON_RESTRICTED_NETWORKS),
                 false /* notifyForDescendants */,
-                new ContentObserver(null) {
+                new ContentObserver(mHandler) {
                     @Override
                     public void onChange(boolean selfChange) {
                         onSettingChanged();
