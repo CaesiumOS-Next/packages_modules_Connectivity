@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bdeaa73_e46bd711",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2537,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-07-15T03:11:16Z",
+      "side": 1,
+      "message": "Should this use See {@link?",
+      "range": {
+        "startLine": 2537,
+        "startChar": 7,
+        "endLine": 2537,
+        "endChar": 12
+      },
+      "revId": "6284b868c8e0cf03ba01ce2e716bb09c300305f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23d02d8f_47ac8801",
+        "filename": "service/src/com/android/server/connectivity/FullScore.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-07-15T03:11:16Z",
+      "side": 1,
+      "message": "Question: Is this the right format? Shouldn\u0027t we use /** */?",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 79,
+        "endChar": 65
+      },
+      "revId": "6284b868c8e0cf03ba01ce2e716bb09c300305f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
