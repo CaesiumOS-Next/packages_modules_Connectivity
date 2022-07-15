@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c1b73f6_0b622f19",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-15T22:07:21Z",
+      "side": 1,
+      "message": "Can this be split into 3 CLs, or is there some sort of circular dependency between these steps?\n1) Make NetworkStatsFactory testable\n2) Delete outdated tests\n3) Refactor parseDetailedStats()",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 36
+      },
+      "revId": "1db1ea58dbbd35adf8f6fb348b17e6ae5641f331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57ca5995_c3ed6900",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-15T22:07:21Z",
+      "side": 1,
+      "message": "+2 that the NetworkStatsFactory changes are safe; I have not looked at parseDetailedStats yet.",
+      "revId": "1db1ea58dbbd35adf8f6fb348b17e6ae5641f331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
