@@ -151,6 +151,8 @@ void getFileLists(set<string>* expected, set<string>* unexpected) {
     addAll(unexpected, INTRODUCED_R);
     addAll(unexpected, INTRODUCED_S);
     addAll(unexpected, INTRODUCED_T);
+    addAll(unexpected, INTRODUCED_T_5_4);
+    addAll(unexpected, INTRODUCED_T_5_15);
 
     if (IsAtLeastR()) {
         addAll(expected, INTRODUCED_R);
@@ -175,6 +177,10 @@ void getFileLists(set<string>* expected, set<string>* unexpected) {
         removeAll(expected, REMOVED_T);
 
         addAll(unexpected, REMOVED_T);
+        if (android::bpf::isAtLeastKernelVersion(5, 4, 0)) removeAll(unexpected, INTRODUCED_T_5_4);
+        if (android::bpf::isAtLeastKernelVersion(5, 15, 0)) {
+            removeAll(unexpected, INTRODUCED_T_5_15);
+        }
         removeAll(unexpected, INTRODUCED_T);
     }
 }
