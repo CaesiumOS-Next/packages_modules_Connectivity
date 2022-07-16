@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a44e57ee_9f247510",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-16T05:48:53Z",
+      "side": 1,
+      "message": "uint32_t new_first_u32 \u003d htonl(ntohl(old_first_u32) \u0026 0xF03FFFFF \n (new_dscp \u003c\u003c 22));\n \nbpf_skb_store_bytes(skb, l2_header_size, \u0026new_first_u32, sizeof(u32), 0);\n\nBy virtue of flow label being 20-bits, the first 4 bytes are usually thought of as a u32, but the primary change here is how it just updates the dscp bits in place and calls it a day, this avoids things the various mis-named things like \u0027new_priority\u0027 which actually isn\u0027t the full priority field, but does include the ip version, or \u0027new_flow_lbl\u0027 which has only 4 out of 20 flow label bits.",
+      "range": {
+        "startLine": 284,
+        "startChar": 0,
+        "endLine": 284,
+        "endChar": 75
+      },
+      "revId": "31d4ca9575468615202759929f4dc1a2a410437d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
