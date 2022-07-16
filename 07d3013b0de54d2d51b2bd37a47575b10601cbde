@@ -16,6 +16,24 @@
       "message": "2022-07-16 05:41:53,570 - ERROR - 139713455658752 - Sync_external/rust/crates/rayon - /usr/local/google/buildbot/scripts/git_utils.py line: 312 - Executed: [\u0027/bin/bash\u0027, \u0027-c\u0027, \u0027git -c core.longpaths\u003dtrue -c gc.auto\u003d0 cherry-pick -Xpatience --keep-redundant-commits 07d3013b0de54d2d51b2bd37a47575b10601cbde\u0027] from /mnt/disks/build-disk/src/googleplex-android/master/packages/modules/Connectivity return code 128.\nerror: RPC failed; HTTP 429 curl 22 The requested URL returned error: 429\nfatal: the remote end hung up unexpectedly\n\n429 is too many requests...",
       "revId": "07d3013b0de54d2d51b2bd37a47575b10601cbde",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac9f4498_044b7693",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-16T06:19:25Z",
+      "side": 1,
+      "message": "There\u0027s very little diff between aosp/master and tm-qpr-dev-plus-aosp, just:\n\n$ git diff --stat remotes/goog/tm-qpr-dev-plus-aosp..remotes/aosp/master -- bpf_progs Tethering/apex\n Tethering/apex/Android.bp | 7 ++-----\n 1 file changed, 2 insertions(+), 5 deletions(-)\n\nso there is no diff in bpf_progs, and the only possible conflict is here:\n\n         \"netd.o\",\n         \"offload.o\",\n         \"test.o\",\n     ],\n     apps: [\n         \"ServiceConnectivityResources\",\n-        \"HalfSheetUX\",\n     ],\n     prebuilts: [\n         \"current_sdkinfo\",\n\nie. on HalfSheetUX, but even there it is 3 lines away and should theoretically work...\n\nHowever we could try reordering test@bpf.o ahead of test.o...",
+      "parentUuid": "6bff74cf_c7e20323",
+      "revId": "07d3013b0de54d2d51b2bd37a47575b10601cbde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
