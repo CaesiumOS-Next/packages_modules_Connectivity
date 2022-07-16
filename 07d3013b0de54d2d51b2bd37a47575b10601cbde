@@ -34,6 +34,23 @@
       "parentUuid": "6bff74cf_c7e20323",
       "revId": "07d3013b0de54d2d51b2bd37a47575b10601cbde",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd2c8def_71de60f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-16T06:22:24Z",
+      "side": 1,
+      "message": "athina:/mnt/zoom/maze/android2/packages/modules/Connectivity$ git checkout goog/tm-qpr-dev-plus-aosp\n\nPrevious HEAD position was 53ae78018a [automerger skipped] Merge \"Import translations. DO NOT MERGE ANYWHERE\" into sc-mainline-prod am: 80b08272f1 -s ours\nHEAD is now at 3a11bb8b60 Merge \"Revert EXCLUDED_ROUTES to only keep RTN_UNICAST\" am: 16e244ed0f am: e6c418bbff am: 8d6022df42 am: 7f957f318a\n\nathina:/mnt/zoom/maze/android2/packages/modules/Connectivity$ git fetch\n\nhttps://android.googlesource.com/platform/packages/modules/Connectivity refs/changes/89/2089289/9 \u0026\u0026 git cherry-pick FETCH_HEAD\nremote: Total 589 (delta 193), reused 582 (delta 193)\nReceiving objects: 100% (589/589), 356.89 KiB | 2.32 MiB/s, done.\nResolving deltas: 100% (193/193), completed with 49 local objects.\nFrom https://android.googlesource.com/platform/packages/modules/Connectivity\n * branch                  refs/changes/89/2089289/9 -\u003e FETCH_HEAD\nAuto-merging Tethering/apex/Android.bp\n[detached HEAD b98c3ed8ea] enable btf for offload.o \u0026 test.o\n Date: Sat Apr 23 12:33:32 2022 -0700\n 6 files changed, 42 insertions(+)\n create mode 120000 bpf_progs/offload@btf.c\n create mode 120000 bpf_progs/test@btf.c\n\nathina:/mnt/zoom/maze/android2/packages/modules/Connectivity$ \n\nSo this patch as is does locally cherrypick cleanly for me.",
+      "revId": "07d3013b0de54d2d51b2bd37a47575b10601cbde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
