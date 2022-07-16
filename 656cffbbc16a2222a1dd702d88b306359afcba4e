@@ -22,6 +22,30 @@
       },
       "revId": "656cffbbc16a2222a1dd702d88b306359afcba4e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdc4cc7e_c3b99197",
+        "filename": "tests/cts/net/native/src/BpfCompatTest.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-07-16T18:34:05Z",
+      "side": 1,
+      "message": "Added the IsAtLeastU() checking in the new patchset.",
+      "parentUuid": "9d014e2d_ed0c5d59",
+      "range": {
+        "startLine": 44,
+        "startChar": 34,
+        "endLine": 44,
+        "endChar": 44
+      },
+      "revId": "656cffbbc16a2222a1dd702d88b306359afcba4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
