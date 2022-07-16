@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bff74cf_c7e20323",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-16T05:57:47Z",
+      "side": 1,
+      "message": "2022-07-16 05:41:53,570 - ERROR - 139713455658752 - Sync_external/rust/crates/rayon - /usr/local/google/buildbot/scripts/git_utils.py line: 312 - Executed: [\u0027/bin/bash\u0027, \u0027-c\u0027, \u0027git -c core.longpaths\u003dtrue -c gc.auto\u003d0 cherry-pick -Xpatience --keep-redundant-commits 07d3013b0de54d2d51b2bd37a47575b10601cbde\u0027] from /mnt/disks/build-disk/src/googleplex-android/master/packages/modules/Connectivity return code 128.\nerror: RPC failed; HTTP 429 curl 22 The requested URL returned error: 429\nfatal: the remote end hung up unexpectedly\n\n429 is too many requests...",
+      "revId": "07d3013b0de54d2d51b2bd37a47575b10601cbde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
