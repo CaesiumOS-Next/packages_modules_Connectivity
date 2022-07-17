@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e0e94a51_fb9f16ac",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-07-17T22:39:18Z",
+      "side": 1,
+      "message": "Got it and thank you for the detailed explanation. Another option you have is to use anything set in stop() to check against.\n\ne.g., you could change isStale() to this:\n \n private boolean isActive() {\n     return mNetworkAgent !\u003d null;\n }\n \nI\u0027ll defer to you if it is preferable. It does have the advantage of being a smaller change but could have issues in the future if the logic around the network agent were to ever change (and may be a bit bad to rely on that field being set to check against).",
+      "parentUuid": "775b7c63_dcd71a6c",
+      "range": {
+        "startLine": 409,
+        "startChar": 16,
+        "endLine": 409,
+        "endChar": 32
+      },
+      "revId": "7c4e2a918c1d93aa721871f0f74ab71e93ff6006",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7fd5f36b_e1f541fd",
         "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
         "patchSetId": 4
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "This is actually expected to happen, so I don\u0027t see much value in logging here. It just means that the offer was unregistered, but CS hasn\u0027t processed it yet.",
       "parentUuid": "7fd5f36b_e1f541fd",
+      "range": {
+        "startLine": 427,
+        "startChar": 20,
+        "endLine": 427,
+        "endChar": 27
+      },
+      "revId": "7c4e2a918c1d93aa721871f0f74ab71e93ff6006",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcd44860_bebe969e",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-07-17T22:39:18Z",
+      "side": 1,
+      "message": "ack",
+      "parentUuid": "8f9d629f_d140e189",
       "range": {
         "startLine": 427,
         "startChar": 20,
