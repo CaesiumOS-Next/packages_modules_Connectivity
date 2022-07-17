@@ -46,6 +46,30 @@
       },
       "revId": "07d3013b0de54d2d51b2bd37a47575b10601cbde",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3e09cda_1258c574",
+        "filename": "tests/mts/bpf_existence_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-07-17T07:41:35Z",
+      "side": 0,
+      "message": "No, they are verified. Please ignore this comment.",
+      "parentUuid": "b98f4663_117cf6bb",
+      "range": {
+        "startLine": 77,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 46
+      },
+      "revId": "07d3013b0de54d2d51b2bd37a47575b10601cbde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
