@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed0f6275_a635795f",
+        "filename": "tests/mts/bpf_existence_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-07-17T07:30:33Z",
+      "side": 0,
+      "message": "Before this commit, the test ensures the map does not exist on S. After this commit, is no longer being verified. I don\u0027t know if it matters, though.\n\nsame as\nPLATFORM \"prog_offload_schedcls_ingress_tether_ether\",\nPLATFORM \"prog_offload_schedcls_ingress_tether_rawip\",",
+      "range": {
+        "startLine": 77,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 46
+      },
+      "revId": "07d3013b0de54d2d51b2bd37a47575b10601cbde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
