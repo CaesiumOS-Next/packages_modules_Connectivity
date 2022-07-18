@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b494bfc_f9613b6b",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-07-18T12:23:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12da9fa9_bfdf60e1",
+      "range": {
+        "startLine": 246,
+        "startChar": 20,
+        "endLine": 246,
+        "endChar": 48
+      },
+      "revId": "c183516d351f42407590b22b55d967b92259232e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a2ca4192_b503b62d",
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "I don\u0027t prefer waiting X seconds approach. It would significant slow down our test and slow down the presubmit.\n\nIt is guaranteed that restricted ethernet network have configured NetworkCapabilities, so we can use this function to make sure we can use virtual interface to test ethernet tethering if there is no non-restricted ethernet interface.\n\nBut we still have problem for testPhysicalEthernet. We probably need to make sure all the available interface don\u0027t have configured NetworkCapabilities before running testPhysicalEthernet.",
       "parentUuid": "a2ca4192_b503b62d",
+      "range": {
+        "startLine": 247,
+        "startChar": 6,
+        "endLine": 254,
+        "endChar": 89
+      },
+      "revId": "c183516d351f42407590b22b55d967b92259232e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6678d8a5_723eb1eb",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-07-18T12:23:32Z",
+      "side": 1,
+      "message": "Thanks both of you.\n\nPer discussed with mark, using \"dumpsys ethernet\" to check available tethering interface on T+ device because there is no api to get iface\u0027s NetworkCapabilities (for testPhysicalEthernet problem mentioned) and \"waiting X seconds approach\" has the above concern (slow down test) as the following try which takes 5+ sec to complete the test (timeout 5s).\n\nlog:\n[1/10] android.net.EthernetTetheringTest#testIcmpv6Echo: PASSED (5.259s)\n\nsrc:\n```\nprivate boolean isInterfaceForTetheringAvailable() throws Exception {\n    final TetheredInterfaceRequester tetheredInterfaceRequester \u003d\n            new TetheredInterfaceRequester(mHandler, mEm);\n    try {\n        tetheredInterfaceRequester.getInterface();\n        return true;\n    } catch (TimeoutException e) {\n         return false;\n    } finally {\n        runAsShell(NETWORK_SETTINGS, () -\u003e\n            tetheredInterfaceRequester.release());            \n    }\n```",
+      "parentUuid": "70afa305_1b603f07",
       "range": {
         "startLine": 247,
         "startChar": 6,
