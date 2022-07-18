@@ -2315,14 +2315,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         private boolean hasLocationPermissionInternal() {
+            boolean hasPermission = false;
             final long token = Binder.clearCallingIdentity();
             try {
-                return mLocationPermissionChecker.checkLocationPermission(
+                hasPermission = mLocationPermissionChecker.checkLocationPermission(
                         mCallingPackageName, mCallingAttributionTag, mCallingUid,
                         null /* message */);
+            } catch (SecurityException e) {
+                loge("Exception in checkLocationPermission " + e);
             } finally {
                 Binder.restoreCallingIdentity(token);
             }
+            return hasPermission;
         }
 
         /**
