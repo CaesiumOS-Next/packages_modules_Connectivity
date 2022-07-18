@@ -41,6 +41,46 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4c82b1c_827134b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-18T20:32:36Z",
+      "side": 1,
+      "message": "This probably should not get merged in this state. It does fix the DscpPolicyTest, but it might do so just by luck. If we go down the route of setting the sysctls, they should be set before bringing the interface up. That being said, looking through addrconf.c, both router_solicitation_delay and dad_transmits may cause effects that are not immediately obvious (for instance, changing the router_solicitation_delay affects DAD scheduling.)\n\nI think it would be much better to add support to pass the flags to the kernel, so we can set IFA_F_NODAD. netd\u0027s interfaceAddAddress() seems to be stateless, which means we wouldn\u0027t have to go through netd at all and effectively reimplement ifc_add_address in JNI (given system server has the right permissions, of course).",
+      "revId": "41dfaca8cfbdc1024fe1c826e36c7d23c7947d4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abaeaa5d_2f7a2297",
+        "filename": "framework/src/android/net/TestNetworkManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-18T20:32:36Z",
+      "side": 1,
+      "message": "for some reason, I cannot spell \"provisioning\".",
+      "range": {
+        "startLine": 62,
+        "startChar": 12,
+        "endLine": 62,
+        "endChar": 39
+      },
+      "revId": "41dfaca8cfbdc1024fe1c826e36c7d23c7947d4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "665ae583_1a5efa49",
