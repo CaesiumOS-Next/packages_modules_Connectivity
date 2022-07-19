@@ -52,6 +52,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.ArrayList;
 
 /**
  * Logic to record deltas between periodic {@link NetworkStats} snapshots into
@@ -90,6 +91,8 @@ public class NetworkStatsRecorder {
 
     private WeakReference<NetworkStatsCollection> mComplete;
 
+    private final ArrayList<Integer> mRemovedUids = new ArrayList<>();
+
     /**
      * Non-persisted recorder, with only one bucket. Used by {@link NetworkStatsObservers}.
      */
@@ -109,7 +112,12 @@ public class NetworkStatsRecorder {
         mSinceBoot = new NetworkStatsCollection(mBucketDuration);
 
         mPendingRewriter = null;
+
+        mRemovedUids.clear();
     }
+
+    public void recordRemovedUid(int uid) {
+        mRemovedUids.add(uid);
 
     /**
      * Persisted recorder.
@@ -260,6 +268,9 @@ public class NetworkStatsRecorder {
 
             // skip when no delta occurred
             if (entry.isEmpty()) continue;
+
+            // skip when uid has already been uninstalled
+            if (mRemovedUids.contains(entry.uid)) continue;
 
             // only record tag data when requested
             if ((entry.tag == TAG_NONE) != mOnlyTags) {
