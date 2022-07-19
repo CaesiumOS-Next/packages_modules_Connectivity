@@ -1950,6 +1950,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             synchronized (mStatsLock) {
                 mWakeLock.acquire();
                 try {
+                    mUidRecorder.recordRemovedUid(uid);
+                    mUidTagRecorder.recordRemovedUid(uid);
                     removeUidsLocked(uid);
                 } finally {
                     mWakeLock.release();
