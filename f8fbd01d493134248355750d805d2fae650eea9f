@@ -93,6 +93,30 @@
       },
       "revId": "f8fbd01d493134248355750d805d2fae650eea9f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c4c7a50_6a579b7b",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2806,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-07-19T13:51:22Z",
+      "side": 1,
+      "message": "I took another look at this. I think it\u0027s the threading issue. That code put in the mTestValidationConfigRule.runAfterNextCleanup() run at the same time with tearDown(). TearDown will expect a working internet. In ARC, it does not support cellular network(I guess), so the only internet is usually WiFi. If WiFi does not connected, then it will fail in tearDown. reconnectWiFi may break this if it runs at the same time.\n\nSo we may need to run wifi reconnect outside the mTestValidationConfigRule.runAfterNextCleanup(). The way to reconnect may need to keep in the same way. In this test, the Wifi should be already disconnected at l.2796. I wonder if it failed due to the same timing issue instead of the delay of shell command. The shell command to disable wifi is expected to disable wifi only. It should not result in connection state change.\n\nCould you try to move the original command outside the mTestValidationConfigRule.runAfterNextCleanup() see if it works?",
+      "parentUuid": "50011500_aaa64d2a",
+      "range": {
+        "startLine": 2802,
+        "startChar": 16,
+        "endLine": 2806,
+        "endChar": 17
+      },
+      "revId": "f8fbd01d493134248355750d805d2fae650eea9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
