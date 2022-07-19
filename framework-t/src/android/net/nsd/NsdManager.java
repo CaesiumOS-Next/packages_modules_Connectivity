@@ -149,7 +149,8 @@ public final class NsdManager {
      */
     @ChangeId
     @EnabledSince(targetSdkVersion = android.os.Build.VERSION_CODES.S)
-    public static final long RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS = 191844585L;
+    // This was a platform change ID with value 191844585L before T
+    public static final long RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS = 235355681L;
 
     /**
      * Broadcast intent action to indicate whether network service discovery is
