@@ -821,6 +821,15 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         intent.putExtra(EXTRA_UID, UID_RED);
         mServiceContext.sendBroadcast(intent);
 
+        // a small amount of packets are updated from NetworkStatsFactory 
+        //right after the UID is uninstalled.
+        // It is because there are two BPF maps for UID packet filtering. (mStatsMapA, mStatsMapB)
+        incrementCurrentTime(MINUTE_IN_MILLIS);
+        expectNetworkStatsUidDetail(new NetworkStats(getElapsedRealtime(), 1)
+                .addEntry(new NetworkStats.Entry(TEST_IFACE, UID_RED, SET_DEFAULT, TAG_NONE,
+                        2L, 1L, 2L, 1L, 0L)));
+        forcePollAndWaitForIdle();
+
         // existing uid and total should remain unchanged; but removed UID
         // should be gone completely.
         assertNetworkTotal(sTemplateWifi, 4128L, 258L, 544L, 34L, 0);

@@ -11,7 +11,7 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License.
+ * limitations under the License.recordRemovedUid
  */
 
 package com.android.server.net;
@@ -52,6 +52,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.ArrayList;
 
 /**
  * Logic to record deltas between periodic {@link NetworkStats} snapshots into
@@ -90,6 +91,8 @@ public class NetworkStatsRecorder {
 
     private WeakReference<NetworkStatsCollection> mComplete;
 
+    private final ArrayList<Integer> mRemovedUids = new ArrayList<>();
+
     /**
      * Non-persisted recorder, with only one bucket. Used by {@link NetworkStatsObservers}.
      */
@@ -109,6 +112,12 @@ public class NetworkStatsRecorder {
         mSinceBoot = new NetworkStatsCollection(mBucketDuration);
 
         mPendingRewriter = null;
+
+        mRemovedUids.clear();
+    }
+
+    public void recordRemovedUid(int uid) {
+        mRemovedUids.add(uid);
     }
 
     /**
@@ -130,6 +139,8 @@ public class NetworkStatsRecorder {
         mSinceBoot = new NetworkStatsCollection(bucketDuration);
 
         mPendingRewriter = new CombiningRewriter(mPending);
+
+        mRemovedUids.clear();
     }
 
     public void setPersistThreshold(long thresholdBytes) {
@@ -260,6 +271,9 @@ public class NetworkStatsRecorder {
 
             // skip when no delta occurred
             if (entry.isEmpty()) continue;
+
+            // skip when uid has already been uninstalled
+            if (mRemovedUids.contains(entry.uid)) continue;
 
             // only record tag data when requested
             if ((entry.tag == TAG_NONE) != mOnlyTags) {
