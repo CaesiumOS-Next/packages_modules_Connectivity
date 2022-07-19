@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28d804c9_db264700",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2800,
+      "author": {
+        "id": 1649662
+      },
+      "writtenOn": "2022-07-19T01:34:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "924dee83_46c4970e",
+      "range": {
+        "startLine": 2799,
+        "startChar": 12,
+        "endLine": 2800,
+        "endChar": 76
+      },
+      "revId": "f8fbd01d493134248355750d805d2fae650eea9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd9a5d42_28933935",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-14T10:39:01Z",
       "side": 1,
       "message": "Sorry, I knew I suggested to use mCtsNetUtils.toggleWifi(), but I think replacing with reconnectWifi() should be more appropriate here after reviewing.  Reasons are:\n1. toggleWifi() will expect legacy broadcast. The intent broadcast will cause flaky depending on the system performance.\n2. toggleWifi() expects wifi to be system default which may not be guaranteed.\n\nreconnectWifi also ensure disconnect actually performed before calling connect. I think it should also work in your case.",
+      "range": {
+        "startLine": 2802,
+        "startChar": 16,
+        "endLine": 2806,
+        "endChar": 17
+      },
+      "revId": "f8fbd01d493134248355750d805d2fae650eea9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50011500_aaa64d2a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2806,
+      "author": {
+        "id": 1649662
+      },
+      "writtenOn": "2022-07-19T01:34:23Z",
+      "side": 1,
+      "message": "Using `reconnectWifi` fails the test. Seems like wifi is disabled, but we never try to reconnect after that. I\u0027m not sure if it\u0027s 1) or 2) that\u0027s making the difference. But other CTS tests also seem to assume wifi is the system default? For example, if I run `#testToggleWifiConnectivityAction` with an ethernet connection, it also fails with:\n\n```\nx86_64 CtsNetTestCasesLatestSdk\n-------------------------------\nandroid.net.cts (1 Test)\n[1/1] android.net.cts.ConnectivityManagerTest#testToggleWifiConnectivityAction: FAILED (30.084s)\n\nSTACKTRACE:\njava.lang.AssertionError: Timed out waiting for system default network to switch to network 101. Current default network is network 100\n        at android.net.cts.util.CtsNetUtils.expectNetworkIsSystemDefault(CtsNetUtils.java:185)\n        at android.net.cts.util.CtsNetUtils.toggleWifi(CtsNetUtils.java:157)\n        at android.net.cts.ConnectivityManagerTest.testToggleWifiConnectivityAction(ConnectivityManagerTest.java:1299)\n        ... 8 trimmed\nCaused by: java.util.concurrent.TimeoutException\n        at java.util.concurrent.CompletableFuture.timedGet(CompletableFuture.java:1862)\n        at java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1997)\n        at android.net.cts.util.CtsNetUtils.expectNetworkIsSystemDefault(CtsNetUtils.java:181)\n        ... 11 more\n\n```",
+      "parentUuid": "dd9a5d42_28933935",
       "range": {
         "startLine": 2802,
         "startChar": 16,
