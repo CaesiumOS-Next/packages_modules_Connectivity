@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ba4ad20_565ded85",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-19T09:53:11Z",
+      "side": 1,
+      "message": "LGTM but see comment",
+      "revId": "da661faacf53acf8d5787a45c98a76f95c03d64f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1519c3e_e6eb6fcf",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-19T09:53:11Z",
+      "side": 1,
+      "message": "The successful case is already better covered in CTS, so this case adds code to update when updating NsdManager without providing much more coverage. It\u0027s probably fine since we\u0027d need to update the same code for the failing case though...",
+      "range": {
+        "startLine": 392,
+        "startChar": 39,
+        "endLine": 392,
+        "endChar": 49
+      },
+      "revId": "da661faacf53acf8d5787a45c98a76f95c03d64f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ff7dbea_bffc5d07",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-19T09:53:11Z",
+      "side": 1,
+      "message": "Do you really need the timeout ? If yes, you should not need waitForIdle",
+      "range": {
+        "startLine": 436,
+        "startChar": 28,
+        "endLine": 436,
+        "endChar": 47
+      },
+      "revId": "da661faacf53acf8d5787a45c98a76f95c03d64f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
