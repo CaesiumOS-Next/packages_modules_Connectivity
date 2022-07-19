@@ -19,6 +19,8 @@ import android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS
 import android.Manifest.permission.MANAGE_TEST_NETWORKS
 import android.Manifest.permission.NETWORK_SETTINGS
 import android.content.Context
+import android.content.pm.PackageManager.FEATURE_ETHERNET
+import android.content.pm.PackageManager.FEATURE_USB_HOST
 import android.net.ConnectivityManager
 import android.net.EthernetManager
 import android.net.EthernetManager.InterfaceStateListener
@@ -107,6 +109,7 @@ class EthernetManagerTest {
     private val context by lazy { InstrumentationRegistry.getInstrumentation().context }
     private val em by lazy { context.getSystemService(EthernetManager::class.java) }
     private val cm by lazy { context.getSystemService(ConnectivityManager::class.java) }
+    private val pm by lazy { context.packageManager }
     private val handler by lazy { Handler(Looper.getMainLooper()) }
 
     private val ifaceListener = EthernetStateListener()
@@ -116,7 +119,10 @@ class EthernetManagerTest {
 
     private var tetheredInterfaceRequest: TetheredInterfaceRequest? = null
 
-    private class EthernetTestInterface(
+    private var isEthernetSupported =
+            pm.hasSystemFeature(FEATURE_ETHERNET) || pm.hasSystemFeature(FEATURE_USB_HOST)
+
+  private class EthernetTestInterface(
         context: Context,
         private val handler: Handler,
         hasCarrier: Boolean
@@ -274,12 +280,16 @@ class EthernetManagerTest {
 
     @Before
     fun setUp() {
+        if (!isEthernetSupported) return
+
         setIncludeTestInterfaces(true)
         addInterfaceStateListener(ifaceListener)
     }
 
     @After
     fun tearDown() {
+        if (!isEthernetSupported) return
+
         setIncludeTestInterfaces(false)
         for (iface in createdIfaces) {
             iface.destroy()
@@ -419,6 +429,8 @@ class EthernetManagerTest {
 
     @Test
     fun testCallbacks() {
+        if (!isEthernetSupported) return
+
         // If an interface exists when the callback is registered, it is reported on registration.
         val iface = createInterface()
         val listener1 = EthernetStateListener()
@@ -470,6 +482,8 @@ class EthernetManagerTest {
 
     @Test
     fun testCallbacks_forServerModeInterfaces() {
+        if (!isEthernetSupported) return
+
         // do not run this test if an interface that can be used for tethering already exists.
         assumeNoInterfaceForTetheringAvailable()
 
@@ -518,6 +532,8 @@ class EthernetManagerTest {
 
     @Test
     fun testGetInterfaceList() {
+        if (!isEthernetSupported) return
+
         // Create two test interfaces and check the return list contains the interface names.
         val iface1 = createInterface()
         val iface2 = createInterface()
@@ -538,6 +554,8 @@ class EthernetManagerTest {
 
     @Test
     fun testNetworkRequest_withSingleExistingInterface() {
+        if (!isEthernetSupported) return
+
         createInterface()
 
         // install a listener which will later be used to verify the Lost callback
@@ -553,6 +571,8 @@ class EthernetManagerTest {
 
     @Test
     fun testNetworkRequest_beforeSingleInterfaceIsUp() {
+        if (!isEthernetSupported) return
+
         val cb = requestNetwork(ETH_REQUEST)
 
         // bring up interface after network has been requested.
@@ -571,6 +591,8 @@ class EthernetManagerTest {
 
     @Test
     fun testNetworkRequest_withMultipleInterfaces() {
+        if (!isEthernetSupported) return
+
         val iface1 = createInterface()
         val iface2 = createInterface()
 
@@ -587,6 +609,8 @@ class EthernetManagerTest {
 
     @Test
     fun testNetworkRequest_withInterfaceBeingReplaced() {
+        if (!isEthernetSupported) return
+
         val iface1 = createInterface()
 
         val cb = requestNetwork(ETH_REQUEST)
@@ -604,6 +628,8 @@ class EthernetManagerTest {
 
     @Test
     fun testNetworkRequest_withMultipleInterfacesAndRequests() {
+        if (!isEthernetSupported) return
+
         val iface1 = createInterface()
         val iface2 = createInterface()
 
@@ -625,6 +651,8 @@ class EthernetManagerTest {
 
     @Test
     fun testNetworkRequest_ensureProperRefcounting() {
+        if (!isEthernetSupported) return
+
         // create first request before interface is up / exists; create another request after it has
         // been created; release one of them and check that the network stays up.
         val listener = registerNetworkListener(ETH_REQUEST)
@@ -646,6 +674,8 @@ class EthernetManagerTest {
 
     @Test
     fun testNetworkRequest_forInterfaceWhileTogglingCarrier() {
+        if (!isEthernetSupported) return
+
         assumeChangingCarrierSupported()
 
         val iface = createInterface(false /* hasCarrier */)
@@ -662,6 +692,8 @@ class EthernetManagerTest {
 
     @Test
     fun testRemoveInterface_whileInServerMode() {
+        if (!isEthernetSupported) return
+
         assumeNoInterfaceForTetheringAvailable()
 
         val listener = EthernetStateListener()
