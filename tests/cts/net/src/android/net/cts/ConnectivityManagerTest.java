@@ -2795,6 +2795,8 @@ public class ConnectivityManagerTest {
             // Reject partial connectivity network should cause the network being torn down
             assertEquals(network, cb.waitForLost());
         } finally {
+            // Testing
+
             mHttpServer.stop();
             // Wifi will not automatically reconnect to the network. ensureWifiDisconnected cannot
             // apply here. Thus, turn off wifi first and restart to restore.
