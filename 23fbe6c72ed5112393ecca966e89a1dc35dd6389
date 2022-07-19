@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f582613e_02ba3daf",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-07-19T10:57:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21c0dc42_330f4f74",
+      "range": {
+        "startLine": 92,
+        "startChar": 12,
+        "endLine": 93,
+        "endChar": 77
+      },
+      "revId": "23fbe6c72ed5112393ecca966e89a1dc35dd6389",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f09bb6f5_741af38f",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-15T21:48:51Z",
       "side": 1,
       "message": "Why is this being done? Is this change related to removing qtaguid, or could it be done in a separate CL?",
+      "range": {
+        "startLine": 256,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 13
+      },
+      "revId": "23fbe6c72ed5112393ecca966e89a1dc35dd6389",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "302dd184_12adcd05",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-07-19T10:57:20Z",
+      "side": 1,
+      "message": "Removed.\nI don\u0027t even recall why it was there for any reason.\nIt seems the function already throw IOException.\nThanks for catching this.",
+      "parentUuid": "f09bb6f5_741af38f",
       "range": {
         "startLine": 256,
         "startChar": 0,
