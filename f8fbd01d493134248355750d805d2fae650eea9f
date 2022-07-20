@@ -117,6 +117,30 @@
       },
       "revId": "f8fbd01d493134248355750d805d2fae650eea9f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66c0486d_63e14f98",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2806,
+      "author": {
+        "id": 1649662
+      },
+      "writtenOn": "2022-07-20T00:21:36Z",
+      "side": 1,
+      "message": "Yes, pulling it out passes on ARC now, thanks!",
+      "parentUuid": "6c4c7a50_6a579b7b",
+      "range": {
+        "startLine": 2802,
+        "startChar": 16,
+        "endLine": 2806,
+        "endChar": 17
+      },
+      "revId": "f8fbd01d493134248355750d805d2fae650eea9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
