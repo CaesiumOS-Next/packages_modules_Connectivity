@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "7aae2da6_05251ace",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-20T04:29:27Z",
+      "side": 1,
+      "message": "Android Go shouldn\u0027t be using InProcessTethering starting from T\n\nBut more generally that would be devices that use InProcessTethering, which include TVs, cars, most devices in China among others",
+      "range": {
+        "startLine": 14,
+        "startChar": 3,
+        "endLine": 14,
+        "endChar": 13
+      },
+      "revId": "760d1ed08a9a6605c5f23f3b494d5df11450241a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "cf8a11e6_4de19d96",
@@ -66,6 +89,52 @@
       "writtenOn": "2022-07-20T02:14:47Z",
       "side": 1,
       "message": "Adding Remi for his input. We should have run this by you sooner; could you take a look at this approach?",
+      "revId": "760d1ed08a9a6605c5f23f3b494d5df11450241a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a99dc039_5f918ac4",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-20T04:29:27Z",
+      "side": 1,
+      "message": "Could you just use (!exists(in-process)) ?\n\nThis would reduce the number of places where we need to avoid forgetting to add the out-of-process flag (there\u0027s already 5, this change only covers 1). The in-process one is less risky to forget because it\u0027s not updatable, so it\u0027s only needed for com.android.tethering.inprocess here.",
+      "range": {
+        "startLine": 30,
+        "startChar": 10,
+        "endLine": 30,
+        "endChar": 24
+      },
+      "revId": "760d1ed08a9a6605c5f23f3b494d5df11450241a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51c13c37_99922230",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-20T04:29:27Z",
+      "side": 1,
+      "message": "Note you\u0027d probably need to update other override_apex rules in downstream branches that already have a \"prebuilts\" list",
+      "range": {
+        "startLine": 99,
+        "startChar": 9,
+        "endLine": 99,
+        "endChar": 34
+      },
       "revId": "760d1ed08a9a6605c5f23f3b494d5df11450241a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
