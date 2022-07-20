@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce721710_9d822a11",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-07-20T10:12:27Z",
+      "side": 1,
+      "message": "Agree with \"The successful case is already better covered in CTS\". But from a code line coverage perspective, the successful case doesn\u0027t have test coverage. So I also added a successful case for code line coverage increment.",
+      "parentUuid": "a1519c3e_e6eb6fcf",
+      "range": {
+        "startLine": 392,
+        "startChar": 39,
+        "endLine": 392,
+        "endChar": 49
+      },
+      "revId": "da661faacf53acf8d5787a45c98a76f95c03d64f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ff7dbea_bffc5d07",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-07-19T09:53:11Z",
       "side": 1,
       "message": "Do you really need the timeout ? If yes, you should not need waitForIdle",
+      "range": {
+        "startLine": 436,
+        "startChar": 28,
+        "endLine": 436,
+        "endChar": 47
+      },
+      "revId": "da661faacf53acf8d5787a45c98a76f95c03d64f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c6a878d_a82f0eef",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-07-20T10:12:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ff7dbea_bffc5d07",
       "range": {
         "startLine": 436,
         "startChar": 28,
