@@ -97,6 +97,7 @@ import android.net.TetheringConfigurationParcel;
 import android.net.TetheringInterface;
 import android.net.TetheringManager.TetheringRequest;
 import android.net.TetheringRequestParcel;
+import android.net.Uri;
 import android.net.ip.IpServer;
 import android.net.shared.NetdUtils;
 import android.net.wifi.WifiClient;
@@ -343,9 +344,8 @@ public class Tethering {
                     mEntitlementMgr.reevaluateSimCardProvisioning(mConfig);
                 });
 
-        mSettingsObserver = new SettingsObserver(mHandler);
-        mContext.getContentResolver().registerContentObserver(
-                Settings.Global.getUriFor(TETHER_FORCE_USB_FUNCTIONS), false, mSettingsObserver);
+        mSettingsObserver = new SettingsObserver(mContext, mHandler);
+        mSettingsObserver.startObserve();
 
         mStateReceiver = new StateReceiver();
 
@@ -397,18 +397,42 @@ public class Tethering {
     }
 
     private class SettingsObserver extends ContentObserver {
-        SettingsObserver(Handler handler) {
+        private final Uri mForceUsbFunctions;
+        private final Uri mTetherSupported;
+        private final Context mContext;
+
+        SettingsObserver(Context ctx, Handler handler) {
             super(handler);
+            mContext = ctx;
+            mForceUsbFunctions = Settings.Global.getUriFor(TETHER_FORCE_USB_FUNCTIONS);
+            mTetherSupported = Settings.Global.getUriFor(Settings.Global.TETHER_SUPPORTED);
+        }
+
+        public void startObserve() {
+            mContext.getContentResolver().registerContentObserver(mForceUsbFunctions, false, this);
+            mContext.getContentResolver().registerContentObserver(mTetherSupported, false, this);
         }
 
         @Override
         public void onChange(boolean selfChange) {
-            mLog.i("OBSERVED Settings change");
-            final boolean isUsingNcm = mConfig.isUsingNcm();
-            updateConfiguration();
-            if (isUsingNcm != mConfig.isUsingNcm()) {
-                stopTetheringInternal(TETHERING_USB);
-                stopTetheringInternal(TETHERING_NCM);
+            Log.wtf(TAG, "Should never be reached.");
+        }
+
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
+            if (mForceUsbFunctions.equals(uri)) {
+                mLog.i("OBSERVED TETHER_FORCE_USB_FUNCTIONS settings change");
+                final boolean isUsingNcm = mConfig.isUsingNcm();
+                updateConfiguration();
+                if (isUsingNcm != mConfig.isUsingNcm()) {
+                    stopTetheringInternal(TETHERING_USB);
+                    stopTetheringInternal(TETHERING_NCM);
+                }
+            } else if (mTetherSupported.equals(uri)) {
+                mLog.i("OBSERVED TETHER_SUPPORTED settings change");
+                updateSupportedDownstreams(mConfig);
+            } else {
+                mLog.e("Unepxected settings change: " + uri);
             }
         }
     }
@@ -1350,6 +1374,8 @@ public class Tethering {
         return getTetheredIfaces().length > 0;
     }
 
+    // TODO: Refine TetheringTest then remove UserRestrictionActionListener class and handle
+    // onUserRestrictionsChanged inside Tethering#handleUserRestrictionAction directly.
     @VisibleForTesting
     protected static class UserRestrictionActionListener {
         private final UserManager mUserMgr;
@@ -1379,6 +1405,8 @@ public class Tethering {
             if (!tetheringDisallowedChanged) {
                 return;
             }
+
+            mTethering.updateSupportedDownstreams(mTethering.mConfig);
 
             if (!newlyDisallowed) {
                 // Clear the restricted notification when user is allowed to have tethering
@@ -2485,7 +2513,8 @@ public class Tethering {
         }
     }
 
-    private void updateSupportedDownstreams(final TetheringConfiguration config) {
+    @VisibleForTesting
+    void updateSupportedDownstreams(final TetheringConfiguration config) {
         final long preSupportedBitmap = mSupportedTypeBitmap;
 
         if (!isTetheringAllowed() || mEntitlementMgr.isProvisioningNeededButUnavailable()) {
