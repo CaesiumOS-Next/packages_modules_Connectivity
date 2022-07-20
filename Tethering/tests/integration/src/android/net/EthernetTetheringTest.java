@@ -109,13 +109,22 @@ public class EthernetTetheringTest {
         // Needed to create a TestNetworkInterface, to call requestTetheredInterface, and to receive
         // tethered client callbacks.
         mUiAutomation.adoptShellPermissionIdentity(
+<<<<<<< HEAD   (cb5cfe Snap for 7132927 from 54356b303d5a85cc305439df8f6a52c1ebbbbb)
                 MANAGE_TEST_NETWORKS, NETWORK_SETTINGS, TETHER_PRIVILEGED);
         mRunTests = mTm.isTetheringSupported() && mEm != null;
         assumeTrue(mRunTests);
 
+=======
+                MANAGE_TEST_NETWORKS, NETWORK_SETTINGS, TETHER_PRIVILEGED, ACCESS_NETWORK_STATE,
+                CONNECTIVITY_USE_RESTRICTED_NETWORKS, DUMP);
+>>>>>>> CHANGE (874a3e Revert "Revert "Add onSupportedTetheringType callback"")
         mHandlerThread = new HandlerThread(getClass().getSimpleName());
         mHandlerThread.start();
         mHandler = new Handler(mHandlerThread.getLooper());
+
+        mRunTests = isEthernetTetheringSupported();
+        assumeTrue(mRunTests);
+
         mTetheredInterfaceRequester = new TetheredInterfaceRequester(mHandler, mEm);
     }
 
@@ -131,7 +140,6 @@ public class EthernetTetheringTest {
             mHandler.post(() -> reader.stop());
             mTapPacketReader = null;
         }
-        mHandlerThread.quitSafely();
         mTetheredInterfaceRequester.release();
         mEm.setIncludeTestInterfaces(false);
         maybeDeleteTestInterface();
@@ -142,6 +150,7 @@ public class EthernetTetheringTest {
         try {
             if (mRunTests) cleanUp();
         } finally {
+            mHandlerThread.quitSafely();
             mUiAutomation.dropShellPermissionIdentity();
         }
     }
@@ -251,6 +260,23 @@ public class EthernetTetheringTest {
 
         // There is nothing more we can do on a physical interface without connecting an actual
         // client, which is not possible in this test.
+    }
+
+    private boolean isEthernetTetheringSupported() throws Exception {
+        final CompletableFuture<Boolean> future = new CompletableFuture<>();
+        final TetheringEventCallback callback = new TetheringEventCallback() {
+            @Override
+            public void onSupportedTetheringTypes(Set<Integer> supportedTypes) {
+                future.complete(supportedTypes.contains(TETHERING_ETHERNET));
+            }
+        };
+
+        try {
+            mTm.registerTetheringEventCallback(mHandler::post, callback);
+            return future.get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        } finally {
+            mTm.unregisterTetheringEventCallback(callback);
+        }
     }
 
     private static final class MyTetheringEventCallback implements TetheringEventCallback {
