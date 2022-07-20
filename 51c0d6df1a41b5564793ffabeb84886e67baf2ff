@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6bcb894_ddb2f612",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-20T01:41:33Z",
+      "side": 1,
+      "message": "Generally LGTM but I think this should be simplified.",
+      "revId": "51c0d6df1a41b5564793ffabeb84886e67baf2ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fdf5132d_f4ab7abf",
@@ -19,6 +36,52 @@
         "startChar": 0,
         "endLine": 145,
         "endChar": 30
+      },
+      "revId": "51c0d6df1a41b5564793ffabeb84886e67baf2ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6264f6bb_1ca10a3f",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-20T01:41:33Z",
+      "side": 1,
+      "message": "Instead of adding code to this test, we should just use IpUtils#ipChecksum.",
+      "range": {
+        "startLine": 152,
+        "startChar": 16,
+        "endLine": 152,
+        "endChar": 33
+      },
+      "revId": "51c0d6df1a41b5564793ffabeb84886e67baf2ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cbd7c8e_671a72bd",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-20T01:41:33Z",
+      "side": 1,
+      "message": "Why not just check that it sums to zero? All valid packets should have a checksum of zero. That will make this test much easier to read and more obviously correct, since I think you can just do:\n\n    assertEquals(\"Invalid IPv4 header checksum\", 0, IpUtils.ipChecksum(buf, 0));",
+      "range": {
+        "startLine": 291,
+        "startChar": 8,
+        "endLine": 291,
+        "endChar": 92
       },
       "revId": "51c0d6df1a41b5564793ffabeb84886e67baf2ff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
