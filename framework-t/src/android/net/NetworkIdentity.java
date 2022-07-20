@@ -414,6 +414,12 @@ public class NetworkIdentity {
                     final WifiInfo info = (WifiInfo) transportInfo;
                     setWifiNetworkKey(info.getNetworkKey());
                 }
+            } else if (mType == TYPE_TEST) {
+                final NetworkSpecifier ns = snapshot.getNetworkCapabilities().getNetworkSpecifier();
+                if (ns instanceof TestNetworkSpecifier) {
+                    // Reuse the subscriberId field to identify individual test networks.
+                    setSubscriberId(((TestNetworkSpecifier) ns).getInterfaceName());
+                }
             }
             return this;
         }

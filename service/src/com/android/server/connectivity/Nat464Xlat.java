@@ -62,9 +62,10 @@ public class Nat464Xlat {
     // The network types on which we will start clatd,
     // allowing clat only on networks for which we can support IPv6-only.
     private static final int[] NETWORK_TYPES = {
-        ConnectivityManager.TYPE_MOBILE,
-        ConnectivityManager.TYPE_WIFI,
-        ConnectivityManager.TYPE_ETHERNET,
+            ConnectivityManager.TYPE_MOBILE,
+            ConnectivityManager.TYPE_WIFI,
+            ConnectivityManager.TYPE_ETHERNET,
+            ConnectivityManager.TYPE_TEST,
     };
 
     // The network states in which running clatd is supported.

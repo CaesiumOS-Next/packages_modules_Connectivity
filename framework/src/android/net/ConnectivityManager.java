@@ -1140,6 +1140,8 @@ public class ConnectivityManager {
                 return "PROXY";
             case TYPE_VPN:
                 return "VPN";
+            case TYPE_TEST:
+                return "TEST";
             default:
                 return Integer.toString(type);
         }
