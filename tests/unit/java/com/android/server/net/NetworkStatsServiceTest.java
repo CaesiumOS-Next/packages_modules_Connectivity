@@ -24,6 +24,7 @@ import static android.content.Intent.EXTRA_UID;
 import static android.content.pm.PackageManager.PERMISSION_DENIED;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.net.ConnectivityManager.TYPE_MOBILE;
+import static android.net.ConnectivityManager.TYPE_TEST;
 import static android.net.ConnectivityManager.TYPE_WIFI;
 import static android.net.NetworkIdentity.OEM_PAID;
 import static android.net.NetworkIdentity.OEM_PRIVATE;
@@ -47,6 +48,7 @@ import static android.net.NetworkStats.TAG_NONE;
 import static android.net.NetworkStats.UID_ALL;
 import static android.net.NetworkStatsHistory.FIELD_ALL;
 import static android.net.NetworkTemplate.MATCH_MOBILE;
+import static android.net.NetworkTemplate.MATCH_TEST;
 import static android.net.NetworkTemplate.MATCH_WIFI;
 import static android.net.NetworkTemplate.OEM_MANAGED_NO;
 import static android.net.NetworkTemplate.OEM_MANAGED_YES;
@@ -201,9 +203,11 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private static final Network WIFI_NETWORK =  new Network(100);
     private static final Network MOBILE_NETWORK =  new Network(101);
     private static final Network VPN_NETWORK = new Network(102);
+    private static final Network TEST_NETWORK = new Network(103);
 
     private static final Network[] NETWORKS_WIFI = new Network[]{ WIFI_NETWORK };
     private static final Network[] NETWORKS_MOBILE = new Network[]{ MOBILE_NETWORK };
+    private static final Network[] NETWORKS_TEST = new Network[]{ TEST_NETWORK };
 
     private static final long WAIT_TIMEOUT = 2 * 1000;  // 2 secs
     private static final int INVALID_TYPE = -1;
@@ -803,7 +807,6 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         assertUidTotal(sTemplateWifi, UID_BLUE, 4096L, 258L, 512L, 32L, 0);
         assertUidTotal(sTemplateWifi, UID_GREEN, 16L, 1L, 16L, 1L, 0);
 
-
         // now pretend two UIDs are uninstalled, which should migrate stats to
         // special "removed" bucket.
         expectDefaultSettings();
@@ -926,8 +929,10 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
 
         // Pretend that 5g mobile network comes online
         final NetworkStateSnapshot[] mobileStates =
-                new NetworkStateSnapshot[] {buildMobileState(IMSI_1), buildMobileState(TEST_IFACE2,
-                IMSI_1, true /* isTemporarilyNotMetered */, false /* isRoaming */)};
+                new NetworkStateSnapshot[] {buildMobileState(IMSI_1), buildStateOfTransport(
+                        NetworkCapabilities.TRANSPORT_CELLULAR, TYPE_MOBILE,
+                        TEST_IFACE2, IMSI_1, /* isTemporarilyNotMetered */ true,
+                        /* isRoaming */ false)};
         setMobileRatTypeAndWaitForIdle(TelephonyManager.NETWORK_TYPE_NR);
         mService.notifyNetworkStatus(NETWORKS_MOBILE, mobileStates,
                 getActiveIface(mobileStates), new UnderlyingNetworkInfo[0]);
@@ -1158,6 +1163,41 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     }
 
     @Test
+    public void testQueryTestNetworkUsage() throws Exception {
+        final NetworkTemplate templateTestAll = new NetworkTemplate.Builder(MATCH_TEST).build();
+        final NetworkTemplate templateTestIface1 = new NetworkTemplate.Builder(MATCH_TEST)
+                .setSubscriberIds(Set.of(TEST_IFACE)).build();
+        final NetworkTemplate templateTestIface2 = new NetworkTemplate.Builder(MATCH_TEST)
+                .setSubscriberIds(Set.of(TEST_IFACE2)).build();
+        // Test networks might use interface as subscriberId to identify individual networks.
+        // Simulate both cases.
+        final NetworkStateSnapshot[] states =
+                new NetworkStateSnapshot[]{buildTestState(TEST_IFACE, TEST_IFACE),
+                        buildTestState(TEST_IFACE2, null /* subscriberId */)};
+
+        // Test networks comes online.
+        expectNetworkStatsSummary(buildEmptyStats());
+        expectNetworkStatsUidDetail(buildEmptyStats());
+        mService.notifyNetworkStatus(NETWORKS_TEST, states, getActiveIface(states),
+                new UnderlyingNetworkInfo[0]);
+
+        // Create some traffic on both interfaces.
+        incrementCurrentTime(MINUTE_IN_MILLIS);
+        expectNetworkStatsUidDetail(new NetworkStats(getElapsedRealtime(), 1)
+                .addEntry(new NetworkStats.Entry(TEST_IFACE, UID_RED, SET_DEFAULT, TAG_NONE,
+                        12L, 18L, 14L, 1L, 0L))
+                .addEntry(new NetworkStats.Entry(TEST_IFACE2, UID_RED, SET_DEFAULT, TAG_NONE,
+                        7L, 3L, 5L, 1L, 1L)));
+        forcePollAndWaitForIdle();
+
+        // Verify test network templates gets stats. Stats of test networks without subscriberId
+        // can only be matched by templates without subscriberId requirement.
+        assertUidTotal(templateTestAll, UID_RED, 19L, 21L, 19L, 2L, 1);
+        assertUidTotal(templateTestIface1, UID_RED, 12L, 18L, 14L, 1L, 0);
+        assertUidTotal(templateTestIface2, UID_RED, 0L, 0L, 0L, 0L, 0);
+    }
+
+    @Test
     public void testUidStatsForTransport() throws Exception {
         // pretend that network comes online
         expectDefaultSettings();
@@ -1301,8 +1341,10 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         // pretend that network comes online
         expectDefaultSettings();
         NetworkStateSnapshot[] states =
-            new NetworkStateSnapshot[] {buildMobileState(TEST_IFACE, IMSI_1,
-            false /* isTemporarilyNotMetered */, true /* isRoaming */)};
+            new NetworkStateSnapshot[] {buildStateOfTransport(
+                    NetworkCapabilities.TRANSPORT_CELLULAR, TYPE_MOBILE,
+                    TEST_IFACE,  IMSI_1, /* isTemporarilyNotMetered */ false,
+                    /* isRoaming */ true)};
         expectNetworkStatsSummary(buildEmptyStats());
         expectNetworkStatsUidDetail(buildEmptyStats());
 
@@ -2174,12 +2216,21 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     }
 
     private static NetworkStateSnapshot buildMobileState(String subscriberId) {
-        return buildMobileState(TEST_IFACE, subscriberId, false /* isTemporarilyNotMetered */,
+        return buildStateOfTransport(NetworkCapabilities.TRANSPORT_CELLULAR, TYPE_MOBILE,
+                TEST_IFACE, subscriberId,
+                false /* isTemporarilyNotMetered */, false /* isRoaming */);
+    }
+
+    private static NetworkStateSnapshot buildTestState(@NonNull String iface,
+            @Nullable String subscriberId) {
+        return buildStateOfTransport(NetworkCapabilities.TRANSPORT_TEST, TYPE_TEST,
+                iface, subscriberId, false /* isTemporarilyNotMetered */,
                 false /* isRoaming */);
     }
 
-    private static NetworkStateSnapshot buildMobileState(String iface, String subscriberId,
-            boolean isTemporarilyNotMetered, boolean isRoaming) {
+    private static NetworkStateSnapshot buildStateOfTransport(int transport, int legacyType,
+            String iface,
+            String subscriberId, boolean isTemporarilyNotMetered, boolean isRoaming) {
         final LinkProperties prop = new LinkProperties();
         prop.setInterfaceName(iface);
         final NetworkCapabilities capabilities = new NetworkCapabilities();
@@ -2189,9 +2240,9 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
                     NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED);
         }
         capabilities.setCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING, !isRoaming);
-        capabilities.addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR);
+        capabilities.addTransportType(transport);
         return new NetworkStateSnapshot(
-                MOBILE_NETWORK, capabilities, prop, subscriberId, TYPE_MOBILE);
+                MOBILE_NETWORK, capabilities, prop, subscriberId, legacyType);
     }
 
     private NetworkStats buildEmptyStats() {
