@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbfb3f04_f8bcb1c3",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-20T21:32:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fdf5132d_f4ab7abf",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 30
+      },
+      "revId": "51c0d6df1a41b5564793ffabeb84886e67baf2ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6264f6bb_1ca10a3f",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd5949eb_3ddac387",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-20T21:32:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6264f6bb_1ca10a3f",
+      "range": {
+        "startLine": 152,
+        "startChar": 16,
+        "endLine": 152,
+        "endChar": 33
+      },
+      "revId": "51c0d6df1a41b5564793ffabeb84886e67baf2ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1cbd7c8e_671a72bd",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-07-20T01:41:33Z",
       "side": 1,
       "message": "Why not just check that it sums to zero? All valid packets should have a checksum of zero. That will make this test much easier to read and more obviously correct, since I think you can just do:\n\n    assertEquals(\"Invalid IPv4 header checksum\", 0, IpUtils.ipChecksum(buf, 0));",
+      "range": {
+        "startLine": 291,
+        "startChar": 8,
+        "endLine": 291,
+        "endChar": 92
+      },
+      "revId": "51c0d6df1a41b5564793ffabeb84886e67baf2ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1cddb93_a091e91b",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-20T21:32:48Z",
+      "side": 1,
+      "message": "Moved to IpUtils but the assert is failing. Will check",
+      "parentUuid": "1cbd7c8e_671a72bd",
       "range": {
         "startLine": 291,
         "startChar": 8,
