@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "498f5dd6_4ef4387a",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1216,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-20T16:41:08Z",
+      "side": 1,
+      "message": "doesn\u0027t support what?",
+      "range": {
+        "startLine": 1216,
+        "startChar": 65,
+        "endLine": 1216,
+        "endChar": 72
+      },
+      "revId": "742cf2a860091ebe8a0f03c1c038c876d7d2e4cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "691dc4f3_11cfb21e",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-20T16:41:08Z",
+      "side": 1,
+      "message": "please add a test which is just\n\nassumeTrue(isUdpOffloadSupportedByKernel)\n\nand another which is just\n\nassumeTrue(isTetherConfigBpfOffloadEnabled)\n\nthere is no test body.\n\nI want an easy way on a pass/fail/skipped list to see which condition caused a skip",
+      "range": {
+        "startLine": 1217,
+        "startChar": 16,
+        "endLine": 1217,
+        "endChar": 45
+      },
+      "revId": "742cf2a860091ebe8a0f03c1c038c876d7d2e4cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
