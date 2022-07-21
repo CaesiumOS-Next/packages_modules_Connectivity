@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8016f2b_7c00b58f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2091,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-21T06:57:48Z",
+      "side": 1,
+      "message": "This is losing the previous error message; looks like there\u0027s an assertThrows overload that could still keep it",
+      "range": {
+        "startLine": 2091,
+        "startChar": 12,
+        "endLine": 2091,
+        "endChar": 24
+      },
+      "revId": "61fcfc5c5cfe73eaf7d781200903dd96500962cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a577c5a6_b174241c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2101,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-21T06:57:48Z",
+      "side": 1,
+      "message": "Pre-existing, but https://errorprone.info/bugpattern/CatchFail says to use \"throw new AssertionError\" here instead",
+      "range": {
+        "startLine": 2101,
+        "startChar": 0,
+        "endLine": 2101,
+        "endChar": 16
+      },
+      "revId": "61fcfc5c5cfe73eaf7d781200903dd96500962cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
