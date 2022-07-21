@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27651a66_18b2f2da",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1216,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-07-21T05:46:23Z",
+      "side": 1,
+      "message": "Done\n\n\nMove to assumeKernelSupportBpfOffloadUdpV4() and complete the sentence \"doesn\u0027t support IPv4 UDP BPF offload\"\n```\n    private static void assumeKernelSupportBpfOffloadUdpV4() {\n        final String kernelVersion \u003d VintfRuntimeInfo.getKernelVersion();\n        assumeTrue(\"Kernel version \" + kernelVersion + \" doesn\u0027t support IPv4 UDP BPF offload\",\n                isUdpOffloadSupportedByKernel(kernelVersion));\n    }\n```",
+      "parentUuid": "498f5dd6_4ef4387a",
+      "range": {
+        "startLine": 1216,
+        "startChar": 65,
+        "endLine": 1216,
+        "endChar": 72
+      },
+      "revId": "742cf2a860091ebe8a0f03c1c038c876d7d2e4cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "691dc4f3_11cfb21e",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-20T16:41:08Z",
       "side": 1,
       "message": "please add a test which is just\n\nassumeTrue(isUdpOffloadSupportedByKernel)\n\nand another which is just\n\nassumeTrue(isTetherConfigBpfOffloadEnabled)\n\nthere is no test body.\n\nI want an easy way on a pass/fail/skipped list to see which condition caused a skip",
+      "range": {
+        "startLine": 1217,
+        "startChar": 16,
+        "endLine": 1217,
+        "endChar": 45
+      },
+      "revId": "742cf2a860091ebe8a0f03c1c038c876d7d2e4cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b27bf309_c03ebd94",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-07-21T05:46:23Z",
+      "side": 1,
+      "message": "Breakdown into four tests:\n- testTetherUdpV4 (basic tethering)\n- testTetherUdpV4_VerifyBpf (check bpf)\n- testKernelSupportBpfOffloadUdpV4 (check kernel support)\n- testTetherConfigBpfOffloadEnabled (check tethering config)\n\nResult:\ntether config disabled the offload -\u003e bpf and tether config check test are skipped\n```\n  [..] testTetherUdpV4: PASSED (229ms)\n  [..] testTetherUdpV4_VerifyBpf: ASSUMPTION_FAILED (2ms) \u003c- skipped\n  [..] testKernelSupportBpfOffloadUdpV4: PASSED (1ms)\n  [..] testTetherConfigBpfOffloadEnabled: ASSUMPTION_FAILED (13ms)  \u003c- skipped\n```\nThanks for your advice.",
+      "parentUuid": "691dc4f3_11cfb21e",
       "range": {
         "startLine": 1217,
         "startChar": 16,
