@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba22fa30_1665057f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2091,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-21T07:11:13Z",
+      "side": 1,
+      "message": "The fact that the error message was incorrect and misleading prompted me to think that it\u0027s better to remove it. Removed.",
+      "parentUuid": "f8016f2b_7c00b58f",
+      "range": {
+        "startLine": 2091,
+        "startChar": 12,
+        "endLine": 2091,
+        "endChar": 24
+      },
+      "revId": "61fcfc5c5cfe73eaf7d781200903dd96500962cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a577c5a6_b174241c",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-21T06:57:48Z",
       "side": 1,
       "message": "Pre-existing, but https://errorprone.info/bugpattern/CatchFail says to use \"throw new AssertionError\" here instead",
+      "range": {
+        "startLine": 2101,
+        "startChar": 0,
+        "endLine": 2101,
+        "endChar": 16
+      },
+      "revId": "61fcfc5c5cfe73eaf7d781200903dd96500962cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7eaf4abe_59d9c260",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2101,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-21T07:11:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a577c5a6_b174241c",
       "range": {
         "startLine": 2101,
         "startChar": 0,
