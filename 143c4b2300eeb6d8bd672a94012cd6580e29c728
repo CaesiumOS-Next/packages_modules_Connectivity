@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b12e84fc_00feb1c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1932329
+      },
+      "writtenOn": "2022-07-21T15:16:17Z",
+      "side": 1,
+      "message": "Hello, I\u0027ve added some functionality in aosp/2062871 to fully specify AIDL files that are only used in `include_dirs` properties.\n\nCould I get a code owner\u0027s approval on this?",
+      "revId": "143c4b2300eeb6d8bd672a94012cd6580e29c728",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
