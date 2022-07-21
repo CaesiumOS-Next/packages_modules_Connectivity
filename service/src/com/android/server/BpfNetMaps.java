@@ -34,6 +34,7 @@ import static android.system.OsConstants.EOPNOTSUPP;
 import android.net.INetd;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
+import android.provider.DeviceConfig;
 import android.system.ErrnoException;
 import android.system.Os;
 import android.util.Log;
@@ -42,6 +43,7 @@ import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BpfMap;
+import com.android.net.module.util.DeviceConfigUtils;
 import com.android.net.module.util.Struct.U32;
 
 import java.io.FileDescriptor;
@@ -53,6 +55,7 @@ import java.io.IOException;
  * {@hide}
  */
 public class BpfNetMaps {
+    // Use legacy netd for releases before T.
     private static final boolean PRE_T = !SdkLevel.isAtLeastT();
     static {
         if (!PRE_T) {
@@ -63,8 +66,10 @@ public class BpfNetMaps {
     private static final String TAG = "BpfNetMaps";
     private final INetd mNetd;
     private final Dependencies mDeps;
-    // Use legacy netd for releases before T.
     private static boolean sInitialized = false;
+
+    private static final String USE_JAVA_FOR_BPF_MAP_OPERATION = "use_java_for_bpf_map_operation";
+    private static Boolean sUseJavaBpfMap = null;
 
     // Lock for sConfigurationMap entry for UID_RULES_CONFIGURATION_KEY.
     // This entry is not accessed by others.
@@ -95,6 +100,14 @@ public class BpfNetMaps {
     @VisibleForTesting public static final long OEM_DENY_2_MATCH = (1 << 10);
     @VisibleForTesting public static final long OEM_DENY_3_MATCH = (1 << 11);
     // LINT.ThenChange(packages/modules/Connectivity/bpf_progs/bpf_shared.h)
+
+    /**
+     * Set sUseJavaBpfMap for test.
+     */
+    @VisibleForTesting
+    public static void setUseJavaBpfMapForTest(boolean useJavaBpfMap) {
+        sUseJavaBpfMap = useJavaBpfMap;
+    }
 
     /**
      * Set configurationMap for test.
@@ -145,6 +158,11 @@ public class BpfNetMaps {
      */
     private static synchronized void ensureInitialized() {
         if (sInitialized) return;
+        if (sUseJavaBpfMap == null) {
+            sUseJavaBpfMap = DeviceConfigUtils.getDeviceConfigPropertyBoolean(
+                    DeviceConfig.NAMESPACE_TETHERING,
+                    USE_JAVA_FOR_BPF_MAP_OPERATION, false /* defaultValue */);
+        }
         setBpfMaps();
         native_init();
         sInitialized = true;
@@ -316,7 +334,13 @@ public class BpfNetMaps {
      */
     public void addNaughtyApp(final int uid) {
         throwIfPreT("addNaughtyApp is not available on pre-T devices");
-        addRule(uid, PENALTY_BOX_MATCH, "addNaughtyApp");
+
+        if (sUseJavaBpfMap) {
+            addRule(uid, PENALTY_BOX_MATCH, "addNaughtyApp");
+        } else {
+            final int err = native_addNaughtyApp(uid);
+            maybeThrow(err, "Unable to add naughty app");
+        }
     }
 
     /**
@@ -328,7 +352,13 @@ public class BpfNetMaps {
      */
     public void removeNaughtyApp(final int uid) {
         throwIfPreT("removeNaughtyApp is not available on pre-T devices");
-        removeRule(uid, PENALTY_BOX_MATCH, "removeNaughtyApp");
+
+        if (sUseJavaBpfMap) {
+            removeRule(uid, PENALTY_BOX_MATCH, "removeNaughtyApp");
+        } else {
+            final int err = native_removeNaughtyApp(uid);
+            maybeThrow(err, "Unable to remove naughty app");
+        }
     }
 
     /**
@@ -340,7 +370,13 @@ public class BpfNetMaps {
      */
     public void addNiceApp(final int uid) {
         throwIfPreT("addNiceApp is not available on pre-T devices");
-        addRule(uid, HAPPY_BOX_MATCH, "addNiceApp");
+
+        if (sUseJavaBpfMap) {
+            addRule(uid, HAPPY_BOX_MATCH, "addNiceApp");
+        } else {
+            final int err = native_addNiceApp(uid);
+            maybeThrow(err, "Unable to add nice app");
+        }
     }
 
     /**
@@ -352,7 +388,13 @@ public class BpfNetMaps {
      */
     public void removeNiceApp(final int uid) {
         throwIfPreT("removeNiceApp is not available on pre-T devices");
-        removeRule(uid, HAPPY_BOX_MATCH, "removeNiceApp");
+
+        if (sUseJavaBpfMap) {
+            removeRule(uid, HAPPY_BOX_MATCH, "removeNiceApp");
+        } else {
+            final int err = native_removeNiceApp(uid);
+            maybeThrow(err, "Unable to remove nice app");
+        }
     }
 
     /**
@@ -438,15 +480,20 @@ public class BpfNetMaps {
     public void setUidRule(final int childChain, final int uid, final int firewallRule) {
         throwIfPreT("setUidRule is not available on pre-T devices");
 
-        final long match = getMatchByFirewallChain(childChain);
-        final boolean isAllowList = isFirewallAllowList(childChain);
-        final boolean add = (firewallRule == FIREWALL_RULE_ALLOW && isAllowList)
-                || (firewallRule == FIREWALL_RULE_DENY && !isAllowList);
+        if (sUseJavaBpfMap) {
+            final long match = getMatchByFirewallChain(childChain);
+            final boolean isAllowList = isFirewallAllowList(childChain);
+            final boolean add = (firewallRule == FIREWALL_RULE_ALLOW && isAllowList)
+                    || (firewallRule == FIREWALL_RULE_DENY && !isAllowList);
 
-        if (add) {
-            addRule(uid, match, "setUidRule");
+            if (add) {
+                addRule(uid, match, "setUidRule");
+            } else {
+                removeRule(uid, match, "setUidRule");
+            }
         } else {
-            removeRule(uid, match, "setUidRule");
+            final int err = native_setUidRule(childChain, uid, firewallRule);
+            maybeThrow(err, "Unable to set uid rule");
         }
     }
 
@@ -472,24 +519,30 @@ public class BpfNetMaps {
             mNetd.firewallAddUidInterfaceRules(ifName, uids);
             return;
         }
-        // Null ifName is a wildcard to allow apps to receive packets on all interfaces and ifIndex
-        // is set to 0.
-        final int ifIndex;
-        if (ifName == null) {
-            ifIndex = 0;
+
+        if (sUseJavaBpfMap) {
+            // Null ifName is a wildcard to allow apps to receive packets on all interfaces and
+            // ifIndex is set to 0.
+            final int ifIndex;
+            if (ifName == null) {
+                ifIndex = 0;
+            } else {
+                ifIndex = mDeps.getIfIndex(ifName);
+                if (ifIndex == 0) {
+                    throw new ServiceSpecificException(ENODEV,
+                            "Failed to get index of interface " + ifName);
+                }
+            }
+            for (final int uid : uids) {
+                try {
+                    addRule(uid, IIF_MATCH, ifIndex, "addUidInterfaceRules");
+                } catch (ServiceSpecificException e) {
+                    Log.e(TAG, "addRule failed uid=" + uid + " ifName=" + ifName + ", " + e);
+                }
+            }
         } else {
-            ifIndex = mDeps.getIfIndex(ifName);
-            if (ifIndex == 0) {
-                throw new ServiceSpecificException(ENODEV,
-                        "Failed to get index of interface " + ifName);
-            }
-        }
-        for (final int uid: uids) {
-            try {
-                addRule(uid, IIF_MATCH, ifIndex, "addUidInterfaceRules");
-            } catch (ServiceSpecificException e) {
-                Log.e(TAG, "addRule failed uid=" + uid + " ifName=" + ifName + ", " + e);
-            }
+            final int err = native_addUidInterfaceRules(ifName, uids);
+            maybeThrow(err, "Unable to add uid interface rules");
         }
     }
 
@@ -509,12 +562,18 @@ public class BpfNetMaps {
             mNetd.firewallRemoveUidInterfaceRules(uids);
             return;
         }
-        for (final int uid: uids) {
-            try {
-                removeRule(uid, IIF_MATCH, "removeUidInterfaceRules");
-            } catch (ServiceSpecificException e) {
-                Log.e(TAG, "removeRule failed uid=" + uid + ", " + e);
+
+        if (sUseJavaBpfMap) {
+            for (final int uid : uids) {
+                try {
+                    removeRule(uid, IIF_MATCH, "removeUidInterfaceRules");
+                } catch (ServiceSpecificException e) {
+                    Log.e(TAG, "removeRule failed uid=" + uid + ", " + e);
+                }
             }
+        } else {
+            final int err = native_removeUidInterfaceRules(uids);
+            maybeThrow(err, "Unable to remove uid interface rules");
         }
     }
 
@@ -528,10 +587,16 @@ public class BpfNetMaps {
      */
     public void updateUidLockdownRule(final int uid, final boolean add) {
         throwIfPreT("updateUidLockdownRule is not available on pre-T devices");
-        if (add) {
-            addRule(uid, LOCKDOWN_VPN_MATCH, "updateUidLockdownRule");
+
+        if (sUseJavaBpfMap) {
+            if (add) {
+                addRule(uid, LOCKDOWN_VPN_MATCH, "updateUidLockdownRule");
+            } else {
+                removeRule(uid, LOCKDOWN_VPN_MATCH, "updateUidLockdownRule");
+            }
         } else {
-            removeRule(uid, LOCKDOWN_VPN_MATCH, "updateUidLockdownRule");
+            final int err = native_updateUidLockdownRule(uid, add);
+            maybeThrow(err, "Unable to update lockdown rule");
         }
     }
 
