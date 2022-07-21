@@ -22,6 +22,30 @@
       },
       "revId": "61221339d36709d09b4987e18f231df82a3064a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e55ae29b_065fea15",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-07-21T21:14:24Z",
+      "side": 0,
+      "message": "Yep, that\u0027s correct and good catch. I 100% agree the E2E coverage will help (specifically the test you added in aosp/2120129 so thanks for that). We\u0027ll also have unit test coverage on this use-case as per this patch going forward to help in support as well.",
+      "parentUuid": "781fb8dc_1480dd02",
+      "range": {
+        "startLine": 649,
+        "startChar": 10,
+        "endLine": 659,
+        "endChar": 24
+      },
+      "revId": "61221339d36709d09b4987e18f231df82a3064a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

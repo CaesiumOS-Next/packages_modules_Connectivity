@@ -16,6 +16,24 @@
       "message": "I have split out a CTS test for this that I have had in aosp/2120129 for a while. Let\u0027s make sure this gets submitted with aosp/2120129.",
       "revId": "721ae576f610cfa440c63ccaedafd4fdb34ee20f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "682c356a_69f5034b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-07-21T21:14:24Z",
+      "side": 1,
+      "message": "Yep, sounds good. I just reviewed aosp/2120129 to help further it along.",
+      "parentUuid": "92988e4b_87819b04",
+      "revId": "721ae576f610cfa440c63ccaedafd4fdb34ee20f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
