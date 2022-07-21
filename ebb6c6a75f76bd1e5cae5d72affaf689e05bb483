@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec887917_77eb5fc1",
+        "filename": "service/jni/com_android_server_TestNetworkService.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-21T02:28:01Z",
+      "side": 1,
+      "message": "This might be overkill, but otherwise we\u0027d have to pass the isTun flag, and this solution felt like it would better overall.",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 5
+      },
+      "revId": "ebb6c6a75f76bd1e5cae5d72affaf689e05bb483",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
