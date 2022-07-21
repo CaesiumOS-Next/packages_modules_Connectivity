@@ -64,6 +64,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "816c06a3_4fa4d3bf",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-21T18:24:52Z",
+      "side": 1,
+      "message": "I didn\u0027t think it belonged in this CL, but I also didn\u0027t want to forget about it. It\u0027s a super simple change fixed in aosp/2162861.",
+      "parentUuid": "1b9bc175_604e6927",
+      "range": {
+        "startLine": 150,
+        "startChar": 4,
+        "endLine": 150,
+        "endChar": 64
+      },
+      "revId": "647cc69a7ea4cb637bf4a19f8d411af708ebe026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8327dee_b0b75805",
@@ -77,6 +101,30 @@
       "writtenOn": "2022-07-21T14:34:55Z",
       "side": 1,
       "message": "It\u0027s a bit surprising that this would take a full second. Do you know what it\u0027s waiting for? Presumably this is only a maximum, and it doesn\u0027t end up waiting a second when the test is actually run?",
+      "range": {
+        "startLine": 198,
+        "startChar": 35,
+        "endLine": 198,
+        "endChar": 40
+      },
+      "revId": "647cc69a7ea4cb637bf4a19f8d411af708ebe026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e223cf1e_0f3c30fa",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-21T18:24:52Z",
+      "side": 1,
+      "message": "It\u0027s a timeout value. I guess that would have been a better inline comment than just \"/* ms */\". Anyway, I added handlerThread.join() instead since HandlerThread#quitSafely() processes queued events.",
+      "parentUuid": "c8327dee_b0b75805",
       "range": {
         "startLine": 198,
         "startChar": 35,
@@ -110,6 +158,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "075739bc_5e2855de",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-21T18:24:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7b38022_7dfe945c",
+      "range": {
+        "startLine": 229,
+        "startChar": 28,
+        "endLine": 229,
+        "endChar": 34
+      },
+      "revId": "647cc69a7ea4cb637bf4a19f8d411af708ebe026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "748caf6e_3cad592a",
@@ -123,6 +195,30 @@
       "writtenOn": "2022-07-21T14:34:55Z",
       "side": 1,
       "message": "FWIW, this might be better as:\n\n    if (!sockaddr.address.isLinkLocalAddress()) break\n\nor:\n\n    // TODO: make RouterAdvertisementResponder.SLAAC_PREFIX public and use it here,\n    // or make it configurable and configure it here.\n    if (IpPrefix(\"2001:db8::/64\").contains(sockAddr.address)) break\n\nor:\n\n    if (IpPrefix(\"2000::/3\").contains(sockAddr.address)) break\n\nUp to you.",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 237,
+        "endChar": 17
+      },
+      "revId": "647cc69a7ea4cb637bf4a19f8d411af708ebe026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b4ff517_b8a4f387",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-21T18:24:52Z",
+      "side": 1,
+      "message": "That\u0027s much better, thanks!",
+      "parentUuid": "748caf6e_3cad592a",
       "range": {
         "startLine": 232,
         "startChar": 0,
@@ -156,6 +252,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4330563_19ee73d6",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-21T18:24:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42094696_88002be2",
+      "range": {
+        "startLine": 242,
+        "startChar": 20,
+        "endLine": 242,
+        "endChar": 72
+      },
+      "revId": "647cc69a7ea4cb637bf4a19f8d411af708ebe026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74db9a7f_aa15d979",
@@ -169,6 +289,30 @@
       "writtenOn": "2022-07-21T14:34:55Z",
       "side": 1,
       "message": "This constructor isn\u0027t very readable - it\u0027s not obvious that if only one arg is passed in then the route is a default route. Suggest explicitly passing in IpPrefix(\"::/0\") and TEST_ROUTER_IPV6_ADDR.",
+      "range": {
+        "startLine": 275,
+        "startChar": 31,
+        "endLine": 275,
+        "endChar": 52
+      },
+      "revId": "647cc69a7ea4cb637bf4a19f8d411af708ebe026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc2c88f1_2f56db11",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-21T18:24:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74db9a7f_aa15d979",
       "range": {
         "startLine": 275,
         "startChar": 31,

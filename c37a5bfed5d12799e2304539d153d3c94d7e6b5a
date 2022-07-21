@@ -22,6 +22,30 @@
       },
       "revId": "c37a5bfed5d12799e2304539d153d3c94d7e6b5a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8169bd03_05d1970c",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-21T18:24:52Z",
+      "side": 0,
+      "message": "Yes, this is a regression -- I have fixed this code once before but the race was reintroduced in aosp/1972139.\n\nYou are right, but quitSafely just instructs the handler thread to stop accepting new messages and quit eventually. Added a call to Thread#join().",
+      "parentUuid": "6d90a065_b48dd0fd",
+      "range": {
+        "startLine": 169,
+        "startChar": 8,
+        "endLine": 169,
+        "endChar": 56
+      },
+      "revId": "c37a5bfed5d12799e2304539d153d3c94d7e6b5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
