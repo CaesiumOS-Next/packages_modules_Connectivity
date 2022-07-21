@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "781fb8dc_1480dd02",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-21T20:25:45Z",
+      "side": 0,
+      "message": "Ah, I see, before using NetworkOffer, we used to call start() when link came up, and probably signaled completion from there.\nThese are the kinds of bugs we are going to catch with solid end-to-end test coverage. 😊",
+      "range": {
+        "startLine": 649,
+        "startChar": 10,
+        "endLine": 659,
+        "endChar": 24
+      },
+      "revId": "61221339d36709d09b4987e18f231df82a3064a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

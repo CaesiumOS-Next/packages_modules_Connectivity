@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92988e4b_87819b04",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-21T20:25:45Z",
+      "side": 1,
+      "message": "I have split out a CTS test for this that I have had in aosp/2120129 for a while. Let\u0027s make sure this gets submitted with aosp/2120129.",
+      "revId": "721ae576f610cfa440c63ccaedafd4fdb34ee20f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
