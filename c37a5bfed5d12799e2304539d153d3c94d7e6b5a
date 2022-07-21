@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d90a065_b48dd0fd",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-21T14:34:55Z",
+      "side": 0,
+      "message": "Just to make sure: this was never necessary, because reader.stop() closes the fd, right? You just needed to add the waitForIdle to ensure the close actually happened?\n\nBTW, is the waitForIdle actually necessary? quitSafely already appears to process all messages that are already in the queue (except delayed messages).",
+      "range": {
+        "startLine": 169,
+        "startChar": 8,
+        "endLine": 169,
+        "endChar": 56
+      },
+      "revId": "c37a5bfed5d12799e2304539d153d3c94d7e6b5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

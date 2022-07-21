@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47d5c971_a3c0982e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-21T14:34:55Z",
+      "side": 1,
+      "message": "Is this still true? AFAICT TH marked this change verified.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 13
+      },
+      "revId": "647cc69a7ea4cb637bf4a19f8d411af708ebe026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08c44934_88f94cc0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-21T14:34:55Z",
+      "side": 1,
+      "message": "LGTM, feel free to address comments in a follow-up.",
+      "revId": "647cc69a7ea4cb637bf4a19f8d411af708ebe026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b9bc175_604e6927",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-21T14:34:55Z",
+      "side": 1,
+      "message": "Presumably this is non-trivial, otherwise you\u0027d have done it in this CL? If so, might want to explain why. \"TODO: replace with DeviceInfoUtils#isKernelVersionAtLeast when...\"",
+      "range": {
+        "startLine": 150,
+        "startChar": 4,
+        "endLine": 150,
+        "endChar": 64
+      },
+      "revId": "647cc69a7ea4cb637bf4a19f8d411af708ebe026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8327dee_b0b75805",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-21T14:34:55Z",
+      "side": 1,
+      "message": "It\u0027s a bit surprising that this would take a full second. Do you know what it\u0027s waiting for? Presumably this is only a maximum, and it doesn\u0027t end up waiting a second when the test is actually run?",
+      "range": {
+        "startLine": 198,
+        "startChar": 35,
+        "endLine": 198,
+        "endChar": 40
+      },
+      "revId": "647cc69a7ea4cb637bf4a19f8d411af708ebe026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7b38022_7dfe945c",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-21T14:34:55Z",
+      "side": 1,
+      "message": "Nit: s/random/arbitrary/.",
+      "range": {
+        "startLine": 229,
+        "startChar": 28,
+        "endLine": 229,
+        "endChar": 34
+      },
+      "revId": "647cc69a7ea4cb637bf4a19f8d411af708ebe026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "748caf6e_3cad592a",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-21T14:34:55Z",
+      "side": 1,
+      "message": "FWIW, this might be better as:\n\n    if (!sockaddr.address.isLinkLocalAddress()) break\n\nor:\n\n    // TODO: make RouterAdvertisementResponder.SLAAC_PREFIX public and use it here,\n    // or make it configurable and configure it here.\n    if (IpPrefix(\"2001:db8::/64\").contains(sockAddr.address)) break\n\nor:\n\n    if (IpPrefix(\"2000::/3\").contains(sockAddr.address)) break\n\nUp to you.",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 237,
+        "endChar": 17
+      },
+      "revId": "647cc69a7ea4cb637bf4a19f8d411af708ebe026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42094696_88002be2",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-21T14:34:55Z",
+      "side": 1,
+      "message": "Might be better simply to do \"throw e\". Up to you.",
+      "range": {
+        "startLine": 242,
+        "startChar": 20,
+        "endLine": 242,
+        "endChar": 72
+      },
+      "revId": "647cc69a7ea4cb637bf4a19f8d411af708ebe026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74db9a7f_aa15d979",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-21T14:34:55Z",
+      "side": 1,
+      "message": "This constructor isn\u0027t very readable - it\u0027s not obvious that if only one arg is passed in then the route is a default route. Suggest explicitly passing in IpPrefix(\"::/0\") and TEST_ROUTER_IPV6_ADDR.",
+      "range": {
+        "startLine": 275,
+        "startChar": 31,
+        "endLine": 275,
+        "endChar": 52
+      },
+      "revId": "647cc69a7ea4cb637bf4a19f8d411af708ebe026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
