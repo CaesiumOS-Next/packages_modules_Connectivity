@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd86dabe_f9fc36ec",
+        "filename": "framework/src/android/net/ITestNetworkManager.aidl",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-21T14:06:52Z",
+      "side": 1,
+      "message": "Nit: long line.",
+      "range": {
+        "startLine": 33,
+        "startChar": 100,
+        "endLine": 33,
+        "endChar": 101
+      },
+      "revId": "0a2c5e17d97d344b335d5710972fd41c282130c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
