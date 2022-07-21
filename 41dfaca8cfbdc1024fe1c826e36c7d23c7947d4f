@@ -81,6 +81,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bab0486_fad4fb06",
+        "filename": "framework/src/android/net/TestNetworkManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-21T02:31:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abaeaa5d_2f7a2297",
+      "range": {
+        "startLine": 62,
+        "startChar": 12,
+        "endLine": 62,
+        "endChar": 39
+      },
+      "revId": "41dfaca8cfbdc1024fe1c826e36c7d23c7947d4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "665ae583_1a5efa49",
@@ -104,6 +128,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6123087d_90f7c3b3",
+        "filename": "framework/src/android/net/TestNetworkManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-21T02:31:02Z",
+      "side": 1,
+      "message": "We don\u0027t currently support passing these to the kernel. Adding this seems like it would be quite a bit more work.",
+      "parentUuid": "665ae583_1a5efa49",
+      "range": {
+        "startLine": 63,
+        "startChar": 33,
+        "endLine": 63,
+        "endChar": 52
+      },
+      "revId": "41dfaca8cfbdc1024fe1c826e36c7d23c7947d4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3caabc16_cb25131c",
@@ -117,6 +165,30 @@
       "writtenOn": "2022-07-14T06:56:36Z",
       "side": 1,
       "message": "do we need to disable this delay as well? For test, maybe we can wait for RS arrives at the tap interface and then reply with RA, this approach looks more robust. Otherwise, the RS will be sent out immediately after interface is brought up, is it possible to reply RA while device isn\u0027t enable IPv6 stack then that will miss the RA?",
+      "range": {
+        "startLine": 144,
+        "startChar": 64,
+        "endLine": 144,
+        "endChar": 89
+      },
+      "revId": "41dfaca8cfbdc1024fe1c826e36c7d23c7947d4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddc92844_5a6acd2f",
+        "filename": "service/src/com/android/server/TestNetworkService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-21T02:31:02Z",
+      "side": 1,
+      "message": "This speeds up the test, so I think it\u0027s just better if we do it.",
+      "parentUuid": "3caabc16_cb25131c",
       "range": {
         "startLine": 144,
         "startChar": 64,
