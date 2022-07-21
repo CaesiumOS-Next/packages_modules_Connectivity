@@ -25,9 +25,9 @@ import android.net.metrics.IpConnectivityLog
 import android.os.IBinder
 import com.android.net.module.util.SharedLog
 import com.android.networkstack.netlink.TcpSocketTracker
-import com.android.server.NetworkStackService
-import com.android.server.NetworkStackService.NetworkMonitorConnector
-import com.android.server.NetworkStackService.NetworkStackConnector
+import com.android.networkstack.NetworkStackService
+import com.android.networkstack.NetworkStackService.NetworkMonitorConnector
+import com.android.networkstack.NetworkStackService.NetworkStackConnector
 import com.android.server.connectivity.NetworkMonitor
 import com.android.server.net.integrationtests.NetworkStackInstrumentationService.InstrumentationConnector
 import org.mockito.Mockito.doReturn
