@@ -67,6 +67,7 @@ import com.android.net.module.util.Struct
 import com.android.net.module.util.structs.EthernetHeader
 import com.android.testutils.ArpResponder
 import com.android.testutils.CompatUtil
+import com.android.testutils.DeviceInfoUtils.isKernelVersionAtLeast
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.assertParcelingIsLossless
 import com.android.testutils.RouterAdvertisementResponder
@@ -88,7 +89,6 @@ import java.net.Inet6Address
 import java.net.InetSocketAddress
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
-import java.util.regex.Pattern
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
@@ -136,25 +136,12 @@ class DscpPolicyTest {
     private lateinit var arpResponder: ArpResponder
     private lateinit var raResponder: RouterAdvertisementResponder
 
-    private fun getKernelVersion(): IntArray {
-        // Example:
-        // 4.9.29-g958411d --> 4.9
-        val release = Os.uname().release
-        val m = Pattern.compile("^(\\d+)\\.(\\d+)").matcher(release)
-        assertTrue(m.find(), "No pattern in release string: " + release)
-        return intArrayOf(Integer.parseInt(m.group(1)), Integer.parseInt(m.group(2)))
-    }
-
-    // TODO: replace with DeviceInfoUtils#isKernelVersionAtLeast
-    private fun kernelIsAtLeast(major: Int, minor: Int): Boolean {
-        val version = getKernelVersion()
-        return (version.get(0) > major || (version.get(0) == major && version.get(1) >= minor))
-    }
+    // this feature requires a 5.15+ kernel for bpf support.
+    private fun hasKernelSupport() = isKernelVersionAtLeast("5.15.0")
 
     @Before
     fun setUp() {
-        // For BPF support kernel needs to be at least 5.15.
-        assumeTrue(kernelIsAtLeast(5, 15))
+        assumeTrue(hasKernelSupport())
 
         runAsShell(MANAGE_TEST_NETWORKS) {
             val tnm = realContext.getSystemService(TestNetworkManager::class.java)
@@ -182,9 +169,8 @@ class DscpPolicyTest {
 
     @After
     fun tearDown() {
-        if (!kernelIsAtLeast(5, 15)) {
-            return
-        }
+        if (!hasKernelSupport()) return
+
         raResponder.stop()
         arpResponder.stop()
 
