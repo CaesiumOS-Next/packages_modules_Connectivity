@@ -1013,4 +1013,36 @@ class EthernetManagerTest {
         cb.eventuallyExpectCapabilities(TEST_CAPS)
         cb.eventuallyExpectLpForStaticConfig(STATIC_IP_CONFIGURATION.staticIpConfiguration)
     }
+
+    @Test
+    fun testEnableDisableInterface_whileTogglingCarrier() {
+        assumeChangingCarrierSupported()
+        // NOTE: directly creating interface with no carrier is flaky due to a race condition.
+        val iface = createInterface()
+        val cb = requestNetwork(ETH_REQUEST)
+        cb.expectAvailable()
+        iface.setCarrierEnabled(false)
+        cb.eventuallyExpectLost()
+
+        // First, created interface with no carrier, then disable interface.
+        disableInterface(iface).expectResult(iface.name)
+
+        // Second, enable carrier, then enable interface.
+        iface.setCarrierEnabled(true)
+        cb.assertNeverAvailable()
+        enableInterface(iface).expectResult(iface.name)
+        cb.expectAvailable()
+
+        // Third, disable interface, then set link down.
+        disableInterface(iface).expectResult(iface.name)
+        cb.eventuallyExpectLost()
+        iface.setCarrierEnabled(false)
+        cb.assertNeverAvailable()
+
+        // Fourth, enable interface, then enable carrier.
+        enableInterface(iface).expectResult(iface.name)
+        cb.assertNeverAvailable()
+        iface.setCarrierEnabled(true)
+        cb.expectAvailable()
+    }
 }
