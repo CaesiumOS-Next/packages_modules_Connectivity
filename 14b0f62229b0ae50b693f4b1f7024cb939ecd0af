@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e897c479_011b112b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-21T15:01:19Z",
+      "side": 1,
+      "message": "LGTM, feel free to address comment in a follow-up.",
+      "revId": "14b0f62229b0ae50b693f4b1f7024cb939ecd0af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c87f73f4_53999380",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1620,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-21T15:01:19Z",
+      "side": 1,
+      "message": "Where is this unregistered? Generally it\u0027s always best to unregister callbacks in CTS tests, because if they are not unregistered, they remain registered until the process quits, potentially causing a future test to fail with TooManyRequestsException.\n\nFor this particular test it might not matter because it\u0027s a hostside test that is short-lived, but it would still be good to unregister. Maybe you can do it in the cleanup step.",
+      "range": {
+        "startLine": 1620,
+        "startChar": 20,
+        "endLine": 1620,
+        "endChar": 56
+      },
+      "revId": "14b0f62229b0ae50b693f4b1f7024cb939ecd0af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "623ddc03_319758ca",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1656,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-21T15:01:19Z",
+      "side": 1,
+      "message": "cleanup",
+      "range": {
+        "startLine": 1656,
+        "startChar": 18,
+        "endLine": 1656,
+        "endChar": 24
+      },
+      "revId": "14b0f62229b0ae50b693f4b1f7024cb939ecd0af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c23c17f_1b5bfde4",
+        "filename": "tests/cts/hostside/src/com/android/cts/net/HostsideVpnTests.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-21T15:01:19Z",
+      "side": 1,
+      "message": "Nit: might want to rename to testBlockIncomingPackets, since this method does not only block one packet, it blocks all packets.",
+      "range": {
+        "startLine": 120,
+        "startChar": 16,
+        "endLine": 120,
+        "endChar": 39
+      },
+      "revId": "14b0f62229b0ae50b693f4b1f7024cb939ecd0af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
