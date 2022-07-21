@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "65079e90_0fa962de",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-21T15:07:01Z",
+      "side": 1,
+      "message": "Do we need a new API here? There already domains in LinkProperties (see getDomains and setDomains) and their documentation suggests that they are exactly the domain search list:\n\n     * @return A {@link String} containing the comma separated domains to search when resolving host\n     *         names on this link or {@code null}.",
+      "range": {
+        "startLine": 263,
+        "startChar": 23,
+        "endLine": 263,
+        "endChar": 42
+      },
+      "revId": "26a04b7ecfdf8429b9a187a334be964cad547d6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e003266b_4546780d",
         "filename": "framework/src/android/net/LinkProperties.java",
         "patchSetId": 1
