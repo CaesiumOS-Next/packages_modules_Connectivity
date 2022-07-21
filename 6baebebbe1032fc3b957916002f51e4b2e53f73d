@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee6e6b14_98a35472",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-07-21T02:02:09Z",
+      "side": 1,
+      "message": "Test that VpnManager events will never be sent to Settings VPNs\n\nThis change...",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 60
+      },
+      "revId": "6baebebbe1032fc3b957916002f51e4b2e53f73d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc443042_fcd176f5",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1611,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-07-21T02:02:09Z",
+      "side": 1,
+      "message": "Could you add a small comment that this the same context as the VPN is using (see createVpn)",
+      "range": {
+        "startLine": 1611,
+        "startChar": 0,
+        "endLine": 1611,
+        "endChar": 35
+      },
+      "revId": "6baebebbe1032fc3b957916002f51e4b2e53f73d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
