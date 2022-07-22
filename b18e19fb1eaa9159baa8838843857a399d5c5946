@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c381e29_2dd33417",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-22T10:09:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89936ad9_6e11bd81",
+      "range": {
+        "startLine": 10,
+        "startChar": 8,
+        "endLine": 10,
+        "endChar": 18
+      },
+      "revId": "b18e19fb1eaa9159baa8838843857a399d5c5946",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae5fb82d_5f880c69",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-21T16:59:35Z",
       "side": 1,
       "message": "is it possible if L.412, L.413 only register TETHER_FORCE_USB_FUNCTIONS and TETHER_FORCE_USB_FUNCTIONS?",
+      "range": {
+        "startLine": 435,
+        "startChar": 16,
+        "endLine": 435,
+        "endChar": 22
+      },
+      "revId": "b18e19fb1eaa9159baa8838843857a399d5c5946",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bf7985f_af2e9edd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-22T10:09:59Z",
+      "side": 1,
+      "message": "Per talk, it would only received observed URI.",
+      "parentUuid": "ae5fb82d_5f880c69",
       "range": {
         "startLine": 435,
         "startChar": 16,
