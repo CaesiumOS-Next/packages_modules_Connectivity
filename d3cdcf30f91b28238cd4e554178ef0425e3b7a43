@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82d23e3b_e6f4c1ed",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 53
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-22T09:28:56Z",
+      "side": 1,
+      "message": "TestableNetworkCallback already has an expectCapabilitiesWith method. Either use that and delete this method, or rename this method to expectCapabilitiesWith for consistency.",
+      "range": {
+        "startLine": 474,
+        "startChar": 40,
+        "endLine": 474,
+        "endChar": 72
+      },
+      "revId": "d3cdcf30f91b28238cd4e554178ef0425e3b7a43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
