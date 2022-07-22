@@ -21,6 +21,11 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
+java_defaults {
+    name: "ConnectivityTestsStableTargetSdkDefaults",
+    target_sdk_version: "33",
+}
+
 java_library {
     name: "FrameworksNetCommonTests",
     defaults: ["framework-connectivity-internal-test-defaults"],
@@ -80,12 +85,12 @@ android_test {
     name: "ConnectivityCoverageTests",
     // Tethering started on SDK 30
     min_sdk_version: "30",
-    target_sdk_version: "31",
     test_suites: ["general-tests", "mts-tethering"],
     defaults: [
         "framework-connectivity-internal-test-defaults",
         "FrameworksNetTests-jni-defaults",
         "libnetworkstackutilsjni_deps",
+        "ConnectivityTestsStableTargetSdkDefaults",
     ],
     manifest: "AndroidManifest_coverage.xml",
     test_config: "AndroidTest_Coverage.xml",
