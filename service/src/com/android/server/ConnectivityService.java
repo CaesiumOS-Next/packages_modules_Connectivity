@@ -6741,6 +6741,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     @Override
     public void unofferNetwork(@NonNull final INetworkOfferCallback callback) {
+        Objects.requireNonNull(callback);
         mHandler.sendMessage(mHandler.obtainMessage(EVENT_UNREGISTER_NETWORK_OFFER, callback));
     }
 
