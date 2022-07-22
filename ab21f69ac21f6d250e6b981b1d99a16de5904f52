@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ab30383_8d5bda48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 32
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-22T09:07:56Z",
+      "side": 1,
+      "message": "LGTM. Feel free to address comments in a follow-up.",
+      "revId": "ab21f69ac21f6d250e6b981b1d99a16de5904f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca5adce4_cddd06e3",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 3331,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-22T09:07:56Z",
+      "side": 1,
+      "message": "Not for this CL, but generally boolean getters should start with \"is\", not \"get\". So this should be isFirewallChainEnabled.\n\nhttps://g3doc.corp.google.com/company/teams/android-api-council/guidelines/index.md?cl\u003dhead#boolean-methods\n\n(This method isn\u0027t an actual API, but lots of ConnectivityManager methods are, so this method should follow API guidelines for consistency.)",
+      "range": {
+        "startLine": 3331,
+        "startChar": 48,
+        "endLine": 3331,
+        "endChar": 71
+      },
+      "revId": "ab21f69ac21f6d250e6b981b1d99a16de5904f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3920fa0_51d32d69",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 3340,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-22T09:07:56Z",
+      "side": 1,
+      "message": "Pre-existing, but might want to reword to:\n\n    // Chain disabled, UID not on chain.\n    ...\n\n    // Chain enabled, UID not on chain.\n    ...\n\n    // Chain enabled, UID on chain.\n    ...\n\n    // Chain disabled, UID on chain.\n    ...\n\n    // Chain disabled, UID not on chain.",
+      "range": {
+        "startLine": 3340,
+        "startChar": 16,
+        "endLine": 3340,
+        "endChar": 50
+      },
+      "revId": "ab21f69ac21f6d250e6b981b1d99a16de5904f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e40318b_1d56b545",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 3371,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-22T09:07:56Z",
+      "side": 1,
+      "message": "Nit: would have found this clearer as:\n\n    try {\n        mCm.setUidFirewallRule(chain, myUid, ruleToRemoveMatch);\n    } catch (...) { }\n\nUp to you.",
+      "range": {
+        "startLine": 3367,
+        "startChar": 0,
+        "endLine": 3371,
+        "endChar": 76
+      },
+      "revId": "ab21f69ac21f6d250e6b981b1d99a16de5904f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
