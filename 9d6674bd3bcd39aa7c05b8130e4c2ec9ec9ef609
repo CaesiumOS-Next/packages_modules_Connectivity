@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f3860b4_687f650a",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-22T15:08:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f3836b8_d3198366",
+      "range": {
+        "startLine": 117,
+        "startChar": 16,
+        "endLine": 117,
+        "endChar": 29
+      },
+      "revId": "9d6674bd3bcd39aa7c05b8130e4c2ec9ec9ef609",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ddacecb5_5851752b",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-07-22T06:36:57Z",
       "side": 1,
       "message": "this check seems wrong... new dscp could be 0 while old non zero\n\nmaybe just always do the update?",
+      "range": {
+        "startLine": 275,
+        "startChar": 24,
+        "endLine": 275,
+        "endChar": 37
+      },
+      "revId": "9d6674bd3bcd39aa7c05b8130e4c2ec9ec9ef609",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e32ae0a_b34ab82e",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-22T15:08:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ddacecb5_5851752b",
       "range": {
         "startLine": 275,
         "startChar": 24,
