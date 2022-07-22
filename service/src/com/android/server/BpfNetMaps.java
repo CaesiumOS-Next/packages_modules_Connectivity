@@ -30,12 +30,14 @@ import static android.system.OsConstants.EINVAL;
 import static android.system.OsConstants.ENODEV;
 import static android.system.OsConstants.ENOENT;
 import static android.system.OsConstants.EOPNOTSUPP;
+import static android.system.OsConstants.R_OK;
 
 import android.net.INetd;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
 import android.system.ErrnoException;
 import android.system.Os;
+import android.util.IndentingPrintWriter;
 import android.util.Log;
 
 import com.android.internal.annotations.GuardedBy;
@@ -71,10 +73,10 @@ public class BpfNetMaps {
     // BpfNetMaps acquires this lock while sequence of read, modify, and write.
     private static final Object sUidRulesConfigBpfMapLock = new Object();
 
+    private static final String BPF_NETD_PATH = "/sys/fs/bpf/netd_shared/";
     private static final String CONFIGURATION_MAP_PATH =
-            "/sys/fs/bpf/netd_shared/map_netd_configuration_map";
-    private static final String UID_OWNER_MAP_PATH =
-            "/sys/fs/bpf/netd_shared/map_netd_uid_owner_map";
+            BPF_NETD_PATH + "map_netd_configuration_map";
+    private static final String UID_OWNER_MAP_PATH = BPF_NETD_PATH + "map_netd_uid_owner_map";
     private static final U32 UID_RULES_CONFIGURATION_KEY = new U32(0);
     private static BpfMap<U32, U32> sConfigurationMap = null;
     // BpfMap for UID_OWNER_MAP_PATH. This map is not accessed by others.
@@ -95,6 +97,19 @@ public class BpfNetMaps {
     @VisibleForTesting public static final long OEM_DENY_2_MATCH = (1 << 10);
     @VisibleForTesting public static final long OEM_DENY_3_MATCH = (1 << 11);
     // LINT.ThenChange(packages/modules/Connectivity/bpf_progs/bpf_shared.h)
+
+    private static final String BPF_INGRESS_PROG_PATH =
+            BPF_NETD_PATH + "prog_netd_cgroupskb_ingress_stats";
+    private static final String BPF_EGRESS_PROG_PATH =
+            BPF_NETD_PATH + "prog_netd_cgroupskb_egress_stats";
+    private static final String XT_BPF_INGRESS_PROG_PATH =
+            BPF_NETD_PATH + "prog_netd_skfilter_ingress_xtbpf";
+    private static final String XT_BPF_EGRESS_PROG_PATH =
+            BPF_NETD_PATH + "prog_netd_skfilter_egress_xtbpf";
+    private static final String XT_BPF_ALLOWLIST_PROG_PATH =
+            BPF_NETD_PATH + "prog_netd_skfilter_allowlist_xtbpf";
+    private static final String XT_BPF_DENYLIST_PROG_PATH =
+            BPF_NETD_PATH + "prog_netd_skfilter_denylist_xtbpf";
 
     /**
      * Set configurationMap for test.
@@ -564,6 +579,31 @@ public class BpfNetMaps {
         native_setPermissionForUids(permissions, uids);
     }
 
+
+    private String getProgramStatus(final String path) {
+        try {
+            Os.access(path, R_OK);
+            return "OK";
+        } catch (ErrnoException e) {
+            if (e.errno == ENOENT) {
+                return "program is missing at: " + path;
+            } else {
+                return "check Program " + path + " error: " + Os.strerror(e.errno);
+            }
+        }
+    }
+
+    private void dumpProgramStatus(final IndentingPrintWriter pw) {
+        pw.println("Cgroup ingress program status: " + getProgramStatus(BPF_INGRESS_PROG_PATH));
+        pw.println("Cgroup egress program status: " + getProgramStatus(BPF_EGRESS_PROG_PATH));
+        pw.println("xt_bpf ingress program status: " + getProgramStatus(XT_BPF_INGRESS_PROG_PATH));
+        pw.println("xt_bpf egress program status: " + getProgramStatus(XT_BPF_EGRESS_PROG_PATH));
+        pw.println("xt_bpf bandwidth allowlist program status: "
+                + getProgramStatus(XT_BPF_ALLOWLIST_PROG_PATH));
+        pw.println("xt_bpf bandwidth denylist program status: "
+                + getProgramStatus(XT_BPF_DENYLIST_PROG_PATH));
+    }
+
     /**
      * Dump BPF maps
      *
@@ -571,13 +611,28 @@ public class BpfNetMaps {
      * @throws IOException when file descriptor is invalid.
      * @throws ServiceSpecificException when the method is called on an unsupported device.
      */
-    public void dump(final FileDescriptor fd, boolean verbose)
+    public void dump(final IndentingPrintWriter pw, final FileDescriptor fd, boolean verbose)
             throws IOException, ServiceSpecificException {
         if (PRE_T) {
             throw new ServiceSpecificException(
                     EOPNOTSUPP, "dumpsys connectivity trafficcontroller dump not available on pre-T"
                     + " devices, use dumpsys netd trafficcontroller instead.");
         }
+
+        // TODO: Implement dump with Java BpfMap class and remove native_dump.
+        // While migration, the order of information could be changed. But dump is debugging
+        // purpose and order difference is acceptable.
+        pw.increaseIndent();
+        pw.println("TrafficController");
+        pw.println();
+
+        pw.increaseIndent();
+        dumpProgramStatus(pw);
+        pw.decreaseIndent();
+
+        pw.decreaseIndent();
+        pw.flush();
+
         native_dump(fd, verbose);
     }
 
@@ -602,5 +657,5 @@ public class BpfNetMaps {
     private native int native_updateUidLockdownRule(int uid, boolean add);
     private native int native_swapActiveStatsMap();
     private native void native_setPermissionForUids(int permissions, int[] uids);
-    private native void native_dump(FileDescriptor fd, boolean verbose);
+    private static void native_dump(FileDescriptor fd, boolean verbose);
 }
