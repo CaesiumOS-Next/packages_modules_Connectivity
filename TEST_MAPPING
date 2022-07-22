@@ -152,6 +152,9 @@
     },
     {
       "name": "libnetworkstats_test[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]"
+    },
+    {
+        "name": "CtsTetheringTestLatestSdk[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]"
     }
   ],
   "mainline-postsubmit": [
@@ -191,6 +194,11 @@
           "exclude-annotation": "androidx.test.filters.RequiresDevice"
         }
       ]
+    },
+    // Tests on physical devices with SIM cards: postsubmit only for capacity constraints
+    {
+        "name": "CtsTetheringTestLatestSdk[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]",
+        "keywords": ["sim"]
     }
   ],
   "imports": [
