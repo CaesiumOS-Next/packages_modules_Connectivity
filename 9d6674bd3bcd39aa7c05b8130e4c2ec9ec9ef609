@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa406fc0_221009d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-22T06:34:27Z",
+      "side": 1,
+      "message": "you\u0027ll need to rebase across the rename",
+      "revId": "9d6674bd3bcd39aa7c05b8130e4c2ec9ec9ef609",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f3836b8_d3198366",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-22T06:34:27Z",
+      "side": 1,
+      "message": "this can be done as\n\nold_first_u32 \u003d *(u32*)ip6h;",
+      "range": {
+        "startLine": 117,
+        "startChar": 16,
+        "endLine": 117,
+        "endChar": 29
+      },
+      "revId": "9d6674bd3bcd39aa7c05b8130e4c2ec9ec9ef609",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
