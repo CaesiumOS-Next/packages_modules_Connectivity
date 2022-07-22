@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcaf08a9_72c452ce",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1620,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-07-22T12:38:54Z",
+      "side": 1,
+      "message": "This is unregistered in cleanup line 1655.\n```\n        }, /* cleanup */ () -\u003e {\n                mCM.unregisterNetworkCallback(remoteUidCallback);\n            },\n```",
+      "parentUuid": "c87f73f4_53999380",
+      "range": {
+        "startLine": 1620,
+        "startChar": 20,
+        "endLine": 1620,
+        "endChar": 56
+      },
+      "revId": "14b0f62229b0ae50b693f4b1f7024cb939ecd0af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "623ddc03_319758ca",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b095844c_40dbb89d",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1656,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-07-22T12:38:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "623ddc03_319758ca",
+      "range": {
+        "startLine": 1656,
+        "startChar": 18,
+        "endLine": 1656,
+        "endChar": 24
+      },
+      "revId": "14b0f62229b0ae50b693f4b1f7024cb939ecd0af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c23c17f_1b5bfde4",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-07-21T15:01:19Z",
       "side": 1,
       "message": "Nit: might want to rename to testBlockIncomingPackets, since this method does not only block one packet, it blocks all packets.",
+      "range": {
+        "startLine": 120,
+        "startChar": 16,
+        "endLine": 120,
+        "endChar": 39
+      },
+      "revId": "14b0f62229b0ae50b693f4b1f7024cb939ecd0af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "850e906c_a6a901e6",
+        "filename": "tests/cts/hostside/src/com/android/cts/net/HostsideVpnTests.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-07-22T12:38:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7c23c17f_1b5bfde4",
       "range": {
         "startLine": 120,
         "startChar": 16,
