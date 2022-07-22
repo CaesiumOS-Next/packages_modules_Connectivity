@@ -64,6 +64,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e59d695_b2399c84",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 3340,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-07-22T09:44:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c3920fa0_51d32d69",
+      "range": {
+        "startLine": 3340,
+        "startChar": 16,
+        "endLine": 3340,
+        "endChar": 50
+      },
+      "revId": "ab21f69ac21f6d250e6b981b1d99a16de5904f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e40318b_1d56b545",
@@ -77,6 +101,30 @@
       "writtenOn": "2022-07-22T09:07:56Z",
       "side": 1,
       "message": "Nit: would have found this clearer as:\n\n    try {\n        mCm.setUidFirewallRule(chain, myUid, ruleToRemoveMatch);\n    } catch (...) { }\n\nUp to you.",
+      "range": {
+        "startLine": 3367,
+        "startChar": 0,
+        "endLine": 3371,
+        "endChar": 76
+      },
+      "revId": "ab21f69ac21f6d250e6b981b1d99a16de5904f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc17d39d_b01db3da",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 3371,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-07-22T09:44:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0e40318b_1d56b545",
       "range": {
         "startLine": 3367,
         "startChar": 0,
