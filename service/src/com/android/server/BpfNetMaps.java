@@ -34,6 +34,7 @@ import static android.system.OsConstants.EOPNOTSUPP;
 import android.net.INetd;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
+import android.provider.DeviceConfig;
 import android.system.ErrnoException;
 import android.system.Os;
 import android.util.Log;
@@ -42,6 +43,7 @@ import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BpfMap;
+import com.android.net.module.util.DeviceConfigUtils;
 import com.android.net.module.util.Struct.U32;
 
 import java.io.FileDescriptor;
@@ -65,6 +67,9 @@ public class BpfNetMaps {
     private final Dependencies mDeps;
     // Use legacy netd for releases before T.
     private static boolean sInitialized = false;
+
+    private static Boolean sUseJavaBpfMap = null;
+    private static final String BPF_NET_MAPS_USE_JAVA_BPF_MAP = "bpf_net_maps_use_java_bpf_map";
 
     // Lock for sConfigurationMap entry for UID_RULES_CONFIGURATION_KEY.
     // This entry is not accessed by others.
@@ -95,6 +100,14 @@ public class BpfNetMaps {
     @VisibleForTesting public static final long OEM_DENY_2_MATCH = (1 << 10);
     @VisibleForTesting public static final long OEM_DENY_3_MATCH = (1 << 11);
     // LINT.ThenChange(packages/modules/Connectivity/bpf_progs/bpf_shared.h)
+
+    /**
+     * Set sUseJavaBpfMap for test.
+     */
+    @VisibleForTesting
+    public static void setUseJavaBpfMapForTest(boolean useJavaBpfMap) {
+        sUseJavaBpfMap = useJavaBpfMap;
+    }
 
     /**
      * Set configurationMap for test.
@@ -145,6 +158,13 @@ public class BpfNetMaps {
      */
     private static synchronized void ensureInitialized() {
         if (sInitialized) return;
+        if (sUseJavaBpfMap == null) {
+            sUseJavaBpfMap = DeviceConfigUtils.getDeviceConfigPropertyBoolean(
+                    DeviceConfig.NAMESPACE_TETHERING, BPF_NET_MAPS_USE_JAVA_BPF_MAP,
+                    false /* defaultValue */);
+        }
+        Log.d(TAG, "BpfNetMaps is initialized with sUseJavaBpfMap=" + sUseJavaBpfMap);
+
         setBpfMaps();
         native_init();
         sInitialized = true;
