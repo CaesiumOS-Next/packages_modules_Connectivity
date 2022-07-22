@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "effe0e22_0de7a420",
+        "filename": "tests/common/java/android/net/LinkPropertiesTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1338,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-22T05:44:46Z",
+      "side": 1,
+      "message": "Nit: maybe not necessary ? This should work on R too right ? (Q won\u0027t be run because this is @ConnectivityModuleTest)",
+      "range": {
+        "startLine": 1338,
+        "startChar": 9,
+        "endLine": 1338,
+        "endChar": 44
+      },
+      "revId": "aa4db0da485c371b50e36e615d5580284f0fd092",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee67ab03_c43a5ddf",
+        "filename": "tests/common/java/android/net/LinkPropertiesTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1354,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-22T05:44:46Z",
+      "side": 1,
+      "message": "Do we actually have different behavior on S and Sv2 when they both have the module installed ? This test is only run for those as per IgnoreUpTo / IgnoreAfter",
+      "revId": "aa4db0da485c371b50e36e615d5580284f0fd092",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
