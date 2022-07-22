@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "97367a60_fcbffadd",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-07-22T03:42:48Z",
+      "side": 1,
+      "message": "Per Maze\u0027s comment, need to have a easy way to know what condition caused a skip.  \n\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2160996/3..4/Tethering/tests/integration/src/android/net/EthernetTetheringTest.java#b1217\n```\nplease add a test which is just\n\nassumeTrue(isUdpOffloadSupportedByKernel)\n\nand another which is just\n\nassumeTrue(isTetherConfigBpfOffloadEnabled)\n\nthere is no test body.\n\nI want an easy way on a pass/fail/skipped list to see which condition caused a skip\n```",
+      "parentUuid": "a90ce19e_624bb499",
+      "range": {
+        "startLine": 1133,
+        "startChar": 0,
+        "endLine": 1141,
+        "endChar": 5
+      },
+      "revId": "52ce13e47b7dcfa420d723f31345e9d8e443a315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "77e93144_926f3223",
         "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-21T08:46:54Z",
       "side": 1,
       "message": "To consistent with other tests, use @IgnoreUpTo(Build.VERSION_CODES.R) ?",
+      "range": {
+        "startLine": 1163,
+        "startChar": 8,
+        "endLine": 1163,
+        "endChar": 42
+      },
+      "revId": "52ce13e47b7dcfa420d723f31345e9d8e443a315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bb3022a_f2b868be",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1163,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-07-22T03:42:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77e93144_926f3223",
       "range": {
         "startLine": 1163,
         "startChar": 8,
