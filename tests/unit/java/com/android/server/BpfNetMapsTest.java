@@ -27,6 +27,9 @@ import static android.net.ConnectivityManager.FIREWALL_CHAIN_STANDBY;
 import static android.net.ConnectivityManager.FIREWALL_RULE_ALLOW;
 import static android.net.ConnectivityManager.FIREWALL_RULE_DENY;
 import static android.net.INetd.PERMISSION_INTERNET;
+import static android.system.OsConstants.ENOENT;
+import static android.system.OsConstants.EPERM;
+import static android.system.OsConstants.R_OK;
 
 import static com.android.server.BpfNetMaps.DOZABLE_MATCH;
 import static com.android.server.BpfNetMaps.HAPPY_BOX_MATCH;
@@ -44,11 +47,14 @@ import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeFalse;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 
 import android.net.INetd;
 import android.os.Build;
 import android.os.ServiceSpecificException;
+import android.system.ErrnoException;
+import android.util.IndentingPrintWriter;
 
 import androidx.test.filters.SmallTest;
 
@@ -68,6 +74,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.io.FileDescriptor;
+import java.io.StringWriter;
 import java.util.List;
 
 @RunWith(DevSdkIgnoreRunner.class)
@@ -78,6 +86,12 @@ public final class BpfNetMapsTest {
 
     @Rule
     public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
+
+    private static final String BPF_NETD_PATH = "/sys/fs/bpf/netd_shared/";
+    private static final String BPF_INGRESS_PROG_PATH =
+            BPF_NETD_PATH + "prog_netd_cgroupskb_ingress_stats";
+    private static final String BPF_EGRESS_PROG_PATH =
+            BPF_NETD_PATH + "prog_netd_cgroupskb_egress_stats";
 
     private static final int TEST_UID = 10086;
     private static final int[] TEST_UIDS = {10002, 10003};
@@ -648,5 +662,31 @@ public final class BpfNetMapsTest {
     public void testSetUidRuleBeforeT() {
         assertThrows(UnsupportedOperationException.class, () ->
                 mBpfNetMaps.setUidRule(FIREWALL_CHAIN_DOZABLE, TEST_UID, FIREWALL_RULE_ALLOW));
+    }
+
+    private void checkDumpContent(final String dumpOutput, final String expectedInfo) {
+        assertTrue(String.format("dump output(%s) does not contain '%s'", dumpOutput, expectedInfo),
+                dumpOutput.contains(expectedInfo));
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testDumpContainsProgramStatus() throws Exception {
+        doThrow(new ErrnoException("", ENOENT)).when(mDeps).osAccess(BPF_INGRESS_PROG_PATH, R_OK);
+        doThrow(new ErrnoException("", EPERM)).when(mDeps).osAccess(BPF_EGRESS_PROG_PATH, R_OK);
+
+        final StringWriter w = new StringWriter();
+        final IndentingPrintWriter pw = new IndentingPrintWriter(w);
+        mBpfNetMaps.dump(pw, new FileDescriptor(), false /* verbose */);
+        final String out = w.toString();
+
+        checkDumpContent(out,
+                "Cgroup ingress program status: program is missing at: " + BPF_INGRESS_PROG_PATH);
+        checkDumpContent(out, "Cgroup egress program status: check Program "
+                + BPF_EGRESS_PROG_PATH + " error: Operation not permitted");
+        checkDumpContent(out, "xt_bpf ingress program status: OK");
+        checkDumpContent(out, "xt_bpf egress program status: OK");
+        checkDumpContent(out, "xt_bpf bandwidth allowlist program status: OK");
+        checkDumpContent(out, "xt_bpf bandwidth denylist program status: OK2");
     }
 }
