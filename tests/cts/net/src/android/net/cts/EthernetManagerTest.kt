@@ -148,7 +148,9 @@ class EthernetManagerTest {
                 context.getSystemService(TestNetworkManager::class.java)
             }
             tapInterface = runAsShell(MANAGE_TEST_NETWORKS) {
-                tnm.createTapInterface(hasCarrier, false /* bringUp */)
+                // setting RS delay to 0 and disabling DAD speeds up tests.
+                tnm.createTapInterface(hasCarrier, false /* bringUp */,
+                        true /* disableIpv6ProvisioningDelay */)
             }
             val mtu = tapInterface.mtu
             packetReader = TapPacketReader(handler, tapInterface.fileDescriptor.fileDescriptor, mtu)
