@@ -90,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "049f9b1a_327d40fd",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-07-22T03:30:15Z",
+      "side": 1,
+      "message": "Yes these are still kept for testing adjustForTunAnd464Xlat.\nFor tests that are testing parsing e.g. testNetworkStatsXt, should we delete them?\nIt seems to me they are still useful given that they can ensure the correctness of javaReadNetworkStats?",
+      "parentUuid": "691d7803_27bc725c",
+      "range": {
+        "startLine": 115,
+        "startChar": 3,
+        "endLine": 142,
+        "endChar": 5
+      },
+      "revId": "1db1ea58dbbd35adf8f6fb348b17e6ae5641f331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "380c7afe_5e2060c3",
         "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
         "patchSetId": 12
@@ -101,6 +125,30 @@
       "writtenOn": "2022-07-21T19:55:23Z",
       "side": 1,
       "message": "nit: maybe rename to something like \"parseNetworkStatsFromGoldenSample()\"",
+      "range": {
+        "startLine": 487,
+        "startChar": 25,
+        "endLine": 487,
+        "endChar": 45
+      },
+      "revId": "1db1ea58dbbd35adf8f6fb348b17e6ae5641f331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbc69db1_f85d708d",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-07-22T03:30:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "380c7afe_5e2060c3",
       "range": {
         "startLine": 487,
         "startChar": 25,
@@ -124,6 +172,30 @@
       "writtenOn": "2022-07-21T19:55:23Z",
       "side": 1,
       "message": "How is this determined? May be worth leaving a comment above the function call.",
+      "range": {
+        "startLine": 553,
+        "startChar": 16,
+        "endLine": 553,
+        "endChar": 33
+      },
+      "revId": "1db1ea58dbbd35adf8f6fb348b17e6ae5641f331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb6212f3_b1994a63",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-07-22T03:30:15Z",
+      "side": 1,
+      "message": "Done. Tried guess the reason. See if it works for you.\nIt was there without any comment since 2011 when javaReadNetworkStats was written.",
+      "parentUuid": "5a1abb36_07acf2be",
       "range": {
         "startLine": 553,
         "startChar": 16,
