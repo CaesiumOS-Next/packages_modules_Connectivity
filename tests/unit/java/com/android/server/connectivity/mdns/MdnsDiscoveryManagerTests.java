@@ -124,6 +124,20 @@ public class MdnsDiscoveryManagerTests {
         verify(mockServiceTypeClientOne).processResponse(responseForSubtype);
     }
 
+    @Test
+    public void onFailedToParseMdnsResponse() {
+        discoveryManager.registerListener(
+                SERVICE_TYPE_1, mockListenerOne, MdnsSearchOptions.getDefaultOptions());
+        discoveryManager.registerListener(
+                SERVICE_TYPE_2, mockListenerTwo, MdnsSearchOptions.getDefaultOptions());
+
+        final int number = 123;
+        final int errorCode = MdnsResponseErrorCode.ERROR_NOT_RESPONSE_MESSAGE;
+        discoveryManager.onFailedToParseMdnsResponse(number, errorCode);
+        verify(mockServiceTypeClientOne).onFailedToParseMdnsResponse(number, errorCode);
+        verify(mockServiceTypeClientTwo).onFailedToParseMdnsResponse(number, errorCode);
+    }
+
     private MdnsResponse createMockResponse(String serviceType) {
         MdnsPointerRecord mockPointerRecord = mock(MdnsPointerRecord.class);
         MdnsResponse mockResponse = mock(MdnsResponse.class);
