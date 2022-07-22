@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e0a8500_2bf917af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-07-22T08:27:54Z",
+      "side": 1,
+      "message": "Please add,\nBug: 209360825\nTest: FrameworksNetTests:NetworkStatsServiceTest",
+      "revId": "4d807ccd86f0d2c6594eab62460c32c2cd30f880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97d2159d_9fd63681",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-07-22T08:27:54Z",
+      "side": 1,
+      "message": "-1 because this patch will break build.\n\nIIUC, if the root cause is that there are two BPF maps. I\u0027m thinking that if mPersistSnapshot in NetworkStatsFactory can persist both stats in mStatsMapA and mStatsMapB before calling performPoll and moving the uid stats to UID_REMOVED bucket.\nNot sure if this is better because it\u0027s more complex.\n\n+junyulai to input.",
+      "revId": "4d807ccd86f0d2c6594eab62460c32c2cd30f880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8da5703f_e4e69df3",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsRecorder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-07-22T08:27:54Z",
+      "side": 1,
+      "message": "IIUC the constructor at l.125 should clear too.",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 29
+      },
+      "revId": "4d807ccd86f0d2c6594eab62460c32c2cd30f880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16f0548f_32983520",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsRecorder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-07-22T08:27:54Z",
+      "side": 1,
+      "message": "Missing }?",
+      "revId": "4d807ccd86f0d2c6594eab62460c32c2cd30f880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28315fd6_7de249d2",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsRecorder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-07-22T08:27:54Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 272,
+        "startChar": 57,
+        "endLine": 272,
+        "endChar": 59
+      },
+      "revId": "4d807ccd86f0d2c6594eab62460c32c2cd30f880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93ecd283_51b89669",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsRecorder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-07-22T08:27:54Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 273,
+        "startChar": 59,
+        "endLine": 273,
+        "endChar": 71
+      },
+      "revId": "4d807ccd86f0d2c6594eab62460c32c2cd30f880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d75fcc20_9690e96f",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1954,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-07-22T08:27:54Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 1954,
+        "startChar": 58,
+        "endLine": 1954,
+        "endChar": 78
+      },
+      "revId": "4d807ccd86f0d2c6594eab62460c32c2cd30f880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa0943a9_7faa3b29",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-07-22T08:27:54Z",
+      "side": 1,
+      "message": "Please fix this. Lines should not longer than 100 characters.",
+      "range": {
+        "startLine": 824,
+        "startChar": 8,
+        "endLine": 824,
+        "endChar": 109
+      },
+      "revId": "4d807ccd86f0d2c6594eab62460c32c2cd30f880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
