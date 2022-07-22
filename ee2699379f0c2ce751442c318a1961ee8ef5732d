@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8ca17c15_8678d51b",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-22T09:41:18Z",
+      "side": 1,
+      "message": "Verify the callback inside runAsShell is needed otherwise the test would flaky. startTethering is oneway call. If drop shell identity immediately after calling startTethering, it is likely TetheringService not checking the caller permission yet.\n\nIf the suggestion only put the minimal code inside runAsShell, the code can be changed as:\n\n    final TetheringInterface iface \u003d runasShell(TETHER_PRIVILEGED, () -\u003e {\n        mTm.startTethering(request, c -\u003e c.run() /* executor */,\n                startTetheringCallback);\n        startTetheringCallback.verifyTetheringStarted();\n    });\n    final TetheringInterface iface \u003d\n                    callback.expectTetheredInterfacesChanged(wifiRegexs, TETHERING_WIFI);\n    ...\n    ...\n    return iface;\n\nI can have follow up change for this.",
+      "parentUuid": "ae029161_f0988479",
+      "range": {
+        "startLine": 484,
+        "startChar": 0,
+        "endLine": 489,
+        "endChar": 52
+      },
+      "revId": "ee2699379f0c2ce751442c318a1961ee8ef5732d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c0bb728_d69cd95b",
         "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
         "patchSetId": 2
@@ -54,6 +78,30 @@
       "writtenOn": "2022-07-22T05:43:44Z",
       "side": 1,
       "message": "Do these need permissions? If not, take them out of the runAsShell block:\n\n    runAsShell(TETHER_PRIVILEGED, () -\u003e mTm.stopTethering(TETHERING_WIFI));\n    callback.expectNoTetheringActive();\n    ...\n    ...\n    expectSoftApDisabled();",
+      "range": {
+        "startLine": 532,
+        "startChar": 0,
+        "endLine": 533,
+        "endChar": 86
+      },
+      "revId": "ee2699379f0c2ce751442c318a1961ee8ef5732d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c422f1d6_e0ff9a8c",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-22T09:41:18Z",
+      "side": 1,
+      "message": "Same reason as previous comment, this is needed.",
+      "parentUuid": "1c0bb728_d69cd95b",
       "range": {
         "startLine": 532,
         "startChar": 0,
@@ -77,6 +125,30 @@
       "writtenOn": "2022-07-22T05:43:44Z",
       "side": 1,
       "message": "Ditto, can this be outside the runAsShell block?",
+      "range": {
+        "startLine": 543,
+        "startChar": 16,
+        "endLine": 543,
+        "endChar": 51
+      },
+      "revId": "ee2699379f0c2ce751442c318a1961ee8ef5732d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0dc70bf5_375562bf",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-22T09:41:18Z",
+      "side": 1,
+      "message": "Same reason as previous comment, this is needed.",
+      "parentUuid": "3a81e5fb_2115887f",
       "range": {
         "startLine": 543,
         "startChar": 16,
