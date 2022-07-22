@@ -110,6 +110,7 @@ public final class BpfNetMapsTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         doReturn(TEST_IF_INDEX).when(mDeps).getIfIndex(TEST_IF_NAME);
+        BpfNetMaps.setUseJavaBpfMapForTest(true /* useJavaBpfMap */);
         BpfNetMaps.setConfigurationMapForTest(mConfigurationMap);
         BpfNetMaps.setUidOwnerMapForTest(mUidOwnerMap);
         mBpfNetMaps = new BpfNetMaps(mNetd, mDeps);
