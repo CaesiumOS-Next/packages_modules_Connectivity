@@ -95,12 +95,11 @@ import kotlin.test.assertTrue
 import kotlin.test.fail
 
 private const val TAG = "EthernetManagerTest"
-// TODO: try to lower this timeout in the future. Currently, ethernet tests are still flaky because
-// the interface is not ready fast enough (mostly due to the up / up / down / up issue).
-private const val TIMEOUT_MS = 2000L
+private const val TIMEOUT_MS = 1000L
 // Timeout used to confirm no callbacks matching given criteria are received. Must be long enough to
 // process all callbacks including ip provisioning when using the updateConfiguration API.
-private const val NO_CALLBACK_TIMEOUT_MS = 500L
+// Note that increasing this timeout increases the test duration.
+private const val NO_CALLBACK_TIMEOUT_MS = 200L
 
 private val DEFAULT_IP_CONFIGURATION = IpConfiguration(IpConfiguration.IpAssignment.DHCP,
         IpConfiguration.ProxySettings.NONE, null, null)
@@ -151,7 +150,9 @@ class EthernetManagerTest {
                 context.getSystemService(TestNetworkManager::class.java)
             }
             tapInterface = runAsShell(MANAGE_TEST_NETWORKS) {
-                tnm.createTapInterface(hasCarrier, false /* bringUp */)
+                // setting RS delay to 0 and disabling DAD speeds up tests.
+                tnm.createTapInterface(hasCarrier, false /* bringUp */,
+                        true /* disableIpv6ProvisioningDelay */)
             }
             val mtu = tapInterface.mtu
             packetReader = TapPacketReader(handler, tapInterface.fileDescriptor.fileDescriptor, mtu)
