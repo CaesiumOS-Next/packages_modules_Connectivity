@@ -100,8 +100,8 @@ android_test {
     defaults: [
         "CtsNetTestCasesDefaults",
         "CtsNetTestCasesApiStableDefaults",
+        "ConnectivityTestsStableTargetSdkDefaults",
     ],
-    target_sdk_version: "33",
     test_suites: [
         "general-tests",
         "mts-dnsresolver",
