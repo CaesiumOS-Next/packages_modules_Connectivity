@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48dcae2a_0c9d23f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-23T00:37:19Z",
+      "side": 1,
+      "message": "program in in dscpPolicy.c bpf for raw should also be removed",
+      "revId": "4e8588814baa1994815976b0c91468ba115539ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
