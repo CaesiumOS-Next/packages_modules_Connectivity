@@ -29,9 +29,9 @@ import android.net.LinkProperties
 import android.net.NattKeepalivePacketData
 import android.net.Network
 import android.net.NetworkAgent
-import android.net.NetworkAgentConfig
 import android.net.NetworkAgent.INVALID_NETWORK
 import android.net.NetworkAgent.VALID_NETWORK
+import android.net.NetworkAgentConfig
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
 import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_CONGESTED
@@ -46,21 +46,23 @@ import android.net.NetworkCapabilities.NET_CAPABILITY_TRUSTED
 import android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED
 import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
 import android.net.NetworkCapabilities.TRANSPORT_TEST
-import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkCapabilities.TRANSPORT_VPN
+import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkInfo
 import android.net.NetworkProvider
 import android.net.NetworkReleasedException
 import android.net.NetworkRequest
 import android.net.NetworkScore
-import android.net.RouteInfo
 import android.net.QosCallback
-import android.net.QosCallbackException
 import android.net.QosCallback.QosCallbackRegistrationException
+import android.net.QosCallbackException
 import android.net.QosSession
 import android.net.QosSessionAttributes
 import android.net.QosSocketInfo
+import android.net.RouteInfo
 import android.net.SocketKeepalive
+import android.net.TestNetworkInterface
+import android.net.TestNetworkManager
 import android.net.Uri
 import android.net.VpnManager
 import android.net.VpnTransportInfo
@@ -71,6 +73,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.Message
+import android.os.Process
 import android.os.SystemClock
 import android.platform.test.annotations.AppModeFull
 import android.system.OsConstants.IPPROTO_TCP
@@ -89,6 +92,7 @@ import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.RecorderCallback.CallbackEntry.Available
 import com.android.testutils.RecorderCallback.CallbackEntry.BlockedStatus
+import com.android.testutils.RecorderCallback.CallbackEntry.CapabilitiesChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.Losing
 import com.android.testutils.RecorderCallback.CallbackEntry.Lost
@@ -178,6 +182,7 @@ class NetworkAgentTest {
     private val agentsToCleanUp = mutableListOf<NetworkAgent>()
     private val callbacksToCleanUp = mutableListOf<TestableNetworkCallback>()
     private var qosTestSocket: Closeable? = null // either Socket or DatagramSocket
+    private val ifacesToCleanUp = mutableListOf<TestNetworkInterface>()
 
     @Before
     fun setUp() {
@@ -189,6 +194,7 @@ class NetworkAgentTest {
     fun tearDown() {
         agentsToCleanUp.forEach { it.unregister() }
         callbacksToCleanUp.forEach { mCM.unregisterNetworkCallback(it) }
+        ifacesToCleanUp.forEach { it.fileDescriptor.close() }
         qosTestSocket?.close()
         mHandlerThread.quitSafely()
         mHandlerThread.join()
@@ -269,7 +275,7 @@ class NetworkAgentTest {
         removeCapability(NET_CAPABILITY_INTERNET)
         addCapability(NET_CAPABILITY_NOT_SUSPENDED)
         addCapability(NET_CAPABILITY_NOT_ROAMING)
-        addCapability(NET_CAPABILITY_NOT_VPN)
+        if (!transports.contains(TRANSPORT_VPN)) addCapability(NET_CAPABILITY_NOT_VPN)
         if (SdkLevel.isAtLeastS()) {
             addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
         }
@@ -304,7 +310,7 @@ class NetworkAgentTest {
         context: Context = realContext,
         specifier: String? = UUID.randomUUID().toString(),
         initialConfig: NetworkAgentConfig? = null,
-        expectedInitSignalStrengthThresholds: IntArray? = intArrayOf(),
+        expectedInitSignalStrengthThresholds: IntArray = intArrayOf(),
         transports: IntArray = intArrayOf()
     ): Pair<TestableNetworkAgent, TestableNetworkCallback> {
         val callback = TestableNetworkCallback()
@@ -317,8 +323,7 @@ class NetworkAgentTest {
         agent.register()
         agent.markConnected()
         agent.expectCallback<OnNetworkCreated>()
-        agent.expectSignalStrengths(expectedInitSignalStrengthThresholds)
-        agent.expectValidationBypassedStatus()
+        agent.expectPostConnectionCallbacks(expectedInitSignalStrengthThresholds)
         callback.expectAvailableThenValidatedCallbacks(agent.network!!)
         return agent to callback
     }
@@ -334,6 +339,19 @@ class NetworkAgentTest {
 
     private fun createNetworkAgentWithFakeCS() = createNetworkAgent().also {
         mFakeConnectivityService.connect(it.registerForTest(Network(FAKE_NET_ID)))
+    }
+
+    private fun TestableNetworkAgent.expectPostConnectionCallbacks(
+        thresholds: IntArray = intArrayOf()
+    ) {
+        expectSignalStrengths(thresholds)
+        expectValidationBypassedStatus()
+        assertNoCallback()
+    }
+
+    private fun createTunInterface(): TestNetworkInterface = realContext.getSystemService(
+                TestNetworkManager::class.java)!!.createTunInterface(emptyList()).also {
+            ifacesToCleanUp.add(it)
     }
 
     fun assertLinkPropertiesEventually(
@@ -1374,5 +1392,103 @@ class NetworkAgentTest {
         agent.unregister()
         callback.expect<Available>(agent.network!!)
         callback.eventuallyExpect<Lost> { it.network == agent.network }
+    }
+
+    fun doTestNativeNetworkCreation(expectCreatedImmediately: Boolean, transports: IntArray) {
+        val iface = createTunInterface()
+        val ifName = iface.interfaceName
+        val nc = makeTestNetworkCapabilities(ifName, transports).also {
+            if (transports.contains(TRANSPORT_VPN)) {
+                val sessionId = "NetworkAgentTest-${Process.myPid()}"
+                it.transportInfo = VpnTransportInfo(VpnManager.TYPE_VPN_PLATFORM, sessionId)
+                it.underlyingNetworks = listOf()
+            }
+        }
+        val lp = LinkProperties().apply {
+            interfaceName = ifName
+            addLinkAddress(LinkAddress("2001:db8::1/64"))
+            addRoute(RouteInfo(IpPrefix("2001:db8::/64"), null /* nextHop */, ifName))
+            addRoute(RouteInfo(IpPrefix("::/0"),
+                    InetAddresses.parseNumericAddress("fe80::abcd"),
+                    ifName))
+        }
+
+        // File a request containing the agent's specifier to receive callbacks and to ensure that
+        // the agent is not torn down due to being unneeded.
+        val request = makeTestNetworkRequest(specifier = ifName)
+        val requestCallback = TestableNetworkCallback()
+        requestNetwork(request, requestCallback)
+
+        val listenCallback = TestableNetworkCallback()
+        registerNetworkCallback(request, listenCallback)
+
+        // Register the NetworkAgent...
+        val agent = createNetworkAgent(realContext, initialNc = nc, initialLp = lp)
+        val network = agent.register()
+
+        // ... and then change the NetworkCapabilities and LinkProperties.
+        nc.addCapability(NET_CAPABILITY_TEMPORARILY_NOT_METERED)
+        agent.sendNetworkCapabilities(nc)
+        lp.addLinkAddress(LinkAddress("192.0.2.2/25"))
+        lp.addRoute(RouteInfo(IpPrefix("192.0.2.0/25"), null /* nextHop */, ifName))
+        agent.sendLinkProperties(lp)
+
+        requestCallback.assertNoCallback()
+        listenCallback.assertNoCallback()
+        if (!expectCreatedImmediately) {
+            agent.assertNoCallback()
+            agent.markConnected()
+            agent.expectCallback<OnNetworkCreated>()
+        } else {
+            agent.expectCallback<OnNetworkCreated>()
+            agent.markConnected()
+        }
+        agent.expectPostConnectionCallbacks()
+
+        // onAvailable must be called only when the network connects, and no other callbacks may be
+        // called before that happens. The callbacks report the state of the network as it was when
+        // it connected, so they reflect the NC and LP changes made after registration.
+        requestCallback.expectCallback<Available>(network)
+        listenCallback.expectCallback<Available>(network)
+
+        var callbackNc = requestCallback.expectCallback<CapabilitiesChanged>(network).caps
+        assertTrue(callbackNc.hasCapability(NET_CAPABILITY_TEMPORARILY_NOT_METERED))
+        callbackNc = listenCallback.expectCallback<CapabilitiesChanged>(network).caps
+        assertTrue(callbackNc.hasCapability(NET_CAPABILITY_TEMPORARILY_NOT_METERED))
+
+        var callbackLp = requestCallback.expectCallback<LinkPropertiesChanged>(network).lp
+        assertEquals(lp, callbackLp)
+        callbackLp = listenCallback.expectCallback<LinkPropertiesChanged>(network).lp
+        assertEquals(lp, callbackLp)
+
+        requestCallback.expectCallback<BlockedStatus>()
+        listenCallback.expectCallback<BlockedStatus>()
+
+        // Except for network validation, ensure no more callbacks are sent.
+        requestCallback.expectCapabilitiesThat(network) {
+            it.hasCapability(NET_CAPABILITY_VALIDATED)
+        }
+        listenCallback.expectCapabilitiesThat(network) {
+            it.hasCapability(NET_CAPABILITY_VALIDATED)
+        }
+        unregister(agent)
+        // Lost implicitly checks that no further callbacks happened after connect.
+        requestCallback.expectCallback<Lost>(network)
+        listenCallback.expectCallback<Lost>(network)
+        assertNull(mCM.getLinkProperties(network))
+    }
+
+    @Test
+    fun testNativeNetworkCreation_PhysicalNetwork() {
+        // On T and below, the native network is only created when the agent connects.
+        // Starting in U, the native network is created as soon as the agent is registered.
+        doTestNativeNetworkCreation(expectCreatedImmediately = SdkLevel.isAtLeastU(),
+            intArrayOf(TRANSPORT_CELLULAR))
+    }
+
+    @Test
+    fun testNativeNetworkCreation_Vpn() {
+        // VPN networks are always created as soon as the agent is registered.
+        doTestNativeNetworkCreation(expectCreatedImmediately = true, intArrayOf(TRANSPORT_VPN))
     }
 }
