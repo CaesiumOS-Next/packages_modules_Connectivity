@@ -47,7 +47,6 @@ import android.net.wifi.WifiInfo;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.text.TextUtils;
 import android.util.ArraySet;
 
 import com.android.net.module.util.CollectionUtils;
@@ -187,149 +186,55 @@ public final class NetworkTemplate implements Parcelable {
      * Template to match {@link ConnectivityManager#TYPE_MOBILE} networks with
      * the given IMSI.
      *
+     * @deprecated Use {@link #Builder} instead.
      * @hide
      */
-    @UnsupportedAppUsage
+    @Deprecated
+    @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.UPSIDE_DOWN_CAKE,
+            trackingBug = 170729553, publicAlternatives = "Use {@link #Builder} instead.")
     public static NetworkTemplate buildTemplateMobileAll(String subscriberId) {
         return new NetworkTemplate(MATCH_MOBILE, subscriberId, null);
-    }
-
-    /**
-     * Template to match cellular networks with the given IMSI, {@code ratType} and
-     * {@code metered}. Use {@link #NETWORK_TYPE_ALL} to include all network types when
-     * filtering. See {@code TelephonyManager.NETWORK_TYPE_*}.
-     *
-     * @hide
-     */
-    public static NetworkTemplate buildTemplateMobileWithRatType(@Nullable String subscriberId,
-            int ratType, int metered) {
-        if (TextUtils.isEmpty(subscriberId)) {
-            return new NetworkTemplate(MATCH_MOBILE_WILDCARD, null /* subscriberId */,
-                    null /* matchSubscriberIds */,
-                    new String[0] /* matchWifiNetworkKeys */, metered, ROAMING_ALL,
-                    DEFAULT_NETWORK_ALL, ratType, OEM_MANAGED_ALL,
-                    NetworkStatsUtils.SUBSCRIBER_ID_MATCH_RULE_EXACT);
-        }
-        return new NetworkTemplate(MATCH_MOBILE, subscriberId, new String[] { subscriberId },
-                new String[0] /* matchWifiNetworkKeys */,
-                metered, ROAMING_ALL, DEFAULT_NETWORK_ALL, ratType, OEM_MANAGED_ALL,
-                NetworkStatsUtils.SUBSCRIBER_ID_MATCH_RULE_EXACT);
-    }
-
-    /**
-     * Template to match metered {@link ConnectivityManager#TYPE_MOBILE} networks,
-     * regardless of IMSI.
-     *
-     * @hide
-     */
-    @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.R, trackingBug = 170729553)
-    public static NetworkTemplate buildTemplateMobileWildcard() {
-        return new NetworkTemplate(MATCH_MOBILE_WILDCARD, null, null);
     }
 
     /**
      * Template to match all metered {@link ConnectivityManager#TYPE_WIFI} networks,
      * regardless of key of the wifi network.
      *
+     * @deprecated Use {@link #Builder} instead.
      * @hide
      */
-    @UnsupportedAppUsage
+    @Deprecated
+    @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.UPSIDE_DOWN_CAKE,
+            trackingBug = 170729553, publicAlternatives = "Use {@link #Builder} instead.")
     public static NetworkTemplate buildTemplateWifiWildcard() {
         // TODO: Consider replace this with MATCH_WIFI with NETWORK_ID_ALL
         // and SUBSCRIBER_ID_MATCH_RULE_ALL.
         return new NetworkTemplate(MATCH_WIFI_WILDCARD, null, null);
     }
 
-    /** @hide */
+    /**
+     * @deprecated Use {@link #Builder} instead.
+     * @hide
+     */
     @Deprecated
-    @UnsupportedAppUsage
+    @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.UPSIDE_DOWN_CAKE,
+            trackingBug = 170729553, publicAlternatives = "Use {@link #Builder} instead.")
     public static NetworkTemplate buildTemplateWifi() {
         return buildTemplateWifiWildcard();
-    }
-
-    /**
-     * Template to match {@link ConnectivityManager#TYPE_WIFI} networks with the
-     * given key of the wifi network.
-     *
-     * @param wifiNetworkKey key of the wifi network. see {@link WifiInfo#getNetworkKey()}
-     *                  to know details about the key.
-     * @hide
-     */
-    public static NetworkTemplate buildTemplateWifi(@NonNull String wifiNetworkKey) {
-        Objects.requireNonNull(wifiNetworkKey);
-        return new NetworkTemplate(MATCH_WIFI, null /* subscriberId */,
-                new String[] { null } /* matchSubscriberIds */,
-                new String[] { wifiNetworkKey }, METERED_ALL, ROAMING_ALL,
-                DEFAULT_NETWORK_ALL, NETWORK_TYPE_ALL, OEM_MANAGED_ALL,
-                NetworkStatsUtils.SUBSCRIBER_ID_MATCH_RULE_ALL);
-    }
-
-    /**
-     * Template to match all {@link ConnectivityManager#TYPE_WIFI} networks with the given
-     * key of the wifi network and IMSI.
-     *
-     * Call with {@link #WIFI_NETWORK_KEY_ALL} for {@code wifiNetworkKey} to get result regardless
-     * of key of the wifi network.
-     *
-     * @param wifiNetworkKey key of the wifi network. see {@link WifiInfo#getNetworkKey()}
-     *                  to know details about the key.
-     * @param subscriberId the IMSI associated to this wifi network.
-     *
-     * @hide
-     */
-    public static NetworkTemplate buildTemplateWifi(@Nullable String wifiNetworkKey,
-            @Nullable String subscriberId) {
-        return new NetworkTemplate(MATCH_WIFI, subscriberId, new String[] { subscriberId },
-                wifiNetworkKey != null
-                        ? new String[] { wifiNetworkKey } : new String[0],
-                METERED_ALL, ROAMING_ALL, DEFAULT_NETWORK_ALL, NETWORK_TYPE_ALL, OEM_MANAGED_ALL,
-                NetworkStatsUtils.SUBSCRIBER_ID_MATCH_RULE_EXACT);
     }
 
     /**
      * Template to combine all {@link ConnectivityManager#TYPE_ETHERNET} style
      * networks together.
      *
+     * @deprecated Use {@link #Builder} instead.
      * @hide
      */
-    @UnsupportedAppUsage
+    @Deprecated
+    @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.UPSIDE_DOWN_CAKE,
+            trackingBug = 170729553, publicAlternatives = "Use {@link #Builder} instead.")
     public static NetworkTemplate buildTemplateEthernet() {
         return new NetworkTemplate(MATCH_ETHERNET, null, null);
-    }
-
-    /**
-     * Template to combine all {@link ConnectivityManager#TYPE_BLUETOOTH} style
-     * networks together.
-     *
-     * @hide
-     */
-    public static NetworkTemplate buildTemplateBluetooth() {
-        return new NetworkTemplate(MATCH_BLUETOOTH, null, null);
-    }
-
-    /**
-     * Template to combine all {@link ConnectivityManager#TYPE_PROXY} style
-     * networks together.
-     *
-     * @hide
-     */
-    public static NetworkTemplate buildTemplateProxy() {
-        return new NetworkTemplate(MATCH_PROXY, null, null);
-    }
-
-    /**
-     * Template to match all metered carrier networks with the given IMSI.
-     *
-     * @hide
-     */
-    public static NetworkTemplate buildTemplateCarrierMetered(@NonNull String subscriberId) {
-        Objects.requireNonNull(subscriberId);
-        return new NetworkTemplate(MATCH_CARRIER, subscriberId,
-                new String[] { subscriberId },
-                new String[0] /* matchWifiNetworkKeys */,
-                METERED_YES, ROAMING_ALL,
-                DEFAULT_NETWORK_ALL, NETWORK_TYPE_ALL, OEM_MANAGED_ALL,
-                NetworkStatsUtils.SUBSCRIBER_ID_MATCH_RULE_EXACT);
     }
 
     private final int mMatchRule;
@@ -377,37 +282,24 @@ public final class NetworkTemplate implements Parcelable {
         }
     }
 
-    /** @hide */
-    // TODO: Deprecate this constructor, mark it @UnsupportedAppUsage(maxTargetSdk = S)
-    @UnsupportedAppUsage
+    /**
+     * @deprecated Caller should use {@link #Builder} instead.
+     * @hide
+     */
+    @Deprecated
+    @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.UPSIDE_DOWN_CAKE,
+            trackingBug = 170729553, publicAlternatives = "Use {@link #Builder} instead.")
     public NetworkTemplate(int matchRule, String subscriberId, String wifiNetworkKey) {
-        this(matchRule, subscriberId, new String[] { subscriberId }, wifiNetworkKey);
-    }
-
-    /** @hide */
-    public NetworkTemplate(int matchRule, String subscriberId, String[] matchSubscriberIds,
-            String wifiNetworkKey) {
         // Older versions used to only match MATCH_MOBILE and MATCH_MOBILE_WILDCARD templates
         // to metered networks. It is now possible to match mobile with any meteredness, but
         // in order to preserve backward compatibility of @UnsupportedAppUsage methods, this
         //constructor passes METERED_YES for these types.
-        this(matchRule, subscriberId, matchSubscriberIds,
+        this(matchRule, subscriberId, new String[] { subscriberId },
                 wifiNetworkKey != null ? new String[] { wifiNetworkKey } : new String[0],
                 (matchRule == MATCH_MOBILE || matchRule == MATCH_MOBILE_WILDCARD
                         || matchRule == MATCH_CARRIER) ? METERED_YES : METERED_ALL,
                 ROAMING_ALL, DEFAULT_NETWORK_ALL, NETWORK_TYPE_ALL,
                 OEM_MANAGED_ALL, NetworkStatsUtils.SUBSCRIBER_ID_MATCH_RULE_EXACT);
-    }
-
-    /** @hide */
-    // TODO: Remove it after updating all of the caller.
-    public NetworkTemplate(int matchRule, String subscriberId, String[] matchSubscriberIds,
-            String wifiNetworkKey, int metered, int roaming, int defaultNetwork, int ratType,
-            int oemManaged) {
-        this(matchRule, subscriberId, matchSubscriberIds,
-                wifiNetworkKey != null ? new String[] { wifiNetworkKey } : new String[0],
-                metered, roaming, defaultNetwork, ratType, oemManaged,
-                NetworkStatsUtils.SUBSCRIBER_ID_MATCH_RULE_EXACT);
     }
 
     /** @hide */
@@ -893,10 +785,15 @@ public final class NetworkTemplate implements Parcelable {
             if (CollectionUtils.contains(merged, template.mSubscriberId)) {
                 // Requested template subscriber is part of the merge group; return
                 // a template that matches all merged subscribers.
-                final String[] matchWifiNetworkKeys = template.mMatchWifiNetworkKeys;
-                return new NetworkTemplate(template.mMatchRule, merged[0], merged,
-                        CollectionUtils.isEmpty(matchWifiNetworkKeys)
-                                ? null : matchWifiNetworkKeys[0]);
+                final Builder builder = new Builder(template.mMatchRule);
+                builder.setSubscriberIds(Set.of(merged))
+                        .setWifiNetworkKeys(Set.of(template.mMatchWifiNetworkKeys));
+                if (template.mMatchRule == MATCH_MOBILE
+                        || template.mMatchRule == MATCH_MOBILE_WILDCARD
+                        || template.mMatchRule == MATCH_CARRIER) {
+                    builder.setMeteredness(METERED_YES);
+                }
+                return builder.build();
             }
         }
 
