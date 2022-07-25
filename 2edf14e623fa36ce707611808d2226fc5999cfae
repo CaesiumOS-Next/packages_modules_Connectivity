@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a0408e5_e99821fb",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-25T22:34:06Z",
+      "side": 1,
+      "message": "Should uid be changed to long everywhere?",
+      "range": {
+        "startLine": 254,
+        "startChar": 28,
+        "endLine": 254,
+        "endChar": 42
+      },
+      "revId": "2edf14e623fa36ce707611808d2226fc5999cfae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fbab9b1_47c4d51b",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-25T22:34:06Z",
+      "side": 1,
+      "message": "should this be long[]?",
+      "range": {
+        "startLine": 419,
+        "startChar": 55,
+        "endLine": 419,
+        "endChar": 58
+      },
+      "revId": "2edf14e623fa36ce707611808d2226fc5999cfae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32c75519_5ee90ef6",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-25T22:34:06Z",
+      "side": 1,
+      "message": "One thing to be aware of with BpfMap#forEach: the returned value can be null in which case iteration will start again from the beginning (so the same uid-\u003econfig pairing might be returned multiple times). sUidOwnerMap does not seem to be modified from a different process (netd.c only calls *_lookup_elem()), but I think it still would not be a bad idea to protect us from ever running into this situation.",
+      "range": {
+        "startLine": 434,
+        "startChar": 0,
+        "endLine": 438,
+        "endChar": 19
+      },
+      "revId": "2edf14e623fa36ce707611808d2226fc5999cfae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

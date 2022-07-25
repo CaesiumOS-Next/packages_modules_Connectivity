@@ -16,6 +16,24 @@
       "message": "catch and throws as IllegalArgumentException to keep the current behavior of ConnectivityManager#replaceFirewallChain API\nhttp://cs/aosp-master/packages/modules/Connectivity/framework/src/android/net/ConnectivityManager.java;l\u003d5962;rcl\u003dba5e501b0952f43aa2af144c81de0852b309a881\n\nCurrently, ConnectivityService throws IllegalArgumentException\nhttp://cs/aosp-master/packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java;l\u003d11436;rcl\u003dba5e501b0952f43aa2af144c81de0852b309a881\nBut I removed this unnecessary conversion from int firewall chain type to string firewall chain type in ConnectivityService.\nSo, I made replaceUidChain to throw IllegalArgumentException if chain is not a valid chain.\n\nI\u0027m not sure catch and throw is a good.\nUpdating getMatchByFirewallException to throw IAE or SSE, like below, might be better?\n```\n    public long getMatchByFirewallChain(final int chain, final boolean throwIaeAsSse) {\n        switch (chain) {\n            case FIREWALL_CHAIN_DOZABLE:\n                return DOZABLE_MATCH;\n....\n            default:\n                if (throwIaeAsSse) {\n                    throw new ServiceSpecificException();\n                } else {\n                    throw new IllegalArgumentException();\n                }\n        }\n    }\n```",
       "revId": "7fd6df0d36b31cc5bf22727fd744e141e8fc6056",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fb524d9_5a34c9e6",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-25T22:34:06Z",
+      "side": 1,
+      "message": "Hm, ConnectivityService#replaceFirewallChain() already validates the chain parameter, so this should never actually happen (unless we break the code of course). But maybe it\u0027s okay just to document that this is the case and to get rid of the try catch altogether.",
+      "parentUuid": "3d0d3965_49ac1007",
+      "revId": "7fd6df0d36b31cc5bf22727fd744e141e8fc6056",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
