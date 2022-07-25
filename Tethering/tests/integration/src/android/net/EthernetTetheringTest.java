@@ -27,9 +27,11 @@ import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
 import static android.net.TetheringManager.TETHERING_ETHERNET;
 import static android.net.TetheringTester.TestDnsPacket;
-import static android.net.TetheringTester.isExpectedIcmpv6Packet;
+import static android.net.TetheringTester.isExpectedIcmpPacket;
 import static android.net.TetheringTester.isExpectedUdpDnsPacket;
 import static android.net.TetheringTester.isExpectedUdpPacket;
+import static android.system.OsConstants.ICMP_ECHOREPLY;
+import static android.system.OsConstants.IPPROTO_ICMP;
 import static android.system.OsConstants.IPPROTO_IP;
 import static android.system.OsConstants.IPPROTO_IPV6;
 import static android.system.OsConstants.IPPROTO_UDP;
@@ -37,11 +39,14 @@ import static android.system.OsConstants.IPPROTO_UDP;
 import static com.android.net.module.util.BpfDump.BASE64_DELIMITER;
 import static com.android.net.module.util.ConnectivityUtils.isIPv6ULA;
 import static com.android.net.module.util.HexDump.dumpHexString;
+import static com.android.net.module.util.IpUtils.ipChecksum;
 import static com.android.net.module.util.NetworkStackConstants.ETHER_TYPE_IPV4;
 import static com.android.net.module.util.NetworkStackConstants.ETHER_TYPE_IPV6;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ECHO_REPLY_TYPE;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ECHO_REQUEST_TYPE;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ROUTER_ADVERTISEMENT;
+import static com.android.net.module.util.NetworkStackConstants.IPV4_CHECKSUM_OFFSET;
+import static com.android.net.module.util.NetworkStackConstants.IPV4_LENGTH_OFFSET;
 import static com.android.testutils.DeviceInfoUtils.KVersion;
 import static com.android.testutils.TestNetworkTrackerKt.initTestNetwork;
 
@@ -86,6 +91,7 @@ import com.android.net.module.util.bpf.Tether4Key;
 import com.android.net.module.util.bpf.Tether4Value;
 import com.android.net.module.util.bpf.TetherStatsKey;
 import com.android.net.module.util.bpf.TetherStatsValue;
+import com.android.net.module.util.structs.EthernetHeader;
 import com.android.net.module.util.structs.Ipv4Header;
 import com.android.net.module.util.structs.Ipv6Header;
 import com.android.net.module.util.structs.UdpHeader;
@@ -230,6 +236,16 @@ public class EthernetTetheringTest {
             (byte) 0x00, (byte) 0x04,                           /* Data length: 4 */
             (byte) 0x01, (byte) 0x02, (byte) 0x03, (byte) 0x04  /* Address: 1.2.3.4 */
     };
+
+    private static final ByteBuffer ICMPMSG_ECHOREQUEST = ByteBuffer.wrap(new byte[] {
+            // scapy.ICMP(id=0x0, seq=0x0)
+            //
+            (byte) 0x08,              /* type: echo-request */
+            (byte) 0x00,              /* code: 0 */
+            (byte) 0xf7, (byte) 0xff, /* chksum: 0xf7ff */
+            (byte) 0x00, (byte) 0x00, /* id: 0x0 */
+            (byte) 0x00, (byte) 0x00  /* seq: 0x0 */
+    });
 
     private final Context mContext = InstrumentationRegistry.getContext();
     private final EthernetManager mEm = mContext.getSystemService(EthernetManager.class);
@@ -398,7 +414,10 @@ public class EthernetTetheringTest {
         final long deadline = SystemClock.uptimeMillis() + timeoutMs;
         do {
             byte[] pkt = reader.popPacket(timeoutMs);
-            if (isExpectedIcmpv6Packet(pkt, true /* hasEth */, ICMPV6_ROUTER_ADVERTISEMENT)) return;
+            if (isExpectedIcmpPacket(pkt, true /* hasEth */, false /* isIpv4 */,
+                    ICMPV6_ROUTER_ADVERTISEMENT)) {
+                return;
+            }
 
             timeoutMs = deadline - SystemClock.uptimeMillis();
         } while (timeoutMs > 0);
@@ -870,14 +889,16 @@ public class EthernetTetheringTest {
         tester.verifyUpload(request, p -> {
             Log.d(TAG, "Packet in upstream: " + dumpHexString(p));
 
-            return isExpectedIcmpv6Packet(p, false /* hasEth */, ICMPV6_ECHO_REQUEST_TYPE);
+            return isExpectedIcmpPacket(p, false /* hasEth */, false /* isIpv4 */,
+                    ICMPV6_ECHO_REQUEST_TYPE);
         });
 
         ByteBuffer reply = Ipv6Utils.buildEchoReplyPacket(remoteIp6Addr, tethered.ipv6Addr);
         tester.verifyDownload(reply, p -> {
             Log.d(TAG, "Packet in downstream: " + dumpHexString(p));
 
-            return isExpectedIcmpv6Packet(p, true /* hasEth */, ICMPV6_ECHO_REPLY_TYPE);
+            return isExpectedIcmpPacket(p, true /* hasEth */, false /* isIpv4 */,
+                    ICMPV6_ECHO_REPLY_TYPE);
         });
     }
 
@@ -1377,10 +1398,87 @@ public class EthernetTetheringTest {
         // TODO: test CLAT bpf maps.
     }
 
+    // TODO: support R device. See b/234727688.
     @Test
     @IgnoreUpTo(Build.VERSION_CODES.R)
     public void testTetherClatUdp() throws Exception {
         runClatUdpTest();
+    }
+
+    // TODO: move ICMPv4 packet build function to common utilis.
+    @NonNull
+    private ByteBuffer buildIcmpEchoPacketV4(
+            @NonNull final MacAddress srcMac, @NonNull final MacAddress dstMac,
+            @NonNull final Inet4Address srcIp, @NonNull final Inet4Address dstIp,
+            @NonNull final ByteBuffer icmpMessage)
+            throws Exception {
+        final int etherHeaderLen = Struct.getSize(EthernetHeader.class);
+        final int ipv4HeaderLen = Struct.getSize(Ipv4Header.class);
+        final int icmpMessageLen = icmpMessage.limit();
+        final ByteBuffer packet = ByteBuffer.allocate(etherHeaderLen + ipv4HeaderLen
+                + icmpMessageLen);
+
+        final EthernetHeader ethHeader = new EthernetHeader(dstMac, srcMac, ETHER_TYPE_IPV4);
+        final Ipv4Header ipv4Header = new Ipv4Header(TYPE_OF_SERVICE,
+                (short) 0 /* totalLength, calculate later */, ID,
+                FLAGS_AND_FRAGMENT_OFFSET, TIME_TO_LIVE, (byte) IPPROTO_ICMP,
+                (short) 0 /* checksum, calculate later */, srcIp, dstIp);
+
+        ethHeader.writeToByteBuffer(packet);
+        ipv4Header.writeToByteBuffer(packet);
+        packet.put(icmpMessage);
+        // in case option might be reused by caller, restore the position and
+        // limit of bytebuffer.
+        icmpMessage.clear();
+        packet.flip();
+
+        // Used for updating IP header fields. IPv4 header offset in buffer equals ethernet header
+        // length because IPv4 header is located next to ethernet header.
+        final int ipv4HeaderOffset = etherHeaderLen;
+
+        // Populate the IPv4 totalLength field.
+        packet.putShort(ipv4HeaderOffset + IPV4_LENGTH_OFFSET,
+                (short) (ipv4HeaderLen + icmpMessageLen));
+
+        // Populate the IPv4 header checksum field.
+        packet.putShort(ipv4HeaderOffset + IPV4_CHECKSUM_OFFSET,
+                ipChecksum(packet, ipv4HeaderOffset /* headerOffset */));
+        return packet;
+    }
+
+    // TODO: support R device. See b/234727688.
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testTetherClatIcmp() throws Exception {
+        // CLAT only starts on IPv6 only network.
+        final TetheringTester tester = initTetheringTester(toList(TEST_IP6_ADDR),
+                toList(TEST_IP6_DNS));
+        final TetheredDevice tethered = tester.createTetheredDevice(TEST_MAC, true /* hasIpv6 */);
+
+        // Get CLAT IPv6 address.
+        final Inet6Address clatIp6 = getClatIpv6Address(tester, tethered);
+
+        // Send an IPv4 ICMP packet in original direction.
+        // IPv4 packet -- CLAT translation --> IPv6 packet
+        final ByteBuffer request = buildIcmpEchoPacketV4(tethered.macAddr /* srcMac */,
+                tethered.routerMacAddr /* dstMac */, tethered.ipv4Addr /* srcIp */,
+                (Inet4Address) REMOTE_IP4_ADDR /* dstIp */, ICMPMSG_ECHOREQUEST);
+        tester.verifyUpload(request, p -> {
+            Log.d(TAG, "Packet in upstream: " + dumpHexString(p));
+
+            return isExpectedIcmpPacket(p, false /* hasEth */, false /* isIpv4 */,
+                    ICMPV6_ECHO_REQUEST_TYPE);
+        });
+
+        // Send an IPv6 ICMP packet in reply direction.
+        // IPv6 packet -- CLAT translation --> IPv4 packet
+        final ByteBuffer reply = Ipv6Utils.buildEchoReplyPacket(
+                (Inet6Address) REMOTE_NAT64_ADDR /* srcIp */, clatIp6 /* dstIp */);
+        tester.verifyDownload(reply, p -> {
+            Log.d(TAG, "Packet in downstream: " + dumpHexString(p));
+
+            return isExpectedIcmpPacket(p, true /* hasEth */, true /* isIpv4 */, ICMP_ECHOREPLY);
+        });
     }
 
     @NonNull
