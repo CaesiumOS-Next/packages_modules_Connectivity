@@ -114,6 +114,13 @@ public final class NetworkTemplate implements Parcelable {
      * may offer non-cellular networks like WiFi, which will be matched by this rule.
      */
     public static final int MATCH_CARRIER = 10;
+    /**
+     * Match rule to match networks with {@link ConnectivityManager#TYPE_TEST} as the legacy
+     * network type.
+     *
+     * @hide
+     */
+    public static final int MATCH_TEST = 11;
 
     // TODO: Remove this and replace all callers with WIFI_NETWORK_KEY_ALL.
     /** @hide */
@@ -176,6 +183,7 @@ public final class NetworkTemplate implements Parcelable {
             case MATCH_BLUETOOTH:
             case MATCH_PROXY:
             case MATCH_CARRIER:
+            case MATCH_TEST:
                 return true;
 
             default:
@@ -666,6 +674,8 @@ public final class NetworkTemplate implements Parcelable {
                 return matchesProxy(ident);
             case MATCH_CARRIER:
                 return matchesCarrier(ident);
+            case MATCH_TEST:
+                return matchesTest(ident);
             default:
                 // We have no idea what kind of network template we are, so we
                 // just claim not to match anything.
@@ -776,6 +786,17 @@ public final class NetworkTemplate implements Parcelable {
                 && CollectionUtils.contains(mMatchSubscriberIds, ident.mSubscriberId);
     }
 
+    /**
+     * Check if matches test network. If the subscriberId in the template is specified, Then it
+     * will only match network with any of the specified the subscriberIds. Otherwise, all test
+     * networks would be matched.
+     */
+    private boolean matchesTest(NetworkIdentity ident) {
+        return ident.mType == NetworkIdentity.TYPE_TEST
+                && ((CollectionUtils.isEmpty(mMatchSubscriberIds)
+                || CollectionUtils.contains(mMatchSubscriberIds, ident.mSubscriberId)));
+    }
+
     private boolean matchesMobileWildcard(NetworkIdentity ident) {
         if (ident.mType == TYPE_WIMAX) {
             return true;
@@ -829,6 +850,8 @@ public final class NetworkTemplate implements Parcelable {
                 return "PROXY";
             case MATCH_CARRIER:
                 return "CARRIER";
+            case MATCH_TEST:
+                return "TEST";
             default:
                 return "UNKNOWN(" + matchRule + ")";
         }
