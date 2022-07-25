@@ -133,6 +133,10 @@ package android.net {
     field @NonNull public static final android.os.Parcelable.Creator<android.net.DhcpOption> CREATOR;
   }
 
+  public final class DnsResolver {
+    field public static final int TYPE_CNAME = 5; // 0x5
+  }
+
   public final class NetworkAgentConfig implements android.os.Parcelable {
     method @Nullable public String getSubscriberId();
     method public boolean isBypassableVpn();
