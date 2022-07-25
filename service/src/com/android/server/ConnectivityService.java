@@ -4193,6 +4193,20 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    private static boolean shouldCreateNativeNetwork(@NonNull NetworkAgentInfo nai,
+            @NonNull NetworkInfo.State state) {
+        if (nai.isCreated()) return false;
+        if (state == NetworkInfo.State.CONNECTED) return true;
+        if (state != NetworkInfo.State.CONNECTING) {
+            // TODO: throw if no WTFs are observed in the field.
+            Log.wtf(TAG, "Uncreated network in invalid state: " + state);
+            return false;
+        }
+        // Before U, physical networks are only created when the agent advances to CONNECTED.
+        // In U and above, all networks are immediately created when the agent is registered.
+        return nai.isVPN() || SdkLevel.isAtLeastU();
+    }
+
     private static boolean shouldDestroyNativeNetwork(@NonNull NetworkAgentInfo nai) {
         return nai.isCreated() && !nai.isDestroyed();
     }
@@ -5687,7 +5701,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
     // when any network changes proxy.
     // TODO: Remove usage of broadcast extras as they are deprecated and not applicable in a
     // multi-network world where an app might be bound to a non-default network.
-    private void updateProxy(LinkProperties newLp, LinkProperties oldLp) {
+    private void updateProxy(NetworkAgentInfo nai, LinkProperties newLp, LinkProperties oldLp) {
+        if (!nai.everConnected()) return;
+
         ProxyInfo newProxyInfo = newLp == null ? null : newLp.getHttpProxy();
         ProxyInfo oldProxyInfo = oldLp == null ? null : oldLp.getHttpProxy();
 
@@ -7447,7 +7463,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (isDefaultNetwork(networkAgent)) {
             handleApplyDefaultProxy(newLp.getHttpProxy());
         } else {
-            updateProxy(newLp, oldLp);
+            updateProxy(networkAgent, newLp, oldLp);
         }
 
         updateWakeOnLan(newLp);
@@ -7472,6 +7488,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         mKeepaliveTracker.handleCheckKeepalivesStillValid(networkAgent);
+    }
+
+    private void applyInitialLinkProperties(@NonNull NetworkAgentInfo nai) {
+        updateLinkProperties(nai, new LinkProperties(nai.linkProperties), null);
     }
 
     /**
@@ -9138,14 +9158,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     + oldInfo.getState() + " to " + state);
         }
 
-        if (!networkAgent.isCreated()
-                && (state == NetworkInfo.State.CONNECTED
-                || (state == NetworkInfo.State.CONNECTING && networkAgent.isVPN()))) {
-
+        if (shouldCreateNativeNetwork(networkAgent, state)) {
             // A network that has just connected has zero requests and is thus a foreground network.
             networkAgent.networkCapabilities.addCapability(NET_CAPABILITY_FOREGROUND);
 
             if (!createNativeNetwork(networkAgent)) return;
+            if (SdkLevel.isAtLeastU()) {
+                applyInitialLinkProperties(networkAgent);
+            }
+
+            // TODO: should this move earlier? It doesn't seem to have anything to do with whether
+            // a network is created or not.
             if (networkAgent.propagateUnderlyingCapabilities()) {
                 // Initialize the network's capabilities to their starting values according to the
                 // underlying networks. This ensures that the capabilities are correct before
@@ -9165,8 +9188,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
             networkAgent.getAndSetNetworkCapabilities(networkAgent.networkCapabilities);
 
             handlePerNetworkPrivateDnsConfig(networkAgent, mDnsManager.getPrivateDnsConfig());
-            updateLinkProperties(networkAgent, new LinkProperties(networkAgent.linkProperties),
-                    null);
+            if (!SdkLevel.isAtLeastU()) {
+                applyInitialLinkProperties(networkAgent);
+            } else {
+                // Apply changes that should only take effect when the network connects. On T and
+                // below these are handled by the LinkProperties update just above.
+                networkAgent.clatd.update();
+                updateProxy(networkAgent, networkAgent.linkProperties, null);
+            }
 
             // If a rate limit has been configured and is applicable to this network (network
             // provides internet connectivity), apply it. The tc police filter cannot be attached
