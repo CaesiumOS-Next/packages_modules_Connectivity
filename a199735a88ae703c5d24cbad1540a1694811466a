@@ -22,6 +22,30 @@
       },
       "revId": "a199735a88ae703c5d24cbad1540a1694811466a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad152133_372ae98f",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetNetworkFactoryTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-07-25T03:51:45Z",
+      "side": 1,
+      "message": "Yes, that\u0027s correct. Thanks for catching that. Addressed in follow-up here:\nhttps://r.android.com/2163529",
+      "parentUuid": "f1debba3_67dd74b8",
+      "range": {
+        "startLine": 331,
+        "startChar": 52,
+        "endLine": 331,
+        "endChar": 62
+      },
+      "revId": "a199735a88ae703c5d24cbad1540a1694811466a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
