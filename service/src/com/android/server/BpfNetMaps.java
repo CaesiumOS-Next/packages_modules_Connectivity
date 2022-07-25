@@ -76,6 +76,10 @@ public class BpfNetMaps {
     private static final String UID_OWNER_MAP_PATH =
             "/sys/fs/bpf/netd_shared/map_netd_uid_owner_map";
     private static final U32 UID_RULES_CONFIGURATION_KEY = new U32(0);
+    private static final U32 CURRENT_STATS_MAP_CONFIGURATION_KEY = new U32(1);
+    private static final long UID_RULES_DEFAULT_CONFIGURATION = 0;
+    private static final long STATS_SELECT_MAP_A = 0;
+
     private static BpfMap<U32, U32> sConfigurationMap = null;
     // BpfMap for UID_OWNER_MAP_PATH. This map is not accessed by others.
     private static BpfMap<U32, UidOwnerValue> sUidOwnerMap = null;
@@ -134,8 +138,30 @@ public class BpfNetMaps {
         if (sConfigurationMap == null) {
             sConfigurationMap = getConfigurationMap();
         }
+        try {
+            sConfigurationMap.updateEntry(UID_RULES_CONFIGURATION_KEY,
+                    new U32(UID_RULES_DEFAULT_CONFIGURATION));
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Failed to initialize uid default config", e);
+//            throw new IllegalStateException("Failed to initialize current stats config", e);
+        }
+        Log.i(TAG, "default value for UID_RULES_CONFIGURATION_KEY is set");
+        try {
+            sConfigurationMap.updateEntry(CURRENT_STATS_MAP_CONFIGURATION_KEY,
+                    new U32(STATS_SELECT_MAP_A));
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Failed to initialize current stats config", e);
+//            throw new IllegalStateException("Failed to initialize current stats config", e);
+        }
+
         if (sUidOwnerMap == null) {
             sUidOwnerMap = getUidOwnerMap();
+        }
+        try {
+            sUidOwnerMap.clear();
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Failed to initialize uid owner map", e);
+//            throw new IllegalStateException("Failed to initialize uid owner map", e);
         }
     }
 
