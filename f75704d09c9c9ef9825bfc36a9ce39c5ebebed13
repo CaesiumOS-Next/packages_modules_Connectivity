@@ -22,6 +22,30 @@
       },
       "revId": "f75704d09c9c9ef9825bfc36a9ce39c5ebebed13",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d50be657_75edf662",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetNetworkFactoryTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-07-25T19:38:14Z",
+      "side": 1,
+      "message": "Good catch and done.",
+      "parentUuid": "e4314007_9ad5e06b",
+      "range": {
+        "startLine": 664,
+        "startChar": 8,
+        "endLine": 664,
+        "endChar": 70
+      },
+      "revId": "f75704d09c9c9ef9825bfc36a9ce39c5ebebed13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
