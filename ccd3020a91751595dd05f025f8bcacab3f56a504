@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd241a7a_81fd931b",
+        "filename": "tests/common/java/android/net/LinkPropertiesTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1358,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-25T10:21:48Z",
+      "side": 1,
+      "message": "Nit: If this was necessary, testExcludedRoutesNotVisibleOnTargetSdk31 would have failed, so I think this test isn\u0027t really necessary (we already know that not enabling the compat change the routes are not visible, and enabling the compat change they are visible).\n\nNo need to respin for this though.",
+      "range": {
+        "startLine": 1358,
+        "startChar": 5,
+        "endLine": 1358,
+        "endChar": 25
+      },
+      "revId": "ccd3020a91751595dd05f025f8bcacab3f56a504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
