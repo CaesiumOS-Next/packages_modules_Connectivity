@@ -128,6 +128,7 @@ public class TetheringManager {
             TETHERING_WIFI_P2P,
             TETHERING_NCM,
             TETHERING_ETHERNET,
+            TETHERING_LOCAL_HOTSPOT,
     })
     public @interface TetheringType {
     }
@@ -182,6 +183,13 @@ public class TetheringManager {
      * @hide
      */
     public static final int TETHERING_WIGIG = 6;
+
+    /**
+     *  LOCAL HOTSPOT tethering type. Use a separate type to prevent
+     *  conflicts with TETHERING_WIFI
+     *  @see #startTethering.
+     **/
+    public static final int TETHERING_LOCAL_HOTSPOT = 7;
 
     /**
      * The int value of last tethering type.
