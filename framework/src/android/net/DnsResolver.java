@@ -16,6 +16,7 @@
 
 package android.net;
 
+import static android.annotation.SystemApi.Client.MODULE_LIBRARIES;
 import static android.net.NetworkUtils.getDnsNetwork;
 import static android.net.NetworkUtils.resNetworkCancel;
 import static android.net.NetworkUtils.resNetworkQuery;
@@ -32,6 +33,7 @@ import android.annotation.CallbackExecutor;
 import android.annotation.IntDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.annotation.SystemApi;
 import android.os.CancellationSignal;
 import android.os.Looper;
 import android.os.MessageQueue;
@@ -71,12 +73,16 @@ public final class DnsResolver {
 
     @IntDef(prefix = { "TYPE_" },  value = {
             TYPE_A,
-            TYPE_AAAA
+            TYPE_AAAA,
+            TYPE_CNAME
     })
     @Retention(RetentionPolicy.SOURCE)
     @interface QueryType {}
     public static final int TYPE_A = 1;
     public static final int TYPE_AAAA = 28;
+    /** @hide */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int TYPE_CNAME = 5;
 
     @IntDef(prefix = { "FLAG_" }, value = {
             FLAG_EMPTY,
