@@ -3598,6 +3598,10 @@ public class ConnectivityServiceTest {
 
         mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI, callbacks);
 
+        if (SdkLevel.isAtLeastU()) {
+            assertEquals("onNetworkCreated", eventOrder.poll(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        }
+
         // Connect a network, and file a request for it after it has come up, to ensure the nascent
         // timer is cleared and the test does not have to wait for it. Filing the request after the
         // network has come up is necessary because ConnectivityService does not appear to clear the
@@ -3622,7 +3626,9 @@ public class ConnectivityServiceTest {
 
         // Disconnect the network and check that events happened in the right order.
         mCm.unregisterNetworkCallback(callback);
-        assertEquals("onNetworkCreated", eventOrder.poll(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        if (!SdkLevel.isAtLeastU()) {
+            assertEquals("onNetworkCreated", eventOrder.poll(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        }
         assertEquals("onNetworkUnwanted", eventOrder.poll(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertEquals("timePasses", eventOrder.poll(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertEquals("onNetworkDisconnected", eventOrder.poll(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -7242,9 +7248,12 @@ public class ConnectivityServiceTest {
         setPrivateDnsSettings(PRIVATE_DNS_MODE_OPPORTUNISTIC, "ignored.example.com");
 
         mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        final int netId = mCellNetworkAgent.getNetwork().netId;
         waitForIdle();
+        if (SdkLevel.isAtLeastU()) {
+            verify(mMockDnsResolver, times(1)).createNetworkCache(netId);
+        }
         verify(mMockDnsResolver, never()).setResolverConfiguration(any());
-        verifyNoMoreInteractions(mMockDnsResolver);
 
         final LinkProperties cellLp = new LinkProperties();
         cellLp.setInterfaceName(MOBILE_IFNAME);
@@ -7260,11 +7269,13 @@ public class ConnectivityServiceTest {
         mCellNetworkAgent.sendLinkProperties(cellLp);
         mCellNetworkAgent.connect(false);
         waitForIdle();
+        if (!SdkLevel.isAtLeastU()) {
+            verify(mMockDnsResolver, times(1)).createNetworkCache(netId);
+        }
 
-        verify(mMockDnsResolver, times(1)).createNetworkCache(
-                eq(mCellNetworkAgent.getNetwork().netId));
         // CS tells dnsresolver about the empty DNS config for this network.
         verify(mMockDnsResolver, atLeastOnce()).setResolverConfiguration(any());
+        verifyNoMoreInteractions(mMockDnsResolver);
         reset(mMockDnsResolver);
 
         cellLp.addDnsServer(InetAddress.getByName("2001:db8::1"));
@@ -7380,10 +7391,13 @@ public class ConnectivityServiceTest {
         mCm.requestNetwork(cellRequest, cellNetworkCallback);
 
         mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        final int netId = mCellNetworkAgent.getNetwork().netId;
         waitForIdle();
+        if (SdkLevel.isAtLeastU()) {
+            verify(mMockDnsResolver, times(1)).createNetworkCache(netId);
+        }
         // CS tells netd about the empty DNS config for this network.
         verify(mMockDnsResolver, never()).setResolverConfiguration(any());
-        verifyNoMoreInteractions(mMockDnsResolver);
 
         final LinkProperties cellLp = new LinkProperties();
         cellLp.setInterfaceName(MOBILE_IFNAME);
@@ -7402,8 +7416,9 @@ public class ConnectivityServiceTest {
         mCellNetworkAgent.sendLinkProperties(cellLp);
         mCellNetworkAgent.connect(false);
         waitForIdle();
-        verify(mMockDnsResolver, times(1)).createNetworkCache(
-                eq(mCellNetworkAgent.getNetwork().netId));
+        if (!SdkLevel.isAtLeastU()) {
+            verify(mMockDnsResolver, times(1)).createNetworkCache(netId);
+        }
         verify(mMockDnsResolver, atLeastOnce()).setResolverConfiguration(
                 mResolverParamsParcelCaptor.capture());
         ResolverParamsParcel resolvrParams = mResolverParamsParcelCaptor.getValue();
@@ -7414,6 +7429,7 @@ public class ConnectivityServiceTest {
         assertEquals(2, resolvrParams.tlsServers.length);
         assertTrue(new ArraySet<>(resolvrParams.tlsServers).containsAll(
                 asList("2001:db8::1", "192.0.2.1")));
+        verifyNoMoreInteractions(mMockDnsResolver);
         reset(mMockDnsResolver);
         cellNetworkCallback.expectCallback(CallbackEntry.AVAILABLE, mCellNetworkAgent);
         cellNetworkCallback.expectCallback(CallbackEntry.NETWORK_CAPS_UPDATED,
@@ -9788,6 +9804,15 @@ public class ConnectivityServiceTest {
         }
     }
 
+    private void expectNetworkCreated(int netId, int permission, String iface) throws Exception {
+        verify(mMockNetd, times(1)).networkCreate(nativeNetworkConfigPhysical(netId,
+                permission));
+        verify(mMockDnsResolver, times(1)).createNetworkCache(eq(netId));
+        if (iface != null) {
+            verify(mMockNetd, times(1)).networkAddInterface(netId, iface);
+        }
+    }
+
     @Test
     public void testStackedLinkProperties() throws Exception {
         final LinkAddress myIpv4 = new LinkAddress("1.2.3.4/24");
@@ -9825,11 +9850,8 @@ public class ConnectivityServiceTest {
         int cellNetId = mCellNetworkAgent.getNetwork().netId;
         waitForIdle();
 
-        verify(mMockNetd, times(1)).networkCreate(nativeNetworkConfigPhysical(cellNetId,
-                INetd.PERMISSION_NONE));
+        expectNetworkCreated(cellNetId, INetd.PERMISSION_NONE, MOBILE_IFNAME);
         assertRoutesAdded(cellNetId, ipv6Subnet, ipv6Default);
-        verify(mMockDnsResolver, times(1)).createNetworkCache(eq(cellNetId));
-        verify(mMockNetd, times(1)).networkAddInterface(cellNetId, MOBILE_IFNAME);
         final ArrayTrackRecord<ReportedInterfaces>.ReadHead readHead =
                 mDeps.mReportedInterfaceHistory.newReadHead();
         assertNotNull(readHead.poll(TIMEOUT_MS, ri -> ri.contentEquals(mServiceContext,
@@ -14357,8 +14379,16 @@ public class ConnectivityServiceTest {
 
         final TestNetworkAgentWrapper workAgent =
                 makeEnterpriseNetworkAgent(profileNetworkPreference.getPreferenceEnterpriseId());
+        if (SdkLevel.isAtLeastU()) {
+            expectNetworkCreated(workAgent.getNetwork().netId, INetd.PERMISSION_SYSTEM,
+                    null /* iface */);
+        }
         if (connectWorkProfileAgentAhead) {
             workAgent.connect(false);
+            if (!SdkLevel.isAtLeastU()) {
+                expectNetworkCreated(workAgent.getNetwork().netId, INetd.PERMISSION_SYSTEM,
+                        null /* iface */);
+            }
         }
 
         final TestOnCompleteListener listener = new TestOnCompleteListener();
@@ -14398,6 +14428,11 @@ public class ConnectivityServiceTest {
 
         if (!connectWorkProfileAgentAhead) {
             workAgent.connect(false);
+            if (!SdkLevel.isAtLeastU()) {
+                inOrder.verify(mMockNetd).networkCreate(
+                        nativeNetworkConfigPhysical(workAgent.getNetwork().netId,
+                                INetd.PERMISSION_SYSTEM));
+            }
         }
 
         profileDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(workAgent);
@@ -14406,8 +14441,6 @@ public class ConnectivityServiceTest {
         }
         mSystemDefaultNetworkCallback.assertNoCallback();
         mDefaultNetworkCallback.assertNoCallback();
-        inOrder.verify(mMockNetd).networkCreate(
-                nativeNetworkConfigPhysical(workAgent.getNetwork().netId, INetd.PERMISSION_SYSTEM));
         inOrder.verify(mMockNetd).networkAddUidRangesParcel(new NativeUidRangeConfig(
                 workAgent.getNetwork().netId,
                 uidRangeFor(testHandle, profileNetworkPreference),
