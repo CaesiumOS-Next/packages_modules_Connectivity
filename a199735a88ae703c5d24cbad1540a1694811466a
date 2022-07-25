@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1debba3_67dd74b8",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetNetworkFactoryTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-25T01:02:49Z",
+      "side": 1,
+      "message": "Nit: generally in assertions the expected value comes before the actual value.",
+      "range": {
+        "startLine": 331,
+        "startChar": 52,
+        "endLine": 331,
+        "endChar": 62
+      },
+      "revId": "a199735a88ae703c5d24cbad1540a1694811466a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
