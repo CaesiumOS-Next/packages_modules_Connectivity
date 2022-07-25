@@ -33,6 +33,24 @@
       "message": "nit: the commit message maybe mention that you also fix the test that L.2979 (setting change) / L.2986 (user restricted) not expect config updating (updateConfigAndVerifySupported)",
       "revId": "81c6fb9f4aab5675c43732937b965490402193c9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "112a5f7c_a550fd81",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2995,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-25T08:00:49Z",
+      "side": 1,
+      "message": "Done, thanks for suggestion.",
+      "parentUuid": "ff4bce8a_bffa6e0a",
+      "revId": "81c6fb9f4aab5675c43732937b965490402193c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
