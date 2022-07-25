@@ -30,6 +30,7 @@ import static android.net.TetheringTester.TestDnsPacket;
 import static android.net.TetheringTester.isExpectedIcmpPacket;
 import static android.net.TetheringTester.isExpectedUdpDnsPacket;
 import static android.net.TetheringTester.isExpectedUdpPacket;
+import static android.system.OsConstants.ICMP_ECHO;
 import static android.system.OsConstants.ICMP_ECHOREPLY;
 import static android.system.OsConstants.IPPROTO_ICMP;
 import static android.system.OsConstants.IPPROTO_IP;
@@ -238,11 +239,21 @@ public class EthernetTetheringTest {
     };
 
     private static final ByteBuffer ICMPMSG_ECHOREQUEST = ByteBuffer.wrap(new byte[] {
-            // scapy.ICMP(id=0x0, seq=0x0)
+            // scapy.ICMP(type=8, id=0x0, seq=0x0)
             //
             (byte) 0x08,              /* type: echo-request */
             (byte) 0x00,              /* code: 0 */
             (byte) 0xf7, (byte) 0xff, /* chksum: 0xf7ff */
+            (byte) 0x00, (byte) 0x00, /* id: 0x0 */
+            (byte) 0x00, (byte) 0x00  /* seq: 0x0 */
+    });
+
+    private static final ByteBuffer ICMPMSG_ECHOREPLY = ByteBuffer.wrap(new byte[] {
+            // scapy.ICMP(type=0, id=0x0, seq=0x0)
+            //
+            (byte) 0x00,              /* type: echo-reply */
+            (byte) 0x00,              /* code: 0 */
+            (byte) 0xff, (byte) 0xff, /* chksum: 0xffff */
             (byte) 0x00, (byte) 0x00, /* id: 0x0 */
             (byte) 0x00, (byte) 0x00  /* seq: 0x0 */
     });
@@ -1408,42 +1419,76 @@ public class EthernetTetheringTest {
     // TODO: move ICMPv4 packet build function to common utilis.
     @NonNull
     private ByteBuffer buildIcmpEchoPacketV4(
-            @NonNull final MacAddress srcMac, @NonNull final MacAddress dstMac,
+            @Nullable final MacAddress srcMac, @Nullable final MacAddress dstMac,
             @NonNull final Inet4Address srcIp, @NonNull final Inet4Address dstIp,
             @NonNull final ByteBuffer icmpMessage)
             throws Exception {
-        final int etherHeaderLen = Struct.getSize(EthernetHeader.class);
+        final boolean hasEther = (srcMac != null && dstMac != null);
+        final int etherHeaderLen = hasEther ? Struct.getSize(EthernetHeader.class) : 0;
         final int ipv4HeaderLen = Struct.getSize(Ipv4Header.class);
         final int icmpMessageLen = icmpMessage.limit();
         final ByteBuffer packet = ByteBuffer.allocate(etherHeaderLen + ipv4HeaderLen
                 + icmpMessageLen);
-
-        final EthernetHeader ethHeader = new EthernetHeader(dstMac, srcMac, ETHER_TYPE_IPV4);
+        final EthernetHeader ethHeader = hasEther
+                ? new EthernetHeader(dstMac, srcMac, ETHER_TYPE_IPV4) : null;
         final Ipv4Header ipv4Header = new Ipv4Header(TYPE_OF_SERVICE,
                 (short) 0 /* totalLength, calculate later */, ID,
                 FLAGS_AND_FRAGMENT_OFFSET, TIME_TO_LIVE, (byte) IPPROTO_ICMP,
                 (short) 0 /* checksum, calculate later */, srcIp, dstIp);
-
-        ethHeader.writeToByteBuffer(packet);
+        if (hasEther) ethHeader.writeToByteBuffer(packet);
         ipv4Header.writeToByteBuffer(packet);
         packet.put(icmpMessage);
         // in case option might be reused by caller, restore the position and
         // limit of bytebuffer.
         icmpMessage.clear();
         packet.flip();
-
-        // Used for updating IP header fields. IPv4 header offset in buffer equals ethernet header
-        // length because IPv4 header is located next to ethernet header.
-        final int ipv4HeaderOffset = etherHeaderLen;
-
+        // Used for updating IP header fields. If there is Ehternet header, IPv4 header offset
+        // in buffer equals ethernet header length because IPv4 header is located next to ethernet
+        // header. Otherwise, IPv4 header offset is 0.
+        final int ipv4HeaderOffset = hasEther ? etherHeaderLen : 0;
         // Populate the IPv4 totalLength field.
         packet.putShort(ipv4HeaderOffset + IPV4_LENGTH_OFFSET,
                 (short) (ipv4HeaderLen + icmpMessageLen));
-
         // Populate the IPv4 header checksum field.
         packet.putShort(ipv4HeaderOffset + IPV4_CHECKSUM_OFFSET,
                 ipChecksum(packet, ipv4HeaderOffset /* headerOffset */));
         return packet;
+    }
+
+    @NonNull
+    private ByteBuffer buildIcmpEchoPacketV4(@NonNull final Inet4Address srcIp,
+            @NonNull final Inet4Address dstIp, @Nullable final ByteBuffer icmpMessage)
+            throws Exception {
+        return buildIcmpEchoPacketV4(null /* srcMac */, null /* dstMac */, srcIp, dstIp,
+                icmpMessage);
+    }
+
+    @Test
+    public void testIcmpv4Echo() throws Exception {
+        final TetheringTester tester = initTetheringTester(toList(TEST_IP4_ADDR),
+                toList(TEST_IP4_DNS));
+        final TetheredDevice tethered = tester.createTetheredDevice(TEST_MAC, false /* hasIpv6 */);
+
+        // TODO: remove the connectivity verification for upstream connected notification race.
+        // See the same reason in runUdp4Test().
+        probeV4TetheringConnectivity(tester, tethered, false /* is4To6 */);
+
+        final ByteBuffer request = buildIcmpEchoPacketV4(tethered.macAddr /* srcMac */,
+                tethered.routerMacAddr /* dstMac */, tethered.ipv4Addr /* srcIp */,
+                REMOTE_IP4_ADDR /* dstIp */, ICMPMSG_ECHOREQUEST);
+        tester.verifyUpload(request, p -> {
+            Log.d(TAG, "Packet in upstream: " + dumpHexString(p));
+
+            return isExpectedIcmpPacket(p, false /* hasEth */, true /* isIpv4 */, ICMP_ECHO);
+        });
+
+        final ByteBuffer reply = buildIcmpEchoPacketV4(REMOTE_IP4_ADDR /* srcIp*/,
+                (Inet4Address) TEST_IP4_ADDR.getAddress() /* dstIp */, ICMPMSG_ECHOREPLY);
+        tester.verifyDownload(reply, p -> {
+            Log.d(TAG, "Packet in downstream: " + dumpHexString(p));
+
+            return isExpectedIcmpPacket(p, true /* hasEth */, true /* isIpv4 */, ICMP_ECHOREPLY);
+        });
     }
 
     // TODO: support R device. See b/234727688.
