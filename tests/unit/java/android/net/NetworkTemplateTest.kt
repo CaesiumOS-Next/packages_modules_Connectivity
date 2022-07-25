@@ -19,6 +19,7 @@ package android.net
 import android.app.usage.NetworkStatsManager.NETWORK_TYPE_5G_NSA
 import android.content.Context
 import android.net.ConnectivityManager.TYPE_MOBILE
+import android.net.ConnectivityManager.TYPE_TEST
 import android.net.ConnectivityManager.TYPE_WIFI
 import android.net.NetworkIdentity.OEM_NONE
 import android.net.NetworkIdentity.OEM_PAID
@@ -31,6 +32,7 @@ import android.net.NetworkStats.METERED_YES
 import android.net.NetworkStats.ROAMING_ALL
 import android.net.NetworkTemplate.MATCH_MOBILE
 import android.net.NetworkTemplate.MATCH_MOBILE_WILDCARD
+import android.net.NetworkTemplate.MATCH_TEST
 import android.net.NetworkTemplate.MATCH_WIFI
 import android.net.NetworkTemplate.MATCH_WIFI_WILDCARD
 import android.net.NetworkTemplate.NETWORK_TYPE_ALL
@@ -230,6 +232,32 @@ class NetworkTemplateTest {
         // Verify that the different type does not match.
         templateMobileWildcard.assertDoesNotMatch(identWifiImsi1Key1)
         templateMobileNullImsiWithRatType.assertDoesNotMatch(identWifiImsi1Key1)
+    }
+
+    @Test
+    fun testTestNetworkTemplateMatches() {
+        val templateTestImsi1 = NetworkTemplate.Builder(MATCH_TEST)
+            .setSubscriberIds(setOf(TEST_IMSI1)).build()
+        val templateTestImsi2 = NetworkTemplate.Builder(MATCH_TEST)
+            .setSubscriberIds(setOf(TEST_IMSI2)).build()
+        val templateTestAll = NetworkTemplate.Builder(MATCH_TEST).build()
+
+        val stateMobileImsi1 = buildNetworkState(TYPE_MOBILE, TEST_IMSI1, null /* wifiKey */,
+            OEM_NONE, true /* metered */)
+        val stateTestImsi1 = buildNetworkState(TYPE_TEST, TEST_IMSI1, null /* wifiKey */,
+            OEM_NONE, true /* metered */)
+        val identMobile1 = buildNetworkIdentity(mockContext, stateMobileImsi1,
+            false /* defaultNetwork */, TelephonyManager.NETWORK_TYPE_UMTS)
+        val identTest1 = buildNetworkIdentity(mockContext, stateTestImsi1,
+            false /* defaultNetwork */, NETWORK_TYPE_ALL)
+
+        // Verify that the template matches corresponding type and the subscriberId.
+        templateTestImsi1.assertDoesNotMatch(identMobile1)
+        templateTestImsi1.assertMatches(identTest1)
+        templateTestImsi2.assertDoesNotMatch(identMobile1)
+        templateTestImsi2.assertDoesNotMatch(identTest1)
+        templateTestAll.assertDoesNotMatch(identMobile1)
+        templateTestAll.assertMatches(identTest1)
     }
 
     @Test

@@ -85,6 +85,12 @@ public class NetworkIdentity {
 
     private static final long SUPPORTED_OEM_MANAGED_TYPES = OEM_PAID | OEM_PRIVATE;
 
+    // Need to be synchronized with ConnectivityManager.
+    // TODO: Use {@code ConnectivityManager#*} when visible.
+    static final int TYPE_TEST = 18;
+    private static final int MAX_NETWORK_TYPE = TYPE_TEST;
+    private static final int MIN_NETWORK_TYPE = TYPE_MOBILE;
+
     final int mType;
     final int mRatType;
     final int mSubId;
@@ -346,11 +352,6 @@ public class NetworkIdentity {
      * Builder class for {@link NetworkIdentity}.
      */
     public static final class Builder {
-        // Need to be synchronized with ConnectivityManager.
-        // TODO: Use {@link ConnectivityManager#MAX_NETWORK_TYPE} when this file is in the module.
-        private static final int MAX_NETWORK_TYPE = 18; // TYPE_TEST
-        private static final int MIN_NETWORK_TYPE = TYPE_MOBILE;
-
         private int mType;
         private int mRatType;
         private String mSubscriberId;
