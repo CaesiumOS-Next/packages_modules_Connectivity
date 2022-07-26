@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53d5abe9_42aae81b",
+        "filename": "bpf_progs/dscpPolicy.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-26T20:01:03Z",
+      "side": 1,
+      "message": "delete this line",
+      "range": {
+        "startLine": 226,
+        "startChar": 0,
+        "endLine": 226,
+        "endChar": 24
+      },
+      "revId": "c2ddaa149c3407bf36f8bd79098372dd0b21a844",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89b2b140_d194e607",
+        "filename": "bpf_progs/dscpPolicy.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-26T20:01:03Z",
+      "side": 1,
+      "message": "uint8_t ...",
+      "range": {
+        "startLine": 269,
+        "startChar": 8,
+        "endLine": 269,
+        "endChar": 15
+      },
+      "revId": "c2ddaa149c3407bf36f8bd79098372dd0b21a844",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
