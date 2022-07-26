@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e4d1091_26e888d7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-26T08:17:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa0b7667_908c4fdf",
+      "range": {
+        "startLine": 435,
+        "startChar": 24,
+        "endLine": 435,
+        "endChar": 34
+      },
+      "revId": "980f401c5846fcfa4086d6cff871266ed157ad90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86c5edcf_d6ea0e7b",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47df58b5_866b05ae",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1636,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-26T08:17:53Z",
+      "side": 1,
+      "message": "No, it just because the old test cases which using this util function is poor. This test mock Tethering at l.1635. Thus, calling updateSupportedDownstreams may cause TetheringDepencies raise NPE. To avoid this, we should fix the dependencies test case don\u0027t rely on mocking Tethering and also clean up the TODO (https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2160461/3/Tethering/src/com/android/networkstack/tethering/Tethering.java#1377).\n\nThe new test case #testTetheringSupported don\u0027t testing actual Tethering which don\u0027t have this problem.\n\nAlready have draft CL in follow up, may send for review when it is ready.",
+      "parentUuid": "86c5edcf_d6ea0e7b",
+      "revId": "980f401c5846fcfa4086d6cff871266ed157ad90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f6be46a_d699aa7c",
@@ -54,6 +96,30 @@
       "writtenOn": "2022-07-26T07:01:12Z",
       "side": 1,
       "message": "Nit: something like setSetting would be more consistent with setUserRestricted (it\u0027s not only calling a callback, it also sets the setting)",
+      "range": {
+        "startLine": 2995,
+        "startChar": 8,
+        "endLine": 2995,
+        "endChar": 24
+      },
+      "revId": "980f401c5846fcfa4086d6cff871266ed157ad90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e91c83b_c52c5c0f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2995,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-26T08:17:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f6be46a_d699aa7c",
       "range": {
         "startLine": 2995,
         "startChar": 8,
