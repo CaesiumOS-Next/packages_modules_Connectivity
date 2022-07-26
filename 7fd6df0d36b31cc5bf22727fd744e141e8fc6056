@@ -34,6 +34,24 @@
       "parentUuid": "3d0d3965_49ac1007",
       "revId": "7fd6df0d36b31cc5bf22727fd744e141e8fc6056",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "599834fc_d0dc5b27",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-07-26T14:05:57Z",
+      "side": 1,
+      "message": "\u003e ConnectivityService#replaceFirewallChain() already validates the chain parameter\nI have removed this validation in this CL because this validation is done with unnecessary conversion from int chain type to string chain name.\nSo, After this commit, if we pass the wrong int chain type to ConnectivityManager#replaceFirewallChain, BpfNetMaps#replaceUidChain will receive this chain.",
+      "parentUuid": "2fb524d9_5a34c9e6",
+      "revId": "7fd6df0d36b31cc5bf22727fd744e141e8fc6056",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
