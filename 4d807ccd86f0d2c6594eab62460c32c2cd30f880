@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b26db4ab_9d1e9af7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-07-26T15:48:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e0a8500_2bf917af",
+      "revId": "4d807ccd86f0d2c6594eab62460c32c2cd30f880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97d2159d_9fd63681",
@@ -58,6 +76,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0b7a48d_289b0533",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsRecorder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-07-26T15:48:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8da5703f_e4e69df3",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 29
+      },
+      "revId": "4d807ccd86f0d2c6594eab62460c32c2cd30f880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16f0548f_32983520",
@@ -75,6 +117,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20c38363_9f3ee898",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsRecorder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-07-26T15:48:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16f0548f_32983520",
+      "revId": "4d807ccd86f0d2c6594eab62460c32c2cd30f880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28315fd6_7de249d2",
@@ -88,6 +148,30 @@
       "writtenOn": "2022-07-22T08:27:54Z",
       "side": 1,
       "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 272,
+        "startChar": 57,
+        "endLine": 272,
+        "endChar": 59
+      },
+      "revId": "4d807ccd86f0d2c6594eab62460c32c2cd30f880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9146b64_76387716",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsRecorder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-07-26T15:48:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28315fd6_7de249d2",
       "range": {
         "startLine": 272,
         "startChar": 57,
@@ -121,6 +205,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cc7acb7_79cf7da6",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsRecorder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-07-26T15:48:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93ecd283_51b89669",
+      "range": {
+        "startLine": 273,
+        "startChar": 59,
+        "endLine": 273,
+        "endChar": 71
+      },
+      "revId": "4d807ccd86f0d2c6594eab62460c32c2cd30f880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d75fcc20_9690e96f",
@@ -144,6 +252,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bfa68c5_d5762efe",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1954,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-07-26T15:48:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d75fcc20_9690e96f",
+      "range": {
+        "startLine": 1954,
+        "startChar": 58,
+        "endLine": 1954,
+        "endChar": 78
+      },
+      "revId": "4d807ccd86f0d2c6594eab62460c32c2cd30f880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa0943a9_7faa3b29",
@@ -157,6 +289,30 @@
       "writtenOn": "2022-07-22T08:27:54Z",
       "side": 1,
       "message": "Please fix this. Lines should not longer than 100 characters.",
+      "range": {
+        "startLine": 824,
+        "startChar": 8,
+        "endLine": 824,
+        "endChar": 109
+      },
+      "revId": "4d807ccd86f0d2c6594eab62460c32c2cd30f880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db5d43bc_fa9f58a0",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-07-26T15:48:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa0943a9_7faa3b29",
       "range": {
         "startLine": 824,
         "startChar": 8,

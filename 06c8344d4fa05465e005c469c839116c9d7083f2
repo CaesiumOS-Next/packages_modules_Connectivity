@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb21b4fd_ad56378c",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsRecorder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-07-26T15:48:58Z",
+      "side": 1,
+      "message": "Please remove this.",
+      "range": {
+        "startLine": 14,
+        "startChar": 33,
+        "endLine": 14,
+        "endChar": 49
+      },
+      "revId": "06c8344d4fa05465e005c469c839116c9d7083f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2194c5a_f413acbb",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsRecorder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-07-26T15:48:58Z",
+      "side": 1,
+      "message": "So, recorder only adds the removed uid into the list and the uid will not be removed from the list, I think it\u0027s not good. If the uid is used by a different app then the stats of this app will not be counted. I\u0027m not sure if this will happen.",
+      "range": {
+        "startLine": 94,
+        "startChar": 37,
+        "endLine": 94,
+        "endChar": 49
+      },
+      "revId": "06c8344d4fa05465e005c469c839116c9d7083f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e30787b_978fdd70",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2466,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-07-26T15:48:58Z",
+      "side": 1,
+      "message": "Questions,\naccording to your commit message, the bug happens because there are two bpf maps. But this method will delete the corresponding uid stats from the two maps(ref l.2435 ~ l.2436). If the stats was removed from the two maps, why this bug still happened? Any bug in this method? Or what happened before deleting the data from the two maps?",
+      "range": {
+        "startLine": 2466,
+        "startChar": 12,
+        "endLine": 2466,
+        "endChar": 31
+      },
+      "revId": "06c8344d4fa05465e005c469c839116c9d7083f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
