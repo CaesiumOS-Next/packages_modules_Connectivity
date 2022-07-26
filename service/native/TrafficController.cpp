@@ -172,11 +172,21 @@ Status TrafficController::initMaps() {
     RETURN_IF_NOT_OK(mIfaceIndexNameMap.init(IFACE_INDEX_NAME_MAP_PATH));
     RETURN_IF_NOT_OK(mIfaceStatsMap.init(IFACE_STATS_MAP_PATH));
 
+    ALOGI("Open mConfigurationMap");
     RETURN_IF_NOT_OK(mConfigurationMap.init(CONFIGURATION_MAP_PATH));
+    ALOGI("Open mConfigurationMap done");
+
+    ALOGI("Set value for UID_RULES_CONFIGURATION_KEY(%d)", UID_RULES_CONFIGURATION_KEY);
     RETURN_IF_NOT_OK(
             mConfigurationMap.writeValue(UID_RULES_CONFIGURATION_KEY, DEFAULT_CONFIG, BPF_ANY));
+    ALOGI("Set value for UID_RULES_CONFIGURATION_KEY(%d) done", UID_RULES_CONFIGURATION_KEY);
+
+    ALOGI("Set value for CURRENT_STATS_MAP_CONFIGURATION_KEY(%d)",
+            CURRENT_STATS_MAP_CONFIGURATION_KEY);
     RETURN_IF_NOT_OK(mConfigurationMap.writeValue(CURRENT_STATS_MAP_CONFIGURATION_KEY, SELECT_MAP_A,
                                                   BPF_ANY));
+    ALOGI("Set value for CURRENT_STATS_MAP_CONFIGURATION_KEY(%d) done",
+            CURRENT_STATS_MAP_CONFIGURATION_KEY);
 
     RETURN_IF_NOT_OK(mUidOwnerMap.init(UID_OWNER_MAP_PATH));
     RETURN_IF_NOT_OK(mUidOwnerMap.clear());
