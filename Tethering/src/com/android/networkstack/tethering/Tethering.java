@@ -24,7 +24,6 @@ import static android.hardware.usb.UsbManager.USB_CONNECTED;
 import static android.hardware.usb.UsbManager.USB_FUNCTION_NCM;
 import static android.hardware.usb.UsbManager.USB_FUNCTION_RNDIS;
 import static android.net.ConnectivityManager.ACTION_RESTRICT_BACKGROUND_CHANGED;
-import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 import static android.net.ConnectivityManager.EXTRA_NETWORK_INFO;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.net.TetheringManager.ACTION_TETHER_STATE_CHANGED;
@@ -429,7 +428,6 @@ public class Tethering {
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(UsbManager.ACTION_USB_STATE);
-        filter.addAction(CONNECTIVITY_ACTION);
         filter.addAction(WifiManager.WIFI_AP_STATE_CHANGED_ACTION);
         filter.addAction(Intent.ACTION_CONFIGURATION_CHANGED);
         filter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
@@ -1153,8 +1151,6 @@ public class Tethering {
 
             if (action.equals(UsbManager.ACTION_USB_STATE)) {
                 handleUsbAction(intent);
-            } else if (action.equals(CONNECTIVITY_ACTION)) {
-                handleConnectivityAction(intent);
             } else if (action.equals(WifiManager.WIFI_AP_STATE_CHANGED_ACTION)) {
                 handleWifiApAction(intent);
             } else if (action.equals(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION)) {
@@ -1171,18 +1167,6 @@ public class Tethering {
             } else if (action.equals(TetheringNotificationUpdater.ACTION_DISABLE_TETHERING)) {
                 untetherAll();
             }
-        }
-
-        private void handleConnectivityAction(Intent intent) {
-            final NetworkInfo networkInfo =
-                    (NetworkInfo) intent.getParcelableExtra(EXTRA_NETWORK_INFO);
-            if (networkInfo == null
-                    || networkInfo.getDetailedState() == NetworkInfo.DetailedState.FAILED) {
-                return;
-            }
-
-            if (VDBG) Log.d(TAG, "Tethering got CONNECTIVITY_ACTION: " + networkInfo.toString());
-            mTetherMainSM.sendMessage(TetherMainSM.CMD_UPSTREAM_CHANGED);
         }
 
         private void handleUsbAction(Intent intent) {
@@ -1659,18 +1643,16 @@ public class Tethering {
         static final int EVENT_IFACE_SERVING_STATE_ACTIVE       = BASE_MAIN_SM + 1;
         // an interface SM has unrequested Tethering/Local Hotspot
         static final int EVENT_IFACE_SERVING_STATE_INACTIVE     = BASE_MAIN_SM + 2;
-        // upstream connection change - do the right thing
-        static final int CMD_UPSTREAM_CHANGED                   = BASE_MAIN_SM + 3;
         // we don't have a valid upstream conn, check again after a delay
-        static final int CMD_RETRY_UPSTREAM                     = BASE_MAIN_SM + 4;
+        static final int CMD_RETRY_UPSTREAM                     = BASE_MAIN_SM + 3;
         // Events from NetworkCallbacks that we process on the main state
         // machine thread on behalf of the UpstreamNetworkMonitor.
-        static final int EVENT_UPSTREAM_CALLBACK                = BASE_MAIN_SM + 5;
+        static final int EVENT_UPSTREAM_CALLBACK                = BASE_MAIN_SM + 4;
         // we treated the error and want now to clear it
-        static final int CMD_CLEAR_ERROR                        = BASE_MAIN_SM + 6;
-        static final int EVENT_IFACE_UPDATE_LINKPROPERTIES      = BASE_MAIN_SM + 7;
+        static final int CMD_CLEAR_ERROR                        = BASE_MAIN_SM + 5;
+        static final int EVENT_IFACE_UPDATE_LINKPROPERTIES      = BASE_MAIN_SM + 6;
         // Events from EntitlementManager to choose upstream again.
-        static final int EVENT_UPSTREAM_PERMISSION_CHANGED      = BASE_MAIN_SM + 8;
+        static final int EVENT_UPSTREAM_PERMISSION_CHANGED      = BASE_MAIN_SM + 7;
         private final State mInitialState;
         private final State mTetherModeAliveState;
 
@@ -1903,6 +1885,11 @@ public class Tethering {
             }
         }
 
+        protected void handleUpstreamMonitorEvent(UpstreamNetworkState ns) {
+            handleNewUpstreamNetworkState(ns);
+            chooseUpstreamType(false);
+        }
+
         protected void handleNewUpstreamNetworkState(UpstreamNetworkState ns) {
             mIPv6TetheringCoordinator.updateUpstreamNetworkState(ns);
             mOffload.updateUpstreamNetworkState(ns);
@@ -1984,16 +1971,20 @@ public class Tethering {
 
             if (mConfig.chooseUpstreamAutomatically
                     && arg1 == UpstreamNetworkMonitor.EVENT_DEFAULT_SWITCHED) {
+                final boolean isDunRequired = TetheringConfiguration.checkDunRequired(mContext);
+                if(ns == null && isDunRequired)
+                {
+                    chooseUpstreamType(false);
+                    return;
+                } else if (ns == null && !isDunRequired) {
+                    return;
+                }
+
                 chooseUpstreamType(true);
                 return;
             }
 
             if (ns == null || !pertainsToCurrentUpstream(ns)) {
-                // TODO: In future, this is where upstream evaluation and selection
-                // could be handled for notifications which include sufficient data.
-                // For example, after CONNECTIVITY_ACTION listening is removed, here
-                // is where we could observe a Wi-Fi network becoming available and
-                // passing validation.
                 if (mCurrentUpstreamIfaceSet == null) {
                     // If we have no upstream interface, try to run through upstream
                     // selection again.  If, for example, IPv4 connectivity has shown up
@@ -2009,17 +2000,13 @@ public class Tethering {
                     if (ns.network.equals(mTetherUpstream)) {
                         mNotificationUpdater.onUpstreamCapabilitiesChanged(ns.networkCapabilities);
                     }
-                    handleNewUpstreamNetworkState(ns);
+                    handleUpstreamMonitorEvent(ns);
                     break;
                 case UpstreamNetworkMonitor.EVENT_ON_LINKPROPERTIES:
-                    chooseUpstreamType(false);
+                    handleUpstreamMonitorEvent(ns);
                     break;
                 case UpstreamNetworkMonitor.EVENT_ON_LOST:
-                    // TODO: Re-evaluate possible upstreams. Currently upstream
-                    // reevaluation is triggered via received CONNECTIVITY_ACTION
-                    // broadcasts that result in being passed a
-                    // TetherMainSM.CMD_UPSTREAM_CHANGED.
-                    handleNewUpstreamNetworkState(null);
+                    handleUpstreamMonitorEvent(null);
                     break;
                 default:
                     mLog.e("Unknown arg1 value: " + arg1);
@@ -2136,7 +2123,6 @@ public class Tethering {
                         break;
                     }
                     case EVENT_UPSTREAM_PERMISSION_CHANGED:
-                    case CMD_UPSTREAM_CHANGED:
                         updateUpstreamWanted();
                         if (!mUpstreamWanted) break;
 
