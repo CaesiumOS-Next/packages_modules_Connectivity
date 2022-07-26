@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea3a3189_d749aaea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-26T12:24:18Z",
+      "side": 1,
+      "message": "(also please rebase)",
+      "revId": "adf2d9560cb5c414c4645ca30dc4024f521063ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "388d4fb9_c982544f",
+        "filename": "bpf_progs/dscpPolicy.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-26T12:24:18Z",
+      "side": 1,
+      "message": "delete?  I assume these are no longer used now",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 0
+      },
+      "revId": "adf2d9560cb5c414c4645ca30dc4024f521063ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20903b94_54dd8eaf",
+        "filename": "bpf_progs/dscpPolicy.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-26T12:24:18Z",
+      "side": 1,
+      "message": "This is a write into a non-checksum protected portion of the packet - ie. there is no accompanying checksum update that will cancel out this write.\n\nAs such this flag needs to be BPF_F_RECOMPUTE_CSUM and not 0,\notherwise we risk corrupting skb-\u003ecsum in the CHECKSUM_COMPLETE case.\n\nNote: this is very very subtle.\nTheoretically CHECKSUM_COMPLETE cannot even happen on transmit... unless\nwe\u0027re forwarding packets received from a rxcsum offload capable nic that delivers packets with CHECKSUM_COMPLETE set (not all nics do).\n\n(note that this is specific to writes to IPv6 header -- IPv4 header writes by virtue of the ipv4 header checksum updates does not need the flag)\n\nI spent hours getting to the bottom of this a year+ ago, and I\u0027m now just reading from my notes.",
+      "range": {
+        "startLine": 167,
+        "startChar": 87,
+        "endLine": 167,
+        "endChar": 88
+      },
+      "revId": "adf2d9560cb5c414c4645ca30dc4024f521063ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "753c122b_891d204a",
+        "filename": "bpf_progs/dscpPolicy.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-26T12:24:18Z",
+      "side": 1,
+      "message": "the lack of symmetry here is disturbing.\nmove this...",
+      "range": {
+        "startLine": 239,
+        "startChar": 12,
+        "endLine": 241,
+        "endChar": 13
+      },
+      "revId": "adf2d9560cb5c414c4645ca30dc4024f521063ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9477e71d_5029039e",
+        "filename": "bpf_progs/dscpPolicy.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-26T12:24:18Z",
+      "side": 1,
+      "message": "...here",
+      "range": {
+        "startLine": 273,
+        "startChar": 8,
+        "endLine": 273,
+        "endChar": 27
+      },
+      "revId": "adf2d9560cb5c414c4645ca30dc4024f521063ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26417a5f_abae75e0",
+        "filename": "bpf_progs/dscpPolicy.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-26T12:24:18Z",
+      "side": 1,
+      "message": "ditto: set the flag",
+      "range": {
+        "startLine": 277,
+        "startChar": 83,
+        "endLine": 277,
+        "endChar": 84
+      },
+      "revId": "adf2d9560cb5c414c4645ca30dc4024f521063ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
