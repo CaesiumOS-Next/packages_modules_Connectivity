@@ -503,6 +503,8 @@ public class UpstreamNetworkMonitor {
 
         @Override
         public void onCapabilitiesChanged(Network network, NetworkCapabilities newNc) {
+            handleNetCap(network, newNc);
+
             if (mCallbackType == CALLBACK_DEFAULT_INTERNET) {
                 // mDefaultInternetNetwork is not updated here because upstream selection must only
                 // run when the LinkProperties have been updated as well as the capabilities. If
@@ -527,8 +529,6 @@ public class UpstreamNetworkMonitor {
                 }
                 return;
             }
-
-            handleNetCap(network, newNc);
         }
 
         @Override
