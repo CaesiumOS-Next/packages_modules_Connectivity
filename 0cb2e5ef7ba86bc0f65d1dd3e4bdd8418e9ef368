@@ -22,6 +22,30 @@
       },
       "revId": "0cb2e5ef7ba86bc0f65d1dd3e4bdd8418e9ef368",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75a10352_1a1fd323",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-26T20:57:43Z",
+      "side": 1,
+      "message": "val etherHdr \u003d Struct.parse(EthernetHeader::class.java, buffer) in validatePacket() takes care of moving buffer forward by eth header.\n\nIpUtils.ipChecksum() uses duplicate which resets the index being used in the buffer, hence the need to pass in eth size.",
+      "parentUuid": "b6dfaa3c_b8f4f7de",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 33
+      },
+      "revId": "0cb2e5ef7ba86bc0f65d1dd3e4bdd8418e9ef368",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
