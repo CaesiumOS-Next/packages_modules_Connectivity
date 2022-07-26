@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6dfaa3c_b8f4f7de",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-26T20:50:15Z",
+      "side": 1,
+      "message": "side note: probably some sort of bug wrt. skipping ether header here as well like above?",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 33
+      },
+      "revId": "0cb2e5ef7ba86bc0f65d1dd3e4bdd8418e9ef368",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
