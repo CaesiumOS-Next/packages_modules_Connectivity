@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b7777ed_76b0b6f3",
+        "filename": "bpf_progs/dscpPolicy.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-26T20:11:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53d5abe9_42aae81b",
+      "range": {
+        "startLine": 226,
+        "startChar": 0,
+        "endLine": 226,
+        "endChar": 24
+      },
+      "revId": "c2ddaa149c3407bf36f8bd79098372dd0b21a844",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89b2b140_d194e607",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-26T20:01:03Z",
       "side": 1,
       "message": "uint8_t ...",
+      "range": {
+        "startLine": 269,
+        "startChar": 8,
+        "endLine": 269,
+        "endChar": 15
+      },
+      "revId": "c2ddaa149c3407bf36f8bd79098372dd0b21a844",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e57604e_268d7928",
+        "filename": "bpf_progs/dscpPolicy.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-26T20:11:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89b2b140_d194e607",
       "range": {
         "startLine": 269,
         "startChar": 8,
