@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c907f9cb_dbff490d",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-27T09:00:21Z",
+      "side": 1,
+      "message": "Checked in b/235355681 and was advised to use a different one. Changed the name and added doc though.",
+      "parentUuid": "091940ab_7209fc8b",
+      "range": {
+        "startLine": 152,
+        "startChar": 4,
+        "endLine": 152,
+        "endChar": 67
+      },
+      "revId": "018c2b843d5df452775d1da06395eb0d27ddd1c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b96d8718_525e8c94",
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7d9db0e6_20b0794b",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-27T09:00:21Z",
+      "side": 1,
+      "message": "Hmm not really because there\u0027s \"cts\" in there, and CtsNetTestCasesLatestSdk uses it. I could move just \"general-tests\" and \"mts-networking\" to CtsNetTestCasesDefaults, but it would give the wrong impression that only \"cts\" is being applied here.",
+      "parentUuid": "b96d8718_525e8c94",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 6
+      },
+      "revId": "018c2b843d5df452775d1da06395eb0d27ddd1c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1a1837b8_a43647df",
         "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
         "patchSetId": 3
@@ -60,6 +108,30 @@
       "writtenOn": "2022-07-20T08:00:19Z",
       "side": 1,
       "message": "Should we test this on S as well?",
+      "range": {
+        "startLine": 719,
+        "startChar": 57,
+        "endLine": 719,
+        "endChar": 81
+      },
+      "revId": "018c2b843d5df452775d1da06395eb0d27ddd1c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "189ad5f8_948d8cea",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-07-27T09:00:21Z",
+      "side": 1,
+      "message": "As per discussion concluding that a new change ID is needed, this change ID can\u0027t be tested on S; this is clearer now that it has \"T and later\" in its name.",
+      "parentUuid": "1a1837b8_a43647df",
       "range": {
         "startLine": 719,
         "startChar": 57,
