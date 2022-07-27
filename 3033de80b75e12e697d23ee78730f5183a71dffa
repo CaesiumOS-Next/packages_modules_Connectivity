@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb9fa5bf_c3c590d6",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-07-27T05:24:32Z",
+      "side": 1,
+      "message": "Do we need this method ? I don\u0027t think anybody calls it as of this patch or even at the end of the patch chain. It does say \"NoCopy\" in an effort to avoid clients mutating them, but if no outside party ever needs to see the unsanitized capabilities maybe we don\u0027t need to expose this method.",
+      "range": {
+        "startLine": 263,
+        "startChar": 4,
+        "endLine": 263,
+        "endChar": 10
+      },
+      "revId": "3033de80b75e12e697d23ee78730f5183a71dffa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
