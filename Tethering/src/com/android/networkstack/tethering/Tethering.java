@@ -2323,7 +2323,11 @@ public class Tethering {
     // if ro.tether.denied = true we default to no tethering
     // gservices could set the secure setting to 1 though to enable it on a build where it
     // had previously been turned off.
+<<<<<<< HEAD   (9ac9c1 Merge "Skip wifi stats test if link layer stats is not suppo)
     boolean isTetheringSupported() {
+=======
+    boolean isTetheringAllowed() {
+>>>>>>> CHANGE (cf2303 Make tethering APIs unsupported synchronously when disallowe)
         final int defaultVal = mDeps.isTetheringDenied() ? 0 : 1;
         final boolean tetherSupported = Settings.Global.getInt(mContext.getContentResolver(),
                 Settings.Global.TETHER_SUPPORTED, defaultVal) != 0;
