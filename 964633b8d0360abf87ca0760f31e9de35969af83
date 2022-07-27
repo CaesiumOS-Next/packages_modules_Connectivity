@@ -16,6 +16,23 @@
       "message": "LGTM but I think we should find the way to add test.",
       "revId": "964633b8d0360abf87ca0760f31e9de35969af83",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4ef94c6_5103cdc8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-07-27T07:18:47Z",
+      "side": 1,
+      "message": "`replaceDefaultNetworkRequestsForPreference` part LGTM\nBut I think removing HACK should be reviewed by Jean.",
+      "revId": "964633b8d0360abf87ca0760f31e9de35969af83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
