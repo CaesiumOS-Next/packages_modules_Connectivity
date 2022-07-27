@@ -16,6 +16,23 @@
       "message": "looks like some very bad unrelated unhappiness atm",
       "revId": "4e8949b2168000490a32408b30aa28f99817e07c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84ce8daf_c9fb63cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-27T10:55:24Z",
+      "side": 1,
+      "message": "Failure in:\nCaptivePortalLoginTests(module-abi\u003dx86_64)\ncom.android.captiveportallogin.CaptivePortalLoginActivityTest#testHasVpnNetwork\n\nappears utterly unrelated.",
+      "revId": "4e8949b2168000490a32408b30aa28f99817e07c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
