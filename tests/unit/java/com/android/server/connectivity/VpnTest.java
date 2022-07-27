@@ -20,6 +20,8 @@ import static android.Manifest.permission.BIND_VPN_SERVICE;
 import static android.Manifest.permission.CONTROL_VPN;
 import static android.content.pm.PackageManager.PERMISSION_DENIED;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+import static android.net.ConnectivityDiagnosticsManager.ConnectivityDiagnosticsCallback;
+import static android.net.ConnectivityDiagnosticsManager.DataStallReport;
 import static android.net.ConnectivityManager.NetworkCallback;
 import static android.net.INetd.IF_STATE_DOWN;
 import static android.net.INetd.IF_STATE_UP;
@@ -78,6 +80,7 @@ import android.content.pm.ResolveInfo;
 import android.content.pm.ServiceInfo;
 import android.content.pm.UserInfo;
 import android.content.res.Resources;
+import android.net.ConnectivityDiagnosticsManager;
 import android.net.ConnectivityManager;
 import android.net.INetd;
 import android.net.Ikev2VpnProfile;
@@ -117,6 +120,7 @@ import android.os.Bundle;
 import android.os.ConditionVariable;
 import android.os.INetworkManagementService;
 import android.os.ParcelFileDescriptor;
+import android.os.PersistableBundle;
 import android.os.PowerWhitelistManager;
 import android.os.Process;
 import android.os.UserHandle;
@@ -248,6 +252,7 @@ public class VpnTest extends VpnTestBase {
     @Mock private Vpn.Ikev2SessionCreator mIkev2SessionCreator;
     @Mock private NetworkAgent mMockNetworkAgent;
     @Mock private ConnectivityManager mConnectivityManager;
+    @Mock private ConnectivityDiagnosticsManager mCdm;
     @Mock private IpSecService mIpSecService;
     @Mock private VpnProfileStore mVpnProfileStore;
     @Mock private ScheduledThreadPoolExecutor mExecutor;
@@ -285,6 +290,8 @@ public class VpnTest extends VpnTestBase {
         mockService(NotificationManager.class, Context.NOTIFICATION_SERVICE, mNotificationManager);
         mockService(ConnectivityManager.class, Context.CONNECTIVITY_SERVICE, mConnectivityManager);
         mockService(IpSecManager.class, Context.IPSEC_SERVICE, mIpSecManager);
+        mockService(ConnectivityDiagnosticsManager.class, Context.CONNECTIVITY_DIAGNOSTICS_SERVICE,
+                mCdm);
         when(mContext.getString(R.string.config_customVpnAlwaysOnDisconnectedDialogComponent))
                 .thenReturn(Resources.getSystem().getString(
                         R.string.config_customVpnAlwaysOnDisconnectedDialogComponent));
@@ -1762,7 +1769,7 @@ public class VpnTest extends VpnTestBase {
             throws Exception {
         doReturn(mMockNetworkAgent).when(mTestDeps)
                 .newNetworkAgent(
-                        any(), any(), anyString(), any(), any(), any(), any(), any());
+                        any(), any(), anyString(), any(), any(), any(), any(), any(), any());
 
         final Vpn vpn = createVpnAndSetupUidChecks(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
         when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
@@ -1790,7 +1797,7 @@ public class VpnTest extends VpnTestBase {
                 ArgumentCaptor.forClass(NetworkCapabilities.class);
         verify(mTestDeps).newNetworkAgent(
                 any(), any(), anyString(), ncCaptor.capture(), lpCaptor.capture(),
-                any(), any(), any());
+                any(), any(), any(), any());
 
         // Check LinkProperties
         final LinkProperties lp = lpCaptor.getValue();
@@ -1951,6 +1958,101 @@ public class VpnTest extends VpnTestBase {
         verifyHandlingNetworkLoss();
     }
 
+    private ConnectivityDiagnosticsCallback getConnectivityDiagCallback() {
+        final ArgumentCaptor<ConnectivityDiagnosticsCallback> cdcCaptor =
+                ArgumentCaptor.forClass(ConnectivityDiagnosticsCallback.class);
+        verify(mCdm).registerConnectivityDiagnosticsCallback(
+                any(), any(), cdcCaptor.capture());
+        return cdcCaptor.getValue();
+    }
+
+    private DataStallReport createDataStallReport() {
+        return new DataStallReport(TEST_NETWORK, 1234 /* reportTimestamp */,
+                1 /* detectionMethod */, new LinkProperties(), new NetworkCapabilities(),
+                new PersistableBundle());
+    }
+
+    @Test
+    public void testDataStallInIkev2VpnMobikeDisabled() throws Exception {
+        final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
+                createIkeConfig(createIkeConnectInfo(), false /* isMobikeEnabled */));
+
+        doReturn(TEST_NETWORK).when(mMockNetworkAgent).getNetwork();
+        final ConnectivityDiagnosticsCallback connectivityDiagCallback =
+                getConnectivityDiagCallback();
+        final DataStallReport report = createDataStallReport();
+        connectivityDiagCallback.onDataStallSuspected(report);
+
+        // Should not trigger MOBIKE if MOBIKE is not enabled
+        verify(mIkeSessionWrapper, never()).setNetwork(eq(vpnSnapShot.vpn.getNetwork()));
+    }
+
+    @Test
+    public void testDataStallInIkev2VpnRecoveredByMobike() throws Exception {
+        final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
+                createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */));
+
+        doReturn(TEST_NETWORK).when(mMockNetworkAgent).getNetwork();
+        final ConnectivityDiagnosticsCallback connectivityDiagCallback =
+                getConnectivityDiagCallback();
+        final DataStallReport report = createDataStallReport();
+        connectivityDiagCallback.onDataStallSuspected(report);
+
+        // Verify MOBIKE is triggered
+        verify(mIkeSessionWrapper).setNetwork(eq(vpnSnapShot.vpn.getNetwork()));
+
+        // Expect to skip other data stall event if MOBIKE was started.
+        reset(mIkeSessionWrapper);
+        connectivityDiagCallback.onDataStallSuspected(report);
+        verify(mIkeSessionWrapper, never()).setNetwork(eq(vpnSnapShot.vpn.getNetwork()));
+
+        // Set up the time to allow resetting the ike session.
+        reset(mIkev2SessionCreator);
+        mTestDeps.setElapsedRealtime(Vpn.RESET_IKE_SESSION_WHEN_STALL_DURATION_MS + 1000);
+
+        // Send validation status update.
+        // Recovered and get network validated. It should not trigger the ike session reset.
+        ((Vpn.IkeV2VpnRunner) vpnSnapShot.vpn.mVpnRunner).onValidationStatus(
+                NetworkAgent.VALIDATION_STATUS_VALID);
+        verify(mIkev2SessionCreator, never()).createIkeSession(
+                any(), any(), any(), any(), any(), any());
+
+        // Send invalid result to verify the timer is reset by verifying no ike session reset.
+        ((Vpn.IkeV2VpnRunner) vpnSnapShot.vpn.mVpnRunner).onValidationStatus(
+                NetworkAgent.VALIDATION_STATUS_NOT_VALID);
+        verify(mIkev2SessionCreator, never()).createIkeSession(
+                any(), any(), any(), any(), any(), any());
+    }
+
+    @Test
+    public void testDataStallInIkev2VpnNotRecoveredByMobike() throws Exception {
+        final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
+                createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */));
+
+        final ConnectivityDiagnosticsCallback connectivityDiagCallback =
+                getConnectivityDiagCallback();
+
+        doReturn(TEST_NETWORK).when(mMockNetworkAgent).getNetwork();
+        final DataStallReport report = createDataStallReport();
+        connectivityDiagCallback.onDataStallSuspected(report);
+
+        // Verify MOBIKE is triggered
+        verify(mIkeSessionWrapper).setNetwork(eq(vpnSnapShot.vpn.getNetwork()));
+
+        // Skip other data stall event if MOBIKE was started.
+        reset(mIkeSessionWrapper);
+        connectivityDiagCallback.onDataStallSuspected(report);
+        verify(mIkeSessionWrapper, never()).setNetwork(eq(vpnSnapShot.vpn.getNetwork()));
+
+        reset(mIkev2SessionCreator);
+        mTestDeps.setElapsedRealtime(Vpn.RESET_IKE_SESSION_WHEN_STALL_DURATION_MS + 1000);
+
+        // Send validation status update should result in ike session reset.
+        ((Vpn.IkeV2VpnRunner) vpnSnapShot.vpn.mVpnRunner).onValidationStatus(
+                NetworkAgent.VALIDATION_STATUS_NOT_VALID);
+        verify(mIkev2SessionCreator).createIkeSession(any(), any(), any(), any(), any(), any());
+    }
+
     @Test
     public void testStartRacoonNumericAddress() throws Exception {
         startRacoon("1.2.3.4", "1.2.3.4");
@@ -2090,6 +2192,7 @@ public class VpnTest extends VpnTestBase {
         public final File mStateFile;
 
         private final HashMap<String, Boolean> mRunningServices = new HashMap<>();
+        private long mCurrentTimeMs = 1L; // Set default value more than 0
 
         TestDeps() {
             try {
@@ -2228,6 +2331,15 @@ public class VpnTest extends VpnTestBase {
         @Override
         public ScheduledThreadPoolExecutor newScheduledThreadPoolExecutor() {
             return mExecutor;
+        }
+
+        @Override
+        public long getElapsedRealtime() {
+            return mCurrentTimeMs;
+        }
+
+        public void setElapsedRealtime(long timeMs) {
+            mCurrentTimeMs = timeMs;
         }
     }
 
