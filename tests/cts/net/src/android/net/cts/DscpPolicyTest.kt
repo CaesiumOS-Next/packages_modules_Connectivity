@@ -218,12 +218,12 @@ class DscpPolicyTest {
 
     private fun waitForGlobalIpv6Address(network: Network): Inet6Address {
         // Wait for global IPv6 address to be available
-        val sock = Os.socket(AF_INET6, SOCK_DGRAM, IPPROTO_UDP)
-        network.bindSocket(sock)
-
         var inet6Addr: Inet6Address? = null
         val timeout = SystemClock.elapsedRealtime() + PACKET_TIMEOUT_MS
         while (timeout > SystemClock.elapsedRealtime()) {
+            val sock = Os.socket(AF_INET6, SOCK_DGRAM, IPPROTO_UDP)
+            network.bindSocket(sock)
+
             try {
                 // Pick any arbitrary port
                 Os.connect(sock, TEST_TARGET_IPV6_ADDR, 12345)
@@ -233,6 +233,7 @@ class DscpPolicyTest {
                 // or make it configurable and configure it here.
                 if (IpPrefix("2001:db8::/64").contains(sockAddr.address)) {
                     inet6Addr = sockAddr.address as Inet6Address
+                    Os.close(sock)
                     break
                 }
             } catch (e: ErrnoException) {
@@ -243,8 +244,8 @@ class DscpPolicyTest {
                 }
             }
             SystemClock.sleep(10 /* ms */)
+            Os.close(sock)
         }
-        Os.close(sock)
         assertNotNull(inet6Addr)
         return inet6Addr!!
     }
