@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ee6b5c6_4a2b228a",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-27T23:33:15Z",
+      "side": 1,
+      "message": "this isn\u0027t entirely kosher, but adding an actual value class that will never be used doesn\u0027t sound like the right thing either.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 6
+      },
+      "revId": "8d0cb81c9a3c9df1b14adb5a8778284f8672ea53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
