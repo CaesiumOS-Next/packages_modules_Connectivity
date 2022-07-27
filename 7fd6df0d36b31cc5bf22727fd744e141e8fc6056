@@ -52,6 +52,24 @@
       "parentUuid": "2fb524d9_5a34c9e6",
       "revId": "7fd6df0d36b31cc5bf22727fd744e141e8fc6056",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28035bf8_4b28d0e8",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-27T04:26:10Z",
+      "side": 1,
+      "message": "Cool, that\u0027s much better! 😊",
+      "parentUuid": "599834fc_d0dc5b27",
+      "revId": "7fd6df0d36b31cc5bf22727fd744e141e8fc6056",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "655a43c8_23def3d5",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 38
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-27T04:26:10Z",
+      "side": 1,
+      "message": "You should also add a null check for config.",
+      "range": {
+        "startLine": 433,
+        "startChar": 60,
+        "endLine": 433,
+        "endChar": 66
+      },
+      "revId": "96e15457c36d2b40c523a9a1a9b07dcc160ae2c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
