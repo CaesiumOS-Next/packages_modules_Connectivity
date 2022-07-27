@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.os.UserManager;
 import android.util.ArrayMap;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,7 @@ import androidx.annotation.Nullable;
 
 public class MockTetheringService extends TetheringService {
     private final Tethering mTethering = mock(Tethering.class);
+    private final UserManager mUserManager = mock(UserManager.class);
     private final ArrayMap<String, Integer> mMockedPermissions = new ArrayMap<>();
 
     @Override
@@ -61,8 +63,21 @@ public class MockTetheringService extends TetheringService {
         return super.checkCallingOrSelfPermission(permission);
     }
 
+    @Override
+    public Object getSystemService(String name) {
+        if (name.equals(Context.USER_SERVICE)) {
+            return mUserManager;
+        } else {
+            return super.getSystemService(name);
+        }
+    }
+
     public Tethering getTethering() {
         return mTethering;
+    }
+
+    public UserManager getUserManager() {
+        return mUserManager;
     }
 
     public class MockTetheringConnector extends Binder {
