@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a973e4be_eeba07b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-27T23:08:21Z",
+      "side": 1,
+      "message": "(I\u0027ve been unable to find a way to do a udp disconnect - ie. connect to AF_UNSPEC - from Java/Kotlin)",
+      "revId": "8981fca7729815bbe05ad6f7160c3bffa1cbf2da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
