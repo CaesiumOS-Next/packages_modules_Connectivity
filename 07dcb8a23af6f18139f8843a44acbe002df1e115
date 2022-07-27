@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72eb2394_00ab224e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-07-27T15:12:02Z",
+      "side": 1,
+      "message": "Increasing the map size will increase boot loader times right? I believe we should see what the impact is after removing the raw program before increasing this size.",
+      "revId": "07dcb8a23af6f18139f8843a44acbe002df1e115",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
