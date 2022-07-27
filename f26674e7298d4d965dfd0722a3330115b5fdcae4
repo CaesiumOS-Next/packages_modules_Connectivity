@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d9c4828_d8352267",
+        "filename": "service/src/com/android/server/connectivity/FullScore.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-07-27T09:52:34Z",
+      "side": 1,
+      "message": "Sorry but 1 is not a prime, so we should start with 2*",
+      "range": {
+        "startLine": 367,
+        "startChar": 16,
+        "endLine": 367,
+        "endChar": 21
+      },
+      "revId": "f26674e7298d4d965dfd0722a3330115b5fdcae4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8b2bc2b_ec7d75f4",
+        "filename": "tests/unit/java/com/android/server/connectivity/IpConnectivityMetricsTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-07-27T09:52:34Z",
+      "side": 1,
+      "message": "nit : final ?",
+      "range": {
+        "startLine": 349,
+        "startChar": 8,
+        "endLine": 349,
+        "endChar": 24
+      },
+      "revId": "f26674e7298d4d965dfd0722a3330115b5fdcae4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
