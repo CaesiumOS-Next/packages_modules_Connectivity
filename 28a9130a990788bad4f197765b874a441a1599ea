@@ -22,6 +22,30 @@
       },
       "revId": "28a9130a990788bad4f197765b874a441a1599ea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "410cde03_613715b3",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-07-27T02:49:37Z",
+      "side": 1,
+      "message": "It seems it is auto generated in this file.\nRefer to other places in the same file.",
+      "parentUuid": "bf858f24_a74b08e2",
+      "range": {
+        "startLine": 137,
+        "startChar": 50,
+        "endLine": 137,
+        "endChar": 56
+      },
+      "revId": "28a9130a990788bad4f197765b874a441a1599ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
