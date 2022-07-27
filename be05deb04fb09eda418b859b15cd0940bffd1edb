@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1d9fc34_4eb093d1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 7830,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-07-27T05:19:17Z",
+      "side": 0,
+      "message": "This patch doesn\u0027t implement the TODO ; strictly speaking this TODO should stay here.\nNo need to respin the patch for this, after all this goes away in the next patch.",
+      "range": {
+        "startLine": 7830,
+        "startChar": 4,
+        "endLine": 7830,
+        "endChar": 43
+      },
+      "revId": "be05deb04fb09eda418b859b15cd0940bffd1edb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
