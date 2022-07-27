@@ -130,6 +130,7 @@ import android.provider.Settings.Global;
 import android.service.NetworkInterfaceProto;
 import android.service.NetworkStatsServiceDumpProto;
 import android.system.ErrnoException;
+import android.system.Os;
 import android.telephony.PhoneStateListener;
 import android.telephony.SubscriptionPlan;
 import android.text.TextUtils;
@@ -2693,6 +2694,15 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                 mUidTagRecorder.dumpLocked(pw, fullHistory);
                 pw.decreaseIndent();
             }
+
+            pw.println();
+            dumpMapStatus(pw);
+            pw.println();
+
+            pw.println("BPF map content:");
+            pw.increaseIndent();
+            dumpCookieTagMapLocked(pw, includeTag, includeUid);
+            pw.decreaseIndent();
         }
     }
 
@@ -2725,6 +2735,43 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
             proto.end(start);
         }
+    }
+
+    private void dumpMapStatus(final IndentingPrintWriter pw) {
+        pw.println("BPF map status:");
+        pw.increaseIndent();
+        pw.println("mCookieTagMap: " + (mCookieTagMap != null ? "OK" : "NULL"));
+        pw.decreaseIndent();
+    }
+
+    @GuardedBy("mStatsLock")
+    private void dumpCookieTagMapLocked(
+            final IndentingPrintWriter pw, final boolean includeTag, final boolean includeUid) {
+        if (mCookieTagMap == null) {
+            return;
+        }
+        pw.println("mCookieTagMap:");
+        pw.increaseIndent();
+        try {
+            mCookieTagMap.forEach((key, value) -> {
+                // value could be null if there is a concurrent entry deletion.
+                // http://b/220084230.
+                if (value != null) {
+                    final StringBuilder sb = new StringBuilder();
+                    sb.append("cookie=").append(key.socketCookie);
+                    if (includeTag) {
+                        sb.append(" tag=0x").append(Long.toHexString(value.tag));
+                    }
+                    if (includeUid) {
+                        sb.append(" uid=").append(value.uid);
+                    }
+                    pw.println(sb);
+                }
+            });
+        } catch (ErrnoException e) {
+            pw.println("mCookieTagMap dump end with error: " + Os.strerror(e.errno));
+        }
+        pw.decreaseIndent();
     }
 
     private NetworkStats readNetworkStatsSummaryDev() {
