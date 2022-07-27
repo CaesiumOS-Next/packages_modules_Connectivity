@@ -222,31 +222,29 @@ class DscpPolicyTest {
 
     private fun waitForGlobalIpv6Address(network: Network): Inet6Address {
         // Wait for global IPv6 address to be available
-        val sock = Os.socket(AF_INET6, SOCK_DGRAM, IPPROTO_UDP)
-        network.bindSocket(sock)
-
         var inet6Addr: Inet6Address? = null
         val timeout = SystemClock.elapsedRealtime() + PACKET_TIMEOUT_MS
         val onLinkPrefix = raResponder.prefix
         while (timeout > SystemClock.elapsedRealtime()) {
+            val sock = Os.socket(AF_INET6, SOCK_DGRAM, IPPROTO_UDP)
+            network.bindSocket(sock)
+
             try {
                 // Pick any arbitrary port
                 Os.connect(sock, TEST_TARGET_IPV6_ADDR, 12345)
-                val sockAddr = Os.getsockname(sock) as InetSocketAddress
-                if (onLinkPrefix.contains(sockAddr.address)) {
-                    inet6Addr = sockAddr.address as Inet6Address
-                    break
-                }
             } catch (e: ErrnoException) {
                 // ignore ENETUNREACH -- there may not be an address available yet.
-                if (e.errno != ENETUNREACH) {
-                    Os.close(sock)
-                    throw e
-                }
+                if (e.errno != ENETUNREACH) throw e
+            }
+            val sockAddr = Os.getsockname(sock) as InetSocketAddress
+            if (onLinkPrefix.contains(sockAddr.address)) {
+                inet6Addr = sockAddr.address as Inet6Address
+                break
             }
             SystemClock.sleep(10 /* ms */)
+        } finally {
+            Os.close(sock)
         }
-        Os.close(sock)
         assertNotNull(inet6Addr)
         return inet6Addr!!
     }
