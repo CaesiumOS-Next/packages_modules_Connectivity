@@ -129,6 +129,7 @@ import android.provider.Settings.Global;
 import android.service.NetworkInterfaceProto;
 import android.service.NetworkStatsServiceDumpProto;
 import android.system.ErrnoException;
+import android.system.Os;
 import android.telephony.PhoneStateListener;
 import android.telephony.SubscriptionPlan;
 import android.text.TextUtils;
@@ -2690,6 +2691,32 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                 mUidTagRecorder.dumpLocked(pw, fullHistory);
                 pw.decreaseIndent();
             }
+
+            pw.println("BPF map content:");
+            pw.increaseIndent();
+
+            pw.println("mCookieTagMap:");
+            pw.increaseIndent();
+            try {
+                mCookieTagMap.forEach((key, value) -> {
+                    if (value != null) {
+                        final StringBuilder sb = new StringBuilder();
+                        sb.append("cookie=").append(key.socketCookie);
+                        if (includeTag) {
+                            sb.append(" tag=").append(Long.toHexString(value.tag));
+                        }
+                        if (includeUid) {
+                            sb.append(" uid=").append(value.uid);
+                        }
+                        pw.println(sb);
+                    }
+                });
+            } catch (ErrnoException e) {
+                pw.println("mCookieTagMap dump end with error: " + Os.strerror(e.errno));
+            }
+            pw.decreaseIndent();
+
+            pw.decreaseIndent();
         }
     }
 

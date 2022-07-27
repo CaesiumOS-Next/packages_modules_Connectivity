@@ -570,8 +570,6 @@ void TrafficController::dump(int fd, bool verbose) {
     ScopedIndent indentPreBpfModule(dw);
 
     dw.blankline();
-    dw.println("mCookieTagMap status: %s",
-               getMapStatus(mCookieTagMap.getMap(), COOKIE_TAG_MAP_PATH).c_str());
     dw.println("mUidCounterSetMap status: %s",
                getMapStatus(mUidCounterSetMap.getMap(), UID_COUNTERSET_MAP_PATH).c_str());
     dw.println("mAppUidStatsMap status: %s",
@@ -610,18 +608,6 @@ void TrafficController::dump(int fd, bool verbose) {
     dw.println("BPF map content:");
 
     ScopedIndent indentForMapContent(dw);
-
-    // Print CookieTagMap content.
-    dumpBpfMap("mCookieTagMap", dw, "");
-    const auto printCookieTagInfo = [&dw](const uint64_t& key, const UidTagValue& value,
-                                          const BpfMap<uint64_t, UidTagValue>&) {
-        dw.println("cookie=%" PRIu64 " tag=0x%x uid=%u", key, value.tag, value.uid);
-        return base::Result<void>();
-    };
-    base::Result<void> res = mCookieTagMap.iterateWithValue(printCookieTagInfo);
-    if (!res.ok()) {
-        dw.println("mCookieTagMap print end with error: %s", res.error().message().c_str());
-    }
 
     // Print UidCounterSetMap content.
     dumpBpfMap("mUidCounterSetMap", dw, "");
