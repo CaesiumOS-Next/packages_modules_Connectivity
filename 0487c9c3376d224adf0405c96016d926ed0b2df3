@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfbd354b_5414eba8",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-27T04:57:18Z",
+      "side": 1,
+      "message": "Instead of having boolean and adding if condition, I would suggest to separate the function which may be more readable.\nReadability more be more important than reuse the code in testing. go/tott/598\n\nMaybe we could have code like this:\n\nsendDownloadPacketUdp(...) {\n...\ntester.verifyDownload(testPacket, p -\u003e {\nLog.d(TAG, \"Packet in downstream: \" + dumpHexString(p));\neturn isExpectedUdpPacket(p, true /* hasEther */, isAddressIpv4(srcIp, dstIp), PAYLOAD);\n});\n\n}\n\nsendUploadPacketUdp(...) {\n...\ntester.verifyUpload(testPacket, p -\u003e {\nLog.d(TAG, \"Packet in upstream: \" + dumpHexString(p));\nreturn isExpectedUdpPacket(p, false /* hasEther */, isAddressIpv4(srcIp, dstIp), PAYLOAD2);\n});\n}\n\n    private boolean isAddressIpv4(InetAddress srcIp, InetAddress dstIp) {\n        if (srcIp instanceof Inet4Address \u0026\u0026 dstIp instanceof Inet4Address) return true;\n\n        if (srcIp instanceof Inet6Address \u0026\u0026 dstIp instanceof Inet6Address) return false;\n\n\n        fail(\"Unsupported conditions: srcIp \" + srcIp + \", dstIp \" + dstIp);\n        return false;\n    }",
+      "range": {
+        "startLine": 893,
+        "startChar": 39,
+        "endLine": 893,
+        "endChar": 47
+      },
+      "revId": "0487c9c3376d224adf0405c96016d926ed0b2df3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3922a62_ad9d0a09",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-27T04:57:18Z",
+      "side": 1,
+      "message": "the test stop when fail, so this is redundant.",
+      "range": {
+        "startLine": 911,
+        "startChar": 12,
+        "endLine": 911,
+        "endChar": 18
+      },
+      "revId": "0487c9c3376d224adf0405c96016d926ed0b2df3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee058a48_74c012c2",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-27T04:57:18Z",
+      "side": 1,
+      "message": "Maybe remoteIp and tetheredIp is unnecessary ?\nsendPacketUdp(UPLOAD, tethered.ipv6Addr, REMOTE_IP6_ADDR, tester, tethered);\nsendPacketUdp(DOWNLOAD, REMOTE_IP6_ADDR, tethered.ipv6Addr, tester, tethered);",
+      "range": {
+        "startLine": 932,
+        "startChar": 0,
+        "endLine": 935,
+        "endChar": 72
+      },
+      "revId": "0487c9c3376d224adf0405c96016d926ed0b2df3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
