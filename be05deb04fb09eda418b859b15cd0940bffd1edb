@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a418546e_7ec2f7d0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 7828,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-07-27T05:16:38Z",
+      "side": 1,
+      "message": "Ideally we\u0027d add a comment here saying that this method does not mutate its |unsanitized| argument, though it should be pretty obvious from the name and the contract of the method.\n\nIn fact, even more ideally we\u0027d have a test that this method does not mutate its argument, to prevent anybody from doing it in the future, something like\n\n// The contract for sanitizeCapabilitiesFromAgent requires that it does not mutate\n// its argument. Make sure this is respected.\ntestSanitizedCapabilitiesFromAgentDoesNotMutateArgument() {\n  unsanitized \u003d fill in some NC with everything it can have\n  copyOfUnsanitized \u003d new NC(unsanitized)\n  sanitized \u003d sanitizedCapabilitiesFromAgent\n  assertEquals(copyOfUnsanitized, unsanitized)\n}\n\n(it is fine to do this in the patch that moves it to NetworkAgentInfo to avoid some churn)",
+      "range": {
+        "startLine": 7828,
+        "startChar": 63,
+        "endLine": 7828,
+        "endChar": 64
+      },
+      "revId": "be05deb04fb09eda418b859b15cd0940bffd1edb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "647892db_af6f98cf",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-07-27T05:16:38Z",
+      "side": 1,
+      "message": "Let\u0027s add a comment here saying something like :\n\n// As the name implies, these capabilities are not sanitized and are not to\n// be trusted. Most callers should simply use the {@link networkCapabilities}\n// field instead, and callers who need the declared capabilities should generally\n// pass these to {@link sanitizedCapabilitiesFromAgent} before using them.",
+      "range": {
+        "startLine": 183,
+        "startChar": 75,
+        "endLine": 183,
+        "endChar": 76
+      },
+      "revId": "be05deb04fb09eda418b859b15cd0940bffd1edb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
