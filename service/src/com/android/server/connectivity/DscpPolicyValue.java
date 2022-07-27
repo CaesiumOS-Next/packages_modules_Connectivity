@@ -52,8 +52,8 @@ public class DscpPolicyValue extends Struct {
     @Field(order = 6, type = Type.U8)
     public final short proto;
 
-    @Field(order = 7, type = Type.U8)
-    public final short dscp;
+    @Field(order = 7, type = Type.S8)
+    public final byte dscp;
 
     @Field(order = 8, type = Type.U8, padding = 3)
     public final short mask;
