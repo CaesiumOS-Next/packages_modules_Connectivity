@@ -48,6 +48,7 @@ namespace android {
 static void native_init(JNIEnv* env, jclass clazz) {
   Status status = mTc.start();
   CHECK_LOG(status);
+  if (!isOk(status)) abort();
 }
 
 static jint native_addNaughtyApp(JNIEnv* env, jobject self, jint uid) {
