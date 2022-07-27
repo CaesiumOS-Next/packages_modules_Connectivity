@@ -54,6 +54,8 @@ public class DscpPolicyTracker {
     private static final String PROG_PATH =
             "/sys/fs/bpf/net_shared/prog_dscpPolicy_schedcls_set_dscp_ether";
     // Name is "map + *.o + map_name + map". Can probably shorten this
+    private static final String CACHE_MAP_PATH = makeMapPath(
+            "dscpPolicy_socket_policy_cache_map");
     private static final String IPV4_POLICY_MAP_PATH = makeMapPath(
             "dscpPolicy_ipv4_dscp_policies");
     private static final String IPV6_POLICY_MAP_PATH = makeMapPath(
@@ -66,6 +68,14 @@ public class DscpPolicyTracker {
 
     private Set<String> mAttachedIfaces;
 
+    // mBpfDscpCacheMap is only used to clear the map, so the contents do not matter.
+    private static class PlaceholderDscpCacheValue extends Struct {
+        // keep this in sync with RuleEntry in dscpPolicy.h
+        @Struct.Field(order = 0, type = Struct.Type.ByteArray, arraysize = 44)
+        public final byte[] value = new byte[44];
+    };
+
+    private final BpfMap<Struct.S64, PlaceholderDscpCacheValue> mBpfDscpCacheMap;
     private final BpfMap<Struct.U32, DscpPolicyValue> mBpfDscpIpv4Policies;
     private final BpfMap<Struct.U32, DscpPolicyValue> mBpfDscpIpv6Policies;
 
@@ -85,6 +95,8 @@ public class DscpPolicyTracker {
     public DscpPolicyTracker() throws ErrnoException {
         mAttachedIfaces = new HashSet<String>();
         mIfaceIndexToPolicyIdBpfMapIndex = new HashMap<Integer, SparseIntArray>();
+        mBpfDscpCacheMap = new BpfMap<Struct.U32, PlaceholderDscpCacheValue>(CACHE_MAP_PATH,
+                BpfMap.BPF_F_RDWR, Struct.U32.class, PlaceholderDscpCacheValue.class);
         mBpfDscpIpv4Policies = new BpfMap<Struct.U32, DscpPolicyValue>(IPV4_POLICY_MAP_PATH,
                 BpfMap.BPF_F_RDWR, Struct.U32.class, DscpPolicyValue.class);
         mBpfDscpIpv6Policies = new BpfMap<Struct.U32, DscpPolicyValue>(IPV6_POLICY_MAP_PATH,
@@ -221,6 +233,14 @@ public class DscpPolicyTracker {
         return false;
     }
 
+    private void clearPolicyCacheMap() {
+        try {
+            mBpfDscpCacheMap.clear();
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Failed to clear DSCP policy cache map", e);
+        }
+    }
+
     /**
      * Add the provided DSCP policy to the bpf map. Attach bpf program dscpPolicy to iface
      * if not already attached. Response will be sent back to nai with status.
@@ -251,6 +271,7 @@ public class DscpPolicyTracker {
         }
 
         int status = addDscpPolicyInternal(policy, ifIndex);
+        clearPolicyCacheMap();
         sendStatus(nai, policy.getPolicyId(), status);
     }
 
@@ -291,6 +312,8 @@ public class DscpPolicyTracker {
         }
 
         removePolicyFromMap(nai, policyId, existingIndex, true);
+        // TODO: send status update after clearing cache map.
+        clearPolicyCacheMap();
         ifacePolicies.delete(policyId);
 
         if (ifacePolicies.size() == 0) {
@@ -317,6 +340,9 @@ public class DscpPolicyTracker {
             removePolicyFromMap(nai, ifacePolicies.keyAt(i), ifacePolicies.valueAt(i),
                     sendCallback);
         }
+        // TODO: send status update after clearing cache map. In this case though, this would mean
+        // that the cache map would have to be cleared for every iteration of the loop above.
+        clearPolicyCacheMap();
         ifacePolicies.clear();
         detachProgram(nai.linkProperties.getInterfaceName());
     }
@@ -325,6 +351,9 @@ public class DscpPolicyTracker {
      * Attach BPF program
      */
     private boolean attachProgram(@NonNull String iface) {
+        // This is probably not needed / overly aggressive, but it makes sure this starts with a
+        // clean slate.
+        clearPolicyCacheMap();
         try {
             NetworkInterface netIface = NetworkInterface.getByName(iface);
             TcUtils.tcFilterAddDevBpf(netIface.getIndex(), false, PRIO_DSCP, (short) ETH_P_ALL,
@@ -341,6 +370,7 @@ public class DscpPolicyTracker {
      * Detach BPF program
      */
     public void detachProgram(@NonNull String iface) {
+        clearPolicyCacheMap();
         try {
             NetworkInterface netIface = NetworkInterface.getByName(iface);
             if (netIface != null) {
