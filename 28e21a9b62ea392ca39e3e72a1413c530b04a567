@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cb2ae16_089cebc6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1229,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-07-27T05:45:35Z",
+      "side": 1,
+      "message": "You have done this already right ? Suggest rewording the TODO :\n\n// TODO : with the removal of the legacy transact() method, exempting the\n// system server UID should no longer be necessary. Make sure this is the\n// case and remove this test.",
+      "range": {
+        "startLine": 1228,
+        "startChar": 80,
+        "endLine": 1229,
+        "endChar": 45
+      },
+      "revId": "28e21a9b62ea392ca39e3e72a1413c530b04a567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92c5ba21_eef67bc3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1367,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-07-27T05:45:35Z",
+      "side": 1,
+      "message": "Let\u0027s add to the comment :\n\nThis method returns null in versions before T, where carrier privilege\nauthentication is not supported.",
+      "range": {
+        "startLine": 1367,
+        "startChar": 9,
+        "endLine": 1367,
+        "endChar": 17
+      },
+      "revId": "28e21a9b62ea392ca39e3e72a1413c530b04a567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce060d3c_ce7e7e83",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 8348,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-07-27T05:45:35Z",
+      "side": 1,
+      "message": "Let\u0027s have a short comment above the method about nullability of this argument. Example wording :\n\n// |networkAgent| is only allowed to be null if |notificationType| is\n// CALLBACK_UNAVAIL. This is because UNAVAIL is about no network being\n// available, while all other cases are about some particular network.",
+      "revId": "28e21a9b62ea392ca39e3e72a1413c530b04a567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
