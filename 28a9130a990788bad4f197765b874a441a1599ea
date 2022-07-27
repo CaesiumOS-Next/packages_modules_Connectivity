@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf858f24_a74b08e2",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-07-27T01:56:34Z",
+      "side": 1,
+      "message": "nit: may i know why we need a comment \"0x5\" to explain \".. \u003d 5\"?",
+      "range": {
+        "startLine": 137,
+        "startChar": 50,
+        "endLine": 137,
+        "endChar": 56
+      },
+      "revId": "28a9130a990788bad4f197765b874a441a1599ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
