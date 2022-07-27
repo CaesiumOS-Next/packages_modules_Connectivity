@@ -236,7 +236,7 @@ static inline __always_inline void match_policy(struct __sk_buff* skb, bool ipv4
             new_dscp = policy->dscp_val;
         }
     } else
-        return;
+        return; //wrong
 
     RuleEntry value = {
         .src_ip = src_ip,
