@@ -47,6 +47,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.RemoteException;
 import android.os.ResultReceiver;
+import android.os.UserManager;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -237,7 +238,7 @@ public class TetheringService extends Service {
                     listener.onResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
                     return true;
                 }
-                if (!mTethering.isTetheringSupported()) {
+                if (!mTethering.isTetheringSupported() || isTetheringRestricted()) {
                     listener.onResult(TETHER_ERROR_UNSUPPORTED);
                     return true;
                 }
@@ -255,12 +256,18 @@ public class TetheringService extends Service {
                 receiver.send(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION, null);
                 return true;
             }
-            if (!mTethering.isTetheringSupported()) {
+            if (!mTethering.isTetheringSupported() || isTetheringRestricted()) {
                 receiver.send(TETHER_ERROR_UNSUPPORTED, null);
                 return true;
             }
 
             return false;
+        }
+
+        private boolean isTetheringRestricted() {
+            final UserManager um = mService.getSystemService(UserManager.class);
+
+            return um.hasUserRestriction(UserManager.DISALLOW_CONFIG_TETHERING);
         }
 
         private boolean hasNetworkStackPermission() {
