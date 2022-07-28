@@ -2362,4 +2362,18 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         assertDumpContains(dump, "uid rxBytes rxPackets txBytes txPackets");
         assertDumpContains(dump, "1002 10000 10 6000 6");
     }
+
+    @Test
+    public void testDumpStatsMap() throws ErrnoException {
+        initBpfMapsWithTagData(UID_BLUE);
+        doReturn("wlan0").when(mBpfInterfaceMapUpdater).getIfNameByIndex(10 /* index */);
+
+        final String dump = getDump();
+        assertDumpContains(dump, "mStatsMapA: OK");
+        assertDumpContains(dump, "mStatsMapB: OK");
+        assertDumpContains(dump,
+                "ifaceIndex ifaceName tag_hex uid_int cnt_set rxBytes rxPackets txBytes txPackets");
+        assertDumpContains(dump, "10 wlan0 0x2 1002 0 5000 5 3000 3");
+        assertDumpContains(dump, "10 wlan0 0x1 1002 0 5000 5 3000 3");
+    }
 }
