@@ -2698,6 +2698,27 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             pw.println("BPF map content:");
             pw.increaseIndent();
             dumpCookieTagMapLocked(pw, includeTag, includeUid);
+
+            pw.println("mUidCounterSetMap:");
+            pw.increaseIndent();
+            try {
+                mUidCounterSetMap.forEach((uid, set) -> {
+                    // set could be null if there is a concurrent entry deletion.
+                    // http://b/220084230.
+                    if (set != null) {
+                        final StringBuilder sb = new StringBuilder();
+                        if (includeUid) {
+                            sb.append("uid=").append(uid.val).append(" ");
+                        }
+                        sb.append("set=").append(set.val);
+                        pw.println(sb);
+                    }
+                });
+            } catch (ErrnoException e) {
+                pw.println("mUidCounterSetMap dump end with error: " + Os.strerror(e.errno));
+            }
+            pw.decreaseIndent();
+
             pw.decreaseIndent();
         }
     }
