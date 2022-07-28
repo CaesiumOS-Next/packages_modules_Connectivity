@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6586f576_07f0a2fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-28T04:37:43Z",
+      "side": 1,
+      "message": "I agree throwing if bpf map fail to open is right thing we want to do, but just not sure whether how to make this change more safe.\n\nIs there any mechanism exit could make sure bpf map can open successful in every T device, especially the device which upgrade from old os ? \nIf there is device which bpf map always can\u0027t open, this change would brick the device till module rollback but the rollback still don\u0027t fix the bug...",
+      "revId": "3dd3da45590d53c6ae07240d1f65ea5f33f38619",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
