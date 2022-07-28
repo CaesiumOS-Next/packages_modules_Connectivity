@@ -16,6 +16,8 @@
 
 package com.android.server.ethernet;
 
+import android.annotation.NonNull;
+import android.annotation.Nullable;
 import android.content.Context;
 import android.net.LinkProperties;
 import android.net.NetworkAgent;
@@ -24,8 +26,6 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkProvider;
 import android.net.NetworkScore;
 import android.os.Looper;
-import android.annotation.NonNull;
-import android.annotation.Nullable;
 
 public class EthernetNetworkAgent extends NetworkAgent {
 
@@ -33,6 +33,7 @@ public class EthernetNetworkAgent extends NetworkAgent {
 
     public interface Callbacks {
         void onNetworkUnwanted();
+        void onNetworkDestroyed();
     }
 
     private final Callbacks mCallbacks;
@@ -52,6 +53,11 @@ public class EthernetNetworkAgent extends NetworkAgent {
     @Override
     public void onNetworkUnwanted() {
         mCallbacks.onNetworkUnwanted();
+    }
+
+    @Override
+    public void onNetworkDestroyed() {
+        mCallbacks.onNetworkDestroyed();
     }
 
     // sendLinkProperties is final in NetworkAgent, so it cannot be mocked.
