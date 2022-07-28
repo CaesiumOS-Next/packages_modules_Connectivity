@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b72f497_7c27493f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-28T13:19:21Z",
+      "side": 1,
+      "message": "This can\u0027t cause test failures - it can only cause device boot failures - if the relevant kernel patches were somehow missing.",
+      "revId": "6129cf7c489e2a3eba57df6737f87803a9cad2f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
