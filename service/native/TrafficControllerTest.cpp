@@ -790,12 +790,7 @@ TEST_F(TrafficControllerTest, TestDumpsys) {
     // mStatsMapA:
     // ifaceIndex ifaceName tag_hex uid_int cnt_set rxBytes rxPackets txBytes txPackets
     // 999 test0 0x2a 10086 1 100 1 0 0
-    std::vector<std::string> expectedLines = {
-        "mStatsMapA",
-        "ifaceIndex ifaceName tag_hex uid_int cnt_set rxBytes rxPackets txBytes txPackets",
-        fmt::format("{} {} {:#x} {} {} {} {} {} {}",
-                    TEST_IFINDEX, TEST_IFNAME, TEST_TAG, TEST_UID, TEST_COUNTERSET, RXBYTES,
-                    RXPACKETS, TXBYTES, TXPACKETS)};
+    std::vector<std::string> expectedLines;
 
     populateFakeIfaceIndexName(TEST_IFNAME, TEST_IFINDEX);
     expectedLines.emplace_back("mIfaceIndexNameMap:");
@@ -826,8 +821,6 @@ TEST_F(TrafficControllerTest, dumpsysInvalidMaps) {
             "Read value of map -1 failed: Bad file descriptor";
 
     std::vector<std::string> expectedLines = {
-        fmt::format("mStatsMapA {}", kErrIterate),
-        fmt::format("mStatsMapB {}", kErrIterate),
         fmt::format("mIfaceIndexNameMap {}", kErrIterate),
         fmt::format("mIfaceStatsMap {}", kErrIterate),
         fmt::format("mConfigurationMap {}", kErrReadRulesConfig),
