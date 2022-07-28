@@ -41,6 +41,7 @@ import android.net.ip.IpClientUtil;
 import android.net.shared.ProvisioningConfiguration;
 import android.os.ConditionVariable;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.RemoteException;
 import android.text.TextUtils;
@@ -306,6 +307,7 @@ public class EthernetNetworkFactory {
         private @NonNull NetworkCapabilities mCapabilities;
         private @Nullable EthernetIpClientCallback mIpClientCallback;
         private @Nullable EthernetNetworkAgent mNetworkAgent;
+        private EthernetNetworkAgentCallback mNetworkAgentCallback;
         private @Nullable IpConfiguration mIpConfig;
 
         /**
@@ -398,6 +400,56 @@ public class EthernetNetworkFactory {
                 mIpClientShutdownCv.open();
             }
         }
+
+        private class EthernetNetworkAgentCallback implements EthernetNetworkAgent.Callbacks {
+            private final ConditionVariable mNetworkAgentStoppedCv = new ConditionVariable(false);
+            // The thread where the NetworkAgent callbacks are executed in. A secondary thread is
+            // required to wait on onNetworkDestroyed() after unregistering the network agent.
+            private final HandlerThread mCbThread = new HandlerThread("NetworkAgentCb");
+
+            EthernetNetworkAgentCallback() {
+                mCbThread.start();
+            }
+
+            public Looper getLooper() {
+                return mCbThread.getLooper();
+            }
+
+            public void destroy() {
+                mCbThread.quitSafely();
+                try {
+                    mCbThread.join();
+                } catch (InterruptedException e) {
+                    Log.e(TAG, "Interrupted while waiting for thread to join", e);
+                }
+            }
+
+            private boolean isStale() {
+                return this != mNetworkAgentCallback;
+            }
+
+            @Override
+            public void onNetworkUnwanted() {
+                mHandler.post(() -> {
+                    if (!isStale()) {
+                        stop();
+                    }
+                });
+            }
+
+            @Override
+            public void onNetworkDestroyed() {
+                mNetworkAgentStoppedCv.open();
+            }
+
+            // After unregistering a NetworkAgent, onNetworkDestroyed() needs to be awaited in order
+            // to prevent a race between IpClient restarting and configuring an interface and the
+            // stale network agent tearing it back down.
+            public void awaitNetworkDestroyed() {
+                mNetworkAgentStoppedCv.block();
+            }
+        };
+
 
         private class EthernetNetworkOfferCallback implements NetworkProvider.NetworkOfferCallback {
             private boolean isStale() {
@@ -555,22 +607,11 @@ public class EthernetNetworkFactory {
                     .setLegacyTypeName(NETWORK_TYPE)
                     .setLegacyExtraInfo(mHwAddress)
                     .build();
-            mNetworkAgent = mDeps.makeEthernetNetworkAgent(mContext, mHandler.getLooper(),
-                    mCapabilities, mLinkProperties, config, mNetworkProvider,
-                    new EthernetNetworkAgent.Callbacks() {
-                        @Override
-                        public void onNetworkUnwanted() {
-                            // if mNetworkAgent is null, we have already called stop.
-                            if (mNetworkAgent == null) return;
+            mNetworkAgentCallback = new EthernetNetworkAgentCallback();
+            mNetworkAgent = mDeps.makeEthernetNetworkAgent(mContext,
+                    mNetworkAgentCallback.getLooper(), mCapabilities, mLinkProperties, config,
+                    mNetworkProvider, mNetworkAgentCallback);
 
-                            if (this == mNetworkAgent.getCallbacks()) {
-                                stop();
-                            } else {
-                                Log.d(TAG, "Ignoring unwanted as we have a more modern " +
-                                        "instance");
-                            }
-                        }
-                    });
             mNetworkAgent.register();
             mNetworkAgent.markConnected();
             realizeNetworkManagementCallback(name, null);
@@ -671,6 +712,10 @@ public class EthernetNetworkFactory {
 
             if (mNetworkAgent != null) {
                 mNetworkAgent.unregister();
+                mNetworkAgentCallback.awaitNetworkDestroyed();
+                mNetworkAgentCallback.destroy();
+                // setting mNetworkAgentCallback to null marks callbacks stale
+                mNetworkAgentCallback = null;
                 mNetworkAgent = null;
             }
             mLinkProperties.clear();
@@ -727,7 +772,6 @@ public class EthernetNetworkFactory {
         }
 
         void restart(@Nullable final INetworkInterfaceOutcomeReceiver listener) {
-            if (DBG) Log.d(TAG, "reconnecting Ethernet");
             stop();
             start(listener);
         }

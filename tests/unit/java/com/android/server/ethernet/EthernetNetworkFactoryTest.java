@@ -132,6 +132,10 @@ public class EthernetNetworkFactoryTest {
                                            when(mNetworkAgent.getCallbacks()).thenReturn(cb);
                                            when(mNetworkAgent.getNetwork())
                                                    .thenReturn(mMockNetwork);
+                                           doAnswer(inv -> {
+                                                   cb.onNetworkDestroyed();
+                                                   return null;
+                                           }).when(mNetworkAgent).unregister();
                                            return mNetworkAgent;
                                        }
                                    }
