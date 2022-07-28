@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f855375_a6b6baec",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-07-28T01:59:49Z",
+      "side": 1,
+      "message": "nit: how about \"enable\"? also BPF_NET_MAPS_ENABLE_JAVA_BPF_MAP?",
+      "range": {
+        "startLine": 72,
+        "startChar": 28,
+        "endLine": 72,
+        "endChar": 31
+      },
+      "revId": "c736ad2f6b65a4708ba669417383527ed1f3664a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c007e3a7_c9ba95e2",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-07-28T01:59:49Z",
+      "side": 1,
+      "message": "nit: maybe just setEnableJavaBpfMapForTest(boolean enable)",
+      "range": {
+        "startLine": 109,
+        "startChar": 55,
+        "endLine": 109,
+        "endChar": 68
+      },
+      "revId": "c736ad2f6b65a4708ba669417383527ed1f3664a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12d891bb_169adc13",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-07-28T01:59:49Z",
+      "side": 1,
+      "message": "looks like the java bpf map is enabled by default on U and above? if so, can we say:\n```\nsUseJavaBpfMap \u003d DeviceConfigUtils.isFeatureEnabled(\n        context, DeviceConfig.NAMESPACE_TETHERING, BPF_NET_MAPS_USE_JAVA_BPF_MAP,\n                    SdkLevel.isAtLeastU() /* defaultValue */);\n```",
+      "range": {
+        "startLine": 165,
+        "startChar": 20,
+        "endLine": 165,
+        "endChar": 25
+      },
+      "revId": "c736ad2f6b65a4708ba669417383527ed1f3664a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
