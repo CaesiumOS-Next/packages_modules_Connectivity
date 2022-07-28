@@ -21,7 +21,6 @@ import static android.system.OsConstants.ETH_P_IP;
 import static android.system.OsConstants.ETH_P_IPV6;
 
 import static com.android.net.module.util.NetworkStackConstants.ETHER_MTU;
-import static com.android.server.connectivity.ClatCoordinator.AID_CLAT;
 import static com.android.server.connectivity.ClatCoordinator.CLAT_MAX_MTU;
 import static com.android.server.connectivity.ClatCoordinator.EGRESS;
 import static com.android.server.connectivity.ClatCoordinator.INGRESS;
@@ -48,6 +47,7 @@ import android.net.InetAddresses;
 import android.net.IpPrefix;
 import android.os.Build;
 import android.os.ParcelFileDescriptor;
+import android.os.Process;
 
 import androidx.test.filters.SmallTest;
 
@@ -131,8 +131,8 @@ public class ClatCoordinatorTest {
     private static final ClatIngress6Value INGRESS_VALUE = new ClatIngress6Value(STACKED_IFINDEX,
             INET4_LOCAL4);
     private static final CookieTagMapKey COOKIE_TAG_KEY = new CookieTagMapKey(RAW_SOCK_COOKIE);
-    private static final CookieTagMapValue COOKIE_TAG_VALUE = new CookieTagMapValue(AID_CLAT,
-            0 /* tag, unused */);
+    private static final CookieTagMapValue COOKIE_TAG_VALUE = new CookieTagMapValue(
+            Process.CLAT_UID, 0 /* tag, unused */);
 
     private final TestBpfMap<ClatIngress6Key, ClatIngress6Value> mIngressMap =
             spy(new TestBpfMap<>(ClatIngress6Key.class, ClatIngress6Value.class));

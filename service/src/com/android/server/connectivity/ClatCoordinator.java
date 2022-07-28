@@ -30,6 +30,7 @@ import android.net.InetAddresses;
 import android.net.InterfaceConfigurationParcel;
 import android.net.IpPrefix;
 import android.os.ParcelFileDescriptor;
+import android.os.Process;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
 import android.system.ErrnoException;
@@ -64,10 +65,6 @@ import java.util.Objects;
  */
 public class ClatCoordinator {
     private static final String TAG = ClatCoordinator.class.getSimpleName();
-
-    // Sync from system/core/libcutils/include/private/android_filesystem_config.h
-    @VisibleForTesting
-    static final int AID_CLAT = 1029;
 
     // Sync from external/android-clat/clatd.c
     // 40 bytes IPv6 header - 20 bytes IPv4 header + 8 bytes fragment header.
@@ -562,11 +559,12 @@ public class ClatCoordinator {
             throw new IOException("Cookie tag map is not initialized");
         }
 
-        // Tag raw socket with uid AID_CLAT and set tag as zero because tag is unused in bpf
+        // Tag raw socket with uid CLAT_UID and set tag as zero because tag is unused in bpf
         // program for counting data usage in netd.c. Tagging socket is used to avoid counting
         // duplicated clat traffic in bpf stat.
         final CookieTagMapKey key = new CookieTagMapKey(cookie);
-        final CookieTagMapValue value = new CookieTagMapValue(AID_CLAT, 0 /* tag, unused */);
+        final CookieTagMapValue value = new CookieTagMapValue(Process.CLAT_UID,
+                0 /* tag, unused */);
         try {
             mCookieTagMap.insertEntry(key, value);
         } catch (ErrnoException | IllegalStateException e) {
@@ -741,7 +739,7 @@ public class ClatCoordinator {
             throw new IOException("add anycast sockopt failed: " + e);
         }
 
-        // Tag socket as AID_CLAT to avoid duplicated CLAT data usage accounting.
+        // Tag socket as CLAT_UID to avoid duplicated CLAT data usage accounting.
         final long cookie;
         try {
             cookie = mDeps.getSocketCookie(writeSock6.getFileDescriptor());
