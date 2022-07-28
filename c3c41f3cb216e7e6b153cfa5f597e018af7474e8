@@ -16,6 +16,24 @@
       "message": "`getMapStatus` in TrafficController checked the fd number and path.\nBut NetworkStatsService opens BpfMap at constructor and throws exception if it fails to open.\nSo, I think NetworkStatsService dump can skip showing this.",
       "revId": "c3c41f3cb216e7e6b153cfa5f597e018af7474e8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "197a42a3_f4b1eada",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-07-28T12:04:50Z",
+      "side": 0,
+      "message": "\u003e NetworkStatsService opens BpfMap at constructor and throws exception if it fails to open.\nI abandoned this change (aosp/2167062) to avoid risk of breaking existing devices.\nAnd I added null check and `dumpMapStatus` to show if map is null or not.",
+      "parentUuid": "b0085b31_a473fc2d",
+      "revId": "c3c41f3cb216e7e6b153cfa5f597e018af7474e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
