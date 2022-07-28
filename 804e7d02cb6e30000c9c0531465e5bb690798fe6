@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c997afb_7fb027f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-28T17:02:30Z",
+      "side": 1,
+      "message": "sorry for the delay. +2 so you can submit once the comments are addressed.",
+      "revId": "804e7d02cb6e30000c9c0531465e5bb690798fe6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "491cba26_59771cc5",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-28T17:02:30Z",
+      "side": 1,
+      "message": "My vote is to remove this as it does not test any code in NetworkStatsFactory. I think there is plenty of coverage for factoryReadNetworkStatsDetail() ensuring the parsing is correct.",
+      "range": {
+        "startLine": 424,
+        "startChar": 0,
+        "endLine": 433,
+        "endChar": 5
+      },
+      "revId": "804e7d02cb6e30000c9c0531465e5bb690798fe6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc33c840_22c27d9c",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-28T17:02:30Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 435,
+        "startChar": 0,
+        "endLine": 443,
+        "endChar": 5
+      },
+      "revId": "804e7d02cb6e30000c9c0531465e5bb690798fe6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d748245e_065f10ce",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-28T17:02:30Z",
+      "side": 1,
+      "message": "Can you add a comment explaining where this code has moved from and why it makes sense to keep it (Something like: \"this code has moved from NetworkStatsFactory to the test as we want to continue parsing the golden files to test the 464xlat adjustment which historically has been prone to errors.\") -- just so a future version of us has an easier time tracing this back to NetworkStatsFactory.",
+      "range": {
+        "startLine": 487,
+        "startChar": 4,
+        "endLine": 488,
+        "endChar": 95
+      },
+      "revId": "804e7d02cb6e30000c9c0531465e5bb690798fe6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f41c06f0_9fa267d6",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-28T17:02:30Z",
+      "side": 1,
+      "message": "Can (and probably should) be in a follow up: can you add the function parameters (int limitUid, String[] limitIfaces, int limitTag) to factoryReadNetworkStatsDetail as well and add test with different inputs to those?",
+      "range": {
+        "startLine": 559,
+        "startChar": 15,
+        "endLine": 559,
+        "endChar": 48
+      },
+      "revId": "804e7d02cb6e30000c9c0531465e5bb690798fe6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a90b3093_7ed5b2f1",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-28T17:02:30Z",
+      "side": 1,
+      "message": "This *technically* does not call the right function (readNetworkStatsSummaryXt), but I think we should remove it anyways per comment above.",
+      "range": {
+        "startLine": 575,
+        "startChar": 24,
+        "endLine": 575,
+        "endChar": 50
+      },
+      "revId": "804e7d02cb6e30000c9c0531465e5bb690798fe6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

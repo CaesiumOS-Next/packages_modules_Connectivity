@@ -114,6 +114,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6254bcd8_bcda19a0",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-28T17:02:30Z",
+      "side": 1,
+      "message": "I think we should delete them. There is plenty of coverage for readNetworkStatsDetail() and the assertions are quite verbose -- I think that should be plenty to ensure the parsing function is working correctly. Code that tests the test seems a little overkill and hard to maintain 😊",
+      "parentUuid": "049f9b1a_327d40fd",
+      "range": {
+        "startLine": 115,
+        "startChar": 3,
+        "endLine": 142,
+        "endChar": 5
+      },
+      "revId": "1db1ea58dbbd35adf8f6fb348b17e6ae5641f331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "380c7afe_5e2060c3",
         "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
         "patchSetId": 12
