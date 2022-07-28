@@ -32,4 +32,10 @@ public class InterfaceMapValue extends Struct {
         // All array bytes after the interface name, if any, must be 0.
         System.arraycopy(ifaceArray, 0, interfaceName, 0, ifaceArray.length);
     }
+
+    public InterfaceMapValue(final byte[] ifName) {
+        interfaceName = new byte[16];
+        // All array bytes after the interface name, if any, must be 0.
+        System.arraycopy(ifName, 0, interfaceName, 0, ifName.length);
+    }
 }

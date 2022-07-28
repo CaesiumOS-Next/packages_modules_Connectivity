@@ -2711,6 +2711,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                 dumpUidCounterSetMapLocked(pw);
                 dumpAppUidStatsMapLocked(pw);
             }
+            dumpStatsMapLocked("mStatsMapA", mStatsMapA, pw, includeTag, includeUid);
+            dumpStatsMapLocked("mStatsMapB", mStatsMapB, pw, includeTag, includeUid);
             pw.decreaseIndent();
         }
     }
@@ -2764,6 +2766,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         pw.println("mUidCounterSetMap: "
                 + getMapStatus(mUidCounterSetMap, UID_COUNTERSET_MAP_PATH));
         pw.println("mAppUidStatsMap: " + getMapStatus(mAppUidStatsMap, APP_UID_STATS_MAP_PATH));
+        pw.println("mStatsMapA: " + getMapStatus(mStatsMapA, STATS_MAP_A_PATH));
+        pw.println("mStatsMapB: " + getMapStatus(mStatsMapB, STATS_MAP_B_PATH));
     }
 
     @GuardedBy("mStatsLock")
@@ -2847,6 +2851,60 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             });
         } catch (ErrnoException e) {
             pw.println("mAppUidStatsMap dump end with error: " + Os.strerror(e.errno));
+        }
+        pw.decreaseIndent();
+    }
+
+    @GuardedBy("mStatsLock")
+    private void dumpStatsMapLocked(final String mapName,
+            final IBpfMap<StatsMapKey, StatsMapValue> statsMap, final IndentingPrintWriter pw,
+            final boolean includeTag, final boolean includeUid) {
+        if (statsMap == null) {
+            return;
+        }
+
+        final StringBuilder header = new StringBuilder();
+        header.append("ifaceIndex ifaceName ");
+        if (includeTag) {
+            header.append("tag_hex ");
+        }
+        if (includeUid) {
+            header.append("uid_int ");
+        }
+        header.append("cnt_set rxBytes rxPackets txBytes txPackets");
+
+        pw.println(mapName + ":");
+        pw.increaseIndent();
+        pw.println(header);
+        try {
+            statsMap.forEach((key, value) -> {
+                if (value != null) {
+                    final long ifIndex = key.ifaceIndex;
+                    String ifName = mInterfaceMapUpdater.getIfNameByIndex(ifIndex);
+                    if (ifName == null) {
+                        ifName = "unknown";
+                    }
+
+                    final StringBuilder sb = new StringBuilder();
+                    sb.append(ifIndex).append(" ").append(ifName).append(" ");
+                    if (includeTag) {
+                        sb.append("0x").append(Long.toHexString(key.tag)).append(" ");
+                    }
+                    if (includeUid) {
+                        sb.append(key.uid).append(" ");
+                    }
+                    sb.append(key.counterSet).append(" ")
+                            .append(value.rxBytes).append(" ")
+                            .append(value.rxPackets).append(" ")
+                            .append(value.txBytes).append(" ")
+                            .append(value.txPackets).append(" ");
+                    pw.println(sb);
+                } else {
+                    pw.println("Entry is deleted while dumping, iterating from first entry");
+                }
+            });
+        } catch (ErrnoException e) {
+            pw.println(mapName + " dump end with error: " + Os.strerror(e.errno));
         }
         pw.decreaseIndent();
     }
