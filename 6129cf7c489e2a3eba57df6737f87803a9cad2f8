@@ -16,6 +16,23 @@
       "message": "This can\u0027t cause test failures - it can only cause device boot failures - if the relevant kernel patches were somehow missing.",
       "revId": "6129cf7c489e2a3eba57df6737f87803a9cad2f8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa4fccd5_805099a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-28T21:29:38Z",
+      "side": 1,
+      "message": "Hmm, this should not pass presubmit, but it apparently does.\n\nThis should fail to boot on pixel 3 (4.9 kernel) running S or Sv2 + mainline module with this included.  Since the program is not flagged as being 4.14+",
+      "revId": "6129cf7c489e2a3eba57df6737f87803a9cad2f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
