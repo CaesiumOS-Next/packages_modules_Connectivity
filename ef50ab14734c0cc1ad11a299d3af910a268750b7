@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfa7caf1_d164c5d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-28T22:16:16Z",
+      "side": 1,
+      "message": "FWIW, I don\u0027t think there\u0027s a particular need for the OWNERS file to be restricted to core_networking_xts, I think we could expand it to the rest of the team.",
+      "revId": "ef50ab14734c0cc1ad11a299d3af910a268750b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0526f275_55a8073b",
