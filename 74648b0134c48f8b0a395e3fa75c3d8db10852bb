@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa889bba_8f6a4afa",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-28T00:02:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "607c5690_996a3d6e",
+      "range": {
+        "startLine": 98,
+        "startChar": 45,
+        "endLine": 98,
+        "endChar": 48
+      },
+      "revId": "74648b0134c48f8b0a395e3fa75c3d8db10852bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a77ac5d_2c7d6d59",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-27T23:58:25Z",
       "side": 1,
       "message": "S64",
+      "range": {
+        "startLine": 99,
+        "startChar": 42,
+        "endLine": 99,
+        "endChar": 45
+      },
+      "revId": "74648b0134c48f8b0a395e3fa75c3d8db10852bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cb08f9c_1f70f3b3",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-28T00:02:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a77ac5d_2c7d6d59",
       "range": {
         "startLine": 99,
         "startChar": 42,
