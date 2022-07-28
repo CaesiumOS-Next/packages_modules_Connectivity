@@ -2698,6 +2698,10 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             pw.println("BPF map content:");
             pw.increaseIndent();
             dumpCookieTagMapLocked(pw, includeTag, includeUid);
+            if (includeUid) {
+                dumpUidCounterSetMapLocked(pw);
+            }
+
             pw.decreaseIndent();
         }
     }
@@ -2756,6 +2760,24 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             });
         } catch (ErrnoException e) {
             pw.println("mCookieTagMap dump end with error: " + Os.strerror(e.errno));
+        }
+        pw.decreaseIndent();
+    }
+
+    @GuardedBy("mStatsLock")
+    private void dumpUidCounterSetMapLocked(final IndentingPrintWriter pw) {
+        pw.println("mUidCounterSetMap:");
+        pw.increaseIndent();
+        try {
+            mUidCounterSetMap.forEach((uid, set) -> {
+                // set could be null if there is a concurrent entry deletion.
+                // http://b/220084230.
+                if (set != null) {
+                    pw.println("uid=" + uid.val + " set=" + set.val);
+                }
+            });
+        } catch (ErrnoException e) {
+            pw.println("mUidCounterSetMap dump end with error: " + Os.strerror(e.errno));
         }
         pw.decreaseIndent();
     }
