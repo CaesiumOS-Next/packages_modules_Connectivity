@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65116fd5_f6fcc9f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-28T21:15:49Z",
+      "side": 1,
+      "message": "TH: 142 pass, 1 warn (flake in com.android.server.connectivity.NetworkNotificationManagerTest#testNotifyNoInternetAsDialogWhenHighPriority), 1 fail (in com.android.server.connectivity.NetworkMonitorTest#testDataStall_StallDnsSuspectedAndSendMetricsOnCell)\n\nThis change can\u0027t really cause anything besides a build failure though - so this is a flake.",
+      "revId": "0da1b4d4f253ecb8bd95e98ee008958a1bef97d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
