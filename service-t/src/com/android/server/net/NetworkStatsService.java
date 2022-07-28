@@ -2717,6 +2717,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             dumpCookieTagMapLocked(pw);
             dumpUidCounterSetMapLocked(pw);
             dumpAppUidStatsMapLocked(pw);
+            dumpStatsMapLocked("mStatsMapA", mStatsMapA, pw);
+            dumpStatsMapLocked("mStatsMapB", mStatsMapB, pw);
             pw.decreaseIndent();
         }
     }
@@ -2770,6 +2772,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         pw.println("mUidCounterSetMap: "
                 + getMapStatus(mUidCounterSetMap, UID_COUNTERSET_MAP_PATH));
         pw.println("mAppUidStatsMap: " + getMapStatus(mAppUidStatsMap, APP_UID_STATS_MAP_PATH));
+        pw.println("mStatsMapA: " + getMapStatus(mStatsMapA, STATS_MAP_A_PATH));
+        pw.println("mStatsMapB: " + getMapStatus(mStatsMapB, STATS_MAP_B_PATH));
     }
 
     @GuardedBy("mStatsLock")
@@ -2844,6 +2848,41 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             });
         } catch (ErrnoException e) {
             pw.println("mAppUidStatsMap dump end with error: " + Os.strerror(e.errno));
+        }
+        pw.decreaseIndent();
+    }
+
+    @GuardedBy("mStatsLock")
+    private void dumpStatsMapLocked(final String mapName,
+            final IBpfMap<StatsMapKey, StatsMapValue> statsMap, final IndentingPrintWriter pw) {
+        if (statsMap == null) {
+            return;
+        }
+
+        pw.println(mapName + ":");
+        pw.increaseIndent();
+        pw.println(
+                "ifaceIndex ifaceName tag_hex uid_int cnt_set rxBytes rxPackets txBytes txPackets");
+        try {
+            statsMap.forEach((key, value) -> {
+                if (value != null) {
+                    final long ifIndex = key.ifaceIndex;
+                    final String ifName = mInterfaceMapUpdater.getIfNameByIndex(ifIndex);
+                    pw.println(ifIndex + " "
+                            + ifName + " "
+                            + "0x" + Long.toHexString(key.tag) + " "
+                            + key.uid + " "
+                            + key.counterSet + " "
+                            + value.rxBytes + " "
+                            + value.rxPackets + " "
+                            + value.txBytes + " "
+                            + value.txPackets);
+                } else {
+                    pw.println("Entry is deleted while dumping, iterating from first entry");
+                }
+            });
+        } catch (ErrnoException e) {
+            pw.println(mapName + " dump end with error: " + Os.strerror(e.errno));
         }
         pw.decreaseIndent();
     }
