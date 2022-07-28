@@ -2704,6 +2704,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             dumpCookieTagMapLocked(pw, includeTag, includeUid);
             if (includeUid) {
                 dumpUidCounterSetMapLocked(pw);
+                dumpAppUidStatsMapLocked(pw);
             }
             pw.decreaseIndent();
         }
@@ -2745,6 +2746,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         pw.increaseIndent();
         pw.println("mCookieTagMap: " + (mCookieTagMap != null ? "OK" : "NULL"));
         pw.println("mUidCounterSetMap: " + (mUidCounterSetMap != null ? "OK" : "NULL"));
+        pw.println("mAppUidStatsMap: " + (mAppUidStatsMap != null ? "OK" : "NULL"));
         pw.decreaseIndent();
     }
 
@@ -2795,6 +2797,34 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             });
         } catch (ErrnoException e) {
             pw.println("mUidCounterSetMap dump end with error: " + Os.strerror(e.errno));
+        }
+        pw.decreaseIndent();
+    }
+
+    @GuardedBy("mStatsLock")
+    private void dumpAppUidStatsMapLocked(final IndentingPrintWriter pw) {
+        if (mAppUidStatsMap == null) {
+            return;
+        }
+        pw.println("mAppUidStatsMap:");
+        pw.increaseIndent();
+        pw.println("uid rxBytes rxPackets txBytes txPackets");
+        try {
+            mAppUidStatsMap.forEach((key, value) -> {
+                // value could be null if there is a concurrent entry deletion.
+                // http://b/220084230.
+                if (value != null) {
+                    pw.println(String.format(
+                            "%d %d %d %d %d",
+                            key.uid,
+                            value.rxBytes,
+                            value.rxPackets,
+                            value.txBytes,
+                            value.txPackets));
+                }
+            });
+        } catch (ErrnoException e) {
+            pw.println("mAppUidStatsMap dump end with error: " + Os.strerror(e.errno));
         }
         pw.decreaseIndent();
     }
