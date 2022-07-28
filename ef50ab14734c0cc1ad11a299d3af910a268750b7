@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b86c4b9e_73b7c2aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-28T20:10:23Z",
+      "side": 1,
+      "message": "not sure if moving the OWNERS file is a good idea or not",
+      "revId": "ef50ab14734c0cc1ad11a299d3af910a268750b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0526f275_55a8073b",
+        "filename": "bpf_progs/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-28T20:10:23Z",
+      "side": 1,
+      "message": "should probably just do ...",
+      "range": {
+        "startLine": 48,
+        "startChar": 41,
+        "endLine": 48,
+        "endChar": 45
+      },
+      "revId": "ef50ab14734c0cc1ad11a299d3af910a268750b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
