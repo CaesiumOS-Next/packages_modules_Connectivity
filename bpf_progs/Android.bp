@@ -86,6 +86,7 @@ bpf {
     cflags: [
         "-Wall",
         "-Werror",
+        "-DINPROCESS",
     ],
 }
 
@@ -95,6 +96,7 @@ bpf {
     cflags: [
         "-Wall",
         "-Werror",
+        "-DINPROCESS",
     ],
 }
 
