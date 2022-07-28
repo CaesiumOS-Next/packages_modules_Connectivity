@@ -30,6 +30,14 @@ public class InterfaceMapValue extends Struct {
         final byte[] ifaceArray = iface.getBytes();
         interfaceName = new byte[16];
         // All array bytes after the interface name, if any, must be 0.
+        // NO Overflow?
         System.arraycopy(ifaceArray, 0, interfaceName, 0, ifaceArray.length);
+    }
+
+    public InterfaceMapValue(final byte[] ifName) {
+        interfaceName = new byte[16];
+        // All array bytes after the interface name, if any, must be 0.
+        // NO Overflow?
+        System.arraycopy(ifName, 0, interfaceName, 0, ifName.length);
     }
 }
