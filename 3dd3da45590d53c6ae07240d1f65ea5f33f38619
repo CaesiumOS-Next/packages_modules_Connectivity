@@ -71,6 +71,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38de0b73_c8036696",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-28T14:12:23Z",
+      "side": 1,
+      "message": "I mean if open map fail can\u0027t be fixed by reboot. Rollback can only fix boot-loop but can\u0027t fix map open fail problem.",
+      "parentUuid": "525fef46_b7e7e396",
+      "revId": "3dd3da45590d53c6ae07240d1f65ea5f33f38619",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46a9c446_58db6426",
