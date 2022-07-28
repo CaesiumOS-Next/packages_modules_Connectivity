@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bad0dac4_1426af71",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-28T22:42:30Z",
+      "side": 1,
+      "message": "Cool! I remember writing a test for that in NetdBinderTests a while ago. Cool to see this tested end-to-end.",
+      "revId": "0682fac643a68ae67250bb3bac35da9191e70b6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f7665df_85032f98",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-28T22:42:30Z",
+      "side": 1,
+      "message": "Can you add a call to `.expectResult(iface.name)`?\n(I noticed that these are missing for the other calls as well, but they should be added)",
+      "range": {
+        "startLine": 840,
+        "startChar": 63,
+        "endLine": 840,
+        "endChar": 65
+      },
+      "revId": "0682fac643a68ae67250bb3bac35da9191e70b6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de52be49_9b925d66",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-28T22:42:30Z",
+      "side": 1,
+      "message": "Can you just add this to requestNetwork()? That way we never leak network requests.",
+      "range": {
+        "startLine": 843,
+        "startChar": 17,
+        "endLine": 843,
+        "endChar": 65
+      },
+      "revId": "0682fac643a68ae67250bb3bac35da9191e70b6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af0bc728_8225e981",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-28T22:42:30Z",
+      "side": 1,
+      "message": "If you need the request and the capabilities, would it be (slightly) easier to create the request on line 836 and pass the request.networkCapabilities into updateConfiguration?\nSomething like:\n```\nval request \u003d \n    NetworkRequest.Builder(ETH_REQUEST.createCopyWithEthSpecifier(iface.name))\n        .removeCapability(NET_CAPABILITY_NOT_RESTRICTED)\n        .build()\nupdateConfiguration(iface, capabilities \u003d request.networkCapabilities)\nval cb \u003d requestNetwork(request)",
+      "range": {
+        "startLine": 844,
+        "startChar": 27,
+        "endLine": 844,
+        "endChar": 91
+      },
+      "revId": "0682fac643a68ae67250bb3bac35da9191e70b6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76f3fc73_0faf2d0f",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-28T22:42:30Z",
+      "side": 1,
+      "message": "same as above `.expectResult(iface.name)`",
+      "range": {
+        "startLine": 857,
+        "startChar": 51,
+        "endLine": 857,
+        "endChar": 53
+      },
+      "revId": "0682fac643a68ae67250bb3bac35da9191e70b6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
