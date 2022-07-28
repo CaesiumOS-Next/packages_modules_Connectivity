@@ -2423,4 +2423,45 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         assertDumpContains(dumpWithTagUid, mapContentHeader);
         assertDumpContains(dumpWithTagUid, mapContent);
     }
+
+    @Test
+    public void testDumpStatsMap() throws ErrnoException {
+        initBpfMapsWithTagData(UID_BLUE);
+        doReturn("wlan0").when(mBpfInterfaceMapUpdater).getIfNameByIndex(10 /* index */);
+
+        final String mapStatusA = "mStatsMapA: OK";
+        final String mapStatusB = "mStatsMapB: OK";
+
+        final String dump = getDump(new String[]{});
+        assertDumpContains(dump, mapStatusA);
+        assertDumpContains(dump, mapStatusB);
+        assertDumpContains(dump,
+                "ifaceIndex ifaceName cnt_set rxBytes rxPackets txBytes txPackets");
+        assertDumpContains(dump, "10 wlan0 0 5000 5 3000 3");
+        assertDumpContains(dump, "10 wlan0 0 5000 5 3000 3");
+
+        final String dumpWithTag = getDump(new String[]{"--tag"});
+        assertDumpContains(dumpWithTag, mapStatusA);
+        assertDumpContains(dumpWithTag, mapStatusB);
+        assertDumpContains(dumpWithTag,
+                "ifaceIndex ifaceName tag_hex cnt_set rxBytes rxPackets txBytes txPackets");
+        assertDumpContains(dumpWithTag, "10 wlan0 0x2 0 5000 5 3000 3");
+        assertDumpContains(dumpWithTag, "10 wlan0 0x1 0 5000 5 3000 3");
+
+        final String dumpWithUid = getDump(new String[]{"--uid"});
+        assertDumpContains(dumpWithUid, mapStatusA);
+        assertDumpContains(dumpWithUid, mapStatusB);
+        assertDumpContains(dumpWithUid,
+                "ifaceIndex ifaceName uid_int cnt_set rxBytes rxPackets txBytes txPackets");
+        assertDumpContains(dumpWithUid, "10 wlan0 1002 0 5000 5 3000 3");
+        assertDumpContains(dumpWithUid, "10 wlan0 1002 0 5000 5 3000 3");
+
+        final String dumpWithTagUid = getDump(new String[]{"--tag", "--uid"});
+        assertDumpContains(dumpWithTagUid, mapStatusA);
+        assertDumpContains(dumpWithTagUid, mapStatusB);
+        assertDumpContains(dumpWithTagUid,
+                "ifaceIndex ifaceName tag_hex uid_int cnt_set rxBytes rxPackets txBytes txPackets");
+        assertDumpContains(dumpWithTagUid, "10 wlan0 0x2 1002 0 5000 5 3000 3");
+        assertDumpContains(dumpWithTagUid, "10 wlan0 0x1 1002 0 5000 5 3000 3");
+    }
 }

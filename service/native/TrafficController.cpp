@@ -570,10 +570,6 @@ void TrafficController::dump(int fd, bool verbose) {
     ScopedIndent indentPreBpfModule(dw);
 
     dw.blankline();
-    dw.println("mStatsMapA status: %s",
-               getMapStatus(mStatsMapA.getMap(), STATS_MAP_A_PATH).c_str());
-    dw.println("mStatsMapB status: %s",
-               getMapStatus(mStatsMapB.getMap(), STATS_MAP_B_PATH).c_str());
     dw.println("mIfaceIndexNameMap status: %s",
                getMapStatus(mIfaceIndexNameMap.getMap(), IFACE_INDEX_NAME_MAP_PATH).c_str());
     dw.println("mIfaceStatsMap status: %s",
@@ -605,34 +601,6 @@ void TrafficController::dump(int fd, bool verbose) {
 
     ScopedIndent indentForMapContent(dw);
 
-    // Print uidStatsMap content.
-    std::string statsHeader = StringPrintf("ifaceIndex ifaceName tag_hex uid_int cnt_set rxBytes"
-                                           " rxPackets txBytes txPackets");
-    dumpBpfMap("mStatsMapA", dw, statsHeader);
-    const auto printStatsInfo = [&dw, this](const StatsKey& key, const StatsValue& value,
-                                            const BpfMap<StatsKey, StatsValue>&) {
-        uint32_t ifIndex = key.ifaceIndex;
-        auto ifname = mIfaceIndexNameMap.readValue(ifIndex);
-        if (!ifname.ok()) {
-            ifname = IfaceValue{"unknown"};
-        }
-        dw.println("%u %s 0x%x %u %u %" PRIu64 " %" PRIu64 " %" PRIu64 " %" PRIu64, ifIndex,
-                   ifname.value().name, key.tag, key.uid, key.counterSet, value.rxBytes,
-                   value.rxPackets, value.txBytes, value.txPackets);
-        return base::Result<void>();
-    };
-    base::Result<void> res = mStatsMapA.iterateWithValue(printStatsInfo);
-    if (!res.ok()) {
-        dw.println("mStatsMapA print end with error: %s", res.error().message().c_str());
-    }
-
-    // Print TagStatsMap content.
-    dumpBpfMap("mStatsMapB", dw, statsHeader);
-    res = mStatsMapB.iterateWithValue(printStatsInfo);
-    if (!res.ok()) {
-        dw.println("mStatsMapB print end with error: %s", res.error().message().c_str());
-    }
-
     // Print ifaceIndexToNameMap content.
     dumpBpfMap("mIfaceIndexNameMap", dw, "");
     const auto printIfaceNameInfo = [&dw](const uint32_t& key, const IfaceValue& value,
@@ -641,7 +609,7 @@ void TrafficController::dump(int fd, bool verbose) {
         dw.println("ifaceIndex=%u ifaceName=%s", key, ifname);
         return base::Result<void>();
     };
-    res = mIfaceIndexNameMap.iterateWithValue(printIfaceNameInfo);
+    base::Result<void> res = mIfaceIndexNameMap.iterateWithValue(printIfaceNameInfo);
     if (!res.ok()) {
         dw.println("mIfaceIndexNameMap print end with error: %s", res.error().message().c_str());
     }
