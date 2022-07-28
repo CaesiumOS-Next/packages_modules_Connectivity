@@ -16,7 +16,12 @@
 
 package com.android.server.net;
 
+import static android.system.OsConstants.EPERM;
+
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -27,6 +32,7 @@ import android.net.MacAddress;
 import android.os.Build;
 import android.os.Handler;
 import android.os.test.TestLooper;
+import android.system.ErrnoException;
 
 import androidx.test.filters.SmallTest;
 
@@ -117,5 +123,24 @@ public final class BpfInterfaceMapUpdaterTest {
         mListener.onInterfaceRemoved(TEST_INTERFACE_NAME);
         mLooper.dispatchAll();
         verifyNoMoreInteractions(mBpfMap);
+    }
+
+    @Test
+    public void testGetIfNameByIndex() throws Exception {
+        doReturn(new InterfaceMapValue(TEST_INTERFACE_NAME))
+                .when(mBpfMap).getValue(new U32(TEST_INDEX));
+        assertEquals(TEST_INTERFACE_NAME, mUpdater.getIfNameByIndex(TEST_INDEX));
+    }
+
+    @Test
+    public void testGetIfNameByIndexNoEntry() throws ErrnoException {
+        doReturn(null).when(mBpfMap).getValue(new U32(TEST_INDEX));
+        assertEquals("unknown", mUpdater.getIfNameByIndex(TEST_INDEX));
+    }
+
+    @Test
+    public void testGetIfNameByIndexException() throws ErrnoException {
+        doThrow(new ErrnoException("", EPERM)).when(mBpfMap).getValue(new U32(TEST_INDEX));
+        assertEquals("unknown", mUpdater.getIfNameByIndex(TEST_INDEX));
     }
 }
