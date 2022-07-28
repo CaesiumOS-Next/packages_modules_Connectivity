@@ -2394,4 +2394,33 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         assertDumpContains(dumpWithTagUid, mapStatus);
         assertDumpContains(dumpWithTagUid, mapContent);
     }
+
+    @Test
+    public void testAppUidStatsMap() throws ErrnoException {
+        initBpfMapsWithTagData(UID_BLUE);
+
+        final String mapStatus = "mAppUidStatsMap: OK";
+        final String mapContentHeader = "uid rxBytes rxPackets txBytes txPackets";
+        final String mapContent = "1002 10000 10 6000 6";
+
+        final String dump = getDump(new String[]{});
+        assertDumpContains(dump, mapStatus);
+        assertDumpNotContains(dump, mapContentHeader);
+        assertDumpNotContains(dump, mapContent);
+
+        final String dumpWithTag = getDump(new String[]{"--tag"});
+        assertDumpContains(dumpWithTag, mapStatus);
+        assertDumpNotContains(dumpWithTag, mapContentHeader);
+        assertDumpNotContains(dumpWithTag, mapContent);
+
+        final String dumpWithUid = getDump(new String[]{"--uid"});
+        assertDumpContains(dumpWithUid, mapStatus);
+        assertDumpContains(dumpWithUid, mapContentHeader);
+        assertDumpContains(dumpWithUid, mapContent);
+
+        final String dumpWithTagUid = getDump(new String[]{"--tag", "--uid"});
+        assertDumpContains(dumpWithTagUid, mapStatus);
+        assertDumpContains(dumpWithTagUid, mapContentHeader);
+        assertDumpContains(dumpWithTagUid, mapContent);
+    }
 }
