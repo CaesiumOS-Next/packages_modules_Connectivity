@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b6a33e3_6736c477",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-28T04:00:24Z",
+      "side": 1,
+      "message": "only nits",
+      "revId": "5f45be0463db2dcd6c42d88d72b46e0a2637f74d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6593bed6_ff7e8f0f",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-28T04:00:24Z",
+      "side": 1,
+      "message": "Nit: maybe make the code more readable by avoid ternary operator in verifyDownload. \n\nfinal boolean isIpv4 \u003d isAddressIpv4(srcIp, dstIp);\nassertEquals(\"CLAT download test must send ipv6 packet\", is6To4, isIpv4);\n\n...\ntest.verifyDownload(..., isIpv4, RX_PAYLOAD);",
+      "range": {
+        "startLine": 900,
+        "startChar": 0,
+        "endLine": 903,
+        "endChar": 9
+      },
+      "revId": "5f45be0463db2dcd6c42d88d72b46e0a2637f74d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42f8b176_6ad91913",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-28T04:00:24Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 931,
+        "startChar": 16,
+        "endLine": 931,
+        "endChar": 73
+      },
+      "revId": "5f45be0463db2dcd6c42d88d72b46e0a2637f74d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf40b92c_e9f042f6",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 995,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-28T04:00:24Z",
+      "side": 1,
+      "message": "Maybe rename as:\npublicIp -\u003e tetheringUpstreamIp\ntetheredIp -\u003e clientIp",
+      "range": {
+        "startLine": 994,
+        "startChar": 0,
+        "endLine": 995,
+        "endChar": 57
+      },
+      "revId": "5f45be0463db2dcd6c42d88d72b46e0a2637f74d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
