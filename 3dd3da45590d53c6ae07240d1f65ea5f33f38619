@@ -69,6 +69,29 @@
       "message": "+2",
       "revId": "3dd3da45590d53c6ae07240d1f65ea5f33f38619",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46a9c446_58db6426",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-28T13:28:37Z",
+      "side": 1,
+      "message": "why bother try/catch-throw-ing?\n\nnew BpfMap should just throw a more useful exception (including the path flags, etc)",
+      "range": {
+        "startLine": 721,
+        "startChar": 12,
+        "endLine": 726,
+        "endChar": 13
+      },
+      "revId": "3dd3da45590d53c6ae07240d1f65ea5f33f38619",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
