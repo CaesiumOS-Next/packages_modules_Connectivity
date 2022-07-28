@@ -34,6 +34,24 @@
       "parentUuid": "6586f576_07f0a2fd",
       "revId": "3dd3da45590d53c6ae07240d1f65ea5f33f38619",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "525fef46_b7e7e396",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-28T13:26:32Z",
+      "side": 1,
+      "message": "Why wouldn\u0027t rollback fix the bug?",
+      "parentUuid": "d2504ae3_47e2ff3f",
+      "revId": "3dd3da45590d53c6ae07240d1f65ea5f33f38619",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
