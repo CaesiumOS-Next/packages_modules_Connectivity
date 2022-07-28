@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6c09820_4c1d2665",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-07-28T03:26:42Z",
+      "side": 1,
+      "message": "A few implementation comments but no huge issue for me. As such, +1 assuming comments are addressed. Only API comment is to annotate the int argument.\n\nThat being said, I don\u0027t think I have the domain knowledge to say that the callbacks for these UDP sockets are correctly implemented or designed or adequately tested.",
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a39da46f_d66e2579",
+        "filename": "framework/src/android/net/QosFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-07-28T03:26:42Z",
+      "side": 1,
+      "message": "I think you can only pass IPPROTO_TCP or IPPROTO_UDP here right ?\n\nCan you annotate with @IntRange or similar so callers know what are acceptable values ? After you do this, please take a look at the generated javadoc to see if it needs further clarification in comments.",
+      "range": {
+        "startLine": 103,
+        "startChar": 35,
+        "endLine": 103,
+        "endChar": 38
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b40c549e_b800236e",
+        "filename": "framework/src/android/net/QosFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-07-28T03:26:42Z",
+      "side": 1,
+      "message": "I don\u0027t get the point of implementing and throwing. How about just leave it abstract, only remove @hide ?",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 80
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a0e69d7_8328d2ae",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-07-28T03:26:42Z",
+      "side": 1,
+      "message": "I question the usefulness of having a second member here ; you could just say\n\n    private var qosTestSocket: Closeable? \u003d null // either Socket or DatagramSocket\n\nand use it indifferently. It\u0027s slightly weaker-typed, but I think (and you\u0027ll see in other comments) that it simplifies the code a fair deal.",
+      "range": {
+        "startLine": 182,
+        "startChar": 16,
+        "endLine": 182,
+        "endChar": 37
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b0fd23d_cd9557a9",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-07-28T03:26:42Z",
+      "side": 1,
+      "message": "I think we should remove some duplication here. The simplest way is probably to just remove the Pair and have callers get the agent and the socket separately. This will be especially true if you address my comment on l.963, because then everything that\u0027s the same in these two functions become one line. Then you can have a helper to create either type of socket, and all your callers now have to if() into one of these two methods anyway.\n\nYou could also write :\n\n    private fun \u003cT\u003e setupForQosCallbackTesting(creator : () -\u003e T) : Pair\u003cTestableNetworkAgent, T\u003e {\n      val request \u003d ...\n      ...\n      val socket \u003d create()\n      when (socket) {\n        is Socket -\u003e qosTestSocket \u003d socket\n        is DatagramSocket -\u003e qosTestDatagramSocket \u003d socket\n      }\n      return agent to socket\n    }\n\n    private fun setupForQosSocket() \u003d setupForQosCallbackTesting {\n      assertNotNull(agent.network?.socketFactory?.createSocket()).also {\n               it.bind(InetSocketAddress(InetAddress.getLoopbackAddress(), 0))\n    }\n    private fun setupForQosDatagram() \u003d setupForQosCallbackTesting {\n      DatagramSocket(InetSocketAddress(InetAddress.getLoopbackAddress(), 0))\n    }\n\nThis gets rid of duplicated code, allows for easier expansion into more sockets, and lets you remove the `!!`s (and if you implement my suggestion from l.182 you can get rid of the when()). \nHowever I think it\u0027s more complex than just removing these two functions and have callers call createConnectedNetworkAgent().",
+      "range": {
+        "startLine": 955,
+        "startChar": 16,
+        "endLine": 955,
+        "endChar": 60
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "945aef5a_1f3e7e79",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-07-28T03:26:42Z",
+      "side": 1,
+      "message": "I get that you\u0027re only modeling your code on the function above but... isn\u0027t that exactly what the second return value of createConnectedNetworkAgent gives you ? In other words, couldn\u0027t you remove all this code by just replacing the `_` in l.964 with `callback` ?",
+      "range": {
+        "startLine": 957,
+        "startChar": 0,
+        "endLine": 963,
+        "endChar": 41
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b37a2d1a_39d542f4",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-07-28T03:26:42Z",
+      "side": 1,
+      "message": "This is not indented correctly ; did you skip checkstyle ?",
+      "range": {
+        "startLine": 988,
+        "startChar": 8,
+        "endLine": 988,
+        "endChar": 9
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e0d5a43_b29a2644",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 1011,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-07-28T03:26:42Z",
+      "side": 1,
+      "message": "I think the code would be a little bit simpler if instead of passing argument int \u003d SOCK_STREAM you passed int \u003d IPPROTO_TCP. This would not complexify l.987 or 1002, but it would simplify this here, and it\u0027s probably marginally easier to understand (for most people, UDP vs TCP is more familiar than SOCK_DATAGRAM vs SOCK_STREAM)",
+      "range": {
+        "startLine": 1011,
+        "startChar": 61,
+        "endLine": 1011,
+        "endChar": 72
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1a1d831_5228869c",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-07-28T03:26:42Z",
+      "side": 1,
+      "message": "Can you find a way to avoid repeating all this code ? I think the current structure with the two unrelated types makes it a bit hard to encapsulate in a function, but you could create a small helper class.\n\nBut there might be a simpler way ; if you implement my suggestions above, you could probably have something like\n\n    val (agent, _) \u003d createConnectedNetworkAgent()\n    val socket \u003d when(proto) {\n      IPPROTO_TCP -\u003e createTestSocket()\n      IPPROTO_UDP -\u003e createDatagramTestSocket()\n      else -\u003e fail(\"unsupported protocol\")\n    }\n\nThis gets rid of the two socket vars and makes `socket` the closest supertype of Socket and DatagramSocket, which is Closeable, so you have only one `close()` call in l.1095 and you don\u0027t need it to be nullable.\nOn the minus side that means you have to cast it in l.1063, but you can do this in a very clear manner with\n\n    fun QosSocketInfo(agent: NetworkAgent, socket: Closeable) \u003d when (socket) {\n      is Socket -\u003e QosSocketInfo(agent.network, socket)\n      is DatagramSocket -\u003e QosSocketInfo(agent.network, socket)\n      else -\u003e fail(\"unexpected socket type\")\n    }\n    [...]\n    val info \u003d QosSocketInfo(agent, socket)\n\n(or if you prefer your current if() structure for that part, it\u0027s fine too).\n\nAt that point, the duplicated code is much smaller and can be kept.",
+      "range": {
+        "startLine": 1046,
+        "startChar": 8,
+        "endLine": 1056,
+        "endChar": 28
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b443ea2f_7215b73a",
+        "filename": "tests/cts/net/src/android/net/cts/QosCallbackExceptionTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-07-28T03:26:42Z",
+      "side": 1,
+      "message": "Can you please avoid duplication by making a function ? We only had 2 instances of this code but with this patch it goes to 5, which is too many I think.",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 80
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
