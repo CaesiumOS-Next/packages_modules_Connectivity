@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b28a5e97_8fe916e9",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-28T10:38:50Z",
+      "side": 1,
+      "message": "Per talk, how about like this: \nif (is6To4) {\nassertFalse(\"CLAT download test must sends IPv6 packet\", isAddressIpv4(srcIp, dstIp));\n}    \n// Expect received udp packet is ipv4.\nfinal boolean isIpv4 \u003d is6To4 ? true : isAddressIpv4(srcIp, dstIp);",
+      "parentUuid": "eaa32884_354507e9",
+      "range": {
+        "startLine": 900,
+        "startChar": 0,
+        "endLine": 903,
+        "endChar": 9
+      },
+      "revId": "5f45be0463db2dcd6c42d88d72b46e0a2637f74d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "42f8b176_6ad91913",
         "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
         "patchSetId": 8
