@@ -104,6 +104,30 @@
       },
       "revId": "8b965f2c1136c8ef5758041e77c2c8b3a05e0deb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2ade6db_637c3f7d",
+        "filename": "bpf_progs/dscpPolicy.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2022-07-29T22:27:24Z",
+      "side": 1,
+      "message": "Requiring a dst port is not correct though. This will break use cases where dst port is not set, and future use cases for other protocols where there is no port.",
+      "parentUuid": "3f18ab1b_479df03e",
+      "range": {
+        "startLine": 190,
+        "startChar": 12,
+        "endLine": 190,
+        "endChar": 17
+      },
+      "revId": "8b965f2c1136c8ef5758041e77c2c8b3a05e0deb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
