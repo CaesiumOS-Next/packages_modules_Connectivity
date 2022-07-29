@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d55d129a_d36b438c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-07-29T05:48:48Z",
+      "side": 1,
+      "message": "BTW, should this implement (https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2164649/1/framework-t/src/android/net/NetworkIdentity.java#4170 be a part of this patch?",
+      "revId": "b77cfd057db6113b9026e23ca3f8efa327b6691c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b23b746_f0cc3967",
