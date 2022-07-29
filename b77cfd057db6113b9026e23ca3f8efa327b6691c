@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83ad26ef_88fb3841",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-07-29T09:03:19Z",
+      "side": 1,
+      "message": "Prefer not since this is a CL that only affect query part,\nwhile the other CL works on the recording part.",
+      "parentUuid": "d55d129a_d36b438c",
+      "revId": "b77cfd057db6113b9026e23ca3f8efa327b6691c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b23b746_f0cc3967",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-07-29T05:39:29Z",
       "side": 1,
       "message": "nit: Maybe @VisibleForTesting",
+      "range": {
+        "startLine": 122,
+        "startChar": 4,
+        "endLine": 122,
+        "endChar": 7
+      },
+      "revId": "b77cfd057db6113b9026e23ca3f8efa327b6691c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c0d6f7f_d59a98bc",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-07-29T09:03:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b23b746_f0cc3967",
       "range": {
         "startLine": 122,
         "startChar": 4,
