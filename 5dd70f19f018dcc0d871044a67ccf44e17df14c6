@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aefc1bab_8bb9016c",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 2744,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-29T04:26:50Z",
+      "side": 1,
+      "message": "The commit message says \"Information in dump does not change\", but actually may be a little different when mCookieTagMap is not OK.\n\nOriginal status dump checking whether fd is closed and whether the path is accessible.\nstd::string getMapStatus(const base::unique_fd\u0026 map_fd, const char* path) {\n    if (map_fd.get() \u003c 0) {\n        return StringPrintf(\"map fd lost\");\n    }\n    if (access(path, F_OK) !\u003d 0) {\n        return StringPrintf(\"map not pinned to location: %s\", path);\n    }\n    return StringPrintf(\"OK\");\n}\n\nIf map status is NOT OK, do we have alternative way to know the reason is fd not opened or the map do not pin to given path ?\n\nAt least you need to document the different.",
+      "range": {
+        "startLine": 2744,
+        "startChar": 8,
+        "endLine": 2744,
+        "endChar": 80
+      },
+      "revId": "5dd70f19f018dcc0d871044a67ccf44e17df14c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0a18008_11ec5172",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 2759,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-07-29T04:26:50Z",
+      "side": 1,
+      "message": "If value is null, it would just iterate from first key. That said, if there is concurrent entry deletion, we would print some duplication entries. Maybe do something as below.\n\nif (value !\u003d null) {\n...\n} else {\npw.println(\"Entry is deleted while dumping, iterating from first entry\");\n}",
+      "range": {
+        "startLine": 2759,
+        "startChar": 16,
+        "endLine": 2759,
+        "endChar": 36
+      },
+      "revId": "5dd70f19f018dcc0d871044a67ccf44e17df14c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
