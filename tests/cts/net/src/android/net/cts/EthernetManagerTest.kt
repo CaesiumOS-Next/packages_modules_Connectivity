@@ -446,7 +446,7 @@ class EthernetManagerTest {
 
     // NetworkRequest.Builder does not create a copy of the passed NetworkRequest, so in order to
     // keep ETH_REQUEST as it is, a defensive copy is created here.
-    private fun NetworkRequest.createCopyWithEthernetSpecifier(ifaceName: String) =
+    private fun NetworkRequest.copyWithEthernetSpecifier(ifaceName: String) =
         NetworkRequest.Builder(NetworkRequest(ETH_REQUEST))
             .setNetworkSpecifier(EthernetNetworkSpecifier(ifaceName)).build()
 
@@ -644,7 +644,7 @@ class EthernetManagerTest {
         val iface1 = createInterface()
         val iface2 = createInterface()
 
-        val cb = requestNetwork(ETH_REQUEST.createCopyWithEthernetSpecifier(iface2.name))
+        val cb = requestNetwork(ETH_REQUEST.copyWithEthernetSpecifier(iface2.name))
 
         val network = cb.expectAvailable()
         cb.expectCapabilitiesWithInterfaceName(iface2.name)
@@ -677,8 +677,8 @@ class EthernetManagerTest {
         val iface1 = createInterface()
         val iface2 = createInterface()
 
-        val cb1 = requestNetwork(ETH_REQUEST.createCopyWithEthernetSpecifier(iface1.name))
-        val cb2 = requestNetwork(ETH_REQUEST.createCopyWithEthernetSpecifier(iface2.name))
+        val cb1 = requestNetwork(ETH_REQUEST.copyWithEthernetSpecifier(iface1.name))
+        val cb2 = requestNetwork(ETH_REQUEST.copyWithEthernetSpecifier(iface2.name))
         val cb3 = requestNetwork(ETH_REQUEST)
 
         cb1.expectAvailable()
@@ -769,7 +769,7 @@ class EthernetManagerTest {
     @Test
     fun testUpdateConfiguration_forBothIpConfigAndCapabilities() {
         val iface = createInterface()
-        val cb = requestNetwork(ETH_REQUEST.createCopyWithEthernetSpecifier(iface.name))
+        val cb = requestNetwork(ETH_REQUEST.copyWithEthernetSpecifier(iface.name))
         val network = cb.expectAvailable()
         cb.assertNeverLost()
 
@@ -792,7 +792,7 @@ class EthernetManagerTest {
     @Test
     fun testUpdateConfiguration_forOnlyIpConfig() {
         val iface: EthernetTestInterface = createInterface()
-        val cb = requestNetwork(ETH_REQUEST.createCopyWithEthernetSpecifier(iface.name))
+        val cb = requestNetwork(ETH_REQUEST.copyWithEthernetSpecifier(iface.name))
         val network = cb.expectAvailable()
         cb.assertNeverLost()
 
@@ -810,7 +810,7 @@ class EthernetManagerTest {
     @Test
     fun testUpdateConfiguration_forOnlyCapabilities() {
         val iface: EthernetTestInterface = createInterface()
-        val cb = requestNetwork(ETH_REQUEST.createCopyWithEthernetSpecifier(iface.name))
+        val cb = requestNetwork(ETH_REQUEST.copyWithEthernetSpecifier(iface.name))
         val network = cb.expectAvailable()
         cb.assertNeverLost()
 
