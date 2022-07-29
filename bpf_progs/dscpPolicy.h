@@ -25,11 +25,18 @@
 
 #define STRUCT_SIZE(name, size) _Static_assert(sizeof(name) == (size), "Incorrect struct size.")
 
-#define v6_equal(a, b) \
-    (((a.s6_addr32[0] ^ b.s6_addr32[0]) | \
-      (a.s6_addr32[1] ^ b.s6_addr32[1]) | \
-      (a.s6_addr32[2] ^ b.s6_addr32[2]) | \
-      (a.s6_addr32[3] ^ b.s6_addr32[3])) == 0)
+// Retrieve the first (ie. high) 64 bits of an IPv6 address (in network order)
+#define v6_hi_be64(v) (*(uint64_t*)&((v).s6_addr32[0]))
+
+// Retrieve the last (ie. low) 64 bits of an IPv6 address (in network order)
+#define v6_lo_be64(v) (*(uint64_t*)&((v).s6_addr32[2]))
+
+// This returns a non-zero u64 iff a != b
+#define v6_not_equal(a, b) ((v6_hi_be64(a) ^ v6_hi_be64(b)) \
+                          | (v6_lo_be64(a) ^ v6_lo_be64(b)))
+
+// Returns 'a == b' as boolean
+#define v6_equal(a, b) (!v6_not_equal((a), (b)))
 
 // TODO: these are already defined in packages/modules/Connectivity/bpf_progs/bpf_net_helpers.h.
 // smove to common location in future.
