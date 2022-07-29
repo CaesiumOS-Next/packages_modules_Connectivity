@@ -16,6 +16,23 @@
       "message": "(as expected failure in:\n[error] apct/device_boot_health_check_extra on wembley_2GB-userdebug on git_master\n)",
       "revId": "1e47c18eb328a4c7223a7c134a122bfd96290013",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc77df01_b7afbf04",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-29T08:03:30Z",
+      "side": 1,
+      "message": "Looks like this causes some badness in BpfNetMapsTest, presumably permissions are screwed up.",
+      "revId": "1e47c18eb328a4c7223a7c134a122bfd96290013",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
