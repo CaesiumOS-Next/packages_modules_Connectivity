@@ -56,6 +56,30 @@
       },
       "revId": "8b965f2c1136c8ef5758041e77c2c8b3a05e0deb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c209ad07_a7b4d4a0",
+        "filename": "bpf_progs/dscpPolicy.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-07-29T21:58:44Z",
+      "side": 1,
+      "message": "That\u0027s what this does.  It gives more precise dst port ranges - ie. shorter ones - a bigger score, so they outscore less precise dst port ranges.\n\nAmong other things this makes a \u0027dst port 5\u0027 beat out \u0027dst port 2-7\u0027 which in turn beats \u0027dst port 0-65535\u0027 which is now fully equivalent to no dst port specified.",
+      "parentUuid": "0dd6ec44_bfaafe36",
+      "range": {
+        "startLine": 190,
+        "startChar": 12,
+        "endLine": 190,
+        "endChar": 17
+      },
+      "revId": "8b965f2c1136c8ef5758041e77c2c8b3a05e0deb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
