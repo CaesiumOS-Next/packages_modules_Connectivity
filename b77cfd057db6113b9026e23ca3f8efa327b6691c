@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b23b746_f0cc3967",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-07-29T05:39:29Z",
+      "side": 1,
+      "message": "nit: Maybe @VisibleForTesting",
+      "range": {
+        "startLine": 122,
+        "startChar": 4,
+        "endLine": 122,
+        "endChar": 7
+      },
+      "revId": "b77cfd057db6113b9026e23ca3f8efa327b6691c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e8e92c0_f81bfd3d",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-07-29T05:39:29Z",
+      "side": 1,
+      "message": "Is this possible that the test network also contains wifiNetworkKey?\nOk, it looks like it won\u0027t, wifiNetworkKey is only set when mType is TYPE_WIFI.",
+      "range": {
+        "startLine": 796,
+        "startChar": 0,
+        "endLine": 797,
+        "endChar": 88
+      },
+      "revId": "b77cfd057db6113b9026e23ca3f8efa327b6691c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
