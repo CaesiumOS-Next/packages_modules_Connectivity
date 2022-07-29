@@ -136,6 +136,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0616a98e_afb7d6c7",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-07-29T08:07:02Z",
+      "side": 1,
+      "message": "Delete some of them.\nSee if it works for you.",
+      "parentUuid": "6254bcd8_bcda19a0",
+      "range": {
+        "startLine": 115,
+        "startChar": 3,
+        "endLine": 142,
+        "endChar": 5
+      },
+      "revId": "1db1ea58dbbd35adf8f6fb348b17e6ae5641f331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "380c7afe_5e2060c3",
