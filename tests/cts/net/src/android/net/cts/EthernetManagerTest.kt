@@ -19,6 +19,8 @@ import android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS
 import android.Manifest.permission.MANAGE_TEST_NETWORKS
 import android.Manifest.permission.NETWORK_SETTINGS
 import android.content.Context
+import android.content.pm.PackageManager.FEATURE_ETHERNET
+import android.content.pm.PackageManager.FEATURE_USB_HOST
 import android.net.ConnectivityManager
 import android.net.EthernetManager
 import android.net.EthernetManager.ETHERNET_STATE_DISABLED
@@ -123,6 +125,7 @@ class EthernetManagerTest {
     private val context by lazy { InstrumentationRegistry.getInstrumentation().context }
     private val em by lazy { context.getSystemService(EthernetManager::class.java) }
     private val cm by lazy { context.getSystemService(ConnectivityManager::class.java) }
+    private val pm by lazy { context.packageManager }
     private val handler by lazy { Handler(Looper.getMainLooper()) }
 
     private val ifaceListener = EthernetStateListener()
@@ -302,14 +305,19 @@ class EthernetManagerTest {
         }
     }
 
+    private fun isEthernetSupported() =
+            pm.hasSystemFeature(FEATURE_ETHERNET) || pm.hasSystemFeature(FEATURE_USB_HOST)
+
     @Before
     fun setUp() {
+        assumeTrue(isEthernetSupported())
         setIncludeTestInterfaces(true)
         addInterfaceStateListener(ifaceListener)
     }
 
     @After
     fun tearDown() {
+        if (!isEthernetSupported()) return
         // Reenable ethernet, so ABSENT callbacks are received.
         setEthernetEnabled(true)
 
