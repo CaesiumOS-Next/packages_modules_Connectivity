@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdee801d_8815f3dc",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 20
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-07-29T22:01:11Z",
+      "side": 1,
+      "message": "This can be lowered once https://r.android.com/2163159 merges.",
+      "range": {
+        "startLine": 103,
+        "startChar": 31,
+        "endLine": 103,
+        "endChar": 36
+      },
+      "revId": "ae298e3304a885843e75bc5b91c1a4d2a8279c85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56a271cc_3a586b7e",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-07-29T22:01:11Z",
+      "side": 1,
+      "message": "Done and looks like you added the above to the other ones as well here (thanks):\nhttps://r.android.com/2168785",
+      "parentUuid": "6f7665df_85032f98",
+      "range": {
+        "startLine": 840,
+        "startChar": 63,
+        "endLine": 840,
+        "endChar": 65
+      },
+      "revId": "0682fac643a68ae67250bb3bac35da9191e70b6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de52be49_9b925d66",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-07-28T22:42:30Z",
       "side": 1,
       "message": "Can you just add this to requestNetwork()? That way we never leak network requests.",
+      "range": {
+        "startLine": 843,
+        "startChar": 17,
+        "endLine": 843,
+        "endChar": 65
+      },
+      "revId": "0682fac643a68ae67250bb3bac35da9191e70b6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4adf67cd_9993c7bb",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-07-29T22:01:11Z",
+      "side": 1,
+      "message": "I\u0027d prefer not to. Request network will behave differently depending on whether the caller has the CONNECTIVITY_USE_RESTRICTED_NETWORKS permission and I\u0027d rather not blanket change the behavior for all tests that use the API.\n\nI don\u0027t think this will leak requests but if you have something in mind on that note, please feel free to add some additional context and we can discuss further. Thanks!",
+      "parentUuid": "de52be49_9b925d66",
       "range": {
         "startLine": 843,
         "startChar": 17,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8cad9c1_cbceaa93",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-07-29T22:01:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af0bc728_8225e981",
+      "range": {
+        "startLine": 844,
+        "startChar": 27,
+        "endLine": 844,
+        "endChar": 91
+      },
+      "revId": "0682fac643a68ae67250bb3bac35da9191e70b6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76f3fc73_0faf2d0f",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-07-28T22:42:30Z",
       "side": 1,
       "message": "same as above `.expectResult(iface.name)`",
+      "range": {
+        "startLine": 857,
+        "startChar": 51,
+        "endLine": 857,
+        "endChar": 53
+      },
+      "revId": "0682fac643a68ae67250bb3bac35da9191e70b6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55ec8eb1_f7cf0929",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-07-29T22:01:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76f3fc73_0faf2d0f",
       "range": {
         "startLine": 857,
         "startChar": 51,
