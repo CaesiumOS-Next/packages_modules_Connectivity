@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b634145_f3dc2ede",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 2744,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-07-29T07:23:11Z",
+      "side": 1,
+      "message": "Thanks, I missed to update the commit message after I added the null check.\nI updated dumpMapStatus to dump the result of access check to the PATH if map is null.\nAlso, updated commit message",
+      "parentUuid": "aefc1bab_8bb9016c",
+      "range": {
+        "startLine": 2744,
+        "startChar": 8,
+        "endLine": 2744,
+        "endChar": 80
+      },
+      "revId": "5dd70f19f018dcc0d871044a67ccf44e17df14c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c0a18008_11ec5172",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-29T04:26:50Z",
       "side": 1,
       "message": "If value is null, it would just iterate from first key. That said, if there is concurrent entry deletion, we would print some duplication entries. Maybe do something as below.\n\nif (value !\u003d null) {\n...\n} else {\npw.println(\"Entry is deleted while dumping, iterating from first entry\");\n}",
+      "range": {
+        "startLine": 2759,
+        "startChar": 16,
+        "endLine": 2759,
+        "endChar": 36
+      },
+      "revId": "5dd70f19f018dcc0d871044a67ccf44e17df14c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6202e570_901caaa3",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 2759,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-07-29T07:23:11Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c0a18008_11ec5172",
       "range": {
         "startLine": 2759,
         "startChar": 16,
