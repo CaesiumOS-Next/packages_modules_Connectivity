@@ -80,6 +80,30 @@
       },
       "revId": "8b965f2c1136c8ef5758041e77c2c8b3a05e0deb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f18ab1b_479df03e",
+        "filename": "bpf_progs/dscpPolicy.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-07-29T22:02:47Z",
+      "side": 1,
+      "message": "I think it does exactly that.\nThe new version of the program will check all present fields, and if *any* of them mismatch it will go on to checking the next rule. So this point is only reached if all present fields match.\n\nAfter this change, policies with smaller port ranges will outrank policies with larger port ranges. (But the port range must always be set.)",
+      "parentUuid": "0dd6ec44_bfaafe36",
+      "range": {
+        "startLine": 190,
+        "startChar": 12,
+        "endLine": 190,
+        "endChar": 17
+      },
+      "revId": "8b965f2c1136c8ef5758041e77c2c8b3a05e0deb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
