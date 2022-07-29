@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "188e89b3_05b95515",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-29T02:17:09Z",
+      "side": 1,
+      "message": "Actually I think it\u0027s just more correct in general: all the code that\u0027s relevant here is in the connectivity module, so it makes sense not to run it if the connectivity module is not updated.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 17
+      },
+      "revId": "7419e7f97c1e28aae5796d83ba9b2ca412832885",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69dc248d_d969ce1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-29T02:17:09Z",
+      "side": 1,
+      "message": "LGTM with or without commit message changes.",
+      "revId": "7419e7f97c1e28aae5796d83ba9b2ca412832885",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
