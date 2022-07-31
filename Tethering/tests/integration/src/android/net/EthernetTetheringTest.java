@@ -28,6 +28,7 @@ import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
 import static android.net.TetheringManager.TETHERING_ETHERNET;
 import static android.net.TetheringTester.TestDnsPacket;
 import static android.net.TetheringTester.isExpectedIcmpPacket;
+import static android.net.TetheringTester.isExpectedTcpPacket;
 import static android.net.TetheringTester.isExpectedUdpDnsPacket;
 import static android.net.TetheringTester.isExpectedUdpPacket;
 import static android.system.OsConstants.ICMP_ECHO;
@@ -35,6 +36,7 @@ import static android.system.OsConstants.ICMP_ECHOREPLY;
 import static android.system.OsConstants.IPPROTO_ICMP;
 import static android.system.OsConstants.IPPROTO_IP;
 import static android.system.OsConstants.IPPROTO_IPV6;
+import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
 
 import static com.android.net.module.util.BpfDump.BASE64_DELIMITER;
@@ -48,6 +50,8 @@ import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ECHO_REQU
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ROUTER_ADVERTISEMENT;
 import static com.android.net.module.util.NetworkStackConstants.IPV4_CHECKSUM_OFFSET;
 import static com.android.net.module.util.NetworkStackConstants.IPV4_LENGTH_OFFSET;
+import static com.android.net.module.util.NetworkStackConstants.TCPHDR_ACK;
+import static com.android.net.module.util.NetworkStackConstants.TCPHDR_SYN;
 import static com.android.testutils.DeviceInfoUtils.KVersion;
 import static com.android.testutils.TestNetworkTrackerKt.initTestNetwork;
 
@@ -168,6 +172,8 @@ public class EthernetTetheringTest {
             ByteBuffer.wrap(new byte[] { (byte) 0x55, (byte) 0xaa });
 
     private static final short DNS_PORT = 53;
+    private static final short WINDOW = (short) 0x2000;
+    private static final short URGENT_POINTER = 0;
 
     private static final String DUMPSYS_TETHERING_RAWMAP_ARG = "bpfRawMap";
     private static final String DUMPSYS_RAWMAP_ARG_STATS = "--stats";
@@ -1623,6 +1629,133 @@ public class EthernetTetheringTest {
         final Inet4Address tetheringUpstreamIp = (Inet4Address) TEST_IP4_ADDR.getAddress();
         sendDownloadPacketDnsV4(remoteIp, tetheringUpstreamIp, DNS_PORT,
                 (short) udpHeader.srcPort, (short) dnsQuery.getHeader().id, tester);
+    }
+
+    @NonNull
+    private ByteBuffer buildTcpPacket(
+            @Nullable final MacAddress srcMac, @Nullable final MacAddress dstMac,
+            @NonNull final InetAddress srcIp, @NonNull final InetAddress dstIp,
+            short srcPort, short dstPort, final short seq, final short ack,
+            final byte tcpFlags, @Nullable final ByteBuffer payload)
+            throws Exception {
+        int ipProto;
+        short ethType;
+        if (srcIp instanceof Inet4Address && dstIp instanceof Inet4Address) {
+            ipProto = IPPROTO_IP;
+            ethType = (short) ETHER_TYPE_IPV4;
+        } else if (srcIp instanceof Inet6Address && dstIp instanceof Inet6Address) {
+            ipProto = IPPROTO_IPV6;
+            ethType = (short) ETHER_TYPE_IPV6;
+        } else {
+            fail("Unsupported conditions: srcIp " + srcIp + ", dstIp " + dstIp);
+            // Make compiler happy to the uninitialized ipProto and ethType.
+            return null;  // unreachable, the annotation @NonNull of function return value is true.
+        }
+
+        final boolean hasEther = (srcMac != null && dstMac != null);
+        final int payloadLen = (payload == null) ? 0 : payload.limit();
+        final ByteBuffer buffer = PacketBuilder.allocate(hasEther, ipProto, IPPROTO_TCP,
+                payloadLen);
+        final PacketBuilder packetBuilder = new PacketBuilder(buffer);
+
+        // [1] Ethernet header
+        if (hasEther) packetBuilder.writeL2Header(srcMac, dstMac, (short) ethType);
+
+        // [2] IP header
+        if (ipProto == IPPROTO_IP) {
+            packetBuilder.writeIpv4Header(TYPE_OF_SERVICE, ID, FLAGS_AND_FRAGMENT_OFFSET,
+                    TIME_TO_LIVE, (byte) IPPROTO_TCP, (Inet4Address) srcIp, (Inet4Address) dstIp);
+        } else {
+            packetBuilder.writeIpv6Header(VERSION_TRAFFICCLASS_FLOWLABEL, (byte) IPPROTO_TCP,
+                    HOP_LIMIT, (Inet6Address) srcIp, (Inet6Address) dstIp);
+        }
+
+        // [3] UDP header
+        packetBuilder.writeTcpHeader(srcPort, dstPort, seq, ack, tcpFlags, WINDOW, URGENT_POINTER);
+
+        // [4] Payload
+        if (payload != null) {
+            buffer.put(payload);
+            // in case data might be reused by caller, restore the position and
+            // limit of bytebuffer.
+            payload.clear();
+        }
+
+        return packetBuilder.finalizePacket();
+    }
+
+    private void sendDownloadPacketTcp(@NonNull final InetAddress srcIp,
+            @NonNull final InetAddress dstIp, short seq, short ack, byte tcpFlags,
+            @NonNull final TetheringTester tester)
+            throws Exception {
+        final ByteBuffer testPacket = buildTcpPacket(null /* srcMac */, null /* dstMac */,
+                srcIp, dstIp, REMOTE_PORT /* srcPort */, LOCAL_PORT /* dstPort */, seq, ack,
+                tcpFlags, null /* payload */);
+        tester.verifyDownload(testPacket, p -> {
+            Log.d(TAG, "Packet in downstream: " + dumpHexString(p));
+
+            return isExpectedTcpPacket(p, true /* hasEther */, true /* isIpv4 */, seq);
+        });
+    }
+
+    private void sendUploadPacketTcp(@NonNull final MacAddress srcMac,
+            @NonNull final MacAddress dstMac, @NonNull final InetAddress srcIp,
+            @NonNull final InetAddress dstIp, short seq, short ack, byte tcpFlags,
+            @NonNull final TetheringTester tester) throws Exception {
+        final ByteBuffer testPacket = buildTcpPacket(srcMac, dstMac, srcIp, dstIp,
+                LOCAL_PORT /* srcPort */, REMOTE_PORT /* dstPort */, seq, ack, tcpFlags,
+                null /* payload */);
+        tester.verifyUpload(testPacket, p -> {
+            Log.d(TAG, "Packet in upstream: " + dumpHexString(p));
+
+            return isExpectedTcpPacket(p, false /* hasEther */, true /* isIpv4 */,
+                    seq);
+        });
+    }
+
+    @Test
+    public void testTetherTcpV4() throws Exception {
+        final TetheringTester tester = initTetheringTester(toList(TEST_IP4_ADDR),
+                toList(TEST_IP4_DNS));
+        final TetheredDevice tethered = tester.createTetheredDevice(TEST_MAC, false /* hasIpv6 */);
+
+        // TODO: remove the connectivity verification for upstream connected notification race.
+        // See the same reason in runUdp4Test().
+        probeV4TetheringConnectivity(tester, tethered, false /* is4To6 */);
+
+        // Three way handshake
+        //
+        // Client                                      Sever
+        //   |                                           |
+        //   |                                           |
+        //   |    [1] [SYN] SEQ = 100                    |
+        //   |------------------------------------------>|
+        //   |                                           |
+        //   |    [2] [SYN + ACK] SEQ = 300, ACK = 101   |
+        //   |<------------------------------------------|
+        //   |                                           |
+        //   |    [3] [ACK] SEQ = 101, ACK = 301         |
+        //   |------------------------------------------>|
+        //   |                                           |
+        //   |                                           |
+        //
+        final MacAddress srcMac = tethered.macAddr;
+        final MacAddress dstMac = tethered.routerMacAddr;
+        final InetAddress remoteIp = REMOTE_IP4_ADDR;
+        final InetAddress tetheringUpstreamIp = TEST_IP4_ADDR.getAddress();
+        final InetAddress clientIp = tethered.ipv4Addr;
+
+        // [1] [SYN] SEQ = 100
+        sendUploadPacketTcp(srcMac, dstMac, clientIp, remoteIp, (short) 100 /* seq */,
+                (short) 0 /* ack */, TCPHDR_SYN, tester);
+
+        // [2] [SYN + ACK] SEQ = 300, ACK = 101
+        sendDownloadPacketTcp(remoteIp, tetheringUpstreamIp, (short) 300 /* seq */,
+                (short) 101 /* ack */, (byte) ((TCPHDR_SYN | TCPHDR_ACK) & 0xff), tester);
+
+        // [3] [ACK] SEQ = 101, ACK = 301
+        sendUploadPacketTcp(srcMac, dstMac, clientIp, remoteIp, (short) 101 /* seq */,
+                (short) 301 /* ack */, TCPHDR_SYN, tester);
     }
 
     private <T> List<T> toList(T... array) {

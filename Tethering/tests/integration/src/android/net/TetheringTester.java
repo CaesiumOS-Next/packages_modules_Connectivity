@@ -19,6 +19,7 @@ package android.net;
 import static android.net.InetAddresses.parseNumericAddress;
 import static android.system.OsConstants.IPPROTO_ICMP;
 import static android.system.OsConstants.IPPROTO_ICMPV6;
+import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
 
 import static com.android.net.module.util.DnsPacket.ANSECTION;
@@ -66,6 +67,7 @@ import com.android.net.module.util.structs.LlaOption;
 import com.android.net.module.util.structs.NsHeader;
 import com.android.net.module.util.structs.PrefixInformationOption;
 import com.android.net.module.util.structs.RaHeader;
+import com.android.net.module.util.structs.TcpHeader;
 import com.android.net.module.util.structs.UdpHeader;
 import com.android.networkstack.arp.ArpPacket;
 import com.android.testutils.TapPacketReader;
@@ -575,6 +577,32 @@ public final class TetheringTester {
             // Parsing packet fail means it is not udp dns packet.
             return false;
         }
+        return true;
+    }
+
+    private static boolean hasExpectedTcpHeader(@NonNull final ByteBuffer buf,
+            int seq) throws Exception {
+        return Struct.parse(TcpHeader.class, buf).seq == seq;
+    }
+
+    public static boolean isExpectedTcpPacket(@NonNull final byte[] rawPacket, boolean hasEth,
+            boolean isIpv4, int seq) {
+        final ByteBuffer buf = ByteBuffer.wrap(rawPacket);
+        try {
+            if (hasEth && !hasExpectedEtherHeader(buf, isIpv4)) return false;
+
+            if (!hasExpectedIpHeader(buf, isIpv4, IPPROTO_TCP)) return false;
+
+            if (!hasExpectedTcpHeader(buf, seq)) return false;
+        } catch (Exception e) {
+            // Parsing packet fail means it is not udp packet.
+            return false;
+        }
+
+        // Ater tcp packet has tethered, the tcp header will be added TCP options, ex: MSS.
+        // TCP option is not supported so far. So we can't verify payload if any and just
+        // simply check sequece number.
+        // TODO: support parsing TCP options and check payload.
         return true;
     }
 
