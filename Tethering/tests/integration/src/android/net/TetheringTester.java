@@ -19,6 +19,7 @@ package android.net;
 import static android.net.InetAddresses.parseNumericAddress;
 import static android.system.OsConstants.IPPROTO_ICMP;
 import static android.system.OsConstants.IPPROTO_ICMPV6;
+import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
 
 import static com.android.net.module.util.DnsPacket.ANSECTION;
@@ -40,6 +41,7 @@ import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ROUTER_AD
 import static com.android.net.module.util.NetworkStackConstants.IPV6_ADDR_ALL_NODES_MULTICAST;
 import static com.android.net.module.util.NetworkStackConstants.NEIGHBOR_ADVERTISEMENT_FLAG_OVERRIDE;
 import static com.android.net.module.util.NetworkStackConstants.NEIGHBOR_ADVERTISEMENT_FLAG_SOLICITED;
+import static com.android.net.module.util.NetworkStackConstants.TCPHDR_SYN;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -66,6 +68,7 @@ import com.android.net.module.util.structs.LlaOption;
 import com.android.net.module.util.structs.NsHeader;
 import com.android.net.module.util.structs.PrefixInformationOption;
 import com.android.net.module.util.structs.RaHeader;
+import com.android.net.module.util.structs.TcpHeader;
 import com.android.net.module.util.structs.UdpHeader;
 import com.android.networkstack.arp.ArpPacket;
 import com.android.testutils.TapPacketReader;
@@ -575,6 +578,52 @@ public final class TetheringTester {
             // Parsing packet fail means it is not udp dns packet.
             return false;
         }
+        return true;
+    }
+
+    private static boolean hasExpectedTcpHeaderAndPayload(@NonNull final ByteBuffer buf,
+            int seq, @Nullable final ByteBuffer payload) throws Exception {
+        // TcpHeader doesn't support TCP options. Need to manual parsing if required.
+        final TcpHeader tcpHeader = Struct.parse(TcpHeader.class, buf);
+
+        if (tcpHeader.seq != seq) return false;
+
+        // Ignore TCP options in SYN seqments.
+        // TCP option MSS may be added by kernel in SYN segment. Ignore if any because
+        // TcpHeader doesn't support TCP options. See rfc 1122 section 4.2.2.6,
+        // rfc 793 secion 3.1 and tcpmss_mangle_packet() in net/netfilter/xt_TCPMSS.c.
+        // TODO: support TCP options if required.
+        if ((tcpHeader.dataOffsetAndControlBits & TCPHDR_SYN) != 0) {
+            Log.d(TAG, "Found SYN segment. Ignore to parse TCP options if any.");
+            return true;
+        }
+
+        // Packet has no payload.
+        if (payload == null) return buf.remaining() == 0;
+
+        // Packet has payload.
+        if (payload.limit() != buf.remaining()) return false;
+
+        final byte[] actualBytes = new byte[buf.remaining()];
+        buf.get(actualBytes);
+        return Arrays.equals(actualBytes, payload.array());
+    }
+
+    public static boolean isExpectedTcpPacket(@NonNull final byte[] rawPacket, boolean hasEth,
+            boolean isIpv4, int seq, @Nullable final ByteBuffer payload) {
+        final ByteBuffer buf = ByteBuffer.wrap(rawPacket);
+        try {
+            if (hasEth && !hasExpectedEtherHeader(buf, isIpv4)) return false;
+
+            if (!hasExpectedIpHeader(buf, isIpv4, IPPROTO_TCP)) return false;
+
+            if (!hasExpectedTcpHeaderAndPayload(buf, seq, payload)) return false;
+
+        } catch (Exception e) {
+            // Parsing packet fail means it is not tcp packet.
+            return false;
+        }
+
         return true;
     }
 
