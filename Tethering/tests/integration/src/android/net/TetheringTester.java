@@ -19,6 +19,7 @@ package android.net;
 import static android.net.InetAddresses.parseNumericAddress;
 import static android.system.OsConstants.IPPROTO_ICMP;
 import static android.system.OsConstants.IPPROTO_ICMPV6;
+import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
 
 import static com.android.net.module.util.DnsPacket.ANSECTION;
@@ -66,6 +67,7 @@ import com.android.net.module.util.structs.LlaOption;
 import com.android.net.module.util.structs.NsHeader;
 import com.android.net.module.util.structs.PrefixInformationOption;
 import com.android.net.module.util.structs.RaHeader;
+import com.android.net.module.util.structs.TcpHeader;
 import com.android.net.module.util.structs.UdpHeader;
 import com.android.networkstack.arp.ArpPacket;
 import com.android.testutils.TapPacketReader;
@@ -575,6 +577,33 @@ public final class TetheringTester {
             // Parsing packet fail means it is not udp dns packet.
             return false;
         }
+        return true;
+    }
+
+    private static boolean hasExpectedTcpHeader(@NonNull final ByteBuffer buf,
+            int seq) throws Exception {
+        return Struct.parse(TcpHeader.class, buf).seq == seq;
+    }
+
+    public static boolean isExpectedTcpPacket(@NonNull final byte[] rawPacket, boolean hasEth,
+            boolean isIpv4, int seq) {
+        final ByteBuffer buf = ByteBuffer.wrap(rawPacket);
+        try {
+            if (hasEth && !hasExpectedEtherHeader(buf, isIpv4)) return false;
+
+            if (!hasExpectedIpHeader(buf, isIpv4, IPPROTO_TCP)) return false;
+
+            if (!hasExpectedTcpHeader(buf, seq)) return false;
+
+        } catch (Exception e) {
+            // Parsing packet fail means it is not tcp packet.
+            return false;
+        }
+
+        // TCP option MSS may be added by kernel in SYN segment. Ignore if any because
+        // TcpHeader doesn't support TCP options. See RFC1122 section 4.2.2.6,
+        // rfc793 secion 3.1 and tcpmss_mangle_packet() in net/netfilter/xt_TCPMSS.c.
+        // TODO: support parsing TCP options in SYN packet and check payload if any.
         return true;
     }
 
