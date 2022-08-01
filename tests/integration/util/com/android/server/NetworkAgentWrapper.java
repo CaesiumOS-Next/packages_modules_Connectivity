@@ -61,6 +61,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
 
 public class NetworkAgentWrapper implements TestableNetworkCallback.HasNetwork {
     private final NetworkCapabilities mNetworkCapabilities;
@@ -83,14 +84,35 @@ public class NetworkAgentWrapper implements TestableNetworkCallback.HasNetwork {
     private final ArrayTrackRecord<CallbackType>.ReadHead mCallbackHistory =
             new ArrayTrackRecord<CallbackType>().newReadHead();
 
+    public static class Callbacks {
+        public final Consumer<NetworkAgent> onNetworkCreated;
+        public final Consumer<NetworkAgent> onNetworkUnwanted;
+        public final Consumer<NetworkAgent> onNetworkDestroyed;
+
+        public Callbacks() {
+            this(null, null, null);
+        }
+
+        public Callbacks(Consumer<NetworkAgent> onNetworkCreated,
+                Consumer<NetworkAgent> onNetworkUnwanted,
+                Consumer<NetworkAgent> onNetworkDestroyed) {
+            this.onNetworkCreated = onNetworkCreated;
+            this.onNetworkUnwanted = onNetworkUnwanted;
+            this.onNetworkDestroyed = onNetworkDestroyed;
+        }
+    }
+
+    protected Callbacks mCallbacks;
+
     public NetworkAgentWrapper(int transport, LinkProperties linkProperties,
             NetworkCapabilities ncTemplate, Context context) throws Exception {
-        this(transport, linkProperties, ncTemplate, null /* provider */, context);
+        this(transport, linkProperties, ncTemplate, null /* provider */,
+                null /* callbacks */, context);
     }
 
     public NetworkAgentWrapper(int transport, LinkProperties linkProperties,
             NetworkCapabilities ncTemplate, NetworkProvider provider,
-            Context context) throws Exception {
+            Callbacks callbacks, Context context) throws Exception {
         final int type = transportToLegacyType(transport);
         final String typeName = ConnectivityManager.getNetworkTypeName(type);
         mNetworkCapabilities = (ncTemplate != null) ? ncTemplate : new NetworkCapabilities();
@@ -135,12 +157,13 @@ public class NetworkAgentWrapper implements TestableNetworkCallback.HasNetwork {
                 .setLegacyTypeName(typeName)
                 .setLegacyExtraInfo(extraInfo)
                 .build();
-        mNetworkAgent = makeNetworkAgent(linkProperties, mNetworkAgentConfig, provider);
+        mNetworkAgent = makeNetworkAgent(linkProperties, mNetworkAgentConfig, provider, callbacks);
     }
 
     protected InstrumentedNetworkAgent makeNetworkAgent(LinkProperties linkProperties,
-            final NetworkAgentConfig nac, NetworkProvider provider) throws Exception {
-        return new InstrumentedNetworkAgent(this, linkProperties, nac, provider);
+            final NetworkAgentConfig nac, NetworkProvider provider, Callbacks callbacks)
+            throws Exception {
+        return new InstrumentedNetworkAgent(this, linkProperties, nac, provider, callbacks);
     }
 
     public static class InstrumentedNetworkAgent extends NetworkAgent {
@@ -148,17 +171,18 @@ public class NetworkAgentWrapper implements TestableNetworkCallback.HasNetwork {
         private static final String PROVIDER_NAME = "InstrumentedNetworkAgentProvider";
 
         public InstrumentedNetworkAgent(NetworkAgentWrapper wrapper, LinkProperties lp,
-                NetworkAgentConfig nac) {
-            this(wrapper, lp, nac, null /* provider */);
+                NetworkAgentConfig nac, Callbacks callbacks) {
+            this(wrapper, lp, nac, null /* provider */, callbacks);
         }
 
         public InstrumentedNetworkAgent(NetworkAgentWrapper wrapper, LinkProperties lp,
-                NetworkAgentConfig nac, NetworkProvider provider) {
+                NetworkAgentConfig nac, NetworkProvider provider, Callbacks callbacks) {
             super(wrapper.mContext, wrapper.mHandlerThread.getLooper(), wrapper.mLogTag,
                     wrapper.mNetworkCapabilities, lp, wrapper.mScore, nac,
                     null != provider ? provider : new NetworkProvider(wrapper.mContext,
                             wrapper.mHandlerThread.getLooper(), PROVIDER_NAME));
             mWrapper = wrapper;
+            mWrapper.mCallbacks = (callbacks != null) ? callbacks : new Callbacks();
             register();
         }
 
@@ -214,6 +238,31 @@ public class NetworkAgentWrapper implements TestableNetworkCallback.HasNetwork {
         protected void removeKeepalivePacketFilter(Message msg) {
             Log.i(mWrapper.mLogTag, "Remove keepalive packet filter.");
         }
+
+        @Override
+        public void onNetworkCreated() {
+            super.onNetworkCreated();
+            if (mWrapper.mCallbacks.onNetworkCreated != null) {
+                mWrapper.mCallbacks.onNetworkCreated.accept(this);
+            }
+        }
+
+        @Override
+        public void onNetworkUnwanted() {
+            super.onNetworkUnwanted();
+            if (mWrapper.mCallbacks.onNetworkUnwanted != null) {
+                mWrapper.mCallbacks.onNetworkUnwanted.accept(this);
+            }
+        }
+
+        @Override
+        public void onNetworkDestroyed() {
+            super.onNetworkDestroyed();
+            if (mWrapper.mCallbacks.onNetworkDestroyed != null) {
+                mWrapper.mCallbacks.onNetworkDestroyed.accept(this);
+            }
+        }
+
     }
 
     public void setScore(@NonNull final NetworkScore score) {
