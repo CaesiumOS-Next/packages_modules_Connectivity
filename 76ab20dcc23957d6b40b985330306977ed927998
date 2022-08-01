@@ -16,6 +16,24 @@
       "message": "Thanks for the change, could you upload it to the master branch ? This is where new changes should go.\n\nAlso, could you add a test in ConnectivityServiceTest ? (here: https://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/tests/unit/java/com/android/server/ConnectivityServiceTest.java). Generally each fix should have a test to ensure there is no future regression.",
       "revId": "76ab20dcc23957d6b40b985330306977ed927998",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2da3133_e548cd2e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1629753
+      },
+      "writtenOn": "2022-08-01T07:14:31Z",
+      "side": 1,
+      "message": "OK,master brach:https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2171110\n\nOther patch link:\nandroid-t-preview-1 branch:https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2171109\nmaster branch:https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2171111",
+      "parentUuid": "28468410_60016c68",
+      "revId": "76ab20dcc23957d6b40b985330306977ed927998",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
