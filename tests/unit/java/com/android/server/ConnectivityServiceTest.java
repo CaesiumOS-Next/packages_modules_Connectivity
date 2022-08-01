@@ -15514,4 +15514,24 @@ public class ConnectivityServiceTest {
                 it -> it.first == wifiLp.getInterfaceName()
                         && it.second == 2000));
     }
+
+    @Test
+    public void testOfferNetwork_ChecksArgumentsOutsideOfHandler() throws Exception {
+        final TestableNetworkOfferCallback callback = new TestableNetworkOfferCallback(
+                TIMEOUT_MS /* timeout */, TEST_CALLBACK_TIMEOUT_MS /* noCallbackTimeout */);
+        final NetworkProvider testProvider = new NetworkProvider(mServiceContext,
+                mCsHandlerThread.getLooper(), "Test provider");
+        final NetworkCapabilities caps = new NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
+                .build();
+
+        final NetworkScore score = new NetworkScore.Builder().build();
+        testProvider.registerNetworkOffer(score, caps, r -> r.run(), callback);
+        testProvider.unregisterNetworkOffer(callback);
+
+        assertThrows(NullPointerException.class,
+                () -> mService.offerNetwork(100, score, caps, null));
+        assertThrows(NullPointerException.class, () -> mService.unofferNetwork(null));
+    }
 }
