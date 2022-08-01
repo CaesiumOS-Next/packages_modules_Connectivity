@@ -148,6 +148,75 @@
       },
       "revId": "857861201b11f7e4e6a991b768406d3b85b89e71",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c30995a_b36b7ebf",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1183,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-01T10:31:27Z",
+      "side": 1,
+      "message": "Do you need to test a test network without any specific subscriberId?",
+      "range": {
+        "startLine": 1183,
+        "startChar": 43,
+        "endLine": 1183,
+        "endChar": 69
+      },
+      "revId": "857861201b11f7e4e6a991b768406d3b85b89e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6849950_dc608e94",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2233,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-01T10:31:27Z",
+      "side": 1,
+      "message": "Maybe also /* subscriberId */",
+      "range": {
+        "startLine": 2233,
+        "startChar": 16,
+        "endLine": 2233,
+        "endChar": 21
+      },
+      "revId": "857861201b11f7e4e6a991b768406d3b85b89e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccfda708_522400a2",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2236,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-01T10:31:27Z",
+      "side": 1,
+      "message": "I think we don\u0027t need to pass legacyType to this method. We can know what type should be if we know the transport.",
+      "range": {
+        "startLine": 2236,
+        "startChar": 81,
+        "endLine": 2236,
+        "endChar": 91
+      },
+      "revId": "857861201b11f7e4e6a991b768406d3b85b89e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
