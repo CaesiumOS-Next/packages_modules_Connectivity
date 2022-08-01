@@ -2500,12 +2500,16 @@ public class ConnectivityManagerTest {
             assertEquals(AIRPLANE_MODE_ON, Settings.Global.getInt(
                     mContext.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON));
             // Verify factoryReset
-            runAsShell(NETWORK_SETTINGS, () -> mCm.factoryReset());
+            final TestTetheringEventCallback cbCaptureForLambda = tetherEventCallback;
+            runAsShell(NETWORK_SETTINGS, () -> {
+                mCm.factoryReset();
+                // Keep shell permissions until tethering stops, as factoryReset stops tethering
+                // asynchronously, and permissions may be checked after it returns.
+                cbCaptureForLambda.expectNoTetheringActive();
+            });
             verifySettings(AIRPLANE_MODE_OFF,
                     ConnectivitySettingsManager.PRIVATE_DNS_MODE_OPPORTUNISTIC,
                     ConnectivitySettingsManager.NETWORK_AVOID_BAD_WIFI_PROMPT);
-
-            tetherEventCallback.expectNoTetheringActive();
         } finally {
             // Restore settings.
             setAirplaneMode(false);
