@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "753e7bda_e49edb91",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 16530,
+      "author": {
+        "id": 1629753
+      },
+      "writtenOn": "2022-08-01T08:37:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "055506dd_dba932e3",
+      "range": {
+        "startLine": 16530,
+        "startChar": 16,
+        "endLine": 16530,
+        "endChar": 32
+      },
+      "revId": "e2663fc196715d35c5b27b35654c5cd6a459dfe6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6a82058_f90ceb3f",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-01T08:03:23Z",
       "side": 1,
       "message": "(please fix the long line)",
+      "range": {
+        "startLine": 16544,
+        "startChar": 8,
+        "endLine": 16544,
+        "endChar": 20
+      },
+      "revId": "e2663fc196715d35c5b27b35654c5cd6a459dfe6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c1b3b45_57391760",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 16544,
+      "author": {
+        "id": 1629753
+      },
+      "writtenOn": "2022-08-01T08:37:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c6a82058_f90ceb3f",
       "range": {
         "startLine": 16544,
         "startChar": 8,
