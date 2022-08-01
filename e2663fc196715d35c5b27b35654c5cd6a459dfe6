@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "055506dd_dba932e3",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 16530,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-01T08:03:23Z",
+      "side": 1,
+      "message": "Since this only tests the null behavior, I\u0027d suggest changing the name to something like \"testOfferNetwork_checksArgumentsOutsideOfHandler\" or similar",
+      "range": {
+        "startLine": 16530,
+        "startChar": 16,
+        "endLine": 16530,
+        "endChar": 32
+      },
+      "revId": "e2663fc196715d35c5b27b35654c5cd6a459dfe6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6a82058_f90ceb3f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 16544,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-01T08:03:23Z",
+      "side": 1,
+      "message": "(please fix the long line)",
+      "range": {
+        "startLine": 16544,
+        "startChar": 8,
+        "endLine": 16544,
+        "endChar": 20
+      },
+      "revId": "e2663fc196715d35c5b27b35654c5cd6a459dfe6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
