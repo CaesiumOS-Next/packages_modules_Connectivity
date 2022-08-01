@@ -181,9 +181,7 @@ Status TrafficController::initMaps() {
     return netdutils::status::ok;
 }
 
-Status TrafficController::start() {
-    RETURN_IF_NOT_OK(initMaps());
-
+Status TrafficController::startSkDestroyListener() {
     auto result = makeSkDestroyListener();
     if (!isOk(result)) {
         ALOGE("Unable to create SkDestroyListener: %s", toString(result).c_str());

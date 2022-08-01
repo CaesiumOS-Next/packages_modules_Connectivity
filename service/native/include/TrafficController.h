@@ -36,9 +36,14 @@ class TrafficController {
     static constexpr char DUMP_KEYWORD[] = "trafficcontroller";
 
     /*
-     * Initialize the whole controller
+     * Initialize the bpf maps
      */
-    netdutils::Status start();
+    netdutils::Status initMaps() EXCLUDES(mMutex);
+
+    /*
+     * Start skDestroyListener to cleanup cookie tag map
+     */
+    netdutils::Status startSkDestroyListener();
 
     /*
      * Swap the stats map config from current active stats map to the idle one.
@@ -175,8 +180,6 @@ class TrafficController {
             REQUIRES(mMutex);
 
     std::mutex mMutex;
-
-    netdutils::Status initMaps() EXCLUDES(mMutex);
 
     // Keep track of uids that have permission UPDATE_DEVICE_STATS so we don't
     // need to call back to system server for permission check.

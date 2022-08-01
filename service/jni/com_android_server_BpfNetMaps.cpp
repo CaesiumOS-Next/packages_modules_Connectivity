@@ -45,8 +45,13 @@ namespace android {
       ALOGE("%s failed, error code = %d", __func__, status.code()); \
   } while (0)
 
-static void native_init(JNIEnv* env, jclass clazz) {
-  Status status = mTc.start();
+static void native_initMaps(JNIEnv* env, jclass clazz) {
+  Status status = mTc.initMaps();
+  CHECK_LOG(status);
+}
+
+static void native_startSkDestroyListener(JNIEnv* env, jclass clazz) {
+  Status status = mTc.startSkDestroyListener();
   CHECK_LOG(status);
 }
 
@@ -189,8 +194,10 @@ static void native_dump(JNIEnv* env, jobject self, jobject javaFd, jboolean verb
 // clang-format off
 static const JNINativeMethod gMethods[] = {
     /* name, signature, funcPtr */
-    {"native_init", "()V",
-    (void*)native_init},
+    {"native_initMaps", "()V",
+    (void*)native_initMaps},
+    {"native_startSkDestroyListener", "()V",
+    (void*)native_startSkDestroyListener},
     {"native_addNaughtyApp", "(I)I",
     (void*)native_addNaughtyApp},
     {"native_removeNaughtyApp", "(I)I",
