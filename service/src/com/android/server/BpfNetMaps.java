@@ -173,7 +173,9 @@ public class BpfNetMaps {
 
         setBpfMaps();
         native_initMaps();
-        native_startSkDestroyListener();
+        if (!sEnableJavaBpfMap) {
+            native_startSkDestroyListener();
+        }
         sInitialized = true;
     }
 
@@ -208,6 +210,14 @@ public class BpfNetMaps {
         }
         mNetd = netd;
         mDeps = deps;
+    }
+
+    /**
+     * Return true if BpfNetMaps started skDestroyListener
+     * Return false if BpfNetMaps did not start skDestroyListener
+     */
+    public boolean isSkDestroyListenerRunning() {
+        return !sEnableJavaBpfMap;
     }
 
     /**
