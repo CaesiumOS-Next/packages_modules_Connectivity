@@ -43,6 +43,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6626a1b0_88956646",
+        "filename": "framework/src/android/net/QosFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-08-01T17:08:07Z",
+      "side": 1,
+      "message": "No, It could be other protocols as described in the javadoc.\n\n\"protocol : the protocol such as TCP or UDP included in IP packet filter set of a QoS flow assigned on {@link Network}.\"\n\nJust other protocols except TCP or UDP will be returned \u0027unmatched:false\u0027 because we don\u0027t support judging match of them in QosSocketInfo.",
+      "parentUuid": "a39da46f_d66e2579",
+      "range": {
+        "startLine": 103,
+        "startChar": 35,
+        "endLine": 103,
+        "endChar": 38
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90b619c7_a177e941",
+        "filename": "framework/src/android/net/QosFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-08-01T17:08:07Z",
+      "side": 1,
+      "message": "No, It could be other protocols as described in the javadoc.\n\n\"protocol : the protocol such as TCP or UDP included in IP packet filter set of a QoS flow assigned on {@link Network}.\"\n\nJust other protocols except TCP or UDP will be returned \u0027unmatched:false\u0027 because we don\u0027t support judging match of them in QosSocketInfo.",
+      "parentUuid": "a39da46f_d66e2579",
+      "range": {
+        "startLine": 103,
+        "startChar": 35,
+        "endLine": 103,
+        "endChar": 38
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b40c549e_b800236e",
         "filename": "framework/src/android/net/QosFilter.java",
         "patchSetId": 7
@@ -54,6 +102,30 @@
       "writtenOn": "2022-07-28T03:26:42Z",
       "side": 1,
       "message": "I don\u0027t get the point of implementing and throwing. How about just leave it abstract, only remove @hide ?",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 80
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d6551a3_d62dbf59",
+        "filename": "framework/src/android/net/QosFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-08-01T17:08:07Z",
+      "side": 1,
+      "message": "Actually I added an abstract method to QosFilter for this feature. However API rules doesn\u0027t allow adding a new abstract method to abstract class, and presubmit verification was failed.\n~~~~~~~~~~~\nerror: Added method android.net.QosFilter.matchesProtocol(int) [AddedAbstractMethod]\nAborting: Found compatibility problems checking the public API\n~~~~~~~~~~~\n\nSo, I queried this to api-council.\nAnd I added method \u0027matchesProtocol(int)\u0027 that has default implementation in QosFilter based on suggestion from api-council.\nhttps://groups.google.com/a/google.com/g/android-api-council/c/_QucGTXeLLg",
+      "parentUuid": "b40c549e_b800236e",
       "range": {
         "startLine": 104,
         "startChar": 0,
@@ -87,6 +159,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0dd2276_ed8ee556",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-08-01T17:08:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1a0e69d7_8328d2ae",
+      "range": {
+        "startLine": 182,
+        "startChar": 16,
+        "endLine": 182,
+        "endChar": 37
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b0fd23d_cd9557a9",
@@ -100,6 +196,30 @@
       "writtenOn": "2022-07-28T03:26:42Z",
       "side": 1,
       "message": "I think we should remove some duplication here. The simplest way is probably to just remove the Pair and have callers get the agent and the socket separately. This will be especially true if you address my comment on l.963, because then everything that\u0027s the same in these two functions become one line. Then you can have a helper to create either type of socket, and all your callers now have to if() into one of these two methods anyway.\n\nYou could also write :\n\n    private fun \u003cT\u003e setupForQosCallbackTesting(creator : () -\u003e T) : Pair\u003cTestableNetworkAgent, T\u003e {\n      val request \u003d ...\n      ...\n      val socket \u003d create()\n      when (socket) {\n        is Socket -\u003e qosTestSocket \u003d socket\n        is DatagramSocket -\u003e qosTestDatagramSocket \u003d socket\n      }\n      return agent to socket\n    }\n\n    private fun setupForQosSocket() \u003d setupForQosCallbackTesting {\n      assertNotNull(agent.network?.socketFactory?.createSocket()).also {\n               it.bind(InetSocketAddress(InetAddress.getLoopbackAddress(), 0))\n    }\n    private fun setupForQosDatagram() \u003d setupForQosCallbackTesting {\n      DatagramSocket(InetSocketAddress(InetAddress.getLoopbackAddress(), 0))\n    }\n\nThis gets rid of duplicated code, allows for easier expansion into more sockets, and lets you remove the `!!`s (and if you implement my suggestion from l.182 you can get rid of the when()). \nHowever I think it\u0027s more complex than just removing these two functions and have callers call createConnectedNetworkAgent().",
+      "range": {
+        "startLine": 955,
+        "startChar": 16,
+        "endLine": 955,
+        "endChar": 60
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0b07f9a_809dfacf",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-08-01T17:08:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8b0fd23d_cd9557a9",
       "range": {
         "startLine": 955,
         "startChar": 16,
@@ -133,6 +253,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6f6410c_9e937415",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-08-01T17:08:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "945aef5a_1f3e7e79",
+      "range": {
+        "startLine": 957,
+        "startChar": 0,
+        "endLine": 963,
+        "endChar": 41
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b37a2d1a_39d542f4",
@@ -146,6 +290,30 @@
       "writtenOn": "2022-07-28T03:26:42Z",
       "side": 1,
       "message": "This is not indented correctly ; did you skip checkstyle ?",
+      "range": {
+        "startLine": 988,
+        "startChar": 8,
+        "endLine": 988,
+        "endChar": 9
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f10a6a3_dc7c5ae4",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-08-01T17:08:07Z",
+      "side": 1,
+      "message": "Oh, I thought there would be kotlin_hook while uploading code to AOSP.\nI saw that kotlin_hook verified the checkstyle at this upload.",
+      "parentUuid": "b37a2d1a_39d542f4",
       "range": {
         "startLine": 988,
         "startChar": 8,
@@ -179,6 +347,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "16b5633c_12833224",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 1011,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-08-01T17:08:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5e0d5a43_b29a2644",
+      "range": {
+        "startLine": 1011,
+        "startChar": 61,
+        "endLine": 1011,
+        "endChar": 72
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f1a1d831_5228869c",
@@ -202,6 +394,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf4f7a7b_9f99a5a8",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-08-01T17:08:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f1a1d831_5228869c",
+      "range": {
+        "startLine": 1046,
+        "startChar": 8,
+        "endLine": 1056,
+        "endChar": 28
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b443ea2f_7215b73a",
@@ -215,6 +431,30 @@
       "writtenOn": "2022-07-28T03:26:42Z",
       "side": 1,
       "message": "Can you please avoid duplication by making a function ? We only had 2 instances of this code but with this patch it goes to 5, which is too many I think.",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 80
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91357c94_df17da33",
+        "filename": "tests/cts/net/src/android/net/cts/QosCallbackExceptionTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-08-01T17:08:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b443ea2f_7215b73a",
       "range": {
         "startLine": 101,
         "startChar": 0,
