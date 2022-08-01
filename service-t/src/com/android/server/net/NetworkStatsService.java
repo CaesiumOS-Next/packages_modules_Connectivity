@@ -156,10 +156,12 @@ import com.android.net.module.util.IBpfMap;
 import com.android.net.module.util.LocationPermissionChecker;
 import com.android.net.module.util.NetworkStatsUtils;
 import com.android.net.module.util.PermissionUtils;
+import com.android.net.module.util.SharedLog;
 import com.android.net.module.util.Struct.U32;
 import com.android.net.module.util.Struct.U8;
 import com.android.net.module.util.bpf.CookieTagMapKey;
 import com.android.net.module.util.bpf.CookieTagMapValue;
+import com.android.server.BpfNetMaps;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -447,6 +449,9 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     @NonNull
     private final BpfInterfaceMapUpdater mInterfaceMapUpdater;
 
+    @Nullable
+    private final SkDestroyListener mSkDestroyListener;
+
     private static @NonNull Clock getDefaultClock() {
         return new BestClock(ZoneOffset.UTC, SystemClock.currentNetworkTimeClock(),
                 Clock.systemUTC());
@@ -580,6 +585,18 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         mStatsMapA = mDeps.getStatsMapA();
         mStatsMapB = mDeps.getStatsMapB();
         mAppUidStatsMap = mDeps.getAppUidStatsMap();
+
+        // Following code is for the experiment, if BpfNetMaps is initialized with flag
+        // enableJavaBpfMap=false and did not start skDestroyListener, NetworkStatsService needs to
+        // start skDestroyListener. If BpfNetMaps is initialized with flag=true and started
+        // skDestroyListener with JNI code, NetworkStatsService does not start skDestroyListener.
+        final BpfNetMaps bpfNetMaps = new BpfNetMaps(context);
+        if (!bpfNetMaps.isSkDestroyListenerRunning()) {
+            mSkDestroyListener = new SkDestroyListener(mHandler, new SharedLog(TAG), mCookieTagMap);
+            mHandler.post(mSkDestroyListener::start);
+        } else {
+            mSkDestroyListener = null;
+        }
     }
 
     /**
