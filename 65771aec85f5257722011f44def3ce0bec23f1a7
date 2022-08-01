@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7eb03147_2f0ee7fa",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2508,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-01T09:25:53Z",
+      "side": 1,
+      "message": "Could you point out the code where checking the NETWORK_SETTINGS permission after factoryReset stops tethering ? I only found NETWORK_SETTINGS is checked when registering the callback.",
+      "range": {
+        "startLine": 2506,
+        "startChar": 16,
+        "endLine": 2508,
+        "endChar": 62
+      },
+      "revId": "65771aec85f5257722011f44def3ce0bec23f1a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
