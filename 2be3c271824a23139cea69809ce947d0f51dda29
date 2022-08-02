@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53922746_70e411ef",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 2777,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-02T05:32:29Z",
+      "side": 1,
+      "message": "Hmm, it seems bugreport just doing dumpsys netstats with \"checkin\" arg only. So this probably cause remove the logs in bugreport.\n\n------ CHECKIN NETSTATS (/system/bin/dumpsys -T 30000 netstats --checkin) ------",
+      "revId": "2be3c271824a23139cea69809ce947d0f51dda29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
