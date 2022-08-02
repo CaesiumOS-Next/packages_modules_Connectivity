@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dd276d0_11826239",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-02T06:43:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8526163d_7a8e0e2b",
+      "range": {
+        "startLine": 11,
+        "startChar": 23,
+        "endLine": 11,
+        "endChar": 25
+      },
+      "revId": "cea40b7928c280c178b56a8aeb7f097cf6728455",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44d0160c_17e4e030",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "923114a0_c41de502",
+        "filename": "tests/integration/util/com/android/server/NetworkAgentWrapper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-02T06:43:56Z",
+      "side": 1,
+      "message": "Ah, much better, thanks! Done.",
+      "parentUuid": "44d0160c_17e4e030",
+      "revId": "cea40b7928c280c178b56a8aeb7f097cf6728455",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb346cea_d3128819",
@@ -54,6 +96,30 @@
       "writtenOn": "2022-08-02T04:23:36Z",
       "side": 1,
       "message": "Nit: Is `network.getNetId()` better?\nJust saw other callbacks use getNetId().",
+      "range": {
+        "startLine": 3581,
+        "startChar": 66,
+        "endLine": 3581,
+        "endChar": 71
+      },
+      "revId": "cea40b7928c280c178b56a8aeb7f097cf6728455",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d9e1c18_08ee243c",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3581,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-02T06:43:56Z",
+      "side": 1,
+      "message": "It\u0027s the same really. getNetId() just does \"return netId\". But it\u0027s better to be consisten.t Done.",
+      "parentUuid": "cb346cea_d3128819",
       "range": {
         "startLine": 3581,
         "startChar": 66,
