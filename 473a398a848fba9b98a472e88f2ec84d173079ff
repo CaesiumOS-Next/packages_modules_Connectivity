@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40aff024_6e028d8a",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-02T05:57:53Z",
+      "side": 1,
+      "message": "IIUC it has to be U or later. since we cannot deprecate it without proper aanouncement.\nBut code name U is not yet supported.\nSo IIUC we cannot change this at this momment.\nAlso for other APIs.\n\nPlease reach out jchalard@ for advise.",
+      "range": {
+        "startLine": 193,
+        "startChar": 60,
+        "endLine": 193,
+        "endChar": 61
+      },
+      "revId": "473a398a848fba9b98a472e88f2ec84d173079ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51318c40_6e17ddff",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-02T05:57:53Z",
+      "side": 1,
+      "message": "Does this still use by external callers?",
+      "range": {
+        "startLine": 208,
+        "startChar": 34,
+        "endLine": 208,
+        "endChar": 61
+      },
+      "revId": "473a398a848fba9b98a472e88f2ec84d173079ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

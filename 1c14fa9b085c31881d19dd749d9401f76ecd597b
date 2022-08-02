@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32b940d8_7f1200ce",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-02T05:57:53Z",
+      "side": 0,
+      "message": "IIUC this can still be supported by passing setWifiNetworkKeys(new Set[1]{null})?",
+      "range": {
+        "startLine": 136,
+        "startChar": 12,
+        "endLine": 136,
+        "endChar": 36
+      },
+      "revId": "1c14fa9b085c31881d19dd749d9401f76ecd597b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
