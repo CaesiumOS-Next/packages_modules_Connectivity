@@ -87,6 +87,30 @@
       },
       "revId": "d6cfe744a1b086d2df5c659fc5ecb00f7adb2314",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec026926_af70e598",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2796,
+      "author": {
+        "id": 1649662
+      },
+      "writtenOn": "2022-08-02T07:37:08Z",
+      "side": 1,
+      "message": "My understanding was that disabling wifi is an asynchronous event and that this test doesn\u0027t have a way to wait/check for a network to be fully disabled before proceeding with ensureWifiConnected - although I may be missing something here?\n\nI think the root issue is that depending on how long it takes for wifi to finish disabling, ensureWifiConnected might or might not read the correct `connectionInfo` object?",
+      "parentUuid": "7dc90c4a_f04e6c20",
+      "range": {
+        "startLine": 2791,
+        "startChar": 12,
+        "endLine": 2796,
+        "endChar": 15
+      },
+      "revId": "d6cfe744a1b086d2df5c659fc5ecb00f7adb2314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
