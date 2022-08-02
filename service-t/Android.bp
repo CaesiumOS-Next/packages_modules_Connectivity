@@ -61,6 +61,7 @@ java_library {
         // service-connectivity-pre-jarjar), and in the case of code that is already in
         // framework-connectivity, the classes would be included in the apex twice.
         "modules-utils-statemachine",
+        "net-utils-device-common-ip",
     ],
     apex_available: [
         "com.android.tethering",
