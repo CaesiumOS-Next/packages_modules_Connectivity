@@ -16,6 +16,46 @@
       "message": "LGTM",
       "revId": "2b497c581a2b70957b5c78f529a7af3a425a08c4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c1bb3ef_3e399f3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-02T10:32:21Z",
+      "side": 1,
+      "message": "No issues on the impl but I want to make a second pass to consider the higher-level idea\n",
+      "revId": "2b497c581a2b70957b5c78f529a7af3a425a08c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b7e76a2_22414bbe",
+        "filename": "framework-t/src/android/net/NetworkIdentity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-02T10:32:21Z",
+      "side": 1,
+      "message": "Wait is it not visible to this file now ? It\u0027s in the same module isn\u0027t it ?",
+      "range": {
+        "startLine": 89,
+        "startChar": 4,
+        "endLine": 89,
+        "endChar": 60
+      },
+      "revId": "2b497c581a2b70957b5c78f529a7af3a425a08c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
