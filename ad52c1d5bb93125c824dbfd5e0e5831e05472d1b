@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08791a53_f344f1f7",
+        "filename": "service/src/com/android/server/connectivity/FullScore.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-02T06:24:21Z",
+      "side": 1,
+      "message": "Still need to increase primes, so you should have 2 3 5 7 instead of 2 2 3 5",
+      "range": {
+        "startLine": 368,
+        "startChar": 18,
+        "endLine": 368,
+        "endChar": 19
+      },
+      "revId": "ad52c1d5bb93125c824dbfd5e0e5831e05472d1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0486869_4b931cdf",
+        "filename": "tests/unit/java/com/android/server/connectivity/FullScoreTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-02T06:24:21Z",
+      "side": 1,
+      "message": "Considering assertEquals(x,y) is assert((x \u003d\u003d null \u0026\u0026 y \u003d\u003d null) || x.equals(y)), do we really need this second test ?",
+      "range": {
+        "startLine": 170,
+        "startChar": 8,
+        "endLine": 170,
+        "endChar": 35
+      },
+      "revId": "ad52c1d5bb93125c824dbfd5e0e5831e05472d1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
