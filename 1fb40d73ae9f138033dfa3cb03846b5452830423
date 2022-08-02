@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b63a6669_cdb292ac",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 2710,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-02T05:40:38Z",
+      "side": 1,
+      "message": "--includeUid seems don\u0027t be used in bugreport.\n\nI only found dumping netstats with \"checking\" or without any argument. So this probably remove the logs from bugreport.\n\n// This is the same as \"dumpsys netstats\"\nDUMP OF SERVICE netstats:\n\n------ CHECKIN NETSTATS (/system/bin/dumpsys -T 30000 netstats --checkin) ------",
+      "range": {
+        "startLine": 2710,
+        "startChar": 16,
+        "endLine": 2710,
+        "endChar": 26
+      },
+      "revId": "1fb40d73ae9f138033dfa3cb03846b5452830423",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
