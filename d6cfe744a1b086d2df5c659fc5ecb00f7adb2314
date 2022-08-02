@@ -111,6 +111,30 @@
       },
       "revId": "d6cfe744a1b086d2df5c659fc5ecb00f7adb2314",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ab25c02_efe2cdad",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2796,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-08-02T08:08:15Z",
+      "side": 1,
+      "message": "Wifi network should be torn down after l.2788. (The svc command in l.2794 should only turn the wifi off, not relying on the command to disconnect wifi) If we did not reconnect the WiFi, I expect ARC will have no working internet which should fail in tearDown() if you remove the ensureWifiConnected. Is the WiFi network in ARC not  disconnected? It should not be the case. Otherwise, test should fail while waiting for the onLost in l.2788.",
+      "parentUuid": "93cf8713_757b89e7",
+      "range": {
+        "startLine": 2791,
+        "startChar": 12,
+        "endLine": 2796,
+        "endChar": 15
+      },
+      "revId": "d6cfe744a1b086d2df5c659fc5ecb00f7adb2314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
