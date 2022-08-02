@@ -111,6 +111,30 @@
       },
       "revId": "937fa2094aa60857eceb265a1045d273c7781ad6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12f5b117_f6cb5c7f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1231,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-02T07:44:14Z",
+      "side": 1,
+      "message": "It\u0027s pretty tricky. I can see a few approaches :\n• A very direct one is to use Thread.setUncaughtExceptionHandler. With that you can assert that the exception you want eventually happens. The trouble is, you can\u0027t stop the thread from crashing with that, so this comes with limitations.\n• A cleaner one is to install an observer in the looper with Looper#setObserver (public @hide). It\u0027s mostly the same though, it still crashes after you\u0027ve been told about the crash\n• A more powerful way might be to extend TestLooper for our purposes so that it catches all exceptions but doesn\u0027t stop processing messages. That means you\u0027d be rewriting Looper#run in your subclass of TestLooper, and you can\u0027t use HandlerThread – you\u0027d also have to subclass it so it uses your new tool. So that\u0027s pretty heavyhanded in terms of amount of work, and it might be brittle because it will depend on implementation details of Looper.",
+      "parentUuid": "4d2d5aac_011501f2",
+      "range": {
+        "startLine": 1229,
+        "startChar": 16,
+        "endLine": 1231,
+        "endChar": 80
+      },
+      "revId": "937fa2094aa60857eceb265a1045d273c7781ad6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
