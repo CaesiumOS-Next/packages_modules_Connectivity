@@ -22,6 +22,30 @@
       },
       "revId": "b82e25c51b3ed9880a434547483e7e2bb75a0db4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9379c7e_c5be8cb6",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 14366,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-02T02:39:08Z",
+      "side": 1,
+      "message": "Ack. This is not the only one we have, so uploaded aosp/2171842 to fix all of them.",
+      "parentUuid": "636a60a2_cca4b8e3",
+      "range": {
+        "startLine": 14366,
+        "startChar": 4,
+        "endLine": 14366,
+        "endChar": 10
+      },
+      "revId": "b82e25c51b3ed9880a434547483e7e2bb75a0db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
