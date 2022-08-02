@@ -16,6 +16,24 @@
       "message": "This information is already in the bugreport:\n\nhttps://source.corp.google.com/aosp-master/frameworks/native/cmds/dumpstate/dumpstate.cpp;l\u003d1674\n\nWhy add it twice?",
       "revId": "daf5cb64ccee21fae6902166660984facd20566b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad35d3ec_71c5146c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-08-02T07:43:30Z",
+      "side": 1,
+      "message": "Hmm, I didn\u0027t notice that dumpstate was logged in the \"Bug Section\" of the bugreport. Before T, I refer it from dumpsys netd section. This commit make it available in dumpsys connectivity. That is, we have been printing the same information in both Bug Section and dumpsys for long time. We can remove one of them.",
+      "parentUuid": "d0538deb_32bf34e0",
+      "revId": "daf5cb64ccee21fae6902166660984facd20566b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
