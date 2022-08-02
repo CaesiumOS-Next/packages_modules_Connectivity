@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5f87957_c6da3796",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-02T09:43:53Z",
+      "side": 1,
+      "message": "T : Closeable\n\n...so you can\u0027t just pass anything ?",
+      "range": {
+        "startLine": 934,
+        "startChar": 17,
+        "endLine": 934,
+        "endChar": 18
+      },
+      "revId": "50620e320f2dc8fef246fe427a8854a0465e4d8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72b896c2_317234f0",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-02T09:43:53Z",
+      "side": 1,
+      "message": "What you have is fine, but you can write it much more tersely with\n\n    private fun \u003cT\u003e setup(creator: (TestableNetworkAgent) -\u003e T) \u003d\n            createConnectedNetworkAgent().first.let { it to creator(it) }\n\nor\n\n            createConnectedNetworkAgent().first.let { Pair(it, creator(it)) }\n\n(only if you prefer that)",
+      "range": {
+        "startLine": 939,
+        "startChar": 4,
+        "endLine": 939,
+        "endChar": 5
+      },
+      "revId": "50620e320f2dc8fef246fe427a8854a0465e4d8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "565ba0da_83915ddb",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 958,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-02T09:43:53Z",
+      "side": 1,
+      "message": "I must be missing something but I don\u0027t understand why this is necessary.\n\n• When running as CTS, this is always running on U+, so everything is always present and testable.\n• When running as MTS, the module is always as recent as the test, so everything should always be present and testable.\n\nIs that because you can\u0027t link against newer API when running on S ? If so, shouldn\u0027t that be T, considering this is going to be a U API ?",
+      "range": {
+        "startLine": 958,
+        "startChar": 36,
+        "endLine": 958,
+        "endChar": 37
+      },
+      "revId": "50620e320f2dc8fef246fe427a8854a0465e4d8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7bc8258_7e36a2d3",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-02T09:43:53Z",
+      "side": 1,
+      "message": "Just \n\n    assertTrue(it.filter.matchesProtocol(proto))\n    \n?",
+      "range": {
+        "startLine": 977,
+        "startChar": 0,
+        "endLine": 981,
+        "endChar": 21
+      },
+      "revId": "50620e320f2dc8fef246fe427a8854a0465e4d8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d3129d9b_a6541f3a",
+        "filename": "framework/src/android/net/QosFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-02T09:43:53Z",
+      "side": 1,
+      "message": "Still, I can\u0027t just pass 471641903 ; it makes no sense with respect to the contract of this method.\n\nThe javadoc should reference actual constants that you can pass here. I can\u0027t call `matchesProtocol(TCP)` because TCP is not a constant. I guess you mean IPPROTO_TCP, but the javadoc should refer to it by that name. At that point, you know what values are accepted : it\u0027s IPPROTO_* right ? So you can have an @IntDef and annotate.\nBut also, do consider only having UDP and TCP as a local intdef, because that\u0027s all we support here for now. We can add more constants to it when we support more protocols.",
+      "parentUuid": "90b619c7_a177e941",
+      "range": {
+        "startLine": 103,
+        "startChar": 35,
+        "endLine": 103,
+        "endChar": 38
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b40c549e_b800236e",
         "filename": "framework/src/android/net/QosFilter.java",
         "patchSetId": 7
@@ -138,6 +162,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "524055e3_a26b0731",
+        "filename": "framework/src/android/net/QosFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-02T09:43:53Z",
+      "side": 1,
+      "message": "Ah, right : you can\u0027t make it abstract because there may be implementations of this abstract class anywhere that can see @SystemApi, and adding an abstract method would break binary compatibility with these.\n\nI think we really need a comment to explain this. Please add a // comment before this method to explain it\u0027s being added in U, and therefore can\u0027t be abstract lest it might break binary compatibility with existing @SystemApi clients.\n\nAlso : who will use this method ? If it\u0027s only platform code (e.g. QosCallbackTracker) then you can make it abstract and @hide, which will remove the issue.\n\nThe throw here is pretty scary ; it will crash something at runtime if ever called, and it\u0027s really hard to make sure it never happens. Case in point : this patch doesn\u0027t supply an implementation for the one extant subclass of it (QosSocketFilter).",
+      "parentUuid": "0d6551a3_d62dbf59",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 80
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1a0e69d7_8328d2ae",
         "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
         "patchSetId": 7
@@ -173,6 +221,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "1a0e69d7_8328d2ae",
+      "range": {
+        "startLine": 182,
+        "startChar": 16,
+        "endLine": 182,
+        "endChar": 37
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f6fa4d7_86602ed0",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-02T09:43:53Z",
+      "side": 1,
+      "message": "Maybe you don\u0027t want to remove *both* here (I only meant, don\u0027t make a second one, instead make the existing one Closeable and use it for both cases). This did provide some safety that any socket opened with the helper would be closed. I get that all current uses have a call to #close in a finally{} block, but still I\u0027m not sure removing this is a good idea.",
+      "parentUuid": "b0dd2276_ed8ee556",
       "range": {
         "startLine": 182,
         "startChar": 16,
