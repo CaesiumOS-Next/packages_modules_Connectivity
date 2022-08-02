@@ -63,6 +63,30 @@
       },
       "revId": "d6cfe744a1b086d2df5c659fc5ecb00f7adb2314",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7dc90c4a_f04e6c20",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2796,
+      "author": {
+        "id": 1649662
+      },
+      "writtenOn": "2022-08-02T07:34:56Z",
+      "side": 1,
+      "message": "\u003e Why does ARC fail at this point ?\nARC fails at this point because during ensureWifiConnected, it grabs the current `connectionInfo` (http://cs/android/frameworks/libs/net/common/testutils/devicetests/com/android/testutils/ConnectUtil.kt;l\u003d65;rcl\u003d958fa6aaac50007572970f8a3047c366252f2b93). Since ARC hasn\u0027t fully disabled its network yet, the connectionInfo will be the about-to-be-disconnected, non-null object. It then skips the `if` block on line 66 and waits for an onAvailable to be called on the test callback. Meanwhile on the ARC side, we\u0027re now processing a disable event and we end up in a disabled state with no trigger to re-enable wifi. So `ConnectUtil` will wait until the timeout and see no new onAvailabe and fail.\n\n\n\u003e  see some special casing is being introduced during CTS runs (ag/19286988)\nThe special casing is because we don\u0027t actually support Android captive portals in ARC. So we only pretend to enable it during CTS tests so the tests can run and pass. We could special case passing this test in ARC as well, but it would look something like purposely blocking for 3 seconds in `handleSetWifiEnabled(false)` so that by the time `ensureWifiConnected` runs here, the network is fully disabled. If possible, we\u0027d like to avoid that kind of behavior since that\u0027ll affect all wifi state changes in ARC, not just during CTS tests.",
+      "parentUuid": "4e33f999_91db7589",
+      "range": {
+        "startLine": 2791,
+        "startChar": 12,
+        "endLine": 2796,
+        "endChar": 15
+      },
+      "revId": "d6cfe744a1b086d2df5c659fc5ecb00f7adb2314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
