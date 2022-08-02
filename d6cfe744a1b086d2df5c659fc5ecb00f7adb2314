@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fade38f_25dbaad0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1649662
+      },
+      "writtenOn": "2022-08-02T07:10:40Z",
+      "side": 1,
+      "message": "Thank you for looking into this!",
+      "revId": "d6cfe744a1b086d2df5c659fc5ecb00f7adb2314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93cf8713_757b89e7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2796,
+      "author": {
+        "id": 1649662
+      },
+      "writtenOn": "2022-08-02T07:10:40Z",
+      "side": 1,
+      "message": "Should we remove these lines? With the current patch, ARC still fails this test because we fail `ensureWifiConnected`. I think the current patch only runs after this point? \n\nWith these lines removed, I checked that ARC and raven both pass with this patch",
+      "range": {
+        "startLine": 2791,
+        "startChar": 12,
+        "endLine": 2796,
+        "endChar": 15
+      },
+      "revId": "d6cfe744a1b086d2df5c659fc5ecb00f7adb2314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
