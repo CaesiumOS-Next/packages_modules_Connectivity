@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8526163d_7a8e0e2b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-08-02T04:23:36Z",
+      "side": 1,
+      "message": "typo: onNetworkDestroyed",
+      "range": {
+        "startLine": 11,
+        "startChar": 23,
+        "endLine": 11,
+        "endChar": 25
+      },
+      "revId": "cea40b7928c280c178b56a8aeb7f097cf6728455",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44d0160c_17e4e030",
+        "filename": "tests/integration/util/com/android/server/NetworkAgentWrapper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-08-02T04:23:36Z",
+      "side": 1,
+      "message": "Nit: I thought we can assign callbacks to mCallbacks here and don\u0027t need to pass callbacks to makeNetworkAgent\n```\nmCallbacks \u003d (callbacks !\u003d null) ? callbacks : new Callbacks();\nmNetworkAgent \u003d makeNetworkAgent(linkProperties, mNetworkAgentConfig, provider);\n```",
+      "revId": "cea40b7928c280c178b56a8aeb7f097cf6728455",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb346cea_d3128819",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3581,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-08-02T04:23:36Z",
+      "side": 1,
+      "message": "Nit: Is `network.getNetId()` better?\nJust saw other callbacks use getNetId().",
+      "range": {
+        "startLine": 3581,
+        "startChar": 66,
+        "endLine": 3581,
+        "endChar": 71
+      },
+      "revId": "cea40b7928c280c178b56a8aeb7f097cf6728455",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
