@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0538deb_32bf34e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-02T07:01:24Z",
+      "side": 1,
+      "message": "This information is already in the bugreport:\n\nhttps://source.corp.google.com/aosp-master/frameworks/native/cmds/dumpstate/dumpstate.cpp;l\u003d1674\n\nWhy add it twice?",
+      "revId": "daf5cb64ccee21fae6902166660984facd20566b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
