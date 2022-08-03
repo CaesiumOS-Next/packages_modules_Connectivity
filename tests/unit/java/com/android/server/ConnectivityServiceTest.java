@@ -3072,6 +3072,35 @@ public class ConnectivityServiceTest {
     }
 
     @Test
+    public void testNetworkDoesntMatchRequestsUntilConnected() throws Exception {
+        final TestNetworkCallback cb = new TestNetworkCallback();
+        final NetworkRequest wifiRequest = new NetworkRequest.Builder()
+                .addTransportType(TRANSPORT_WIFI).build();
+        mCm.requestNetwork(wifiRequest, cb);
+        mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI);
+        // Updating the score triggers a rematch.
+        mWiFiNetworkAgent.setScore(new NetworkScore.Builder().build());
+        cb.assertNoCallback();
+        mWiFiNetworkAgent.connect(false);
+        cb.expectAvailableCallbacksUnvalidated(mWiFiNetworkAgent);
+    }
+
+    @Test
+    public void testNetworkNotVisibleUntilConnected() throws Exception {
+        final TestNetworkCallback cb = new TestNetworkCallback();
+        final NetworkRequest wifiRequest = new NetworkRequest.Builder()
+                .addTransportType(TRANSPORT_WIFI).build();
+        mCm.registerNetworkCallback(wifiRequest, cb);
+        mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI);
+        final NetworkCapabilities nc = mWiFiNetworkAgent.getNetworkCapabilities();
+        nc.addCapability(NET_CAPABILITY_TEMPORARILY_NOT_METERED);
+        mWiFiNetworkAgent.setNetworkCapabilities(nc, true /* sendToConnectivityService */);
+        cb.assertNoCallback();
+        mWiFiNetworkAgent.connect(false);
+        cb.expectAvailableCallbacksUnvalidated(mWiFiNetworkAgent);
+    }
+
+    @Test
     public void testStateChangeNetworkCallbacks() throws Exception {
         final TestNetworkCallback genericNetworkCallback = new TestNetworkCallback();
         final TestNetworkCallback wifiNetworkCallback = new TestNetworkCallback();
