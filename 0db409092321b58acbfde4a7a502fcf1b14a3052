@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e817fe41_f587de8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-08-03T08:58:13Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "0db409092321b58acbfde4a7a502fcf1b14a3052",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "551d0f48_f9342a58",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-08-03T08:58:13Z",
+      "side": 1,
+      "message": "typo?",
+      "range": {
+        "startLine": 991,
+        "startChar": 85,
+        "endLine": 991,
+        "endChar": 90
+      },
+      "revId": "0db409092321b58acbfde4a7a502fcf1b14a3052",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
