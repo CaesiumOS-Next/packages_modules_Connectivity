@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e5cc35a_42066287",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-08-03T15:07:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "766964a4_e4ba8af2",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 73
+      },
+      "revId": "567648935b5ead8e90430195f8205037b4367087",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4dc908c5_68b6927a",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c529b387_2363b9ec",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 16533,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-08-03T15:07:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4dc908c5_68b6927a",
+      "range": {
+        "startLine": 16532,
+        "startChar": 0,
+        "endLine": 16533,
+        "endChar": 62
+      },
+      "revId": "567648935b5ead8e90430195f8205037b4367087",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df9a163b_1260a750",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-08-02T06:16:59Z",
       "side": 1,
       "message": "That\u0027s not what I think we should test. In fact, the sanitized capabilities must be different in some cases – that\u0027s the point of sanitization.\n\nIf you look at my example snippet, you can see it differs fundamentally on the last line, where it tests that the *UN*sanitized capabilities haven\u0027t been changed.\n\n// The contract for sanitizeCapabilitiesFromAgent requires that it does not mutate\n// its argument. Make sure this is respected.\ntestSanitizedCapabilitiesFromAgentDoesNotMutateArgument() {\n  unsanitized \u003d fill in some NC with everything it can have\n  copyOfUnsanitized \u003d new NC(unsanitized)\n  sanitized \u003d sanitizedCapabilitiesFromAgent\n  assertEquals(copyOfUnsanitized, unsanitized)\n}\n\nBut the returned value certainly should be different, so you could also say :\nassertNotEquals(unsanitized, sanitized)",
+      "range": {
+        "startLine": 16539,
+        "startChar": 52,
+        "endLine": 16539,
+        "endChar": 84
+      },
+      "revId": "567648935b5ead8e90430195f8205037b4367087",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e8ed933_69bcd12e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 16539,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-08-03T15:07:20Z",
+      "side": 1,
+      "message": "Done. Sorry for my misunderstanding.",
+      "parentUuid": "df9a163b_1260a750",
       "range": {
         "startLine": 16539,
         "startChar": 52,
