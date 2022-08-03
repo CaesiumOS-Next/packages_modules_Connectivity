@@ -34,6 +34,24 @@
       "parentUuid": "53922746_70e411ef",
       "revId": "2be3c271824a23139cea69809ce947d0f51dda29",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05ae4059_17ef1ae1",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 2777,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-08-03T07:34:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cabccba_670b3329",
+      "revId": "2be3c271824a23139cea69809ce947d0f51dda29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
