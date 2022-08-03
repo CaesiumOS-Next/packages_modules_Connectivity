@@ -135,6 +135,30 @@
       },
       "revId": "d6cfe744a1b086d2df5c659fc5ecb00f7adb2314",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af399052_1aa2c3e7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2796,
+      "author": {
+        "id": 1649662
+      },
+      "writtenOn": "2022-08-03T01:15:15Z",
+      "side": 1,
+      "message": "Ah I see. ARC does see an onLost callback on l.2788 (the onLost looks like it\u0027s triggered within the Connectivity stack). But ARC\u0027s wifi stack doesn\u0027t reset the `connInfo` until after we receive a callback from the host saying it\u0027s fully disconnected (which happens a few seconds later).\n\nI\u0027ll take a look at this in the meantime, but this is starting to look like an ARC-specific change. Thanks for all the help!",
+      "parentUuid": "9ab25c02_efe2cdad",
+      "range": {
+        "startLine": 2791,
+        "startChar": 12,
+        "endLine": 2796,
+        "endChar": 15
+      },
+      "revId": "d6cfe744a1b086d2df5c659fc5ecb00f7adb2314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
