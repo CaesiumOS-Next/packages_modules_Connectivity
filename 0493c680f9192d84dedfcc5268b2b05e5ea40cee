@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb1fcc0f_1eb6d9fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-08-03T09:24:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4730f039_2b6fda6b",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 9
+      },
+      "revId": "0493c680f9192d84dedfcc5268b2b05e5ea40cee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c28ada8a_0b7662f9",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-02T05:55:58Z",
       "side": 1,
       "message": "Maybe just use a boolean literal here (is this equivalent to \"false\" ?)",
+      "range": {
+        "startLine": 3010,
+        "startChar": 16,
+        "endLine": 3010,
+        "endChar": 86
+      },
+      "revId": "0493c680f9192d84dedfcc5268b2b05e5ea40cee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05c290ae_9663530a",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3010,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-08-03T09:24:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c28ada8a_0b7662f9",
       "range": {
         "startLine": 3010,
         "startChar": 16,
