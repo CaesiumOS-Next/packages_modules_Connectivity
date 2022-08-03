@@ -1,0 +1,3 @@
+# Used by robolectric ShadowServiceManager, and registered as the entry point into the tethering
+# service.
+android\.net\.ITetheringConnector(\$.+)?

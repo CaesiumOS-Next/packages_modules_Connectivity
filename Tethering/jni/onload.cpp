@@ -38,10 +38,14 @@ extern "C" jint JNI_OnLoad(JavaVM* vm, void*) {
     if (register_com_android_networkstack_tethering_util_TetheringUtils(env) < 0) return JNI_ERR;
 
     if (register_com_android_net_module_util_BpfMap(env,
-            "com/android/networkstack/tethering/util/BpfMap") < 0) return JNI_ERR;
+            "com/android/networkstack/tethering/com/android/net/module/util/BpfMap") < 0) {
+            return JNI_ERR;
+    }
 
     if (register_com_android_net_module_util_TcUtils(env,
-            "com/android/networkstack/tethering/util/TcUtils") < 0) return JNI_ERR;
+            "com/android/networkstack/tethering/com/android/net/module/util/TcUtils") < 0) {
+             return JNI_ERR;
+    }
 
     if (register_com_android_networkstack_tethering_BpfCoordinator(env) < 0) return JNI_ERR;
 

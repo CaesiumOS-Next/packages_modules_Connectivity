@@ -21,6 +21,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.android.net.module.util.BpfMap;
 import com.android.net.module.util.JniUtil;
 import com.android.net.module.util.bpf.TetherStatsValue;
 
@@ -45,9 +46,17 @@ public class TetheringUtils {
         (byte) 0xff, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
     };
 
-    /** The name should be com_android_networkstack_tethering_util_jni. */
+    /**
+     * Get the JNI library name implementing native methods of this class.
+     *
+     * The same library is reused for this class and com.android.net.module.util classes. The
+     * module.util classes expect the library to be named following their package name (with jarjar
+     * applied), so that they can use static initializers that load the corresponding library for
+     * the binary they are used in, based on their jarjared name.
+     */
     public static String getTetheringJniLibraryName() {
-        return JniUtil.getJniLibraryName(TetheringUtils.class.getPackage());
+        // BpfMap is part of com.android.net.module.util and also used in Tethering
+        return JniUtil.getJniLibraryName(BpfMap.class.getPackage());
     }
 
     /**
