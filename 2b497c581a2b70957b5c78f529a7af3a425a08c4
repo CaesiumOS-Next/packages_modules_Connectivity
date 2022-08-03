@@ -56,6 +56,30 @@
       },
       "revId": "2b497c581a2b70957b5c78f529a7af3a425a08c4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd551848_ac7c54b4",
+        "filename": "framework-t/src/android/net/NetworkIdentity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-03T09:40:30Z",
+      "side": 1,
+      "message": "Addressing this problem at aosp/2173584 by remi.",
+      "parentUuid": "8b7e76a2_22414bbe",
+      "range": {
+        "startLine": 89,
+        "startChar": 4,
+        "endLine": 89,
+        "endChar": 60
+      },
+      "revId": "2b497c581a2b70957b5c78f529a7af3a425a08c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
