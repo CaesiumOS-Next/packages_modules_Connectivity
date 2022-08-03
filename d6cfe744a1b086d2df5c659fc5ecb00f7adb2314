@@ -159,6 +159,30 @@
       },
       "revId": "d6cfe744a1b086d2df5c659fc5ecb00f7adb2314",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bf31666_70779653",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2796,
+      "author": {
+        "id": 1649662
+      },
+      "writtenOn": "2022-08-03T02:19:12Z",
+      "side": 1,
+      "message": "Just tested it out, this change + ARC-specific change helps the test pass and leave the test device in a usable state. Without this change, my device ends up in a wifi-disabled state. I think with both pieces, we can pass the CTS now, thank you!",
+      "parentUuid": "af399052_1aa2c3e7",
+      "range": {
+        "startLine": 2791,
+        "startChar": 12,
+        "endLine": 2796,
+        "endChar": 15
+      },
+      "revId": "d6cfe744a1b086d2df5c659fc5ecb00f7adb2314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
