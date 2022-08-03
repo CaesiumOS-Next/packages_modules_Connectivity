@@ -68,7 +68,7 @@ java_defaults {
     ],
     defaults: ["TetheringExternalLibs"],
     libs: [
-        "framework-tethering.impl",
+        "framework-tethering-pre-jarjar",
     ],
     plugins: ["java_api_finder"],
     manifest: "AndroidManifestBase.xml",
@@ -105,7 +105,7 @@ android_library {
 
 // Due to b/143733063, APK can't access a jni lib that is in APEX (but not in the APK).
 cc_library {
-    name: "libcom_android_networkstack_tethering_util_jni",
+    name: "libcom_android_networkstack_tethering_com_android_net_module_util_jni",
     sdk_version: "30",
     apex_available: [
         "//apex_available:platform", // Used by InProcessTethering
@@ -148,12 +148,51 @@ cc_library {
     ldflags: ["-Wl,--exclude-libs=ALL,--error-limit=0"],
 }
 
+java_genrule {
+    name: "TetheringApkOnlyJarJarRules",
+    tool_files: [
+        // com.android.networkstack.apishim is already in the target package that is not jarjared,
+        // so it does not matter whether ApiStable or ApiCurrent is used to generate the jarjar
+        // rules. Use ApiStable to be based on most stable release configuration and be buildable
+        // in all branches.
+        ":TetheringApiStableLib{.jar}",
+    ],
+    tools: [
+        "jarjar-rules-generator",
+    ],
+    out: ["tethering_apk_jarjar_rules.txt"],
+    cmd: "$(location jarjar-rules-generator) " +
+        "--jars $(location :TetheringApiStableLib{.jar}) " +
+        "--prefix com.android.networkstack.tethering " +
+        "--output $(out)",
+    visibility: [
+        "//visibility:private",
+    ],
+}
+
+// Combine framework-tethering-jarjar-rules and the tethering APK jarjar rules after generating
+// them separately. Using a single set of rules generated on both would make framework-tethering
+// depend on the APK (for generating its rules), which could introduce circular dependencies.
+genrule {
+    name: "TetheringJarJarRules",
+    defaults: ["jarjar-rules-combine-defaults"],
+    srcs: [
+        ":framework-tethering-jarjar-rules",
+        ":TetheringApkOnlyJarJarRules",
+    ],
+    out: ["tethering-jarjar-rules.txt"],
+    visibility: [
+        "//packages/modules/Connectivity/tests:__subpackages__",
+        "//packages/modules/Connectivity/Tethering:__subpackages__",
+    ],
+}
+
 // Common defaults for compiling the actual APK.
 java_defaults {
     name: "TetheringAppDefaults",
     privileged: true,
     jni_libs: [
-        "libcom_android_networkstack_tethering_util_jni",
+        "libcom_android_networkstack_tethering_com_android_net_module_util_jni",
     ],
     resource_dirs: [
         "res",
@@ -170,7 +209,7 @@ java_defaults {
     libs: [
         "framework-tethering.impl",
     ],
-    jarjar_rules: "jarjar-rules.txt",
+    jarjar_rules: ":TetheringJarJarRules",
     optimize: {
         proguard_flags_files: ["proguard.flags"],
     },

@@ -35,7 +35,7 @@ java_library {
         "framework-minus-apex",
         "framework-connectivity.impl",
         "framework-connectivity-t.impl",
-        "framework-tethering.impl",
+        "framework-tethering-pre-jarjar",
     ],
     visibility: [
         "//packages/modules/Connectivity/tests/cts/tethering",
@@ -52,7 +52,7 @@ java_defaults {
     static_libs: [
         "TetheringCommonTests",
         "androidx.test.rules",
-        "frameworks-base-testutils",
+        "frameworks-base-testutils", // NEED TO REMOVE
         "mockito-target-extended-minus-junit4",
         "net-tests-utils",
         "testables",
@@ -69,14 +69,14 @@ java_defaults {
         "framework-res",
         "framework-connectivity.impl",
         "framework-connectivity-t.impl",
-        "framework-tethering.impl",
+        "framework-tethering-pre-jarjar",
         "framework-wifi.stubs.module_lib",
     ],
     jni_libs: [
         // For mockito extended
         "libdexmakerjvmtiagent",
         "libstaticjvmtiagent",
-        "libcom_android_networkstack_tethering_util_jni",
+        "libcom_android_networkstack_tethering_com_android_net_module_util_jni",
     ],
 }
 
@@ -111,5 +111,5 @@ android_test {
         "TetheringApiCurrentLib",
     ],
     compile_multilib: "both",
-    jarjar_rules: ":TetheringTestsJarJarRules",
+    jarjar_rules: ":TetheringJarJarRules",
 }

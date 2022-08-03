@@ -23,10 +23,10 @@ java_defaults {
     jni_libs: [
         "libdexmakerjvmtiagent",
         "libstaticjvmtiagent",
-        "libcom_android_networkstack_tethering_util_jni",
+        "libcom_android_networkstack_tethering_com_android_net_module_util_jni",
     ],
     jni_uses_sdk_apis: true,
-    jarjar_rules: ":TetheringTestsJarJarRules",
+    jarjar_rules: ":TetheringJarJarRules",
     visibility: ["//visibility:private"],
 }
 

@@ -17,8 +17,8 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
-java_sdk_library {
-    name: "framework-tethering",
+java_defaults {
+    name: "framework-tethering-defaults",
     defaults: ["framework-module-defaults"],
     impl_library_visibility: [
         "//frameworks/base/packages/Tethering:__subpackages__",
@@ -52,14 +52,47 @@ java_sdk_library {
         ],
     },
 
-    jarjar_rules: "jarjar-rules.txt",
-    installable: true,
-
     hostdex: true, // for hiddenapi check
-    apex_available: ["com.android.tethering"],
     permitted_packages: ["android.net"],
     min_sdk_version: "30",
     lint: { strict_updatability_linting: true },
+}
+
+java_library {
+    name: "framework-tethering-pre-jarjar",
+    defaults: ["framework-module-defaults", "framework-tethering-defaults"],
+    visibility: ["//packages/modules/Connectivity/Tethering:__subpackages__"],
+}
+
+java_sdk_library {
+    name: "framework-tethering",
+    defaults: ["framework-module-defaults", "framework-tethering-defaults"],
+    jarjar_rules: ":framework-tethering-jarjar-rules",
+    installable: true,
+
+    apex_available: ["com.android.tethering"],
+}
+
+java_genrule {
+    name: "framework-tethering-jarjar-rules",
+    tool_files: [
+        ":connectivity-hiddenapi-files",
+        ":framework-tethering-pre-jarjar{.jar}",
+        ":framework-tethering.stubs.module_lib{.jar}",
+    ],
+    tools: [
+        "jarjar-rules-generator",
+    ],
+    out: ["framework_tethering_jarjar_rules.txt"],
+    cmd: "$(location jarjar-rules-generator) " +
+        "--jars $(location :framework-tethering-pre-jarjar{.jar}) " +
+        "--prefix android.net.connectivity " +
+        "--apistubs $(location :framework-tethering.stubs.module_lib{.jar}) " +
+        "--unsupportedapi $(locations :connectivity-hiddenapi-files) " +
+        "--output $(out)",
+    visibility: [
+        "//packages/modules/Connectivity/Tethering:__subpackages__",
+    ],
 }
 
 filegroup {
