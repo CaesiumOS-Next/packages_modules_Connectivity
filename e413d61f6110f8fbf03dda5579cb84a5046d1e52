@@ -113,6 +113,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7122103_ef3cc887",
+        "filename": "framework/src/android/net/QosFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-08-03T14:44:26Z",
+      "side": 1,
+      "message": "Element value must be a constant expression for @IntDef.\nHowever IPPROTO_XXX is not constants. \nSo, I commented about the available input range on the Javadoc.",
+      "parentUuid": "d3129d9b_a6541f3a",
+      "range": {
+        "startLine": 103,
+        "startChar": 35,
+        "endLine": 103,
+        "endChar": 38
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b40c549e_b800236e",
@@ -174,6 +198,30 @@
       "side": 1,
       "message": "Ah, right : you can\u0027t make it abstract because there may be implementations of this abstract class anywhere that can see @SystemApi, and adding an abstract method would break binary compatibility with these.\n\nI think we really need a comment to explain this. Please add a // comment before this method to explain it\u0027s being added in U, and therefore can\u0027t be abstract lest it might break binary compatibility with existing @SystemApi clients.\n\nAlso : who will use this method ? If it\u0027s only platform code (e.g. QosCallbackTracker) then you can make it abstract and @hide, which will remove the issue.\n\nThe throw here is pretty scary ; it will crash something at runtime if ever called, and it\u0027s really hard to make sure it never happens. Case in point : this patch doesn\u0027t supply an implementation for the one extant subclass of it (QosSocketFilter).",
       "parentUuid": "0d6551a3_d62dbf59",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 80
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c7a525c_fd627193",
+        "filename": "framework/src/android/net/QosFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-08-03T14:44:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "524055e3_a26b0731",
       "range": {
         "startLine": 104,
         "startChar": 0,
