@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b50d7fec_50749a98",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-03T00:58:15Z",
+      "side": 1,
+      "message": "The constant has been here since April : https://osscs.corp.google.com/android/platform/superproject/+/master:frameworks/base/core/java/android/os/Build.java;l\u003d1176?q\u003dBuild.java",
+      "parentUuid": "40aff024_6e028d8a",
+      "range": {
+        "startLine": 193,
+        "startChar": 60,
+        "endLine": 193,
+        "endChar": 61
+      },
+      "revId": "473a398a848fba9b98a472e88f2ec84d173079ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "51318c40_6e17ddff",
         "filename": "framework-t/src/android/net/NetworkTemplate.java",
         "patchSetId": 2
