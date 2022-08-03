@@ -22,6 +22,30 @@
       },
       "revId": "1fb40d73ae9f138033dfa3cb03846b5452830423",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df783904_e5d4196c",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 2710,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-08-03T07:34:38Z",
+      "side": 1,
+      "message": "I updated to dump the content regardless of the flag.\nI have run  adb shell dumpstate  and confirmed the content is in the bugreport.",
+      "parentUuid": "b63a6669_cdb292ac",
+      "range": {
+        "startLine": 2710,
+        "startChar": 16,
+        "endLine": 2710,
+        "endChar": 26
+      },
+      "revId": "1fb40d73ae9f138033dfa3cb03846b5452830423",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
