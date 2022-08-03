@@ -390,7 +390,13 @@ public class BpfNetMaps {
      */
     public void removeNiceApp(final int uid) {
         throwIfPreT("removeNiceApp is not available on pre-T devices");
-        removeRule(uid, HAPPY_BOX_MATCH, "removeNiceApp");
+
+        if (sEnableJavaBpfMap) {
+            removeRule(uid, HAPPY_BOX_MATCH, "removeNiceApp");
+        } else {
+            final int err = native_removeNiceApp(uid);
+            maybeThrow(err, "Unable to remove nice app");
+        }
     }
 
     /**
@@ -645,7 +651,6 @@ public class BpfNetMaps {
     private native int native_removeNaughtyApp(int uid);
     @GuardedBy("sUidOwnerMap")
     private native int native_addNiceApp(int uid);
-    @GuardedBy("sUidOwnerMap")
     private native int native_removeNiceApp(int uid);
     private native int native_setChildChain(int childChain, boolean enable);
     @GuardedBy("sUidOwnerMap")
