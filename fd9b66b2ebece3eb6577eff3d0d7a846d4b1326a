@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "741c9369_9b454a60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-03T10:58:42Z",
+      "side": 1,
+      "message": "These tests pass and are useful today, but also testNetworkNotVisibleUntilConnected fails with aosp/2162425",
+      "revId": "fd9b66b2ebece3eb6577eff3d0d7a846d4b1326a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
