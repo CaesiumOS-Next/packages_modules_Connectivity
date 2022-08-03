@@ -1,0 +1,297 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9df1d03b_f4d85164",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 4271,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-03T11:49:24Z",
+      "side": 1,
+      "message": "Maybe that\u0027s a matter of preference but in the absence of a need for it to be a single expression, I tend to find the following easier to read than a cascade of logical conditions :\n\n  if (nai.created) return false;\n  // When the agent isn\u0027t already connected when going to the CONNECTED state,\n  // the native network should be created\n  if (state \u003d\u003d CONNECTED) return true;\n  // Otherwise, only create the network upon transitions to CONNECTING.\n  if (state !\u003d CONNECTING) return false;\n  // In U, always create the native network upon transition to CONNECTING.\n  // Before U, keep the legacy behavior to only do this for VPNs.\n  return nai.isVPN() || isAtLeastU();\n\nIn particular because it lets you explain what\u0027s happening.",
+      "range": {
+        "startLine": 4271,
+        "startChar": 75,
+        "endLine": 4271,
+        "endChar": 76
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "892a95ef_42c4c1f0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 4271,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-03T11:49:24Z",
+      "side": 1,
+      "message": "Further note that the shape above has made me realize it\u0027s supposedly impossible with our current lifecycle that !nai.created \u0026\u0026 state !\u003d CONNECTED \u0026\u0026 state !\u003d CONNECTING.\n\nSo you could replace the state \u003d\u003d CONNECTING test with a throw or a wtf.",
+      "range": {
+        "startLine": 4271,
+        "startChar": 75,
+        "endLine": 4271,
+        "endChar": 76
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56d1272f_a9f0c76c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 9206,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-03T11:49:24Z",
+      "side": 1,
+      "message": "From this point on matching happens, courtesy of NetworkAgentInfo#satisfies looking up NetworkAgentInfo#created. So I thought we\u0027d be sending onAvailable immediately to everybody. In reality this doesn\u0027t happen because the rematch is in fact filtering out networks in two places : l.8788 and l.8907, so it feels a bit dangerous but it works.\n\nprocessListenRequests does no such filtering though, and if the agent updates its capabilities before connecting, this sends the caps updated callback (before onAvailable is sent).\n\nBest to have some tests for these two cases, and since I already wrote them to make sure my findings were actually correct, you don\u0027t have to : please review aosp/2173596 and rebase, and you\u0027ll find a break on the second one when you apply this patch :)\n\nOther places this might affect are though NAI#satisfies are :\n• getMatchingPermissionedCallbacks : I think this is safe because the NAI passed must have tried validation, so likely this can\u0027t be called with a non-connected NAI.\n• handleRegisterConnectivityDiagnosticsCallback : I think this is safe because while registration can happen at any time, a created-not-connected NAI can\u0027t have a connectivity report yet.\n• onDnsHealthEvent : I think this is safe because DNS events can\u0027t happen on created but not connected networks.\n• isNetworkPotentialSatisfier : I think this is safe because the only caller, `unneeded`, returns early if `!everConnected`.\n\nThis change, though NAI#satisfiesImmutableCapabilitiesOf, also impacts the signal strength threshold. If I\u0027m following this correctly, it means if we update them for any unrelated reason while an agent is created but not connected AND there is a request matching it, then we\u0027ll add the hardware triggers early. This is probably harmless in practice, but my suggestion of a solution below also restores the original behavior.\n\nThe simplest solution is probably to update NetworkAgentInfo#satisfies and NAI#satisfiesImmutableCapabilitiesOf to use everConnected instead of created, since a network that was never connected should never satisfy anything really – unless it breaks something else. I don\u0027t think we have any place where NAI#satisfies is used where it depends on `created\u003dtrue \u0026\u0026 everConnected\u003dfalse` though, and if we do have such a place it\u0027s probably better off using networkCapabilities.satisfiedByNetworkCapabilities anyway. I checked that it doesn\u0027t break any test in ConnectivityServiceTest and it also fixes the test I wrote in aosp/2173596. It also probably lets us remove the filtering on everConnected in matching, for a small simplification and performance improvement.",
+      "range": {
+        "startLine": 9206,
+        "startChar": 25,
+        "endLine": 9206,
+        "endChar": 32
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69c99f7f_1397f5ad",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-03T11:49:24Z",
+      "side": 1,
+      "message": "(Only if you find this more readable) This is equivalent to :\n\n  if (TRANSPORT_VPN !in transports) addCapability(...)",
+      "range": {
+        "startLine": 274,
+        "startChar": 12,
+        "endLine": 274,
+        "endChar": 47
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07f7cd96_560e33e0",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-03T11:49:24Z",
+      "side": 1,
+      "message": "Suggest defining this as an extension method :\n\n    private fun TestableNetworkAgent.expectPostConnectionCallbacks(\n        thresholds: IntArray? \u003d intArrayOf()\n    ) {\n        expectSignalStrengths(thresholds)\n        expectValidationBypassedStatus()\n    }\n\n...then you just call `agent.expectPostConnectionCallbacks(thresholds)` which is a bit more natural",
+      "range": {
+        "startLine": 340,
+        "startChar": 16,
+        "endLine": 340,
+        "endChar": 45
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9268b59_6e232e29",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-03T11:49:24Z",
+      "side": 1,
+      "message": "This is never both used and null so you can remove this `?` if you only also remove it from l.309",
+      "range": {
+        "startLine": 342,
+        "startChar": 28,
+        "endLine": 342,
+        "endChar": 29
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41d5a697_9c67bb15",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-03T11:49:24Z",
+      "side": 1,
+      "message": "What you have is fine but you could also do away with the need for an explicit type and return keyword :\n\n    private fun createTunInterface() \u003d realContext.getSystemService(...",
+      "range": {
+        "startLine": 349,
+        "startChar": 8,
+        "endLine": 349,
+        "endChar": 14
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbe2eaa4_23ec4454",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-03T11:49:24Z",
+      "side": 1,
+      "message": "`emptyList()` has the advantage that it\u0027s a constant instead of instantiating a new empty list",
+      "range": {
+        "startLine": 350,
+        "startChar": 69,
+        "endLine": 350,
+        "endChar": 75
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a2ccc5a_c30e021b",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 1318,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-03T11:49:24Z",
+      "side": 1,
+      "message": "Suggest renaming `createImmediately` which sounds like an order to this method to something like `expectCreatedImmediately`, which will prompt anybody who wants to understand how this is decided to look up the callers",
+      "range": {
+        "startLine": 1318,
+        "startChar": 36,
+        "endLine": 1318,
+        "endChar": 53
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad665429_6b153bd1",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 1362,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-03T11:49:24Z",
+      "side": 1,
+      "message": "Do you want to also say `agent.assertNoCallback()` after this ? Or even put that inside expectPostConnectionCallbacks",
+      "range": {
+        "startLine": 1362,
+        "startChar": 43,
+        "endLine": 1362,
+        "endChar": 44
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b91a5600_7888d755",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 1364,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-03T11:49:24Z",
+      "side": 1,
+      "message": "maybe \"must be\" ?",
+      "range": {
+        "startLine": 1364,
+        "startChar": 88,
+        "endLine": 1364,
+        "endChar": 91
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28306781_ba996684",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 3631,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-03T11:49:24Z",
+      "side": 1,
+      "message": "Considering that now we\u0027re checking for the event as it happens, rather than globally at the end, maybe you want to move this to l.3612.",
+      "range": {
+        "startLine": 3629,
+        "startChar": 0,
+        "endLine": 3631,
+        "endChar": 9
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff91ebdb_1cbf5a9a",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 9810,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-03T11:49:24Z",
+      "side": 1,
+      "message": "maybe `expectNativeNetworkCreated`",
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
