@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3033ce2c_62aec581",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 4271,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-03T11:50:02Z",
+      "side": 1,
+      "message": "I meant \"in the other comment\" rather than \"above\"",
+      "parentUuid": "892a95ef_42c4c1f0",
+      "range": {
+        "startLine": 4271,
+        "startChar": 75,
+        "endLine": 4271,
+        "endChar": 76
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "56d1272f_a9f0c76c",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 7
