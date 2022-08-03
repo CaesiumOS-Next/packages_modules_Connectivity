@@ -22,6 +22,30 @@
       },
       "revId": "1c14fa9b085c31881d19dd749d9401f76ecd597b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ba5985a_7d00f54f",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-03T09:21:29Z",
+      "side": 0,
+      "message": "setWifiNetworkKeys() requires NonNull wifiNetworkKey so this will throw exception.\nhttps://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/framework-t/src/android/net/NetworkTemplate.java;l\u003d989?q\u003dsetWifiNetworkKeys\u0026sq\u003dpackage:aosp-master%20file:.",
+      "parentUuid": "32b940d8_7f1200ce",
+      "range": {
+        "startLine": 136,
+        "startChar": 12,
+        "endLine": 136,
+        "endChar": 36
+      },
+      "revId": "1c14fa9b085c31881d19dd749d9401f76ecd597b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e48eef6f_dbe86bfd",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-03T09:21:29Z",
+      "side": 1,
+      "message": "Thanks. Updated the version to U.",
+      "parentUuid": "b50d7fec_50749a98",
+      "range": {
+        "startLine": 193,
+        "startChar": 60,
+        "endLine": 193,
+        "endChar": 61
+      },
+      "revId": "473a398a848fba9b98a472e88f2ec84d173079ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51318c40_6e17ddff",
@@ -61,6 +85,30 @@
       "writtenOn": "2022-08-02T05:57:53Z",
       "side": 1,
       "message": "Does this still use by external callers?",
+      "range": {
+        "startLine": 208,
+        "startChar": 34,
+        "endLine": 208,
+        "endChar": 61
+      },
+      "revId": "473a398a848fba9b98a472e88f2ec84d173079ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3251f523_1e3592d6",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-03T09:21:29Z",
+      "side": 1,
+      "message": "It looks there\u0027s no callers from the non-sdk dashboard, thanks.",
+      "parentUuid": "51318c40_6e17ddff",
       "range": {
         "startLine": 208,
         "startChar": 34,
