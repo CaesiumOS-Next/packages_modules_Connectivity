@@ -342,7 +342,13 @@ public class BpfNetMaps {
      */
     public void addNaughtyApp(final int uid) {
         throwIfPreT("addNaughtyApp is not available on pre-T devices");
-        addRule(uid, PENALTY_BOX_MATCH, "addNaughtyApp");
+
+        if (sEnableJavaBpfMap) {
+            addRule(uid, PENALTY_BOX_MATCH, "addNaughtyApp");
+        } else {
+            final int err = native_addNaughtyApp(uid);
+            maybeThrow(err, "Unable to add naughty app");
+        }
     }
 
     /**
@@ -635,7 +641,6 @@ public class BpfNetMaps {
     }
 
     private static native void native_init();
-    @GuardedBy("sUidOwnerMap")
     private native int native_addNaughtyApp(int uid);
     private native int native_removeNaughtyApp(int uid);
     @GuardedBy("sUidOwnerMap")
