@@ -248,7 +248,6 @@ public class Tethering {
     private final Handler mHandler;
     private final INetd mNetd;
     private final NetdCallback mNetdCallback;
-    private final UserRestrictionActionListener mTetheringRestriction;
     private final ActiveDataSubIdListener mActiveDataSubIdListener;
     private final ConnectedClientsTracker mConnectedClientsTracker;
     private final TetheringThreadExecutor mExecutor;
@@ -287,6 +286,7 @@ public class Tethering {
     // mSupportedTypeBitmap should always be updated inside tethering internal thread but it may be
     // read from binder thread which called TetheringService directly.
     private volatile long mSupportedTypeBitmap;
+    private boolean mDisallowTethering = false;
 
     public Tethering(TetheringDependencies deps) {
         mLog.mark("Tethering.constructed");
@@ -350,8 +350,6 @@ public class Tethering {
         mStateReceiver = new StateReceiver();
 
         mUserManager = (UserManager) mContext.getSystemService(Context.USER_SERVICE);
-        mTetheringRestriction = new UserRestrictionActionListener(
-                mUserManager, this, mNotificationUpdater);
         mExecutor = new TetheringThreadExecutor(mHandler);
         mActiveDataSubIdListener = new ActiveDataSubIdListener(mExecutor);
         mNetdCallback = new NetdCallback();
@@ -1346,9 +1344,32 @@ public class Tethering {
         }
 
         private void handleUserRestrictionAction() {
-            if (mTetheringRestriction.onUserRestrictionsChanged()) {
-                updateSupportedDownstreams(mConfig);
+            // getUserRestrictions gets restriction for this process' user, which is the primary
+            // user. This is fine because DISALLOW_CONFIG_TETHERING can only be set on the primary
+            // user. See UserManager.DISALLOW_CONFIG_TETHERING.
+            final Bundle restrictions = mUserManager.getUserRestrictions();
+            final boolean newlyDisallowed =
+                    restrictions.getBoolean(UserManager.DISALLOW_CONFIG_TETHERING);
+            final boolean prevDisallowed = mDisallowTethering;
+            mDisallowTethering = newlyDisallowed;
+
+            final boolean tetheringDisallowedChanged = (newlyDisallowed != prevDisallowed);
+            if (!tetheringDisallowedChanged) return;
+
+            if (!newlyDisallowed) {
+                // Clear the restricted notification when user is allowed to have tethering
+                // function.
+                mNotificationUpdater.tetheringRestrictionLifted();
+            } else if (isTetheringActive()) {
+                // Restricted notification is shown when tethering function is disallowed on
+                // user's device.
+                mNotificationUpdater.notifyTetheringDisabledByRestriction();
+
+                // Untether from all downstreams since tethering is disallowed.
+                untetherAll();
             }
+
+            updateSupportedDownstreams(mConfig);
         }
 
         private void handleDataSaverChanged() {
@@ -1374,58 +1395,6 @@ public class Tethering {
     @VisibleForTesting
     boolean isTetheringActive() {
         return getTetheredIfaces().length > 0;
-    }
-
-    // TODO: Refine TetheringTest then remove UserRestrictionActionListener class and handle
-    // onUserRestrictionsChanged inside Tethering#handleUserRestrictionAction directly.
-    @VisibleForTesting
-    protected static class UserRestrictionActionListener {
-        private final UserManager mUserMgr;
-        private final Tethering mTethering;
-        private final TetheringNotificationUpdater mNotificationUpdater;
-        public boolean mDisallowTethering;
-
-        public UserRestrictionActionListener(@NonNull UserManager um, @NonNull Tethering tethering,
-                @NonNull TetheringNotificationUpdater updater) {
-            mUserMgr = um;
-            mTethering = tethering;
-            mNotificationUpdater = updater;
-            mDisallowTethering = false;
-        }
-
-        // return whether tethering disallowed is changed.
-        public boolean onUserRestrictionsChanged() {
-            // getUserRestrictions gets restriction for this process' user, which is the primary
-            // user. This is fine because DISALLOW_CONFIG_TETHERING can only be set on the primary
-            // user. See UserManager.DISALLOW_CONFIG_TETHERING.
-            final Bundle restrictions = mUserMgr.getUserRestrictions();
-            final boolean newlyDisallowed =
-                    restrictions.getBoolean(UserManager.DISALLOW_CONFIG_TETHERING);
-            final boolean prevDisallowed = mDisallowTethering;
-            mDisallowTethering = newlyDisallowed;
-
-            final boolean tetheringDisallowedChanged = (newlyDisallowed != prevDisallowed);
-            if (!tetheringDisallowedChanged) return false;
-
-            if (!newlyDisallowed) {
-                // Clear the restricted notification when user is allowed to have tethering
-                // function.
-                mNotificationUpdater.tetheringRestrictionLifted();
-                return true;
-            }
-
-            if (mTethering.isTetheringActive()) {
-                // Restricted notification is shown when tethering function is disallowed on
-                // user's device.
-                mNotificationUpdater.notifyTetheringDisabledByRestriction();
-
-                // Untether from all downstreams since tethering is disallowed.
-                mTethering.untetherAll();
-            }
-
-            return true;
-            // TODO(b/148139325): send tetheringSupported on restriction change
-        }
     }
 
     private void enableIpServing(int tetheringType, String ifname, int ipServingMode) {

@@ -71,7 +71,6 @@ import static com.android.networkstack.tethering.OffloadHardwareInterface.OFFLOA
 import static com.android.networkstack.tethering.OffloadHardwareInterface.OFFLOAD_HAL_VERSION_NONE;
 import static com.android.networkstack.tethering.TestConnectivityManager.BROADCAST_FIRST;
 import static com.android.networkstack.tethering.TestConnectivityManager.CALLBACKS_FIRST;
-import static com.android.networkstack.tethering.Tethering.UserRestrictionActionListener;
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_FORCE_USB_FUNCTIONS;
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_USB_NCM_FUNCTION;
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_USB_RNDIS_FUNCTION;
@@ -1609,92 +1608,67 @@ public class TetheringTest {
         verifyNoMoreInteractions(mNetd);
     }
 
-    private UserRestrictionActionListener makeUserRestrictionActionListener(
-            final Tethering tethering, final boolean currentDisallow, final boolean nextDisallow) {
-        final Bundle newRestrictions = new Bundle();
-        newRestrictions.putBoolean(UserManager.DISALLOW_CONFIG_TETHERING, nextDisallow);
-        when(mUserManager.getUserRestrictions()).thenReturn(newRestrictions);
-
-        final UserRestrictionActionListener ural =
-                new UserRestrictionActionListener(mUserManager, tethering, mNotificationUpdater);
-        ural.mDisallowTethering = currentDisallow;
-        return ural;
-    }
-
-    private void runUserRestrictionsChange(
-            boolean currentDisallow, boolean nextDisallow, boolean isTetheringActive,
-            int expectedInteractionsWithShowNotification) throws  Exception {
-        final Tethering mockTethering = mock(Tethering.class);
-        when(mockTethering.isTetheringActive()).thenReturn(isTetheringActive);
-
-        final UserRestrictionActionListener ural =
-                makeUserRestrictionActionListener(mockTethering, currentDisallow, nextDisallow);
-        ural.onUserRestrictionsChanged();
-
-        verify(mNotificationUpdater, times(expectedInteractionsWithShowNotification))
-                .notifyTetheringDisabledByRestriction();
-        verify(mockTethering, times(expectedInteractionsWithShowNotification)).untetherAll();
-    }
-
     @Test
     public void testDisallowTetheringWhenTetheringIsNotActive() throws Exception {
-        final boolean isTetheringActive = false;
-        final boolean currDisallow = false;
-        final boolean nextDisallow = true;
-        final int expectedInteractionsWithShowNotification = 0;
+        setUserRestricted(true /* restricted */);
 
-        runUserRestrictionsChange(currDisallow, nextDisallow, isTetheringActive,
-                expectedInteractionsWithShowNotification);
+        verify(mNotificationUpdater, never()).notifyTetheringDisabledByRestriction();
+        verify(mWifiManager, never()).stopSoftAp();
     }
 
     @Test
     public void testDisallowTetheringWhenTetheringIsActive() throws Exception {
-        final boolean isTetheringActive = true;
-        final boolean currDisallow = false;
-        final boolean nextDisallow = true;
-        final int expectedInteractionsWithShowNotification = 1;
+        when(mWifiManager.startTetheredHotspot(any(SoftApConfiguration.class))).thenReturn(true);
+        mTethering.startTethering(createTetheringRequestParcel(TETHERING_WIFI), TEST_CALLER_PKG,
+                null);
+        mLooper.dispatchAll();
+        verify(mWifiManager).startTetheredHotspot(null);
 
-        runUserRestrictionsChange(currDisallow, nextDisallow, isTetheringActive,
-                expectedInteractionsWithShowNotification);
+        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+
+        verifyStartHotspot();
+        verifyTetheringBroadcast(TEST_WLAN_IFNAME, EXTRA_ACTIVE_TETHER);
+
+        setUserRestricted(true /* restricted */);
+
+        verify(mNotificationUpdater).notifyTetheringDisabledByRestriction();
+
+        verify(mWifiManager).stopSoftAp();
+        sendWifiApStateChanged(WIFI_AP_STATE_DISABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+        mTethering.interfaceRemoved(TEST_WLAN_IFNAME);
+        mLooper.dispatchAll();
+        verifyStopHotpot();
     }
 
     @Test
     public void testAllowTetheringWhenTetheringIsNotActive() throws Exception {
-        final boolean isTetheringActive = false;
-        final boolean currDisallow = true;
-        final boolean nextDisallow = false;
-        final int expectedInteractionsWithShowNotification = 0;
+        setUserRestricted(true /* restricted */);
 
-        runUserRestrictionsChange(currDisallow, nextDisallow, isTetheringActive,
-                expectedInteractionsWithShowNotification);
+        verify(mNotificationUpdater, never()).notifyTetheringDisabledByRestriction();
+
+        setUserRestricted(false /* restricted */);
+
+        verify(mNotificationUpdater, never()).notifyTetheringDisabledByRestriction();
+        verify(mWifiManager, never()).stopSoftAp();
     }
 
     @Test
     public void testAllowTetheringWhenTetheringIsActive() throws Exception {
-        final boolean isTetheringActive = true;
-        final boolean currDisallow = true;
-        final boolean nextDisallow = false;
-        final int expectedInteractionsWithShowNotification = 0;
+        when(mWifiManager.startTetheredHotspot(any(SoftApConfiguration.class))).thenReturn(true);
+        mTethering.startTethering(createTetheringRequestParcel(TETHERING_WIFI), TEST_CALLER_PKG,
+                null);
+        mLooper.dispatchAll();
+        verify(mWifiManager).startTetheredHotspot(null);
 
-        runUserRestrictionsChange(currDisallow, nextDisallow, isTetheringActive,
-                expectedInteractionsWithShowNotification);
-    }
+        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
 
-    @Test
-    public void testDisallowTetheringUnchanged() throws Exception {
-        final boolean isTetheringActive = true;
-        final int expectedInteractionsWithShowNotification = 0;
-        boolean currDisallow = true;
-        boolean nextDisallow = true;
+        verifyStartHotspot();
+        verifyTetheringBroadcast(TEST_WLAN_IFNAME, EXTRA_ACTIVE_TETHER);
 
-        runUserRestrictionsChange(currDisallow, nextDisallow, isTetheringActive,
-                expectedInteractionsWithShowNotification);
+        setUserRestricted(false /* restricted */);
 
-        currDisallow = false;
-        nextDisallow = false;
-
-        runUserRestrictionsChange(currDisallow, nextDisallow, isTetheringActive,
-                expectedInteractionsWithShowNotification);
+        verify(mNotificationUpdater, never()).notifyTetheringDisabledByRestriction();
+        verify(mWifiManager, never()).stopSoftAp();
     }
 
     @Test
@@ -1706,16 +1680,12 @@ public class TetheringTest {
         assertTrue(mTethering.isTetheringActive());
         assertEquals(0, mTethering.getActiveTetheringRequests().size());
 
-        final Tethering.UserRestrictionActionListener ural = makeUserRestrictionActionListener(
-                mTethering, false /* currentDisallow */, true /* nextDisallow */);
-
-        ural.onUserRestrictionsChanged();
-        mLooper.dispatchAll();
+        setUserRestricted(true /* restricted */);
 
         // Verify that restriction notification has showed to user.
-        verify(mNotificationUpdater, times(1)).notifyTetheringDisabledByRestriction();
+        verify(mNotificationUpdater).notifyTetheringDisabledByRestriction();
         // Verify that usb tethering has been disabled.
-        verify(mUsbManager, times(1)).setCurrentFunctions(UsbManager.FUNCTION_NONE);
+        verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_NONE);
     }
 
     private class TestTetheringEventCallback extends ITetheringEventCallback.Stub {
