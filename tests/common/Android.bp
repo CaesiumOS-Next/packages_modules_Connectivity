@@ -64,9 +64,8 @@ genrule {
     name: "ConnectivityCoverageJarJarRules",
     defaults: ["jarjar-rules-combine-defaults"],
     srcs: [
-        "tethering-jni-jarjar-rules.txt",
+        ":TetheringJarJarRules",
         ":connectivity-jarjar-rules",
-        ":TetheringTestsJarJarRules",
         ":NetworkStackJarJarRules",
     ],
     out: ["jarjar-rules-connectivity-coverage.txt"],
@@ -117,7 +116,7 @@ android_test {
         // For NetworkStackUtils included in NetworkStackBase
         "libnetworkstackutilsjni",
         "libandroid_net_connectivity_com_android_net_module_util_jni",
-        "libcom_android_networkstack_tethering_util_jni",
+        "libcom_android_networkstack_tethering_com_android_net_module_util_jni",
         // For framework tests
         "libservice-connectivity",
     ],
