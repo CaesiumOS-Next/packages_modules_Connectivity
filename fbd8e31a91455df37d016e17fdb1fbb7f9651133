@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bb83fcb_6a7f4912",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 15745,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-08-04T06:47:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "289b7b7b_2cdb5316",
+      "range": {
+        "startLine": 15745,
+        "startChar": 63,
+        "endLine": 15745,
+        "endChar": 71
+      },
+      "revId": "fbd8e31a91455df37d016e17fdb1fbb7f9651133",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f66ac4a9_0a0ec433",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-04T02:44:51Z",
       "side": 1,
       "message": "You need to make that copy before you call setDeclaredCapabilities, otherwise you won\u0027t detect mutations made in that method",
+      "range": {
+        "startLine": 15754,
+        "startChar": 0,
+        "endLine": 15754,
+        "endChar": 91
+      },
+      "revId": "fbd8e31a91455df37d016e17fdb1fbb7f9651133",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92b0575e_3107a439",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 15754,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-08-04T06:47:51Z",
+      "side": 1,
+      "message": "Make sense. Done.",
+      "parentUuid": "f66ac4a9_0a0ec433",
       "range": {
         "startLine": 15754,
         "startChar": 0,
