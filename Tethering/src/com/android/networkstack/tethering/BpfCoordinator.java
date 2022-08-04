@@ -39,6 +39,7 @@ import static com.android.networkstack.tethering.util.TetheringUtils.getTetherin
 import android.app.usage.NetworkStatsManager;
 import android.net.INetd;
 import android.net.IpPrefix;
+import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.MacAddress;
 import android.net.NetworkStats;
@@ -95,10 +96,12 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -214,9 +217,11 @@ public class BpfCoordinator {
     private final HashMap<String, Long> mInterfaceQuotas = new HashMap<>();
 
     // Maps upstream interface index to interface names.
-    // Store all interface name since boot. Used for lookup what interface name it is from the
-    // tether stats got from netd because netd reports interface index to present an interface.
-    // TODO: Remove the unused interface name.
+    // Store non-clat interface name since boot and current using clat-interface name. Used for
+    // what interface name it is from the tether stats got from netd because netd reports
+    // interface index to present an interface.
+    // TODO: Remove all unused interface name. See the reason in updateUpstreamNetworkState() for
+    // why we can't remove unused non-clat interface mapping.
     private final SparseArray<String> mInterfaceNames = new SparseArray<>();
 
     // How IPv6 upstream rules and downstream rules are managed in BpfCoordinator:
@@ -294,6 +299,9 @@ public class BpfCoordinator {
     // Tracks the last IPv4 upstream index. Support single upstream only.
     // TODO: Support multi-upstream interfaces.
     private int mLastIPv4UpstreamIfindex = 0;
+
+    // TODO: support clat interface offload on S, T device.
+    public final boolean clatOffloadEnabled = SdkLevel.isAtLeastU();
 
     // Tracks the IPv4 upstream interface information.
     @Nullable
@@ -1100,6 +1108,21 @@ public class BpfCoordinator {
         final String ifaceName = ns.linkProperties.getInterfaceName();
         if (ns.linkProperties.hasIpv4Address()) {
             upstreamIfaceName = ifaceName;
+        } else if (clatOffloadEnabled && ns.linkProperties.getNat64Prefix() != null) {
+            // 464xlat only starts with NAT64 prefix and 464xlat interface should have IPv4
+            // addresses. Use 464xlat interface name and address to build the upstream
+            // interface index mapping. An IPv6-only network that is using 464xlat needs to
+            // check its xlat interface (v4-*) because LinkProperties#hasIpv4Address will
+            // not be true (stacked interface link i't accounted). We try to check if
+            // there is 464xlat interface. There is no racing for querying 464xlat interface
+            // address because ClatCoordinator brings up the 464xlat interface with a given
+            // IPv4 address. Note that LinkProperties#getStackedLinks is a hidden function
+            // which can't be used for getting 464xlat address here.
+            // TODO: support clat interface offload on S and T devices.
+            final String clatIface = get464XlatIfaceName(ns.linkProperties);
+            if (clatIface != null) {
+                upstreamIfaceName = clatIface;
+            }
         }
 
         // No IPv4 address has found on the upstream.
@@ -1116,6 +1139,26 @@ public class BpfCoordinator {
         upstreamIndex = upstreamParams.index;
 
         return new UpstreamInfo(upstreamIfaceName, upstreamIndex, mtu);
+    }
+
+    @Nullable
+    private static String get464XlatIfaceName(@NonNull final LinkProperties lp) {
+        for (final String iface : lp.getAllInterfaceNames()) {
+            if (is464XlatInterface(iface)) {
+                // Return first found interface, assumes only one xlat464 interface.
+                return iface;
+            }
+        }
+        return null;
+    }
+
+    @NonNull
+    private static List<InetAddress> getAllAddresses(@NonNull final LinkProperties lp) {
+        final List<InetAddress> addresses = new ArrayList<>();
+        for (final LinkAddress linkAddress : lp.getAllLinkAddresses()) {
+            addresses.add(linkAddress.getAddress());
+        }
+        return Collections.unmodifiableList(addresses);
     }
 
     /**
@@ -1161,7 +1204,14 @@ public class BpfCoordinator {
         }
 
         mIpv4UpstreamInfo = currUpstreamInfo;
-        Collection<InetAddress> addresses = ns.linkProperties.getAddresses();
+        final Collection<InetAddress> addresses = is464XlatInterface(currUpstreamInfo.ifName)
+                // Get all addresses which includes base interface and stacked interface.
+                // The IPv4 address, if any, must belongs to stacked interface because
+                // clat upstream interface implies that the base interface has no IPv4 address.
+                // See #getUpstreamInfoV4. Note that can't get stacked interface information
+                // directly because LinkProperties#getStackedLinks is a hidden function.
+                ? getAllAddresses(ns.linkProperties)
+                : ns.linkProperties.getAddresses();
         for (final InetAddress address: addresses) {
             if (isValidUpstreamIpv4Address(address)) {
                 mIpv4UpstreamIndices.put((Inet4Address) address, upstreamIndex);
@@ -1169,7 +1219,8 @@ public class BpfCoordinator {
         }
     }
 
-    private boolean is464XlatInterface(@NonNull String ifaceName) {
+    private static boolean is464XlatInterface(@NonNull String ifaceName) {
+        // TODO: do not rely on assumption that clat interface with v4-* prefix.
         return ifaceName.startsWith("v4-");
     }
 
