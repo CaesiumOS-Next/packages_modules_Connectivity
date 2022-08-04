@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff470248_3e10c4b2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-04T06:18:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50480680_1c672e48",
+      "range": {
+        "startLine": 12,
+        "startChar": 72,
+        "endLine": 12,
+        "endChar": 73
+      },
+      "revId": "c006fb0bd7633cc2aceb41fdc7b86b060b584ebe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f02a46a5_b7f1030e",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-04T06:07:48Z",
       "side": 1,
       "message": "Would be good to file a new bug just for re-enabling the tests, so we can track it separately.",
+      "range": {
+        "startLine": 15,
+        "startChar": 5,
+        "endLine": 15,
+        "endChar": 14
+      },
+      "revId": "c006fb0bd7633cc2aceb41fdc7b86b060b584ebe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b834acaa_dc6eb6f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-04T06:18:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f02a46a5_b7f1030e",
       "range": {
         "startLine": 15,
         "startChar": 5,
