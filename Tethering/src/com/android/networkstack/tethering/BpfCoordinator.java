@@ -36,6 +36,7 @@ import static com.android.networkstack.tethering.util.TetheringUtils.getTetherin
 
 import android.app.usage.NetworkStatsManager;
 import android.net.INetd;
+import android.net.LinkProperties;
 import android.net.MacAddress;
 import android.net.NetworkStats;
 import android.net.NetworkStats.Entry;
@@ -836,6 +837,19 @@ public class BpfCoordinator {
         return true;
     }
 
+    private boolean is464XlatInterface(@Nullable String ifaceName) {
+        if (ifaceName == null) return false;
+        return ifaceName.startsWith("v4-");
+    }
+
+    @Nullable
+    private LinkProperties getFirst464xlatLinkProperties(@NonNull LinkProperties lp) {
+        for (final LinkProperties stacked : lp.getStackedLinks()) {
+            if (is464XlatInterface(stacked.getInterfaceName())) return stacked;
+        }
+        return null;
+    }
+
     /**
      * Call when UpstreamNetworkState may be changed.
      * If upstream has ipv4 for tethering, update this new UpstreamNetworkState
@@ -849,18 +863,34 @@ public class BpfCoordinator {
 
         int upstreamIndex = 0;
 
-        // This will not work on a network that is using 464xlat because hasIpv4Address will not be
-        // true.
-        // TODO: need to consider 464xlat.
-        if (ns != null && ns.linkProperties != null && ns.linkProperties.hasIpv4Address()) {
-            // TODO: support ether ip upstream interface.
-            final String ifaceName = ns.linkProperties.getInterfaceName();
+        // If upstream or its stacked interface has ipv4 address, get link properties for building
+        // upstream interface index mapping.
+        LinkProperties upstreamLp = null;
+        if (ns != null && ns.linkProperties != null) {
+            if (ns.linkProperties.hasIpv4Address()) {
+                upstreamLp = ns.linkProperties;
+            } else {
+                // A network that is using 464xlat needs to check its stacked interface because
+                // hasIpv4Address will not be true. We only check the first 464xlat interface
+                // we found since ClatCoordinator only brings up one "v4-" interface for 464xlat.
+                final LinkProperties lp = getFirst464xlatLinkProperties(ns.linkProperties);
+                if (lp != null && lp.hasIpv4Address()) {
+                    upstreamLp = lp;
+                }
+            }
+        }
+
+        if (upstreamLp != null) {
+            final String ifaceName = upstreamLp.getInterfaceName();
             final InterfaceParams params = mDeps.getInterfaceParams(ifaceName);
             final boolean isVcn = isVcnInterface(ifaceName);
+
+            // TODO: support ether ip upstream interface.
             if (!isVcn && params != null && !params.hasMacAddress /* raw ip upstream only */) {
                 upstreamIndex = params.index;
             }
         }
+
         if (mLastIPv4UpstreamIfindex == upstreamIndex) return;
 
         // Clear existing rules if upstream interface is changed. The existing rules should be
@@ -887,7 +917,7 @@ public class BpfCoordinator {
             mIpv4UpstreamIndices.clear();
             return;
         }
-        Collection<InetAddress> addresses = ns.linkProperties.getAddresses();
+        Collection<InetAddress> addresses = upstreamLp.getAddresses();
         for (final InetAddress addr: addresses) {
             if (isValidUpstreamIpv4Address(addr)) {
                 mIpv4UpstreamIndices.put((Inet4Address) addr, upstreamIndex);
