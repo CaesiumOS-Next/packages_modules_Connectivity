@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b700046_46028a6f",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-08-04T11:09:24Z",
+      "side": 1,
+      "message": "only registers?",
+      "range": {
+        "startLine": 311,
+        "startChar": 32,
+        "endLine": 311,
+        "endChar": 45
+      },
+      "revId": "66559d6a3bf806d854bdfdae69b149caff35e2ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dba12fd1_19805290",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-08-04T11:09:24Z",
+      "side": 1,
+      "message": "does?",
+      "range": {
+        "startLine": 311,
+        "startChar": 77,
+        "endLine": 311,
+        "endChar": 79
+      },
+      "revId": "66559d6a3bf806d854bdfdae69b149caff35e2ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a18e9a23_dc3e9ef3",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-08-04T11:09:24Z",
+      "side": 1,
+      "message": "L? Upper case?",
+      "range": {
+        "startLine": 321,
+        "startChar": 26,
+        "endLine": 321,
+        "endChar": 27
+      },
+      "revId": "66559d6a3bf806d854bdfdae69b149caff35e2ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63d5c6db_ee0c2074",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-08-04T11:09:24Z",
+      "side": 1,
+      "message": "D? Upper case?",
+      "range": {
+        "startLine": 359,
+        "startChar": 37,
+        "endLine": 359,
+        "endChar": 38
+      },
+      "revId": "66559d6a3bf806d854bdfdae69b149caff35e2ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24155449_b50ea91a",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-08-04T11:09:24Z",
+      "side": 1,
+      "message": "What about testLockDownResetWhenLockDownVpnTrackerIsNotInit?",
+      "range": {
+        "startLine": 359,
+        "startChar": 16,
+        "endLine": 359,
+        "endChar": 58
+      },
+      "revId": "66559d6a3bf806d854bdfdae69b149caff35e2ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edbcffe3_67e5b7e0",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-08-04T11:09:24Z",
+      "side": 1,
+      "message": "enabled",
+      "range": {
+        "startLine": 378,
+        "startChar": 29,
+        "endLine": 378,
+        "endChar": 35
+      },
+      "revId": "66559d6a3bf806d854bdfdae69b149caff35e2ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89d54d58_5ca13822",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-08-04T11:09:24Z",
+      "side": 1,
+      "message": "D? Upper case?",
+      "range": {
+        "startLine": 383,
+        "startChar": 30,
+        "endLine": 383,
+        "endChar": 31
+      },
+      "revId": "66559d6a3bf806d854bdfdae69b149caff35e2ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99d2989d_ecc2e2df",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-08-04T11:09:24Z",
+      "side": 1,
+      "message": "enabled",
+      "range": {
+        "startLine": 391,
+        "startChar": 29,
+        "endLine": 391,
+        "endChar": 35
+      },
+      "revId": "66559d6a3bf806d854bdfdae69b149caff35e2ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
