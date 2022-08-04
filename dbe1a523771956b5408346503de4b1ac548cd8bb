@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6de38c96_a85aae20",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-04T01:49:02Z",
+      "side": 1,
+      "message": "Could this be {@link #Builder} ?\nAlso for other places.",
+      "range": {
+        "startLine": 235,
+        "startChar": 63,
+        "endLine": 235,
+        "endChar": 78
+      },
+      "revId": "dbe1a523771956b5408346503de4b1ac548cd8bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25b0a040_8f83e35c",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-04T01:49:02Z",
+      "side": 1,
+      "message": "Maybe not for this CL.\nCan we try to remove this variable?\nAs you can see it should be replacable by matchSubscriberIds.\nIf it is empty then match anything;\nIf it is Set.of(null) then match only null.",
+      "range": {
+        "startLine": 308,
+        "startChar": 65,
+        "endLine": 308,
+        "endChar": 86
+      },
+      "revId": "dbe1a523771956b5408346503de4b1ac548cd8bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0aa604ca_29a0970f",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-04T01:49:02Z",
+      "side": 1,
+      "message": "Maybe not for this CL.\nWe decided not to expose system API when mainlining.\nPlease remove this statement and maybe also this function?",
+      "range": {
+        "startLine": 775,
+        "startChar": 4,
+        "endLine": 775,
+        "endChar": 35
+      },
+      "revId": "dbe1a523771956b5408346503de4b1ac548cd8bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df9a5d04_014c055e",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-04T01:49:02Z",
+      "side": 1,
+      "message": "It seems we cannot remove these functions from production code.\nIf so, is it better if we still maintain some test coverage for them?",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 60
+      },
+      "revId": "dbe1a523771956b5408346503de4b1ac548cd8bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
