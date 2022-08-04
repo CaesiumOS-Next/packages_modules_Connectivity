@@ -1,5 +1,75 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9118b183_d9321f58",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-04T04:54:22Z",
+      "side": 1,
+      "message": "-t stubs are nowhere to be found in the only file changed in this patch. Can you explicit here what the dependency is here ?",
+      "range": {
+        "startLine": 7,
+        "startChar": 42,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "77d4c4efa87321d85f482b7bd9e5779f20b28690",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbdf8f29_ac9dc581",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-04T04:54:22Z",
+      "side": 1,
+      "message": "I struggle to understand this. IIUC, framework-connectivity-t is allowed to reference the full framework-connectivity ; do you mean here that this is what we should do, but it\u0027s not done yet ? I expect that\u0027s not what you mean because in this context I don\u0027t see what being \"also part of the stubs\" has to do with this. Do you mean we are splitting classes between these that are part of the public API and these that are not, and for these that are part of the public API we only generate stubs and therefore hidden symbols are not there ? But if that\u0027s right, shouldn\u0027t the classes that are part of the public API *also* be in the full impl framework-connectivity.jar and that should be the only artifact referenced by framework-connectivity-t ?\n\nI\u0027m sorry I\u0027m lacking context but these things are so horribly confusing that even with extensive explanations like this it will be extremely hard for someone to understand one year down the road.",
+      "range": {
+        "startLine": 24,
+        "startChar": 25,
+        "endLine": 25,
+        "endChar": 31
+      },
+      "revId": "77d4c4efa87321d85f482b7bd9e5779f20b28690",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "911ee97d_5ccf7934",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-04T04:54:22Z",
+      "side": 1,
+      "message": "This seems completely irrelevant to that bug. Can we tack this change to a bug that actually explains some context of what\u0027s wrong here ?",
+      "range": {
+        "startLine": 28,
+        "startChar": 5,
+        "endLine": 28,
+        "endChar": 14
+      },
+      "revId": "77d4c4efa87321d85f482b7bd9e5779f20b28690",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
