@@ -836,6 +836,10 @@ public class BpfCoordinator {
         return true;
     }
 
+    private boolean is464XlatInterface(@NonNull String iface) {
+        return iface.startsWith("v4-");
+    }
+
     /**
      * Call when UpstreamNetworkState may be changed.
      * If upstream has ipv4 for tethering, update this new UpstreamNetworkState
@@ -849,15 +853,18 @@ public class BpfCoordinator {
 
         int upstreamIndex = 0;
 
-        // This will not work on a network that is using 464xlat because hasIpv4Address will not be
-        // true.
         // TODO: need to consider 464xlat.
-        if (ns != null && ns.linkProperties != null && ns.linkProperties.hasIpv4Address()) {
+        if (ns != null && ns.linkProperties != null) {
             // TODO: support ether ip upstream interface.
             final String ifaceName = ns.linkProperties.getInterfaceName();
             final InterfaceParams params = mDeps.getInterfaceParams(ifaceName);
             final boolean isVcn = isVcnInterface(ifaceName);
-            if (!isVcn && params != null && !params.hasMacAddress /* raw ip upstream only */) {
+            // Treat 464xlat interface that has IPv4 network because hasIpv4Address will not be
+            // true on a network that is using 464xlat.
+            final boolean hasIpv4Network = ns.linkProperties.hasIpv4Address()
+                    || is464XlatInterface(ifaceName);
+            if (!isVcn && hasIpv4Network
+                    && params != null && !params.hasMacAddress /* raw ip upstream only */) {
                 upstreamIndex = params.index;
             }
         }
