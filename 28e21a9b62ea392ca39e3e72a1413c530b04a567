@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f58c87c_6b9de321",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1229,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-08-04T06:48:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cb2ae16_089cebc6",
+      "range": {
+        "startLine": 1228,
+        "startChar": 80,
+        "endLine": 1229,
+        "endChar": 45
+      },
+      "revId": "28e21a9b62ea392ca39e3e72a1413c530b04a567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92c5ba21_eef67bc3",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2b2f5d3_da81db55",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1367,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-08-04T06:48:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92c5ba21_eef67bc3",
+      "range": {
+        "startLine": 1367,
+        "startChar": 9,
+        "endLine": 1367,
+        "endChar": 17
+      },
+      "revId": "28e21a9b62ea392ca39e3e72a1413c530b04a567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce060d3c_ce7e7e83",
@@ -60,6 +108,24 @@
       "writtenOn": "2022-07-27T05:45:35Z",
       "side": 1,
       "message": "Let\u0027s have a short comment above the method about nullability of this argument. Example wording :\n\n// |networkAgent| is only allowed to be null if |notificationType| is\n// CALLBACK_UNAVAIL. This is because UNAVAIL is about no network being\n// available, while all other cases are about some particular network.",
+      "revId": "28e21a9b62ea392ca39e3e72a1413c530b04a567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b84a41a6_961f6f31",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 8348,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-08-04T06:48:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce060d3c_ce7e7e83",
       "revId": "28e21a9b62ea392ca39e3e72a1413c530b04a567",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
