@@ -1396,7 +1396,8 @@ public class IpServer extends StateMachine {
                         // IPv4 and IPv6 interface name (if any) into an InterfaceSet. The IPv6
                         // capability may be updated later. In that case, IPv6 interface mapping is
                         // updated in updateUpstreamIPv6LinkProperties.
-                        if (!ifname.startsWith("v4-")) {  // ignore clat interfaces
+                        // TODO: support clat interface offload on S and T devices.
+                        if (mBpfCoordinator.clatOffloadEnabled || !ifname.startsWith("v4-")) {
                             final InterfaceParams upstreamIfaceParams =
                                     mDeps.getInterfaceParams(ifname);
                             if (upstreamIfaceParams != null) {
