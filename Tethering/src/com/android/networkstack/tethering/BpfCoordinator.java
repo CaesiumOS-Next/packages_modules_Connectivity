@@ -81,14 +81,17 @@ import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -836,11 +839,45 @@ public class BpfCoordinator {
         return true;
     }
 
+    private boolean hasIpv4Address(@NonNull final Collection<InetAddress> addresses) {
+        for (InetAddress address : addresses) {
+            if (address instanceof Inet4Address) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Used for 464xlat (v4-*) interface only because 464xlat interface won't change address after
+    // interface bring up. That guarantees no race while we are querying the addresses.
+    @NonNull
+    private List<InetAddress> get464xlatInterfaceAddresses(@NonNull String iface) {
+        ArrayList<InetAddress> addresses = new ArrayList<>();
+
+        if (!iface.startsWith("v4-")) {
+            Log.wtf(TAG, "Interface " + iface + " isn't a 464xlat interface with prefix v4-*");
+            return Collections.unmodifiableList(addresses);
+        }
+
+        try {
+            final NetworkInterface ni = NetworkInterface.getByName(iface);
+            if (ni != null) {
+                for (final InetAddress address : Collections.list(ni.getInetAddresses())) {
+                    addresses.add(address);
+                }
+            }
+        } catch (IOException e) {
+            Log.e(TAG, "Unable to get NetworkInterface on " + iface + ": " + e);
+        }
+
+        return Collections.unmodifiableList(addresses);
+    }
+
     /**
      * Call when UpstreamNetworkState may be changed.
-     * If upstream has ipv4 for tethering, update this new UpstreamNetworkState
-     * to BpfCoordinator for building upstream interface index mapping. Otherwise,
-     * clear the all existing rules if any.
+     * If either upstream or its xlat (v4-*) interface has ipv4 for tethering, update this new
+     * UpstreamNetworkState to BpfCoordinator for building upstream interface index mapping.
+     * Otherwise, clear the all existing rules if any.
      *
      * Note that this can be only called on handler thread.
      */
@@ -849,18 +886,44 @@ public class BpfCoordinator {
 
         int upstreamIndex = 0;
 
-        // This will not work on a network that is using 464xlat because hasIpv4Address will not be
-        // true.
-        // TODO: need to consider 464xlat.
-        if (ns != null && ns.linkProperties != null && ns.linkProperties.hasIpv4Address()) {
-            // TODO: support ether ip upstream interface.
+        // If either upstream or its xlat interface has ipv4 address, get address for building
+        // upstream interface index mapping.
+        String upstreamIfaceName = null;
+        Collection<InetAddress> upstreamAddresses = null;
+        if (ns != null && ns.linkProperties != null) {
             final String ifaceName = ns.linkProperties.getInterfaceName();
-            final InterfaceParams params = mDeps.getInterfaceParams(ifaceName);
-            final boolean isVcn = isVcnInterface(ifaceName);
+
+            // Upstream interface has IPv4 addresses. Use the upstream name and address to build
+            // the upstream interface index mapping.
+            if (ns.linkProperties.hasIpv4Address()) {
+                upstreamIfaceName = ifaceName;
+                upstreamAddresses = ns.linkProperties.getAddresses();
+            } else {
+                // 464xlat interface has IPv4 addresses. Use 464xlat interface name and address to
+                // build the upstream interface index mapping. A network that is using 464xlat
+                // needs to check its xlat interface because hasIpv4Address will not be true. We
+                // try to check if there is 464xlat interface. There is no racing for querying
+                // 464xlat interface address because ClatCoordinator brings up the 464xlat
+                // interface with a given IPv4 address.
+                final String clatIface = "v4-" + ifaceName;
+                final Collection<InetAddress> clatAddrs = get464xlatInterfaceAddresses(clatIface);
+                if (hasIpv4Address(clatAddrs)) {
+                    upstreamIfaceName = clatIface;
+                    upstreamAddresses = clatAddrs;
+                }
+            }
+        }
+
+        if (upstreamIfaceName != null) {
+            final InterfaceParams params = mDeps.getInterfaceParams(upstreamIfaceName);
+            final boolean isVcn = isVcnInterface(upstreamIfaceName);
+
+            // TODO: support ether ip upstream interface.
             if (!isVcn && params != null && !params.hasMacAddress /* raw ip upstream only */) {
                 upstreamIndex = params.index;
             }
         }
+
         if (mLastIPv4UpstreamIfindex == upstreamIndex) return;
 
         // Clear existing rules if upstream interface is changed. The existing rules should be
@@ -887,10 +950,12 @@ public class BpfCoordinator {
             mIpv4UpstreamIndices.clear();
             return;
         }
-        Collection<InetAddress> addresses = ns.linkProperties.getAddresses();
-        for (final InetAddress addr: addresses) {
-            if (isValidUpstreamIpv4Address(addr)) {
-                mIpv4UpstreamIndices.put((Inet4Address) addr, upstreamIndex);
+
+        // Map IPv4 address to the upstream index. Non-zero upstreamIndex means that we found a
+        // upstream interface with has IPv4 addresses.
+        for (final InetAddress address : upstreamAddresses) {
+            if (isValidUpstreamIpv4Address(address)) {
+                mIpv4UpstreamIndices.put((Inet4Address) address, upstreamIndex);
             }
         }
     }
