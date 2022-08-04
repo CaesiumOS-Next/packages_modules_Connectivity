@@ -22,6 +22,30 @@
       },
       "revId": "9195e05baad36b133001db9be898e2cb70b8f2c4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acfd6364_0b716374",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-08-04T06:51:26Z",
+      "side": 1,
+      "message": "I have no idea how to do that. But we can discuss it if you want me implement this.",
+      "parentUuid": "00d13714_68a11829",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 54
+      },
+      "revId": "9195e05baad36b133001db9be898e2cb70b8f2c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
