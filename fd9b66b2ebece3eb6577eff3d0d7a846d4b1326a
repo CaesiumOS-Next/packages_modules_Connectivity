@@ -16,6 +16,23 @@
       "message": "These tests pass and are useful today, but also testNetworkNotVisibleUntilConnected fails with aosp/2162425",
       "revId": "fd9b66b2ebece3eb6577eff3d0d7a846d4b1326a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4ce7ffd_7ac5286e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3085,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-08-04T04:23:09Z",
+      "side": 1,
+      "message": "Nits: Is it better to unregisterNetworkCallback?",
+      "revId": "fd9b66b2ebece3eb6577eff3d0d7a846d4b1326a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
