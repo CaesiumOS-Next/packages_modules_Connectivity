@@ -1388,8 +1388,11 @@ public class IpServer extends StateMachine {
                         // Tethering::setUpstreamNetwork calls getTetheringInterfaces which merges
                         // IPv4 and IPv6 interface name (if any) into an InterfaceSet. The IPv6
                         // capability may be updated later. In that case, IPv6 interface mapping is
-                        // updated in updateUpstreamIPv6LinkProperties.
-                        if (!ifname.startsWith("v4-")) {  // ignore clat interfaces
+                        // updated in updateUpstreamIPv6LinkProperties. Currently, ignore clat
+                        // interfaces on T- device
+                        // TODO: support clat interface offload on S, T device once the clat offload
+                        // data usage overhead is fixed.
+                        if (mBpfCoordinator.supportClatOffload || !ifname.startsWith("v4-")) {
                             final InterfaceParams upstreamIfaceParams =
                                     mDeps.getInterfaceParams(ifname);
                             if (upstreamIfaceParams != null) {
