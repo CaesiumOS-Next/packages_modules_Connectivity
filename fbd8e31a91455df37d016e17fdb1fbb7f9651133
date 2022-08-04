@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "289b7b7b_2cdb5316",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 15745,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-04T02:44:51Z",
+      "side": 1,
+      "message": "Let\u0027s do something a little bit less \"normal\". The point of sanitization is to prevent unusual and dangerous stuff, so to maximize test utility it\u0027s important to *not* build a very tame and well-behaved object.\n\nSuggestions of things to change :\n\n- setOwnerUid to something that\u0027s not my process, but something completely different\n- setAdministratorUids to a list of multiple UIDs that don\u0027t even include the owner UID\n- setNetworkSpecifier to something specific and unusual, e.g. EthernetNetworkSpecifier with an interface name of \"foobar\"\n- setTransportInfo to some WiFiInfo with unusual parameters\n- setRequestorUid to some random integer\n- setUids to some range that overlaps multiple users\n- setAllowedUids to a list of a few integers not even including the ownerUid\n\nThe rest is fine. Note that subscription IDS are currently using the ownerUid which is completely unrelated (and therefore fine in this case :) ), but maybe it\u0027s a bit easier to understand if you just pass 4 and 7 or something.\n\nAlso do add a comment that this builds an usual object to maximize the chance that this requires sanitization, so we have a high chance to detect any changes to the original.",
+      "range": {
+        "startLine": 15745,
+        "startChar": 63,
+        "endLine": 15745,
+        "endChar": 71
+      },
+      "revId": "fbd8e31a91455df37d016e17fdb1fbb7f9651133",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f66ac4a9_0a0ec433",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 15754,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-04T02:44:51Z",
+      "side": 1,
+      "message": "You need to make that copy before you call setDeclaredCapabilities, otherwise you won\u0027t detect mutations made in that method",
+      "range": {
+        "startLine": 15754,
+        "startChar": 0,
+        "endLine": 15754,
+        "endChar": 91
+      },
+      "revId": "fbd8e31a91455df37d016e17fdb1fbb7f9651133",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
