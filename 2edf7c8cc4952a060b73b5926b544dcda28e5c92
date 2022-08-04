@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47f60b38_dfbe1893",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1982,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-08-04T04:03:59Z",
+      "side": 1,
+      "message": "This is unused.",
+      "range": {
+        "startLine": 1982,
+        "startChar": 34,
+        "endLine": 1982,
+        "endChar": 45
+      },
+      "revId": "2edf7c8cc4952a060b73b5926b544dcda28e5c92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
