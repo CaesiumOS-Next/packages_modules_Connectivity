@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddd49f95_a2305138",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-04T05:42:20Z",
+      "side": 1,
+      "message": "Failures are unrelated (GCE quota exhaustion, and flaky Ethernet tests).",
+      "revId": "9f94e79c89db15016a1644ebfff7cea23fca1f1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
