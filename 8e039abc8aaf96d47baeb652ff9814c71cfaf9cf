@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d41d25e2_c9ed17a1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2517,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-04T08:49:24Z",
+      "side": 1,
+      "message": "Actually not necessary anymore, and this could remain private right ?",
+      "range": {
+        "startLine": 2517,
+        "startChar": 4,
+        "endLine": 2517,
+        "endChar": 22
+      },
+      "revId": "8e039abc8aaf96d47baeb652ff9814c71cfaf9cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00efd1a4_e2ec84cf",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2566,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-04T08:49:24Z",
+      "side": 1,
+      "message": "So this is the method getting fixed in this patch\n\nAs discussed in chat this is still kind of racy, as tethering APIs could be called immediately after changing user restrictions, and this would return out-of-sync values (whereas previous code would call UserManager every time and avoid that race). This could be avoided by always asking UserManager here instead of reading the last updated value.\n\nThe only problem would be if UserManager allows tethering, and immediately after a tethering API is called, but because the UserManager callback wasn\u0027t received in tethering yet, the call fails.\n\nBut I guess this is pre-existing ? Since currently the state would not be updated at all, so the call would fail already.",
+      "range": {
+        "startLine": 2566,
+        "startChar": 12,
+        "endLine": 2566,
+        "endChar": 32
+      },
+      "revId": "8e039abc8aaf96d47baeb652ff9814c71cfaf9cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
