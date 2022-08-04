@@ -2338,7 +2338,7 @@ public class BpfCoordinatorTest {
         assertTrue(interfaceNames.contains(UPSTREAM_IFINDEX));
     }
 
-    private void verifyUpdateUpstreamNetworkState()
+    private void verifyUpdateUpstreamNetworkState(final boolean clatOffloadEnabled)
             throws Exception {
         final BpfCoordinator coordinator = makeBpfCoordinator();
         final HashMap<Inet4Address, Integer> ipv4UpstreamIndices =
@@ -2352,6 +2352,27 @@ public class BpfCoordinatorTest {
         // - BpfCoordinator#mIpv4UpstreamIndices (for building IPv4 offload rules)
         // - BpfCoordinator#mInterfaceNames (for updating limit)
         //
+        // Test case:
+        // - Clat offload is supported on U+ devices.
+        // +-------+-------+-----------------------+
+        // | Test  | Up    |       Protocol        |
+        // | Case# | stream+-------+-------+-------+
+        // |       |       | IPv4  | IPv6  | Xlat  |
+        // +-------+-------+-------+-------+-------+
+        // |   1   | Cell  |   O   |       |       |
+        // +-------+-------+-------+-------+-------+
+        // |   2   | Cell  |       |   O   |       |
+        // +-------+-------+-------+-------+-------+
+        // |   3   | Cell  |   O   |   O   |       |
+        // +-------+-------+-------+-------+-------+
+        // |   4   |   -   |       |       |       |
+        // +-------+-------+-------+-------+-------+
+        // |   5   | Cell  |       |   O   |   O   |
+        // +-------+-------+-------+-------+-------+
+        // |   6   | Wifi  |   O   |   O   |       | <-- doesn't support offload (ether ip)
+        // +-------+-------+-------+-------+-------+
+        //
+        // - Clat offload is not supported on S and T devices.
         // +-------+-------+-----------------------+
         // | Test  | Up    |       Protocol        |
         // | Case# | stream+-------+-------+-------+
@@ -2412,7 +2433,8 @@ public class BpfCoordinatorTest {
         assertTrue(interfaceNames.contains(UPSTREAM_IFINDEX));
 
         // [5] verify xlat interface
-        // Expect that xlat interface information isn't added to mapping.
+        // Expect that xlat interface information isn't added to mapping on S and T devices.
+        // Expect that xlat interface information is added to mapping on U+ devices.
         doReturn(UPSTREAM_XLAT_IFACE_PARAMS).when(mDeps).getInterfaceParams(
                 UPSTREAM_XLAT_IFACE);
         final UpstreamNetworkState mobile464xlatUpstreamState = new UpstreamNetworkState(
@@ -2421,24 +2443,37 @@ public class BpfCoordinatorTest {
                 new NetworkCapabilities().addTransportType(TRANSPORT_CELLULAR),
                 new Network(TEST_NET_ID));
 
-        // Need to add a valid IPv4 upstream to verify that xlat interface doesn't support.
-        // Mobile IPv4 only
-        coordinator.updateUpstreamNetworkState(mobileIPv4UpstreamState);
-        verifyIpv4Upstream(ipv4UpstreamIndices, interfaceNames);
+        if (clatOffloadEnabled) {
+            // Mobile IPv6 and xlat
+            coordinator.addUpstreamNameToLookupTable(UPSTREAM_XLAT_IFINDEX, UPSTREAM_XLAT_IFACE);
+            coordinator.updateUpstreamNetworkState(mobile464xlatUpstreamState);
+            assertEquals(1, ipv4UpstreamIndices.size());
+            final Integer upstreamIndex = ipv4UpstreamIndices.get(XLAT_LOCAL_IPV4ADDR);
+            assertNotNull(upstreamIndex);
+            assertEquals(UPSTREAM_XLAT_IFINDEX, upstreamIndex.intValue());
+            assertEquals(2, interfaceNames.size());
+            assertTrue(interfaceNames.contains(UPSTREAM_IFINDEX));
+            assertTrue(interfaceNames.contains(UPSTREAM_XLAT_IFINDEX));
+        } else {
+            // Need to add a valid IPv4 upstream to verify that xlat interface doesn't support.
+            // Mobile IPv4 only
+            coordinator.updateUpstreamNetworkState(mobileIPv4UpstreamState);
+            verifyIpv4Upstream(ipv4UpstreamIndices, interfaceNames);
 
-        // Mobile IPv6 and xlat
-        // IpServer doesn't add xlat interface mapping via #addUpstreamNameToLookupTable on
-        // S and T devices.
-        coordinator.updateUpstreamNetworkState(mobile464xlatUpstreamState);
-        // Upstream IPv4 address mapping is removed because xlat interface is not supported.
-        assertTrue(ipv4UpstreamIndices.isEmpty());
-        assertEquals(1, interfaceNames.size());
-        assertTrue(interfaceNames.contains(UPSTREAM_IFINDEX));
+            // Mobile IPv6 and xlat
+            // IpServer doesn't add xlat interface mapping via #addUpstreamNameToLookupTable on
+            // S and T devices.
+            coordinator.updateUpstreamNetworkState(mobile464xlatUpstreamState);
+            // Upstream IPv4 address mapping is removed because xlat interface is not supported.
+            assertTrue(ipv4UpstreamIndices.isEmpty());
+            assertEquals(1, interfaceNames.size());
+            assertTrue(interfaceNames.contains(UPSTREAM_IFINDEX));
 
-        // Need to add a valid IPv4 upstream to verify that wifi interface doesn't support.
-        // Mobile IPv4 only
-        coordinator.updateUpstreamNetworkState(mobileIPv4UpstreamState);
-        verifyIpv4Upstream(ipv4UpstreamIndices, interfaceNames);
+            // Need to add a valid IPv4 upstream to verify that wifi interface doesn't support.
+            // Mobile IPv4 only
+            coordinator.updateUpstreamNetworkState(mobileIPv4UpstreamState);
+            verifyIpv4Upstream(ipv4UpstreamIndices, interfaceNames);
+        }
 
         // [6] Wifi IPv4 and IPv6
         // Expect that upstream index map is cleared because ether ip is not supported.
@@ -2451,14 +2486,25 @@ public class BpfCoordinatorTest {
                 new Network(TEST_NET_ID2));
         coordinator.updateUpstreamNetworkState(wifiDualStackUpstreamState);
         assertTrue(ipv4UpstreamIndices.isEmpty());
+        // Expect that mobile xlat interface |UPSTREAM_XLAT_IFINDEX| is not found in mapping.
+        // For S and T devices, xlat interface has never been added to mapping.
+        // For U+ devices, xlat interface is removed from mapping when upstream switched from
+        // mobile xlat to wifi.
         assertEquals(2, interfaceNames.size());
         assertTrue(interfaceNames.contains(UPSTREAM_IFINDEX));
         assertTrue(interfaceNames.contains(UPSTREAM_IFINDEX2));
     }
 
     @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testUpdateUpstreamNetworkStateAfterT() throws Exception {
+        verifyUpdateUpstreamNetworkState(true /* clatOffloadEnabled */);
+    }
+
+    @Test
     @IgnoreUpTo(Build.VERSION_CODES.R)
-    public void testUpdateUpstreamNetworkState() throws Exception {
-        verifyUpdateUpstreamNetworkState();
+    @IgnoreAfter(Build.VERSION_CODES.TIRAMISU)
+    public void testUpdateUpstreamNetworkStateOnSOrT() throws Exception {
+        verifyUpdateUpstreamNetworkState(false /* clatOffloadEnabled */);
     }
 }

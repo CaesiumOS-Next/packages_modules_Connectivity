@@ -37,6 +37,8 @@ import static com.android.networkstack.tethering.util.TetheringUtils.getTetherin
 
 import android.app.usage.NetworkStatsManager;
 import android.net.INetd;
+import android.net.LinkAddress;
+import android.net.LinkProperties;
 import android.net.MacAddress;
 import android.net.NetworkStats;
 import android.net.NetworkStats.Entry;
@@ -89,10 +91,12 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -211,9 +215,11 @@ public class BpfCoordinator {
     private final HashMap<String, Long> mInterfaceQuotas = new HashMap<>();
 
     // Maps upstream interface index to interface names.
-    // Store all interface name since boot. Used for lookup what interface name it is from the
-    // tether stats got from netd because netd reports interface index to present an interface.
-    // TODO: Remove the unused interface name.
+    // Store non-clat interface name since boot and current using clat-interface name. Used for
+    // what interface name it is from the tether stats got from netd because netd reports
+    // interface index to present an interface.
+    // TODO: Remove all unused interface name. See the reason in updateUpstreamNetworkState() for
+    // why we can't remove unused non-clat interface mapping.
     private final SparseArray<String> mInterfaceNames = new SparseArray<>();
 
     // Map of downstream rule maps. Each of these maps represents the IPv6 forwarding rules for a
@@ -267,6 +273,9 @@ public class BpfCoordinator {
     // Tracks the last IPv4 upstream index. Support single upstream only.
     // TODO: Support multi-upstream interfaces.
     private int mLastIPv4UpstreamIfindex = 0;
+
+    // TODO: support clat interface offload on S, T device.
+    public final boolean clatOffloadEnabled = SdkLevel.isAtLeastU();
 
     // Tracks the IPv4 upstream interface information.
     @Nullable
@@ -742,6 +751,29 @@ public class BpfCoordinator {
     }
 
     /**
+     * Remove a given upstream interface name mapping. Before calling this function,
+     * must make sure that there is no rule on the given upstream. This function
+     * can be only called by #updateUpstreamNetworkState.
+     */
+    private void removeUpstreamNameToLookupTable(int upstreamIfindex) {
+        if (!isUsingBpf()) return;
+
+        if (upstreamIfindex == 0) {
+            mLog.e("Can't remove interface mapping because upstream index is invalid.");
+            return;
+        }
+
+        if (isAnyRuleOnUpstream(upstreamIfindex)
+                || mBpfCoordinatorShim.isAnyIpv4RuleOnUpstream(upstreamIfindex)) {
+            mLog.e("Can't remove interface mapping because there are rules on the interface index "
+                    + upstreamIfindex);
+            return;
+        }
+
+        mInterfaceNames.remove(upstreamIfindex);
+    }
+
+    /**
      * Add downstream client.
      * Note that this can be only called on handler thread.
      */
@@ -878,11 +910,32 @@ public class BpfCoordinator {
         return true;
     }
 
-    /**
+    @Nullable
+    private String get464XlatIfaceName(@NonNull final LinkProperties lp) {
+        for (final String iface : lp.getAllInterfaceNames()) {
+            if (is464XlatInterface(iface)) {
+                // Return first found interface, assumes only one xlat464 interface.
+                return iface;
+            }
+        }
+        return null;
+    }
+
+    @NonNull
+    private List<InetAddress> getAllAddresses(@NonNull final LinkProperties lp) {
+        final List<InetAddress> addresses = new ArrayList<>();
+        for (final LinkAddress linkAddress : lp.getAllLinkAddresses()) {
+            addresses.add(linkAddress.getAddress());
+        }
+        return Collections.unmodifiableList(addresses);
+    }
+
+     /**
      * Call when UpstreamNetworkState may be changed.
-     * If upstream has ipv4 for tethering, update this new UpstreamNetworkState
-     * to BpfCoordinator for building upstream interface index mapping. Otherwise,
-     * clear the all existing rules if any.
+     *
+     * If either upstream or its stacked xlat (v4-*) interface has ipv4 address for tethering,
+     * update this new UpstreamNetworkState to BpfCoordinator for building upstream interface
+     * index mapping. Otherwise, clear the all existing rules if any.
      *
      * Note that this can be only called on handler thread.
      */
@@ -892,18 +945,48 @@ public class BpfCoordinator {
         int upstreamIndex = 0;
         int mtu = INVALID_MTU;
 
-        // This will not work on a network that is using 464xlat because hasIpv4Address will not be
-        // true.
-        // TODO: need to consider 464xlat.
-        if (ns != null && ns.linkProperties != null && ns.linkProperties.hasIpv4Address()) {
-            // TODO: support ether ip upstream interface.
+        // If either upstream or its stacked xlat interface has ipv4 address, get address for
+        // building upstream interface index mapping.
+        String upstreamIfaceName = null;
+        Collection<InetAddress> upstreamAddresses = null;
+        if (ns != null && ns.linkProperties != null) {
             final String ifaceName = ns.linkProperties.getInterfaceName();
-            final InterfaceParams params = mDeps.getInterfaceParams(ifaceName);
-            final boolean isVcn = isVcnInterface(ifaceName);
-            mtu = ns.linkProperties.getMtu();
+
+            // Upstream interface has IPv4 addresses. Use the upstream name and address to build
+            // the upstream interface index mapping.
+            if (ns.linkProperties.hasIpv4Address()) {
+                upstreamIfaceName = ifaceName;
+                upstreamAddresses = ns.linkProperties.getAddresses();
+            } else if (clatOffloadEnabled && ns.linkProperties.getNat64Prefix() != null) {
+                // 464xlat only starts with NAT64 prefix and 464xlat interface should have IPv4
+                // addresses. Use 464xlat interface name and address to build the upstream
+                // interface index mapping. An IPv6-only network that is using 464xlat needs to
+                // check its xlat interface (v4-*) because LinkProperties#hasIpv4Address will
+                // not be true (stacked interface link doesn't accounted). We try to check if
+                // there is 464xlat interface. There is no racing for querying 464xlat interface
+                // address because ClatCoordinator brings up the 464xlat interface with a given
+                // IPv4 address. Note that LinkProperties#getStackedLinks is a hidden function
+                // which can't be used for getting 464xlat address here.
+                // TODO: support clat interface offload on S and T devices.
+                final String clatIface = get464XlatIfaceName(ns.linkProperties);
+                if (clatIface != null) {
+                    upstreamIfaceName = clatIface;
+                    // Get all addresses which includes base interface and stacked interface.
+                    // The IPv4 address, if any, must belongs to stacked interface because
+                    // LinkProperties#hasIpv4Address has checked that base interface has no IPv4
+                    // address earlier.
+                    upstreamAddresses = getAllAddresses(ns.linkProperties);
+                }
+            }
+        }
+
+        if (upstreamIfaceName != null) {
+            final InterfaceParams params = mDeps.getInterfaceParams(upstreamIfaceName);
+            final boolean is464Xlat = is464XlatInterface(upstreamIfaceName);
+            mtu = is464Xlat ? INVALID_MTU : ns.linkProperties.getMtu();
             if (mtu == INVALID_MTU) {
                 // Get mtu via kernel if mtu is not found in LinkProperties.
-                mtu = mDeps.getNetworkInterfaceMtu(ifaceName);
+                mtu = mDeps.getNetworkInterfaceMtu(upstreamIfaceName);
             }
 
             // Use default mtu if can't find any.
@@ -911,27 +994,55 @@ public class BpfCoordinator {
             // Clamp to minimum ipv4 mtu
             if (mtu < IPV4_MIN_MTU) mtu = IPV4_MIN_MTU;
 
+            // TODO: support ether ip upstream interface.
+            final boolean isVcn = isVcnInterface(upstreamIfaceName);
             if (!isVcn && params != null && !params.hasMacAddress /* raw ip upstream only */) {
                 upstreamIndex = params.index;
             }
         }
+
+        // Ignore the follows if upstream is not changed.
         if (mLastIPv4UpstreamIfindex == upstreamIndex) return;
 
-        // Clear existing rules if upstream interface is changed. The existing rules should be
-        // cleared before upstream index mapping is cleared. It can avoid that ipServer or
-        // conntrack event may use the non-existing upstream interfeace index to build a removing
-        // key while removeing the rules. Can't notify each IpServer to clear the rules as
-        // IPv6TetheringCoordinator#updateUpstreamNetworkState because the IpServer may not
-        // handle the upstream changing notification before changing upstream index mapping.
+
+        // Clear existing rules or upstream interface name mapping, if possible, when upstream
+        // interface is changed.
         if (mLastIPv4UpstreamIfindex != 0) {
             // Clear all forwarding IPv4 rules for all downstreams.
+            // Clear existing rules if upstream interface is changed. The existing rules should be
+            // cleared before upstream index mapping is cleared. It can avoid that ipServer or
+            // conntrack event may use the non-existing upstream interfeace index to build a
+            // removing key while removeing the rules. Can't notify each IpServer to clear the
+            // rules as IPv6TetheringCoordinator#updateUpstreamNetworkState because the IpServer
+            // may not handle the upstream changing notification before changing upstream index
+            // mapping.
             for (final IpServer ipserver : mTetherClients.keySet()) {
                 tetherOffloadRule4Clear(ipserver);
             }
+
+            // Remove the upstream interface name mapping while v4-only clat interface is lost.
+            // Needed because clat interface index is generated every time clat started. The
+            // clat interface mapping may increase by time in IPv6-only environment which needs
+            // clat. Note the #removeUpstreamNameToLookupTable must be called when no rule on
+            // the given upstream index. Or the data limit related clean up will be broken.
+            // See #updateDataLimit.
+            // TODO: consider cleaning any losing interface index stubs (ex: IPv6 only or dual
+            // stack). Before cleaning the forwarding rule stubs, need to remove existing rules
+            // and guarantee incoming events can't use out-of-date interface index to build
+            // the rule. The IPv4 part has done in this function. Need to implemenet IPv6 part.
+            // We can only clean clat interface index currently because clat interface is
+            // guaranteed IPv4 only. It is probaly fine for now because mostly interfaces don't
+            // change interface index.
+            if (clatOffloadEnabled) {
+                final String iface = mInterfaceNames.get(mLastIPv4UpstreamIfindex);
+                if (iface != null && is464XlatInterface(iface)) {
+                    removeUpstreamNameToLookupTable(mLastIPv4UpstreamIfindex);
+                }
+            }
         }
 
-        // Don't update mLastIPv4UpstreamIfindex before clearing existing rules if any. Need that
-        // to tell if it is required to clean the out-of-date rules.
+        // Don't update mLastIPv4UpstreamIfindex before clearing existing rules or interface mapping
+        // stubs. Need that to tell if it is required to clean the out-of-date rules or interfaces.
         mLastIPv4UpstreamIfindex = upstreamIndex;
 
         // If link properties are valid, build the upstream information mapping. Otherwise, clear
@@ -944,15 +1055,17 @@ public class BpfCoordinator {
         }
 
         mIpv4UpstreamInfo = new UpstreamInfo(upstreamIndex, mtu);
-        Collection<InetAddress> addresses = ns.linkProperties.getAddresses();
-        for (final InetAddress addr: addresses) {
-            if (isValidUpstreamIpv4Address(addr)) {
-                mIpv4UpstreamIndices.put((Inet4Address) addr, upstreamIndex);
+        // Map IPv4 address to the upstream index. Non-zero upstreamIndex means that we found a
+        // upstream interface with has IPv4 addresses.
+        for (final InetAddress address : upstreamAddresses) {
+            if (isValidUpstreamIpv4Address(address)) {
+                mIpv4UpstreamIndices.put((Inet4Address) address, upstreamIndex);
             }
         }
     }
 
-    private boolean is464XlatInterface(@NonNull String ifaceName) {
+    private static boolean is464XlatInterface(@NonNull String ifaceName) {
+        // TODO: do not rely on assumption that clat interface with v4-* prefix.
         return ifaceName.startsWith("v4-");
     }
 
