@@ -399,6 +399,7 @@ public class TetheringTest {
                             || ifName.equals(TEST_WLAN2_IFNAME)
                             || ifName.equals(TEST_WIFI_IFNAME)
                             || ifName.equals(TEST_MOBILE_IFNAME)
+                            || ifName.equals(TEST_XLAT_MOBILE_IFNAME)
                             || ifName.equals(TEST_DUN_IFNAME)
                             || ifName.equals(TEST_P2P_IFNAME)
                             || ifName.equals(TEST_NCM_IFNAME)
