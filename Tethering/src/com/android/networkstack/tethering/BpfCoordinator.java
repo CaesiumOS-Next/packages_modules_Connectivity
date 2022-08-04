@@ -906,9 +906,15 @@ public class BpfCoordinator {
         if (forwardingPairExists(intIface, extIface)) return;
 
         boolean firstDownstreamForThisUpstream = !isAnyForwardingPairOnUpstream(extIface);
+        boolean firstUpstreamForThisDownstream = !isAnyForwardingPairOnDownstream(intIface);
         forwardingPairAdd(intIface, extIface);
 
-        mBpfCoordinatorShim.attachProgram(intIface, UPSTREAM);
+        // Attach if the downstream is the first time to be used in a forwarding pair.
+        // Ex: IPv6 only interface has two forwarding pair, iface and v4-iface, on the
+        // same downstream.
+        if (firstUpstreamForThisDownstream) {
+            mBpfCoordinatorShim.attachProgram(intIface, UPSTREAM);
+        }
         // Attach if the upstream is the first time to be used in a forwarding pair.
         if (firstDownstreamForThisUpstream) {
             mBpfCoordinatorShim.attachProgram(extIface, DOWNSTREAM);
@@ -922,7 +928,9 @@ public class BpfCoordinator {
         forwardingPairRemove(intIface, extIface);
 
         // Detaching program may fail because the interface has been removed already.
-        mBpfCoordinatorShim.detachProgram(intIface);
+        if (!isAnyForwardingPairOnDownstream(intIface)) {
+            mBpfCoordinatorShim.detachProgram(intIface);
+        }
         // Detach if no more forwarding pair is using the upstream.
         if (!isAnyForwardingPairOnUpstream(extIface)) {
             mBpfCoordinatorShim.detachProgram(extIface);
@@ -1825,6 +1833,10 @@ public class BpfCoordinator {
 
     private boolean isAnyForwardingPairOnUpstream(@NonNull String extIface) {
         return mForwardingPairs.containsKey(extIface);
+    }
+
+    private boolean isAnyForwardingPairOnDownstream(@NonNull String intIface) {
+        return mForwardingPairs.containsValue(intIface);
     }
 
     @NonNull
