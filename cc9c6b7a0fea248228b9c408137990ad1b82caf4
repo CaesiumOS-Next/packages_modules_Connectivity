@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06d677f7_719e7655",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-05T02:03:53Z",
+      "side": 0,
+      "message": "Note this is the same lib used in TetheringAndroidLibraryDefaults and TetheringAppDefaults here, but it will be different in aosp/2173600, so it\u0027s not factored out in TetheringExternalLibs",
+      "range": {
+        "startLine": 58,
+        "startChar": 8,
+        "endLine": 58,
+        "endChar": 35
+      },
+      "revId": "cc9c6b7a0fea248228b9c408137990ad1b82caf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
