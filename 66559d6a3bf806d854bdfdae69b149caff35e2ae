@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fff7344a_cb73b9e8",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-08-05T02:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b700046_46028a6f",
+      "range": {
+        "startLine": 311,
+        "startChar": 32,
+        "endLine": 311,
+        "endChar": 45
+      },
+      "revId": "66559d6a3bf806d854bdfdae69b149caff35e2ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d12a1b0_6899bbd5",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-08-05T02:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dba12fd1_19805290",
+      "range": {
+        "startLine": 311,
+        "startChar": 77,
+        "endLine": 311,
+        "endChar": 79
+      },
+      "revId": "66559d6a3bf806d854bdfdae69b149caff35e2ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a18e9a23_dc3e9ef3",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-08-04T11:09:24Z",
       "side": 1,
       "message": "L? Upper case?",
+      "range": {
+        "startLine": 321,
+        "startChar": 26,
+        "endLine": 321,
+        "endChar": 27
+      },
+      "revId": "66559d6a3bf806d854bdfdae69b149caff35e2ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70e5d0bc_b3d64d6e",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-08-05T02:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a18e9a23_dc3e9ef3",
       "range": {
         "startLine": 321,
         "startChar": 26,
@@ -116,6 +188,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ba72eb3_0d61e23e",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-08-05T02:02:31Z",
+      "side": 1,
+      "message": "no, lockdown is a term. Refer to LockdownVpnTracker",
+      "parentUuid": "63d5c6db_ee0c2074",
+      "range": {
+        "startLine": 359,
+        "startChar": 37,
+        "endLine": 359,
+        "endChar": 38
+      },
+      "revId": "66559d6a3bf806d854bdfdae69b149caff35e2ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdc381d1_5efc03f6",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-08-05T02:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24155449_b50ea91a",
+      "range": {
+        "startLine": 359,
+        "startChar": 16,
+        "endLine": 359,
+        "endChar": 58
+      },
+      "revId": "66559d6a3bf806d854bdfdae69b149caff35e2ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "edbcffe3_67e5b7e0",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-08-04T11:09:24Z",
       "side": 1,
       "message": "enabled",
+      "range": {
+        "startLine": 378,
+        "startChar": 29,
+        "endLine": 378,
+        "endChar": 35
+      },
+      "revId": "66559d6a3bf806d854bdfdae69b149caff35e2ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93bc811b_23d14010",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-08-05T02:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edbcffe3_67e5b7e0",
       "range": {
         "startLine": 378,
         "startChar": 29,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca359135_cef5aee1",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-08-05T02:02:31Z",
+      "side": 1,
+      "message": "no. see reason above",
+      "parentUuid": "89d54d58_5ca13822",
+      "range": {
+        "startLine": 383,
+        "startChar": 30,
+        "endLine": 383,
+        "endChar": 31
+      },
+      "revId": "66559d6a3bf806d854bdfdae69b149caff35e2ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99d2989d_ecc2e2df",
@@ -175,6 +343,30 @@
       "writtenOn": "2022-08-04T11:09:24Z",
       "side": 1,
       "message": "enabled",
+      "range": {
+        "startLine": 391,
+        "startChar": 29,
+        "endLine": 391,
+        "endChar": 35
+      },
+      "revId": "66559d6a3bf806d854bdfdae69b149caff35e2ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcf3c87c_e4d52cbe",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-08-05T02:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99d2989d_ecc2e2df",
       "range": {
         "startLine": 391,
         "startChar": 29,
