@@ -22,6 +22,30 @@
       },
       "revId": "8b9ecdad6dfabdca370883cc680b786041727790",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4d53389_80a8f9da",
+        "filename": "tests/unit/java/android/app/usage/NetworkStatsManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-05T07:46:34Z",
+      "side": 1,
+      "message": "Okay, I will make static imports for thess constants in a follow-up CL.",
+      "parentUuid": "2ad1f2cd_f48cfc2c",
+      "range": {
+        "startLine": 90,
+        "startChar": 16,
+        "endLine": 90,
+        "endChar": 41
+      },
+      "revId": "8b9ecdad6dfabdca370883cc680b786041727790",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
