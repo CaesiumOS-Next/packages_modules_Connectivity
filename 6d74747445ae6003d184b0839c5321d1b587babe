@@ -22,6 +22,30 @@
       },
       "revId": "6d74747445ae6003d184b0839c5321d1b587babe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "684f8c32_0d9fef4f",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-05T10:03:07Z",
+      "side": 0,
+      "message": "Okay, but in another patch if there\u0027re any unused variables.",
+      "parentUuid": "737af719_34c6cc4f",
+      "range": {
+        "startLine": 425,
+        "startChar": 33,
+        "endLine": 425,
+        "endChar": 56
+      },
+      "revId": "6d74747445ae6003d184b0839c5321d1b587babe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
