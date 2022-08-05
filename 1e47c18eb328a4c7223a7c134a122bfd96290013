@@ -33,6 +33,23 @@
       "message": "Looks like this causes some badness in BpfNetMapsTest, presumably permissions are screwed up.",
       "revId": "1e47c18eb328a4c7223a7c134a122bfd96290013",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "902987ec_6249535e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-08-05T11:40:46Z",
+      "side": 1,
+      "message": "The problem is BpfNetMapsTest depends on BpfNetMaps which pulls in the jni.\nBut it doesn\u0027t actually use the jni... as always all our test code is structured wrong...",
+      "revId": "1e47c18eb328a4c7223a7c134a122bfd96290013",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
