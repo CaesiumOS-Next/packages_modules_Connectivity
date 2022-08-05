@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7e6a223_24935595",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2019,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-08-05T02:48:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "64829971_5167f941",
+      "range": {
+        "startLine": 2019,
+        "startChar": 46,
+        "endLine": 2019,
+        "endChar": 47
+      },
+      "revId": "6491ee394a094494d05cef5f7f5d56e38a48712c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b8e9e96b_aa2898bf",
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "update comment",
       "parentUuid": "b8e9e96b_aa2898bf",
+      "range": {
+        "startLine": 2025,
+        "startChar": 34,
+        "endLine": 2025,
+        "endChar": 94
+      },
+      "revId": "6491ee394a094494d05cef5f7f5d56e38a48712c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4adca531_7da7ad7d",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2025,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-08-05T02:48:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0ad75c6_64872999",
       "range": {
         "startLine": 2025,
         "startChar": 34,
