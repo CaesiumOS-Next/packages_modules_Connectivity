@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0f8c3d8_d4106b94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-08-05T13:08:33Z",
+      "side": 1,
+      "message": "though really needs testing to make sure it works...\n\nbtw. technically we should be able to do:\n\n  cell (rawip) v4-only or dualstack upstream + ipv4 tether offload\n  cell (rawip) v6-only or dualstack upstream + ipv6 tether offload\n  cell (rawip) v6-only upstream + clat offload + ipv4 tether offload\n\n  wifi (ether) v6-only upstream + clat offload + ipv4 tether offload\n\nbecause v4- interface is a rawip upstream.\n\neven though we can\u0027t yet do:\n\n  wifi (ether) v4-only or dualstack upstream + ipv4 tether offload.\n  \nbecause of wifi being ether instead of rawip",
+      "revId": "7aa6a6a4d4a2b7bd89e675bcdcad2b4bb0ebfabc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
