@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b91cbcd3_e90e820b",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-05T13:13:27Z",
+      "side": 1,
+      "message": "Done, but I\u0027m not sure if it can pass the javadoc verification, maybe TH can help on this.",
+      "parentUuid": "6de38c96_a85aae20",
+      "range": {
+        "startLine": 235,
+        "startChar": 63,
+        "endLine": 235,
+        "endChar": 78
+      },
+      "revId": "dbe1a523771956b5408346503de4b1ac548cd8bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25b0a040_8f83e35c",
