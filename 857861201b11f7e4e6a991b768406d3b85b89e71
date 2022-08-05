@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "defe8794_73909632",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-05T06:21:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1934eed_bb1df1b5",
+      "range": {
+        "startLine": 9,
+        "startChar": 40,
+        "endLine": 9,
+        "endChar": 41
+      },
+      "revId": "857861201b11f7e4e6a991b768406d3b85b89e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e5430c4_5659a3d4",
@@ -81,6 +105,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac6a20ad_6444ff91",
+        "filename": "framework-t/src/android/net/NetworkIdentity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-05T06:21:59Z",
+      "side": 1,
+      "message": "Currently NetworkStatsService use NetworkIdentity to index usages per network.\nThat is to say, the NetworkStatsService does not support multiple transports per network yet.\nThis needs medium/large change to migrade to use transports and is listed in feature planning.\nDoes this work for you?",
+      "parentUuid": "a249b780_3b9dafbb",
+      "range": {
+        "startLine": 417,
+        "startChar": 23,
+        "endLine": 417,
+        "endChar": 41
+      },
+      "revId": "857861201b11f7e4e6a991b768406d3b85b89e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "526eba25_fbe0c339",
@@ -94,6 +142,30 @@
       "writtenOn": "2022-07-26T02:59:51Z",
       "side": 1,
       "message": "I am not sure if it\u0027s a good idea to reuse it. SubscriberId is set twice in this method. People who try to update or read the code may not be able to understand why subscriber Id was used instead of wifi network key(they\u0027re both unrelated fields.) Why do you not store it in a new field that is more appropriate for it?",
+      "range": {
+        "startLine": 420,
+        "startChar": 20,
+        "endLine": 421,
+        "endChar": 84
+      },
+      "revId": "857861201b11f7e4e6a991b768406d3b85b89e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e4345c5_abe50e1d",
+        "filename": "framework-t/src/android/net/NetworkIdentity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-05T06:21:59Z",
+      "side": 1,
+      "message": "Per discuss with Jean.\nIt might be an overkill to create a new field just for testing.\nAlso, wifiNetworkKey is named for wifi. So we keep current plan, which is\nnot great but we can modify it later if we think it is necessary.\nDoes that work for you?",
+      "parentUuid": "526eba25_fbe0c339",
       "range": {
         "startLine": 420,
         "startChar": 20,
@@ -127,6 +199,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39794bca_e06b8eba",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-05T06:21:59Z",
+      "side": 1,
+      "message": "Removed this modification since it is already supported.",
+      "parentUuid": "d973d354_d8104354",
+      "range": {
+        "startLine": 128,
+        "startChar": 8,
+        "endLine": 128,
+        "endChar": 59
+      },
+      "revId": "857861201b11f7e4e6a991b768406d3b85b89e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6e10031_3eafa12b",
@@ -140,6 +236,30 @@
       "writtenOn": "2022-07-26T09:56:48Z",
       "side": 1,
       "message": "comments are in the wrong places.\nalso l.1349, l.2224, l.2231",
+      "range": {
+        "startLine": 933,
+        "startChar": 36,
+        "endLine": 934,
+        "endChar": 36
+      },
+      "revId": "857861201b11f7e4e6a991b768406d3b85b89e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddc34282_8bcadb0a",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-05T06:21:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6e10031_3eafa12b",
       "range": {
         "startLine": 933,
         "startChar": 36,
@@ -173,6 +293,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e0bbc61_b88cf279",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1183,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-05T06:21:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c30995a_b36b7ebf",
+      "range": {
+        "startLine": 1183,
+        "startChar": 43,
+        "endLine": 1183,
+        "endChar": 69
+      },
+      "revId": "857861201b11f7e4e6a991b768406d3b85b89e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6849950_dc608e94",
@@ -196,6 +340,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e171669_6eb5dc12",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2233,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-05T06:21:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6849950_dc608e94",
+      "range": {
+        "startLine": 2233,
+        "startChar": 16,
+        "endLine": 2233,
+        "endChar": 21
+      },
+      "revId": "857861201b11f7e4e6a991b768406d3b85b89e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ccfda708_522400a2",
@@ -209,6 +377,30 @@
       "writtenOn": "2022-08-01T10:31:27Z",
       "side": 1,
       "message": "I think we don\u0027t need to pass legacyType to this method. We can know what type should be if we know the transport.",
+      "range": {
+        "startLine": 2236,
+        "startChar": 81,
+        "endLine": 2236,
+        "endChar": 91
+      },
+      "revId": "857861201b11f7e4e6a991b768406d3b85b89e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55ea6023_b350ff84",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2236,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-05T06:21:59Z",
+      "side": 1,
+      "message": "IIUC this is not always true since we might get transport TEST+CELLULAR where the type is mobile according to the NetworkCapabilitiesUtils#getDisplayTransport.\nOtherwise we\u0027ll need to maintain another mapping table, which is also not great.\n\nRefer to:\nhttps://osscs.corp.google.com/android/platform/superproject/+/master:frameworks/libs/net/common/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java;l\u003d133?ss\u003dandroid\u0026q\u003dgetDisplayTransport\u0026start\u003d1",
+      "parentUuid": "ccfda708_522400a2",
       "range": {
         "startLine": 2236,
         "startChar": 81,
