@@ -236,6 +236,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cdfe0db_0a13234e",
+        "filename": "tests/unit/java/com/android/server/VpnManagerServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-08-05T02:47:07Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "0ba72eb3_0d61e23e",
+      "range": {
+        "startLine": 359,
+        "startChar": 37,
+        "endLine": 359,
+        "endChar": 38
+      },
+      "revId": "66559d6a3bf806d854bdfdae69b149caff35e2ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "edbcffe3_67e5b7e0",
