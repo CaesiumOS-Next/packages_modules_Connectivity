@@ -91,6 +91,30 @@
       },
       "revId": "dbe1a523771956b5408346503de4b1ac548cd8bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3eab3415_32774af4",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-05T12:58:09Z",
+      "side": 1,
+      "message": "like l.527, I did not remove buildTemplateMobileAll(and l.114 for buildTemplateWifiWildcard) in this test. Or do you mean that maybe create a test for these function to maintain?",
+      "parentUuid": "df9a5d04_014c055e",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 60
+      },
+      "revId": "dbe1a523771956b5408346503de4b1ac548cd8bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
