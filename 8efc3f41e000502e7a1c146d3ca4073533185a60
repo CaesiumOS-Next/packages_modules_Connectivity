@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8eafeabf_b06a8c63",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-05T02:54:36Z",
+      "side": 1,
+      "message": "Is this name visible anywhere in the presubmit output?\n\nWhen presubmit fails, is there a way for engineers to know whether ConnectivityManagerTest#testXyz failed with all modules installed, or only NetworkStack installed, or...?\n\nIf not, it seems like this change could be increase developer confusion until we have better infrastructure support to at least tell us which test combination failed.",
+      "range": {
+        "startLine": 119,
+        "startChar": 15,
+        "endLine": 119,
+        "endChar": 92
+      },
+      "revId": "8efc3f41e000502e7a1c146d3ca4073533185a60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
