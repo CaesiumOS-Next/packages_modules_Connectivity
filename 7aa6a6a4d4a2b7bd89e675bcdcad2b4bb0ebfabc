@@ -16,6 +16,24 @@
       "message": "though really needs testing to make sure it works...\n\nbtw. technically we should be able to do:\n\n  cell (rawip) v4-only or dualstack upstream + ipv4 tether offload\n  cell (rawip) v6-only or dualstack upstream + ipv6 tether offload\n  cell (rawip) v6-only upstream + clat offload + ipv4 tether offload\n\n  wifi (ether) v6-only upstream + clat offload + ipv4 tether offload\n\nbecause v4- interface is a rawip upstream.\n\neven though we can\u0027t yet do:\n\n  wifi (ether) v4-only or dualstack upstream + ipv4 tether offload.\n  \nbecause of wifi being ether instead of rawip",
       "revId": "7aa6a6a4d4a2b7bd89e675bcdcad2b4bb0ebfabc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d79de609_6d72b6c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-05T14:01:00Z",
+      "side": 1,
+      "message": "Yes, thanks for your review and detailed advice.\n\nI have only tried on 4th (v6 only wifi) case manually because we don\u0027t have v6-only carrier here. I am trying to add unit tests but I have problems while calling @hide function (getStackedLinks) in test. Maybe talk to mark next Monday. I think that your four cases and unit test are required.\n\nThank you",
+      "parentUuid": "a0f8c3d8_d4106b94",
+      "revId": "7aa6a6a4d4a2b7bd89e675bcdcad2b4bb0ebfabc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
