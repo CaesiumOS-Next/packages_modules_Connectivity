@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fac9204_982577c6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-08-08T00:52:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbe4efa7_cbc8c8d0",
+      "range": {
+        "startLine": 11,
+        "startChar": 52,
+        "endLine": 11,
+        "endChar": 61
+      },
+      "revId": "5daf349843ea4c2bbc8885209db89bb39536af21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2eb62b85_b018bbfc",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a24e1113_a6830a2b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-08-08T00:52:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2eb62b85_b018bbfc",
+      "range": {
+        "startLine": 14,
+        "startChar": 47,
+        "endLine": 14,
+        "endChar": 53
+      },
+      "revId": "5daf349843ea4c2bbc8885209db89bb39536af21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04bbe81e_4c0bb3fc",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-08-05T06:28:59Z",
       "side": 1,
       "message": "This is unused now.",
+      "range": {
+        "startLine": 9040,
+        "startChar": 18,
+        "endLine": 9040,
+        "endChar": 24
+      },
+      "revId": "5daf349843ea4c2bbc8885209db89bb39536af21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f827f0ca_3bf7717d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 9040,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-08-08T00:52:36Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "04bbe81e_4c0bb3fc",
       "range": {
         "startLine": 9040,
         "startChar": 18,
