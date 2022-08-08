@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba1ee600_89d47a62",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-08T05:32:12Z",
+      "side": 1,
+      "message": "If you want the default back to aosp/2135056, aren\u0027t these need to be guarded y  synchronized (sUidOwnerMap) ?",
+      "range": {
+        "startLine": 361,
+        "startChar": 0,
+        "endLine": 362,
+        "endChar": 60
+      },
+      "revId": "4169d1ee3b25fcc9ac5e4bd1154500f47255c5e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
