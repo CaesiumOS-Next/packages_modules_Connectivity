@@ -22,6 +22,30 @@
       },
       "revId": "4169d1ee3b25fcc9ac5e4bd1154500f47255c5e1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37afa61e_d31e6396",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-08-08T06:52:37Z",
+      "side": 1,
+      "message": "I added `synchronized` as a preparation of migration from JNI to Java BpfMap. (aosp/2135055)\n`synchronized (sUidOwnerMap)` was to avoid JNI and Java code modify the UidOwnerMap concurrently.\nThis was needed because some APIs use JNI and other APIs use Java BpfMap while migration.\nBut, I will use topic `switch_uid_owner_map_api` to submit this CL.\nSo, we don\u0027t need synchronized because all the APIs will use JNI \"or\" all the APIs will use Java BpfMap to update UidOwnerMap.",
+      "parentUuid": "ba1ee600_89d47a62",
+      "range": {
+        "startLine": 361,
+        "startChar": 0,
+        "endLine": 362,
+        "endChar": 60
+      },
+      "revId": "4169d1ee3b25fcc9ac5e4bd1154500f47255c5e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
