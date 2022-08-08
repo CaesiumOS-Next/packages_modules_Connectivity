@@ -253,6 +253,7 @@ java_defaults {
     optimize: {
         enabled: true,
         shrink: true,
+        ignore_warnings: false,
         proguard_flags_files: ["proguard.flags"],
     },
     lint: { strict_updatability_linting: true },
