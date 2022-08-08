@@ -3015,6 +3015,8 @@ public class ConnectivityManagerTest {
                 makeUrl(TEST_HTTP_URL_PATH));
         NetworkValidationTestUtil.setUrlExpirationDeviceConfig(mTestValidationConfigRule,
                 System.currentTimeMillis() + WIFI_CONNECT_TIMEOUT_MS);
+        NetworkValidationTestUtil.setUrlTransportsDeviceConfig(mTestValidationConfigRule,
+                TRANSPORT_WIFI);
     }
 
     @AppModeFull(reason = "Need WiFi support to test the default active network")
