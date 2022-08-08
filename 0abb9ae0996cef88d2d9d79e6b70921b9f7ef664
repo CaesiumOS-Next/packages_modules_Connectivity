@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f75c832d_f0fe83d6",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-08T21:22:37Z",
+      "side": 0,
+      "message": "Why is this not needed anymore?",
+      "range": {
+        "startLine": 671,
+        "startChar": 4,
+        "endLine": 671,
+        "endChar": 30
+      },
+      "revId": "0abb9ae0996cef88d2d9d79e6b70921b9f7ef664",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
