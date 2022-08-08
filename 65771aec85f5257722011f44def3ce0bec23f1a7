@@ -46,6 +46,30 @@
       },
       "revId": "65771aec85f5257722011f44def3ce0bec23f1a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26b819cf_249c6578",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2508,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-08T06:58:46Z",
+      "side": 1,
+      "message": "checkAndNoteWriteSettingsOperation check write settings permission instead of NETWORK_SETTINGS",
+      "parentUuid": "1f3898c3_171cf5bb",
+      "range": {
+        "startLine": 2506,
+        "startChar": 16,
+        "endLine": 2508,
+        "endChar": 62
+      },
+      "revId": "65771aec85f5257722011f44def3ce0bec23f1a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

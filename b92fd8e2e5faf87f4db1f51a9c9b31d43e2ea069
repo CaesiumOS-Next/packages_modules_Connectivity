@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fe63cc4_69b9c903",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2504,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-08T06:58:46Z",
+      "side": 1,
+      "message": "Also put TETHER_PRIVILEGED here to have change tethering permission.",
+      "range": {
+        "startLine": 2504,
+        "startChar": 39,
+        "endLine": 2504,
+        "endChar": 40
+      },
+      "revId": "b92fd8e2e5faf87f4db1f51a9c9b31d43e2ea069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
