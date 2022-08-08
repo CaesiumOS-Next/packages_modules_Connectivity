@@ -36,6 +36,7 @@ import android.net.Uri
 import android.net.cts.NetworkValidationTestUtil.setHttpUrlDeviceConfig
 import android.net.cts.NetworkValidationTestUtil.setHttpsUrlDeviceConfig
 import android.net.cts.NetworkValidationTestUtil.setUrlExpirationDeviceConfig
+import android.net.cts.NetworkValidationTestUtil.setUrlTransportsDeviceConfig
 import android.net.cts.util.CtsNetUtils
 import com.android.net.module.util.NetworkStackConstants.TEST_CAPTIVE_PORTAL_HTTPS_URL
 import com.android.net.module.util.NetworkStackConstants.TEST_CAPTIVE_PORTAL_HTTP_URL
@@ -164,6 +165,7 @@ class CaptivePortalTest {
         server.addResponse(Request(TEST_HTTP_URL_PATH), Status.REDIRECT, headers)
         setHttpsUrlDeviceConfig(deviceConfigRule, makeUrl(TEST_HTTPS_URL_PATH))
         setHttpUrlDeviceConfig(deviceConfigRule, makeUrl(TEST_HTTP_URL_PATH))
+        setUrlTransportsDeviceConfig(deviceConfigRule, TRANSPORT_WIFI)
         Log.d(TAG, "Set portal URLs to $TEST_HTTPS_URL_PATH and $TEST_HTTP_URL_PATH")
         // URL expiration needs to be in the next 10 minutes
         assertTrue(WIFI_CONNECT_TIMEOUT_MS < TimeUnit.MINUTES.toMillis(10))
