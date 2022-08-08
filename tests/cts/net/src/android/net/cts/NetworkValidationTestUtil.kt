@@ -19,6 +19,7 @@ package android.net.cts
 import android.Manifest.permission.WRITE_DEVICE_CONFIG
 import android.provider.DeviceConfig
 import android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY
+import com.android.net.module.util.NetworkCapabilitiesUtils
 import com.android.net.module.util.NetworkStackConstants
 import com.android.testutils.runAsShell
 
@@ -40,6 +41,8 @@ internal object NetworkValidationTestUtil {
                     NetworkStackConstants.TEST_CAPTIVE_PORTAL_HTTP_URL, null, false)
             DeviceConfig.setProperty(NAMESPACE_CONNECTIVITY,
                     NetworkStackConstants.TEST_URL_EXPIRATION_TIME, null, false)
+            DeviceConfig.setProperty(NAMESPACE_CONNECTIVITY,
+                    NetworkStackConstants.TEST_URL_TRANSPORTS, null, false)
         }
     }
 
@@ -72,4 +75,15 @@ internal object NetworkValidationTestUtil {
     fun setUrlExpirationDeviceConfig(rule: DeviceConfigRule, timestamp: Long?) =
             rule.setConfig(NAMESPACE_CONNECTIVITY,
                 NetworkStackConstants.TEST_URL_EXPIRATION_TIME, timestamp?.toString())
+
+    /**
+     * Set the test validation URL transports.
+     *
+     * @see NetworkStackConstants.TEST_URL_TRANSPORTS
+     */
+    @JvmStatic
+    fun setUrlTransportsDeviceConfig(rule: DeviceConfigRule, vararg transports: Int) =
+            rule.setConfig(NAMESPACE_CONNECTIVITY,
+                    NetworkStackConstants.TEST_URL_TRANSPORTS,
+                    NetworkCapabilitiesUtils.packBits(transports).toString())
 }
