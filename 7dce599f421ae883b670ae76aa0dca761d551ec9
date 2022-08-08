@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bccb2902_4589843e",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-08T08:41:25Z",
+      "side": 0,
+      "message": "IIUC this returns milliseconds since boot, including time spent in sleep.\nWhich cannot be replaced by millis(), right?\nIf so, maybe add commit message to describe why this is safe?",
+      "range": {
+        "startLine": 1307,
+        "startChar": 37,
+        "endLine": 1307,
+        "endChar": 52
+      },
+      "revId": "7dce599f421ae883b670ae76aa0dca761d551ec9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
