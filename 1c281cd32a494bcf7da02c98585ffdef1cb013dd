@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb8db645_04bd7649",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-08T10:27:16Z",
+      "side": 1,
+      "message": "TH failed, so it looks like it failed to link to Builder.\n\nError: NetworkTemplate.java: android.net.NetworkTemplate.buildTemplateMobileAll: Could not find public api android.net.NetworkTemplate#Builder().\nError: NetworkTemplate.java: android.net.NetworkTemplate.buildTemplateWifiWildcard: Could not find public api android.net.NetworkTemplate#Builder().\nError: NetworkTemplate.java: android.net.NetworkTemplate.buildTemplateWifi: Could not find public api android.net.NetworkTemplate#Builder().\nError: NetworkTemplate.java: android.net.NetworkTemplate.buildTemplateEthernet: Could not find public api android.net.NetworkTemplate#Builder().\nError: NetworkTemplate.java: android.net.NetworkTemplate.\u003cinit\u003e: Could not find public api android.net.NetworkTemplate#Builder().",
+      "revId": "1c281cd32a494bcf7da02c98585ffdef1cb013dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
