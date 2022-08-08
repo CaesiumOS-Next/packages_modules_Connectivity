@@ -165,13 +165,13 @@ java_defaults {
     // R8 runs after jarjar, so the framework-X libraries need to be the post-jarjar artifacts
     // (framework-tethering.impl), if they are not just stubs, so that the name of jarjared
     // classes match.
-    // TODO(b/229727645): ensure R8 fails the build fully if libraries are missing
     defaults: ["TetheringExternalLibs"],
     libs: [
         "framework-tethering.impl",
     ],
     jarjar_rules: "jarjar-rules.txt",
     optimize: {
+        ignore_warnings: false,
         proguard_flags_files: ["proguard.flags"],
     },
     lint: { strict_updatability_linting: true },
