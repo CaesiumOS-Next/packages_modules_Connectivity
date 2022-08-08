@@ -22,6 +22,30 @@
       },
       "revId": "8efc3f41e000502e7a1c146d3ca4073533185a60",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43c59ef3_14663eb2",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-08T02:59:08Z",
+      "side": 1,
+      "message": "It\u0027s visible on the Sponge page, but not in the android test output (need to click on the sponge link)\nb/220265257 is supposed to fix that",
+      "parentUuid": "8eafeabf_b06a8c63",
+      "range": {
+        "startLine": 119,
+        "startChar": 15,
+        "endLine": 119,
+        "endChar": 92
+      },
+      "revId": "8efc3f41e000502e7a1c146d3ca4073533185a60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
