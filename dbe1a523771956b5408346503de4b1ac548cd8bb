@@ -187,6 +187,30 @@
       },
       "revId": "dbe1a523771956b5408346503de4b1ac548cd8bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3868c9cd_f9450691",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-09T15:53:20Z",
+      "side": 1,
+      "message": "Done, separate to new testLegacyBuildTemplate()",
+      "parentUuid": "f6b5d12c_a4759d5c",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 60
+      },
+      "revId": "dbe1a523771956b5408346503de4b1ac548cd8bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
