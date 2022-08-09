@@ -46,6 +46,30 @@
       },
       "revId": "4169d1ee3b25fcc9ac5e4bd1154500f47255c5e1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65324092_a7c3810d",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-08-09T01:53:06Z",
+      "side": 1,
+      "message": "Let me rephrase.\n\nI added `synchronized` in aosp/2135055 to acuire the same lock between previous code path and new code path so that we can avoid JNI and Java code modify the UidOwnerMap concurrently.\nThis was needed because, while migration, some APIs use JNI and other APIs use Java BpfMap to modify UidOwnerMap.\nBut, I will use topic  switch_uid_owner_map_api  to submit this CL.\nSo, we don\u0027t need synchronized because all the APIs will use JNI \"or\" all the APIs will use Java BpfMap to update UidOwnerMap.\n\nNew code path will use `synchronized (sUidOwnerMap)`  for lock http://cs/aosp-master/packages/modules/Connectivity/service/src/com/android/server/BpfNetMaps.java;l\u003d332;rcl\u003d3d014037ec9bdc9ca0a6a944fd2bf1c738de1b1d\nAnd previous code path will use `guard(mMutex)`  for lock http://cs/aosp-master/packages/modules/Connectivity/service/native/TrafficController.cpp;l\u003d382;rcl\u003d3d014037ec9bdc9ca0a6a944fd2bf1c738de1b1d",
+      "parentUuid": "37afa61e_d31e6396",
+      "range": {
+        "startLine": 361,
+        "startChar": 0,
+        "endLine": 362,
+        "endChar": 60
+      },
+      "revId": "4169d1ee3b25fcc9ac5e4bd1154500f47255c5e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
