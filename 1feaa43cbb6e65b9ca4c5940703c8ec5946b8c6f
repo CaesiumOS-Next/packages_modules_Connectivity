@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38eada83_5b202ced",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-08-09T14:48:58Z",
+      "side": 1,
+      "message": "Running Tests...\n\nx86 CtsNetTestCases\n-------------------\nandroid.net.cts (9 Tests)\n[1/9] android.net.cts.DscpPolicyTest#testParcelingDscpPolicyIsLossless: PASSED (254ms)\n[2/9] android.net.cts.DscpPolicyTest#testRemoveDscpPolicy_InvalidPolicy: PASSED (102ms)\n[3/9] android.net.cts.DscpPolicyTest#testRemoveDscpPolicy_RemoveImmediatelyAfterAdd: PASSED (12.372s)\n[4/9] android.net.cts.DscpPolicyTest#testRemoveAllDscpPolicies: PASSED (20.317s)\n[5/9] android.net.cts.DscpPolicyTest#testDscpPolicyAddPolicies: PASSED (12.368s)\n[6/9] android.net.cts.DscpPolicyTest#testRemoveDscpPolicy_RemoveSameOrderAsAdd: PASSED (21.397s)\n[7/9] android.net.cts.DscpPolicyTest#testDscpPolicyAddV6Policies: PASSED (12.391s)\n[8/9] android.net.cts.DscpPolicyTest#testRemoveDscpPolicy_RemoveReverseOrder: PASSED (12.345s)\n[9/9] android.net.cts.DscpPolicyTest#testAddDuplicateDscpPolicy: PASSED (12.343s)\n\nx86 CtsNetTestCasesLatestSdk\n----------------------------\nandroid.net.cts (9 Tests)\n[1/9] android.net.cts.DscpPolicyTest#testParcelingDscpPolicyIsLossless: PASSED (202ms)\n[2/9] android.net.cts.DscpPolicyTest#testRemoveDscpPolicy_InvalidPolicy: PASSED (127ms)\n[3/9] android.net.cts.DscpPolicyTest#testRemoveDscpPolicy_RemoveImmediatelyAfterAdd: PASSED (12.395s)\n[4/9] android.net.cts.DscpPolicyTest#testRemoveAllDscpPolicies: PASSED (18.293s)\n[5/9] android.net.cts.DscpPolicyTest#testDscpPolicyAddPolicies: PASSED (12.442s)\n[6/9] android.net.cts.DscpPolicyTest#testRemoveDscpPolicy_RemoveSameOrderAsAdd: PASSED (20.315s)\n[7/9] android.net.cts.DscpPolicyTest#testDscpPolicyAddV6Policies: PASSED (12.397s)\n[8/9] android.net.cts.DscpPolicyTest#testRemoveDscpPolicy_RemoveReverseOrder: PASSED (12.345s)\n[9/9] android.net.cts.DscpPolicyTest#testAddDuplicateDscpPolicy: PASSED (12.345s)\n\nSummary (Test executed with 1 devices.)\n-------\nx86 CtsNetTestCases: Passed: 9, Failed: 0, Ignored: 0, Assumption Failed: 0,    \nx86 CtsNetTestCasesLatestSdk: Passed: 9, Failed: 0, Ignored: 0, Assumption Failed: 0,    \n\nAll tests passed!\n",
+      "revId": "1feaa43cbb6e65b9ca4c5940703c8ec5946b8c6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
