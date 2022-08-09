@@ -54,11 +54,33 @@ static int (*bpf_skb_change_head)(struct __sk_buff* skb, __u32 head_room,
 static int (*bpf_skb_adjust_room)(struct __sk_buff* skb, __s32 len_diff, __u32 mode,
                                   __u64 flags) = (void*)BPF_FUNC_skb_adjust_room;
 
+static long (*bpf_skb_ecn_set_ce)(struct __sk_buff* skb) = (void*)BPF_FUNC_skb_ecn_set_ce;
+
 // Android only supports little endian architectures
 #define htons(x) (__builtin_constant_p(x) ? ___constant_swab16(x) : __builtin_bswap16(x))
 #define htonl(x) (__builtin_constant_p(x) ? ___constant_swab32(x) : __builtin_bswap32(x))
 #define ntohs(x) htons(x)
 #define ntohl(x) htonl(x)
+
+// Retrieve the first (ie. high) 64 bits of an IPv6 address (in network order)
+static __always_inline __be64 v6_hi_be64(const struct in6_addr* v) {
+    return *(uint64_t*)&(v->s6_addr32[0])
+}
+
+// Retrieve the last (ie. low) 64 bits of an IPv6 address (in network order)
+static __always_inline __be64 v6_lo_be64(const struct in6_addr* v) {
+    return *(uint64_t*)&(v->s6_addr32[2])
+}
+
+// This returns a non-zero u64 iff *a != *b
+static __always_inline __be64 v6_not_equal(const struct in6_addr* a, const struct in6_addr* b) {
+    return (v6_hi_be64(a) ^ v6_hi_be64(b)) | (v6_lo_be64(a) ^ v6_lo_be64(b));
+}
+
+// Returns 'a == b' as boolean
+static __always_inline bool v6_equal(const struct in6_addr* a, const struct in6_addr* b) {
+    return !v6_not_equal(a, b);
+}
 
 static inline __always_inline __unused bool is_received_skb(struct __sk_buff* skb) {
     return skb->pkt_type == PACKET_HOST || skb->pkt_type == PACKET_BROADCAST ||
