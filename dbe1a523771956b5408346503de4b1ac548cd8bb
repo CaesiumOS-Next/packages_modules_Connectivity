@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d31f5fad_0668f1ce",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-09T16:21:10Z",
+      "side": 1,
+      "message": "filed b/241921642",
+      "parentUuid": "25b0a040_8f83e35c",
+      "range": {
+        "startLine": 308,
+        "startChar": 65,
+        "endLine": 308,
+        "endChar": 86
+      },
+      "revId": "dbe1a523771956b5408346503de4b1ac548cd8bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0aa604ca_29a0970f",
@@ -84,6 +108,30 @@
       "writtenOn": "2022-08-04T01:49:02Z",
       "side": 1,
       "message": "Maybe not for this CL.\nWe decided not to expose system API when mainlining.\nPlease remove this statement and maybe also this function?",
+      "range": {
+        "startLine": 775,
+        "startChar": 4,
+        "endLine": 775,
+        "endChar": 35
+      },
+      "revId": "dbe1a523771956b5408346503de4b1ac548cd8bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66b50d72_09d818f7",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-09T16:21:10Z",
+      "side": 1,
+      "message": "filed b/241921642",
+      "parentUuid": "0aa604ca_29a0970f",
       "range": {
         "startLine": 775,
         "startChar": 4,
