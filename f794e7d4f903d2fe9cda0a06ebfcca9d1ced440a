@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a225069f_351cae64",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-09T04:33:31Z",
+      "side": 1,
+      "message": "nit: not have strong opinion but you could remove big nested IF by doing early return.\n\n\n    if (!sEnableJavaBpfMap) {\n        final int err \u003d native_addUidInterfaceRules(ifName, uids);\n        maybeThrow(err, \"Unable to add uid interface rules\");\n    }\n    ...",
+      "range": {
+        "startLine": 569,
+        "startChar": 0,
+        "endLine": 593,
+        "endChar": 9
+      },
+      "revId": "f794e7d4f903d2fe9cda0a06ebfcca9d1ced440a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
