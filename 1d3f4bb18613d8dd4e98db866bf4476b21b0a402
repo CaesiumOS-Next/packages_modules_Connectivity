@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fca9b77f_11c8856a",
+        "filename": "framework/src/android/net/DnsResolver.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-09T07:45:36Z",
+      "side": 1,
+      "message": "This is a IANA constant and it can never change. I think there is no reason to not make this public.\n\nBesides, having it in the IntDef for QueryType means it would be referred to in doc but not accessible.",
+      "range": {
+        "startLine": 84,
+        "startChar": 5,
+        "endLine": 84,
+        "endChar": 14
+      },
+      "revId": "1d3f4bb18613d8dd4e98db866bf4476b21b0a402",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
