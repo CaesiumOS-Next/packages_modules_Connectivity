@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "8caad597_3f647340",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-09T08:58:46Z",
+      "side": 1,
+      "message": "Currently",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 10
+      },
+      "revId": "2b497c581a2b70957b5c78f529a7af3a425a08c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c15baf64_64eda77a",
@@ -77,6 +100,53 @@
         "startChar": 4,
         "endLine": 89,
         "endChar": 60
+      },
+      "revId": "2b497c581a2b70957b5c78f529a7af3a425a08c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "432f9bad_33976808",
+        "filename": "framework-t/src/android/net/NetworkIdentity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-09T08:58:46Z",
+      "side": 1,
+      "message": "aosp/2173584 is now checked in (though I put some reservations on it) so now you should be able to remove this I think ?",
+      "parentUuid": "fd551848_ac7c54b4",
+      "range": {
+        "startLine": 89,
+        "startChar": 4,
+        "endLine": 89,
+        "endChar": 60
+      },
+      "revId": "2b497c581a2b70957b5c78f529a7af3a425a08c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19428a7d_1040e926",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-09T08:58:46Z",
+      "side": 1,
+      "message": "s/network with/a network containing/",
+      "range": {
+        "startLine": 793,
+        "startChar": 23,
+        "endLine": 793,
+        "endChar": 35
       },
       "revId": "2b497c581a2b70957b5c78f529a7af3a425a08c4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"

@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3b217c9_9b904595",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-09T08:58:46Z",
+      "side": 1,
+      "message": "Do you have these yet ? I\u0027ve looked at many followups but haven\u0027t found usage of this yet.",
+      "range": {
+        "startLine": 10,
+        "startChar": 19,
+        "endLine": 10,
+        "endChar": 32
+      },
+      "revId": "7d5cd80cc937c6703c41a62f82f61f68486f2b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25a30933_f8a594c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-09T08:58:46Z",
+      "side": 1,
+      "message": "LGTM when comments addressed",
+      "revId": "7d5cd80cc937c6703c41a62f82f61f68486f2b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc44dfd2_70030a18",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-09T08:58:46Z",
+      "side": 1,
+      "message": "IIUC you use this by constructing a NetworkTemplate with the\n\n    public NetworkTemplate(int matchRule, String subscriberId, String[] matchSubscriberIds,\n            String[] matchWifiNetworkKeys, int metered, int roaming,\n            int defaultNetwork, int ratType, int oemManaged, int subscriberIdMatchRule)\n\nconstructor. Correct ?",
+      "range": {
+        "startLine": 125,
+        "startChar": 28,
+        "endLine": 125,
+        "endChar": 38
+      },
+      "revId": "7d5cd80cc937c6703c41a62f82f61f68486f2b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
