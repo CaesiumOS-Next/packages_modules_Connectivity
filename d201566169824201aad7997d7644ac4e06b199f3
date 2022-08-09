@@ -34,6 +34,23 @@
       "parentUuid": "199bbe53_b657152a",
       "revId": "d201566169824201aad7997d7644ac4e06b199f3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8733caee_439a64fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1655264
+      },
+      "writtenOn": "2022-08-09T08:44:12Z",
+      "side": 1,
+      "message": "mContext still uses Context instead of Application",
+      "revId": "d201566169824201aad7997d7644ac4e06b199f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
