@@ -983,12 +983,12 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
 
     // Does this network satisfy request?
     public boolean satisfies(NetworkRequest request) {
-        return created &&
+        return everConnected &&
                 request.networkCapabilities.satisfiedByNetworkCapabilities(networkCapabilities);
     }
 
     public boolean satisfiesImmutableCapabilitiesOf(NetworkRequest request) {
-        return created &&
+        return everConnected &&
                 request.networkCapabilities.satisfiedByImmutableNetworkCapabilities(
                         networkCapabilities);
     }

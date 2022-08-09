@@ -7512,6 +7512,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             notifyIfacesChangedForNetworkStats();
             networkAgent.networkMonitor().notifyLinkPropertiesChanged(
                     new LinkProperties(newLp, true /* parcelSensitiveFields */));
+            // TODO: delete, now that everConnected=false means that the network cannot satisfy?
             if (networkAgent.everConnected) {
                 notifyNetworkCallbacks(networkAgent, ConnectivityManager.CALLBACK_IP_CHANGED);
             }
@@ -8770,6 +8771,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // Gather the list of all relevant agents.
         final ArrayList<NetworkAgentInfo> nais = new ArrayList<>();
         for (final NetworkAgentInfo nai : mNetworkAgentInfos) {
+            // TODO: delete, now that everConnected=false means that the network cannot satisfy?
             if (!nai.everConnected) {
                 continue;
             }
@@ -8896,6 +8898,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         for (final NetworkAgentInfo nai : nais) {
+            // TODO: delete, now that everConnected=false means that the network cannot satisfy?
             if (!nai.everConnected) continue;
             final boolean oldBackground = oldBgNetworks.contains(nai);
             // Process listen requests and update capabilities if the background state has
@@ -9496,6 +9499,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
         for (NetworkAgentInfo nai : mNetworkAgentInfos) {
+            // TODO: delete, now that everConnected=false means that the network cannot satisfy?
             if (nai.everConnected && (activeNetIds.contains(nai.network().netId) || nai.isVPN())) {
                 defaultNetworks.add(nai.network);
             }
