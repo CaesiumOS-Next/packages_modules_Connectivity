@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ca2f8be_5ab252cf",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-09T04:36:56Z",
+      "side": 1,
+      "message": "nit: you could avoid nested IF: if (!sEnableJavaBpfMap) { ...",
+      "range": {
+        "startLine": 613,
+        "startChar": 0,
+        "endLine": 620,
+        "endChar": 13
+      },
+      "revId": "7dc657d4aafee4b5655c5eccb612c38bba963902",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
