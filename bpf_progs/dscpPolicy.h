@@ -14,39 +14,18 @@
  * limitations under the License.
  */
 
-#define CACHE_MAP_SIZE 1024
-#define MAX_POLICIES 16
+#pragma once
 
-#define SRC_IP_MASK_FLAG     1
-#define DST_IP_MASK_FLAG     2
-#define SRC_PORT_MASK_FLAG   4
-#define PROTO_MASK_FLAG      8
+// 'static' - otherwise these constants end up in .rodata in the resulting .o post compilation
+static const int CACHE_MAP_SIZE = 1024;
+static const int MAX_POLICIES = 16;
+
+static const uint8_t SRC_IP_MASK_FLAG = 1;
+static const uint8_t DST_IP_MASK_FLAG = 2;
+static const uint8_t SRC_PORT_MASK_FLAG = 4;
+static const uint8_t PROTO_MASK_FLAG = 8;
 
 #define STRUCT_SIZE(name, size) _Static_assert(sizeof(name) == (size), "Incorrect struct size.")
-
-// Retrieve the first (ie. high) 64 bits of an IPv6 address (in network order)
-#define v6_hi_be64(v) (*(uint64_t*)&((v).s6_addr32[0]))
-
-// Retrieve the last (ie. low) 64 bits of an IPv6 address (in network order)
-#define v6_lo_be64(v) (*(uint64_t*)&((v).s6_addr32[2]))
-
-// This returns a non-zero u64 iff a != b
-#define v6_not_equal(a, b) ((v6_hi_be64(a) ^ v6_hi_be64(b)) \
-                          | (v6_lo_be64(a) ^ v6_lo_be64(b)))
-
-// Returns 'a == b' as boolean
-#define v6_equal(a, b) (!v6_not_equal((a), (b)))
-
-// TODO: these are already defined in packages/modules/Connectivity/bpf_progs/bpf_net_helpers.h.
-// smove to common location in future.
-static uint64_t (*bpf_get_socket_cookie)(struct __sk_buff* skb) =
-        (void*)BPF_FUNC_get_socket_cookie;
-static int (*bpf_skb_store_bytes)(struct __sk_buff* skb, __u32 offset, const void* from, __u32 len,
-                                  __u64 flags) = (void*)BPF_FUNC_skb_store_bytes;
-static int (*bpf_l3_csum_replace)(struct __sk_buff* skb, __u32 offset, __u64 from, __u64 to,
-                                  __u64 flags) = (void*)BPF_FUNC_l3_csum_replace;
-static long (*bpf_skb_ecn_set_ce)(struct __sk_buff* skb) =
-        (void*)BPF_FUNC_skb_ecn_set_ce;
 
 typedef struct {
     struct in6_addr src_ip;
