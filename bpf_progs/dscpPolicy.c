@@ -31,6 +31,7 @@
 #define BPFLOADER_MIN_VER BPFLOADER_T_BETA3_VERSION
 
 #include "bpf_helpers.h"
+#include "bpf_net_helpers.h"
 #include "dscpPolicy.h"
 
 #define ECN_MASK 3
@@ -122,8 +123,8 @@ static inline __always_inline void match_policy(struct __sk_buff* skb, bool ipv4
     RuleEntry* existing_rule = bpf_socket_policy_cache_map_lookup_elem(&cookie);
 
     if (existing_rule &&
-        v6_equal(src_ip, existing_rule->src_ip) &&
-        v6_equal(dst_ip, existing_rule->dst_ip) &&
+        v6_equal(&src_ip, &existing_rule->src_ip) &&
+        v6_equal(&dst_ip, &existing_rule->dst_ip) &&
         skb->ifindex == existing_rule->ifindex &&
         sport == existing_rule->src_port &&
         dport == existing_rule->dst_port &&
@@ -172,11 +173,11 @@ static inline __always_inline void match_policy(struct __sk_buff* skb, bool ipv4
             score += 0xFFFF;
         }
         if (policy->present_fields & SRC_IP_MASK_FLAG) {
-            if (v6_not_equal(src_ip, policy->src_ip)) continue;
+            if (v6_not_equal(&src_ip, &policy->src_ip)) continue;
             score += 0xFFFF;
         }
         if (policy->present_fields & DST_IP_MASK_FLAG) {
-            if (v6_not_equal(dst_ip, policy->dst_ip)) continue;
+            if (v6_not_equal(&dst_ip, &policy->dst_ip)) continue;
             score += 0xFFFF;
         }
         if (policy->present_fields & SRC_PORT_MASK_FLAG) {
