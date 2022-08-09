@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92ae331e_848dacea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-09T09:26:11Z",
+      "side": 1,
+      "message": "I think the explanation here is sufficient, thanks.",
+      "parentUuid": "c9590c14_b37c91ba",
+      "range": {
+        "startLine": 7,
+        "startChar": 42,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "77d4c4efa87321d85f482b7bd9e5779f20b28690",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbdf8f29_ac9dc581",
@@ -97,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b5b25ec2_4442cae6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-09T09:26:11Z",
+      "side": 1,
+      "message": "\u003e but [framework-connectivity-t.impl] can\u0027t use [framework-connectivity-pre-jarjar] to build the stubs, since there would be a circular dependency\n\nSure, but to build the stubs I don\u0027t think metalava cares if it uses unknown methods somewhere in the implementation ? As long as it doesn\u0027t try to expose an unknown class in one of the signatures.\n\nSo IIUC the idea is that when generating the stubs for -t (stub_only_libs) we should use the framework-connectivity stubs, and for the impl use framework-connectivity.impl *and not stubs* otherwise stubs have priority and they don\u0027t include the hidden methods. What stops us from doing this ? Do the tools force using the stub_only_libs also in implementation ? If so that\u0027s a feature request for soong I guess",
+      "parentUuid": "d989ef1c_856d8551",
+      "range": {
+        "startLine": 24,
+        "startChar": 25,
+        "endLine": 25,
+        "endChar": 31
+      },
+      "revId": "77d4c4efa87321d85f482b7bd9e5779f20b28690",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "911ee97d_5ccf7934",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -132,6 +180,30 @@
       "side": 1,
       "message": "Sorry, I should have filed a new one, but can\u0027t change this now... I can file a bug for documentation after we\u0027re good on what should be clarified",
       "parentUuid": "911ee97d_5ccf7934",
+      "range": {
+        "startLine": 28,
+        "startChar": 5,
+        "endLine": 28,
+        "endChar": 14
+      },
+      "revId": "77d4c4efa87321d85f482b7bd9e5779f20b28690",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09ebd9ac_bce13ab8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-09T09:26:11Z",
+      "side": 1,
+      "message": "No I think it\u0027s too late, this was really about this change",
+      "parentUuid": "5dcf8b29_6f66bd44",
       "range": {
         "startLine": 28,
         "startChar": 5,
