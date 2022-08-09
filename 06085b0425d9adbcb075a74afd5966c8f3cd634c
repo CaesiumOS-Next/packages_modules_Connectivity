@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe7b074b_c9404522",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-09T17:48:52Z",
+      "side": 1,
+      "message": "nit: remove \"this is\"",
+      "range": {
+        "startLine": 88,
+        "startChar": 21,
+        "endLine": 88,
+        "endChar": 29
+      },
+      "revId": "06085b0425d9adbcb075a74afd5966c8f3cd634c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
