@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dae2d2e3_4e544b5b",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-09T23:43:16Z",
+      "side": 1,
+      "message": "Pre-existing, but for correctness I think we should also check that the source address is a global address. Otherwise in the time between when the default route is added and the time when the source address passes DAD, connect() will succeed but the source address will be a link-local address.",
+      "range": {
+        "startLine": 237,
+        "startChar": 20,
+        "endLine": 237,
+        "endChar": 56
+      },
+      "revId": "b625a55e2f17d9ce46cd2a78f49e7a6bb5c71dec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8e05d2de_e1018b44",
         "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
         "patchSetId": 6
