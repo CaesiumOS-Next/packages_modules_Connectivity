@@ -178,6 +178,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c4fa7c02_814e11f6",
+        "filename": "framework-t/src/android/net/NetworkIdentity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-09T07:42:01Z",
+      "side": 1,
+      "message": "Making new fields in network stats is tremendously expensive (performance and disk-space wise as well as amount of work), so making a new field is not really realistic.\n\nHowever I agree that the wifi key is probably a better choice than the subscriber ID. Yes it says \"wifi\", but this is a \"key\" and not at all a \"subscriber\". I think the identity of the field matters more than what it is applicable to.",
+      "parentUuid": "526eba25_fbe0c339",
+      "range": {
+        "startLine": 420,
+        "startChar": 20,
+        "endLine": 421,
+        "endChar": 84
+      },
+      "revId": "857861201b11f7e4e6a991b768406d3b85b89e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d973d354_d8104354",
         "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
         "patchSetId": 1
@@ -400,6 +424,30 @@
       "writtenOn": "2022-08-05T06:21:59Z",
       "side": 1,
       "message": "IIUC this is not always true since we might get transport TEST+CELLULAR where the type is mobile according to the NetworkCapabilitiesUtils#getDisplayTransport.\nOtherwise we\u0027ll need to maintain another mapping table, which is also not great.\n\nRefer to:\nhttps://osscs.corp.google.com/android/platform/superproject/+/master:frameworks/libs/net/common/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java;l\u003d133?ss\u003dandroid\u0026q\u003dgetDisplayTransport\u0026start\u003d1",
+      "parentUuid": "ccfda708_522400a2",
+      "range": {
+        "startLine": 2236,
+        "startChar": 81,
+        "endLine": 2236,
+        "endChar": 91
+      },
+      "revId": "857861201b11f7e4e6a991b768406d3b85b89e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f031ee2b_712d1e6b",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2236,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-09T07:42:01Z",
+      "side": 1,
+      "message": "Agree with Junyu.\n\nGenerally, there can be multiple transports. We could use NetworkCapabilitiesUtils#getDisplayTransport to collapse into one, but I think specifying explicitly is better for tests.\n\n(you may want to call the first argument \"transports\", or make it a [] with a helper that only takes an int or something though ; if you have a helper that takes an int, then Aaron\u0027s suggestion makes a lot of sense for that helper)",
       "parentUuid": "ccfda708_522400a2",
       "range": {
         "startLine": 2236,

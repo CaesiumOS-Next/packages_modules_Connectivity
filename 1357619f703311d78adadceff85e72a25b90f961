@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "bed59855_4edbb8b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-09T07:42:01Z",
+      "side": 1,
+      "message": "+s",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 53
+      },
+      "revId": "1357619f703311d78adadceff85e72a25b90f961",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4ac9646_cf938243",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-09T07:42:01Z",
+      "side": 1,
+      "message": "+s",
+      "revId": "1357619f703311d78adadceff85e72a25b90f961",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "891e08a5_255c7010",
@@ -14,6 +54,52 @@
       "writtenOn": "2022-08-08T07:32:01Z",
       "side": 1,
       "message": "LGTM but please have someone else to take a look.",
+      "revId": "1357619f703311d78adadceff85e72a25b90f961",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c9f9bd3_543cfa60",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2243,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-09T07:42:01Z",
+      "side": 1,
+      "message": "Style nit : I think visually the grouping is better if you say\n\n            String iface, String subscriberId,\n            boolean isTemporarilyNotMetered, boolean isRoaming) {",
+      "range": {
+        "startLine": 2243,
+        "startChar": 31,
+        "endLine": 2243,
+        "endChar": 32
+      },
+      "revId": "1357619f703311d78adadceff85e72a25b90f961",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "491d03b9_aa95c65c",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2251,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-09T07:42:01Z",
+      "side": 1,
+      "message": "Unrelated to this change but while you\u0027re here (or in a different patch), maybe it\u0027s good to change this if to the style of the line below (`setCapability(TEMP_NOT_METERED, isTemporarilyNotMetered)`)",
+      "range": {
+        "startLine": 2251,
+        "startChar": 8,
+        "endLine": 2251,
+        "endChar": 9
+      },
       "revId": "1357619f703311d78adadceff85e72a25b90f961",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
