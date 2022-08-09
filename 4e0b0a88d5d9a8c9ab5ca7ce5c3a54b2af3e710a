@@ -16,6 +16,23 @@
       "message": "Patrick, PTAL.",
       "revId": "4e0b0a88d5d9a8c9ab5ca7ce5c3a54b2af3e710a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fac272c_190fb538",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-08-09T11:50:54Z",
+      "side": 1,
+      "message": "on git_master\n\nx86 CtsNetTestCases\n-------------------\nandroid.net.cts (9 Tests)\n[1/9] android.net.cts.DscpPolicyTest#testParcelingDscpPolicyIsLossless: PASSED (329ms)\n[2/9] android.net.cts.DscpPolicyTest#testRemoveDscpPolicy_InvalidPolicy: PASSED (202ms)\n[3/9] android.net.cts.DscpPolicyTest#testRemoveDscpPolicy_RemoveImmediatelyAfterAdd: PASSED (12.447s)\n[4/9] android.net.cts.DscpPolicyTest#testRemoveAllDscpPolicies: PASSED (20.337s)\n[5/9] android.net.cts.DscpPolicyTest#testDscpPolicyAddPolicies: PASSED (10.306s)\n[6/9] android.net.cts.DscpPolicyTest#testRemoveDscpPolicy_RemoveSameOrderAsAdd: PASSED (20.336s)\n[7/9] android.net.cts.DscpPolicyTest#testDscpPolicyAddV6Policies: PASSED (12.392s)\n[8/9] android.net.cts.DscpPolicyTest#testRemoveDscpPolicy_RemoveReverseOrder: PASSED (12.342s)\n[9/9] android.net.cts.DscpPolicyTest#testAddDuplicateDscpPolicy: PASSED (12.343s)\n\nx86 CtsNetTestCasesLatestSdk\n----------------------------\nandroid.net.cts (9 Tests)\n[1/9] android.net.cts.DscpPolicyTest#testParcelingDscpPolicyIsLossless: PASSED (278ms)\n[2/9] android.net.cts.DscpPolicyTest#testRemoveDscpPolicy_InvalidPolicy: PASSED (127ms)\n[3/9] android.net.cts.DscpPolicyTest#testRemoveDscpPolicy_RemoveImmediatelyAfterAdd: PASSED (12.422s)\n[4/9] android.net.cts.DscpPolicyTest#testRemoveAllDscpPolicies: PASSED (20.311s)\n[5/9] android.net.cts.DscpPolicyTest#testDscpPolicyAddPolicies: PASSED (12.369s)\n[6/9] android.net.cts.DscpPolicyTest#testRemoveDscpPolicy_RemoveSameOrderAsAdd: PASSED (20.315s)\n[7/9] android.net.cts.DscpPolicyTest#testDscpPolicyAddV6Policies: PASSED (12.371s)\n[8/9] android.net.cts.DscpPolicyTest#testRemoveDscpPolicy_RemoveReverseOrder: PASSED (12.349s)\n[9/9] android.net.cts.DscpPolicyTest#testAddDuplicateDscpPolicy: PASSED (12.320s)\n\nSummary (Test executed with 1 devices.)\n-------\nx86 CtsNetTestCases: Passed: 9, Failed: 0, Ignored: 0, Assumption Failed: 0,    \nx86 CtsNetTestCasesLatestSdk: Passed: 9, Failed: 0, Ignored: 0, Assumption Failed: 0,    \n\nAll tests passed!\n",
+      "revId": "4e0b0a88d5d9a8c9ab5ca7ce5c3a54b2af3e710a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
