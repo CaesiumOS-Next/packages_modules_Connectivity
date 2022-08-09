@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae115e5f_a05262cc",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 15737,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-09T06:45:01Z",
+      "side": 1,
+      "message": "Ideally it wouldn\u0027t include the owner UID, but oh well",
+      "range": {
+        "startLine": 15737,
+        "startChar": 49,
+        "endLine": 15737,
+        "endChar": 54
+      },
+      "revId": "39b12d4b8f0a402a1a265f8dccce5c600bd71252",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
