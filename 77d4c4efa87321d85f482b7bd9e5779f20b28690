@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9590c14_b37c91ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-09T08:22:08Z",
+      "side": 1,
+      "message": "Unfortunately I can\u0027t edit it now that it\u0027s autosubmitted :(\n\nBut the java_sdk_library (for framework-connectivity-t) is a combined build rule that generates both stubs (framework-connectivity-t.stubs.eachapilevel), and implementation library (framework-connectivity-t.impl). See: https://source.android.com/devices/architecture/java-library\n\nThis patch edits the \"stub_only_libs\" used by java_sdk_library, so that\u0027s the libs used to generate the stubs.\n\nOne thing to keep in mind is that java_sdk_library uses \"stub_only_libs\" to generate the stub source, but uses \"libs\" to compile them\n\nNote I filed b/227269567 to get this clarified a while back.",
+      "parentUuid": "9118b183_d9321f58",
+      "range": {
+        "startLine": 7,
+        "startChar": 42,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "77d4c4efa87321d85f482b7bd9e5779f20b28690",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cbdf8f29_ac9dc581",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d989ef1c_856d8551",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-09T08:22:08Z",
+      "side": 1,
+      "message": "\u003e framework-connectivity-t is allowed to reference the full framework-connectivity ; do you mean here that this is what we should do, but it\u0027s not done yet ?\n \nYes, this was not actually fully possible in framework-connectivity-t-pre-jarjar before, because it had \"sdk_module-lib_current_framework-connectivity\" (the SDK stubs) in its libs *before* framework-connectivity-pre-jarjar; so it would build against the stubs of ConnectivityManager instead of the full ConnectivityManager. Classes that are fully hidden and not part of the stubs (like KeepaliveUtils or DnsUtils) would not be a problem though, and be usable from framework-connectivity-pre-jarjar. That\u0027s why \"also part of the stubs\" matters, because there\u0027s a conflict for classes that are in both the stubs and framework-connectivity-pre-jarjar, and the stubs are used in priority.\n\n \u003e Do you mean we are splitting classes between these that are part of the public API and these that are not, and for these that are part of the public API we only generate stubs and therefore hidden symbols are not there ?\n\nRight, the stubs only contain classes that are part of the API\n\n \u003e shouldn\u0027t the classes that are part of the public API *also* be in the full impl framework-connectivity.jar and that should be the only artifact referenced by framework-connectivity-t ?\n\nframework-connectivity-t.impl does reference the full (pre-jarjar) impl library framework-connectivity-pre-jarjar via \"impl_only_libs\"; but it can\u0027t use it to build the stubs, since there would be a circular dependency (framework-connectivity-pre-jarjar uses framework-connectivity-t.stubs.module_lib).",
+      "parentUuid": "cbdf8f29_ac9dc581",
+      "range": {
+        "startLine": 24,
+        "startChar": 25,
+        "endLine": 25,
+        "endChar": 31
+      },
+      "revId": "77d4c4efa87321d85f482b7bd9e5779f20b28690",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "911ee97d_5ccf7934",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -60,6 +108,30 @@
       "writtenOn": "2022-08-04T04:54:22Z",
       "side": 1,
       "message": "This seems completely irrelevant to that bug. Can we tack this change to a bug that actually explains some context of what\u0027s wrong here ?",
+      "range": {
+        "startLine": 28,
+        "startChar": 5,
+        "endLine": 28,
+        "endChar": 14
+      },
+      "revId": "77d4c4efa87321d85f482b7bd9e5779f20b28690",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dcf8b29_6f66bd44",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-09T08:22:08Z",
+      "side": 1,
+      "message": "Sorry, I should have filed a new one, but can\u0027t change this now... I can file a bug for documentation after we\u0027re good on what should be clarified",
+      "parentUuid": "911ee97d_5ccf7934",
       "range": {
         "startLine": 28,
         "startChar": 5,
