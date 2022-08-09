@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e05d2de_e1018b44",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-09T17:07:43Z",
+      "side": 1,
+      "message": "Wait, would this not work:\n```\n            try {\n                network.bindSocket(sock)\n\n                // Pick any arbitrary port\n                Os.connect(sock, TEST_TARGET_IPV6_ADDR, 12345)\n                val sockAddr \u003d Os.getsockname(sock) as InetSocketAddress\n                if (onLinkPrefix.contains(sockAddr.address)) {\n                    inet6Addr \u003d sockAddr.address as Inet6Address\n                    break\n                }\n            } catch (e: ErrnoException) {\n                // there may not be an address available yet.\n                if (e.errno \u003d\u003d ENETUNREACH) continue\n                throw e\n            } finally {\n                Os.close(sock)\n            }\n\n```",
+      "range": {
+        "startLine": 229,
+        "startChar": 10,
+        "endLine": 247,
+        "endChar": 13
+      },
+      "revId": "b625a55e2f17d9ce46cd2a78f49e7a6bb5c71dec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
