@@ -135,6 +135,30 @@
       },
       "revId": "937fa2094aa60857eceb265a1045d273c7781ad6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d3f96b3_06824d4a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1231,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-09T09:27:33Z",
+      "side": 1,
+      "message": "Back to the original comment: Can we have a test to verify this exception will be threw even Process.myUid() \u003d\u003d uid now?\n\nFrom aosp/1781202 and offline discuss with Jean:\n\"This should allow only the case where ConnectivityService is\nmoving the requests over to the new per-uid default, while\nkeeping the exception when registering from an app (then the\ncalling UID is not the system server), or when the system\nserver registers its own requests (then the UID inside the\nrequest is that of the system server).\"\n\nCondition Process.myUid() \u003d\u003d uid is reached when UID inside the\nrequest is the system server.\nTo test this condition means to verify the connectivityManager throws if the requests made by system server *for itself* is over the limit.\nIf so, this doesn\u0027t need to involve catching exceptions on handler thread, right?\nIf so, IIUC this is already covered by testNetworkCallbackMaximum.\nPrecisely speaking, it is covered by this line: https://osscs.corp.google.com/android/platform/superproject/+/master:packages/modules/Connectivity/tests/unit/java/com/android/server/ConnectivityServiceTest.java;l\u003d6747?q\u003dtestNetworkCallbackMaximum\u0026ss\u003dandroid\nReopen if any idea.",
+      "parentUuid": "12f5b117_f6cb5c7f",
+      "range": {
+        "startLine": 1229,
+        "startChar": 16,
+        "endLine": 1231,
+        "endChar": 80
+      },
+      "revId": "937fa2094aa60857eceb265a1045d273c7781ad6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

@@ -49,6 +49,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2fbb3838_4709bafa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-09T09:27:33Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "27e557cc_20737891",
+      "range": {
+        "startLine": 15,
+        "startChar": 47,
+        "endLine": 16,
+        "endChar": 28
+      },
+      "revId": "964633b8d0360abf87ca0760f31e9de35969af83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ce3ed899_efa2ae78",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -94,6 +118,30 @@
       "writtenOn": "2022-08-02T07:44:14Z",
       "side": 1,
       "message": "I don\u0027t think this addition helps readability. \"remove - add\" is fairly easy to understand. It may be beneficiary to have a \"replace\" method instead of \"remove - add\" when it tells you to replace x with y, but here the contract is a lot harder to grasp : you replace requests matching a preference order with a list from a supplier. In other words, you don\u0027t replace at all, you remove one thing and you add another.\n\nSo I think the old code, without this helper method, was in fact easier to understand.",
+      "range": {
+        "startLine": 11059,
+        "startChar": 0,
+        "endLine": 11064,
+        "endChar": 5
+      },
+      "revId": "964633b8d0360abf87ca0760f31e9de35969af83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ba954e6_ec7dfa64",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 11064,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-09T09:27:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b088a6c1_eb71f717",
       "range": {
         "startLine": 11059,
         "startChar": 0,
