@@ -33,6 +33,24 @@
       "message": "I don\u0027t think unhiding these constants is the right solution. AFAICT the app-facing API that actually reports these errors is:\n\n    method public void onError(@NonNull android.net.QosCallbackException);\n\nand it passes exceptions, not integers. It seems like a mistake to unhide the integer. Instead, what we should do is switch to the exception everywhere: deprecate the int version of sendQosCallbackError and in its place use a version that takes an int and a QosCallbackException.\n\nSewook, would that work?",
       "revId": "d590adace8d1d23c53eb6ae2f17be96a5a725501",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fd23d79_a3ffc08c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-08-09T07:10:28Z",
+      "side": 1,
+      "message": "Yes,\n\nSince QosFilter.validate() is currently @hide and only used in Connectivity module, we may keep current status until we need to expose this method.\n\n\n We can deprecate current sendQosCallbackError and make new version to pass exception instead of integer. Just we need to expose constructor of SocketNotConnectedException.java, others are already exposed.",
+      "parentUuid": "c430be8a_1956a133",
+      "revId": "d590adace8d1d23c53eb6ae2f17be96a5a725501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
