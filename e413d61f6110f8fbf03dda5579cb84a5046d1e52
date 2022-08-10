@@ -139,6 +139,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b28733ea_2f1e4d8a",
+        "filename": "framework/src/android/net/QosFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-10T02:29:58Z",
+      "side": 1,
+      "message": "Argh yes, you\u0027re right. Suggest having a small // comment between the javadoc and the function saying this can\u0027t be annotated with @IntDef because IPPROTO_* are not compile-time constants.",
+      "parentUuid": "e7122103_ef3cc887",
+      "range": {
+        "startLine": 103,
+        "startChar": 35,
+        "endLine": 103,
+        "endChar": 38
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b40c549e_b800236e",
         "filename": "framework/src/android/net/QosFilter.java",
         "patchSetId": 7
@@ -234,6 +258,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ece5b411_b3fdd27b",
+        "filename": "framework/src/android/net/QosFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-10T02:29:58Z",
+      "side": 1,
+      "message": "Do you need to supply an implementation for this method in QosSocketFilter ?",
+      "parentUuid": "9c7a525c_fd627193",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 80
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1a0e69d7_8328d2ae",
         "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
         "patchSetId": 7
@@ -293,6 +341,30 @@
       "side": 1,
       "message": "Maybe you don\u0027t want to remove *both* here (I only meant, don\u0027t make a second one, instead make the existing one Closeable and use it for both cases). This did provide some safety that any socket opened with the helper would be closed. I get that all current uses have a call to #close in a finally{} block, but still I\u0027m not sure removing this is a good idea.",
       "parentUuid": "b0dd2276_ed8ee556",
+      "range": {
+        "startLine": 182,
+        "startChar": 16,
+        "endLine": 182,
+        "endChar": 37
+      },
+      "revId": "e413d61f6110f8fbf03dda5579cb84a5046d1e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "486d0f2e_59d61070",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-10T02:29:58Z",
+      "side": 1,
+      "message": "Did you want to address this ?",
+      "parentUuid": "9f6fa4d7_86602ed0",
       "range": {
         "startLine": 182,
         "startChar": 16,

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b8b5d8e_d1ed020c",
+        "filename": "framework/src/android/net/QosFilter.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-10T02:29:58Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be in javadoc – it\u0027s context for future implementers, not for users. Suggest just moving this to a // block in the code or between the javadoc and the function",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 46
+      },
+      "revId": "7ae23e890e22261da2c0a168bcfd46552624f41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
