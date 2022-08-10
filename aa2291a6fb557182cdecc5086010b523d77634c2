@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d53498c_2a4b0bda",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-08-10T02:27:25Z",
+      "side": 1,
+      "message": "should we say the reason of returning null here? due to reading a configure file with invalid version number?",
+      "range": {
+        "startLine": 114,
+        "startChar": 38,
+        "endLine": 114,
+        "endChar": 58
+      },
+      "revId": "aa2291a6fb557182cdecc5086010b523d77634c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
