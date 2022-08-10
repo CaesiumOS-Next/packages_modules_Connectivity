@@ -22,6 +22,7 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
+import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.TetheringManager.TETHERING_USB;
 import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
@@ -444,12 +445,32 @@ public class TetheringManagerTest {
 
             mCtsTetheringUtils.startWifiTethering(tetherEventCallback);
 
+            // [1] Expect that upstream is cellular which is default network.
             final int expectedCap = isTetheringApnRequired()
                     ? NET_CAPABILITY_DUN : NET_CAPABILITY_INTERNET;
             final Network network = tetherEventCallback.getCurrentValidUpstream();
             final NetworkCapabilities netCap = mCm.getNetworkCapabilities(network);
+            assertNotNull(netCap);
             assertTrue(netCap.hasTransport(TRANSPORT_CELLULAR));
             assertTrue(netCap.hasCapability(expectedCap));
+
+            // [2] Expect that upstream switches to WIFI after WIFI connected.
+            mCtsNetUtils.ensureWifiConnected();
+            final Network network2 = tetherEventCallback.getCurrentValidUpstream();
+            final NetworkCapabilities netCap2 = mCm.getNetworkCapabilities(network2);
+            assertNotNull(netCap2);
+            assertTrue(netCap2.hasTransport(TRANSPORT_WIFI));
+
+            // [3] Expect that upstream switches to cellular after WIFI disconnected.
+            mCtsNetUtils.ensureWifiDisconnected(null);
+            // TODO: remove tethering toggle
+            mCtsTetheringUtils.stopWifiTethering(tetherEventCallback);
+            mCtsTetheringUtils.startWifiTethering(tetherEventCallback);
+            final Network network3 = tetherEventCallback.getCurrentValidUpstream();
+            final NetworkCapabilities netCap3 = mCm.getNetworkCapabilities(network3);
+            assertNotNull(netCap3);
+            assertTrue(netCap3.hasTransport(TRANSPORT_CELLULAR));
+            assertTrue(netCap3.hasCapability(expectedCap));
 
             mCtsTetheringUtils.stopWifiTethering(tetherEventCallback);
         } finally {
