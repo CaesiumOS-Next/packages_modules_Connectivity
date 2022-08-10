@@ -151,7 +151,9 @@ class EthernetManagerTest {
                 context.getSystemService(TestNetworkManager::class.java)
             }
             tapInterface = runAsShell(MANAGE_TEST_NETWORKS) {
-                tnm.createTapInterface(hasCarrier, false /* bringUp */)
+                // TODO(b/242061961): set bringUp to false, so the ethernet service handles bring
+                // up. This currently causes test flakes.
+                tnm.createTapInterface(hasCarrier, true /* bringUp */)
             }
             val mtu = tapInterface.mtu
             packetReader = TapPacketReader(handler, tapInterface.fileDescriptor.fileDescriptor, mtu)
