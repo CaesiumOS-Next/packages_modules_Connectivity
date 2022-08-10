@@ -70,6 +70,30 @@
       },
       "revId": "872c369ecc61e7c7779347f82826994be501a35c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9477cc1_822d5cc5",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-08-10T12:43:31Z",
+      "side": 1,
+      "message": "I totally agree that we should not have test relying on dumpsys in CTS.\nBut currently, cts tests don\u0027t have other ways to check the bpf map content and we don\u0027t have other cts tests that check tag/untag sockets, I think.\ncts/TrafficStatsTest uses tagSocket, but not unTagSocket.\nSo, I thought we should keep TagSocketTest in cts.\nIf there is a way to test without using dumpsys, I can rewrite TagSocketTest.",
+      "parentUuid": "7f53397a_a44cd07c",
+      "range": {
+        "startLine": 654,
+        "startChar": 59,
+        "endLine": 654,
+        "endChar": 94
+      },
+      "revId": "872c369ecc61e7c7779347f82826994be501a35c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
