@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa131eed_a1dcb171",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-08-10T05:21:51Z",
+      "side": 1,
+      "message": "Do you know how long it will be?",
+      "range": {
+        "startLine": 654,
+        "startChar": 59,
+        "endLine": 654,
+        "endChar": 94
+      },
+      "revId": "872c369ecc61e7c7779347f82826994be501a35c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
