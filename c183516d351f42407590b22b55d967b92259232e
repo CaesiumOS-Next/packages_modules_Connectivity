@@ -117,6 +117,30 @@
       },
       "revId": "c183516d351f42407590b22b55d967b92259232e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efe344f7_e3be0625",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-10T19:12:46Z",
+      "side": 1,
+      "message": "Oh yeah, definitely don\u0027t wait for 5s. Wait for like 50ms (possibly even less).",
+      "parentUuid": "6678d8a5_723eb1eb",
+      "range": {
+        "startLine": 247,
+        "startChar": 6,
+        "endLine": 254,
+        "endChar": 89
+      },
+      "revId": "c183516d351f42407590b22b55d967b92259232e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
