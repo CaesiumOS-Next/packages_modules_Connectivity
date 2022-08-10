@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e42f4615_99a7ce36",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-08-10T21:22:26Z",
+      "side": 1,
+      "message": "should it be mUpstreamTetheringInterface?\nor is it mDownstreamTetheringInterface\n",
+      "revId": "385170f3fa1dbc794d3c05c560b0e8b78fc50a6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
