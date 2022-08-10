@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9406e4ee_e4a9e555",
+        "filename": "tests/integration/AndroidManifest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-10T07:21:21Z",
+      "side": 1,
+      "message": "Reverted for NetworkStackService; this particular service is not exported, so I think it would be fine to change (not visible in the service resolver table in dumpsys package either). Moved to another patchset though.",
+      "parentUuid": "d0319cf0_8da999c7",
+      "range": {
+        "startLine": 63,
+        "startChar": 43,
+        "endLine": 63,
+        "endChar": 55
+      },
+      "revId": "cc9c6b7a0fea248228b9c408137990ad1b82caf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "394e2708_b12fb258",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-08-09T04:32:11Z",
       "side": 1,
       "message": "IIUC the changes to this file (and to the manifest) are not a consequence of the changes to the script, but rather a consequence of the companion patch ? Maybe you could have a separate patch for these two files, which could still be in the same topic but they\u0027d have their own cover comment.",
+      "revId": "cc9c6b7a0fea248228b9c408137990ad1b82caf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb791d5c_e8d7fbe4",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/TestNetworkStackService.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-10T07:21:21Z",
+      "side": 1,
+      "message": "Good point, split to another patchset",
+      "parentUuid": "394e2708_b12fb258",
       "revId": "cc9c6b7a0fea248228b9c408137990ad1b82caf4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -90,6 +132,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29d9768d_a3fce1d8",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-10T07:21:21Z",
+      "side": 1,
+      "message": "Agreed this looks weird, I\u0027ll try a patch to remove the \"--jars\".\n\nFor arguments like --apistubs that are repeated in the command-line, it seems doing `--apistubs foo --apistubs bar` works too and is more conventional, so I\u0027ll update the makefiles to do that.\n\n`--unsupportedapi` takes a list of files fed from the genrule with a filegroup though, and the genrule outputs a space-separated list: `--unsupportedapi $(locations :unsupported-api-files)`. I\u0027d have to do pretty ugly hacks to convert this to another syntax, maybe something like:\n\n    genrule {\n      cmd: \"$(location :gen_jarjar) \" +\n        [...]\n        \" `printf -- \u0027--unsupportedapi %s \u0027 $(locations \"unsupported-api-files)` \" +\n        [...]\n    }\n\nThat\u0027s a lot less clear, so maybe it\u0027s better to keep the space-separated list for that argument ?",
+      "parentUuid": "4d0d4da5_63c2395d",
+      "range": {
+        "startLine": 32,
+        "startChar": 38,
+        "endLine": 32,
+        "endChar": 88
+      },
+      "revId": "cc9c6b7a0fea248228b9c408137990ad1b82caf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5ff18f78_6cf9fec0",
         "filename": "tools/gen_jarjar.py",
         "patchSetId": 3
@@ -101,6 +167,30 @@
       "writtenOn": "2022-08-09T04:32:11Z",
       "side": 1,
       "message": "On top of having the same issue as above, that means you can say `--apistubs` with no argument ? I guess it\u0027s not very harmful, but it\u0027s a bit surprising ; most programs would give you an error for that, and would only use \u0027*\u0027 when the option also makes sense without an argument. On the command line it\u0027s almost certainly a mistake (though I can see how this could be useful in a script considering the bizarre invocation syntax)",
+      "range": {
+        "startLine": 40,
+        "startChar": 29,
+        "endLine": 40,
+        "endChar": 30
+      },
+      "revId": "cc9c6b7a0fea248228b9c408137990ad1b82caf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19cae524_c130fef5",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-10T07:21:21Z",
+      "side": 1,
+      "message": "Right, agreed it\u0027s confusing. I can avoid documenting / using on this behavior, but since that\u0027s how argparse is implemented, I don\u0027t think there\u0027s a good way to make it fail ?",
+      "parentUuid": "5ff18f78_6cf9fec0",
       "range": {
         "startLine": 40,
         "startChar": 29,
