@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e3ef2489_55711669",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-08-10T00:01:13Z",
+      "side": 1,
+      "message": "isn\u0027t that the .contains() check 4 lines down?",
+      "parentUuid": "dae2d2e3_4e544b5b",
+      "range": {
+        "startLine": 237,
+        "startChar": 20,
+        "endLine": 237,
+        "endChar": 56
+      },
+      "revId": "b625a55e2f17d9ce46cd2a78f49e7a6bb5c71dec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8e05d2de_e1018b44",
         "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
         "patchSetId": 6
