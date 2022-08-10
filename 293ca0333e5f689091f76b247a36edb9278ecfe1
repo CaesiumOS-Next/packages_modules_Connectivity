@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a31fba82_96c9850a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-08-10T12:36:21Z",
+      "side": 1,
+      "message": "In file included from packages/modules/Connectivity/bpf_progs/clatd.c:37:\npackages/modules/Connectivity/bpf_progs/bpf_net_helpers.h:81:29: error: unused function \u0027v6_equal\u0027 [-Werror,-Wunused-function]\nstatic __always_inline bool v6_equal(const struct in6_addr* a, const struct in6_addr* b) {\n                            ^\n",
+      "revId": "293ca0333e5f689091f76b247a36edb9278ecfe1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
