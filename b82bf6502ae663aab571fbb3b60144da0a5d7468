@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "256388e2_acb7865f",
+        "filename": "bpf_progs/bpf_tethering.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-10T19:37:57Z",
+      "side": 1,
+      "message": "do we have anything that relies on the specific value of these? am assuming we do not.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 31
+      },
+      "revId": "b82bf6502ae663aab571fbb3b60144da0a5d7468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
