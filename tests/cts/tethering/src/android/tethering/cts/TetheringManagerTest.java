@@ -18,10 +18,12 @@ package android.tethering.test;
 import static android.Manifest.permission.MODIFY_PHONE_STATE;
 import static android.Manifest.permission.TETHER_PRIVILEGED;
 import static android.content.pm.PackageManager.FEATURE_TELEPHONY;
+import static android.content.pm.PackageManager.FEATURE_WIFI;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
+import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.TetheringManager.TETHERING_USB;
 import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
@@ -407,9 +409,42 @@ public class TetheringManagerTest {
 
     }
 
+    private void verifyCellularDefaultNetwork()
+            throws Exception {
+        final TestNetworkCallback networkCallback = new TestNetworkCallback();
+        Network activeNetwork = null;
+        try {
+            mCm.registerDefaultNetworkCallback(networkCallback);
+            activeNetwork = networkCallback.waitForAvailable();
+        } finally {
+            mCm.unregisterNetworkCallback(networkCallback);
+        }
+
+        assertNotNull("No active network. Please ensure the device has working mobile data.",
+                activeNetwork);
+        final NetworkCapabilities activeNetCap = mCm.getNetworkCapabilities(activeNetwork);
+
+        // If active nework is ETHERNET, tethering may not use cell network as upstream.
+        assumeFalse(activeNetCap.hasTransport(TRANSPORT_ETHERNET));
+
+        assertTrue(activeNetCap.hasTransport(TRANSPORT_CELLULAR));
+    }
+
+    private void verifyCellularUpstream(TestTetheringEventCallback tetherEventCallback)
+            throws Exception {
+        final int expectedCap = isTetheringApnRequired()
+                ? NET_CAPABILITY_DUN : NET_CAPABILITY_INTERNET;
+        final Network network = tetherEventCallback.getCurrentValidUpstream();
+        final NetworkCapabilities netCap = mCm.getNetworkCapabilities(network);
+        assertNotNull(netCap);
+        assertTrue(netCap.hasTransport(TRANSPORT_CELLULAR));
+        assertTrue(netCap.hasCapability(expectedCap));
+    }
+
     @Test
     public void testTetheringUpstream() throws Exception {
         assumeTrue(mPm.hasSystemFeature(FEATURE_TELEPHONY));
+
         final TestTetheringEventCallback tetherEventCallback =
                 mCtsTetheringUtils.registerTetheringEventCallback();
 
@@ -424,32 +459,55 @@ public class TetheringManagerTest {
                 mCtsNetUtils.ensureWifiDisconnected(null);
             }
 
-            final TestNetworkCallback networkCallback = new TestNetworkCallback();
-            Network activeNetwork = null;
-            try {
-                mCm.registerDefaultNetworkCallback(networkCallback);
-                activeNetwork = networkCallback.waitForAvailable();
-            } finally {
-                mCm.unregisterNetworkCallback(networkCallback);
+            verifyCellularDefaultNetwork();
+            mCtsTetheringUtils.startWifiTethering(tetherEventCallback);
+            verifyCellularUpstream(tetherEventCallback);
+            mCtsTetheringUtils.stopWifiTethering(tetherEventCallback);
+        } finally {
+            mCtsTetheringUtils.unregisterTetheringEventCallback(tetherEventCallback);
+            if (previousWifiEnabledState) {
+                mCtsNetUtils.connectToWifi();
+            }
+        }
+    }
+
+    @Test
+    public void testTetheringUpstreamSwitch() throws Exception {
+        assumeTrue(mPm.hasSystemFeature(FEATURE_TELEPHONY));
+        assumeTrue(mPm.hasSystemFeature(FEATURE_WIFI));
+
+        final TestTetheringEventCallback tetherEventCallback =
+                mCtsTetheringUtils.registerTetheringEventCallback();
+        boolean previousWifiEnabledState = false;
+
+        try {
+            tetherEventCallback.assumeWifiTetheringSupported(mContext);
+            tetherEventCallback.expectNoTetheringActive();
+
+            previousWifiEnabledState = mWm.isWifiEnabled();
+            if (previousWifiEnabledState) {
+                mCtsNetUtils.ensureWifiDisconnected(null);
             }
 
-            assertNotNull("No active network. Please ensure the device has working mobile data.",
-                    activeNetwork);
-            final NetworkCapabilities activeNetCap = mCm.getNetworkCapabilities(activeNetwork);
-
-            // If active nework is ETHERNET, tethering may not use cell network as upstream.
-            assumeFalse(activeNetCap.hasTransport(TRANSPORT_ETHERNET));
-
-            assertTrue(activeNetCap.hasTransport(TRANSPORT_CELLULAR));
-
+            verifyCellularDefaultNetwork();
             mCtsTetheringUtils.startWifiTethering(tetherEventCallback);
 
-            final int expectedCap = isTetheringApnRequired()
-                    ? NET_CAPABILITY_DUN : NET_CAPABILITY_INTERNET;
+            // [1] Expect that upstream is cellular which is default network.
+            verifyCellularUpstream(tetherEventCallback);
+
+            // [2] Expect that upstream switches to WIFI after WIFI connected.
+            mCtsNetUtils.ensureWifiConnected();
             final Network network = tetherEventCallback.getCurrentValidUpstream();
             final NetworkCapabilities netCap = mCm.getNetworkCapabilities(network);
-            assertTrue(netCap.hasTransport(TRANSPORT_CELLULAR));
-            assertTrue(netCap.hasCapability(expectedCap));
+            assertNotNull(netCap);
+            assertTrue(netCap.hasTransport(TRANSPORT_WIFI));
+
+            // [3] Expect that upstream switches to cellular after WIFI disconnected.
+            mCtsNetUtils.ensureWifiDisconnected(null);
+            final Network network2 = tetherEventCallback.getCurrentValidUpstream();
+            final NetworkCapabilities netCap2 = mCm.getNetworkCapabilities(network2);
+            assertNotNull(netCap2);
+            assertTrue(netCap2.hasTransport(TRANSPORT_CELLULAR));
 
             mCtsTetheringUtils.stopWifiTethering(tetherEventCallback);
         } finally {
