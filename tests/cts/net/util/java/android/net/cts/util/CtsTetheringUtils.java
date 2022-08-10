@@ -52,6 +52,7 @@ import android.net.wifi.WifiManager.SoftApCallback;
 import android.os.ConditionVariable;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.android.compatibility.common.util.SystemUtil;
 import com.android.net.module.util.ArrayTrackRecord;
@@ -296,13 +297,12 @@ public final class CtsTetheringUtils {
                     }));
         }
 
-        public TetheringInterface expectTetheredInterfacesChanged(
+        @Nullable
+        public TetheringInterface pollTetheredInterfacesChanged(
                 @NonNull final List<String> regexs, final int type) {
             while (true) {
                 final CallbackValue cv = mCurrent.poll(TIMEOUT_MS, c -> true);
-                if (cv == null) {
-                    fail("No expected tethered ifaces callback, expected type: " + type);
-                }
+                if (cv == null) return null;
 
                 if (cv.callbackType != CallbackType.ON_TETHERED_IFACES) continue;
 
@@ -314,6 +314,18 @@ public final class CtsTetheringUtils {
 
                 if (iface != null) return iface;
             }
+        }
+
+        @NonNull
+        public TetheringInterface expectTetheredInterfacesChanged(
+                @NonNull final List<String> regexs, final int type) {
+            final TetheringInterface iface = pollTetheredInterfacesChanged(regexs, type);
+
+            if (iface == null) {
+                fail("No expected tethered ifaces callback, expected type: " + type);
+            }
+
+            return iface;
         }
 
         public void expectCallbackStarted() {
