@@ -43,15 +43,21 @@ import android.os.Handler;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
+import android.system.OsConstants;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
-import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
 import com.android.net.module.util.NetdUtils;
 import com.android.net.module.util.PermissionUtils;
+import com.android.net.module.util.SharedLog;
+import com.android.net.module.util.ip.NetlinkMonitor;
+import com.android.net.module.util.netlink.NetlinkConstants;
+import com.android.net.module.util.netlink.NetlinkMessage;
+import com.android.net.module.util.netlink.RtNetlinkLinkMessage;
+import com.android.net.module.util.netlink.StructIfinfoMsg;
 
 import java.io.FileDescriptor;
 import java.net.InetAddress;
@@ -82,6 +88,8 @@ public class EthernetTracker {
     private static final int INTERFACE_MODE_SERVER = 2;
 
     private static final String TAG = EthernetTracker.class.getSimpleName();
+    // TODO: consider using SharedLog consistently across ethernet service.
+    private static final SharedLog sLog = new SharedLog(TAG);
     private static final boolean DBG = EthernetNetworkFactory.DBG;
 
     private static final String TEST_IFACE_REGEXP = TEST_TAP_PREFIX + "\\d+";
@@ -110,6 +118,7 @@ public class EthernetTracker {
     private final Handler mHandler;
     private final EthernetNetworkFactory mFactory;
     private final EthernetConfigStore mConfigStore;
+    private final NetlinkMonitor mNetlinkMonitor;
     private final Dependencies mDeps;
 
     private final RemoteCallbackList<IEthernetServiceListener> mListeners =
@@ -125,6 +134,7 @@ public class EthernetTracker {
     private volatile IpConfiguration mIpConfigForDefaultInterface;
 
     private int mEthernetState = ETHERNET_STATE_ENABLED;
+
 
     private class TetheredInterfaceRequestList extends
             RemoteCallbackList<ITetheredInterfaceCallback> {
@@ -147,6 +157,66 @@ public class EthernetTracker {
                     com.android.connectivity.resources.R.array.config_ethernet_interfaces);
         }
     }
+
+    private class EthernetNetlinkMonitor extends NetlinkMonitor {
+        EthernetNetlinkMonitor(Handler handler) {
+            super(handler, sLog, EthernetNetlinkMonitor.class.getSimpleName(),
+                    OsConstants.NETLINK_ROUTE, NetlinkConstants.RTMGRP_LINK);
+        }
+
+        private void onRtmNewLink(String ifname, boolean linkUp) {
+            if (!mFactory.hasInterface(ifname) && !ifname.equals(mDefaultInterface)) {
+                Log.i(TAG, "onInterfaceAdded, iface: " + ifname);
+                maybeTrackInterface(ifname);
+            }
+            Log.i(TAG, "interfaceLinkStateChanged, iface: " + ifname + ", up: " + linkUp);
+            updateInterfaceState(ifname, linkUp);
+        }
+
+        private void onRtmDelLink(String ifname) {
+            Log.i(TAG, "onInterfaceRemoved, iface: " + ifname);
+            stopTrackingInterface(ifname);
+        }
+
+        private void processRtNetlinkLinkMessage(RtNetlinkLinkMessage msg) {
+            Log.e("prohr", "process rtnetlink link msg: " + msg);
+            // check if the received message applies to an ethernet interface.
+            final String ifname = msg.getInterfaceName();
+            if (!isValidEthernetInterface(ifname)) return;
+
+            final StructIfinfoMsg ifinfomsg = msg.getIfinfoHeader();
+            if (ifinfomsg.family != OsConstants.AF_UNSPEC) return;
+
+            switch (msg.getHeader().nlmsg_type) {
+                case NetlinkConstants.RTM_NEWLINK:
+                    final boolean linkUp = (ifinfomsg.flags & NetlinkConstants.IFF_LOWER_UP) != 0;
+                    onRtmNewLink(ifname, linkUp);
+                    break;
+
+                case NetlinkConstants.RTM_DELLINK:
+                    onRtmDelLink(ifname);
+                    break;
+
+                default:
+                    Log.e(TAG, "Unknown rtnetlink link msg type: " + msg);
+                    break;
+            }
+        }
+
+        // Note: processNetlinkMessage is called on the handler thread.
+        @Override
+        protected void processNetlinkMessage(NetlinkMessage nlMsg, long whenMs) {
+            // ignore all updates when ethernet is disabled.
+            if (mEthernetState == ETHERNET_STATE_DISABLED) return;
+
+            if (nlMsg instanceof RtNetlinkLinkMessage) {
+                processRtNetlinkLinkMessage((RtNetlinkLinkMessage) nlMsg);
+            } else {
+                Log.e(TAG, "Unknown netlink message: " + nlMsg);
+            }
+        }
+    }
+
 
     EthernetTracker(@NonNull final Context context, @NonNull final Handler handler,
             @NonNull final EthernetNetworkFactory factory, @NonNull final INetd netd) {
@@ -173,6 +243,7 @@ public class EthernetTracker {
         }
 
         mConfigStore = new EthernetConfigStore();
+        mNetlinkMonitor = new EthernetNetlinkMonitor(mHandler);
     }
 
     void start() {
@@ -186,14 +257,10 @@ public class EthernetTracker {
             mIpConfigurations.put(configs.keyAt(i), configs.valueAt(i));
         }
 
-        try {
-            PermissionUtils.enforceNetworkStackPermission(mContext);
-            mNetd.registerUnsolicitedEventListener(new InterfaceObserver());
-        } catch (RemoteException | ServiceSpecificException e) {
-            Log.e(TAG, "Could not register InterfaceObserver " + e);
-        }
-
-        mHandler.post(this::trackAvailableInterfaces);
+        mHandler.post(() -> {
+            mNetlinkMonitor.start();
+            trackAvailableInterfaces();
+        });
     }
 
     void updateIpConfiguration(String iface, IpConfiguration ipConfiguration) {
@@ -614,43 +681,6 @@ public class EthernetTracker {
             }
         } catch (RemoteException | ServiceSpecificException e) {
             Log.e(TAG, "Could not get list of interfaces " + e);
-        }
-    }
-
-    @VisibleForTesting
-    class InterfaceObserver extends BaseNetdUnsolicitedEventListener {
-
-        @Override
-        public void onInterfaceLinkStateChanged(String iface, boolean up) {
-            if (DBG) {
-                Log.i(TAG, "interfaceLinkStateChanged, iface: " + iface + ", up: " + up);
-            }
-            mHandler.post(() -> {
-                if (mEthernetState == ETHERNET_STATE_DISABLED) return;
-                updateInterfaceState(iface, up);
-            });
-        }
-
-        @Override
-        public void onInterfaceAdded(String iface) {
-            if (DBG) {
-                Log.i(TAG, "onInterfaceAdded, iface: " + iface);
-            }
-            mHandler.post(() -> {
-                if (mEthernetState == ETHERNET_STATE_DISABLED) return;
-                maybeTrackInterface(iface);
-            });
-        }
-
-        @Override
-        public void onInterfaceRemoved(String iface) {
-            if (DBG) {
-                Log.i(TAG, "onInterfaceRemoved, iface: " + iface);
-            }
-            mHandler.post(() -> {
-                if (mEthernetState == ETHERNET_STATE_DISABLED) return;
-                stopTrackingInterface(iface);
-            });
         }
     }
 
