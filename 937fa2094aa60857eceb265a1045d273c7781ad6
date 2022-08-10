@@ -159,6 +159,30 @@
       },
       "revId": "937fa2094aa60857eceb265a1045d273c7781ad6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "712d620a_957602a8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1231,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-10T02:54:17Z",
+      "side": 1,
+      "message": "I think coverage is appropriate.",
+      "parentUuid": "8d3f96b3_06824d4a",
+      "range": {
+        "startLine": 1229,
+        "startChar": 16,
+        "endLine": 1231,
+        "endChar": 80
+      },
+      "revId": "937fa2094aa60857eceb265a1045d273c7781ad6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
