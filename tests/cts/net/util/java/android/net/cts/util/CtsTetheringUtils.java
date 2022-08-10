@@ -392,6 +392,22 @@ public final class CtsTetheringUtils {
             return (Network) result.callbackParam;
         }
 
+        @NonNull
+        public Network pollValidUpstreamInterfacesChanged(
+                @NonNull final Network currentNetwork) {
+            while (true) {
+                // Poll upstream events until the upstream interface is changed.
+                // Upstream changed event may be triggered by capability change and so on.
+                // The reason is that Tethering#chooseUpstreamType compares the difference
+                // between current upstream and new upstream by object (comparison operator)
+                // but network id (Network#equals). This implies that the different objects
+                // which has the same network id still trigger upstream changed report.
+                // See Tethering#chooseUpstreamType.
+                final Network result = getCurrentValidUpstream();
+                if (!result.equals(currentNetwork)) return result;
+            }
+        }
+
         public void assumeTetheringSupported() {
             final ArrayTrackRecord<CallbackValue>.ReadHead history =
                     mHistory.newReadHead();
