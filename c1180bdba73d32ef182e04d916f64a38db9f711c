@@ -16,6 +16,29 @@
       "message": "(needs much testing)",
       "revId": "c1180bdba73d32ef182e04d916f64a38db9f711c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "043a302d_d3b44123",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-10T23:10:23Z",
+      "side": 1,
+      "message": "can you also annotate this parameter with /* flags */. slightly easier to read for the uninvolved 😊",
+      "range": {
+        "startLine": 499,
+        "startChar": 80,
+        "endLine": 499,
+        "endChar": 81
+      },
+      "revId": "c1180bdba73d32ef182e04d916f64a38db9f711c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
