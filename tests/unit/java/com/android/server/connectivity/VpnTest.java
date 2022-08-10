@@ -252,6 +252,7 @@ public class VpnTest extends VpnTestBase {
     @Mock private ScheduledThreadPoolExecutor mExecutor;
     @Mock private ScheduledFuture mScheduledFuture;
     @Mock DeviceIdleInternal mDeviceIdleInternal;
+    @Mock Vpn.Ikev2ExecutorThreadFactory mIkev2ExecutorThreadFactory;
     private final VpnProfile mVpnProfile;
 
     private IpSecManager mIpSecManager;
@@ -335,6 +336,7 @@ public class VpnTest extends VpnTestBase {
             .execute(any());
         when(mExecutor.schedule(
                 any(Runnable.class), anyLong(), any())).thenReturn(mScheduledFuture);
+        doReturn(mIkev2ExecutorThreadFactory).when(mExecutor).getThreadFactory();
     }
 
     @After
@@ -1189,6 +1191,9 @@ public class VpnTest extends VpnTestBase {
     @Test
     public void testStartOpAndFinishOpWillBeCalledWhenPlatformVpnIsOnAndOff() throws Exception {
         assumeTrue(SdkLevel.isAtLeastT());
+        // Suppose the methods in Ikev2VpnRunner run on the right thread.
+        doReturn(true).when(mIkev2ExecutorThreadFactory).isIkev2ExecutorThread(any());
+
         final Vpn vpn = createVpnAndSetupUidChecks(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
         when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
                 .thenReturn(mVpnProfile.encode());
@@ -1280,6 +1285,9 @@ public class VpnTest extends VpnTestBase {
         // this is checked with CONTROL_VPN so simulate holding CONTROL_VPN in order to pass the
         // security checks.
         doReturn(PERMISSION_GRANTED).when(mContext).checkCallingOrSelfPermission(CONTROL_VPN);
+        // Suppose the methods in Ikev2VpnRunner run on the right thread.
+        doReturn(true).when(mIkev2ExecutorThreadFactory).isIkev2ExecutorThread(any());
+
         final Vpn vpn = createVpnAndSetupUidChecks(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
         when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
                 .thenReturn(mVpnProfile.encode());
@@ -1385,6 +1393,9 @@ public class VpnTest extends VpnTestBase {
 
     @Test
     public void testReconnectVpnManagerVpnWithAlwaysOnEnabled() throws Exception {
+        // Suppose the methods in Ikev2VpnRunner run on the right thread.
+        doReturn(true).when(mIkev2ExecutorThreadFactory).isIkev2ExecutorThread(any());
+
         final Vpn vpn = createVpnAndSetupUidChecks(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
         when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
                 .thenReturn(mVpnProfile.encode());
@@ -1541,6 +1552,9 @@ public class VpnTest extends VpnTestBase {
         final IkeProtocolException exception = mock(IkeProtocolException.class);
         final int errorCode = IkeProtocolException.ERROR_TYPE_AUTHENTICATION_FAILED;
         when(exception.getErrorType()).thenReturn(errorCode);
+        // Suppose the methods in Ikev2VpnRunner run on the right thread.
+        doReturn(true).when(mIkev2ExecutorThreadFactory).isIkev2ExecutorThread(any());
+
         doTestPlatformVpnWithException(exception,
                 VpnManager.CATEGORY_EVENT_IKE_ERROR, VpnManager.ERROR_CLASS_NOT_RECOVERABLE,
                 errorCode);
@@ -1551,6 +1565,9 @@ public class VpnTest extends VpnTestBase {
         final IkeProtocolException exception = mock(IkeProtocolException.class);
         final int errorCode = IkeProtocolException.ERROR_TYPE_TEMPORARY_FAILURE;
         when(exception.getErrorType()).thenReturn(errorCode);
+        // Suppose the methods in Ikev2VpnRunner run on the right thread.
+        doReturn(true).when(mIkev2ExecutorThreadFactory).isIkev2ExecutorThread(any());
+
         doTestPlatformVpnWithException(exception,
                 VpnManager.CATEGORY_EVENT_IKE_ERROR, VpnManager.ERROR_CLASS_RECOVERABLE, errorCode);
     }
@@ -1561,6 +1578,9 @@ public class VpnTest extends VpnTestBase {
         final UnknownHostException unknownHostException = new UnknownHostException();
         final int errorCode = VpnManager.ERROR_CODE_NETWORK_UNKNOWN_HOST;
         when(exception.getCause()).thenReturn(unknownHostException);
+        // Suppose the methods in Ikev2VpnRunner run on the right thread.
+        doReturn(true).when(mIkev2ExecutorThreadFactory).isIkev2ExecutorThread(any());
+
         doTestPlatformVpnWithException(exception,
                 VpnManager.CATEGORY_EVENT_NETWORK_ERROR, VpnManager.ERROR_CLASS_RECOVERABLE,
                 errorCode);
@@ -1573,6 +1593,9 @@ public class VpnTest extends VpnTestBase {
                 new IkeTimeoutException("IkeTimeoutException");
         final int errorCode = VpnManager.ERROR_CODE_NETWORK_PROTOCOL_TIMEOUT;
         when(exception.getCause()).thenReturn(ikeTimeoutException);
+        // Suppose the methods in Ikev2VpnRunner run on the right thread.
+        doReturn(true).when(mIkev2ExecutorThreadFactory).isIkev2ExecutorThread(any());
+
         doTestPlatformVpnWithException(exception,
                 VpnManager.CATEGORY_EVENT_NETWORK_ERROR, VpnManager.ERROR_CLASS_RECOVERABLE,
                 errorCode);
@@ -1582,6 +1605,9 @@ public class VpnTest extends VpnTestBase {
     public void testStartPlatformVpnFailedWithIkeNetworkLostException() throws Exception {
         final IkeNetworkLostException exception = new IkeNetworkLostException(
                 new Network(100));
+        // Suppose the methods in Ikev2VpnRunner run on the right thread.
+        doReturn(true).when(mIkev2ExecutorThreadFactory).isIkev2ExecutorThread(any());
+
         doTestPlatformVpnWithException(exception,
                 VpnManager.CATEGORY_EVENT_NETWORK_ERROR, VpnManager.ERROR_CLASS_RECOVERABLE,
                 VpnManager.ERROR_CODE_NETWORK_LOST);
@@ -1593,6 +1619,9 @@ public class VpnTest extends VpnTestBase {
         final IOException ioException = new IOException();
         final int errorCode = VpnManager.ERROR_CODE_NETWORK_IO;
         when(exception.getCause()).thenReturn(ioException);
+        // Suppose the methods in Ikev2VpnRunner run on the right thread.
+        doReturn(true).when(mIkev2ExecutorThreadFactory).isIkev2ExecutorThread(any());
+
         doTestPlatformVpnWithException(exception,
                 VpnManager.CATEGORY_EVENT_NETWORK_ERROR, VpnManager.ERROR_CLASS_RECOVERABLE,
                 errorCode);
@@ -1602,6 +1631,9 @@ public class VpnTest extends VpnTestBase {
     public void testStartPlatformVpnIllegalArgumentExceptionInSetup() throws Exception {
         when(mIkev2SessionCreator.createIkeSession(any(), any(), any(), any(), any(), any()))
                 .thenThrow(new IllegalArgumentException());
+        // Suppose the methods in Ikev2VpnRunner run on the right thread.
+        doReturn(true).when(mIkev2ExecutorThreadFactory).isIkev2ExecutorThread(any());
+
         final Vpn vpn = startLegacyVpn(createVpn(PRIMARY_USER.id), mVpnProfile);
         final NetworkCallback cb = triggerOnAvailableAndGetCallback();
 
@@ -1615,6 +1647,9 @@ public class VpnTest extends VpnTestBase {
 
     @Test
     public void testVpnManagerEventWillNotBeSentToSettingsVpn() throws Exception {
+        // Suppose the methods in Ikev2VpnRunner run on the right thread.
+        doReturn(true).when(mIkev2ExecutorThreadFactory).isIkev2ExecutorThread(any());
+
         startLegacyVpn(createVpn(PRIMARY_USER.id), mVpnProfile);
         triggerOnAvailableAndGetCallback();
 
@@ -1816,13 +1851,29 @@ public class VpnTest extends VpnTestBase {
 
     @Test
     public void testStartPlatformVpn() throws Exception {
+        // Suppose the methods in Ikev2VpnRunner run on the right thread.
+        doReturn(true).when(mIkev2ExecutorThreadFactory).isIkev2ExecutorThread(any());
+
         final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
                 createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */));
         vpnSnapShot.vpn.mVpnRunner.exitVpnRunner();
     }
 
     @Test
+    public void testIkev2VpnRunnerMethodsRunOnTheWrongThread() throws Exception {
+        try {
+            verifySetupPlatformVpn(
+                    createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */));
+            fail("Expected SecurityException due to running on the wrong thread");
+        } catch (SecurityException expected) {
+        }
+    }
+
+    @Test
     public void testStartPlatformVpnMobility_mobikeEnabled() throws Exception {
+        // Suppose the methods in Ikev2VpnRunner run on the right thread.
+        doReturn(true).when(mIkev2ExecutorThreadFactory).isIkev2ExecutorThread(any());
+
         final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
                 createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */));
 
@@ -1860,6 +1911,9 @@ public class VpnTest extends VpnTestBase {
 
     @Test
     public void testStartPlatformVpnReestablishes_mobikeDisabled() throws Exception {
+        // Suppose the methods in Ikev2VpnRunner run on the right thread.
+        doReturn(true).when(mIkev2ExecutorThreadFactory).isIkev2ExecutorThread(any());
+
         final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
                 createIkeConfig(createIkeConnectInfo(), false /* isMobikeEnabled */));
 
@@ -1917,6 +1971,9 @@ public class VpnTest extends VpnTestBase {
 
     @Test
     public void testStartPlatformVpnHandlesNetworkLoss_mobikeEnabled() throws Exception {
+        // Suppose the methods in Ikev2VpnRunner run on the right thread.
+        doReturn(true).when(mIkev2ExecutorThreadFactory).isIkev2ExecutorThread(any());
+
         final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
                 createIkeConfig(createIkeConnectInfo(), false /* isMobikeEnabled */));
 
@@ -1938,6 +1995,9 @@ public class VpnTest extends VpnTestBase {
 
     @Test
     public void testStartPlatformVpnHandlesNetworkLoss_mobikeDisabled() throws Exception {
+        // Suppose the methods in Ikev2VpnRunner run on the right thread.
+        doReturn(true).when(mIkev2ExecutorThreadFactory).isIkev2ExecutorThread(any());
+
         final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
                 createIkeConfig(createIkeConnectInfo(), false /* isMobikeEnabled */));
 
