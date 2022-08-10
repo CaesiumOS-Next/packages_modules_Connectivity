@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "171acfbc_6bd6eb46",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-10T13:09:34Z",
+      "side": 1,
+      "message": "Probably don\u0027t parsing dumpsys in CTS because modules\u0027 release schedule is different with CTS. Maybe take patrick\u0027s suggestion but only check it once and have a TODO to think of better way to check isInterfaceForTetheringAvailable in the future.\n\n    private static boolean isInterfaceForTetheringAvailable;\n    @BeforeClass\n    public static void setupOnce() {\n        // requestTetheredInterface\n        // if (sucessful) isInterfaceForTetheringAvailable \u003d true\n        // else isInterfaceForTetheringAvailable \u003d false \n    }\n    \n    Use assumeTrue(isInterfaceForTetheringAvailable) for physical ethernet test\n    Use assumeFalse(isInterfaceForTetheringAvailable) for virtual ethernet test",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 254,
+        "endChar": 0
+      },
+      "revId": "f8ae2785319fce39148a117420a901cebbf0def6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
