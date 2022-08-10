@@ -46,6 +46,30 @@
       },
       "revId": "872c369ecc61e7c7779347f82826994be501a35c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f53397a_a44cd07c",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-10T08:16:57Z",
+      "side": 1,
+      "message": "I think we shouldn\u0027t rely on parsing dumpsys log in CTS. The log is part of detail mainline module implementation but the module release schedule is different with CTS. We should move them into MTS only instead. But MTS is not mandatory for partner yet. So MTS is not suitable to force something.",
+      "parentUuid": "96269059_f438bb61",
+      "range": {
+        "startLine": 654,
+        "startChar": 59,
+        "endLine": 654,
+        "endChar": 94
+      },
+      "revId": "872c369ecc61e7c7779347f82826994be501a35c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
