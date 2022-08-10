@@ -22,6 +22,30 @@
       },
       "revId": "aa2291a6fb557182cdecc5086010b523d77634c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53fc0500_6f18d7b4",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-10T02:36:55Z",
+      "side": 1,
+      "message": "I thought about it, but IpConfigStore already logs a similar message (and the reason for returning null may change without us realizing). So I figured adding a comment is best.",
+      "parentUuid": "8d53498c_2a4b0bda",
+      "range": {
+        "startLine": 114,
+        "startChar": 38,
+        "endLine": 114,
+        "endChar": 58
+      },
+      "revId": "aa2291a6fb557182cdecc5086010b523d77634c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
