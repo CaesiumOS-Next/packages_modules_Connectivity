@@ -22,6 +22,30 @@
       },
       "revId": "872c369ecc61e7c7779347f82826994be501a35c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96269059_f438bb61",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-08-10T05:52:59Z",
+      "side": 1,
+      "message": "If I can put my cts update to the \"CTS 13 R2\", change will be released 2022-11-09. (go/a-ts-next)\nIn my understanding, partner is expected to use the latest cts release, so I think we can remove mCookieTagMap dump after around 2023 Jan or Feb.",
+      "parentUuid": "aa131eed_a1dcb171",
+      "range": {
+        "startLine": 654,
+        "startChar": 59,
+        "endLine": 654,
+        "endChar": 94
+      },
+      "revId": "872c369ecc61e7c7779347f82826994be501a35c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
