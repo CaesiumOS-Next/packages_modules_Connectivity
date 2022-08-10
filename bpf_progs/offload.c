@@ -493,7 +493,7 @@ static inline __always_inline int do_forward4_bottom(struct __sk_buff* skb,
 
     // Overwrite any mac header with the new one
     // For a rawip tx interface it will simply be a bunch of zeroes and later stripped.
-    *eth = v->macHeader;
+    bpf_skb_store_bytes(skb, /*offset*/ 0, &v->macHeader, sizeof(v->macHeader), 0);
 
     // Decrement the IPv4 TTL, we already know it's greater than 1.
     // u8 TTL field is followed by u8 protocol to make a u16 for ipv4 header checksum update.
