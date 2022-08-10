@@ -16,6 +16,23 @@
       "message": "To note down my thoughts somewhere before I disappear next week.\n---\n\nI thought about this again, AFAICT, there are about 3 (more or less feasible) options:\n\na) The option presented in this patch -- NetworkAgent callbacks run on a separate thread and wait for the network to be destroyed during stop. The benefit of this solution is that stop() will block the main handler thread while all this happens. I think this is the only solution that lets us get away with the current 2 state model (started vs. stopped).\n\nb) We add a StoppingState that waits for the network destroyed callback which can now happen on the main handler thread (similar to IpClient). This is hard to do without a proper StateMachine and even then it would add additional complexity (properly handling all handler callbacks while in this state).\n\nc) (this will likely not even work and is a terrible idea): We stop IpClient from within the NetworkAgent#unwanted() callback. This means stop would call NetworkAgent#unregister(), which would eventually trigger an unwanted() callback which then cleans up everything else. If this were to work, there is a huge potential for side effects that I do not clearly understand at this point. This feels very risky.",
       "revId": "7c5b5538b0604815c9dc858bbeda74ceafd3bfce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dc77923_b09b4305",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-10T03:47:39Z",
+      "side": 1,
+      "message": "After talking to Lorenzo and Xiao, we decided to fix this in IpClient by moving ClearingIpAddressesState (which doesn\u0027t currently do anything) between StoppingState and StoppedState.",
+      "revId": "7c5b5538b0604815c9dc858bbeda74ceafd3bfce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
