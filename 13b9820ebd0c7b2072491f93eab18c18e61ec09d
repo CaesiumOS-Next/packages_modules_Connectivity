@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d2bd591_38c25791",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 973,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-10T09:49:32Z",
+      "side": 1,
+      "message": "remove\n\nthis comment is used for LOCAL_ONLY case but we have two cases (LOCAL_ONLY, TETHERED) now",
+      "range": {
+        "startLine": 973,
+        "startChar": 8,
+        "endLine": 973,
+        "endChar": 88
+      },
+      "revId": "13b9820ebd0c7b2072491f93eab18c18e61ec09d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e281a7dc_bf1108a0",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-10T09:49:32Z",
+      "side": 1,
+      "message": "// There are 2 IpServer state change events: STATE_AVAILABLE -\u003e STATE_LOCAL_ONLY\n\nSee L.959",
+      "range": {
+        "startLine": 974,
+        "startChar": 25,
+        "endLine": 974,
+        "endChar": 26
+      },
+      "revId": "13b9820ebd0c7b2072491f93eab18c18e61ec09d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c23d19c_e5611631",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 976,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-10T09:49:32Z",
+      "side": 1,
+      "message": "// There are 2 IpServer state change events: STATE_AVAILABLE -\u003e STATE_TETHERED\n\nSee L.1519",
+      "range": {
+        "startLine": 976,
+        "startChar": 15,
+        "endLine": 976,
+        "endChar": 16
+      },
+      "revId": "13b9820ebd0c7b2072491f93eab18c18e61ec09d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1265a9ed_d6e2a531",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1522,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-10T09:49:32Z",
+      "side": 1,
+      "message": "L.1506 (networkAddRoute) is not verified in new function verifyStartHotspot(L.958)",
+      "range": {
+        "startLine": 1522,
+        "startChar": 8,
+        "endLine": 1522,
+        "endChar": 26
+      },
+      "revId": "13b9820ebd0c7b2072491f93eab18c18e61ec09d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
