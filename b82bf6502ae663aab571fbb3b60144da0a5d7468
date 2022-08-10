@@ -22,6 +22,30 @@
       },
       "revId": "b82bf6502ae663aab571fbb3b60144da0a5d7468",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39069b53_1bdb3a19",
+        "filename": "bpf_progs/bpf_tethering.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-08-10T19:41:07Z",
+      "side": 1,
+      "message": "it only gets dumped as text as part of dumpsys",
+      "parentUuid": "256388e2_acb7865f",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 31
+      },
+      "revId": "b82bf6502ae663aab571fbb3b60144da0a5d7468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
