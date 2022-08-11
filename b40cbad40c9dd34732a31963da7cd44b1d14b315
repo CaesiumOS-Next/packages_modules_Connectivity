@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af967da7_95f12450",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-08-11T01:58:54Z",
+      "side": 0,
+      "message": "What\u0027s the plan here? Any reason not to repurpose this unit test (or create a new one) to work with the new code?",
+      "range": {
+        "startLine": 481,
+        "startChar": 16,
+        "endLine": 481,
+        "endChar": 70
+      },
+      "revId": "b40cbad40c9dd34732a31963da7cd44b1d14b315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

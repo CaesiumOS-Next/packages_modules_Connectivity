@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab59433a_093c6d21",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-08-11T01:58:54Z",
+      "side": 1,
+      "message": "Did you mean to do `sLog` vs `mLog`? Also, since this is a static final, should it be `SHARED_LOG` or the like?",
+      "range": {
+        "startLine": 92,
+        "startChar": 35,
+        "endLine": 92,
+        "endChar": 39
+      },
+      "revId": "f23fa5a44a3629d587a47de34d9e8669d7c7883c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65130bea_ff39594e",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-08-11T01:58:54Z",
+      "side": 1,
+      "message": "Any reason to not inject sLog in this contructor?\ngo/di-practices/injection-site#constructor-injection",
+      "range": {
+        "startLine": 161,
+        "startChar": 31,
+        "endLine": 161,
+        "endChar": 46
+      },
+      "revId": "f23fa5a44a3629d587a47de34d9e8669d7c7883c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c63a6d67_b3451097",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-08-11T01:58:54Z",
+      "side": 1,
+      "message": "What is \"Rtm\" in this case? Looks like it is related to the RTM messages the monitor will react to? I\u0027m wondering if there might be more readable naming to use at this layer vs reusing the native layer naming? I.e., `onLinkAdded`?\n\nDoes this method also get called for link state updates (as per the `if` statement on l.167) and not just added interfaces? In that case, maybe `onLinkStateChanged`?",
+      "range": {
+        "startLine": 166,
+        "startChar": 23,
+        "endLine": 166,
+        "endChar": 26
+      },
+      "revId": "f23fa5a44a3629d587a47de34d9e8669d7c7883c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d43d25ed_1840f9b7",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-08-11T01:58:54Z",
+      "side": 1,
+      "message": "Did you mean to keep these all `Log.i` or would `Log.d` make more sense?",
+      "range": {
+        "startLine": 168,
+        "startChar": 16,
+        "endLine": 168,
+        "endChar": 21
+      },
+      "revId": "f23fa5a44a3629d587a47de34d9e8669d7c7883c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30b54790_a4c70dea",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-08-11T01:58:54Z",
+      "side": 1,
+      "message": "Recommend using braces even for single line if statements (defensive coding):\ngo/java-style#s4.1.1-braces-always-used",
+      "range": {
+        "startLine": 183,
+        "startChar": 12,
+        "endLine": 183,
+        "endChar": 58
+      },
+      "revId": "f23fa5a44a3629d587a47de34d9e8669d7c7883c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d53cec3d_e49deb2e",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-08-11T01:58:54Z",
+      "side": 1,
+      "message": "nit: Thoughts on moving this method below the constructor? It will arguably be called the most on this class so may be easier to read if it is higher up.\n\nSome guidance on class structure which may be helpful:\ngo/java-practices/class-structure#rules",
+      "range": {
+        "startLine": 206,
+        "startChar": 23,
+        "endLine": 206,
+        "endChar": 44
+      },
+      "revId": "f23fa5a44a3629d587a47de34d9e8669d7c7883c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
