@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d6c8fd2_589b5d91",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-11T21:23:07Z",
+      "side": 1,
+      "message": "This currently waits for 5s. Can you either:\na) significantly shorten the timeout (you\u0027ll have to play around a little bit, but I think about 50ms should probably be plenty -- though I don\u0027t know how it affects other tests (if some request a tethered interface without waiting for the interface to be available in EthernetTracker, this may not work)) or\nb) add a second getInterface() method that takes the timeout?\n\nIf you do that, I suggest to just run this before every test. The added complexity of having to initialize context, EthernetManager, and TetheredInterfaceRequester is not worth it to save less than half a second. (4 tests wait on timeout, so even if you find you have to set it to 500ms (which I doubt), it should still be an acceptable price to pay.)",
+      "range": {
+        "startLine": 200,
+        "startChar": 48,
+        "endLine": 200,
+        "endChar": 72
+      },
+      "revId": "d70626b1014b2b19705accd2d5fb0c32166f7bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
