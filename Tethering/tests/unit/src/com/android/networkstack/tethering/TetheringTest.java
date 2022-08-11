@@ -472,8 +472,8 @@ public class TetheringTest {
 
         @Override
         public TetheringConfiguration generateTetheringConfiguration(Context ctx, SharedLog log,
-                int subId) {
-            mConfig = spy(new FakeTetheringConfiguration(ctx, log, subId));
+                int subId, TetheringConfigurationParcel, configParcel) {
+            mConfig = spy(new FakeTetheringConfiguration(ctx, log, subId, configParcel));
             return mConfig;
         }
 
