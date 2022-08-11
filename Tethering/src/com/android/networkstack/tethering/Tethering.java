@@ -513,7 +513,11 @@ public class Tethering {
 
     // NOTE: This is always invoked on the mLooper thread.
     private void updateConfiguration() {
-        mConfig = mDeps.generateTetheringConfiguration(mContext, mLog, mActiveDataSubId);
+        updateConfiguration(null);
+    }
+
+    private void updateConfiguration(final TetheringConfigurationParcel newConfig) {
+        mConfig = mDeps.generateTetheringConfiguration(mContext, mLog, mActiveDataSubId, newConfig);
         mUpstreamNetworkMonitor.setUpstreamConfig(mConfig.chooseUpstreamAutomatically,
                 mConfig.isDunRequired);
         reportConfigurationChanged(mConfig.toStableParcelable());
@@ -2812,6 +2816,16 @@ public class Tethering {
     void setPreferTestNetworks(final boolean prefer, IIntResultListener listener) {
         mHandler.post(() -> {
             mUpstreamNetworkMonitor.setPreferTestNetworks(prefer);
+            try {
+                listener.onResult(TETHER_ERROR_NO_ERROR);
+            } catch (RemoteException e) { }
+        });
+    }
+
+    void setTetheringConfigurationForTest(final TetheringConfigurationParcel config,
+            final IIntResultListener listener) {
+        mHandler.post(() -> {
+            updateConfiguration(config);
             try {
                 listener.onResult(TETHER_ERROR_NO_ERROR);
             } catch (RemoteException e) { }
