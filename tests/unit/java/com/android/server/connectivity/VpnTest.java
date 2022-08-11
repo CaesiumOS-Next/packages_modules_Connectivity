@@ -252,6 +252,7 @@ public class VpnTest extends VpnTestBase {
     @Mock private ScheduledThreadPoolExecutor mExecutor;
     @Mock private ScheduledFuture mScheduledFuture;
     @Mock DeviceIdleInternal mDeviceIdleInternal;
+    @Mock Vpn.Ikev2ExecutorThreadFactory mIkev2ExecutorThreadFactory;
     private final VpnProfile mVpnProfile;
 
     private IpSecManager mIpSecManager;
@@ -314,6 +315,9 @@ public class VpnTest extends VpnTestBase {
         // PERMISSION_DENIED.
         doReturn(PERMISSION_DENIED).when(mContext).checkCallingOrSelfPermission(any());
 
+        // Suppose the methods in Ikev2VpnRunner run on the right thread.
+        doReturn(true).when(mIkev2ExecutorThreadFactory).isIkev2ExecutorThread(any());
+
         // Set up mIkev2SessionCreator and mExecutor
         resetIkev2SessionCreator(mIkeSessionWrapper);
         resetExecutor(mScheduledFuture);
@@ -335,6 +339,7 @@ public class VpnTest extends VpnTestBase {
             .execute(any());
         when(mExecutor.schedule(
                 any(Runnable.class), anyLong(), any())).thenReturn(mScheduledFuture);
+        doReturn(mIkev2ExecutorThreadFactory).when(mExecutor).getThreadFactory();
     }
 
     @After
@@ -1819,6 +1824,19 @@ public class VpnTest extends VpnTestBase {
         final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
                 createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */));
         vpnSnapShot.vpn.mVpnRunner.exitVpnRunner();
+    }
+
+    @Test
+    public void testIkev2VpnRunnerMethodsRunOnTheWrongThread() throws Exception {
+        // Reset mIkev2ExecutorThreadFactory to let IKEv2VpnRunner methods run on the wrong thread.
+        reset(mIkev2ExecutorThreadFactory);
+
+        try {
+            verifySetupPlatformVpn(
+                    createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */));
+            fail("Expected SecurityException due to running on the wrong thread");
+        } catch (SecurityException expected) {
+        }
     }
 
     @Test
