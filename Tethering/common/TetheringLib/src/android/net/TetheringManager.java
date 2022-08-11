@@ -1208,6 +1208,14 @@ public class TetheringManager {
          * @param status The offload status.
          */
         default void onOffloadStatusChanged(@TetherOffloadStatus int status) {}
+
+        /**
+         * Called when tethering configuration changes.
+         *
+         * <p>This callback is only used for testing.
+         * @hide
+         */
+        default void onConfigurationChanged(@NonNull TetheringConfigurationParcel parcel) {}
     }
 
     /**
@@ -1398,7 +1406,10 @@ public class TetheringManager {
 
                 @Override
                 public void onConfigurationChanged(TetheringConfigurationParcel config) {
-                    executor.execute(() -> sendRegexpsChanged(config));
+                    executor.execute(() -> {
+                        sendRegexpsChanged(config);
+                        callback.onConfigurationChanged(config);
+                    });
                 }
 
                 @Override
