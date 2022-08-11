@@ -141,6 +141,30 @@
       },
       "revId": "c183516d351f42407590b22b55d967b92259232e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4aa68d7_1d13d757",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-11T09:16:00Z",
+      "side": 1,
+      "message": "Thanks Patrick and Mark.\n\nafter discussion, we go Patrick\u0027s approach (waiting X seconds approach) because dumpsys seems to be not a good way for cts (ex: b/241787285). \n\nrefer to markschien\u0027s comment:\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2127493/8/Tethering/tests/integration/src/android/net/EthernetTetheringTest.java#254",
+      "parentUuid": "6678d8a5_723eb1eb",
+      "range": {
+        "startLine": 247,
+        "startChar": 6,
+        "endLine": 254,
+        "endChar": 89
+      },
+      "revId": "c183516d351f42407590b22b55d967b92259232e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

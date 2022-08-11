@@ -46,6 +46,30 @@
       },
       "revId": "f8ae2785319fce39148a117420a901cebbf0def6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e9f06e4_5fc953b6",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-11T09:16:00Z",
+      "side": 1,
+      "message": "Done.\n\nThanks for your advice and time to discuss offline",
+      "parentUuid": "7656dbf5_07db2ef9",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 254,
+        "endChar": 0
+      },
+      "revId": "f8ae2785319fce39148a117420a901cebbf0def6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
