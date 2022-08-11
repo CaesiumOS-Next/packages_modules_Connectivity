@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5879b78f_52282394",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-08-11T07:26:27Z",
+      "side": 1,
+      "message": "NetlinkMonitor has included SharedLog parameter, we could just use the default one maintained in this class(e.g. at L162 just pass the sLog), for Handler, it\u0027s passed-in from outside caller. Having one parameter keeps constructor simpler.",
+      "parentUuid": "65130bea_ff39594e",
+      "range": {
+        "startLine": 161,
+        "startChar": 31,
+        "endLine": 161,
+        "endChar": 46
+      },
+      "revId": "f23fa5a44a3629d587a47de34d9e8669d7c7883c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c63a6d67_b3451097",
         "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
         "patchSetId": 3
@@ -60,6 +84,30 @@
       "writtenOn": "2022-08-11T01:58:54Z",
       "side": 1,
       "message": "What is \"Rtm\" in this case? Looks like it is related to the RTM messages the monitor will react to? I\u0027m wondering if there might be more readable naming to use at this layer vs reusing the native layer naming? I.e., `onLinkAdded`?\n\nDoes this method also get called for link state updates (as per the `if` statement on l.167) and not just added interfaces? In that case, maybe `onLinkStateChanged`?",
+      "range": {
+        "startLine": 166,
+        "startChar": 23,
+        "endLine": 166,
+        "endChar": 26
+      },
+      "revId": "f23fa5a44a3629d587a47de34d9e8669d7c7883c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7315a204_65580880",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-08-11T07:26:27Z",
+      "side": 1,
+      "message": "Rtm: abbreviation of routing messages or rtnetlink messages? https://man7.org/linux/man-pages/man7/rtnetlink.7.html\n\nor how about just \"updateInterfaceLinkState\"?",
+      "parentUuid": "c63a6d67_b3451097",
       "range": {
         "startLine": 166,
         "startChar": 23,
@@ -111,6 +159,29 @@
         "startChar": 12,
         "endLine": 183,
         "endChar": 58
+      },
+      "revId": "f23fa5a44a3629d587a47de34d9e8669d7c7883c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe0fc204_65004319",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-08-11T07:26:27Z",
+      "side": 1,
+      "message": "should we also check the ifinfomsg.flags filed to see if that includes unexpected flag: IFF_LOOPBACK? Then maybe we can move these kind of check before checking if the interface name is an valid ethernet interface.",
+      "range": {
+        "startLine": 185,
+        "startChar": 34,
+        "endLine": 185,
+        "endChar": 43
       },
       "revId": "f23fa5a44a3629d587a47de34d9e8669d7c7883c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
