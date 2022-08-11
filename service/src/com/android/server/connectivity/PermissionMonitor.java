@@ -52,6 +52,8 @@ import android.net.INetd;
 import android.net.UidRange;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.Process;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
@@ -98,6 +100,7 @@ public class PermissionMonitor {
     private final Dependencies mDeps;
     private final Context mContext;
     private final BpfNetMaps mBpfNetMaps;
+    private final Handler mHandler;
 
     private static final ProcessShim sProcessShim = ProcessShimImpl.newInstance();
 
@@ -157,6 +160,7 @@ public class PermissionMonitor {
     private BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            ensureRunningOnHandlerThread();
             final String action = intent.getAction();
 
             if (Intent.ACTION_PACKAGE_ADDED.equals(action)) {
@@ -259,14 +263,15 @@ public class PermissionMonitor {
     }
 
     public PermissionMonitor(@NonNull final Context context, @NonNull final INetd netd,
-            @NonNull final BpfNetMaps bpfNetMaps) {
-        this(context, netd, bpfNetMaps, new Dependencies());
+            @NonNull final BpfNetMaps bpfNetMaps, @NonNull final Looper looper) {
+        this(context, netd, bpfNetMaps, new Dependencies(), looper);
     }
 
     @VisibleForTesting
     PermissionMonitor(@NonNull final Context context, @NonNull final INetd netd,
             @NonNull final BpfNetMaps bpfNetMaps,
-            @NonNull final Dependencies deps) {
+            @NonNull final Dependencies deps,
+            @NonNull final Looper looper) {
         mPackageManager = context.getPackageManager();
         mUserManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
         mSystemConfigManager = context.getSystemService(SystemConfigManager.class);
@@ -274,6 +279,14 @@ public class PermissionMonitor {
         mDeps = deps;
         mContext = context;
         mBpfNetMaps = bpfNetMaps;
+        mHandler = new Handler(looper);
+    }
+
+    private void ensureRunningOnHandlerThread() {
+        if (mHandler.getLooper().getThread() != Thread.currentThread()) {
+            throw new IllegalStateException(
+                    "Not running on Handler thread: " + Thread.currentThread().getName());
+        }
     }
 
     private int getPackageNetdNetworkPermission(@NonNull final PackageInfo app) {
@@ -411,8 +424,7 @@ public class PermissionMonitor {
         intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
         intentFilter.addDataScheme("package");
         userAllContext.registerReceiver(
-                mIntentReceiver, intentFilter, null /* broadcastPermission */,
-                null /* scheduler */);
+                mIntentReceiver, intentFilter, null /* broadcastPermission */, mHandler);
 
         // Listen to EXTERNAL_APPLICATIONS_AVAILABLE is that an app becoming available means it may
         // need to gain a permission. But an app that becomes unavailable can neither gain nor lose
@@ -421,25 +433,24 @@ public class PermissionMonitor {
         final IntentFilter externalIntentFilter =
                 new IntentFilter(Intent.ACTION_EXTERNAL_APPLICATIONS_AVAILABLE);
         userAllContext.registerReceiver(
-                mIntentReceiver, externalIntentFilter, null /* broadcastPermission */,
-                null /* scheduler */);
+                mIntentReceiver, externalIntentFilter, null /* broadcastPermission */, mHandler);
 
         // Listen for user add/remove.
         final IntentFilter userIntentFilter = new IntentFilter();
         userIntentFilter.addAction(Intent.ACTION_USER_ADDED);
         userIntentFilter.addAction(Intent.ACTION_USER_REMOVED);
         userAllContext.registerReceiver(
-                mIntentReceiver, userIntentFilter, null /* broadcastPermission */,
-                null /* scheduler */);
+                mIntentReceiver, userIntentFilter, null /* broadcastPermission */, mHandler);
 
         // Register UIDS_ALLOWED_ON_RESTRICTED_NETWORKS setting observer
         mDeps.registerContentObserver(
                 userAllContext,
                 Settings.Global.getUriFor(UIDS_ALLOWED_ON_RESTRICTED_NETWORKS),
                 false /* notifyForDescendants */,
-                new ContentObserver(null) {
+                new ContentObserver(mHandler) {
                     @Override
                     public void onChange(boolean selfChange) {
+                        ensureRunningOnHandlerThread();
                         onSettingChanged();
                     }
                 });

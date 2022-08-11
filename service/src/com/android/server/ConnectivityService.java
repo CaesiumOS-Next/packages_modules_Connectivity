@@ -1559,7 +1559,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         mUserManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
 
-        mPermissionMonitor = new PermissionMonitor(mContext, mNetd, mBpfNetMaps);
+        mPermissionMonitor =
+                new PermissionMonitor(mContext, mNetd, mBpfNetMaps, mHandlerThread.getLooper());
 
         mUserAllContext = mContext.createContextAsUser(UserHandle.ALL, 0 /* flags */);
         // Listen for user add/removes to inform PermissionMonitor.
