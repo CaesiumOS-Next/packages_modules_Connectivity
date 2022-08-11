@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2e293bc_84de1f3f",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-11T18:37:23Z",
+      "side": 1,
+      "message": "It should be sLog (s for static). We mostly use the all-caps spelling for string literals or const ints (essentially what would be a constexpr in C++ or #define in C). Static objects usually use \"s{Name}\" (see https://source.corp.google.com/android/packages/modules/Connectivity/service/src/com/android/server/BpfNetMaps.java for instance).",
+      "parentUuid": "ab59433a_093c6d21",
+      "range": {
+        "startLine": 92,
+        "startChar": 35,
+        "endLine": 92,
+        "endChar": 39
+      },
+      "revId": "f23fa5a44a3629d587a47de34d9e8669d7c7883c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65130bea_ff39594e",
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "NetlinkMonitor has included SharedLog parameter, we could just use the default one maintained in this class(e.g. at L162 just pass the sLog), for Handler, it\u0027s passed-in from outside caller. Having one parameter keeps constructor simpler.",
       "parentUuid": "65130bea_ff39594e",
+      "range": {
+        "startLine": 161,
+        "startChar": 31,
+        "endLine": 161,
+        "endChar": 46
+      },
+      "revId": "f23fa5a44a3629d587a47de34d9e8669d7c7883c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1919b0b8_64a0ea26",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-11T18:37:23Z",
+      "side": 1,
+      "message": "Yeah, the purpose of passing the handler is not dependency injection. Even though EthernetNetlinkMonitor has access to its parent class, the handler should be passed in as otherwise one may think to directly initialize mNetlinkMonitor where it\u0027s first declared (which will obviously be bad as mHandler is uninitialized at the time). Since sLog is a static final, I don\u0027t see a good reason to pass it in. It\u0027s always there anyways, and like Xiao says, it keeps the constructor simpler.",
+      "parentUuid": "5879b78f_52282394",
       "range": {
         "startLine": 161,
         "startChar": 31,
@@ -118,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f6d8522_8c1c1690",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-11T18:37:23Z",
+      "side": 1,
+      "message": "Agreed that this is a little hard to read. updateInterfaceLinkState is overloaded and not entirely correct as the callbacks can also add / remove interfaces.\nI will rename them to onNewLink() and onDelLink(), which is close enough to RTM_NEWLINK / RTM_DELLINK (so it reflects their intent) and easier to read.\n\nre James: RTM_NEWLINK messages are sent by the kernel when an interface is added and when the interface flags change.",
+      "parentUuid": "7315a204_65580880",
+      "range": {
+        "startLine": 166,
+        "startChar": 23,
+        "endLine": 166,
+        "endChar": 26
+      },
+      "revId": "f23fa5a44a3629d587a47de34d9e8669d7c7883c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d43d25ed_1840f9b7",
@@ -141,6 +213,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "afc3c578_b9abe06b",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-11T18:37:23Z",
+      "side": 1,
+      "message": "They used to be Log.i but guarded by DBG (which has always been true 😊). I actually think that these particular logs are really important for debugging, so I wouldn\u0027t want to lose them on a user build (Log.d gets stripped on a user build).",
+      "parentUuid": "d43d25ed_1840f9b7",
+      "range": {
+        "startLine": 168,
+        "startChar": 16,
+        "endLine": 168,
+        "endChar": 21
+      },
+      "revId": "f23fa5a44a3629d587a47de34d9e8669d7c7883c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30b54790_a4c70dea",
@@ -154,6 +250,30 @@
       "writtenOn": "2022-08-11T01:58:54Z",
       "side": 1,
       "message": "Recommend using braces even for single line if statements (defensive coding):\ngo/java-style#s4.1.1-braces-always-used",
+      "range": {
+        "startLine": 183,
+        "startChar": 12,
+        "endLine": 183,
+        "endChar": 58
+      },
+      "revId": "f23fa5a44a3629d587a47de34d9e8669d7c7883c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41793b19_6de5dbd7",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-11T18:37:23Z",
+      "side": 1,
+      "message": "You linked the google3 style guide, the Android / AOSP style guide is here:\nhttps://source.android.com/setup/contribute/code-style#use-standard-brace-style",
+      "parentUuid": "30b54790_a4c70dea",
       "range": {
         "startLine": 183,
         "startChar": 12,
@@ -189,6 +309,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "aff610d5_aeb730c2",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-11T18:37:23Z",
+      "side": 1,
+      "message": "Done. We could also check that the ifIndex is valid, but that may just be overkill (I am not even sure this could ever happen).",
+      "parentUuid": "fe0fc204_65004319",
+      "range": {
+        "startLine": 185,
+        "startChar": 34,
+        "endLine": 185,
+        "endChar": 43
+      },
+      "revId": "f23fa5a44a3629d587a47de34d9e8669d7c7883c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d53cec3d_e49deb2e",
         "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
         "patchSetId": 3
@@ -200,6 +344,30 @@
       "writtenOn": "2022-08-11T01:58:54Z",
       "side": 1,
       "message": "nit: Thoughts on moving this method below the constructor? It will arguably be called the most on this class so may be easier to read if it is higher up.\n\nSome guidance on class structure which may be helpful:\ngo/java-practices/class-structure#rules",
+      "range": {
+        "startLine": 206,
+        "startChar": 23,
+        "endLine": 206,
+        "endChar": 44
+      },
+      "revId": "f23fa5a44a3629d587a47de34d9e8669d7c7883c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aef2e480_b8804e42",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-11T18:37:23Z",
+      "side": 1,
+      "message": "I have adapted maze@\u0027s approach of always defining functions before they are used. This makes the code a little easier to read as it reads from top down.",
+      "parentUuid": "d53cec3d_e49deb2e",
       "range": {
         "startLine": 206,
         "startChar": 23,

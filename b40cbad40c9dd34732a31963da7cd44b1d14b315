@@ -46,6 +46,30 @@
       },
       "revId": "b40cbad40c9dd34732a31963da7cd44b1d14b315",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31b82a29_40130f63",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-11T18:37:23Z",
+      "side": 0,
+      "message": "I don\u0027t know. Looking through this, we already have coverage of all the code paths tested here in EthernetManagerTest. We could consider adding some more testing around preconfigured NetworkCapabilities and saved IpConfigurations. That\u0027s not covered at all yet, so if we decide to do so, it should be in a separate CL.",
+      "parentUuid": "534f0b81_9aa977a0",
+      "range": {
+        "startLine": 481,
+        "startChar": 16,
+        "endLine": 481,
+        "endChar": 70
+      },
+      "revId": "b40cbad40c9dd34732a31963da7cd44b1d14b315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
