@@ -70,6 +70,30 @@
       },
       "revId": "b40cbad40c9dd34732a31963da7cd44b1d14b315",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adf2bd1f_cd28c2fe",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-08-11T21:32:44Z",
+      "side": 0,
+      "message": "You bring up a good point Patrick regarding testing strategy; do we need unit tests if we already have CTS tests in place?\n\nThe Android Testing Strategy doc does a good breakdown on this:\nhttps://g3doc.corp.google.com/coresystems/devrel/androidtest/g3doc/test_strategy/index.md#test-pyramid\n\nMy suggestion would be to rely on unit tests when possible and use the CTS tests for API validation. In this case, you should be able to validate with unit tests it seems?\n\nI know we\u0027ve spoken on the topic in the past; is the plan going forward in this repo to not rely on unit tests if CTS tests are available? I would not recommend it however if that\u0027s the plan I won\u0027t be a blocker.\n\nThanks!",
+      "parentUuid": "31b82a29_40130f63",
+      "range": {
+        "startLine": 481,
+        "startChar": 16,
+        "endLine": 481,
+        "endChar": 70
+      },
+      "revId": "b40cbad40c9dd34732a31963da7cd44b1d14b315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
