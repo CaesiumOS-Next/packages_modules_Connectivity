@@ -22,6 +22,30 @@
       },
       "revId": "f8ae2785319fce39148a117420a901cebbf0def6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7656dbf5_07db2ef9",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-11T03:42:51Z",
+      "side": 1,
+      "message": "@BeforeClass\n    public static void setupOnce() {\n        final EthernetManager em \u003d InstrumentationRegistry.getContext().getSystemService(EthernetManager.class);\n        final TetheredInterfaceRequester requester \u003d new             TetheredInterfaceRequester(c -\u003e c.run(), em);\n        try {\n            isInterfaceForTetheringAvailable \u003d requester.getInterface() !\u003d null;\n        } finally {\n            requester.release();\n        }\n    }\n    \n         private static final class TetheredInterfaceRequester implements TetheredInterfaceCallback {\n            TetheredInterfaceRequester(Handler handler, EthernetManager em) {\n                this(handler:post, em);\n            }\n            \n            TetheredInterfaceRequester(Executor exectuor, EthernetManager em) {\n            ...\n    }",
+      "parentUuid": "171acfbc_6bd6eb46",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 254,
+        "endChar": 0
+      },
+      "revId": "f8ae2785319fce39148a117420a901cebbf0def6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
