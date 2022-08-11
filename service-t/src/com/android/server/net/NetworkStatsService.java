@@ -333,13 +333,11 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             }
         }
 
-        Config getDevConfig();
         Config getXtConfig();
         Config getUidConfig();
         Config getUidTagConfig();
 
         long getGlobalAlertBytes(long def);
-        long getDevPersistBytes(long def);
         long getXtPersistBytes(long def);
         long getUidPersistBytes(long def);
         long getUidTagPersistBytes(long def);
@@ -388,8 +386,6 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     /** Semaphore used to wait for stats provider to respond to request stats update. */
     private final Semaphore mStatsProviderSem = new Semaphore(0, true);
 
-    @GuardedBy("mStatsLock")
-    private NetworkStatsRecorder mDevRecorder;
     @GuardedBy("mStatsLock")
     private NetworkStatsRecorder mXtRecorder;
     @GuardedBy("mStatsLock")
@@ -844,8 +840,6 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             mSystemReady = true;
 
             // create data recorders along with historical rotators
-            mDevRecorder = buildRecorder(PREFIX_DEV, mSettings.getDevConfig(), false, mStatsDir,
-                    true /* wipeOnError */);
             mXtRecorder = buildRecorder(PREFIX_XT, mSettings.getXtConfig(), false, mStatsDir,
                     true /* wipeOnError */);
             mUidRecorder = buildRecorder(PREFIX_UID, mSettings.getUidConfig(), false, mStatsDir,
@@ -943,7 +937,6 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         final long currentTime = mClock.millis();
 
         // persist any pending stats
-        mDevRecorder.forcePersistLocked(currentTime);
         mXtRecorder.forcePersistLocked(currentTime);
         mUidRecorder.forcePersistLocked(currentTime);
         mUidTagRecorder.forcePersistLocked(currentTime);
@@ -1010,8 +1003,12 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             Log.i(TAG, "Starting import : attempts " + attempts + "/" + targetAttempts);
         }
 
+        // Import legacy data for the DEV prefix but it no longer record new data.
+        // Note that it's safe to use XtConfig for DEV recorder since they used the same config.
+        final NetworkStatsRecorder devRecorder = buildRecorder(PREFIX_DEV, mSettings.getXtConfig(),
+                false, mStatsDir, true /* wipeOnError */);
         final MigrationInfo[] migrations = new MigrationInfo[]{
-                new MigrationInfo(mDevRecorder), new MigrationInfo(mXtRecorder),
+                new MigrationInfo(devRecorder), new MigrationInfo(mXtRecorder),
                 new MigrationInfo(mUidRecorder), new MigrationInfo(mUidTagRecorder)
         };
 
@@ -1022,7 +1019,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             // Set wipeOnError flag false so the recorder won't damage persistent data if reads
             // failed and calling deleteAll.
             legacyRecorders = new NetworkStatsRecorder[]{
-                buildRecorder(PREFIX_DEV, mSettings.getDevConfig(), false, legacyBaseDir,
+                buildRecorder(PREFIX_DEV, mSettings.getXtConfig(), false, legacyBaseDir,
                         false /* wipeOnError */),
                 buildRecorder(PREFIX_XT, mSettings.getXtConfig(), false, legacyBaseDir,
                         false /* wipeOnError */),
@@ -1834,7 +1831,6 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
             updatePersistThresholdsLocked();
 
-            mDevRecorder.maybePersistLocked(currentTime);
             mXtRecorder.maybePersistLocked(currentTime);
             mUidRecorder.maybePersistLocked(currentTime);
             mUidTagRecorder.maybePersistLocked(currentTime);
@@ -1950,7 +1946,6 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
      */
     @GuardedBy("mStatsLock")
     private void updatePersistThresholdsLocked() {
-        mDevRecorder.setPersistThreshold(mSettings.getDevPersistBytes(mPersistThreshold));
         mXtRecorder.setPersistThreshold(mSettings.getXtPersistBytes(mPersistThreshold));
         mUidRecorder.setPersistThreshold(mSettings.getUidPersistBytes(mPersistThreshold));
         mUidTagRecorder.setPersistThreshold(mSettings.getUidTagPersistBytes(mPersistThreshold));
@@ -2230,30 +2225,23 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     @GuardedBy("mStatsLock")
     private void recordSnapshotLocked(long currentTime) throws RemoteException {
         // snapshot and record current counters; read UID stats first to
-        // avoid over counting dev stats.
+        // avoid over counting xt stats.
         Trace.traceBegin(TRACE_TAG_NETWORK, "snapshotUid");
         final NetworkStats uidSnapshot = getNetworkStatsUidDetail(INTERFACES_ALL);
         Trace.traceEnd(TRACE_TAG_NETWORK);
         Trace.traceBegin(TRACE_TAG_NETWORK, "snapshotXt");
         final NetworkStats xtSnapshot = readNetworkStatsSummaryXt();
         Trace.traceEnd(TRACE_TAG_NETWORK);
-        Trace.traceBegin(TRACE_TAG_NETWORK, "snapshotDev");
-        final NetworkStats devSnapshot = readNetworkStatsSummaryDev();
-        Trace.traceEnd(TRACE_TAG_NETWORK);
 
-        // Snapshot for dev/xt stats from all custom stats providers. Counts per-interface data
-        // from stats providers that isn't already counted by dev and XT stats.
+        // Snapshot for xt stats from all custom stats providers. Counts per-interface data
+        // from stats providers that isn't already counted by XT stats.
         Trace.traceBegin(TRACE_TAG_NETWORK, "snapshotStatsProvider");
         final NetworkStats providersnapshot = getNetworkStatsFromProviders(STATS_PER_IFACE);
         Trace.traceEnd(TRACE_TAG_NETWORK);
         xtSnapshot.combineAllValues(providersnapshot);
-        devSnapshot.combineAllValues(providersnapshot);
 
-        // For xt/dev, we pass a null VPN array because usage is aggregated by UID, so VPN traffic
+        // For xt, we pass a null VPN array because usage is aggregated by UID, so VPN traffic
         // can't be reattributed to responsible apps.
-        Trace.traceBegin(TRACE_TAG_NETWORK, "recordDev");
-        mDevRecorder.recordSnapshotLocked(devSnapshot, mActiveIfaces, currentTime);
-        Trace.traceEnd(TRACE_TAG_NETWORK);
         Trace.traceBegin(TRACE_TAG_NETWORK, "recordXt");
         mXtRecorder.recordSnapshotLocked(xtSnapshot, mActiveIfaces, currentTime);
         Trace.traceEnd(TRACE_TAG_NETWORK);
@@ -2333,13 +2321,11 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         // persist any pending data depending on requested flags
         Trace.traceBegin(TRACE_TAG_NETWORK, "[persisting]");
         if (persistForce) {
-            mDevRecorder.forcePersistLocked(currentTime);
             mXtRecorder.forcePersistLocked(currentTime);
             mUidRecorder.forcePersistLocked(currentTime);
             mUidTagRecorder.forcePersistLocked(currentTime);
         } else {
             if (persistNetwork) {
-                mDevRecorder.maybePersistLocked(currentTime);
                 mXtRecorder.maybePersistLocked(currentTime);
             }
             if (persistUid) {
@@ -2396,30 +2382,25 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         final long currentTime = mClock.millis();
 
         NetworkTemplate template;
-        NetworkStats.Entry devTotal;
         NetworkStats.Entry xtTotal;
         NetworkStats.Entry uidTotal;
 
         // collect mobile sample
         template = new NetworkTemplate.Builder(MATCH_MOBILE).setMeteredness(METERED_YES).build();
-        devTotal = mDevRecorder.getTotalSinceBootLocked(template);
         xtTotal = mXtRecorder.getTotalSinceBootLocked(template);
         uidTotal = mUidRecorder.getTotalSinceBootLocked(template);
 
         EventLog.writeEvent(LOG_TAG_NETSTATS_MOBILE_SAMPLE,
-                devTotal.rxBytes, devTotal.rxPackets, devTotal.txBytes, devTotal.txPackets,
                 xtTotal.rxBytes, xtTotal.rxPackets, xtTotal.txBytes, xtTotal.txPackets,
                 uidTotal.rxBytes, uidTotal.rxPackets, uidTotal.txBytes, uidTotal.txPackets,
                 currentTime);
 
         // collect wifi sample
         template = new NetworkTemplate.Builder(MATCH_WIFI).build();
-        devTotal = mDevRecorder.getTotalSinceBootLocked(template);
         xtTotal = mXtRecorder.getTotalSinceBootLocked(template);
         uidTotal = mUidRecorder.getTotalSinceBootLocked(template);
 
         EventLog.writeEvent(LOG_TAG_NETSTATS_WIFI_SAMPLE,
-                devTotal.rxBytes, devTotal.rxPackets, devTotal.txBytes, devTotal.txPackets,
                 xtTotal.rxBytes, xtTotal.rxPackets, xtTotal.txBytes, xtTotal.txPackets,
                 uidTotal.rxBytes, uidTotal.rxPackets, uidTotal.txBytes, uidTotal.txPackets,
                 currentTime);
@@ -2719,11 +2700,6 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             pw.decreaseIndent();
             pw.println();
 
-            pw.println("Dev stats:");
-            pw.increaseIndent();
-            mDevRecorder.dumpLocked(pw, fullHistory);
-            pw.decreaseIndent();
-
             pw.println("Xt stats:");
             pw.increaseIndent();
             mXtRecorder.dumpLocked(pw, fullHistory);
@@ -2781,7 +2757,6 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                 mActiveIfaces);
         dumpInterfaces(proto, NetworkStatsServiceDumpProto.ACTIVE_UID_INTERFACES,
                 mActiveUidIfaces);
-        mDevRecorder.dumpDebugLocked(proto, NetworkStatsServiceDumpProto.DEV_STATS);
         mXtRecorder.dumpDebugLocked(proto, NetworkStatsServiceDumpProto.XT_STATS);
         mUidRecorder.dumpDebugLocked(proto, NetworkStatsServiceDumpProto.UID_STATS);
         mUidTagRecorder.dumpDebugLocked(proto,
@@ -2914,14 +2889,6 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                             + value.txBytes + " "
                             + value.txPackets;
                 });
-    }
-
-    private NetworkStats readNetworkStatsSummaryDev() {
-        try {
-            return mStatsFactory.readNetworkStatsSummaryDev();
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
     }
 
     private NetworkStats readNetworkStatsSummaryXt() {
@@ -3232,12 +3199,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             return false;
         }
         @Override
-        public Config getDevConfig() {
-            return new Config(HOUR_IN_MILLIS, 15 * DAY_IN_MILLIS, 90 * DAY_IN_MILLIS);
-        }
-        @Override
         public Config getXtConfig() {
-            return getDevConfig();
+            return new Config(HOUR_IN_MILLIS, 15 * DAY_IN_MILLIS, 90 * DAY_IN_MILLIS);
         }
         @Override
         public Config getUidConfig() {
@@ -3246,10 +3209,6 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         @Override
         public Config getUidTagConfig() {
             return new Config(2 * HOUR_IN_MILLIS, 5 * DAY_IN_MILLIS, 15 * DAY_IN_MILLIS);
-        }
-        @Override
-        public long getDevPersistBytes(long def) {
-            return def;
         }
         @Override
         public long getXtPersistBytes(long def) {
