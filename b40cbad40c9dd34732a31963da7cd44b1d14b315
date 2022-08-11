@@ -94,6 +94,30 @@
       },
       "revId": "b40cbad40c9dd34732a31963da7cd44b1d14b315",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e9ccdb7_6eb3114b",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-11T22:08:36Z",
+      "side": 0,
+      "message": "It\u0027s actually one of our quality goals to rely much more heavily on end-to-end tests (https://docs.google.com/document/d/1qlW9sDDuWd8-psiZx0KfOiHA1nHN-iifaAVwBKcWj28/edit#) 😊\n\nThe end-to-end / CTS tests provide much better functional coverage (think about all the bugs we have found because of the end-to-end tests, which have existed for years -- including the bug that this very CL fixes, yay!).\nI don\u0027t disagree that there is use for the unit tests. After all, mainline requires a certain percentage (I *think* it\u0027s 70%) of function and line coverage and some exception scenarios are just hard (read: impossible) to hit in EthernetManagerTest. (I promise, I am not trying to get rid of test coverage, quite the opposite! 😊)\n\nAs far as this specific change is concerned. This test currently tests:\n- setEthernetEnabled() to make sure a link state changed callback does not add the interface back in that state. This was a previous bug and Mark has a EthernetManagerTest in review for this.\n- pretty sure lines 504-512 do not test anything.\n- onInterfaceRemoved calls removeInterface on the factory. EthernetManagerTest does much better on that, as it verifies that the network is lost and the right callback is received.\n\nThings we could still do:\n- the updateLinkState code paths are very well covered by EthernetManagerTest (and EthernetTracker is essentially just a passthrough here anyways), so I think those are fine.\n- addInterface / removeInterface could use some more testing around the initial IpConfiguration and NetworkCapabilities. This cannot be tested in EthernetManagerTest, so I think we should probably add a unit test for them (after we do \"[P0] Delete EthernetNetworkFactory (which after the recent move to the NetworkProvider API is effectively an empty shell) and merge functionality into EthernetTracker.\")",
+      "parentUuid": "adf2bd1f_cd28c2fe",
+      "range": {
+        "startLine": 481,
+        "startChar": 16,
+        "endLine": 481,
+        "endChar": 70
+      },
+      "revId": "b40cbad40c9dd34732a31963da7cd44b1d14b315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
