@@ -1396,6 +1396,17 @@ public class EthernetTetheringTest {
         runClatUdpTest();
     }
 
+    @Test
+    public void testCreateTestUpstream() throws Exception {
+        TestNetworkTracker upstreamTracker =
+                createTestUpstream(toList(TEST_IP6_ADDR), toList(TEST_IP6_DNS));
+        if (upstreamTracker != null) {
+            runAsShell(MANAGE_TEST_NETWORKS, () -> {
+                upstreamTracker.teardown();
+            });
+        }
+    }
+
     private <T> List<T> toList(T... array) {
         return Arrays.asList(array);
     }
