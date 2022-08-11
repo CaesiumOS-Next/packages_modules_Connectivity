@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fea7cce_22944d74",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-11T08:01:43Z",
+      "side": 1,
+      "message": "IIUC this will crash if mMatchWifiNetworkKeys \u003d\u003d null, which is not the same with the original behavior. Or it doesn\u0027t matter?",
+      "range": {
+        "startLine": 790,
+        "startChar": 24,
+        "endLine": 790,
+        "endChar": 84
+      },
+      "revId": "ebbad22502f5a74dcd61c360792d864bdd103f71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
