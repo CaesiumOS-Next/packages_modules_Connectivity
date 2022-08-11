@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a7f9463_c69c08f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-11T06:12:53Z",
+      "side": 1,
+      "message": "+2 with nits that could be ignored and assuming the TH failure will be addressed.",
+      "revId": "8bc3feeeb6acb77cb9511c519af3d7d5ce8f9f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a10b0ef8_86124143",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 15577,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-11T06:12:53Z",
+      "side": 1,
+      "message": "nit: It seems to me acquired means obtain something.\nSo this looks like holding the counter and doing something, which confuses me.\nI\u0027ll prefer checkRequestCountLimits or doTestRequestCountLimits  but no strong opinion.",
+      "range": {
+        "startLine": 15577,
+        "startChar": 8,
+        "endLine": 15577,
+        "endChar": 35
+      },
+      "revId": "8bc3feeeb6acb77cb9511c519af3d7d5ce8f9f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
