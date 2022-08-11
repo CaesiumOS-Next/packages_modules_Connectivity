@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86bdd22c_56f70653",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-11T22:37:52Z",
+      "side": 1,
+      "message": "I think this code should eventually be:\n\n```\nif (!mFactory.hasInterface(ifname) \u0026\u0026 !ifname.equals(mDefaultInterface)) {\n    maybeTrackInterface(ifname);\n} else {\n    updateInterfaceState(ifname, linkUp);\n}\n```\n\nIt doesn\u0027t make sense to do this in this CL though as it will likely require changes to other parts of the code. That being said, skipping the updateInterfaceState(down) callback helps us getting the ethernet listener callbacks to be more consistent. I think the way the code currently works, the correct callback order would be (down, down , up (instead of up, up, down, up)). Getting rid of that initial updateInterfaceState callback that is received as part of them same RTM_NEWLINK message makes sense as the interface is already added to the factory with link down. And if for some reason this interface has link, it is corrected in addInterface() (which handles running interfaces by sending an additional updateInterfaceState(UP) callback).\n\nEither way, this change does not make sense until the logic in addInterface() is fixed (to get to \"down, down, up\" first).",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 49
+      },
+      "revId": "734f24e6d719f91b676338cedca9ab9d7ceabb07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
