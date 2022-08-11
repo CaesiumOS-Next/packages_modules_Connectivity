@@ -1497,7 +1497,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mCellularRadioTimesharingCapable =
                 mResources.get().getBoolean(R.bool.config_cellular_radio_timesharing_capable);
 
+        mNetd = netd;
+        mBpfNetMaps = mDeps.getBpfNetMaps(mContext, netd);
         mHandlerThread = mDeps.makeHandlerThread();
+        mPermissionMonitor =
+                new PermissionMonitor(mContext, mNetd, mBpfNetMaps, mHandlerThread.getLooper());
         mHandlerThread.start();
         mHandler = new InternalHandler(mHandlerThread.getLooper());
         mTrackerHandler = new NetworkStateTrackerHandler(mHandlerThread.getLooper());
@@ -1512,8 +1516,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mDnsResolver = Objects.requireNonNull(dnsresolver, "missing IDnsResolver");
         mProxyTracker = mDeps.makeProxyTracker(mContext, mHandler);
 
-        mNetd = netd;
-        mBpfNetMaps = mDeps.getBpfNetMaps(mContext, netd);
         mTelephonyManager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
         mAppOpsManager = (AppOpsManager) mContext.getSystemService(Context.APP_OPS_SERVICE);
         mLocationPermissionChecker = mDeps.makeLocationPermissionChecker(mContext);
@@ -1542,8 +1544,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         mUserManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
-
-        mPermissionMonitor = new PermissionMonitor(mContext, mNetd, mBpfNetMaps);
 
         mUserAllContext = mContext.createContextAsUser(UserHandle.ALL, 0 /* flags */);
         // Listen for user add/removes to inform PermissionMonitor.
