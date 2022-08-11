@@ -22,6 +22,30 @@
       },
       "revId": "b40cbad40c9dd34732a31963da7cd44b1d14b315",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "534f0b81_9aa977a0",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-08-11T07:32:12Z",
+      "side": 0,
+      "message": "+1, should we have some unit test to cover the new NetlinkMonitor usage? something like when we create a new tap interaface in test, we should be able to see the RTM_NEWLINK message, then per current logic, maybeTrackInterface will be called, is it possible to verify if some functions there will be invoked? something like:\n\n```\nverify(mFactory, never()).addInterface(eq(testIface), anyString(), any(), any());\n```\n\nalso for the onInterfaceRemoved?",
+      "parentUuid": "af967da7_95f12450",
+      "range": {
+        "startLine": 481,
+        "startChar": 16,
+        "endLine": 481,
+        "endChar": 70
+      },
+      "revId": "b40cbad40c9dd34732a31963da7cd44b1d14b315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
