@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e335a94_b9eadf54",
+        "filename": "service-t/jni/com_android_server_net_NetworkStatsFactory.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-11T08:08:56Z",
+      "side": 0,
+      "message": "It surprises me there is no test covering this complex logic.",
+      "range": {
+        "startLine": 96,
+        "startChar": 11,
+        "endLine": 96,
+        "endChar": 39
+      },
+      "revId": "02c02a3e83700c91f108b74499212d25b9a1bb62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
