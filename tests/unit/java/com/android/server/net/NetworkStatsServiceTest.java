@@ -19,7 +19,6 @@ package com.android.server.net;
 import static android.Manifest.permission.DUMP;
 import static android.Manifest.permission.READ_NETWORK_USAGE_HISTORY;
 import static android.Manifest.permission.UPDATE_DEVICE_STATS;
-import static android.app.usage.NetworkStatsManager.PREFIX_DEV;
 import static android.content.Intent.ACTION_UID_REMOVED;
 import static android.content.Intent.EXTRA_UID;
 import static android.content.pm.PackageManager.PERMISSION_DENIED;
@@ -1873,8 +1872,6 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         assertStatsFilesExist(false);
 
         // Fetch the stats from the legacy files and set platform stats collection to be identical
-        mPlatformNetworkStatsCollection.put(PREFIX_DEV,
-                getLegacyCollection(PREFIX_DEV, false /* includeTags */));
         mPlatformNetworkStatsCollection.put(PREFIX_XT,
                 getLegacyCollection(PREFIX_XT, false /* includeTags */));
         mPlatformNetworkStatsCollection.put(PREFIX_UID,
@@ -1964,7 +1961,6 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         final NetworkStatsCollection uidCollection =
                 getLegacyCollection(PREFIX_UID, false /* includeTags */);
         uidCollection.recordHistory(unexpectedUidBluekey, unexpectedHistory);
-        mPlatformNetworkStatsCollection.put(PREFIX_DEV, summaryCollection);
         mPlatformNetworkStatsCollection.put(PREFIX_XT, summaryCollection);
         mPlatformNetworkStatsCollection.put(PREFIX_UID, uidCollection);
         mPlatformNetworkStatsCollection.put(PREFIX_UID_TAG,
@@ -2036,7 +2032,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
 
     private NetworkStatsCollection getLegacyCollection(String prefix, boolean includeTags) {
         final NetworkStatsRecorder recorder = makeTestRecorder(mLegacyStatsDir, prefix,
-                mSettings.getDevConfig(), includeTags, false);
+                mSettings.getXtConfig(), includeTags, false);
         return recorder.getOrLoadCompleteLocked();
     }
 
@@ -2095,12 +2091,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     // TODO: These expect* methods are used to have NetworkStatsService returns the given stats
     //       instead of expecting anything. Therefore, these methods should be renamed properly.
     private void expectNetworkStatsSummary(NetworkStats summary) throws Exception {
-        expectNetworkStatsSummaryDev(summary.clone());
         expectNetworkStatsSummaryXt(summary.clone());
-    }
-
-    private void expectNetworkStatsSummaryDev(NetworkStats summary) throws Exception {
-        when(mStatsFactory.readNetworkStatsSummaryDev()).thenReturn(summary);
     }
 
     private void expectNetworkStatsSummaryXt(NetworkStats summary) throws Exception {
@@ -2133,13 +2124,11 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         when(mSettings.getCombineSubtypeEnabled()).thenReturn(false);
 
         final Config config = new Config(bucketDuration, deleteAge, deleteAge);
-        when(mSettings.getDevConfig()).thenReturn(config);
         when(mSettings.getXtConfig()).thenReturn(config);
         when(mSettings.getUidConfig()).thenReturn(config);
         when(mSettings.getUidTagConfig()).thenReturn(config);
 
         when(mSettings.getGlobalAlertBytes(anyLong())).thenReturn(MB_IN_BYTES);
-        when(mSettings.getDevPersistBytes(anyLong())).thenReturn(MB_IN_BYTES);
         when(mSettings.getXtPersistBytes(anyLong())).thenReturn(MB_IN_BYTES);
         when(mSettings.getUidPersistBytes(anyLong())).thenReturn(MB_IN_BYTES);
         when(mSettings.getUidTagPersistBytes(anyLong())).thenReturn(MB_IN_BYTES);
