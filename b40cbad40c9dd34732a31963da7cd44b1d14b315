@@ -118,6 +118,30 @@
       },
       "revId": "b40cbad40c9dd34732a31963da7cd44b1d14b315",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95aef486_305bb59b",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-08-11T23:12:37Z",
+      "side": 0,
+      "message": "Ok cool. Looking at the doc you listed, I see the push to replace unit tests with CTS tests; I can\u0027t say I totally agree with that (perhaps I am missing something) however I\u0027ll trust you and the team if that\u0027s the approach you all decided upon.\n\nThanks btw for the detailed write-up above. I do appreciate the level of thought you put into this and it shows in how much you\u0027ve improved ethernet this past cycle.\n\nI\u0027ll leave this comment thread open in case Xiao wants to add anything. Thanks!",
+      "parentUuid": "9e9ccdb7_6eb3114b",
+      "range": {
+        "startLine": 481,
+        "startChar": 16,
+        "endLine": 481,
+        "endChar": 70
+      },
+      "revId": "b40cbad40c9dd34732a31963da7cd44b1d14b315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
