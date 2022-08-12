@@ -22,6 +22,53 @@
       },
       "revId": "734f24e6d719f91b676338cedca9ab9d7ceabb07",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81172e12_8ae4bb1c",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-08-12T05:30:11Z",
+      "side": 1,
+      "message": "Looks like the difference is just to skip the first \"down\" callback and won\u0027t send the broadcast for initial \"down\" state via listener. I think that should be fine. However, the second \"down\" state will be still processed, right? not sure if this change will help a lot.",
+      "parentUuid": "86bdd22c_56f70653",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 49
+      },
+      "revId": "734f24e6d719f91b676338cedca9ab9d7ceabb07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "738d9a6a_32520bce",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-08-12T05:30:11Z",
+      "side": 1,
+      "message": "maybe also consider to use the interface index check in a follow-up CL, is it possible to having the same ethernet interface name but with a different interface index? Actually that means the interface has changed.",
+      "range": {
+        "startLine": 191,
+        "startChar": 42,
+        "endLine": 191,
+        "endChar": 48
+      },
+      "revId": "734f24e6d719f91b676338cedca9ab9d7ceabb07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
