@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea8da181_f5bc7250",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-08-12T19:24:49Z",
+      "side": 1,
+      "message": "e",
+      "revId": "c737aae6a4bac93059e6d9d4be99077d7a2d3779",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7fc3f75_08afe879",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-08-12T19:24:49Z",
+      "side": 1,
+      "message": "What happens if this check changes in the platform in the future? Will this line need to be updated in turn? Would it be better to just check if em !\u003d in that case?",
+      "range": {
+        "startLine": 309,
+        "startChar": 12,
+        "endLine": 309,
+        "endChar": 90
+      },
+      "revId": "c737aae6a4bac93059e6d9d4be99077d7a2d3779",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0af7662_2888afcf",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-08-12T19:24:49Z",
+      "side": 1,
+      "message": "Is this needed? If memory serves me, this won\u0027t be called if assume skips the test but I could be wrong.",
+      "range": {
+        "startLine": 320,
+        "startChar": 8,
+        "endLine": 320,
+        "endChar": 42
+      },
+      "revId": "c737aae6a4bac93059e6d9d4be99077d7a2d3779",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
