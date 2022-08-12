@@ -2019,6 +2019,16 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         }
     }
 
+    @Test
+    public void testStatsFactoryRemoveUids() {
+        final Intent intent = new Intent(ACTION_UID_REMOVED);
+        intent.putExtra(EXTRA_UID, UID_BLUE);
+        mServiceContext.sendBroadcast(intent);
+
+        final int[] removedUids = {UID_BLUE};
+        verify(mStatsFactory).removeUidsLocked(eq(removedUids));
+    }
+
     private void assertShouldRunComparison(boolean expected, boolean isDebuggable) {
         assertEquals("shouldRunComparison (debuggable=" + isDebuggable + "): ",
                 expected, mService.shouldRunComparison());
