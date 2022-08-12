@@ -22,6 +22,30 @@
       },
       "revId": "d70626b1014b2b19705accd2d5fb0c32166f7bbc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25c33fb9_079b9c1f",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-12T13:27:16Z",
+      "side": 1,
+      "message": "Done. Thanks for your advice.\n\nUse approach a) with 200ms timeout.\n\n// count roughly the avg. request time on cf/acloud is ~10ms.\n```\n08-12 07:22:51.297 10039 10104 W EthernetTetheringTest: requester.getInterface+\n08-12 07:22:51.304 10039 10104 W EthernetTetheringTest: requester.getInterface-\n08-12 07:23:04.309 10191 10259 W EthernetTetheringTest: requester.getInterface+\n08-12 07:23:04.314 10191 10259 W EthernetTetheringTest: requester.getInterface-\n08-12 07:23:13.699 10344 10411 W EthernetTetheringTest: requester.getInterface+\n08-12 07:23:13.711 10344 10411 W EthernetTetheringTest: requester.getInterface-\n08-12 07:23:21.488 10508 10575 W EthernetTetheringTest: requester.getInterface+\n08-12 07:23:21.494 10508 10575 W EthernetTetheringTest: requester.getInterface-\n08-12 07:23:29.299 10659 10726 W EthernetTetheringTest: requester.getInterface+\n08-12 07:23:29.305 10659 10726 W EthernetTetheringTest: requester.getInterface-\n08-12 07:23:43.714 10811 10875 W EthernetTetheringTest: requester.getInterface+\n08-12 07:23:43.717 10811 10875 W EthernetTetheringTest: requester.getInterface-\n08-12 07:23:51.469 10978 11042 W EthernetTetheringTest: requester.getInterface+\n08-12 07:23:51.491 10978 11042 W EthernetTetheringTest: requester.getInterface-\n08-12 07:24:04.636 11129 11196 W EthernetTetheringTest: requester.getInterface+\n08-12 07:24:04.647 11129 11196 W EthernetTetheringTest: requester.getInterface-\n08-12 07:24:12.617 11282 11349 W EthernetTetheringTest: requester.getInterface+\n08-12 07:24:12.622 11282 11349 W EthernetTetheringTest: requester.getInterface-\n08-12 07:24:27.247 11434 11497 W EthernetTetheringTest: requester.getInterface+\n08-12 07:24:27.253 11434 11497 W EthernetTetheringTest: requester.getInterface-\n08-12 07:24:34.907 11599 11665 W EthernetTetheringTest: requester.getInterface+\n08-12 07:24:34.913 11599 11665 W EthernetTetheringTest: requester.getInterface-\n08-12 07:24:42.958 11749 11813 W EthernetTetheringTest: requester.getInterface+\n08-12 07:24:42.967 11749 11813 W EthernetTetheringTest: requester.getInterface-\n08-12 07:24:50.807 11897 11965 W EthernetTetheringTest: requester.getInterface+\n08-12 07:24:50.815 11897 11965 W EthernetTetheringTest: requester.getInterface-\n08-12 07:25:05.613 12052 12119 W EthernetTetheringTest: requester.getInterface+\n08-12 07:25:05.626 12052 12119 W EthernetTetheringTest: requester.getInterface-\n08-12 07:25:13.540 12219 12286 W EthernetTetheringTest: requester.getInterface+\n08-12 07:25:13.550 12219 12286 W EthernetTetheringTest: requester.getInterface-\n08-12 07:25:21.727 12370 12436 W EthernetTetheringTest: requester.getInterface+\n08-12 07:25:21.737 12370 12436 W EthernetTetheringTest: requester.getInterface-\n```",
+      "parentUuid": "1d6c8fd2_589b5d91",
+      "range": {
+        "startLine": 200,
+        "startChar": 48,
+        "endLine": 200,
+        "endChar": 72
+      },
+      "revId": "d70626b1014b2b19705accd2d5fb0c32166f7bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
