@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39453266_09d2ff5c",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-12T15:53:15Z",
+      "side": 1,
+      "message": "nit: With a 200ms timeout (that could potentially be shortened), I don\u0027t think this is really something to worry about. I would just remove this comment.",
+      "range": {
+        "startLine": 250,
+        "startChar": 57,
+        "endLine": 252,
+        "endChar": 17
+      },
+      "revId": "6c554c3557515a1e881a5da98ab9545b798e7c6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a53f2dce_ccb7b5ce",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-12T15:53:15Z",
+      "side": 1,
+      "message": "I guess I will argue again that there cannot be a better / more accurate way. Any other way will necessarily have to use some sort of proxy to *guess* the existence of a tetherable interface.",
+      "range": {
+        "startLine": 253,
+        "startChar": 11,
+        "endLine": 253,
+        "endChar": 15
+      },
+      "revId": "6c554c3557515a1e881a5da98ab9545b798e7c6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
