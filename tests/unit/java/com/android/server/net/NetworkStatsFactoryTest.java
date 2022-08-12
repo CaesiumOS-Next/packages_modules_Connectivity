@@ -25,6 +25,7 @@ import static android.net.NetworkStats.ROAMING_NO;
 import static android.net.NetworkStats.SET_ALL;
 import static android.net.NetworkStats.SET_DEFAULT;
 import static android.net.NetworkStats.SET_FOREGROUND;
+import static android.net.NetworkStats.TAG_ALL;
 import static android.net.NetworkStats.TAG_NONE;
 import static android.net.NetworkStats.UID_ALL;
 
@@ -71,6 +72,7 @@ import java.net.ProtocolException;
 @SmallTest
 @DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
 public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
+    private static final String TAG = "NetworkStatsFactoryTest";
     private static final String CLAT_PREFIX = "v4-";
 
     private File mTestProc;
@@ -78,6 +80,8 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
     @Mock private Context mContext;
     @Mock private NetworkStatsFactory.Dependencies mDeps;
     @Mock private BpfNetMaps mBpfNetMaps;
+    private NetworkStats mPersistStats = new NetworkStats(SystemClock.elapsedRealtime(), -1);
+    private NetworkStats mAdjustStats = new NetworkStats(SystemClock.elapsedRealtime(), -1);
 
     @Before
     public void setUp() throws Exception {
@@ -89,6 +93,10 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
         // related to networkStatsFactory is compiled to a minimal native library and loaded here.
         System.loadLibrary("networkstatsfactorytestjni");
         doReturn(mBpfNetMaps).when(mDeps).createBpfNetMaps(any());
+
+        doReturn(mPersistStats).when(mDeps).makePersistSnapshot();
+        doReturn(mAdjustStats).when(mDeps).makeTunAnd464xlatAdjustedStats();
+
         mFactory = new NetworkStatsFactory(mContext, mDeps);
         mFactory.updateUnderlyingNetworkInfos(new UnderlyingNetworkInfo[0]);
     }
@@ -460,6 +468,46 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
         assertStatsEntry(stats, "lo", 0, SET_DEFAULT, 0x0, 1288L, 1288L);
 
         assertNoStatsEntry(stats, "wlan0", 1029, SET_DEFAULT, 0x0);
+    }
+
+    @Test
+    public void testRemoveUidsStatsIsRemoved() throws Exception {
+        // Pretend taht there're some stats were generated and were stored in factory before.
+        mPersistStats.insertEntry(TEST_IFACE, UID_RED, SET_DEFAULT, TAG_NONE,
+                268L, 51L, 1560L, 100L, 0L);
+        mAdjustStats.insertEntry(TEST_IFACE, UID_RED, SET_DEFAULT, TAG_NONE,
+                288L, 51L, 1680L, 100L, 0L);
+
+        final NetworkStats stats = new NetworkStats(SystemClock.elapsedRealtime(), 1)
+                .insertEntry(TEST_IFACE, UID_RED, SET_DEFAULT, TAG_NONE, 16L, 1L, 16L, 1L, 0L)
+                .insertEntry(TEST_IFACE, UID_BLUE, SET_DEFAULT, TAG_NONE,
+                        256L, 16L, 512L, 32L, 0L)
+                .insertEntry(TEST_IFACE, UID_GREEN, SET_DEFAULT, TAG_NONE, 64L, 3L, 1024L, 8L, 0L);
+
+        doReturn(stats).when(mDeps).getNetworkStatsDetail(anyInt(), any(),
+                anyInt());
+
+        final String[] ifaces = new String[]{TEST_IFACE};
+        mFactory.readNetworkStatsDetail(UID_ALL, ifaces, TAG_ALL);
+
+        assertValues(mPersistStats, TEST_IFACE, UID_RED,
+                268L + 16L, 51L + 1L, 1560L + 16L, 100L + 1L);
+        assertValues(mAdjustStats, TEST_IFACE, UID_RED,
+                288L + 16L, 51L + 1L, 1680L + 16, 100L + 1L);
+        assertValues(mPersistStats, TEST_IFACE, UID_BLUE, 256L, 16L, 512L, 32L);
+        assertValues(mPersistStats, TEST_IFACE, UID_GREEN, 64L, 3L, 1024L, 8L);
+
+        // Assume the apps were removed.
+        final int[] removedUids = new int[]{UID_RED, UID_BLUE};
+        mFactory.removeUidsLocked(removedUids);
+
+        // Verify that the stats of the removed uids were removed.
+        assertValues(mPersistStats, TEST_IFACE, UID_RED, 0L, 0L, 0L, 0L);
+        assertValues(mAdjustStats, TEST_IFACE, UID_RED, 0L, 0L, 0L, 0L);
+        assertValues(mPersistStats, TEST_IFACE, UID_BLUE, 0L, 0L, 0L, 0L);
+        assertValues(mAdjustStats, TEST_IFACE, UID_BLUE, 0L, 0L, 0L, 0L);
+        assertValues(mPersistStats, TEST_IFACE, UID_GREEN, 64L, 3L, 1024L, 8L);
+        assertValues(mAdjustStats, TEST_IFACE, UID_GREEN, 64L, 3L, 1024L, 8L);
     }
 
     private NetworkStats parseNetworkStatsFromGoldenSample(int resourceId, int initialSize,
