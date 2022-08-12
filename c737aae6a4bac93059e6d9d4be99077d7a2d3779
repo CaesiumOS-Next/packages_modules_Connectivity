@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73c7451a_b3e73f25",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-12T19:40:56Z",
+      "side": 1,
+      "message": "Oh wow, yes! That\u0027s *so much* better!",
+      "parentUuid": "d7fc3f75_08afe879",
+      "range": {
+        "startLine": 309,
+        "startChar": 12,
+        "endLine": 309,
+        "endChar": 90
+      },
+      "revId": "c737aae6a4bac93059e6d9d4be99077d7a2d3779",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0af7662_2888afcf",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-08-12T19:24:49Z",
       "side": 1,
       "message": "Is this needed? If memory serves me, this won\u0027t be called if assume skips the test but I could be wrong.",
+      "range": {
+        "startLine": 320,
+        "startChar": 8,
+        "endLine": 320,
+        "endChar": 42
+      },
+      "revId": "c737aae6a4bac93059e6d9d4be99077d7a2d3779",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7855c66b_2c4dfabf",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-12T19:40:56Z",
+      "side": 1,
+      "message": "It is, if @Before runs (or starts running) @After is guaranteed to run. There is a bug in @BeforeClass that doesn\u0027t let us put this assumption check in there (number of tests aren\u0027t reported correctly, which breaks our test infra) 😞.",
+      "parentUuid": "f0af7662_2888afcf",
       "range": {
         "startLine": 320,
         "startChar": 8,
