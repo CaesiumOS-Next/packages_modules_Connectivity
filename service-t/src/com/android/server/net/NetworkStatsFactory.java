@@ -115,6 +115,16 @@ public class NetworkStatsFactory {
         public BpfNetMaps createBpfNetMaps(@NonNull Context ctx) {
             return new BpfNetMaps(ctx);
         }
+
+        /** Initialize {@code mPersistSnapshot} */
+        public NetworkStats makePersistSnapshot() {
+            return new NetworkStats(SystemClock.elapsedRealtime(), -1);
+        }
+
+        /** Initialize {@code mTunAnd464xlatAdjustedStats} */
+        public NetworkStats makeTunAnd464xlatAdjustedStats() {
+            return new NetworkStats(SystemClock.elapsedRealtime(), -1);
+        }
     }
 
     /**
@@ -192,8 +202,8 @@ public class NetworkStatsFactory {
     public NetworkStatsFactory(@NonNull Context ctx, Dependencies deps) {
         mBpfNetMaps = deps.createBpfNetMaps(ctx);
         synchronized (mPersistentDataLock) {
-            mPersistSnapshot = new NetworkStats(SystemClock.elapsedRealtime(), -1);
-            mTunAnd464xlatAdjustedStats = new NetworkStats(SystemClock.elapsedRealtime(), -1);
+            mPersistSnapshot = deps.makePersistSnapshot();
+            mTunAnd464xlatAdjustedStats = deps.makeTunAnd464xlatAdjustedStats();
         }
         mContext = ctx;
         mDeps = deps;
@@ -296,6 +306,16 @@ public class NetworkStatsFactory {
         return mTunAnd464xlatAdjustedStats.clone();
     }
 
+    /**
+     * Remove stats from {@code mPersistSnapshot} and {@mTunAnd464xlatAdjustedStats} for the
+     * given uids.
+     */
+    public void removeUidsLocked(int[] uids) {
+        synchronized (mPersistentDataLock) {
+            mPersistSnapshot.removeUids(uids);
+            mTunAnd464xlatAdjustedStats.removeUids(uids);
+        }
+    }
 
     public void assertEquals(NetworkStats expected, NetworkStats actual) {
         if (expected.size() != actual.size()) {
