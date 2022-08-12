@@ -241,6 +241,9 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
     // URL, Terms & Conditions URL, and network friendly name.
     public CaptivePortalData networkAgentPortalData;
 
+    // Indicate whether this device has the automotive feature.
+    private final boolean mHasAutomotiveFeature;
+
     /**
      * Sets the capabilities sent by the agent for later retrieval.
      *
@@ -282,9 +285,8 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
                     + networkCapabilities.getOwnerUid() + " to " + nc.getOwnerUid());
             nc.setOwnerUid(networkCapabilities.getOwnerUid());
         }
-        restrictCapabilitiesFromNetworkAgent(nc, creatorUid,
-                mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE),
-                carrierPrivilegeAuthenticator);
+        restrictCapabilitiesFromNetworkAgent(
+                nc, creatorUid, mHasAutomotiveFeature, carrierPrivilegeAuthenticator);
         return nc;
     }
 
@@ -453,6 +455,8 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
                 ? nc.getUnderlyingNetworks().toArray(new Network[0])
                 : null;
         mCreationTime = System.currentTimeMillis();
+        mHasAutomotiveFeature =
+                mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE);
     }
 
     private class AgentDeathMonitor implements IBinder.DeathRecipient {
