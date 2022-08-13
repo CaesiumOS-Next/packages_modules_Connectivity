@@ -130,7 +130,7 @@ public class EthernetTetheringTest {
     private static final int TIMEOUT_MS = 5000;
     // Select 200ms to be request timeout because the average interface requested time on
     // cuttlefish@acloud is around 10ms.
-    private static final int TETHER_IFACE_REQUEST_TIMEOUT_MS = 200;
+    private static final int TETHER_IFACE_REQUEST_TIMEOUT_MS = 2000;
     private static final int TETHER_REACHABILITY_ATTEMPTS = 20;
     private static final int DUMP_POLLING_MAX_RETRY = 100;
     private static final int DUMP_POLLING_INTERVAL_MS = 50;
@@ -776,13 +776,18 @@ public class EthernetTetheringTest {
         public CompletableFuture<String> requestInterface() {
             assertNull("BUG: more than one tethered interface request", mRequest);
             Log.d(TAG, "Requesting tethered interface");
+            Log.d(TAG, "requestInterface+");
             mRequest = runAsShell(NETWORK_SETTINGS, () ->
                     mEm.requestTetheredInterface(mHandler::post, this));
+            Log.d(TAG, "requestInterface-");
             return mFuture;
         }
 
         public String getInterface() throws Exception {
-            return requestInterface().get(TETHER_IFACE_REQUEST_TIMEOUT_MS, TimeUnit.MILLISECONDS);
+            Log.d(TAG, "getInterface+");
+            String iface = requestInterface().get(TETHER_IFACE_REQUEST_TIMEOUT_MS, TimeUnit.MILLISECONDS);
+            Log.d(TAG, "getInterface-");
+            return iface;
         }
 
         public void release() {
