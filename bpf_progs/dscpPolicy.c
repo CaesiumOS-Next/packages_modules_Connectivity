@@ -37,7 +37,12 @@
 #define IP4_OFFSET(field, header) ((header) + offsetof(struct iphdr, field))
 #define UPDATE_TOS(dscp, tos) ((dscp) << 2) | ((tos) & ECN_MASK)
 
-DEFINE_BPF_MAP_GRW(socket_policy_cache_map, HASH, uint64_t, RuleEntry, CACHE_MAP_SIZE, AID_SYSTEM)
+// possibly should be setting map_flags = BPF_F_NO_PREALLOC
+// looks like SIZE can just stay 0
+// key size probably has to be sizeof(int)
+//
+// probably should use DEFINE_BPF_SK_STORAGE(socket_policy_cache, RuleEntry)
+DEFINE_BPF_MAP(socket_policy_cache_map, SK_STORAGE, int, RuleEntry, 0)
 
 DEFINE_BPF_MAP_GRW(ipv4_dscp_policies_map, ARRAY, uint32_t, DscpPolicy, MAX_POLICIES, AID_SYSTEM)
 DEFINE_BPF_MAP_GRW(ipv6_dscp_policies_map, ARRAY, uint32_t, DscpPolicy, MAX_POLICIES, AID_SYSTEM)
@@ -52,10 +57,6 @@ static inline __always_inline void match_policy(struct __sk_buff* skb, bool ipv4
     if (data + l2_header_size > data_end) return;
 
     int hdr_size = 0;
-
-    // used for map lookup
-    uint64_t cookie = bpf_get_socket_cookie(skb);
-    if (!cookie) return;
 
     __be16 sport = 0;
     uint16_t dport = 0;
@@ -119,15 +120,27 @@ static inline __always_inline void match_policy(struct __sk_buff* skb, bool ipv4
             return;
     }
 
-    RuleEntry* existing_rule = bpf_socket_policy_cache_map_lookup_elem(&cookie);
+    RuleEntry value = {
+        .src_ip = src_ip,
+        .dst_ip = dst_ip,
+        .ifindex = skb->ifindex,
+        .src_port = sport,
+        .dst_port = dport,
+        .proto = protocol,
+        .dscp_val = -1,
+    };
+
+    struct bpf_sock *fsk = skb->sk ? bpf_sk_fullsock(skb->sk) : NULL;
+    if (fsk != skb->sk) fsk = NULL;
+    RuleEntry* existing_rule = fsk ? bpf_sk_storage_get(&socket_policy_cache_map, fsk, NULL, /* flags */ 0) : NULL;
 
     if (existing_rule &&
-        v6_equal(src_ip, existing_rule->src_ip) &&
-        v6_equal(dst_ip, existing_rule->dst_ip) &&
-        skb->ifindex == existing_rule->ifindex &&
-        sport == existing_rule->src_port &&
-        dport == existing_rule->dst_port &&
-        protocol == existing_rule->proto) {
+        v6_equal(value.src_ip, existing_rule->src_ip) &&
+        v6_equal(value.dst_ip, existing_rule->dst_ip) &&
+        value.ifindex == existing_rule->ifindex &&
+        value.src_port == existing_rule->src_port &&
+        value.dst_port == existing_rule->dst_port &&
+        value.proto == existing_rule->proto) {
         if (existing_rule->dscp_val < 0) return;
         if (ipv4) {
             uint8_t newTos = UPDATE_TOS(existing_rule->dscp_val, tos);
@@ -145,7 +158,6 @@ static inline __always_inline void match_policy(struct __sk_buff* skb, bool ipv4
 
     // Linear scan ipv4_dscp_policies_map since no stored params match skb.
     int best_score = 0;
-    int8_t new_dscp = -1;
 
     for (register uint64_t i = 0; i < MAX_POLICIES; i++) {
         // Using a uint64 in for loop prevents infinite loop during BPF load,
@@ -189,32 +201,22 @@ static inline __always_inline void match_policy(struct __sk_buff* skb, bool ipv4
 
         if (score > best_score) {
             best_score = score;
-            new_dscp = policy->dscp_val;
+            value.dscp_val = policy->dscp_val;
         }
     }
 
-    RuleEntry value = {
-        .src_ip = src_ip,
-        .dst_ip = dst_ip,
-        .ifindex = skb->ifindex,
-        .src_port = sport,
-        .dst_port = dport,
-        .proto = protocol,
-        .dscp_val = new_dscp,
-    };
-
     // Update cache with found policy.
-    bpf_socket_policy_cache_map_update_elem(&cookie, &value, BPF_ANY);
+    if (fsk) (void)bpf_sk_storage_get(&socket_policy_cache_map, fsk, &value, BPF_SK_STORAGE_GET_F_CREATE);
 
-    if (new_dscp < 0) return;
+    if (value.dscp_val < 0) return;
 
     // Need to store bytes after updating map or program will not load.
     if (ipv4) {
-        uint8_t new_tos = UPDATE_TOS(new_dscp, tos);
+        uint8_t new_tos = UPDATE_TOS(value.dscp_val, tos);
         bpf_l3_csum_replace(skb, IP4_OFFSET(check, l2_header_size), htons(tos), htons(new_tos), 2);
         bpf_skb_store_bytes(skb, IP4_OFFSET(tos, l2_header_size), &new_tos, sizeof(new_tos), 0);
     } else {
-        uint32_t new_first_u32 = htonl(ntohl(old_first_u32) & 0xF03FFFFF | (new_dscp << 22));
+        uint32_t new_first_u32 = htonl(ntohl(old_first_u32) & 0xF03FFFFF | (value.dscp_val << 22));
         bpf_skb_store_bytes(skb, l2_header_size, &new_first_u32, sizeof(uint32_t),
             BPF_F_RECOMPUTE_CSUM);
     }
