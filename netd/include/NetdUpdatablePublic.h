@@ -58,4 +58,14 @@ int libnetd_updatable_tagSocket(int sockFd, uint32_t tag, uid_t chargeUid,
  */
 int libnetd_updatable_untagSocket(int sockFd);
 
+/*
+ * Get tag of a network socket.
+ *
+ * The |sockFd| is a file descriptor of the socket that wants to query.
+ *
+ * Returns 0 and positive values on success, or a negative POSIX error code (see errno.h) on
+ * failure.
+ */
+int libnetd_updatable_getSocketTag(int sockFd);
+
 __END_DECLS

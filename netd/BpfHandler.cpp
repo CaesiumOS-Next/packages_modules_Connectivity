@@ -18,6 +18,7 @@
 
 #include "BpfHandler.h"
 
+#include <inttypes.h>
 #include <linux/bpf.h>
 
 #include <android-base/unique_fd.h>
@@ -251,6 +252,20 @@ int BpfHandler::untagSocket(int sockFd) {
         return -res.error().code();
     }
     return 0;
+}
+
+int BpfHandler::getSocketTag(int sockFd) {
+    std::lock_guard guard(mMutex);
+    uint64_t sock_cookie = getSocketCookie(sockFd);
+
+    if (sock_cookie == NONEXISTENT_COOKIE) return -errno;
+    base::Result<UidTagValue> res = mCookieTagMap.readValue(sock_cookie);
+    if (!res.ok()) {
+        ALOGE("Failed to get socket tag: fd %d, cookie %" PRIu64 ", %s", sockFd, sock_cookie,
+              strerror(res.error().code()));
+        return -res.error().code();
+    }
+    return res.value().tag;
 }
 
 }  // namespace net
