@@ -32,7 +32,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -160,6 +159,25 @@ public class TunUtils {
     }
 
     /**
+     * Returns if the needle array can be found in the haystack array.
+     */
+    private static boolean containsSubArray(byte[] haystack, byte[] needle) {
+        for (int i = 0; i < haystack.length - needle.length + 1; i++) {
+            boolean found = true;
+            for (int j = 0; j < needle.length; j++) {
+                if (haystack[i + j] != needle[j]) {
+                    found = false;
+                    break;
+                }
+            }
+            if (found) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Variant of isEsp that also fails the test if the provided plaintext is found
      *
      * @param pkt the packet bytes to verify
@@ -170,7 +188,7 @@ public class TunUtils {
      */
     private static boolean isEspFailIfSpecifiedPlaintextFound(
             byte[] pkt, int spi, boolean encap, byte[] plaintext) {
-        if (Collections.indexOfSubList(Arrays.asList(pkt), Arrays.asList(plaintext)) != -1) {
+        if (containsSubArray(pkt, plaintext)) {
             fail("Banned plaintext packet found");
         }
 
