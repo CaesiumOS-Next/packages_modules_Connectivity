@@ -16,9 +16,12 @@
 package android.tethering.mts;
 
 import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
+import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.Manifest.permission.READ_DEVICE_CONFIG;
 import static android.Manifest.permission.WRITE_SETTINGS;
+import static android.net.TetheringConstants.EXTRA_PROVISION_CALLBACK;
 import static android.net.TetheringManager.TETHERING_WIFI;
+import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 
 import static com.android.testutils.TestNetworkTrackerKt.initTestNetwork;
@@ -28,13 +31,21 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.IpPrefix;
 import android.net.LinkAddress;
+import android.net.TetheringConfigurationParcel;
 import android.net.TetheringInterface;
+import android.net.TetheringManager;
+import android.net.TetheringManager.TetheringEventCallback;
 import android.net.cts.util.CtsTetheringUtils;
 import android.net.cts.util.CtsTetheringUtils.TestTetheringEventCallback;
+import android.os.ResultReceiver;
 import android.provider.DeviceConfig;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.test.InstrumentationRegistry;
@@ -42,6 +53,7 @@ import androidx.test.runner.AndroidJUnit4;
 
 import com.android.testutils.TestNetworkTracker;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,9 +63,13 @@ import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 @RunWith(AndroidJUnit4.class)
 public class TetheringModuleTest {
+    private static final String ENTITLEMENT_TEST_ACTION = "com.android.mts.entitlement.test.action";
+    private static final String TAG = TetheringModuleTest.class.getSimpleName();
     private Context mContext;
     private CtsTetheringUtils mCtsTetheringUtils;
 
@@ -61,6 +77,13 @@ public class TetheringModuleTest {
     public void setUp() throws Exception {
         mContext = InstrumentationRegistry.getContext();
         mCtsTetheringUtils = new CtsTetheringUtils(mContext);
+        mContext.registerReceiver(mEntitlementResponsder, new IntentFilter(ENTITLEMENT_TEST_ACTION),
+                android.Manifest.permission.TETHER_PRIVILEGED, null /* handler */);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        mContext.unregisterReceiver(mEntitlementResponsder);
     }
 
     @Test
@@ -165,4 +188,77 @@ public class TetheringModuleTest {
         return runAsShell(READ_DEVICE_CONFIG,
                 () -> DeviceConfig.getBoolean(NAMESPACE_CONNECTIVITY, name, defaultValue));
     }
+
+    // a one time getter.
+    private static class TetheringConfigurationGetter implements TetheringEventCallback {
+        public static long TIMEOUT_MS = 2_000;
+
+        private final TetheringManager mTm;
+        private final CountDownLatch mLatch = new CountDownLatch(1);
+        TetheringConfigurationParcel mConfig;
+
+        TetheringConfigurationGetter(Context ctx) {
+            mTm = ctx.getSystemService(TetheringManager.class);
+        }
+
+        public TetheringConfigurationParcel getConfiguration() throws Exception {
+            if (mLatch.getCount() == 0) fail("Don't reuse one time getter");
+
+            try {
+                mTm.registerTetheringEventCallback(c -> c.run(), this);
+                mLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS);
+
+                return mConfig;
+            } finally {
+                mTm.unregisterTetheringEventCallback(this);
+            }
+        }
+
+        @Override
+        public void onConfigurationChanged(@NonNull TetheringConfigurationParcel parcel) {
+            mConfig = parcel;
+            mLatch.countDown();
+        }
+    }
+
+    @Test
+    public void testSilentEntitlementCheck() throws Exception {
+        final TetheringManager tm = mContext.getSystemService(TetheringManager.class);
+        final TetheringConfigurationParcel config =
+                new TetheringConfigurationGetter(mContext).getConfiguration();
+        config.isEntitlementTestMode = true;
+        config.provisioningApp = new String[] { ENTITLEMENT_TEST_ACTION, "" };
+        config.provisioningAppNoUi = ENTITLEMENT_TEST_ACTION;
+
+        runAsShell(NETWORK_SETTINGS, () ->  tm.setTetheringConfigurationForTest(config));
+
+        final TestTetheringEventCallback tetherEventCallback =
+                mCtsTetheringUtils.registerTetheringEventCallback();
+        try {
+            tetherEventCallback.assumeWifiTetheringSupported(mContext);
+            tetherEventCallback.expectNoTetheringActive();
+
+            mCtsTetheringUtils.startWifiTethering(tetherEventCallback);
+
+            assertNotNull(tetherEventCallback.getCurrentValidUpstream());
+            mCtsTetheringUtils.stopWifiTethering(tetherEventCallback);
+        } finally {
+            mCtsTetheringUtils.stopAllTethering();
+            mCtsTetheringUtils.unregisterTetheringEventCallback(tetherEventCallback);
+            runAsShell(NETWORK_SETTINGS, () ->  tm.setTetheringConfigurationForTest(null));
+        }
+    }
+
+    private final BroadcastReceiver mEntitlementResponsder = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            if (!intent.getAction().equals(ENTITLEMENT_TEST_ACTION)) {
+                Log.e(TAG, "Received unexpected action=" + intent.getAction());
+                return;
+            }
+            final ResultReceiver callback = intent.getParcelableExtra(EXTRA_PROVISION_CALLBACK);
+            callback.send(TETHER_ERROR_NO_ERROR, null);
+        }
+    };
 }
