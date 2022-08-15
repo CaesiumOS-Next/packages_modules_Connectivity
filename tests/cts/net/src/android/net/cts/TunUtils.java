@@ -32,7 +32,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -170,8 +169,20 @@ public class TunUtils {
      */
     private static boolean isEspFailIfSpecifiedPlaintextFound(
             byte[] pkt, int spi, boolean encap, byte[] plaintext) {
-        if (Collections.indexOfSubList(Arrays.asList(pkt), Arrays.asList(plaintext)) != -1) {
+        if (plaintext.length == 0) {
             fail("Banned plaintext packet found");
+        }
+        for (int i = 0; i < pkt.length - plaintext.length + 1; i++) {
+            boolean found = true;
+            for (int j = 0; j < plaintext.length; j++) {
+                if (pkt[i + j] != plaintext[j]) {
+                    found = false;
+                    break;
+                }
+            }
+            if (found) {
+                fail("Banned plaintext packet found");
+            }
         }
 
         return isEsp(pkt, spi, encap);
