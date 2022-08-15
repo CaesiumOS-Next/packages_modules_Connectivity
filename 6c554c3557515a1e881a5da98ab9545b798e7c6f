@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "943dcd8a_21a00f7b",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-15T10:12:24Z",
+      "side": 1,
+      "message": "Hi Patrick\nI have added the comment back because we are using different timeout for flaky test now. May I have your review if it is needed? I can remove it if required Thank you\n\ntdlr\nSeparate getInterface() timeout into 200ms (available tethering interface) and 5000ms (default). \n\nSummary:\n- The test is flaky on \"test-mapping-mainline-presubmit-retry_cloud-tf-S-base-image\".\nfail case may take 220ms (\u003e 200ms timeout) to get interface to be available.\ntesttap interface may have additional event down and up.\n\n- The test is passed 100 run on \"forrest/atest\".\npass case takes 8ms to get interface to be available.\nhttps://android-build.googleplex.com/builds/abtd/run/L88300000955917017\n\nLog:\nFail:\nIt takes 220ms to get interface to be available.\n\n(suite/test-mapping-mainline-presubmit-retry_cloud-tf-S-base-image)\nhttps://android-build.googleplex.com/builds/tests/view?invocationId\u003dI59600010080767864\u0026testResultId\u003dTR68228202483924134\nfull_gce_logcat_5139480909743221996.txt\n\n(testtap interface have additional event down and up)\n```\n08-14 16:23:22.545   790   989 D EthernetNetworkFactory: updateInterfaceLinkState, iface: testtap0, up: true\n08-14 16:23:22.552  4037  4335 D EthernetTetheringTest: Created test interface testtap0\n..\n08-14 16:23:22.552  4037  4335 D EthernetTetheringTest: Requesting tethered interface\n08-14 16:23:22.561   790   989 D EthernetNetworkFactory: updateInterfaceLinkState, iface: testtap0, up: false\n08-14 16:23:22.681   790   989 D EthernetNetworkFactory: updateInterfaceLinkState, iface: testtap0, up: true\n08-14 16:23:22.782  4037  4334 D EthernetTetheringTest: Ethernet interface available: testtap0\n..\n08-14 16:23:22.816  4037  4107 E TestRunner: failed: testLocalOnlyTethering(android.net.EthernetTetheringTest)\n```\n\nPass:\nIt takes 8ms to get interface to be available.\n\n(forrest/atest)\nhttps://android-build.googleplex.com/builds/tests/view?invocationId\u003dI75200010080184275\u0026testResultId\u003dTR94728199357317662\nfull_gce_logcat_4794488925332456046.txt\n\n```\n08-12 20:07:40.745   783   919 D EthernetNetworkFactory: updateInterfaceLinkState, iface: testtap3, up: false\n08-12 20:07:40.745   783   919 D EthernetNetworkFactory: updateInterfaceLinkState, iface: testtap3, up: true\n08-12 20:07:40.749  4116  4163 D EthernetTetheringTest: Created test interface testtap3\n..\n08-12 20:07:40.749  4116  4163 D EthernetTetheringTest: Requesting tethered interface\n08-12 20:07:40.757  4116  4162 D EthernetTetheringTest: Ethernet interface available: testtap3\n..\n08-12 20:07:40.857  4116  4133 I TestRunner: finished: testLocalOnlyTethering(android.net.EthernetTetheringTest)\n```",
+      "parentUuid": "39453266_09d2ff5c",
+      "range": {
+        "startLine": 250,
+        "startChar": 57,
+        "endLine": 252,
+        "endChar": 17
+      },
+      "revId": "6c554c3557515a1e881a5da98ab9545b798e7c6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a53f2dce_ccb7b5ce",
