@@ -31,7 +31,10 @@ import static org.junit.Assert.fail;
 import android.content.Context;
 import android.net.IpPrefix;
 import android.net.LinkAddress;
+import android.net.TetheringConfigurationParcel;
 import android.net.TetheringInterface;
+import android.net.TetheringManager;
+import android.net.TetheringManager.TetheringEventCallback;
 import android.net.cts.util.CtsTetheringUtils;
 import android.net.cts.util.CtsTetheringUtils.TestTetheringEventCallback;
 import android.provider.DeviceConfig;
@@ -51,6 +54,8 @@ import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 @RunWith(AndroidJUnit4.class)
 public class TetheringModuleTest {
@@ -164,5 +169,70 @@ public class TetheringModuleTest {
     public static boolean isFeatureEnabled(final String name, final boolean defaultValue) {
         return runAsShell(READ_DEVICE_CONFIG,
                 () -> DeviceConfig.getBoolean(NAMESPACE_CONNECTIVITY, name, defaultValue));
+    }
+
+    // a one time getter.
+    private static class TetheringConfigurationGetter implements TetheringEventCallback {
+        public static long TIMEOUT_MS = 2_000;
+
+        private final TetheringManager mTm;
+        private final CountDownLatch mLatch = new CountDownLatch(1);
+        TetheringConfigurationParcel mConfig;
+
+        TetheringConfigurationGetter(Context ctx) {
+            mTm = ctx.getSystemService(TetheringManager.class);
+        }
+
+        public TetheringConfigurationParcel getConfiguration() throws Exception {
+            if (mLatch.getCount() == 0) fail("Don't reuse one time getter");
+
+            try {
+                mTm.registerTetheringEventCallback(c -> c.run(), this);
+                mLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS);
+
+                return mConfig;
+            } finally {
+                mTm.unregisterTetheringEventCallback(this);
+            }
+        }
+
+        @Override
+        public void onConfigurationChanged(@NonNull TetheringConfigurationParcel parcel) {
+            mConfig = parcel;
+            mLatch.countDown();
+        }
+    }
+
+    @Test
+    public void testSilentEntitlementCheck() throws Exception {
+        final TetheringManager tm = mContext.getSystemService(TetheringManager.class);
+        final TetheringConfigurationParcel config =
+                new TetheringConfigurationGetter(mContext).getConfiguration();
+        config.provisioningApp = new String[] {
+                "com.android.mts.tetheringentitlement",
+                "com.android.mts.tetheringentitlement.testActivity"
+        };
+        config.provisioningAppNoUi =
+                "com.android.mts.tetheringentitlement.SILENT_ENTITLEMENT_CHECK";
+        config.provisioningResponse =
+                "com.android.mts.tetheringentitlement.SILENT_ENTITLEMENT_CHECK_RESULT";
+
+        tm.setTetheringConfigurationForTest(config);
+
+        final TestTetheringEventCallback tetherEventCallback =
+                mCtsTetheringUtils.registerTetheringEventCallback();
+        try {
+            tetherEventCallback.assumeWifiTetheringSupported(mContext);
+            tetherEventCallback.expectNoTetheringActive();
+
+            mCtsTetheringUtils.startWifiTethering(tetherEventCallback);
+
+            assertNotNull(tetherEventCallback.getCurrentValidUpstream());
+            mCtsTetheringUtils.stopWifiTethering(tetherEventCallback);
+        } finally {
+            mCtsTetheringUtils.stopAllTethering();
+            mCtsTetheringUtils.unregisterTetheringEventCallback(tetherEventCallback);
+            tm.setTetheringConfigurationForTest(null);
+        }
     }
 }
