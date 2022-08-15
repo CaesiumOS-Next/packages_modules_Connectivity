@@ -16,6 +16,23 @@
       "message": "please check",
       "revId": "5e4da20e83eb7e3ee200e29253e4d29dc24d214b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c17ddae3_dc2c33b2",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 16530,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-15T02:07:41Z",
+      "side": 1,
+      "message": "Sorry, the automatic checks are failing because there\u0027s a merge conflict at this location in the file... Could you try to move this test to another location, for example between testUpdateRateLimit_DoesNothingBeforeT and testIgnoreValidationAfterRoamDisabled ?",
+      "revId": "5e4da20e83eb7e3ee200e29253e4d29dc24d214b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
