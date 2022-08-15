@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58e8c927_00789b7f",
+        "filename": "netd/NetdUpdatable.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-15T17:36:41Z",
+      "side": 1,
+      "message": "Nit: sBpfHandler",
+      "range": {
+        "startLine": 26,
+        "startChar": 32,
+        "endLine": 26,
+        "endChar": 43
+      },
+      "revId": "c3095d2f8e6407446ec311eb5594f00ef583bdf3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
