@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90cffdee_5639d88c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2022-08-15T13:55:58Z",
+      "side": 1,
+      "message": "These changes are part of the work needed to address the issues that `framework-connectivity-t` caused in the August train. Those issues were temporarily handled by the workaround ag/19432194 (which was cherry picked onto the branch used to build the August train version of tethering/connectivity).\n\nThis change (and associated build/soong changes) removes the need for ag/19432194 to comment out error reporting in the generate_hiddenapi_lists.py scripts. Follow up changes to build/soong will integrate the rest of the changes from ag/19432194 (or equivalent changes).",
+      "revId": "22ebae8fe13c7a6ff77f1bd745567b237104e02c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
