@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "12b46af7_37a71bc0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-15T09:32:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8caad597_3f647340",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 10
+      },
+      "revId": "2b497c581a2b70957b5c78f529a7af3a425a08c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c15baf64_64eda77a",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -131,6 +155,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f908c085_4734655f",
+        "filename": "framework-t/src/android/net/NetworkIdentity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-15T09:32:36Z",
+      "side": 1,
+      "message": "Still no. IIUC the problem is described at message of aosp/2173584:\n\nThis change allows using hidden symbols of framework-connectivity in\nframework-connectivity-t-pre-jarjar, but does not fully fix the problem\nas framework-connectivity-t will use the framework-connectivity stubs\nboth to build its own stubs and to build its implementation library, due\nto \"libs\" being used in both cases (and prioritized over\nimpl_only_libs).\n\nLog:\n\npackages/modules/Connectivity/framework-t/src/android/net/NetworkIdentity.java:432: error: cannot find symbol\n            if ((type \u003c ConnectivityManager.MIN_NETWORK_TYPE || ConnectivityManager.MAX_NETWORK_TYPE \u003c type)\n                                           ^\n  symbol:   variable MIN_NETWORK_TYPE\n  location: class ConnectivityManager\npackages/modules/Connectivity/framework-t/src/android/net/NetworkIdentity.java:432: error: cannot find symbol\n            if ((type \u003c ConnectivityManager.MIN_NETWORK_TYPE || ConnectivityManager.MAX_NETWORK_TYPE \u003c type)\n                                                                                   ^\n  symbol:   variable MAX_NETWORK_TYPE\n  location: class ConnectivityManager\n2 errors",
+      "parentUuid": "432f9bad_33976808",
+      "range": {
+        "startLine": 89,
+        "startChar": 4,
+        "endLine": 89,
+        "endChar": 60
+      },
+      "revId": "2b497c581a2b70957b5c78f529a7af3a425a08c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "19428a7d_1040e926",
         "filename": "framework-t/src/android/net/NetworkTemplate.java",
         "patchSetId": 2
@@ -142,6 +190,30 @@
       "writtenOn": "2022-08-09T08:58:46Z",
       "side": 1,
       "message": "s/network with/a network containing/",
+      "range": {
+        "startLine": 793,
+        "startChar": 23,
+        "endLine": 793,
+        "endChar": 35
+      },
+      "revId": "2b497c581a2b70957b5c78f529a7af3a425a08c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f78e0fa8_4dabc8e5",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-15T09:32:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19428a7d_1040e926",
       "range": {
         "startLine": 793,
         "startChar": 23,

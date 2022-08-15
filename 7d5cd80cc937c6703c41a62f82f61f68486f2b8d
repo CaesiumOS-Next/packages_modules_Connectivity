@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5d775137_f4f78608",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-15T09:32:36Z",
+      "side": 1,
+      "message": "It is still WIP.\nRefer to\nhttps://android-review.googlesource.com/c/platform/packages/modules/NetworkStack/+/1392777/1/tests/integration/src/android/net/NetworkStatsIntegrationTest.kt#208\nwhich is uploaded 2 years ago.",
+      "parentUuid": "a3b217c9_9b904595",
+      "range": {
+        "startLine": 10,
+        "startChar": 19,
+        "endLine": 10,
+        "endChar": 32
+      },
+      "revId": "7d5cd80cc937c6703c41a62f82f61f68486f2b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "25a30933_f8a594c2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -43,6 +67,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "10525ecb_49ac589d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-15T09:32:36Z",
+      "side": 1,
+      "message": "Addressed all comments but merged this CL into ST01.\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2164649/comments/526eba25_fbe0c339",
+      "revId": "7d5cd80cc937c6703c41a62f82f61f68486f2b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "bc44dfd2_70030a18",
         "filename": "framework-t/src/android/net/NetworkTemplate.java",
         "patchSetId": 3
@@ -54,6 +95,30 @@
       "writtenOn": "2022-08-09T08:58:46Z",
       "side": 1,
       "message": "IIUC you use this by constructing a NetworkTemplate with the\n\n    public NetworkTemplate(int matchRule, String subscriberId, String[] matchSubscriberIds,\n            String[] matchWifiNetworkKeys, int metered, int roaming,\n            int defaultNetwork, int ratType, int oemManaged, int subscriberIdMatchRule)\n\nconstructor. Correct ?",
+      "range": {
+        "startLine": 125,
+        "startChar": 28,
+        "endLine": 125,
+        "endChar": 38
+      },
+      "revId": "7d5cd80cc937c6703c41a62f82f61f68486f2b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ed7a9f9_8bcee589",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-15T09:32:36Z",
+      "side": 1,
+      "message": "No, mostly via the NetworkTemplate#Builder since the callers might be out side of the module.",
+      "parentUuid": "bc44dfd2_70030a18",
       "range": {
         "startLine": 125,
         "startChar": 28,
