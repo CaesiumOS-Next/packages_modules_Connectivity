@@ -16,7 +16,9 @@
 package android.tethering.mts;
 
 import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
+import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.Manifest.permission.READ_DEVICE_CONFIG;
+import static android.Manifest.permission.TETHER_PRIVILEGED;
 import static android.Manifest.permission.WRITE_SETTINGS;
 import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
@@ -28,20 +30,30 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.InetAddresses;
 import android.net.IpPrefix;
 import android.net.LinkAddress;
+import android.net.TetheringConfigurationParcel;
 import android.net.TetheringInterface;
+import android.net.TetheringManager;
 import android.net.cts.util.CtsTetheringUtils;
 import android.net.cts.util.CtsTetheringUtils.TestTetheringEventCallback;
 import android.provider.DeviceConfig;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.net.module.util.ArrayTrackRecord;
 import com.android.testutils.TestNetworkTracker;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,6 +66,13 @@ import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
 public class TetheringModuleTest {
+    // The test action has to be matched with package name to pass the check in
+    // EntitlementManager#isProvisioningNeededButUnavailable.
+    private static final String ENTITLEMENT_TEST_ACTION = "android.tethering.mts";
+    private static final String ENTITLEMENT_TEST_RESPONSE_ACTION =
+            "com.android.mts.entitlement.test.response_action";
+    private static final String EXTRA_RESULT = "EntitlementResult";
+    private static final String TAG = TetheringModuleTest.class.getSimpleName();
     private Context mContext;
     private CtsTetheringUtils mCtsTetheringUtils;
     private final long mRestartTimeOutMs = 5_000;
@@ -62,6 +81,13 @@ public class TetheringModuleTest {
     public void setUp() throws Exception {
         mContext = InstrumentationRegistry.getContext();
         mCtsTetheringUtils = new CtsTetheringUtils(mContext);
+        mContext.registerReceiver(mEntitlementResponder, new IntentFilter(ENTITLEMENT_TEST_ACTION),
+                TETHER_PRIVILEGED, null /* handler */);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        mContext.unregisterReceiver(mEntitlementResponder);
     }
 
     @Test
@@ -106,7 +132,7 @@ public class TetheringModuleTest {
 
             final TetheringInterface restartedIface =
                     tetherEventCallback.pollTetheredInterfacesChanged(wifiRegexs, TETHERING_WIFI,
-                    mRestartTimeOutMs);
+                            mRestartTimeOutMs);
             final TetheringInterface newIface;
             if (restartedIface != null) {
                 newIface = restartedIface;
@@ -177,5 +203,65 @@ public class TetheringModuleTest {
     public static boolean isFeatureEnabled(final String name, final boolean defaultValue) {
         return runAsShell(READ_DEVICE_CONFIG,
                 () -> DeviceConfig.getBoolean(NAMESPACE_CONNECTIVITY, name, defaultValue));
+    }
+
+    @Test
+    public void testSilentEntitlementCheck() throws Exception {
+        final TetheringManager tm = mContext.getSystemService(TetheringManager.class);
+        final TetheringConfigurationParcel config = new TetheringConfigurationParcel();
+        config.provisioningApp = new String[]{ENTITLEMENT_TEST_ACTION, ""};
+        config.provisioningAppNoUi = ENTITLEMENT_TEST_ACTION;
+        config.provisioningResponse = ENTITLEMENT_TEST_RESPONSE_ACTION;
+        config.legacyDhcpRanges = new String[0];
+        config.tetherableBluetoothRegexs = new String[0];
+        config.tetherableUsbRegexs = new String[0];
+        config.tetherableWifiRegexs = new String[] {"wlan0"};
+
+        runAsShell(NETWORK_SETTINGS, () -> tm.setPreferTestNetworks(true));
+        runAsShell(NETWORK_SETTINGS, () -> tm.setTetheringConfigurationForTest(config));
+
+        final TestTetheringEventCallback tetherEventCallback =
+                mCtsTetheringUtils.registerTetheringEventCallback();
+        TestNetworkTracker tnt = null;
+        try {
+            tetherEventCallback.assumeWifiTetheringSupported(mContext);
+            tetherEventCallback.expectNoTetheringActive();
+            tnt = setUpTestNetwork(
+                    new LinkAddress(InetAddresses.parseNumericAddress("192.168.1.1"), 25));
+            mCtsTetheringUtils.startWifiTethering(tetherEventCallback);
+            assertNotNull(tetherEventCallback.getCurrentValidUpstream());
+            mEntitlementResponder.expectTestAction();
+            mCtsTetheringUtils.stopWifiTethering(tetherEventCallback);
+        } finally {
+            mCtsTetheringUtils.stopAllTethering();
+            mCtsTetheringUtils.unregisterTetheringEventCallback(tetherEventCallback);
+            runAsShell(NETWORK_SETTINGS, () -> tm.setTetheringConfigurationForTest(null));
+            runAsShell(NETWORK_SETTINGS, () -> tm.setPreferTestNetworks(false));
+            teardown(tnt);
+        }
+    }
+
+    private final TestBroadcastReceiver mEntitlementResponder = new TestBroadcastReceiver();
+    class TestBroadcastReceiver extends BroadcastReceiver {
+        private static final int TIMEOUT_MS = 30_000;
+        private final ArrayTrackRecord<Intent>.ReadHead mHistory =
+                new ArrayTrackRecord<Intent>().newReadHead();
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            mHistory.add(intent);
+            if (!intent.getAction().equals(ENTITLEMENT_TEST_ACTION)) {
+                Log.e(TAG, "Received unexpected action=" + intent.getAction());
+                return;
+            }
+            final Intent response = new Intent(ENTITLEMENT_TEST_RESPONSE_ACTION);
+            response.putExtra(EXTRA_RESULT, Activity.RESULT_OK);
+            mContext.sendBroadcast(response);
+        }
+
+        public void expectTestAction() {
+            assertNotNull(mHistory.poll(TIMEOUT_MS, (intent) ->
+                    intent.getAction().equals(ENTITLEMENT_TEST_ACTION)));
+        }
     }
 }
