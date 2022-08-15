@@ -53,6 +53,8 @@ class BpfHandler {
      */
     int untagSocket(int sockFd);
 
+    int getSocketTag(int sockFd);
+
   private:
     // For testing
     BpfHandler(uint32_t perUidLimit, uint32_t totalLimit);

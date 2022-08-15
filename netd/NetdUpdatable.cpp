@@ -46,6 +46,11 @@ int libnetd_updatable_untagSocket(int sockFd) {
     return android::net::gNetdUpdatable->mBpfHandler.untagSocket(sockFd);
 }
 
+int libnetd_updatable_getSocketTag(int sockFd) {
+    if (android::net::gNetdUpdatable == nullptr) return -EPERM;
+    return android::net::gNetdUpdatable->mBpfHandler.getSocketTag(sockFd);
+}
+
 namespace android {
 namespace net {
 

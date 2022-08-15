@@ -253,5 +253,19 @@ int BpfHandler::untagSocket(int sockFd) {
     return 0;
 }
 
+int BpfHandler::getSocketTag(int sockFd) {
+    std::lock_guard guard(mMutex);
+    uint64_t sock_cookie = getSocketCookie(sockFd);
+
+    if (sock_cookie == NONEXISTENT_COOKIE) return -errno;
+    base::Result<UidTagValue> res = mCookieTagMap.readValue(sock_cookie);
+    if (!res.ok()) {
+        ALOGE("Failed to get socket tag: fd %d, cookie %u, %s", sockFd, sock_cookie,
+              strerror(res.error().code()));
+        return -res.error().code();
+    }
+    return res.value().tag;
+}
+
 }  // namespace net
 }  // namespace android
