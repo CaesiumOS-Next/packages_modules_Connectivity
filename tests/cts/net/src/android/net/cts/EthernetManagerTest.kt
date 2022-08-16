@@ -498,8 +498,6 @@ class EthernetManagerTest {
         // If an interface appears, existing callbacks see it.
         // TODO: fix the up/up/down/up callbacks and only send down/up.
         val iface2 = createInterface()
-        listener1.expectCallback(iface2, STATE_LINK_UP, ROLE_CLIENT)
-        listener1.expectCallback(iface2, STATE_LINK_UP, ROLE_CLIENT)
         listener1.expectCallback(iface2, STATE_LINK_DOWN, ROLE_CLIENT)
         listener1.expectCallback(iface2, STATE_LINK_UP, ROLE_CLIENT)
 
