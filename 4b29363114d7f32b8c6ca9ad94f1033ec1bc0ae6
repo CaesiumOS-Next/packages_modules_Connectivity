@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "560fb4eb_42eb97cd",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-16T09:02:42Z",
+      "side": 1,
+      "message": "Nit: I think | would be better here.",
+      "range": {
+        "startLine": 392,
+        "startChar": 39,
+        "endLine": 392,
+        "endChar": 41
+      },
+      "revId": "4b29363114d7f32b8c6ca9ad94f1033ec1bc0ae6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
