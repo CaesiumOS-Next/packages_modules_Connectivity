@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eeec5d66_9b2c5f48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-16T17:11:31Z",
+      "side": 1,
+      "message": "This CL does not change / affect behavior. updateInterfaceState is a noop for interfaces in server mode.",
+      "revId": "83ebb9f82ec47903c7e3d08f4678c15206ddcd57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
