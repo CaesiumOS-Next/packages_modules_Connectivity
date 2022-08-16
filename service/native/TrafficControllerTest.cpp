@@ -818,7 +818,6 @@ TEST_F(TrafficControllerTest, dumpsysInvalidMaps) {
 
     std::vector<std::string> expectedLines = {
         fmt::format("mCookieTagMap {}", kErrIterate),
-        fmt::format("mIfaceStatsMap {}", kErrIterate),
         fmt::format("mConfigurationMap {}", kErrReadRulesConfig),
         fmt::format("mConfigurationMap {}", kErrReadStatsMapConfig),
         fmt::format("mUidOwnerMap {}", kErrIterate),
