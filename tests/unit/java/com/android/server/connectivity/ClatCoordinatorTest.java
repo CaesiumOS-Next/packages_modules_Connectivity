@@ -493,10 +493,10 @@ public class ClatCoordinatorTest {
 
     @Test
     public void testGetFwmark() throws Exception {
-        assertEquals(0xb0064, ClatCoordinator.getFwmark(100));
-        assertEquals(0xb03e8, ClatCoordinator.getFwmark(1000));
-        assertEquals(0xb2710, ClatCoordinator.getFwmark(10000));
-        assertEquals(0xbffff, ClatCoordinator.getFwmark(65535));
+        assertEquals(0xf0064, ClatCoordinator.getFwmark(100));
+        assertEquals(0xf03e8, ClatCoordinator.getFwmark(1000));
+        assertEquals(0xf2710, ClatCoordinator.getFwmark(10000));
+        assertEquals(0xfffff, ClatCoordinator.getFwmark(65535));
     }
 
     @Test
