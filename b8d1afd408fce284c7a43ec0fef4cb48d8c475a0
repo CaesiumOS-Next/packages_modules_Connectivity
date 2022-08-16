@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94a2ed0c_0900b0ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1547664
+      },
+      "writtenOn": "2022-08-16T12:47:05Z",
+      "side": 1,
+      "message": "test failing for CaptivePortalLoginTests(module-abi\u003dx86_64) which is not relevant for the patch, and it is a known flake tracking in b/242683714",
+      "revId": "b8d1afd408fce284c7a43ec0fef4cb48d8c475a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
