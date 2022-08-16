@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e2a6a28_15ea4df0",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/TetheringModuleTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-16T05:30:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62e4eb76_83f95c6a",
+      "range": {
+        "startLine": 109,
+        "startChar": 15,
+        "endLine": 109,
+        "endChar": 19
+      },
+      "revId": "568bfcf73d4d14b154d075f3593c264e6fc7f4a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49b679be_5bef39fa",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-15T11:03:19Z",
       "side": 1,
       "message": "Would you be able to also verify that the address changed successfully in that case ?",
+      "range": {
+        "startLine": 111,
+        "startChar": 35,
+        "endLine": 111,
+        "endChar": 52
+      },
+      "revId": "568bfcf73d4d14b154d075f3593c264e6fc7f4a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fed2333b_b78316dc",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/TetheringModuleTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-16T05:30:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49b679be_5bef39fa",
       "range": {
         "startLine": 111,
         "startChar": 35,
