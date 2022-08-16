@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e06f302a_7cdd1ef0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-08-16T20:05:32Z",
+      "side": 1,
+      "message": "Ok sounds good. It may be helpful to include a bit of the above explanation in the commit message for future reference.",
+      "parentUuid": "90a8d7ac_dd393858",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 46
+      },
+      "revId": "57aa207f387acd672df2067b5dbd1c1085046dd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5fa97407_f2878b10",
@@ -91,6 +115,23 @@
         "endLine": 11,
         "endChar": 10
       },
+      "revId": "57aa207f387acd672df2067b5dbd1c1085046dd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ad3150d_ffc2ecb5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-08-16T20:05:32Z",
+      "side": 1,
+      "message": "LGTM once you resolve the final comment.",
       "revId": "57aa207f387acd672df2067b5dbd1c1085046dd3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
