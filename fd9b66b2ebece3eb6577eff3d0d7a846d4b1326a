@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8b69423_68a8a290",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3085,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-16T08:42:00Z",
+      "side": 1,
+      "message": "Yes, it\u0027s better. Done.",
+      "parentUuid": "c4ce7ffd_7ac5286e",
+      "revId": "fd9b66b2ebece3eb6577eff3d0d7a846d4b1326a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c36c73dc_39c7d90b",
@@ -58,6 +76,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10d1aebd_a0af1da3",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3100,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-16T08:42:00Z",
+      "side": 1,
+      "message": "Done, though we didn\u0027t have the required general-purpose functions so I had to add them in a companion change in CollectionUtils. Please review aosp/2183585",
+      "parentUuid": "c36c73dc_39c7d90b",
+      "range": {
+        "startLine": 3100,
+        "startChar": 65,
+        "endLine": 3100,
+        "endChar": 66
+      },
+      "revId": "fd9b66b2ebece3eb6577eff3d0d7a846d4b1326a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "888fce8f_963d9f03",
@@ -71,6 +113,30 @@
       "writtenOn": "2022-08-16T05:55:44Z",
       "side": 1,
       "message": "Suggest adding cb.assertNoCallback() here, and at the end of the previous test as well.",
+      "range": {
+        "startLine": 3101,
+        "startChar": 4,
+        "endLine": 3101,
+        "endChar": 5
+      },
+      "revId": "fd9b66b2ebece3eb6577eff3d0d7a846d4b1326a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b010183b_805a4347",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3101,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-16T08:42:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "888fce8f_963d9f03",
       "range": {
         "startLine": 3101,
         "startChar": 4,
