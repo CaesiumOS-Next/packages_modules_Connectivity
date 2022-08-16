@@ -116,6 +116,30 @@
       },
       "revId": "57aa207f387acd672df2067b5dbd1c1085046dd3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5668c6d3_0176538f",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-16T19:19:11Z",
+      "side": 1,
+      "message": "No, I think this is actually correct. These are two distinct states and an interface that is newly added will always start out as STATE_LINK_DOWN. The kernel sends two distinct RTM_NEWLINK events for this. And there is also the case where an interface is added without link (at the point of receiving STATE_LINK_DOWN, we do not know yet if we will ever receive a STATE_LINK_UP event for the interface).",
+      "parentUuid": "0567919c_75306a43",
+      "range": {
+        "startLine": 501,
+        "startChar": 8,
+        "endLine": 502,
+        "endChar": 68
+      },
+      "revId": "57aa207f387acd672df2067b5dbd1c1085046dd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
