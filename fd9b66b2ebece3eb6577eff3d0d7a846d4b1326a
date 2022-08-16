@@ -33,6 +33,52 @@
       "message": "Nits: Is it better to unregisterNetworkCallback?",
       "revId": "fd9b66b2ebece3eb6577eff3d0d7a846d4b1326a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c36c73dc_39c7d90b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3100,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-16T05:55:44Z",
+      "side": 1,
+      "message": "If it\u0027s easy to do so, it would be good to assert that the NetworkCapabilities in the callback contain NET_CAPABILITY_TEMPORARILY_NOT_METERED .",
+      "range": {
+        "startLine": 3100,
+        "startChar": 65,
+        "endLine": 3100,
+        "endChar": 66
+      },
+      "revId": "fd9b66b2ebece3eb6577eff3d0d7a846d4b1326a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "888fce8f_963d9f03",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3101,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-16T05:55:44Z",
+      "side": 1,
+      "message": "Suggest adding cb.assertNoCallback() here, and at the end of the previous test as well.",
+      "range": {
+        "startLine": 3101,
+        "startChar": 4,
+        "endLine": 3101,
+        "endChar": 5
+      },
+      "revId": "fd9b66b2ebece3eb6577eff3d0d7a846d4b1326a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
