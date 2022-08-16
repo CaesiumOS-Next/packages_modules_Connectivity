@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "90a8d7ac_dd393858",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-16T18:58:33Z",
+      "side": 1,
+      "message": "No, but the current code checks the \"running\" flag right after calling setInterfaceUp(), which is racy. Line 617 is meant to only be used for interfaces that have already been running when we start tracking them. addInterface() adds the interface in DOWN state to the factory, so we need to generate an artificial UP event (as we won\u0027t get a callback from rtnetlink in this case).\nIf an interface is being brought up by ethernet, we do *not* want to generate the artificial UP event, as otherwise we end up with a call order like:\nudpateInterfaceState(UP) -\u003e called by addInterface()\nupdateInterfaceState(DOWN) -\u003e triggered by RTM_NEWLINK cb\nupdateInterfaceState(UP) -\u003e triggered by RTM_NEWLINK cb\n\nThis is the cause for the up/up/down/up bug. Every updateInterfaceState cb that changes the state broadcasts the state change callback and in addition maybeTrackInterface sends a state change callback. A next step might be to get rid of this setInterfaceUp altogether and just propagate the state to EthernetNetworkFactory, but... baby steps. 😊",
+      "parentUuid": "9a197a58_bae53577",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 46
+      },
+      "revId": "57aa207f387acd672df2067b5dbd1c1085046dd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5fa97407_f2878b10",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-16T18:33:58Z",
       "side": 1,
       "message": "Do you mean when the interface \"is down\"?",
+      "range": {
+        "startLine": 10,
+        "startChar": 66,
+        "endLine": 11,
+        "endChar": 10
+      },
+      "revId": "57aa207f387acd672df2067b5dbd1c1085046dd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acb90767_92e094a7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-16T18:58:33Z",
+      "side": 1,
+      "message": "see comment above and the comment on line 613:\n```\n// Note: if the interface already has link (e.g., if we crashed and got\n// restarted while it was running), we need to fake a link up notification so we\n// start configuring it.\n```\n\nLet me try and rephrase the commit message to make this more clear.",
+      "parentUuid": "5fa97407_f2878b10",
       "range": {
         "startLine": 10,
         "startChar": 66,
