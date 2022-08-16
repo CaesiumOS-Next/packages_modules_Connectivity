@@ -16,6 +16,29 @@
       "message": "This CL does not change / affect behavior. updateInterfaceState is a noop for interfaces in server mode.",
       "revId": "83ebb9f82ec47903c7e3d08f4678c15206ddcd57",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecc8d5c0_056efe64",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-08-16T18:20:43Z",
+      "side": 1,
+      "message": "I\u0027m guessing this isn\u0027t needed if `getInterfaceMode(iface) \u003d\u003d INTERFACE_MODE_SERVER`?",
+      "range": {
+        "startLine": 608,
+        "startChar": 8,
+        "endLine": 614,
+        "endChar": 5
+      },
+      "revId": "83ebb9f82ec47903c7e3d08f4678c15206ddcd57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
