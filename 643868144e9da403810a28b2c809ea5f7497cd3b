@@ -16,6 +16,52 @@
       "message": "LGTM. But I think Jean should take a look.",
       "revId": "643868144e9da403810a28b2c809ea5f7497cd3b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "904b69fd_6fea6d04",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1405,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-16T10:02:50Z",
+      "side": 1,
+      "message": "Let\u0027s not do this, because who cares.\n\nLess jokingly : I don\u0027t think it was really a bug ; the old implementation just specified that you can\u0027t have MAX_REQUESTS, while the new one specifies that you can. Both views are equally reasonable.\nBut really, is there a problem if we allow 1 more request than we used to ? That would mean each UID can have 100 requests, instead of the 99 we used to allow. You\u0027d have to update the tests.\n\nAnother reasonable solution to this is to simply change the value of the constant. If you do this, frame your comment on the constant around *what* we do (e.g. \"MAX \u003d 99; // throw when the UID files its 100th request\") and not history (don\u0027t write e.g. \"// there used to be xxx behavior\")",
+      "range": {
+        "startLine": 1403,
+        "startChar": 0,
+        "endLine": 1405,
+        "endChar": 39
+      },
+      "revId": "643868144e9da403810a28b2c809ea5f7497cd3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94ab77e0_ae5985d7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6343,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-16T10:02:50Z",
+      "side": 1,
+      "message": "Instead of doing this, I suggest we have 2 modes to the PerUidCounter. Regular mode to throw ISE, and outside-world-visible mode to throw SSE or logwtf.",
+      "range": {
+        "startLine": 6343,
+        "startChar": 21,
+        "endLine": 6343,
+        "endChar": 42
+      },
+      "revId": "643868144e9da403810a28b2c809ea5f7497cd3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
