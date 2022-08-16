@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a04a1d7f_1a0c6c7d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-08-16T12:19:36Z",
+      "side": 1,
+      "message": "I wonder why we don\u0027t actually SO_BINDTODEVICE the clat raw xmit socket.",
+      "revId": "ef4b1bc50f81b8d321a868c31246883ebc1f10d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
