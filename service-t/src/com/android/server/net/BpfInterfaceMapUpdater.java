@@ -15,6 +15,8 @@
  */
 package com.android.server.net;
 
+import static android.system.OsConstants.R_OK;
+
 import android.content.Context;
 import android.net.INetd;
 import android.os.Handler;
@@ -22,6 +24,8 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
 import android.system.ErrnoException;
+import android.system.Os;
+import android.util.IndentingPrintWriter;
 import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
@@ -160,5 +164,50 @@ public class BpfInterfaceMapUpdater {
             Log.e(TAG, "Failed to get entry for index " + index + ": " + e);
             return "unknown";
         }
+    }
+
+    private void dumpMapStatus(final IndentingPrintWriter pw) {
+        if (mBpfMap != null) {
+            pw.println("IfaceIndexNameMap: OK");
+            return;
+        }
+        try {
+            Os.access(IFACE_INDEX_NAME_MAP_PATH, R_OK);
+            pw.println("IfaceIndexNameMap: NULL(map is pinned to "
+                    + IFACE_INDEX_NAME_MAP_PATH + ")");
+        } catch (ErrnoException e) {
+            pw.println("IfaceIndexNameMap: NULL(map is not pinned to "
+                    + IFACE_INDEX_NAME_MAP_PATH + ": " + Os.strerror(e.errno) + ")");
+        }
+    }
+
+    private void dumpMapContent(final IndentingPrintWriter pw) {
+        try {
+            mBpfMap.forEach((key, value) -> {
+                if (value != null) {
+                    pw.println("ifaceIndex=" + key.val + " ifaceName=" + getIfNameByIndex(key.val));
+                } else {
+                    pw.println("Entry is deleted while dumping, iterating from first entry");
+                }
+            });
+        } catch (ErrnoException e) {
+            pw.println("IfaceIndexNameMap dump end with error: " + Os.strerror(e.errno));
+        }
+    }
+
+    /**
+     * Dump BPF map
+     *
+     * @param pw print writer
+     */
+    public void dump(final IndentingPrintWriter pw) {
+        pw.println("BPF map status:");
+        pw.increaseIndent();
+        dumpMapStatus(pw);
+        pw.decreaseIndent();
+        pw.println("BPF map content:");
+        pw.increaseIndent();
+        dumpMapContent(pw);
+        pw.decreaseIndent();
     }
 }
