@@ -136,4 +136,29 @@ public class BpfInterfaceMapUpdater {
             mHandler.post(() -> addInterface(ifName));
         }
     }
+
+    /** Returns the length of the null-terminated string. */
+    private int strlen(byte[] str) {
+        for (int i = 0; i < str.length; ++i) {
+            if (str[i] == '\0') {
+                return i;
+            }
+        }
+        return str.length;
+    }
+
+    /** get interface name by interface index from bpf map */
+    public String getIfNameByIndex(final long index) {
+        try {
+            final InterfaceMapValue value = mBpfMap.getValue(new U32(index));
+            if (value == null) {
+                Log.e(TAG, "No if name entry for index " + index);
+                return "unknown";
+            }
+            return new String(value.interfaceName, 0 /* offset */,  strlen(value.interfaceName));
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Failed to get entry for index " + index + ": " + e);
+            return "unknown";
+        }
+    }
 }
