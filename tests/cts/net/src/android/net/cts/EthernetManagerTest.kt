@@ -310,6 +310,9 @@ class EthernetManagerTest {
     fun setUp() {
         setIncludeTestInterfaces(true)
         addInterfaceStateListener(ifaceListener)
+        // calling setEthernetEnabled after adding the state listener ensures that the listener is
+        // properly registered before the first test interface is created.
+        setEthernetEnabled(true)
     }
 
     @After
