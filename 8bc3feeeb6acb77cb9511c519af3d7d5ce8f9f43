@@ -39,6 +39,30 @@
       },
       "revId": "8bc3feeeb6acb77cb9511c519af3d7d5ce8f9f43",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0af5173_a59341bc",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 15577,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-16T09:56:58Z",
+      "side": 1,
+      "message": "Um but your interpretation is correct. It does mean to obtain something, and this will run the lambda while running the counter. So what you describe is exactly what it does !\n\nSo I\u0027d be inclined to leave as is, but feel free to reopen if you still think it\u0027s unclear.",
+      "parentUuid": "a10b0ef8_86124143",
+      "range": {
+        "startLine": 15577,
+        "startChar": 8,
+        "endLine": 15577,
+        "endChar": 35
+      },
+      "revId": "8bc3feeeb6acb77cb9511c519af3d7d5ce8f9f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
