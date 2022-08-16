@@ -1092,6 +1092,8 @@ public class BpfCoordinator {
     }
 
     private void dumpIpv6UpstreamRules(IndentingPrintWriter pw) {
+        pw.println("IPv6 Upstream: iif(iface) inDstMac -> oif(iface) etherType outSrcMac outDstMac");
+        pw.increaseIndent();
         try (BpfMap<TetherUpstream6Key, Tether6Value> map = mDeps.getBpfUpstream6Map()) {
             if (map == null) {
                 pw.println("No IPv6 upstream");
@@ -1105,6 +1107,7 @@ public class BpfCoordinator {
         } catch (ErrnoException | IOException e) {
             pw.println("Error dumping IPv6 upstream map: " + e);
         }
+        pw.decreaseIndent();
     }
 
     private <K extends Struct, V extends Struct> void dumpRawMap(BpfMap<K, V> map,
