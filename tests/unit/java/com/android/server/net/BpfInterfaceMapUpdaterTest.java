@@ -19,6 +19,7 @@ package com.android.server.net;
 import static android.system.OsConstants.EPERM;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.spy;
@@ -33,6 +34,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.test.TestLooper;
 import android.system.ErrnoException;
+import android.util.IndentingPrintWriter;
 
 import androidx.test.filters.SmallTest;
 
@@ -50,6 +52,9 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 @SmallTest
 @RunWith(DevSdkIgnoreRunner.class)
@@ -142,5 +147,27 @@ public final class BpfInterfaceMapUpdaterTest {
     public void testGetIfNameByIndexException() throws Exception {
         doThrow(new ErrnoException("", EPERM)).when(mBpfMap).getValue(new U32(TEST_INDEX));
         assertEquals("unknown", mUpdater.getIfNameByIndex(TEST_INDEX));
+    }
+
+    private void assertDumpContains(final String dump, final String message) {
+        assertTrue(String.format("dump(%s) does not contain '%s'", dump, message),
+                dump.contains(message));
+    }
+
+    private String getDump() {
+        final StringWriter sw = new StringWriter();
+        mUpdater.dump(new IndentingPrintWriter(new PrintWriter(sw), " "));
+        return sw.toString();
+    }
+
+    @Test
+    public void testDump() throws ErrnoException {
+        mBpfMap.updateEntry(new U32(TEST_INDEX), new InterfaceMapValue(TEST_INTERFACE_NAME));
+        mBpfMap.updateEntry(new U32(TEST_INDEX2), new InterfaceMapValue(TEST_INTERFACE_NAME2));
+
+        final String dump = getDump();
+        assertDumpContains(dump, "IfaceIndexNameMap: OK");
+        assertDumpContains(dump, "ifaceIndex=1 ifaceName=test1");
+        assertDumpContains(dump, "ifaceIndex=2 ifaceName=test2");
     }
 }
