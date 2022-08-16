@@ -252,6 +252,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             "/sys/fs/bpf/netd_shared/map_netd_stats_map_A";
     private static final String STATS_MAP_B_PATH =
             "/sys/fs/bpf/netd_shared/map_netd_stats_map_B";
+    private static final String IFACE_STATS_MAP_PATH =
+            "/sys/fs/bpf/netd_shared/map_netd_iface_stats_map";
 
     /**
      * DeviceConfig flag used to indicate whether the files should be stored in the apex data
@@ -411,6 +413,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     private final IBpfMap<StatsMapKey, StatsMapValue> mStatsMapA;
     private final IBpfMap<StatsMapKey, StatsMapValue> mStatsMapB;
     private final IBpfMap<UidStatsMapKey, StatsMapValue> mAppUidStatsMap;
+    private final IBpfMap<U32, StatsMapValue> mIfaceStatsMap;
 
     /** Data layer operation counters for splicing into other structures. */
     private NetworkStats mUidOperations = new NetworkStats(0L, 10);
@@ -587,6 +590,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         mStatsMapA = mDeps.getStatsMapA();
         mStatsMapB = mDeps.getStatsMapB();
         mAppUidStatsMap = mDeps.getAppUidStatsMap();
+        mIfaceStatsMap = mDeps.getIfaceStatsMap();
     }
 
     /**
@@ -775,6 +779,16 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             } catch (ErrnoException e) {
                 Log.wtf(TAG, "Cannot open app uid stats map: " + e);
                 return null;
+            }
+        }
+
+        /** Gets interface stats map */
+        public IBpfMap<U32, StatsMapValue> getIfaceStatsMap() {
+            try {
+                return new BpfMap<U32, StatsMapValue>(IFACE_STATS_MAP_PATH,
+                        BpfMap.BPF_F_RDWR, U32.class, StatsMapValue.class);
+            } catch (ErrnoException e) {
+                throw new IllegalStateException("Failed to open interface stats map", e);
             }
         }
 
@@ -2735,6 +2749,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             dumpAppUidStatsMapLocked(pw);
             dumpStatsMapLocked(mStatsMapA, pw, "mStatsMapA");
             dumpStatsMapLocked(mStatsMapB, pw, "mStatsMapB");
+            dumpIfaceStatsMapLocked(pw);
             pw.decreaseIndent();
         }
     }
@@ -2822,6 +2837,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         pw.println("mAppUidStatsMap: " + getMapStatus(mAppUidStatsMap, APP_UID_STATS_MAP_PATH));
         pw.println("mStatsMapA: " + getMapStatus(mStatsMapA, STATS_MAP_A_PATH));
         pw.println("mStatsMapB: " + getMapStatus(mStatsMapB, STATS_MAP_B_PATH));
+        // mIfaceStatsMap is always not null but dump status for consistency with other map.
+        pw.println("mIfaceStatsMap: " + getMapStatus(mIfaceStatsMap, IFACE_STATS_MAP_PATH));
     }
 
     @GuardedBy("mStatsLock")
@@ -2875,6 +2892,21 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                             + "0x" + Long.toHexString(key.tag) + " "
                             + key.uid + " "
                             + key.counterSet + " "
+                            + value.rxBytes + " "
+                            + value.rxPackets + " "
+                            + value.txBytes + " "
+                            + value.txPackets;
+                });
+    }
+
+    @GuardedBy("mStatsLock")
+    private void dumpIfaceStatsMapLocked(final IndentingPrintWriter pw) {
+        BpfDump.dumpMap(mIfaceStatsMap, pw, "mIfaceStatsMap",
+                "ifaceIndex ifaceName rxBytes rxPackets txBytes txPackets",
+                (key, value) -> {
+                    final String ifName = mInterfaceMapUpdater.getIfNameByIndex(key.val);
+                    return key.val + " "
+                            + ifName + " "
                             + value.rxBytes + " "
                             + value.rxPackets + " "
                             + value.txBytes + " "
