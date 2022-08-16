@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a197a58_bae53577",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-08-16T18:33:58Z",
+      "side": 1,
+      "message": "Does this mean `addInterface` is called twice? If so, should the be the fix, not calling `addInterface` multiple times?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 46
+      },
+      "revId": "57aa207f387acd672df2067b5dbd1c1085046dd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fa97407_f2878b10",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-08-16T18:33:58Z",
+      "side": 1,
+      "message": "Do you mean when the interface \"is down\"?",
+      "range": {
+        "startLine": 10,
+        "startChar": 66,
+        "endLine": 11,
+        "endChar": 10
+      },
+      "revId": "57aa207f387acd672df2067b5dbd1c1085046dd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0567919c_75306a43",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-08-16T18:33:58Z",
+      "side": 1,
+      "message": "Should the ultimate behavior be only sending a single `STATE_LINK_UP` callback? Not sure why down is sent first for a newly created interface?\n\nI can see this is an incremental improvement but I am wondering if the above should also be addressed?",
+      "range": {
+        "startLine": 501,
+        "startChar": 8,
+        "endLine": 502,
+        "endChar": 68
+      },
+      "revId": "57aa207f387acd672df2067b5dbd1c1085046dd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
