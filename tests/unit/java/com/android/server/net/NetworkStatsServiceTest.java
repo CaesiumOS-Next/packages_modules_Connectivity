@@ -242,7 +242,8 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
             StatsMapValue.class);
     private TestBpfMap<UidStatsMapKey, StatsMapValue> mAppUidStatsMap = new TestBpfMap<>(
             UidStatsMapKey.class, StatsMapValue.class);
-
+    private TestBpfMap<U32, StatsMapValue> mIfaceStatsMap = new TestBpfMap<>(
+            U32.class, StatsMapValue.class);
     private NetworkStatsService mService;
     private INetworkStatsSession mSession;
     private AlertObserver mAlertObserver;
@@ -479,6 +480,11 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
             @Override
             public IBpfMap<UidStatsMapKey, StatsMapValue> getAppUidStatsMap() {
                 return mAppUidStatsMap;
+            }
+
+            @Override
+            public IBpfMap<U32, StatsMapValue> getIfaceStatsMap() {
+                return mIfaceStatsMap;
             }
 
             @Override
@@ -2380,5 +2386,16 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
                 "ifaceIndex ifaceName tag_hex uid_int cnt_set rxBytes rxPackets txBytes txPackets");
         assertDumpContains(dump, "10 wlan0 0x2 1002 0 5000 5 3000 3");
         assertDumpContains(dump, "10 wlan0 0x1 1002 0 5000 5 3000 3");
+    }
+
+    @Test
+    public void testDumpIfaceStatsMap() throws ErrnoException {
+        mIfaceStatsMap.insertEntry(new U32(10), new StatsMapValue(3, 3000, 3, 3000));
+        doReturn("wlan0").when(mBpfInterfaceMapUpdater).getIfNameByIndex(10 /* index */);
+
+        final String dump = getDump();
+        assertDumpContains(dump, "mIfaceStatsMap: OK");
+        assertDumpContains(dump, "ifaceIndex ifaceName rxBytes rxPackets txBytes txPackets");
+        assertDumpContains(dump, "10 wlan0 3000 3 3000 3");
     }
 }
