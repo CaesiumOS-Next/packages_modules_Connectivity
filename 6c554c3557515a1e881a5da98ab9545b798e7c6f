@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "dc574340_be315b80",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-16T04:46:24Z",
+      "side": 1,
+      "message": "Still LGTM. Thanks for fixing this!",
+      "parentUuid": "943dcd8a_21a00f7b",
+      "range": {
+        "startLine": 250,
+        "startChar": 57,
+        "endLine": 252,
+        "endChar": 17
+      },
+      "revId": "6c554c3557515a1e881a5da98ab9545b798e7c6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a53f2dce_ccb7b5ce",
         "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
         "patchSetId": 14
