@@ -251,6 +251,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             "/sys/fs/bpf/netd_shared/map_netd_stats_map_A";
     private static final String STATS_MAP_B_PATH =
             "/sys/fs/bpf/netd_shared/map_netd_stats_map_B";
+    private static final String IFACE_STATS_MAP_PATH =
+            "/sys/fs/bpf/netd_shared/map_netd_iface_stats_map";
 
     /**
      * DeviceConfig flag used to indicate whether the files should be stored in the apex data
@@ -410,6 +412,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     private final IBpfMap<StatsMapKey, StatsMapValue> mStatsMapA;
     private final IBpfMap<StatsMapKey, StatsMapValue> mStatsMapB;
     private final IBpfMap<UidStatsMapKey, StatsMapValue> mAppUidStatsMap;
+    private final IBpfMap<U32, StatsMapValue> mIfaceStatsMap;
 
     /** Data layer operation counters for splicing into other structures. */
     private NetworkStats mUidOperations = new NetworkStats(0L, 10);
@@ -586,6 +589,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         mStatsMapA = mDeps.getStatsMapA();
         mStatsMapB = mDeps.getStatsMapB();
         mAppUidStatsMap = mDeps.getAppUidStatsMap();
+        mIfaceStatsMap = mDeps.getIfaceStatsMap();
     }
 
     /**
@@ -773,6 +777,17 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                         BpfMap.BPF_F_RDWR, UidStatsMapKey.class, StatsMapValue.class);
             } catch (ErrnoException e) {
                 Log.wtf(TAG, "Cannot open app uid stats map: " + e);
+                return null;
+            }
+        }
+
+        /** Gets interface stats map */
+        public IBpfMap<U32, StatsMapValue> getIfaceStatsMap() {
+            try {
+                return new BpfMap<U32, StatsMapValue>(IFACE_STATS_MAP_PATH,
+                        BpfMap.BPF_F_RDWR, U32.class, StatsMapValue.class);
+            } catch (ErrnoException e) {
+                Log.wtf(TAG, "Cannot open interface stats: " + e);
                 return null;
             }
         }
@@ -2728,6 +2743,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             dumpAppUidStatsMapLocked(pw);
             dumpStatsMapLocked("mStatsMapA", mStatsMapA, pw);
             dumpStatsMapLocked("mStatsMapB", mStatsMapB, pw);
+            dumpIfaceStatsMapLocked(pw);
             pw.decreaseIndent();
         }
     }
@@ -2783,6 +2799,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         pw.println("mAppUidStatsMap: " + getMapStatus(mAppUidStatsMap, APP_UID_STATS_MAP_PATH));
         pw.println("mStatsMapA: " + getMapStatus(mStatsMapA, STATS_MAP_A_PATH));
         pw.println("mStatsMapB: " + getMapStatus(mStatsMapB, STATS_MAP_B_PATH));
+        pw.println("mIfaceStatsMap: " + getMapStatus(mIfaceStatsMap, IFACE_STATS_MAP_PATH));
     }
 
     @GuardedBy("mStatsLock")
@@ -2892,6 +2909,36 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             });
         } catch (ErrnoException e) {
             pw.println(mapName + " dump end with error: " + Os.strerror(e.errno));
+        }
+        pw.decreaseIndent();
+    }
+
+    @GuardedBy("mStatsLock")
+    private void dumpIfaceStatsMapLocked(final IndentingPrintWriter pw) {
+        if (mIfaceStatsMap == null) {
+            return;
+        }
+        pw.println("mIfaceStatsMap:");
+        pw.increaseIndent();
+        pw.println("ifaceIndex ifaceName rxBytes rxPackets txBytes txPackets");
+        try {
+            mIfaceStatsMap.forEach((key, value) -> {
+                // value could be null if there is a concurrent entry deletion.
+                // http://b/220084230.
+                if (value != null) {
+                    final String ifName = mInterfaceMapUpdater.getIfNameByIndex(key.val);
+                    pw.println(key.val + " "
+                            + ifName + " "
+                            + value.rxBytes + " "
+                            + value.rxPackets + " "
+                            + value.txBytes + " "
+                            + value.txPackets);
+                } else {
+                    pw.println("Entry is deleted while dumping, iterating from first entry");
+                }
+            });
+        } catch (ErrnoException e) {
+            pw.println("mIfaceStatsMap dump end with error: " + Os.strerror(e.errno));
         }
         pw.decreaseIndent();
     }
