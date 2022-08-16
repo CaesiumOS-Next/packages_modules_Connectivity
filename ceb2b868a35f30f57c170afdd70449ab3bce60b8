@@ -16,6 +16,24 @@
       "message": "Could you add a commit message to explain why do we want to change the bug number?",
       "revId": "ceb2b868a35f30f57c170afdd70449ab3bce60b8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b63d071c_1375f80a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-08-16T06:04:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e7d657e_1e71ee5d",
+      "revId": "ceb2b868a35f30f57c170afdd70449ab3bce60b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
