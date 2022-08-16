@@ -15,6 +15,8 @@
  */
 package com.android.server.net;
 
+import android.util.Log;
+
 import com.android.net.module.util.Struct;
 import com.android.net.module.util.Struct.Field;
 import com.android.net.module.util.Struct.Type;
@@ -23,13 +25,31 @@ import com.android.net.module.util.Struct.Type;
  * The value of bpf interface index map which is used for NetworkStatsService.
  */
 public class InterfaceMapValue extends Struct {
-    @Field(order = 0, type = Type.ByteArray, arraysize = 16)
+    private static final String TAG = "InterfaceMapValue";
+    private static final int IF_NAME_ARRAY_SIZE = 16;
+
+    @Field(order = 0, type = Type.ByteArray, arraysize = IF_NAME_ARRAY_SIZE)
     public final byte[] interfaceName;
 
     public InterfaceMapValue(String iface) {
         final byte[] ifaceArray = iface.getBytes();
-        interfaceName = new byte[16];
+        interfaceName = new byte[IF_NAME_ARRAY_SIZE];
         // All array bytes after the interface name, if any, must be 0.
         System.arraycopy(ifaceArray, 0, interfaceName, 0, ifaceArray.length);
+    }
+
+    /**
+     * Only Struct#parse call this constructor to build this struct from raw data ByteBuffer
+     *
+     * @param ifName byte array of interface name, length must be IF_NAME_ARRAY_SIZE(16)
+     */
+    public InterfaceMapValue(final byte[] ifName) {
+        if (ifName.length != IF_NAME_ARRAY_SIZE) {
+            Log.wtf(TAG, "ifName length(" + ifName.length
+                    + ") is different from IF_NAME_ARRAY_SIZE(" + IF_NAME_ARRAY_SIZE + ")");
+        }
+
+        interfaceName = new byte[IF_NAME_ARRAY_SIZE];
+        System.arraycopy(ifName, 0, interfaceName, 0, Math.min(IF_NAME_ARRAY_SIZE, ifName.length));
     }
 }
