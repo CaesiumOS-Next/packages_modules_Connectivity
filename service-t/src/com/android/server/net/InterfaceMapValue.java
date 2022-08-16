@@ -16,20 +16,32 @@
 package com.android.server.net;
 
 import com.android.net.module.util.Struct;
-import com.android.net.module.util.Struct.Field;
-import com.android.net.module.util.Struct.Type;
+
+import java.util.Arrays;
 
 /**
  * The value of bpf interface index map which is used for NetworkStatsService.
  */
 public class InterfaceMapValue extends Struct {
+    private static final int IF_NAME_ARRAY_SIZE = 16;
+
     @Field(order = 0, type = Type.ByteArray, arraysize = 16)
     public final byte[] interfaceName;
 
     public InterfaceMapValue(String iface) {
         final byte[] ifaceArray = iface.getBytes();
-        interfaceName = new byte[16];
+        interfaceName = new byte[IF_NAME_ARRAY_SIZE];
         // All array bytes after the interface name, if any, must be 0.
         System.arraycopy(ifaceArray, 0, interfaceName, 0, ifaceArray.length);
+    }
+
+    /**
+     * Constructor for Struct#parse. Build this struct from byte array of interface name.
+     *
+     * @param ifName Byte array of interface name, All array bytes after the interface name,
+     *               if any, must be 0.
+     */
+    public InterfaceMapValue(final byte[] ifName) {
+        interfaceName = Arrays.copyOf(ifName, IF_NAME_ARRAY_SIZE);
     }
 }
