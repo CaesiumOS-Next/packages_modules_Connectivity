@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbfe0f09_ebef1adc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-16T04:25:23Z",
+      "side": 1,
+      "message": "After this one, the two remaining flakes are:\n- validateListenerOnRegistration()\n- and SIOCSIFFLAGS after SIOCSIFADDR",
+      "revId": "f03f210da038c970ab25aa5839d4d6e32dece2ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
