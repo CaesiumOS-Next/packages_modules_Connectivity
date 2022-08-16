@@ -39,6 +39,30 @@
       },
       "revId": "83ebb9f82ec47903c7e3d08f4678c15206ddcd57",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11b44088_6b1717ba",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-16T18:34:20Z",
+      "side": 1,
+      "message": "Exactly, it\u0027s a no-op in that case:\n```\n\n    private void updateInterfaceState(@NonNull final String iface, final boolean up,\n            @Nullable final INetworkInterfaceOutcomeReceiver listener) {\n        final int mode \u003d getInterfaceMode(iface);\n        final boolean factoryLinkStateUpdated \u003d (mode \u003d\u003d INTERFACE_MODE_CLIENT)\n                \u0026\u0026 mFactory.updateInterfaceLinkState(iface, up, listener);\n\n        if (factoryLinkStateUpdated) {\n            broadcastInterfaceStateChange(iface);\n        }\n    }\n```",
+      "parentUuid": "ecc8d5c0_056efe64",
+      "range": {
+        "startLine": 608,
+        "startChar": 8,
+        "endLine": 614,
+        "endChar": 5
+      },
+      "revId": "83ebb9f82ec47903c7e3d08f4678c15206ddcd57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
