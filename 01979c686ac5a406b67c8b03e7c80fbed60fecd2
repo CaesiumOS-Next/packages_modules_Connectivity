@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9949684c_fbb7abf6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-17T03:20:11Z",
+      "side": 1,
+      "message": "Local test:\n```\n    Forwarding rules:\n      IPv6 Upstream: iif(iface) inDstMac -\u003e oif(iface) etherType outSrcMac outDstMac\n        53(53) ba:df:d2:6b:a9:bb -\u003e 15(rmnet1) 86dd 00:00:00:00:00:00 00:00:00:00:00:00\n```",
+      "revId": "01979c686ac5a406b67c8b03e7c80fbed60fecd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
