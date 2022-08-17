@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6833cb6c_3ae23adf",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1974,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-08-17T06:33:47Z",
+      "side": 1,
+      "message": "Will this ever be more than one network?",
+      "range": {
+        "startLine": 1974,
+        "startChar": 39,
+        "endLine": 1974,
+        "endChar": 43
+      },
+      "revId": "15dbc87c407d0eb9a3c2144d5852e6572fcb7444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49310b81_cadddd29",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1977,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-08-17T06:33:47Z",
+      "side": 1,
+      "message": "Isn\u0027t this basically just:\n\n```\n        verify(mIkeSessionWrapper).setNetwork(expectedNetwork);\n```",
+      "range": {
+        "startLine": 1975,
+        "startChar": 0,
+        "endLine": 1977,
+        "endChar": 84
+      },
+      "revId": "15dbc87c407d0eb9a3c2144d5852e6572fcb7444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
