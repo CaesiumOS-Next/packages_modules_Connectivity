@@ -16,6 +16,29 @@
       "message": "Local test:\n```\n    Forwarding rules:\n      IPv6 Upstream: iif(iface) inDstMac -\u003e oif(iface) etherType outSrcMac outDstMac\n        53(53) ba:df:d2:6b:a9:bb -\u003e 15(rmnet1) 86dd 00:00:00:00:00:00 00:00:00:00:00:00\n```",
       "revId": "01979c686ac5a406b67c8b03e7c80fbed60fecd2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2636f543_30ec3dd7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1096,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-17T05:10:33Z",
+      "side": 1,
+      "message": "nit: need 8 spaces\n\nERRORS:\n      [platform/packages/modules/Connectivity] Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java:1096: \u0027method call rparen\u0027 has incorrect indentation level 18, expected level should be 8.\n\naosp/2185516 will fix it",
+      "range": {
+        "startLine": 1096,
+        "startChar": 8,
+        "endLine": 1096,
+        "endChar": 18
+      },
+      "revId": "01979c686ac5a406b67c8b03e7c80fbed60fecd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
