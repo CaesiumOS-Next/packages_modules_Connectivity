@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "804f19e4_872978d2",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1974,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-08-17T09:32:54Z",
+      "side": 1,
+      "message": "NetworkCapabilities.getUnderlyingNetworks() return a list of network. From API perspective, it\u0027s possible.",
+      "parentUuid": "6833cb6c_3ae23adf",
+      "range": {
+        "startLine": 1974,
+        "startChar": 39,
+        "endLine": 1974,
+        "endChar": 43
+      },
+      "revId": "15dbc87c407d0eb9a3c2144d5852e6572fcb7444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49310b81_cadddd29",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-17T06:33:47Z",
       "side": 1,
       "message": "Isn\u0027t this basically just:\n\n```\n        verify(mIkeSessionWrapper).setNetwork(expectedNetwork);\n```",
+      "range": {
+        "startLine": 1975,
+        "startChar": 0,
+        "endLine": 1977,
+        "endChar": 84
+      },
+      "revId": "15dbc87c407d0eb9a3c2144d5852e6572fcb7444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa3e657c_c6f96321",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1977,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-08-17T09:32:54Z",
+      "side": 1,
+      "message": "It will like this:\n\u003e verify(mIkeSessionWrapper).setNetwork(expected.get(0));\n\nWe could only get the first one from the list to compare what is set. Ideally, we should compare the full list to have correct coverage.",
+      "parentUuid": "49310b81_cadddd29",
       "range": {
         "startLine": 1975,
         "startChar": 0,
