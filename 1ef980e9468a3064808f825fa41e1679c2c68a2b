@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e421c82_68ad7000",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-17T03:20:42Z",
+      "side": 1,
+      "message": "local test\n```\n    Forwarding rules:\n      IPv6 Forwarding rules by downstream interface:\n        [wlan2]: iif(iface) oif(iface) v6addr srcmac dstmac\n          15(rmnet1) 53(wlan2) 2401:e180:88a3:3df5:7476:116:ac4f:b123 ba:df:d2:6b:a9:bb 52:5c:cf:fc:c6:ff\n```",
+      "revId": "1ef980e9468a3064808f825fa41e1679c2c68a2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
