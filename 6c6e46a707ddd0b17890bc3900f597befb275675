@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e943224c_4c7dfae9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-17T16:52:35Z",
+      "side": 1,
+      "message": "I can change the test to:\n```\nlistener1.eventuallyExpect(iface2, STATE_LINK_DOWN, ROLE_CLIENT)\nlistener1.expectCallback(iface2, STATE_LINK_UP, ROLE_CLIENT)\n```\n\nand cherry-pick the changes into CTS13 R2. I guess that\u0027s the only option really. I have been wanting to expand on the testCallbacks() test anyways (and have a couple of changes ready for that), so at least we have solid coverage on aosp master.",
+      "parentUuid": "d0f6f86e_d7292657",
+      "revId": "6c6e46a707ddd0b17890bc3900f597befb275675",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "221ec51a_bfc1da76",
