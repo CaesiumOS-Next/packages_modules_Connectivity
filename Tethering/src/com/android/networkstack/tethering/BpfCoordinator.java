@@ -575,7 +575,7 @@ public class BpfCoordinator {
             if (!mBpfCoordinatorShim.startUpstreamIpv6Forwarding(downstream, upstream, rule.srcMac,
                     NULL_MAC_ADDRESS, NULL_MAC_ADDRESS, NetworkStackConstants.ETHER_MTU)) {
                 mLog.e("Failed to enable upstream IPv6 forwarding from "
-                        + mInterfaceNames.get(downstream) + " to " + mInterfaceNames.get(upstream));
+                        + getIfName(downstream) + " to " + getIfName(upstream));
             }
         }
 
@@ -616,7 +616,7 @@ public class BpfCoordinator {
             if (!mBpfCoordinatorShim.stopUpstreamIpv6Forwarding(downstream, upstream,
                     rule.srcMac)) {
                 mLog.e("Failed to disable upstream IPv6 forwarding from "
-                        + mInterfaceNames.get(downstream) + " to " + mInterfaceNames.get(upstream));
+                        + getIfName(downstream) + " to " + getIfName(upstream));
             }
         }
 
@@ -960,8 +960,11 @@ public class BpfCoordinator {
     }
 
     // TODO: make mInterfaceNames accessible to the shim and move this code to there.
-    private String getIfName(long ifindex) {
-        return mInterfaceNames.get((int) ifindex, Long.toString(ifindex));
+    private String getIfName(int ifindex) {
+        // TODO: return something more useful on lookup failure
+        // likely use iface_index_name_map and/or if_nametoindex
+        // perhaps should even check that all 3 match if available
+        return mInterfaceNames.get(ifindex, Int.toString(ifindex));
     }
 
     /**
@@ -1038,8 +1041,8 @@ public class BpfCoordinator {
         for (int i = 0; i < mStats.size(); i++) {
             final int upstreamIfindex = mStats.keyAt(i);
             final ForwardedStats stats = mStats.get(upstreamIfindex);
-            pw.println(String.format("%d(%s) - %s", upstreamIfindex, mInterfaceNames.get(
-                    upstreamIfindex), stats.toString()));
+            pw.println(String.format("%d(%s) - %s", upstreamIfindex, getIfName(upstreamIfindex),
+                    stats.toString()));
         }
     }
     private void dumpBpfStats(@NonNull IndentingPrintWriter pw) {
@@ -1082,7 +1085,7 @@ public class BpfCoordinator {
             for (Ipv6ForwardingRule rule : rules.values()) {
                 final int upstreamIfindex = rule.upstreamIfindex;
                 pw.println(String.format("%d(%s) %d(%s) %s [%s] [%s]", upstreamIfindex,
-                        mInterfaceNames.get(upstreamIfindex), rule.downstreamIfindex,
+                        getIfName(upstreamIfindex), rule.downstreamIfindex,
                         downstreamIface, rule.address.getHostAddress(), rule.srcMac, rule.dstMac));
             }
             pw.decreaseIndent();
@@ -1817,8 +1820,7 @@ public class BpfCoordinator {
         // TODO: Perhaps stop the coordinator.
         boolean success = updateDataLimit(upstreamIfindex);
         if (!success) {
-            final String iface = mInterfaceNames.get(upstreamIfindex);
-            mLog.e("Setting data limit for " + iface + " failed.");
+            mLog.e("Setting data limit for " + getIfName(upstreamIfindex) + " failed.");
         }
     }
 
