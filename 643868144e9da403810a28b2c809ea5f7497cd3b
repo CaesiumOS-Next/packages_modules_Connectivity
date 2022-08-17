@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "71f49cb8_2246772c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1405,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-17T03:07:29Z",
+      "side": 1,
+      "message": "For clean up, I think to allow 1 more request is prettier.\nBut that should be in another follow-up CL, that is why I have this TODO.\nIf so, what should we do for this CL?",
+      "parentUuid": "904b69fd_6fea6d04",
+      "range": {
+        "startLine": 1403,
+        "startChar": 0,
+        "endLine": 1405,
+        "endChar": 39
+      },
+      "revId": "643868144e9da403810a28b2c809ea5f7497cd3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "94ab77e0_ae5985d7",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 3
@@ -54,6 +78,30 @@
       "writtenOn": "2022-08-16T10:02:50Z",
       "side": 1,
       "message": "Instead of doing this, I suggest we have 2 modes to the PerUidCounter. Regular mode to throw ISE, and outside-world-visible mode to throw SSE or logwtf.",
+      "range": {
+        "startLine": 6343,
+        "startChar": 21,
+        "endLine": 6343,
+        "endChar": 42
+      },
+      "revId": "643868144e9da403810a28b2c809ea5f7497cd3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12fe9f55_ab0756f8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6343,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-17T03:07:29Z",
+      "side": 1,
+      "message": "Hmmm no I don\u0027t think that is better.\nConsider another user who needs to throw another custom exception like CannotIncrementCountException, then the user still need to catch and re-throw, because the 2 mode PerUidCounter does not support it.\n\nAlternatively we can make the method accept lambda which do nothing but throwing a\ncustom exception, since they need to put custom message in it (e.g. uid). But such design would be not that friendly to use and might be errorprone.\n\nWDYT?",
+      "parentUuid": "94ab77e0_ae5985d7",
       "range": {
         "startLine": 6343,
         "startChar": 21,
