@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd3601aa_6b541b39",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1831,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-08-17T06:16:27Z",
+      "side": 1,
+      "message": "Suggest actually just updating the mocked result:\n\n`doReturn(false).when(mIkev2ExecutorThreadFactory).isIkev2ExecutorThread(any());`",
+      "range": {
+        "startLine": 1831,
+        "startChar": 0,
+        "endLine": 1831,
+        "endChar": 99
+      },
+      "revId": "0576b558b8b10a258c476ace6d80f4ec708d02e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
