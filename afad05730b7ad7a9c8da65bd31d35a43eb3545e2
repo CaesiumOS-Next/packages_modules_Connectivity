@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40c258de_1d9dd686",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1785,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-08-17T02:53:16Z",
+      "side": 1,
+      "message": "Looks like mVMSHandlerThread is using for creating LockDownVpnTracker only. I think it doesn\u0027t need to be in setup() but where is to use it.",
+      "range": {
+        "startLine": 1780,
+        "startChar": 8,
+        "endLine": 1785,
+        "endChar": 34
+      },
+      "revId": "afad05730b7ad7a9c8da65bd31d35a43eb3545e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
