@@ -222,7 +222,7 @@ public class BpfCoordinatorTest {
 
     private static class TestUpstream4Key {
         public static class Builder {
-            private long mIif = DOWNSTREAM_IFINDEX;
+            private int mIif = DOWNSTREAM_IFINDEX;
             private MacAddress mDstMac = DOWNSTREAM_MAC;
             private short mL4proto = (short) IPPROTO_TCP;
             private byte[] mSrc4 = PRIVATE_ADDR.getAddress();
@@ -246,7 +246,7 @@ public class BpfCoordinatorTest {
 
     private static class TestDownstream4Key {
         public static class Builder {
-            private long mIif = UPSTREAM_IFINDEX;
+            private int mIif = UPSTREAM_IFINDEX;
             private MacAddress mDstMac = MacAddress.ALL_ZEROS_ADDRESS /* dstMac (rawip) */;
             private short mL4proto = (short) IPPROTO_TCP;
             private byte[] mSrc4 = REMOTE_ADDR.getAddress();
@@ -270,7 +270,7 @@ public class BpfCoordinatorTest {
 
     private static class TestUpstream4Value {
         public static class Builder {
-            private long mOif = UPSTREAM_IFINDEX;
+            private int mOif = UPSTREAM_IFINDEX;
             private MacAddress mEthDstMac = MacAddress.ALL_ZEROS_ADDRESS /* dstMac (rawip) */;
             private MacAddress mEthSrcMac = MacAddress.ALL_ZEROS_ADDRESS /* dstMac (rawip) */;
             private int mEthProto = ETH_P_IP;
@@ -290,7 +290,7 @@ public class BpfCoordinatorTest {
 
     private static class TestDownstream4Value {
         public static class Builder {
-            private long mOif = DOWNSTREAM_IFINDEX;
+            private int mOif = DOWNSTREAM_IFINDEX;
             private MacAddress mEthDstMac = MAC_A /* client mac */;
             private MacAddress mEthSrcMac = DOWNSTREAM_MAC;
             private int mEthProto = ETH_P_IP;
@@ -945,7 +945,7 @@ public class BpfCoordinatorTest {
         final Ipv6ForwardingRule rule = buildTestForwardingRule(mobileIfIndex, NEIGH_A, MAC_A);
 
         final TetherDownstream6Key key = rule.makeTetherDownstream6Key();
-        assertEquals(key.iif, (long) mobileIfIndex);
+        assertEquals(key.iif, mobileIfIndex);
         assertEquals(key.dstMac, MacAddress.ALL_ZEROS_ADDRESS);  // rawip upstream
         assertTrue(Arrays.equals(key.neigh6, NEIGH_A.getAddress()));
         // iif (4) + dstMac(6) + padding(2) + neigh6 (16) = 28.
