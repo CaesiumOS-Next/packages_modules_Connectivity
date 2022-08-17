@@ -40,8 +40,10 @@
 #define LOGD(fmt, ...) \
         __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, fmt, ##__VA_ARGS__)
 
-#define EXPECT_GE(env, actual, expected, msg)                        \
+#define EXPECT_GE(env, actual_stmt, expected_stmt, msg)              \
     do {                                                             \
+        const auto expected = (expected_stmt);                       \
+        const auto actual = (actual_stmt);                           \
         if (actual < expected) {                                     \
             jniThrowExceptionFmt(env, "java/lang/AssertionError",    \
                     "%s:%d: %s EXPECT_GE: expected %d, got %d",      \
@@ -49,8 +51,10 @@
         }                                                            \
     } while (0)
 
-#define EXPECT_GT(env, actual, expected, msg)                        \
+#define EXPECT_GT(env, actual_stmt, expected_stmt, msg)              \
     do {                                                             \
+        const auto expected = (expected_stmt);                       \
+        const auto actual = (actual_stmt);                           \
         if (actual <= expected) {                                    \
             jniThrowExceptionFmt(env, "java/lang/AssertionError",    \
                     "%s:%d: %s EXPECT_GT: expected %d, got %d",      \
@@ -58,8 +62,10 @@
         }                                                            \
     } while (0)
 
-#define EXPECT_EQ(env, expected, actual, msg)                        \
+#define EXPECT_EQ(env, expected_stmt, actual_stmt, msg)              \
     do {                                                             \
+        const auto expected = (expected_stmt);                       \
+        const auto actual = (actual_stmt);                           \
         if (actual != expected) {                                    \
             jniThrowExceptionFmt(env, "java/lang/AssertionError",    \
                     "%s:%d: %s EXPECT_EQ: expected %d, got %d",      \
