@@ -16,6 +16,52 @@
       "message": "LGTM",
       "revId": "97247a7ea41015b994fd693a76e73e6333237a58",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3226c261_fd522997",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2122,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-17T04:25:03Z",
+      "side": 1,
+      "message": "mockDefaultSettings ?",
+      "range": {
+        "startLine": 2122,
+        "startChar": 17,
+        "endLine": 2122,
+        "endChar": 36
+      },
+      "revId": "97247a7ea41015b994fd693a76e73e6333237a58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b4a30da_e7670e21",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2126,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-17T04:25:03Z",
+      "side": 1,
+      "message": "optional :\nErrorProne points out this is unused : do you want to remove it ? It can be in this patch or some followup",
+      "range": {
+        "startLine": 2126,
+        "startChar": 35,
+        "endLine": 2126,
+        "endChar": 47
+      },
+      "revId": "97247a7ea41015b994fd693a76e73e6333237a58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
