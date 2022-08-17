@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a26e0b6c_cbdd71d0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1405,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-17T03:15:55Z",
+      "side": 1,
+      "message": "If you do this in a follow-up then what you have is fine",
+      "parentUuid": "71f49cb8_2246772c",
+      "range": {
+        "startLine": 1403,
+        "startChar": 0,
+        "endLine": 1405,
+        "endChar": 39
+      },
+      "revId": "643868144e9da403810a28b2c809ea5f7497cd3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94ab77e0_ae5985d7",
@@ -102,6 +126,30 @@
       "side": 1,
       "message": "Hmmm no I don\u0027t think that is better.\nConsider another user who needs to throw another custom exception like CannotIncrementCountException, then the user still need to catch and re-throw, because the 2 mode PerUidCounter does not support it.\n\nAlternatively we can make the method accept lambda which do nothing but throwing a\ncustom exception, since they need to put custom message in it (e.g. uid). But such design would be not that friendly to use and might be errorprone.\n\nWDYT?",
       "parentUuid": "94ab77e0_ae5985d7",
+      "range": {
+        "startLine": 6343,
+        "startChar": 21,
+        "endLine": 6343,
+        "endChar": 42
+      },
+      "revId": "643868144e9da403810a28b2c809ea5f7497cd3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2069aeaf_4d384bdf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6343,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-17T03:15:55Z",
+      "side": 1,
+      "message": "Then maybe you want to have a subclass of PerUidCounter for use by ConnectivityService. I don\u0027t really like too much these methods in the middle of the file that you need to remember to use instead of the member.",
+      "parentUuid": "12fe9f55_ab0756f8",
       "range": {
         "startLine": 6343,
         "startChar": 21,
