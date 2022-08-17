@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e7a70ec_fa5ceac1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 6420,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-17T07:53:04Z",
+      "side": 1,
+      "message": "Done\nMake the original method throws when called.\nSee if it works for you.",
+      "parentUuid": "24789df2_439b79ff",
+      "range": {
+        "startLine": 6420,
+        "startChar": 47,
+        "endLine": 6420,
+        "endChar": 54
+      },
+      "revId": "d8bda1348dc5a8149b2bd99deba56380e49a85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c9ba51e_8130d2f6",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-17T07:09:40Z",
       "side": 1,
       "message": "Please use your subclass instead of copy-pasting this",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 9
+      },
+      "revId": "d8bda1348dc5a8149b2bd99deba56380e49a85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7949fb6_2b1728bc",
+        "filename": "service/src/com/android/server/connectivity/QosCallbackTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-17T07:53:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c9ba51e_8130d2f6",
       "range": {
         "startLine": 99,
         "startChar": 0,
