@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16b5c7b4_cfa73088",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-17T17:54:26Z",
+      "side": 1,
+      "message": "invite ken to review for cookietagmap",
+      "revId": "8753f2da02a46ed6b7b5ecb99c656cbcf94b6c0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "750d0c1a_e9b1910d",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2764,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-17T17:54:26Z",
+      "side": 1,
+      "message": "is it possible that key is non-null and value is null?",
+      "range": {
+        "startLine": 2764,
+        "startChar": 16,
+        "endLine": 2764,
+        "endChar": 25
+      },
+      "revId": "8753f2da02a46ed6b7b5ecb99c656cbcf94b6c0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
