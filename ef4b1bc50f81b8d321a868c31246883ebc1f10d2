@@ -16,6 +16,24 @@
       "message": "I wonder why we don\u0027t actually SO_BINDTODEVICE the clat raw xmit socket.",
       "revId": "ef4b1bc50f81b8d321a868c31246883ebc1f10d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80c4d16d_8af2a67e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-17T08:13:47Z",
+      "side": 1,
+      "message": "Hmm. I can\u0027t remember.  I think that when this code was written in L, the oif wasn\u0027t a particularly high priority IP rule so it wouldn\u0027t actually work in all cases (e.g., would not bypass VPNs perhaps?) Since then we introduced higher-priority oif rules for UID 0 which should work all the time. But that might have been based on an incorrect understanding. It\u0027s possible that SO_BINDTODEVICE is able to send to a particular interface even in the absence of routing rules and routes. If so, then we could have used that all along.\n\nAs to whether we should use it now... I don\u0027t know. system server does have CAP_NET_RAW, so... maybe?",
+      "parentUuid": "a04a1d7f_1a0c6c7d",
+      "revId": "ef4b1bc50f81b8d321a868c31246883ebc1f10d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
