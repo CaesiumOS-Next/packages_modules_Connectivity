@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0f6f86e_d7292657",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-17T03:50:33Z",
+      "side": 1,
+      "message": "Change LGTM in itself, but won\u0027t the behaviour change break CTS 13 r1?",
+      "revId": "6c6e46a707ddd0b17890bc3900f597befb275675",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
