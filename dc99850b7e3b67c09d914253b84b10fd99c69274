@@ -16,6 +16,23 @@
       "message": "LGTM but another reviewer need to have a look.",
       "revId": "dc99850b7e3b67c09d914253b84b10fd99c69274",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b60cefa_39a6e768",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-17T04:38:17Z",
+      "side": 1,
+      "message": "-2 to prevent accidental submission since ISTM this breaks backward compatibility.",
+      "revId": "dc99850b7e3b67c09d914253b84b10fd99c69274",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

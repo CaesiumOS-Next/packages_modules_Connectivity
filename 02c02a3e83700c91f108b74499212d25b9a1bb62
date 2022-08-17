@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "982fab44_2fd08ea5",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-17T04:38:17Z",
+      "side": 0,
+      "message": "This will no longer read the legacy data for the DEV prefix. If any OEM has data there that they want to import, this change will break them.",
+      "range": {
+        "startLine": 978,
+        "startChar": 34,
+        "endLine": 978,
+        "endChar": 46
+      },
+      "revId": "02c02a3e83700c91f108b74499212d25b9a1bb62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
