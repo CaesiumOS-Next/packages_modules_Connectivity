@@ -154,6 +154,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c5310f4_6899f4aa",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-17T05:06:26Z",
+      "side": 1,
+      "message": "I don\u0027t think it helps too much to only convert --jars to positional args, because\n`gen_jarjar.py a.jar --excludes foo b.jar` still means something bizarre. But I can see you\u0027re eventually fixing that in aosp/2181694, so all is well that ends well",
+      "parentUuid": "29d9768d_a3fce1d8",
+      "range": {
+        "startLine": 32,
+        "startChar": 38,
+        "endLine": 32,
+        "endChar": 88
+      },
+      "revId": "cc9c6b7a0fea248228b9c408137990ad1b82caf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ff18f78_6cf9fec0",
@@ -191,6 +215,30 @@
       "side": 1,
       "message": "Right, agreed it\u0027s confusing. I can avoid documenting / using on this behavior, but since that\u0027s how argparse is implemented, I don\u0027t think there\u0027s a good way to make it fail ?",
       "parentUuid": "5ff18f78_6cf9fec0",
+      "range": {
+        "startLine": 40,
+        "startChar": 29,
+        "endLine": 40,
+        "endChar": 30
+      },
+      "revId": "cc9c6b7a0fea248228b9c408137990ad1b82caf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e616905b_240075af",
+        "filename": "tools/gen_jarjar.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-17T05:06:26Z",
+      "side": 1,
+      "message": "Addressed by aosp/2181694",
+      "parentUuid": "19cae524_c130fef5",
       "range": {
         "startLine": 40,
         "startChar": 29,
