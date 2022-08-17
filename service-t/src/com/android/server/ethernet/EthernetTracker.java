@@ -127,11 +127,9 @@ public class EthernetTracker {
     private final TetheredInterfaceRequestList mTetheredInterfaceRequests =
             new TetheredInterfaceRequestList();
 
-    // The first interface discovered is set as the mTetheringInterface. It is the interface that is
-    // returned when a tethered interface is requested; until then, it remains in client mode. Its
-    // current mode is reflected in mTetheringInterfaceMode.
-    private String mTetheringInterface;
-    private int mTetheringInterfaceMode = INTERFACE_MODE_CLIENT;
+    // Used only on the handler thread
+    private String mDefaultInterface;
+    private int mDefaultInterfaceMode = INTERFACE_MODE_CLIENT;
     // Tracks whether clients were notified that the tethered interface is available
     private boolean mTetheredInterfaceWasAvailable = false;
     private volatile IpConfiguration mIpConfigForDefaultInterface;
@@ -142,7 +140,7 @@ public class EthernetTracker {
             RemoteCallbackList<ITetheredInterfaceCallback> {
         @Override
         public void onCallbackDied(ITetheredInterfaceCallback cb, Object cookie) {
-            mHandler.post(EthernetTracker.this::maybeUntetherInterface);
+            mHandler.post(EthernetTracker.this::maybeUntetherDefaultInterface);
         }
     }
 
@@ -167,7 +165,7 @@ public class EthernetTracker {
         }
 
         private void onNewLink(String ifname, boolean linkUp) {
-            if (!mFactory.hasInterface(ifname) && !ifname.equals(mTetheringInterface)) {
+            if (!mFactory.hasInterface(ifname) && !ifname.equals(mDefaultInterface)) {
                 Log.i(TAG, "onInterfaceAdded, iface: " + ifname);
                 maybeTrackInterface(ifname);
             }
@@ -473,21 +471,21 @@ public class EthernetTracker {
                 // Remote process has already died
                 return;
             }
-            if (mTetheringInterfaceMode == INTERFACE_MODE_SERVER) {
+            if (mDefaultInterfaceMode == INTERFACE_MODE_SERVER) {
                 if (mTetheredInterfaceWasAvailable) {
-                    notifyTetheredInterfaceAvailable(callback, mTetheringInterface);
+                    notifyTetheredInterfaceAvailable(callback, mDefaultInterface);
                 }
                 return;
             }
 
-            setTetheringInterfaceMode(INTERFACE_MODE_SERVER);
+            setDefaultInterfaceMode(INTERFACE_MODE_SERVER);
         });
     }
 
     public void releaseTetheredInterface(ITetheredInterfaceCallback callback) {
         mHandler.post(() -> {
             mTetheredInterfaceRequests.unregister(callback);
-            maybeUntetherInterface();
+            maybeUntetherDefaultInterface();
         });
     }
 
@@ -507,21 +505,21 @@ public class EthernetTracker {
         }
     }
 
-    private void maybeUntetherInterface() {
+    private void maybeUntetherDefaultInterface() {
         if (mTetheredInterfaceRequests.getRegisteredCallbackCount() > 0) return;
-        if (mTetheringInterfaceMode == INTERFACE_MODE_CLIENT) return;
-        setTetheringInterfaceMode(INTERFACE_MODE_CLIENT);
+        if (mDefaultInterfaceMode == INTERFACE_MODE_CLIENT) return;
+        setDefaultInterfaceMode(INTERFACE_MODE_CLIENT);
     }
 
-    private void setTetheringInterfaceMode(int mode) {
-        Log.d(TAG, "Setting tethering interface mode to " + mode);
-        mTetheringInterfaceMode = mode;
-        if (mTetheringInterface != null) {
-            removeInterface(mTetheringInterface);
-            addInterface(mTetheringInterface);
+    private void setDefaultInterfaceMode(int mode) {
+        Log.d(TAG, "Setting default interface mode to " + mode);
+        mDefaultInterfaceMode = mode;
+        if (mDefaultInterface != null) {
+            removeInterface(mDefaultInterface);
+            addInterface(mDefaultInterface);
             // when this broadcast is sent, any calls to notifyTetheredInterfaceAvailable or
             // notifyTetheredInterfaceUnavailable have already happened
-            broadcastInterfaceStateChange(mTetheringInterface);
+            broadcastInterfaceStateChange(mDefaultInterface);
         }
     }
 
@@ -550,8 +548,8 @@ public class EthernetTracker {
     }
 
     private int getInterfaceMode(final String iface) {
-        if (iface.equals(mTetheringInterface)) {
-            return mTetheringInterfaceMode;
+        if (iface.equals(mDefaultInterface)) {
+            return mDefaultInterfaceMode;
         }
         return INTERFACE_MODE_CLIENT;
     }
@@ -563,8 +561,8 @@ public class EthernetTracker {
 
     private void stopTrackingInterface(String iface) {
         removeInterface(iface);
-        if (iface.equals(mTetheringInterface)) {
-            mTetheringInterface = null;
+        if (iface.equals(mDefaultInterface)) {
+            mDefaultInterface = null;
         }
         broadcastInterfaceStateChange(iface);
     }
@@ -632,9 +630,7 @@ public class EthernetTracker {
     }
 
     private void maybeUpdateServerModeInterfaceState(String iface, boolean available) {
-        if (available == mTetheredInterfaceWasAvailable || !iface.equals(mTetheringInterface)) {
-            return;
-        }
+        if (available == mTetheredInterfaceWasAvailable || !iface.equals(mDefaultInterface)) return;
 
         Log.d(TAG, (available ? "Tracking" : "No longer tracking")
                 + " interface in server mode: " + iface);
@@ -659,15 +655,15 @@ public class EthernetTracker {
 
         // If we don't already track this interface, and if this interface matches
         // our regex, start tracking it.
-        if (mFactory.hasInterface(iface) || iface.equals(mTetheringInterface)) {
+        if (mFactory.hasInterface(iface) || iface.equals(mDefaultInterface)) {
             if (DBG) Log.w(TAG, "Ignoring already-tracked interface " + iface);
             return;
         }
         if (DBG) Log.i(TAG, "maybeTrackInterface: " + iface);
 
-        // Do not use an interface for tethering if it has configured NetworkCapabilities.
-        if (mTetheringInterface == null && !mNetworkCapabilities.containsKey(iface)) {
-            mTetheringInterface = iface;
+        // Do not make an interface default if it has configured NetworkCapabilities.
+        if (mDefaultInterface == null && !mNetworkCapabilities.containsKey(iface)) {
+            mDefaultInterface = iface;
         }
 
         if (mIpConfigForDefaultInterface != null) {
@@ -965,8 +961,8 @@ public class EthernetTracker {
             pw.println("Ethernet State: "
                     + (mEthernetState == ETHERNET_STATE_ENABLED ? "enabled" : "disabled"));
             pw.println("Ethernet interface name filter: " + mIfaceMatch);
-            pw.println("Interface used for tethering: " + mTetheringInterface);
-            pw.println("Tethering interface mode: " + mTetheringInterfaceMode);
+            pw.println("Default interface: " + mDefaultInterface);
+            pw.println("Default interface mode: " + mDefaultInterfaceMode);
             pw.println("Tethered interface requests: "
                     + mTetheredInterfaceRequests.getRegisteredCallbackCount());
             pw.println("Listeners: " + mListeners.getRegisteredCallbackCount());
