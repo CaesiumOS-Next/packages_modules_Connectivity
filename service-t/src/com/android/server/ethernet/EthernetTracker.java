@@ -134,6 +134,7 @@ public class EthernetTracker {
     private int mTetheringInterfaceMode = INTERFACE_MODE_CLIENT;
     // Tracks whether clients were notified that the tethered interface is available
     private boolean mTetheredInterfaceWasAvailable = false;
+    private volatile IpConfiguration mIpConfigForDefaultInterface;
 
     private int mEthernetState = ETHERNET_STATE_ENABLED;
 
@@ -254,6 +255,8 @@ public class EthernetTracker {
         mFactory.register();
         mConfigStore.read();
 
+        // Default interface is just the first one we want to track.
+        mIpConfigForDefaultInterface = mConfigStore.getIpConfigurationForDefaultInterface();
         final ArrayMap<String, IpConfiguration> configs = mConfigStore.getIpConfigurations();
         for (int i = 0; i < configs.size(); i++) {
             mIpConfigurations.put(configs.keyAt(i), configs.valueAt(i));
@@ -665,6 +668,11 @@ public class EthernetTracker {
         // Do not use an interface for tethering if it has configured NetworkCapabilities.
         if (mTetheringInterface == null && !mNetworkCapabilities.containsKey(iface)) {
             mTetheringInterface = iface;
+        }
+
+        if (mIpConfigForDefaultInterface != null) {
+            updateIpConfiguration(iface, mIpConfigForDefaultInterface);
+            mIpConfigForDefaultInterface = null;
         }
 
         addInterface(iface);
