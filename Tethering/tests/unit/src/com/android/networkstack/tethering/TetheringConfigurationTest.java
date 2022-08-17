@@ -684,6 +684,7 @@ public class TetheringConfigurationTest {
         parcel.provisioningApp = new String[]{ "test_provisioningApp_from_parcel" };
         parcel.provisioningAppNoUi = "test_provisioningAppNoUi_from_parcel";
         parcel.provisioningResponse = "test_provisioninResponse_from_parcel";
+        parcel.isEntitlementTestMode = true;
 
         final TetheringConfiguration cfg =
                 new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID, parcel);
@@ -694,5 +695,6 @@ public class TetheringConfigurationTest {
         assertArrayEquals(parcel.provisioningApp, cfg.provisioningApp);
         assertEquals(parcel.provisioningAppNoUi, cfg.provisioningAppNoUi);
         assertEquals(parcel.provisioningResponse, cfg.provisioningResponse);
+        assertTrue(cfg.isEntitlementTestMode);
     }
 }

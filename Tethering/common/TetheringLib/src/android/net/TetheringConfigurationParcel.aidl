@@ -28,4 +28,5 @@ parcelable TetheringConfigurationParcel {
     String[] provisioningApp;
     String provisioningAppNoUi;
     String provisioningResponse;
+    boolean isEntitlementTestMode;
 }
