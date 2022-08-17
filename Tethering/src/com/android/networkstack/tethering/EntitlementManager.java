@@ -338,6 +338,8 @@ public class EntitlementManager {
     }
 
     private boolean doesEntitlementPackageExist(final TetheringConfiguration config) {
+        if (config.isEntitlementTestMode) return true;
+
         final PackageManager pm = mContext.getPackageManager();
         try {
             pm.getPackageInfo(config.provisioningApp[0], GET_ACTIVITIES);
@@ -386,17 +388,23 @@ public class EntitlementManager {
             int type, final TetheringConfiguration config, ResultReceiver receiver) {
         if (DBG) mLog.i("runSilentTetherProvisioning: " + type);
 
-        Intent intent = new Intent();
+        final Intent intent = new Intent();
         intent.putExtra(EXTRA_ADD_TETHER_TYPE, type);
         intent.putExtra(EXTRA_RUN_PROVISION, true);
         intent.putExtra(EXTRA_TETHER_SILENT_PROVISIONING_ACTION, config.provisioningAppNoUi);
         intent.putExtra(EXTRA_TETHER_PROVISIONING_RESPONSE, config.provisioningResponse);
         intent.putExtra(EXTRA_PROVISION_CALLBACK, receiver);
         intent.putExtra(EXTRA_TETHER_SUBID, config.activeDataSubId);
-        intent.setComponent(mSilentProvisioningService);
-        // Only admin user can change tethering and SilentTetherProvisioning don't need to
-        // show UI, it is fine to always start setting's background service as system user.
-        mContext.startService(intent);
+        if (config.isEntitlementTestMode) {
+            intent.setAction(config.provisioningAppNoUi);
+            mContext.sendBroadcast(intent);
+        } else {
+            intent.setComponent(mSilentProvisioningService);
+            // Only admin user can change tethering and SilentTetherProvisioning don't need to
+            // show UI, it is fine to always start setting's background service as system user.
+            mContext.startService(intent);
+        }
+
         return intent;
     }
 
@@ -411,15 +419,22 @@ public class EntitlementManager {
             ResultReceiver receiver) {
         if (DBG) mLog.i("runUiTetherProvisioning: " + type);
 
-        Intent intent = new Intent(Settings.ACTION_TETHER_PROVISIONING_UI);
+        final Intent intent = new Intent();
         intent.putExtra(EXTRA_ADD_TETHER_TYPE, type);
         intent.putExtra(EXTRA_TETHER_UI_PROVISIONING_APP_NAME, config.provisioningApp);
         intent.putExtra(EXTRA_PROVISION_CALLBACK, receiver);
         intent.putExtra(EXTRA_TETHER_SUBID, config.activeDataSubId);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        // Only launch entitlement UI for system user. Entitlement UI should not appear for other
-        // user because only admin user is allowed to change tethering.
-        mContext.startActivity(intent);
+        if (config.isEntitlementTestMode) {
+            intent.setAction(config.provisioningApp[0]);
+            mContext.sendBroadcast(intent);
+        } else {
+            intent.setAction(Settings.ACTION_TETHER_PROVISIONING_UI);
+            // Only launch entitlement UI for system user. Entitlement UI should not appear for
+            // other user because only admin user is allowed to change tethering.
+            mContext.startActivity(intent);
+        }
+
         return intent;
     }
 

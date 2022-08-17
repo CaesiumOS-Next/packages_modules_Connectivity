@@ -683,6 +683,7 @@ public class TetheringConfigurationTest {
         parcel.legacyDhcpRanges = new String[]{ "test_legacyDhcpRanges_from_parcel" };
         parcel.provisioningApp = new String[]{ "test_provisioningApp_from_parcel" };
         parcel.provisioningAppNoUi = "test_provisioningAppNoUi_from_parcel";
+        parcel.isEntitlementTestMode = true;
 
         final TetheringConfiguration cfg =
                 new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID, parcel);
@@ -692,5 +693,6 @@ public class TetheringConfigurationTest {
         assertArrayEquals(parcel.legacyDhcpRanges, cfg.legacyDhcpRanges);
         assertArrayEquals(parcel.provisioningApp, cfg.provisioningApp);
         assertEquals(parcel.provisioningAppNoUi, cfg.provisioningAppNoUi);
+        assertTrue(cfg.isEntitlementTestMode);
     }
 }

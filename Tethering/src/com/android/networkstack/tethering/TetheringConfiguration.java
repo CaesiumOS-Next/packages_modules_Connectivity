@@ -144,6 +144,7 @@ public class TetheringConfiguration {
     public final String provisioningAppNoUi;
     public final int provisioningCheckPeriod;
     public final String provisioningResponse;
+    public final boolean isEntitlementTestMode;
 
     public final boolean isCarrierSupportTethering;
     public final boolean isCarrierConfigAffirmsEntitlementCheckRequired;
@@ -178,6 +179,7 @@ public class TetheringConfiguration {
             legacyDhcpRanges = configParcel.legacyDhcpRanges;
             provisioningApp = configParcel.provisioningApp;
             provisioningAppNoUi = configParcel.provisioningAppNoUi;
+            isEntitlementTestMode = configParcel.isEntitlementTestMode;
         } else {
             // If usb tethering use NCM and config_tether_ncm_regexs is not empty, use
             // config_tether_ncm_regexs for tetherableUsbRegexs.
@@ -199,6 +201,7 @@ public class TetheringConfiguration {
                     R.array.config_mobile_hotspot_provision_app);
             provisioningAppNoUi = getResourceString(res,
                     R.string.config_mobile_hotspot_provision_app_no_ui);
+            isEntitlementTestMode = false;
         }
 
         // TODO: Remove entire wigig code once tethering module no longer support R devices.
@@ -670,6 +673,7 @@ public class TetheringConfiguration {
         parcel.legacyDhcpRanges = legacyDhcpRanges;
         parcel.provisioningApp = provisioningApp;
         parcel.provisioningAppNoUi = provisioningAppNoUi;
+        parcel.isEntitlementTestMode = isEntitlementTestMode;
 
         return parcel;
     }
