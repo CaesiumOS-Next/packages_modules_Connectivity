@@ -961,6 +961,9 @@ public class BpfCoordinator {
 
     // TODO: make mInterfaceNames accessible to the shim and move this code to there.
     private String getIfName(long ifindex) {
+        // TODO: return something more useful on lookup failure
+        // likely use iface_index_name_map and/or if_nametoindex
+        // perhaps should even check that all 3 match if available
         return mInterfaceNames.get((int) ifindex, Long.toString(ifindex));
     }
 
