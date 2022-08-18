@@ -39,6 +39,30 @@
       },
       "revId": "8753f2da02a46ed6b7b5ecb99c656cbcf94b6c0b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "059aea64_0ee96fab",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2764,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-08-18T04:03:47Z",
+      "side": 1,
+      "message": "val could be null if there is a concurrent entry deletion.\nAdded the comment and explained that 1) value could be null 2) dump could contain duplicated entries.",
+      "parentUuid": "750d0c1a_e9b1910d",
+      "range": {
+        "startLine": 2764,
+        "startChar": 16,
+        "endLine": 2764,
+        "endChar": 25
+      },
+      "revId": "8753f2da02a46ed6b7b5ecb99c656cbcf94b6c0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
