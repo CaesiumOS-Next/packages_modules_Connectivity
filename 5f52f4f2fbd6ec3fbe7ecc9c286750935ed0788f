@@ -1,5 +1,52 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25602fe6_bd101c0b",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-18T04:17:49Z",
+      "side": 1,
+      "message": "If I\u0027m reading the code correctly, the old code would *not* return an error here - if if_nametoindex failed because the interface didn\u0027t exist, it would just add an entry with interface index 0. Is the new code going to break anything? Or is it just fixng a bug?",
+      "range": {
+        "startLine": 451,
+        "startChar": 26,
+        "endLine": 451,
+        "endChar": 50
+      },
+      "revId": "5f52f4f2fbd6ec3fbe7ecc9c286750935ed0788f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7818b2bf_26c644f4",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-18T04:17:49Z",
+      "side": 1,
+      "message": "Nit: I think it\u0027s fine either way, but... any particular reason to catch and log here, instead of letting the caller catch and log? (That is what the old code did.) Presumably we\u0027ll remove the catch and log in the caller once the old code is removed?",
+      "range": {
+        "startLine": 458,
+        "startChar": 14,
+        "endLine": 458,
+        "endChar": 19
+      },
+      "revId": "5f52f4f2fbd6ec3fbe7ecc9c286750935ed0788f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
