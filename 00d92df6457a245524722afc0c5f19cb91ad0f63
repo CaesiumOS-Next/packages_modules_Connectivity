@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba919717_062aa8a6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 6403,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-18T10:15:06Z",
+      "side": 1,
+      "message": "Is it difficult to move this class to either frameworks/libs/net or to its own file in the connectivity/ folder ?",
+      "range": {
+        "startLine": 6403,
+        "startChar": 24,
+        "endLine": 6403,
+        "endChar": 48
+      },
+      "revId": "00d92df6457a245524722afc0c5f19cb91ad0f63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
