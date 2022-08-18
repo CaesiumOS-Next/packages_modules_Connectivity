@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f18a97ae_b981a020",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-18T18:07:42Z",
+      "side": 1,
+      "message": "Once this CL is merged, we can reenable the EthernetManagerTests. Ran 10 iterations locally and got 0 test failures, yay! 🎉\nSummary (Test executed with 1 devices.)\n-------\nITERATION 1\nx86_64 CtsNetTestCases: Passed: 15, Failed: 0, Ignored: 0, Assumption Failed: 0,\nITERATION 2\nx86_64 CtsNetTestCases: Passed: 15, Failed: 0, Ignored: 0, Assumption Failed: 0,\nITERATION 3\nx86_64 CtsNetTestCases: Passed: 15, Failed: 0, Ignored: 0, Assumption Failed: 0,\nITERATION 4\nx86_64 CtsNetTestCases: Passed: 15, Failed: 0, Ignored: 0, Assumption Failed: 0,\nITERATION 5\nx86_64 CtsNetTestCases: Passed: 15, Failed: 0, Ignored: 0, Assumption Failed: 0,\nITERATION 6\nx86_64 CtsNetTestCases: Passed: 15, Failed: 0, Ignored: 0, Assumption Failed: 0,\nITERATION 7\nx86_64 CtsNetTestCases: Passed: 15, Failed: 0, Ignored: 0, Assumption Failed: 0,\nITERATION 8\nx86_64 CtsNetTestCases: Passed: 15, Failed: 0, Ignored: 0, Assumption Failed: 0,\nITERATION 9\nx86_64 CtsNetTestCases: Passed: 15, Failed: 0, Ignored: 0, Assumption Failed: 0,\nITERATION 10\nx86_64 CtsNetTestCases: Passed: 15, Failed: 0, Ignored: 0, Assumption Failed: 0,",
+      "revId": "c8e8300e99fc802f0e53ac3daf25b03c304dacd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
