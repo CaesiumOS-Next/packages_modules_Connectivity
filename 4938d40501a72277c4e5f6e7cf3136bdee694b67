@@ -16,6 +16,23 @@
       "message": "atest netd_updatable_unit_test\n\nx86 netd_updatable_unit_test\n----------------------------\nnetd_updatable_unit_test (12 Tests)\n[1/12] BpfHandlerTest#TestTagSocketV4: PASSED (0ms)\n[2/12] BpfHandlerTest#TestReTagSocket: PASSED (0ms)\n[3/12] BpfHandlerTest#TestTagTwoSockets: PASSED (0ms)\n[4/12] BpfHandlerTest#TestTagSocketV6: PASSED (0ms)\n[5/12] BpfHandlerTest#TestTagInvalidSocket: PASSED (0ms)\n[6/12] BpfHandlerTest#TestTagSocketWithUnsupportedFamily: PASSED (0ms)\n[7/12] BpfHandlerTest#TestTagSocketWithUnsupportedProtocol: PASSED (0ms)\n[8/12] BpfHandlerTest#TestTagSocketWithoutPermission: PASSED (0ms)\n[9/12] BpfHandlerTest#TestTagSocketWithPermission: PASSED (0ms)\n[10/12] BpfHandlerTest#TestUntagInvalidSocket: PASSED (0ms)\n[11/12] BpfHandlerTest#TestTagSocketReachLimitFail: PASSED (0ms)\n[12/12] BpfHandlerTest#TestTagSocketReachTotalLimitFail: PASSED (0ms)\n\nSummary (Test executed with 1 devices.)\n-------\nx86 netd_updatable_unit_test: Passed: 12, Failed: 0, Ignored: 0, Assumption Failed: 0,    \n\nAll tests passed!\n",
       "revId": "4938d40501a72277c4e5f6e7cf3136bdee694b67",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53f49620_7fa61f4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-08-18T00:38:40Z",
+      "side": 1,
+      "message": "only trivial var rename since previous TH+2, and this does build. ",
+      "revId": "4938d40501a72277c4e5f6e7cf3136bdee694b67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
