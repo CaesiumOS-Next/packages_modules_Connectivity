@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49d84f7f_e2238d0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-18T06:47:08Z",
+      "side": 1,
+      "message": "Thanks for fixing this! Do you think you could move the utility method you\u0027re adding into a utility class? See inline.",
+      "revId": "61995cedcab48e3fd262e19bc4437c4ae3736465",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f435dca5_b292e47e",
+        "filename": "tests/cts/net/src/android/net/cts/TunUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-18T06:47:08Z",
+      "side": 1,
+      "message": "Could you move this to a common location, such as:\n\nframeworks/libs/net/common/framework/com/android/net/module/util/CollectionUtils.java\n\nand maybe write a quick test for it?",
+      "range": {
+        "startLine": 164,
+        "startChar": 27,
+        "endLine": 164,
+        "endChar": 43
+      },
+      "revId": "61995cedcab48e3fd262e19bc4437c4ae3736465",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
