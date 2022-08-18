@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fd6a012_58ae0dc6",
+        "filename": "service/jni/com_android_server_TestNetworkService.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-18T04:42:20Z",
+      "side": 1,
+      "message": "In hindsight, this code is clearly incorrect if anything else on the system is trying to bring up the interface, because doing \"flags \u003d IFF_MULTICAST\" implicitly sets IFF_UP to false.\n\nNot sure there\u0027s anything we can do about this though, at least not in this CL. The usual way to set interface flags is to first *read* the flags and then write the modified flags, but of course, that doesn\u0027t protect against races either.",
+      "range": {
+        "startLine": 83,
+        "startChar": 8,
+        "endLine": 83,
+        "endChar": 38
+      },
+      "revId": "6bab21216444918fe6cdb0fea23bfa45dc468ddc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
