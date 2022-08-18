@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "818e23d4_078202b2",
+        "filename": "service/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-18T21:12:44Z",
+      "side": 1,
+      "message": "To be more inline with what the other jni code does, making this void and calling jniThrowErrnoException if synchronizeKernelRCU() !\u003d 0 might be better. (Presumably, this way you get the native stack trace which you would otherwise lose.)",
+      "range": {
+        "startLine": 194,
+        "startChar": 7,
+        "endLine": 194,
+        "endChar": 11
+      },
+      "revId": "7abeaa499cc1c6cd8dd0e199dca2888c8402126d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
