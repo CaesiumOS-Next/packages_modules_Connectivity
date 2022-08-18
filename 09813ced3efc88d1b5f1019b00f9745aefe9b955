@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9cb97f7_d955cb0e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-18T06:22:14Z",
+      "side": 1,
+      "message": "Hi Mark\nTether4Key is going to be changed and this will break the cts test. We need to have a discussion",
+      "revId": "09813ced3efc88d1b5f1019b00f9745aefe9b955",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01b23399_418579cc",
+        "filename": "common/src/com/android/net/module/util/bpf/Tether4Key.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-18T06:22:14Z",
+      "side": 1,
+      "message": "I think that this will break released cts which uses fixed Tether4Key (long iif) to parse new Tether4Key (int iif). Note that EthernetTetheringTest is part of CTS as I remembered. This is one of reason that mark recommends to move bpf related tests into mts test. Add mark to discuss.\n\nhttps://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/Tethering/tests/integration/src/android/net/EthernetTetheringTest.java;l\u003d1112\n```\n// [1] Verify IPv4 upstream rule map.\nfinal HashMap\u003cTether4Key, Tether4Value\u003e upstreamMap \u003d pollRawMapFromDump(\n    Tether4Key.class, Tether4Value.class, DUMPSYS_RAWMAP_ARG_UPSTREAM4);\n```",
+      "range": {
+        "startLine": 34,
+        "startChar": 17,
+        "endLine": 34,
+        "endChar": 20
+      },
+      "revId": "09813ced3efc88d1b5f1019b00f9745aefe9b955",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
