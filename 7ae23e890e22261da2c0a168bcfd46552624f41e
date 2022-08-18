@@ -22,6 +22,30 @@
       },
       "revId": "7ae23e890e22261da2c0a168bcfd46552624f41e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c330b7de_2b0e3018",
+        "filename": "framework/src/android/net/QosFilter.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-08-18T04:44:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0b8b5d8e_d1ed020c",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 46
+      },
+      "revId": "7ae23e890e22261da2c0a168bcfd46552624f41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
