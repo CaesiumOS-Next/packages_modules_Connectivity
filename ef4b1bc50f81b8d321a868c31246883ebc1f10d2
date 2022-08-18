@@ -34,6 +34,23 @@
       "parentUuid": "a04a1d7f_1a0c6c7d",
       "revId": "ef4b1bc50f81b8d321a868c31246883ebc1f10d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b028698e_cdd854b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-08-18T00:42:48Z",
+      "side": 1,
+      "message": "TH is having a bad day, there is an old TH run with just one failure, and another TH run with just 2 build failures (timeouts) due to well-known TH issues.\n\nLocal testing passes.\natest ClatCoordinatorTest, and not only.",
+      "revId": "ef4b1bc50f81b8d321a868c31246883ebc1f10d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
