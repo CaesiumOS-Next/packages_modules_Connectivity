@@ -39,6 +39,30 @@
       },
       "revId": "61995cedcab48e3fd262e19bc4437c4ae3736465",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ce1429e_1e54539d",
+        "filename": "tests/cts/net/src/android/net/cts/TunUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1535516
+      },
+      "writtenOn": "2022-08-18T16:48:43Z",
+      "side": 1,
+      "message": "Could I ask you to address that in a followup cl? I already tried this once if you look at the previous patchsets, but had issues where it built locally but failed on CI, so I decided to forgo it.\n\nIn aosp/2188279 I added a test for it that can be included in the followup:\n\n```\n    public void testIndexOfSubArray() {\n        assertEquals(ArrayUtils.indexOfSubArray(new byte[]{1, 2, 3, 4, 5}, new byte[]{3, 4}), 2);\n        assertEquals(ArrayUtils.indexOfSubArray(new byte[]{1, 2, 3, 4, 5}, new byte[]{4, 5}), 3);\n        assertEquals(ArrayUtils.indexOfSubArray(new byte[]{1, 2, 3, 4, 5}, new byte[]{5}), 4);\n        assertEquals(ArrayUtils.indexOfSubArray(new byte[]{1, 2, 3, 4, 5}, new byte[]{3, 2}), -1);\n        assertEquals(ArrayUtils.indexOfSubArray(new byte[]{1, 2, 3, 4, 5}, new byte[]{}), 0);\n        assertEquals(ArrayUtils.indexOfSubArray(new byte[]{}, new byte[]{3, 2}), -1);\n        assertEquals(ArrayUtils.indexOfSubArray(new byte[]{}, new byte[]{}), 0);\n    }\n```",
+      "parentUuid": "f435dca5_b292e47e",
+      "range": {
+        "startLine": 164,
+        "startChar": 27,
+        "endLine": 164,
+        "endChar": 43
+      },
+      "revId": "61995cedcab48e3fd262e19bc4437c4ae3736465",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
