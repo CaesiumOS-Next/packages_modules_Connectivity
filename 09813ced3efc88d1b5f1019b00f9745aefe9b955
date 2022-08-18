@@ -39,6 +39,30 @@
       },
       "revId": "09813ced3efc88d1b5f1019b00f9745aefe9b955",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ea9f95f_fa1edcff",
+        "filename": "common/src/com/android/net/module/util/bpf/Tether4Key.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-08-18T07:37:52Z",
+      "side": 1,
+      "message": "note that reosonable sized ifindexes can be parsed the same way as int or as long... the only question is whether the code builds afaict...\n\nbtw. I\u0027m also not seeing where the above linked code would need to be updated to work...",
+      "parentUuid": "01b23399_418579cc",
+      "range": {
+        "startLine": 34,
+        "startChar": 17,
+        "endLine": 34,
+        "endChar": 20
+      },
+      "revId": "09813ced3efc88d1b5f1019b00f9745aefe9b955",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
