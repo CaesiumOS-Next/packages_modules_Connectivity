@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30b93e4b_56beb1f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-18T18:39:39Z",
+      "side": 1,
+      "message": "Test timing before and after:\n\n```\n1285 before:\n1286 x86_64 CtsNetTestCases\n1287 ----------------------\n1288 android.net.cts (15 Tests)\n1289 [1/15] android.net.cts.EthernetManagerTest#testEnableDisableInterface_withActiveRequest: PASSED (1.837s)\n1290 [2/15] android.net.cts.EthernetManagerTest#testGetInterfaceList: PASSED (177ms)\n1291 [3/15] android.net.cts.EthernetManagerTest#testNetworkRequest_withInterfaceBeingReplaced: PASSED (1.384s)\n1292 [4/15] android.net.cts.EthernetManagerTest#testUpdateConfiguration_forOnlyCapabilities: PASSED (1.309s)\n1293 [5/15] android.net.cts.EthernetManagerTest#testUpdateConfiguration_forOnlyIpConfig: PASSED (1.257s)\n1294 [6/15] android.net.cts.EthernetManagerTest#testCallbacks_forServerModeInterfaces: PASSED (2.112s)\n1295 [7/15] android.net.cts.EthernetManagerTest#testNetworkRequest_withSingleExistingInterface: PASSED (881ms)\n1296 [8/15] android.net.cts.EthernetManagerTest#testNetworkRequest_withMultipleInterfacesAndRequests: PASSED (2.766s)\n1297 [9/15] android.net.cts.EthernetManagerTest#testCallbacks: PASSED (2.215s)\n1298 [10/15] android.net.cts.EthernetManagerTest#testNetworkRequest_forInterfaceWhileTogglingCarrier: PASSED (832ms)\n1299 [11/15] android.net.cts.EthernetManagerTest#testRemoveInterface_whileInServerMode: PASSED (2.615s)\n1300 [12/15] android.net.cts.EthernetManagerTest#testUpdateConfiguration_forBothIpConfigAndCapabilities: PASSED (1.182s)\n1301 [13/15] android.net.cts.EthernetManagerTest#testNetworkRequest_ensureProperRefcounting: PASSED (980ms)\n1302 [14/15] android.net.cts.EthernetManagerTest#testNetworkRequest_withMultipleInterfaces: PASSED (1.106s)\n1303 [15/15] android.net.cts.EthernetManagerTest#testNetworkRequest_beforeSingleInterfaceIsUp: PASSED (1.156s)\n1304\n1305 after:\n1306 x86_64 CtsNetTestCases\n1307 ----------------------\n1308 android.net.cts (15 Tests)\n1309 [1/15] android.net.cts.EthernetManagerTest#testEnableDisableInterface_withActiveRequest: PASSED (1.634s)\n1310 [2/15] android.net.cts.EthernetManagerTest#testGetInterfaceList: PASSED (152ms)\n1311 [3/15] android.net.cts.EthernetManagerTest#testNetworkRequest_withInterfaceBeingReplaced: PASSED (905ms)\n1312 [4/15] android.net.cts.EthernetManagerTest#testUpdateConfiguration_forOnlyCapabilities: PASSED (855ms)\n1313 [5/15] android.net.cts.EthernetManagerTest#testUpdateConfiguration_forOnlyIpConfig: PASSED (981ms)\n1314 [6/15] android.net.cts.EthernetManagerTest#testCallbacks_forServerModeInterfaces: PASSED (1.132s)\n1315 [7/15] android.net.cts.EthernetManagerTest#testNetworkRequest_withSingleExistingInterface: PASSED (554ms)\n1316 [8/15] android.net.cts.EthernetManagerTest#testNetworkRequest_withMultipleInterfacesAndRequests: PASSED (1.332s)\n1317 [9/15] android.net.cts.EthernetManagerTest#testCallbacks: PASSED (981ms)\n1318 [10/15] android.net.cts.EthernetManagerTest#testNetworkRequest_forInterfaceWhileTogglingCarrier: PASSED (1.387s)\n1319 [11/15] android.net.cts.EthernetManagerTest#testRemoveInterface_whileInServerMode: PASSED (1.331s)\n1320 [12/15] android.net.cts.EthernetManagerTest#testUpdateConfiguration_forBothIpConfigAndCapabilities: PASSED (880ms)\n1321 [13/15] android.net.cts.EthernetManagerTest#testNetworkRequest_ensureProperRefcounting: PASSED (554ms)\n1322 [14/15] android.net.cts.EthernetManagerTest#testNetworkRequest_withMultipleInterfaces: PASSED (931ms)\n1323 [15/15] android.net.cts.EthernetManagerTest#testNetworkRequest_beforeSingleInterfaceIsUp: PASSED (579ms)\n```",
+      "revId": "64d124df92b9f5ea72a73224445ab5a71801d658",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
