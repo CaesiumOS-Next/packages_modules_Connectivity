@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2936fb7_60281741",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2122,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-18T06:35:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3226c261_fd522997",
+      "range": {
+        "startLine": 2122,
+        "startChar": 17,
+        "endLine": 2122,
+        "endChar": 36
+      },
+      "revId": "97247a7ea41015b994fd693a76e73e6333237a58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b4a30da_e7670e21",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-08-17T04:25:03Z",
       "side": 1,
       "message": "optional :\nErrorProne points out this is unused : do you want to remove it ? It can be in this patch or some followup",
+      "range": {
+        "startLine": 2126,
+        "startChar": 35,
+        "endLine": 2126,
+        "endChar": 47
+      },
+      "revId": "97247a7ea41015b994fd693a76e73e6333237a58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "227df1cb_de9a64e7",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2126,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-18T06:35:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b4a30da_e7670e21",
       "range": {
         "startLine": 2126,
         "startChar": 35,
