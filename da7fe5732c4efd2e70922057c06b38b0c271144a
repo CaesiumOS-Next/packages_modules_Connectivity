@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6db2877_1434722f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 7331,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-18T04:07:43Z",
+      "side": 1,
+      "message": "This is set to the unsanitized capabilities as-is now, but processCapabilitiesFromAgent would set it after resetting the owner UID; is that expected ?",
+      "revId": "da7fe5732c4efd2e70922057c06b38b0c271144a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
