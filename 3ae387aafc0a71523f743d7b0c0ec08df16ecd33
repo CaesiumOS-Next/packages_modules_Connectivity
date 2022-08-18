@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93329951_0e25c8c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-18T02:43:28Z",
+      "side": 1,
+      "message": "I want to CP this into the CTS13 R2 branch after submission.",
+      "revId": "3ae387aafc0a71523f743d7b0c0ec08df16ecd33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
