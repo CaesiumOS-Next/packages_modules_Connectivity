@@ -16,6 +16,24 @@
       "message": "program in in dscpPolicy.c bpf for raw should also be removed",
       "revId": "4e8588814baa1994815976b0c91468ba115539ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2f63586_a374fbad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-19T07:29:42Z",
+      "side": 1,
+      "message": "(was done in aosp/2163530)",
+      "parentUuid": "48dcae2a_0c9d23f6",
+      "revId": "4e8588814baa1994815976b0c91468ba115539ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
