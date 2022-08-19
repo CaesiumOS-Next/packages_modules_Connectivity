@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2e11388_5a760947",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-19T22:42:37Z",
+      "side": 1,
+      "message": "in the follow up to this one, EthernetCallback will be pulled out of EthernetNetworkFactory entirely. Almost there...",
+      "revId": "ac97c243a3790ad9da183de34fb748d82a31c02d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
