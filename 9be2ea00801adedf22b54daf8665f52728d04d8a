@@ -1,5 +1,52 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fa5173f_24df4ece",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 39
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-19T07:50:33Z",
+      "side": 1,
+      "message": "Generally streams are discouraged in platform code due to the allocation and memory overhead. Looks like this could just be factored out to a function with just a few lines of code?",
+      "range": {
+        "startLine": 429,
+        "startChar": 36,
+        "endLine": 429,
+        "endChar": 71
+      },
+      "revId": "9be2ea00801adedf22b54daf8665f52728d04d8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82d5783e_f13abcc4",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 39
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-19T07:50:33Z",
+      "side": 1,
+      "message": "How can concurrent deletions happen if this code holds the sUidOwnerMap lock? Is there something else on the system that accesses this map? If so, that seems like a bigger problem that we need to solve.",
+      "range": {
+        "startLine": 434,
+        "startChar": 44,
+        "endLine": 434,
+        "endChar": 83
+      },
+      "revId": "9be2ea00801adedf22b54daf8665f52728d04d8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
