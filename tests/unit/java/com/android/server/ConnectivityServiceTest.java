@@ -8396,6 +8396,10 @@ public class ConnectivityServiceTest {
 
     @Test
     public void testRestrictedProfileAffectsVpnUidRanges() throws Exception {
+        // Automotive feature is irrelevant to this test but proactively setting the feature support
+        // value since the value may be unexpectedly set with an Integer instead of a Boolean and
+        // cause a ClassCastException.
+        mockHasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE, false);
         // NETWORK_SETTINGS is necessary to see the UID ranges in NetworkCapabilities.
         mServiceContext.setPermission(NETWORK_SETTINGS, PERMISSION_GRANTED);
 
