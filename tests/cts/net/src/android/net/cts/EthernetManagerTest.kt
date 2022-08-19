@@ -55,6 +55,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.os.OutcomeReceiver
+import android.os.SystemProperties
 import android.platform.test.annotations.AppModeFull
 import android.util.ArraySet
 import androidx.test.platform.app.InstrumentationRegistry
@@ -75,6 +76,7 @@ import com.android.testutils.anyNetwork
 import com.android.testutils.runAsShell
 import com.android.testutils.waitForIdle
 import org.junit.After
+import org.junit.Assume.assumeFalse
 import org.junit.Assume.assumeTrue
 import org.junit.Before
 import org.junit.Ignore
@@ -375,6 +377,16 @@ class EthernetManagerTest {
     // Setting the carrier up / down relies on TUNSETCARRIER which was added in kernel version 5.0.
     private fun assumeChangingCarrierSupported() = assumeTrue(isKernelVersionAtLeast("5.0.0"))
 
+    // TODO: combine with EthernetTetheringTest#isAdbOverNetwork
+    private fun isAdbOverNetwork(): Boolean {
+        // cuttlefish is special and does not connect adb over ethernet.
+        if (SystemProperties.get("ro.product.board", "") == "cutf") return false
+
+        // If adb TCP port opened, this test may running by adb over network.
+        return (SystemProperties.getInt("persist.adb.tcp.port", -1) > -1 ||
+                SystemProperties.getInt("service.adb.tcp.port", -1) > -1)
+    }
+
     private fun addInterfaceStateListener(listener: EthernetStateListener) {
         runAsShell(CONNECTIVITY_USE_RESTRICTED_NETWORKS) {
             em.addInterfaceStateListener(handler::post, listener)
@@ -558,6 +570,25 @@ class EthernetManagerTest {
             listener.expectCallback(iface2, STATE_ABSENT, ROLE_NONE)
             listener.assertNoCallback()
         }
+    }
+
+    @Test
+    fun testCallbacks_withRunningInterface() {
+        assumeFalse(isAdbOverNetwork())
+        assumeTrue(em.getInterfaceList().isEmpty())
+        val iface = createInterface()
+        val listener = EthernetStateListener()
+        addInterfaceStateListener(listener)
+        listener.eventuallyExpect(iface, STATE_LINK_UP, ROLE_CLIENT)
+
+        // Remove running interface. The interface stays running but is no longer tracked.
+        setEthernetEnabled(false)
+        listener.expectCallback(iface, STATE_ABSENT, ROLE_NONE)
+
+        setEthernetEnabled(true)
+        listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
+        listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
+        listener.assertNoCallback()
     }
 
     private fun assumeNoInterfaceForTetheringAvailable() {
