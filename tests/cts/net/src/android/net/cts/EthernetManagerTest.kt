@@ -566,7 +566,6 @@ class EthernetManagerTest {
 
         setEthernetEnabled(true)
         listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
-        listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
         listener.assertNoCallback()
     }
 
