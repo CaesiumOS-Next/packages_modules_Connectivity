@@ -1,5 +1,52 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a35b757_60100af9",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 2833,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-19T08:11:20Z",
+      "side": 1,
+      "message": "Can this actually happen, given that this code is protected by mStatsLock?",
+      "range": {
+        "startLine": 2833,
+        "startChar": 39,
+        "endLine": 2833,
+        "endChar": 79
+      },
+      "revId": "b8dd98e4d19d2f7c4a904a2564c95016bf9d251c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4951209_f0dfefe8",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 2843,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-19T08:11:20Z",
+      "side": 1,
+      "message": "There\u0027s a lot of repetitive code in these dumpFooMap methods. Do you think it\u0027s possible to factor the common code out to a generic \u003cK, V\u003e method? Seems like you\u0027d need two things:\n- The map name\n- A string containing the header\n- A lambda that takes the key and the value and knows how to print them",
+      "range": {
+        "startLine": 2841,
+        "startChar": 0,
+        "endLine": 2843,
+        "endChar": 17
+      },
+      "revId": "b8dd98e4d19d2f7c4a904a2564c95016bf9d251c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
