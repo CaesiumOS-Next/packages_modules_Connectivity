@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c26ee69_dd38f3e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-19T22:41:43Z",
+      "side": 1,
+      "message": "sorry for the mess -- note that most stuff will just be removed in the follow up.",
+      "revId": "e3fcf2320cdf42a31072c3a4422e8d71cf66aa70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
