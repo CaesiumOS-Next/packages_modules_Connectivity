@@ -45,6 +45,30 @@
       },
       "revId": "9be2ea00801adedf22b54daf8665f52728d04d8a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b717c184_9562a68a",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 39
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-19T16:49:21Z",
+      "side": 1,
+      "message": "I made this suggestion based on the fact that forEach() can pass you a nullable value -- just in case. Despite this being unlikely / impossible, I still think some sort of safeguard makes sense. Maybe adding if (config \u003d\u003d null) Log.wtf(...) is better? Do you disagree?",
+      "parentUuid": "82d5783e_f13abcc4",
+      "range": {
+        "startLine": 434,
+        "startChar": 44,
+        "endLine": 434,
+        "endChar": 83
+      },
+      "revId": "9be2ea00801adedf22b54daf8665f52728d04d8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
