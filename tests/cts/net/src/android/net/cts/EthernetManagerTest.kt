@@ -552,6 +552,24 @@ class EthernetManagerTest {
         }
     }
 
+    @Test
+    fun testCallbacks_withRunningInterface() {
+        assumeTrue(em.getInterfaceList().isEmpty())
+        val iface = createInterface()
+        val listener = EthernetStateListener()
+        addInterfaceStateListener(listener)
+        listener.eventuallyExpect(iface, STATE_LINK_UP, ROLE_CLIENT)
+
+        // Remove running interface. The interface stays running but is no longer tracked.
+        setEthernetEnabled(false)
+        listener.expectCallback(iface, STATE_ABSENT, ROLE_NONE)
+
+        setEthernetEnabled(true)
+        listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
+        listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
+        listener.assertNoCallback()
+    }
+
     private fun assumeNoInterfaceForTetheringAvailable() {
         // Interfaces that have configured NetworkCapabilities will never be used for tethering,
         // see aosp/2123900.
