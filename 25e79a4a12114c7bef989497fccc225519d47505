@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e119f4f6_675fd276",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1335,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-20T10:08:02Z",
+      "side": 1,
+      "message": "The return value is used by some functions such like getDeviceSummaryForNetwork() at l.1407.",
+      "parentUuid": "1c282013_da79678e",
+      "revId": "25e79a4a12114c7bef989497fccc225519d47505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "04a3e481_1a4dc7ed",
         "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
         "patchSetId": 5
@@ -43,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6e8bbaab_a35bc4d1",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 853,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-20T10:08:02Z",
+      "side": 1,
+      "message": "If use openSession() or openSessionForUsageStats(), it still need to get flag by calling restrictFlagsForCaller() to verify if this call is restricred. Then restrictFlagsForCaller() will be called twice, which is weird, isn\u0027t it?",
+      "parentUuid": "04a3e481_1a4dc7ed",
+      "range": {
+        "startLine": 853,
+        "startChar": 59,
+        "endLine": 853,
+        "endChar": 74
+      },
+      "revId": "25e79a4a12114c7bef989497fccc225519d47505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a6d52073_55dd82d2",
         "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
         "patchSetId": 5
@@ -54,6 +96,30 @@
       "writtenOn": "2022-08-08T08:41:25Z",
       "side": 1,
       "message": "Is it better if we verify this by the behavior?\nIf so, there is no need to access the map.\nAnd it won\u0027t be needed in the dependencies object, right?",
+      "range": {
+        "startLine": 885,
+        "startChar": 0,
+        "endLine": 886,
+        "endChar": 5
+      },
+      "revId": "25e79a4a12114c7bef989497fccc225519d47505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8274c775_f22631b0",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-20T10:08:02Z",
+      "side": 1,
+      "message": "So...that means there\u0027s no test that the counter should be removed after the app is removed.\n\nThe map is only used to record the count of an app. If an app is removed and re-installed within POLL_RATE_LIMIT_MS(\u003d15_000) seconds, it will still be limited.",
+      "parentUuid": "a6d52073_55dd82d2",
       "range": {
         "startLine": 885,
         "startChar": 0,

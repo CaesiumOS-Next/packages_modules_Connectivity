@@ -22,6 +22,30 @@
       },
       "revId": "7dce599f421ae883b670ae76aa0dca761d551ec9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f197b70d_629ff245",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-20T10:08:02Z",
+      "side": 0,
+      "message": "Discussed with Remi few days ago, mClock is the system time, which can be changed. So this might break duration calculations. This may be a concern here.\nMaybe Remi can give some suggestion?",
+      "parentUuid": "bccb2902_4589843e",
+      "range": {
+        "startLine": 1307,
+        "startChar": 37,
+        "endLine": 1307,
+        "endChar": 52
+      },
+      "revId": "7dce599f421ae883b670ae76aa0dca761d551ec9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
