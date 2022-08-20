@@ -63,6 +63,30 @@
       },
       "revId": "09813ced3efc88d1b5f1019b00f9745aefe9b955",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3157372d_64a2e57b",
+        "filename": "common/src/com/android/net/module/util/bpf/Tether4Key.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-20T08:26:00Z",
+      "side": 1,
+      "message": "you are right. Thank you.",
+      "parentUuid": "8ea9f95f_fa1edcff",
+      "range": {
+        "startLine": 34,
+        "startChar": 17,
+        "endLine": 34,
+        "endChar": 20
+      },
+      "revId": "09813ced3efc88d1b5f1019b00f9745aefe9b955",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
