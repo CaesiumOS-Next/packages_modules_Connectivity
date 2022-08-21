@@ -1,5 +1,52 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e00f6737_d6801194",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-21T23:50:03Z",
+      "side": 1,
+      "message": "Maybe this should throw IllegalStateException and crash the device?",
+      "range": {
+        "startLine": 297,
+        "startChar": 16,
+        "endLine": 297,
+        "endChar": 23
+      },
+      "revId": "913507f150009c8fdfebc0c678185ff3743a2a8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e96181e_dcf44dc9",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-21T23:50:03Z",
+      "side": 1,
+      "message": "If you address the previous comment and crash the device if the map can\u0027t be opened, can these null checks go away?",
+      "range": {
+        "startLine": 561,
+        "startChar": 8,
+        "endLine": 561,
+        "endChar": 36
+      },
+      "revId": "913507f150009c8fdfebc0c678185ff3743a2a8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
