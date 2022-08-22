@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4384a04_69526064",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1978,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-22T08:23:08Z",
+      "side": 1,
+      "message": "Generally, changing the production code to treat tests specially is almost never a good idea. Doing so is very risky because it means the tests are not exercising the same codepath as is used by normal users.\n\nThere are some exceptions, but they generally don\u0027t affect the behaviour of the code. For example ConnectivityService uses TRANSPORT_TEST to determine whether to allow or disallow the caller from performing certain operations for security purposes, but it does not behave differently for networks with TRANSPORT_TEST compared to networks with other transports.\n\nDid you look for alternative ways to deflake this test? If not, could you? Doing things this way should very much be a last resort.",
+      "range": {
+        "startLine": 1978,
+        "startChar": 12,
+        "endLine": 1978,
+        "endChar": 79
+      },
+      "revId": "82e7733909822b220972a139b597e87b012fa452",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
