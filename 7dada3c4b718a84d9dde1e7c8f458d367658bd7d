@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47f1c199_86d5b130",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-08-22T14:24:55Z",
+      "side": 1,
+      "message": "apparently this fails... due to\n\n0x45 \u003d\u003d 69 !\u003d 70 \u003d\u003d 0x46\n\nSo something is apparently generating IPv4 packets with IP options?!?!",
+      "revId": "7dada3c4b718a84d9dde1e7c8f458d367658bd7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
