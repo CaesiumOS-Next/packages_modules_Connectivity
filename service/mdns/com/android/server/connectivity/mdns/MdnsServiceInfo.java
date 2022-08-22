@@ -70,7 +70,9 @@ public class MdnsServiceInfo implements Parcelable {
     private final List<String> subtypes;
     private final String[] hostName;
     private final int port;
+    @Nullable
     private final String ipv4Address;
+    @Nullable
     private final String ipv6Address;
     private final Map<String, byte[]> attributes;
     final List<String> textStrings;
@@ -82,12 +84,12 @@ public class MdnsServiceInfo implements Parcelable {
     public MdnsServiceInfo(
             String serviceInstanceName,
             String[] serviceType,
-            List<String> subtypes,
+            @Nullable List<String> subtypes,
             String[] hostName,
             int port,
-            String ipv4Address,
-            String ipv6Address,
-            List<String> textStrings) {
+            @Nullable String ipv4Address,
+            @Nullable String ipv6Address,
+            @Nullable List<String> textStrings) {
         this(
                 serviceInstanceName,
                 serviceType,
@@ -108,9 +110,9 @@ public class MdnsServiceInfo implements Parcelable {
             List<String> subtypes,
             String[] hostName,
             int port,
-            String ipv4Address,
-            String ipv6Address,
-            List<String> textStrings,
+            @Nullable String ipv4Address,
+            @Nullable String ipv6Address,
+            @Nullable List<String> textStrings,
             @Nullable List<TextEntry> textEntries) {
         this(
                 serviceInstanceName,
@@ -133,12 +135,12 @@ public class MdnsServiceInfo implements Parcelable {
     public MdnsServiceInfo(
             String serviceInstanceName,
             String[] serviceType,
-            List<String> subtypes,
+            @Nullable List<String> subtypes,
             String[] hostName,
             int port,
-            String ipv4Address,
-            String ipv6Address,
-            List<String> textStrings,
+            @Nullable String ipv4Address,
+            @Nullable String ipv6Address,
+            @Nullable List<String> textStrings,
             @Nullable List<TextEntry> textEntries,
             int interfaceIndex) {
         this.serviceInstanceName = serviceInstanceName;
@@ -187,45 +189,44 @@ public class MdnsServiceInfo implements Parcelable {
         return Collections.unmodifiableList(list);
     }
 
-    /** @return the name of this service instance. */
+    /** Returns the name of this service instance. */
     public String getServiceInstanceName() {
         return serviceInstanceName;
     }
 
-    /** @return the type of this service instance. */
+    /** Returns the type of this service instance. */
     public String[] getServiceType() {
         return serviceType;
     }
 
-    /** @return the list of subtypes supported by this service instance. */
+    /** Returns the list of subtypes supported by this service instance. */
     public List<String> getSubtypes() {
         return new ArrayList<>(subtypes);
     }
 
-    /**
-     * @return {@code true} if this service instance supports any subtypes.
-     * @return {@code false} if this service instance does not support any subtypes.
-     */
+    /** Returns {@code true} if this service instance supports any subtypes. */
     public boolean hasSubtypes() {
         return !subtypes.isEmpty();
     }
 
-    /** @return the host name of this service instance. */
+    /** Returns the host name of this service instance. */
     public String[] getHostName() {
         return hostName;
     }
 
-    /** @return the port number of this service instance. */
+    /** Returns the port number of this service instance. */
     public int getPort() {
         return port;
     }
 
-    /** @return the IPV4 address of this service instance. */
+    /** Returns the IPV4 address of this service instance. */
+    @Nullable
     public String getIpv4Address() {
         return ipv4Address;
     }
 
-    /** @return the IPV6 address of this service instance. */
+    /** Returns the IPV6 address of this service instance. */
+    @Nullable
     public String getIpv6Address() {
         return ipv6Address;
     }
@@ -252,7 +253,7 @@ public class MdnsServiceInfo implements Parcelable {
         return new String(value, UTF_8);
     }
 
-    /** @return an immutable map of all attributes. */
+    /** Returns an immutable map of all attributes. */
     public Map<String, String> getAttributes() {
         Map<String, String> map = new HashMap<>(attributes.size());
         for (Map.Entry<String, byte[]> kv : attributes.entrySet()) {
