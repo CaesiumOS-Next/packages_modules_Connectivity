@@ -22,6 +22,30 @@
       },
       "revId": "b909d8af557105c33501c9e3318b696da9445e11",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25f424b9_c33091a4",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-22T09:14:49Z",
+      "side": 0,
+      "message": "Yes, this change verifies that the returned iface should be null and also verifies that the uid operations should be filtered.\nl.1186 to pretend that mobile network comes online is for increasing the operation couns on mobile interface. Then get stats for wifi iface, the result should not contains stats with mobile interface.",
+      "parentUuid": "61b1b7bd_16d9c277",
+      "range": {
+        "startLine": 1160,
+        "startChar": 83,
+        "endLine": 1160,
+        "endChar": 84
+      },
+      "revId": "b909d8af557105c33501c9e3318b696da9445e11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
