@@ -63,6 +63,30 @@
       },
       "revId": "61995cedcab48e3fd262e19bc4437c4ae3736465",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ef7bcde_75db09e6",
+        "filename": "tests/cts/net/src/android/net/cts/TunUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-22T00:59:53Z",
+      "side": 1,
+      "message": "Yes, you need to put it into a location that is automerged into tm-mainline-prod.\n\nI\u0027ve uploaded aosp/2191328 in your name, put it into a topic with this CL, and updated this CL to use it. Please take a look and +2 it if you\u0027re happy with it.",
+      "parentUuid": "4ce1429e_1e54539d",
+      "range": {
+        "startLine": 164,
+        "startChar": 27,
+        "endLine": 164,
+        "endChar": 43
+      },
+      "revId": "61995cedcab48e3fd262e19bc4437c4ae3736465",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
