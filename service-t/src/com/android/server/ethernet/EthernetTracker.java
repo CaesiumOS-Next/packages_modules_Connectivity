@@ -624,8 +624,7 @@ public class EthernetTracker {
             // no need to send an interface state change as this is not a true "state change". The
             // callers (maybeTrackInterface() and setTetheringInterfaceMode) already broadcast the
             // state change.
-            // TODO: pull EthernetCallbacks out of EthernetNetworkFactory.
-            mFactory.updateInterfaceLinkState(iface, true, new EthernetCallback(null /* cb */));
+            mFactory.updateInterfaceLinkState(iface, true);
         }
     }
 
@@ -638,10 +637,17 @@ public class EthernetTracker {
             @Nullable final EthernetCallback cb) {
         final int mode = getInterfaceMode(iface);
         final boolean factoryLinkStateUpdated = (mode == INTERFACE_MODE_CLIENT)
-                && mFactory.updateInterfaceLinkState(iface, up, cb);
+                && mFactory.updateInterfaceLinkState(iface, up);
 
         if (factoryLinkStateUpdated) {
             broadcastInterfaceStateChange(iface);
+            cb.onResult(iface);
+        } else {
+            // The interface may already be in the correct state. While usually this should not be
+            // an error, since updateInterfaceState is used in setInterfaceEnabled() /
+            // setInterfaceDisabled() it has to be reported as such.
+            // It is also possible that the interface disappeared or is in server mode.
+            cb.onError("Failed to set link state " + (up ? "up" : "down") + " for " + iface);
         }
     }
 
