@@ -34,6 +34,23 @@
       "parentUuid": "47f1c199_86d5b130",
       "revId": "7dada3c4b718a84d9dde1e7c8f458d367658bd7d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "332d6c29_1d23d80e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-08-22T14:38:18Z",
+      "side": 1,
+      "message": "07:33:38.753581 testtap36 Out ifindex 56 8a:51:2b:88:31:e7 (oui Unknown) ethertype IPv4 (0x0800), length 60: (tos 0xc0, ttl 1, id 0, offset 0, flags [DF], proto IGMP (2), length 40, options (RA))\n    192.0.2.1 \u003e igmp.mcast.net: igmp v3 report, 1 group record(s) [gaddr 224.0.0.251 to_ex { }]\n        0x0000:  46c0 0028 0000 4000 0102 41f8 c000 0201  F..(..@...A.....\n        0x0010:  e000 0016 9404 0000 2200 f902 0000 0001  ........\".......\n        0x0020:  0400 0000 e000 00fb                      ........\n\nSo indeed, \u00270x46\u0027 --\u003e ipv4 options \u002794 04 00 00\u0027\n\nhttps://www.iana.org/assignments/ip-parameters/ip-parameters.xhtml\nCopy \tClass \tNumber \tValue \tName \tReference\n1\t0\t20\t148\t\nRTRALT - Router Alert\n[RFC2113]\n\n0x94 \u003d 128 + 16 + 4 \u003d 148\n\nhttps://www.rfc-editor.org/rfc/rfc2113.html\nThe Router Alert option has the following format:\n\n                 +--------+--------+--------+--------+\n                 |10010100|00000100|  2 octet value  |\n                 +--------+--------+--------+--------+\n\n   Type:\n     Copied flag:  1 (all fragments must carry the option)\n     Option class: 0 (control)\n     Option number: 20 (decimal)\n\n   Length: 4\n\n   Value:  A two octet code with the following values:\n     0 - Router shall examine packet\n     1-65535 - Reserved",
+      "revId": "7dada3c4b718a84d9dde1e7c8f458d367658bd7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
