@@ -39,6 +39,30 @@
       },
       "revId": "ce9c664f4d048301a4a003c8400f5a8c3c1ac865",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f89900ea_41b1b225",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2519,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-22T15:09:59Z",
+      "side": 1,
+      "message": "ConnectivityManager#factoryReset would call TetheringManager#stopAllTethering but #stopAllTethering is one-way binder call. So we need to keep hold TETHER_PRIVILEGED permission still making sure #stopAllTethering take effect. Otherwise the test would be flaky.",
+      "parentUuid": "289ccc6c_1ade0979",
+      "range": {
+        "startLine": 2519,
+        "startChar": 16,
+        "endLine": 2519,
+        "endChar": 62
+      },
+      "revId": "ce9c664f4d048301a4a003c8400f5a8c3c1ac865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
