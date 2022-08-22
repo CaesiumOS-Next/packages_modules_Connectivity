@@ -22,6 +22,30 @@
       },
       "revId": "00d92df6457a245524722afc0c5f19cb91ad0f63",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72470ef8_d32aa75e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 6403,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-22T03:25:50Z",
+      "side": 1,
+      "message": "it seems to me this class is either too small to make it standalone or the implementation is too dedicated for ConnectivityService to put in the lib. Thus prefer to keep it as is.\nReopen if feel strongly.",
+      "parentUuid": "ba919717_062aa8a6",
+      "range": {
+        "startLine": 6403,
+        "startChar": 24,
+        "endLine": 6403,
+        "endChar": 48
+      },
+      "revId": "00d92df6457a245524722afc0c5f19cb91ad0f63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
