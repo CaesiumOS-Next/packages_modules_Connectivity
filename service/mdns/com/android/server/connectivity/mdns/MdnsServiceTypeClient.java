@@ -17,6 +17,7 @@
 package com.android.server.connectivity.mdns;
 
 import android.annotation.NonNull;
+import android.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.ArraySet;
 import android.util.Pair;
@@ -25,6 +26,8 @@ import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.connectivity.mdns.util.MdnsLogger;
 
+import java.net.Inet4Address;
+import java.net.Inet6Address;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -39,8 +42,6 @@ import java.util.concurrent.TimeUnit;
  * Instance of this class sends and receives mDNS packets of a given service type and invoke
  * registered {@link MdnsServiceBrowserListener} instances.
  */
-// TODO(b/242631897): Resolve nullness suppression.
-@SuppressWarnings("nullness")
 public class MdnsServiceTypeClient {
 
     private static final int DEFAULT_MTU = 1500;
@@ -60,6 +61,7 @@ public class MdnsServiceTypeClient {
     private long currentSessionId = 0;
 
     @GuardedBy("lock")
+    @Nullable
     private Future<?> requestTaskFuture;
 
     /**
@@ -86,14 +88,25 @@ public class MdnsServiceTypeClient {
         String ipv4Address = null;
         String ipv6Address = null;
         if (response.hasInet4AddressRecord()) {
-            ipv4Address = response.getInet4AddressRecord().getInet4Address().getHostAddress();
+            Inet4Address inet4Address = response.getInet4AddressRecord().getInet4Address();
+            ipv4Address = (inet4Address == null) ? null : inet4Address.getHostAddress();
         }
         if (response.hasInet6AddressRecord()) {
-            ipv6Address = response.getInet6AddressRecord().getInet6Address().getHostAddress();
+            Inet6Address inet6Address = response.getInet6AddressRecord().getInet6Address();
+            ipv6Address = (inet6Address == null) ? null : inet6Address.getHostAddress();
+        }
+        if (ipv4Address == null && ipv6Address == null) {
+            throw new IllegalArgumentException(
+                    "Either ipv4Address or ipv6Address must be non-null");
+        }
+        String serviceInstanceName = response.getServiceInstanceName();
+        if (serviceInstanceName == null) {
+            throw new IllegalStateException(
+                    "mDNS response must have non-null service instance name");
         }
         // TODO: Throw an error message if response doesn't have Inet6 or Inet4 address.
         return new MdnsServiceInfo(
-                response.getServiceInstanceName(),
+                serviceInstanceName,
                 serviceTypeLabels,
                 response.getSubtypes(),
                 hostName,
@@ -115,8 +128,7 @@ public class MdnsServiceTypeClient {
             @NonNull MdnsServiceBrowserListener listener,
             @NonNull MdnsSearchOptions searchOptions) {
         synchronized (lock) {
-            if (!listeners.contains(listener)) {
-                listeners.add(listener);
+            if (listeners.add(listener)) {
                 for (MdnsResponse existingResponse : instanceNameToResponse.values()) {
                     if (existingResponse.isComplete()) {
                         listener.onServiceFound(
@@ -186,7 +198,10 @@ public class MdnsServiceTypeClient {
         if (currentResponse == null) {
             newServiceFound = true;
             currentResponse = response;
-            instanceNameToResponse.put(response.getServiceInstanceName(), currentResponse);
+            String serviceInstanceName = response.getServiceInstanceName();
+            if (serviceInstanceName != null) {
+                instanceNameToResponse.put(serviceInstanceName, currentResponse);
+            }
         } else if (currentResponse.mergeRecordsFrom(response)) {
             existingServiceChanged = true;
         }
@@ -205,7 +220,10 @@ public class MdnsServiceTypeClient {
         }
     }
 
-    private void onGoodbyeReceived(@NonNull String serviceInstanceName) {
+    private void onGoodbyeReceived(@Nullable String serviceInstanceName) {
+        if (serviceInstanceName == null) {
+            return;
+        }
         instanceNameToResponse.remove(serviceInstanceName);
         for (MdnsServiceBrowserListener listener : listeners) {
             listener.onServiceRemoved(serviceInstanceName);
@@ -332,7 +350,7 @@ public class MdnsServiceTypeClient {
                                 config.expectUnicastResponse,
                                 config.transactionId)
                                 .call();
-            } catch (Exception e) {
+            } catch (RuntimeException e) {
                 LOGGER.e(String.format("Failed to run EnqueueMdnsQueryCallable for subtype: %s",
                         TextUtils.join(",", config.subtypes)), e);
                 result = null;

@@ -16,19 +16,15 @@
 
 package com.android.server.connectivity.mdns;
 
-import android.annotation.TargetApi;
-import android.os.Build;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.android.internal.annotations.VisibleForTesting;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 /** mDNS-related constants. */
-// TODO(b/242631897): Resolve nullness suppression.
-@SuppressWarnings("nullness")
 @VisibleForTesting
 public final class MdnsConstants {
     public static final int MDNS_PORT = 5353;
@@ -79,16 +75,6 @@ public final class MdnsConstants {
     }
 
     public static Charset getUtf8Charset() {
-        synchronized (MdnsConstants.class) {
-            if (utf8Charset == null) {
-                utf8Charset = getUtf8CharsetOnKitKat();
-            }
-            return utf8Charset;
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    private static Charset getUtf8CharsetOnKitKat() {
-        return StandardCharsets.UTF_8;
+        return UTF_8;
     }
 }
