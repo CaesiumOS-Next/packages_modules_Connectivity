@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "639516c0_165d22cc",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2767,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-08-22T08:08:55Z",
+      "side": 1,
+      "message": "Presumably value is not null. Consider printing the key when the value is null so we know what went wrong.",
+      "range": {
+        "startLine": 2767,
+        "startChar": 12,
+        "endLine": 2767,
+        "endChar": 28
+      },
+      "revId": "e6120b409f71c485033fddbddd30924639c817bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
