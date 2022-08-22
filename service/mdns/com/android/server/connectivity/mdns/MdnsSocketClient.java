@@ -46,8 +46,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * <p>See https://tools.ietf.org/html/rfc6763 (namely sections 4 and 5).
  */
-// TODO(b/242631897): Resolve nullness suppression.
-@SuppressWarnings("nullness")
 public class MdnsSocketClient {
 
     private static final String TAG = "MdnsClient";
@@ -71,6 +69,7 @@ public class MdnsSocketClient {
     final Queue<DatagramPacket> unicastPacketQueue = new ArrayDeque<>();
     private final Context context;
     private final byte[] multicastReceiverBuffer = new byte[RECEIVER_BUFFER_SIZE];
+    @Nullable
     private final byte[] unicastReceiverBuffer;
     private final MdnsResponseDecoder responseDecoder;
     private final MulticastLock multicastLock;
@@ -95,18 +94,26 @@ public class MdnsSocketClient {
     @VisibleForTesting
     AtomicBoolean cannotReceiveMulticastResponse = new AtomicBoolean(false);
     @VisibleForTesting
+    @Nullable
     volatile Thread sendThread;
     @VisibleForTesting
+    @Nullable
     Thread multicastReceiveThread;
     @VisibleForTesting
+    @Nullable
     Thread unicastReceiveThread;
     private volatile boolean shouldStopSocketLoop;
+    @Nullable
     private Callback callback;
+    @Nullable
     private MdnsSocket multicastSocket;
+    @Nullable
     private MdnsSocket unicastSocket;
     private int receivedPacketNumber = 0;
+    @Nullable
     private Timer logMdnsPacketTimer;
     private AtomicInteger packetsCount;
+    @Nullable
     private Timer checkMulticastResponseTimer;
 
     public MdnsSocketClient(@NonNull Context context, @NonNull MulticastLock multicastLock) {
@@ -248,7 +255,11 @@ public class MdnsSocketClient {
 
         if (useSeparateSocketForUnicast) {
             unicastReceiveThread =
-                    new Thread(() -> receiveThreadMain(unicastReceiverBuffer, unicastSocket));
+                    new Thread(() -> {
+                        if (unicastReceiverBuffer != null) {
+                            receiveThreadMain(unicastReceiverBuffer, unicastSocket);
+                        }
+                    });
             unicastReceiveThread.setName("mdns-unicast-receive");
             unicastReceiveThread.start();
         }
@@ -327,11 +338,15 @@ public class MdnsSocketClient {
                             unicastPacketsToSend.addAll(unicastPacketQueue);
                             unicastPacketQueue.clear();
                         }
+                        if (unicastSocket != null) {
+                            sendPackets(unicastPacketsToSend, unicastSocket);
+                        }
                     }
 
-                    // Send all the packets.
-                    sendPackets(multicastPacketsToSend, multicastSocket);
-                    sendPackets(unicastPacketsToSend, unicastSocket);
+                    // Send multicast packets.
+                    if (multicastSocket != null) {
+                        sendPackets(multicastPacketsToSend, multicastSocket);
+                    }
 
                     // Sleep ONLY if no more packets have been added to the queue, while packets
                     // were being sent.
@@ -351,7 +366,9 @@ public class MdnsSocketClient {
         } finally {
             LOGGER.log("Send thread stopped.");
             try {
-                multicastSocket.leaveGroup();
+                if (multicastSocket != null) {
+                    multicastSocket.leaveGroup();
+                }
             } catch (Exception t) {
                 LOGGER.e("Failed to leave the group.", t);
             }
@@ -359,17 +376,19 @@ public class MdnsSocketClient {
             // Close the socket first. This is the only way to interrupt a blocking receive.
             try {
                 // This is a race with the use of the file descriptor (b/27403984).
-                multicastSocket.close();
+                if (multicastSocket != null) {
+                    multicastSocket.close();
+                }
                 if (unicastSocket != null) {
                     unicastSocket.close();
                 }
-            } catch (Exception t) {
+            } catch (RuntimeException t) {
                 LOGGER.e("Failed to close the mdns socket.", t);
             }
         }
     }
 
-    private void receiveThreadMain(byte[] receiverBuffer, MdnsSocket socket) {
+    private void receiveThreadMain(byte[] receiverBuffer, @Nullable MdnsSocket socket) {
         DatagramPacket packet = new DatagramPacket(receiverBuffer, receiverBuffer.length);
 
         while (!shouldStopSocketLoop) {
@@ -500,7 +519,7 @@ public class MdnsSocketClient {
     }
 
     public boolean isOnIPv6OnlyNetwork() {
-        return multicastSocket.isOnIPv6OnlyNetwork();
+        return multicastSocket != null && multicastSocket.isOnIPv6OnlyNetwork();
     }
 
     /** Callback for {@link MdnsSocketClient}. */
