@@ -22,6 +22,30 @@
       },
       "revId": "e6120b409f71c485033fddbddd30924639c817bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60f2b796_d922eb33",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2767,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-08-22T08:48:17Z",
+      "side": 1,
+      "message": "Currently, skDestroyListener remove the cookieTagMap entry, so we could have concurrent entry deletion.\n\nI assumed dumpRawMap will be used from test and test will parse the output and store with the map. (e.g. https://source.corp.google.com/aosp-master/packages/modules/Connectivity/Tethering/tests/integration/src/android/net/EthernetTetheringTest.java;l\u003d1303?q\u003dbpfRawMap\u0026ss\u003dpiper%2FGoogle%2Faosp-master)\nSo, duplicated entry is not a problem.\n\nBut message like \"Entry is deleted while dumping, iterating from first entry\" makes test fail.\nSo, I did not show message.",
+      "parentUuid": "639516c0_165d22cc",
+      "range": {
+        "startLine": 2767,
+        "startChar": 12,
+        "endLine": 2767,
+        "endChar": 28
+      },
+      "revId": "e6120b409f71c485033fddbddd30924639c817bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
