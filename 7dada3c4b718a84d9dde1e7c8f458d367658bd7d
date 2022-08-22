@@ -87,6 +87,24 @@
       "parentUuid": "0ee453b6_b820d056",
       "revId": "7dada3c4b718a84d9dde1e7c8f458d367658bd7d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e00dee78_be51d865",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-22T14:42:01Z",
+      "side": 1,
+      "message": "Also, it seems prudent at least to check that the protocol is correct...",
+      "parentUuid": "46516741_a159b4ed",
+      "revId": "7dada3c4b718a84d9dde1e7c8f458d367658bd7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
