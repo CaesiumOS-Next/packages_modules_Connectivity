@@ -69,6 +69,24 @@
       "parentUuid": "332d6c29_1d23d80e",
       "revId": "7dada3c4b718a84d9dde1e7c8f458d367658bd7d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46516741_a159b4ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-22T14:40:37Z",
+      "side": 1,
+      "message": "Might the packets with 0x46 unrelated? If so, could you ignore them by doing this assert much later in the test, once the port and the other parts of the packets are checked?\n\nI guess it\u0027s also possible that this is a bug in the BPF code...",
+      "parentUuid": "0ee453b6_b820d056",
+      "revId": "7dada3c4b718a84d9dde1e7c8f458d367658bd7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
