@@ -22,6 +22,30 @@
       },
       "revId": "82e7733909822b220972a139b597e87b012fa452",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a91aa4c6_60c665fd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1978,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-22T14:45:51Z",
+      "side": 1,
+      "message": "thanks for your comment. i will discuss with mark if any alternative way which touches less (or no) production code. changing the current upstream choosing design for testing (late launched test network can\u0027t replace existing upstream) is more risky. need to figure out a better way. \n\nkeep this commit as unresolved",
+      "parentUuid": "a4384a04_69526064",
+      "range": {
+        "startLine": 1978,
+        "startChar": 12,
+        "endLine": 1978,
+        "endChar": 79
+      },
+      "revId": "82e7733909822b220972a139b597e87b012fa452",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
