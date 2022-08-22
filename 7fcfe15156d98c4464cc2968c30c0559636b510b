@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e046e426_025ba9ef",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1415,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-22T11:16:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2d66e62_01ef27f5",
+      "range": {
+        "startLine": 1415,
+        "startChar": 19,
+        "endLine": 1415,
+        "endChar": 55
+      },
+      "revId": "7fcfe15156d98c4464cc2968c30c0559636b510b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa62e01a_71f1f13a",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1229c61_c47d32e8",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1440,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-22T11:16:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa62e01a_71f1f13a",
+      "range": {
+        "startLine": 1429,
+        "startChar": 0,
+        "endLine": 1440,
+        "endChar": 5
+      },
+      "revId": "7fcfe15156d98c4464cc2968c30c0559636b510b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07890ad3_1c51553a",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-08-19T05:26:34Z",
       "side": 1,
       "message": "parseV4UdpHeaderAndDnsMessage seems useless. If you take my suggestion to let TestDnsPacket constructor accept ByteBuffer. You could just put below code inline.\n\nByteBuffer buf \u003d ByteBuffer.wrap(forwardedQueryPacket);\nStruct.parse(Ipv4Header.class, buf);\nfinal UdpHeader udpHeader \u003d Struct.parse(UdpHeader.class, buf);\nfinal TestDnsPacket dnsQuery \u003d new TestDnsPacket(buf);",
+      "range": {
+        "startLine": 1467,
+        "startChar": 0,
+        "endLine": 1472,
+        "endChar": 43
+      },
+      "revId": "7fcfe15156d98c4464cc2968c30c0559636b510b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cee75261_ea70ef75",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1472,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-22T11:16:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07890ad3_1c51553a",
       "range": {
         "startLine": 1467,
         "startChar": 0,
@@ -117,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2da1cb14_57865181",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-22T11:16:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f47fbec_00c69c86",
+      "range": {
+        "startLine": 419,
+        "startChar": 8,
+        "endLine": 421,
+        "endChar": 9
+      },
+      "revId": "7fcfe15156d98c4464cc2968c30c0559636b510b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9820a9f_048c4993",
@@ -142,6 +238,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7861013c_6ccf9c1e",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-22T11:16:22Z",
+      "side": 1,
+      "message": "DnsRecord.equals will be implemented on unmerged junyu\u0027s commit. Add a TODO to use it\n\nhttps://android-review.googlesource.com/c/platform/frameworks/libs/net/+/1387135/13/common/framework/com/android/net/module/util/DnsPacket.java#387",
+      "parentUuid": "c9820a9f_048c4993",
+      "range": {
+        "startLine": 458,
+        "startChar": 16,
+        "endLine": 464,
+        "endChar": 17
+      },
+      "revId": "7fcfe15156d98c4464cc2968c30c0559636b510b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0f07cbab_ca745000",
         "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
         "patchSetId": 16
@@ -153,6 +273,30 @@
       "writtenOn": "2022-08-19T05:26:34Z",
       "side": 1,
       "message": "Probably we could just use isExpectedUdpPacket for both normal udp and dns udp.\n\nnormal isExpectedUdpPacket: isExpectedUdpPacket(@NonNull final byte[] rawPacket, boolean hasEth, boolean isIpv4, @NonNull final ByteBuffer expected) {\nreturn isExpectedUdpPacket(rawPacket, hasEth, isIpv4, payload -\u003e {\n    if (payload.remaining() !\u003d expected.limit()) return false;\n\n    return Arrays.equals(Arrays.copyOfRange(payload.array(), payload.position(), payload.limit()), expected.array());\n});\n\nisExpectedUdpDnsPacket: isExpectedUdpPacket(rawPacket, hasEth, isIpv4, (payload) -\u003e  return isExpectedUdpDnsPacket(payload, expected));\n\nisExpectedUdpPacket(@NonNull final byte[] rawPacket, boolean hasEth, boolean isIpv4, Predicate\u003cByteBuffer\u003e payloadVerifier) {\n        final ByteBuffer buf \u003d ByteBuffer.wrap(rawPacket);\n        try {\n            if (hasEth \u0026\u0026 !hasExpectedEtherHeader(buf, isIpv4)) return false;\n\n            if (!hasExpectedIpHeader(buf, isIpv4, IPPROTO_UDP)) return false;\n\n            if (Struct.parse(UdpHeader.class, buf) \u003d\u003d null) return false;\n        } catch (Exception e) {\n            // Parsing packet fail means it is not udp packet.\n            return false;\n        }\n        return payloadVerifier.test(buf);\n}",
+      "range": {
+        "startLine": 551,
+        "startChar": 0,
+        "endLine": 568,
+        "endChar": 5
+      },
+      "revId": "7fcfe15156d98c4464cc2968c30c0559636b510b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34017f86_e0d2b907",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-22T11:16:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f07cbab_ca745000",
       "range": {
         "startLine": 551,
         "startChar": 0,
