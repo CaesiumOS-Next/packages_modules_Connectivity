@@ -95,6 +95,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4f47fbec_00c69c86",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-22T09:35:33Z",
+      "side": 1,
+      "message": "Per talk, this doesn\u0027t work because \"this\" must be first line. Maybe we could have a static function to create TestDnsPacket.\n\nE.g.\n\npublic static class TestDnsPacket extends DnsPacket {\npublic static TestDnsPacket getTestDnsPacket(ByteBuffer buf) {\nbyte[] bytes \u003d new byte[buf.remaining()];\nreturn new TestDnsPacket(bytes);\n}\n}",
+      "parentUuid": "6c16025c_f2766b0a",
+      "range": {
+        "startLine": 419,
+        "startChar": 8,
+        "endLine": 421,
+        "endChar": 9
+      },
+      "revId": "7fcfe15156d98c4464cc2968c30c0559636b510b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c9820a9f_048c4993",
         "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
         "patchSetId": 16
