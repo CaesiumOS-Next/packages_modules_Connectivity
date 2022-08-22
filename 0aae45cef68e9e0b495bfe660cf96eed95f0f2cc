@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef2b0c83_43ccd5a9",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1216,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-22T02:41:25Z",
+      "side": 1,
+      "message": "Question: What\u0027s wrong with assertEquals(entry, entry)?",
+      "range": {
+        "startLine": 1216,
+        "startChar": 8,
+        "endLine": 1216,
+        "endChar": 25
+      },
+      "revId": "0aae45cef68e9e0b495bfe660cf96eed95f0f2cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

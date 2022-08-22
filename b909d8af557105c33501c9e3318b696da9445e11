@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61b1b7bd_16d9c277",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-22T02:41:25Z",
+      "side": 0,
+      "message": "Not sure why we need to add those lines in the test?\nIs it simpler if we add more entries in the list and just use the original code to verify stats?\nOr do you try to increase the coverage?",
+      "range": {
+        "startLine": 1160,
+        "startChar": 83,
+        "endLine": 1160,
+        "endChar": 84
+      },
+      "revId": "b909d8af557105c33501c9e3318b696da9445e11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
