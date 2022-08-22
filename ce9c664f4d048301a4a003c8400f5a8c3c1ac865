@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46f62680_2108d117",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-22T13:16:33Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "ce9c664f4d048301a4a003c8400f5a8c3c1ac865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "289ccc6c_1ade0979",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2519,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-22T13:16:33Z",
+      "side": 1,
+      "message": "Does this need to be in the runAsShell block? AFAICT it doesn\u0027t need any permissions. If so, can you move it out?",
+      "range": {
+        "startLine": 2519,
+        "startChar": 16,
+        "endLine": 2519,
+        "endChar": 62
+      },
+      "revId": "ce9c664f4d048301a4a003c8400f5a8c3c1ac865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
