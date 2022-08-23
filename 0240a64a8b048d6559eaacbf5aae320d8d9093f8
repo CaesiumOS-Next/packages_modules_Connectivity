@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70b7710f_0935c956",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1244622
+      },
+      "writtenOn": "2022-08-23T18:05:40Z",
+      "side": 1,
+      "message": "Pls provide CR+2 to help establish the merge path for the new CTS test dev branch. ",
+      "revId": "0240a64a8b048d6559eaacbf5aae320d8d9093f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
