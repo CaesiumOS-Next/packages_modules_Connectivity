@@ -40,8 +40,7 @@ public final class EthernetService {
         final HandlerThread handlerThread = new HandlerThread(THREAD_NAME);
         handlerThread.start();
         final Handler handler = new Handler(handlerThread.getLooper());
-        final EthernetNetworkFactory factory = new EthernetNetworkFactory(handler, context);
         return new EthernetServiceImpl(context, handler,
-                new EthernetTracker(context, handler, factory, getNetd(context)));
+                new EthernetTracker(context, handler, getNetd(context)));
     }
 }
