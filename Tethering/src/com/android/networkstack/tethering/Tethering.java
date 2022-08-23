@@ -1829,6 +1829,12 @@ public class Tethering {
             return true;
         }
 
+        private boolean networkEquals(@Nullable Network a, @Nullable Network b) {
+            if (a == b) return true;
+            if (a == null || b == null) return false;
+            return a.equals(b);
+        }
+
         protected void chooseUpstreamType(boolean tryCell) {
             // We rebuild configuration on ACTION_CONFIGURATION_CHANGED, but we
             // do not currently know how to watch for changes in DUN settings.
@@ -1853,7 +1859,7 @@ public class Tethering {
 
             setUpstreamNetwork(ns);
             final Network newUpstream = (ns != null) ? ns.network : null;
-            if (mTetherUpstream != newUpstream) {
+            if (!networkEquals(mTetherUpstream, newUpstream)) {
                 mTetherUpstream = newUpstream;
                 mUpstreamNetworkMonitor.setCurrentUpstream(mTetherUpstream);
                 reportUpstreamChanged(ns);
