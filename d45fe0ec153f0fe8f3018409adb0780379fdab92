@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5acb0e48_6a3bc23f",
+        "filename": "tests/cts/net/src/android/net/cts/CaptivePortalTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-08-23T13:08:57Z",
+      "side": 1,
+      "message": "Not for this commit.\n--\nShould we do this in tearDown()?\nAlthough test URL has its own expiration time, but maybe other tests will be run within expiration time and apply the test URL, which is not expected?",
+      "range": {
+        "startLine": 116,
+        "startChar": 12,
+        "endLine": 116,
+        "endChar": 75
+      },
+      "revId": "d45fe0ec153f0fe8f3018409adb0780379fdab92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
