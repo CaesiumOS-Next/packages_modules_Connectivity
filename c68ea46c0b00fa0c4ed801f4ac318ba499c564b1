@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e29aea5_6dea649b",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-23T03:34:08Z",
+      "side": 1,
+      "message": "I should have put a TODO here, but this line is the bug that the follow up CL fixes.",
+      "range": {
+        "startLine": 569,
+        "startChar": 8,
+        "endLine": 569,
+        "endChar": 66
+      },
+      "revId": "c68ea46c0b00fa0c4ed801f4ac318ba499c564b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
