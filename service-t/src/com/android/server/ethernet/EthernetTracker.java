@@ -222,8 +222,9 @@ public class EthernetTracker {
 
 
     EthernetTracker(@NonNull final Context context, @NonNull final Handler handler,
-            @NonNull final EthernetNetworkFactory factory, @NonNull final INetd netd) {
-        this(context, handler, factory, netd, new Dependencies());
+            @NonNull final INetd netd) {
+        this(context, handler, new EthernetNetworkFactory(handler, context), netd,
+                new Dependencies());
     }
 
     @VisibleForTesting
