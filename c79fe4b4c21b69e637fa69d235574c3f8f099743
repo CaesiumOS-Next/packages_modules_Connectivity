@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "818016b8_4f1e7dfa",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-23T18:30:11Z",
+      "side": 1,
+      "message": "why not `new HashSet\u003c\u003e(uids.asList())`?",
+      "range": {
+        "startLine": 509,
+        "startChar": 40,
+        "endLine": 509,
+        "endChar": 52
+      },
+      "revId": "c79fe4b4c21b69e637fa69d235574c3f8f099743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
