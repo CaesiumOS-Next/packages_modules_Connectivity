@@ -92,6 +92,7 @@ import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.inOrder;
@@ -2293,6 +2294,36 @@ public class TetheringTest {
 
         verify(mUpstreamNetworkMonitor, times(1)).setCurrentUpstream(eq(upstreamState.network));
         verify(mNotificationUpdater, times(1)).onUpstreamCapabilitiesChanged(any());
+    }
+
+    @Test
+    public void testDupilcateUpstreamNetworkChanged() {
+        final Tethering.TetherMainSM stateMachine = (Tethering.TetherMainSM)
+                mTetheringDependencies.mUpstreamNetworkMonitorSM;
+        final UpstreamNetworkState upstreamStateV4 = buildMobileIPv4UpstreamState();
+        initTetheringUpstream(upstreamStateV4);
+
+        // [1] Mobile data is selected.
+        stateMachine.chooseUpstreamType(true);
+        verify(mUpstreamNetworkMonitor).setCurrentUpstream(eq(upstreamStateV4.network));
+        verify(mNotificationUpdater).onUpstreamCapabilitiesChanged(any());
+        clearInvocations(mUpstreamNetworkMonitor, mNotificationUpdater);
+
+        // [2] Do nothing because upstream is not changed.
+        stateMachine.chooseUpstreamType(true);
+        verify(mUpstreamNetworkMonitor, never()).setCurrentUpstream(eq(upstreamStateV4.network));
+        verify(mNotificationUpdater, never()).onUpstreamCapabilitiesChanged(any());
+
+        // [3] Do nothing even link properties is changed because netid is the same.
+        // handleUpstreamNetworkMonitorCallback handles EVENT_ON_LINKPROPERTIES with
+        // chooseUpstreamType(false). See Tethering#handleUpstreamNetworkMonitorCallback.
+        final UpstreamNetworkState upstreamStateV6 = buildMobileIPv6UpstreamState();
+        initTetheringUpstream(upstreamStateV6);
+        stateMachine.chooseUpstreamType(false);
+        verify(mUpstreamNetworkMonitor, never()).setCurrentUpstream(eq(upstreamStateV6.network));
+        verify(mNotificationUpdater, never()).onUpstreamCapabilitiesChanged(any());
+
+        // TODO: test capabilities changed with the same net id.
     }
 
     @Test
