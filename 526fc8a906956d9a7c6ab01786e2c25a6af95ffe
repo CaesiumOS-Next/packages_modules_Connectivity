@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3507b567_09d7001d",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-23T06:21:09Z",
+      "side": 1,
+      "message": "Why you need to restore the position ?\n\nIf it only used in l.436, could you just used the previous code \"isExpectedUdpPacket.array()\" ? Then we can make the code simpler.",
+      "range": {
+        "startLine": 422,
+        "startChar": 8,
+        "endLine": 425,
+        "endChar": 9
+      },
+      "revId": "526fc8a906956d9a7c6ab01786e2c25a6af95ffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a6f4448_c22b785a",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-23T06:21:09Z",
+      "side": 1,
+      "message": "Maybe catch code here, then you don\u0027t need to catch it everywhere\ntry {\n    return new TestDnsPacket(getRemaining(buf, true /* advancePosition */));\n} catch (DnsPacket.ParseException ignore) {\n    return null;\n}",
+      "range": {
+        "startLine": 454,
+        "startChar": 12,
+        "endLine": 454,
+        "endChar": 84
+      },
+      "revId": "526fc8a906956d9a7c6ab01786e2c25a6af95ffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a4d7a3c_1163f61b",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-23T06:21:09Z",
+      "side": 1,
+      "message": "If you take suggestion above, then you just need:\nfinal TestDnsPacket forwardedDns \u003d TestDnsPacket.getTestDnsPacket(actual);\nif (forwardedDns \u003d\u003d null) return false;",
+      "range": {
+        "startLine": 519,
+        "startChar": 8,
+        "endLine": 523,
+        "endChar": 47
+      },
+      "revId": "526fc8a906956d9a7c6ab01786e2c25a6af95ffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e66c981_8915f6e4",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-23T06:21:09Z",
+      "side": 1,
+      "message": "If you take suggestion above, then you just need:\nfinal TestDnsPacket originalDns \u003d TestDnsPacket.getTestDnsPacket(expected);",
+      "range": {
+        "startLine": 527,
+        "startChar": 8,
+        "endLine": 530,
+        "endChar": 84
+      },
+      "revId": "526fc8a906956d9a7c6ab01786e2c25a6af95ffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5af4eeea_8272d0bd",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-23T06:21:09Z",
+      "side": 1,
+      "message": "It is weird that expected payload can\u0027t be parse, is it possible the actual packet can be parsed but expected don\u0027t ?\n\nMaybe just assert fail here: assertNotNull(originalDns);",
+      "range": {
+        "startLine": 531,
+        "startChar": 8,
+        "endLine": 531,
+        "endChar": 46
+      },
+      "revId": "526fc8a906956d9a7c6ab01786e2c25a6af95ffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
