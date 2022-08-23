@@ -48,10 +48,8 @@ import com.android.net.module.util.Struct.U32;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * BpfNetMaps is responsible for providing traffic controller relevant functionality.
@@ -479,6 +477,14 @@ public class BpfNetMaps {
         }
     }
 
+    private Set<Integer> asSet(final int[] uids) {
+        final Set<Integer> uidSet = new HashSet<>();
+        for (final int uid: uids) {
+            uidSet.add(uid);
+        }
+        return uidSet;
+    }
+
     /**
      * Replaces the contents of the specified UID-based firewall chain.
      * Enables the chain for specified uids and disables the chain for non-specified uids.
@@ -500,7 +506,7 @@ public class BpfNetMaps {
                 // ConnectivityManager#replaceFirewallChain API
                 throw new IllegalArgumentException("Invalid firewall chain: " + chain);
             }
-            final Set<Integer> uidSet = Arrays.stream(uids).boxed().collect(Collectors.toSet());
+            final Set<Integer> uidSet = asSet(uids);
             final Set<Integer> uidSetToRemoveRule = new HashSet<>();
             try {
                 synchronized (sUidOwnerMap) {
