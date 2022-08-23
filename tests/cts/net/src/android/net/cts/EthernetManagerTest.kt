@@ -812,6 +812,22 @@ class EthernetManagerTest {
         cb.eventuallyExpectLost()
     }
 
+    // TODO: move to MTS
+    @Test
+    fun testNetworkRequest_withInterfaceDisappearing() {
+        assumeChangingCarrierSupported()
+        val iface = createInterface(false)
+        val cb = requestNetwork(ETH_REQUEST)
+        cb.assertNeverAvailable()
+
+        // Technically, removeInterface() races the IP provisioning process.  It is however highly
+        // unlikely / close to impossible that IP provisioining succeeds before the interface is
+        // gone (even with provisioning delays disabled).
+        iface.setCarrierEnabled(true)
+        removeInterface(iface)
+        cb.assertNeverAvailable()
+    }
+
     @Test
     fun testRemoveInterface_whileInServerMode() {
         assumeNoInterfaceForTetheringAvailable()
