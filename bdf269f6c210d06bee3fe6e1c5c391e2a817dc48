@@ -22,6 +22,30 @@
       },
       "revId": "bdf269f6c210d06bee3fe6e1c5c391e2a817dc48",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee634d2a_b164c1a3",
+        "filename": "service/src/com/android/server/connectivity/DnsManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-08-23T11:11:06Z",
+      "side": 1,
+      "message": "Actually I just saw an search list example from the DNSSL option in b/69778511 which only includes one suffix. I\u0027d like to figure out a general format for the multiple suffixes in the search list, maybe just follow the comments in the LinkProperties#getDomains(). Looks like comma would be a more common delimiter.",
+      "parentUuid": "35a77ca5_d91b822b",
+      "range": {
+        "startLine": 490,
+        "startChar": 70,
+        "endLine": 490,
+        "endChar": 81
+      },
+      "revId": "bdf269f6c210d06bee3fe6e1c5c391e2a817dc48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
