@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05ae7872_db321b3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-23T09:28:52Z",
+      "side": 1,
+      "message": "LGTM but I think there is one place left where we can clean up.",
+      "revId": "1b7153d749ea418df99544097f23d6cb42d6fad4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be2b1373_68c26c16",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 7498,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-23T09:28:52Z",
+      "side": 1,
+      "message": "If I\u0027m reading this correctly, this test is no longer useful.\n\nnotifyNetworkCallbacks will only send callbacks to these NRIs that are listed in NAI#mNetworkRequest, and that\u0027s no longer possible for a network that never connected.",
+      "revId": "1b7153d749ea418df99544097f23d6cb42d6fad4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
