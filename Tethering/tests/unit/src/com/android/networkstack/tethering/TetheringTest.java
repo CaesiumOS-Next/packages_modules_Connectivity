@@ -92,6 +92,7 @@ import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.inOrder;
@@ -2293,6 +2294,35 @@ public class TetheringTest {
 
         verify(mUpstreamNetworkMonitor, times(1)).setCurrentUpstream(eq(upstreamState.network));
         verify(mNotificationUpdater, times(1)).onUpstreamCapabilitiesChanged(any());
+    }
+
+    @Test
+    public void testDupilcateUpstreamNetworkChanged() {
+        final Tethering.TetherMainSM stateMachine = (Tethering.TetherMainSM)
+                mTetheringDependencies.mUpstreamNetworkMonitorSM;
+        final UpstreamNetworkState upstreamState = buildMobileIPv4UpstreamState();
+        initTetheringUpstream(upstreamState);
+
+        // [1] Cellular is selected as upstream network.
+        stateMachine.chooseUpstreamType(true);
+        verify(mUpstreamNetworkMonitor).setCurrentUpstream(eq(upstreamState.network));
+        verify(mNotificationUpdater).onUpstreamCapabilitiesChanged(any());
+        clearInvocations(mUpstreamNetworkMonitor, mNotificationUpdater);
+
+        // [2] Do nothing because upstream network is not changed.
+        stateMachine.chooseUpstreamType(true);
+        verify(mUpstreamNetworkMonitor, never()).setCurrentUpstream(eq(upstreamState.network));
+        verify(mNotificationUpdater, never()).onUpstreamCapabilitiesChanged(any());
+
+        // [3] Do nothing because even UpstreamNetworkState object is changed but netid is the
+        // same.
+        final UpstreamNetworkState upstreamState2 = buildMobileIPv4UpstreamState();
+        initTetheringUpstream(upstreamState2);
+        stateMachine.chooseUpstreamType(true);
+        verify(mUpstreamNetworkMonitor, never()).setCurrentUpstream(eq(upstreamState2.network));
+        verify(mNotificationUpdater, never()).onUpstreamCapabilitiesChanged(any());
+
+        // TODO: test capabilities or link properties changed with the same netid.
     }
 
     @Test
