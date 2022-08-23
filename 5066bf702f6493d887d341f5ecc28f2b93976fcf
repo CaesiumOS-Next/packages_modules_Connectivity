@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72e1dc64_830849d5",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2232,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-23T08:13:24Z",
+      "side": 1,
+      "message": "I think the style was \"value /* comment */\" and not \"/* comment */ value\" ?",
+      "range": {
+        "startLine": 2232,
+        "startChar": 45,
+        "endLine": 2232,
+        "endChar": 59
+      },
+      "revId": "5066bf702f6493d887d341f5ecc28f2b93976fcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
