@@ -621,7 +621,7 @@ public final class LinkProperties implements Parcelable {
     /**
      * Sets the DNS domain search path used on this link.
      *
-     * @param domains A {@link String} listing in priority order the comma separated
+     * @param domains A {@link String} listing in priority order the space separated
      *                domains to search when resolving host names on this link.
      */
     public void setDomains(@Nullable String domains) {
@@ -631,7 +631,7 @@ public final class LinkProperties implements Parcelable {
     /**
      * Get the DNS domains search path set for this link. May be {@code null} if not set.
      *
-     * @return A {@link String} containing the comma separated domains to search when resolving host
+     * @return A {@link String} containing the space separated domains to search when resolving host
      *         names on this link or {@code null}.
      */
     public @Nullable String getDomains() {
