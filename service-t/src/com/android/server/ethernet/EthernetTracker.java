@@ -36,6 +36,7 @@ import android.net.IpConfiguration.IpAssignment;
 import android.net.IpConfiguration.ProxySettings;
 import android.net.LinkAddress;
 import android.net.NetworkCapabilities;
+import android.net.NetworkProvider;
 import android.net.StaticIpConfiguration;
 import android.os.ConditionVariable;
 import android.os.Handler;
@@ -223,8 +224,8 @@ public class EthernetTracker {
 
     EthernetTracker(@NonNull final Context context, @NonNull final Handler handler,
             @NonNull final INetd netd) {
-        this(context, handler, new EthernetNetworkFactory(handler, context), netd,
-                new Dependencies());
+        this(context, handler, new EthernetNetworkFactory(handler, context,
+                new NetworkProvider(context, handler.getLooper(), TAG)), netd, new Dependencies());
     }
 
     @VisibleForTesting
