@@ -105,9 +105,8 @@ public class EthernetNetworkFactory {
         }
     }
 
-    public EthernetNetworkFactory(Handler handler, Context context) {
-        this(handler, context, new NetworkProvider(context, handler.getLooper(), TAG),
-            new Dependencies());
+    public EthernetNetworkFactory(Handler handler, Context context, NetworkProvider provider) {
+        this(handler, context, provider, new Dependencies());
     }
 
     @VisibleForTesting
