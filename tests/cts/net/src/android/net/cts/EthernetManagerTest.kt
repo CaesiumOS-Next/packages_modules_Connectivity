@@ -15,7 +15,6 @@
  */
 package android.net.cts
 
-import android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS
 import android.Manifest.permission.MANAGE_TEST_NETWORKS
 import android.Manifest.permission.NETWORK_SETTINGS
 import android.content.Context
@@ -58,7 +57,6 @@ import android.os.Looper
 import android.os.OutcomeReceiver
 import android.os.SystemProperties
 import android.platform.test.annotations.AppModeFull
-import android.util.ArraySet
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.net.module.util.ArrayTrackRecord
 import com.android.net.module.util.TrackRecord
@@ -398,9 +396,7 @@ class EthernetManagerTest {
     }
 
     private fun addInterfaceStateListener(listener: EthernetStateListener) {
-        runAsShell(CONNECTIVITY_USE_RESTRICTED_NETWORKS) {
-            em.addInterfaceStateListener(handler::post, listener)
-        }
+        em.addInterfaceStateListener(handler::post, listener)
         addedListeners.add(listener)
     }
 
@@ -560,11 +556,18 @@ class EthernetManagerTest {
 
     @Test
     fun testCallbacks() {
+        // Only run this test when no non-restricted / physical interfaces are present.
+        // This test ensures that interface state listeners function properly, so the assumption
+        // check is explicitly *not* using an interface state listener.
+        // Since restricted interfaces cannot be used for tethering,
+        // assumeNoInterfaceForTetheringAvailable() is an okay proxy.
+        assumeNoInterfaceForTetheringAvailable()
+
         // If an interface exists when the callback is registered, it is reported on registration.
         val iface = createInterface()
         val listener1 = EthernetStateListener()
         addInterfaceStateListener(listener1)
-        validateListenerOnRegistration(listener1)
+        listener1.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
 
         // If an interface appears, existing callbacks see it.
         val iface2 = createInterface()
@@ -574,7 +577,8 @@ class EthernetManagerTest {
         // Register a new listener, it should see state of all existing interfaces immediately.
         val listener2 = EthernetStateListener()
         addInterfaceStateListener(listener2)
-        validateListenerOnRegistration(listener2)
+        listener2.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
+        listener2.expectCallback(iface2, STATE_LINK_UP, ROLE_CLIENT)
 
         // Removing interfaces first sends link down, then STATE_ABSENT/ROLE_NONE.
         removeInterface(iface)
@@ -594,7 +598,9 @@ class EthernetManagerTest {
     @Test
     fun testCallbacks_withRunningInterface() {
         assumeFalse(isAdbOverNetwork())
-        assumeTrue(em.getInterfaceList().isEmpty())
+        // Only run this test when no non-restricted / physical interfaces are present.
+        assumeNoInterfaceForTetheringAvailable()
+
         val iface = createInterface()
         val listener = EthernetStateListener()
         addInterfaceStateListener(listener)
@@ -648,28 +654,6 @@ class EthernetManagerTest {
 
         releaseTetheredInterface()
         listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
-    }
-
-    /**
-     * Validate all interfaces are returned for an EthernetStateListener upon registration.
-     */
-    private fun validateListenerOnRegistration(listener: EthernetStateListener) {
-        // Get all tracked interfaces to validate on listener registration. Ordering and interface
-        // state (up/down) can't be validated for interfaces not created as part of testing.
-        val ifaces = em.getInterfaceList()
-        val polledIfaces = ArraySet<String>()
-        for (i in ifaces) {
-            val event = (listener.pollForNextCallback() as InterfaceStateChanged)
-            val iface = event.iface
-            assertTrue(polledIfaces.add(iface), "Duplicate interface $iface returned")
-            assertTrue(ifaces.contains(iface), "Untracked interface $iface returned")
-            // If the event's iface was created in the test, additional criteria can be validated.
-            createdIfaces.find { it.name.equals(iface) }?.let {
-                assertEquals(event, listener.createChangeEvent(it.name, STATE_LINK_UP, ROLE_CLIENT))
-            }
-        }
-        // Assert all callbacks are accounted for.
-        listener.assertNoCallback()
     }
 
     @Test
