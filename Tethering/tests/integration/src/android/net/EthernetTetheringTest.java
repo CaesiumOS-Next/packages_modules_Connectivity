@@ -215,26 +215,22 @@ public class EthernetTetheringTest {
             mUpstreamReader = null;
         }
 
-        runAsShell(TETHER_PRIVILEGED, () -> {
-            mTm.stopTethering(TETHERING_ETHERNET);
-            // Binder call is an async call. Need to hold the shell permission until tethering
-            // stopped. This helps to avoid the test become flaky.
-            if (mTetheringEventCallback != null) {
-                mTetheringEventCallback.awaitInterfaceUntethered();
-                mTetheringEventCallback.unregister();
-                mTetheringEventCallback = null;
-            }
-        });
         if (mDownstreamReader != null) {
             TapPacketReader reader = mDownstreamReader;
             mHandler.post(() -> reader.stop());
             mDownstreamReader = null;
         }
-        runAsShell(NETWORK_SETTINGS, () -> {
-            mTetheredInterfaceRequester.release();
-        });
-        setIncludeTestInterfaces(false);
+
         maybeDeleteTestInterface();
+        // Binder call is an async call. Need to hold the shell permission until tethering
+        // stopped. This helps to avoid the test become flaky.
+        if (mTetheringEventCallback != null) {
+            mTetheringEventCallback.awaitInterfaceUntethered();
+            mTetheringEventCallback.unregister();
+            mTetheringEventCallback = null;
+        }
+        runAsShell(NETWORK_SETTINGS, () -> mTetheredInterfaceRequester.release());
+        setIncludeTestInterfaces(false);
     }
 
     @After
