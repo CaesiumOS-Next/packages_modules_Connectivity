@@ -22,6 +22,30 @@
       },
       "revId": "7abeaa499cc1c6cd8dd0e199dca2888c8402126d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a02bcc21_74f9e14e",
+        "filename": "service/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-08-23T04:01:44Z",
+      "side": 1,
+      "message": "Let me do this change in a separate CL because passing Treehugger takes long time now.",
+      "parentUuid": "818e23d4_078202b2",
+      "range": {
+        "startLine": 194,
+        "startChar": 7,
+        "endLine": 194,
+        "endChar": 11
+      },
+      "revId": "7abeaa499cc1c6cd8dd0e199dca2888c8402126d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
