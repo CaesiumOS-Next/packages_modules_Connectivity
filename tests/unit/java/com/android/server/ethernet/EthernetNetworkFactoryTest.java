@@ -494,56 +494,6 @@ public class EthernetNetworkFactoryTest {
     }
 
     @Test
-    public void testUpdateInterfaceRestartsAgentCorrectly() throws Exception {
-        initEthernetNetworkFactory();
-        createAndVerifyProvisionedInterface(TEST_IFACE);
-        final NetworkCapabilities capabilities = createDefaultFilterCaps();
-        final IpConfiguration ipConfiguration = createStaticIpConfig();
-
-        mNetFactory.updateInterface(TEST_IFACE, ipConfiguration, capabilities);
-        triggerOnProvisioningSuccess();
-
-        verify(mDeps).makeEthernetNetworkAgent(any(), any(),
-                eq(capabilities), any(), any(), any(), any());
-        verifyRestart(ipConfiguration);
-    }
-
-    @Test
-    public void testUpdateInterfaceForNonExistingInterface() throws Exception {
-        initEthernetNetworkFactory();
-        // No interface exists due to not calling createAndVerifyProvisionedInterface(...).
-        final NetworkCapabilities capabilities = createDefaultFilterCaps();
-        final IpConfiguration ipConfiguration = createStaticIpConfig();
-
-        mNetFactory.updateInterface(TEST_IFACE, ipConfiguration, capabilities);
-
-        verifyNoStopOrStart();
-    }
-
-    @Test
-    public void testUpdateInterfaceWithNullIpConfiguration() throws Exception {
-        initEthernetNetworkFactory();
-        createAndVerifyProvisionedInterface(TEST_IFACE);
-
-        final IpConfiguration initialIpConfig = createStaticIpConfig();
-        mNetFactory.updateInterface(TEST_IFACE, initialIpConfig, null /*capabilities*/);
-
-        triggerOnProvisioningSuccess();
-        verifyRestart(initialIpConfig);
-
-        // TODO: have verifyXyz functions clear invocations.
-        clearInvocations(mDeps);
-        clearInvocations(mIpClient);
-        clearInvocations(mNetworkAgent);
-
-
-        // verify that sending a null ipConfig does not update the current ipConfig.
-        mNetFactory.updateInterface(TEST_IFACE, null /*ipConfig*/, null /*capabilities*/);
-        triggerOnProvisioningSuccess();
-        verifyRestart(initialIpConfig);
-    }
-
-    @Test
     public void testOnNetworkNeededOnStaleNetworkOffer() throws Exception {
         initEthernetNetworkFactory();
         createAndVerifyProvisionedInterface(TEST_IFACE);
