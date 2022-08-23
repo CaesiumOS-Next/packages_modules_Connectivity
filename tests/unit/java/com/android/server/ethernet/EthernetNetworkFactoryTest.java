@@ -328,20 +328,6 @@ public class EthernetNetworkFactoryTest {
         verify(mIpClient).startProvisioning(any());
     }
 
-    @Test
-    public void testProvisioningLossForDisappearedInterface() throws Exception {
-        initEthernetNetworkFactory();
-        // mocked method returns null by default, but just to be explicit in the test:
-        when(mDeps.getNetworkInterfaceByName(eq(TEST_IFACE))).thenReturn(null);
-
-        createAndVerifyProvisionedInterface(TEST_IFACE);
-        triggerOnProvisioningFailure();
-
-        // the interface disappeared and getNetworkInterfaceByName returns null, we should not retry
-        verify(mIpClient, never()).startProvisioning(any());
-        verifyNoStopOrStart();
-    }
-
     private void verifyNoStopOrStart() {
         verify(mNetworkAgent, never()).register();
         verify(mIpClient, never()).shutdown();
