@@ -46,6 +46,30 @@
       },
       "revId": "0aae45cef68e9e0b495bfe660cf96eed95f0f2cc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a12f2b9a_da726941",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1216,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-23T08:39:41Z",
+      "side": 1,
+      "message": "Just reassign iface to null and increase the operation count.",
+      "parentUuid": "5ece99e1_72254293",
+      "range": {
+        "startLine": 1216,
+        "startChar": 8,
+        "endLine": 1216,
+        "endChar": 25
+      },
+      "revId": "0aae45cef68e9e0b495bfe660cf96eed95f0f2cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
