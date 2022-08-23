@@ -352,6 +352,7 @@ public class DnsManagerTest {
         lp.setInterfaceName(TEST_IFACENAME);
         lp.addDnsServer(InetAddress.getByName("3.3.3.3"));
         lp.addDnsServer(InetAddress.getByName("4.4.4.4"));
+        lp.setDomains("google.com,corp.google.com");
         mDnsManager.updateTransportsForNetwork(TEST_NETID, TEST_TRANSPORT_TYPES);
         mDnsManager.noteDnsServersForNetwork(TEST_NETID, lp);
         mDnsManager.flushVmDnsCache();
@@ -368,7 +369,7 @@ public class DnsManagerTest {
         expectedParams.minSamples = TEST_DEFAULT_MIN_SAMPLES;
         expectedParams.maxSamples = TEST_DEFAULT_MAX_SAMPLES;
         expectedParams.servers = new String[]{"3.3.3.3", "4.4.4.4"};
-        expectedParams.domains = new String[]{};
+        expectedParams.domains = new String[]{"google.com", "corp.google.com"};
         expectedParams.tlsName = "";
         expectedParams.tlsServers = new String[]{"3.3.3.3", "4.4.4.4"};
         expectedParams.transportTypes = TEST_TRANSPORT_TYPES;

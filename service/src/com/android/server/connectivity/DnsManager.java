@@ -487,6 +487,6 @@ public class DnsManager {
     }
 
     private static String[] getDomainStrings(String domains) {
-        return (TextUtils.isEmpty(domains)) ? new String[0] : domains.split(" ");
+        return (TextUtils.isEmpty(domains)) ? new String[0] : domains.split(",");
     }
 }
