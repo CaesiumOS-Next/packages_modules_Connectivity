@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35a77ca5_d91b822b",
+        "filename": "service/src/com/android/server/connectivity/DnsManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2022-08-23T06:32:50Z",
+      "side": 1,
+      "message": "Have we ever seen space-separated domains in one single string? If yes, do you think if we should keep space character here?",
+      "range": {
+        "startLine": 490,
+        "startChar": 70,
+        "endLine": 490,
+        "endChar": 81
+      },
+      "revId": "bdf269f6c210d06bee3fe6e1c5c391e2a817dc48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
