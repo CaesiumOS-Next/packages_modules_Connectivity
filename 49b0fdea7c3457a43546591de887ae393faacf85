@@ -16,6 +16,24 @@
       "message": "I think this won\u0027t run without the\n\n     \u003coption name\u003d\"config-descriptor:metadata\" key\u003d\"mainline-param\"\n   \nin the AndroidTest.xml",
       "revId": "49b0fdea7c3457a43546591de887ae393faacf85",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35726555_a212ee2d",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-24T10:05:56Z",
+      "side": 1,
+      "message": "Ohh, thanks for catching this.",
+      "parentUuid": "e4a05fd0_00b6de37",
+      "revId": "49b0fdea7c3457a43546591de887ae393faacf85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
