@@ -22,6 +22,30 @@
       },
       "revId": "6496f86866464e9927aa97f31bda5a94cb970693",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a7a327e_61cfd769",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1248808
+      },
+      "writtenOn": "2022-08-24T14:47:59Z",
+      "side": 1,
+      "message": "Not an expert, but looks there a suggestion to cherry-pick this in http://b/241077401#comment25. Do you have any better ideas ?",
+      "parentUuid": "8a7f76b2_691ee14a",
+      "range": {
+        "startLine": 300,
+        "startChar": 46,
+        "endLine": 300,
+        "endChar": 60
+      },
+      "revId": "6496f86866464e9927aa97f31bda5a94cb970693",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
