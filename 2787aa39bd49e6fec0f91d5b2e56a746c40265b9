@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cec266b6_929e44f9",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-24T12:28:39Z",
+      "side": 1,
+      "message": "Is this true even if ethernet is already enabled? Why?",
+      "range": {
+        "startLine": 313,
+        "startChar": 0,
+        "endLine": 314,
+        "endChar": 74
+      },
+      "revId": "2787aa39bd49e6fec0f91d5b2e56a746c40265b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
