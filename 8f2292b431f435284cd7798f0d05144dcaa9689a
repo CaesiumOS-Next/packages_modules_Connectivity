@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d685bb8e_00a4e7ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-24T14:37:38Z",
+      "side": 1,
+      "message": "LGTM, but please take a look at the inline comment.",
+      "revId": "8f2292b431f435284cd7798f0d05144dcaa9689a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff5b5231_d105aa1e",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-24T14:37:38Z",
+      "side": 1,
+      "message": "AFAICT setInterfaceUp has the side effect of setting the IPv4 address of the interface to 0.0.0.0/0 (and then possibly back to the address it had). As a result, addInterface would clear the IPv4 address and re-add it.\n\nThe new code no longer does this if the interface was down. Could this break anything? Perhaps not, because if the interface is down, then the Ethernet code probably didn\u0027t configure it? It doesn\u0027t look like anything in this file ever sets any interface down.\n\nAFAICS addInterface is called by setTetheringInterfaceMode (which does removeInterface and then addInterface) and by maybeTrackInterface. In setTetheringInterfaceMode, clearing the IPv4 address is probably desired, but again, it doesn\u0027t look like anything in this code ever sets the interface down, so perhaps this change is a no-op.",
+      "range": {
+        "startLine": 584,
+        "startChar": 12,
+        "endLine": 584,
+        "endChar": 14
+      },
+      "revId": "8f2292b431f435284cd7798f0d05144dcaa9689a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
