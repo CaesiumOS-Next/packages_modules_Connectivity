@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e30e9e2_c363a2bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-24T09:50:48Z",
+      "side": 1,
+      "message": "LGTM. need other reviewer to comment.\n\nPass 400 runs of TetheringIntegrationTests on git_tm-dev-plus-aosp.\nSee details on https://b.corp.google.com/issues/243222655#comment11",
+      "revId": "93ce3c80bf047d82b1d411fffea6763eb19a081e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
