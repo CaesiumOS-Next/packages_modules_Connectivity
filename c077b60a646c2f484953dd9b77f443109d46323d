@@ -46,6 +46,30 @@
       },
       "revId": "c077b60a646c2f484953dd9b77f443109d46323d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9f90121_c4e779a3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1862,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-24T09:30:45Z",
+      "side": 1,
+      "message": "Why ? What Objects#equals do is:\n\n    public static boolean equals(Object a, Object b) {\n        return (a \u003d\u003d b) || (a !\u003d null \u0026\u0026 a.equals(b));\n    }\n    \nIt should equivalent with your networkEquals implementation, no ?",
+      "parentUuid": "30423f59_0f9a4f00",
+      "range": {
+        "startLine": 1862,
+        "startChar": 17,
+        "endLine": 1862,
+        "endChar": 30
+      },
+      "revId": "c077b60a646c2f484953dd9b77f443109d46323d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
