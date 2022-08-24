@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a7f76b2_691ee14a",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-24T00:13:25Z",
+      "side": 1,
+      "message": "Does that even matter? FWIU, only the CTS tests are built from this branch.\nThat being said, this topic isn\u0027t going to work anyways:\n\n```\ntnm.createTapInterface(arrayOf(LinkAddress(LOCAL_IPV4_ADDRESS, IP4_PREFIX_LEN)))\n```\nI am not quite sure what to do about that just yet. 😞",
+      "range": {
+        "startLine": 300,
+        "startChar": 46,
+        "endLine": 300,
+        "endChar": 60
+      },
+      "revId": "6496f86866464e9927aa97f31bda5a94cb970693",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
