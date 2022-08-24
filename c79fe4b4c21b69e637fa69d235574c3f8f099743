@@ -46,6 +46,30 @@
       },
       "revId": "c79fe4b4c21b69e637fa69d235574c3f8f099743",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95744292_669eabdb",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-24T04:25:28Z",
+      "side": 1,
+      "message": "Ah, yeah Arrays.asList() is what I meant 😊 But I see what you mean. Does List.of()? work maybe?",
+      "parentUuid": "abf85d29_6c3be21e",
+      "range": {
+        "startLine": 509,
+        "startChar": 40,
+        "endLine": 509,
+        "endChar": 52
+      },
+      "revId": "c79fe4b4c21b69e637fa69d235574c3f8f099743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
