@@ -39,6 +39,30 @@
       },
       "revId": "a55b6ca34cd7f7f61beee3da24879f29d3069c73",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "644e0c05_f740e1f3",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1215,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-24T09:34:32Z",
+      "side": 1,
+      "message": "I think this is fine that we don\u0027t change the flow, just have a callback for test to know the detail tethering configuration.\n\n@Remi, WDYT ?",
+      "parentUuid": "d0cd1fc5_66286e91",
+      "range": {
+        "startLine": 1215,
+        "startChar": 41,
+        "endLine": 1215,
+        "endChar": 52
+      },
+      "revId": "a55b6ca34cd7f7f61beee3da24879f29d3069c73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
