@@ -33,6 +33,24 @@
       "message": "If I\u0027m reading this correctly, this test is no longer useful.\n\nnotifyNetworkCallbacks will only send callbacks to these NRIs that are listed in NAI#mNetworkRequest, and that\u0027s no longer possible for a network that never connected.",
       "revId": "1b7153d749ea418df99544097f23d6cb42d6fad4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47e91e34_ffaf76a4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 7498,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-24T06:38:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be2b1373_68c26c16",
+      "revId": "1b7153d749ea418df99544097f23d6cb42d6fad4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
