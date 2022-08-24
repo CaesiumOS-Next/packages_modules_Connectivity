@@ -1142,6 +1142,7 @@ public class ConnectivityManagerTest {
         PendingIntent firstIntent = null;
         PendingIntent secondIntent = null;
         BroadcastReceiver receiver = null;
+        boolean dumpBroadcastsData = false;
 
         // Avoid receiving broadcasts from other runs by appending a timestamp
         final String broadcastAction = NETWORK_CALLBACK_ACTION + System.currentTimeMillis();
@@ -1196,6 +1197,7 @@ public class ConnectivityManagerTest {
                 assertEquals(wifiNetwork, networkFuture.get(
                         NETWORK_CALLBACK_TIMEOUT_MS, TimeUnit.MILLISECONDS));
             } catch (TimeoutException e) {
+                dumpBroadcastsData = true;
                 throw new AssertionError("PendingIntent not received for " + secondRequest, e);
             }
 
@@ -1214,6 +1216,11 @@ public class ConnectivityManagerTest {
             if (secondIntent != null) mCm.unregisterNetworkCallback(secondIntent);
             if (receiver != null) mContext.unregisterReceiver(receiver);
             mCtsNetUtils.ensureWifiConnected();
+            if (dumpBroadcastsData) {
+                final String output = runShellCommand(mInstrumentation,
+                        "dumpsys activity broadcasts");
+                Log.d(TAG, output);
+            }
         }
     }
 
