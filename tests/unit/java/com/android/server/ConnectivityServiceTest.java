@@ -8418,6 +8418,7 @@ public class ConnectivityServiceTest {
         // Set an underlying network and expect to see the VPN transports change.
         mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI);
         mWiFiNetworkAgent.connect(true);
+        waitForIdle();
         callback.expectAvailableCallbacksUnvalidated(mWiFiNetworkAgent);
         callback.expectCapabilitiesThat(mMockVpn, (caps)
                 -> caps.hasTransport(TRANSPORT_VPN)
@@ -8430,7 +8431,7 @@ public class ConnectivityServiceTest {
 
         // New user added
         mMockVpn.onUserAdded(RESTRICTED_USER);
-
+        waitForIdle();
         // Expect that the VPN UID ranges contain both |uid| and the UID range for the newly-added
         // restricted user.
         final UidRange rRange = UidRange.createForUser(UserHandle.of(RESTRICTED_USER));
@@ -8445,6 +8446,7 @@ public class ConnectivityServiceTest {
 
         // Change the VPN's capabilities somehow (specifically, disconnect wifi).
         mWiFiNetworkAgent.disconnect();
+        waitForIdle();
         callback.expectCallback(CallbackEntry.LOST, mWiFiNetworkAgent);
         callback.expectCapabilitiesThat(mMockVpn, (caps)
                 -> caps.getUids().size() == 2
@@ -8455,7 +8457,7 @@ public class ConnectivityServiceTest {
 
         // User removed and expect to lose the UID range for the restricted user.
         mMockVpn.onUserRemoved(RESTRICTED_USER);
-
+        waitForIdle();
         // Expect that the VPN gains the UID range for the restricted user, and that the capability
         // change made just before that (i.e., loss of TRANSPORT_WIFI) is preserved.
         callback.expectCapabilitiesThat(mMockVpn, (caps)
