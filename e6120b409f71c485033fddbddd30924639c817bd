@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f745ca57_f46b8576",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-24T03:05:06Z",
+      "side": 1,
+      "message": "The change itself looks good to me, but be aware don\u0027t parsing dumpsys log to test bpf map in CTS. Since CTS\u0027s release schedule is different with mainline module and bpf map is not API, checking its detail content would make us hard to changing existing bpf content in the future. Testing bpf content in MTS is fine.",
+      "revId": "e6120b409f71c485033fddbddd30924639c817bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "231916f9_2ff2f37b",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2758,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-24T03:05:06Z",
+      "side": 1,
+      "message": "Not for this CL, but we should consider to crash the device (e.g. throw IllegalStateException without catching it) if we can\u0027t open the map.",
+      "range": {
+        "startLine": 2755,
+        "startChar": 8,
+        "endLine": 2758,
+        "endChar": 9
+      },
+      "revId": "e6120b409f71c485033fddbddd30924639c817bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "639516c0_165d22cc",
