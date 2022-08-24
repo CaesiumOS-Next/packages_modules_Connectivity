@@ -70,6 +70,30 @@
       },
       "revId": "c79fe4b4c21b69e637fa69d235574c3f8f099743",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae2a6ff6_e5c6a894",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-08-24T12:07:30Z",
+      "side": 1,
+      "message": "`List.of()` also returns `List\u003cint[]\u003e`.\nIt seems, if not android code, the recommendation is asList from Guava.\n(https://goto.google.com/bugpattern/ArraysAsListPrimitiveArray)\n\nSome android codes use stream (https://source.corp.google.com/aosp-master/frameworks/base/services/core/java/com/android/server/notification/NotificationManagerService.java;l\u003d9572?q\u003d%22boxed()%22\u0026ss\u003dpiper%2FGoogle%2Faosp-master)\n\nTalked with Remi, it seems if I want to use Set\u003cInteger\u003e, we don\u0027t have a simple one line conversion.\nOne suggestion was we can use ArraySet that is more memory efficient.\nAnother suggestion was just liner search int array or binary search after sort if we know the number of element is small.\n\nBased on this suggestion, I updated to use ArraySet.",
+      "parentUuid": "95744292_669eabdb",
+      "range": {
+        "startLine": 509,
+        "startChar": 40,
+        "endLine": 509,
+        "endChar": 52
+      },
+      "revId": "c79fe4b4c21b69e637fa69d235574c3f8f099743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
