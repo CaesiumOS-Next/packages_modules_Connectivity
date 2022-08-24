@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8af77e01_6c1e10c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-24T08:52:57Z",
+      "side": 1,
+      "message": "add remi to review.\nnot sure if we can add a test interface in production code\n\nthank you",
+      "revId": "a55b6ca34cd7f7f61beee3da24879f29d3069c73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0cd1fc5_66286e91",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1215,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-24T08:52:57Z",
+      "side": 1,
+      "message": "not sure if we can add a interface for test only in production code",
+      "range": {
+        "startLine": 1215,
+        "startChar": 41,
+        "endLine": 1215,
+        "endChar": 52
+      },
+      "revId": "a55b6ca34cd7f7f61beee3da24879f29d3069c73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
