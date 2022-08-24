@@ -2852,6 +2852,13 @@ public class ConnectivityManagerTest {
     @AppModeFull(reason = "WRITE_DEVICE_CONFIG permission can't be granted to instant apps")
     @Test
     public void testSetAvoidUnvalidated() throws Exception {
+        // Because this test requires the cell network to stay up during the whole duration
+        // of the test, and this is a CTS with a real network that may randomly go down
+        // during the test, try it three times before declaring it failed.
+        doTestSetAvoidUnvalidated(3);
+    }
+
+    public void doTestSetAvoidUnvalidated(final int remainingTries) throws Exception {
         assumeTrue(TestUtils.shouldTestSApis());
         // TODO: Allow in debuggable ROM only. To be replaced by FabricatedOverlay
         assumeTrue(Build.isDebuggable());
@@ -2861,6 +2868,7 @@ public class ConnectivityManagerTest {
                 + " unless device supports WiFi and telephony", canRunTest);
 
         final TestableNetworkCallback wifiCb = new TestableNetworkCallback();
+        final TestableNetworkCallback cellCb = new TestableNetworkCallback();
         final TestableNetworkCallback defaultCb = new TestableNetworkCallback();
         final int previousAvoidBadWifi =
                 ConnectivitySettingsManager.getNetworkAvoidBadWifi(mContext);
@@ -2871,6 +2879,7 @@ public class ConnectivityManagerTest {
         final Network wifiNetwork = prepareValidatedNetwork();
 
         registerDefaultNetworkCallback(defaultCb);
+        registerNetworkCallback(makeCellNetworkRequest(), cellCb);
         registerNetworkCallback(makeWifiNetworkRequest(), wifiCb);
 
         try {
@@ -2899,8 +2908,27 @@ public class ConnectivityManagerTest {
                 mCm.setAvoidUnvalidated(wifiNetwork);
             });
             // Default network should be updated to validated cellular network.
-            defaultCb.eventuallyExpect(CallbackEntry.AVAILABLE, NETWORK_CALLBACK_TIMEOUT_MS,
-                    entry -> cellNetwork.equals(entry.getNetwork()));
+            try {
+                defaultCb.eventuallyExpect(CallbackEntry.AVAILABLE, NETWORK_CALLBACK_TIMEOUT_MS,
+                        entry -> cellNetwork.equals(entry.getNetwork()));
+            } catch (Throwable e) {
+                // There are two classes of possible causes for this failure. The first one is
+                // a normal, bona fide failure : in that case, fail the test as normal. The
+                // second one is a case of a random bad network condition, where the cell network
+                // was randomly lost during this test. It may have reconnected since, but it will
+                // not be the same |cellNetwork| object.
+                // To avoid flaking because of random network conditions, try to detect this case.
+                // If the cell network that was connected at the start of this test was lost since
+                // the start of this test, then re-run this test until we run out of tries.
+                if (remainingTries > 0
+                        && CollectionUtils.contains(cellCb.getHistory(), entry ->
+                                entry instanceof CallbackEntry.Lost
+                                        && cellNetwork.equals(entry.getNetwork()))) {
+                    doTestSetAvoidUnvalidated(remainingTries - 1);
+                    return;
+                }
+                throw e;
+            }
             // The network should not validate again.
             wifiCb.assertNoCallbackThat(NO_CALLBACK_TIMEOUT_MS, c -> isValidatedCaps(c));
         } finally {
