@@ -22,6 +22,30 @@
       },
       "revId": "c79fe4b4c21b69e637fa69d235574c3f8f099743",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abf85d29_6c3be21e",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-08-24T01:43:07Z",
+      "side": 1,
+      "message": "uids is a int array so does not have `asList` method.\nAlso, `Arrays.asList(uids)` doesn\u0027t box each element of array and returns `List\u003cint[]\u003e`. So `new HashSet\u003c\u003e(Arrays.asList(uids))` does not work neither.\nAnd I did not come up with simple one line code to convert int[] to Set\u003cInteger\u003e",
+      "parentUuid": "818016b8_4f1e7dfa",
+      "range": {
+        "startLine": 509,
+        "startChar": 40,
+        "endLine": 509,
+        "endChar": 52
+      },
+      "revId": "c79fe4b4c21b69e637fa69d235574c3f8f099743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
