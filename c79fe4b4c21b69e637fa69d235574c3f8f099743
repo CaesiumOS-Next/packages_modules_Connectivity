@@ -94,6 +94,30 @@
       },
       "revId": "c79fe4b4c21b69e637fa69d235574c3f8f099743",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0386a3eb_d6dae957",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-24T19:58:33Z",
+      "side": 1,
+      "message": "Oh wow, I can\u0027t believe java makes this so difficult! Thanks for digging into this more; this was educational for all of us. 😊\nNow that you are using ArraySet, can the code just do:\n```\nfinal Set\u003cInteger\u003e uidSet \u003d ArraySet\u003c\u003e(uids);\n```\nLooking at the [source](https://source.corp.google.com/aosp-master/frameworks/base/core/java/android/util/ArraySet.java;l\u003d336?q\u003darrayset\u0026sq\u003dpackage:%5Eaosp-master$) I think that should be possible, right?",
+      "parentUuid": "ae2a6ff6_e5c6a894",
+      "range": {
+        "startLine": 509,
+        "startChar": 40,
+        "endLine": 509,
+        "endChar": 52
+      },
+      "revId": "c79fe4b4c21b69e637fa69d235574c3f8f099743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
