@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "543634b6_513383a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-24T07:15:01Z",
+      "side": 1,
+      "message": "Per talked with Mark, these fields are not used outside tethering module. If any, this removal should raise build break.",
+      "revId": "40caeb78f30321a2c40d554beabd929685bdf6c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
