@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48e42a48_debe7c8b",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-24T02:59:00Z",
+      "side": 1,
+      "message": "Nit: Only catch ParseException ? If TestDnsPacket would throw other exception, we could also catching this here or fail the test.",
+      "range": {
+        "startLine": 456,
+        "startChar": 21,
+        "endLine": 456,
+        "endChar": 30
+      },
+      "revId": "5984a98b24f3e21675f599455906562ead3ee528",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
