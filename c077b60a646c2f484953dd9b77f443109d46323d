@@ -22,6 +22,30 @@
       },
       "revId": "c077b60a646c2f484953dd9b77f443109d46323d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30423f59_0f9a4f00",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1862,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-08-24T08:43:13Z",
+      "side": 1,
+      "message": "it will still have duplicate upstream changed event in the following case.\nThe same netid but different object i think. please correct me if i am wrong, thanks\n\n```\n08-19 21:11:26.986 .. W Tethering: .. chooseUpstreamType newUpstream 364(@3800257)\n08-19 21:11:26.986 .. W Tethering: .. chooseUpstreamType mTetherUpstream 364(@2fd6fd6)\n```",
+      "parentUuid": "3f6663ed_1d136781",
+      "range": {
+        "startLine": 1862,
+        "startChar": 17,
+        "endLine": 1862,
+        "endChar": 30
+      },
+      "revId": "c077b60a646c2f484953dd9b77f443109d46323d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
