@@ -22,6 +22,30 @@
       },
       "revId": "2787aa39bd49e6fec0f91d5b2e56a746c40265b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa400a9d_79284738",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-25T19:05:05Z",
+      "side": 1,
+      "message": "Let me expand on the comment 😊\n\nThe problem is the following:\n```\nval listener \u003d EthernetStateListener()\naddInterfaceStateListener(listener)\ncreateInterface()\n```\n\nFor this sequence of events, we would expect to receive first a DOWN, then an UP callback, as the listener was registered before the interface is created. However, addInterfaceStateListener() is not a synchronous operation, so when createInterface() is called, it is possible that the interface creation beats the race against the listener registration (more on that later **). In that case, the listener only receives an UP callback (as a newly registered listener gets called back with the current state of all registered interfaces). createInterface() expects the DOWN, UP sequence to succeed.\n\nsetEthernetEnabled(true) is essentially a no-op in setUp() as ethernet is already enabled. *But*, it itself registers a listener that gets processed on the ethernet handler thread. setEthernetEnabled() happens to wait on that callback before proceeding, so calling it after addInterfaceStateListener() guarantees that the interface state listener has been properly processed.\n\n** more on that race that sent me down a deep rabbit hole:\nIt is surprising that addInterfaceStateListener(), which does a Handler.post() inside ethernet service is executed *after* RTM_NEWLINK which also runs on said handler; even though the Handler.post() call happens before the interface is even created.\nLooking deeper into the Looper code, it seems that Looper#loopOnce() calls MessageQueue#next() which in turn calls nativePollOnce(). nativePollOnce triggers pollOnce() on the native implementation on the Looper, which happens to invoke native messages before native fd events. However, Handler#post() does not add the messages to the native message queue. There is a separate MessageQueue in java which is handled after the native poll. NetlinkMonitor uses MessageQueue#addOnFileDescriptorEventListener which polls the fd in the native implementation.",
+      "parentUuid": "cec266b6_929e44f9",
+      "range": {
+        "startLine": 313,
+        "startChar": 0,
+        "endLine": 314,
+        "endChar": 74
+      },
+      "revId": "2787aa39bd49e6fec0f91d5b2e56a746c40265b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
