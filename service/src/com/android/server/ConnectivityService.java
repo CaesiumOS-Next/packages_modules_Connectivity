@@ -310,6 +310,10 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.StringJoiner;
 import java.util.TreeSet;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -3017,7 +3021,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // Calling PermissionMonitor#startMonitoring() in systemReadyInternal() and the
         // MultipathPolicyTracker.start() is called in NetworkPolicyManagerService#systemReady()
         // to ensure the tracking will be initialized correctly.
-        mPermissionMonitor.startMonitoring();
+        final CompletableFuture<Object> startMonitoringDone = new CompletableFuture<>();
+        mHandler.post(() -> {
+            mPermissionMonitor.startMonitoring();
+            startMonitoringDone.complete(true);
+        });
         mProxyTracker.loadGlobalProxy();
         registerDnsResolverUnsolicitedEventListener();
 
@@ -3038,6 +3046,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // the uids rules on netd.
         if (!ConnectivitySettingsManager.getMobileDataPreferredUids(mContext).isEmpty()) {
             updateMobileDataPreferredUids();
+        }
+        try {
+            startMonitoringDone.get(3000L, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            Log.wtf(TAG, "Fail to start monitoring on PermissionMonitor");
         }
     }
 
