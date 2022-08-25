@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2944ec23_32127479",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1204,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-25T03:35:14Z",
+      "side": 1,
+      "message": "Maybe explain why?",
+      "range": {
+        "startLine": 1204,
+        "startChar": 49,
+        "endLine": 1204,
+        "endChar": 63
+      },
+      "revId": "078c930dba5646991aa22a8410346a5a6dc75d0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "694d4248_be30f20b",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-25T03:35:14Z",
+      "side": 1,
+      "message": "1. Maybe add some comments to describe what is the 2nd section of test?\n2. It seems to me the 2nd part is only increase coverage for incrementOperationCount, if so, can we combine it to the 1st part of the test?",
+      "revId": "078c930dba5646991aa22a8410346a5a6dc75d0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
