@@ -46,6 +46,30 @@
       },
       "revId": "6496f86866464e9927aa97f31bda5a94cb970693",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3640d3f_ff363a91",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-25T00:00:41Z",
+      "side": 1,
+      "message": "Oh, so you only want to disable it for 5.4 to fix your device? If that device still has the raw program, we can merge this CL independently. If not... I am working on that part.",
+      "parentUuid": "8a7a327e_61cfd769",
+      "range": {
+        "startLine": 300,
+        "startChar": 46,
+        "endLine": 300,
+        "endChar": 60
+      },
+      "revId": "6496f86866464e9927aa97f31bda5a94cb970693",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
