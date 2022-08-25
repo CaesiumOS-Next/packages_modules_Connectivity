@@ -139,7 +139,7 @@ public class IpConnectivityMetricsTest {
             NetworkAgentInfo oldNai) {
         final Network network = (nai != null) ? nai.network() : null;
         final int score = (nai != null) ? nai.getCurrentScore() : 0;
-        final boolean validated = (nai != null) ? nai.lastValidated : false;
+        final boolean validated = (nai != null) ? nai.isValidated() : false;
         final LinkProperties lp = (nai != null) ? nai.linkProperties : null;
         final NetworkCapabilities nc = (nai != null) ? nai.networkCapabilities : null;
 
@@ -617,7 +617,7 @@ public class IpConnectivityMetricsTest {
         when(nai.getCurrentScore()).thenReturn(score);
         nai.linkProperties = new LinkProperties();
         nai.networkCapabilities = new NetworkCapabilities();
-        nai.lastValidated = true;
+        nai.setValidated(true);
         for (int t : BitUtils.unpackBits(transports)) {
             nai.networkCapabilities.addTransportType(t);
         }
