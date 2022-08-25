@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a94b328c_ca86294b",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1316,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-25T10:06:47Z",
+      "side": 1,
+      "message": "Nit: there\u0027s a number of drive-by style fixes in this change, it would have been better to split them to another change, so the actual behavior changes are easier to spot",
+      "range": {
+        "startLine": 1316,
+        "startChar": 47,
+        "endLine": 1316,
+        "endChar": 50
+      },
+      "revId": "25e79a4a12114c7bef989497fccc225519d47505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c282013_da79678e",
         "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
         "patchSetId": 5
@@ -32,6 +55,98 @@
       "side": 1,
       "message": "The return value is used by some functions such like getDeviceSummaryForNetwork() at l.1407.",
       "parentUuid": "1c282013_da79678e",
+      "revId": "25e79a4a12114c7bef989497fccc225519d47505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a64da731_b6b437ce",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2479,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-25T10:06:47Z",
+      "side": 1,
+      "message": "Did you mean \"Remove open sessions with the given uid from...\" ?",
+      "range": {
+        "startLine": 2479,
+        "startChar": 7,
+        "endLine": 2479,
+        "endChar": 55
+      },
+      "revId": "25e79a4a12114c7bef989497fccc225519d47505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99253ff4_9829798f",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2482,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-25T10:06:47Z",
+      "side": 1,
+      "message": "This is @GuardedBy mOpenSessionCallsLock but there\u0027s no lock grabbed here, and this method is not annotated with @GuardedBy(\"mOpenSessionCallsLock\"), so something is missing",
+      "range": {
+        "startLine": 2482,
+        "startChar": 61,
+        "endLine": 2482,
+        "endChar": 87
+      },
+      "revId": "25e79a4a12114c7bef989497fccc225519d47505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bc35c12_9e3a84e4",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2482,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-25T10:06:47Z",
+      "side": 1,
+      "message": "How many items are expected to be in that map ? Would it be better as an ArrayMap ?\n\nIn that case, the recommended way to iterate them is with .keyAt() and .valueAt() (and you could iterate from the last index to the first, so removing items doesn\u0027t affect the iteration)",
+      "range": {
+        "startLine": 2482,
+        "startChar": 61,
+        "endLine": 2482,
+        "endChar": 87
+      },
+      "revId": "25e79a4a12114c7bef989497fccc225519d47505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c017c5e_46162c35",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2482,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-25T10:06:47Z",
+      "side": 1,
+      "message": "This is to avoid the ConcurrentModificationException right ? An ArrayList would be fine and likely easier to iterate.",
+      "range": {
+        "startLine": 2482,
+        "startChar": 46,
+        "endLine": 2482,
+        "endChar": 49
+      },
       "revId": "25e79a4a12114c7bef989497fccc225519d47505",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -85,6 +200,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "badb82f9_66de391d",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-25T10:06:47Z",
+      "side": 1,
+      "message": "The fact that restrictFlagsForCaller is called when a session is opened, and that mOpenSessionCallsPerCallerTestMap would be used to store the session are both implementation details; this is testing the implementation details, but not the behavior as a whole.",
+      "range": {
+        "startLine": 853,
+        "startChar": 14,
+        "endLine": 854,
+        "endChar": 50
+      },
+      "revId": "25e79a4a12114c7bef989497fccc225519d47505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a6d52073_55dd82d2",
         "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
         "patchSetId": 5
@@ -120,6 +258,30 @@
       "side": 1,
       "message": "So...that means there\u0027s no test that the counter should be removed after the app is removed.\n\nThe map is only used to record the count of an app. If an app is removed and re-installed within POLL_RATE_LIMIT_MS(\u003d15_000) seconds, it will still be limited.",
       "parentUuid": "a6d52073_55dd82d2",
+      "range": {
+        "startLine": 885,
+        "startChar": 0,
+        "endLine": 886,
+        "endChar": 5
+      },
+      "revId": "25e79a4a12114c7bef989497fccc225519d47505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4de33ad6_e4ae318b",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-25T10:06:47Z",
+      "side": 1,
+      "message": "+1, I don\u0027t think making isRestrictForCaller, restrictFlagsForCaller, and makeOpenSessionCallsPerCaller visible makes a good test. It depends too much on internal implementation details, the test should exercise the external API of NetworkStatsService to be a realistic test that does not break when we change internals.\n\nAs Junyu suggested, can you openSession instead, to replicate what callers of NetworkStatsService will actually do ?",
+      "parentUuid": "8274c775_f22631b0",
       "range": {
         "startLine": 885,
         "startChar": 0,

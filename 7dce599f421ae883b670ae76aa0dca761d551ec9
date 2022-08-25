@@ -46,6 +46,30 @@
       },
       "revId": "7dce599f421ae883b670ae76aa0dca761d551ec9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "100f9610_cd9750a9",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-25T10:06:47Z",
+      "side": 0,
+      "message": "Yes, I don\u0027t think using mClock.millis() is correct, since the time can jump forwards or back.",
+      "parentUuid": "f197b70d_629ff245",
+      "range": {
+        "startLine": 1307,
+        "startChar": 37,
+        "endLine": 1307,
+        "endChar": 52
+      },
+      "revId": "7dce599f421ae883b670ae76aa0dca761d551ec9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
