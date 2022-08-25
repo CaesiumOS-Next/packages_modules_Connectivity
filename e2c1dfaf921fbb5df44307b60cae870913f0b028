@@ -16,6 +16,24 @@
       "message": "Please rebase the CL to latest version as per above treehugger error ",
       "revId": "e2c1dfaf921fbb5df44307b60cae870913f0b028",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66b7ca33_ae6230b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-25T19:14:25Z",
+      "side": 1,
+      "message": "Will do once this CL chain is ready. There are still many missing parts before this can come close to passing TH. It\u0027s unfortunately not just a simple cherry pick here 😞 The tests rely on a non-existent API, so I need to find a way to disable all code paths that test v4 packets when that API is not available.",
+      "parentUuid": "aeed1d28_d10054d9",
+      "revId": "e2c1dfaf921fbb5df44307b60cae870913f0b028",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
