@@ -22,6 +22,30 @@
       },
       "revId": "d45fe0ec153f0fe8f3018409adb0780379fdab92",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d2408b4_18130c75",
+        "filename": "tests/cts/net/src/android/net/cts/CaptivePortalTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-08-25T09:45:07Z",
+      "side": 1,
+      "message": "This is handled by DeviceConfigRule, so this statement makes it confusing. Added a comment to explain why it\u0027s here.\n\nStill, maybe a better idea would be to just remove it, and not allow localhost URLs in the check above: this makes the test setup and doesn\u0027t buy much as all sorts of things will not go well if the URL is forgotten there. That should probably not be in this change though...",
+      "parentUuid": "5acb0e48_6a3bc23f",
+      "range": {
+        "startLine": 116,
+        "startChar": 12,
+        "endLine": 116,
+        "endChar": 75
+      },
+      "revId": "d45fe0ec153f0fe8f3018409adb0780379fdab92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
