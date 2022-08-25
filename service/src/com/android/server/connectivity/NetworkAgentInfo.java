@@ -189,42 +189,235 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
     // field instead.
     private @Nullable NetworkCapabilities mDeclaredCapabilitiesUnsanitized;
 
-    // Indicates if netd has been told to create this Network. From this point on the appropriate
-    // routing rules are setup and routes are added so packets can begin flowing over the Network.
-    // This is a sticky bit; once set it is never cleared.
-    public boolean created;
-    // Set to true after the first time this network is marked as CONNECTED. Once set, the network
-    // shows up in API calls, is able to satisfy NetworkRequests and can become the default network.
-    // This is a sticky bit; once set it is never cleared.
-    public boolean everConnected;
-    // Whether this network has been destroyed and is being kept temporarily until it is replaced.
-    public boolean destroyed;
-    // To check how long it has been since last roam.
-    public long lastRoamTimestamp;
+    // Returns a timestamp based on System.currentTimeMillis from a timestamp based on the
+    // monotonic SystemClock.elapsedRealTime. Returns 0 if the passed timestamp is 0.
+    private long toCtmBase(final long ertBase) {
+        if (0L == ertBase) return 0L;
+        return System.currentTimeMillis() - SystemClock.elapsedRealtime() + ertBase;
+    }
 
-    // Set to true if this Network successfully passed validation or if it did not satisfy the
-    // default NetworkRequest in which case validation will not be attempted.
-    // This is a sticky bit; once set it is never cleared even if future validation attempts fail.
-    public boolean everValidated;
+    // Timestamp (SystemClock.elapsedRealtime()) when netd has been told to create this Network, or
+    // 0 if it hasn't been done yet.
+    // From this point on, the appropriate routing rules are setup and routes are added so packets
+    // can begin flowing over the Network.
+    // This is a sticky value; once set != 0 it is never changed.
+    private long mCreatedTime;
 
-    // The result of the last validation attempt on this network (true if validated, false if not).
-    public boolean lastValidated;
+    /** Notify this NAI that netd was just told to create this network */
+    public void setCreated() {
+        if (0L != mCreatedTime) throw new IllegalStateException("Already created");
+        mCreatedTime = SystemClock.elapsedRealtime();
+    }
 
-    // If true, becoming unvalidated will lower the network's score. This is only meaningful if the
-    // system is configured not to do this for certain networks, e.g., if the
-    // config_networkAvoidBadWifi option is set to 0 and the user has not overridden that via
-    // Settings.Global.NETWORK_AVOID_BAD_WIFI.
-    public boolean avoidUnvalidated;
+    /** Returns whether netd was told to create this network */
+    public boolean isCreated() {
+        return mCreatedTime != 0L;
+    }
 
-    // Whether a captive portal was ever detected on this network.
-    // This is a sticky bit; once set it is never cleared.
-    public boolean everCaptivePortalDetected;
+    // Get the time when this network was created (or 0 if never), for debugging purposes. This is
+    // computed from the *current* value of System.currentTimeMillis(), not the value it *had* when
+    // it was created.
+    public long getCreatedTime() {
+        return toCtmBase(mFirstConnectionTime);
+    }
 
-    // Whether a captive portal was found during the last network validation attempt.
-    public boolean lastCaptivePortalDetected;
+    // Timestamp of the first time (SystemClock.elapsedRealtime()) this network is marked as
+    // connected, or 0 if this network has never been marked connected. Once set to non-zero, the
+    // network shows up in API calls, is able to satisfy NetworkRequests and can become the default
+    // network.
+    // This is a sticky value; once set != 0 it is never changed.
+    private long mFirstConnectionTime;
 
-    // Set to true when partial connectivity was detected.
-    public boolean partialConnectivity;
+    /** Notify this NAI that this network just connected */
+    public void setConnected() {
+        if (0L != mFirstConnectionTime) throw new IllegalStateException("Already connected");
+        mFirstConnectionTime = SystemClock.elapsedRealtime();
+    }
+
+    /** Return whether this network ever connected */
+    public boolean everConnected() {
+        return mFirstConnectionTime != 0L;
+    }
+
+    // Get the time when this network was first connected (or 0 if never), for debugging purposes.
+    // This is computed from the *current* value of System.currentTimeMillis(), not the value it
+    // *had* when it first connected.
+    public long getFirstConnectedTime() {
+        return toCtmBase(mFirstConnectionTime);
+    }
+
+    // When this network has been destroyed and is being kept temporarily until it is replaced,
+    // this is set to that timestamp (SystemClock.elapsedRealtime()). Zero otherwise.
+    private long mDestroyedTime;
+
+    /** Notify this NAI that this network was destroyed */
+    public void setDestroyed() {
+        if (0L != mDestroyedTime) throw new IllegalStateException("Already destroyed");
+        mDestroyedTime = SystemClock.elapsedRealtime();
+    }
+
+    /** Return whether this network was destroyed */
+    public boolean isDestroyed() {
+        return 0L != mDestroyedTime;
+    }
+
+    // Get the time when this network was destroyed (or 0 if never), for debugging purposes.
+    // This is computed from the *current* value of System.currentTimeMillis(), not the value it
+    // *had* when it first connected.
+    public long getDestroyedTime() {
+        return toCtmBase(mDestroyedTime);
+    }
+
+    // Timestamp of the last roaming (SystemClock.elapsedRealtime()) or 0 if never roamed.
+    public long lastRoamTime;
+
+    // Timestamp (SystemClock.elapsedRealtime()) of the first time this network successfully
+    // passed validation or was deemed exempt of validation (see
+    // {@link NetworkMonitorUtils#isValidationRequired}). Zero if the network requires
+    // validation but never passed it successfully.
+    // This is a sticky value; once set it is never changed even if further validation attempts are
+    // made (whether they succeed or fail).
+    private long mFirstValidationTime;
+
+    // Timestamp (SystemClock.elapsedRealtime()) at which the latest validation attempt succeeded,
+    // or 0 if the latest validation attempt failed.
+    private long mCurrentValidationTime;
+
+    /** Notify this NAI that this network just finished a validation check */
+    public void setValidated(final boolean validated) {
+        if (validated && 0L == mFirstValidationTime) {
+            mFirstValidationTime = SystemClock.elapsedRealtime();
+        }
+        mCurrentValidationTime = validated ? SystemClock.elapsedRealtime() : 0L;
+    }
+
+    /**
+     * Returns whether this network is currently validated.
+     *
+     * This is the result of the latest validation check. {@see #getCurrentValidationTime} for
+     * when that check was performed.
+     */
+    public boolean isValidated() {
+        return 0L != mCurrentValidationTime;
+    }
+
+    /**
+     * Returns whether this network ever passed the validation checks successfully.
+     *
+     * Note that the network may no longer be validated at this time ever if this is true.
+     * @see #isValidated
+     */
+    public boolean everValidated() {
+        return 0L != mFirstValidationTime;
+    }
+
+    // Get the time when this network was validated for the last time, or 0 if this network was
+    // found not to validate on the last attempt, for debugging purposes.
+    // This is computed from the *current* value of System.currentTimeMillis(), not the value it
+    // *had* when the last validation attempt was done.
+    public long getCurrentValidationTime() {
+        return toCtmBase(mCurrentValidationTime);
+    }
+
+    // Get the time when this network was validated for the first time (or 0 if never), for
+    // debugging purposes.
+    // This is computed from the *current* value of System.currentTimeMillis(), not the value it
+    // *had* when it first validated.
+    public long getFirstValidationTime() {
+        return toCtmBase(mFirstValidationTime);
+    }
+
+    // Timestamp (SystemClock.elapsedRealtime()) at which the user requested this network be
+    // avoided when unvalidated. Zero if this never happened for this network.
+    // This is only meaningful if the system is configured to have some cell networks yield
+    // to bad wifi, e.g., if the config_networkAvoidBadWifi option is set to 0 and the user has
+    // not overridden that via Settings.Global.NETWORK_AVOID_BAD_WIFI.
+    //
+    // Normally the system always prefers a validated network to a non-validated one, even if
+    // the non-validated one is cheaper. However, some cell networks may be configured by the
+    // setting above to yield to WiFi even if that WiFi network goes bad. When this configuration
+    // is active, specific networks can be marked to override this configuration so that the
+    // system will revert to preferring such a cell to this network when this network goes bad. This
+    // is achieved by calling {@link ConnectivityManager#setAvoidUnvalidated()}, and this field
+    // is set to non-zero when this happened to this network.
+    private long mAvoidUnvalidated;
+
+    /** Set this network as being avoided when unvalidated. {@see mAvoidUnvalidated} */
+    public void setAvoidUnvalidated() {
+        if (0L != mAvoidUnvalidated) throw new IllegalStateException("Already avoided unvalidated");
+        mAvoidUnvalidated = SystemClock.elapsedRealtime();
+    }
+
+    // Get the time when this network was validated for the last time, or 0 if this network was
+    // found not to validate on the last attempt, for debugging purposes.
+    // This is computed from the *current* value of System.currentTimeMillis(), not the value it
+    // *had* when the last validation attempt was done.
+    public long getAvoidUnvalidated() {
+        return toCtmBase(mAvoidUnvalidated);
+    }
+
+    // Timestamp (SystemClock.elapsedRealtime()) at which a captive portal was first detected
+    // on this network, or zero if this never happened.
+    // This is a sticky value; once set != 0 it is never changed.
+    private long mEverCaptivePortalDetected;
+
+    // Timestamp (SystemClock.elapsedRealtime()) at which the latest validation attempt found a
+    // captive portal, or zero if the latest attempt didn't find a captive portal.
+    private long mCurrentCaptivePortalDetected;
+
+    /** Notify this NAI that a captive portal has just been detected on this network */
+    public void setCaptivePortalDetected(final boolean hasCaptivePortal) {
+        if (!hasCaptivePortal) {
+            mCurrentCaptivePortalDetected = 0L;
+            return;
+        }
+        final long now = SystemClock.elapsedRealtime();
+        if (0L == mEverCaptivePortalDetected) mEverCaptivePortalDetected = now;
+        mCurrentCaptivePortalDetected = now;
+    }
+
+    /** Return whether a captive portal has ever been detected on this network */
+    public boolean everCaptivePortalDetected() {
+        return 0L != mEverCaptivePortalDetected;
+    }
+
+    /** Return whether this network has been detected to be behind a captive portal at the moment */
+    public boolean captivePortalDetected() {
+        return 0L != mCurrentCaptivePortalDetected;
+    }
+
+    // Get the time when this network was first found to have a captive portal (or 0 if this never
+    // happened), for debugging purposes.
+    // This is computed from the *current* value of System.currentTimeMillis(), not the value it
+    // *had* when the captive portal was first detected.
+    public long getFirstCaptivePortalDetectedTime() {
+        return toCtmBase(mEverCaptivePortalDetected);
+    }
+
+    // Get the time when this network was last found to have a captive portal, or 0 if this network
+    // was last found not have one, for debugging purposes.
+    // This is computed from the *current* value of System.currentTimeMillis(), not the value it
+    // *had* when the last validation attempt was done.
+    public long getCurrentCaptivePortalDetected() {
+        return toCtmBase(mCurrentCaptivePortalDetected);
+    }
+
+    // Timestamp (SystemClock.elapsedRealtime()) at which the latest validation attempt found
+    // partial connectivity, or zero if the latest attempt didn't find partial connectivity.
+    private long mPartialConnectivityTime;
+
+    public void setPartialConnectivity(final boolean value) {
+        mPartialConnectivityTime = value ? SystemClock.elapsedRealtime() : 0L;
+    }
+
+    /** Return whether this NAI has partial connectivity */
+    public boolean partialConnectivity() {
+        return 0L != mPartialConnectivityTime;
+    }
+
+    public long getPartialConnectivityTime() {
+        return toCtmBase(mPartialConnectivityTime);
+    }
 
     // Delay between when the network is disconnected and when the native network is destroyed.
     public int teardownDelayMs;
@@ -820,7 +1013,7 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
         final NetworkCapabilities oldNc = networkCapabilities;
         networkCapabilities = nc;
         mScore = mScore.mixInScore(networkCapabilities, networkAgentConfig, everValidatedForYield(),
-                yieldToBadWiFi(), destroyed);
+                yieldToBadWiFi(), isDestroyed());
         final NetworkMonitorManager nm = mNetworkMonitor;
         if (nm != null) {
             nm.notifyNetworkCapabilitiesChanged(nc);
@@ -983,13 +1176,14 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
 
     // Does this network satisfy request?
     public boolean satisfies(NetworkRequest request) {
-        return everConnected
+        return everConnected()
                 && request.networkCapabilities.satisfiedByNetworkCapabilities(networkCapabilities);
     }
 
     public boolean satisfiesImmutableCapabilitiesOf(NetworkRequest request) {
-        return everConnected && request.networkCapabilities.satisfiedByImmutableNetworkCapabilities(
-                networkCapabilities);
+        return everConnected()
+                && request.networkCapabilities.satisfiedByImmutableNetworkCapabilities(
+                        networkCapabilities);
     }
 
     /** Whether this network is a VPN. */
@@ -1022,7 +1216,7 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
      */
     public void setScore(final NetworkScore score) {
         mScore = FullScore.fromNetworkScore(score, networkCapabilities, networkAgentConfig,
-                everValidatedForYield(), yieldToBadWiFi(), destroyed);
+                everValidatedForYield(), yieldToBadWiFi(), isDestroyed());
     }
 
     /**
@@ -1032,11 +1226,11 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
      */
     public void updateScoreForNetworkAgentUpdate() {
         mScore = mScore.mixInScore(networkCapabilities, networkAgentConfig,
-                everValidatedForYield(), yieldToBadWiFi(), destroyed);
+                everValidatedForYield(), yieldToBadWiFi(), isDestroyed());
     }
 
     private boolean everValidatedForYield() {
-        return everValidated && !avoidUnvalidated;
+        return everValidated() && 0L == mAvoidUnvalidated;
     }
 
     /**
@@ -1323,14 +1517,17 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
                 + networkInfo.toShortString() + "} "
                 + "created=" + Instant.ofEpochMilli(mCreationTime) + " "
                 + mScore + " "
-                + (created ? " created" : "")
-                + (destroyed ? " destroyed" : "")
+                + (isCreated() ? " created " + getCreatedTime() : "")
+                + (isDestroyed() ? " destroyed " + getDestroyedTime() : "")
                 + (isNascent() ? " nascent" : (isLingering() ? " lingering" : ""))
-                + (everValidated ? " everValidated" : "")
-                + (lastValidated ? " lastValidated" : "")
-                + (partialConnectivity ? " partialConnectivity" : "")
-                + (everCaptivePortalDetected ? " everCaptivePortal" : "")
-                + (lastCaptivePortalDetected ? " isCaptivePortal" : "")
+                + (everValidated() ? " firstValidated " + getFirstValidationTime() : "")
+                + (isValidated() ? " lastValidated " + getCurrentValidationTime() : "")
+                + (partialConnectivity()
+                        ? " partialConnectivity " + getPartialConnectivityTime() : "")
+                + (everCaptivePortalDetected()
+                        ? " firstCaptivePortalDetected " + getFirstCaptivePortalDetectedTime() : "")
+                + (captivePortalDetected()
+                        ? " captivePortalDetected " + getCurrentCaptivePortalDetected() : "")
                 + (networkAgentConfig.explicitlySelected ? " explicitlySelected" : "")
                 + (networkAgentConfig.acceptUnvalidated ? " acceptUnvalidated" : "")
                 + (networkAgentConfig.acceptPartialConnectivity ? " acceptPartialConnectivity" : "")
