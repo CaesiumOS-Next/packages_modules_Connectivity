@@ -380,7 +380,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     // See ConnectivitySettingsManager.CONNECTIVITY_RELEASE_PENDING_INTENT_DELAY_MS
     private final int mReleasePendingIntentDelayMs;
 
-    private MockableSystemProperties mSystemProperties;
+    private final MockableSystemProperties mSystemProperties;
 
     @VisibleForTesting
     protected final PermissionMonitor mPermissionMonitor;
@@ -396,7 +396,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * Stale copy of uid blocked reasons provided by NPMS. As long as they are accessed only in
      * internal handler thread, they don't need a lock.
      */
-    private SparseIntArray mUidBlockedReasons = new SparseIntArray();
+    private final SparseIntArray mUidBlockedReasons = new SparseIntArray();
 
     private final Context mContext;
     private final ConnectivityResources mResources;
@@ -412,8 +412,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
     @VisibleForTesting
     protected INetd mNetd;
     private DscpPolicyTracker mDscpPolicyTracker = null;
-    private NetworkStatsManager mStatsManager;
-    private NetworkPolicyManager mPolicyManager;
+    private final NetworkStatsManager mStatsManager;
+    private final NetworkPolicyManager mPolicyManager;
     private final NetdCallback mNetdCallback;
     private final BpfNetMaps mBpfNetMaps;
 
@@ -780,7 +780,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private boolean mSystemReady;
     private Intent mInitialBroadcast;
 
-    private PowerManager.WakeLock mNetTransitionWakeLock;
+    private final PowerManager.WakeLock mNetTransitionWakeLock;
     private final PowerManager.WakeLock mPendingIntentWakeLock;
 
     // A helper object to track the current default HTTP proxy. ConnectivityService needs to tell
@@ -790,10 +790,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     final private SettingsObserver mSettingsObserver;
 
-    private UserManager mUserManager;
+    private final UserManager mUserManager;
 
     // the set of network types that can only be enabled by system/sig apps
-    private List<Integer> mProtectedNetworks;
+    private final List<Integer> mProtectedNetworks;
 
     private Set<String> mWolSupportedInterfaces;
 
@@ -803,10 +803,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private final LocationPermissionChecker mLocationPermissionChecker;
 
-    private KeepaliveTracker mKeepaliveTracker;
-    private QosCallbackTracker mQosCallbackTracker;
-    private NetworkNotificationManager mNotifier;
-    private LingerMonitor mLingerMonitor;
+    private final KeepaliveTracker mKeepaliveTracker;
+    private final QosCallbackTracker mQosCallbackTracker;
+    private final NetworkNotificationManager mNotifier;
+    private final LingerMonitor mLingerMonitor;
 
     // sequence number of NetworkRequests
     private int mNextNetworkRequestId = NetworkRequest.FIRST_REQUEST_ID;
