@@ -22,6 +22,30 @@
       },
       "revId": "0d3c8b692d0e6c9030f3e7dc68084e8c1f00563d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed6492e9_7f31aa36",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-08-25T17:05:41Z",
+      "side": 0,
+      "message": "Yes, it is intended. After this change, deleting the test interface would stop tethering. After test interface deleted, the EthernetTracker would stop tracking such server mode interface then tethering would also receive onUnvailable callback to stop ethernet tethering. In other word, we can make sure the test interface is deleted and untrack server mode interface in EthernetTracker when received tethering stop callback (patchset6 l.226).",
+      "parentUuid": "f89ec0ac_58d85806",
+      "range": {
+        "startLine": 219,
+        "startChar": 12,
+        "endLine": 219,
+        "endChar": 50
+      },
+      "revId": "0d3c8b692d0e6c9030f3e7dc68084e8c1f00563d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
