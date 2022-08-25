@@ -1,5 +1,52 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "256e9640_1dcc7b9c",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-25T19:48:19Z",
+      "side": 1,
+      "message": "Remove this return statement. I guess that can be done when EthernetNetworkFactory moves into EthernetTracker.",
+      "range": {
+        "startLine": 202,
+        "startChar": 8,
+        "endLine": 202,
+        "endChar": 15
+      },
+      "revId": "ea5c6dd136fd50d5a5897d9991eb5e84ea4e5564",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8c09b62_c1da1476",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-25T19:48:19Z",
+      "side": 1,
+      "message": "This behavior is currently untested, add a test to EthernetManagerTest.",
+      "range": {
+        "startLine": 358,
+        "startChar": 0,
+        "endLine": 360,
+        "endChar": 13
+      },
+      "revId": "ea5c6dd136fd50d5a5897d9991eb5e84ea4e5564",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
