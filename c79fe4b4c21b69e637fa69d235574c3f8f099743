@@ -118,6 +118,30 @@
       },
       "revId": "c79fe4b4c21b69e637fa69d235574c3f8f099743",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a32008aa_df290300",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-08-25T02:45:25Z",
+      "side": 1,
+      "message": "It was good learning!\nUnfortunately, it seems we can not.  \nThat constructor only works if we pass `Integer []` I think.\nWhen we pass `int []` java does not box to `Integer []`.\nI realized only after IDE complain.",
+      "parentUuid": "0386a3eb_d6dae957",
+      "range": {
+        "startLine": 509,
+        "startChar": 40,
+        "endLine": 509,
+        "endChar": 52
+      },
+      "revId": "c79fe4b4c21b69e637fa69d235574c3f8f099743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
