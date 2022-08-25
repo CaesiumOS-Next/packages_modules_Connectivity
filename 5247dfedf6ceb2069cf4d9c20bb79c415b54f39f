@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fef7e1b2_760b57f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-25T03:26:08Z",
+      "side": 1,
+      "message": "Sorry this pretty obviously does not fix the issue. I am willing to believe it masks it if you\u0027ve tested it, but I don\u0027t think we should mask issues, we should resolve them.\n\nAlso this patch will make the test take longer, which is not something we want, and waiting for idle also generally risks masking other existing bugs that the test would otherwise catch.\n\nSo I do not think this improves the situation. Instead we should figure out what the actual cause of the issue is, and address that.\n",
+      "revId": "5247dfedf6ceb2069cf4d9c20bb79c415b54f39f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
