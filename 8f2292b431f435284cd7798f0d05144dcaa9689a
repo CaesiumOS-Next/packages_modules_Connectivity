@@ -39,6 +39,30 @@
       },
       "revId": "8f2292b431f435284cd7798f0d05144dcaa9689a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c87f27ca_6641f620",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-25T19:39:41Z",
+      "side": 1,
+      "message": "Interesting point. From what I can tell, IpClient always clears the addresses when entering StoppedState, so I think even if the addresses weren\u0027t cleared here, it should be okay, right?\n\nIn any case, I think this should be safe to merge. But I will leave a comment here to explain that this happens.\n\n---\nSo there are two situations:\na) new interface is discovered.\nb) running interface is discovered (e.g. an interface that moves from server back to client mode, ethernet is re-enabled, etc.).\n\nFor a): since the interface is not up, nothing has ever configured it. So I think setInterfaceUp() will essentially clear the address twice. This code path stayed the same.\n\nFor b): the address stays untouched. I think that\u0027s pretty much what setInterfaceUp() is trying to do anyways? IpClient will reset the addresses in its StoppedState#enter.",
+      "parentUuid": "ff5b5231_d105aa1e",
+      "range": {
+        "startLine": 584,
+        "startChar": 12,
+        "endLine": 584,
+        "endChar": 14
+      },
+      "revId": "8f2292b431f435284cd7798f0d05144dcaa9689a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
