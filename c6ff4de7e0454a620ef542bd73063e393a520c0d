@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01f4eeb8_de2815a1",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-25T19:29:39Z",
+      "side": 1,
+      "message": "Added this @Ignore so we can re-enable the EthernetManagerTests. They now all pass consistently on my local cuttlefish instance.",
+      "range": {
+        "startLine": 843,
+        "startChar": 0,
+        "endLine": 845,
+        "endChar": 11
+      },
+      "revId": "c6ff4de7e0454a620ef542bd73063e393a520c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
