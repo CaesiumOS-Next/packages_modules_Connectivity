@@ -129,10 +129,12 @@ public class EthernetTetheringTest {
 
     private static final String TAG = EthernetTetheringTest.class.getSimpleName();
     private static final int TIMEOUT_MS = 5000;
-    // Used to check if any tethering interface is available. Choose 200ms to be request timeout
-    // because the average interface requested time on cuttlefish@acloud is around 10ms.
-    // See TetheredInterfaceRequester.getInterface, isInterfaceForTetheringAvailable.
-    private static final int AVAILABLE_TETHER_IFACE_REQUEST_TIMEOUT_MS = 200;
+    // Used to check if any tethering interface is available. Choose 500ms to be request timeout
+    // because the average interface requested time on cuttlefish@acloud is around 10ms and the
+    // request for an existing interface may takes over 200ms on cuttlefish.
+    // See TetheredInterfaceRequester.getInterface, isInterfaceForTetheringAvailable
+    // and b/243314243.
+    private static final int AVAILABLE_TETHER_IFACE_REQUEST_TIMEOUT_MS = 500;
     private static final int TETHER_REACHABILITY_ATTEMPTS = 20;
     private static final int DUMP_POLLING_MAX_RETRY = 100;
     private static final int DUMP_POLLING_INTERVAL_MS = 50;
@@ -316,7 +318,7 @@ public class EthernetTetheringTest {
         // TODO: figure out a better way to check default tethering interface existenion.
         final TetheredInterfaceRequester requester = new TetheredInterfaceRequester(mHandler, mEm);
         try {
-            // Use short timeout (200ms) for requesting an existing interface, if any, because
+            // Use short timeout (500ms) for requesting an existing interface, if any, because
             // it should reurn faster than requesting a new tethering interface. Using default
             // timeout (5000ms, TIMEOUT_MS) may make that total testing time is over 1 minute
             // test module timeout on internal testing.
