@@ -16,6 +16,23 @@
       "message": "\\o/",
       "revId": "106f4ca8862de27cb1bc191dab335d03b9b4561a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b97fea1_88a248d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-26T16:38:36Z",
+      "side": 1,
+      "message": "CaptivePortalLoginActivityTest are broken. This is unrelated to this CL.",
+      "revId": "106f4ca8862de27cb1bc191dab335d03b9b4561a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
