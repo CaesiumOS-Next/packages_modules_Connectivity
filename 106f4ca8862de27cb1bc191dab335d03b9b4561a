@@ -68,6 +68,24 @@
       "parentUuid": "56c8b110_041cf6b7",
       "revId": "106f4ca8862de27cb1bc191dab335d03b9b4561a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a794e562_b3a068bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-26T17:57:12Z",
+      "side": 1,
+      "message": "Turns out that\u0027s not possible 😞 Plus, tun_set_iff() calls netif_carrier_on() before returning, so we can\u0027t use any other trickery. I will reenable RS delay and DAD which should take care of it. Bummer!",
+      "parentUuid": "bee47d44_bb390246",
+      "revId": "106f4ca8862de27cb1bc191dab335d03b9b4561a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
