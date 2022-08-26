@@ -50,6 +50,24 @@
       "message": "(actually just noticing a flake in android.net.cts.EthernetManagerTest#testNetworkRequest_forInterfaceWhileTogglingCarrier -- it\u0027s possible the timeouts are a little too aggressive now.)",
       "revId": "106f4ca8862de27cb1bc191dab335d03b9b4561a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bee47d44_bb390246",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-26T16:52:47Z",
+      "side": 1,
+      "message": "So close... TUNSETCARRIER runs after TUNSETIFF. In this case, the test ran super fast (150ms between creating an interface and network becoming available). I am going to try and see if we can configure the carrier before actually configuring the interface.",
+      "parentUuid": "56c8b110_041cf6b7",
+      "revId": "106f4ca8862de27cb1bc191dab335d03b9b4561a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
