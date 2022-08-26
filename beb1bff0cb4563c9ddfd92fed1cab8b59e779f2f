@@ -16,6 +16,69 @@
       "message": "Over to Lorenzo for owners",
       "revId": "beb1bff0cb4563c9ddfd92fed1cab8b59e779f2f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9576ed0c_0e042e6f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-26T05:55:18Z",
+      "side": 1,
+      "message": "LGTM, but would be good if you could fix the log tag. Doesn\u0027t need to be in this CL.",
+      "revId": "beb1bff0cb4563c9ddfd92fed1cab8b59e779f2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48f56d07_d2ee978d",
+        "filename": "tests/cts/net/src/android/net/cts/DeviceConfigRule.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-26T05:55:18Z",
+      "side": 1,
+      "message": "Is this really the right tag here? Shouldn\u0027t it be \"DeviceConfigRule\"?",
+      "range": {
+        "startLine": 131,
+        "startChar": 18,
+        "endLine": 131,
+        "endChar": 43
+      },
+      "revId": "beb1bff0cb4563c9ddfd92fed1cab8b59e779f2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8c0a70c_291e5320",
+        "filename": "tests/cts/net/src/android/net/cts/DeviceConfigRule.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-26T05:55:18Z",
+      "side": 1,
+      "message": "Given that value is nullable, is it correct to pass null as the default value of getString? Is it important that this method be able to tell the difference between \"key exists and has null value\" and \"key does not exist\"?\n\nI guess that if the only keys in the Properties object are the keys that were modified, then this code is correct. I wonder if it\u0027s worth mentioning that in a comment?",
+      "range": {
+        "startLine": 140,
+        "startChar": 34,
+        "endLine": 140,
+        "endChar": 48
+      },
+      "revId": "beb1bff0cb4563c9ddfd92fed1cab8b59e779f2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
