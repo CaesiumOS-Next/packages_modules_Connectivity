@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a97ac09_b13b4f74",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-26T16:37:21Z",
+      "side": 1,
+      "message": "The failing CaptivePortalLogin tests have been flaky for a long time and are unrelated to this CL.",
+      "revId": "f8371fef0f633ca60a367e7697e46a9979c68e82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
