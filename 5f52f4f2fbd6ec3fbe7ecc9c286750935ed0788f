@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c58f0623_78e7e00d",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-08-26T02:38:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e8a8912a_d3bf60ae",
+      "range": {
+        "startLine": 451,
+        "startChar": 26,
+        "endLine": 451,
+        "endChar": 50
+      },
+      "revId": "5f52f4f2fbd6ec3fbe7ecc9c286750935ed0788f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7818b2bf_26c644f4",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "I think this behavior is same to the old code.\nThe old code also logs the error and continues adding rule when addRule for one uid fails.\nhttp://cs/aosp-master/packages/modules/Connectivity/service/native/TrafficController.cpp;l\u003d384-388;rcl\u003d8c69d8fc9efa478ae709e7b13c9811894bf760b8",
       "parentUuid": "7818b2bf_26c644f4",
+      "range": {
+        "startLine": 458,
+        "startChar": 14,
+        "endLine": 458,
+        "endChar": 19
+      },
+      "revId": "5f52f4f2fbd6ec3fbe7ecc9c286750935ed0788f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99e00868_584a656b",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-08-26T02:38:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6da780c2_a8e7136c",
       "range": {
         "startLine": 458,
         "startChar": 14,
