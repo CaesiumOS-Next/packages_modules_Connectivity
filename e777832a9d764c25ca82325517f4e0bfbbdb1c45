@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11d5f7c0_5f46ef4d",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-08-26T19:20:24Z",
+      "side": 1,
+      "message": "In the future, we can think about disabling the provisioning delays for certain tests. It did help find the race between IpClient and NetworkAgent, so there is some value to having the delays disabled for some tests.",
+      "range": {
+        "startLine": 158,
+        "startChar": 16,
+        "endLine": 158,
+        "endChar": 71
+      },
+      "revId": "e777832a9d764c25ca82325517f4e0bfbbdb1c45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
