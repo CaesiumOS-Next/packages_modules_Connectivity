@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2b0a318_920e77ee",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 39
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-08-26T02:19:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a23a52d_e4d38578",
+      "range": {
+        "startLine": 429,
+        "startChar": 36,
+        "endLine": 429,
+        "endChar": 71
+      },
+      "revId": "9be2ea00801adedf22b54daf8665f52728d04d8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "82d5783e_f13abcc4",
@@ -109,6 +133,30 @@
       "side": 1,
       "message": "Talked to Lorenzo, having wtf log makes sense.\nAdded wtf log in aosp/2194339",
       "parentUuid": "b717c184_9562a68a",
+      "range": {
+        "startLine": 434,
+        "startChar": 44,
+        "endLine": 434,
+        "endChar": 83
+      },
+      "revId": "9be2ea00801adedf22b54daf8665f52728d04d8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95ff717c_be832833",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 39
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-08-26T02:19:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bd22a62_cc631e75",
       "range": {
         "startLine": 434,
         "startChar": 44,
