@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c173809e_40e50c9f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-26T01:59:24Z",
+      "side": 1,
+      "message": "Nice catch, and nice fix",
+      "revId": "f7b912d6bd992eb355c99c952dfebbbd1f3d3468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d631420b_9e25fe4d",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-26T01:59:24Z",
+      "side": 1,
+      "message": "IIUC with your change this is no longer true. That strong ref was held by mCallback, which was held by the lambda.",
+      "range": {
+        "startLine": 300,
+        "startChar": 53,
+        "endLine": 301,
+        "endChar": 92
+      },
+      "revId": "f7b912d6bd992eb355c99c952dfebbbd1f3d3468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37b92d0b_daa39370",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1438,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-26T01:59:24Z",
+      "side": 1,
+      "message": "I guess you\u0027re not changing this, but I observe our code is of two minds here. In l.1415 it accounts for statesParcel being null. While this admittedly can happen after a onCallbackStarted → onTetherStatesChanged(null) sequence, the code in onCallbackStopped suggests onCallbackStopped can be called without any call to onCallbackStarted ever (otherwise, there would be no point in opening the CV inside. If that happens, mTetherStatesParcel is null and l.1415 guards against this, but this line here crashes – and this is SystemApi.\n\nI guess you don\u0027t have to do this in this change (it\u0027s existing and essentially unrelated to your patch) but as long as we\u0027re noticing this we should track the mistake : either it\u0027s not possible that onCallbackStopped is called first, in which case it shouldn\u0027t open the condition, or it\u0027s possible and we should not crash here. Can you please file a bug ?",
+      "range": {
+        "startLine": 1438,
+        "startChar": 29,
+        "endLine": 1438,
+        "endChar": 52
+      },
+      "revId": "f7b912d6bd992eb355c99c952dfebbbd1f3d3468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
