@@ -692,7 +692,8 @@ public class EthernetTetheringTest {
 
         public Network awaitUpstreamChanged() throws Exception {
             if (!mUpstreamLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS)) {
-                fail("Did not receive upstream " + (mAcceptAnyUpstream ? "any" : mExpectedUpstream)
+                throw new TimeoutException("Did not receive upstream "
+                        + (mAcceptAnyUpstream ? "any" : mExpectedUpstream)
                         + " callback after " + TIMEOUT_MS + "ms");
             }
             return mUpstream;
@@ -1248,10 +1249,33 @@ public class EthernetTetheringTest {
         assertEquals("TetheredInterfaceCallback for unexpected interface",
                 mDownstreamIface.getInterfaceName(), mTetheredInterfaceRequester.getInterface());
 
-        mTetheringEventCallback = enableEthernetTethering(mDownstreamIface.getInterfaceName(),
-                mUpstreamTracker.getNetwork());
+        // The existing internet network and test network available event order is not guaranteed.
+        // tethering module may choose internet network first. Once the upstream interface is
+        // chosen, the upsteam network can't be changed anymore. Re-enable the tethering to
+        // re-choose the upstream.
+        // TODO: refactor the tethering to accept upstream network be replaced by higher
+        // priority network.
+        final int TETHER_UPSTREAM_CHANGED_ATTEMPTS = 3;
+        Network upsteamNetwork = null;
+        for (int i = 0; i < TETHER_UPSTREAM_CHANGED_ATTEMPTS; i++) {
+            try {
+                mTetheringEventCallback = enableEthernetTethering(
+                        mDownstreamIface.getInterfaceName(), mUpstreamTracker.getNetwork());
+                upsteamNetwork = mTetheringEventCallback.awaitUpstreamChanged();
+                break;
+            } catch (TimeoutException e) {
+                if (i == TETHER_UPSTREAM_CHANGED_ATTEMPTS) {
+                    fail("Retry " + TETHER_UPSTREAM_CHANGED_ATTEMPTS
+                            + " times for waiting upstream: " + e);
+                }
+                if (mTetheringEventCallback != null) {
+                    mTetheringEventCallback.unregister();
+                    mTetheringEventCallback = null;
+                }
+            }
+        }
         assertEquals("onUpstreamChanged for unexpected network", mUpstreamTracker.getNetwork(),
-                mTetheringEventCallback.awaitUpstreamChanged());
+                upsteamNetwork);
 
         mDownstreamReader = makePacketReader(mDownstreamIface);
         mUpstreamReader = makePacketReader(mUpstreamTracker.getTestIface());
