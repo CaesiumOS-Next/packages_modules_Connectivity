@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83b7af0f_a62e8a64",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-27T09:33:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f2f65dc_56a3a037",
+      "range": {
+        "startLine": 120,
+        "startChar": 28,
+        "endLine": 120,
+        "endChar": 32
+      },
+      "revId": "3ee6a79e9053ae074339a4cfe1a38d2157512e22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d77fab2_1a966803",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-25T10:03:44Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 125,
+        "startChar": 28,
+        "endLine": 125,
+        "endChar": 32
+      },
+      "revId": "3ee6a79e9053ae074339a4cfe1a38d2157512e22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e4136cc_16ffdc5e",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-27T09:33:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d77fab2_1a966803",
       "range": {
         "startLine": 125,
         "startChar": 28,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9772315d_1f3816d6",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-27T09:33:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81c08bf8_620e9102",
+      "range": {
+        "startLine": 473,
+        "startChar": 16,
+        "endLine": 473,
+        "endChar": 44
+      },
+      "revId": "3ee6a79e9053ae074339a4cfe1a38d2157512e22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "676dcb39_fd358ae3",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-08-25T10:03:44Z",
       "side": 1,
       "message": "1. Maybe describe what we want to verify here.\n2. As you can see previous tests does not need to access the snapshots to test.\nSince these snapshots are internal objects, if the design changes, the test is not useful anymore. Could we very the behavior without accessing the objects? e.g. Can we make persist stats by calling readNetworkStatsDetail multiple times?",
+      "range": {
+        "startLine": 492,
+        "startChar": 8,
+        "endLine": 492,
+        "endChar": 20
+      },
+      "revId": "3ee6a79e9053ae074339a4cfe1a38d2157512e22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c41447ab_cd6fca44",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-27T09:33:03Z",
+      "side": 1,
+      "message": "The result of readNetworkStatsDetail is given by the mocked stats and then assign to mPersistSnapshot. When test tries to simulate the apps are uninstalled, it calls removeUidsLocked to remove the stats of the removed uids in mPersistSnapshot. That are two operations in the test. So if test calls readNetworkStatsDetail again, it still gets the result that is mocked at l.486. Any suggestion?",
+      "parentUuid": "676dcb39_fd358ae3",
       "range": {
         "startLine": 492,
         "startChar": 8,
