@@ -20,6 +20,8 @@ import static android.Manifest.permission.DUMP;
 import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
 import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.Manifest.permission.TETHER_PRIVILEGED;
+import static android.content.pm.PackageManager.FEATURE_TELEPHONY;
+import static android.content.pm.PackageManager.FEATURE_WIFI;
 import static android.net.InetAddresses.parseNumericAddress;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
@@ -54,12 +56,15 @@ import static org.junit.Assume.assumeTrue;
 
 import android.app.UiAutomation;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.EthernetManager.TetheredInterfaceCallback;
 import android.net.EthernetManager.TetheredInterfaceRequest;
 import android.net.TetheringManager.StartTetheringCallback;
 import android.net.TetheringManager.TetheringEventCallback;
 import android.net.TetheringManager.TetheringRequest;
 import android.net.TetheringTester.TetheredDevice;
+import android.net.cts.util.CtsNetUtils;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -75,6 +80,7 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.MediumTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.compatibility.common.util.SystemUtil;
 import com.android.net.module.util.BpfDump;
 import com.android.net.module.util.Ipv6Utils;
 import com.android.net.module.util.PacketBuilder;
@@ -234,6 +240,9 @@ public class EthernetTetheringTest {
     private final Context mContext = InstrumentationRegistry.getContext();
     private final EthernetManager mEm = mContext.getSystemService(EthernetManager.class);
     private final TetheringManager mTm = mContext.getSystemService(TetheringManager.class);
+    private final WifiManager mWm = mContext.getSystemService(WifiManager.class);
+    private final PackageManager mPackageManager = mContext.getPackageManager();
+    private final CtsNetUtils mCtsNetUtils = new CtsNetUtils(mContext);
 
     private TestNetworkInterface mDownstreamIface;
     private HandlerThread mHandlerThread;
@@ -247,6 +256,9 @@ public class EthernetTetheringTest {
     private UiAutomation mUiAutomation =
             InstrumentationRegistry.getInstrumentation().getUiAutomation();
     private boolean mRunTests;
+    private boolean mIsTelephonySupported;
+    private boolean mIsWifiSupported;
+    private boolean mPreviousWifiEnabledState;
 
     private TestNetworkTracker mUpstreamTracker;
 
@@ -259,6 +271,21 @@ public class EthernetTetheringTest {
         mRunTests = runAsShell(NETWORK_SETTINGS, TETHER_PRIVILEGED, () ->
                 mTm.isTetheringSupported());
         assumeTrue(mRunTests);
+
+        // Disable wifi and cellular networks if any.
+        // Used to avoid the flaky upstream selection under multinetwork environment. Internet and
+        // test network upstream changed event order is not guaranteed. Once tethering chooses
+        // non-test upstream {wifi, cellular, ..}, test network won't be chosen.
+        // TODO: remove this once test network can replace chosen upstream network.
+        mIsWifiSupported = mPackageManager.hasSystemFeature(FEATURE_WIFI);
+        mIsTelephonySupported = mPackageManager.hasSystemFeature(FEATURE_TELEPHONY);
+        mPreviousWifiEnabledState = mWm.isWifiEnabled();
+        if (mIsWifiSupported && mPreviousWifiEnabledState) {
+            mCtsNetUtils.ensureWifiDisconnected(null);
+        }
+        if (mIsTelephonySupported) {
+            SystemUtil.runShellCommand("svc data disable");
+        }
 
         mTetheredInterfaceRequester = new TetheredInterfaceRequester(mHandler, mEm);
     }
@@ -298,6 +325,14 @@ public class EthernetTetheringTest {
         }
         runAsShell(NETWORK_SETTINGS, () -> mTetheredInterfaceRequester.release());
         setIncludeTestInterfaces(false);
+
+        // Restore internet connection.
+        if (mIsWifiSupported && mPreviousWifiEnabledState) {
+            mCtsNetUtils.connectToWifi();
+        }
+        if (mIsTelephonySupported) {
+            SystemUtil.runShellCommand("svc data enable");
+        }
     }
 
     @After
