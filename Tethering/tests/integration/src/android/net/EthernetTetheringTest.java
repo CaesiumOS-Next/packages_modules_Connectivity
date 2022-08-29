@@ -60,6 +60,8 @@ import android.net.TetheringManager.StartTetheringCallback;
 import android.net.TetheringManager.TetheringEventCallback;
 import android.net.TetheringManager.TetheringRequest;
 import android.net.TetheringTester.TetheredDevice;
+import android.net.cts.util.CtsNetUtils;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -234,6 +236,8 @@ public class EthernetTetheringTest {
     private final Context mContext = InstrumentationRegistry.getContext();
     private final EthernetManager mEm = mContext.getSystemService(EthernetManager.class);
     private final TetheringManager mTm = mContext.getSystemService(TetheringManager.class);
+    private final WifiManager mWm = mContext.getSystemService(WifiManager.class);
+    private final CtsNetUtils mCtsNetUtils = new CtsNetUtils(mContext);
 
     private TestNetworkInterface mDownstreamIface;
     private HandlerThread mHandlerThread;
@@ -247,6 +251,7 @@ public class EthernetTetheringTest {
     private UiAutomation mUiAutomation =
             InstrumentationRegistry.getInstrumentation().getUiAutomation();
     private boolean mRunTests;
+    private boolean mPreviousWifiEnabledState;
 
     private TestNetworkTracker mUpstreamTracker;
 
@@ -259,6 +264,11 @@ public class EthernetTetheringTest {
         mRunTests = runAsShell(NETWORK_SETTINGS, TETHER_PRIVILEGED, () ->
                 mTm.isTetheringSupported());
         assumeTrue(mRunTests);
+
+        mPreviousWifiEnabledState = mWm.isWifiEnabled();
+        if (mPreviousWifiEnabledState) {
+            mCtsNetUtils.ensureWifiDisconnected(null);
+        }
 
         mTetheredInterfaceRequester = new TetheredInterfaceRequester(mHandler, mEm);
     }
@@ -298,6 +308,10 @@ public class EthernetTetheringTest {
         }
         runAsShell(NETWORK_SETTINGS, () -> mTetheredInterfaceRequester.release());
         setIncludeTestInterfaces(false);
+
+        if (mPreviousWifiEnabledState) {
+            mCtsNetUtils.connectToWifi();
+        }
     }
 
     @After
