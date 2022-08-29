@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2917c59c_eccfd733",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-29T06:18:44Z",
+      "side": 1,
+      "message": "LGTM but you might need to rebase and make TH happy.",
+      "revId": "3e9973b64048e0c057167ae748d60d246db390dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52669fd3_379247db",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-29T06:18:44Z",
+      "side": 1,
+      "message": "nit: mocked?",
+      "range": {
+        "startLine": 481,
+        "startChar": 40,
+        "endLine": 481,
+        "endChar": 41
+      },
+      "revId": "3e9973b64048e0c057167ae748d60d246db390dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
