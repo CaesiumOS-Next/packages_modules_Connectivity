@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7e74fb6_1b4b2e60",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-08-29T03:37:11Z",
+      "side": 1,
+      "message": "No, we can\u0027t pass null here becase it would meet overload resolution ambiguity problem.\n\n```\npackages/modules/Connectivity/tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest\n.kt:159:9: error: overload resolution ambiguity: \npublic fun mockContextAsUser(context: Context, functor: ((Context, UserHandle) -\u003e Unit)? \u003d ...): Unit defined in com.android.t\nestutils\npublic fun mockContextAsUser(context: Context, functor: BiConsumer\u003cContext, UserHandle\u003e? \u003d ...): Unit defined in com.android.t\nestutils\n        mockContextAsUser(context)\n        ^\n```",
+      "parentUuid": "539ba658_d6e35539",
+      "range": {
+        "startLine": 158,
+        "startChar": 35,
+        "endLine": 158,
+        "endChar": 46
+      },
+      "revId": "f884d2beed027f35d4d19554f1e09604e162568c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5513f013_6281116d",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9831fca0_54a2ecaf",
+        "filename": "tests/unit/java/com/android/server/connectivity/MultipathPolicyTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-08-29T03:37:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5513f013_6281116d",
+      "range": {
+        "startLine": 146,
+        "startChar": 20,
+        "endLine": 146,
+        "endChar": 57
+      },
+      "revId": "f884d2beed027f35d4d19554f1e09604e162568c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f215dae_14c673fb",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-08-26T01:37:49Z",
       "side": 1,
       "message": "You can just pass null here, or you could add the @JvmOverloads on the mockContextAsUser which will let you dispense with the argument.",
+      "range": {
+        "startLine": 166,
+        "startChar": 32,
+        "endLine": 166,
+        "endChar": 44
+      },
+      "revId": "f884d2beed027f35d4d19554f1e09604e162568c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcc77490_99338ec3",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkNotificationManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-08-29T03:37:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f215dae_14c673fb",
       "range": {
         "startLine": 166,
         "startChar": 32,
