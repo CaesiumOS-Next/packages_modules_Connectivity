@@ -20,6 +20,7 @@ import static android.Manifest.permission.DUMP;
 import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
 import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.Manifest.permission.TETHER_PRIVILEGED;
+import static android.content.pm.PackageManager.FEATURE_WIFI;
 import static android.net.InetAddresses.parseNumericAddress;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
@@ -54,12 +55,15 @@ import static org.junit.Assume.assumeTrue;
 
 import android.app.UiAutomation;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.EthernetManager.TetheredInterfaceCallback;
 import android.net.EthernetManager.TetheredInterfaceRequest;
 import android.net.TetheringManager.StartTetheringCallback;
 import android.net.TetheringManager.TetheringEventCallback;
 import android.net.TetheringManager.TetheringRequest;
 import android.net.TetheringTester.TetheredDevice;
+import android.net.cts.util.CtsNetUtils;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -234,6 +238,9 @@ public class EthernetTetheringTest {
     private final Context mContext = InstrumentationRegistry.getContext();
     private final EthernetManager mEm = mContext.getSystemService(EthernetManager.class);
     private final TetheringManager mTm = mContext.getSystemService(TetheringManager.class);
+    private final WifiManager mWm = mContext.getSystemService(WifiManager.class);
+    private final PackageManager mPackageManager = mContext.getPackageManager();
+    private final CtsNetUtils mCtsNetUtils = new CtsNetUtils(mContext);
 
     private TestNetworkInterface mDownstreamIface;
     private HandlerThread mHandlerThread;
@@ -247,6 +254,9 @@ public class EthernetTetheringTest {
     private UiAutomation mUiAutomation =
             InstrumentationRegistry.getInstrumentation().getUiAutomation();
     private boolean mRunTests;
+    private boolean mIsTelephonySupported;
+    private boolean mIsWifiSupported;
+    private boolean mPreviousWifiEnabledState;
 
     private TestNetworkTracker mUpstreamTracker;
 
@@ -260,6 +270,7 @@ public class EthernetTetheringTest {
                 mTm.isTetheringSupported());
         assumeTrue(mRunTests);
 
+        mIsWifiSupported = mPackageManager.hasSystemFeature(FEATURE_WIFI);
         mTetheredInterfaceRequester = new TetheredInterfaceRequester(mHandler, mEm);
     }
 
@@ -691,9 +702,21 @@ public class EthernetTetheringTest {
         }
 
         public Network awaitUpstreamChanged() throws Exception {
+            return awaitUpstreamChanged(true /* failOrThrowTimeoutException */);
+        }
+
+        public Network awaitUpstreamChanged(boolean failOrThrowTimeoutException)
+                throws Exception {
             if (!mUpstreamLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS)) {
-                fail("Did not receive upstream " + (mAcceptAnyUpstream ? "any" : mExpectedUpstream)
-                        + " callback after " + TIMEOUT_MS + "ms");
+                if (failOrThrowTimeoutException) {
+                    fail("Did not receive upstream "
+                            + (mAcceptAnyUpstream ? "any" : mExpectedUpstream)
+                            + " callback after " + TIMEOUT_MS + "ms");
+                } else {
+                    throw new TimeoutException("Did not receive upstream "
+                            + (mAcceptAnyUpstream ? "any" : mExpectedUpstream)
+                            + " callback after " + TIMEOUT_MS + "ms");
+                }
             }
             return mUpstream;
         }
@@ -1232,6 +1255,26 @@ public class EthernetTetheringTest {
         }
     }
 
+    private Network awaitUpstreamChanged(final Network expectedUpstream) throws Exception {
+        final CompletableFuture<Network> future = new CompletableFuture<>();
+        final TetheringEventCallback callback = new TetheringEventCallback() {
+            @Override
+            public void onUpstreamChanged(Network network) {
+                Log.d(TAG, "awaitUpstreamChanged: got upstream changed: " + network);
+                if (Objects.equals(expectedUpstream, network)) {
+                    future.complete(network);
+                }
+            }
+        };
+
+        try {
+            mTm.registerTetheringEventCallback(mHandler::post, callback);
+            return future.get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        } finally {
+            mTm.unregisterTetheringEventCallback(callback);
+        }
+    }
+
     private TetheringTester initTetheringTester(List<LinkAddress> upstreamAddresses,
             List<InetAddress> upstreamDnses) throws Exception {
         assumeFalse(isInterfaceForTetheringAvailable());
@@ -1250,8 +1293,30 @@ public class EthernetTetheringTest {
 
         mTetheringEventCallback = enableEthernetTethering(mDownstreamIface.getInterfaceName(),
                 mUpstreamTracker.getNetwork());
+
+        Network changedUpstreamNetwork = null;
+        try {
+            changedUpstreamNetwork = mTetheringEventCallback.awaitUpstreamChanged(false
+                    /* failOrThrowTimeoutException*/);
+        } catch (TimeoutException e) {
+            Log.d(TAG, "onUpstreamChanged timeout: " + e);
+
+            // Toggle wifi networks if any.
+            // Used to avoid the flaky upstream selection under multinetwork environment. Internet
+            // and test network upstream changed event order is not guaranteed. Once tethering
+            // chooses non-test upstream {wifi, ..}, test network won't be chosen.
+            // TODO: remove this once test network can replace chosen upstream network.
+            if (mIsWifiSupported) {
+                Log.d(TAG, "Toggle WIFI to re-choose upstream");
+                mCtsNetUtils.toggleWifi();
+                changedUpstreamNetwork = awaitUpstreamChanged(mUpstreamTracker.getNetwork());
+            } else {
+                Log.d(TAG, "Have no way to re-choose upstream");
+                throw e;
+            }
+        }
         assertEquals("onUpstreamChanged for unexpected network", mUpstreamTracker.getNetwork(),
-                mTetheringEventCallback.awaitUpstreamChanged());
+                changedUpstreamNetwork);
 
         mDownstreamReader = makePacketReader(mDownstreamIface);
         mUpstreamReader = makePacketReader(mUpstreamTracker.getTestIface());
