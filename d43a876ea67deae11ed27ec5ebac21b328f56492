@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43aacb3b_dc6c3dae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-08-29T11:01:36Z",
+      "side": 1,
+      "message": "Thanks for the fix, looks good to me. Just would like to make sure if this fix works as expected, for example, when updating the static IP configuration from UI settings, and then try to read the IP config from apex file string, does the IP config equal to the config set in the UI?",
+      "revId": "d43a876ea67deae11ed27ec5ebac21b328f56492",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
