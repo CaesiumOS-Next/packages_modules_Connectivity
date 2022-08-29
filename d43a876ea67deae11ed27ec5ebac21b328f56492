@@ -16,6 +16,23 @@
       "message": "Thanks for the fix, looks good to me. Just would like to make sure if this fix works as expected, for example, when updating the static IP configuration from UI settings, and then try to read the IP config from apex file string, does the IP config equal to the config set in the UI?",
       "revId": "d43a876ea67deae11ed27ec5ebac21b328f56492",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b2a81fc_4e0723fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-08-29T22:39:48Z",
+      "side": 1,
+      "message": "The change overall looks ok. I\u0027m however not sure what the implications are in this case writing to a file in the config store in regards to mainline (i.e. any potential backwards compatibility issues). Move the review to Remi to confirm if the change looks good.",
+      "revId": "d43a876ea67deae11ed27ec5ebac21b328f56492",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
