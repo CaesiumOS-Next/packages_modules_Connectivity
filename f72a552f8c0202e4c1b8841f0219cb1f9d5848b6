@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38fdb319_4fc41ed0",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1182,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-30T09:28:07Z",
+      "side": 1,
+      "message": "This method was removed.",
+      "range": {
+        "startLine": 1182,
+        "startChar": 16,
+        "endLine": 1182,
+        "endChar": 32
+      },
+      "revId": "f72a552f8c0202e4c1b8841f0219cb1f9d5848b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
