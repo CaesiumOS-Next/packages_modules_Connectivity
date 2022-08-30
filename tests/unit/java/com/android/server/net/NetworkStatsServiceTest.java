@@ -2132,22 +2132,22 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     }
 
     private void mockSettings(long bucketDuration, long deleteAge) throws Exception {
-        when(mSettings.getPollInterval()).thenReturn(HOUR_IN_MILLIS);
-        when(mSettings.getPollDelay()).thenReturn(0L);
-        when(mSettings.getSampleEnabled()).thenReturn(true);
-        when(mSettings.getCombineSubtypeEnabled()).thenReturn(false);
+        doReturn(HOUR_IN_MILLIS).when(mSettings).getPollInterval();
+        doReturn(0L).when(mSettings).getPollDelay();
+        doReturn(true).when(mSettings).getSampleEnabled();
+        doReturn(false).when(mSettings).getCombineSubtypeEnabled();
 
         final Config config = new Config(bucketDuration, deleteAge, deleteAge);
-        when(mSettings.getDevConfig()).thenReturn(config);
-        when(mSettings.getXtConfig()).thenReturn(config);
-        when(mSettings.getUidConfig()).thenReturn(config);
-        when(mSettings.getUidTagConfig()).thenReturn(config);
+        doReturn(config).when(mSettings).getDevConfig();
+        doReturn(config).when(mSettings).getXtConfig();
+        doReturn(config).when(mSettings).getUidConfig();
+        doReturn(config).when(mSettings).getUidTagConfig();
 
-        when(mSettings.getGlobalAlertBytes(anyLong())).thenReturn(MB_IN_BYTES);
-        when(mSettings.getDevPersistBytes(anyLong())).thenReturn(MB_IN_BYTES);
-        when(mSettings.getXtPersistBytes(anyLong())).thenReturn(MB_IN_BYTES);
-        when(mSettings.getUidPersistBytes(anyLong())).thenReturn(MB_IN_BYTES);
-        when(mSettings.getUidTagPersistBytes(anyLong())).thenReturn(MB_IN_BYTES);
+        doReturn(MB_IN_BYTES).when(mSettings).getGlobalAlertBytes(anyLong());
+        doReturn(MB_IN_BYTES).when(mSettings).getDevPersistBytes(anyLong());
+        doReturn(MB_IN_BYTES).when(mSettings).getXtPersistBytes(anyLong());
+        doReturn(MB_IN_BYTES).when(mSettings).getUidPersistBytes(anyLong());
+        doReturn(MB_IN_BYTES).when(mSettings).getUidTagPersistBytes(anyLong());
     }
 
     private void assertStatsFilesExist(boolean exist) {
