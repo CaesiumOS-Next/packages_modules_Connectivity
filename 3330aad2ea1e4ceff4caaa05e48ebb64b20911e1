@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0314679c_3b4887f9",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 1332872
+      },
+      "writtenOn": "2022-08-30T10:42:45Z",
+      "side": 1,
+      "message": "attempts seems to be a constant. Is it meaningful to print it out?",
+      "range": {
+        "startLine": 679,
+        "startChar": 74,
+        "endLine": 679,
+        "endChar": 82
+      },
+      "revId": "3330aad2ea1e4ceff4caaa05e48ebb64b20911e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
