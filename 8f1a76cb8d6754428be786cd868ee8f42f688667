@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6063b754_153dc158",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-30T09:57:39Z",
+      "side": 1,
+      "message": "Added extensive comments, let me know if I can clarify more.",
+      "parentUuid": "4cc09f9a_7bd8c3b4",
+      "range": {
+        "startLine": 192,
+        "startChar": 7,
+        "endLine": 193,
+        "endChar": 45
+      },
+      "revId": "8f1a76cb8d6754428be786cd868ee8f42f688667",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dea17190_6db6be2a",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b4ee60b_c5e6d4c0",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-30T09:57:39Z",
+      "side": 1,
+      "message": "New comments explain why currentTimeMillis is not a good choice, but in a nutshell, the point is that in bug reports, we don\u0027t care what time the device clock was showing when the device first connected ; what matters is how long it\u0027s been connected, so we need a monotonic clock. Suppose you connect 5 minutes before daylight savings change the clock 1 hour back, you want to say the network has been connected for 5 minutes, not that it will connect in 55 minutes.",
+      "parentUuid": "dea17190_6db6be2a",
+      "range": {
+        "startLine": 199,
+        "startChar": 17,
+        "endLine": 199,
+        "endChar": 47
+      },
+      "revId": "8f1a76cb8d6754428be786cd868ee8f42f688667",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ef4f399_d6a57978",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-08-30T09:43:32Z",
       "side": 1,
       "message": "Not sure what is toCtmBase and what\u0027s the benefit of using it? Is it better if we just use SystemClock.currentTimeMillis() which is easier to understand by everyone?",
+      "range": {
+        "startLine": 221,
+        "startChar": 17,
+        "endLine": 221,
+        "endChar": 20
+      },
+      "revId": "8f1a76cb8d6754428be786cd868ee8f42f688667",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89cdae09_cdd7c14d",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-30T09:57:39Z",
+      "side": 1,
+      "message": "ctm is for currentTimeMillis, see new comments",
+      "parentUuid": "9ef4f399_d6a57978",
       "range": {
         "startLine": 221,
         "startChar": 17,
