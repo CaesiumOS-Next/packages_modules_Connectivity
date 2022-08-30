@@ -3786,6 +3786,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         private void handleNetworkTested(
                 @NonNull NetworkAgentInfo nai, int testResult, @NonNull String redirectUrl) {
+            nai.setEvaluated();
             final boolean valid = ((testResult & NETWORK_VALIDATION_RESULT_VALID) != 0);
             if (!valid && shouldIgnoreValidationFailureAfterRoam(nai)) {
                 // Assume the validation failure is due to a temporary failure after roaming
@@ -5186,10 +5187,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private void handlePromptUnvalidated(Network network) {
         if (VDBG || DDBG) log("handlePromptUnvalidated " + network);
         NetworkAgentInfo nai = getNetworkAgentInfoForNetwork(network);
+        if (null == nai) return;
 
-        if (nai == null || !shouldPromptUnvalidated(nai)) {
-            return;
+        if (nai.setEvaluated()) {
+            //rematchAllNetworksAndRequests();
         }
+
+        if (!shouldPromptUnvalidated(nai)) return;
 
         // Stop automatically reconnecting to this network in the future. Automatically connecting
         // to a network that provides no or limited connectivity is not useful, because the user
