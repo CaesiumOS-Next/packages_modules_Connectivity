@@ -71,6 +71,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25359b71_31554348",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 4271,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-30T08:31:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9df1d03b_f4d85164",
+      "range": {
+        "startLine": 4271,
+        "startChar": 75,
+        "endLine": 4271,
+        "endChar": 76
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f922cb0_f41232c9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 4271,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-30T08:31:36Z",
+      "side": 1,
+      "message": "Good idea. Went with a WTF because it\u0027s possible that system server OEM code could be calling the deprecated NetworkAgent#sendNetworkInfo method that would let them set the state to arbirary value.",
+      "parentUuid": "3033ce2c_62aec581",
+      "range": {
+        "startLine": 4271,
+        "startChar": 75,
+        "endLine": 4271,
+        "endChar": 76
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56d1272f_a9f0c76c",
@@ -84,6 +132,30 @@
       "writtenOn": "2022-08-03T11:49:24Z",
       "side": 1,
       "message": "From this point on matching happens, courtesy of NetworkAgentInfo#satisfies looking up NetworkAgentInfo#created. So I thought we\u0027d be sending onAvailable immediately to everybody. In reality this doesn\u0027t happen because the rematch is in fact filtering out networks in two places : l.8788 and l.8907, so it feels a bit dangerous but it works.\n\nprocessListenRequests does no such filtering though, and if the agent updates its capabilities before connecting, this sends the caps updated callback (before onAvailable is sent).\n\nBest to have some tests for these two cases, and since I already wrote them to make sure my findings were actually correct, you don\u0027t have to : please review aosp/2173596 and rebase, and you\u0027ll find a break on the second one when you apply this patch :)\n\nOther places this might affect are though NAI#satisfies are :\n• getMatchingPermissionedCallbacks : I think this is safe because the NAI passed must have tried validation, so likely this can\u0027t be called with a non-connected NAI.\n• handleRegisterConnectivityDiagnosticsCallback : I think this is safe because while registration can happen at any time, a created-not-connected NAI can\u0027t have a connectivity report yet.\n• onDnsHealthEvent : I think this is safe because DNS events can\u0027t happen on created but not connected networks.\n• isNetworkPotentialSatisfier : I think this is safe because the only caller, `unneeded`, returns early if `!everConnected`.\n\nThis change, though NAI#satisfiesImmutableCapabilitiesOf, also impacts the signal strength threshold. If I\u0027m following this correctly, it means if we update them for any unrelated reason while an agent is created but not connected AND there is a request matching it, then we\u0027ll add the hardware triggers early. This is probably harmless in practice, but my suggestion of a solution below also restores the original behavior.\n\nThe simplest solution is probably to update NetworkAgentInfo#satisfies and NAI#satisfiesImmutableCapabilitiesOf to use everConnected instead of created, since a network that was never connected should never satisfy anything really – unless it breaks something else. I don\u0027t think we have any place where NAI#satisfies is used where it depends on `created\u003dtrue \u0026\u0026 everConnected\u003dfalse` though, and if we do have such a place it\u0027s probably better off using networkCapabilities.satisfiedByNetworkCapabilities anyway. I checked that it doesn\u0027t break any test in ConnectivityServiceTest and it also fixes the test I wrote in aosp/2173596. It also probably lets us remove the filtering on everConnected in matching, for a small simplification and performance improvement.",
+      "range": {
+        "startLine": 9206,
+        "startChar": 25,
+        "endLine": 9206,
+        "endChar": 32
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1772abe7_49a8b710",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 9206,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-30T08:31:36Z",
+      "side": 1,
+      "message": "aosp/2173596 is merged so the tests now exist. The changes to NetworkAgentInfo#satisfies were made in a separate CL.",
+      "parentUuid": "56d1272f_a9f0c76c",
       "range": {
         "startLine": 9206,
         "startChar": 25,
@@ -117,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0037af32_6f190637",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-30T08:31:36Z",
+      "side": 1,
+      "message": "Actually I find the current code more readable. Left as is.",
+      "parentUuid": "69c99f7f_1397f5ad",
+      "range": {
+        "startLine": 274,
+        "startChar": 12,
+        "endLine": 274,
+        "endChar": 47
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07f7cd96_560e33e0",
@@ -140,6 +236,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93a50d61_1916c57a",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-30T08:31:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07f7cd96_560e33e0",
+      "range": {
+        "startLine": 340,
+        "startChar": 16,
+        "endLine": 340,
+        "endChar": 45
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9268b59_6e232e29",
@@ -153,6 +273,30 @@
       "writtenOn": "2022-08-03T11:49:24Z",
       "side": 1,
       "message": "This is never both used and null so you can remove this `?` if you only also remove it from l.309",
+      "range": {
+        "startLine": 342,
+        "startChar": 28,
+        "endLine": 342,
+        "endChar": 29
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44635f56_f9abc0e8",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-08-30T08:31:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9268b59_6e232e29",
       "range": {
         "startLine": 342,
         "startChar": 28,
