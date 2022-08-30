@@ -664,18 +664,20 @@ public final class TetheringServiceTest {
             assertEquals("Internal callback is not registered", 1, callbacks.size());
             assertNotNull(weakTm.get());
 
+            // Calling System.gc() or System.runFinalization() doesn't guarantee GCs or finalizers
+            // are executed synchronously. GCs and finalizers may run in different threads.
             final int attempts = 100;
             final long waitIntervalMs = 50;
             for (int i = 0; i < attempts; i++) {
                 forceGc();
-                if (weakTm.get() == null) break;
+                if (weakTm.get() == null && callbacks.size() == 0) break;
 
                 Thread.sleep(waitIntervalMs);
             }
             assertNull("TetheringManager weak reference still not null after " + attempts
                     + " attempts", weakTm.get());
-
-            assertEquals("Internal callback is not unregistered", 0, callbacks.size());
+            assertEquals("Internal callback is not unregistered after " + attempts
+                    + " attempts", 0, callbacks.size());
         });
     }
 }
