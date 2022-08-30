@@ -471,6 +471,16 @@ public class Ikev2VpnProfileTest {
                 new Ikev2VpnProfile.Builder(tunnelParams2).build());
     }
 
+    @Test
+    public void testBuildProfileWithNullProxy() throws Exception {
+        final Ikev2VpnProfile profile =
+                new Ikev2VpnProfile.Builder(SERVER_ADDR_STRING, IDENTITY_STRING)
+                        .setAuthUsernamePassword(USERNAME_STRING, PASSWORD_STRING, mServerRootCa)
+                        .build();
+
+        // ProxyInfo should be null for the profile without setting ProxyInfo.
+        assertNull(profile.getProxyInfo());
+    }
 
     private static class CertificateAndKey {
         public final X509Certificate cert;
