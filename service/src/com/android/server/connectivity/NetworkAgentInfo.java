@@ -377,6 +377,21 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
         return 0L != mPartialConnectivityTime;
     }
 
+    // Timestamp (SystemClock.elapsedRealTime()) at which the first validation attempt concluded,
+    // or timed out after {@link ConnectivityService#PROMPT_UNVALIDATED_DELAY_MS}. 0 if not yet.
+    private long mFirstEvaluationConcludedTime;
+
+    /**
+     * Notify this NAI that this network has been evaluated.
+     *
+     * @return true the first time this is called on this object, then always returns false.
+     */
+    public boolean setEvaluated() {
+        if (0L != mFirstEvaluationConcludedTime) return false;
+        mFirstEvaluationConcludedTime = SystemClock.elapsedRealtime();
+        return true;
+    }
+
     // Delay between when the network is disconnected and when the native network is destroyed.
     public int teardownDelayMs;
 
@@ -971,7 +986,8 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
         final NetworkCapabilities oldNc = networkCapabilities;
         networkCapabilities = nc;
         mScore = mScore.mixInScore(networkCapabilities, networkAgentConfig, everValidated(),
-                0L != getAvoidUnvalidated(), yieldToBadWiFi(), isDestroyed());
+                0L != getAvoidUnvalidated(), yieldToBadWiFi(), isDestroyed(),
+                0L == mFirstEvaluationConcludedTime);
         final NetworkMonitorManager nm = mNetworkMonitor;
         if (nm != null) {
             nm.notifyNetworkCapabilitiesChanged(nc);
@@ -1174,7 +1190,8 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
      */
     public void setScore(final NetworkScore score) {
         mScore = FullScore.fromNetworkScore(score, networkCapabilities, networkAgentConfig,
-                everValidated(), 0L == getAvoidUnvalidated(), yieldToBadWiFi(), isDestroyed());
+                everValidated(), 0L == getAvoidUnvalidated(), yieldToBadWiFi(), isDestroyed(),
+                0L != mFirstEvaluationConcludedTime);
     }
 
     /**
@@ -1184,7 +1201,8 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
      */
     public void updateScoreForNetworkAgentUpdate() {
         mScore = mScore.mixInScore(networkCapabilities, networkAgentConfig,
-                everValidated(), 0L != getAvoidUnvalidated(), yieldToBadWiFi(), isDestroyed());
+                everValidated(), 0L != getAvoidUnvalidated(), yieldToBadWiFi(), isDestroyed(),
+                0L != mFirstEvaluationConcludedTime);
     }
 
     /**
