@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "214cd1e0_951aafc8",
+        "filename": "tests/cts/net/src/android/net/cts/DeviceConfigRule.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-30T09:21:54Z",
+      "side": 1,
+      "message": "Lol, copy-paste adjusts the code :) Thanks.",
+      "parentUuid": "48f56d07_d2ee978d",
+      "range": {
+        "startLine": 131,
+        "startChar": 18,
+        "endLine": 131,
+        "endChar": 43
+      },
+      "revId": "beb1bff0cb4563c9ddfd92fed1cab8b59e779f2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8c0a70c_291e5320",
@@ -71,6 +95,30 @@
       "writtenOn": "2022-08-26T05:55:18Z",
       "side": 1,
       "message": "Given that value is nullable, is it correct to pass null as the default value of getString? Is it important that this method be able to tell the difference between \"key exists and has null value\" and \"key does not exist\"?\n\nI guess that if the only keys in the Properties object are the keys that were modified, then this code is correct. I wonder if it\u0027s worth mentioning that in a comment?",
+      "range": {
+        "startLine": 140,
+        "startChar": 34,
+        "endLine": 140,
+        "endChar": 48
+      },
+      "revId": "beb1bff0cb4563c9ddfd92fed1cab8b59e779f2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf723d50_ce4782ff",
+        "filename": "tests/cts/net/src/android/net/cts/DeviceConfigRule.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-08-30T09:21:54Z",
+      "side": 1,
+      "message": "DeviceConfig does not make a difference between \"present and null\" and \"absent\" anyway. Added a comment.",
+      "parentUuid": "a8c0a70c_291e5320",
       "range": {
         "startLine": 140,
         "startChar": 34,
