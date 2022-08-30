@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cc09f9a_7bd8c3b4",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-30T09:43:32Z",
+      "side": 1,
+      "message": "Hmm, I know this is based on the two time, which is obvious in the code. Hence the comments seems meaningless to me.\nBut I don\u0027t follow what is the physical meaning of the returned timestamp.\nMaybe describe what is ctm and ert, and what is the conversion here?",
+      "range": {
+        "startLine": 192,
+        "startChar": 7,
+        "endLine": 193,
+        "endChar": 45
+      },
+      "revId": "8f1a76cb8d6754428be786cd868ee8f42f688667",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dea17190_6db6be2a",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-30T09:43:32Z",
+      "side": 1,
+      "message": "What is the benefit if we use elapsedRealtime as the timestamp?\nIt seems to me currentTimeMillis is a better choice?",
+      "range": {
+        "startLine": 199,
+        "startChar": 17,
+        "endLine": 199,
+        "endChar": 47
+      },
+      "revId": "8f1a76cb8d6754428be786cd868ee8f42f688667",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ef4f399_d6a57978",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-30T09:43:32Z",
+      "side": 1,
+      "message": "Not sure what is toCtmBase and what\u0027s the benefit of using it? Is it better if we just use SystemClock.currentTimeMillis() which is easier to understand by everyone?",
+      "range": {
+        "startLine": 221,
+        "startChar": 17,
+        "endLine": 221,
+        "endChar": 20
+      },
+      "revId": "8f1a76cb8d6754428be786cd868ee8f42f688667",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
