@@ -90,12 +90,15 @@ public class FullScore {
     /** @hide */
     public static final int POLICY_IS_INVINCIBLE = 58;
 
-    // This network has been validated at least once since it was connected, but not explicitly
-    // avoided in UI.
+    // This network has been validated at least once since it was connected.
+    /** @hide */
+    public static final int POLICY_EVER_VALIDATED = 57;
+
+    // The user explicitly said in UI to avoid this network when unvalidated.
     // TODO : remove setAvoidUnvalidated and instead disconnect the network when the user
     // chooses to move away from this network, and remove this flag.
     /** @hide */
-    public static final int POLICY_EVER_VALIDATED_NOT_AVOIDED_WHEN_BAD = 57;
+    public static final int POLICY_AVOIDED_WHEN_UNVALIDATED = 56;
 
     // The network agent has communicated that this network no longer functions, and the underlying
     // native network has been destroyed. The network will still be reported to clients as connected
@@ -103,7 +106,7 @@ public class FullScore {
     // This network should lose to an identical network that has not been destroyed, but should
     // otherwise be scored exactly the same.
     /** @hide */
-    public static final int POLICY_IS_DESTROYED = 56;
+    public static final int POLICY_IS_DESTROYED = 55;
 
     // To help iterate when printing
     @VisibleForTesting
@@ -154,6 +157,7 @@ public class FullScore {
      * @param caps the NetworkCapabilities of the network
      * @param config the NetworkAgentConfig of the network
      * @param everValidated whether this network has ever validated
+     * @param avoidUnvalidated whether the user said in UI to avoid this network when unvalidated
      * @param yieldToBadWiFi whether this network yields to a previously validated wifi gone bad
      * @param destroyed whether this network has been destroyed pending a replacement connecting
      * @return a FullScore that is appropriate to use for ranking.
@@ -163,13 +167,15 @@ public class FullScore {
     // connectivity for backward compatibility.
     public static FullScore fromNetworkScore(@NonNull final NetworkScore score,
             @NonNull final NetworkCapabilities caps, @NonNull final NetworkAgentConfig config,
-            final boolean everValidated, final boolean yieldToBadWiFi, final boolean destroyed) {
+            final boolean everValidated, final boolean avoidUnvalidated,
+            final boolean yieldToBadWiFi, final boolean destroyed) {
         return withPolicies(score.getPolicies(),
                 score.getKeepConnectedReason(),
                 caps.hasCapability(NET_CAPABILITY_VALIDATED),
                 caps.hasTransport(TRANSPORT_VPN),
                 caps.hasCapability(NET_CAPABILITY_NOT_METERED),
                 everValidated,
+                avoidUnvalidated,
                 config.explicitlySelected,
                 config.acceptUnvalidated,
                 yieldToBadWiFi,
@@ -201,6 +207,9 @@ public class FullScore {
         final boolean unmetered = true;
         // If the offer may validate, then it should be considered to have validated at some point
         final boolean everValidated = mayValidate;
+        // A prospective network is never avoided when unvalidated, because the user has never
+        // had the opportunity to say so in UI.
+        final boolean avoidUnvalidated = false;
         // The network hasn't been chosen by the user (yet, at least).
         final boolean everUserSelected = false;
         // Don't assume the user will accept unvalidated connectivity.
@@ -211,8 +220,8 @@ public class FullScore {
         // score.
         final boolean invincible = score.getLegacyInt() > NetworkRanker.LEGACY_INT_MAX;
         return withPolicies(score.getPolicies(), KEEP_CONNECTED_NONE,
-                mayValidate, vpn, unmetered, everValidated, everUserSelected, acceptUnvalidated,
-                yieldToBadWiFi, destroyed, invincible);
+                mayValidate, vpn, unmetered, everValidated, avoidUnvalidated, everUserSelected,
+                acceptUnvalidated, yieldToBadWiFi, destroyed, invincible);
     }
 
     /**
@@ -228,6 +237,7 @@ public class FullScore {
     public FullScore mixInScore(@NonNull final NetworkCapabilities caps,
             @NonNull final NetworkAgentConfig config,
             final boolean everValidated,
+            final boolean avoidUnvalidated,
             final boolean yieldToBadWifi,
             final boolean destroyed) {
         return withPolicies(mPolicies, mKeepConnectedReason,
@@ -235,6 +245,7 @@ public class FullScore {
                 caps.hasTransport(TRANSPORT_VPN),
                 caps.hasCapability(NET_CAPABILITY_NOT_METERED),
                 everValidated,
+                avoidUnvalidated,
                 config.explicitlySelected,
                 config.acceptUnvalidated,
                 yieldToBadWifi,
@@ -251,6 +262,7 @@ public class FullScore {
             final boolean isVpn,
             final boolean isUnmetered,
             final boolean everValidated,
+            final boolean avoidUnvalidated,
             final boolean everUserSelected,
             final boolean acceptUnvalidated,
             final boolean yieldToBadWiFi,
@@ -260,7 +272,8 @@ public class FullScore {
                 | (isValidated       ? 1L << POLICY_IS_VALIDATED : 0)
                 | (isVpn             ? 1L << POLICY_IS_VPN : 0)
                 | (isUnmetered       ? 1L << POLICY_IS_UNMETERED : 0)
-                | (everValidated     ? 1L << POLICY_EVER_VALIDATED_NOT_AVOIDED_WHEN_BAD : 0)
+                | (everValidated     ? 1L << POLICY_EVER_VALIDATED : 0)
+                | (avoidUnvalidated  ? 1L << POLICY_AVOIDED_WHEN_UNVALIDATED : 0)
                 | (everUserSelected  ? 1L << POLICY_EVER_USER_SELECTED : 0)
                 | (acceptUnvalidated ? 1L << POLICY_ACCEPT_UNVALIDATED : 0)
                 | (yieldToBadWiFi    ? 1L << POLICY_YIELD_TO_BAD_WIFI : 0)
