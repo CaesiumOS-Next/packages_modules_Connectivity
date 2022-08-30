@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d14c8c87_07cbbd0d",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1170,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-30T06:47:12Z",
+      "side": 1,
+      "message": "Both wifi and mobile? Then set mobile as default.\nThen call increase operation count\nVerify query wifi only contains stats for wifi iface\nVerify query mobile only contains stats for mobile iface and operation count is increased.",
+      "revId": "078c930dba5646991aa22a8410346a5a6dc75d0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2944ec23_32127479",
         "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
         "patchSetId": 3
@@ -37,6 +54,57 @@
       "writtenOn": "2022-08-25T03:35:14Z",
       "side": 1,
       "message": "1. Maybe add some comments to describe what is the 2nd section of test?\n2. It seems to me the 2nd part is only increase coverage for incrementOperationCount, if so, can we combine it to the 1st part of the test?",
+      "revId": "078c930dba5646991aa22a8410346a5a6dc75d0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8e63e70_51d60429",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-30T06:47:12Z",
+      "side": 1,
+      "message": "This doesn\u0027t need to mock again?",
+      "revId": "078c930dba5646991aa22a8410346a5a6dc75d0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "649346dd_43f95cb6",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1244,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-30T06:47:12Z",
+      "side": 1,
+      "message": "Should test result doesn\u0027t contain mobile iface.",
+      "revId": "078c930dba5646991aa22a8410346a5a6dc75d0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8326705_82b58c67",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1256,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-08-30T06:47:12Z",
+      "side": 1,
+      "message": "Why wifi operation count is incrased?",
       "revId": "078c930dba5646991aa22a8410346a5a6dc75d0a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
