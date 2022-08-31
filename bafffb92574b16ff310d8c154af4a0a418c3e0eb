@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bb1bfba_f74d2245",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-31T10:07:13Z",
+      "side": 1,
+      "message": "Not finished.",
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf4f3aa0_f960b2e0",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-31T10:07:13Z",
+      "side": 1,
+      "message": "Not sure if this is true, because it seems independent? Refer to:\nhttps://stackoverflow.com/questions/43055258/system-currenttimemillis-and-daylight-savings\nIf that is true, it should be fine whenever you want to format ctm into human readible format, right?\n\nBut general speaking, I would prefer to see the timestamp that matches the device log, that is easier to debug, even if it doesn\u0027t make sense. e.g.\n1. network connects at 2AM\n2. The user manually adjust system time to 1AM.\n3. 5 min later network disconnects, and a bug report is taken.\n\nI would prefer to see the network connects at 2:00, disconnects at 1:05 and total conneted time -55min in the log.\nBut what would the log say if the current solution is applied?",
+      "range": {
+        "startLine": 205,
+        "startChar": 33,
+        "endLine": 207,
+        "endChar": 24
+      },
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
