@@ -16,6 +16,29 @@
       "message": "TH found a single unrelated test failure in\nFrameworksCoreTests(module-abi\u003dx86_64)\nandroid.view.InsetsControllerTest\ntestSystemDrivenInsetsAnimationLoggingListener_onReady\n\n(which has to do with window animation and is thus entirely unrelated)\n\n",
       "revId": "1453f129ea59a83a52728c422d440d23103d2418",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "431a007f_54603ada",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-08-31T12:42:44Z",
+      "side": 1,
+      "message": "side note: we clear() the map in this function, I wonder if it wouldn\u0027t be logical for the map swap() and rcu wait() to happen directly in this function as well.\n\nafaict any attempt to do these 2 operations separately / out of sync with one another is likely going to be a bug...\n\nTechnically it\u0027s only a bug if you swap twice without fetching in between...\nie. swap swap, while \u0027swap fetch fetch swap\u0027 is ok (since the clear() at the end of the 1st fetch should make the 2nd fetch a no-op)... but still - it\u0027s definitely not how this is expected to be used.",
+      "range": {
+        "startLine": 205,
+        "startChar": 41,
+        "endLine": 205,
+        "endChar": 46
+      },
+      "revId": "1453f129ea59a83a52728c422d440d23103d2418",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
