@@ -140,6 +140,29 @@
       },
       "revId": "8f1a76cb8d6754428be786cd868ee8f42f688667",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "532fa271_c5b3f5f5",
+        "filename": "tests/unit/java/com/android/server/connectivity/LingerMonitorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-31T12:12:20Z",
+      "side": 1,
+      "message": "This is strange in the original design.\nNot for this CL, is it feasible if we change to setValidated?\nMaybe leave a todo if preferred.",
+      "range": {
+        "startLine": 376,
+        "startChar": 8,
+        "endLine": 380,
+        "endChar": 9
+      },
+      "revId": "8f1a76cb8d6754428be786cd868ee8f42f688667",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

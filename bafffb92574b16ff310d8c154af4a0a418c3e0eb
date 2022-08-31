@@ -39,6 +39,237 @@
       },
       "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6031fb6_56d4336e",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-31T12:12:20Z",
+      "side": 1,
+      "message": "Rationale for current time millis is better:\n1. We don\u0027t really have a thing that is really rely on monotonic clock.\n2. The ctm-based timestamp might differ from the timstamp we see in the device log.  Which might make it harder to debug and clarify issue since they might not match if the user adjust system time multiple times.\n3. The use cases described were not a problem happened in pratice when we debug other modules. If it happens, we ask for clarifying the time change or just let the reporter reproduce again without touching the time.\n4. The conversion between a ctm-base timestamp and a real timestamp got from ctm is unknown to me. And I think people would be confused too.",
+      "parentUuid": "bf4f3aa0_f960b2e0",
+      "range": {
+        "startLine": 205,
+        "startChar": 33,
+        "endLine": 207,
+        "endChar": 24
+      },
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8259f5d_2c3fd361",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-31T12:12:20Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 233,
+        "startChar": 67,
+        "endLine": 233,
+        "endChar": 90
+      },
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "997a4bc7_c1fb9e7b",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-31T12:12:20Z",
+      "side": 1,
+      "message": "Maybe emphasis this is for debugging purpose like \"For debugging purpose, ...\"\nAlthough I think people would use it when needed anyway.",
+      "range": {
+        "startLine": 258,
+        "startChar": 75,
+        "endLine": 258,
+        "endChar": 98
+      },
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d4e30af_f1be24d9",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-31T12:12:20Z",
+      "side": 1,
+      "message": "It seems to me this is confusing.\n Where the variable itself stored the ert but the getter gets the ctm-based value.\n Also the getter gets the value that computed from currentTimeMillis but it is NOT a value got from ctm. \n It seems to me this might make it harder to follow and debug.",
+      "range": {
+        "startLine": 259,
+        "startChar": 4,
+        "endLine": 260,
+        "endChar": 37
+      },
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "297f6c47_df0c0148",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-31T12:12:20Z",
+      "side": 1,
+      "message": "Question: IIUC there is no second time?\nIf that is well-known, is it better to name it mConnectedTime or something else just similar to mDestroyedTime below?\nNo strong opinion since the current naming is also clear to me.",
+      "range": {
+        "startLine": 262,
+        "startChar": 25,
+        "endLine": 262,
+        "endChar": 45
+      },
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a2ddd80_eb543919",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-31T12:12:20Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 280,
+        "startChar": 69,
+        "endLine": 280,
+        "endChar": 91
+      },
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97af3cf9_ec4ea743",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-31T12:12:20Z",
+      "side": 1,
+      "message": "Nit: Maybe prevent from calling elapsedRealtime two times which would get different answer. e.g.\n\nmCurrentValidationTime \u003d validated ? SystemClock.elapsedRealtime() : 0L;\nif (validated \u0026\u0026 0L \u003d\u003d mFirstValidationTime) {\n  mFirstValidationTime \u003d mCurrentValidationTime;\n}",
+      "range": {
+        "startLine": 308,
+        "startChar": 4,
+        "endLine": 308,
+        "endChar": 5
+      },
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e37381f4_4acf9b5a",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-31T12:12:20Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 338,
+        "startChar": 88,
+        "endLine": 339,
+        "endChar": 26
+      },
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4937805a_0bed5d3f",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-31T12:12:20Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 368,
+        "startChar": 50,
+        "endLine": 368,
+        "endChar": 73
+      },
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b99fe178_d8f68293",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1546,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-08-31T12:12:20Z",
+      "side": 1,
+      "message": "current- or last- ?",
+      "range": {
+        "startLine": 1546,
+        "startChar": 28,
+        "endLine": 1546,
+        "endChar": 49
+      },
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
