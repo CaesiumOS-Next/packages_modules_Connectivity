@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5a3534f_fa348f78",
+        "filename": "tests/unit/java/android/net/Ikev2VpnProfileTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-08-31T01:25:37Z",
+      "side": 1,
+      "message": "Could you also verify that converting to/from VpnProfile preserves this property?",
+      "range": {
+        "startLine": 482,
+        "startChar": 0,
+        "endLine": 482,
+        "endChar": 43
+      },
+      "revId": "7cae8f8b4e1796005d6e6cb9bdacb065a71d5422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
