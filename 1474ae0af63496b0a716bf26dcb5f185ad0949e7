@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb2b371f_fd3cb080",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2878,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-09-01T02:43:38Z",
+      "side": 1,
+      "message": "Ah, I missed the parent CL, please ignore this.",
+      "parentUuid": "21e120f3_7f9d4fee",
+      "range": {
+        "startLine": 2878,
+        "startChar": 49,
+        "endLine": 2878,
+        "endChar": 62
+      },
+      "revId": "1474ae0af63496b0a716bf26dcb5f185ad0949e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa6b8ea6_e10f525a",
