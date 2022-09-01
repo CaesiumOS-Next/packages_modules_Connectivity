@@ -16,6 +16,7 @@
 
 package com.android.server.connectivity;
 
+import static android.net.NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL;
 import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
@@ -27,6 +28,7 @@ import static android.net.NetworkScore.POLICY_YIELD_TO_BAD_WIFI;
 import static com.android.net.module.util.CollectionUtils.filter;
 import static com.android.server.connectivity.FullScore.POLICY_ACCEPT_UNVALIDATED;
 import static com.android.server.connectivity.FullScore.POLICY_AVOIDED_WHEN_UNVALIDATED;
+import static com.android.server.connectivity.FullScore.POLICY_EVALUATING;
 import static com.android.server.connectivity.FullScore.POLICY_EVER_USER_SELECTED;
 import static com.android.server.connectivity.FullScore.POLICY_EVER_VALIDATED;
 import static com.android.server.connectivity.FullScore.POLICY_IS_DESTROYED;
@@ -83,7 +85,6 @@ public class NetworkRanker {
          *
          * The behavior can be overridden through an overlay.
          */
-        // TODO : implement the behavior.
         public boolean activelyPreferBadWifi() {
             return mActivelyPreferBadWifi;
         }
@@ -145,11 +146,29 @@ public class NetworkRanker {
         }
     }
 
-    private <T extends Scoreable> boolean isBadWiFi(@NonNull final T candidate) {
+    private <T extends Scoreable> boolean isPreferredBadWiFi(@NonNull final T candidate) {
         final FullScore score = candidate.getScore();
-        return score.hasPolicy(POLICY_EVER_VALIDATED)
-                && !score.hasPolicy(POLICY_AVOIDED_WHEN_UNVALIDATED)
-                && candidate.getCapsNoCopy().hasTransport(TRANSPORT_WIFI);
+        final NetworkCapabilities caps = candidate.getCapsNoCopy();
+        // Whatever the policy, only WiFis can be preferred bad WiFis, and a WiFi that the user
+        // explicitly wanted to avoid in UI is never a preferred bad WiFi.
+        if (score.hasPolicy(POLICY_AVOIDED_WHEN_UNVALIDATED)
+                || !candidate.getCapsNoCopy().hasTransport(TRANSPORT_WIFI)) {
+            return false;
+        }
+        if (mConf.activelyPreferBadWifi()) {
+            // Under the "actively prefer bad WiFi" policy, the bad WiFi is preferred to a cell
+            // network that yields to bad WiFis if :
+            // - it's not EVALUATING (the first attempt to validate has yet to complete or time out)
+            // and
+            // - it's not behind a captive portal that has never opened
+            return !score.hasPolicy(POLICY_EVALUATING)
+                    && (score.hasPolicy(POLICY_EVER_VALIDATED)
+                            || !caps.hasCapability(NET_CAPABILITY_CAPTIVE_PORTAL));
+        } else {
+            // Under the original "prefer bad WiFi" policy, only networks that have ever validated
+            // are preferred.
+            return score.hasPolicy(POLICY_EVER_VALIDATED);
+        }
     }
 
     /**
@@ -172,7 +191,7 @@ public class NetworkRanker {
             // No network with the policy : do nothing.
             return;
         }
-        if (!CollectionUtils.any(rejected, n -> isBadWiFi(n))) {
+        if (!CollectionUtils.any(rejected, n -> isPreferredBadWiFi(n))) {
             // No bad WiFi : do nothing.
             return;
         }
@@ -182,7 +201,7 @@ public class NetworkRanker {
             // wifis by the following policies (e.g. exiting).
             final ArrayList<T> acceptedYielders = new ArrayList<>(accepted);
             final ArrayList<T> rejectedWithBadWiFis = new ArrayList<>(rejected);
-            partitionInto(rejectedWithBadWiFis, n -> isBadWiFi(n), accepted, rejected);
+            partitionInto(rejectedWithBadWiFis, n -> isPreferredBadWiFi(n), accepted, rejected);
             accepted.addAll(acceptedYielders);
             return;
         }
