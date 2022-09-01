@@ -784,7 +784,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
     final ConnectivityDiagnosticsHandler mConnectivityDiagnosticsHandler;
 
     private final DnsManager mDnsManager;
-    private final NetworkRanker mNetworkRanker;
+    @VisibleForTesting
+    final NetworkRanker mNetworkRanker;
 
     private boolean mSystemReady;
     private Intent mInitialBroadcast;
@@ -1418,7 +1419,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 new RequestInfoPerUidCounter(MAX_NETWORK_REQUESTS_PER_SYSTEM_UID - 1);
 
         mMetricsLog = logger;
-        mNetworkRanker = new NetworkRanker();
         final NetworkRequest defaultInternetRequest = createDefaultRequest();
         mDefaultRequest = new NetworkRequestInfo(
                 Process.myUid(), defaultInternetRequest, null,
@@ -1543,6 +1543,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         mMultinetworkPolicyTracker = mDeps.makeMultinetworkPolicyTracker(
                 mContext, mHandler, () -> updateAvoidBadWifi());
+        mNetworkRanker =
+                new NetworkRanker(new NetworkRanker.Configuration(activelyPreferBadWifi()));
+
         mMultinetworkPolicyTracker.start();
 
         mDnsManager = new DnsManager(mContext, mDnsResolver);
@@ -5057,6 +5060,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return mMultinetworkPolicyTracker.getAvoidBadWifi();
     }
 
+    private boolean activelyPreferBadWifi() {
+        return mMultinetworkPolicyTracker.getActivelyPreferBadWifi();
+    }
+
     /**
      * Return whether the device should maintain continuous, working connectivity by switching away
      * from WiFi networks having no connectivity.
@@ -5080,6 +5087,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         for (final NetworkOfferInfo noi : offersToUpdate) {
             updateOfferScore(noi.offer);
         }
+        mNetworkRanker.setConfiguration(new NetworkRanker.Configuration(activelyPreferBadWifi()));
         rematchAllNetworksAndRequests();
     }
 
@@ -5095,6 +5103,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         pw.println("Bad Wi-Fi avoidance: " + avoidBadWifi());
         pw.increaseIndent();
         pw.println("Config restrict:   " + configRestrict);
+        pw.println("Actively prefer:   " + activelyPreferBadWifi());
 
         final String value = mMultinetworkPolicyTracker.getAvoidBadWifiSetting();
         String description;
