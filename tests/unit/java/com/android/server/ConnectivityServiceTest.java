@@ -5629,6 +5629,22 @@ public class ConnectivityServiceTest {
     }
 
     @Test
+    public void testActivelyPreferBadWifiSetting() throws Exception {
+        doReturn(1).when(mResources).getInteger(R.integer.config_activelyPreferBadWifi);
+        mPolicyTracker.reevaluate();
+        assertTrue(mService.mNetworkRanker.getConfiguration().activelyPreferBadWifi());
+
+        doReturn(0).when(mResources).getInteger(R.integer.config_activelyPreferBadWifi);
+        mPolicyTracker.reevaluate();
+        if (SdkLevel.isAtLeastU()) {
+            // U+ ignore the setting and always actively prefers bad wifi
+            assertTrue(mService.mNetworkRanker.getConfiguration().activelyPreferBadWifi());
+        } else {
+            assertFalse(mService.mNetworkRanker.getConfiguration().activelyPreferBadWifi());
+        }
+    }
+
+    @Test
     public void testOffersAvoidsBadWifi() throws Exception {
         // Normal mode : the carrier doesn't restrict moving away from bad wifi.
         // This has getAvoidBadWifi return true.
