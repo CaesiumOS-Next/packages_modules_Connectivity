@@ -97,6 +97,7 @@ import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
 
 import static com.android.net.module.util.DeviceConfigUtils.TETHERING_MODULE_NAME;
+import static com.android.net.module.util.DeviceConfigUtils.getResIntegerConfig;
 import static com.android.net.module.util.NetworkMonitorUtils.isPrivateDnsValidationRequired;
 import static com.android.net.module.util.PermissionUtils.enforceAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermission;
@@ -1409,7 +1410,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 new RequestInfoPerUidCounter(MAX_NETWORK_REQUESTS_PER_SYSTEM_UID - 1);
 
         mMetricsLog = logger;
-        mNetworkRanker = new NetworkRanker();
+        mNetworkRanker = new NetworkRanker(makeNetworkRankerConfiguration(context));
         final NetworkRequest defaultInternetRequest = createDefaultRequest();
         mDefaultRequest = new NetworkRequestInfo(
                 Process.myUid(), defaultInternetRequest, null,
@@ -1563,6 +1564,22 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         mIngressRateLimit = ConnectivitySettingsManager.getIngressRateLimitInBytesPerSecond(
                 mContext);
+    }
+
+    private static NetworkRanker.Configuration makeNetworkRankerConfiguration(
+            @NonNull final Context context) {
+        final boolean activelyPreferBadWifi;
+        switch (getResIntegerConfig(context, R.integer.config_activelyPreferBadWifi, 0)) {
+            case 1:
+                activelyPreferBadWifi = false;
+                break;
+            case 2:
+                activelyPreferBadWifi = true;
+                break;
+            default:
+                activelyPreferBadWifi = Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU;
+        }
+        return new NetworkRanker.Configuration(activelyPreferBadWifi);
     }
 
     /**
