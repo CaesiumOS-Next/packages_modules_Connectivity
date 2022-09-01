@@ -17,6 +17,7 @@
 package com.android.server.connectivity
 
 import android.net.NetworkCapabilities
+import android.net.NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL
 import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkScore.KEEP_CONNECTED_NONE
@@ -25,30 +26,43 @@ import android.net.NetworkScore.POLICY_TRANSPORT_PRIMARY
 import android.net.NetworkScore.POLICY_YIELD_TO_BAD_WIFI
 import android.os.Build
 import androidx.test.filters.SmallTest
+import com.android.connectivity.resources.R
 import com.android.server.connectivity.FullScore.POLICY_AVOIDED_WHEN_UNVALIDATED
+import com.android.server.connectivity.FullScore.POLICY_EVALUATING
 import com.android.server.connectivity.FullScore.POLICY_EVER_VALIDATED
 import com.android.server.connectivity.FullScore.POLICY_IS_VALIDATED
 import com.android.testutils.DevSdkIgnoreRule
-import com.android.testutils.DevSdkIgnoreRunner
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 import kotlin.test.assertEquals
 
 private fun score(vararg policies: Int) = FullScore(
         policies.fold(0L) { acc, e -> acc or (1L shl e) }, KEEP_CONNECTED_NONE)
-private fun caps(transport: Int) = NetworkCapabilities.Builder().addTransportType(transport).build()
+private fun caps(transport: Int, vararg capabilities: Int) =
+        NetworkCapabilities.Builder().addTransportType(transport).apply {
+            capabilities.forEach { addCapability(it) }
+        }.build()
 
 @SmallTest
-@RunWith(DevSdkIgnoreRunner::class)
-@DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
-class NetworkRankerTest {
-    private val mRanker = NetworkRanker(NetworkRanker.Configuration(
-            false /* activelyPreferBadWifi */))
+@RunWith(Parameterized::class)
+class NetworkRankerTest(private val activelyPreferBadWifi: Boolean) {
+    private val mRanker = NetworkRanker(NetworkRanker.Configuration(activelyPreferBadWifi))
 
     private class TestScore(private val sc: FullScore, private val nc: NetworkCapabilities)
             : NetworkRanker.Scoreable {
         override fun getScore() = sc
         override fun getCapsNoCopy(): NetworkCapabilities = nc
+    }
+
+    @get:Rule
+    val mIgnoreRule: DevSdkIgnoreRule = DevSdkIgnoreRule(ignoreClassUpTo = Build.VERSION_CODES.R)
+
+    companion object {
+        @JvmStatic
+        @Parameterized.Parameters
+        fun ranker() = listOf(true, false)
     }
 
     @Test
@@ -61,6 +75,15 @@ class NetworkRankerTest {
     }
 
     @Test
+    fun testPreferBadWifiOneCellOneEvaluatingWifi() {
+        // TODO : refactor the tests to name each network like this test
+        val wifi = TestScore(score(POLICY_EVALUATING), caps(TRANSPORT_WIFI))
+        val cell = TestScore(score(POLICY_YIELD_TO_BAD_WIFI, POLICY_IS_VALIDATED),
+                caps(TRANSPORT_CELLULAR))
+        assertEquals(cell, mRanker.getBestNetworkByPolicy(listOf(wifi, cell), null))
+    }
+
+    @Test
     fun testYieldToBadWiFiOneCellOneBadWiFi() {
         // Bad wifi wins against yielding validated cell
         val winner = TestScore(score(POLICY_EVER_VALIDATED), caps(TRANSPORT_WIFI))
@@ -70,6 +93,24 @@ class NetworkRankerTest {
                         caps(TRANSPORT_CELLULAR))
         )
         assertEquals(winner, mRanker.getBestNetworkByPolicy(scores, null))
+    }
+
+    @Test
+    fun testPreferBadWifiOneCellOneBadWifi() {
+        val wifi = TestScore(score(), caps(TRANSPORT_WIFI))
+        val cell = TestScore(score(POLICY_YIELD_TO_BAD_WIFI, POLICY_IS_VALIDATED),
+                caps(TRANSPORT_CELLULAR))
+        val scores = listOf(wifi, cell)
+        val winner = if (activelyPreferBadWifi) wifi else cell
+        assertEquals(winner, mRanker.getBestNetworkByPolicy(scores, null))
+    }
+
+    @Test
+    fun tetsPreferBadWifiOneCellOneCaptivePortalWifi() {
+        val wifi = TestScore(score(), caps(TRANSPORT_WIFI, NET_CAPABILITY_CAPTIVE_PORTAL))
+        val cell = TestScore(score(POLICY_YIELD_TO_BAD_WIFI, POLICY_IS_VALIDATED),
+                caps(TRANSPORT_CELLULAR))
+        assertEquals(cell, mRanker.getBestNetworkByPolicy(listOf(wifi, cell), null))
     }
 
     @Test
@@ -126,6 +167,17 @@ class NetworkRankerTest {
                         caps(TRANSPORT_CELLULAR))
         )
         assertEquals(winner, mRanker.getBestNetworkByPolicy(scores, null))
+    }
+
+    @Test
+    fun testPreferBadWifiOneCellOneBadWifiOneEvaluatingWifi() {
+        val cell = TestScore(score(POLICY_YIELD_TO_BAD_WIFI, POLICY_IS_VALIDATED),
+                caps(TRANSPORT_CELLULAR))
+        val badWifi = TestScore(score(), caps(TRANSPORT_WIFI))
+        val evaluatingWifi = TestScore(score(POLICY_EVALUATING), caps(TRANSPORT_WIFI))
+        val winner = if (activelyPreferBadWifi) badWifi else cell
+        assertEquals(winner,
+                mRanker.getBestNetworkByPolicy(listOf(cell, badWifi, evaluatingWifi), null))
     }
 
     @Test
