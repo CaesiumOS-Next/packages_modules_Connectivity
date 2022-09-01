@@ -28,6 +28,7 @@ import static com.android.net.module.util.CollectionUtils.filter;
 import static com.android.net.module.util.DeviceConfigUtils.getResIntegerConfig;
 import static com.android.server.connectivity.FullScore.POLICY_ACCEPT_UNVALIDATED;
 import static com.android.server.connectivity.FullScore.POLICY_AVOIDED_WHEN_UNVALIDATED;
+import static com.android.server.connectivity.FullScore.POLICY_EVALUATING;
 import static com.android.server.connectivity.FullScore.POLICY_EVER_USER_SELECTED;
 import static com.android.server.connectivity.FullScore.POLICY_EVER_VALIDATED;
 import static com.android.server.connectivity.FullScore.POLICY_IS_DESTROYED;
@@ -145,9 +146,15 @@ public class NetworkRanker {
 
     private <T extends Scoreable> boolean isBadWiFi(@NonNull final T candidate) {
         final FullScore score = candidate.getScore();
-        return score.hasPolicy(POLICY_EVER_VALIDATED)
-                && !score.hasPolicy(POLICY_AVOIDED_WHEN_UNVALIDATED)
-                && candidate.getCapsNoCopy().hasTransport(TRANSPORT_WIFI);
+        if (activelyPreferBadWifi) {
+            return !score.hasPolicy(POLICY_EVALUATING)
+                    && !score.hasPolicy(POLICY_AVOIDED_WHEN_UNVALIDATED)
+                    && candidate.getCapsNoCopy().hasTransport(TRANSPORT_WIFI);
+        } else {
+            return score.hasPolicy(POLICY_EVER_VALIDATED)
+                    && !score.hasPolicy(POLICY_AVOIDED_WHEN_UNVALIDATED)
+                    && candidate.getCapsNoCopy().hasTransport(TRANSPORT_WIFI);
+        }
     }
 
     /**
