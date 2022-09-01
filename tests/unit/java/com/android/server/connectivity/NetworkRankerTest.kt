@@ -16,6 +16,8 @@
 
 package com.android.server.connectivity
 
+import android.content.Context
+import android.content.res.Resources
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
@@ -25,6 +27,7 @@ import android.net.NetworkScore.POLICY_TRANSPORT_PRIMARY
 import android.net.NetworkScore.POLICY_YIELD_TO_BAD_WIFI
 import android.os.Build
 import androidx.test.filters.SmallTest
+import com.android.connectivity.resources.R
 import com.android.server.connectivity.FullScore.POLICY_AVOIDED_WHEN_UNVALIDATED
 import com.android.server.connectivity.FullScore.POLICY_EVER_VALIDATED
 import com.android.server.connectivity.FullScore.POLICY_IS_VALIDATED
@@ -32,6 +35,8 @@ import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito.doReturn
+import org.mockito.Mockito.mock
 import kotlin.test.assertEquals
 
 private fun score(vararg policies: Int) = FullScore(
@@ -42,7 +47,13 @@ private fun caps(transport: Int) = NetworkCapabilities.Builder().addTransportTyp
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
 class NetworkRankerTest {
-    private val mRanker = NetworkRanker()
+    private val mResources = mock(Resources::class.java).apply {
+        doReturn(0).`when`(this).getInteger(R.integer.config_activelyPreferBadWifi)
+    }
+    private val mContext = mock(Context::class.java).apply {
+        doReturn(mResources).`when`(this).resources
+    }
+    private val mRanker = NetworkRanker(mContext)
 
     private class TestScore(private val sc: FullScore, private val nc: NetworkCapabilities)
             : NetworkRanker.Scoreable {
