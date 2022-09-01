@@ -211,6 +211,7 @@ import android.os.BatteryStatsManager;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.ConditionVariable;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -1449,6 +1450,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mHandlerThread = mDeps.makeHandlerThread();
         mHandlerThread.start();
         mHandler = new InternalHandler(mHandlerThread.getLooper());
+        // The handler should not start processing messages until this constructor has finished
+        // running. Immediately post a message to block it until such a time the constructor is done
+        final ConditionVariable constructorDone = new ConditionVariable();
+        mHandler.post(() -> {
+            if (!constructorDone.block(30_000)) {
+                // The constructor hasn't finished in 30 seconds ; the system server is surely
+                // deadlocked.
+                throw new RuntimeException("Connectivity thread deadlock detected");
+            }
+        });
         mTrackerHandler = new NetworkStateTrackerHandler(mHandlerThread.getLooper());
         mConnectivityDiagnosticsHandler =
                 new ConnectivityDiagnosticsHandler(mHandlerThread.getLooper());
@@ -1571,6 +1582,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         mIngressRateLimit = ConnectivitySettingsManager.getIngressRateLimitInBytesPerSecond(
                 mContext);
+
+        constructorDone.open();
     }
 
     /**
