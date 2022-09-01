@@ -73,9 +73,40 @@
          ConnectivitySettingsManager. This is the default value of that setting. -->
     <integer translatable="false" name="config_networkMeteredMultipathPreference">0</integer>
 
-    <!-- Whether the device should automatically switch away from Wi-Fi networks that lose
-         Internet access. Actual device behaviour is controlled by
-         Settings.Global.NETWORK_AVOID_BAD_WIFI. This is the default value of that setting. -->
+    <!-- Configure what to do with Wi-Fi networks that lose internet access with respect to cell.
+
+         If this is 1, the device prefers networks that offer internet access to networks
+         that don't when both fulfill requirements for a network request. In particular,
+         this means the device will prefer using cellular data for default connectivity
+         rather than staying stuck on a Wi-Fi network that offers no Internet access.
+
+         If this is -1, the device prefers Wi-Fi networks to cellular networks even if
+         the Wi-Fi network doesn't offer Internet connectivity. This means in particular
+         that the device will be stuck on a broken Wi-Fi network, and even switch the
+         default data to a broken Wi-Fi network, even if there is working cellular
+         networking. This happens as soon as the device is reasonably sure the Wi-Fi
+         presents no Internet connectivity.
+         This doesn't apply when the device connects to a Wi-Fi network behind a captive
+         portal, where the device prefers keeping cell data. If the user logs in to
+         the captive portal and later the captive portal closes, the device will stay
+         on the (now broken) Wi-Fi network.
+
+         If this is 0, starting with Android U, the behavior is the same as -1. On Android
+         T and below, the behavior is similar to -1, with the exception that the device
+         will not aggressively use a broken Wi-Fi network when connecting to it. It will,
+         however, stay connected to a Wi-Fi network that loses Internet access, even if
+         cellular connectivity is available.
+
+         Note that the Settings.Global.NETWORK_AVOID_BAD_WIFI can be used to override the
+         value of this setting to some extent.
+         If that setting has value NETWORK_AVOID_BAD_WIFI_IGNORE = 0, then the device will
+         prefer bad Wi-Fis to good cellular ; whether it aggressively switches to it
+         depends on the value of this setting (1 behaves like 0).
+         If that setting has value NETWORK_AVOID_BAD_WIFI_PROMPT = 1, then the device will
+         prefer working cell data, but will ask the user whether they want to stay
+         connected to the broken Wi-Fi.
+         If that setting has value NETWORK_AVOID_BAD_WIFI_AVOID = 2, then the device will
+         prefer working cell data. -->
     <integer translatable="false" name="config_networkAvoidBadWifi">1</integer>
 
     <!-- Array of ConnectivityManager.TYPE_xxxx constants for networks that may only
