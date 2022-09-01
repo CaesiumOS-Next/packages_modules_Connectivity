@@ -97,6 +97,7 @@ import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
 
 import static com.android.net.module.util.DeviceConfigUtils.TETHERING_MODULE_NAME;
+import static com.android.net.module.util.DeviceConfigUtils.getResIntegerConfig;
 import static com.android.net.module.util.NetworkMonitorUtils.isPrivateDnsValidationRequired;
 import static com.android.net.module.util.PermissionUtils.enforceAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermission;
@@ -1423,7 +1424,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 new RequestInfoPerUidCounter(MAX_NETWORK_REQUESTS_PER_SYSTEM_UID - 1);
 
         mMetricsLog = logger;
-        mNetworkRanker = new NetworkRanker();
+        mNetworkRanker = new NetworkRanker(new NetworkRanker.Configuration(
+                activelyPreferBadWifiWhenNotAvoidingBadWifi(context)));
         final NetworkRequest defaultInternetRequest = createDefaultRequest();
         mDefaultRequest = new NetworkRequestInfo(
                 Process.myUid(), defaultInternetRequest, null,
@@ -1579,8 +1581,20 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 mContext);
     }
 
+    private static boolean activelyPreferBadWifiWhenNotAvoidingBadWifi(
+            @NonNull final Context context) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU) {
+            return true;
+        }
+        // See the definition of config_networkAvoidBadWifi for a description of
+        // its meaning. -1 means to prefer bad wifi. Other possible values are 0 and 1,
+        // and both of them mean not to prefer bad wifi, only stay stuck on it if already
+        // on there.
+        return -1 == getResIntegerConfig(context, R.integer.config_networkAvoidBadWifi, 1);
+    }
+
     /**
-     * Check whether or not the device supports Ethernet transport.
+     * Check whether the device supports Ethernet transport.
      */
     public static boolean deviceSupportsEthernet(final Context context) {
         final PackageManager pm = context.getPackageManager();
