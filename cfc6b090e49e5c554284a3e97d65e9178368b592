@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "614ecb64_a8414009",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-09-01T02:47:29Z",
+      "side": 1,
+      "message": "should we re-register the new mCellNetworkCallback instance in somewhere after unregistering the legacy instance?",
+      "range": {
+        "startLine": 360,
+        "startChar": 16,
+        "endLine": 360,
+        "endChar": 41
+      },
+      "revId": "cfc6b090e49e5c554284a3e97d65e9178368b592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
