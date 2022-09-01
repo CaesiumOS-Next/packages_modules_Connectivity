@@ -93,8 +93,11 @@ public final class ConnectivityServiceInitializer extends SystemService {
             mNearbyService.onBootPhase(phase);
         }
 
-        if (phase == SystemService.PHASE_SYSTEM_SERVICES_READY && mEthernetServiceImpl != null) {
-            mEthernetServiceImpl.start();
+        if (phase == SystemService.PHASE_SYSTEM_SERVICES_READY) {
+            if (mEthernetServiceImpl != null) {
+                mEthernetServiceImpl.start();
+            }
+            mConnectivity.setPullAtomCallback();
         }
     }
 
