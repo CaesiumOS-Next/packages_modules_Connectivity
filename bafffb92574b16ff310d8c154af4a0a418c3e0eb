@@ -89,6 +89,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47e49626_c646d28e",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-01T09:32:17Z",
+      "side": 1,
+      "message": "Ack.\nBut few thoughts for future reference:\n For metrics, IIUC what matters is the statistics in a large scale. For NTP adjustment or rarely adjust by user, I still don\u0027t think that would be a problem in pratice.\n For debugging, it seems to me consistency with the device log and convience for clarification is more importent to me. Consider people might miscalculate the real timestamp they need to check, and pass the analysis to next person, the overall total cost might be higher than we think.\n \n But we can see how it goes and modify the implementation if needed, so current plan is fine to me.",
+      "parentUuid": "9eb71e6f_3b0196ab",
+      "range": {
+        "startLine": 205,
+        "startChar": 33,
+        "endLine": 207,
+        "endChar": 24
+      },
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8259f5d_2c3fd361",
