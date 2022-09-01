@@ -16,6 +16,24 @@
       "message": "This is set to the unsanitized capabilities as-is now, but processCapabilitiesFromAgent would set it after resetting the owner UID; is that expected ?",
       "revId": "da7fe5732c4efd2e70922057c06b38b0c271144a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0405abef_e2d92955",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 7331,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-01T09:17:14Z",
+      "side": 1,
+      "message": "Yes this is the operative change in this patch, hence the \"unsanitized\". I think it was really confusing to sanitize only some field of the declared capabilities. So now we have a real \"...Unsanitized\" field, where it\u0027s written on the tin, and it\u0027s really actually unsanitized.\n\nFollow-up changes have cleaned up the code further.",
+      "parentUuid": "e6db2877_1434722f",
+      "revId": "da7fe5732c4efd2e70922057c06b38b0c271144a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
