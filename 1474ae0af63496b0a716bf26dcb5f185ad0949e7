@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa6b8ea6_e10f525a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2924,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-09-01T02:38:49Z",
+      "side": 1,
+      "message": "looks like CollectionUtils.contains(T[] arg, T) doesn\u0027t match with cellCb.getHistory(List\u003cCallbackEntry\u003e, maybe we need to covert List\u003cT\u003e to T[]. Or use \"CollectionUtils.findLast(cellCb.getHistory(), lambda) !\u003d null\" to check that we ever received onLost callback?",
+      "range": {
+        "startLine": 2924,
+        "startChar": 52,
+        "endLine": 2924,
+        "endChar": 71
+      },
+      "revId": "1474ae0af63496b0a716bf26dcb5f185ad0949e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
