@@ -45,12 +45,47 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
  * A class that knows how to find the best network matching a request out of a list of networks.
  */
 public class NetworkRanker {
+    /**
+     * Home for all configurations of NetworkRanker
+     */
+    public static final class Configuration {
+        /**
+         * Whether to prefer bad WiFi to a network that yields to bad WiFis even if never validated
+         *
+         * This setting only makes sense if the system is configured not to avoid bad WiFis. If
+         * it's not, then no network ever yields to bad WiFis
+         * ({@see FullScore#POLICY_YIELD_TO_BAD_WIFI}) and this setting has therefore no effect.
+         *
+         * If this is false, when ranking a bad WiFi that never validated against a network that
+         * yields to bad WiFis, the ranker will prefer the network that yields. It will prefer WiFi
+         * if WiFi loses validation later. This is the default behavior up to Android T. This
+         * behavior avoids the device losing internet access when walking past a WiFi network with
+         * no internet access.
+         *
+         * If this is true, then in the same scenario, the ranker will prefer the yielder until
+         * the WiFi completes its first validation attempt (or the attempt times out after
+         * ConnectivityService#PROMPT_UNVALIDATED_DELAY_MS), then it will prefer the WiFi unless
+         * there is a captive portal on that WiFi, even if it doesn't provide internet access.
+         * This is the default behavior in U and above.
+         *
+         * The behavior can be overridden through an overlay.
+         */
+        // TODO : implement the behavior.
+        public final boolean activelyPreferBadWifi;
+
+        public Configuration(final boolean activelyPreferBadWifi) {
+            this.activelyPreferBadWifi = activelyPreferBadWifi;
+        }
+    }
+    private final Configuration mConf;
+
     // Historically the legacy ints have been 0~100 in principle (though the highest score in
     // AOSP has always been 90). This is relied on by VPNs that send a legacy score of 101.
     public static final int LEGACY_INT_MAX = 100;
@@ -65,7 +100,9 @@ public class NetworkRanker {
         NetworkCapabilities getCapsNoCopy();
     }
 
-    public NetworkRanker() { }
+    public NetworkRanker(@NonNull final Configuration conf) {
+        mConf = Objects.requireNonNull(conf);
+    }
 
     /**
      * Find the best network satisfying this request among the list of passed networks.
