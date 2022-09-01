@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0f520f1_c6caee84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-09-01T12:38:00Z",
+      "side": 1,
+      "message": "I really don\u0027t see how this could cause test failures... but I can\u0027t seem to get a clean TH pass, CaptivePortalLoginActivityTest always seems to fail.\n\nI really don\u0027t see how the failures could be related to this change... unless perhaps this simply makes things faster in such a way that it fails due to some race being more likely to trigger???\n\nWell... try again.",
+      "revId": "b5868a0a403c2977e3c2a5dc7041eb19fec6ee6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
