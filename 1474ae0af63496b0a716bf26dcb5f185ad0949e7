@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "59b20910_a9092a33",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2857,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-09-01T02:42:21Z",
+      "side": 1,
+      "message": "I think doTestSetAvoidUnvalidated is called with remainingTries(3,2,1,0).\nSo testSetAvoidUnvalidated tries doTestSetAvoidUnvalidated 4 times at most.",
+      "range": {
+        "startLine": 2857,
+        "startChar": 35,
+        "endLine": 2857,
+        "endChar": 46
+      },
+      "revId": "1474ae0af63496b0a716bf26dcb5f185ad0949e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21e120f3_7f9d4fee",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2878,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-09-01T02:42:21Z",
+      "side": 1,
+      "message": "It seems `connectToCell` checks if it\u0027s already connected, would not 2nd `doTestSetAvoidUnvalidated` fail at `connectToCell`?\nhttp://cs/aosp-master/packages/modules/Connectivity/tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java;l\u003d358-361;rcl\u003d2a80fb8a53f155b4840b81dd4db5b9d7874cf874\n```\n    public Network connectToCell() throws InterruptedException {\n        if (cellConnectAttempted()) {\n            throw new IllegalStateException(\"Already connected\");\n        }\n        ....\n    }\n    \n```",
+      "range": {
+        "startLine": 2878,
+        "startChar": 49,
+        "endLine": 2878,
+        "endChar": 62
+      },
+      "revId": "1474ae0af63496b0a716bf26dcb5f185ad0949e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aa6b8ea6_e10f525a",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 2
