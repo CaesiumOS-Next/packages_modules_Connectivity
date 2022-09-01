@@ -33,6 +33,9 @@ import static android.system.OsConstants.ENODEV;
 import static android.system.OsConstants.ENOENT;
 import static android.system.OsConstants.EOPNOTSUPP;
 
+import static com.android.server.ConnectivityStatsLog.NETWORK_BPF_MAP_INFO;
+
+import android.app.StatsManager;
 import android.content.Context;
 import android.net.INetd;
 import android.os.RemoteException;
@@ -42,12 +45,15 @@ import android.system.ErrnoException;
 import android.system.Os;
 import android.util.ArraySet;
 import android.util.Log;
+import android.util.StatsEvent;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.modules.utils.BackgroundThread;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BpfMap;
 import com.android.net.module.util.DeviceConfigUtils;
 import com.android.net.module.util.IBpfMap;
+import com.android.net.module.util.Struct;
 import com.android.net.module.util.Struct.U32;
 import com.android.net.module.util.Struct.U8;
 import com.android.net.module.util.bpf.CookieTagMapKey;
@@ -55,6 +61,7 @@ import com.android.net.module.util.bpf.CookieTagMapValue;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -256,6 +263,35 @@ public class BpfNetMaps {
         sInitialized = true;
     }
 
+    /** Register callback for statsd to pull atom. */
+    public void setPullAtomCallback(final Context context) {
+        final StatsManager statsManager = context.getSystemService(StatsManager.class);
+        statsManager.setPullAtomCallback(NETWORK_BPF_MAP_INFO, null /* metadata */,
+                BackgroundThread.getExecutor(), (atomTag, data) -> pullBpfMapInfo(data));
+    }
+
+    private <K extends Struct, V extends Struct> int getMapSize(IBpfMap<K, V> map)
+            throws ErrnoException {
+        // cookieTagMap could have concurrent entry deletion. This restarts iterating from the
+        // beginning. So use set to count the number of entry.
+        Set<K> keySet = new ArraySet<>();
+        map.forEach((k, v) -> keySet.add(k));
+        return keySet.size();
+    }
+
+    /** Callback for StatsManager#setPullAtomCallback */
+    @VisibleForTesting
+    public int pullBpfMapInfo(final List<StatsEvent> data) {
+        try {
+            data.add(mDeps.buildStatsEvent(getMapSize(sCookieTagMap), getMapSize(sUidOwnerMap),
+                    getMapSize(sUidPermissionMap)));
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Failed to collect bpf map info: " + e);
+            return StatsManager.PULL_SKIP;
+        }
+        return StatsManager.PULL_SUCCESS;
+    }
+
     /**
      * Dependencies of BpfNetMaps, for injection in tests.
      */
@@ -273,6 +309,15 @@ public class BpfNetMaps {
          */
         public int synchronizeKernelRCU() {
             return native_synchronizeKernelRCU();
+        }
+
+        /**
+         * Build Stats Event for NETWORK_BPF_MAP_INFO atom
+         */
+        public StatsEvent buildStatsEvent(final int cookieTagMapSize, final int uidOwnerMapSize,
+                final int uidPermissionMapSize) {
+            return ConnectivityStatsLog.buildStatsEvent(NETWORK_BPF_MAP_INFO, cookieTagMapSize,
+                    uidOwnerMapSize, uidPermissionMapSize);
         }
     }
 
