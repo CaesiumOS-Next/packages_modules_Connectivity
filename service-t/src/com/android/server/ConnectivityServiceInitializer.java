@@ -96,6 +96,9 @@ public final class ConnectivityServiceInitializer extends SystemService {
         if (phase == SystemService.PHASE_SYSTEM_SERVICES_READY && mEthernetServiceImpl != null) {
             mEthernetServiceImpl.start();
         }
+        if (phase == SystemService.PHASE_SYSTEM_SERVICES_READY) {
+            mConnectivity.registerStatsCallbacks();
+        }
     }
 
     /**
