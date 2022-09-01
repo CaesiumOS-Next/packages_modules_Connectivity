@@ -97,6 +97,7 @@ import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
 
 import static com.android.net.module.util.DeviceConfigUtils.TETHERING_MODULE_NAME;
+import static com.android.net.module.util.DeviceConfigUtils.getResIntegerConfig;
 import static com.android.net.module.util.NetworkMonitorUtils.isPrivateDnsValidationRequired;
 import static com.android.net.module.util.PermissionUtils.enforceAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermission;
@@ -1423,7 +1424,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 new RequestInfoPerUidCounter(MAX_NETWORK_REQUESTS_PER_SYSTEM_UID - 1);
 
         mMetricsLog = logger;
-        mNetworkRanker = new NetworkRanker();
+        mNetworkRanker = new NetworkRanker(new NetworkRanker.Configuration(
+                activelyPreferBadWifiWhenNotAvoidingBadWifi(context)));
         final NetworkRequest defaultInternetRequest = createDefaultRequest();
         mDefaultRequest = new NetworkRequestInfo(
                 Process.myUid(), defaultInternetRequest, null,
@@ -1577,6 +1579,20 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         mIngressRateLimit = ConnectivitySettingsManager.getIngressRateLimitInBytesPerSecond(
                 mContext);
+    }
+
+    private static boolean activelyPreferBadWifiWhenNotAvoidingBadWifi(
+            @NonNull final Context context) {
+        // See the definition of config_activelyPreferBadWifi for a description of its meaning.
+        // On U and above, the config is ignored, and bad wifi is always actively prefered.
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU) {
+            return true;
+        }
+        // On T and below, 1 means to actively prefer bad wifi, 0 means not to prefer
+        // bad wifi (only stay stuck on it if already on there). This implementation treats
+        // any non-0 value like 1, on the assumption that anybody setting it non-zero wants
+        // the newer behavior.
+        return 0 != getResIntegerConfig(context, R.integer.config_activelyPreferBadWifi, 0);
     }
 
     /**
@@ -5113,6 +5129,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         pw.println("Bad Wi-Fi avoidance: " + avoidBadWifi());
         pw.increaseIndent();
         pw.println("Config restrict:   " + configRestrict);
+        pw.println("Actively prefer:   " + activelyPreferBadWifiWhenNotAvoidingBadWifi(mContext));
 
         final String value = mMultinetworkPolicyTracker.getAvoidBadWifiSetting();
         String description;
