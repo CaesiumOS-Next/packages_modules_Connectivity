@@ -163,6 +163,30 @@
       },
       "revId": "8f1a76cb8d6754428be786cd868ee8f42f688667",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "494904df_50d26138",
+        "filename": "tests/unit/java/com/android/server/connectivity/LingerMonitorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-01T08:31:44Z",
+      "side": 1,
+      "message": "In fact I think the original design was just unclear, but really the new code makes explicit what the test is actually doing : it pretends the network validated once and then became unvalidated.\n\nI agree with you that it\u0027s a bit of a strange thing to do by default, but at least it\u0027s explicit now. Updated the comment.",
+      "parentUuid": "532fa271_c5b3f5f5",
+      "range": {
+        "startLine": 376,
+        "startChar": 8,
+        "endLine": 380,
+        "endChar": 9
+      },
+      "revId": "8f1a76cb8d6754428be786cd868ee8f42f688667",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

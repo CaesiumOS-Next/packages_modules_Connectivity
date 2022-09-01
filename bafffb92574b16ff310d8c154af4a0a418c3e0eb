@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9eb71e6f_3b0196ab",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-01T08:31:44Z",
+      "side": 1,
+      "message": "Discussed within the team. Conclusions are :\n• A monotonic clock is important here. Debugging might go by with values that are occasionally wrong, but these timestamps are likely to be used in other ways in the code later, including for metrics in which outliers will be a problem.\n• To remove the confusion, never use System.currentTimeMillis(). Make all the timestamps based on elapsedRealTime(), and make sure dumpsys tells us the relationship so this can be reconstructed later when someone debugs.\n• If we find the abstruse numbers are difficult to manipulate when debugging, we can always improve their display later.\n\nImplemented according to the above.",
+      "parentUuid": "a6031fb6_56d4336e",
+      "range": {
+        "startLine": 205,
+        "startChar": 33,
+        "endLine": 207,
+        "endChar": 24
+      },
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8259f5d_2c3fd361",
@@ -78,6 +102,30 @@
       "writtenOn": "2022-08-31T12:12:20Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 233,
+        "startChar": 67,
+        "endLine": 233,
+        "endChar": 90
+      },
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95ead0c0_194173fb",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-01T08:31:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8259f5d_2c3fd361",
       "range": {
         "startLine": 233,
         "startChar": 67,
@@ -111,6 +159,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddfa5421_7d5cb681",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-01T08:31:44Z",
+      "side": 1,
+      "message": "In fact I do not think it\u0027s a problem at all if this is used out of debugging. Removed that part of the sentence, and clarified the intent in the cover comment instead.",
+      "parentUuid": "997a4bc7_c1fb9e7b",
+      "range": {
+        "startLine": 258,
+        "startChar": 75,
+        "endLine": 258,
+        "endChar": 98
+      },
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d4e30af_f1be24d9",
@@ -124,6 +196,30 @@
       "writtenOn": "2022-08-31T12:12:20Z",
       "side": 1,
       "message": "It seems to me this is confusing.\n Where the variable itself stored the ert but the getter gets the ctm-based value.\n Also the getter gets the value that computed from currentTimeMillis but it is NOT a value got from ctm. \n It seems to me this might make it harder to follow and debug.",
+      "range": {
+        "startLine": 259,
+        "startChar": 4,
+        "endLine": 260,
+        "endChar": 37
+      },
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9775c252_e37ceac9",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-01T08:31:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d4e30af_f1be24d9",
       "range": {
         "startLine": 259,
         "startChar": 4,
@@ -157,6 +253,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82ac76fe_71d55a0e",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-01T08:31:44Z",
+      "side": 1,
+      "message": "You\u0027re right, it\u0027s better. Renamed.",
+      "parentUuid": "297f6c47_df0c0148",
+      "range": {
+        "startLine": 262,
+        "startChar": 25,
+        "endLine": 262,
+        "endChar": 45
+      },
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a2ddd80_eb543919",
@@ -170,6 +290,30 @@
       "writtenOn": "2022-08-31T12:12:20Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 280,
+        "startChar": 69,
+        "endLine": 280,
+        "endChar": 91
+      },
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cdafa41_df97acff",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-01T08:31:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a2ddd80_eb543919",
       "range": {
         "startLine": 280,
         "startChar": 69,
@@ -203,6 +347,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78a4c1c2_b24ab2f8",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-01T08:31:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97af3cf9_ec4ea743",
+      "range": {
+        "startLine": 308,
+        "startChar": 4,
+        "endLine": 308,
+        "endChar": 5
+      },
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e37381f4_4acf9b5a",
@@ -216,6 +384,30 @@
       "writtenOn": "2022-08-31T12:12:20Z",
       "side": 1,
       "message": "ditto.",
+      "range": {
+        "startLine": 338,
+        "startChar": 88,
+        "endLine": 339,
+        "endChar": 26
+      },
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d1a5c97_d198d2fc",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-01T08:31:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e37381f4_4acf9b5a",
       "range": {
         "startLine": 338,
         "startChar": 88,
@@ -249,6 +441,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1cc16e4_7ba87079",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-01T08:31:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4937805a_0bed5d3f",
+      "range": {
+        "startLine": 368,
+        "startChar": 50,
+        "endLine": 368,
+        "endChar": 73
+      },
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b99fe178_d8f68293",
@@ -262,6 +478,54 @@
       "writtenOn": "2022-08-31T12:12:20Z",
       "side": 1,
       "message": "current- or last- ?",
+      "range": {
+        "startLine": 1546,
+        "startChar": 28,
+        "endLine": 1546,
+        "endChar": 49
+      },
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf17926a_5f6515f2",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1546,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-01T08:31:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b99fe178_d8f68293",
+      "range": {
+        "startLine": 1546,
+        "startChar": 28,
+        "endLine": 1546,
+        "endChar": 49
+      },
+      "revId": "bafffb92574b16ff310d8c154af4a0a418c3e0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9baae8af_ef986da0",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1546,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-01T08:31:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b99fe178_d8f68293",
       "range": {
         "startLine": 1546,
         "startChar": 28,
