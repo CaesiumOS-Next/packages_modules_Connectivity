@@ -318,7 +318,6 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.lang.IllegalArgumentException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -1645,6 +1644,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 new PermissionMonitor(mContext, mNetd, mBpfNetMaps, mHandlerThread);
         mHandlerThread.start();
         mHandler = new InternalHandler(mHandlerThread.getLooper());
+        // The handler should not start processing messages until this constructor has finished
+        // running. Immediately post a message to block it until such a time the constructor is done
+        final ConditionVariable constructorDone = new ConditionVariable();
+        mHandler.post(() -> {
+            if (!constructorDone.block(30_000)) {
+                // The constructor hasn't finished in 30 seconds ; the system server is surely
+                // deadlocked.
+                throw new RuntimeException("Connectivity thread deadlock detected");
+            }
+        });
         mTrackerHandler = new NetworkStateTrackerHandler(mHandlerThread.getLooper());
         mConnectivityDiagnosticsHandler =
                 new ConnectivityDiagnosticsHandler(mHandlerThread.getLooper());
@@ -1799,6 +1808,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
             activityManager.registerUidFrozenStateChangedCallback(
                     (Runnable r) -> r.run(), frozenStateChangedCallback);
         }
+
+        constructorDone.open();
     }
 
     /**
