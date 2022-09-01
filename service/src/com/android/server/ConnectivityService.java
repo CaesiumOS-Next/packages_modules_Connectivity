@@ -1565,6 +1565,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 mContext);
     }
 
+    /** Register callback for statsd to pull atom. */
+    public void setPullAtomCallback() {
+        mBpfNetMaps.setPullAtomCallback(mContext);
+    }
+
     /**
      * Check whether or not the device supports Ethernet transport.
      */
