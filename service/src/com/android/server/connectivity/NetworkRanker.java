@@ -25,6 +25,7 @@ import static android.net.NetworkScore.POLICY_TRANSPORT_PRIMARY;
 import static android.net.NetworkScore.POLICY_YIELD_TO_BAD_WIFI;
 
 import static com.android.net.module.util.CollectionUtils.filter;
+import static com.android.net.module.util.DeviceConfigUtils.getResIntegerConfig;
 import static com.android.server.connectivity.FullScore.POLICY_ACCEPT_UNVALIDATED;
 import static com.android.server.connectivity.FullScore.POLICY_AVOIDED_WHEN_UNVALIDATED;
 import static com.android.server.connectivity.FullScore.POLICY_EVER_USER_SELECTED;
@@ -36,9 +37,12 @@ import static com.android.server.connectivity.FullScore.POLICY_IS_VPN;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.content.Context;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
+import android.os.Build;
 
+import com.android.connectivity.resources.R;
 import com.android.net.module.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -65,7 +69,42 @@ public class NetworkRanker {
         NetworkCapabilities getCapsNoCopy();
     }
 
-    public NetworkRanker() { }
+    /**
+     * Whether to prefer bad wifi to a network that yields to bad wifis, even if it never validated
+     *
+     * This setting only makes sense if the system is configured not to avoid bad wifis. If
+     * it's not, then no network ever yields to bad wifis {@see FullScore#POLICY_YIELD_TO_BAD_WIFI}
+     * and this setting has therefore no effect.
+     *
+     * If this is false, when ranking a bad wifi that never validated against a network that
+     * yields to bad wifis, the ranker will prefer the network that yields. It will prefer wifi
+     * if wifi loses validation later. This is the default behavior up to Android T. This behavior
+     * avoids the device losing internet access when walking past a wifi network with no internet
+     * access.
+     *
+     * If this is true, then in the same scenario, the ranker will prefer the yielder until
+     * the wifi completes its first validation attempt (or the attempt times out after
+     * ConnectivityService#PROMPT_UNVALIDATED_DELAY_MS), then it will prefer the wifi unless
+     * there is a captive portal on that wifi, even if it doesn't provide internet access.
+     * This is the default behavior in U and above.
+     *
+     * The behavior can be overridden through an overlay.
+     */
+    // TODO : implement the behavior.
+    private final boolean mActivelyPreferBadWifi;
+
+    public NetworkRanker(final Context context) {
+        switch (getResIntegerConfig(context, R.integer.config_activelyPreferBadWifi, 0)) {
+            case 1:
+                mActivelyPreferBadWifi = false;
+                break;
+            case 2:
+                mActivelyPreferBadWifi = true;
+                break;
+            default:
+                mActivelyPreferBadWifi = Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU;
+        }
+    }
 
     /**
      * Find the best network satisfying this request among the list of passed networks.
