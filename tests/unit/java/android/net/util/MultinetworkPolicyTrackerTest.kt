@@ -34,6 +34,7 @@ import android.test.mock.MockContentResolver
 import androidx.test.filters.SmallTest
 import com.android.connectivity.resources.R
 import com.android.internal.util.test.FakeSettingsProvider
+import com.android.modules.utils.build.SdkLevel
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
 import org.junit.After
@@ -113,6 +114,7 @@ class MultinetworkPolicyTrackerTest {
 
     @Test
     fun testUpdateAvoidBadWifi() {
+        doReturn(0).`when`(resources).getInteger(R.integer.config_activelyPreferBadWifi)
         Settings.Global.putString(resolver, NETWORK_AVOID_BAD_WIFI, "0")
         assertTrue(tracker.updateAvoidBadWifi())
         assertFalse(tracker.avoidBadWifi)
@@ -120,6 +122,25 @@ class MultinetworkPolicyTrackerTest {
         doReturn(1).`when`(resources).getInteger(R.integer.config_networkAvoidBadWifi)
         assertTrue(tracker.updateAvoidBadWifi())
         assertTrue(tracker.avoidBadWifi)
+
+        assertFalse(tracker.updateAvoidBadWifi())
+        if (SdkLevel.isAtLeastU()) {
+            // On U+, the system always prefers bad wifi.
+            assertTrue(tracker.activelyPreferBadWifi)
+        } else {
+            assertFalse(tracker.activelyPreferBadWifi)
+        }
+
+        doReturn(1).`when`(resources).getInteger(R.integer.config_activelyPreferBadWifi)
+        if (SdkLevel.isAtLeastU()) {
+            // On U+, this didn't change the setting
+            assertFalse(tracker.updateAvoidBadWifi())
+        } else {
+            // On T-, this must have changed the setting
+            assertTrue(tracker.updateAvoidBadWifi())
+        }
+        // In all cases, now the system actively prefers bad wifi
+        assertTrue(tracker.activelyPreferBadWifi)
     }
 
     @Test
