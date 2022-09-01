@@ -33,6 +33,11 @@ import static android.system.OsConstants.ENODEV;
 import static android.system.OsConstants.ENOENT;
 import static android.system.OsConstants.EOPNOTSUPP;
 
+import static com.android.server.ConnectivityStatsLog.COOKIE_TAG_MAP_INFO;
+import static com.android.server.ConnectivityStatsLog.UID_OWNER_MAP_INFO;
+import static com.android.server.ConnectivityStatsLog.UID_PERMISSION_MAP_INFO;
+
+import android.app.StatsManager;
 import android.content.Context;
 import android.net.INetd;
 import android.os.RemoteException;
@@ -42,18 +47,23 @@ import android.system.ErrnoException;
 import android.system.Os;
 import android.util.ArraySet;
 import android.util.Log;
+import android.util.StatsEvent;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.modules.utils.BackgroundThread;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BpfMap;
 import com.android.net.module.util.DeviceConfigUtils;
 import com.android.net.module.util.IBpfMap;
+import com.android.net.module.util.Struct;
 import com.android.net.module.util.Struct.U32;
 import com.android.net.module.util.Struct.U8;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Executor;
 
 /**
  * BpfNetMaps is responsible for providing traffic controller relevant functionality.
@@ -120,6 +130,9 @@ public class BpfNetMaps {
     @VisibleForTesting public static final long OEM_DENY_2_MATCH = (1 << 10);
     @VisibleForTesting public static final long OEM_DENY_3_MATCH = (1 << 11);
     // LINT.ThenChange(packages/modules/Connectivity/bpf_progs/bpf_shared.h)
+
+    private static final StatsManager.StatsPullAtomCallback sPullStomCallBack =
+            new StatsPullAtomCallbackImpl();
 
     /**
      * Set sEnableJavaBpfMap for test.
@@ -227,6 +240,32 @@ public class BpfNetMaps {
         initBpfMaps();
         native_init();
         sInitialized = true;
+    }
+
+    /** Register callbacks for statsd pulled atoms. */
+    public void registerStatsCallbacks(final Context context) {
+        final StatsManager statsManager = context.getSystemService(StatsManager.class);
+        final Executor executor = BackgroundThread.getExecutor();
+        // TODO: use sCookieTagMap
+        statsManager.setPullAtomCallback(COOKIE_TAG_MAP_INFO, null, executor,
+                (atomTag, data) -> pullMapSize(COOKIE_TAG_MAP_INFO, data, sUidOwnerMap));
+        statsManager.setPullAtomCallback(UID_OWNER_MAP_INFO, null, executor,
+                (atomTag, data) -> pullMapSize(UID_OWNER_MAP_INFO, data, sUidOwnerMap));
+        statsManager.setPullAtomCallback(UID_PERMISSION_MAP_INFO, null, executor,
+                (atomTag, data) -> pullMapSize(UID_PERMISSION_MAP_INFO, data, sUidPermissionMap));
+    }
+
+    private static <K extends Struct, V extends Struct> int pullMapSize(int atomTag,
+            List<StatsEvent> data, IBpfMap<K, V> map) {
+        Set<K> keySet = new ArraySet<>();
+        try {
+            map.forEach((k, v) -> keySet.add(k));
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Failed to get the map size for atom tag=" + atomTag + ": " + e);
+            return StatsManager.PULL_SKIP;
+        }
+        data.add(ConnectivityStatsLog.buildStatsEvent(atomTag, keySet.size()));
+        return StatsManager.PULL_SUCCESS;
     }
 
     /**
