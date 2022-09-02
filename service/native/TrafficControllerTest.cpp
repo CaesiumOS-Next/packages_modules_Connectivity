@@ -820,8 +820,7 @@ TEST_F(TrafficControllerTest, dumpsysInvalidMaps) {
         fmt::format("mStatsMapA {}", kErrIterate),
         fmt::format("mStatsMapB {}", kErrIterate),
         fmt::format("mIfaceIndexNameMap {}", kErrIterate),
-        fmt::format("mIfaceStatsMap {}", kErrIterate),
-        fmt::format("mConfigurationMap {}", kErrReadRulesConfig)};
+        fmt::format("mIfaceStatsMap {}", kErrIterate)};
     EXPECT_TRUE(expectDumpsysContains(expectedLines));
 }
 
