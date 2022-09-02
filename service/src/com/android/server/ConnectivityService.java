@@ -259,6 +259,7 @@ import com.android.net.module.util.LocationPermissionChecker;
 import com.android.net.module.util.NetworkCapabilitiesUtils;
 import com.android.net.module.util.PerUidCounter;
 import com.android.net.module.util.PermissionUtils;
+import com.android.net.module.util.SharedLog;
 import com.android.net.module.util.TcUtils;
 import com.android.net.module.util.netlink.InetDiagMessage;
 import com.android.server.connectivity.AutodestructReference;
@@ -416,6 +417,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private final NetworkStatsManager mStatsManager;
     private final NetworkPolicyManager mPolicyManager;
     private final BpfNetMaps mBpfNetMaps;
+    private final SkDestroyListener mSkDestroyListener;
 
     /**
      * TestNetworkService (lazily) created upon first usage. Locked to prevent creation of multiple
@@ -773,6 +775,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
     /** Handler used for processing {@link android.net.ConnectivityDiagnosticsManager} events */
     @VisibleForTesting
     final ConnectivityDiagnosticsHandler mConnectivityDiagnosticsHandler;
+    /** Handler used for SocketDestoryListener. */
+    private final Handler mSkDestroyHandler;
 
     private final DnsManager mDnsManager;
     private final NetworkRanker mNetworkRanker;
@@ -1455,6 +1459,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         mNetd = netd;
         mBpfNetMaps = mDeps.getBpfNetMaps(mContext, netd);
+        if (mBpfNetMaps.isSkDestroyListenerRunning()) {
+            mSkDestroyHandler = null;
+            mSkDestroyListener = null;
+        } else {
+            mSkDestroyHandler = new Handler(mHandlerThread.getLooper());
+            mSkDestroyListener = new SkDestroyListener(mSkDestroyHandler, new SharedLog(TAG));
+        }
         mTelephonyManager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
         mAppOpsManager = (AppOpsManager) mContext.getSystemService(Context.APP_OPS_SERVICE);
         mLocationPermissionChecker = mDeps.makeLocationPermissionChecker(mContext);
