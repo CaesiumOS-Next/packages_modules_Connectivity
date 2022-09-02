@@ -259,6 +259,7 @@ import com.android.net.module.util.LocationPermissionChecker;
 import com.android.net.module.util.NetworkCapabilitiesUtils;
 import com.android.net.module.util.PerUidCounter;
 import com.android.net.module.util.PermissionUtils;
+import com.android.net.module.util.SharedLog;
 import com.android.net.module.util.TcUtils;
 import com.android.net.module.util.netlink.InetDiagMessage;
 import com.android.server.connectivity.AutodestructReference;
@@ -416,6 +417,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private final NetworkStatsManager mStatsManager;
     private final NetworkPolicyManager mPolicyManager;
     private final BpfNetMaps mBpfNetMaps;
+    private final SkDestroyListener mSkDestroyListener;
 
     /**
      * TestNetworkService (lazily) created upon first usage. Locked to prevent creation of multiple
@@ -773,6 +775,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
     /** Handler used for processing {@link android.net.ConnectivityDiagnosticsManager} events */
     @VisibleForTesting
     final ConnectivityDiagnosticsHandler mConnectivityDiagnosticsHandler;
+    /** Handler used for SocketDestroyListener. */
+    private final Handler mSkDestroyHandler;
 
     private final DnsManager mDnsManager;
     private final NetworkRanker mNetworkRanker;
@@ -1444,6 +1448,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mTrackerHandler = new NetworkStateTrackerHandler(mHandlerThread.getLooper());
         mConnectivityDiagnosticsHandler =
                 new ConnectivityDiagnosticsHandler(mHandlerThread.getLooper());
+        mSkDestroyHandler = new Handler(mHandlerThread.getLooper());
 
         mReleasePendingIntentDelayMs = Settings.Secure.getInt(context.getContentResolver(),
                 ConnectivitySettingsManager.CONNECTIVITY_RELEASE_PENDING_INTENT_DELAY_MS, 5_000);
@@ -1455,6 +1460,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         mNetd = netd;
         mBpfNetMaps = mDeps.getBpfNetMaps(mContext, netd);
+        mSkDestroyListener = new SkDestroyListener(mSkDestroyHandler, new SharedLog(TAG));
+        if (!mBpfNetMaps.isSkDestroyListenerRunning()) {
+            mSkDestroyHandler.post(mSkDestroyListener::start);
+        }
         mTelephonyManager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
         mAppOpsManager = (AppOpsManager) mContext.getSystemService(Context.APP_OPS_SERVICE);
         mLocationPermissionChecker = mDeps.makeLocationPermissionChecker(mContext);
