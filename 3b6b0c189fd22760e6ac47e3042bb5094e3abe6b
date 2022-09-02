@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1d18dab_fba4d534",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-02T04:04:39Z",
+      "side": 1,
+      "message": "Nit : generally I think it\u0027s a bit better, for the future, to explain what the change does rather than its goal in the first line, and detail the goal in the detailed description. In this case e.g. :\n\n  Migrate NetworkStatsServiceTest from when().thenReturn() to doReturn().when()\n\n  This will address flakiness issues arising from the use of\n  when() in multithread context.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 49
+      },
+      "revId": "3b6b0c189fd22760e6ac47e3042bb5094e3abe6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c8e211a_288b4b05",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2123,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-02T04:04:39Z",
+      "side": 1,
+      "message": "We should eventually also remove all of these. If I was making the change I\u0027d do it at the same time, but it\u0027s fine to make a followup or even wait until this causes more flakiness, but I think we\u0027ll have to do it sooner or later.",
+      "range": {
+        "startLine": 2123,
+        "startChar": 8,
+        "endLine": 2123,
+        "endChar": 12
+      },
+      "revId": "3b6b0c189fd22760e6ac47e3042bb5094e3abe6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
