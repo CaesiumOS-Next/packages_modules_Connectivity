@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce4ef3d0_2c9ad532",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2941,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-02T02:37:19Z",
+      "side": 1,
+      "message": "Is there a way to prevent cloning?",
+      "range": {
+        "startLine": 2941,
+        "startChar": 63,
+        "endLine": 2941,
+        "endChar": 71
+      },
+      "revId": "211807af00429cc349a3bd7e26427009538e2b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e18faf53_d21f2f30",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1219,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-02T02:37:19Z",
+      "side": 1,
+      "message": "1. s\n2. Maybe it is even better to explain what we are doing in the test by using inline comments.\ne.g.\n// Setup both wifi and mobile networks, and set mobile network as the default interface.\n...\n// Mock traffic on wifi network.\n...\n// Verify ....\n...\n// Verify ...",
+      "range": {
+        "startLine": 1219,
+        "startChar": 30,
+        "endLine": 1219,
+        "endChar": 31
+      },
+      "revId": "211807af00429cc349a3bd7e26427009538e2b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2a33bb1_d7e691f9",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1286,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-02T02:37:19Z",
+      "side": 1,
+      "message": "Is it better if we just assert size and assertValues?\nhttps://osscs.corp.google.com/android/platform/superproject/+/master:packages/modules/Connectivity/tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java;l\u003d1128?q\u003dmockNetworkStatsUidDetail\u0026ss\u003dandroid%2Fplatform%2Fsuperproject",
+      "range": {
+        "startLine": 1277,
+        "startChar": 8,
+        "endLine": 1286,
+        "endChar": 69
+      },
+      "revId": "211807af00429cc349a3bd7e26427009538e2b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25e38f65_12fb7a21",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2209,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-02T02:37:19Z",
+      "side": 1,
+      "message": "Is it better if we only keep few of mockNetworkStatsUidDetail functions? e.g. 2",
+      "range": {
+        "startLine": 2189,
+        "startChar": 0,
+        "endLine": 2209,
+        "endChar": 0
+      },
+      "revId": "211807af00429cc349a3bd7e26427009538e2b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
