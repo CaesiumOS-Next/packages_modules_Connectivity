@@ -446,6 +446,27 @@ public class Ikev2VpnProfileTest {
     }
 
     @Test
+    public void testBuildWithIkeTunConnParamsConvertToVpnProfile() throws Exception {
+        final IkeTunnelConnectionParams tunnelParams =
+                new IkeTunnelConnectionParams(IKE_PARAMS_V6, CHILD_PARAMS);
+        final Ikev2VpnProfile ikev2VpnProfile = new Ikev2VpnProfile.Builder(tunnelParams).build();
+        final VpnProfile vpnProfile = ikev2VpnProfile.toVpnProfile();
+
+        assertEquals(VpnProfile.TYPE_IKEV2_FROM_IKE_TUN_CONN_PARAMS, vpnProfile.type);
+
+        // Username, password, server, ipsecIdentifier, ipsecCaCert, ipsecSecret, ipsecUserCert and
+        // getAllowedAlgorithms should not be set if IkeTunnelConnectionParams is set.
+        assertEquals("", vpnProfile.server);
+        assertEquals("", vpnProfile.ipsecIdentifier);
+        assertEquals("", vpnProfile.username);
+        assertEquals("", vpnProfile.password);
+        assertEquals("", vpnProfile.ipsecCaCert);
+        assertEquals("", vpnProfile.ipsecSecret);
+        assertEquals("", vpnProfile.ipsecUserCert);
+        assertEquals(0, vpnProfile.getAllowedAlgorithms().size());
+    }
+
+    @Test
     public void testConversionIsLosslessWithIkeTunConnParams() throws Exception {
         final IkeTunnelConnectionParams tunnelParams =
                 new IkeTunnelConnectionParams(IKE_PARAMS_V6, CHILD_PARAMS);
