@@ -22,12 +22,12 @@ import static android.system.OsConstants.SOCK_DGRAM;
 import static android.system.OsConstants.SOCK_STREAM;
 
 import static com.android.compatibility.common.util.SystemUtil.runShellCommandOrThrow;
-import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import android.net.TrafficStats;
+import android.os.Build;
 import android.os.Process;
 import android.system.Os;
 import android.util.Pair;
@@ -48,7 +48,7 @@ import java.util.List;
 import java.util.Map;
 
 @RunWith(DevSdkIgnoreRunner.class)
-@IgnoreUpTo(SC_V2)
+@IgnoreUpTo(Build.VERSION_CODES.S_V2)
 public class SkDestroyListenerTest {
     private static final int COOKIE_TAG = 0x1234abcd;
     private static final int SOCKET_COUNT = 100;
