@@ -3454,7 +3454,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private void dumpTrafficController(IndentingPrintWriter pw, final FileDescriptor fd,
             boolean verbose) {
         try {
-            mBpfNetMaps.dump(fd, verbose);
+            mBpfNetMaps.dump(pw, fd, verbose);
         } catch (ServiceSpecificException e) {
             pw.println(e.getMessage());
         } catch (IOException e) {
