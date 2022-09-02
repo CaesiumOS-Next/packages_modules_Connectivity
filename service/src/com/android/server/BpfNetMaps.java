@@ -133,6 +133,20 @@ public class BpfNetMaps {
             new Pair<>(PERMISSION_INTERNET, "PERMISSION_INTERNET"),
             new Pair<>(PERMISSION_UPDATE_DEVICE_STATS, "PERMISSION_UPDATE_DEVICE_STATS")
     );
+    private static final List<Pair<Long, String>> MATCHES = Arrays.asList(
+            new Pair<>(HAPPY_BOX_MATCH, "HAPPY_BOX_MATCH"),
+            new Pair<>(PENALTY_BOX_MATCH, "PENALTY_BOX_MATCH"),
+            new Pair<>(DOZABLE_MATCH, "DOZABLE_MATCH"),
+            new Pair<>(STANDBY_MATCH, "STANDBY_MATCH"),
+            new Pair<>(POWERSAVE_MATCH, "POWERSAVE_MATCH"),
+            new Pair<>(RESTRICTED_MATCH, "RESTRICTED_MATCH"),
+            new Pair<>(LOW_POWER_STANDBY_MATCH, "LOW_POWER_STANDBY_MATCH"),
+            new Pair<>(IIF_MATCH, "IIF_MATCH"),
+            new Pair<>(LOCKDOWN_VPN_MATCH, "LOCKDOWN_VPN_MATCH"),
+            new Pair<>(OEM_DENY_1_MATCH, "OEM_DENY_1_MATCH"),
+            new Pair<>(OEM_DENY_2_MATCH, "OEM_DENY_2_MATCH"),
+            new Pair<>(OEM_DENY_3_MATCH, "OEM_DENY_3_MATCH")
+    );
 
     /**
      * Set sEnableJavaBpfMap for test.
@@ -865,6 +879,26 @@ public class BpfNetMaps {
         return sj.toString();
     }
 
+    private String matchToString(long matches) {
+        if (matches == NO_MATCH) {
+            return "NO_MATCH";
+        }
+
+        StringJoiner sj = new StringJoiner(" ");
+        for (Pair<Long, String> match: MATCHES) {
+            final long matchFlag = match.first;
+            final String matchName = match.second;
+            if ((matches & matchFlag) != 0) {
+                sj.add(matchName);
+                (matches) &= ~(matchFlag);
+            }
+        }
+        if (matches != 0) {
+            sj.add("UNKNOWN_MATCH(" + matches + ")");
+        }
+        return sj.toString();
+    }
+
     /**
      * Dump BPF maps
      *
@@ -887,6 +921,15 @@ public class BpfNetMaps {
             return;
         }
 
+        BpfDump.dumpMap(sUidOwnerMap, pw, "sUidOwnerMap",
+                (uid, match) -> {
+                    if ((match.rule & IIF_MATCH) != 0) {
+                        // TODO: convert interface index to interface name using IfaceIndexNameMap
+                        return uid.val + " " + matchToString(match.rule) + " " + match.iif;
+                    } else {
+                        return uid.val + " " + matchToString(match.rule);
+                    }
+                });
         BpfDump.dumpMap(sUidPermissionMap, pw, "sUidPermissionMap",
                 (uid, permission) -> uid.val + " " + permissionToString(permission.val));
     }
