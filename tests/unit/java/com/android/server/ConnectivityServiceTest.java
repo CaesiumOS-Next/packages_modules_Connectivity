@@ -571,6 +571,7 @@ public class ConnectivityServiceTest {
     @Mock ClatCoordinator mClatCoordinator;
     @Mock PacProxyManager mPacProxyManager;
     @Mock BpfNetMaps mBpfNetMaps;
+    @Mock SkDestroyListener mSkDestroyListener;
     @Mock CarrierPrivilegeAuthenticator mCarrierPrivilegeAuthenticator;
     @Mock TetheringManager mTetheringManager;
 
@@ -2044,6 +2045,11 @@ public class ConnectivityServiceTest {
             mRateLimitHistory.add(new Pair<>(iface, -1L));
             assertNotEquals(-1L, (long) mActiveRateLimit.getOrDefault(iface, -1L));
             mActiveRateLimit.put(iface, -1L);
+        }
+
+        @Override
+        public SkDestroyListener getSkDestroyListener(final Handler handler) {
+            return mSkDestroyListener;
         }
     }
 
