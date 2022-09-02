@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f673dacc_e7dc32b2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-09-02T15:15:53Z",
+      "side": 1,
+      "message": "+1, I think it is better to explain why we are doing this.",
+      "parentUuid": "c1d18dab_fba4d534",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 49
+      },
+      "revId": "3b6b0c189fd22760e6ac47e3042bb5094e3abe6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c8e211a_288b4b05",
