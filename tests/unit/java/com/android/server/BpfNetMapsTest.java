@@ -133,6 +133,7 @@ public final class BpfNetMapsTest {
         doReturn(0).when(mDeps).synchronizeKernelRCU();
         BpfNetMaps.setEnableJavaBpfMapForTest(true /* enable */);
         BpfNetMaps.setConfigurationMapForTest(mConfigurationMap);
+        mConfigurationMap.updateEntry(UID_RULES_CONFIGURATION_KEY, new U32(0));
         mConfigurationMap.updateEntry(
                 CURRENT_STATS_MAP_CONFIGURATION_KEY, new U32(STATS_SELECT_MAP_A));
         BpfNetMaps.setUidOwnerMapForTest(mUidOwnerMap);
@@ -983,5 +984,43 @@ public final class BpfNetMapsTest {
         mConfigurationMap.updateEntry(
                 CURRENT_STATS_MAP_CONFIGURATION_KEY, new U32(STATS_SELECT_MAP_B));
         assertDumpContains(getDump(), "current statsMap configuration: 1 SELECT_MAP_B");
+    }
+
+    private void doTestDumpUidOwnerMapConfig(final long config, final String configString)
+            throws Exception {
+        mConfigurationMap.updateEntry(UID_RULES_CONFIGURATION_KEY, new U32(config));
+        assertDumpContains(getDump(),
+                "current ownerMatch configuration: " + config + " " + configString);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testDumpUidOwnerMapConfig() throws Exception {
+        doTestDumpUidOwnerMapConfig(HAPPY_BOX_MATCH, "HAPPY_BOX_MATCH");
+        doTestDumpUidOwnerMapConfig(PENALTY_BOX_MATCH, "PENALTY_BOX_MATCH");
+        doTestDumpUidOwnerMapConfig(DOZABLE_MATCH, "DOZABLE_MATCH");
+        doTestDumpUidOwnerMapConfig(STANDBY_MATCH, "STANDBY_MATCH");
+        doTestDumpUidOwnerMapConfig(POWERSAVE_MATCH, "POWERSAVE_MATCH");
+        doTestDumpUidOwnerMapConfig(RESTRICTED_MATCH, "RESTRICTED_MATCH");
+        doTestDumpUidOwnerMapConfig(LOW_POWER_STANDBY_MATCH, "LOW_POWER_STANDBY_MATCH");
+        doTestDumpUidOwnerMapConfig(IIF_MATCH, "IIF_MATCH");
+        doTestDumpUidOwnerMapConfig(LOCKDOWN_VPN_MATCH, "LOCKDOWN_VPN_MATCH");
+        doTestDumpUidOwnerMapConfig(OEM_DENY_1_MATCH, "OEM_DENY_1_MATCH");
+        doTestDumpUidOwnerMapConfig(OEM_DENY_2_MATCH, "OEM_DENY_2_MATCH");
+        doTestDumpUidOwnerMapConfig(OEM_DENY_3_MATCH, "OEM_DENY_3_MATCH");
+
+        doTestDumpUidOwnerMapConfig(HAPPY_BOX_MATCH | POWERSAVE_MATCH,
+                "HAPPY_BOX_MATCH POWERSAVE_MATCH");
+        doTestDumpUidOwnerMapConfig(DOZABLE_MATCH | LOCKDOWN_VPN_MATCH | OEM_DENY_1_MATCH,
+                "DOZABLE_MATCH LOCKDOWN_VPN_MATCH OEM_DENY_1_MATCH");
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testDumpUidOwnerMapConfigWithInvalidMatch() throws Exception {
+        final long invalid_match = 1L << 31;
+        doTestDumpUidOwnerMapConfig(invalid_match, "UNKNOWN_MATCH(" + invalid_match + ")");
+        doTestDumpUidOwnerMapConfig(DOZABLE_MATCH | invalid_match,
+                "DOZABLE_MATCH UNKNOWN_MATCH(" + invalid_match + ")");
     }
 }
