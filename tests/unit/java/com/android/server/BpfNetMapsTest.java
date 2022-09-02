@@ -54,6 +54,7 @@ import android.content.Context;
 import android.net.INetd;
 import android.os.Build;
 import android.os.ServiceSpecificException;
+import android.util.IndentingPrintWriter;
 
 import androidx.test.filters.SmallTest;
 
@@ -74,6 +75,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.io.FileDescriptor;
+import java.io.StringWriter;
 import java.util.List;
 
 @RunWith(DevSdkIgnoreRunner.class)
@@ -876,5 +879,38 @@ public final class BpfNetMapsTest {
                 CURRENT_STATS_MAP_CONFIGURATION_KEY, new U32(STATS_SELECT_MAP_A));
 
         assertThrows(ServiceSpecificException.class, () -> mBpfNetMaps.swapActiveStatsMap());
+    }
+
+    private void assertDumpContains(final String dump, final String message) {
+        assertTrue(String.format("dump(%s) does not contain '%s'", dump, message),
+                dump.contains(message));
+    }
+
+    private String getDump() throws Exception {
+        final StringWriter sw = new StringWriter();
+        mBpfNetMaps.dump(new IndentingPrintWriter(sw), new FileDescriptor(), true /* verbose */);
+        return sw.toString();
+    }
+
+    private void doTestDumpUidPermissionMap(final int permission, final String permissionString)
+            throws Exception {
+        mUidPermissionMap.updateEntry(new U32(TEST_UID), new U8((short) permission));
+        assertDumpContains(getDump(), TEST_UID + " " + permissionString);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testDumpUidPermissionMap() throws Exception {
+        doTestDumpUidPermissionMap(PERMISSION_NONE, "PERMISSION_NONE");
+        doTestDumpUidPermissionMap(PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS,
+                "PERMISSION_INTERNET PERMISSION_UPDATE_DEVICE_STATS");
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testDumpUidPermissionMapInvalidPermission() throws Exception {
+        doTestDumpUidPermissionMap(PERMISSION_UNINSTALLED, "PERMISSION_UNINSTALLED error!");
+        doTestDumpUidPermissionMap(PERMISSION_INTERNET | 1 << 6,
+                "PERMISSION_INTERNET PERMISSION_UNKNOWN(64)");
     }
 }

@@ -809,11 +809,6 @@ TEST_F(TrafficControllerTest, TestDumpsys) {
     expectedLines.emplace_back("mUidOwnerMap:");
     expectedLines.emplace_back(fmt::format("{}  HAPPY_BOX_MATCH", TEST_UID));
 
-    mTc.setPermissionForUids(INetd::PERMISSION_UPDATE_DEVICE_STATS, {TEST_UID2});
-    expectedLines.emplace_back("mUidPermissionMap:");
-    expectedLines.emplace_back(fmt::format("{}  BPF_PERMISSION_UPDATE_DEVICE_STATS", TEST_UID2));
-    expectedLines.emplace_back("mPrivilegedUser:");
-    expectedLines.emplace_back(fmt::format("{} ALLOW_UPDATE_DEVICE_STATS", TEST_UID2));
     EXPECT_TRUE(expectDumpsysContains(expectedLines));
 }
 
@@ -835,8 +830,7 @@ TEST_F(TrafficControllerTest, dumpsysInvalidMaps) {
         fmt::format("mIfaceStatsMap {}", kErrIterate),
         fmt::format("mConfigurationMap {}", kErrReadRulesConfig),
         fmt::format("mConfigurationMap {}", kErrReadStatsMapConfig),
-        fmt::format("mUidOwnerMap {}", kErrIterate),
-        fmt::format("mUidPermissionMap {}", kErrIterate)};
+        fmt::format("mUidOwnerMap {}", kErrIterate)};
     EXPECT_TRUE(expectDumpsysContains(expectedLines));
 }
 
