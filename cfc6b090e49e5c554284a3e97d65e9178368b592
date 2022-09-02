@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "054fe8a2_30dbcafa",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-02T03:04:58Z",
+      "side": 1,
+      "message": "Perhaps not for this CL, but can we rename this to something else, such as ensureCellNetworkConnected?",
+      "range": {
+        "startLine": 358,
+        "startChar": 19,
+        "endLine": 358,
+        "endChar": 32
+      },
+      "revId": "cfc6b090e49e5c554284a3e97d65e9178368b592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "614ecb64_a8414009",
         "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
         "patchSetId": 1
