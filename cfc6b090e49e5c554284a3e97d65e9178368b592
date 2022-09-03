@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb39eb53_21426a2b",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-03T03:26:21Z",
+      "side": 1,
+      "message": "Filed b/244797578 so I can submit this before TH\u0027s approval expires and still not forget",
+      "parentUuid": "054fe8a2_30dbcafa",
+      "range": {
+        "startLine": 358,
+        "startChar": 19,
+        "endLine": 358,
+        "endChar": 32
+      },
+      "revId": "cfc6b090e49e5c554284a3e97d65e9178368b592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "614ecb64_a8414009",
