@@ -90,6 +90,7 @@ public class EthernetConfigStore {
         synchronized (mSync) {
             // Attempt to read the IP configuration from apex file path first.
             if (doesConfigFileExist(newFilePath + filename)) {
+                Log.d(TAG, "load config from apex file");
                 loadConfigFileLocked(newFilePath + filename);
                 return;
             }
@@ -116,6 +117,10 @@ public class EthernetConfigStore {
     }
 
     public void write(String iface, IpConfiguration config) {
+        final File directory = new File(APEX_IP_CONFIG_FILE_PATH);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
         write(iface, config, APEX_IP_CONFIG_FILE_PATH + CONFIG_FILE);
     }
 
@@ -132,6 +137,7 @@ public class EthernetConfigStore {
             }
 
             if (modified) {
+                Log.d(TAG, "write the config: " + mIpConfigurations + " to " + filepath);
                 mStore.writeIpConfigurations(filepath, mIpConfigurations);
             }
         }

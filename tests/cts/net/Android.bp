@@ -56,6 +56,8 @@ java_defaults {
         "modules-utils-build",
         "net-utils-framework-common",
         "truth-prebuilt",
+        "service-connectivity-tiramisu-pre-jarjar",
+        "service-connectivity-pre-jarjar",
     ],
 
     // uncomment when b/13249961 is fixed

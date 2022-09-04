@@ -278,6 +278,7 @@ public class EthernetTracker {
 
     private void writeIpConfiguration(@NonNull final String iface,
             @NonNull final IpConfiguration ipConfig) {
+        Log.d(TAG, "write config: " + ipConfig + " on interface: " + iface);
         mConfigStore.write(iface, ipConfig);
         mIpConfigurations.put(iface, ipConfig);
     }
@@ -651,6 +652,7 @@ public class EthernetTracker {
 
     private void maybeTrackInterface(String iface) {
         if (!isValidEthernetInterface(iface)) {
+            Log.d(TAG, iface + " isnt't an valid ethernet interface");
             return;
         }
 

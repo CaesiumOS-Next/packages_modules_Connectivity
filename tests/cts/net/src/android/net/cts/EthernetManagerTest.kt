@@ -60,6 +60,7 @@ import android.util.ArraySet
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.net.module.util.ArrayTrackRecord
 import com.android.net.module.util.TrackRecord
+import com.android.server.ethernet.EthernetConfigStore
 import com.android.testutils.ConnectivityModuleTest
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
@@ -93,6 +94,8 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 import kotlin.test.fail
+
+import android.util.Log
 
 private const val TAG = "EthernetManagerTest"
 // TODO: try to lower this timeout in the future. Currently, ethernet tests are still flaky because
@@ -826,5 +829,35 @@ class EthernetManagerTest {
         cb.expectLost(network)
         cb.expectAvailable()
         cb.expectCapabilitiesWithCapability(testCapability)
+    }
+
+    @Test
+    fun testUpdateConfiguration_writeAndReadIpConfiguration() {
+        val iface: EthernetTestInterface = createInterface()
+        val cb = requestNetwork(ETH_REQUEST.createCopyWithEthernetSpecifier(iface.name))
+        val network = cb.expectAvailable()
+        cb.assertNeverLost()
+
+        updateConfiguration(iface, STATIC_IP_CONFIGURATION)
+
+        cb.expectLost(network)
+        cb.expectAvailable()
+        cb.expectCallback<CapabilitiesChanged>()
+        cb.expectLinkPropertiesWithLinkAddress(
+                STATIC_IP_CONFIGURATION.staticIpConfiguration.ipAddress!!)
+
+        // This results in the test static IP config removed from apex file.
+        setIncludeTestInterfaces(false)
+        Log.d(TAG, "setIncludeTestInterfaces false")
+        cb.expectLinkPropertiesThat(anyNetwork(), TIMEOUT_MS) { lp ->
+            lp.interfaceName == iface.name && lp.linkAddresses.size == 0
+        }
+
+        setIncludeTestInterfaces(true)
+        Log.d(TAG, "setIncludeTestInterfaces true")
+        //cb.expectAvailable()
+        cb.expectLinkPropertiesWithLinkAddress(
+                STATIC_IP_CONFIGURATION.staticIpConfiguration.ipAddress!!)
+        //cb.expectCapabilitiesWithCapability(NET_CAPABILITY_TEMPORARILY_NOT_METERED)
     }
 }

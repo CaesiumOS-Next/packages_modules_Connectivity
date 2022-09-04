@@ -107,6 +107,7 @@ public class DelayedDiskWrite {
         mDiskWriteHandler.post(new Runnable() {
             @Override
             public void run() {
+                Log.d(TAG, "start writing the data");
                 doWrite(filePath, w, open);
             }
         });
