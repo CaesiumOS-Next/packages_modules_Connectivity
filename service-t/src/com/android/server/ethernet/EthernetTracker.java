@@ -441,6 +441,20 @@ public class EthernetTracker {
         mHandler.post(() -> mListeners.unregister(listener));
     }
 
+    /**
+     * Get Ethernet configuration for a given sepcific interface name from persistent memory.
+     *
+     * @param iface Ethernet interface name
+     * @return the Ethernet Configuration, contained in {@link IpConfiguration} or null if
+     *         interface name doesn't exit.
+     */
+    @Nullable
+    public IpConfiguration getPersistentConfiguration(@NonNull String iface) {
+        mConfigStore.read();
+        final ArrayMap<String, IpConfiguration> configs = mConfigStore.getIpConfigurations();
+        return configs.get(iface);
+    }
+
     public void setIncludeTestInterfaces(boolean include) {
         mHandler.post(() -> {
             mIncludeTestInterfaces = include;

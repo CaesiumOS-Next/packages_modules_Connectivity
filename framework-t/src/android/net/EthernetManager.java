@@ -380,6 +380,24 @@ public class EthernetManager {
     }
 
     /**
+     * Get Ethernet configuration for a given sepcific interface name from persistent memory.
+     *
+     * @param iface Ethernet interface name
+     * @return the Ethernet Configuration, contained in {@link IpConfiguration} or null if
+     *         interface name doesn't exit.
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    @Nullable
+    public IpConfiguration getPersistentConfiguration(@NonNull String iface) {
+        try {
+            return mService.getPersistentConfiguration(iface);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
      * A request for a tethered interface.
      */
     public static class TetheredInterfaceRequest {
