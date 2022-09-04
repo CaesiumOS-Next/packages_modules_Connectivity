@@ -824,6 +824,13 @@ class EthernetManagerTest {
         cb.expectCapabilitiesWithCapability(testCapability)
         cb.expectLinkPropertiesWithLinkAddress(
                 STATIC_IP_CONFIGURATION.staticIpConfiguration.ipAddress!!)
+
+        // Read the IP configuration from persistent memory and check if that's the static config
+        // updated from updateConfiguration().
+        val configuration = runAsShell(NETWORK_SETTINGS) {
+            em.getPersistentConfiguration(iface.name)
+        }
+        assertEquals(STATIC_IP_CONFIGURATION, configuration)
     }
 
     @Test
@@ -842,6 +849,13 @@ class EthernetManagerTest {
         cb.expectCallback<CapabilitiesChanged>()
         cb.expectLinkPropertiesWithLinkAddress(
                 STATIC_IP_CONFIGURATION.staticIpConfiguration.ipAddress!!)
+
+        // Read the IP configuration from persistent memory and check if that's the static config
+        // updated from updateConfiguration().
+        val configuration = runAsShell(NETWORK_SETTINGS) {
+            em.getPersistentConfiguration(iface.name)
+        }
+        assertEquals(STATIC_IP_CONFIGURATION, configuration)
     }
 
     // TODO(b/240323229): This test is currently flaky due to a race between IpClient restarting and
@@ -866,5 +880,11 @@ class EthernetManagerTest {
         cb.expectLost(network)
         cb.expectAvailable()
         cb.expectCapabilitiesWithCapability(testCapability)
+
+        // Read the IP configuration from persistent memory and check if it's null.
+        val configuration = runAsShell(NETWORK_SETTINGS) {
+            em.getPersistentConfiguration(iface.name)
+        }
+        assertEquals(null, configuration)
     }
 }

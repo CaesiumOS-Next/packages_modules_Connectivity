@@ -47,4 +47,5 @@ interface IEthernetManager
     void disableInterface(String iface, in INetworkInterfaceOutcomeReceiver listener);
     void setEthernetEnabled(boolean enabled);
     List<String> getInterfaceList();
+    IpConfiguration getPersistentConfiguration(String iface);
 }

@@ -169,6 +169,13 @@ public class EthernetServiceImpl extends IEthernetManager.Stub {
     }
 
     @Override
+    public IpConfiguration getPersistentConfiguration(String iface) {
+        PermissionUtils.enforceNetworkStackPermissionOr(mContext,
+                android.Manifest.permission.NETWORK_SETTINGS);
+        return mTracker.getPersistentConfiguration(iface);
+    }
+
+    @Override
     public void requestTetheredInterface(ITetheredInterfaceCallback callback) {
         Objects.requireNonNull(callback, "callback must not be null");
         PermissionUtils.enforceNetworkStackPermissionOr(mContext,
