@@ -23,15 +23,18 @@ import static com.android.net.module.util.NetworkCapabilitiesUtils.unpackBits;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.timeout;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import android.net.ConnectivityMetricsEvent;
 import android.net.IIpConnectivityMetrics;
 import android.net.Network;
+import android.os.HandlerThread;
 
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
+
+import com.android.testutils.HandlerUtils;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -95,20 +98,22 @@ public class IpConnectivityLogTest {
         final int nEvents = 10;
         for (int n = 0; n < nCallers; n++) {
             final int i = n;
-            new Thread() {
-                public void run() {
-                    for (int j = 0; j < nEvents; j++) {
-                        assertTrue(logger.log(makeExpectedEvent(
-                                FAKE_TIME_STAMP + i * 100 + j,
-                                FAKE_NET_ID + i * 100 + j,
-                                ((i + j) % 2 == 0) ? TRANSPORT_WIFI : TRANSPORT_CELLULAR,
-                                FAKE_INTERFACE_NAME)));
-                    }
+            final HandlerThread thread = new HandlerThread("thread" + i);
+            thread.start();
+            thread.getThreadHandler().post(() -> {
+                for (int j = 0; j < nEvents; j++) {
+                    assertTrue(logger.log(makeExpectedEvent(
+                            FAKE_TIME_STAMP + i * 100 + j,
+                            FAKE_NET_ID + i * 100 + j,
+                            ((i + j) % 2 == 0) ? TRANSPORT_WIFI : TRANSPORT_CELLULAR,
+                            FAKE_INTERFACE_NAME)));
                 }
-            }.start();
+            });
+            HandlerUtils.waitForIdle(thread, 50);
+            thread.quit();
         }
 
-        List<ConnectivityMetricsEvent> got = verifyEvents(nCallers * nEvents, 200);
+        List<ConnectivityMetricsEvent> got = verifyEvents(nCallers * nEvents);
         Collections.sort(got, EVENT_COMPARATOR);
         Iterator<ConnectivityMetricsEvent> iter = got.iterator();
         for (int i = 0; i < nCallers; i++) {
@@ -123,17 +128,12 @@ public class IpConnectivityLogTest {
         }
     }
 
-    private List<ConnectivityMetricsEvent> verifyEvents(int n, int timeoutMs) throws Exception {
+    private List<ConnectivityMetricsEvent> verifyEvents(int n) throws Exception {
         ArgumentCaptor<ConnectivityMetricsEvent> captor =
                 ArgumentCaptor.forClass(ConnectivityMetricsEvent.class);
-        verify(mMockService, timeout(timeoutMs).times(n)).logEvent(captor.capture());
+        verify(mMockService, times(n)).logEvent(captor.capture());
         return captor.getAllValues();
     }
-
-    private List<ConnectivityMetricsEvent> verifyEvents(int n) throws Exception {
-        return verifyEvents(n, 10);
-    }
-
 
     private ConnectivityMetricsEvent makeExpectedEvent(long timestamp, int netId, long transports,
             String ifname) {
