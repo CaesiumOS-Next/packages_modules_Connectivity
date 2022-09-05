@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ba30c920_048fb3db",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-05T15:22:57Z",
+      "side": 1,
+      "message": "The previous code would call maybeTrackInterface only if a new interface was added. It would call updateInterfaceState if the link state changed (but note, updateInterfaceState was also always called around the time that an interface was created, sometimes before the add and sometimes after).\n\nThe new code calls maybeTrackInterface if the interface is not being tracked by the factory and is not the default interface. Is this the same?\n- It looks like maybeTrackInterface will just ignore any interface that is tracked by the factory or is the default interface. So not calling maybeTrackInterface in these circumstances is OK.\n- But is it OK to call maybeTrackInterface on an interface that already existed, but was not being tracked by the factory and was not the default interface? I think the old code never did this?",
+      "range": {
+        "startLine": 168,
+        "startChar": 16,
+        "endLine": 168,
+        "endChar": 83
+      },
+      "revId": "734f24e6d719f91b676338cedca9ab9d7ceabb07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "86bdd22c_56f70653",
         "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
         "patchSetId": 6
