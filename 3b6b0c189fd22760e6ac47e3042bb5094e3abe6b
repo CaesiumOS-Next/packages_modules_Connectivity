@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b99c51b3_871735af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-05T08:30:22Z",
+      "side": 1,
+      "message": "Done,\n thanks for writing.",
+      "parentUuid": "f673dacc_e7dc32b2",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 49
+      },
+      "revId": "3b6b0c189fd22760e6ac47e3042bb5094e3abe6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c8e211a_288b4b05",
@@ -61,6 +85,30 @@
       "writtenOn": "2022-09-02T04:04:39Z",
       "side": 1,
       "message": "We should eventually also remove all of these. If I was making the change I\u0027d do it at the same time, but it\u0027s fine to make a followup or even wait until this causes more flakiness, but I think we\u0027ll have to do it sooner or later.",
+      "range": {
+        "startLine": 2123,
+        "startChar": 8,
+        "endLine": 2123,
+        "endChar": 12
+      },
+      "revId": "3b6b0c189fd22760e6ac47e3042bb5094e3abe6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ece4504_ffd86020",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2123,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-05T08:30:22Z",
+      "side": 1,
+      "message": "Sure thing, done.",
+      "parentUuid": "8c8e211a_288b4b05",
       "range": {
         "startLine": 2123,
         "startChar": 8,
