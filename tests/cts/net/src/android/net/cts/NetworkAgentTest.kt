@@ -1279,7 +1279,7 @@ class NetworkAgentTest {
     @Test
     fun testUnregisterAgentBeforeAgentFullyConnected() {
         val specifier = UUID.randomUUID().toString()
-        val callback = TestableNetworkCallback()
+        val callback = TestableNetworkCallback(timeoutMs = DEFAULT_TIMEOUT_MS)
         val transports = intArrayOf(TRANSPORT_CELLULAR)
         // Ensure this NetworkAgent is never unneeded by filing a request with its specifier.
         requestNetwork(makeTestNetworkRequest(specifier = specifier), callback)
