@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc2164ce_028d2570",
+        "filename": "service-t/src/com/android/server/net/SkDestroyListener.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-09-05T14:42:59Z",
+      "side": 1,
+      "message": "Followed the skDestroyListener implementation in TrafficController.cpp\nhttp://cs/aosp-master/packages/modules/Connectivity/service/native/TrafficController.cpp;l\u003d187-221;rcl\u003d7c872f740ec34948286f8db42861f4c02de2c5f4",
+      "revId": "345c567d20160ec87d3ab187027b81681f008d63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
