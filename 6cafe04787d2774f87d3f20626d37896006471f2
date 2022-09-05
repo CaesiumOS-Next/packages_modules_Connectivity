@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c0efb03_09cff3c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-09-05T05:35:52Z",
+      "side": 1,
+      "message": "An alternative way to fix the flaky test on aosp/2200579",
+      "revId": "6cafe04787d2774f87d3f20626d37896006471f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
