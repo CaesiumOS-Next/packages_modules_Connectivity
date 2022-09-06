@@ -22,6 +22,30 @@
       },
       "revId": "43ec8b393852a9b5548bc57e11e32219ebc91fbd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc5feda4_45f62bd0",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 7004,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-06T07:25:54Z",
+      "side": 1,
+      "message": "It looks like NOT_CONGESTED is a good choice",
+      "parentUuid": "c7beabf3_54d7ab4b",
+      "range": {
+        "startLine": 7004,
+        "startChar": 8,
+        "endLine": 7004,
+        "endChar": 51
+      },
+      "revId": "43ec8b393852a9b5548bc57e11e32219ebc91fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
