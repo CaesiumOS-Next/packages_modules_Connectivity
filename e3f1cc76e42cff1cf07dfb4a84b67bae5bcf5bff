@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54320236_f69a6ffb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-06T08:56:26Z",
+      "side": 1,
+      "message": "The current setup in aosp/master is actually as expected, as this is a development branch.\n\nNote that aosp/master is a development branch for U at this point. In U I think we can attempt to delete InProcessTethering altogether and change the guidance so that non-GMS devices do not need to use it. But for T the changes were not done yet.",
+      "revId": "e3f1cc76e42cff1cf07dfb4a84b67bae5bcf5bff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "945c2b2c_b3c44f19",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-06T08:56:26Z",
+      "side": 1,
+      "message": "This should use TetheringApiCurrentLib as it allows testing new Tethering functionalities in this development branch, which uses an in-development API level (Build.VERSION.SDK_INT \u003d\u003d CUR_DEVELOPMENT).",
+      "revId": "e3f1cc76e42cff1cf07dfb4a84b67bae5bcf5bff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08c519dd_415ca940",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-06T08:56:26Z",
+      "side": 1,
+      "message": "aosp/master is a development branch, so it is expected that this is true. This is only set to false when building the tethering/connectivity module in a branch that has stable APIs; aosp/master has API level CUR_DEVELOPMENT (10000)",
+      "revId": "e3f1cc76e42cff1cf07dfb4a84b67bae5bcf5bff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1815be7a_d707dac3",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-06T08:56:26Z",
+      "side": 1,
+      "message": "It is expected that the APEX uses TetheringNext for development here, as it is closer to what most devices use in terms of processes (TetheringNext runs in the network_stack process). Using TetheringNext also allows developers to test newer code on the device by doing an APEX install, rather than flashing a whole new device image.",
+      "revId": "e3f1cc76e42cff1cf07dfb4a84b67bae5bcf5bff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
