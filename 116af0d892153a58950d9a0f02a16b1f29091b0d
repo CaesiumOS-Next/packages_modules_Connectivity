@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bc785d2_15d7f4bd",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/SkDestroyListenerTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-09-06T02:31:47Z",
+      "side": 1,
+      "message": "Is `Tethering/tests/mts/src/android/tethering/mts/` a right place to put this test?",
+      "revId": "116af0d892153a58950d9a0f02a16b1f29091b0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
