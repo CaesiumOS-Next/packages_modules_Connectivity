@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "525e459e_e3e4f090",
+        "filename": "framework/src/android/net/DnsResolver.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-06T14:35:26Z",
+      "side": 1,
+      "message": "Suggest adding a \"public boolean isAnswer()\" method to DnsHeader instead.",
+      "range": {
+        "startLine": 547,
+        "startChar": 24,
+        "endLine": 547,
+        "endChar": 48
+      },
+      "revId": "ec2b24784f8b12dd01da12356835a8311298067d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5b68c13_f28f3bf0",
+        "filename": "tests/cts/net/src/android/net/cts/DnsResolverTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-06T14:35:26Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 203,
+        "startChar": 24,
+        "endLine": 203,
+        "endChar": 48
+      },
+      "revId": "ec2b24784f8b12dd01da12356835a8311298067d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2324672_8167eba3",
+        "filename": "tests/cts/net/src/android/net/cts/DnsResolverTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-06T14:35:26Z",
+      "side": 1,
+      "message": "Suggest adding a getRcode() method to DnsHeader.",
+      "range": {
+        "startLine": 209,
+        "startChar": 26,
+        "endLine": 209,
+        "endChar": 44
+      },
+      "revId": "ec2b24784f8b12dd01da12356835a8311298067d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
