@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1573c086_46641b1d",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-06T15:12:33Z",
+      "side": 1,
+      "message": "Checking switchUpstream in multiple places make the test hard to read.\n\nHow about extract l.423 ~ 458 to separate function (e.g. verifyCellularUpstream(TestTetheringEventCallback tetherEventCallback))\n\n    @Test\n    public void testTetheringUpstream() throws Exception {\n        assumeTrue(mPm.hasSystemFeature(FEATURE_TELEPHONY));\n        final TestTetheringEventCallback tetherEventCallback \u003d\n                mCtsTetheringUtils.registerTetheringEventCallback();\n\n        boolean previousWifiEnabledState \u003d false;\n        try {\n            verifyCellularUpstream(tetherEventCallback);\n        } finally {\n            mCtsTetheringUtils.unregisterTetheringEventCallback(tetherEventCallback);\n            if (previousWifiEnabledState) {\n                mCtsNetUtils.connectToWifi();\n            }\n        }\n    }\n\n    @Test\n    public void testTetheringUpstreamSwitchBetweenCellularAndWifi() throws Exception {\n        ....\n        verifyCellularUpstream(tetherEventCallback);\n        // switch to wifi and verify wifi usptream\n        ....\n    }",
+      "range": {
+        "startLine": 460,
+        "startChar": 12,
+        "endLine": 460,
+        "endChar": 33
+      },
+      "revId": "def16f8f0db012ab183a590603360d92bd7fbf66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
