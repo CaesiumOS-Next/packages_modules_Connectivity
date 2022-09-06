@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfe165d4_8c6573a0",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-06T04:07:57Z",
+      "side": 1,
+      "message": "If weakTm.get() already be null, we probably don\u0027t want to call forceGc() again.\nHow about:\n\n    for (int i \u003d 0; i \u003c attempts; i++) {\n        if (weakTm.get() !\u003d null) {\n            forceGc();\n        } else if (callbacks.size() \u003d\u003d 0) {\n            break;\n        }\n\n        Thread.sleep(waitIntervalMs);\n    }",
+      "range": {
+        "startLine": 673,
+        "startChar": 20,
+        "endLine": 673,
+        "endChar": 40
+      },
+      "revId": "4c2b38713d94071a70e183ba51dc2dcf2d930850",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
