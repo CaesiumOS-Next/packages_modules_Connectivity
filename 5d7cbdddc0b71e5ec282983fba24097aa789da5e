@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6e47d87_fef2e37b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-09-06T06:50:12Z",
+      "side": 1,
+      "message": "Upload a test cl aosp/2206296 to verify the fix works.",
+      "revId": "5d7cbdddc0b71e5ec282983fba24097aa789da5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
