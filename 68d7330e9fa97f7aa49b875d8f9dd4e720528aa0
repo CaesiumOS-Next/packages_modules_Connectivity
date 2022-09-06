@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06310a69_3a0dd9a9",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-06T10:18:43Z",
+      "side": 1,
+      "message": "This is duplicated as NetworkStatsSerivce#getMapStatus. Move getMapStatus into BpfDump.java then use it here ?",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 5
+      },
+      "revId": "68d7330e9fa97f7aa49b875d8f9dd4e720528aa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
