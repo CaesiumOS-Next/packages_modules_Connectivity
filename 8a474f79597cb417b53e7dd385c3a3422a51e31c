@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d3a0969_2ac9c021",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1235,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-09-06T15:30:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d79c187f_c053c975",
+      "range": {
+        "startLine": 1235,
+        "startChar": 38,
+        "endLine": 1235,
+        "endChar": 39
+      },
+      "revId": "8a474f79597cb417b53e7dd385c3a3422a51e31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b4dab44_3bc4487c",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-06T03:10:14Z",
       "side": 1,
       "message": "Maybe use non-zero values?",
+      "range": {
+        "startLine": 1238,
+        "startChar": 54,
+        "endLine": 1238,
+        "endChar": 56
+      },
+      "revId": "8a474f79597cb417b53e7dd385c3a3422a51e31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1df6d705_b345dcd9",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1238,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-09-06T15:30:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b4dab44_3bc4487c",
       "range": {
         "startLine": 1238,
         "startChar": 54,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8450e25b_3d6696e8",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1246,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-09-06T15:30:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2141c048_6b4a6b60",
+      "range": {
+        "startLine": 1246,
+        "startChar": 34,
+        "endLine": 1246,
+        "endChar": 52
+      },
+      "revId": "8a474f79597cb417b53e7dd385c3a3422a51e31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2328ff61_8e61733c",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-09-06T03:10:14Z",
       "side": 1,
       "message": "It seems to me these 2 are almost atomic.\nWe don\u0027t expect people use getUidStatsForTransport without mock augmentWithStackedInterfaces, right?\nIf so, maybe refactor?",
+      "range": {
+        "startLine": 1257,
+        "startChar": 8,
+        "endLine": 1259,
+        "endChar": 48
+      },
+      "revId": "8a474f79597cb417b53e7dd385c3a3422a51e31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb894e0b_44f91192",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1259,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-09-06T15:30:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2328ff61_8e61733c",
       "range": {
         "startLine": 1257,
         "startChar": 8,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6b509b4_080021d8",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1271,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-09-06T15:30:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc776eca_f84e83f2",
+      "range": {
+        "startLine": 1271,
+        "startChar": 8,
+        "endLine": 1271,
+        "endChar": 68
+      },
+      "revId": "8a474f79597cb417b53e7dd385c3a3422a51e31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91e721e0_f28dddb5",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-09-06T03:10:14Z",
       "side": 1,
       "message": "Maybe:\n// Verify the operation count stats that caused by incrementOperationCount only appears on the mobile interface, since incrementOperationCount attributes them onto the active interface.",
+      "range": {
+        "startLine": 1279,
+        "startChar": 8,
+        "endLine": 1279,
+        "endChar": 11
+      },
+      "revId": "8a474f79597cb417b53e7dd385c3a3422a51e31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23b40c27_c7b8e00d",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1279,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-09-06T15:30:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91e721e0_f28dddb5",
       "range": {
         "startLine": 1279,
         "startChar": 8,
