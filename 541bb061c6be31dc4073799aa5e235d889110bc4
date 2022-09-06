@@ -330,6 +330,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71839daa_b052ed5d",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-06T04:15:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41d5a697_9c67bb15",
+      "range": {
+        "startLine": 349,
+        "startChar": 8,
+        "endLine": 349,
+        "endChar": 14
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bbe2eaa4_23ec4454",
@@ -343,6 +367,30 @@
       "writtenOn": "2022-08-03T11:49:24Z",
       "side": 1,
       "message": "`emptyList()` has the advantage that it\u0027s a constant instead of instantiating a new empty list",
+      "range": {
+        "startLine": 350,
+        "startChar": 69,
+        "endLine": 350,
+        "endChar": 75
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ceeebe8e_05b6b890",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-06T04:15:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbe2eaa4_23ec4454",
       "range": {
         "startLine": 350,
         "startChar": 69,
@@ -376,6 +424,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "049eb8b7_dd6d49af",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 1318,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-06T04:15:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a2ccc5a_c30e021b",
+      "range": {
+        "startLine": 1318,
+        "startChar": 36,
+        "endLine": 1318,
+        "endChar": 53
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad665429_6b153bd1",
@@ -389,6 +461,30 @@
       "writtenOn": "2022-08-03T11:49:24Z",
       "side": 1,
       "message": "Do you want to also say `agent.assertNoCallback()` after this ? Or even put that inside expectPostConnectionCallbacks",
+      "range": {
+        "startLine": 1362,
+        "startChar": 43,
+        "endLine": 1362,
+        "endChar": 44
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ef1fa1d_e5cc961d",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 1362,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-06T04:15:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad665429_6b153bd1",
       "range": {
         "startLine": 1362,
         "startChar": 43,
@@ -422,6 +518,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b32b71a_099551e5",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 1364,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-06T04:15:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b91a5600_7888d755",
+      "range": {
+        "startLine": 1364,
+        "startChar": 88,
+        "endLine": 1364,
+        "endChar": 91
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28306781_ba996684",
@@ -445,6 +565,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4f9ab62_f1feebf6",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 3631,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-06T04:15:47Z",
+      "side": 1,
+      "message": "Ah yes that\u0027s better. It also allows us to remove a waitForIdle. Done.",
+      "parentUuid": "28306781_ba996684",
+      "range": {
+        "startLine": 3629,
+        "startChar": 0,
+        "endLine": 3631,
+        "endChar": 9
+      },
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff91ebdb_1cbf5a9a",
@@ -458,6 +602,24 @@
       "writtenOn": "2022-08-03T11:49:24Z",
       "side": 1,
       "message": "maybe `expectNativeNetworkCreated`",
+      "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "728e8dd2_75a62374",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 9810,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-06T04:15:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff91ebdb_1cbf5a9a",
       "revId": "541bb061c6be31dc4073799aa5e235d889110bc4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
