@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c08708f3_acebfd5b",
+        "filename": "tests/cts/net/jni/NativeMultinetworkJni.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-09-06T08:13:17Z",
+      "side": 1,
+      "message": "nit: EXPECT_{GE, GT, EQ, ..} may use helper and error handling function as gtest. Easier to support more operator, reduce the duplicated code and doesn\u0027t have current issue we have now because arguments are passed by value. \n\nex:\nhttps://cs.android.com/android/platform/superproject/+/master:external/googletest/googletest/include/gtest/gtest.h;l\u003d1612?q\u003dgtest.h\n```\n#define GTEST_IMPL_CMP_HELPER_(op_name, op)\\\ntemplate \u003ctypename T1, typename T2\u003e\\\nAssertionResult CmpHelper##op_name(const char* expr1, const char* expr2, \\\n                                   const T1\u0026 val1, const T2\u0026 val2) {\\\n  if (val1 op val2) {\\\n    return AssertionSuccess();\\\n  } else {\\\n    return CmpHelperOpFailure(expr1, expr2, val1, val2, #op);\\\n  }\\\n}\n\n// Implements the helper function for {ASSERT|EXPECT}_NE\nGTEST_IMPL_CMP_HELPER_(NE, !\u003d)\n// Implements the helper function for {ASSERT|EXPECT}_LE\nGTEST_IMPL_CMP_HELPER_(LE, \u003c\u003d)\n// Implements the helper function for {ASSERT|EXPECT}_LT\nGTEST_IMPL_CMP_HELPER_(LT, \u003c)\n// Implements the helper function for {ASSERT|EXPECT}_GE\nGTEST_IMPL_CMP_HELPER_(GE, \u003e\u003d)\n// Implements the helper function for {ASSERT|EXPECT}_GT\nGTEST_IMPL_CMP_HELPER_(GT, \u003e)\n```\n\nhttps://cs.android.com/android/platform/superproject/+/master:external/googletest/googletest/include/gtest/gtest_pred_impl.h;l\u003d163\n```\n#define EXPECT_GE(val1, val2) \\\n  EXPECT_PRED_FORMAT2(::testing::internal::CmpHelperGE, val1, val2)\n```",
+      "range": {
+        "startLine": 43,
+        "startChar": 8,
+        "endLine": 43,
+        "endChar": 17
+      },
+      "revId": "d84952ff43de800221ffea86d1c62fb7b00a328d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f6bb73f_e3640293",
+        "filename": "tests/cts/net/jni/NativeMultinetworkJni.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-09-06T08:13:17Z",
+      "side": 1,
+      "message": "nit: maybe remark why we do these copies on L.45, L.56, L.67\n```\nUsed for evaluating the arguments exactly once.\n```",
+      "range": {
+        "startLine": 45,
+        "startChar": 28,
+        "endLine": 45,
+        "endChar": 30
+      },
+      "revId": "d84952ff43de800221ffea86d1c62fb7b00a328d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afcbda2b_fd71170b",
+        "filename": "tests/cts/net/jni/NativeMultinetworkJni.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-09-06T08:13:17Z",
+      "side": 1,
+      "message": "nit: maybe copy |msg| as well.\ntheoretically, the same issue can happen on \"msg\" if the macro uses |msg| before printing error message (L.59) in the future.\n\nex:\n# foo() will be called twice.\n```\nEXPECT_GT(.. , std::format(\"{}\", foo()));\n\n#define EXPECT_GT(.., msg) \\\n    ALOGE(\"%s\", msg); \\  \u003c-- new code\n    ..\n    jniThrowExceptionFmt(.., msg);\n```",
+      "range": {
+        "startLine": 54,
+        "startChar": 51,
+        "endLine": 54,
+        "endChar": 54
+      },
+      "revId": "d84952ff43de800221ffea86d1c62fb7b00a328d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
