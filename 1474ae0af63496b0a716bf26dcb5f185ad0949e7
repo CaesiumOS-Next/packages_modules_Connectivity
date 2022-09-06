@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dc7d30f_1726541f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2857,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-06T02:37:55Z",
+      "side": 1,
+      "message": "Good catch. I changed the local architecture so that failure/success is separated from running the loop, making it harder to get wrong.",
+      "parentUuid": "59b20910_a9092a33",
+      "range": {
+        "startLine": 2857,
+        "startChar": 35,
+        "endLine": 2857,
+        "endChar": 46
+      },
+      "revId": "1474ae0af63496b0a716bf26dcb5f185ad0949e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21e120f3_7f9d4fee",
@@ -84,6 +108,30 @@
       "writtenOn": "2022-09-01T02:38:49Z",
       "side": 1,
       "message": "looks like CollectionUtils.contains(T[] arg, T) doesn\u0027t match with cellCb.getHistory(List\u003cCallbackEntry\u003e, maybe we need to covert List\u003cT\u003e to T[]. Or use \"CollectionUtils.findLast(cellCb.getHistory(), lambda) !\u003d null\" to check that we ever received onLost callback?",
+      "range": {
+        "startLine": 2924,
+        "startChar": 52,
+        "endLine": 2924,
+        "endChar": 71
+      },
+      "revId": "1474ae0af63496b0a716bf26dcb5f185ad0949e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf205002_6882c274",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2924,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-06T02:37:55Z",
+      "side": 1,
+      "message": "See aosp/2201279, which introduced CollectionUtils#contains(Collection\u003cT\u003e, Predicate\u003cT\u003e) for the purposes of this test.",
+      "parentUuid": "aa6b8ea6_e10f525a",
       "range": {
         "startLine": 2924,
         "startChar": 52,
