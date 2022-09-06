@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7beabf3_54d7ab4b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 7004,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-06T07:24:16Z",
+      "side": 1,
+      "message": "We still need to have a test of some capability that doesn\u0027t update ifaces. Can you find another capability that should not update ifaces, but doesn\u0027t cause a wtf ?",
+      "range": {
+        "startLine": 7004,
+        "startChar": 8,
+        "endLine": 7004,
+        "endChar": 51
+      },
+      "revId": "43ec8b393852a9b5548bc57e11e32219ebc91fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
