@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64d827f6_ee529473",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 15613,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-06T04:32:28Z",
+      "side": 1,
+      "message": "I think this comment is better in l.15621 ; the code you modelled this on didn\u0027t have a blank line between this comment and the setAllowedUids call.",
+      "range": {
+        "startLine": 15613,
+        "startChar": 0,
+        "endLine": 15613,
+        "endChar": 57
+      },
+      "revId": "0a68a22f6d5089317e5542023af6c23772693926",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84e547ed_49ae4f63",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 15629,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-06T04:32:28Z",
+      "side": 1,
+      "message": "You can remove this duplication by writing the test above\n\n    if (SdkLevel.isAtLeastT() \u0026\u0026 hasAutomotiveFeature)\n\nYou\u0027ll need to rework the comments a little bit.",
+      "range": {
+        "startLine": 15627,
+        "startChar": 0,
+        "endLine": 15629,
+        "endChar": 13
+      },
+      "revId": "0a68a22f6d5089317e5542023af6c23772693926",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
