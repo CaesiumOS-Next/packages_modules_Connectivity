@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cc5846c_d4c461a6",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1316,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-09-06T10:13:55Z",
+      "side": 1,
+      "message": "Will have another patch to address these style fixes.",
+      "parentUuid": "a94b328c_ca86294b",
+      "range": {
+        "startLine": 1316,
+        "startChar": 47,
+        "endLine": 1316,
+        "endChar": 50
+      },
+      "revId": "25e79a4a12114c7bef989497fccc225519d47505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c282013_da79678e",

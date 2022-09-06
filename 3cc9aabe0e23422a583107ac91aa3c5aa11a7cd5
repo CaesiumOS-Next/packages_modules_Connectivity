@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01927459_9b85995e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-09-06T10:13:55Z",
+      "side": 1,
+      "message": "Create aosp/2206163 to remove mOpenSessionCallsPerUid so that this CL can focus on remove entries from mOpenSessionCallsPerCaller. Set this WIP since this may need more time to address.",
+      "revId": "3cc9aabe0e23422a583107ac91aa3c5aa11a7cd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
