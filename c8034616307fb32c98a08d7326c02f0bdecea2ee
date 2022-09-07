@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a091993_82855e19",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-07T06:56:50Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is a good fix. Effectively, what we\u0027re doing with this CL is adding our own flake retry logic on top of whatever retry logic we already have in the test infra.\n\nIf we really do have evidence that on targets of interest (e.g., presubmit) cell networks do arbitrarily disconnect for unknown reasons, then something like this CL might be the right way forward, but that seems like a bit of a last resort.\n\nBefore we move forward with this, could you take a look at some test failure logs to see what is actually happening? If you determine that cell is indeed disconnecting out of the blue then maybe we can merge this CL.",
+      "revId": "c8034616307fb32c98a08d7326c02f0bdecea2ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
