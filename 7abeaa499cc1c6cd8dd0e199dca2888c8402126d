@@ -46,6 +46,52 @@
       },
       "revId": "7abeaa499cc1c6cd8dd0e199dca2888c8402126d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "184debdb_aa809c4e",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-07T04:31:53Z",
+      "side": 1,
+      "message": "FWIW I think there\u0027s no need to do this, I think you can do:\n\n    try (FileDescriptor s \u003d Os.socket(AF_KEY, SOCK_RAW | SOCK_CLOEXEC, PF_KEY_V2)) {\n    } catch (ErrnoException e) {\n        ...\n    }",
+      "range": {
+        "startLine": 248,
+        "startChar": 19,
+        "endLine": 248,
+        "endChar": 39
+      },
+      "revId": "7abeaa499cc1c6cd8dd0e199dca2888c8402126d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4299f1b_654a4fd5",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-07T04:31:53Z",
+      "side": 1,
+      "message": "Out of curiosity, why synchronize on this object instead of on sConfigurationMap itself?\n\nAre all reads/writes of sConfigurationMap protected by sCurrentStatsMapConfigLock? If not, that looks a bit unsafe, since there\u0027s unsynchronized access to sConfigurationMap. I think it only *looks* unsafe, because nothing else writes to the CURRENT_STATS_MAP_CONFIGURATION_KEY location of that map, but still it would be good to fix.",
+      "range": {
+        "startLine": 747,
+        "startChar": 30,
+        "endLine": 747,
+        "endChar": 56
+      },
+      "revId": "7abeaa499cc1c6cd8dd0e199dca2888c8402126d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
