@@ -47,11 +47,13 @@ import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.runner.AndroidJUnit4
 import com.android.modules.utils.build.SdkLevel.isAtLeastR
+import com.android.testutils.PerNetworkRequestMatcher
 import com.android.testutils.RecorderCallback
 import com.android.testutils.TestHttpServer
-import com.android.testutils.TestHttpServer.Request
 import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.runAsShell
+import com.android.testutils.tryTest
+import fi.iki.elonen.NanoHTTPD
 import fi.iki.elonen.NanoHTTPD.Response.Status
 import junit.framework.AssertionFailedError
 import org.junit.After
@@ -157,20 +159,32 @@ class CaptivePortalTest {
                 "Check the mobile data connection.")
 
         // Have network validation use a local server that serves a HTTPS error / HTTP redirect
-        server.addResponse(Request(TEST_PORTAL_URL_PATH), Status.OK,
-                content = "Test captive portal content")
-        server.addResponse(Request(TEST_HTTPS_URL_PATH), Status.INTERNAL_ERROR)
+        // on wifi, and validated networks on mobile
+        val requestMatcher = PerNetworkRequestMatcher { request, _, nc, _ ->
+            nc.hasTransport(TRANSPORT_WIFI) && NanoHTTPD.Method.GET == request.method
+        }
+        requestMatcher.register(cm)
+        server.addResponse(requestMatcher.and { TEST_PORTAL_URL_PATH == it.path },
+                Status.OK, content = "Test captive portal content")
+        server.addResponse(requestMatcher.and { TEST_HTTPS_URL_PATH == it.path },
+                Status.INTERNAL_ERROR)
         val headers = mapOf("Location" to makeUrl(TEST_PORTAL_URL_PATH))
-        server.addResponse(Request(TEST_HTTP_URL_PATH), Status.REDIRECT, headers)
-        setHttpsUrlDeviceConfig(deviceConfigRule, makeUrl(TEST_HTTPS_URL_PATH))
-        setHttpUrlDeviceConfig(deviceConfigRule, makeUrl(TEST_HTTP_URL_PATH))
+        server.addResponse(requestMatcher.and { TEST_HTTP_URL_PATH == it.path },
+                Status.REDIRECT, headers)
+        // All other requests
+        server.addResponse({ true }, Status.NO_CONTENT)
+
+        setHttpsUrlDeviceConfig(deviceConfigRule, makeNetworkValidationUrl(TEST_HTTPS_URL_PATH))
+        setHttpUrlDeviceConfig(deviceConfigRule, makeNetworkValidationUrl(TEST_HTTP_URL_PATH))
         Log.d(TAG, "Set portal URLs to $TEST_HTTPS_URL_PATH and $TEST_HTTP_URL_PATH")
         // URL expiration needs to be in the next 10 minutes
         assertTrue(WIFI_CONNECT_TIMEOUT_MS < TimeUnit.MINUTES.toMillis(10))
         setUrlExpirationDeviceConfig(deviceConfigRule,
                 System.currentTimeMillis() + WIFI_CONNECT_TIMEOUT_MS)
 
-        // Wait for a captive portal to be detected on the network
+        // Wait for a captive portal to be detected on the network after reconnection. A captive
+        // portal will be detected without reconnecting as NetworkMonitor revalidates when the URLs
+        // are set, but this test aims to cover behavior at connection time.
         val wifiNetworkFuture = CompletableFuture<Network>()
         val wifiCb = object : NetworkCallback() {
             override fun onCapabilitiesChanged(
@@ -182,10 +196,11 @@ class CaptivePortalTest {
                 }
             }
         }
-        cm.requestNetwork(NetworkRequest.Builder().addTransportType(TRANSPORT_WIFI).build(), wifiCb)
 
-        try {
+        tryTest {
             reconnectWifi()
+            cm.requestNetwork(NetworkRequest.Builder().addTransportType(TRANSPORT_WIFI).build(),
+                    wifiCb)
             val network = wifiNetworkFuture.assertGet(WIFI_CONNECT_TIMEOUT_MS,
                     "Captive portal not detected after ${WIFI_CONNECT_TIMEOUT_MS}ms")
 
@@ -207,7 +222,8 @@ class CaptivePortalTest {
                     "after startCaptivePortalApp.")
 
             assertNotEquals(network, cm.activeNetwork, wifiDefaultMessage)
-        } finally {
+        } cleanup {
+            requestMatcher.unregister(cm)
             cm.unregisterNetworkCallback(wifiCb)
             server.stop()
             // disconnectFromCell should be called after connectToCell
@@ -215,10 +231,13 @@ class CaptivePortalTest {
         }
     }
 
+    private fun makeNetworkValidationUrl(path: String) = makeUrl(path) +
+            "?${PerNetworkRequestMatcher.NET_ID_URL_PARAMETER}"
+
     /**
      * Create a URL string that, when fetched, will hit the test server with the given URL [path].
      */
-    private fun makeUrl(path: String) = "http://localhost:${server.listeningPort}" + path
+    private fun makeUrl(path: String) = "http://localhost:${server.listeningPort}$path"
 
     private fun reconnectWifi() {
         utils.ensureWifiDisconnected(null /* wifiNetworkToCheck */)

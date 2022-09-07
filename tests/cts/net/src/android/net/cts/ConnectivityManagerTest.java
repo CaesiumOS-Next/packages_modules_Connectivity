@@ -195,6 +195,7 @@ import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.DeviceInfoUtils;
 import com.android.testutils.DumpTestUtils;
+import com.android.testutils.PerNetworkRequestMatcher;
 import com.android.testutils.RecorderCallback.CallbackEntry;
 import com.android.testutils.TestHttpServer;
 import com.android.testutils.TestNetworkTracker;
@@ -325,6 +326,7 @@ public class ConnectivityManagerTest {
     private final List<Range<Integer>> mVpnRequiredUidRanges = new ArrayList<>();
 
     private final TestHttpServer mHttpServer = new TestHttpServer(LOCALHOST_HOSTNAME);
+    private PerNetworkRequestMatcher mWifiRequestMatcher;
 
     @Before
     public void setUp() throws Exception {
@@ -410,6 +412,10 @@ public class ConnectivityManagerTest {
             runWithShellPermissionIdentity(
                     () -> mCmShim.setRequireVpnForUids(false, mVpnRequiredUidRanges),
                     NETWORK_SETTINGS);
+        }
+
+        if (mWifiRequestMatcher != null) {
+            mWifiRequestMatcher.unregister(mCm);
         }
 
         // All tests in this class require a working Internet connection as they start. Make
@@ -2882,8 +2888,8 @@ public class ConnectivityManagerTest {
             assertTrue(mCm.getNetworkCapabilities(wifiNetwork).hasCapability(
                     NET_CAPABILITY_VALIDATED));
 
-            // Configure response code for unvalidated network
-            configTestServer(Status.INTERNAL_ERROR, Status.INTERNAL_ERROR);
+            // Configure response code for unvalidated network.
+            setTestServerWifiResponses(Status.INTERNAL_ERROR, Status.INTERNAL_ERROR);
             mCm.reportNetworkConnectivity(wifiNetwork, false);
             // Default network should stay on unvalidated wifi because avoid bad wifi is disabled.
             defaultCb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED,
@@ -2971,7 +2977,7 @@ public class ConnectivityManagerTest {
 
     private Network prepareValidatedNetwork() throws Exception {
         prepareHttpServer();
-        configTestServer(Status.NO_CONTENT, Status.NO_CONTENT);
+        configTestServerForWifi(Status.NO_CONTENT, Status.NO_CONTENT);
         // Disconnect wifi first then start wifi network with configuration.
         final Network wifiNetwork = reconnectWifi();
 
@@ -2981,11 +2987,11 @@ public class ConnectivityManagerTest {
 
     private Network preparePartialConnectivity() throws Exception {
         prepareHttpServer();
-        // Configure response code for partial connectivity
-        configTestServer(Status.INTERNAL_ERROR  /* httpsStatusCode */,
-                Status.NO_CONTENT  /* httpStatusCode */);
         // Disconnect wifi first then start wifi network with configuration.
         mCtsNetUtils.ensureWifiDisconnected(null /* wifiNetworkToCheck */);
+        // Configure response code for partial connectivity
+        configTestServerForWifi(Status.INTERNAL_ERROR  /* httpsStatusCode */,
+                Status.NO_CONTENT  /* httpStatusCode */);
         final Network network = mCtsNetUtils.ensureWifiConnected();
 
         return expectNetworkHasCapability(network, NET_CAPABILITY_PARTIAL_CONNECTIVITY,
@@ -2994,19 +3000,20 @@ public class ConnectivityManagerTest {
 
     private Network prepareUnvalidatedNetwork() throws Exception {
         prepareHttpServer();
-        // Configure response code for unvalidated network
-        configTestServer(Status.INTERNAL_ERROR /* httpsStatusCode */,
-                Status.INTERNAL_ERROR /* httpStatusCode */);
 
         // Disconnect wifi first then start wifi network with configuration.
         mCtsNetUtils.ensureWifiDisconnected(null /* wifiNetworkToCheck */);
+        // Configure response code for unvalidated network
+        configTestServerForWifi(Status.INTERNAL_ERROR /* httpsStatusCode */,
+                Status.INTERNAL_ERROR /* httpStatusCode */);
         final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
         return expectNetworkHasCapability(wifiNetwork, NET_CAPABILITY_INTERNET,
                 WIFI_CONNECT_TIMEOUT_MS);
     }
 
     private String makeUrl(String path) {
-        return "http://localhost:" + mHttpServer.getListeningPort() + path;
+        return "http://localhost:" + mHttpServer.getListeningPort() + path
+                + "?" + PerNetworkRequestMatcher.NET_ID_URL_PARAMETER;
     }
 
     private void assertEmptyOrLocalhostUrl(String urlKey) {
@@ -3015,13 +3022,28 @@ public class ConnectivityManagerTest {
                 TextUtils.isEmpty(url) || LOCALHOST_HOSTNAME.equals(Uri.parse(url).getHost()));
     }
 
-    private void configTestServer(IStatus httpsStatusCode, IStatus httpStatusCode) {
-        mHttpServer.addResponse(new TestHttpServer.Request(
-                TEST_HTTPS_URL_PATH, Method.GET, "" /* queryParameters */),
+    private void setTestServerWifiResponses(IStatus httpsStatusCode, IStatus httpStatusCode) {
+        mHttpServer.clearResponses();
+        mHttpServer.addResponse(
+                mWifiRequestMatcher.and(r -> TEST_HTTPS_URL_PATH.equals(r.getPath())),
                 httpsStatusCode, null /* locationHeader */, "" /* content */);
-        mHttpServer.addResponse(new TestHttpServer.Request(
-                TEST_HTTP_URL_PATH, Method.GET, "" /* queryParameters */),
+        mHttpServer.addResponse(
+                mWifiRequestMatcher.and(r -> TEST_HTTP_URL_PATH.equals(r.getPath())),
                 httpStatusCode, null /* locationHeader */, "" /* content */);
+        // Validation success default response, to use on non-wifi networks
+        mHttpServer.addResponse(request -> true, Status.NO_CONTENT);
+    }
+
+    private void configTestServerForWifi(IStatus httpsStatusCode, IStatus httpStatusCode) {
+        if (mWifiRequestMatcher == null) {
+            mWifiRequestMatcher = new PerNetworkRequestMatcher(NETWORK_CALLBACK_TIMEOUT_MS,
+                    (request, network, nc, lp) -> nc.hasTransport(TRANSPORT_WIFI)
+                            && request.getMethod().equals(Method.GET));
+            mWifiRequestMatcher.register(mCm);
+        }
+
+        setTestServerWifiResponses(httpsStatusCode, httpStatusCode);
+
         NetworkValidationTestUtil.setHttpsUrlDeviceConfig(mTestValidationConfigRule,
                 makeUrl(TEST_HTTPS_URL_PATH));
         NetworkValidationTestUtil.setHttpUrlDeviceConfig(mTestValidationConfigRule,
