@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea10e16c_00783099",
+        "filename": "tests/cts/net/jni/NativeMultinetworkJni.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2022-09-07T07:47:08Z",
+      "side": 1,
+      "message": "Let\u0027s keep the fix as simple as possible because these macros are used in this file only.",
+      "parentUuid": "c08708f3_acebfd5b",
+      "range": {
+        "startLine": 43,
+        "startChar": 8,
+        "endLine": 43,
+        "endChar": 17
+      },
+      "revId": "d84952ff43de800221ffea86d1c62fb7b00a328d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f6bb73f_e3640293",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d7ccf77_7cdefb60",
+        "filename": "tests/cts/net/jni/NativeMultinetworkJni.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2022-09-07T07:47:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f6bb73f_e3640293",
+      "range": {
+        "startLine": 45,
+        "startChar": 28,
+        "endLine": 45,
+        "endChar": 30
+      },
+      "revId": "d84952ff43de800221ffea86d1c62fb7b00a328d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "afcbda2b_fd71170b",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-09-06T08:13:17Z",
       "side": 1,
       "message": "nit: maybe copy |msg| as well.\ntheoretically, the same issue can happen on \"msg\" if the macro uses |msg| before printing error message (L.59) in the future.\n\nex:\n# foo() will be called twice.\n```\nEXPECT_GT(.. , std::format(\"{}\", foo()));\n\n#define EXPECT_GT(.., msg) \\\n    ALOGE(\"%s\", msg); \\  \u003c-- new code\n    ..\n    jniThrowExceptionFmt(.., msg);\n```",
+      "range": {
+        "startLine": 54,
+        "startChar": 51,
+        "endLine": 54,
+        "endChar": 54
+      },
+      "revId": "d84952ff43de800221ffea86d1c62fb7b00a328d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c9f99e4_2ba3e5eb",
+        "filename": "tests/cts/net/jni/NativeMultinetworkJni.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2022-09-07T07:47:08Z",
+      "side": 1,
+      "message": "Unlike the other two parameters, `msg` is not called more than once in these macros. We don\u0027t need it for now.",
+      "parentUuid": "afcbda2b_fd71170b",
       "range": {
         "startLine": 54,
         "startChar": 51,
