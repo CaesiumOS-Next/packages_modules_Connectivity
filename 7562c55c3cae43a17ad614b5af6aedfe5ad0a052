@@ -34,6 +34,23 @@
       "parentUuid": "8de2f887_3500be9b",
       "revId": "7562c55c3cae43a17ad614b5af6aedfe5ad0a052",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43539494_2ce7cbb7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012569
+      },
+      "writtenOn": "2022-09-07T06:55:22Z",
+      "side": 1,
+      "message": "In Android S, \ncallstack is \nNetworkStatsService::registerGlobalAlert()\nNetworkManagementService::setGlobalAlert() - It handle ServiceSpecificException()\nmNetdService.bandwidthSetGlobalAlert()\n\nIn Android T,\nNetworkStatsService::registerGlobalAlert()\nmNetd.bandwidthSetGlobalAlert(mGlobalAlertBytes) - Change to direct call bandwidthSetGlobalAlert. ServiceSpecificException is not handled.\n",
+      "revId": "7562c55c3cae43a17ad614b5af6aedfe5ad0a052",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
