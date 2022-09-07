@@ -16,6 +16,23 @@
       "message": "though doesn\u0027t do not merge need to be in the first line?",
       "revId": "812a949078d7daa49b8bcd0c8740cb4d63d9fc95",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3012ee6b_74cfd57b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1222074
+      },
+      "writtenOn": "2022-09-07T21:31:37Z",
+      "side": 1,
+      "message": "yes, please update commit message with DO NOT MERGE in first line. Thanks",
+      "revId": "812a949078d7daa49b8bcd0c8740cb4d63d9fc95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
