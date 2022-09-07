@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44701616_b7c66252",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-09-07T14:02:20Z",
+      "side": 1,
+      "message": "will take another look",
+      "revId": "9b63fc648675964811bd83adbedb64926edc5f10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65d2fcb5_2bdf0a41",
+        "filename": "tests/common/java/android/net/metrics/IpConnectivityLogTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-09-07T14:02:20Z",
+      "side": 1,
+      "message": "If it takes more than 50ms, then it does not really wait here. It looks to me the flaky might be worse. Did you run it in cuttlefish with slower performance?",
+      "range": {
+        "startLine": 112,
+        "startChar": 45,
+        "endLine": 112,
+        "endChar": 47
+      },
+      "revId": "9b63fc648675964811bd83adbedb64926edc5f10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98f1cb65_18ee2c69",
+        "filename": "tests/common/java/android/net/metrics/IpConnectivityLogTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-09-07T14:02:20Z",
+      "side": 1,
+      "message": "Nit: final",
+      "range": {
+        "startLine": 116,
+        "startChar": 8,
+        "endLine": 116,
+        "endChar": 10
+      },
+      "revId": "9b63fc648675964811bd83adbedb64926edc5f10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
