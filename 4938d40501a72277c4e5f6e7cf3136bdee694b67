@@ -33,6 +33,29 @@
       "message": "only trivial var rename since previous TH+2, and this does build. ",
       "revId": "4938d40501a72277c4e5f6e7cf3136bdee694b67",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93c1d066_a8525d2c",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-07T04:03:14Z",
+      "side": 1,
+      "message": "Why is EPERM the right error here? Is it because that is the only error the code currently returns, and we wanted to be consistent with that?\n\n(I see some code that returned EPERM if gNetdUpdatable was null, but I couldn\u0027t see how that could possibly ever happen since netd would have segfaulted in init, which dereferences gNetdUpdatable.)\n\nOr maybe I\u0027m misreading the code?",
+      "range": {
+        "startLine": 137,
+        "startChar": 42,
+        "endLine": 137,
+        "endChar": 47
+      },
+      "revId": "4938d40501a72277c4e5f6e7cf3136bdee694b67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
