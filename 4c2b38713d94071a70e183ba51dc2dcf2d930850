@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7483d1b8_ae2d9b81",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-07T06:37:39Z",
+      "side": 1,
+      "message": "Nits: The finalizer is called after GC on a separate thread.",
+      "range": {
+        "startLine": 668,
+        "startChar": 43,
+        "endLine": 668,
+        "endChar": 86
+      },
+      "revId": "4c2b38713d94071a70e183ba51dc2dcf2d930850",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dfe165d4_8c6573a0",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
         "patchSetId": 5
@@ -38,6 +61,30 @@
       "side": 1,
       "message": "We don\u0027t need to run System.gc() but we may still need to run System.runFinalization() again and they are both included in forceGc().",
       "parentUuid": "dfe165d4_8c6573a0",
+      "range": {
+        "startLine": 673,
+        "startChar": 20,
+        "endLine": 673,
+        "endChar": 40
+      },
+      "revId": "4c2b38713d94071a70e183ba51dc2dcf2d930850",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "177af1c6_5ec96366",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-07T06:37:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "39d724ff_8272b86c",
       "range": {
         "startLine": 673,
         "startChar": 20,
