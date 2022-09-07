@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a371050e_ae7bc1f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1043346
+      },
+      "writtenOn": "2022-09-07T23:26:11Z",
+      "side": 1,
+      "message": "\u003e In S, the exception was ignored by NetworkManagementService. But in T, the service is deprecated and netd binder call is used. The exception is not handled and crashing the system.",
+      "parentUuid": "caac6f7d_9e21826d",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "7562c55c3cae43a17ad614b5af6aedfe5ad0a052",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8de2f887_3500be9b",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -90,6 +114,24 @@
       "side": 1,
       "message": "Got it, thanks.\nsee the inline comments",
       "parentUuid": "43539494_2ce7cbb7",
+      "revId": "7562c55c3cae43a17ad614b5af6aedfe5ad0a052",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1005e294_7b79256b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1043346
+      },
+      "writtenOn": "2022-09-07T23:26:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b38f4e8_c21e5883",
       "revId": "7562c55c3cae43a17ad614b5af6aedfe5ad0a052",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
