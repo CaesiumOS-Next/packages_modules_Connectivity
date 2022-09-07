@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da36f067_2114bcbc",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-07T15:41:54Z",
+      "side": 1,
+      "message": "I don\u0027t think this comment is useful because the reader doesn\u0027t know the previous one is /8.",
+      "range": {
+        "startLine": 154,
+        "startChar": 4,
+        "endLine": 156,
+        "endChar": 80
+      },
+      "revId": "442b67a5e6e401597f9230b2d80b4758e9d62b7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
