@@ -151,7 +151,10 @@ public class EthernetTetheringTest {
     private static final long WAIT_RA_TIMEOUT_MS = 2000;
 
     private static final MacAddress TEST_MAC = MacAddress.fromString("1:2:3:4:5:6");
-    private static final LinkAddress TEST_IP4_ADDR = new LinkAddress("10.0.0.1/8");
+    // Use prefix range /24 to reduce the flaky rate which caused by the downstream address
+    // prefix conflict with upstream address. Especially, "10.0.0.0/8" is one of
+    // downstream address prefix range candidate. See PrivateAddressCoordinator.
+    private static final LinkAddress TEST_IP4_ADDR = new LinkAddress("10.0.0.1/24");
     private static final LinkAddress TEST_IP6_ADDR = new LinkAddress("2001:db8:1::101/64");
     private static final InetAddress TEST_IP4_DNS = parseNumericAddress("8.8.8.8");
     private static final InetAddress TEST_IP6_DNS = parseNumericAddress("2001:db8:1::888");
