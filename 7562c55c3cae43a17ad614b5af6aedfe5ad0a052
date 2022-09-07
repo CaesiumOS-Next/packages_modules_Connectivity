@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8de2f887_3500be9b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1043346
+      },
+      "writtenOn": "2022-09-07T04:45:10Z",
+      "side": 1,
+      "message": "If bandwidthSetGlobalAlert fails, the entire android system is shut down.\nS handled a ServiceSpecificException, but T is not.\nI don\u0027t know if it was intentionally deleted, or if it was missing during the code movement.",
+      "revId": "7562c55c3cae43a17ad614b5af6aedfe5ad0a052",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
