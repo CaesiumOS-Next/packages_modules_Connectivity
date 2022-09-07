@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98924a5f_49c69f0d",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1257,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-07T03:40:28Z",
+      "side": 1,
+      "message": "Maybe name it more specifically for the user to know we are also mocking things?\ne.g. mockInterfaceAndGetUidStatsForTransport",
+      "range": {
+        "startLine": 1257,
+        "startChar": 39,
+        "endLine": 1257,
+        "endChar": 62
+      },
+      "revId": "02eab7e789c08e8a60e97999ea5f9f16e4b4d4f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
