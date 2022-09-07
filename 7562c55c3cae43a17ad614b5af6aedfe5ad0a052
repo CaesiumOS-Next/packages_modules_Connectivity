@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "caac6f7d_9e21826d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-07T07:30:42Z",
+      "side": 1,
+      "message": "In S, the exception was ignored by NetworkManagementService. But in T, the service is deprecated and netd binder call is used. The exception is not handled and crashing the system.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "7562c55c3cae43a17ad614b5af6aedfe5ad0a052",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "8de2f887_3500be9b",
@@ -49,6 +72,24 @@
       "writtenOn": "2022-09-07T06:55:22Z",
       "side": 1,
       "message": "In Android S, \ncallstack is \nNetworkStatsService::registerGlobalAlert()\nNetworkManagementService::setGlobalAlert() - It handle ServiceSpecificException()\nmNetdService.bandwidthSetGlobalAlert()\n\nIn Android T,\nNetworkStatsService::registerGlobalAlert()\nmNetd.bandwidthSetGlobalAlert(mGlobalAlertBytes) - Change to direct call bandwidthSetGlobalAlert. ServiceSpecificException is not handled.\n",
+      "revId": "7562c55c3cae43a17ad614b5af6aedfe5ad0a052",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db9305f5_b8e4d4ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-07T07:30:42Z",
+      "side": 1,
+      "message": "Got it, thanks.\nsee the inline comments",
+      "parentUuid": "43539494_2ce7cbb7",
       "revId": "7562c55c3cae43a17ad614b5af6aedfe5ad0a052",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
