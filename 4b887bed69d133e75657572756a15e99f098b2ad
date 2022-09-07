@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56cea761_d5a18a78",
+        "filename": "tests/unit/java/android/net/Ikev2VpnProfileTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-09-07T07:26:25Z",
+      "side": 1,
+      "message": "Can we test to make sure an IkeKeyIdentification with the \"\\0\" character (just byte 0, i think) converts to/from VpnProfile\u0027s disk-stable format successfully?\n\nie, test that this fixes the bug in automated tests?",
+      "range": {
+        "startLine": 448,
+        "startChar": 5,
+        "endLine": 448,
+        "endChar": 9
+      },
+      "revId": "4b887bed69d133e75657572756a15e99f098b2ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61ddefed_15e4eda7",
+        "filename": "tests/unit/java/android/net/Ikev2VpnProfileTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-09-07T07:26:25Z",
+      "side": 1,
+      "message": "Can we also verify that the IkeTunnelConnectionParams is the same?",
+      "revId": "4b887bed69d133e75657572756a15e99f098b2ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
