@@ -22,6 +22,30 @@
       },
       "revId": "def16f8f0db012ab183a590603360d92bd7fbf66",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03a558f2_38021da5",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-09-07T11:20:57Z",
+      "side": 1,
+      "message": "Done\n\n\nPer talked, separate #verifyCellularDefaultNetwork function from #verifyCellularUpstream. Provide two functions {verifyCellularDefaultNetwork, verifyCellularUpstream} for two tests {testTetheringUpstream, testTetheringUpstreamSwitchBetweenCellularAndWifi}.",
+      "parentUuid": "1573c086_46641b1d",
+      "range": {
+        "startLine": 460,
+        "startChar": 12,
+        "endLine": 460,
+        "endChar": 33
+      },
+      "revId": "def16f8f0db012ab183a590603360d92bd7fbf66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
