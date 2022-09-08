@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecd9e9f4_0a2445a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-08T08:02:48Z",
+      "side": 1,
+      "message": "+2 with nits.",
+      "revId": "50364c4b06611823020fb213d74b79a77f5fc2ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3661b6d2_16381c9a",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkRankerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-08T08:02:48Z",
+      "side": 1,
+      "message": "/* currentSatisfier */ ?",
+      "range": {
+        "startLine": 70,
+        "startChar": 60,
+        "endLine": 70,
+        "endChar": 64
+      },
+      "revId": "50364c4b06611823020fb213d74b79a77f5fc2ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f51784b_cdd738a2",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkRankerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-08T08:02:48Z",
+      "side": 1,
+      "message": "Question: What does T stand for?\nIIUC this should be capabilities of cellular network, maybe CAPS_CELL would be more readible?",
+      "range": {
+        "startLine": 71,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 9
+      },
+      "revId": "50364c4b06611823020fb213d74b79a77f5fc2ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
