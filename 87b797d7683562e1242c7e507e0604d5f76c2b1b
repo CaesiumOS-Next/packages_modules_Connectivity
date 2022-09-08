@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a3bafc0_ef8d050c",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-08T10:24:21Z",
+      "side": 1,
+      "message": "Why does this need to be in ConnectivityServiceInitializer? Could it be in the ConnectivityService constructor, or in the NetworkStatsService constructor, or in one of the systemReady methods of those classes?",
+      "range": {
+        "startLine": 100,
+        "startChar": 12,
+        "endLine": 100,
+        "endChar": 48
+      },
+      "revId": "87b797d7683562e1242c7e507e0604d5f76c2b1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c4b7ff6_3eb3c906",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-08T10:24:21Z",
+      "side": 1,
+      "message": "Is it guaranteed that when this code runs, the statsd service is already running?",
+      "range": {
+        "startLine": 872,
+        "startChar": 50,
+        "endLine": 872,
+        "endChar": 66
+      },
+      "revId": "87b797d7683562e1242c7e507e0604d5f76c2b1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dafdf4e_43b8d6e9",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 881,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-08T10:24:21Z",
+      "side": 1,
+      "message": "Nit: also consider simply restarting the iteration if you get null. That will be slower but it will have lower RAM and garbage collection overhead. The tag map is up to 10000 entries but it probably has much less than that.",
+      "range": {
+        "startLine": 881,
+        "startChar": 63,
+        "endLine": 881,
+        "endChar": 64
+      },
+      "revId": "87b797d7683562e1242c7e507e0604d5f76c2b1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a36d2ba1_e757b891",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1569,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-08T10:24:21Z",
+      "side": 1,
+      "message": "Consider calling this maybeSetPullAtomCallback, since it only sets the callback if certain conditions are met.",
+      "range": {
+        "startLine": 1569,
+        "startChar": 16,
+        "endLine": 1569,
+        "endChar": 35
+      },
+      "revId": "87b797d7683562e1242c7e507e0604d5f76c2b1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
