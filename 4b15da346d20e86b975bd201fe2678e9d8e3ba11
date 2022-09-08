@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bb0d99c_2c84785f",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-08T06:01:29Z",
+      "side": 1,
+      "message": "Instead of adding a new resource, consider instead adding a new value to the existing config_networkAvoidBadWifi resource. It could be something like:\n\n1: Always avoid unvalidated wifi.\n0: Avoid bad unvalidated wifi on initial connect, but stay on wifi if it becomes unvalidated after connection.\n-1: Never avoid unvalidated wifi, except on captive portals or in the first few seconds after initial connect.",
+      "range": {
+        "startLine": 100,
+        "startChar": 40,
+        "endLine": 100,
+        "endChar": 68
+      },
+      "revId": "4b15da346d20e86b975bd201fe2678e9d8e3ba11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7686a7d_87bfda51",
+        "filename": "service/src/com/android/server/connectivity/NetworkRanker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-08T06:01:29Z",
+      "side": 1,
+      "message": "For clarity, I would swap the ordering here:\n\n... then it will prefer the Wi-Fi even if it doesn\u0027t provide internet access, unless the Wi-Fi is a captive portal.",
+      "range": {
+        "startLine": 75,
+        "startChar": 11,
+        "endLine": 75,
+        "endChar": 93
+      },
+      "revId": "4b15da346d20e86b975bd201fe2678e9d8e3ba11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c442f11_f6e7626a",
+        "filename": "service/src/com/android/server/connectivity/NetworkRanker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-08T06:01:29Z",
+      "side": 1,
+      "message": "The fact that this is final suggests that this behaviour cannot be changed at runtime without a reboot. That seems fine for production code, though presumably it will need to be modifiable for testing purposes.",
+      "range": {
+        "startLine": 87,
+        "startChar": 12,
+        "endLine": 87,
+        "endChar": 17
+      },
+      "revId": "4b15da346d20e86b975bd201fe2678e9d8e3ba11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
