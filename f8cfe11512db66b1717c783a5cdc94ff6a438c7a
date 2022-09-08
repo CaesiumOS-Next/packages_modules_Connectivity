@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45e22295_b5d582f3",
+        "filename": "service/src/com/android/server/connectivity/FullScore.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-08T03:30:34Z",
+      "side": 1,
+      "message": "nit: It seems some of them need to put in the IntDef but some of them not.\nMaybe add comment to teach people what kind of policies need to go in there?",
+      "range": {
+        "startLine": 61,
+        "startChar": 22,
+        "endLine": 61,
+        "endChar": 28
+      },
+      "revId": "f8cfe11512db66b1717c783a5cdc94ff6a438c7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e513145_4873cd57",
+        "filename": "service/src/com/android/server/connectivity/FullScore.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-08T03:30:34Z",
+      "side": 1,
+      "message": "nit: If we could re-arrange these is it better to:\n 1. put this just below POLICY_IS_VALIDATED, and\n 2. put POLICY_AVOIDED_WHEN_UNVALIDATED just below POLICY_ACCEPT_UNVALIDATED, and\n 3. re-arrange parameter order in other places.\nNo strong opinion.",
+      "range": {
+        "startLine": 95,
+        "startChar": 28,
+        "endLine": 95,
+        "endChar": 49
+      },
+      "revId": "f8cfe11512db66b1717c783a5cdc94ff6a438c7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8ec3227_8deb428f",
+        "filename": "service/src/com/android/server/connectivity/FullScore.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-08T03:30:34Z",
+      "side": 1,
+      "message": "What is the meaning if acceptUnvalidated and avoidUnvalidated are both true or false?\nMaybe not for this CL, If that is not going to happen, is it better if we make it 1 state?",
+      "range": {
+        "startLine": 216,
+        "startChar": 22,
+        "endLine": 216,
+        "endChar": 39
+      },
+      "revId": "f8cfe11512db66b1717c783a5cdc94ff6a438c7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3123cbec_84114eeb",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1177,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-08T03:30:34Z",
+      "side": 1,
+      "message": "Maybe use getAvoidUnvalidated() but not feel strongly.",
+      "range": {
+        "startLine": 1177,
+        "startChar": 39,
+        "endLine": 1177,
+        "endChar": 56
+      },
+      "revId": "f8cfe11512db66b1717c783a5cdc94ff6a438c7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f021f95_1698aff2",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkRankerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-08T03:30:34Z",
+      "side": 1,
+      "message": "Style: Use an underscore to separate what\u0027s being tested from the specific case being tested if you think it is better. Refer to\nhttps://source.android.com/docs/setup/contribute/code-style#javatests-style-rules\nAlso for other test methods in the file.",
+      "range": {
+        "startLine": 75,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 42
+      },
+      "revId": "f8cfe11512db66b1717c783a5cdc94ff6a438c7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c434c3b1_c445db9c",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkRankerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-08T03:30:34Z",
+      "side": 1,
+      "message": "Question: It seems to me POLICY_AVOIDED_WHEN_UNVALIDATED is more important than POLICY_YIELD_TO_BAD_WIFI so you would have this result.\nIf so, do we have the order of the policies documented somewhere?",
+      "range": {
+        "startLine": 81,
+        "startChar": 55,
+        "endLine": 81,
+        "endChar": 86
+      },
+      "revId": "f8cfe11512db66b1717c783a5cdc94ff6a438c7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
