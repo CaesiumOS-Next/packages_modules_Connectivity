@@ -1,5 +1,52 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18af087d_09c7ead6",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-08T09:28:16Z",
+      "side": 1,
+      "message": "cb is @Nullable, so the annotation or callers should be fixed, or a null check is necessary",
+      "range": {
+        "startLine": 636,
+        "startChar": 12,
+        "endLine": 636,
+        "endChar": 14
+      },
+      "revId": "750036b286ee40c3aa25361569ccc21fd9a50a14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7ae02b4_df60cc56",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-08T09:28:16Z",
+      "side": 1,
+      "message": "This will be always sent if mode !\u003d INTERFACE_MODE_CLIENT, is that expected ?",
+      "range": {
+        "startLine": 642,
+        "startChar": 15,
+        "endLine": 642,
+        "endChar": 22
+      },
+      "revId": "750036b286ee40c3aa25361569ccc21fd9a50a14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
