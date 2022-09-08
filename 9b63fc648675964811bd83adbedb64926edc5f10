@@ -20,6 +20,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7377999f_071bee9a",
+        "filename": "tests/common/java/android/net/metrics/IpConnectivityLogTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-08T03:01:17Z",
+      "side": 1,
+      "message": "I\u0027m not sure HandlerThread is really necessary here; if you just want to wait for the action to be complete, you could just use Thread.join(timeout)",
+      "range": {
+        "startLine": 101,
+        "startChar": 18,
+        "endLine": 101,
+        "endChar": 31
+      },
+      "revId": "9b63fc648675964811bd83adbedb64926edc5f10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d17f4770_da81f964",
+        "filename": "tests/common/java/android/net/metrics/IpConnectivityLogTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-08T03:01:17Z",
+      "side": 1,
+      "message": "This is @hide, and it would be better to avoid using @hide platform API in tests (we may be able to speed up the build significantly by switching to stable platform APIs only)\n\nMaybe create your own handler with new Handler(thread.getLooper()) ?",
+      "range": {
+        "startLine": 103,
+        "startChar": 19,
+        "endLine": 103,
+        "endChar": 35
+      },
+      "revId": "9b63fc648675964811bd83adbedb64926edc5f10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "65d2fcb5_2bdf0a41",
         "filename": "tests/common/java/android/net/metrics/IpConnectivityLogTest.java",
         "patchSetId": 1
