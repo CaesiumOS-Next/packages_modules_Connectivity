@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16fec517_c3c53072",
+        "filename": "service/src/com/android/server/connectivity/NetworkRanker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-08T08:07:09Z",
+      "side": 1,
+      "message": "shouldPreferBadWifi?",
+      "range": {
+        "startLine": 149,
+        "startChar": 42,
+        "endLine": 149,
+        "endChar": 60
+      },
+      "revId": "d11b25a670f8bd80468c1c1b66d29a2ebe0a239c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f8e7ff2_b64da198",
+        "filename": "service/src/com/android/server/connectivity/NetworkRanker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-08T08:07:09Z",
+      "side": 1,
+      "message": "Probably clearer as:\n\n    if (mConf.activelyPreferBadWifi()) {\n        // If a network is still evaluating, don\u0027t prefer it.\n        if (score.hasPolicy(POLICY_EVALUATING)) return false;\n\n        // If a network is not a captive portal, then prefer it.\n        if (!caps.hasCapability(NET_CAPABILITY_CAPTIVE_PORTAL)) return true;\n\n        // If it\u0027s a captive portal, prefer it if it previously\n        // validated but is no longer validated (i.e., the user logged\n        // in in the past, but after that, the portal closed).\n        return hasPolicy(POLICY_EVER_VALIDATED);",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 83
+      },
+      "revId": "d11b25a670f8bd80468c1c1b66d29a2ebe0a239c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9032b722_2a29dfed",
+        "filename": "service/src/com/android/server/connectivity/NetworkRanker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-08T08:07:09Z",
+      "side": 1,
+      "message": "Might want to mention that any network that is passed into this function must be currently unvalidated.",
+      "range": {
+        "startLine": 169,
+        "startChar": 28,
+        "endLine": 169,
+        "endChar": 29
+      },
+      "revId": "d11b25a670f8bd80468c1c1b66d29a2ebe0a239c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
