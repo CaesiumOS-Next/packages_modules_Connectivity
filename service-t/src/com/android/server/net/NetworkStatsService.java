@@ -63,6 +63,11 @@ import static android.text.format.DateUtils.HOUR_IN_MILLIS;
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 
+import static com.android.net.module.util.BpfConstants.APP_UID_STATS_MAP_PATH;
+import static com.android.net.module.util.BpfConstants.COOKIE_TAG_MAP_PATH;
+import static com.android.net.module.util.BpfConstants.STATS_MAP_A_PATH;
+import static com.android.net.module.util.BpfConstants.STATS_MAP_B_PATH;
+import static com.android.net.module.util.BpfConstants.UID_COUNTERSET_MAP_PATH;
 import static com.android.net.module.util.NetworkCapabilitiesUtils.getDisplayTransport;
 import static com.android.net.module.util.NetworkStatsUtils.LIMIT_GLOBAL_ALERT;
 
@@ -241,17 +246,6 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     // TODO: Replace the hardcoded string and move it into ConnectivitySettingsManager.
     private static final String NETSTATS_COMBINE_SUBTYPE_ENABLED =
             "netstats_combine_subtype_enabled";
-
-    private static final String UID_COUNTERSET_MAP_PATH =
-            "/sys/fs/bpf/netd_shared/map_netd_uid_counterset_map";
-    private static final String COOKIE_TAG_MAP_PATH =
-            "/sys/fs/bpf/netd_shared/map_netd_cookie_tag_map";
-    private static final String APP_UID_STATS_MAP_PATH =
-            "/sys/fs/bpf/netd_shared/map_netd_app_uid_stats_map";
-    private static final String STATS_MAP_A_PATH =
-            "/sys/fs/bpf/netd_shared/map_netd_stats_map_A";
-    private static final String STATS_MAP_B_PATH =
-            "/sys/fs/bpf/netd_shared/map_netd_stats_map_B";
 
     /**
      * DeviceConfig flag used to indicate whether the files should be stored in the apex data

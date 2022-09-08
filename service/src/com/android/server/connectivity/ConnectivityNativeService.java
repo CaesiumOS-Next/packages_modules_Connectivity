@@ -16,8 +16,8 @@
 
 package com.android.server.connectivity;
 
-import static com.android.net.module.util.BpfUtils.BPF_CGROUP_INET4_BIND;
-import static com.android.net.module.util.BpfUtils.BPF_CGROUP_INET6_BIND;
+import static com.android.net.module.util.BpfConstants.BPF_CGROUP_INET4_BIND;
+import static com.android.net.module.util.BpfConstants.BPF_CGROUP_INET6_BIND;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
