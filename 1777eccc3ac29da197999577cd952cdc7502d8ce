@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "08c49f7f_ecf170c9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 5192,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-08T06:14:14Z",
+      "side": 1,
+      "message": "It seems to me we should have a way to unset if the network becomes un-evaluated, e.g. nai.networkMonitor().forceReevaluation is called?\nAlternatively, maybe rename it to setFirstEvaluated?",
+      "range": {
+        "startLine": 5192,
+        "startChar": 16,
+        "endLine": 5192,
+        "endChar": 28
+      },
+      "revId": "1777eccc3ac29da197999577cd952cdc7502d8ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac3796d2_a5b4b78e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 5193,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-08T06:14:14Z",
+      "side": 1,
+      "message": "dead code?",
+      "range": {
+        "startLine": 5193,
+        "startChar": 12,
+        "endLine": 5193,
+        "endChar": 46
+      },
+      "revId": "1777eccc3ac29da197999577cd952cdc7502d8ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8fdc4b2_46358a27",
         "filename": "service/src/com/android/server/connectivity/FullScore.java",
         "patchSetId": 3
@@ -19,6 +65,29 @@
         "startChar": 20,
         "endLine": 105,
         "endChar": 24
+      },
+      "revId": "1777eccc3ac29da197999577cd952cdc7502d8ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f245add0_70770695",
+        "filename": "service/src/com/android/server/connectivity/FullScore.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-08T06:14:14Z",
+      "side": 1,
+      "message": "What about the networks that run re-evaluation?\nIf the flag only cares about first evaluating, maybe rename it to match the behavior?",
+      "range": {
+        "startLine": 106,
+        "startChar": 41,
+        "endLine": 107,
+        "endChar": 44
       },
       "revId": "1777eccc3ac29da197999577cd952cdc7502d8ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
