@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42a14cfd_fc328b34",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 15613,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-09-08T06:39:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64d827f6_ee529473",
+      "range": {
+        "startLine": 15613,
+        "startChar": 0,
+        "endLine": 15613,
+        "endChar": 57
+      },
+      "revId": "0a68a22f6d5089317e5542023af6c23772693926",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84e547ed_49ae4f63",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-06T04:32:28Z",
       "side": 1,
       "message": "You can remove this duplication by writing the test above\n\n    if (SdkLevel.isAtLeastT() \u0026\u0026 hasAutomotiveFeature)\n\nYou\u0027ll need to rework the comments a little bit.",
+      "range": {
+        "startLine": 15627,
+        "startChar": 0,
+        "endLine": 15629,
+        "endChar": 13
+      },
+      "revId": "0a68a22f6d5089317e5542023af6c23772693926",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e11e7b8_07780188",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 15629,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-09-08T06:39:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84e547ed_49ae4f63",
       "range": {
         "startLine": 15627,
         "startChar": 0,
