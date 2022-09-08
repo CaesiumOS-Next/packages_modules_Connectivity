@@ -142,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3819258f_e431ccf2",
+        "filename": "service/src/com/android/server/connectivity/FullScore.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-08T09:31:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1ddeadfd_1c384014",
+      "range": {
+        "startLine": 216,
+        "startChar": 22,
+        "endLine": 216,
+        "endChar": 39
+      },
+      "revId": "f8cfe11512db66b1717c783a5cdc94ff6a438c7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3123cbec_84114eeb",
@@ -273,6 +297,30 @@
       "side": 1,
       "message": "The \"doc\" is the code for NetworkRanker#getBestNetworkByPolicy. It\u0027s a lot more complicated than just a priority order of policies, as I\u0027m sure you well remember. Any doc has to be a code-like expression of a cascading logic.\n\nGiven that, I think the best possible doc is the code itself, because it doesn\u0027t get out of date.",
       "parentUuid": "c434c3b1_c445db9c",
+      "range": {
+        "startLine": 81,
+        "startChar": 55,
+        "endLine": 81,
+        "endChar": 86
+      },
+      "revId": "f8cfe11512db66b1717c783a5cdc94ff6a438c7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fafa9e23_83fc38ba",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkRankerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-08T09:31:52Z",
+      "side": 1,
+      "message": "😭",
+      "parentUuid": "1fe22afb_73d3e5cc",
       "range": {
         "startLine": 81,
         "startChar": 55,
