@@ -22,6 +22,30 @@
       },
       "revId": "b9548860a95af20a5b6936b1a72eee51482fa8db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4774c425_833133be",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-09-08T01:20:30Z",
+      "side": 1,
+      "message": "\u003e Do you want to centralize all the cookie tag map usage to here ? \nNo, I don\u0027t move the cookie tag map related operation to here.\n\u003e At least we should have a global place for this path definition. \nIf we put COOKIE_TAG_MAP_PATH to the global place, I want to move other bpf map path definitions as well.\nHow about having BpfMapConstants.java under frameworks/libs/net/common/device/com/android/net/module/util/?\nOr I can add constants to the BpfUtils.java.\nCan I ask you opinion?",
+      "parentUuid": "3520b00d_15495b51",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 100,
+        "endChar": 62
+      },
+      "revId": "b9548860a95af20a5b6936b1a72eee51482fa8db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
