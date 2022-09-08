@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb312eff_12604c57",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 5199,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-08T08:30:08Z",
+      "side": 1,
+      "message": "We\u0027ll probably need to change this logic, too. shouldPromptUnvalidated will return false unless the user explicitly selected the network.",
+      "range": {
+        "startLine": 5199,
+        "startChar": 13,
+        "endLine": 5199,
+        "endChar": 36
+      },
+      "revId": "bfd1a965d45b812fd23f795c22b99b681b9897ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "445d78c3_2bd8059e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 5205,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-08T08:30:08Z",
+      "side": 1,
+      "message": "Is \"actively prefer bad wifi\" mode, is this acceptable? I think the obvious use case for that mode is to notify the user and force them to take action in response to outages on known networks that they connects to often (e.g., their home network). In that case, I expect we wouldn\u0027t want to call onPreventAutomaticReconnect.",
+      "range": {
+        "startLine": 5205,
+        "startChar": 12,
+        "endLine": 5205,
+        "endChar": 39
+      },
+      "revId": "bfd1a965d45b812fd23f795c22b99b681b9897ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bf56c81_03c58fb9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 5213,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-08T08:30:08Z",
+      "side": 1,
+      "message": "Per discussion, here in \"actively prefer bad wifi\" mode, we need to fire the LOST_INTERNET notification, not the NO_INTERNET notification, right?",
+      "range": {
+        "startLine": 5213,
+        "startChar": 58,
+        "endLine": 5213,
+        "endChar": 69
+      },
+      "revId": "bfd1a965d45b812fd23f795c22b99b681b9897ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
