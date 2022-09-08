@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "83e95aff_02873711",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-09-08T12:19:46Z",
+      "side": 1,
+      "message": "It\u0027s a bit too rushed to mention this part at the moment, we can do it in a follow-up commit if we think it\u0027s important.\n\nI prefer to move all the metric related code \u0026 test into same folder and files.\n\nWhen I looked at your commit and tethering metric commit(asop/1295362).\nI think the connectivity metric codes need to define a common location as networkstack/metrics.\nhttps://source.corp.google.com/aosp-master/packages/modules/NetworkStack/src/com/android/networkstack/metrics/\nIn this way, we can more easily maintain old metrics and add new metrics in the future.\n\n\nThe folder includes 2 kind of files:\n1.stats.proto\nThe proto will include all connectivity metrics proto.\nExample: https://source.corp.google.com/aosp-master/packages/modules/NetworkStack/src/com/android/networkstack/metrics/stats.proto\n\u003d\u003e The benefit of the proto is it will automatically compile to java file in the build time. It can support the read \u0026 write api of the proto. If you extend the new field on the proto, the api will automatically generated. For adding new fields to proto, it would be very convenient.\nHere is the proto java file path: \nhttps://source.corp.google.com/android/out/soong/.intermediates/frameworks/opt/telephony/proto/telephony-protos/android_common/xref/srcjars.xref/com/android/internal/telephony/nano/PersistAtomsProto.java;rcl\u003dHEAD;l\u003d6\n\n2.  Each metrics has a java file\nThe file will provide the api to fill the data into the proto. https://source.corp.google.com/aosp-master/packages/modules/NetworkStack/src/com/android/networkstack/metrics/IpProvisioningMetrics.java\n\n\nYour metrics don\u0027t define a proto in connectivity folder, but I still recommend building one for future expansion. It is recommended to combine with tethering proto. Then people will know to add new metric here.",
+      "range": {
+        "startLine": 288,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 9
+      },
+      "revId": "87b797d7683562e1242c7e507e0604d5f76c2b1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7c4b7ff6_3eb3c906",
         "filename": "service/src/com/android/server/BpfNetMaps.java",
         "patchSetId": 19
