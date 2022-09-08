@@ -3794,6 +3794,61 @@ public class ConnectivityServiceTest {
         callback.expectCallback(CallbackEntry.LOST, mCellNetworkAgent);
     }
 
+    private void doTestFirstEvaluation(
+            @NonNull final Consumer<TestNetworkAgentWrapper> howToConnect,
+            final boolean waitForSecondCaps,
+            final boolean immediatelyEvaluated)
+            throws Exception {
+        final NetworkRequest request = new NetworkRequest.Builder()
+                .addTransportType(TRANSPORT_WIFI)
+                .build();
+        TestNetworkCallback callback = new TestNetworkCallback();
+        mCm.registerNetworkCallback(request, callback);
+
+        mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI);
+        howToConnect.accept(mWiFiNetworkAgent);
+        // Expect the available callbacks, but don't require specific values for their arguments
+        // since this method doesn't know how the network was connected.
+        callback.expectCallback(CallbackEntry.AVAILABLE, mWiFiNetworkAgent);
+        callback.expectCallback(CallbackEntry.NETWORK_CAPS_UPDATED, mWiFiNetworkAgent);
+        callback.expectCallback(CallbackEntry.LINK_PROPERTIES_CHANGED, mWiFiNetworkAgent);
+        callback.expectCallback(CallbackEntry.BLOCKED_STATUS, mWiFiNetworkAgent);
+        if (waitForSecondCaps) {
+            callback.expectCallback(CallbackEntry.NETWORK_CAPS_UPDATED, mWiFiNetworkAgent);
+        }
+        final NetworkAgentInfo nai =
+                mService.getNetworkAgentInfoForNetwork(mWiFiNetworkAgent.getNetwork());
+        final long firstEvaluation = nai.getFirstEvaluationConcludedTime();
+        if (immediatelyEvaluated) {
+            assertNotEquals(0L, firstEvaluation);
+        } else {
+            assertEquals(0L, firstEvaluation);
+        }
+        mService.scheduleEvaluationTimeout(mWiFiNetworkAgent.getNetwork(), 0L /* timeout */);
+        waitForIdle();
+        if (immediatelyEvaluated) {
+            assertEquals(firstEvaluation, nai.getFirstEvaluationConcludedTime());
+        } else {
+            assertNotEquals(0L, nai.getFirstEvaluationConcludedTime());
+        }
+        mWiFiNetworkAgent.disconnect();
+        callback.expectCallback(CallbackEntry.LOST, mWiFiNetworkAgent);
+
+        mCm.unregisterNetworkCallback(callback);
+    }
+
+    @Test
+    public void testEverEvaluated() throws Exception {
+        doTestFirstEvaluation(naw -> naw.connect(true /* validated */),
+                true /* waitForSecondCaps */, true /* immediatelyEvaluated */);
+        doTestFirstEvaluation(naw -> naw.connectWithPartialConnectivity(),
+                true /* waitForSecondCaps */, true /* immediatelyEvaluated */);
+        doTestFirstEvaluation(naw -> naw.connectWithCaptivePortal(TEST_REDIRECT_URL, false),
+                true /* waitForSecondCaps */, true /* immediatelyEvaluated */);
+        doTestFirstEvaluation(naw -> naw.connect(false /* validated */),
+                false /* waitForSecondCaps */, false /* immediatelyEvaluated */);
+    }
+
     private void tryNetworkFactoryRequests(int capability) throws Exception {
         // Verify NOT_RESTRICTED is set appropriately
         final NetworkCapabilities nc = new NetworkRequest.Builder().addCapability(capability)
