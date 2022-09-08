@@ -46,6 +46,30 @@
       },
       "revId": "b9548860a95af20a5b6936b1a72eee51482fa8db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "743cc729_7a828432",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-09-08T02:10:02Z",
+      "side": 1,
+      "message": "\u003e How about having BpfMapConstants.java under frameworks/libs/net/common/device/com/android/net/module/util/?\nI have uploaded separate CLs for this to see how this looks like.\nhttps://android-review.googlesource.com/q/topic:bpf_constants",
+      "parentUuid": "4774c425_833133be",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 100,
+        "endChar": 62
+      },
+      "revId": "b9548860a95af20a5b6936b1a72eee51482fa8db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
