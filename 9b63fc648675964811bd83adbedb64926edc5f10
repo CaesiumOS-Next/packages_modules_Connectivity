@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "431d06e2_203b22c3",
+        "filename": "tests/common/java/android/net/metrics/IpConnectivityLogTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-09-08T07:59:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7377999f_071bee9a",
+      "range": {
+        "startLine": 101,
+        "startChar": 18,
+        "endLine": 101,
+        "endChar": 31
+      },
+      "revId": "9b63fc648675964811bd83adbedb64926edc5f10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d17f4770_da81f964",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-09-08T03:01:17Z",
       "side": 1,
       "message": "This is @hide, and it would be better to avoid using @hide platform API in tests (we may be able to speed up the build significantly by switching to stable platform APIs only)\n\nMaybe create your own handler with new Handler(thread.getLooper()) ?",
+      "range": {
+        "startLine": 103,
+        "startChar": 19,
+        "endLine": 103,
+        "endChar": 35
+      },
+      "revId": "9b63fc648675964811bd83adbedb64926edc5f10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03cd58ae_d46f69b3",
+        "filename": "tests/common/java/android/net/metrics/IpConnectivityLogTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-09-08T07:59:06Z",
+      "side": 1,
+      "message": "This code is gone. Use Thread#join() instead.",
+      "parentUuid": "d17f4770_da81f964",
       "range": {
         "startLine": 103,
         "startChar": 19,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65eff4c6_93989361",
+        "filename": "tests/common/java/android/net/metrics/IpConnectivityLogTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-09-08T07:59:06Z",
+      "side": 1,
+      "message": "Now, we start all thread first then wait for each thread running done for 200ms. I think it should not make the test becomore more flake.",
+      "parentUuid": "65d2fcb5_2bdf0a41",
+      "range": {
+        "startLine": 112,
+        "startChar": 45,
+        "endLine": 112,
+        "endChar": 47
+      },
+      "revId": "9b63fc648675964811bd83adbedb64926edc5f10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98f1cb65_18ee2c69",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-09-07T14:02:20Z",
       "side": 1,
       "message": "Nit: final",
+      "range": {
+        "startLine": 116,
+        "startChar": 8,
+        "endLine": 116,
+        "endChar": 10
+      },
+      "revId": "9b63fc648675964811bd83adbedb64926edc5f10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aedf22cf_6c15de59",
+        "filename": "tests/common/java/android/net/metrics/IpConnectivityLogTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-09-08T07:59:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98f1cb65_18ee2c69",
       "range": {
         "startLine": 116,
         "startChar": 8,
