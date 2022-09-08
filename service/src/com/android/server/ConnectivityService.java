@@ -353,6 +353,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
     // connect anyway?" dialog after the user selects a network that doesn't validate.
     private static final int PROMPT_UNVALIDATED_DELAY_MS = 8 * 1000;
 
+    // How long to wait before considering that a network is bad in the absence of any form
+    // of connectivity (valid, partial, captive portal). If none has been detected after this
+    // delay, the stack considers this network bad, which may affect how it's handled in ranking
+    // according to config_networkAvoidBadWifi.
+    private static final int INITIAL_EVALUATION_TIMEOUT_MS = 20 * 1000;
+
     // Default to 30s linger time-out, and 5s for nascent network. Modifiable only for testing.
     private static final String LINGER_DELAY_PROPERTY = "persist.netmon.linger";
     private static final int DEFAULT_LINGER_DELAY_MS = 30_000;
@@ -723,6 +729,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * Used internally when INGRESS_RATE_LIMIT_BYTES_PER_SECOND setting changes.
      */
     private static final int EVENT_INGRESS_RATE_LIMIT_CHANGED = 56;
+
+    /**
+     * The initial evaluation period is over for this network.
+     *
+     * If no form of connectivity has been found on this network (valid, partial, captive portal)
+     * then the stack will now consider it to have been determined bad.
+     */
+    private static final int EVENT_INITIAL_EVALUATION_TIMEOUT = 57;
 
     /**
      * Argument for {@link #EVENT_PROVISIONING_NOTIFICATION} to indicate that the notification
@@ -3794,7 +3808,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
             final boolean valid = (testResult & NETWORK_VALIDATION_RESULT_VALID) != 0;
             final boolean partial = (testResult & NETWORK_VALIDATION_RESULT_PARTIAL) != 0;
             final boolean captive = !TextUtils.isEmpty(redirectUrl);
-            if (!(valid || partial || captive) && shouldIgnoreValidationFailureAfterRoam(nai)) {
+            boolean rematchNeeded = false;
+            if (valid || partial || captive) {
+                // If there is any kind of working networking, then the NAI has been evaluated
+                // once. {@see NetworkAgentInfo#setEvaluated}
+                if (nai.setEvaluated()) {
+                    nai.updateScoreForNetworkAgentUpdate();
+                    rematchNeeded = true;
+                }
+            } else if (shouldIgnoreValidationFailureAfterRoam(nai)) {
                 // Assume the validation failure is due to a temporary failure after roaming
                 // and ignore it. NetworkMonitor will continue to retry validation. If it
                 // continues to fail after the block timeout expires, the network will be
@@ -3836,8 +3858,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 }
             } else if (partialConnectivityChanged) {
                 updateCapabilitiesForNetwork(nai);
+            } else if (rematchNeeded) {
+                // If valid or partial connectivity changed, updateCapabilities* has
+                // done the rematch.
+                rematchAllNetworksAndRequests();
             }
             updateInetCondition(nai);
+
             // Let the NetworkAgent know the state of its network
             // TODO: Evaluate to update partial connectivity to status to NetworkAgent.
             nai.onValidationStatusChanged(
@@ -4951,16 +4978,19 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
-    private void scheduleUnvalidatedPrompt(@NonNull final Network network) {
-        scheduleUnvalidatedPrompt(network, PROMPT_UNVALIDATED_DELAY_MS);
-    }
-
-    /** Schedule unvalidated prompt for testing */
+    /** Schedule unvalidated prompt */
     @VisibleForTesting
     public void scheduleUnvalidatedPrompt(@NonNull final Network network, final long delayMs) {
         if (VDBG) log("scheduleUnvalidatedPrompt " + network);
         mHandler.sendMessageDelayed(
                 mHandler.obtainMessage(EVENT_PROMPT_UNVALIDATED, network), delayMs);
+    }
+
+    /** Schedule evaluation timeout */
+    @VisibleForTesting
+    public void scheduleEvaluationTimeout(@NonNull final Network network, final long delayMs) {
+        mHandler.sendMessageDelayed(
+                mHandler.obtainMessage(EVENT_INITIAL_EVALUATION_TIMEOUT, network), delayMs);
     }
 
     @Override
@@ -5219,6 +5249,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    private void handleInitialEvaluationTimedOut(@NonNull final Network network) {
+        NetworkAgentInfo nai = getNetworkAgentInfoForNetwork(network);
+        if (null == nai) return;
+        if (nai.setEvaluated()) {
+            // If setEvaluated() returned true, the network never had any form of connectivity.
+            // This may have an impact on request matching if bad WiFi avoidance is off and the
+            // network was found not to have Internet access.
+            nai.updateScoreForNetworkAgentUpdate();
+            rematchAllNetworksAndRequests();
+        }
+    }
+
     private void handleNetworkUnvalidated(NetworkAgentInfo nai) {
         NetworkCapabilities nc = nai.networkCapabilities;
         if (DBG) log("handleNetworkUnvalidated " + nai.toShortString() + " cap=" + nc);
@@ -5352,6 +5394,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 }
                 case EVENT_PROMPT_UNVALIDATED: {
                     handlePromptUnvalidated((Network) msg.obj);
+                    break;
+                }
+                case EVENT_INITIAL_EVALUATION_TIMEOUT: {
+                    handleInitialEvaluationTimedOut((Network) msg.obj);
                     break;
                 }
                 case EVENT_CONFIGURE_ALWAYS_ON_NETWORKS: {
@@ -9215,7 +9261,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 networkAgent.networkMonitor().notifyNetworkConnected(params.linkProperties,
                         params.networkCapabilities);
             }
-            scheduleUnvalidatedPrompt(networkAgent.network);
+            scheduleUnvalidatedPrompt(networkAgent.network, PROMPT_UNVALIDATED_DELAY_MS);
+            scheduleEvaluationTimeout(networkAgent.network, INITIAL_EVALUATION_TIMEOUT_MS);
 
             // Whether a particular NetworkRequest listen should cause signal strength thresholds to
             // be communicated to a particular NetworkAgent depends only on the network's immutable,
