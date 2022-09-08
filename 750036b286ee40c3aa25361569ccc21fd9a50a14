@@ -45,6 +45,29 @@
       },
       "revId": "750036b286ee40c3aa25361569ccc21fd9a50a14",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b9db29f_afd2a8e1",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-08T09:28:19Z",
+      "side": 1,
+      "message": "It looks like updateInterfaceLinkState can fail in two cases:\n1. The interface is not tracked.\n2. The interface is already in the correct state.\n\n#2 should not return an error, since the contract of EthernetManager#enableInterface says that \"An attempt to enable an already-enabled interface is ignored.\"",
+      "range": {
+        "startLine": 642,
+        "startChar": 15,
+        "endLine": 642,
+        "endChar": 22
+      },
+      "revId": "750036b286ee40c3aa25361569ccc21fd9a50a14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
