@@ -22,6 +22,7 @@ import static android.net.INetd.PERMISSION_SYSTEM;
 import static android.system.OsConstants.ETH_P_IP;
 import static android.system.OsConstants.ETH_P_IPV6;
 
+import static com.android.net.module.util.BpfConstants.COOKIE_TAG_MAP_PATH;
 import static com.android.net.module.util.NetworkStackConstants.IPV6_MIN_MTU;
 
 import android.annotation.NonNull;
@@ -104,8 +105,6 @@ public class ClatCoordinator {
     @VisibleForTesting
     static final int PRIO_CLAT = 4;
 
-    private static final String COOKIE_TAG_MAP_PATH =
-            "/sys/fs/bpf/netd_shared/map_netd_cookie_tag_map";
     private static final String CLAT_EGRESS4_MAP_PATH = makeMapPath("egress4");
     private static final String CLAT_INGRESS6_MAP_PATH = makeMapPath("ingress6");
 

@@ -33,6 +33,10 @@ import static android.system.OsConstants.ENODEV;
 import static android.system.OsConstants.ENOENT;
 import static android.system.OsConstants.EOPNOTSUPP;
 
+import static com.android.net.module.util.BpfConstants.CONFIGURATION_MAP_PATH;
+import static com.android.net.module.util.BpfConstants.COOKIE_TAG_MAP_PATH;
+import static com.android.net.module.util.BpfConstants.UID_OWNER_MAP_PATH;
+import static com.android.net.module.util.BpfConstants.UID_PERMISSION_MAP_PATH;
 import static com.android.server.ConnectivityStatsLog.NETWORK_BPF_MAP_INFO;
 
 import android.app.StatsManager;
@@ -97,14 +101,6 @@ public class BpfNetMaps {
     // BpfNetMaps is an only writer of this entry.
     private static final Object sCurrentStatsMapConfigLock = new Object();
 
-    private static final String CONFIGURATION_MAP_PATH =
-            "/sys/fs/bpf/netd_shared/map_netd_configuration_map";
-    private static final String UID_OWNER_MAP_PATH =
-            "/sys/fs/bpf/netd_shared/map_netd_uid_owner_map";
-    private static final String UID_PERMISSION_MAP_PATH =
-            "/sys/fs/bpf/netd_shared/map_netd_uid_permission_map";
-    private static final String COOKIE_TAG_MAP_PATH =
-            "/sys/fs/bpf/netd_shared/map_netd_cookie_tag_map";
     private static final U32 UID_RULES_CONFIGURATION_KEY = new U32(0);
     private static final U32 CURRENT_STATS_MAP_CONFIGURATION_KEY = new U32(1);
     private static final long UID_RULES_DEFAULT_CONFIGURATION = 0;
