@@ -16,6 +16,23 @@
       "message": "Upload a test cl aosp/2206296 to verify the fix works.",
       "revId": "5d7cbdddc0b71e5ec282983fba24097aa789da5e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e0d4b6d_ba620fce",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-08T07:22:51Z",
+      "side": 1,
+      "message": "It would probably be better to clarify the expected usage of IpConfigStore to avoid this kind of problems in the future too\n\nMaybe have IpConfigStore.writeIpConfigurations take 2 arguments for directory and filename, and document that the directory must exist\n\nThen have the write method below here ensure that the directory exists before calling writeIpConfigurations.\n\nThis can be done later in a separate change though.",
+      "revId": "5d7cbdddc0b71e5ec282983fba24097aa789da5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
