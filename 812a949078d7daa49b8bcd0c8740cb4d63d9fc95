@@ -50,6 +50,24 @@
       "message": "DO NOT MERGE need to be in the first line of the commit message.",
       "revId": "812a949078d7daa49b8bcd0c8740cb4d63d9fc95",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c78f6e68_47fa2422",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-08T02:29:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ecfc084_3a166278",
+      "revId": "812a949078d7daa49b8bcd0c8740cb4d63d9fc95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
