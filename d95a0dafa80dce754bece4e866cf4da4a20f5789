@@ -22,6 +22,52 @@
       },
       "revId": "d95a0dafa80dce754bece4e866cf4da4a20f5789",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0579502_930b008c",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-09-08T10:58:15Z",
+      "side": 1,
+      "message": "nit: maybe rename mSocketDestroyListener? \"Sk\" seems not very clear. But looks like native code is using skDestroyListener. Up to your choice.",
+      "range": {
+        "startLine": 460,
+        "startChar": 36,
+        "endLine": 460,
+        "endChar": 54
+      },
+      "revId": "d95a0dafa80dce754bece4e866cf4da4a20f5789",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c370a077_325421f7",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-09-08T10:58:15Z",
+      "side": 1,
+      "message": "Can we move this code to makeSkDestroyListener(), makeSkDestroyListener() will return null or a new instance by depending on the \"bpfNetMaps\" value, then here we can just say:\n\n```\nmSkDestroyListener \u003d mDeps.makeSkDestroyListener(mCookieTagMap, mHandler);\nmHandler.post(mSkDestroyListener::start);\n```",
+      "range": {
+        "startLine": 600,
+        "startChar": 0,
+        "endLine": 606,
+        "endChar": 9
+      },
+      "revId": "d95a0dafa80dce754bece4e866cf4da4a20f5789",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
