@@ -366,6 +366,7 @@ public final class NetworkCapabilities implements Parcelable {
             NET_CAPABILITY_MMTEL,
             NET_CAPABILITY_PRIORITIZE_LATENCY,
             NET_CAPABILITY_PRIORITIZE_BANDWIDTH,
+            NET_CAPABILITY_REALTIME_INTERACTIVE_TRAFFIC,
     })
     public @interface NetCapability { }
 
@@ -619,8 +620,13 @@ public final class NetworkCapabilities implements Parcelable {
      */
     public static final int NET_CAPABILITY_PRIORITIZE_BANDWIDTH = 35;
 
+    /**
+     * Indicates that this network has the ability to support realtime interactive traffic.
+     */
+    public static final int NET_CAPABILITY_REALTIME_INTERACTIVE_TRAFFIC = 36;
+
     private static final int MIN_NET_CAPABILITY = NET_CAPABILITY_MMS;
-    private static final int MAX_NET_CAPABILITY = NET_CAPABILITY_PRIORITIZE_BANDWIDTH;
+    private static final int MAX_NET_CAPABILITY = NET_CAPABILITY_REALTIME_INTERACTIVE_TRAFFIC;
 
     /**
      * Network capabilities that are expected to be mutable, i.e., can change while a particular
@@ -2367,6 +2373,8 @@ public final class NetworkCapabilities implements Parcelable {
             case NET_CAPABILITY_MMTEL:                return "MMTEL";
             case NET_CAPABILITY_PRIORITIZE_LATENCY:          return "PRIORITIZE_LATENCY";
             case NET_CAPABILITY_PRIORITIZE_BANDWIDTH:        return "PRIORITIZE_BANDWIDTH";
+            case NET_CAPABILITY_REALTIME_INTERACTIVE_TRAFFIC:
+                return "NET_CAPABILITY_REALTIME_INTERACTIVE_TRAFFIC";
             default:                                  return Integer.toString(capability);
         }
     }

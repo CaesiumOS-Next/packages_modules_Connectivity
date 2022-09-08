@@ -345,6 +345,7 @@ package android.net {
     field public static final int NET_CAPABILITY_PRIORITIZE_BANDWIDTH = 35; // 0x23
     field public static final int NET_CAPABILITY_PRIORITIZE_LATENCY = 34; // 0x22
     field public static final int NET_CAPABILITY_RCS = 8; // 0x8
+    field public static final int NET_CAPABILITY_REALTIME_INTERACTIVE_TRAFFIC = 36; // 0x24
     field public static final int NET_CAPABILITY_SUPL = 1; // 0x1
     field public static final int NET_CAPABILITY_TEMPORARILY_NOT_METERED = 25; // 0x19
     field public static final int NET_CAPABILITY_TRUSTED = 14; // 0xe
