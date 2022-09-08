@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cc95b0f_a2b87a4d",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-08T10:27:20Z",
+      "side": 1,
+      "message": "Do we actually need this member? Is it ever used? I don\u0027t think it\u0027s needed to ensure that the thread is not garbage collected, because I think every thread is a GC root.",
+      "range": {
+        "startLine": 460,
+        "startChar": 36,
+        "endLine": 460,
+        "endChar": 54
+      },
+      "revId": "d95a0dafa80dce754bece4e866cf4da4a20f5789",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
