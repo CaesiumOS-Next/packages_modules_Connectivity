@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8fdc4b2_46358a27",
+        "filename": "service/src/com/android/server/connectivity/FullScore.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-08T05:47:51Z",
+      "side": 1,
+      "message": "it",
+      "range": {
+        "startLine": 105,
+        "startChar": 20,
+        "endLine": 105,
+        "endChar": 24
+      },
+      "revId": "1777eccc3ac29da197999577cd952cdc7502d8ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
