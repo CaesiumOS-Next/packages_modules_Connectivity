@@ -16658,55 +16658,47 @@ public class ConnectivityServiceTest {
         registerDefaultNetworkCallbacks();
         mDefaultNetworkCallback.expectAvailableCallbacksValidated(mWiFiNetworkAgent);
 
-        // There is a bug in the current code where ignoring validation after roam will not
-        // correctly change the default network if the result if the validation is partial or
-        // captive portal. TODO : fix the bug and reinstate this code.
-        if (false) {
-            // Wi-Fi roaming from wifiNc1 to wifiNc2 but the network is now behind a captive portal.
-            mWiFiNetworkAgent.setNetworkCapabilities(wifiNc2, true /* sendToConnectivityService */);
-            // The only thing changed in this CAPS is the BSSID, which can't be tested for in this
-            // test because it's redacted.
-            wifiNetworkCallback.expectCallback(CallbackEntry.NETWORK_CAPS_UPDATED,
-                    mWiFiNetworkAgent);
-            mDefaultNetworkCallback.expectCallback(CallbackEntry.NETWORK_CAPS_UPDATED,
-                    mWiFiNetworkAgent);
-            mWiFiNetworkAgent.setNetworkPortal(TEST_REDIRECT_URL, false /* isStrictMode */);
-            mCm.reportNetworkConnectivity(mWiFiNetworkAgent.getNetwork(), false);
-            // Wi-Fi is now detected to have a portal : cell should become the default network.
-            mDefaultNetworkCallback.expectAvailableCallbacksValidated(mCellNetworkAgent);
-            wifiNetworkCallback.expectCapabilitiesWithout(NET_CAPABILITY_VALIDATED,
-                    mWiFiNetworkAgent);
-            wifiNetworkCallback.expectCapabilitiesWith(NET_CAPABILITY_CAPTIVE_PORTAL,
-                    mWiFiNetworkAgent);
+        // Wi-Fi roaming from wifiNc1 to wifiNc2 but the network is now behind a captive portal.
+        mWiFiNetworkAgent.setNetworkCapabilities(wifiNc2, true /* sendToConnectivityService */);
+        // The only thing changed in this CAPS is the BSSID, which can't be tested for in this
+        // test because it's redacted.
+        wifiNetworkCallback.expectCallback(CallbackEntry.NETWORK_CAPS_UPDATED, mWiFiNetworkAgent);
+        mDefaultNetworkCallback.expectCallback(CallbackEntry.NETWORK_CAPS_UPDATED,
+                mWiFiNetworkAgent);
+        mWiFiNetworkAgent.setNetworkPortal(TEST_REDIRECT_URL, false /* isStrictMode */);
+        mCm.reportNetworkConnectivity(mWiFiNetworkAgent.getNetwork(), false);
+        // Wi-Fi is now detected to have a portal : cell should become the default network.
+        mDefaultNetworkCallback.expectAvailableCallbacksValidated(mCellNetworkAgent);
+        wifiNetworkCallback.expectCapabilitiesWithout(NET_CAPABILITY_VALIDATED, mWiFiNetworkAgent);
+        wifiNetworkCallback.expectCapabilitiesWith(NET_CAPABILITY_CAPTIVE_PORTAL,
+                mWiFiNetworkAgent);
 
-            // Wi-Fi becomes valid again. The default network goes back to Wi-Fi.
-            mWiFiNetworkAgent.setNetworkValid(false /* isStrictMode */);
-            mCm.reportNetworkConnectivity(mWiFiNetworkAgent.getNetwork(), true);
-            mDefaultNetworkCallback.expectAvailableCallbacksValidated(mWiFiNetworkAgent);
-            wifiNetworkCallback.expectCapabilitiesWithout(NET_CAPABILITY_CAPTIVE_PORTAL,
-                    mWiFiNetworkAgent);
+        // Wi-Fi becomes valid again. The default network goes back to Wi-Fi.
+        mWiFiNetworkAgent.setNetworkValid(false /* isStrictMode */);
+        mCm.reportNetworkConnectivity(mWiFiNetworkAgent.getNetwork(), true);
+        mDefaultNetworkCallback.expectAvailableCallbacksValidated(mWiFiNetworkAgent);
+        wifiNetworkCallback.expectCapabilitiesWithout(NET_CAPABILITY_CAPTIVE_PORTAL,
+                mWiFiNetworkAgent);
 
-            // Wi-Fi roaming from wifiNc2 to wifiNc1, and the network now has partial connectivity.
-            mWiFiNetworkAgent.setNetworkCapabilities(wifiNc1, true);
-            wifiNetworkCallback.expectCallback(CallbackEntry.NETWORK_CAPS_UPDATED,
-                    mWiFiNetworkAgent);
-            mDefaultNetworkCallback.expectCallback(CallbackEntry.NETWORK_CAPS_UPDATED,
-                    mWiFiNetworkAgent);
-            mWiFiNetworkAgent.setNetworkPartial();
-            mCm.reportNetworkConnectivity(mWiFiNetworkAgent.getNetwork(), false);
-            // Wi-Fi now only offers partial connectivity, so in the absence of accepting partial
-            // connectivity explicitly for this network, it loses default status to cell.
-            mDefaultNetworkCallback.expectAvailableCallbacksValidated(mCellNetworkAgent);
-            wifiNetworkCallback.expectCapabilitiesWith(NET_CAPABILITY_PARTIAL_CONNECTIVITY,
-                    mWiFiNetworkAgent);
+        // Wi-Fi roaming from wifiNc2 to wifiNc1, and the network now has partial connectivity.
+        mWiFiNetworkAgent.setNetworkCapabilities(wifiNc1, true);
+        wifiNetworkCallback.expectCallback(CallbackEntry.NETWORK_CAPS_UPDATED, mWiFiNetworkAgent);
+        mDefaultNetworkCallback.expectCallback(CallbackEntry.NETWORK_CAPS_UPDATED,
+                mWiFiNetworkAgent);
+        mWiFiNetworkAgent.setNetworkPartial();
+        mCm.reportNetworkConnectivity(mWiFiNetworkAgent.getNetwork(), false);
+        // Wi-Fi now only offers partial connectivity, so in the absence of accepting partial
+        // connectivity explicitly for this network, it loses default status to cell.
+        mDefaultNetworkCallback.expectAvailableCallbacksValidated(mCellNetworkAgent);
+        wifiNetworkCallback.expectCapabilitiesWith(NET_CAPABILITY_PARTIAL_CONNECTIVITY,
+                mWiFiNetworkAgent);
 
-            // Wi-Fi becomes valid again. The default network goes back to Wi-Fi.
-            mWiFiNetworkAgent.setNetworkValid(false /* isStrictMode */);
-            mCm.reportNetworkConnectivity(mWiFiNetworkAgent.getNetwork(), true);
-            mDefaultNetworkCallback.expectAvailableCallbacksValidated(mWiFiNetworkAgent);
-            wifiNetworkCallback.expectCapabilitiesWithout(NET_CAPABILITY_PARTIAL_CONNECTIVITY,
-                    mWiFiNetworkAgent);
-        }
+        // Wi-Fi becomes valid again. The default network goes back to Wi-Fi.
+        mWiFiNetworkAgent.setNetworkValid(false /* isStrictMode */);
+        mCm.reportNetworkConnectivity(mWiFiNetworkAgent.getNetwork(), true);
+        mDefaultNetworkCallback.expectAvailableCallbacksValidated(mWiFiNetworkAgent);
+        wifiNetworkCallback.expectCapabilitiesWithout(NET_CAPABILITY_PARTIAL_CONNECTIVITY,
+                mWiFiNetworkAgent);
 
         // Wi-Fi roams from wifiNc1 to wifiNc2, and now becomes really invalid. If validation
         // failures after roam are not ignored, this will cause cell to become the default network.
