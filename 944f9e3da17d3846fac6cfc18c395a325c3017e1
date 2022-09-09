@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8f8e79a_4b87010b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1157,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-09T07:55:56Z",
+      "side": 0,
+      "message": "Currently we don\u0027t have enough test coverage to prove removing CONNECTIVITY_ACTION is safe. Could you add the test to make this change safer ?",
+      "range": {
+        "startLine": 1156,
+        "startChar": 12,
+        "endLine": 1157,
+        "endChar": 49
+      },
+      "revId": "944f9e3da17d3846fac6cfc18c395a325c3017e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

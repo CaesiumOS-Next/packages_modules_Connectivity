@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88b0c948_c7a2b3ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-09T07:55:56Z",
+      "side": 1,
+      "message": "Could you also add the test ?",
+      "revId": "7ab21d88a722e0a7775e45690e88cceab3343bef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b04667a0_2c9662a5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1977,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-09T07:55:56Z",
+      "side": 1,
+      "message": "This looks weird and errorprone. Rather than don\u0027t chooseUpstreamType if default network is disconnected and dun is not required, I think what you want is if default network is disconnected and dun network is still connected.",
+      "range": {
+        "startLine": 1974,
+        "startChar": 16,
+        "endLine": 1977,
+        "endChar": 0
+      },
+      "revId": "7ab21d88a722e0a7775e45690e88cceab3343bef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
