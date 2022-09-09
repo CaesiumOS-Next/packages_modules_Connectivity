@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b200d58_3abc31da",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-09-09T02:16:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7e0d4b6d_ba620fce",
+      "revId": "5d7cbdddc0b71e5ec282983fba24097aa789da5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e7a9e6e9_c0c5e53c",
@@ -48,6 +66,30 @@
       "writtenOn": "2022-09-09T01:59:59Z",
       "side": 1,
       "message": "Also maybe Log.wtf and don\u0027t try the write if this returns false",
+      "range": {
+        "startLine": 121,
+        "startChar": 22,
+        "endLine": 121,
+        "endChar": 28
+      },
+      "revId": "5d7cbdddc0b71e5ec282983fba24097aa789da5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a2fba4f_92b8c53c",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-09-09T02:16:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e7a9e6e9_c0c5e53c",
       "range": {
         "startLine": 121,
         "startChar": 22,
