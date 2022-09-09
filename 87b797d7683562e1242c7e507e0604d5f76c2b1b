@@ -142,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bc9f11e_aeb38fac",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-09T07:34:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "94b9f314_401235a1",
+      "range": {
+        "startLine": 872,
+        "startChar": 50,
+        "endLine": 872,
+        "endChar": 66
+      },
+      "revId": "87b797d7683562e1242c7e507e0604d5f76c2b1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4dafdf4e_43b8d6e9",
@@ -189,6 +213,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48f4f842_65f497d4",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 881,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-09T07:34:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3a9653ac_6fd8bb03",
+      "range": {
+        "startLine": 881,
+        "startChar": 63,
+        "endLine": 881,
+        "endChar": 64
+      },
+      "revId": "87b797d7683562e1242c7e507e0604d5f76c2b1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a36d2ba1_e757b891",
@@ -226,6 +274,30 @@
       "side": 1,
       "message": "Removed this function and call `mBpfNetMaps.setPullAtomCallback` from ConnectivityService#systemReady",
       "parentUuid": "a36d2ba1_e757b891",
+      "range": {
+        "startLine": 1569,
+        "startChar": 16,
+        "endLine": 1569,
+        "endChar": 35
+      },
+      "revId": "87b797d7683562e1242c7e507e0604d5f76c2b1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94c17b57_cbf8b5e3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1569,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-09T07:34:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1f4835d_241d6929",
       "range": {
         "startLine": 1569,
         "startChar": 16,
