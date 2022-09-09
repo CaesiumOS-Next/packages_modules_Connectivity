@@ -3,6 +3,121 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ff371267_8daa7117",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/SkDestroyListenerTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-09T06:35:31Z",
+      "side": 1,
+      "message": "Is 200ms going to be enough to ensure the test is not flaky?",
+      "range": {
+        "startLine": 55,
+        "startChar": 52,
+        "endLine": 55,
+        "endChar": 55
+      },
+      "revId": "116af0d892153a58950d9a0f02a16b1f29091b0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80a0c637_b63e7d75",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/SkDestroyListenerTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-09T06:35:31Z",
+      "side": 1,
+      "message": "Nit: countTagSockets",
+      "range": {
+        "startLine": 70,
+        "startChar": 16,
+        "endLine": 70,
+        "endChar": 33
+      },
+      "revId": "116af0d892153a58950d9a0f02a16b1f29091b0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc4e7d52_5dcd4457",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/SkDestroyListenerTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-09T06:35:31Z",
+      "side": 1,
+      "message": "Could you use DumpTestUtils.dumpServiceWithShellPermission instead?",
+      "range": {
+        "startLine": 71,
+        "startChar": 28,
+        "endLine": 71,
+        "endChar": 50
+      },
+      "revId": "116af0d892153a58950d9a0f02a16b1f29091b0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88f4e626_5f19f7af",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/SkDestroyListenerTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-09T06:35:31Z",
+      "side": 1,
+      "message": "Suggest making this method assert instead, as it will give you clearer failure messages.\n\n    private void assertNoTaggedSockets(String msg) {\n        assertEquals(\"Expected no sockets with tag \" + COOKIE_TAG + \" \" msg,\n                0, countTaggedSockets());\n    }\n\n...\n...\n\n    assertNoTaggedSockets(\"before test\");",
+      "range": {
+        "startLine": 82,
+        "startChar": 20,
+        "endLine": 82,
+        "endChar": 34
+      },
+      "revId": "116af0d892153a58950d9a0f02a16b1f29091b0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75f5fe07_45c05cca",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/SkDestroyListenerTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-09T06:35:31Z",
+      "side": 1,
+      "message": "Instead of sleeping, suggest polling:\n\n    private void waitForNoTaggedSockets() {\n        for (int attempts \u003d 0; attempts \u003c 50; attempts++) {\n            if (countTaggedSockets \u003d\u003d 0) return;\n            SystemClock.sleep(10);\n        }\n        assertNoTaggedSockets(\"after closing sockets\");\n    }\n\nThat way you can use a higher timeout. This will make the test less flaky but also run faster on average.",
+      "range": {
+        "startLine": 102,
+        "startChar": 15,
+        "endLine": 102,
+        "endChar": 20
+      },
+      "revId": "116af0d892153a58950d9a0f02a16b1f29091b0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7bc785d2_15d7f4bd",
         "filename": "Tethering/tests/mts/src/android/tethering/mts/SkDestroyListenerTest.java",
         "patchSetId": 15
@@ -14,6 +129,24 @@
       "writtenOn": "2022-09-06T02:31:47Z",
       "side": 1,
       "message": "Is `Tethering/tests/mts/src/android/tethering/mts/` a right place to put this test?",
+      "revId": "116af0d892153a58950d9a0f02a16b1f29091b0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ec56145_1f65b52b",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/SkDestroyListenerTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-09T06:35:31Z",
+      "side": 1,
+      "message": "Ideally it should be in CTS but because it depends on implementation details (e.g., the map format, the name of the map, the fact that we use a map in the first place...) it can\u0027t be.\n\nWe could put it in CTS if we had a countSocketTags method but that also seems hacky. MTS is probably the best place for now...",
+      "parentUuid": "7bc785d2_15d7f4bd",
       "revId": "116af0d892153a58950d9a0f02a16b1f29091b0d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
