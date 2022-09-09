@@ -16,79 +16,112 @@
 
 package com.android.cts.net;
 
-public class HostsideVpnTests extends HostsideNetworkTestCase {
+import com.android.tradefed.device.ITestDevice;
+import com.android.tradefed.testtype.DeviceJUnit4ClassRunner;
+import com.android.tradefed.testtype.junit4.BaseHostJUnit4Test;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
-        uninstallPackage(TEST_APP2_PKG, false);
-        installPackage(TEST_APP2_APK);
+import java.io.File;
+
+@RunWith(DeviceJUnit4ClassRunner.class)
+public class HostsideVpnTests extends BaseHostJUnit4Test {
+
+    private static ITestDevice sDevice;
+    private static final String TEST_PKG = HostsideNetworkTestCase.TEST_PKG;
+
+    @Before
+    public void setUp() throws Exception {
+        // Don't uninstall and reinstall the test app before every testcase. This makes the test
+        // about 2x faster because the consent dialog is displayed and clicked through only once.
+        sDevice = getDevice();
+        if (!sDevice.isPackageInstalled(TEST_PKG)) {
+            final String testApkName =  HostsideNetworkTestCase.getTestApkName(sDevice);
+            sDevice.installPackage(new File(testApkName), false /* reinstall */);
+        }
     }
 
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-
-        uninstallPackage(TEST_APP2_PKG, true);
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+        if (sDevice != null) {
+            sDevice.uninstallPackage(TEST_PKG);
+        }
     }
 
+
+    private void runDeviceTest(String name) throws Exception {
+        runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", name);
+    }
+
+    @Test
     public void testChangeUnderlyingNetworks() throws Exception {
-        runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testChangeUnderlyingNetworks");
+        runDeviceTest("testChangeUnderlyingNetworks");
     }
 
+    @Test
     public void testDefault() throws Exception {
-        runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testDefault");
+        runDeviceTest("testDefault");
     }
 
+    @Test
     public void testAppAllowed() throws Exception {
-        runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testAppAllowed");
+        runDeviceTest("testAppAllowed");
     }
 
+    @Test
     public void testAppDisallowed() throws Exception {
-        runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testAppDisallowed");
+        runDeviceTest("testAppDisallowed");
     }
 
+    @Test
     public void testGetConnectionOwnerUidSecurity() throws Exception {
-        runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testGetConnectionOwnerUidSecurity");
+        runDeviceTest("testGetConnectionOwnerUidSecurity");
     }
 
+    @Test
     public void testSetProxy() throws Exception {
-        runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testSetProxy");
+        runDeviceTest("testSetProxy");
     }
 
+    @Test
     public void testSetProxyDisallowedApps() throws Exception {
-        runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testSetProxyDisallowedApps");
+        runDeviceTest("testSetProxyDisallowedApps");
     }
 
+    @Test
     public void testNoProxy() throws Exception {
-        runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testNoProxy");
+        runDeviceTest("testNoProxy");
     }
 
+    @Test
     public void testBindToNetworkWithProxy() throws Exception {
-        runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testBindToNetworkWithProxy");
+        runDeviceTest("testBindToNetworkWithProxy");
     }
 
+    @Test
     public void testVpnMeterednessWithNoUnderlyingNetwork() throws Exception {
-        runDeviceTests(
-                TEST_PKG, TEST_PKG + ".VpnTest", "testVpnMeterednessWithNoUnderlyingNetwork");
+        runDeviceTest("testVpnMeterednessWithNoUnderlyingNetwork");
     }
 
+    @Test
     public void testVpnMeterednessWithNullUnderlyingNetwork() throws Exception {
-        runDeviceTests(
-                TEST_PKG, TEST_PKG + ".VpnTest", "testVpnMeterednessWithNullUnderlyingNetwork");
+        runDeviceTest("testVpnMeterednessWithNullUnderlyingNetwork");
     }
 
+    @Test
     public void testVpnMeterednessWithNonNullUnderlyingNetwork() throws Exception {
-        runDeviceTests(
-                TEST_PKG, TEST_PKG + ".VpnTest", "testVpnMeterednessWithNonNullUnderlyingNetwork");
+        runDeviceTest("testVpnMeterednessWithNonNullUnderlyingNetwork");
     }
 
+    @Test
     public void testAlwaysMeteredVpnWithNullUnderlyingNetwork() throws Exception {
-        runDeviceTests(
-                TEST_PKG, TEST_PKG + ".VpnTest", "testAlwaysMeteredVpnWithNullUnderlyingNetwork");
+        runDeviceTest("testAlwaysMeteredVpnWithNullUnderlyingNetwork");
     }
 
+    @Test
     public void testAlwaysMeteredVpnWithNonNullUnderlyingNetwork() throws Exception {
         runDeviceTests(
                 TEST_PKG,
@@ -96,28 +129,34 @@ public class HostsideVpnTests extends HostsideNetworkTestCase {
                 "testAlwaysMeteredVpnWithNonNullUnderlyingNetwork");
     }
 
+    @Test
     public void testB141603906() throws Exception {
-        runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testB141603906");
+        runDeviceTest("testB141603906");
     }
 
+    @Test
     public void testDownloadWithDownloadManagerDisallowed() throws Exception {
         runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest",
                 "testDownloadWithDownloadManagerDisallowed");
     }
 
+    @Test
     public void testExcludedRoutes() throws Exception {
-        runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testExcludedRoutes");
+        runDeviceTest("testExcludedRoutes");
     }
 
+    @Test
     public void testIncludedRoutes() throws Exception {
-        runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testIncludedRoutes");
+        runDeviceTest("testIncludedRoutes");
     }
 
+    @Test
     public void testInterleavedRoutes() throws Exception {
-        runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testInterleavedRoutes");
+        runDeviceTest("testInterleavedRoutes");
     }
 
+    @Test
     public void testBlockIncomingPackets() throws Exception {
-        runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testBlockIncomingPackets");
+        runDeviceTest("testBlockIncomingPackets");
     }
 }

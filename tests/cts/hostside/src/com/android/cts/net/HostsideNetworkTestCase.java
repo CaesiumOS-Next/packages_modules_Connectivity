@@ -23,6 +23,7 @@ import com.android.ddmlib.testrunner.TestResult.TestStatus;
 import com.android.modules.utils.build.testing.DeviceSdkLevel;
 import com.android.tradefed.build.IBuildInfo;
 import com.android.tradefed.device.DeviceNotAvailableException;
+import com.android.tradefed.device.ITestDevice;
 import com.android.tradefed.result.CollectingTestListener;
 import com.android.tradefed.result.TestDescription;
 import com.android.tradefed.result.TestResult;
@@ -58,6 +59,11 @@ abstract class HostsideNetworkTestCase extends DeviceTestCase implements IAbiRec
         mCtsBuild = buildInfo;
     }
 
+    protected static String getTestApkName(ITestDevice device) throws Exception {
+        DeviceSdkLevel deviceSdkLevel = new DeviceSdkLevel(device);
+        return deviceSdkLevel.isDeviceAtLeastT() ? TEST_APK_NEXT : TEST_APK;
+    }
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -65,12 +71,8 @@ abstract class HostsideNetworkTestCase extends DeviceTestCase implements IAbiRec
         assertNotNull(mAbi);
         assertNotNull(mCtsBuild);
 
-        DeviceSdkLevel deviceSdkLevel = new DeviceSdkLevel(getDevice());
-        String testApk = deviceSdkLevel.isDeviceAtLeastT() ? TEST_APK_NEXT
-                : TEST_APK;
-
         uninstallPackage(TEST_PKG, false);
-        installPackage(testApk);
+        installPackage(getTestApkName(getDevice()));
     }
 
     @Override
