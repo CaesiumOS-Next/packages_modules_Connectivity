@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30b0ac4d_67d01fe0",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-09T04:17:53Z",
+      "side": 1,
+      "message": "Nit: I think \u003c\u003d would be more readable here, though due to the DevSdkIgnoreRule it\u0027s actually exactly the same.",
+      "range": {
+        "startLine": 174,
+        "startChar": 42,
+        "endLine": 174,
+        "endChar": 44
+      },
+      "revId": "66d728f47b191d00a9ee79a9f2ae3a59d44d3949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
