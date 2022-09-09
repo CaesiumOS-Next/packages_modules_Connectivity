@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ddb3fe5_19b9ef76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-09T07:41:10Z",
+      "side": 1,
+      "message": "LGTM if we think it\u0027s a good idea to consolidate maps in one place.\n\nAnother way we could go is make particular services (e.g., NetworkStatsService) \"own\" particular BPF maps, and define the map paths in the service classes. Up to you. CCing Maciej who might have opinions.",
+      "revId": "68ea079a9752e381256d157af2da3255c3da16a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
