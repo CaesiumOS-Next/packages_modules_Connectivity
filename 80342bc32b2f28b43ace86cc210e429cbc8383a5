@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a61e17a4_39f9b1e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-09T05:57:20Z",
+      "side": 1,
+      "message": "Instead of changing individual test methods, can we just increase the default timeout a bit, say, from 200 to 500?\n\nIf we\u0027re concerned that this might slow some tests down, then...:\n- We can make assertNoCallback use a different timeout by default\n- We can always run all the affected tests to see if the actually slow down in practice. Code search says there are only 19 files where we use this:\n\nhttps://cs.android.com/search?q\u003d%22%20testablenetworkcallback(%22",
+      "revId": "80342bc32b2f28b43ace86cc210e429cbc8383a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
