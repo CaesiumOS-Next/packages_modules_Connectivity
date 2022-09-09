@@ -33,6 +33,29 @@
       "message": "It would probably be better to clarify the expected usage of IpConfigStore to avoid this kind of problems in the future too\n\nMaybe have IpConfigStore.writeIpConfigurations take 2 arguments for directory and filename, and document that the directory must exist\n\nThen have the write method below here ensure that the directory exists before calling writeIpConfigurations.\n\nThis can be done later in a separate change though.",
       "revId": "5d7cbdddc0b71e5ec282983fba24097aa789da5e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7a9e6e9_c0c5e53c",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-09T01:59:59Z",
+      "side": 1,
+      "message": "Also maybe Log.wtf and don\u0027t try the write if this returns false",
+      "range": {
+        "startLine": 121,
+        "startChar": 22,
+        "endLine": 121,
+        "endChar": 28
+      },
+      "revId": "5d7cbdddc0b71e5ec282983fba24097aa789da5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
