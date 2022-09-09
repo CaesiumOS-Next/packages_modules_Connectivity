@@ -68,6 +68,52 @@
       },
       "revId": "d95a0dafa80dce754bece4e866cf4da4a20f5789",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9730aec6_6655ae84",
+        "filename": "service-t/src/com/android/server/net/SkDestroyListener.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-09T07:05:59Z",
+      "side": 1,
+      "message": "Not for this CL, but... this NetlinkMessage is freshly allocated for each socket that is destroyed. If many sockets are destroyed, that means there will be lots of allocations and garbage collection.\n\nNot sure how we could improve this. The easy way to do this in general is to make InetDiagMessage mutable and pass in an InetDiagMessage to recycle, but that\u0027s complicated here because all the methods here take NetlinkMessage (the superclass).\n\nI don\u0027t know how to quantify whether this is bad for RAM usage or not, though. Given that the object is \u003c 100 bytes long and it\u0027s allocated and deallocated in a loop, maybe the garbage collector can easily optimize that? Could you look into that?",
+      "range": {
+        "startLine": 63,
+        "startChar": 44,
+        "endLine": 63,
+        "endChar": 58
+      },
+      "revId": "d95a0dafa80dce754bece4e866cf4da4a20f5789",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "740855c8_03260383",
+        "filename": "service-t/src/com/android/server/net/SkDestroyListener.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-09T07:05:59Z",
+      "side": 1,
+      "message": "Might want to comment that an exception here always indicates an error: if the key does not exist, deleteEntry does not throw.",
+      "range": {
+        "startLine": 72,
+        "startChar": 12,
+        "endLine": 72,
+        "endChar": 16
+      },
+      "revId": "d95a0dafa80dce754bece4e866cf4da4a20f5789",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
