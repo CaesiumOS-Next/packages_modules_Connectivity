@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "655eb7ef_636097e9",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-09-09T02:38:55Z",
+      "side": 1,
+      "message": "I did not realize ConnectivityService has systemReady method.\nOrder of service start is\n1. StartConnectivityService: https://source.corp.google.com/aosp-master/frameworks/base/services/java/com/android/server/SystemServer.java;l\u003d2009?q\u003dSystemServer.java\u0026ss\u003dpiper%2FGoogle%2Faosp-master\n2. StartStatsCompanion(StatsManagerService): https://source.corp.google.com/aosp-master/frameworks/base/services/java/com/android/server/SystemServer.java;l\u003d2561?q\u003dSystemServer.java\u0026ss\u003dpiper%2FGoogle%2Faosp-master\n3. ConnectivityServiceInitializer#onBootPahse is called with PHASE_SYSTEM_SERVICES_READY: http://cs/aosp-master/frameworks/base/services/java/com/android/server/SystemServer.java;l\u003d2654;rcl\u003d61c72b2859c41e3fb33b4291cec95702700e7799\n4. ConnectivityService#systemReady is called: http://cs/aosp-master/frameworks/base/services/java/com/android/server/SystemServer.java;l\u003d2869;rcl\u003db95ea37ec59f5c82e5b20265fdfaa3729c7a9340\n\nSo, I moved to ConnectivityService#systemReady",
+      "parentUuid": "2a3bafc0_ef8d050c",
+      "range": {
+        "startLine": 100,
+        "startChar": 12,
+        "endLine": 100,
+        "endChar": 48
+      },
+      "revId": "87b797d7683562e1242c7e507e0604d5f76c2b1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "83e95aff_02873711",
         "filename": "service/src/com/android/server/BpfNetMaps.java",
         "patchSetId": 19
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-08T12:19:46Z",
       "side": 1,
       "message": "It\u0027s a bit too rushed to mention this part at the moment, we can do it in a follow-up commit if we think it\u0027s important.\n\nI prefer to move all the metric related code \u0026 test into same folder and files.\n\nWhen I looked at your commit and tethering metric commit(asop/1295362).\nI think the connectivity metric codes need to define a common location as networkstack/metrics.\nhttps://source.corp.google.com/aosp-master/packages/modules/NetworkStack/src/com/android/networkstack/metrics/\nIn this way, we can more easily maintain old metrics and add new metrics in the future.\n\n\nThe folder includes 2 kind of files:\n1.stats.proto\nThe proto will include all connectivity metrics proto.\nExample: https://source.corp.google.com/aosp-master/packages/modules/NetworkStack/src/com/android/networkstack/metrics/stats.proto\n\u003d\u003e The benefit of the proto is it will automatically compile to java file in the build time. It can support the read \u0026 write api of the proto. If you extend the new field on the proto, the api will automatically generated. For adding new fields to proto, it would be very convenient.\nHere is the proto java file path: \nhttps://source.corp.google.com/android/out/soong/.intermediates/frameworks/opt/telephony/proto/telephony-protos/android_common/xref/srcjars.xref/com/android/internal/telephony/nano/PersistAtomsProto.java;rcl\u003dHEAD;l\u003d6\n\n2.  Each metrics has a java file\nThe file will provide the api to fill the data into the proto. https://source.corp.google.com/aosp-master/packages/modules/NetworkStack/src/com/android/networkstack/metrics/IpProvisioningMetrics.java\n\n\nYour metrics don\u0027t define a proto in connectivity folder, but I still recommend building one for future expansion. It is recommended to combine with tethering proto. Then people will know to add new metric here.",
+      "range": {
+        "startLine": 288,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 9
+      },
+      "revId": "87b797d7683562e1242c7e507e0604d5f76c2b1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c91ab09a_32cf0fdf",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-09-09T02:38:55Z",
+      "side": 1,
+      "message": "Thanks!\nAs we discussed in the meeting, let me define proto in connectivity and use that to populate the atom before expanding the atom as follow-up.",
+      "parentUuid": "83e95aff_02873711",
       "range": {
         "startLine": 288,
         "startChar": 0,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "94b9f314_401235a1",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-09-09T02:38:55Z",
+      "side": 1,
+      "message": "Order of service start is\n1. StartConnectivityService: https://source.corp.google.com/aosp-master/frameworks/base/services/java/com/android/server/SystemServer.java;l\u003d2009?q\u003dSystemServer.java\u0026ss\u003dpiper%2FGoogle%2Faosp-master\n2. StartStatsCompanion(StatsManagerService): https://source.corp.google.com/aosp-master/frameworks/base/services/java/com/android/server/SystemServer.java;l\u003d2561?q\u003dSystemServer.java\u0026ss\u003dpiper%2FGoogle%2Faosp-master\n3. ConnectivityServiceInitializer#onBootPahse is called with PHASE_SYSTEM_SERVICES_READY: http://cs/aosp-master/frameworks/base/services/java/com/android/server/SystemServer.java;l\u003d2654;rcl\u003d61c72b2859c41e3fb33b4291cec95702700e7799\n4. ConnectivityService#systemReady is called: http://cs/aosp-master/frameworks/base/services/java/com/android/server/SystemServer.java;l\u003d2869;rcl\u003db95ea37ec59f5c82e5b20265fdfaa3729c7a9340\n\nAnd BpfNetMaps#setPullAtomCallback is called from the ConnectivityService#systemReady, so I think StatsManagerService is running",
+      "parentUuid": "7c4b7ff6_3eb3c906",
+      "range": {
+        "startLine": 872,
+        "startChar": 50,
+        "endLine": 872,
+        "endChar": 66
+      },
+      "revId": "87b797d7683562e1242c7e507e0604d5f76c2b1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4dafdf4e_43b8d6e9",
         "filename": "service/src/com/android/server/BpfNetMaps.java",
         "patchSetId": 19
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3a9653ac_6fd8bb03",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 881,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-09-09T02:38:55Z",
+      "side": 1,
+      "message": "With the current BpfMap, forEach could restart iteration without passing null to the lambda.\nhttp://cs/aosp-master/frameworks/libs/net/common/device/com/android/net/module/util/BpfMap.java;l\u003d269;rcl\u003d4fbd1f9fd2213f6dbed17ee0c5e97e5c5842fdd9\nhttp://cs/aosp-master/frameworks/libs/net/common/device/com/android/net/module/util/BpfMap.java;l\u003d208;rcl\u003d4fbd1f9fd2213f6dbed17ee0c5e97e5c5842fdd9\n\nI\u0027m not sure if we have an easy way to detect iteration restart.\nAs for mUidOwnerMap and mUidPermissionMap, I can acquire lock and just increment count with forEach but I can not do this for mCookieTagMap.\nSo I\u0027m using Set for all of them.",
+      "parentUuid": "4dafdf4e_43b8d6e9",
+      "range": {
+        "startLine": 881,
+        "startChar": 63,
+        "endLine": 881,
+        "endChar": 64
+      },
+      "revId": "87b797d7683562e1242c7e507e0604d5f76c2b1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a36d2ba1_e757b891",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 19
@@ -106,6 +202,30 @@
       "writtenOn": "2022-09-08T10:24:21Z",
       "side": 1,
       "message": "Consider calling this maybeSetPullAtomCallback, since it only sets the callback if certain conditions are met.",
+      "range": {
+        "startLine": 1569,
+        "startChar": 16,
+        "endLine": 1569,
+        "endChar": 35
+      },
+      "revId": "87b797d7683562e1242c7e507e0604d5f76c2b1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1f4835d_241d6929",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1569,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-09-09T02:38:55Z",
+      "side": 1,
+      "message": "Removed this function and call `mBpfNetMaps.setPullAtomCallback` from ConnectivityService#systemReady",
+      "parentUuid": "a36d2ba1_e757b891",
       "range": {
         "startLine": 1569,
         "startChar": 16,
