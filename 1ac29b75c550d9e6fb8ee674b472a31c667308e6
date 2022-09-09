@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe91c371_3d871e2c",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3552,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-09T06:18:18Z",
+      "side": 1,
+      "message": "Nit: inconsistent spacing.",
+      "range": {
+        "startLine": 3552,
+        "startChar": 67,
+        "endLine": 3552,
+        "endChar": 74
+      },
+      "revId": "1ac29b75c550d9e6fb8ee674b472a31c667308e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "114a248d_e6757cee",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3713,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-09T06:18:18Z",
+      "side": 1,
+      "message": "Nit: might want to change these to setExiting(). Not necessarily in this CL.",
+      "range": {
+        "startLine": 3713,
+        "startChar": 26,
+        "endLine": 3713,
+        "endChar": 37
+      },
+      "revId": "1ac29b75c550d9e6fb8ee674b472a31c667308e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7325d8c7_c1ab66b0",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4196,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-09T06:18:18Z",
+      "side": 1,
+      "message": "Nit: why add this? If you do need to wait, why not use waitForIdle?",
+      "range": {
+        "startLine": 4196,
+        "startChar": 8,
+        "endLine": 4196,
+        "endChar": 36
+      },
+      "revId": "1ac29b75c550d9e6fb8ee674b472a31c667308e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
