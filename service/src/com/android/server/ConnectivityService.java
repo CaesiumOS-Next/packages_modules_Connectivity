@@ -3791,8 +3791,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         private void handleNetworkTested(
                 @NonNull NetworkAgentInfo nai, int testResult, @NonNull String redirectUrl) {
-            final boolean valid = ((testResult & NETWORK_VALIDATION_RESULT_VALID) != 0);
-            if (!valid && shouldIgnoreValidationFailureAfterRoam(nai)) {
+            final boolean valid = (testResult & NETWORK_VALIDATION_RESULT_VALID) != 0;
+            final boolean partial = (testResult & NETWORK_VALIDATION_RESULT_PARTIAL) != 0;
+            final boolean captive = !TextUtils.isEmpty(redirectUrl);
+            if (!(valid || partial || captive) && shouldIgnoreValidationFailureAfterRoam(nai)) {
                 // Assume the validation failure is due to a temporary failure after roaming
                 // and ignore it. NetworkMonitor will continue to retry validation. If it
                 // continues to fail after the block timeout expires, the network will be
@@ -3802,8 +3804,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
             final boolean wasValidated = nai.isValidated();
             final boolean wasPartial = nai.partialConnectivity();
-            nai.setPartialConnectivity((testResult & NETWORK_VALIDATION_RESULT_PARTIAL) != 0);
-            final boolean partialConnectivityChanged = (wasPartial != nai.partialConnectivity());
+            nai.setPartialConnectivity(partial);
+            final boolean partialConnectivityChanged = (wasPartial != partial);
 
             if (DBG) {
                 final String logMsg = !TextUtils.isEmpty(redirectUrl)
