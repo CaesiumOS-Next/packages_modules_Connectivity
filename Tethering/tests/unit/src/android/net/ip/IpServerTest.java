@@ -89,6 +89,7 @@ import android.os.Handler;
 import android.os.RemoteException;
 import android.os.test.TestLooper;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -237,9 +238,14 @@ public class IpServerTest {
         when(mTetherConfig.isBpfOffloadEnabled()).thenReturn(usingBpfOffload);
         when(mTetherConfig.useLegacyDhcpServer()).thenReturn(usingLegacyDhcp);
         when(mTetherConfig.getP2pLeasesSubnetPrefixLength()).thenReturn(P2P_SUBNET_PREFIX_LENGTH);
-        mIpServer = new IpServer(
-                IFACE_NAME, mLooper.getLooper(), interfaceType, mSharedLog, mNetd, mBpfCoordinator,
-                mCallback, mTetherConfig, mAddressCoordinator, mTetheringMetrics, mDependencies);
+        Log.w("IpServerTest", "[DEBUG] +++");
+        mIpServer = spy(new IpServer(
+                IFACE_NAME, mLooper.getLooper(), interfaceType, new SharedLog("test"), mNetd,
+                mBpfCoordinator, mCallback, mTetherConfig, mAddressCoordinator,
+                mTetheringMetrics, mDependencies));
+        Log.w("IpServerTest", "[DEBUG] mIpServer: "
+                + " @" + Integer.toHexString(System.identityHashCode(mIpServer)));
+        Log.w("IpServerTest", "[DEBUG] ---");
         mIpServer.start();
         mNeighborEventConsumer = neighborCaptor.getValue();
 
@@ -1518,5 +1524,24 @@ public class IpServerTest {
         recvNewNeigh(myIfindex, neigh, NUD_REACHABLE, mac);
         verify(mBpfCoordinator, never()).tetherOffloadRuleAdd(
                 mIpServer, makeForwardingRule(IPSEC_IFINDEX, neigh, mac));
+    }
+
+    @Test
+    public void testNeighborEventMonitor() throws Exception {
+        initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE, false /* usingLegacyDhcp */,
+                DEFAULT_USING_BPF_OFFLOAD);
+        reset(mIpServer);
+
+        // [1] call spying IpServer public function foo() directly.
+        mIpServer.foo();
+        verify(mIpServer).foo();
+        reset(mIpServer);
+
+        // [2] call IpServer public function bar() via inner class IpServer.NeighborEventConsumer.
+        // Send a neighbor event to trigger consumer.accept() to call bar().
+        final InetAddress neighA = InetAddresses.parseNumericAddress("2001:db8::1");
+        final MacAddress macA = MacAddress.fromString("00:00:00:00:00:0a");
+        recvNewNeigh(TEST_IFACE_PARAMS.index, neighA, NUD_REACHABLE, macA);
+        verify(mIpServer).bar();
     }
 }

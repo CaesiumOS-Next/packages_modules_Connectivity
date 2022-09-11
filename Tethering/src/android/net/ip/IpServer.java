@@ -277,6 +277,7 @@ public class IpServer extends StateMachine {
 
     private class MyNeighborEventConsumer implements IpNeighborMonitor.NeighborEventConsumer {
         public void accept(NeighborEvent e) {
+            bar();
             sendMessage(CMD_NEIGHBOR_EVENT, e);
         }
     }
@@ -336,6 +337,19 @@ public class IpServer extends StateMachine {
         addState(mUnavailableState);
 
         setInitialState(mInitialState);
+
+        mLog.w("[DEBUG] IpServer ctor: "
+                + " @" + Integer.toHexString(System.identityHashCode(this)));
+    }
+
+    public void foo() {
+        mLog.w("[DEBUG] IpServer in foo: "
+                + " @" + Integer.toHexString(System.identityHashCode(this)));
+    }
+
+    public void bar() {
+        mLog.w("[DEBUG] IpServer in bar: "
+                + " @" + Integer.toHexString(System.identityHashCode(this)));
     }
 
     /** Interface name which IpServer served.*/
