@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf4e4b24_5c77e7e5",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-09-12T13:44:05Z",
+      "side": 1,
+      "message": "Done. remove this unused default function",
+      "parentUuid": "4b880558_488acb60",
+      "range": {
+        "startLine": 699,
+        "startChar": 19,
+        "endLine": 699,
+        "endChar": 79
+      },
+      "revId": "d300e02abe1a8b3fb8e7282e6dd8a0610438cd27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4832fe8_01ab93e5",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-12T09:48:32Z",
       "side": 1,
       "message": "Rename to throwTimeoutException ? From the naming, user doesn\u0027t know \"fail\" is true and \"ThrowTimeoutException\" is false.",
+      "range": {
+        "startLine": 702,
+        "startChar": 52,
+        "endLine": 702,
+        "endChar": 79
+      },
+      "revId": "d300e02abe1a8b3fb8e7282e6dd8a0610438cd27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d76ffd2_b11d41af",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-09-12T13:44:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4832fe8_01ab93e5",
       "range": {
         "startLine": 702,
         "startChar": 52,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "960288ba_0ca58131",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1253,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-09-12T13:44:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "882dc870_d011fd0b",
+      "range": {
+        "startLine": 1253,
+        "startChar": 20,
+        "endLine": 1253,
+        "endChar": 40
+      },
+      "revId": "d300e02abe1a8b3fb8e7282e6dd8a0610438cd27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12126d14_250945c0",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-09-12T09:48:32Z",
       "side": 1,
       "message": "Since this is the only caller, just putting the logic here ?\n\n    try {\n        assertEquals(\"onUpstreamChanged for test network\", mUpstreamTracker.getNetwork(), mTetheringEventCallback.awaitUpstreamChanged());\n    } catch (TimeoutException e) {\n        retryTestedUpstreamChanged(mUpstreamTracker.getNetwork());\n    }",
+      "range": {
+        "startLine": 1331,
+        "startChar": 8,
+        "endLine": 1331,
+        "endChar": 63
+      },
+      "revId": "d300e02abe1a8b3fb8e7282e6dd8a0610438cd27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a77eaa2_2eab340b",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1331,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-09-12T13:44:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12126d14_250945c0",
       "range": {
         "startLine": 1331,
         "startChar": 8,
