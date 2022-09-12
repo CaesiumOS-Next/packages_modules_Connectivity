@@ -37,6 +37,7 @@ import android.net.IpConfiguration.IpAssignment;
 import android.net.IpConfiguration.ProxySettings;
 import android.net.LinkAddress;
 import android.net.NetworkCapabilities;
+import android.net.NetworkProvider;
 import android.net.StaticIpConfiguration;
 import android.os.Build;
 import android.os.HandlerThread;
@@ -72,6 +73,7 @@ public class EthernetTrackerTest {
     @Mock private EthernetNetworkFactory mFactory;
     @Mock private INetd mNetd;
     @Mock private EthernetTracker.Dependencies mDeps;
+    @Mock private NetworkProvider mProvider;
 
     @Before
     public void setUp() throws RemoteException {
@@ -81,8 +83,11 @@ public class EthernetTrackerTest {
         doReturn(new String[0]).when(mNetd).interfaceGetList();
         mHandlerThread = new HandlerThread(THREAD_NAME);
         mHandlerThread.start();
-        tracker = new EthernetTracker(mContext, mHandlerThread.getThreadHandler(), mFactory, mNetd,
-                mDeps);
+
+        when(mDeps.makeNetworkProvider(any(), any())).thenReturn(mProvider);
+        when(mDeps.makeNetworkFactory(any(), any(), any())).thenReturn(mFactory);
+
+        tracker = new EthernetTracker(mContext, mHandlerThread.getThreadHandler(), mNetd, mDeps);
     }
 
     @After
