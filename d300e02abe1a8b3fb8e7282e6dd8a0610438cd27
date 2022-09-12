@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b880558_488acb60",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-12T09:48:32Z",
+      "side": 1,
+      "message": "default throw TimeoutException ? Currently we don\u0027t have usecase to fail inside awaitUpstreamChanged",
+      "range": {
+        "startLine": 699,
+        "startChar": 19,
+        "endLine": 699,
+        "endChar": 79
+      },
+      "revId": "d300e02abe1a8b3fb8e7282e6dd8a0610438cd27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4832fe8_01ab93e5",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-12T09:48:32Z",
+      "side": 1,
+      "message": "Rename to throwTimeoutException ? From the naming, user doesn\u0027t know \"fail\" is true and \"ThrowTimeoutException\" is false.",
+      "range": {
+        "startLine": 702,
+        "startChar": 52,
+        "endLine": 702,
+        "endChar": 79
+      },
+      "revId": "d300e02abe1a8b3fb8e7282e6dd8a0610438cd27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "882dc870_d011fd0b",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1253,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-12T09:48:32Z",
+      "side": 1,
+      "message": "If you take the suggestion at l.1331, you could move toggleWifi here. And rename to retryTestedUpstreamChanged, then caller could know this is specific to test network ?\n\n    assertTrue(e.toString(), mPackageManager.hasSystemFeature(FEATURE_WIFI)) // fall back original error because no way to reselect\n\n    mCtsNetUtils.toggleWifi();\n    ....",
+      "range": {
+        "startLine": 1253,
+        "startChar": 20,
+        "endLine": 1253,
+        "endChar": 40
+      },
+      "revId": "d300e02abe1a8b3fb8e7282e6dd8a0610438cd27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12126d14_250945c0",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1331,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-12T09:48:32Z",
+      "side": 1,
+      "message": "Since this is the only caller, just putting the logic here ?\n\n    try {\n        assertEquals(\"onUpstreamChanged for test network\", mUpstreamTracker.getNetwork(), mTetheringEventCallback.awaitUpstreamChanged());\n    } catch (TimeoutException e) {\n        retryTestedUpstreamChanged(mUpstreamTracker.getNetwork());\n    }",
+      "range": {
+        "startLine": 1331,
+        "startChar": 8,
+        "endLine": 1331,
+        "endChar": 63
+      },
+      "revId": "d300e02abe1a8b3fb8e7282e6dd8a0610438cd27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
