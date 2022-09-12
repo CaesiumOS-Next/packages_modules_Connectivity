@@ -16,6 +16,24 @@
       "message": "Please add ref bug to the CL",
       "revId": "907d938eac1ba721cc7074bd5ccbea6c90654311",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff1ccc7d_9635f540",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-12T05:39:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fbc14ba_468799ab",
+      "revId": "907d938eac1ba721cc7074bd5ccbea6c90654311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
