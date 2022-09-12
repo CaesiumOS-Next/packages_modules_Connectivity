@@ -22,6 +22,30 @@
       },
       "revId": "68d7330e9fa97f7aa49b875d8f9dd4e720528aa0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee361073_f24e421b",
+        "filename": "service-t/src/com/android/server/net/BpfInterfaceMapUpdater.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-09-12T08:51:08Z",
+      "side": 1,
+      "message": "Added BpfDump#dumpMapStatus in aosp/2198217\nUpdated NetworkStatsService to use BpfDump#dumpMapStatus in aosp/2213158",
+      "parentUuid": "06310a69_3a0dd9a9",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 5
+      },
+      "revId": "68d7330e9fa97f7aa49b875d8f9dd4e720528aa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
