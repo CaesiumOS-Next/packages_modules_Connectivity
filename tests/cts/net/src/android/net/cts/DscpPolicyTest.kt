@@ -184,7 +184,11 @@ class DscpPolicyTest {
     @After
     fun tearDown() {
         if (!kernelIsAtLeast(5, 15)) {
+<<<<<<< HEAD   (ab32bf Merge "Check automotive system feature on Constructor")
             return
+=======
+            return;
+>>>>>>> BRANCH (f8dbbd DscpPolicy Move to kernel 5.15)
         }
         raResponder.stop()
         arpResponder.stop()
