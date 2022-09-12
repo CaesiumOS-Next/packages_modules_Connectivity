@@ -87,7 +87,7 @@ public class EthernetNetworkFactoryTest {
     private NetworkRequest mRequestToKeepNetworkUp;
     @Mock private Context mContext;
     @Mock private Resources mResources;
-    @Mock private EthernetNetworkFactory.Dependencies mDeps;
+    @Mock private EthernetTracker.Dependencies mDeps;
     @Mock private IpClientManager mIpClient;
     @Mock private EthernetNetworkAgent mNetworkAgent;
     @Mock private InterfaceParams mInterfaceParams;
