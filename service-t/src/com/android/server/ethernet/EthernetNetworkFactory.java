@@ -20,7 +20,6 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.net.ConnectivityResources;
 import android.net.EthernetManager;
 import android.net.EthernetNetworkSpecifier;
 import android.net.IpConfiguration;
@@ -35,21 +34,17 @@ import android.net.NetworkScore;
 import android.net.ip.IIpClient;
 import android.net.ip.IpClientCallbacks;
 import android.net.ip.IpClientManager;
-import android.net.ip.IpClientUtil;
 import android.net.shared.ProvisioningConfiguration;
 import android.os.ConditionVariable;
 import android.os.Handler;
-import android.os.Looper;
 import android.text.TextUtils;
 import android.util.AndroidRuntimeException;
 import android.util.ArraySet;
 import android.util.Log;
 import android.util.SparseArray;
 
-import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
-import com.android.net.module.util.InterfaceParams;
 
 import java.io.FileDescriptor;
 import java.util.Objects;
@@ -72,32 +67,8 @@ public class EthernetNetworkFactory {
     private final Handler mHandler;
     private final Context mContext;
     private final NetworkProvider mProvider;
-    final Dependencies mDeps;
+    final EthernetTracker.Dependencies mDeps;
 
-    public static class Dependencies {
-        public void makeIpClient(Context context, String iface, IpClientCallbacks callbacks) {
-            IpClientUtil.makeIpClient(context, iface, callbacks);
-        }
-
-        public IpClientManager makeIpClientManager(@NonNull final IIpClient ipClient) {
-            return new IpClientManager(ipClient, TAG);
-        }
-
-        public EthernetNetworkAgent makeEthernetNetworkAgent(Context context, Looper looper,
-                NetworkCapabilities nc, LinkProperties lp, NetworkAgentConfig config,
-                NetworkProvider provider, EthernetNetworkAgent.Callbacks cb) {
-            return new EthernetNetworkAgent(context, looper, nc, lp, config, provider, cb);
-        }
-
-        public InterfaceParams getNetworkInterfaceByName(String name) {
-            return InterfaceParams.getByName(name);
-        }
-
-        public String getTcpBufferSizesFromResource(Context context) {
-            final ConnectivityResources resources = new ConnectivityResources(context);
-            return resources.get().getString(R.string.config_ethernet_tcp_buffers);
-        }
-    }
 
     public static class ConfigurationException extends AndroidRuntimeException {
         public ConfigurationException(String msg) {
@@ -105,13 +76,8 @@ public class EthernetNetworkFactory {
         }
     }
 
-    public EthernetNetworkFactory(Handler handler, Context context, NetworkProvider provider) {
-        this(handler, context, provider, new Dependencies());
-    }
-
-    @VisibleForTesting
-    EthernetNetworkFactory(Handler handler, Context context, NetworkProvider provider,
-            Dependencies deps) {
+    public EthernetNetworkFactory(Handler handler, Context context, NetworkProvider provider,
+            EthernetTracker.Dependencies deps) {
         mHandler = handler;
         mContext = context;
         mProvider = provider;
@@ -257,7 +223,7 @@ public class EthernetNetworkFactory {
         private final Handler mHandler;
         private final Context mContext;
         private final NetworkProvider mNetworkProvider;
-        private final Dependencies mDeps;
+        private final EthernetTracker.Dependencies mDeps;
         private NetworkProvider.NetworkOfferCallback mNetworkOfferCallback;
 
         private static String sTcpBufferSizes = null;  // Lazy initialized.
@@ -404,7 +370,7 @@ public class EthernetNetworkFactory {
 
         NetworkInterfaceState(String ifaceName, String hwAddress, Handler handler, Context context,
                 @NonNull IpConfiguration ipConfig, @NonNull NetworkCapabilities capabilities,
-                NetworkProvider networkProvider, Dependencies deps) {
+                NetworkProvider networkProvider, EthernetTracker.Dependencies deps) {
             name = ifaceName;
             mIpConfig = Objects.requireNonNull(ipConfig);
             mCapabilities = Objects.requireNonNull(capabilities);
