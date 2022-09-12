@@ -18,9 +18,11 @@ package com.android.server;
 
 import static android.net.ConnectivityManager.NETID_UNSET;
 import static android.net.nsd.NsdManager.MDNS_SERVICE_EVENT;
+import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.INetd;
 import android.net.LinkProperties;
@@ -36,6 +38,7 @@ import android.net.nsd.INsdServiceConnector;
 import android.net.nsd.MDnsManager;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
+import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -50,7 +53,11 @@ import android.util.SparseIntArray;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.State;
 import com.android.internal.util.StateMachine;
+import com.android.net.module.util.DeviceConfigUtils;
 import com.android.net.module.util.PermissionUtils;
+import com.android.server.connectivity.mdns.ExecutorProvider;
+import com.android.server.connectivity.mdns.MdnsDiscoveryManager;
+import com.android.server.connectivity.mdns.MdnsSocketManager;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -69,6 +76,7 @@ import java.util.HashMap;
 public class NsdService extends INsdManager.Stub {
     private static final String TAG = "NsdService";
     private static final String MDNS_TAG = "mDnsConnector";
+    private static final String MDNS_DISCOVERY_MANAGER = "mdns_discovery_manager";
 
     private static final boolean DBG = Log.isLoggable(TAG, Log.DEBUG);
     private static final long CLEANUP_DELAY_MS = 10000;
@@ -78,6 +86,9 @@ public class NsdService extends INsdManager.Stub {
     private final NsdStateMachine mNsdStateMachine;
     private final MDnsManager mMDnsManager;
     private final MDnsEventCallback mMDnsEventCallback;
+    private final MdnsSocketManager mMdnsSocketManager;
+    private final MdnsDiscoveryManager mMdnsDiscoveryManager;
+    private final boolean mMdnsDiscoveryManagerEnabled;
     // WARNING : Accessing this value in any thread is not safe, it must only be changed in the
     // state machine thread. If change this outside state machine, it will need to introduce
     // synchronization.
@@ -648,14 +659,31 @@ public class NsdService extends INsdManager.Stub {
         return sb.toString();
     }
 
-    @VisibleForTesting
     NsdService(Context ctx, Handler handler, long cleanupDelayMs) {
+        this(ctx, handler, cleanupDelayMs, new Dependencies());
+    }
+
+    @VisibleForTesting
+    NsdService(Context ctx, Handler handler, long cleanupDelayMs, Dependencies deps) {
         mCleanupDelayMs = cleanupDelayMs;
         mContext = ctx;
         mNsdStateMachine = new NsdStateMachine(TAG, handler);
         mNsdStateMachine.start();
         mMDnsManager = ctx.getSystemService(MDnsManager.class);
         mMDnsEventCallback = new MDnsEventCallback(mNsdStateMachine);
+        mMdnsDiscoveryManagerEnabled = deps.isMdnsDiscoveryManagerEnabled(ctx);
+        if (mMdnsDiscoveryManagerEnabled) {
+            final WifiManager.MulticastLock multicastLock =
+                    ctx.getSystemService(WifiManager.class).createMulticastLock(TAG);
+            multicastLock.setReferenceCounted(false);
+            mMdnsSocketManager = new MdnsSocketManager(ctx, multicastLock);
+            mMdnsDiscoveryManager =
+                    new MdnsDiscoveryManager(new ExecutorProvider(), mMdnsSocketManager);
+            mMdnsSocketManager.setCallback(mMdnsDiscoveryManager);
+        } else {
+            mMdnsSocketManager = null;
+            mMdnsDiscoveryManager = null;
+        }
     }
 
     public static NsdService create(Context context) {
@@ -664,6 +692,25 @@ public class NsdService extends INsdManager.Stub {
         Handler handler = new Handler(thread.getLooper());
         NsdService service = new NsdService(context, handler, CLEANUP_DELAY_MS);
         return service;
+    }
+
+    /**
+     * Dependencies of NsdService, for injection in tests.
+     */
+    @VisibleForTesting
+    public static class Dependencies {
+        /**
+         * Check whether or not MdnsDiscoveryManager feature is enabled.
+         * @param context The global context information about an app environment.
+         * @return true if MdnsDiscoveryManager feature is enabled and device supports Wi-Fi,
+         *         or false otherwise.
+         */
+        public boolean isMdnsDiscoveryManagerEnabled(Context context) {
+            return DeviceConfigUtils.isFeatureEnabled(context, NAMESPACE_CONNECTIVITY,
+                    MDNS_DISCOVERY_MANAGER, false /* defaultEnabled */)
+                    // Can't create MulticastLock for MdnsDM if device don't support Wi-Fi.
+                    && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI);
+        }
     }
 
     private static class MDnsEventCallback extends IMDnsEventListener.Stub {
