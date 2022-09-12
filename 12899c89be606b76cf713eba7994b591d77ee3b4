@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6fce11c_5fe22d08",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-12T09:11:00Z",
+      "side": 1,
+      "message": "If the problem is cuttlefish take more times, how about just adding below check ? I think the problem only happen before T, right ?\n\n    private boolean isInterfaceForTetheringAvailable() throws Exception {\n        if (!atLeastT()) return runAsShell(CONNECTIVITY_USE_RESTRICTED_NETWORKS, mEm.isAvailable());\n        ....\n    }",
+      "range": {
+        "startLine": 315,
+        "startChar": 20,
+        "endLine": 315,
+        "endChar": 52
+      },
+      "revId": "12899c89be606b76cf713eba7994b591d77ee3b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
