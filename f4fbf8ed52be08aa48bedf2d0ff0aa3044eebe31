@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f27ed39e_7c2b2e21",
+        "filename": "tests/unit/java/android/app/usage/NetworkStatsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-12T06:58:16Z",
+      "side": 1,
+      "message": "For NetworkTemplate NetworkStatsHistory, I\u0027ll prefer the original way since it is more clear where the constants come from.\nBut no strong opinion.\n\n+jchalard@ to input what should be the coding style guideline here.",
+      "range": {
+        "startLine": 259,
+        "startChar": 69,
+        "endLine": 259,
+        "endChar": 81
+      },
+      "revId": "f4fbf8ed52be08aa48bedf2d0ff0aa3044eebe31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
