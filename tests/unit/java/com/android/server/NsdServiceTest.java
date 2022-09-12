@@ -18,6 +18,8 @@ package com.android.server;
 
 import static android.net.nsd.NsdManager.FAILURE_INTERNAL_ERROR;
 
+import static com.android.testutils.ContextUtils.mockService;
+
 import static libcore.junit.util.compat.CoreCompatChangeRule.DisableCompatChanges;
 import static libcore.junit.util.compat.CoreCompatChangeRule.EnableCompatChanges;
 
@@ -56,6 +58,7 @@ import android.net.nsd.NsdManager.DiscoveryListener;
 import android.net.nsd.NsdManager.RegistrationListener;
 import android.net.nsd.NsdManager.ResolveListener;
 import android.net.nsd.NsdServiceInfo;
+import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
@@ -112,6 +115,8 @@ public class NsdServiceTest {
     @Mock Context mContext;
     @Mock ContentResolver mResolver;
     @Mock MDnsManager mMockMDnsM;
+    @Mock WifiManager mWifiManager;
+    @Mock WifiManager.MulticastLock mLock;
     HandlerThread mThread;
     TestHandler mHandler;
     NsdService mService;
@@ -133,12 +138,15 @@ public class NsdServiceTest {
         mThread.start();
         mHandler = new TestHandler(mThread.getLooper());
         when(mContext.getContentResolver()).thenReturn(mResolver);
-        doReturn(MDnsManager.MDNS_SERVICE).when(mContext)
-                .getSystemServiceName(MDnsManager.class);
-        doReturn(mMockMDnsM).when(mContext).getSystemService(MDnsManager.MDNS_SERVICE);
+        mockService(mContext, MDnsManager.class, MDnsManager.MDNS_SERVICE, mMockMDnsM);
+        mockService(mContext, WifiManager.class, Context.WIFI_SERVICE, mWifiManager);
         if (mContext.getSystemService(MDnsManager.class) == null) {
             // Test is using mockito-extended
             doCallRealMethod().when(mContext).getSystemService(MDnsManager.class);
+        }
+        if (mContext.getSystemService(WifiManager.class) == null) {
+            // Test is using mockito-extended
+            doCallRealMethod().when(mContext).getSystemService(WifiManager.class);
         }
         doReturn(true).when(mMockMDnsM).registerService(
                 anyInt(), anyString(), anyString(), anyInt(), any(), anyInt());
@@ -146,6 +154,7 @@ public class NsdServiceTest {
         doReturn(true).when(mMockMDnsM).discover(anyInt(), anyString(), anyInt());
         doReturn(true).when(mMockMDnsM).resolve(
                 anyInt(), anyString(), anyString(), anyString(), anyInt());
+        doReturn(mLock).when(mWifiManager).createMulticastLock(anyString());
 
         mService = makeService();
     }
