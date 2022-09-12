@@ -35,11 +35,18 @@ import android.net.IpConfiguration;
 import android.net.IpConfiguration.IpAssignment;
 import android.net.IpConfiguration.ProxySettings;
 import android.net.LinkAddress;
+import android.net.LinkProperties;
+import android.net.NetworkAgentConfig;
 import android.net.NetworkCapabilities;
 import android.net.NetworkProvider;
 import android.net.StaticIpConfiguration;
+import android.net.ip.IIpClient;
+import android.net.ip.IpClientCallbacks;
+import android.net.ip.IpClientManager;
+import android.net.ip.IpClientUtil;
 import android.os.ConditionVariable;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
@@ -48,8 +55,10 @@ import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.Log;
 
+import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
+import com.android.net.module.util.InterfaceParams;
 import com.android.net.module.util.NetdUtils;
 import com.android.net.module.util.PermissionUtils;
 import com.android.net.module.util.SharedLog;
@@ -117,6 +126,7 @@ public class EthernetTracker {
     private final Context mContext;
     private final INetd mNetd;
     private final Handler mHandler;
+    private final NetworkProvider mProvider;
     private final EthernetNetworkFactory mFactory;
     private final EthernetConfigStore mConfigStore;
     private final NetlinkMonitor mNetlinkMonitor;
@@ -156,6 +166,38 @@ public class EthernetTracker {
             final ConnectivityResources resources = new ConnectivityResources(context);
             return resources.get().getStringArray(
                     com.android.connectivity.resources.R.array.config_ethernet_interfaces);
+        }
+
+        public void makeIpClient(Context context, String iface, IpClientCallbacks callbacks) {
+            IpClientUtil.makeIpClient(context, iface, callbacks);
+        }
+
+        public IpClientManager makeIpClientManager(@NonNull final IIpClient ipClient) {
+            return new IpClientManager(ipClient, TAG);
+        }
+
+        public EthernetNetworkAgent makeEthernetNetworkAgent(Context context, Looper looper,
+                NetworkCapabilities nc, LinkProperties lp, NetworkAgentConfig config,
+                NetworkProvider provider, EthernetNetworkAgent.Callbacks cb) {
+            return new EthernetNetworkAgent(context, looper, nc, lp, config, provider, cb);
+        }
+
+        public InterfaceParams getNetworkInterfaceByName(String name) {
+            return InterfaceParams.getByName(name);
+        }
+
+        public String getTcpBufferSizesFromResource(Context context) {
+            final ConnectivityResources resources = new ConnectivityResources(context);
+            return resources.get().getString(R.string.config_ethernet_tcp_buffers);
+        }
+
+        public NetworkProvider makeNetworkProvider(Context context, Looper looper) {
+            return new NetworkProvider(context, looper, TAG);
+        }
+
+        public EthernetNetworkFactory makeNetworkFactory(Handler handler, Context context,
+                NetworkProvider provider) {
+            return new EthernetNetworkFactory(handler, context, provider, this);
         }
     }
 
@@ -224,19 +266,18 @@ public class EthernetTracker {
 
     EthernetTracker(@NonNull final Context context, @NonNull final Handler handler,
             @NonNull final INetd netd) {
-        this(context, handler, new EthernetNetworkFactory(handler, context,
-                new NetworkProvider(context, handler.getLooper(), TAG)), netd, new Dependencies());
+        this(context, handler, netd, new Dependencies());
     }
 
     @VisibleForTesting
     EthernetTracker(@NonNull final Context context, @NonNull final Handler handler,
-            @NonNull final EthernetNetworkFactory factory, @NonNull final INetd netd,
-            @NonNull final Dependencies deps) {
+            @NonNull final INetd netd, @NonNull final Dependencies deps) {
         mContext = context;
         mHandler = handler;
-        mFactory = factory;
         mNetd = netd;
         mDeps = deps;
+        mProvider = mDeps.makeNetworkProvider(context, handler.getLooper());
+        mFactory = mDeps.makeNetworkFactory(handler, context, mProvider);
 
         // Interface match regex.
         mIfaceMatch = mDeps.getInterfaceRegexFromResource(mContext);
