@@ -36,6 +36,7 @@ import android.net.nsd.INsdServiceConnector;
 import android.net.nsd.MDnsManager;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
+import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -51,6 +52,9 @@ import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.State;
 import com.android.internal.util.StateMachine;
 import com.android.net.module.util.PermissionUtils;
+import com.android.server.connectivity.mdns.ExecutorProvider;
+import com.android.server.connectivity.mdns.MdnsDiscoveryManager;
+import com.android.server.connectivity.mdns.MdnsSocketClient;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -78,6 +82,9 @@ public class NsdService extends INsdManager.Stub {
     private final NsdStateMachine mNsdStateMachine;
     private final MDnsManager mMDnsManager;
     private final MDnsEventCallback mMDnsEventCallback;
+    private final ExecutorProvider mExecutorProvider;
+    private final MdnsSocketClient mMdnsSocketClient;
+    private final MdnsDiscoveryManager mMdnsDiscoveryManager;
     // WARNING : Accessing this value in any thread is not safe, it must only be changed in the
     // state machine thread. If change this outside state machine, it will need to introduce
     // synchronization.
@@ -656,6 +663,13 @@ public class NsdService extends INsdManager.Stub {
         mNsdStateMachine.start();
         mMDnsManager = ctx.getSystemService(MDnsManager.class);
         mMDnsEventCallback = new MDnsEventCallback(mNsdStateMachine);
+        final WifiManager wifiManager = ctx.getSystemService(WifiManager.class);
+        final WifiManager.MulticastLock multicastLock = wifiManager.createMulticastLock(TAG);
+        multicastLock.setReferenceCounted(false);
+        mExecutorProvider = new ExecutorProvider();
+        mMdnsSocketClient = new MdnsSocketClient(ctx, multicastLock);
+        mMdnsDiscoveryManager = new MdnsDiscoveryManager(mExecutorProvider, mMdnsSocketClient);
+        mMdnsSocketClient.setCallback(mMdnsDiscoveryManager);
     }
 
     public static NsdService create(Context context) {
