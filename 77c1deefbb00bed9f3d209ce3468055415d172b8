@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80d89c8e_ef6b5059",
+        "filename": "tests/unit/java/android/net/Ikev2VpnProfileTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-09-13T06:15:47Z",
+      "side": 1,
+      "message": "Do we have any tests to make sure the serialization/deserialization handles this case correctly? I see we convert it from Ikev2VpnProfile back to VpnProfile, but do we ever convert it to our disk-stable format? If not, please add on the read-from-disk path as well.",
+      "range": {
+        "startLine": 458,
+        "startChar": 54,
+        "endLine": 458,
+        "endChar": 66
+      },
+      "revId": "77c1deefbb00bed9f3d209ce3468055415d172b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
