@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b91eb31f_66bc3c5b",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-13T09:14:46Z",
+      "side": 1,
+      "message": "Maybe just says why we could use isAvailable before T.\n\nBefore T, all ethernet interfaces could be used for server mode. Instead of waiting timeout, just checking whether the system currently has any ethernet interface is more reliable.",
+      "range": {
+        "startLine": 316,
+        "startChar": 8,
+        "endLine": 319,
+        "endChar": 70
+      },
+      "revId": "f3769738559c40894bdd64af9fe54972a43f51de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
