@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5fdc229c_d537f68a",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-09-13T18:24:31Z",
+      "side": 1,
+      "message": "\u003e But is it OK to call maybeTrackInterface on an interface that already existed, but was not being tracked by the factory and was not the default interface? I think the old code never did this?\n\nI believe so. First off, we *should* never be in that situation to begin with, except when a) ethernet is disabled or when b) RTM_NEWLINK messages were missed (due to ENOBUFS for instance).\na) is covered by ignoring all messages in processNetlinkMessage() when ethernet is disabled.\nb) if an RTM_NEWLINK message was missed, calling maybeTrackInterface() on the next RTM_NEWLINK should be an improvement over the old code.\n\nI guess there is a third possibility of callbacks coming in just before trackAvailableInterfaces() runs. But even in that case, calling maybeTrackInterface() and updateInterfaceState() multiple times is safe.",
+      "parentUuid": "ba30c920_048fb3db",
+      "range": {
+        "startLine": 168,
+        "startChar": 16,
+        "endLine": 168,
+        "endChar": 83
+      },
+      "revId": "734f24e6d719f91b676338cedca9ab9d7ceabb07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "86bdd22c_56f70653",
         "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
         "patchSetId": 6
