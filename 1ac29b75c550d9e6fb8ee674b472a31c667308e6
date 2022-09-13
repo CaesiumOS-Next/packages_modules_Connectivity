@@ -140,6 +140,30 @@
       },
       "revId": "1ac29b75c550d9e6fb8ee674b472a31c667308e6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf78b32b_58464872",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4196,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-13T08:24:14Z",
+      "side": 1,
+      "message": "Well, no, it actually needed the wait. Done.",
+      "parentUuid": "d2258544_9fd22957",
+      "range": {
+        "startLine": 4196,
+        "startChar": 8,
+        "endLine": 4196,
+        "endChar": 36
+      },
+      "revId": "1ac29b75c550d9e6fb8ee674b472a31c667308e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
