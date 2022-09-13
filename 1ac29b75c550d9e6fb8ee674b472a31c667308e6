@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d10f5193_cbadfd10",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3552,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-13T05:17:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe91c371_3d871e2c",
+      "range": {
+        "startLine": 3552,
+        "startChar": 67,
+        "endLine": 3552,
+        "endChar": 74
+      },
+      "revId": "1ac29b75c550d9e6fb8ee674b472a31c667308e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "114a248d_e6757cee",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a57cd7c_01426ba2",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3713,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-13T05:17:01Z",
+      "side": 1,
+      "message": "Sure but it\u0027s really unrelated to this patch. I think I\u0027ll want to do this as part of a separate cleanup, so added a TODO",
+      "parentUuid": "114a248d_e6757cee",
+      "range": {
+        "startLine": 3713,
+        "startChar": 26,
+        "endLine": 3713,
+        "endChar": 37
+      },
+      "revId": "1ac29b75c550d9e6fb8ee674b472a31c667308e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7325d8c7_c1ab66b0",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-09-09T06:18:18Z",
       "side": 1,
       "message": "Nit: why add this? If you do need to wait, why not use waitForIdle?",
+      "range": {
+        "startLine": 4196,
+        "startChar": 8,
+        "endLine": 4196,
+        "endChar": 36
+      },
+      "revId": "1ac29b75c550d9e6fb8ee674b472a31c667308e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2258544_9fd22957",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4196,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-13T05:17:01Z",
+      "side": 1,
+      "message": "It was in the original patch and I didn\u0027t notice it was not necessary. Removed.",
+      "parentUuid": "7325d8c7_c1ab66b0",
       "range": {
         "startLine": 4196,
         "startChar": 8,
