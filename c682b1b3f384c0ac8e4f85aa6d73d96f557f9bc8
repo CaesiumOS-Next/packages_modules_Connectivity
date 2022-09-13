@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30146bf9_f5bae8f2",
+        "filename": "service/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1061164
+      },
+      "writtenOn": "2022-09-13T14:44:30Z",
+      "side": 1,
+      "message": "won\u0027t be needed if we submit r.android.com/2205635? or we\u0027ll need to revert this line?",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 31
+      },
+      "revId": "c682b1b3f384c0ac8e4f85aa6d73d96f557f9bc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1dbd8dd_13b8acce",
+        "filename": "service/proguard.flags",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1061164
+      },
+      "writtenOn": "2022-09-13T14:44:30Z",
+      "side": 1,
+      "message": "what is a service? The things below look errorprone. Why do we need to keep these? Can we instead have @Keep at the class level?",
+      "range": {
+        "startLine": 7,
+        "startChar": 11,
+        "endLine": 7,
+        "endChar": 19
+      },
+      "revId": "c682b1b3f384c0ac8e4f85aa6d73d96f557f9bc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
