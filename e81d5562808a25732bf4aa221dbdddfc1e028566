@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40a18839_cf465648",
+        "filename": "tests/common/java/android/net/metrics/IpConnectivityLogTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-09-13T06:29:43Z",
+      "side": 1,
+      "message": "Nit: Could you have some comments here to explain why we need to do this? so that other people can easily understand why we need to do so instead of checking the number count only.",
+      "range": {
+        "startLine": 110,
+        "startChar": 8,
+        "endLine": 110,
+        "endChar": 9
+      },
+      "revId": "e81d5562808a25732bf4aa221dbdddfc1e028566",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca28f6f5_f829f810",
+        "filename": "tests/common/java/android/net/metrics/IpConnectivityLogTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-09-13T06:29:43Z",
+      "side": 1,
+      "message": "Nit: 200L",
+      "range": {
+        "startLine": 111,
+        "startChar": 24,
+        "endLine": 111,
+        "endChar": 27
+      },
+      "revId": "e81d5562808a25732bf4aa221dbdddfc1e028566",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
