@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d2da716_d7e1db48",
+        "filename": "service/src/com/android/server/connectivity/NetworkRanker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-13T11:21:15Z",
+      "side": 1,
+      "message": "No ; this returns whether the candidate passed is a preferred bad wifi. \"should\" sounds like this returns whether bad wifi should be preferred to cell generally, I think. Added javadoc to clarify.",
+      "parentUuid": "16fec517_c3c53072",
+      "range": {
+        "startLine": 149,
+        "startChar": 42,
+        "endLine": 149,
+        "endChar": 60
+      },
+      "revId": "d11b25a670f8bd80468c1c1b66d29a2ebe0a239c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f8e7ff2_b64da198",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2670bf9a_73a10787",
+        "filename": "service/src/com/android/server/connectivity/NetworkRanker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-13T11:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f8e7ff2_b64da198",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 83
+      },
+      "revId": "d11b25a670f8bd80468c1c1b66d29a2ebe0a239c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9032b722_2a29dfed",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-09-08T08:07:09Z",
       "side": 1,
       "message": "Might want to mention that any network that is passed into this function must be currently unvalidated.",
+      "range": {
+        "startLine": 169,
+        "startChar": 28,
+        "endLine": 169,
+        "endChar": 29
+      },
+      "revId": "d11b25a670f8bd80468c1c1b66d29a2ebe0a239c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f5cb06b_a8c798b5",
+        "filename": "service/src/com/android/server/connectivity/NetworkRanker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-13T11:21:15Z",
+      "side": 1,
+      "message": "I opted to have the code also check for that instead. It\u0027s true that the code only passes unvalidated networks here, but checking should be cheap and it\u0027s a lot less surprising to future callers, if any.",
+      "parentUuid": "9032b722_2a29dfed",
       "range": {
         "startLine": 169,
         "startChar": 28,
