@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6b98324_75e7df08",
+        "filename": "tests/common/java/android/net/metrics/IpConnectivityLogTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-09-13T07:18:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40a18839_cf465648",
+      "range": {
+        "startLine": 110,
+        "startChar": 8,
+        "endLine": 110,
+        "endChar": 9
+      },
+      "revId": "e81d5562808a25732bf4aa221dbdddfc1e028566",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca28f6f5_f829f810",
@@ -60,6 +84,54 @@
       "writtenOn": "2022-09-13T06:49:23Z",
       "side": 1,
       "message": "As discussed this won\u0027t fix the flake if the first thread takes more than 200ms; maybe use 10s instead ? If the problem is that some threads take more time, that would be appropriate.",
+      "range": {
+        "startLine": 111,
+        "startChar": 24,
+        "endLine": 111,
+        "endChar": 27
+      },
+      "revId": "e81d5562808a25732bf4aa221dbdddfc1e028566",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "856d2f00_1226a3e2",
+        "filename": "tests/common/java/android/net/metrics/IpConnectivityLogTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-09-13T07:18:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c25dd63_01734d69",
+      "range": {
+        "startLine": 111,
+        "startChar": 24,
+        "endLine": 111,
+        "endChar": 27
+      },
+      "revId": "e81d5562808a25732bf4aa221dbdddfc1e028566",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec06f973_46116c80",
+        "filename": "tests/common/java/android/net/metrics/IpConnectivityLogTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-09-13T07:18:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca28f6f5_f829f810",
       "range": {
         "startLine": 111,
         "startChar": 24,
