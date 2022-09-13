@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc575039_309f16e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-13T15:38:57Z",
+      "side": 1,
+      "message": "Only nits.",
+      "revId": "4ac8a2ef00a2f18d18610d5e00f596e55c462ce7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d791e331_d7a467b7",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1275,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-13T15:38:57Z",
+      "side": 1,
+      "message": "awaitUpstreamChanged is rename to maybeRetryTestedUpstreamChanged. Remove this or rename to more reasonable name ?",
+      "range": {
+        "startLine": 1275,
+        "startChar": 28,
+        "endLine": 1275,
+        "endChar": 50
+      },
+      "revId": "4ac8a2ef00a2f18d18610d5e00f596e55c462ce7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6489086_2add1530",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1315,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-13T15:38:57Z",
+      "side": 1,
+      "message": "I think below assert is clear enough for checking whether we got expected test network. Remove this ?",
+      "range": {
+        "startLine": 1313,
+        "startChar": 12,
+        "endLine": 1315,
+        "endChar": 32
+      },
+      "revId": "4ac8a2ef00a2f18d18610d5e00f596e55c462ce7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92384dc3_02e01eb0",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1321,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-13T15:38:57Z",
+      "side": 1,
+      "message": "// Due to race condition inside tethering module, test network may not be selected as tethering upstream. Force tethering retry upstream if possible. If it is not possible to retry, fail the test with the original timeout exception.",
+      "range": {
+        "startLine": 1320,
+        "startChar": 12,
+        "endLine": 1321,
+        "endChar": 51
+      },
+      "revId": "4ac8a2ef00a2f18d18610d5e00f596e55c462ce7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
