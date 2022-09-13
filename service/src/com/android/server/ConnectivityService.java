@@ -5209,6 +5209,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return true;
         }
 
+        // If the network has no internet access, it is wifi, and wifi avoidance setting says to
+        // actively prefer bad wifi, don't prompt just yet : it will be done later,
+        // {@see handleInitialEvaluationTimedOut}.
+        if (0L == nai.getFirstEvaluationConcludedTime()
+                && nai.networkCapabilities.hasTransport(TRANSPORT_WIFI)
+                && activelyPreferBadWifi()) {
+            return false;
+        }
+
         // If a network has no Internet access, only prompt if the network was explicitly selected
         // and if the user has not already told us to use the network regardless of whether it
         // validated or not.
@@ -5232,6 +5241,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // network was found not to have Internet access.
             nai.updateScoreForNetworkAgentUpdate();
             rematchAllNetworksAndRequests();
+
+            // Also, if this is WiFi and it should be preferred actively, now is the time to
+            // prompt the user that they walked past and connected to a bad WiFi.
+            if (nai.networkCapabilities.hasTransport(TRANSPORT_WIFI)
+                    && !avoidBadWifi()
+                    && activelyPreferBadWifi()) {
+                // The notification will be removed if the network validates or disconnects.
+                showNetworkNotification(nai, NotificationType.LOST_INTERNET);
+                return;
+            }
         }
 
         if (!shouldPromptUnvalidated(nai)) return;
@@ -5241,6 +5260,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // cannot use that network except through the notification shown by this method, and the
         // notification is only shown if the network is explicitly selected by the user.
         nai.onPreventAutomaticReconnect();
+        // Now that the user has been prompted, the network can be considered evaluated once.
+        nai.setEvaluated();
 
         if (nai.partialConnectivity()) {
             showNetworkNotification(nai, NotificationType.PARTIAL_CONNECTIVITY);
