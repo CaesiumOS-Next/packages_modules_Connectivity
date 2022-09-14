@@ -366,6 +366,7 @@ import com.android.server.connectivity.CarrierPrivilegeAuthenticator;
 import com.android.server.connectivity.ClatCoordinator;
 import com.android.server.connectivity.ConnectivityFlags;
 import com.android.server.connectivity.MultinetworkPolicyTracker;
+import com.android.server.connectivity.MultinetworkPolicyTrackerTestDependencies;
 import com.android.server.connectivity.Nat464Xlat;
 import com.android.server.connectivity.NetworkAgentInfo;
 import com.android.server.connectivity.NetworkNotificationManager;
@@ -1633,12 +1634,7 @@ public class ConnectivityServiceTest {
         volatile int mConfigMeteredMultipathPreference;
 
         WrappedMultinetworkPolicyTracker(Context c, Handler h, Runnable r) {
-            super(c, h, r);
-        }
-
-        @Override
-        protected Resources getResourcesForActiveSubId() {
-            return mResources;
+            super(c, h, r, new MultinetworkPolicyTrackerTestDependencies(mResources));
         }
 
         @Override
@@ -1772,6 +1768,7 @@ public class ConnectivityServiceTest {
         mServiceContext.setPermission(CONTROL_OEM_PAID_NETWORK_PREFERENCE, PERMISSION_GRANTED);
         mServiceContext.setPermission(PACKET_KEEPALIVE_OFFLOAD, PERMISSION_GRANTED);
         mServiceContext.setPermission(CONNECTIVITY_USE_RESTRICTED_NETWORKS, PERMISSION_GRANTED);
+        mServiceContext.setPermission(READ_DEVICE_CONFIG, PERMISSION_GRANTED);
 
         mAlarmManagerThread = new HandlerThread("TestAlarmManager");
         mAlarmManagerThread.start();
