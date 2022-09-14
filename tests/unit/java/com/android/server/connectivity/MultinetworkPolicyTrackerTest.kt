@@ -16,6 +16,7 @@
 
 package com.android.server.connectivity
 
+import android.Manifest.permission.READ_DEVICE_CONFIG
 import android.content.Context
 import android.content.res.Resources
 import android.net.ConnectivityManager.MULTIPATH_PREFERENCE_HANDOVER
@@ -38,6 +39,7 @@ import com.android.internal.util.test.FakeSettingsProvider
 import com.android.modules.utils.build.SdkLevel
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
+import com.android.testutils.runAsShell
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -47,8 +49,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers.anyInt
-import org.mockito.ArgumentMatchers.argThat
-import org.mockito.ArgumentMatchers.eq
 import org.mockito.Mockito.any
 import org.mockito.Mockito.doCallRealMethod
 import org.mockito.Mockito.doReturn
@@ -93,7 +93,9 @@ class MultinetworkPolicyTrackerTest {
         ConnectivityResources.setResourcesContextForTest(it)
     }
     private val handler = mock(Handler::class.java)
-    private val tracker = MultinetworkPolicyTracker(context, handler)
+    private val tracker = runAsShell(READ_DEVICE_CONFIG) {
+        MultinetworkPolicyTracker(context, handler, null /* avoidBadWifiCallback */)
+    }
 
     private fun assertMultipathPreference(preference: Int) {
         Settings.Global.putString(resolver, NETWORK_METERED_MULTIPATH_PREFERENCE,
@@ -165,16 +167,14 @@ class MultinetworkPolicyTrackerTest {
         Settings.Global.putString(resolver, NETWORK_METERED_MULTIPATH_PREFERENCE,
                 MULTIPATH_PREFERENCE_PERFORMANCE.toString())
 
+        assertTrue(tracker.avoidBadWifi)
+
         val listenerCaptor = ArgumentCaptor.forClass(
                 ActiveDataSubscriptionIdListener::class.java)
         verify(telephonyManager, times(1))
                 .registerTelephonyCallback(any(), listenerCaptor.capture())
         val listener = listenerCaptor.value
         listener.onActiveDataSubscriptionIdChanged(testSubId)
-
-        // Check it get resource value with test sub id.
-        verify(subscriptionManager, times(1)).getActiveSubscriptionInfo(testSubId)
-        verify(context).createConfigurationContext(argThat { it.mcc == 310 && it.mnc == 210 })
 
         // Check if avoidBadWifi and meteredMultipathPreference values have been updated.
         assertFalse(tracker.avoidBadWifi)
