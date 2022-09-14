@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3a9d247_11c01125",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-14T09:20:17Z",
+      "side": 1,
+      "message": "Implemented : you can see it in patchset 10. I think it\u0027s not as good.\n\nThe main problem is the complexity arising from interactions between the new meaning of the resource and the NETWORK_AVOID_BAD_WIFI setting. See my documentation for it :\n\n    [description of behavior for -1 and 1]\n    If this is 0, starting with Android U, the behavior is the same as -1. On Android\n    T and below, the behavior is similar to -1, with the exception that the device\n    will not aggressively use a broken Wi-Fi network when connecting to it. It will,\n    however, stay connected to a Wi-Fi network that loses Internet access, even if\n    cellular connectivity is available.\n\n    Note that the Settings.Global.NETWORK_AVOID_BAD_WIFI can be used to override the\n    value of this setting to some extent.\n    If that setting has value NETWORK_AVOID_BAD_WIFI_IGNORE \u003d 0, then the device will\n    prefer bad Wi-Fis to good cellular ; whether it aggressively switches to it\n    depends on the value of this setting (1 behaves like 0).\n    [more on the two other options]\n\nSo now the config matters even if the setting is present, and setting\u003dIGNORE and config\u003dAVOID has to mean something, and that in turn must depend on the SDK level, so 🤯\n\nI chose to revert this to the original design of having a separate config.",
+      "parentUuid": "4bb0d99c_2c84785f",
+      "range": {
+        "startLine": 100,
+        "startChar": 40,
+        "endLine": 100,
+        "endChar": 68
+      },
+      "revId": "4b15da346d20e86b975bd201fe2678e9d8e3ba11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7686a7d_87bfda51",
@@ -71,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f8e1bc3_acc2d4dc",
+        "filename": "service/src/com/android/server/connectivity/NetworkRanker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-14T09:20:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7686a7d_87bfda51",
+      "range": {
+        "startLine": 75,
+        "startChar": 11,
+        "endLine": 75,
+        "endChar": 93
+      },
+      "revId": "4b15da346d20e86b975bd201fe2678e9d8e3ba11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c442f11_f6e7626a",
@@ -84,6 +132,30 @@
       "writtenOn": "2022-09-08T06:01:29Z",
       "side": 1,
       "message": "The fact that this is final suggests that this behaviour cannot be changed at runtime without a reboot. That seems fine for production code, though presumably it will need to be modifiable for testing purposes.",
+      "range": {
+        "startLine": 87,
+        "startChar": 12,
+        "endLine": 87,
+        "endChar": 17
+      },
+      "revId": "4b15da346d20e86b975bd201fe2678e9d8e3ba11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c8c116e_3f5705db",
+        "filename": "service/src/com/android/server/connectivity/NetworkRanker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-14T09:20:17Z",
+      "side": 1,
+      "message": "A future patch will remove final here, together with adding some threading guarantees.",
+      "parentUuid": "6c442f11_f6e7626a",
       "range": {
         "startLine": 87,
         "startChar": 12,
