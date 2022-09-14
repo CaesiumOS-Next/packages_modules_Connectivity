@@ -32,6 +32,7 @@ import android.net.ConnectivityResources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
+import android.provider.DeviceConfig;
 import android.provider.Settings;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyCallback;
@@ -41,6 +42,7 @@ import android.util.Log;
 import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.module.util.DeviceConfigUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -66,6 +68,8 @@ import java.util.concurrent.RejectedExecutionException;
  */
 public class MultinetworkPolicyTracker {
     private static String TAG = MultinetworkPolicyTracker.class.getSimpleName();
+
+    private static final String CONFIG_ACTIVELY_PREFER_BAD_WIFI = "actively_prefer_bad_wifi";
 
     private final Context mContext;
     private final ConnectivityResources mResources;
@@ -145,15 +149,20 @@ public class MultinetworkPolicyTracker {
                 Settings.Global.getUriFor(NETWORK_METERED_MULTIPATH_PREFERENCE));
         mResolver = mContext.getContentResolver();
         mSettingObserver = new SettingObserver();
+        final Executor handlerExecutor = new HandlerExecutor(handler);
         mBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 reevaluateInternal();
             }
         };
-
         ctx.getSystemService(TelephonyManager.class).registerTelephonyCallback(
-                new HandlerExecutor(handler), new ActiveDataSubscriptionIdListener());
+                handlerExecutor, new ActiveDataSubscriptionIdListener());
+
+        DeviceConfig.addOnPropertiesChangedListener(
+                DeviceConfig.NAMESPACE_CONNECTIVITY,
+                handlerExecutor,
+                properties -> reevaluateInternal());
 
         updateAvoidBadWifi();
         updateMeteredMultipathPreference();
@@ -253,6 +262,30 @@ public class MultinetworkPolicyTracker {
         return Settings.Global.getString(mResolver, NETWORK_AVOID_BAD_WIFI);
     }
 
+    /**
+     * Returns whether device config says the device should actively prefer bad wifi.
+     *
+     * {@see #configActivelyPrefersBadWifi} for a description of what this does. This device
+     * config overrides that config overlay.
+     *
+     * @return True on Android U and above.
+     *         True if device config says to actively prefer bad wifi.
+     *         False if device config says not to actively prefer bad wifi.
+     *         null if device config doesn't have an opinion (then fall back on the resource).
+     */
+    public Boolean deviceConfigActivelyPreferBadWifi() {
+        if (SdkLevel.isAtLeastU()) return true;
+        switch (DeviceConfigUtils.getDeviceConfigPropertyInt(DeviceConfig.NAMESPACE_CONNECTIVITY,
+                CONFIG_ACTIVELY_PREFER_BAD_WIFI, 0)) {
+            case 1:
+                return Boolean.TRUE;
+            case -1:
+                return Boolean.FALSE;
+            default:
+                return null;
+        }
+    }
+
     @VisibleForTesting
     public void reevaluate() {
         mHandler.post(this::reevaluateInternal);
@@ -274,7 +307,12 @@ public class MultinetworkPolicyTracker {
         mAvoidBadWifi = settingAvoidBadWifi || !configRestrictsAvoidBadWifi();
 
         final boolean prevActive = mActivelyPreferBadWifi;
-        mActivelyPreferBadWifi = configActivelyPrefersBadWifi();
+        final Boolean deviceConfigPreferBadWifi = deviceConfigActivelyPreferBadWifi();
+        if (null == deviceConfigPreferBadWifi) {
+            mActivelyPreferBadWifi = configActivelyPrefersBadWifi();
+        } else {
+            mActivelyPreferBadWifi = deviceConfigPreferBadWifi;
+        }
 
         return mAvoidBadWifi != prevAvoid || mActivelyPreferBadWifi != prevActive;
     }
