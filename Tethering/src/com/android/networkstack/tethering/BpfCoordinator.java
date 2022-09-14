@@ -49,6 +49,7 @@ import android.system.OsConstants;
 import android.text.TextUtils;
 import android.util.ArraySet;
 import android.util.Log;
+import android.util.Pair;
 import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
@@ -72,6 +73,8 @@ import com.android.net.module.util.bpf.TetherStatsKey;
 import com.android.net.module.util.bpf.TetherStatsValue;
 import com.android.net.module.util.ip.ConntrackMonitor;
 import com.android.net.module.util.ip.ConntrackMonitor.ConntrackEventConsumer;
+import com.android.net.module.util.ip.IpNeighborMonitor;
+import com.android.net.module.util.ip.IpNeighborMonitor.NeighborEvent;
 import com.android.net.module.util.netlink.ConntrackMessage;
 import com.android.net.module.util.netlink.NetlinkConstants;
 import com.android.net.module.util.netlink.NetlinkSocket;
@@ -172,6 +175,10 @@ public class BpfCoordinator {
     private final BpfCoordinatorShim mBpfCoordinatorShim;
     @NonNull
     private final BpfConntrackEventConsumer mBpfConntrackEventConsumer;
+    @NonNull
+    private final IpNeighborMonitor mIpNeighborMonitor;
+    @NonNull
+    private final BpfNeighborEventConsumer mBpfNeighborEventConsumer;
 
     // True if BPF offload is supported, false otherwise. The BPF offload could be disabled by
     // a runtime resource overlay package or device configuration. This flag is only initialized
@@ -246,6 +253,14 @@ public class BpfCoordinator {
     // Set for which downstream is monitoring the conntrack netlink message.
     private final Set<IpServer> mMonitoringIpServers = new HashSet<>();
 
+    // Map of downstream to IPv6 upstream interface index and name.
+    // Each map:
+    // - Is owned by the IpServer that is responsible for that downstream.
+    // - Must only be modified by that IpServer.
+    // - Is created when the IpServer is notified adding IPv6 upstream, and deleted when the
+    //   IpServer is notified deleting IPv6 upstream.
+    private final HashMap<IpServer, Pair<Integer, String>> mIpv6UpstreamIfaces = new HashMap<>();
+
     // Map of upstream interface IPv4 address to interface index.
     // TODO: consider making the key to be unique because the upstream address is not unique. It
     // is okay for now because there have only one upstream generally.
@@ -296,6 +311,12 @@ public class BpfCoordinator {
         /** Get conntrack monitor. */
         @NonNull public ConntrackMonitor getConntrackMonitor(ConntrackEventConsumer consumer) {
             return new ConntrackMonitor(getHandler(), getSharedLog(), consumer);
+        }
+
+        /** Create an IpNeighborMonitor */
+        public IpNeighborMonitor getIpNeighborMonitor(
+                IpNeighborMonitor.NeighborEventConsumer consumer) {
+            return new IpNeighborMonitor(getHandler(), getSharedLog(), consumer);
         }
 
         /** Get interface information for a given interface. */
@@ -419,6 +440,8 @@ public class BpfCoordinator {
         // mocked for testing.
         mBpfConntrackEventConsumer = new BpfConntrackEventConsumer();
         mConntrackMonitor = mDeps.getConntrackMonitor(mBpfConntrackEventConsumer);
+        mBpfNeighborEventConsumer = new BpfNeighborEventConsumer();
+        mIpNeighborMonitor = mDeps.getIpNeighborMonitor(mBpfNeighborEventConsumer);
 
         BpfTetherStatsProvider provider = new BpfTetherStatsProvider();
         try {
@@ -436,6 +459,9 @@ public class BpfCoordinator {
         if (!mBpfCoordinatorShim.isInitialized()) {
             mLog.e("Bpf shim not initialized");
         }
+
+        mLog.w("[DEBUG] BpfCoordinator ctor" 
+                + " @" + Integer.toHexString(System.identityHashCode(this)));  // debug 
     }
 
     /**
@@ -489,7 +515,13 @@ public class BpfCoordinator {
     }
 
     /**
-     * Start conntrack message monitoring.
+     * Start conntrack message monitoring and IP neighbor monitor monitoring.
+     *
+     * IP neighbor monitor monitors the neighbor events for adding/removing IPv6 offload
+     * forwarding rules per client. If BPF offload is not supported, don't start listening
+     * for neighbor events. See updateIpv6ForwardingRules, addIpv6ForwardingRule,
+     * removeIpv6ForwardingRule.
+     *
      * Note that this can be only called on handler thread.
      *
      * TODO: figure out a better logging for non-interesting conntrack message.
@@ -522,10 +554,21 @@ public class BpfCoordinator {
 
         if (mMonitoringIpServers.isEmpty()) {
             mConntrackMonitor.start();
+            mIpNeighborMonitor.start();
             mLog.i("Monitoring started");
         }
 
+        //+debug
+        mLog.i("[DEBUG] +Monitoring add ipserver: @" + Integer.toHexString(System.identityHashCode(ipServer)) + ", " + ipServer);
+        mLog.w("[DEBUG] Monitoring at BpfCoordinator " 
+                + " @" + Integer.toHexString(System.identityHashCode(this)));  // debug 
+        //-debug
         mMonitoringIpServers.add(ipServer);
+        //+debug
+        for (IpServer ip : mMonitoringIpServers) {
+            mLog.i("[DEBUG] -Monitoring add ipserver: @" + Integer.toHexString(System.identityHashCode(ip)) + ", " + ip);
+        }
+        //-debug
     }
 
     /**
@@ -541,6 +584,8 @@ public class BpfCoordinator {
         if (!mMonitoringIpServers.isEmpty()) return;
 
         mConntrackMonitor.stop();
+        mIpNeighborMonitor.stop();
+
         mLog.i("Monitoring stopped");
     }
 
@@ -556,6 +601,13 @@ public class BpfCoordinator {
         // TODO: Perhaps avoid to add a duplicate rule.
         if (!mBpfCoordinatorShim.tetherOffloadRuleAdd(rule)) return;
 
+        mLog.w("[DEBUG] tetherOffloadRuleAdd rule: " + rule + ", ipServer " + ipServer 
+                + " @" + Integer.toHexString(System.identityHashCode(ipServer)));  // debug
+        mLog.w("[DEBUG] tetherOffloadRuleAdd rule " + rule.upstreamIfindex + ", " 
+        + rule.downstreamIfindex + ", " + rule.address + ", " + rule.srcMac + ", " + rule.dstMac); // debug
+        mLog.w("[DEBUG] tetherOffloadRuleAdd at BpfCoordinator " 
+                + " @" + Integer.toHexString(System.identityHashCode(this)));  // debug 
+ 
         if (!mIpv6ForwardingRules.containsKey(ipServer)) {
             mIpv6ForwardingRules.put(ipServer, new LinkedHashMap<Inet6Address,
                     Ipv6ForwardingRule>());
@@ -605,6 +657,8 @@ public class BpfCoordinator {
         // removed already.
         if (rules.remove(rule.address) == null) return;
 
+        mLog.w("[DEBUG] tetherOffloadRuleRemove rule: " + rule);  // debug
+
         // Remove the downstream entry if it has no more rule.
         if (rules.isEmpty()) {
             mIpv6ForwardingRules.remove(ipServer);
@@ -637,6 +691,7 @@ public class BpfCoordinator {
                 ipServer);
         if (rules == null) return;
 
+        mLog.w("[DEBUG] tetherOffloadRuleClear ipServer: " + ipServer);  // debug
         // Need to build a rule list because the rule map may be changed in the iteration.
         for (final Ipv6ForwardingRule rule : new ArrayList<Ipv6ForwardingRule>(rules.values())) {
             tetherOffloadRuleRemove(ipServer, rule);
@@ -654,6 +709,7 @@ public class BpfCoordinator {
                 ipServer);
         if (rules == null) return;
 
+        mLog.w("[DEBUG] tetherOffloadRuleClear ipServer: " + ipServer);  // debug
         // Need to build a rule list because the rule map may be changed in the iteration.
         // First remove all the old rules, then add all the new rules. This is because the upstream
         // forwarding code in tetherOffloadRuleAdd cannot support rules on two upstreams at the
@@ -687,6 +743,11 @@ public class BpfCoordinator {
         if (upstreamIfindex == 0 || TextUtils.isEmpty(upstreamIface)) return;
 
         if (isVcnInterface(upstreamIface)) return;
+
+        mLog.w("[DEBUG] addUpstreamNameToLookupTable at BpfCoordinator " 
+                + " @" + Integer.toHexString(System.identityHashCode(this))
+                + ", upstreamIfindex " + upstreamIfindex
+                + ", upstreamIface " + upstreamIface);  // debug 
 
         // The same interface index to name mapping may be added by different IpServer objects or
         // re-added by reconnection on the same upstream interface. Ignore the duplicate one.
@@ -1020,6 +1081,15 @@ public class BpfCoordinator {
             pw.println("<empty>");
         } else {
             pw.println(mTetherClients.toString());
+        }
+        pw.decreaseIndent();
+
+        pw.println("IPv6 Upstream Indices:");
+        pw.increaseIndent();
+        if (mIpv6UpstreamIfaces.isEmpty()) {
+            pw.println("<empty>");
+        } else {
+            pw.println(mIpv6UpstreamIfaces.toString());
         }
         pw.decreaseIndent();
 
@@ -1751,6 +1821,146 @@ public class BpfCoordinator {
             maybeSetLimit(upstreamIndex);
             mBpfCoordinatorShim.tetherOffloadRuleAdd(UPSTREAM, upstream4Key, upstream4Value);
             mBpfCoordinatorShim.tetherOffloadRuleAdd(DOWNSTREAM, downstream4Key, downstream4Value);
+        }
+    }
+
+    @Nullable
+    private IpServer getIpServerByInterfaceIndex(int ifIndex) {
+        for (final IpServer ipServer : mMonitoringIpServers) {
+            final InterfaceParams params = ipServer.getInterfaceParams();
+             mLog.w("[DEBUG] getIpServerByInterfaceIndex params: " + params + ", ifIndex " + ifIndex);  // debug
+            if (params == null) continue;
+            if (params.index == ifIndex) return ipServer;
+        }
+        return null;
+    }
+
+    @VisibleForTesting
+    public class BpfNeighborEventConsumer implements IpNeighborMonitor.NeighborEventConsumer {
+        public void accept(NeighborEvent e) {
+            mLog.w("[DEBUG] BpfNeighborEventConsumer e: " + e);  // debug
+            mLog.w("[DEBUG] BpfNeighborEventConsumer accept" 
+                    + " @" + Integer.toHexString(System.identityHashCode(this)));  // debug 
+
+            final IpServer ipServer = getIpServerByInterfaceIndex(e.ifindex);
+            mLog.w("[DEBUG] BpfNeighborEventConsumer ipserver: " + ipServer);  // debug
+            if (ipServer == null) return;
+
+            // IpServer InterfaceParams is guaranteed non-null and has the same interface index as
+            // neighbor event because #getIpServerByInterfaceIndex uses them to find IpServer.
+            final InterfaceParams interfaceParams = ipServer.getInterfaceParams();
+            mLog.w("[DEBUG] BpfNeighborEventConsumer interfaceParams: " + interfaceParams);  // debug
+            if (!interfaceParams.hasMacAddress) return;
+
+            //int lastIPv6UpstreamIfindex = ipServer.getLastIPv6UpstreamIfindex();
+            //String lastIPv6UpstreamIface = mInterfaceNames.get(lastIPv6UpstreamIfindex);
+            //if (lastIPv6UpstreamIface == null) return;
+            // 
+            final Pair<Integer, String> upstreamIndexIfacePair = mIpv6UpstreamIfaces.get(ipServer);
+            mLog.w("[DEBUG] BpfNeighborEventConsumer upstreamIndexIfacePair: " + upstreamIndexIfacePair);  // debug
+            if (upstreamIndexIfacePair == null) return;
+
+            final int upstreamIndex = upstreamIndexIfacePair != null ? upstreamIndexIfacePair.first : 0;
+            final String upstreamIface = upstreamIndexIfacePair != null ? upstreamIndexIfacePair.second : null;  // debug
+    
+            mLog.w("[DEBUG] updateIpv6UpstreamAndForwardingRules upstreamIndex: " + upstreamIndex + ", upstreamIface: " + upstreamIface);  // debug
+
+            //mLog.w("[DEBUG] BpfNeighborEventConsumer lastIPv6UpstreamIfindex: " + lastIPv6UpstreamIfindex);  // debug
+            updateIpv6ForwardingRules(ipServer, upstreamIndex, upstreamIndex, upstreamIface, e);
+        }
+    }
+
+    // Handles all updates to IPv6 forwarding rules. These can currently change only if the upstream
+    // changes or if a neighbor event is received.
+    private void updateIpv6ForwardingRules(@NonNull final IpServer ipServer,
+            int prevUpstreamIfindex, int upstreamIfindex, @Nullable String upstreamIface, @Nullable NeighborEvent e) {
+        mLog.w("[DEBUG] updateIpv6ForwardingRules ipServer: " + ipServer + ", prevUpstreamIfindex " + prevUpstreamIfindex + ", upstreamIfindex " + upstreamIfindex + ", e " + e);  // debug
+        mLog.w("[DEBUG] updateIpv6ForwardingRules BpfCoordinator " 
+                + " @" + Integer.toHexString(System.identityHashCode(this)));  // debug 
+        // If no longer have an upstream or it is virtual network, clear forwarding rules and do
+        // nothing else.
+        // TODO: Rather than always clear rules, ensure whether ipv6 ever enable first.
+        if (upstreamIfindex == 0 || (upstreamIface != null && isVcnInterface(upstreamIface))) {
+            tetherOffloadRuleClear(ipServer);
+            return;
+        }
+
+        // If the upstream interface has changed, remove all rules and re-add them with the new
+        // upstream interface.
+        if (prevUpstreamIfindex != upstreamIfindex) {
+            tetherOffloadRuleUpdate(ipServer, upstreamIfindex);
+        }
+
+        // If we're here to process a NeighborEvent, do so now.
+        // IpServer InterfaceParams must be non-null or the event would not have arrived.
+        if (e == null) return;
+        if (!(e.ip instanceof Inet6Address) || e.ip.isMulticastAddress()
+                || e.ip.isLoopbackAddress() || e.ip.isLinkLocalAddress()) {
+            return;
+        }
+
+        final InterfaceParams interfaceParams = ipServer.getInterfaceParams();
+        if (interfaceParams == null) return;
+
+        final Pair<Integer, String> upstreamIndexIfacePair = mIpv6UpstreamIfaces.get(ipServer);
+        if (upstreamIndexIfacePair == null) return;
+
+        // When deleting rules, we still need to pass a non-null MAC, even though it's ignored.
+        // Do this here instead of in the Ipv6ForwardingRule constructor to ensure that we never
+        // add rules with a null MAC, only delete them.
+        MacAddress dstMac = e.isValid() ? e.macAddr : NULL_MAC_ADDRESS;
+        Ipv6ForwardingRule rule = new Ipv6ForwardingRule(
+                upstreamIndexIfacePair.first /* upstreamIfindex */, interfaceParams.index,
+                (Inet6Address) e.ip, interfaceParams.macAddr, dstMac);
+        if (e.isValid()) {
+            tetherOffloadRuleAdd(ipServer, rule);
+        } else {
+            tetherOffloadRuleRemove(ipServer, rule);
+        }
+    }
+
+    /**
+     * Add IPv6 upstream interface per IpServer.
+     */
+    private void addUpstreamIpv6(@NonNull final IpServer ipServer,
+            @NonNull final Pair<Integer, String> ifacePair) {
+        mLog.w("[DEBUG] addUpstreamIpv6 ipServer: " + ipServer);  // debug
+        mIpv6UpstreamIfaces.put(ipServer, ifacePair);
+    }
+
+    /**
+     * Remove IPv6 upstream interface per IpServer. This can be called by IpServer only.
+     */
+    public void removeUpstreamIpv6(@NonNull final IpServer ipServer) {
+        if (!isUsingBpf()) return;
+
+        final Pair<Integer, String> upstreamIndexIfacePair = mIpv6UpstreamIfaces.get(ipServer);
+        if (upstreamIndexIfacePair == null) return;
+
+         mLog.w("[DEBUG] removeUpstreamIpv6 ipServer: " + ipServer);  // debug
+         mIpv6UpstreamIfaces.remove(ipServer);
+    }
+
+    /**
+     * Update IPv6 upstream interface per IpServer. This can be called by IpServer only.
+     */
+    public void updateUpstreamIpv6(@NonNull final IpServer ipServer,
+            int currUpstreamIfindex, @Nullable String currUpstreamIface) {
+        if (!isUsingBpf()) return;
+
+        final Pair<Integer, String> upstreamIndexIfacePair = mIpv6UpstreamIfaces.get(ipServer);
+
+        // If the previous upstream interface is not found, treat the interface index as 0.
+        final int prevUpstreamIndex = (upstreamIndexIfacePair != null)
+                ? upstreamIndexIfacePair.first : 0;
+
+        mLog.w("[DEBUG] updateUpstreamIpv6 prevUpstreamIndex: " + prevUpstreamIndex + ",currUpstreamIfindex: " + currUpstreamIfindex + ", currUpstreamIface " + currUpstreamIface);  // debug
+        updateIpv6ForwardingRules(ipServer, prevUpstreamIndex, currUpstreamIfindex, currUpstreamIface, null);
+
+        if (currUpstreamIfindex == 0) {
+            removeUpstreamIpv6(ipServer);
+        } else {
+            addUpstreamIpv6(ipServer, new Pair<>(currUpstreamIfindex, currUpstreamIface));
         }
     }
 
