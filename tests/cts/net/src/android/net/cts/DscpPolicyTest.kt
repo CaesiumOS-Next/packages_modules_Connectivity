@@ -25,8 +25,13 @@ import android.net.InetAddresses
 import android.net.IpPrefix
 import android.net.LinkAddress
 import android.net.LinkProperties
+<<<<<<< HEAD   (1949d9 Merge "Revert "UpstreamNetworkMonitor: add NOTIFY_TEST_NETWO)
 import android.net.MacAddress
 import android.net.Network
+=======
+import android.net.Network
+import android.net.MacAddress
+>>>>>>> BRANCH (8a42c7 DscpPolicyTest: use tap instead of tun)
 import android.net.NetworkAgent
 import android.net.NetworkAgent.DSCP_POLICY_STATUS_DELETED
 import android.net.NetworkAgent.DSCP_POLICY_STATUS_SUCCESS
@@ -60,7 +65,10 @@ import android.util.Log
 import android.util.Range
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
+<<<<<<< HEAD   (1949d9 Merge "Revert "UpstreamNetworkMonitor: add NOTIFY_TEST_NETWO)
 import com.android.net.module.util.IpUtils
+=======
+>>>>>>> BRANCH (8a42c7 DscpPolicyTest: use tap instead of tun)
 import com.android.net.module.util.NetworkStackConstants.ETHER_TYPE_IPV4
 import com.android.net.module.util.NetworkStackConstants.ETHER_TYPE_IPV6
 import com.android.net.module.util.Struct
@@ -69,7 +77,13 @@ import com.android.testutils.ArpResponder
 import com.android.testutils.CompatUtil
 import com.android.testutils.ConnectivityModuleTest
 import com.android.testutils.DevSdkIgnoreRule
+<<<<<<< HEAD   (1949d9 Merge "Revert "UpstreamNetworkMonitor: add NOTIFY_TEST_NETWO)
 import com.android.testutils.RouterAdvertisementResponder
+=======
+import com.android.testutils.assertParcelingIsLossless
+import com.android.testutils.RouterAdvertisementResponder
+import com.android.testutils.runAsShell
+>>>>>>> BRANCH (8a42c7 DscpPolicyTest: use tap instead of tun)
 import com.android.testutils.SC_V2
 import com.android.testutils.TapPacketReader
 import com.android.testutils.TestableNetworkAgent
@@ -163,7 +177,12 @@ class DscpPolicyTest {
 
             // Only statically configure the IPv4 address; for IPv6, use the SLAAC generated
             // address.
+<<<<<<< HEAD   (1949d9 Merge "Revert "UpstreamNetworkMonitor: add NOTIFY_TEST_NETWO)
             iface = tnm.createTapInterface(arrayOf(LinkAddress(LOCAL_IPV4_ADDRESS, IP4_PREFIX_LEN)))
+=======
+            iface = tnm.createTapInterface(true /* disableIpv6ProvisioningDelay */,
+                    arrayOf(LinkAddress(LOCAL_IPV4_ADDRESS, IP4_PREFIX_LEN)))
+>>>>>>> BRANCH (8a42c7 DscpPolicyTest: use tap instead of tun)
             assertNotNull(iface)
         }
 
@@ -219,6 +238,7 @@ class DscpPolicyTest {
 
     private fun waitForGlobalIpv6Address(network: Network): Inet6Address {
         // Wait for global IPv6 address to be available
+<<<<<<< HEAD   (1949d9 Merge "Revert "UpstreamNetworkMonitor: add NOTIFY_TEST_NETWO)
         var inet6Addr: Inet6Address? = null
         val onLinkPrefix = raResponder.prefix
         val startTime = SystemClock.elapsedRealtime()
@@ -245,6 +265,35 @@ class DscpPolicyTest {
                 Os.close(sock)
             }
         }
+=======
+        val sock = Os.socket(AF_INET6, SOCK_DGRAM, IPPROTO_UDP)
+        network.bindSocket(sock)
+
+        var inet6Addr: Inet6Address? = null
+        val timeout = SystemClock.elapsedRealtime() + PACKET_TIMEOUT_MS
+        while (timeout > SystemClock.elapsedRealtime()) {
+            try {
+                // Pick any arbitrary port
+                Os.connect(sock, TEST_TARGET_IPV6_ADDR, 12345)
+                val sockAddr = Os.getsockname(sock) as InetSocketAddress
+
+                // TODO: make RouterAdvertisementResponder.SLAAC_PREFIX public and use it here,
+                // or make it configurable and configure it here.
+                if (IpPrefix("2001:db8::/64").contains(sockAddr.address)) {
+                    inet6Addr = sockAddr.address as Inet6Address
+                    break
+                }
+            } catch (e: ErrnoException) {
+                // ignore ENETUNREACH -- there may not be an address available yet.
+                if (e.errno != ENETUNREACH) {
+                    Os.close(sock)
+                    throw e
+                }
+            }
+            SystemClock.sleep(10 /* ms */)
+        }
+        Os.close(sock)
+>>>>>>> BRANCH (8a42c7 DscpPolicyTest: use tap instead of tun)
         assertNotNull(inet6Addr)
         return inet6Addr!!
     }
@@ -272,6 +321,10 @@ class DscpPolicyTest {
         val lp = LinkProperties().apply {
             addLinkAddress(LinkAddress(LOCAL_IPV4_ADDRESS, IP4_PREFIX_LEN))
             addRoute(RouteInfo(IpPrefix("0.0.0.0/0"), null, null))
+<<<<<<< HEAD   (1949d9 Merge "Revert "UpstreamNetworkMonitor: add NOTIFY_TEST_NETWO)
+=======
+            addRoute(RouteInfo(IpPrefix("::/0"), TEST_ROUTER_IPV6_ADDR))
+>>>>>>> BRANCH (8a42c7 DscpPolicyTest: use tap instead of tun)
             setInterfaceName(specifier)
         }
         val config = NetworkAgentConfig.Builder().build()
@@ -409,7 +462,10 @@ class DscpPolicyTest {
         val packets = generateSequence { reader.poll(PACKET_TIMEOUT_MS) }
         for (packet in packets) {
             val buffer = ByteBuffer.wrap(packet, 0, packet.size).order(ByteOrder.BIG_ENDIAN)
+<<<<<<< HEAD   (1949d9 Merge "Revert "UpstreamNetworkMonitor: add NOTIFY_TEST_NETWO)
 
+=======
+>>>>>>> BRANCH (8a42c7 DscpPolicyTest: use tap instead of tun)
             // TODO: consider using Struct.parse for all packet parsing.
             val etherHdr = Struct.parse(EthernetHeader::class.java, buffer)
             val expectedType = if (sendV6) ETHER_TYPE_IPV6 else ETHER_TYPE_IPV4
