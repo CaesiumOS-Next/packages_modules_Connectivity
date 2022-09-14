@@ -39,6 +39,30 @@
       },
       "revId": "4a8528cdd2dbbdbc97ec456022e6fdadf05591c5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e076a0f_398169f8",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-09-14T18:32:20Z",
+      "side": 1,
+      "message": "I started annotating tests that I think we should eventually try to move out of CTS. In this case, I actually don\u0027t think this behavior would ever break, but it\u0027s more testing the ethernet internals than it is testing any APIs. That being said, right now, we really don\u0027t have any other options but CTS. MTS isn\u0027t mandatory, and there is no good way (like a test annotation or similar) to share code between CTS and MTS yet.\nThe next CTS release isn\u0027t until U though, so we should have some time to figure this out.",
+      "parentUuid": "be71e120_2079aaa7",
+      "range": {
+        "startLine": 820,
+        "startChar": 7,
+        "endLine": 820,
+        "endChar": 24
+      },
+      "revId": "4a8528cdd2dbbdbc97ec456022e6fdadf05591c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
