@@ -85,13 +85,6 @@ public class EthernetNetworkFactory {
     }
 
     /**
-     * Registers the network provider with the system.
-     */
-    public void register() {
-        mContext.getSystemService(ConnectivityManager.class).registerNetworkProvider(mProvider);
-    }
-
-    /**
      * Returns an array of available interface names. The array is sorted: unrestricted interfaces
      * goes first, then sorted by name.
      */
