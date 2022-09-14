@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b5e3e8b_33d6d620",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1860,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-09-14T06:05:08Z",
+      "side": 1,
+      "message": "I don\u0027t see other SystemProperties mock. ISTM this and l.1851 can be removed.",
+      "range": {
+        "startLine": 1856,
+        "startChar": 8,
+        "endLine": 1860,
+        "endChar": 0
+      },
+      "revId": "ae5c565057755853bc5d4aa966df0bd781a3c215",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
