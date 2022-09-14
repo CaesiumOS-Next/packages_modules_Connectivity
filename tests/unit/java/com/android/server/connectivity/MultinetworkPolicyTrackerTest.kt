@@ -158,16 +158,14 @@ class MultinetworkPolicyTrackerTest {
         Settings.Global.putString(resolver, NETWORK_METERED_MULTIPATH_PREFERENCE,
                 MULTIPATH_PREFERENCE_PERFORMANCE.toString())
 
+        assertTrue(tracker.avoidBadWifi)
+
         val listenerCaptor = ArgumentCaptor.forClass(
                 ActiveDataSubscriptionIdListener::class.java)
         verify(telephonyManager, times(1))
                 .registerTelephonyCallback(any(), listenerCaptor.capture())
         val listener = listenerCaptor.value
         listener.onActiveDataSubscriptionIdChanged(testSubId)
-
-        // Check it get resource value with test sub id.
-        verify(subscriptionManager, times(1)).getActiveSubscriptionInfo(testSubId)
-        verify(context).createConfigurationContext(argThat { it.mcc == 310 && it.mnc == 210 })
 
         // Check if avoidBadWifi and meteredMultipathPreference values have been updated.
         assertFalse(tracker.avoidBadWifi)
