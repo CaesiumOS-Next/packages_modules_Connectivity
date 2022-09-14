@@ -16,6 +16,24 @@
       "message": "I think `EthernetManager#addInterfaceStateListener` has users.\nWe think no one depends on this behavior, right?",
       "revId": "47bf9c21529f1c1f1daf730b4f3a9f8a151cd018",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d7986d7_c685ac95",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-09-14T18:19:25Z",
+      "side": 0,
+      "message": "No one should, and this behavior is clearly wrong. I would expect a user of this API to react to state changes only, so the second callback is not very useful.\n\nI think for behavior that is clearly wrong and not very useful, we can just fix it. See aosp/2186061 for instance. Other things we might need to put behind an API barrier. For example: currently, all interface callbacks report ROLE_CLIENT for all interfaces that are tracked by the EthernetNetworkFactory. This is wrong -- we should report ROLE_NONE if an interface does not currently have an IpClient running. To apps, it\u0027s not that obvious that this is a bug, so they might rely on this behavior. I.e. someone may have a UI that lists all currently available ethernet interfaces and checks for ROLE_CLIENT to do so.",
+      "parentUuid": "da7fb980_6aa01e80",
+      "revId": "47bf9c21529f1c1f1daf730b4f3a9f8a151cd018",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
