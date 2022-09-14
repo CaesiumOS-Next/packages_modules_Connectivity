@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c61a5ec1_b65cc5d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-09-14T14:21:52Z",
+      "side": 1,
+      "message": "LGTM, if we are ok to put under cts",
+      "revId": "4a8528cdd2dbbdbc97ec456022e6fdadf05591c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be71e120_2079aaa7",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-09-14T14:21:52Z",
+      "side": 1,
+      "message": "Do we have a plan to change the behavior in a way that breaks this test?\nOnce this will be released as cts, I think it takes some time to change in a way that breaks test.\nIf we have a plan to change, it might be better not to put under cts.",
+      "range": {
+        "startLine": 820,
+        "startChar": 7,
+        "endLine": 820,
+        "endChar": 24
+      },
+      "revId": "4a8528cdd2dbbdbc97ec456022e6fdadf05591c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
