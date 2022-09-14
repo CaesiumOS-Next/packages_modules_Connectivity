@@ -5109,19 +5109,29 @@ public class ConnectivityService extends IConnectivityManager.Stub
         pw.println("Config restrict:   " + configRestrict);
         pw.println("Actively prefer:   " + activelyPreferBadWifi());
 
-        final String value = mMultinetworkPolicyTracker.getAvoidBadWifiSetting();
+        final String settingValue = mMultinetworkPolicyTracker.getAvoidBadWifiSetting();
         String description;
         // Can't use a switch statement because strings are legal case labels, but null is not.
-        if ("0".equals(value)) {
+        if ("0".equals(settingValue)) {
             description = "get stuck";
-        } else if (value == null) {
+        } else if (settingValue == null) {
             description = "prompt";
-        } else if ("1".equals(value)) {
+        } else if ("1".equals(settingValue)) {
             description = "avoid";
         } else {
-            description = value + " (?)";
+            description = settingValue + " (?)";
         }
-        pw.println("User setting:      " + description);
+        pw.println("Avoid b.w. setting:" + description);
+        final Boolean configValue = mMultinetworkPolicyTracker.deviceConfigActivelyPreferBadWifi();
+        if (null == configValue) {
+            description = "unset";
+        } else if (configValue) {
+            description = "force true";
+        } else {
+            description = "force false";
+        }
+        pw.println("Activ. prefer conf:" + description);
+        pw.println();
         pw.println("Network overrides:");
         pw.increaseIndent();
         for (NetworkAgentInfo nai : networksSortedById()) {
