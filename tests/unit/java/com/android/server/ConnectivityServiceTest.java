@@ -212,7 +212,6 @@ import android.app.AlarmManager;
 import android.app.AppOpsManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.UiAutomation;
 import android.app.admin.DevicePolicyManager;
 import android.app.usage.NetworkStatsManager;
 import android.content.BroadcastReceiver;
@@ -328,6 +327,7 @@ import android.os.SystemClock;
 import android.os.SystemConfigManager;
 import android.os.UserHandle;
 import android.os.UserManager;
+import android.provider.DeviceConfig;
 import android.provider.Settings;
 import android.security.Credentials;
 import android.system.Os;
@@ -575,9 +575,6 @@ public class ConnectivityServiceTest {
     @Mock BpfNetMaps mBpfNetMaps;
     @Mock CarrierPrivilegeAuthenticator mCarrierPrivilegeAuthenticator;
     @Mock TetheringManager mTetheringManager;
-
-    private UiAutomation mUiAutomation =
-            InstrumentationRegistry.getInstrumentation().getUiAutomation();
 
     // BatteryStatsManager is final and cannot be mocked with regular mockito, so just mock the
     // underlying binder calls.
@@ -1633,16 +1630,33 @@ public class ConnectivityServiceTest {
         return mService.getNetworkAgentInfoForNetwork(mna.getNetwork()).clatd;
     }
 
+    private class TestMPTDependencies extends MultinetworkPolicyTracker.Dependencies {
+        @Override
+        protected int getDeviceConfigPropertyInt(final String name, final int defaultValue) {
+            return runAsShell(READ_DEVICE_CONFIG, () ->
+                    super.getDeviceConfigPropertyInt(name, defaultValue));
+        }
+
+        @Override
+        protected void addOnDevicePropertiesChangedListener(
+                @NonNull final Executor executor,
+                @NonNull final DeviceConfig.OnPropertiesChangedListener listener) {
+            runAsShell(READ_DEVICE_CONFIG, () ->
+                    super.addOnDevicePropertiesChangedListener(executor, listener));
+        }
+
+        @Override
+        protected Resources getResourcesForActiveSubId(
+                @NonNull final ConnectivityResources resources, final int activeSubId) {
+            return mResources;
+        }
+    }
+
     private class WrappedMultinetworkPolicyTracker extends MultinetworkPolicyTracker {
         volatile int mConfigMeteredMultipathPreference;
 
         WrappedMultinetworkPolicyTracker(Context c, Handler h, Runnable r) {
-            super(c, h, r);
-        }
-
-        @Override
-        protected Resources getResourcesForActiveSubId() {
-            return mResources;
+            super(c, h, r, new TestMPTDependencies());
         }
 
         @Override
@@ -1776,6 +1790,7 @@ public class ConnectivityServiceTest {
         mServiceContext.setPermission(CONTROL_OEM_PAID_NETWORK_PREFERENCE, PERMISSION_GRANTED);
         mServiceContext.setPermission(PACKET_KEEPALIVE_OFFLOAD, PERMISSION_GRANTED);
         mServiceContext.setPermission(CONNECTIVITY_USE_RESTRICTED_NETWORKS, PERMISSION_GRANTED);
+        mServiceContext.setPermission(READ_DEVICE_CONFIG, PERMISSION_GRANTED);
 
         mAlarmManagerThread = new HandlerThread("TestAlarmManager");
         mAlarmManagerThread.start();
@@ -5803,17 +5818,11 @@ public class ConnectivityServiceTest {
 
     @Test
     public void testPreferBadWifi() throws Exception {
-        // Permanently adopt READ_DEVICE_CONFIG for the duration of the test, because some
-        // classes used by ConnectivityService need to read the device config at multiple points,
-        // making runAsShell unpractical. One such example is MultinetworkPolicyTracker, which
-        // reads in on the handler thread.
-        mUiAutomation.adoptShellPermissionIdentity(READ_DEVICE_CONFIG);
         if (!SdkLevel.isAtLeastU()) {
             // Starting with U this mode is no longer supported and can't actually be tested
             doTestPreferBadWifi(false /* preferBadWifi */);
         }
         doTestPreferBadWifi(true /* preferBadWifi */);
-        mUiAutomation.dropShellPermissionIdentity();
     }
 
     @Test
