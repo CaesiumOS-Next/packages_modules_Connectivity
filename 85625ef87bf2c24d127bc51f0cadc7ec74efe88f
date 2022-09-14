@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccf66d16_9af1d347",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-09-14T18:01:45Z",
+      "side": 1,
+      "message": "Note that right now, this check isn\u0027t necessary as when the second assumption holds true, isAdbOverEthernet() will always be false. That being said, making this assumption check explicit makes the test more readable (it should be safest to pair setEthernetEnabled(false) with assumeFalse(isAdbOverEthernet()) and it will become necessary in aosp/2193569 anyway.",
+      "range": {
+        "startLine": 581,
+        "startChar": 8,
+        "endLine": 581,
+        "endChar": 40
+      },
+      "revId": "85625ef87bf2c24d127bc51f0cadc7ec74efe88f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

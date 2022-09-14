@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "591226e1_6e8c413f",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-09-14T18:01:45Z",
+      "side": 1,
+      "message": "Agreed, let me leave a comment on isAdbOverNetwork(). isAdbOverNetwork() needs to be false in order to use setEthernetEnabled(false) -- otherwise we may disconnect adb while running the test.\n\nThe second assumption currently fails on cuttlefish (CF contains one restricted ethernet interface) and will be improved in aosp/2193569. In order to appropriately test the callbacks, I need to make sure the only callbacks received are from the interface that I create.\n\nI now wonder if isAdbOverNetwork() should also check for em.getInterfaceList().isEmpty() as if there is no ethernet interface available, adb is not connected over ethernet.",
+      "parentUuid": "8b53acd3_db206569",
+      "range": {
+        "startLine": 577,
+        "startChar": 0,
+        "endLine": 578,
+        "endChar": 51
+      },
+      "revId": "47bf9c21529f1c1f1daf730b4f3a9f8a151cd018",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a7d205c_798159ed",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-09-14T10:56:59Z",
       "side": 1,
       "message": "Nits: any reason not using `validateListenerOnRegistration`?",
+      "range": {
+        "startLine": 582,
+        "startChar": 0,
+        "endLine": 582,
+        "endChar": 68
+      },
+      "revId": "47bf9c21529f1c1f1daf730b4f3a9f8a151cd018",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5ed2bf9_f2009112",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-09-14T18:01:45Z",
+      "side": 1,
+      "message": "Yes, I want to get rid of validateListenerOnRegistration (it\u0027ll be done in aosp/2193569 as well).\nvalidateListenerOnRegistration is very hard to read and test failures in that function aren\u0027t immediately obvious. Plus, I prefer keeping test functionality inside the @Test method and not in a helper method to aid readability.\n\nFor this specific test, the callbacks that are being tested are really on lines 586, 589, and 590. I use eventuallyExpect() here to block the test until the listener is properly registered and to skip past all callbacks this test does not care about (the registration callbacks are already tested inside testCallbacks())",
+      "parentUuid": "8a7d205c_798159ed",
       "range": {
         "startLine": 582,
         "startChar": 0,
