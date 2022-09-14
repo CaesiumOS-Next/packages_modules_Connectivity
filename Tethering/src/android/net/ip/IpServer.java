@@ -378,6 +378,11 @@ public class IpServer extends StateMachine {
         return Collections.unmodifiableList(mDhcpLeases);
     }
 
+    /** Get the interface params which IpServer is using. */
+    public InterfaceParams getInterfaceParams() {
+        return mInterfaceParams;
+    }
+
     /** Stop this IpServer. After this is called this IpServer should not be used any more. */
     public void stop() {
         sendMessage(CMD_INTERFACE_DOWN);
@@ -700,6 +705,7 @@ public class IpServer extends StateMachine {
     private void stopIPv6() {
         mInterfaceParams = null;
         setRaParams(null);
+        mBpfCoordinator.removeIpv6UpstreamInterface(this);
 
         if (mRaDaemon != null) {
             mRaDaemon.stop();
@@ -772,7 +778,11 @@ public class IpServer extends StateMachine {
         // TODO: avoid this dependencies and move this logic into BpfCoordinator.
         mLastIPv6LinkProperties = v6only;
 
-        updateIpv6ForwardingRules(mLastIPv6UpstreamIfindex, upstreamIfIndex, null);
+        // Be aware that updateIpv6ForwardingRules use mLastIPv6LinkProperties, so this line should
+        // be eariler than changing mLastIPv6UpstreamIfindex.
+        // TODO: avoid this dependencies and remove the mLastIPv6UpstreamIfindex from IpServer.
+        mLog.w("[DEBUG] addIpv6UpstreamInterface upstreamIface " + upstreamIface + ", upstreamIfIndex " + upstreamIfIndex);
+        mBpfCoordinator.addIpv6UpstreamInterface(this, upstreamIfIndex, upstreamIface);
         mLastIPv6UpstreamIfindex = upstreamIfIndex;
         if (mDadProxy != null) {
             mDadProxy.setUpstreamIface(upstreamIfaceParams);
@@ -869,6 +879,7 @@ public class IpServer extends StateMachine {
         }
 
         try {
+            mLog.w("[DEBUG] configureLocalIPv6Dns tetherApplyDnsInterfaces ipServer: " + this);  // debug
             mNetd.tetherApplyDnsInterfaces();
         } catch (ServiceSpecificException | RemoteException e) {
             mLog.e("Failed to update local DNS caching server");
@@ -882,7 +893,7 @@ public class IpServer extends StateMachine {
         // TODO: Perhaps remove this protection check.
         if (!mUsingBpfOffload) return;
 
-        mBpfCoordinator.tetherOffloadRuleAdd(this, rule);
+        //mBpfCoordinator.tetherOffloadRuleAdd(this, rule);
     }
 
     private void removeIpv6ForwardingRule(Ipv6ForwardingRule rule) {
@@ -890,7 +901,7 @@ public class IpServer extends StateMachine {
         // See the related comment in #addIpv6ForwardingRule.
         if (!mUsingBpfOffload) return;
 
-        mBpfCoordinator.tetherOffloadRuleRemove(this, rule);
+        //mBpfCoordinator.tetherOffloadRuleRemove(this, rule);
     }
 
     private void clearIpv6ForwardingRules() {
@@ -904,7 +915,7 @@ public class IpServer extends StateMachine {
         // See the related comment in #addIpv6ForwardingRule.
         if (!mUsingBpfOffload) return;
 
-        mBpfCoordinator.tetherOffloadRuleUpdate(this, newIfindex);
+       // mBpfCoordinator.tetherOffloadRuleUpdate(this, newIfindex);
     }
 
     private boolean isIpv6VcnNetworkInterface() {
@@ -1021,6 +1032,7 @@ public class IpServer extends StateMachine {
         // listen on the interface configured with new IPv4 address, that results DNS validation
         // failure of downstream client even if appropriate routes have been configured.
         try {
+            mLog.w("[DEBUG] handleNewPrefixRequest tetherApplyDnsInterfaces ipServer: " + this);  // debug
             mNetd.tetherApplyDnsInterfaces();
         } catch (ServiceSpecificException | RemoteException e) {
             mLog.e("Failed to update local DNS caching server");
@@ -1068,6 +1080,7 @@ public class IpServer extends StateMachine {
             configureLocalIPv6Routes(deprecatedParams.prefixes,
                     (newParams != null) ? newParams.prefixes : null);
 
+            mLog.w("[DEBUG] setRaParams configureLocalIPv6Dns setRaParams: " + newParams);  // debug
             configureLocalIPv6Dns(deprecatedParams.dnses,
                     (newParams != null) ? newParams.dnses : null);
 
@@ -1156,18 +1169,18 @@ public class IpServer extends StateMachine {
         }
     }
 
-    private void startConntrackMonitoring() {
+    private void startMonitoring() {
         mBpfCoordinator.startMonitoring(this);
     }
 
-    private void stopConntrackMonitoring() {
+    private void stopMonitoring() {
         mBpfCoordinator.stopMonitoring(this);
     }
 
     class BaseServingState extends State {
         @Override
         public void enter() {
-            startConntrackMonitoring();
+            startMonitoring();
 
             if (!startIPv4()) {
                 mLastError = TetheringManager.TETHER_ERROR_IFACE_CFG_ERROR;
@@ -1204,7 +1217,7 @@ public class IpServer extends StateMachine {
             }
 
             stopIPv4();
-            stopConntrackMonitoring();
+            stopMonitoring();
 
             resetLinkProperties();
 
