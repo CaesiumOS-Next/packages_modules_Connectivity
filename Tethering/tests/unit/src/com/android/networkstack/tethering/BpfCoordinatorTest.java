@@ -105,6 +105,8 @@ import com.android.net.module.util.bpf.TetherStatsKey;
 import com.android.net.module.util.bpf.TetherStatsValue;
 import com.android.net.module.util.ip.ConntrackMonitor;
 import com.android.net.module.util.ip.ConntrackMonitor.ConntrackEventConsumer;
+import com.android.net.module.util.ip.IpNeighborMonitor;
+import com.android.net.module.util.ip.IpNeighborMonitor.NeighborEvent;
 import com.android.net.module.util.netlink.ConntrackMessage;
 import com.android.net.module.util.netlink.NetlinkConstants;
 import com.android.net.module.util.netlink.NetlinkSocket;
@@ -362,6 +364,7 @@ public class BpfCoordinatorTest {
     @Mock private IpServer mIpServer2;
     @Mock private TetheringConfiguration mTetherConfig;
     @Mock private ConntrackMonitor mConntrackMonitor;
+    @Mock private IpNeighborMonitor mIpNeighborMonitor;
     @Mock private IBpfMap<TetherDownstream6Key, Tether6Value> mBpfDownstream6Map;
     @Mock private IBpfMap<TetherUpstream6Key, Tether6Value> mBpfUpstream6Map;
     @Mock private IBpfMap<TetherDevKey, TetherDevValue> mBpfDevMap;
@@ -419,6 +422,12 @@ public class BpfCoordinatorTest {
                         return mConntrackMonitor;
                     }
 
+                    @NonNull
+                    public IpNeighborMonitor getIpNeighborMonitor(
+                            IpNeighborMonitor.NeighborEventConsumer consumer) {
+                        return mIpNeighborMonitor;
+                    }
+
                     public long elapsedRealtimeNanos() {
                         return mElapsedRealtimeNanos;
                     }
@@ -457,6 +466,12 @@ public class BpfCoordinatorTest {
                     public IBpfMap<TetherDevKey, TetherDevValue> getBpfDevMap() {
                         return mBpfDevMap;
                     }
+
+                    //Debug
+                    //public boolean isAtLeastS() {
+                    //    return false; // test R
+                    //}
+                    //debug
             });
 
     @Before public void setUp() {
@@ -1191,6 +1206,11 @@ public class BpfCoordinatorTest {
         rules = coordinator.getForwardingRulesForTesting().get(mIpServer);
         assertNotNull(rules);
         assertEquals(1, rules.size());
+
+        // The event monitoring can't be started.
+        coordinator.startMonitoring(mIpServer);
+        verify(mConntrackMonitor, never()).start();
+        verify(mIpNeighborMonitor, never()).start();
     }
 
     @Test
@@ -1406,44 +1426,59 @@ public class BpfCoordinatorTest {
 
     @Test
     @IgnoreUpTo(Build.VERSION_CODES.R)
-    public void testStartStopConntrackMonitoring() throws Exception {
+    public void testStartStopEventMonitoring() throws Exception {
         setupFunctioningNetdInterface();
 
         final BpfCoordinator coordinator = makeBpfCoordinator();
 
         // [1] Don't stop monitoring if it has never started.
         coordinator.stopMonitoring(mIpServer);
-        verify(mConntrackMonitor, never()).start();
+        verify(mConntrackMonitor, never()).stop();
+        verify(mIpNeighborMonitor, never()).stop();
 
         // [2] Start monitoring.
         coordinator.startMonitoring(mIpServer);
         verify(mConntrackMonitor).start();
-        clearInvocations(mConntrackMonitor);
+        verify(mIpNeighborMonitor).start();
+        clearInvocations(mConntrackMonitor, mIpNeighborMonitor);
 
         // [3] Stop monitoring.
         coordinator.stopMonitoring(mIpServer);
         verify(mConntrackMonitor).stop();
+        verify(mIpNeighborMonitor).stop();
     }
 
     @Test
     @IgnoreUpTo(Build.VERSION_CODES.Q)
     @IgnoreAfter(Build.VERSION_CODES.R)
     // Only run this test on Android R.
-    public void testStartStopConntrackMonitoring_R() throws Exception {
+    public void testStartStopEventMonitoring_R() throws Exception {
         setupFunctioningNetdInterface();
 
         final BpfCoordinator coordinator = makeBpfCoordinator();
 
-        coordinator.startMonitoring(mIpServer);
-        verify(mConntrackMonitor, never()).start();
-
+        // Conntrack monitor must no action in this test because it is only supported on S+ device.
+        // [1] Don't stop monitoring if it has never started.
         coordinator.stopMonitoring(mIpServer);
         verify(mConntrackMonitor, never()).stop();
+        verify(mIpNeighborMonitor, never()).stop();
+
+        // [2] Start monitoring.
+        coordinator.startMonitoring(mIpServer);
+        verify(mConntrackMonitor, never()).start();
+        verify(mIpNeighborMonitor).start();
+        clearInvocations(mConntrackMonitor, mIpNeighborMonitor);
+
+        // [3] Stop monitoring.
+        coordinator.stopMonitoring(mIpServer);
+        verify(mConntrackMonitor, never()).stop();
+        verify(mIpNeighborMonitor).stop();
     }
 
     @Test
     @IgnoreUpTo(Build.VERSION_CODES.R)
-    public void testStartStopConntrackMonitoringWithTwoDownstreamIfaces() throws Exception {
+    public void testStartStopEventMonitoringWithTwoDownstreamIfaces()
+            throws Exception {
         setupFunctioningNetdInterface();
 
         final BpfCoordinator coordinator = makeBpfCoordinator();
@@ -1451,19 +1486,56 @@ public class BpfCoordinatorTest {
         // [1] Start monitoring at the first IpServer adding.
         coordinator.startMonitoring(mIpServer);
         verify(mConntrackMonitor).start();
-        clearInvocations(mConntrackMonitor);
+        verify(mIpNeighborMonitor).start();
+        clearInvocations(mConntrackMonitor, mIpNeighborMonitor);
 
         // [2] Don't start monitoring at the second IpServer adding.
         coordinator.startMonitoring(mIpServer2);
         verify(mConntrackMonitor, never()).start();
+        verify(mIpNeighborMonitor, never()).start();
 
         // [3] Don't stop monitoring if any downstream interface exists.
         coordinator.stopMonitoring(mIpServer2);
         verify(mConntrackMonitor, never()).stop();
+        verify(mIpNeighborMonitor, never()).stop();
 
         // [4] Stop monitoring if no downstream exists.
         coordinator.stopMonitoring(mIpServer);
         verify(mConntrackMonitor).stop();
+        verify(mIpNeighborMonitor).stop();
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.Q)
+    @IgnoreAfter(Build.VERSION_CODES.R)
+    // Only run this test on Android R.
+    public void testStartStopEventMonitoringWithTwoDownstreamIfaces_R()
+            throws Exception {
+        setupFunctioningNetdInterface();
+
+        final BpfCoordinator coordinator = makeBpfCoordinator();
+
+        // Conntrack monitor must no action in this test because it is only supported on S+ device.
+        // [1] Start monitoring at the first IpServer adding.
+        coordinator.startMonitoring(mIpServer);
+        verify(mConntrackMonitor, never()).start();
+        verify(mIpNeighborMonitor).start();
+        clearInvocations(mIpNeighborMonitor);
+
+        // [2] Don't start monitoring at the second IpServer adding.
+        coordinator.startMonitoring(mIpServer2);
+        verify(mConntrackMonitor, never()).start();
+        verify(mIpNeighborMonitor, never()).start();
+
+        // [3] Don't stop monitoring if any downstream interface exists.
+        coordinator.stopMonitoring(mIpServer2);
+        verify(mConntrackMonitor, never()).stop();
+        verify(mIpNeighborMonitor, never()).stop();
+
+        // [4] Stop monitoring if no downstream exists.
+        coordinator.stopMonitoring(mIpServer);
+        verify(mConntrackMonitor, never()).stop();
+        verify(mIpNeighborMonitor).stop();
     }
 
     // Test network topology:
