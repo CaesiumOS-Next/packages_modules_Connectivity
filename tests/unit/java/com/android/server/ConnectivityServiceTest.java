@@ -302,7 +302,6 @@ import android.net.networkstack.NetworkStackClientBase;
 import android.net.resolv.aidl.Nat64PrefixEventParcel;
 import android.net.resolv.aidl.PrivateDnsValidationEventParcel;
 import android.net.shared.PrivateDnsConfig;
-import android.net.util.MultinetworkPolicyTracker;
 import android.net.wifi.WifiInfo;
 import android.os.BadParcelableException;
 import android.os.BatteryStatsManager;
@@ -365,6 +364,7 @@ import com.android.server.ConnectivityServiceTest.ConnectivityServiceDependencie
 import com.android.server.connectivity.CarrierPrivilegeAuthenticator;
 import com.android.server.connectivity.ClatCoordinator;
 import com.android.server.connectivity.ConnectivityFlags;
+import com.android.server.connectivity.MultinetworkPolicyTracker;
 import com.android.server.connectivity.Nat464Xlat;
 import com.android.server.connectivity.NetworkAgentInfo;
 import com.android.server.connectivity.NetworkNotificationManager;
