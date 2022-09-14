@@ -16,6 +16,7 @@
 
 package com.android.server.connectivity
 
+import android.Manifest.permission.READ_DEVICE_CONFIG
 import android.content.Context
 import android.content.res.Resources
 import android.net.ConnectivityManager.MULTIPATH_PREFERENCE_HANDOVER
@@ -37,6 +38,7 @@ import com.android.internal.util.test.FakeSettingsProvider
 import com.android.modules.utils.build.SdkLevel
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
+import com.android.testutils.runAsShell
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -88,7 +90,9 @@ class MultinetworkPolicyTrackerTest {
         Settings.Global.putString(resolver, NETWORK_AVOID_BAD_WIFI, "1")
         ConnectivityResources.setResourcesContextForTest(it)
     }
-    private val tracker = MultinetworkPolicyTracker(context, null /* handler */)
+    private val tracker = runAsShell(READ_DEVICE_CONFIG) {
+        MultinetworkPolicyTracker(context, null /* handler*/)
+    }
 
     private fun assertMultipathPreference(preference: Int) {
         Settings.Global.putString(resolver, NETWORK_METERED_MULTIPATH_PREFERENCE,

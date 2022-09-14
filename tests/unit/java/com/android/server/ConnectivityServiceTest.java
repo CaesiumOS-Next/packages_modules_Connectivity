@@ -1791,11 +1791,12 @@ public class ConnectivityServiceTest {
         ConnectivityResources.setResourcesContextForTest(mockResContext);
         mDeps = new ConnectivityServiceDependencies(mockResContext);
 
-        mService = new ConnectivityService(mServiceContext,
+        mService = runAsShell(READ_DEVICE_CONFIG, () ->
+                new ConnectivityService(mServiceContext,
                 mMockDnsResolver,
                 mock(IpConnectivityLog.class),
                 mMockNetd,
-                mDeps);
+                mDeps));
         mService.mLingerDelayMs = TEST_LINGER_DELAY_MS;
         mService.mNascentDelayMs = TEST_NASCENT_DELAY_MS;
 
