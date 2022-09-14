@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10f15c23_2bd33d2e",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 13
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-14T07:00:24Z",
+      "side": 1,
+      "message": "and",
+      "range": {
+        "startLine": 84,
+        "startChar": 40,
+        "endLine": 84,
+        "endChar": 42
+      },
+      "revId": "b3066e8be044b3c0d15aebd910e7097306ab10ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6ca12b2_19b95291",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 13
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-14T07:00:24Z",
+      "side": 1,
+      "message": "While your text is technically more correct, I think \"validated mobile data\" would lead to more understandable documentation. Up to you.",
+      "range": {
+        "startLine": 87,
+        "startChar": 98,
+        "endLine": 88,
+        "endChar": 41
+      },
+      "revId": "b3066e8be044b3c0d15aebd910e7097306ab10ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdf1e71e_ad95f4e7",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 13
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-14T07:00:24Z",
+      "side": 1,
+      "message": "13",
+      "range": {
+        "startLine": 89,
+        "startChar": 96,
+        "endLine": 89,
+        "endChar": 97
+      },
+      "revId": "b3066e8be044b3c0d15aebd910e7097306ab10ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e838ef53_296dd885",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 13
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-14T07:00:24Z",
+      "side": 1,
+      "message": "13",
+      "range": {
+        "startLine": 89,
+        "startChar": 96,
+        "endLine": 89,
+        "endChar": 97
+      },
+      "revId": "b3066e8be044b3c0d15aebd910e7097306ab10ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70d8bedb_dd7ce454",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 13
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-14T07:00:24Z",
+      "side": 1,
+      "message": "validated mobile data",
+      "range": {
+        "startLine": 93,
+        "startChar": 73,
+        "endLine": 93,
+        "endChar": 84
+      },
+      "revId": "b3066e8be044b3c0d15aebd910e7097306ab10ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d75dbd9_328e210f",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 13
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-14T07:00:24Z",
+      "side": 1,
+      "message": "and after that",
+      "range": {
+        "startLine": 94,
+        "startChar": 92,
+        "endLine": 94,
+        "endChar": 96
+      },
+      "revId": "b3066e8be044b3c0d15aebd910e7097306ab10ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f684e43_7256690b",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 13
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-14T07:00:24Z",
+      "side": 1,
+      "message": "I find this hard to read. Would suggest:\n\n, even if it doesn\u0027t provide Internet access, unless it is a captive portal.",
+      "range": {
+        "startLine": 95,
+        "startChar": 30,
+        "endLine": 96,
+        "endChar": 32
+      },
+      "revId": "b3066e8be044b3c0d15aebd910e7097306ab10ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6387c1e_13b1add3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1587,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-14T07:00:24Z",
+      "side": 1,
+      "message": "The linter says s/prefered/preferred/",
+      "range": {
+        "startLine": 1587,
+        "startChar": 82,
+        "endLine": 1587,
+        "endChar": 90
+      },
+      "revId": "b3066e8be044b3c0d15aebd910e7097306ab10ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "471b205d_20d43042",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1588,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-14T07:00:24Z",
+      "side": 1,
+      "message": "This should be SdkLevel.isAtLeastU(), right?",
+      "range": {
+        "startLine": 1588,
+        "startChar": 12,
+        "endLine": 1588,
+        "endChar": 64
+      },
+      "revId": "b3066e8be044b3c0d15aebd910e7097306ab10ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

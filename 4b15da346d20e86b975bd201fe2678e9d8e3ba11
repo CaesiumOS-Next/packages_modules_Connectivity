@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4462698b_b0b8b864",
+        "filename": "service/src/com/android/server/connectivity/NetworkRanker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-14T07:00:24Z",
+      "side": 1,
+      "message": "Nit: I think this is still relevant.",
+      "parentUuid": "a7686a7d_87bfda51",
+      "range": {
+        "startLine": 75,
+        "startChar": 11,
+        "endLine": 75,
+        "endChar": 93
+      },
+      "revId": "4b15da346d20e86b975bd201fe2678e9d8e3ba11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6c442f11_f6e7626a",
         "filename": "service/src/com/android/server/connectivity/NetworkRanker.java",
         "patchSetId": 3
