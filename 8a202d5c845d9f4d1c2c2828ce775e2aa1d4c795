@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a816b7d8_1c8cbab6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-09-14T18:21:50Z",
+      "side": 1,
+      "message": "This is a follow up to comments in aosp/2192076",
+      "revId": "8a202d5c845d9f4d1c2c2828ce775e2aa1d4c795",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
