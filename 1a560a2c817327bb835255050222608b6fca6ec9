@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2872180_4391b9a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-14T07:09:14Z",
+      "side": 1,
+      "message": "I think this CL is correct: the code that ignores validation failures after roam is intended to prevent the device from switching to cell data when wifi is completely unusable because IpClient is being restarted. Partial or captive results both indicate that the network is somewhat usable, so it\u0027s OK not to ignore them.\n\nWould be good to have a test for this scenario. Ideally would be good to first merge a test that checks for the current behaviour, then amend it in this CL.",
+      "revId": "1a560a2c817327bb835255050222608b6fca6ec9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
