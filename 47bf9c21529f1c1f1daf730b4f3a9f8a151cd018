@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f23cd82_c3e15ab3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-09-14T10:56:59Z",
+      "side": 1,
+      "message": "Let me +2 after I understand the necessity of assumes.",
+      "revId": "47bf9c21529f1c1f1daf730b4f3a9f8a151cd018",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b53acd3_db206569",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-09-14T10:56:59Z",
+      "side": 1,
+      "message": "Can I know why we need them?\nComment would be helpful.",
+      "range": {
+        "startLine": 577,
+        "startChar": 0,
+        "endLine": 578,
+        "endChar": 51
+      },
+      "revId": "47bf9c21529f1c1f1daf730b4f3a9f8a151cd018",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a7d205c_798159ed",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-09-14T10:56:59Z",
+      "side": 1,
+      "message": "Nits: any reason not using `validateListenerOnRegistration`?",
+      "range": {
+        "startLine": 582,
+        "startChar": 0,
+        "endLine": 582,
+        "endChar": 68
+      },
+      "revId": "47bf9c21529f1c1f1daf730b4f3a9f8a151cd018",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
