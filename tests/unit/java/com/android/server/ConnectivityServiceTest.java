@@ -1849,7 +1849,6 @@ public class ConnectivityServiceTest {
 
         ConnectivityServiceDependencies(final Context mockResContext) {
             mSystemProperties = mock(MockableSystemProperties.class);
-            doReturn(false).when(mSystemProperties).getBoolean("ro.radio.noril", false);
 
             mConnRes = new ConnectivityResources(mockResContext);
         }
