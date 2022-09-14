@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da7fb980_6aa01e80",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-09-14T11:09:03Z",
+      "side": 0,
+      "message": "I think `EthernetManager#addInterfaceStateListener` has users.\nWe think no one depends on this behavior, right?",
+      "revId": "47bf9c21529f1c1f1daf730b4f3a9f8a151cd018",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
