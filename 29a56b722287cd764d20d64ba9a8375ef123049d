@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d21b8b44_b8228291",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-09-14T18:28:00Z",
+      "side": 1,
+      "message": "I ran into this trap in aosp/2215553 on patchset 1 😞",
+      "revId": "29a56b722287cd764d20d64ba9a8375ef123049d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
