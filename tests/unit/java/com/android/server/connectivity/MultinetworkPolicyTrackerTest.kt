@@ -45,8 +45,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers.anyInt
-import org.mockito.ArgumentMatchers.argThat
-import org.mockito.ArgumentMatchers.eq
 import org.mockito.Mockito.any
 import org.mockito.Mockito.doCallRealMethod
 import org.mockito.Mockito.doReturn
@@ -65,10 +63,6 @@ import org.mockito.Mockito.verify
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
 class MultinetworkPolicyTrackerTest {
     private val resources = mock(Resources::class.java).also {
-        doReturn(R.integer.config_networkAvoidBadWifi).`when`(it).getIdentifier(
-                eq("config_networkAvoidBadWifi"), eq("integer"), any())
-        doReturn(R.integer.config_activelyPreferBadWifi).`when`(it).getIdentifier(
-                eq("config_activelyPreferBadWifi"), eq("integer"), any())
         doReturn(0).`when`(it).getInteger(R.integer.config_networkAvoidBadWifi)
         doReturn(0).`when`(it).getInteger(R.integer.config_activelyPreferBadWifi)
     }
@@ -161,16 +155,14 @@ class MultinetworkPolicyTrackerTest {
         Settings.Global.putString(resolver, NETWORK_METERED_MULTIPATH_PREFERENCE,
                 MULTIPATH_PREFERENCE_PERFORMANCE.toString())
 
+        assertTrue(tracker.avoidBadWifi)
+
         val listenerCaptor = ArgumentCaptor.forClass(
                 ActiveDataSubscriptionIdListener::class.java)
         verify(telephonyManager, times(1))
                 .registerTelephonyCallback(any(), listenerCaptor.capture())
         val listener = listenerCaptor.value
         listener.onActiveDataSubscriptionIdChanged(testSubId)
-
-        // Check it get resource value with test sub id.
-        verify(subscriptionManager, times(1)).getActiveSubscriptionInfo(testSubId)
-        verify(context).createConfigurationContext(argThat { it.mcc == 310 && it.mnc == 210 })
 
         // Check if avoidBadWifi and meteredMultipathPreference values have been updated.
         assertFalse(tracker.avoidBadWifi)
