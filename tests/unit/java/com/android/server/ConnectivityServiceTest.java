@@ -29,6 +29,7 @@ import static android.Manifest.permission.NETWORK_FACTORY;
 import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.Manifest.permission.NETWORK_STACK;
 import static android.Manifest.permission.PACKET_KEEPALIVE_OFFLOAD;
+import static android.Manifest.permission.READ_DEVICE_CONFIG;
 import static android.app.PendingIntent.FLAG_IMMUTABLE;
 import static android.content.Intent.ACTION_PACKAGE_ADDED;
 import static android.content.Intent.ACTION_PACKAGE_REMOVED;
@@ -1786,11 +1787,12 @@ public class ConnectivityServiceTest {
         ConnectivityResources.setResourcesContextForTest(mockResContext);
         mDeps = new ConnectivityServiceDependencies(mockResContext);
 
-        mService = new ConnectivityService(mServiceContext,
+        mService = runAsShell(READ_DEVICE_CONFIG, () ->
+                new ConnectivityService(mServiceContext,
                 mMockDnsResolver,
                 mock(IpConnectivityLog.class),
                 mMockNetd,
-                mDeps);
+                mDeps));
         mService.mLingerDelayMs = TEST_LINGER_DELAY_MS;
         mService.mNascentDelayMs = TEST_NASCENT_DELAY_MS;
 
