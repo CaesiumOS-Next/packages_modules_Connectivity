@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "638136ee_852d9b65",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1307979
+      },
+      "writtenOn": "2022-09-14T08:30:25Z",
+      "side": 1,
+      "message": "This time the Nearby test doesn\u0027t fail, the failures are unrelated.",
+      "revId": "9d654aad5b997cd3a526498c53da93a104004265",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
