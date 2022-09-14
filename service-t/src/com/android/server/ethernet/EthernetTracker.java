@@ -25,6 +25,7 @@ import static com.android.internal.annotations.VisibleForTesting.Visibility.PACK
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.net.ConnectivityResources;
 import android.net.EthernetManager;
 import android.net.IEthernetServiceListener;
@@ -293,7 +294,8 @@ public class EthernetTracker {
     }
 
     void start() {
-        mFactory.register();
+        // Register the network provider with the system.
+        mContext.getSystemService(ConnectivityManager.class).registerNetworkProvider(mProvider);
         mConfigStore.read();
 
         final ArrayMap<String, IpConfiguration> configs = mConfigStore.getIpConfigurations();
