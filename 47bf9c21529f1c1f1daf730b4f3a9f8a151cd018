@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ccd4da2_4646163b",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-09-15T07:24:06Z",
+      "side": 1,
+      "message": "Thanks for the explanation. Now I\u0027m clear!",
+      "parentUuid": "591226e1_6e8c413f",
+      "range": {
+        "startLine": 577,
+        "startChar": 0,
+        "endLine": 578,
+        "endChar": 51
+      },
+      "revId": "47bf9c21529f1c1f1daf730b4f3a9f8a151cd018",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a7d205c_798159ed",
