@@ -75,6 +75,10 @@ import com.android.testutils.anyNetwork
 import com.android.testutils.runAsShell
 import com.android.testutils.waitForIdle
 import org.junit.After
+<<<<<<< HEAD   (85f5a6 [automerger skipped] DO NOT MERGE: DscpPolicy: remove post-T)
+=======
+import org.junit.Assume.assumeFalse
+>>>>>>> BRANCH (bfeb15 ethernet: skip tests on devices without support)
 import org.junit.Assume.assumeTrue
 import org.junit.Before
 import org.junit.Ignore
@@ -307,6 +311,7 @@ class EthernetManagerTest {
         }
     }
 
+<<<<<<< HEAD   (85f5a6 [automerger skipped] DO NOT MERGE: DscpPolicy: remove post-T)
     private class EthernetOutcomeReceiver :
         OutcomeReceiver<String, EthernetNetworkManagementException> {
         private val result = CompletableFuture<String>()
@@ -336,6 +341,8 @@ class EthernetManagerTest {
         }
     }
 
+=======
+>>>>>>> BRANCH (bfeb15 ethernet: skip tests on devices without support)
     private fun isEthernetSupported() = em != null
 
     @Before
@@ -354,8 +361,12 @@ class EthernetManagerTest {
     @After
     fun tearDown() {
         if (!isEthernetSupported()) return
+<<<<<<< HEAD   (85f5a6 [automerger skipped] DO NOT MERGE: DscpPolicy: remove post-T)
         // Reenable ethernet, so ABSENT callbacks are received.
         setEthernetEnabled(true)
+=======
+        setIncludeTestInterfaces(false)
+>>>>>>> BRANCH (bfeb15 ethernet: skip tests on devices without support)
 
         for (iface in createdIfaces) {
             iface.destroy()
