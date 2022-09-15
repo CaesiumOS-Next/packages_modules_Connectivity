@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "063ef1f2_d38b4e3d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-15T08:32:35Z",
+      "side": 1,
+      "message": "Per discussion, I think we could get a reasonable decrease in complexity by just having just one timer that fires after 20 seconds. Otherwise we need to deal with (and test, and keep supporting) the intermediate state where one timer has fired and the other has not. Also, I think the logic will become clearer because there is only one method that only runs once.",
+      "range": {
+        "startLine": 360,
+        "startChar": 29,
+        "endLine": 360,
+        "endChar": 58
+      },
+      "revId": "9fd4b7095bbadb5d4500c4ecf43cc6bd3db35829",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2920f0f6_0ad60898",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3811,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-15T08:32:35Z",
+      "side": 1,
+      "message": "FWIW I think this would be clearer if it were called \"becameEvaluated\" or similar. This is because a rematch is needed in many different circumstances, and in many of these codepaths, a rematch already happens.\n\nSo something like:\n\n    final boolean valid \u003d (testResult \u0026 NETWORK_VALIDATION_RESULT_VALID) !\u003d 0;\n    final boolean partial \u003d (testResult \u0026 NETWORK_VALIDATION_RESULT_PARTIAL) !\u003d 0;\n    final boolean captive \u003d !TextUtils.isEmpty(redirectUrl);\n\n    // If there is any kind of working networking, then the NAI has been evaluated\n    // once. {@see NetworkAgentInfo#setEvaluated}\n    final boolean becameEvaluated;\n    if (valid || partial || captive) {\n        becameEvaluated \u003d nai.setEvaluated();\n    } else {\n        if (shouldIgnoreValidationFailureAfterRoam(nai)) return;\n    }\n\nThat way you separate calculating the booleans from deciding the effects. Then later you do:\n\n            if (valid !\u003d nai.isValidated()) {\n                ...\n            } else if (partialConnectivityChanged) {\n                updateCapabilitiesForNetwork(nai);\n            } else if (becameEvaluated) {\n                // TODO: this is a bug because...\n                nai.updateScoreForNetworkAgentUpdate();\n                rematchAllNetworksAndRequests();\n            }",
+      "range": {
+        "startLine": 3811,
+        "startChar": 20,
+        "endLine": 3811,
+        "endChar": 33
+      },
+      "revId": "9fd4b7095bbadb5d4500c4ecf43cc6bd3db35829",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29fcae4e_6857a5a6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 5400,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-15T08:32:35Z",
+      "side": 1,
+      "message": "Nit: would s/TimedOut/Timeout/",
+      "range": {
+        "startLine": 5400,
+        "startChar": 43,
+        "endLine": 5400,
+        "endChar": 51
+      },
+      "revId": "9fd4b7095bbadb5d4500c4ecf43cc6bd3db35829",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec4e7b52_a724b2c3",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3798,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-15T08:32:35Z",
+      "side": 1,
+      "message": "doConnect? connect?",
+      "range": {
+        "startLine": 3798,
+        "startChar": 61,
+        "endLine": 3798,
+        "endChar": 73
+      },
+      "revId": "9fd4b7095bbadb5d4500c4ecf43cc6bd3db35829",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51e751ca_46ad4b31",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3800,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-15T08:32:35Z",
+      "side": 1,
+      "message": "evaluatedByValidation?",
+      "range": {
+        "startLine": 3800,
+        "startChar": 26,
+        "endLine": 3800,
+        "endChar": 46
+      },
+      "revId": "9fd4b7095bbadb5d4500c4ecf43cc6bd3db35829",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e1115b6_fdabe7f7",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3816,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-15T08:32:35Z",
+      "side": 1,
+      "message": "Maybe mention that this is the same bug that requires us to have a expectAvailableDoubleValidatedCallbacks and add a TODO to remove it?",
+      "range": {
+        "startLine": 3816,
+        "startChar": 12,
+        "endLine": 3816,
+        "endChar": 29
+      },
+      "revId": "9fd4b7095bbadb5d4500c4ecf43cc6bd3db35829",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
