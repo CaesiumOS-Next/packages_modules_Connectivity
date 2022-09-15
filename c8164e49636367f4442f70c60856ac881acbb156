@@ -33,6 +33,24 @@
       "message": "It would be good to have a consistent naming scheme (with -tiramisu or without; I\u0027d say without now, and loprio vs low-priority). But the difference between loprio.txt and max-target-o-low-priority-tiramisu.txt is preexisting.\n\nIs there anything to watch out for if we rename these files ?",
       "revId": "c8164e49636367f4442f70c60856ac881acbb156",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa08957f_3e1aa63f",
+        "filename": "framework-t/hiddenapi/hiddenapi-max-target-o-low-priority-tiramisu.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2022-09-15T11:55:30Z",
+      "side": 1,
+      "message": "Not as far as I know. You should be able to rename those files however you want. The only impact that would have is that the names will be changed in the sdk snapshot but as nothing outside the snapshot should depend on those you should be ok.\n\nInstead of renaming the files you could remove the files altogether by adding the appropriate @UnsupportedAppUsage annotations to the source code. That has the advantage that it makes it more obvious to developers which members cannot be changed without impacting app compatibility. It also means that you don\u0027t get left with out of date entries in the file.\n\nThere are some tools that might help with that, see\nhttp://google3/wireless/android/art/compat/add_annotations.py. Although as it has not been actively maintained it might need some fixing.",
+      "parentUuid": "cc018a76_8acd8b84",
+      "revId": "c8164e49636367f4442f70c60856ac881acbb156",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
