@@ -38,6 +38,7 @@ import static android.net.NetworkStats.UID_ALL;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import android.os.Build;
@@ -1064,6 +1065,26 @@ public class NetworkStatsTest {
 
         for (NetworkStats.Entry e : stats) {
             assertEquals(e, entries.remove(0));
+        }
+    }
+
+    @Test
+    public void testClearInterface() {
+        final NetworkStats stats = new NetworkStats(TEST_START, 1);
+        final NetworkStats.Entry entry1 = new NetworkStats.Entry(
+                "test1", 10100, SET_DEFAULT, TAG_NONE, METERED_NO, ROAMING_NO,
+                DEFAULT_NETWORK_NO, 1024L, 50L, 100L, 20L, 0L);
+
+        final NetworkStats.Entry entry2 = new NetworkStats.Entry(
+                "test2", 10101, SET_DEFAULT, 0xF0DD, METERED_NO, ROAMING_NO,
+                DEFAULT_NETWORK_NO, 51200, 25L, 101010L, 50L, 0L);
+
+        stats.insertEntry(entry1);
+        stats.insertEntry(entry2);
+        stats.clearInterfaces();
+
+        for (NetworkStats.Entry e : stats) {
+            assertNull(e.getIface());
         }
     }
 
