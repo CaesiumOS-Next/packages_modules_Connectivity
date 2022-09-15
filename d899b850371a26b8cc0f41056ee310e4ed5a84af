@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4df1139a_47cd833f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-15T09:40:13Z",
+      "side": 1,
+      "message": "Per discussion, perhaps it\u0027s not worth taking this change in November. It doesn\u0027t offer a lot of simplification, and I think there might be a possible corner case: if the OEM wifi code restarts IpClient after roam, but only the HTTPS probe fails and not the HTTP probe, NetworkMonitor might conclude that there is partial connectivity, when in fact the desired behaviour is to simply ignore the failed probes.\n\nTBH I\u0027m not sure there\u0027s a lot of benefit taking this change at all. It\u0027s possible that it will fix a bug (captive portal detected right after roam), but it\u0027s possible that the OEM wifi code already compensates for this by calling reportNetworkConnectivity after roam anyway. This codepath also only ever runs on S.",
+      "revId": "d899b850371a26b8cc0f41056ee310e4ed5a84af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
