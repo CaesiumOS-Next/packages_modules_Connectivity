@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c325ceae_99059cce",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1088,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-15T08:09:55Z",
+      "side": 1,
+      "message": "Should we also verify we did not accidentally clear/modify other fields?",
+      "range": {
+        "startLine": 1088,
+        "startChar": 8,
+        "endLine": 1088,
+        "endChar": 9
+      },
+      "revId": "7c2f055f7dfe0c897b4b951d3a480da1acda0b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
