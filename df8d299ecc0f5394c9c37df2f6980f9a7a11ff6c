@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68c5e428_913e9de8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-09-15T18:22:08Z",
+      "side": 1,
+      "message": "Presumably this is to make dump testable. Do we really need tests for dumpsys functionality? I thought that was mainly for debugging purposes.",
+      "revId": "df8d299ecc0f5394c9c37df2f6980f9a7a11ff6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
