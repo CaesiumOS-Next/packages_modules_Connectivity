@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4abda330_4fc1cfb7",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-15T23:44:25Z",
+      "side": 1,
+      "message": "nit: Maybe also assert size here to ensure nothing is unexpected.",
+      "range": {
+        "startLine": 1084,
+        "startChar": 0,
+        "endLine": 1084,
+        "endChar": 0
+      },
+      "revId": "a356dd2a7b05af3aa2a6a8ac3cf090c0e290a52f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
