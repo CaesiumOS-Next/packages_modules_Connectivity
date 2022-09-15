@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd6b87c7_b2f52f16",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkRankerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-15T09:58:39Z",
+      "side": 1,
+      "message": "Do we already have a test for a captive portal where the user logged in, but then the portal closed and the device is required to stay on wifi?",
+      "range": {
+        "startLine": 121,
+        "startChar": 4,
+        "endLine": 121,
+        "endChar": 5
+      },
+      "revId": "68f7dea224a4f38eda55ab9a54f3a6b5242bb085",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
