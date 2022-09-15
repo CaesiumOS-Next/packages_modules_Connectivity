@@ -1018,6 +1018,9 @@ public class BpfNetMaps {
                     EOPNOTSUPP, "dumpsys connectivity trafficcontroller dump not available on pre-T"
                     + " devices, use dumpsys netd trafficcontroller instead.");
         }
+        pw.println("sEnableJavaBpfMap: " + sEnableJavaBpfMap);
+        pw.flush();
+
         mDeps.nativeDump(fd, verbose);
 
         if (!verbose) {
