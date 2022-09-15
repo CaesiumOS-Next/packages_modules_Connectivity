@@ -22,6 +22,30 @@
       },
       "revId": "d09f0b9b31799ce7ee4b060d72da800a475a7c21",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a481f29d_b93fb77d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-09-15T18:08:38Z",
+      "side": 1,
+      "message": "Oh wow, yes! That\u0027s absolutely not what I wanted to write. 😊 Fixed.",
+      "parentUuid": "0ad07f78_ebb0138e",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 33
+      },
+      "revId": "d09f0b9b31799ce7ee4b060d72da800a475a7c21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
