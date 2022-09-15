@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb152299_2561faa6",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-15T07:57:50Z",
+      "side": 1,
+      "message": "Nit: I think \"evaluated\" is close enough to \"validated\" to cause confusion. I don\u0027t have any better idea at the moment, except maybe \"evaluationTimerExpired\" or similar.",
+      "range": {
+        "startLine": 396,
+        "startChar": 19,
+        "endLine": 396,
+        "endChar": 31
+      },
+      "revId": "f9f4a8ddfe0512f3149b0da47f628dd40bdf54c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
