@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26df0ac6_ab5ddcba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-09-15T23:50:34Z",
+      "side": 1,
+      "message": "These tests are useless and will break in the refactor. Instead of continuously fixing them, let\u0027s rely on the better testing in EthernetManagerTest (testEnableDisableInterface_withActiveRequest). There are at least a couple more tests in the pipeline that test that API (and a bug fix to make enabling/disabling interfaces independent of link state...)",
+      "revId": "ab21ef724e31f139a9bf1364ad434ce962334780",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
