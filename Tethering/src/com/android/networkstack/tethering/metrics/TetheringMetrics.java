@@ -67,6 +67,16 @@ public class TetheringMetrics {
     private static final String GMS_PKG_NAME = "com.google.android.gms";
     private final SparseArray<NetworkTetheringReported.Builder> mBuilderMap = new SparseArray<>();
 
+    /**
+     * Create the stats builder if tethering is not enabled by #startTethering.
+     * E.g.: local only hotspot.
+     */
+    public void maybeCreateBuilder(final int downstreamType) {
+        if (mBuilderMap.contains(downstreamType)) return;
+
+        createBuilder(downstreamType, "" /* unkown caller package*/);
+    }
+
     /** Update Tethering stats about caller's package name and downstream type. */
     public void createBuilder(final int downstreamType, final String callerPkg) {
         NetworkTetheringReported.Builder statsBuilder =
@@ -79,27 +89,35 @@ public class TetheringMetrics {
         mBuilderMap.put(downstreamType, statsBuilder);
     }
 
+    private boolean isBuilderAvailable(final int downstreamType) {
+        if (mBuilderMap.contains(downstreamType)) return true;
+
+        Log.e(TAG, "Builder is not created for type " + downstreamType);
+        return false;
+    }
+
     /** Update error code of given downstreamType. */
     public void updateErrorCode(final int downstreamType, final int errCode) {
-        NetworkTetheringReported.Builder statsBuilder = mBuilderMap.get(downstreamType);
-        if (statsBuilder == null) {
-            Log.e(TAG, "Given downstreamType does not exist, this is a bug!");
-            return;
-        }
-        statsBuilder.setErrorCode(errorCodeToEnum(errCode));
+        if (!isBuilderAvailable(downstreamType)) return;
+
+        mBuilderMap.get(downstreamType).setErrorCode(errorCodeToEnum(errCode));
+    }
+
+    /** Set local only to given downstreamType. */
+    public void setLocalOnly(final int downstreamType) {
+        if (!isBuilderAvailable(downstreamType)) return;
+
+        mBuilderMap.get(downstreamType).setUpstreamType(UpstreamType.UT_LOCAL_ONLY);
     }
 
     /** Remove Tethering stats.
      *  If Tethering stats is ready to write then write it before removing.
      */
     public void sendReport(final int downstreamType) {
-        final NetworkTetheringReported.Builder statsBuilder =
-                mBuilderMap.get(downstreamType);
-        if (statsBuilder == null) {
-            Log.e(TAG, "Given downstreamType does not exist, this is a bug!");
-            return;
-        }
-        write(statsBuilder.build());
+        if (!isBuilderAvailable(downstreamType)) return;
+
+        write(mBuilderMap.get(downstreamType).build());
+
         mBuilderMap.remove(downstreamType);
     }
 

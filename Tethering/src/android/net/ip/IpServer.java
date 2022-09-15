@@ -1167,6 +1167,7 @@ public class IpServer extends StateMachine {
     class BaseServingState extends State {
         @Override
         public void enter() {
+            mTetheringMetrics.maybeCreateBuilder(mInterfaceType);
             startConntrackMonitoring();
 
             if (!startIPv4()) {
@@ -1259,6 +1260,7 @@ public class IpServer extends StateMachine {
         @Override
         public void enter() {
             super.enter();
+            mTetheringMetrics.setLocalOnly(mInterfaceType);
             if (mLastError != TetheringManager.TETHER_ERROR_NO_ERROR) {
                 transitionTo(mInitialState);
             }
