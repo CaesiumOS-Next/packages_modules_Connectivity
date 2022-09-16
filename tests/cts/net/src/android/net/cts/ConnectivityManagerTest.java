@@ -27,6 +27,7 @@ import static android.Manifest.permission.NETWORK_SETUP_WIZARD;
 import static android.Manifest.permission.NETWORK_STACK;
 import static android.Manifest.permission.READ_DEVICE_CONFIG;
 import static android.Manifest.permission.TETHER_PRIVILEGED;
+import static android.Manifest.permission.WRITE_DEVICE_CONFIG;
 import static android.content.pm.PackageManager.FEATURE_BLUETOOTH;
 import static android.content.pm.PackageManager.FEATURE_ETHERNET;
 import static android.content.pm.PackageManager.FEATURE_TELEPHONY;
@@ -2847,6 +2848,46 @@ public class ConnectivityManagerTest {
                 mCtsNetUtils.ensureWifiConnected();
             });
         }
+    }
+
+    @AppModeFull(reason = "WRITE_DEVICE_CONFIG permission can't be granted to instant apps")
+    @Test
+    public void testPreferBadWifi() throws Exception {
+        assumeTrue(TestUtils.shouldTestSApis());
+
+        // Save old values and make sure the device is set to actively prefer bad wifi
+        final String configName = "actively_prefer_bad_wifi";
+        final ContentResolver resolver = mContext.getContentResolver();
+        final String oldConfigValue = runAsShell(READ_DEVICE_CONFIG, () ->
+                DeviceConfig.getProperty(DeviceConfig.NAMESPACE_CONNECTIVITY, configName));
+        final int oldSettingValue = Settings.Global.getInt(resolver,
+                ConnectivitySettingsManager.NETWORK_AVOID_BAD_WIFI);
+        runAsShell(WRITE_DEVICE_CONFIG, () ->
+                DeviceConfig.setProperty(DeviceConfig.NAMESPACE_CONNECTIVITY, configName,
+                        "1", false /* makeDefault */));
+        Settings.Global.putInt(resolver, ConnectivitySettingsManager.NETWORK_AVOID_BAD_WIFI, 0);
+
+        /**
+         * Make sure wifi is a portal
+         * Connect cell
+         * Connect wifi
+         * Wait 20 seconds
+         * Check cell is still default
+         *
+         * Make sure wifi doesn't validate
+         * Connect cell
+         * Connect wifi
+         * Wait 20 seconds
+         * Test for notif
+         * Test for default wifi
+         */
+
+        // Restore old values
+        Settings.Global.putInt(resolver, ConnectivitySettingsManager.NETWORK_AVOID_BAD_WIFI,
+                oldSettingValue);
+        runAsShell(WRITE_DEVICE_CONFIG, () ->
+                DeviceConfig.setProperty(DeviceConfig.NAMESPACE_CONNECTIVITY, configName,
+                        oldConfigValue, false /* makeDefault */));
     }
 
     @AppModeFull(reason = "WRITE_DEVICE_CONFIG permission can't be granted to instant apps")
