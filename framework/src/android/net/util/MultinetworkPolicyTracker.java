@@ -250,7 +250,7 @@ public class MultinetworkPolicyTracker {
      * Whether we should display a notification when wifi becomes unvalidated.
      */
     public boolean shouldNotifyWifiUnvalidated() {
-        return configRestrictsAvoidBadWifi() && getAvoidBadWifiSetting() == null;
+        return configRestrictsAvoidBadWifi() && !"1".equals(getAvoidBadWifiSetting());
     }
 
     public String getAvoidBadWifiSetting() {
