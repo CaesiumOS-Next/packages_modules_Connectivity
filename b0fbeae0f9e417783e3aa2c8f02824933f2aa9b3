@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "049789e8_8f82ef2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-16T11:38:04Z",
+      "side": 1,
+      "message": "This looks extremely ad-hoc ; I don\u0027t remember we had a design review for this. I also don\u0027t see a clear link between a premium slice and realtime interactive traffic : they seem independent.",
+      "revId": "b0fbeae0f9e417783e3aa2c8f02824933f2aa9b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
