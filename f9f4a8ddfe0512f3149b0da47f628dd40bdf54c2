@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bcbddc3_c99b5ea3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-16T07:29:57Z",
+      "side": 1,
+      "message": "+2 with nits that can be ignored.\nFeel free to merge.",
+      "revId": "f9f4a8ddfe0512f3149b0da47f628dd40bdf54c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb152299_2561faa6",
@@ -19,6 +36,52 @@
         "startChar": 19,
         "endLine": 396,
         "endChar": 31
+      },
+      "revId": "f9f4a8ddfe0512f3149b0da47f628dd40bdf54c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b393e053_bac70669",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1216,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-16T07:29:57Z",
+      "side": 1,
+      "message": "Maybe add a getter like others.\nNo strong opinion.",
+      "range": {
+        "startLine": 1216,
+        "startChar": 22,
+        "endLine": 1216,
+        "endChar": 51
+      },
+      "revId": "f9f4a8ddfe0512f3149b0da47f628dd40bdf54c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69279221_496f4c06",
+        "filename": "tests/unit/java/com/android/server/connectivity/FullScoreTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-16T07:29:57Z",
+      "side": 1,
+      "message": "nit: this should be above destroyed if we follow the order.\nNo strong opinion.",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 90
       },
       "revId": "f9f4a8ddfe0512f3149b0da47f628dd40bdf54c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
