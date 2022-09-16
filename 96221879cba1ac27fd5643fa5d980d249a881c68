@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "032b9d4a_a27cde17",
+        "filename": "tests/cts/hostside/src/com/android/cts/net/HostsideVpnTests.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-16T03:35:58Z",
+      "side": 1,
+      "message": "If HostsideNetworkPolicyManagerTests (for example) runs first it would fail I think ? Since it uninstalls the app after running.\n\nI think you have to migrate all tests that install/uninstall the APK ?\n\nAlso if you\u0027re using SuiteApkInstaller for CtsHostsideNetworkTestsApp.apk (not the App2), tests using the first app shouldn\u0027t uninstall/install/uninstall it themselves either; it probably works but it\u0027s confusing that the SuiteApkInstaller install isn\u0027t actually used.",
+      "revId": "96221879cba1ac27fd5643fa5d980d249a881c68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
