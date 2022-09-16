@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c362b9e_c7466317",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-09-16T21:41:15Z",
+      "side": 1,
+      "message": "TH pass on all but one test case, which looks like a flake.  This change should really only be able to cause a build failure.\n\nThe flake is on android.net.cts.ConnectivityManagerTest#testRegisterNetworkCallback_identicalPendingIntents\n\njava.lang.AssertionError: PendingIntent not received for NetworkRequest [ NONE id\u003d0, [ Transports: WIFI|TEST Capabilities: INTERNET\u0026NOT_RESTRICTED\u0026TRUSTED\u0026NOT_VPN\u0026NOT_VCN_MANAGED Uid: 10216 UnderlyingNetworks: Null] ]\n\tat android.net.cts.ConnectivityManagerTest.runIdenticalPendingIntentsRequestTest(ConnectivityManagerTest.java:1200)\n\tat android.net.cts.ConnectivityManagerTest.testRegisterNetworkCallback_identicalPendingIntents(ConnectivityManagerTest.java:1240)\n\t... 8 trimmed\nCaused by: java.util.concurrent.TimeoutException\n\tat java.util.concurrent.CompletableFuture.timedGet(CompletableFuture.java:1862)\n\tat java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1997)\n\tat android.net.cts.ConnectivityManagerTest.runIdenticalPendingIntentsRequestTest(ConnectivityManagerTest.java:1197)\n\t... 10 more\n\t\nwhich seems utterly unrelated.  Additionally both testRegisterNetworkCallback_withPendingIntent and testRegisterNetworkRequest_identicalPendingIntents passed with flake.\n\nSo it seems likely this would pass as well, if one retried it enough times.",
+      "revId": "6c1c6bb582a0e22619e9e90c690e0689648c4511",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
