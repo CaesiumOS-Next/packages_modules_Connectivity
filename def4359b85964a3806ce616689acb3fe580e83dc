@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3d33da0_7b546eba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-09-16T17:56:49Z",
+      "side": 1,
+      "message": "(TH failed 1 test, which looks utterly unrelated... this should only be able to cause build failures)",
+      "revId": "def4359b85964a3806ce616689acb3fe580e83dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
