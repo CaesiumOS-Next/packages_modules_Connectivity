@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02663460_10054a83",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-16T08:36:17Z",
+      "side": 1,
+      "message": "Since we already have Icmpv4Header struct. Could we add icmpcheck (if the suggestion in l.1493 work ?) and build icmp echo packet instead of having raw data like this ?\n\nThen we could test ping multiple times if we want. \n\nByteBuffer buildIcmpEchoPacketV4(@NonNull final MacAddress srcMac, @NonNull final MacAddress dstMac, @NonNull final Inet4Address srcIp, @NonNull final Inet4Address dstIp, short id, short seq)",
+      "range": {
+        "startLine": 243,
+        "startChar": 4,
+        "endLine": 251,
+        "endChar": 7
+      },
+      "revId": "477575736fc4de9155ca4194463938f95763ea8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5c85098_1b5c89cb",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1493,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-16T08:36:17Z",
+      "side": 1,
+      "message": "If we adding below code into IpUtil.java Does it work for icmp checksum ?\n\n\n    /**\n     * Calculate the ICMP checksum for an ICMPv4 packet.\n     */\n    public static short icmpChecksum(ByteBuffer buf, int ipOffset, int transportOffset,\n            int transportLen) {\n        return transportChecksum(buf, IPPROTO_ICMP, ipOffset, transportOffset, transportLen);\n    }",
+      "range": {
+        "startLine": 1492,
+        "startChar": 67,
+        "endLine": 1493,
+        "endChar": 48
+      },
+      "revId": "477575736fc4de9155ca4194463938f95763ea8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
