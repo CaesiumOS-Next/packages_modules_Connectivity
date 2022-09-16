@@ -16,6 +16,24 @@
       "message": "Presumably this is to make dump testable. Do we really need tests for dumpsys functionality? I thought that was mainly for debugging purposes.",
       "revId": "df8d299ecc0f5394c9c37df2f6980f9a7a11ff6c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6668fe5_655f7c8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-09-16T01:23:16Z",
+      "side": 1,
+      "message": "If we remove/break some fields accidentally, this could make debug difficult.\nAlso, Some following CLs (e.g. aosp/2200323) contains the translation from raw data to human readable format, which I want to test.\nSo I think it\u0027s good to have test for BpfNetMaps#dump.",
+      "parentUuid": "68c5e428_913e9de8",
+      "revId": "df8d299ecc0f5394c9c37df2f6980f9a7a11ff6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
