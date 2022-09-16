@@ -29,6 +29,7 @@ import static android.Manifest.permission.NETWORK_FACTORY;
 import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.Manifest.permission.NETWORK_STACK;
 import static android.Manifest.permission.PACKET_KEEPALIVE_OFFLOAD;
+import static android.Manifest.permission.READ_DEVICE_CONFIG;
 import static android.app.PendingIntent.FLAG_IMMUTABLE;
 import static android.content.Intent.ACTION_PACKAGE_ADDED;
 import static android.content.Intent.ACTION_PACKAGE_REMOVED;
@@ -211,6 +212,7 @@ import android.app.AlarmManager;
 import android.app.AppOpsManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.UiAutomation;
 import android.app.admin.DevicePolicyManager;
 import android.app.usage.NetworkStatsManager;
 import android.content.BroadcastReceiver;
@@ -573,6 +575,9 @@ public class ConnectivityServiceTest {
     @Mock BpfNetMaps mBpfNetMaps;
     @Mock CarrierPrivilegeAuthenticator mCarrierPrivilegeAuthenticator;
     @Mock TetheringManager mTetheringManager;
+
+    private UiAutomation mUiAutomation =
+            InstrumentationRegistry.getInstrumentation().getUiAutomation();
 
     // BatteryStatsManager is final and cannot be mocked with regular mockito, so just mock the
     // underlying binder calls.
@@ -5760,6 +5765,59 @@ public class ConnectivityServiceTest {
         wifiNetworkCallback.expectCapabilitiesWithout(NET_CAPABILITY_VALIDATED, mWiFiNetworkAgent);
         cellCallback.assertNoCallback();
         wifiCallback.assertNoCallback();
+    }
+
+    public void doTestPreferBadWifi(final boolean preferBadWifi) throws Exception {
+        // Pretend we're on a carrier that restricts switching away from bad wifi, and
+        // depending on the parameter one that may indeed prefer bad wifi.
+        doReturn(0).when(mResources).getInteger(R.integer.config_networkAvoidBadWifi);
+        doReturn(preferBadWifi ? 1 : 0).when(mResources)
+                .getInteger(R.integer.config_activelyPreferBadWifi);
+        mPolicyTracker.reevaluate();
+
+        registerDefaultNetworkCallbacks();
+        final NetworkRequest wifiRequest = new NetworkRequest.Builder()
+                .clearCapabilities()
+                .addTransportType(TRANSPORT_WIFI)
+                .build();
+        final TestableNetworkCallback wifiCallback = new TestableNetworkCallback();
+        mCm.registerNetworkCallback(wifiRequest, wifiCallback);
+
+        // Bring up validated cell and unvalidated wifi.
+        mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        mCellNetworkAgent.connect(true);
+        mDefaultNetworkCallback.expectAvailableThenValidatedCallbacks(mCellNetworkAgent);
+
+        mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI);
+        mWiFiNetworkAgent.connect(false);
+        wifiCallback.expectAvailableCallbacksUnvalidated(mWiFiNetworkAgent);
+
+        if (preferBadWifi) {
+            expectUnvalidationCheckWillNotify(mWiFiNetworkAgent, NotificationType.LOST_INTERNET);
+            mDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(mWiFiNetworkAgent);
+        } else {
+            expectUnvalidationCheckWillNotNotify(mWiFiNetworkAgent);
+            mDefaultNetworkCallback.assertNoCallback();
+        }
+
+        mWiFiNetworkAgent.disconnect();
+        mCellNetworkAgent.disconnect();
+        unregisterDefaultNetworkCallbacks();
+    }
+
+    @Test
+    public void testPreferBadWifi() throws Exception {
+        // Permanently adopt READ_DEVICE_CONFIG for the duration of the test, because some
+        // classes used by ConnectivityService need to read the device config at multiple points,
+        // making runAsShell unpractical. One such example is MultinetworkPolicyTracker, which
+        // reads in on the handler thread.
+        mUiAutomation.adoptShellPermissionIdentity(READ_DEVICE_CONFIG);
+        if (!SdkLevel.isAtLeastU()) {
+            // Starting with U this mode is no longer supported and can't actually be tested
+            doTestPreferBadWifi(false /* preferBadWifi */);
+        }
+        doTestPreferBadWifi(true /* preferBadWifi */);
+        mUiAutomation.dropShellPermissionIdentity();
     }
 
     @Test
@@ -12998,6 +13056,12 @@ public class ConnectivityServiceTest {
         if (null != mTestPackageDefaultNetworkCallback2) {
             mCm.unregisterNetworkCallback(mTestPackageDefaultNetworkCallback2);
         }
+        mSystemDefaultNetworkCallback = null;
+        mDefaultNetworkCallback = null;
+        mProfileDefaultNetworkCallback = null;
+        mTestPackageDefaultNetworkCallback = null;
+        mProfileDefaultNetworkCallbackAsAppUid2 = null;
+        mTestPackageDefaultNetworkCallback2 = null;
     }
 
     private void setupMultipleDefaultNetworksForOemNetworkPreferenceNotCurrentUidTest(
