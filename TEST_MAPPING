@@ -58,6 +58,20 @@
       ]
     },
     {
+      "name": "CtsHostsideNetworkTests",
+      "options": [
+        {
+          "include-filter": "com.android.cts.net.HostsideVpnTests"
+        },
+        {
+          "exclude-annotation": "com.android.testutils.SkipPresubmit"
+        },
+        {
+          "exclude-annotation": "androidx.test.filters.RequiresDevice"
+        }
+      ]
+    },
+    {
       "name": "bpf_existence_test"
     },
     {
