@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fb39375_87e85bf0",
+        "filename": "service/src/com/android/server/connectivity/MultinetworkPolicyTracker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-16T09:55:32Z",
+      "side": 1,
+      "message": "The commit message of aosp/1101351 strongly suggests that this should use getResourcesForActiveSubId like the previous code did.",
+      "range": {
+        "startLine": 204,
+        "startChar": 15,
+        "endLine": 204,
+        "endChar": 25
+      },
+      "revId": "72210494123558cd9a76f86caeafa8ef826635e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
