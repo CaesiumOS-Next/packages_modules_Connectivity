@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d138abd5_7cb61755",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1550,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-16T04:46:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51050249_0630e592",
+      "range": {
+        "startLine": 1550,
+        "startChar": 66,
+        "endLine": 1550,
+        "endChar": 87
+      },
+      "revId": "856f7448a44bde792afc2faee272de06b61069c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c94116b4_8bcec92e",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-15T09:21:10Z",
       "side": 1,
       "message": "Already done in line 123.",
+      "range": {
+        "startLine": 126,
+        "startChar": 8,
+        "endLine": 126,
+        "endChar": 49
+      },
+      "revId": "856f7448a44bde792afc2faee272de06b61069c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db647ebd_61dd7784",
+        "filename": "tests/unit/java/android/net/util/MultinetworkPolicyTrackerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-16T04:46:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c94116b4_8bcec92e",
       "range": {
         "startLine": 126,
         "startChar": 8,
