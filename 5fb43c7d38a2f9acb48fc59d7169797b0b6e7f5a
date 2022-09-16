@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e843326_356c330b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-16T09:36:25Z",
+      "side": 1,
+      "message": "LGTM as is. Feel free to address the comments in a follow-up.",
+      "revId": "5fb43c7d38a2f9acb48fc59d7169797b0b6e7f5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7b414c5_dfd7a8ed",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-16T09:36:25Z",
+      "side": 1,
+      "message": "If we make this a constant, then that means that S and T devices, even when not in \"active bad wifi mode\" will change from 8 seconds to 20 seconds.\n\nMaybe instead of making this a constant we can, in scheduleUnvalidatedPrompt, decide what timeout to use depending on whether the network is in \"active bad wifi mode\" or not?\n\nWe could say in a comment that the timeout should be longer in active bad wifi mode, because in that mode when the timeout fires, internet connectivity is disrupted. So we want to avoid doing that if this network is only temporary (e.g., walking past a network with no internet).",
+      "range": {
+        "startLine": 360,
+        "startChar": 59,
+        "endLine": 360,
+        "endChar": 70
+      },
+      "revId": "5fb43c7d38a2f9acb48fc59d7169797b0b6e7f5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d28f351c_4a953ba5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 3811,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-16T09:36:25Z",
+      "side": 1,
+      "message": "Did we say that a comment was needed here to explaining why the score update is needed? And maybe in line 5224 as well.",
+      "range": {
+        "startLine": 3811,
+        "startChar": 37,
+        "endLine": 3811,
+        "endChar": 69
+      },
+      "revId": "5fb43c7d38a2f9acb48fc59d7169797b0b6e7f5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
