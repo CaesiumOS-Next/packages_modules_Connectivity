@@ -111,6 +111,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeTrue;
 
 import android.annotation.NonNull;
@@ -173,6 +174,7 @@ import android.provider.Settings;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.ArrayMap;
 import android.util.ArraySet;
 import android.util.Log;
 import android.util.Range;
@@ -229,6 +231,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
@@ -306,7 +309,7 @@ public class ConnectivityManagerTest {
     private static final String TEST_HTTP_URL_PATH = "/http_path";
     private static final String LOCALHOST_HOSTNAME = "localhost";
     // Re-connecting to the AP, obtaining an IP address, revalidating can take a long time
-    private static final long WIFI_CONNECT_TIMEOUT_MS = 60_000L;
+    private static final long WIFI_CONNECT_TIMEOUT_MS = 120_000L;
 
     private Context mContext;
     private Instrumentation mInstrumentation;
@@ -2851,6 +2854,66 @@ public class ConnectivityManagerTest {
 
     @AppModeFull(reason = "WRITE_DEVICE_CONFIG permission can't be granted to instant apps")
     @Test
+    public void testPreferBadWifi() throws Exception {
+        assumeTrue(TestUtils.shouldTestSApis());
+        assumeTrue(mPackageManager.hasSystemFeature(FEATURE_TELEPHONY));
+        assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
+        assumeFalse(mPackageManager.hasSystemFeature(FEATURE_WATCH));
+        prepareHttpServer();
+
+        // Save old values and make sure the device is set to actively prefer bad wifi
+        final int previousAvoidBadWifi =
+                ConnectivitySettingsManager.getNetworkAvoidBadWifi(mContext);
+        allowBadWifi();
+        final ContentResolver resolver = mContext.getContentResolver();
+        final int oldSettingValue = Settings.Global.getInt(resolver,
+                ConnectivitySettingsManager.NETWORK_AVOID_BAD_WIFI);
+        final String configName = "actively_prefer_bad_wifi";
+        mTestValidationConfigRule.setConfig(DeviceConfig.NAMESPACE_CONNECTIVITY, configName, "1");
+
+        testAndCleanup(() -> {
+            Settings.Global.putInt(resolver, ConnectivitySettingsManager.NETWORK_AVOID_BAD_WIFI, 0);
+
+            // Disconnect wifi, and make sure cell is connected and the default network.
+            mCtsNetUtils.ensureWifiDisconnected(null /* wifiNetworkToCheck */);
+            final Network cell = mCtsNetUtils.connectToCell();
+            final TestableNetworkCallback defaultCb = new TestableNetworkCallback();
+            mCm.registerDefaultNetworkCallback(defaultCb);
+            defaultCb.expectAvailableCallbacks(cell, false /* suspended */, true /* validated */,
+                    false /* blocked */, NETWORK_CALLBACK_TIMEOUT_MS);
+
+            // Make sure wifi is a captive portal and connect it
+            configTestServer(Status.INTERNAL_ERROR, Status.REDIRECT, "/captive_portal");
+            final Network portalWifi = mCtsNetUtils.ensureWifiConnected();
+
+            // Wait for 25 seconds and make sure cell is still the default network.
+            defaultCb.assertNoCallbackThat(25_000 /* timeout */,
+                    cb -> cb instanceof CallbackEntry.Available);
+
+            // Disconnect wifi, make sure the next wifi is bad, and reconnect it.
+            mCtsNetUtils.ensureWifiDisconnected(portalWifi);
+            configTestServer(Status.INTERNAL_ERROR, Status.INTERNAL_ERROR);
+            final Network badWifi = mCtsNetUtils.ensureWifiConnected();
+
+            // Wait 5 seconds and make sure cell is still the default. Then, make sure the default
+            // default network changes to wifi within 20 seconds.
+            defaultCb.assertNoCallbackThat(5_000 /* timeout */,
+                    cb -> cb instanceof CallbackEntry.Available);
+            // TODO : expect notification
+            defaultCb.eventuallyExpect(CallbackEntry.AVAILABLE, 20_000 /* timeout */, cb ->
+                    cb.getNetwork().equals(badWifi));
+        }, /* finally */
+                () -> resetAvoidBadWifi(previousAvoidBadWifi),
+                () -> mHttpServer.stop(),
+                () -> mTestValidationConfigRule.runAfterNextCleanup(this::reconnectWifi),
+                // Restore old values
+                () -> Settings.Global.putInt(resolver,
+                        ConnectivitySettingsManager.NETWORK_AVOID_BAD_WIFI, oldSettingValue)
+        );
+    }
+
+    @AppModeFull(reason = "WRITE_DEVICE_CONFIG permission can't be granted to instant apps")
+    @Test
     public void testSetAvoidUnvalidated() throws Exception {
         assumeTrue(TestUtils.shouldTestSApis());
         // TODO: Allow in debuggable ROM only. To be replaced by FabricatedOverlay
@@ -3016,12 +3079,26 @@ public class ConnectivityManagerTest {
     }
 
     private void configTestServer(IStatus httpsStatusCode, IStatus httpStatusCode) {
+        configTestServer(httpsStatusCode, httpStatusCode, null /* redirectUrl */);
+    }
+
+    private void configTestServer(IStatus httpsStatusCode, IStatus httpStatusCode,
+            @NonNull final String redirectUrl) {
         mHttpServer.addResponse(new TestHttpServer.Request(
                 TEST_HTTPS_URL_PATH, Method.GET, "" /* queryParameters */),
-                httpsStatusCode, null /* locationHeader */, "" /* content */);
+                httpsStatusCode, null /* headers */, "" /* content */);
+        final Map<String, String> headers;
+        if (null == redirectUrl) {
+            assertNotEquals(Status.REDIRECT, httpStatusCode);
+            headers = null;
+        } else {
+            assertEquals(Status.REDIRECT, httpStatusCode);
+            headers = new ArrayMap<>();
+            headers.put("Location", redirectUrl);
+        }
         mHttpServer.addResponse(new TestHttpServer.Request(
                 TEST_HTTP_URL_PATH, Method.GET, "" /* queryParameters */),
-                httpStatusCode, null /* locationHeader */, "" /* content */);
+                httpStatusCode, headers, "" /* content */);
         NetworkValidationTestUtil.setHttpsUrlDeviceConfig(mTestValidationConfigRule,
                 makeUrl(TEST_HTTPS_URL_PATH));
         NetworkValidationTestUtil.setHttpUrlDeviceConfig(mTestValidationConfigRule,
