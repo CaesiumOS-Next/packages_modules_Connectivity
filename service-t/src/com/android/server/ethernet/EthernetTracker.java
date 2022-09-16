@@ -281,8 +281,8 @@ public class EthernetTracker {
         mIpConfigurations.put(iface, ipConfig);
     }
 
-    private IpConfiguration getIpConfigurationForCallback(String iface, int state) {
-        return (state == EthernetManager.STATE_ABSENT) ? null : getOrCreateIpConfiguration(iface);
+    private IpConfiguration getIpConfigurationForCallback(String iface) {
+        return getOrCreateIpConfiguration(iface);
     }
 
     private void ensureRunningOnEthernetServiceThread() {
@@ -301,7 +301,7 @@ public class EthernetTracker {
         ensureRunningOnEthernetServiceThread();
         final int state = getInterfaceState(iface);
         final int role = getInterfaceRole(iface);
-        final IpConfiguration config = getIpConfigurationForCallback(iface, state);
+        final IpConfiguration config = getIpConfigurationForCallback(iface);
         final int n = mListeners.beginBroadcast();
         for (int i = 0; i < n; i++) {
             try {
@@ -322,7 +322,7 @@ public class EthernetTracker {
         ensureRunningOnEthernetServiceThread();
         final int state = mFactory.getInterfaceState(iface);
         final int role = getInterfaceRole(iface);
-        final IpConfiguration config = getIpConfigurationForCallback(iface, state);
+        final IpConfiguration config = getIpConfigurationForCallback(iface);
         try {
             listener.onInterfaceStateChanged(iface, state, role, config);
         } catch (RemoteException e) {
