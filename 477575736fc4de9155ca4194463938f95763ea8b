@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33cf1f68_254db8dd",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-09-16T15:25:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02663460_10054a83",
+      "range": {
+        "startLine": 243,
+        "startChar": 4,
+        "endLine": 251,
+        "endChar": 7
+      },
+      "revId": "477575736fc4de9155ca4194463938f95763ea8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5c85098_1b5c89cb",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-16T08:36:17Z",
       "side": 1,
       "message": "If we adding below code into IpUtil.java Does it work for icmp checksum ?\n\n\n    /**\n     * Calculate the ICMP checksum for an ICMPv4 packet.\n     */\n    public static short icmpChecksum(ByteBuffer buf, int ipOffset, int transportOffset,\n            int transportLen) {\n        return transportChecksum(buf, IPPROTO_ICMP, ipOffset, transportOffset, transportLen);\n    }",
+      "range": {
+        "startLine": 1492,
+        "startChar": 67,
+        "endLine": 1493,
+        "endChar": 48
+      },
+      "revId": "477575736fc4de9155ca4194463938f95763ea8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2cd2a49_32021b3e",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1493,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-09-16T15:25:22Z",
+      "side": 1,
+      "message": "Added IpUtil#icmpChecksum.\n\ntransportChecksum() can\u0027t be used for icmp checksum because icmp checksum doesn\u0027t use pseudo-header but icmpv6 checksum does\n\nicmp\nhttps://www.rfc-editor.org/rfc/rfc792\n```\n   Checksum\n\n      The checksum is the 16-bit ones\u0027s complement of the one\u0027s\n      complement sum of the ICMP message starting with the ICMP Type.\n      For computing the checksum , the checksum field should be zero.\n      This checksum may be replaced in the future.\n```\n\nicmpv6\nhttps://datatracker.ietf.org/doc/html/rfc4443#section-2.3\n\n```\n2.3.  Message Checksum Calculation\n\n   The checksum is the 16-bit one\u0027s complement of the one\u0027s complement\n   sum of the entire ICMPv6 message, starting with the ICMPv6 message\n   type field, and prepended with a \"pseudo-header\" of IPv6 header\n   fields, as specified in [IPv6, Section 8.1].  The Next Header value\n   used in the pseudo-header is 58.  (The inclusion of a pseudo-header\n   in the ICMPv6 checksum is a change from IPv4; see [IPv6] for the\n   rationale for this change.)\n\n   For computing the checksum, the checksum field is first set to zero.\n```\n\nseparate icmpChecksum()/icmp constant from aosp/2063552 to aosp/2219743 and aosp/2219744. please review as well. Thank you\n```\n    public static short icmpChecksum(ByteBuffer buf, int transportOffset, int transportLen) {\n        return (short) checksum(buf, 0, transportOffset, transportOffset + transportLen);\n    }\n```",
+      "parentUuid": "b5c85098_1b5c89cb",
       "range": {
         "startLine": 1492,
         "startChar": 67,
