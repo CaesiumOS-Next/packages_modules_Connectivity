@@ -45,6 +45,30 @@
       },
       "revId": "c682b1b3f384c0ac8e4f85aa6d73d96f557f9bc8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "124d5285_4b1f0bcd",
+        "filename": "service/proguard.flags",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-16T02:03:42Z",
+      "side": 1,
+      "message": "+1; I think you should only need to keep the \"entry points\" of the module which start the other services and are referenced in SystemServer.java: ConnectivityServiceInitializer, and NetworkStatsServiceInitializer. These are hardcoded in SystemServer.java so also are less likely to be moved/renamed/jarjared.",
+      "parentUuid": "d1dbd8dd_13b8acce",
+      "range": {
+        "startLine": 7,
+        "startChar": 11,
+        "endLine": 7,
+        "endChar": 19
+      },
+      "revId": "c682b1b3f384c0ac8e4f85aa6d73d96f557f9bc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
