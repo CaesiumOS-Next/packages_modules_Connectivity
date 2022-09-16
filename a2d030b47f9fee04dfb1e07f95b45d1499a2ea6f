@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14644c99_a8c95b39",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-16T09:07:56Z",
+      "side": 1,
+      "message": "Could you separate the payload verification out of this function and rename the function to hasExpectedTcpHeader ?",
+      "range": {
+        "startLine": 612,
+        "startChar": 0,
+        "endLine": 628,
+        "endChar": 61
+      },
+      "revId": "a2d030b47f9fee04dfb1e07f95b45d1499a2ea6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50e3241d_884cf6a5",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-16T09:07:56Z",
+      "side": 1,
+      "message": "If you take above suggestion, you could verify the payload:\n\n    try {\n        if (hasEth \u0026\u0026 !hasExpectedEtherHeader(buf, isIpv4)) return false;\n\n        if (!hasExpectedIpHeader(buf, isIpv4, IPPROTO_TCP)) return false;\n\n        if (!hasExpectedTcpHeader(buf, seq)) return false;\n        \n        // Packet has no payload.\n        // Or you can make payload @NonNull, then you don\u0027t need to do null check.\n        if (payload \u003d\u003d null) return buf.remaining() \u003d\u003d 0;\n        \n        return Arrays.equals(getRemaining(buf), getRemaining(payload));     \n    } catch ...\n    } finally {\n         // in case payload might be reused by caller, restore the position and limit of bytebuffer.\n        payload.clear();\n    }",
+      "range": {
+        "startLine": 639,
+        "startChar": 12,
+        "endLine": 639,
+        "endChar": 81
+      },
+      "revId": "a2d030b47f9fee04dfb1e07f95b45d1499a2ea6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
