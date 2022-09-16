@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8aaebe9_e9d8e809",
+        "filename": "tests/common/java/android/net/metrics/IpConnectivityLogTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-09-16T08:36:18Z",
+      "side": 1,
+      "message": "Nit: is the comment needed? or useful? maybe just name it THREAD_TIMEOUT_MS is clear enough?",
+      "range": {
+        "startLine": 54,
+        "startChar": 56,
+        "endLine": 54,
+        "endChar": 61
+      },
+      "revId": "7fdc970799324af043d60a8bef2bae780fd0f0b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
