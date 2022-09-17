@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09628cea_0d43334a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-09-17T01:51:31Z",
+      "side": 1,
+      "message": "TH failed due to single unrelated flake in android.net.cts.ConnectivityManagerTest#testRegisterNetworkCallback_identicalPendingIntents",
+      "revId": "30bfa38c7b717d90ed8bdedb25e2dde103d370cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
