@@ -436,8 +436,20 @@ public class EthernetTracker {
         return mFactory.hasInterface(iface);
     }
 
-    String[] getInterfaces(boolean includeRestricted) {
-        return mFactory.getAvailableInterfaces(includeRestricted);
+    /**
+     * Returns an array of available interface names. The array is sorted: unrestricted interfaces
+     * goes first, then sorted by name.
+     */
+    public String[] getClientModeInterfaces(boolean includeRestricted) {
+        return mFactory.mTrackingInterfaces.values()
+                .stream()
+                .filter(iface -> !iface.isRestricted() || includeRestricted)
+                .sorted((iface1, iface2) -> {
+                    int r = Boolean.compare(iface1.isRestricted(), iface2.isRestricted());
+                    return r == 0 ? iface1.name.compareTo(iface2.name) : r;
+                })
+                .map(iface -> iface.name)
+                .toArray(String[]::new);
     }
 
     List<String> getInterfaceList() {
@@ -479,7 +491,7 @@ public class EthernetTracker {
                 // Remote process has already died
                 return;
             }
-            for (String iface : getInterfaces(canUseRestrictedNetworks)) {
+            for (String iface : getClientModeInterfaces(canUseRestrictedNetworks)) {
                 unicastInterfaceStateChange(listener, iface);
             }
 
@@ -988,14 +1000,14 @@ public class EthernetTracker {
                 trackAvailableInterfaces();
             } else {
                 // TODO: maybe also disable server mode interface as well.
-                untrackFactoryInterfaces();
+                untrackClientModeInterfaces();
             }
             broadcastEthernetStateChange(mEthernetState);
         });
     }
 
-    private void untrackFactoryInterfaces() {
-        for (String iface : mFactory.getAvailableInterfaces(true /* includeRestricted */)) {
+    private void untrackClientModeInterfaces() {
+        for (String iface : getClientModeInterfaces(true /* includeRestricted */)) {
             stopTrackingInterface(iface);
         }
     }
