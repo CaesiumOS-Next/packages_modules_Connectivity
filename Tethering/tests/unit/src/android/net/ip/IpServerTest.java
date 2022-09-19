@@ -280,7 +280,7 @@ public class IpServerTest {
                 } catch (RemoteException e) {
                     fail(e.getMessage());
                 }
-            }).run();
+            }).start();
             return null;
         }).when(mDependencies).makeDhcpServer(any(), mDhcpParamsCaptor.capture(), any());
     }

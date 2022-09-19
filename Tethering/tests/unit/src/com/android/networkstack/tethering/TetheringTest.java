@@ -408,7 +408,7 @@ public class TetheringTest {
                 } catch (RemoteException e) {
                     fail(e.getMessage());
                 }
-            }).run();
+            }).start();
         }
 
         public IpNeighborMonitor getIpNeighborMonitor(Handler h, SharedLog l,
