@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4b92785_4d2c3dda",
+        "filename": "service/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1944425
+      },
+      "writtenOn": "2022-09-19T02:51:55Z",
+      "side": 1,
+      "message": "Yes this will be removed after the jacoco bug fixed. Currently, there is a pending cl I think.",
+      "parentUuid": "30146bf9_f5bae8f2",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 31
+      },
+      "revId": "c682b1b3f384c0ac8e4f85aa6d73d96f557f9bc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1dbd8dd_13b8acce",
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "+1; I think you should only need to keep the \"entry points\" of the module which start the other services and are referenced in SystemServer.java: ConnectivityServiceInitializer, and NetworkStatsServiceInitializer. These are hardcoded in SystemServer.java so also are less likely to be moved/renamed/jarjared.",
       "parentUuid": "d1dbd8dd_13b8acce",
+      "range": {
+        "startLine": 7,
+        "startChar": 11,
+        "endLine": 7,
+        "endChar": 19
+      },
+      "revId": "c682b1b3f384c0ac8e4f85aa6d73d96f557f9bc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0381495f_0fcad95c",
+        "filename": "service/proguard.flags",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1944425
+      },
+      "writtenOn": "2022-09-19T02:51:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "124d5285_4b1f0bcd",
       "range": {
         "startLine": 7,
         "startChar": 11,
