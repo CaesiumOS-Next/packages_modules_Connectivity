@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0a143bd_f3f9f97a",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1572,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-19T07:11:24Z",
+      "side": 1,
+      "message": "Instead of having null ethHeader but never use it:\n\n    if (hasEther) {\n        final EthernetHeader ethHeader \u003d new EthernetHeader(dstMac, srcMac, ETHER_TYPE_IPV4);\n        ethHeader.writeToByteBuffer(packet);\n    }",
+      "range": {
+        "startLine": 1571,
+        "startChar": 8,
+        "endLine": 1572,
+        "endChar": 77
+      },
+      "revId": "5274c4803a5b78ed4c2127bd6699ff7ada0f7632",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
