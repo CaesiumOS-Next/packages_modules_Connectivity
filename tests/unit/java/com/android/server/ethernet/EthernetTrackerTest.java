@@ -97,7 +97,7 @@ public class EthernetTrackerTest {
     private HandlerThread mHandlerThread;
     private TestLooper mLooper;
     private Handler mHandler;
-    private EthernetNetworkFactory mNetFactory = null;
+    private EthernetNetworkFactory mNetFactory;
     private IpClientCallbacks mIpClientCallbacks;
     private NetworkOfferCallback mNetworkOfferCallback;
     private NetworkRequest mRequestToKeepNetworkUp;
@@ -111,12 +111,6 @@ public class EthernetTrackerTest {
     @Mock private InterfaceParams mInterfaceParams;
     @Mock private Network mMockNetwork;
     @Mock private NetworkProvider mNetworkProvider;
-
-    private void initEthernetNetworkFactory() {
-        mLooper = new TestLooper();
-        mHandler = new Handler(mLooper.getLooper());
-        mNetFactory = new EthernetNetworkFactory(mHandler, mContext, mNetworkProvider, mDeps);
-    }
 
     private void setupNetworkAgentMock() {
         when(mDeps.makeEthernetNetworkAgent(any(), any(), any(), any(), any(), any(), any()))
@@ -179,6 +173,11 @@ public class EthernetTrackerTest {
         setupContext();
 
         tracker = new EthernetTracker(mContext, mHandlerThread.getThreadHandler(), mNetd, mDeps);
+
+        // TODO: remove TestLooper and get rid of mFactory mock.
+        mLooper = new TestLooper();
+        mHandler = new Handler(mLooper.getLooper());
+        mNetFactory = new EthernetNetworkFactory(mHandler, mContext, mNetworkProvider, mDeps);
     }
 
     @After
@@ -604,7 +603,6 @@ public class EthernetTrackerTest {
 
     @Test
     public void testUpdateInterfaceLinkStateForActiveProvisioningInterface() throws Exception {
-        initEthernetNetworkFactory();
         createInterfaceUndergoingProvisioning(TEST_IFACE);
 
         // verify that the IpClient gets shut down when interface state changes to down.
@@ -616,8 +614,6 @@ public class EthernetTrackerTest {
 
     @Test
     public void testUpdateInterfaceLinkStateForNonExistingInterface() throws Exception {
-        initEthernetNetworkFactory();
-
         // if interface was never added, link state cannot be updated.
         final boolean ret = mNetFactory.updateInterfaceLinkState(TEST_IFACE, true /* up */);
 
@@ -627,7 +623,6 @@ public class EthernetTrackerTest {
 
     @Test
     public void testProvisioningLoss() throws Exception {
-        initEthernetNetworkFactory();
         when(mDeps.getNetworkInterfaceByName(TEST_IFACE)).thenReturn(mInterfaceParams);
         createAndVerifyProvisionedInterface(TEST_IFACE);
 
@@ -646,7 +641,6 @@ public class EthernetTrackerTest {
 
     @Test
     public void testNetworkUnwanted() throws Exception {
-        initEthernetNetworkFactory();
         createAndVerifyProvisionedInterface(TEST_IFACE);
 
         mNetworkAgent.getCallbacks().onNetworkUnwanted();
@@ -656,7 +650,6 @@ public class EthernetTrackerTest {
 
     @Test
     public void testNetworkUnwantedWithStaleNetworkAgent() throws Exception {
-        initEthernetNetworkFactory();
         // ensures provisioning is restarted after provisioning loss
         when(mDeps.getNetworkInterfaceByName(TEST_IFACE)).thenReturn(mInterfaceParams);
         createAndVerifyProvisionedInterface(TEST_IFACE);
@@ -680,7 +673,6 @@ public class EthernetTrackerTest {
 
     @Test
     public void testTransportOverrideIsCorrectlySet() throws Exception {
-        initEthernetNetworkFactory();
         // createProvisionedInterface() has verifications in place for transport override
         // functionality which for EthernetNetworkFactory is network score and legacy type mappings.
         createVerifyAndRemoveProvisionedInterface(NetworkCapabilities.TRANSPORT_ETHERNET,
@@ -701,7 +693,6 @@ public class EthernetTrackerTest {
 
     @Test
     public void testReachabilityLoss() throws Exception {
-        initEthernetNetworkFactory();
         createAndVerifyProvisionedInterface(TEST_IFACE);
 
         triggerOnReachabilityLost();
@@ -721,7 +712,6 @@ public class EthernetTrackerTest {
 
     @Test
     public void testIgnoreOnIpLayerStartedCallbackForStaleCallback() throws Exception {
-        initEthernetNetworkFactory();
         final IpClientCallbacks staleIpClientCallbacks = getStaleIpClientCallbacks();
 
         staleIpClientCallbacks.onProvisioningSuccess(new LinkProperties());
@@ -733,7 +723,6 @@ public class EthernetTrackerTest {
 
     @Test
     public void testIgnoreOnIpLayerStoppedCallbackForStaleCallback() throws Exception {
-        initEthernetNetworkFactory();
         when(mDeps.getNetworkInterfaceByName(TEST_IFACE)).thenReturn(mInterfaceParams);
         final IpClientCallbacks staleIpClientCallbacks = getStaleIpClientCallbacks();
 
@@ -745,7 +734,6 @@ public class EthernetTrackerTest {
 
     @Test
     public void testIgnoreLinkPropertiesCallbackForStaleCallback() throws Exception {
-        initEthernetNetworkFactory();
         final IpClientCallbacks staleIpClientCallbacks = getStaleIpClientCallbacks();
         final LinkProperties lp = new LinkProperties();
 
@@ -757,7 +745,6 @@ public class EthernetTrackerTest {
 
     @Test
     public void testIgnoreNeighborLossCallbackForStaleCallback() throws Exception {
-        initEthernetNetworkFactory();
         final IpClientCallbacks staleIpClientCallbacks = getStaleIpClientCallbacks();
 
         staleIpClientCallbacks.onReachabilityLost("Neighbor Lost");
@@ -791,7 +778,6 @@ public class EthernetTrackerTest {
 
     @Test
     public void testOnNetworkNeededOnStaleNetworkOffer() throws Exception {
-        initEthernetNetworkFactory();
         createAndVerifyProvisionedInterface(TEST_IFACE);
         mNetFactory.updateInterfaceLinkState(TEST_IFACE, false);
         verify(mNetworkProvider).unregisterNetworkOffer(mNetworkOfferCallback);
