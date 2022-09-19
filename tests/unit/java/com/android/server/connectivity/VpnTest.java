@@ -992,6 +992,22 @@ public class VpnTest extends VpnTestBase {
     }
 
     @Test
+    public void testRefreshPlatformVpnAppExclusionListOnRestrictedUser() throws Exception {
+        final Vpn vpn = createVpnAndSetupUidChecks(
+                RESTRICTED_PROFILE_A, AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
+
+        // Make it connected in normal way will cause a security exception, so just set a mock
+        // networkAgent so that it is not null and able to verify the possible interaction between
+        // vpn and networkAgent.
+        vpn.mNetworkAgent = mMockNetworkAgent;
+
+        // Calling this does not cause any exception. Also verify that there is no update happened
+        // on the network agent.
+        vpn.refreshPlatformVpnAppExclusionList();
+        verify(mMockNetworkAgent, never()).doSendNetworkCapabilities(any());
+    }
+
+    @Test
     public void testProvisionVpnProfileRestrictedUser() throws Exception {
         final Vpn vpn =
                 createVpnAndSetupUidChecks(
