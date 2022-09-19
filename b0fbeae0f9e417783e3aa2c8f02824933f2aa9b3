@@ -16,6 +16,24 @@
       "message": "This looks extremely ad-hoc ; I don\u0027t remember we had a design review for this. I also don\u0027t see a clear link between a premium slice and realtime interactive traffic : they seem independent.",
       "revId": "b0fbeae0f9e417783e3aa2c8f02824933f2aa9b3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82f7888f_419d03eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-09-19T18:20:45Z",
+      "side": 1,
+      "message": "Hey jean...This is from the doc\nhttps://docs.google.com/document/d/18L5fwMQBlv6ul-P5Vp9yrL6wn1e6a0cZo5Lgpa8Qr18/edit#heading\u003dh.xgjl2srtytjt\n\nThe naming was changed while you are out. Feel free to comment on the doc on the naming we can discuss with stella",
+      "parentUuid": "049789e8_8f82ef2a",
+      "revId": "b0fbeae0f9e417783e3aa2c8f02824933f2aa9b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
