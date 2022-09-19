@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3647274_1bf77c02",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1778,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-19T08:01:19Z",
+      "side": 1,
+      "message": "Make this final ? Then we need to worry about it could be changed after initialized.\n\nYou could have utils:\n    private int getIpProto(@NonNull final InetAddress srcIp, @NonNull final InetAddress dstIp) {\n        return isAddressIpv4(srcIp, dstIp) ? IPPROTO_IP : IPPROTO_IPV6;\n    }\n\nprivate short getEthType(@NonNull final InetAddress srcIp, @NonNull final InetAddress dstIp) {\n        return isAddressIpv4(srcIp, dstIp) ? ETHER_TYPE_IPV4 : ETHER_TYPE_IPV6;\n}\n\nfinal int ipProto \u003d getIpProto(srcIp, dstIp);\n....\nif (hasEther) packetBuilder.writeL2Header(srcMac, dstMac, getEthType(srcIp, dstIp));\n\nAnd also change the usage in buildUdpPacket.",
+      "range": {
+        "startLine": 1778,
+        "startChar": 8,
+        "endLine": 1778,
+        "endChar": 11
+      },
+      "revId": "5066fc23a3b6027546a5d5ed82c215d206eb8514",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
