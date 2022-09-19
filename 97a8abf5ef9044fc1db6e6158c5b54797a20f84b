@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a074e9fe_27f0a0a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2022-09-19T11:44:15Z",
+      "side": 1,
+      "message": "This addresses some errors introduced by the move to errorprone 2.15.0 (Icc3e16854ec8e738f51a94880d0eac7b27db897e).",
+      "revId": "97a8abf5ef9044fc1db6e6158c5b54797a20f84b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
