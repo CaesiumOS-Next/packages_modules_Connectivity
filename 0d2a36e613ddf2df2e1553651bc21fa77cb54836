@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bed0b9a2_9071ecae",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-09-19T09:38:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "450033ab_2b07c63e",
+      "range": {
+        "startLine": 605,
+        "startChar": 37,
+        "endLine": 605,
+        "endChar": 46
+      },
+      "revId": "0d2a36e613ddf2df2e1553651bc21fa77cb54836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd0bae78_93981788",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-19T07:36:04Z",
       "side": 1,
       "message": "isExpectedTcpHeader only check seq. Just \"if (tcpHeader.seq !\u003d seq) return false\" ?",
+      "range": {
+        "startLine": 613,
+        "startChar": 16,
+        "endLine": 613,
+        "endChar": 52
+      },
+      "revId": "0d2a36e613ddf2df2e1553651bc21fa77cb54836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e44f9291_de49ebb8",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-09-19T09:38:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd0bae78_93981788",
       "range": {
         "startLine": 613,
         "startChar": 16,
