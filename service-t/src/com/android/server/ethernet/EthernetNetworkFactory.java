@@ -62,7 +62,8 @@ public class EthernetNetworkFactory {
 
     private static final String NETWORK_TYPE = "Ethernet";
 
-    private final ConcurrentHashMap<String, NetworkInterfaceState> mTrackingInterfaces =
+    // TODO: marked public to move code from EthernetNetworkFactory to EthernetTracker.
+    public final ConcurrentHashMap<String, NetworkInterfaceState> mTrackingInterfaces =
             new ConcurrentHashMap<>();
     private final Handler mHandler;
     private final Context mContext;
@@ -82,23 +83,6 @@ public class EthernetNetworkFactory {
         mContext = context;
         mProvider = provider;
         mDeps = deps;
-    }
-
-    /**
-     * Returns an array of available interface names. The array is sorted: unrestricted interfaces
-     * goes first, then sorted by name.
-     */
-    @VisibleForTesting(visibility = VisibleForTesting.Visibility.PACKAGE)
-    protected String[] getAvailableInterfaces(boolean includeRestricted) {
-        return mTrackingInterfaces.values()
-                .stream()
-                .filter(iface -> !iface.isRestricted() || includeRestricted)
-                .sorted((iface1, iface2) -> {
-                    int r = Boolean.compare(iface1.isRestricted(), iface2.isRestricted());
-                    return r == 0 ? iface1.name.compareTo(iface2.name) : r;
-                })
-                .map(iface -> iface.name)
-                .toArray(String[]::new);
     }
 
     @VisibleForTesting(visibility = VisibleForTesting.Visibility.PACKAGE)
