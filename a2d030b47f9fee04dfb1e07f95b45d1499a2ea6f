@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6fcd6f9_ef14a94e",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-09-19T02:38:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14644c99_a8c95b39",
+      "range": {
+        "startLine": 612,
+        "startChar": 0,
+        "endLine": 628,
+        "endChar": 61
+      },
+      "revId": "a2d030b47f9fee04dfb1e07f95b45d1499a2ea6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50e3241d_884cf6a5",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-16T09:07:56Z",
       "side": 1,
       "message": "If you take above suggestion, you could verify the payload:\n\n    try {\n        if (hasEth \u0026\u0026 !hasExpectedEtherHeader(buf, isIpv4)) return false;\n\n        if (!hasExpectedIpHeader(buf, isIpv4, IPPROTO_TCP)) return false;\n\n        if (!hasExpectedTcpHeader(buf, seq)) return false;\n        \n        // Packet has no payload.\n        // Or you can make payload @NonNull, then you don\u0027t need to do null check.\n        if (payload \u003d\u003d null) return buf.remaining() \u003d\u003d 0;\n        \n        return Arrays.equals(getRemaining(buf), getRemaining(payload));     \n    } catch ...\n    } finally {\n         // in case payload might be reused by caller, restore the position and limit of bytebuffer.\n        payload.clear();\n    }",
+      "range": {
+        "startLine": 639,
+        "startChar": 12,
+        "endLine": 639,
+        "endChar": 81
+      },
+      "revId": "a2d030b47f9fee04dfb1e07f95b45d1499a2ea6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c217336_8fd1d728",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-09-19T02:38:36Z",
+      "side": 1,
+      "message": "Please review new patchset if it is fine. Thank you.\n\nNeed to handle no payload case and avoid additional mss option which is unexpected by test.\n  \na) three-way handshake packets may have no payload.\nb) TetherController::setupIptablesHooks limits downstream mss (ipv4 only) via iptables. It causes additional tcp option mss in syn/syn-ack packets\nc) additional mss option is misunderstood as payload because tcpheader class can\u0027t recognize tcp options.\n\nTetherController adds iptables TCPMSS to limits downstream mss.\nhttps://cs.android.com/android/platform/superproject/+/master:system/netd/server/TetherController.cpp;l\u003d507\n```\n    std::string mssRewriteCommand \u003d StringPrintf(\n        \"*mangle\\n\"\n        \"-A %s -p tcp --tcp-flags SYN SYN -j TCPMSS --clamp-mss-to-pmtu\\n\"\n        \"COMMIT\\n\", LOCAL_MANGLE_FORWARD);\n```\n\ntethered upload packets has additional TCP option MSS 536 which is not expected by test\n```\n130\t2022-09-16 15:09:30.318877\t192.168.55.21\t8.8.8.8\tTCP\t60\t9876 → 433 [SYN] Seq\u003d0 Win\u003d8192 Len\u003d0\n131\t2022-09-16 15:09:30.319047\t10.0.0.1\t8.8.8.8\tTCP\t64\t9876 → 433 [SYN] Seq\u003d0 Win\u003d8192 Len\u003d0 MSS\u003d536\n```\n\ntethered download packets has additional TCP option MSS 536 which is not expected by test\n```\n132\t2022-09-16 15:09:30.320842\t8.8.8.8\t10.0.0.1\tTCP\t60\t433 → 9876 [SYN, ACK] Seq\u003d0 Ack\u003d1 Win\u003d8192 Len\u003d0\n133\t2022-09-16 15:09:30.321026\t8.8.8.8\t192.168.55.21\tTCP\t64\t433 → 9876 [SYN, ACK] Seq\u003d0 Ack\u003d1 Win\u003d8192 Len\u003d0 MSS\u003d536\n```\n\nRemove \"TCPMSS --clamp-mss-to-pmtu\" from TetherController.\n\ntethered upload packets does not have tcp options\n```\n104\t2022-09-17 14:36:26.336137\t192.168.130.21\t8.8.8.8\tTCP\t60\t\t0x6a0d (27149)\t9876 → 433 [SYN] Seq\u003d0 Win\u003d8192 Len\u003d0\n105\t2022-09-17 14:36:26.336265\t10.0.0.1\t8.8.8.8\tTCP\t60\t\t0x6a0d (27149)\t9876 → 433 [SYN] Seq\u003d0 Win\u003d8192 Len\u003d0\n```\n\ntethered upload packets does not have tcp options\n```\n106\t2022-09-17 14:36:26.340736\t8.8.8.8\t10.0.0.1\tTCP\t60\t\t0x6a0d (27149)\t433 → 9876 [SYN, ACK] Seq\u003d0 Ack\u003d1 Win\u003d8192 Len\u003d0\n107\t2022-09-17 14:36:26.340845\t8.8.8.8\t192.168.130.21\tTCP\t60\t\t0x6a0d (27149)\t433 → 9876 [SYN, ACK] Seq\u003d0 Ack\u003d1 Win\u003d8192 Len\u003d0\n```",
+      "parentUuid": "50e3241d_884cf6a5",
       "range": {
         "startLine": 639,
         "startChar": 12,
