@@ -160,7 +160,7 @@ public class BatteryStatsManagerTest{
     }
 
     private void verifyGetWifiBatteryStats() throws Exception {
-        final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
+        final Network wifiNetwork = mCtsNetUtils.connectToWifi()();
         final URL url = new URL(TEST_URL);
 
         if (!mWm.isEnhancedPowerReportingSupported()) {
