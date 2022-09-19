@@ -93,6 +93,30 @@
       },
       "revId": "a2d030b47f9fee04dfb1e07f95b45d1499a2ea6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6c001a8_67ab0f16",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-19T07:36:04Z",
+      "side": 1,
+      "message": "You can have a empty_payload for testing and don\u0027t allow null payload.\n\nfinal ByteBuffer EMPTY_PAYLOAD \u003d ByteBuffer.wrap(new byte[0]);",
+      "parentUuid": "0c217336_8fd1d728",
+      "range": {
+        "startLine": 639,
+        "startChar": 12,
+        "endLine": 639,
+        "endChar": 81
+      },
+      "revId": "a2d030b47f9fee04dfb1e07f95b45d1499a2ea6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
