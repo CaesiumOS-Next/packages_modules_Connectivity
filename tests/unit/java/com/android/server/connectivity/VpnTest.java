@@ -38,7 +38,6 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
@@ -1480,6 +1479,9 @@ public class VpnTest extends VpnTestBase {
         if (errorType == VpnManager.ERROR_CLASS_NOT_RECOVERABLE) {
             verify(mConnectivityManager, timeout(TEST_TIMEOUT_MS))
                     .unregisterNetworkCallback(eq(cb));
+        } else if (errorCode == VpnManager.ERROR_CODE_NETWORK_LOST) {
+            verify(mConnectivityManager, never()).unregisterNetworkCallback(eq(cb));
+            verify(mExecutor, never()).schedule(any(Runnable.class), anyLong(), any());
         } else if (errorType == VpnManager.ERROR_CLASS_RECOVERABLE) {
             int retryIndex = 0;
             final IkeSessionCallback ikeCb2 = verifyRetryAndGetNewIkeCb(retryIndex++);
@@ -1876,31 +1878,14 @@ public class VpnTest extends VpnTestBase {
         assertEquals(
                 Collections.singletonList(TEST_NETWORK_2),
                 vpnSnapShot.vpn.mNetworkCapabilities.getUnderlyingNetworks());
-        verify(mMockNetworkAgent)
-                .doSetUnderlyingNetworks(Collections.singletonList(TEST_NETWORK_2));
 
         vpnSnapShot.vpn.mVpnRunner.exitVpnRunner();
-    }
-
-    private void verifyHandlingNetworkLoss() throws Exception {
-        final ArgumentCaptor<LinkProperties> lpCaptor =
-                ArgumentCaptor.forClass(LinkProperties.class);
-        verify(mMockNetworkAgent).doSendLinkProperties(lpCaptor.capture());
-        final LinkProperties lp = lpCaptor.getValue();
-
-        assertNull(lp.getInterfaceName());
-        final List<RouteInfo> expectedRoutes = Arrays.asList(
-                new RouteInfo(new IpPrefix(Inet4Address.ANY, 0), null /*gateway*/,
-                        null /*iface*/, RTN_UNREACHABLE),
-                new RouteInfo(new IpPrefix(Inet6Address.ANY, 0), null /*gateway*/,
-                        null /*iface*/, RTN_UNREACHABLE));
-        assertEquals(expectedRoutes, lp.getRoutes());
     }
 
     @Test
     public void testStartPlatformVpnHandlesNetworkLoss_mobikeEnabled() throws Exception {
         final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
-                createIkeConfig(createIkeConnectInfo(), false /* isMobikeEnabled */));
+                createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */));
 
         // Forget the #sendLinkProperties during first setup.
         reset(mMockNetworkAgent);
@@ -1915,7 +1900,7 @@ public class VpnTest extends VpnTestBase {
         verify(mExecutor).schedule(runnableCaptor.capture(), anyLong(), any());
         runnableCaptor.getValue().run();
 
-        verifyHandlingNetworkLoss();
+        verify(mMockNetworkAgent, never()).doSendLinkProperties(any());
     }
 
     @Test
@@ -1929,7 +1914,7 @@ public class VpnTest extends VpnTestBase {
         // Mock network loss
         vpnSnapShot.nwCb.onLost(TEST_NETWORK);
 
-        verifyHandlingNetworkLoss();
+        verify(mMockNetworkAgent, never()).doSendLinkProperties(any());
     }
 
     @Test
