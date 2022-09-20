@@ -1480,7 +1480,8 @@ public class VpnTest extends VpnTestBase {
         if (errorType == VpnManager.ERROR_CLASS_NOT_RECOVERABLE) {
             verify(mConnectivityManager, timeout(TEST_TIMEOUT_MS))
                     .unregisterNetworkCallback(eq(cb));
-        } else if (errorType == VpnManager.ERROR_CLASS_RECOVERABLE) {
+        } else if (errorType == VpnManager.ERROR_CLASS_RECOVERABLE
+                && errorCode != VpnManager.ERROR_CODE_NETWORK_LOST) {
             int retryIndex = 0;
             final IkeSessionCallback ikeCb2 = verifyRetryAndGetNewIkeCb(retryIndex++);
 
@@ -1876,8 +1877,6 @@ public class VpnTest extends VpnTestBase {
         assertEquals(
                 Collections.singletonList(TEST_NETWORK_2),
                 vpnSnapShot.vpn.mNetworkCapabilities.getUnderlyingNetworks());
-        verify(mMockNetworkAgent)
-                .doSetUnderlyingNetworks(Collections.singletonList(TEST_NETWORK_2));
 
         vpnSnapShot.vpn.mVpnRunner.exitVpnRunner();
     }
@@ -1900,7 +1899,7 @@ public class VpnTest extends VpnTestBase {
     @Test
     public void testStartPlatformVpnHandlesNetworkLoss_mobikeEnabled() throws Exception {
         final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
-                createIkeConfig(createIkeConnectInfo(), false /* isMobikeEnabled */));
+                createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */));
 
         // Forget the #sendLinkProperties during first setup.
         reset(mMockNetworkAgent);
