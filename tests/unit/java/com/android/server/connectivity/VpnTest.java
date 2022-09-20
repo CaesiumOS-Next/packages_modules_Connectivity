@@ -1876,8 +1876,6 @@ public class VpnTest extends VpnTestBase {
         assertEquals(
                 Collections.singletonList(TEST_NETWORK_2),
                 vpnSnapShot.vpn.mNetworkCapabilities.getUnderlyingNetworks());
-        verify(mMockNetworkAgent)
-                .doSetUnderlyingNetworks(Collections.singletonList(TEST_NETWORK_2));
 
         vpnSnapShot.vpn.mVpnRunner.exitVpnRunner();
     }
@@ -1900,7 +1898,7 @@ public class VpnTest extends VpnTestBase {
     @Test
     public void testStartPlatformVpnHandlesNetworkLoss_mobikeEnabled() throws Exception {
         final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
-                createIkeConfig(createIkeConnectInfo(), false /* isMobikeEnabled */));
+                createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */));
 
         // Forget the #sendLinkProperties during first setup.
         reset(mMockNetworkAgent);
@@ -1929,7 +1927,7 @@ public class VpnTest extends VpnTestBase {
         // Mock network loss
         vpnSnapShot.nwCb.onLost(TEST_NETWORK);
 
-        verifyHandlingNetworkLoss();
+        verify(mMockNetworkAgent, never()).doSendLinkProperties(any());
     }
 
     @Test
