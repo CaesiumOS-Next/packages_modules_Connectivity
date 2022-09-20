@@ -46,6 +46,30 @@
       },
       "revId": "a2debb8dc75935f2c6914cb8b6c4d73ad93a38ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5a9557f_a194100f",
+        "filename": "service/proguard.flags",
+        "patchSetId": 10
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1061164
+      },
+      "writtenOn": "2022-09-20T18:16:10Z",
+      "side": 1,
+      "message": "nitpick: jarjar is unconditional though, maybe keep only the final name of the class?",
+      "parentUuid": "63464b03_434a9881",
+      "range": {
+        "startLine": 22,
+        "startChar": 41,
+        "endLine": 22,
+        "endChar": 43
+      },
+      "revId": "a2debb8dc75935f2c6914cb8b6c4d73ad93a38ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

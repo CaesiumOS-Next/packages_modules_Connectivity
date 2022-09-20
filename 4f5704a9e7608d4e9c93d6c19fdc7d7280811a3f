@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4d19bc39_22cc4558",
+        "filename": "service/proguard.flags",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1061164
+      },
+      "writtenOn": "2022-09-20T18:16:10Z",
+      "side": 1,
+      "message": "I don\u0027t think we have many native methods, and usually those always end up used in practice. If it becomes a problem eventually, module owners can specialize their keep rules further. I guess we are choosing between convenience and bloat in the apk here. And I don\u0027t think additional bloat in the case of native methods is significant enough to ask people to remember to add their specific classes here..\n\nBut ultimately, I\u0027d let Remi have a final say.. :-)\n\nOOC\u003c have you tried:\n\n-keepclasseswithmembernames,includedescriptorclasses class * {\n    native \u003cmethods\u003e;\n}\n\nor \n\n-keep class * { native }\n\n?",
+      "parentUuid": "faf3e6f0_6dd18329",
+      "range": {
+        "startLine": 2,
+        "startChar": 7,
+        "endLine": 2,
+        "endChar": 10
+      },
+      "revId": "4f5704a9e7608d4e9c93d6c19fdc7d7280811a3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e59aa113_3ad72aaa",
         "filename": "service/proguard.flags",
         "patchSetId": 7
