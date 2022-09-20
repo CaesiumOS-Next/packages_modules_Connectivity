@@ -1882,7 +1882,17 @@ public class VpnTest extends VpnTestBase {
         vpnSnapShot.vpn.mVpnRunner.exitVpnRunner();
     }
 
-    private void verifyHandlingNetworkLoss() throws Exception {
+    private void verifyHandlingNetworkLoss(PlatformVpnSnapshot vpnSnapShot) throws Exception {
+        final ArgumentCaptor<Runnable> runnableCaptor =
+                ArgumentCaptor.forClass(Runnable.class);
+
+        // Mock network loss
+        vpnSnapShot.nwCb.onLost(TEST_NETWORK);
+
+        // Mock the grace period expires
+        verify(mExecutor).schedule(runnableCaptor.capture(), anyLong(), any());
+        runnableCaptor.getValue().run();
+
         final ArgumentCaptor<LinkProperties> lpCaptor =
                 ArgumentCaptor.forClass(LinkProperties.class);
         verify(mMockNetworkAgent).doSendLinkProperties(lpCaptor.capture());
@@ -1895,27 +1905,19 @@ public class VpnTest extends VpnTestBase {
                 new RouteInfo(new IpPrefix(Inet6Address.ANY, 0), null /*gateway*/,
                         null /*iface*/, RTN_UNREACHABLE));
         assertEquals(expectedRoutes, lp.getRoutes());
+
+        verify(mMockNetworkAgent).unregister();
     }
 
     @Test
     public void testStartPlatformVpnHandlesNetworkLoss_mobikeEnabled() throws Exception {
         final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
-                createIkeConfig(createIkeConnectInfo(), false /* isMobikeEnabled */));
+                createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */));
 
         // Forget the #sendLinkProperties during first setup.
         reset(mMockNetworkAgent);
 
-        final ArgumentCaptor<Runnable> runnableCaptor =
-                ArgumentCaptor.forClass(Runnable.class);
-
-        // Mock network loss
-        vpnSnapShot.nwCb.onLost(TEST_NETWORK);
-
-        // Mock the grace period expires
-        verify(mExecutor).schedule(runnableCaptor.capture(), anyLong(), any());
-        runnableCaptor.getValue().run();
-
-        verifyHandlingNetworkLoss();
+        verifyHandlingNetworkLoss(vpnSnapShot);
     }
 
     @Test
@@ -1926,10 +1928,7 @@ public class VpnTest extends VpnTestBase {
         // Forget the #sendLinkProperties during first setup.
         reset(mMockNetworkAgent);
 
-        // Mock network loss
-        vpnSnapShot.nwCb.onLost(TEST_NETWORK);
-
-        verifyHandlingNetworkLoss();
+        verifyHandlingNetworkLoss(vpnSnapShot);
     }
 
     @Test
