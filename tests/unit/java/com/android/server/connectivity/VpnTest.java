@@ -1900,7 +1900,7 @@ public class VpnTest extends VpnTestBase {
     @Test
     public void testStartPlatformVpnHandlesNetworkLoss_mobikeEnabled() throws Exception {
         final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
-                createIkeConfig(createIkeConnectInfo(), false /* isMobikeEnabled */));
+                createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */));
 
         // Forget the #sendLinkProperties during first setup.
         reset(mMockNetworkAgent);
@@ -1929,7 +1929,7 @@ public class VpnTest extends VpnTestBase {
         // Mock network loss
         vpnSnapShot.nwCb.onLost(TEST_NETWORK);
 
-        verifyHandlingNetworkLoss();
+        verify(mMockNetworkAgent, never()).doSendLinkProperties(any());
     }
 
     @Test
