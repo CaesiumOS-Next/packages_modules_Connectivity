@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a62c187_039b7a22",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkRankerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-20T12:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3661b6d2_16381c9a",
+      "range": {
+        "startLine": 70,
+        "startChar": 60,
+        "endLine": 70,
+        "endChar": 64
+      },
+      "revId": "50364c4b06611823020fb213d74b79a77f5fc2ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f51784b_cdd738a2",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-09-08T08:02:48Z",
       "side": 1,
       "message": "Question: What does T stand for?\nIIUC this should be capabilities of cellular network, maybe CAPS_CELL would be more readible?",
+      "range": {
+        "startLine": 71,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 9
+      },
+      "revId": "50364c4b06611823020fb213d74b79a77f5fc2ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fcbdba2_0fd11fb8",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkRankerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-20T12:05:14Z",
+      "side": 1,
+      "message": "I meant it for Transport, but your suggestion is more readable. Done.",
+      "parentUuid": "0f51784b_cdd738a2",
       "range": {
         "startLine": 71,
         "startChar": 8,
