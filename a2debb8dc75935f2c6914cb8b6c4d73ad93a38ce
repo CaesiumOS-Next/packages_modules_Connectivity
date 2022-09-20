@@ -22,6 +22,30 @@
       },
       "revId": "a2debb8dc75935f2c6914cb8b6c4d73ad93a38ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63464b03_434a9881",
+        "filename": "service/proguard.flags",
+        "patchSetId": 10
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1944425
+      },
+      "writtenOn": "2022-09-20T17:22:03Z",
+      "side": 1,
+      "message": "yes for jarjar",
+      "parentUuid": "1d6eeb7d_5ade516b",
+      "range": {
+        "startLine": 22,
+        "startChar": 41,
+        "endLine": 22,
+        "endChar": 43
+      },
+      "revId": "a2debb8dc75935f2c6914cb8b6c4d73ad93a38ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

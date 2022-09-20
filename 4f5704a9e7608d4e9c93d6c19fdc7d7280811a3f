@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "faf3e6f0_6dd18329",
+        "filename": "service/proguard.flags",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1944425
+      },
+      "writtenOn": "2022-09-20T17:22:03Z",
+      "side": 1,
+      "message": "I have thought about `-keep class * { native \u003cmethods\u003e; }`. But the potential problem is it may keep some native methods from the dependencies which might not be used by current target.  For example, ` android.net.connectivity.com.android.net.module.util.TcUtils` we need to keep the mative methods, but not native methods of different classes in the same package. So it would be helpful to specify the exact name here. \n\nFor only keeping the native methods. Yes, For tethering apk, we only keep the native methods of the corresponding classes, and leave the work for R8. For the standalone system server, the same opt passed the tests. What\u0027s more, I have compared the unused file between only keeping native methods and the entire classes, most of the differences are removing constants, few of them are methods, but these methods are not been called.",
+      "parentUuid": "13ce84e6_946994c8",
+      "range": {
+        "startLine": 2,
+        "startChar": 7,
+        "endLine": 2,
+        "endChar": 10
+      },
+      "revId": "4f5704a9e7608d4e9c93d6c19fdc7d7280811a3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e59aa113_3ad72aaa",
         "filename": "service/proguard.flags",
         "patchSetId": 7
