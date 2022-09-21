@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7849cc19_bc1b71f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-21T14:24:30Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed (though no need to block on the dependency injection one).",
+      "revId": "cd3ccf709b1aabfc46c131b83b94b4110e142bd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99556986_f33bd525",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 5805,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-21T14:24:30Z",
+      "side": 1,
+      "message": "You don\u0027t need these, tearDown does them for you.",
+      "range": {
+        "startLine": 5803,
+        "startChar": 0,
+        "endLine": 5805,
+        "endChar": 44
+      },
+      "revId": "cd3ccf709b1aabfc46c131b83b94b4110e142bd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "951c544b_fd2bac64",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 5810,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-21T14:24:30Z",
+      "side": 1,
+      "message": "It\u0027s unfortunate that a unit test like this interacts with the real DeviceConfig class.\n\nI know that both DeviceConfig and DeviceConfigUtils are used via static methods that can\u0027t be mocked, but this seems like a case for dependency injection or a wrapper class. IIRC in the past Remi and I had discussed a FlagManager class that would encapsulate flagging functionality (e.g., figure out the right namespace, get the apex module version, etc.) and unlike DeviceConfigUtils would be mockable. That would make sense to pass to CS via dependency injection and that could then pass it to MultinetworkPolicyTracker.\n\nThat\u0027s probably a bigger task than you want to do right now, but maybe add a TODO for it?",
+      "range": {
+        "startLine": 5810,
+        "startChar": 23,
+        "endLine": 5810,
+        "endChar": 47
+      },
+      "revId": "cd3ccf709b1aabfc46c131b83b94b4110e142bd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0d71542_98fca69d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 5816,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-21T14:24:30Z",
+      "side": 1,
+      "message": "An assumption would be good here. Something like:\n\n    @Test\n    public void testPreferBadWifi_DoPrefer() throws Exception {\n        runAsShell(READ_DEVICE_CONFIG, () -\u003e doTestPreferBadWifi(true));\n    }\n\n    @Test\n    public void testPreferBadWifi_DoNotPrefer() throws Exception {\n        // Starting with U this mode is no longer supported\n        assumeFalse(SdkLevel.isAtLeastU());\n        runAsShell(READ_DEVICE_CONFIG, () -\u003e doTestPreferBadWifi(false));\n    }",
+      "range": {
+        "startLine": 5816,
+        "startChar": 12,
+        "endLine": 5816,
+        "endChar": 92
+      },
+      "revId": "cd3ccf709b1aabfc46c131b83b94b4110e142bd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "778e3d38_4824e71a",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 5820,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-21T14:24:30Z",
+      "side": 1,
+      "message": "If doTestPreferBadWifi throws, this code won\u0027t run and the permission will not be dropped. This should go in a finally clause, or better yet use runAsShell:\n\n    // Permanently adopt READ_DEVICE_CONFIG for the duration of the test, because some\n    // classes used by ConnectivityService need to read the device config at multiple points. One such example is MultinetworkPolicyTracker, which reads it on\n    // the handler thread.\n    final boolean preferBadWifi \u003d SdkLevel.isAtLeastU();\n    runAsShell(READ_DEVICE_CONFIG, () -\u003e doTestPreferBadWifi(preferBadWifi));\n\nBut in general it seems better to avoid using the real DeviceConfig class, see above.",
+      "range": {
+        "startLine": 5820,
+        "startChar": 22,
+        "endLine": 5820,
+        "endChar": 49
+      },
+      "revId": "cd3ccf709b1aabfc46c131b83b94b4110e142bd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
