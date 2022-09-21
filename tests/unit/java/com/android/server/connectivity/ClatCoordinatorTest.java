@@ -558,6 +558,11 @@ public class ClatCoordinatorTest {
         final ClatCoordinator coordinator = new ClatCoordinator(deps);
         assertThrows(IOException.class,
                 () -> coordinator.clatStart(BASE_IFACE, NETID, NAT64_IP_PREFIX));
+
+        // Expect that dump without crash while clat is not started.
+        final StringWriter stringWriter = new StringWriter();
+        final IndentingPrintWriter ipw = new IndentingPrintWriter(stringWriter, " ");
+        coordinator.dump(ipw);
     }
 
     private void checkNotStartClat(final TestDependencies deps, final boolean needToCloseTunFd,
