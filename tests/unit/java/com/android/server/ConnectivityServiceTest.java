@@ -3528,7 +3528,7 @@ public class ConnectivityServiceTest {
     }
 
     private void expectNoNotification(@NonNull final TestNetworkAgentWrapper agent) {
-        verify(mNotificationManager, never()).notifyAsUser(anyString(), anyInt(), any(), any());
+        verify(mNotificationManager, never()).notify(anyString(), anyInt(), any());
     }
 
     /**
@@ -5875,6 +5875,7 @@ public class ConnectivityServiceTest {
         defaultCallback.expectAvailableCallbacksValidated(mCellNetworkAgent);
         assertEquals(mCm.getActiveNetwork(), cellNetwork);
         expectClearNotification(mWiFiNetworkAgent, NotificationType.LOST_INTERNET);
+        reset(mNotificationManager);
 
         // Switch back to a restrictive carrier.
         doReturn(0).when(mResources).getInteger(R.integer.config_networkAvoidBadWifi);
