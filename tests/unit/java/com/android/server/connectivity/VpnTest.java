@@ -1765,6 +1765,12 @@ public class VpnTest extends VpnTestBase {
 
     private PlatformVpnSnapshot verifySetupPlatformVpn(
             IkeSessionConfiguration ikeConfig, boolean mtuSupportsIpv6) throws Exception {
+        return verifySetupPlatformVpn(ikeConfig, mtuSupportsIpv6, PRIMARY_USER);
+    }
+
+    private PlatformVpnSnapshot verifySetupPlatformVpn(
+            IkeSessionConfiguration ikeConfig, boolean mtuSupportsIpv6, UserInfo user)
+            throws Exception {
         if (!mtuSupportsIpv6) {
             doReturn(1279).when(mTestDeps).calculateVpnMtu(any(), anyInt(), anyInt(), anyBoolean());
         }
@@ -1773,7 +1779,7 @@ public class VpnTest extends VpnTestBase {
                 .newNetworkAgent(
                         any(), any(), anyString(), any(), any(), any(), any(), any());
 
-        final Vpn vpn = createVpnAndSetupUidChecks(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
+        final Vpn vpn = createVpnAndSetupUidChecks(user, AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
         when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
                 .thenReturn(mVpnProfile.encode());
 
@@ -2057,6 +2063,42 @@ public class VpnTest extends VpnTestBase {
         vpnSnapShot.nwCb.onLost(TEST_NETWORK);
 
         verifyHandlingNetworkLoss();
+    }
+
+    @Test
+    public void testBypassablePlatformVpnRestartsNetworkAgentOnLockdownModeChange()
+            throws Exception {
+        final PlatformVpnSnapshot vpnSnapShot =
+                verifySetupPlatformVpn(
+                        createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */),
+                        true /* mtuSupportsIpv6 */,
+                        SYSTEM_USER);
+        verify(mTestDeps)
+                .newNetworkAgent(any(), any(), anyString(), any(), any(), any(), any(), any());
+
+        // Enabling always on without lockdown should not need to restart the NetworkAgent
+        assertTrue(
+                vpnSnapShot.vpn.setAlwaysOnPackage(
+                        TEST_VPN_PKG, false /* lockdown */, null /* lockdownAllowlist */));
+        verify(mMockNetworkAgent, never()).unregister();
+
+        // But enabling lockdown will require restarting the NetworkAgent
+        assertTrue(
+                vpnSnapShot.vpn.setAlwaysOnPackage(
+                        TEST_VPN_PKG, true /* lockdown */, null /* lockdownAllowlist */));
+        verify(mTestDeps, times(2))
+                .newNetworkAgent(any(), any(), anyString(), any(), any(), any(), any(), any());
+        verify(mMockNetworkAgent).unregister();
+
+        // And likewise, disabling lockdown will require restarting the NetworkAgent
+        assertTrue(
+                vpnSnapShot.vpn.setAlwaysOnPackage(
+                        TEST_VPN_PKG, false /* lockdown */, null /* lockdownAllowlist */));
+        verify(mTestDeps, times(3))
+                .newNetworkAgent(any(), any(), anyString(), any(), any(), any(), any(), any());
+        verify(mMockNetworkAgent, times(2)).unregister();
+
+        vpnSnapShot.vpn.mVpnRunner.exitVpnRunner();
     }
 
     @Test
