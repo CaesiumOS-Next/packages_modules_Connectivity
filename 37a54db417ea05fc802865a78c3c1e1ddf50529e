@@ -16,6 +16,23 @@
       "message": "please order grabbike app",
       "revId": "37a54db417ea05fc802865a78c3c1e1ddf50529e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93c17900_df5bca52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-21T14:21:23Z",
+      "side": 1,
+      "message": "Lint seems to -1 with no message and no findings, not sure what else to do",
+      "revId": "37a54db417ea05fc802865a78c3c1e1ddf50529e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
