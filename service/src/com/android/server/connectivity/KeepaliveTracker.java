@@ -234,7 +234,9 @@ public class KeepaliveTracker {
 
         /** Called when the application process is killed. */
         public void binderDied() {
-            stop(BINDER_DIED);
+            // Handle binder died event on the handler thread, so it won't
+            // race with other events.
+            mConnectivityServiceHandler.post(() -> stop(BINDER_DIED));
         }
 
         void unlinkDeathRecipient() {
@@ -258,6 +260,20 @@ public class KeepaliveTracker {
                 }
             }
             return ERROR_INVALID_IP_ADDRESS;
+        }
+
+        private int checkStartedState() {
+            // If binder died, the keepaliveInfo#stop might actually run before #start().
+            // Throw for other unexpected cases for debugging.
+            if (mStartedState != NOT_STARTED) {
+                if (mStartedState == STOPPING && mStopReason == BINDER_DIED) {
+                    return BINDER_DIED;
+                } else {
+                    throw new IllegalStateException("Unexpected started state: "
+                            + mStartedState + "/" + mStopReason);
+                }
+            }
+            return SUCCESS;
         }
 
         private int checkInterval() {
@@ -326,7 +342,8 @@ public class KeepaliveTracker {
 
         void start(int slot) {
             mSlot = slot;
-            int error = isValid();
+            int error = checkStartedState();
+            if (error == SUCCESS) error = isValid();
             if (error == SUCCESS) {
                 Log.d(TAG, "Starting keepalive " + mSlot + " on " + mNai.toShortString());
                 switch (mType) {
@@ -373,7 +390,8 @@ public class KeepaliveTracker {
 
             // Store the reason of stopping, and report it after the keepalive is fully stopped.
             if (mStopReason != ERROR_STOP_REASON_UNINITIALIZED) {
-                throw new IllegalStateException("Unexpected stop reason: " + mStopReason);
+                throw new IllegalStateException("Unexpected stop reason: "
+                        + mStopReason + "/" + reason);
             }
             mStopReason = reason;
             Log.d(TAG, "Stopping keepalive " + mSlot + " on " + mNai.toShortString()
