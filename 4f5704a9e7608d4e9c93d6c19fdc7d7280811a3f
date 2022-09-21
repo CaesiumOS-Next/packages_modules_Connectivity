@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "083e32f9_1654e676",
+        "filename": "service/proguard.flags",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-21T06:45:04Z",
+      "side": 1,
+      "message": "The problem is not whether the method is called; it is whether the associated native library gets loaded or not.\n\nIf the associated native library is loaded, then it will try to do the JNI registration, and crash if the Java class/method can\u0027t be found. So for example if native_detachProgramFromCgroup is stripped out, the module will crash if register_com_android_net_module_util_BpfUtils is called.\nWhich happens if libandroid_net_connectivity_com_android_net_module_util_jni is loaded,\nWhich happens, among others, if this static initializer runs: https://cs.android.com/android/platform/superproject/+/master:frameworks/libs/net/common/device/com/android/net/module/util/BpfUtils.java;drc\u003d73322515c8be58920817f8d55e44387129a35a03;l\u003d29\n\nWhich happens if this runs: https://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/service/src/com/android/server/connectivity/ConnectivityNativeService.java;drc\u003d0736d7bd91f333bd9a78d6105bd2e65638521dd1;l\u003d164\n\nSo basically it\u0027s wrong to strip it out.\n\nI think it\u0027s OK to just use \"keep\" considering that. If dependencies have native methods for which we are not currently loading the associated library, we\u0027re already in trouble. And if we\u0027re loading the library, we can\u0027t strip it out.",
+      "parentUuid": "09874112_394e27a7",
+      "range": {
+        "startLine": 2,
+        "startChar": 7,
+        "endLine": 2,
+        "endChar": 10
+      },
+      "revId": "4f5704a9e7608d4e9c93d6c19fdc7d7280811a3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e59aa113_3ad72aaa",
         "filename": "service/proguard.flags",
         "patchSetId": 7

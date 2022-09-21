@@ -117,6 +117,30 @@
       },
       "revId": "c682b1b3f384c0ac8e4f85aa6d73d96f557f9bc8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72096376_3db559bd",
+        "filename": "service/proguard.flags",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-21T06:45:04Z",
+      "side": 1,
+      "message": "I don\u0027t see it done in the latest patchset though ? There\u0027s no rule for the 2 \"entry point\" loaders hardcoded in SystemServer.java for this apex (CONNECTIVITY_SERVICE_APEX_PATH): NetworkStatsServiceInitializer, and ConnectivityServiceInitializer",
+      "parentUuid": "0381495f_0fcad95c",
+      "range": {
+        "startLine": 7,
+        "startChar": 11,
+        "endLine": 7,
+        "endChar": 19
+      },
+      "revId": "c682b1b3f384c0ac8e4f85aa6d73d96f557f9bc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

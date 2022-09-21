@@ -70,6 +70,30 @@
       },
       "revId": "a2debb8dc75935f2c6914cb8b6c4d73ad93a38ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75141a11_fcc55ade",
+        "filename": "service/proguard.flags",
+        "patchSetId": 10
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-21T06:45:04Z",
+      "side": 1,
+      "message": "I suggested using this generic form in patchset 7, I think it would avoid problems where we change the jarjar rule (generation) and forget to update this file",
+      "parentUuid": "a5a9557f_a194100f",
+      "range": {
+        "startLine": 22,
+        "startChar": 41,
+        "endLine": 22,
+        "endChar": 43
+      },
+      "revId": "a2debb8dc75935f2c6914cb8b6c4d73ad93a38ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
