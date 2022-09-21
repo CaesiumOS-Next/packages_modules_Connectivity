@@ -234,7 +234,9 @@ public class KeepaliveTracker {
 
         /** Called when the application process is killed. */
         public void binderDied() {
-            stop(BINDER_DIED);
+            // Handle binder died event on the handler thread, so it won't
+            // race with other events.
+            mConnectivityServiceHandler.post(() -> stop(BINDER_DIED));
         }
 
         void unlinkDeathRecipient() {
