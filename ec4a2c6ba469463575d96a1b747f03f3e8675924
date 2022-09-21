@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01cb77ae_08a8e9bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-09-21T15:47:26Z",
+      "side": 1,
+      "message": "looks good but may need another look. please also take another look.",
+      "revId": "ec4a2c6ba469463575d96a1b747f03f3e8675924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c097aaa_850156aa",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1813,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-09-21T15:47:26Z",
+      "side": 1,
+      "message": "Nit: /* gateway */",
+      "range": {
+        "startLine": 1813,
+        "startChar": 45,
+        "endLine": 1813,
+        "endChar": 56
+      },
+      "revId": "ec4a2c6ba469463575d96a1b747f03f3e8675924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
