@@ -67,10 +67,6 @@ import org.mockito.Mockito.verify
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
 class MultinetworkPolicyTrackerTest {
     private val resources = mock(Resources::class.java).also {
-        doReturn(R.integer.config_networkAvoidBadWifi).`when`(it).getIdentifier(
-                eq("config_networkAvoidBadWifi"), eq("integer"), any())
-        doReturn(R.integer.config_activelyPreferBadWifi).`when`(it).getIdentifier(
-                eq("config_activelyPreferBadWifi"), eq("integer"), any())
         doReturn(0).`when`(it).getInteger(R.integer.config_networkAvoidBadWifi)
         doReturn(0).`when`(it).getInteger(R.integer.config_activelyPreferBadWifi)
     }
