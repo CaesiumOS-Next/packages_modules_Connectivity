@@ -22,6 +22,30 @@
       },
       "revId": "e777832a9d764c25ca82325517f4e0bfbbdb1c45",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "735b551c_2625c0bf",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-09-21T19:33:05Z",
+      "side": 1,
+      "message": "there is a kernel fix in flight that will fix this issue (https://patchwork.kernel.org/project/netdevbpf/patch/20220920194825.31820-1-prohr@google.com/)",
+      "parentUuid": "11d5f7c0_5f46ef4d",
+      "range": {
+        "startLine": 158,
+        "startChar": 16,
+        "endLine": 158,
+        "endChar": 71
+      },
+      "revId": "e777832a9d764c25ca82325517f4e0bfbbdb1c45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
