@@ -170,6 +170,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f7a50124_65057f91",
+        "filename": "service/proguard.flags",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1944425
+      },
+      "writtenOn": "2022-09-21T15:48:01Z",
+      "side": 1,
+      "message": "Hi Remi, thank you very much! Yes you are right! I didn\u0027t consider the lib loading. Now I have changed to the keep which won\u0027t remove any native methods.",
+      "parentUuid": "083e32f9_1654e676",
+      "range": {
+        "startLine": 2,
+        "startChar": 7,
+        "endLine": 2,
+        "endChar": 10
+      },
+      "revId": "4f5704a9e7608d4e9c93d6c19fdc7d7280811a3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e59aa113_3ad72aaa",
         "filename": "service/proguard.flags",
         "patchSetId": 7

@@ -141,6 +141,30 @@
       },
       "revId": "c682b1b3f384c0ac8e4f85aa6d73d96f557f9bc8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf911bf6_db824c5a",
+        "filename": "service/proguard.flags",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1944425
+      },
+      "writtenOn": "2022-09-21T15:48:01Z",
+      "side": 1,
+      "message": "Hi Remi, yes you are right. The classes extending SystemSever are kept through \n\n```\ndefaults: [\n    \"standalone-system-server-module-optimize-defaults\",\n],\n```\n\nAnd the file is here https://cs.android.com/android/platform/superproject/+/master:packages/modules/common/proguard/system-server.pro;l\u003d1?q\u003dpackages%2Fmodules%2Fcommon%2Fproguard%2Fsystem-server.pro\u0026sq\u003d",
+      "parentUuid": "72096376_3db559bd",
+      "range": {
+        "startLine": 7,
+        "startChar": 11,
+        "endLine": 7,
+        "endChar": 19
+      },
+      "revId": "c682b1b3f384c0ac8e4f85aa6d73d96f557f9bc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
