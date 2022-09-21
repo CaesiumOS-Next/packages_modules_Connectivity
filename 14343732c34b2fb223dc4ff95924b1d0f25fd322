@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff747c9c_521bdf35",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2022-09-21T12:32:17Z",
+      "side": 1,
+      "message": "As I still see flakes in tests that I touched with this change, I decided to just suppress the \"DoNotCall\" warning for `Thread.run()` for now.",
+      "revId": "14343732c34b2fb223dc4ff95924b1d0f25fd322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
