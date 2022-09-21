@@ -26,10 +26,8 @@ import android.net.NetworkTemplate.MATCH_BLUETOOTH
 import android.net.NetworkTemplate.MATCH_CARRIER
 import android.net.NetworkTemplate.MATCH_ETHERNET
 import android.net.NetworkTemplate.MATCH_MOBILE
-import android.net.NetworkTemplate.MATCH_MOBILE_WILDCARD
 import android.net.NetworkTemplate.MATCH_PROXY
 import android.net.NetworkTemplate.MATCH_WIFI
-import android.net.NetworkTemplate.MATCH_WIFI_WILDCARD
 import android.net.NetworkTemplate.NETWORK_TYPE_ALL
 import android.net.NetworkTemplate.OEM_MANAGED_ALL
 import android.telephony.TelephonyManager
@@ -64,7 +62,7 @@ class NetworkTemplateTest {
         }
 
         // Verify hidden match rules cannot construct templates.
-        listOf(MATCH_WIFI_WILDCARD, MATCH_MOBILE_WILDCARD, MATCH_PROXY).forEach {
+        listOf(MATCH_PROXY).forEach {
             assertFailsWith<IllegalArgumentException> {
                 NetworkTemplate.Builder(it).build()
             }
@@ -102,14 +100,13 @@ class NetworkTemplateTest {
         // Verify template which matches metered cellular networks,
         // regardless of IMSI. See buildTemplateMobileWildcard.
         NetworkTemplate.Builder(MATCH_MOBILE).setMeteredness(METERED_YES).build().let {
-            val expectedTemplate = NetworkTemplate(MATCH_MOBILE_WILDCARD, null /*subscriberIds*/,
+            val expectedTemplate = NetworkTemplate(MATCH_MOBILE, null /*subscriberIds*/,
                     arrayOf<String>(), METERED_YES, ROAMING_ALL, DEFAULT_NETWORK_ALL,
                     NETWORK_TYPE_ALL, OEM_MANAGED_ALL)
             assertEquals(expectedTemplate, it)
         }
 
         // Verify template which matches metered cellular networks and ratType.
-        // See NetworkTemplate#buildTemplateMobileWithRatType.
         NetworkTemplate.Builder(MATCH_MOBILE).setSubscriberIds(setOf(TEST_IMSI1))
                 .setMeteredness(METERED_YES).setRatType(TelephonyManager.NETWORK_TYPE_UMTS)
                 .build().let {
@@ -122,7 +119,7 @@ class NetworkTemplateTest {
         // Verify template which matches all wifi networks,
         // regardless of Wifi Network Key. See buildTemplateWifiWildcard and buildTemplateWifi.
         NetworkTemplate.Builder(MATCH_WIFI).build().let {
-            val expectedTemplate = NetworkTemplate(MATCH_WIFI_WILDCARD, null /*subscriberIds*/,
+            val expectedTemplate = NetworkTemplate(MATCH_WIFI, null /*subscriberIds*/,
                     arrayOf<String>(), METERED_ALL, ROAMING_ALL, DEFAULT_NETWORK_ALL,
                     NETWORK_TYPE_ALL, OEM_MANAGED_ALL)
             assertEquals(expectedTemplate, it)
@@ -185,7 +182,7 @@ class NetworkTemplateTest {
 
         // Verify template which matches wifi wildcard with the given empty key set.
         NetworkTemplate.Builder(MATCH_WIFI).setWifiNetworkKeys(setOf<String>()).build().let {
-            val expectedTemplate = NetworkTemplate(MATCH_WIFI_WILDCARD,
+            val expectedTemplate = NetworkTemplate(MATCH_WIFI,
                     arrayOf<String>() /*subscriberIds*/, arrayOf<String>(),
                     METERED_ALL, ROAMING_ALL, DEFAULT_NETWORK_ALL, NETWORK_TYPE_ALL,
                     OEM_MANAGED_ALL)
