@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f267f3d7_9be70080",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-09-21T06:16:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f210427_2dfda83c",
+      "range": {
+        "startLine": 7,
+        "startChar": 18,
+        "endLine": 7,
+        "endChar": 39
+      },
+      "revId": "d52853374dd2e0de0f9e542869b42a475213acf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9138947d_2d77cb41",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-20T18:26:51Z",
       "side": 1,
       "message": "Suggest verifying that in NETWORK_LOST, the network callbacks are NOT unregistered, but the retry is also not scheduled",
+      "range": {
+        "startLine": 1483,
+        "startChar": 0,
+        "endLine": 1483,
+        "endChar": 9
+      },
+      "revId": "d52853374dd2e0de0f9e542869b42a475213acf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "499fff8a_7e272aa1",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1483,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-09-21T06:16:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9138947d_2d77cb41",
       "range": {
         "startLine": 1483,
         "startChar": 0,
