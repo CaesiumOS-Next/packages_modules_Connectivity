@@ -128,9 +128,6 @@ public class MultinetworkPolicyTracker {
             }
         };
 
-        ctx.getSystemService(TelephonyManager.class).registerTelephonyCallback(
-                new HandlerExecutor(handler), new ActiveDataSubscriptionIdListener());
-
         updateAvoidBadWifi();
         updateMeteredMultipathPreference();
     }
@@ -144,6 +141,9 @@ public class MultinetworkPolicyTracker {
         intentFilter.addAction(Intent.ACTION_CONFIGURATION_CHANGED);
         mContext.registerReceiverForAllUsers(mBroadcastReceiver, intentFilter,
                 null /* broadcastPermission */, mHandler);
+
+        mContext.getSystemService(TelephonyManager.class).registerTelephonyCallback(
+                new HandlerExecutor(mHandler), new ActiveDataSubscriptionIdListener());
 
         reevaluate();
     }
