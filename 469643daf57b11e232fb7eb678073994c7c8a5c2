@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8abbdfa5_31db1efa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-09-21T18:47:03Z",
+      "side": 1,
+      "message": "(OWNER approving, since this is just an obvious fix up of a typo/thinko, while the intent is clear... EthernetManagerTest.java does not exist while .kt does in aosp master)",
+      "revId": "469643daf57b11e232fb7eb678073994c7c8a5c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
