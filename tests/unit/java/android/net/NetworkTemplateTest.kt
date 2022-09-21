@@ -33,10 +33,8 @@ import android.net.NetworkStats.METERED_NO
 import android.net.NetworkStats.METERED_YES
 import android.net.NetworkStats.ROAMING_ALL
 import android.net.NetworkTemplate.MATCH_MOBILE
-import android.net.NetworkTemplate.MATCH_MOBILE_WILDCARD
 import android.net.NetworkTemplate.MATCH_TEST
 import android.net.NetworkTemplate.MATCH_WIFI
-import android.net.NetworkTemplate.MATCH_WIFI_WILDCARD
 import android.net.NetworkTemplate.NETWORK_TYPE_ALL
 import android.net.NetworkTemplate.OEM_MANAGED_ALL
 import android.net.NetworkTemplate.OEM_MANAGED_NO
@@ -480,11 +478,9 @@ class NetworkTemplateTest {
      * @param matchType A match rule from {@code NetworkTemplate.MATCH_*} corresponding to the
      *         networkType.
      * @param subscriberId To be populated with {@code TEST_IMSI*} only if networkType is
-     *         {@code TYPE_MOBILE}. May be left as null when matchType is
-     *         {@link NetworkTemplate.MATCH_MOBILE_WILDCARD}.
+     *         {@code TYPE_MOBILE}.
      * @param templateWifiKey Top be populated with {@code TEST_WIFI_KEY*} only if networkType is
-     *         {@code TYPE_WIFI}. May be left as null when matchType is
-     *         {@link NetworkTemplate.MATCH_WIFI_WILDCARD}.
+     *         {@code TYPE_WIFI}.
      * @param identWifiKey If networkType is {@code TYPE_WIFI}, this value must *NOT* be null. Provide
      *         one of {@code TEST_WIFI_KEY*}.
      */
@@ -539,10 +535,7 @@ class NetworkTemplateTest {
     @Test
     fun testOemManagedMatchesIdent() {
         matchOemManagedIdent(TYPE_MOBILE, MATCH_MOBILE, subscriberId = TEST_IMSI1)
-        matchOemManagedIdent(TYPE_MOBILE, MATCH_MOBILE_WILDCARD)
         matchOemManagedIdent(TYPE_WIFI, MATCH_WIFI, templateWifiKey = TEST_WIFI_KEY1,
-                identWifiKey = TEST_WIFI_KEY1)
-        matchOemManagedIdent(TYPE_WIFI, MATCH_WIFI_WILDCARD,
                 identWifiKey = TEST_WIFI_KEY1)
     }
 
