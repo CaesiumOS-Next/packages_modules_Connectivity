@@ -45,6 +45,10 @@ import android.net.RouteInfo
 import android.net.TestNetworkInterface
 import android.net.TestNetworkManager
 import android.net.cts.util.CtsNetUtils.TestNetworkCallback
+<<<<<<< HEAD   (d837be Merge changes I29f7d2b4,Ie2aa7529)
+=======
+import android.os.Build
+>>>>>>> BRANCH (e0196e DscpPolicy: remove v6 default route as it is added by the RA)
 import android.os.HandlerThread
 import android.os.SystemClock
 import android.platform.test.annotations.AppModeFull
@@ -184,6 +188,13 @@ class DscpPolicyTest {
     @After
     fun tearDown() {
         if (!kernelIsAtLeast(5, 15)) {
+<<<<<<< HEAD   (d837be Merge changes I29f7d2b4,Ie2aa7529)
+=======
+            return
+        }
+        if (!this::iface.isInitialized) {
+            // Test was skipped or crashed in setUp
+>>>>>>> BRANCH (e0196e DscpPolicy: remove v6 default route as it is added by the RA)
             return
         }
         raResponder.stop()
@@ -223,7 +234,11 @@ class DscpPolicyTest {
         val onLinkPrefix = raResponder.prefix
         val startTime = SystemClock.elapsedRealtime()
         while (SystemClock.elapsedRealtime() - startTime < PACKET_TIMEOUT_MS) {
+<<<<<<< HEAD   (d837be Merge changes I29f7d2b4,Ie2aa7529)
             SystemClock.sleep(50 /* ms */)
+=======
+            SystemClock.sleep(1 /* ms */)
+>>>>>>> BRANCH (e0196e DscpPolicy: remove v6 default route as it is added by the RA)
             val sock = Os.socket(AF_INET6, SOCK_DGRAM, IPPROTO_UDP)
             try {
                 network.bindSocket(sock)
@@ -316,7 +331,10 @@ class DscpPolicyTest {
     fun parseV4PacketDscp(buffer: ByteBuffer): Int {
         // Validate checksum before parsing packet.
         val calCheck = IpUtils.ipChecksum(buffer, Struct.getSize(EthernetHeader::class.java))
+<<<<<<< HEAD   (d837be Merge changes I29f7d2b4,Ie2aa7529)
         assertEquals(0, calCheck, "Invalid IPv4 header checksum")
+=======
+>>>>>>> BRANCH (e0196e DscpPolicy: remove v6 default route as it is added by the RA)
 
         val ip_ver = buffer.get()
         val tos = buffer.get()
@@ -327,11 +345,15 @@ class DscpPolicyTest {
         val ipType = buffer.get()
         val checksum = buffer.getShort()
 
+<<<<<<< HEAD   (d837be Merge changes I29f7d2b4,Ie2aa7529)
         if (ipType.toInt() == 2 /* IPPROTO_IGMP */ && ip_ver.toInt() == 0x46) {
             // Need to ignore 'igmp v3 report' with 'router alert' option
         } else {
             assertEquals(0x45, ip_ver.toInt(), "Invalid IPv4 version or IPv4 options present")
         }
+=======
+        assertEquals(0, calCheck, "Invalid IPv4 header checksum")
+>>>>>>> BRANCH (e0196e DscpPolicy: remove v6 default route as it is added by the RA)
         return tos.toInt().shr(2)
     }
 
