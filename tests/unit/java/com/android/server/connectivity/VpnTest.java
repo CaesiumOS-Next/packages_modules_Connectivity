@@ -2060,6 +2060,37 @@ public class VpnTest extends VpnTestBase {
     }
 
     @Test
+    public void testBypassablePlatformVpnRestartsNetworkAgentOnLockdownModeChange()
+            throws Exception {
+        final PlatformVpnSnapshot vpnSnapShot =
+                verifySetupPlatformVpn(
+                        createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */));
+        verify(mTestDeps)
+                .newNetworkAgent(any(), any(), anyString(), any(), any(), any(), any(), any());
+
+        assertTrue(
+                vpnSnapShot.vpn.setAlwaysOnPackage(
+                        TEST_VPN_PKG, false /* lockdown */, null /* lockdownAllowlist */));
+        verify(mMockNetworkAgent, never()).unregister();
+
+        assertTrue(
+                vpnSnapShot.vpn.setAlwaysOnPackage(
+                        TEST_VPN_PKG, true /* lockdown */, null /* lockdownAllowlist */));
+        verify(mTestDeps, times(2))
+                .newNetworkAgent(any(), any(), anyString(), any(), any(), any(), any(), any());
+        verify(mMockNetworkAgent).unregister();
+
+        assertTrue(
+                vpnSnapShot.vpn.setAlwaysOnPackage(
+                        TEST_VPN_PKG, false /* lockdown */, null /* lockdownAllowlist */));
+        verify(mTestDeps, times(3))
+                .newNetworkAgent(any(), any(), anyString(), any(), any(), any(), any(), any());
+        verify(mMockNetworkAgent, times(2)).unregister();
+
+        vpnSnapShot.vpn.mVpnRunner.exitVpnRunner();
+    }
+
+    @Test
     public void testStartRacoonNumericAddress() throws Exception {
         startRacoon("1.2.3.4", "1.2.3.4");
     }
