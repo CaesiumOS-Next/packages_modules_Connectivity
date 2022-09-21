@@ -33,10 +33,8 @@ import android.net.NetworkStats.METERED_NO
 import android.net.NetworkStats.METERED_YES
 import android.net.NetworkStats.ROAMING_ALL
 import android.net.NetworkTemplate.MATCH_MOBILE
-import android.net.NetworkTemplate.MATCH_MOBILE_WILDCARD
 import android.net.NetworkTemplate.MATCH_TEST
 import android.net.NetworkTemplate.MATCH_WIFI
-import android.net.NetworkTemplate.MATCH_WIFI_WILDCARD
 import android.net.NetworkTemplate.NETWORK_TYPE_ALL
 import android.net.NetworkTemplate.OEM_MANAGED_ALL
 import android.net.NetworkTemplate.OEM_MANAGED_NO
@@ -45,7 +43,6 @@ import android.net.NetworkTemplate.WIFI_NETWORK_KEY_ALL
 import android.net.NetworkTemplate.buildTemplateCarrierMetered
 import android.net.NetworkTemplate.buildTemplateMobileAll
 import android.net.NetworkTemplate.buildTemplateMobileWildcard
-import android.net.NetworkTemplate.buildTemplateMobileWithRatType
 import android.net.NetworkTemplate.buildTemplateWifi
 import android.net.NetworkTemplate.buildTemplateWifiWildcard
 import android.net.NetworkTemplate.normalize
@@ -196,9 +193,10 @@ class NetworkTemplateTest {
     @Test
     fun testMobileMatches() {
         val templateMobileImsi1 = buildTemplateMobileAll(TEST_IMSI1)
-        val templateMobileImsi2WithRatType = buildTemplateMobileWithRatType(TEST_IMSI2,
-                TelephonyManager.NETWORK_TYPE_UMTS, METERED_YES)
-
+        val templateMobileImsi2WithRatType = NetworkTemplate.Builder(MATCH_MOBILE)
+                .setSubscriberIds(setOf(TEST_IMSI2))
+                .setRatType(TelephonyManager.NETWORK_TYPE_UMTS)
+                .setMeteredness(METERED_YES).build()
         val mobileImsi1 = buildNetworkState(TYPE_MOBILE, TEST_IMSI1, null /* wifiKey */,
                 OEM_NONE, true /* metered */)
         val identMobile1 = buildNetworkIdentity(mockContext, mobileImsi1,
@@ -225,9 +223,8 @@ class NetworkTemplateTest {
     @Test
     fun testMobileWildcardMatches() {
         val templateMobileWildcard = buildTemplateMobileWildcard()
-        val templateMobileNullImsiWithRatType = buildTemplateMobileWithRatType(null,
-                TelephonyManager.NETWORK_TYPE_UMTS, METERED_ALL)
-
+        val templateMobileNullImsiWithRatType = NetworkTemplate.Builder(MATCH_MOBILE)
+                .setRatType(TelephonyManager.NETWORK_TYPE_UMTS).build()
         val mobileImsi1 = buildMobileNetworkState(TEST_IMSI1)
         val identMobile1 = buildNetworkIdentity(mockContext, mobileImsi1,
                 false /* defaultNetwork */, TelephonyManager.NETWORK_TYPE_UMTS)
@@ -317,24 +314,25 @@ class NetworkTemplateTest {
 
         // Build UMTS template that matches mobile identities with RAT in the same
         // group with any IMSI. See {@link NetworkTemplate#getCollapsedRatType}.
-        val templateUmtsMetered = buildTemplateMobileWithRatType(null,
-                TelephonyManager.NETWORK_TYPE_UMTS, METERED_YES)
+        val templateUmtsMetered = NetworkTemplate.Builder(MATCH_MOBILE)
+                .setRatType(TelephonyManager.NETWORK_TYPE_UMTS)
+                .setMeteredness(METERED_YES).build()
         // Build normal template that matches mobile identities with any RAT and IMSI.
-        val templateAllMetered = buildTemplateMobileWithRatType(null, NETWORK_TYPE_ALL,
-                METERED_YES)
+        val templateAllMetered = NetworkTemplate.Builder(MATCH_MOBILE)
+                .setMeteredness(METERED_YES).build()
         // Build template with UNKNOWN RAT that matches mobile identities with RAT that
         // cannot be determined.
-        val templateUnknownMetered =
-                buildTemplateMobileWithRatType(null, TelephonyManager.NETWORK_TYPE_UNKNOWN,
-                METERED_YES)
-
-        val templateUmtsNonMetered = buildTemplateMobileWithRatType(null,
-                TelephonyManager.NETWORK_TYPE_UMTS, METERED_NO)
-        val templateAllNonMetered = buildTemplateMobileWithRatType(null, NETWORK_TYPE_ALL,
-                METERED_NO)
-        val templateUnknownNonMetered =
-                buildTemplateMobileWithRatType(null, TelephonyManager.NETWORK_TYPE_UNKNOWN,
-                METERED_NO)
+        val templateUnknownMetered = NetworkTemplate.Builder(MATCH_MOBILE)
+                .setRatType(TelephonyManager.NETWORK_TYPE_UNKNOWN)
+                .setMeteredness(METERED_YES).build()
+        val templateUmtsNonMetered = NetworkTemplate.Builder(MATCH_MOBILE)
+                .setRatType(TelephonyManager.NETWORK_TYPE_UMTS)
+                .setMeteredness(METERED_NO).build()
+        val templateAllNonMetered = NetworkTemplate.Builder(MATCH_MOBILE)
+                .setMeteredness(METERED_NO).build()
+        val templateUnknownNonMetered = NetworkTemplate.Builder(MATCH_MOBILE)
+                .setRatType(TelephonyManager.NETWORK_TYPE_UNKNOWN)
+                .setMeteredness(METERED_NO).build()
 
         val identUmtsMetered = buildNetworkIdentity(
                 mockContext, stateMobileImsi1Metered, false, TelephonyManager.NETWORK_TYPE_UMTS)
@@ -480,11 +478,9 @@ class NetworkTemplateTest {
      * @param matchType A match rule from {@code NetworkTemplate.MATCH_*} corresponding to the
      *         networkType.
      * @param subscriberId To be populated with {@code TEST_IMSI*} only if networkType is
-     *         {@code TYPE_MOBILE}. May be left as null when matchType is
-     *         {@link NetworkTemplate.MATCH_MOBILE_WILDCARD}.
+     *         {@code TYPE_MOBILE}.
      * @param templateWifiKey Top be populated with {@code TEST_WIFI_KEY*} only if networkType is
-     *         {@code TYPE_WIFI}. May be left as null when matchType is
-     *         {@link NetworkTemplate.MATCH_WIFI_WILDCARD}.
+     *         {@code TYPE_WIFI}.
      * @param identWifiKey If networkType is {@code TYPE_WIFI}, this value must *NOT* be null. Provide
      *         one of {@code TEST_WIFI_KEY*}.
      */
@@ -539,10 +535,7 @@ class NetworkTemplateTest {
     @Test
     fun testOemManagedMatchesIdent() {
         matchOemManagedIdent(TYPE_MOBILE, MATCH_MOBILE, subscriberId = TEST_IMSI1)
-        matchOemManagedIdent(TYPE_MOBILE, MATCH_MOBILE_WILDCARD)
         matchOemManagedIdent(TYPE_WIFI, MATCH_WIFI, templateWifiKey = TEST_WIFI_KEY1,
-                identWifiKey = TEST_WIFI_KEY1)
-        matchOemManagedIdent(TYPE_WIFI, MATCH_WIFI_WILDCARD,
                 identWifiKey = TEST_WIFI_KEY1)
     }
 
