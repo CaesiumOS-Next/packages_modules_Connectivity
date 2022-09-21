@@ -541,6 +541,18 @@ public class ClatCoordinatorTest {
     }
 
     @Test
+    public void testDumpClatNotStarted() throws Exception {
+        final ClatCoordinator coordinator = makeClatCoordinator();
+        final StringWriter stringWriter = new StringWriter();
+        final IndentingPrintWriter ipw = new IndentingPrintWriter(stringWriter, " ");
+
+        coordinator.dump(ipw);
+        final String[] dumpStrings = stringWriter.toString().split("\n");
+        assertEquals(1, dumpStrings.length);
+        assertEquals("<not started>", dumpStrings[0].trim());
+    }
+
+    @Test
     public void testNotStartClatWithInvalidPrefix() throws Exception {
         final ClatCoordinator coordinator = makeClatCoordinator();
         final IpPrefix invalidPrefix = new IpPrefix("2001:db8::/64");
@@ -558,6 +570,11 @@ public class ClatCoordinatorTest {
         final ClatCoordinator coordinator = new ClatCoordinator(deps);
         assertThrows(IOException.class,
                 () -> coordinator.clatStart(BASE_IFACE, NETID, NAT64_IP_PREFIX));
+
+        // Expect that dump without crash while clat is not started.
+        final StringWriter stringWriter = new StringWriter();
+        final IndentingPrintWriter ipw = new IndentingPrintWriter(stringWriter, " ");
+        coordinator.dump(ipw);
     }
 
     private void checkNotStartClat(final TestDependencies deps, final boolean needToCloseTunFd,
