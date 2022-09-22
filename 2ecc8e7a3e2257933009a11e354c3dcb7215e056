@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97ee9f50_31c74d52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-09-22T07:41:10Z",
+      "side": 1,
+      "message": "Mostly optional comments except the one for the description? LGTM assumes comment is addressed.",
+      "revId": "2ecc8e7a3e2257933009a11e354c3dcb7215e056",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee31fe48_fee575e0",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-09-22T07:41:10Z",
+      "side": 1,
+      "message": "Optional: Do we need `pw.println();` here? i.e do you need a newline to separate the ClatCoordinator block and another block(maybe `Request` block)?",
+      "range": {
+        "startLine": 918,
+        "startChar": 39,
+        "endLine": 918,
+        "endChar": 40
+      },
+      "revId": "2ecc8e7a3e2257933009a11e354c3dcb7215e056",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3e75d73_c016deee",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-09-22T07:41:10Z",
+      "side": 1,
+      "message": "but not?",
+      "range": {
+        "startLine": 543,
+        "startChar": 77,
+        "endLine": 543,
+        "endChar": 81
+      },
+      "revId": "2ecc8e7a3e2257933009a11e354c3dcb7215e056",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd80fa54_3390d06d",
+        "filename": "tests/unit/java/com/android/server/connectivity/ClatCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-09-22T07:41:10Z",
+      "side": 1,
+      "message": "Optional: It looks to me this could be combined into testDump() to call dump before calling clatStart(). Not strong opinion though.",
+      "range": {
+        "startLine": 544,
+        "startChar": 16,
+        "endLine": 544,
+        "endChar": 38
+      },
+      "revId": "2ecc8e7a3e2257933009a11e354c3dcb7215e056",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a16309a_776f0aa1",
+        "filename": "tests/unit/java/com/android/server/connectivity/ClatCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-09-22T07:41:10Z",
+      "side": 1,
+      "message": "Optional: This is quite design sensitive. If you change the design to dump something else, then you need to update here. But it does not look like an item that we need to ensure. E.g. Dump \"\u003cinitial but not started\u003e should break the test?",
+      "range": {
+        "startLine": 551,
+        "startChar": 21,
+        "endLine": 551,
+        "endChar": 22
+      },
+      "revId": "2ecc8e7a3e2257933009a11e354c3dcb7215e056",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46a5d1d0_9707618b",
+        "filename": "tests/unit/java/com/android/server/connectivity/ClatCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-09-22T07:41:10Z",
+      "side": 1,
+      "message": "Optional: Verify this in testDumpxxxx is enough?. Otherwise, I may wonder why do you not verify the output here? What is the difference between these two? Or maybe have a helper method and call the helper methods in both places.",
+      "range": {
+        "startLine": 574,
+        "startChar": 8,
+        "endLine": 577,
+        "endChar": 30
+      },
+      "revId": "2ecc8e7a3e2257933009a11e354c3dcb7215e056",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
