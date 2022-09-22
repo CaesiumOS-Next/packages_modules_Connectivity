@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b37d613a_16bdbe48",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkScoreTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-22T07:16:02Z",
+      "side": 1,
+      "message": "Do you need to specify this explicitly L",
+      "range": {
+        "startLine": 81,
+        "startChar": 45,
+        "endLine": 81,
+        "endChar": 55
+      },
+      "revId": "40429c3dafe2b2d3e2ece9a3957ed98018b6cb33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee8931f7_9657302b",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkScoreTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-22T07:16:02Z",
+      "side": 1,
+      "message": "Maybe you can register this callback only once instead of once per network agent.",
+      "range": {
+        "startLine": 82,
+        "startChar": 20,
+        "endLine": 82,
+        "endChar": 43
+      },
+      "revId": "40429c3dafe2b2d3e2ece9a3957ed98018b6cb33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f984468_eb51cd6b",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkScoreTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-22T07:16:02Z",
+      "side": 1,
+      "message": "Is it possible to be more specific ? e.g. can you just expect Lost for THIS netId ? That would also let you shorten the code, because if you match on the netId you no longer need to add TRANSPORT_TEST.\n\nYou may also optionally define a helper to build this NetworkRequest.",
+      "range": {
+        "startLine": 84,
+        "startChar": 25,
+        "endLine": 84,
+        "endChar": 41
+      },
+      "revId": "40429c3dafe2b2d3e2ece9a3957ed98018b6cb33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "884cbbec_ecd0713d",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkScoreTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-22T07:16:02Z",
+      "side": 1,
+      "message": "I think it\u0027s kind of cleaner if you make a pair of calls register/unregister instead of adding this to the array and rely on l.92",
+      "range": {
+        "startLine": 86,
+        "startChar": 16,
+        "endLine": 86,
+        "endChar": 34
+      },
+      "revId": "40429c3dafe2b2d3e2ece9a3957ed98018b6cb33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
