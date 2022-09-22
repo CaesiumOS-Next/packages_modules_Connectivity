@@ -240,12 +240,12 @@ class EthernetManagerTest {
     @After
     fun tearDown() {
         if (!isEthernetSupported()) return
-        setIncludeTestInterfaces(false)
 
         for (iface in createdIfaces) {
             iface.destroy()
             ifaceListener.eventuallyExpect(iface, STATE_ABSENT, ROLE_NONE)
         }
+        setIncludeTestInterfaces(false)
         for (listener in addedListeners) {
             em.removeInterfaceStateListener(listener)
         }
