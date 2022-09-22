@@ -17,6 +17,7 @@ package android.net.cts
 
 import android.Manifest.permission.MANAGE_TEST_NETWORKS
 import android.Manifest.permission.NETWORK_SETTINGS
+import android.Manifest.permission.WRITE_DEVICE_CONFIG
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.EthernetManager
@@ -57,6 +58,8 @@ import android.os.Looper
 import android.os.OutcomeReceiver
 import android.os.SystemProperties
 import android.platform.test.annotations.AppModeFull
+import android.provider.DeviceConfig
+import android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.net.module.util.ArrayTrackRecord
 import com.android.net.module.util.TrackRecord
@@ -117,6 +120,10 @@ private val STATIC_IP_CONFIGURATION = IpConfiguration.Builder()
         .setStaticIpConfiguration(StaticIpConfiguration.Builder()
                 .setIpAddress(LinkAddress("192.0.2.1/30")).build())
         .build()
+
+// From com.android.networkstack.util.NetworkStackUtils.
+// Experiment flag to enable clearing IP Addresses when IpClient is stopped.
+private val IPCLIENT_CLEAR_ADDRESSES_ON_STOP_VERSION = "ipclient_clear_addresses_on_stop_version"
 
 @AppModeFull(reason = "Instant apps can't access EthernetManager")
 // EthernetManager is not updatable before T, so tests do not need to be backwards compatible.
@@ -349,6 +356,14 @@ class EthernetManagerTest {
     @Before
     fun setUp() {
         assumeTrue(isEthernetSupported())
+
+        // Enable experiment to clear IP addresses when IpClient is stopped.
+        // This fixes tests that rely on IpClient restarts. See b/240323229 for more information.
+        runAsShell(WRITE_DEVICE_CONFIG) {
+            DeviceConfig.setProperty(NAMESPACE_CONNECTIVITY,
+                IPCLIENT_CLEAR_ADDRESSES_ON_STOP_VERSION, "1" /* value */, false /* makeDefault */)
+        }
+
         setIncludeTestInterfaces(true)
         addInterfaceStateListener(ifaceListener)
         // Handler.post() events may get processed after native fd events, so it is possible that
