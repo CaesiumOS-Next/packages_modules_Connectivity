@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98ce7139_a9bb47c6",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 933,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-09-22T19:28:26Z",
+      "side": 1,
+      "message": "I don\u0027t understand this error, should it also log something?",
+      "range": {
+        "startLine": 933,
+        "startChar": 20,
+        "endLine": 933,
+        "endChar": 48
+      },
+      "revId": "3415fb8278fd2db9f07f07cdcde3a0cc94ffcd95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fe77fbf_e945470a",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-09-22T19:28:26Z",
+      "side": 1,
+      "message": "Why not:\n```\nprivate String permissionToString(int permissionMask) {\n    if (permissionMask \u003d\u003d PERMISSION_NONE) {\n        return \"PERMISSION_NONE\";\n    }\n    if (permissionMask \u003d\u003d PERMISSION_UNINSTALLED) {\n        return \"PERMISSION_UNINSTALLED error!\";\n    }\n    final StringJoiner sj \u003d new StringJoiner(\" \")\n    if (permissionMask \u0026 PERMISSION_INTERNET) {\n        sj.add(\"PERMISSION_INTERNET\")\n    }\n    if (permissionMask \u0026 PERMISSION_UPDATE_DEVICE_STATS) {\n        sj.add(\"PERMISSION_UPDATE_DEVICE_STATS\")\n    }\n    if (sj.length() \u003d\u003d 0) {\n        // forgot to add a new permission.\n        Log.wtf(TAG, \"...\");\n        sj.add(\"PERMISSION_UNKNOWN(\" + permissionMask + \")\");\n    }\n    return sj.toString();\n}\n```\n\nIt feels a little overkill to add a PERMISSION_LIST structure just for logging.",
+      "range": {
+        "startLine": 929,
+        "startChar": 7,
+        "endLine": 948,
+        "endChar": 29
+      },
+      "revId": "3415fb8278fd2db9f07f07cdcde3a0cc94ffcd95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9618885f_ba495112",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-09-22T19:28:26Z",
+      "side": 1,
+      "message": "nit: Suggest wrapping the second BpfDump statement in the if(verbose) {}. Positive logic is a little bit easier to read.",
+      "range": {
+        "startLine": 967,
+        "startChar": 38,
+        "endLine": 974,
+        "endChar": 89
+      },
+      "revId": "3415fb8278fd2db9f07f07cdcde3a0cc94ffcd95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
