@@ -293,6 +293,12 @@ public class TetheringManager {
             startPollingForConnector();
         }
 
+        // This unstable symbol can be used immediately within the same module
+        // Technically this should use an SDK check, but this is for demonstration purposes and
+        // TetheringManager doesn't currently depend on SdkLevel
+        // (also it's inlined at build time anyway)
+        Log.i(TAG, "TYPE_CNAME is " + DnsResolver.TYPE_CNAME);
+
         Log.i(TAG, "registerTetheringEventCallback:" + pkgName);
         getConnector(c -> c.registerTetheringEventCallback(mCallback, pkgName));
     }

@@ -153,6 +153,8 @@ java_sdk_library {
         "//packages/modules/NetworkStack/tests:__subpackages__",
         "//packages/modules/Wifi/service/tests/wifitests",
     ],
+    // To be set only in branches that use stable stubs (module, not platform development branches)
+    stable_stubs_only: true,
 }
 
 platform_compat_config {
