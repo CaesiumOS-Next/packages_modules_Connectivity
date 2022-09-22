@@ -38,6 +38,7 @@ import android.os.MessageQueue;
 import android.system.ErrnoException;
 import android.util.Log;
 
+import com.android.example.UnfinalizedApi;
 import com.android.net.module.util.DnsPacket;
 
 import java.io.FileDescriptor;
@@ -76,6 +77,8 @@ public final class DnsResolver {
     @Retention(RetentionPolicy.SOURCE)
     @interface QueryType {}
     public static final int TYPE_A = 1;
+    @UnfinalizedApi
+    public static final int TYPE_CNAME = 5;
     public static final int TYPE_AAAA = 28;
 
     @IntDef(prefix = { "FLAG_" }, value = {
