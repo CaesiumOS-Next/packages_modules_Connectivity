@@ -3749,6 +3749,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     final boolean visible = toBool(msg.arg1);
                     // If captive portal status has changed, update capabilities or disconnect.
                     if (nai != null && (visible != nai.captivePortalDetected())) {
+                        nai.setEvaluated();
                         nai.setCaptivePortalDetected(visible);
                         if (visible && ConnectivitySettingsManager.CAPTIVE_PORTAL_MODE_AVOID
                                 == getCaptivePortalMode()) {
@@ -3796,12 +3797,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 @NonNull NetworkAgentInfo nai, int testResult, @NonNull String redirectUrl) {
             final boolean valid = (testResult & NETWORK_VALIDATION_RESULT_VALID) != 0;
             final boolean partial = (testResult & NETWORK_VALIDATION_RESULT_PARTIAL) != 0;
-            final boolean captive = !TextUtils.isEmpty(redirectUrl);
 
             // If there is any kind of working networking, then the NAI has been evaluated
             // once. {@see NetworkAgentInfo#setEvaluated}, which returns whether this is
-            // the first time this ever happened.
-            final boolean someConnectivity = (valid || partial || captive);
+            // the first time this ever happened. Really this should also be done here in
+            // case a captive portal is found, but because of b/245893397 this can't be done
+            // in a low-touch way.
+            // TODO : fix b/245893397, then when portal, call NAI#setEvaluated and
+            // NAI#setCaptivePortalDetected here instead of in EVENT_PROVISIONING_NOTIFICATION,
+            // and also disconnect the network if CAPTIVE_PORTAL_MODE_AVOID.
+            final boolean someConnectivity = (valid || partial);
             final boolean becameEvaluated = someConnectivity && nai.setEvaluated();
             // Because of b/245893397, if the score is updated when updateCapabilities is called,
             // any callback that receives onAvailable for that rematch receives an extra caps

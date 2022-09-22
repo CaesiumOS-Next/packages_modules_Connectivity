@@ -4345,6 +4345,11 @@ public class ConnectivityServiceTest {
         String redirectUrl = "http://android.com/path";
         mWiFiNetworkAgent.connectWithCaptivePortal(redirectUrl, false /* isStrictMode */);
         captivePortalCallback.expectAvailableCallbacksUnvalidated(mWiFiNetworkAgent);
+        // This is necessary because of b/245893397, the same bug that happens where we use
+        // expectAvailableDoubleValidatedCallbacks.
+        // TODO : fix b/245893397 and remove this.
+        captivePortalCallback.expectCapabilitiesWith(NET_CAPABILITY_CAPTIVE_PORTAL,
+                mWiFiNetworkAgent);
         assertEquals(mWiFiNetworkAgent.waitForRedirectUrl(), redirectUrl);
 
         // Check that startCaptivePortalApp sends the expected command to NetworkMonitor.
@@ -4394,6 +4399,11 @@ public class ConnectivityServiceTest {
         String firstRedirectUrl = "http://example.com/firstPath";
         mWiFiNetworkAgent.connectWithCaptivePortal(firstRedirectUrl, false /* isStrictMode */);
         captivePortalCallback.expectAvailableCallbacksUnvalidated(mWiFiNetworkAgent);
+        // This is necessary because of b/245893397, the same bug that happens where we use
+        // expectAvailableDoubleValidatedCallbacks.
+        // TODO : fix b/245893397 and remove this.
+        captivePortalCallback.expectCapabilitiesWith(NET_CAPABILITY_CAPTIVE_PORTAL,
+                mWiFiNetworkAgent);
         assertEquals(mWiFiNetworkAgent.waitForRedirectUrl(), firstRedirectUrl);
 
         // Take down network.
@@ -4407,6 +4417,11 @@ public class ConnectivityServiceTest {
         String secondRedirectUrl = "http://example.com/secondPath";
         mWiFiNetworkAgent.connectWithCaptivePortal(secondRedirectUrl, false /* isStrictMode */);
         captivePortalCallback.expectAvailableCallbacksUnvalidated(mWiFiNetworkAgent);
+        // This is necessary because of b/245893397, the same bug that happens where we use
+        // expectAvailableDoubleValidatedCallbacks.
+        // TODO : fix b/245893397 and remove this.
+        captivePortalCallback.expectCapabilitiesWith(NET_CAPABILITY_CAPTIVE_PORTAL,
+                mWiFiNetworkAgent);
         assertEquals(mWiFiNetworkAgent.waitForRedirectUrl(), secondRedirectUrl);
 
         // Make captive portal disappear then revalidate.
@@ -4522,6 +4537,11 @@ public class ConnectivityServiceTest {
 
         mWiFiNetworkAgent.connectWithCaptivePortal(redirectUrl, false /* isStrictMode */);
         captivePortalCallback.expectAvailableCallbacksUnvalidated(mWiFiNetworkAgent);
+        // This is necessary because of b/245893397, the same bug that happens where we use
+        // expectAvailableDoubleValidatedCallbacks.
+        // TODO : fix b/245893397 and remove this.
+        captivePortalCallback.expectCapabilitiesWith(NET_CAPABILITY_CAPTIVE_PORTAL,
+                mWiFiNetworkAgent);
 
         final CaptivePortalData testData = new CaptivePortalData.Builder()
                 .setUserPortalUrl(Uri.parse(redirectUrl))
@@ -4555,6 +4575,11 @@ public class ConnectivityServiceTest {
 
         mWiFiNetworkAgent.connectWithCaptivePortal(TEST_REDIRECT_URL, false /* isStrictMode */);
         captivePortalCallback.expectAvailableCallbacksUnvalidated(mWiFiNetworkAgent);
+        // This is necessary because of b/245893397, the same bug that happens where we use
+        // expectAvailableDoubleValidatedCallbacks.
+        // TODO : fix b/245893397 and remove this.
+        captivePortalCallback.expectCapabilitiesWith(NET_CAPABILITY_CAPTIVE_PORTAL,
+                mWiFiNetworkAgent);
         return captivePortalCallback;
     }
 
