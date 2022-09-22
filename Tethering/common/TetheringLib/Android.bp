@@ -43,8 +43,10 @@ java_sdk_library {
     ],
 
     srcs: [":framework-tethering-srcs"],
-    libs: ["framework-connectivity.stubs.module_lib"],
-    stub_only_libs: ["framework-connectivity.stubs.module_lib"],
+    // Building against unstable stubs is safe since
+    // framework-connectivity is in the same module
+    libs: ["framework-connectivity.stubs.module_lib.unstable"],
+    stub_only_libs: ["framework-connectivity.stubs.module_lib.unstable"],
     aidl: {
         include_dirs: [
             "packages/modules/Connectivity/framework/aidl-export",
