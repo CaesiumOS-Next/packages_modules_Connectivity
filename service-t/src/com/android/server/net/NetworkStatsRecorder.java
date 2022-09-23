@@ -32,6 +32,7 @@ import android.net.NetworkTemplate;
 import android.net.TrafficStats;
 import android.os.Binder;
 import android.os.DropBoxManager;
+import android.os.Environment;
 import android.service.NetworkStatsRecorderProto;
 import android.util.IndentingPrintWriter;
 import android.util.Log;
@@ -89,7 +90,7 @@ public class NetworkStatsRecorder {
     private final CombiningRewriter mPendingRewriter;
 
     private WeakReference<NetworkStatsCollection> mComplete;
-
+    private static final boolean DEBUG_CREATE_HEAP_DUMP_WHEN_OUT_OF_MEMORY = true;
     /**
      * Non-persisted recorder, with only one bucket. Used by {@link NetworkStatsObservers}.
      */
@@ -491,8 +492,20 @@ public class NetworkStatsRecorder {
                 Log.wtf(TAG, "problem importing netstats", e);
                 recoverAndDeleteData();
             } catch (OutOfMemoryError e) {
-                Log.wtf(TAG, "problem importing netstats", e);
+                if (DEBUG_CREATE_HEAP_DUMP_WHEN_OUT_OF_MEMORY) {
+                    try {
+                        String path = Environment.getExternalStorageDirectory() + "/hprof_data";
+                        android.os.Debug.dumpHprofData(path);
+                        Log.e(TAG, "Out of memory allocating texture.\n"
+                                + "Please do the following to copy the heap dump to your\n"
+                                + " computer: adb pull " + path + "\n"
+                                + "And attach the file to your bug report.");
+                    } catch (Throwable t) {
+                    }
+                }
                 recoverAndDeleteData();
+                Log.wtf(TAG, "problem importing netstats", e);
+                throw e;
             }
         }
 
