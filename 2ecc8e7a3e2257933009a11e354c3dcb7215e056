@@ -113,6 +113,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f36c77ea_c00104f0",
+        "filename": "tests/unit/java/com/android/server/connectivity/ClatCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-09-23T04:04:04Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "dd80fa54_3390d06d",
+      "range": {
+        "startLine": 544,
+        "startChar": 16,
+        "endLine": 544,
+        "endChar": 38
+      },
+      "revId": "2ecc8e7a3e2257933009a11e354c3dcb7215e056",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3a16309a_776f0aa1",
         "filename": "tests/unit/java/com/android/server/connectivity/ClatCoordinatorTest.java",
         "patchSetId": 3
@@ -124,6 +148,30 @@
       "writtenOn": "2022-09-22T07:41:10Z",
       "side": 1,
       "message": "Optional: This is quite design sensitive. If you change the design to dump something else, then you need to update here. But it does not look like an item that we need to ensure. E.g. Dump \"\u003cinitial but not started\u003e should break the test?",
+      "range": {
+        "startLine": 551,
+        "startChar": 21,
+        "endLine": 551,
+        "endChar": 22
+      },
+      "revId": "2ecc8e7a3e2257933009a11e354c3dcb7215e056",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1edea3f_bda6e846",
+        "filename": "tests/unit/java/com/android/server/connectivity/ClatCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-09-23T04:04:04Z",
+      "side": 1,
+      "message": "done. just simple dump without content check to see if it is crashed",
+      "parentUuid": "3a16309a_776f0aa1",
       "range": {
         "startLine": 551,
         "startChar": 21,
@@ -170,6 +218,30 @@
       "writtenOn": "2022-09-23T02:27:28Z",
       "side": 1,
       "message": "This seems not related to assertNotStartClat. If I am a user, I won\u0027t expect if I call assert to check no startClat would trigger coordinator.dump.",
+      "parentUuid": "46a5d1d0_9707618b",
+      "range": {
+        "startLine": 574,
+        "startChar": 8,
+        "endLine": 577,
+        "endChar": 30
+      },
+      "revId": "2ecc8e7a3e2257933009a11e354c3dcb7215e056",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db431d04_d02b1018",
+        "filename": "tests/unit/java/com/android/server/connectivity/ClatCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-09-23T04:04:04Z",
+      "side": 1,
+      "message": "use a helper method and keep the dump test here. make sure there is no crash after any clat starting failure in the future\n\nrename assertNotStartClat -\u003e assertNotStartClat\u0027AndVerifyDump\u0027",
       "parentUuid": "46a5d1d0_9707618b",
       "range": {
         "startLine": 574,
