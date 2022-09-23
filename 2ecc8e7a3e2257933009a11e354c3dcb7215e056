@@ -155,6 +155,30 @@
       },
       "revId": "2ecc8e7a3e2257933009a11e354c3dcb7215e056",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6011c7b3_698db15e",
+        "filename": "tests/unit/java/com/android/server/connectivity/ClatCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-23T02:27:28Z",
+      "side": 1,
+      "message": "This seems not related to assertNotStartClat. If I am a user, I won\u0027t expect if I call assert to check no startClat would trigger coordinator.dump.",
+      "parentUuid": "46a5d1d0_9707618b",
+      "range": {
+        "startLine": 574,
+        "startChar": 8,
+        "endLine": 577,
+        "endChar": 30
+      },
+      "revId": "2ecc8e7a3e2257933009a11e354c3dcb7215e056",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
