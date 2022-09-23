@@ -14363,6 +14363,8 @@ public class ConnectivityServiceTest {
                 makeEnterpriseNetworkAgent(profileNetworkPreference.getPreferenceEnterpriseId());
         if (connectWorkProfileAgentAhead) {
             workAgent.connect(false);
+            waitForIdle();
+            waitForIdle(workAgent, TIMEOUT_MS);
         }
 
         final TestOnCompleteListener listener = new TestOnCompleteListener();
