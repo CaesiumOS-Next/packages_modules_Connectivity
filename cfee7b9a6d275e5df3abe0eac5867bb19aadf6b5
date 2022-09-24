@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0d595e0_33523fcd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-24T02:36:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "068959cb_aff0cb5a",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 9
+      },
+      "revId": "cfee7b9a6d275e5df3abe0eac5867bb19aadf6b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de9b2706_16b4b6be",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-21T11:23:08Z",
       "side": 1,
       "message": "Why does this check that notifyAsUser is not called? If the code in line 3523 is correct, the production code does not actually call this method, it calls #notify(String, int, Notification).\n\nIIRC when I wrote these tests I didn\u0027t have a way to access ConnectivityService#mNotifier, and it was much easier to just fetch the NotificationManager by intercepting getSystemService. Now that we have proper dependency injection, you could potentially use that to access mNotifier directly and mock that out instead.\n\nIn any case, not for this CL.",
+      "range": {
+        "startLine": 3539,
+        "startChar": 46,
+        "endLine": 3539,
+        "endChar": 58
+      },
+      "revId": "cfee7b9a6d275e5df3abe0eac5867bb19aadf6b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cc7c6e4_6e22a3ec",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3539,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-24T02:36:05Z",
+      "side": 1,
+      "message": "Done in aosp/2226543",
+      "parentUuid": "de9b2706_16b4b6be",
       "range": {
         "startLine": 3539,
         "startChar": 46,
