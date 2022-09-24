@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c1c7426_c8946b00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-24T02:23:37Z",
+      "side": 1,
+      "message": "No Lint, this is short for \"unvalidated\".",
+      "revId": "b95b47b23b4d95bcff9f2e08c7a2b63266163801",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
