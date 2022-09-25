@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aa788b5c_3c1b725a",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-09-25T23:09:25Z",
+      "side": 1,
+      "message": "I guess my suggestion isn\u0027t entirely correct. You\u0027d still have to mask out the permission if you want to detect the unknown case. After looking at the other CLs, I don\u0027t feel so strongly about this anymore, as there is an argument to be made about consistency. I will leave it up to you.",
+      "parentUuid": "5fe77fbf_e945470a",
+      "range": {
+        "startLine": 929,
+        "startChar": 7,
+        "endLine": 948,
+        "endChar": 29
+      },
+      "revId": "3415fb8278fd2db9f07f07cdcde3a0cc94ffcd95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9618885f_ba495112",
         "filename": "service/src/com/android/server/BpfNetMaps.java",
         "patchSetId": 13
