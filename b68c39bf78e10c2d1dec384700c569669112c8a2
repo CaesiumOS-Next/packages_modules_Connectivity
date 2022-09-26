@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6371ca51_06da90e2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-26T03:32:59Z",
+      "side": 1,
+      "message": "Yes it did, but it still wasn\u0027t clear 😄",
+      "parentUuid": "4d05b19d_0dd17172",
+      "range": {
+        "startLine": 7,
+        "startChar": 28,
+        "endLine": 7,
+        "endChar": 56
+      },
+      "revId": "b68c39bf78e10c2d1dec384700c569669112c8a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89e54351_a33e9f44",
