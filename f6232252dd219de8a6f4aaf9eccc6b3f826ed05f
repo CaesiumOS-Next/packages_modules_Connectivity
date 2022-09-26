@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14fe3f20_63a30da6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-26T02:56:15Z",
+      "side": 1,
+      "message": "Still LGTM, only nits.",
+      "revId": "f6232252dd219de8a6f4aaf9eccc6b3f826ed05f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4ef8513_4778f56c",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-26T02:56:15Z",
+      "side": 1,
+      "message": "nits: you can move this into l.920 and remove l.916.",
+      "range": {
+        "startLine": 919,
+        "startChar": 12,
+        "endLine": 919,
+        "endChar": 25
+      },
+      "revId": "f6232252dd219de8a6f4aaf9eccc6b3f826ed05f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "260f7d1a_807f014b",
+        "filename": "tests/unit/java/com/android/server/connectivity/ClatCoordinatorTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-26T02:56:15Z",
+      "side": 1,
+      "message": "} else {\n    assertEquals(1, dumpStrings.length);\n    assertEquals(\"\u003cnot started\u003e\", dumpStrings[0].trim());\n}",
+      "range": {
+        "startLine": 542,
+        "startChar": 8,
+        "endLine": 542,
+        "endChar": 9
+      },
+      "revId": "f6232252dd219de8a6f4aaf9eccc6b3f826ed05f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6680088d_b7cb0c31",
+        "filename": "tests/unit/java/com/android/server/connectivity/ClatCoordinatorTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-09-26T02:56:15Z",
+      "side": 1,
+      "message": "Nits: could you separate this ? It would be more readable.\n\nassertNotStartClat(deps);\n// Check that dump doesn\u0027t crash after any clat starting failure.\nverifyDump(coordinator, false /* clatStarted */);",
+      "range": {
+        "startLine": 582,
+        "startChar": 8,
+        "endLine": 582,
+        "endChar": 39
+      },
+      "revId": "f6232252dd219de8a6f4aaf9eccc6b3f826ed05f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
