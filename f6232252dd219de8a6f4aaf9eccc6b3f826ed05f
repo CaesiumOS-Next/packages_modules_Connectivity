@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59ea7255_d25895ba",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-09-26T07:13:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4ef8513_4778f56c",
+      "range": {
+        "startLine": 919,
+        "startChar": 12,
+        "endLine": 919,
+        "endChar": 25
+      },
+      "revId": "f6232252dd219de8a6f4aaf9eccc6b3f826ed05f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "260f7d1a_807f014b",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bdaa127_82de038b",
+        "filename": "tests/unit/java/com/android/server/connectivity/ClatCoordinatorTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-09-26T07:13:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "260f7d1a_807f014b",
+      "range": {
+        "startLine": 542,
+        "startChar": 8,
+        "endLine": 542,
+        "endChar": 9
+      },
+      "revId": "f6232252dd219de8a6f4aaf9eccc6b3f826ed05f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6680088d_b7cb0c31",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-09-26T02:56:15Z",
       "side": 1,
       "message": "Nits: could you separate this ? It would be more readable.\n\nassertNotStartClat(deps);\n// Check that dump doesn\u0027t crash after any clat starting failure.\nverifyDump(coordinator, false /* clatStarted */);",
+      "range": {
+        "startLine": 582,
+        "startChar": 8,
+        "endLine": 582,
+        "endChar": 39
+      },
+      "revId": "f6232252dd219de8a6f4aaf9eccc6b3f826ed05f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61fa4dbc_880105d8",
+        "filename": "tests/unit/java/com/android/server/connectivity/ClatCoordinatorTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-09-26T07:13:05Z",
+      "side": 1,
+      "message": "Done.\n\nPer talked, move assertNotStartClatAndVerifyDump() and assertStartClat() to checkNotStartClat() because verifyDump() needs coordinator object in assertNotStartClatAndVerifyDump().",
+      "parentUuid": "6680088d_b7cb0c31",
       "range": {
         "startLine": 582,
         "startChar": 8,
