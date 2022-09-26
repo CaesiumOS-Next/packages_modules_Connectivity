@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e48dda4_150b7abf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-26T02:06:39Z",
+      "side": 1,
+      "message": "I don\u0027t see this in patchset 1 ?",
+      "range": {
+        "startLine": 7,
+        "startChar": 28,
+        "endLine": 7,
+        "endChar": 56
+      },
+      "revId": "b68c39bf78e10c2d1dec384700c569669112c8a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89e54351_a33e9f44",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-26T02:06:39Z",
+      "side": 1,
+      "message": "I\u0027m not sure you really intended to upload this ? The cover comment doesn\u0027t really match the change contents",
+      "revId": "b68c39bf78e10c2d1dec384700c569669112c8a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b94285cf_6517b805",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1172,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-26T02:06:39Z",
+      "side": 1,
+      "message": "mNmValidationResult is a primitive int, does this build ?",
+      "range": {
+        "startLine": 1172,
+        "startChar": 12,
+        "endLine": 1172,
+        "endChar": 39
+      },
+      "revId": "b68c39bf78e10c2d1dec384700c569669112c8a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
