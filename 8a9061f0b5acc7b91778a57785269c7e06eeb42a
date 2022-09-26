@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78c896c2_a6d505e8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3855,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-26T04:16:50Z",
+      "side": 1,
+      "message": "Nit: would remove this since there\u0027s a return statement.",
+      "range": {
+        "startLine": 3855,
+        "startChar": 16,
+        "endLine": 3855,
+        "endChar": 24
+      },
+      "revId": "8a9061f0b5acc7b91778a57785269c7e06eeb42a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

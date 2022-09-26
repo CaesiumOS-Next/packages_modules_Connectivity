@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1768c03_7a89331a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3748,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-26T04:16:50Z",
+      "side": 0,
+      "message": "If we\u0027re moving towards doing the processing of the CAPTIVE_PORTAL capability to handleNetworkTested, then we should probably be good to add a TODO to remove this and have ConnectivityService handle the notification itself. Otherwise there\u0027s the risk of NetworkMonitor and ConnectivityService becoming out of sync in the future.",
+      "range": {
+        "startLine": 3748,
+        "startChar": 21,
+        "endLine": 3748,
+        "endChar": 52
+      },
+      "revId": "9708f7239ca0d7f16d65acfb2e20b8dbfd80c652",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
