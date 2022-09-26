@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df75275e_a43f7cbb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-26T03:16:12Z",
+      "side": 1,
+      "message": "Are you sure this is the reason ?\n\nTestNetworkAgentWrapper#connect is using a callback to wait for the network to be connected. I don\u0027t think it\u0027s possible that the agent is not fully connected by the time #connect() returns.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 23
+      },
+      "revId": "703a49e986a5ec4df442789b89a639418f06a41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d581b278_29744907",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-26T03:16:12Z",
+      "side": 1,
+      "message": "I don\u0027t think this will actually fix the flake.",
+      "revId": "703a49e986a5ec4df442789b89a639418f06a41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
