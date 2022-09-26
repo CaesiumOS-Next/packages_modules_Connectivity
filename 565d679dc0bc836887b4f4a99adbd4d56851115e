@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73eba443_f12c6253",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-26T03:17:54Z",
+      "side": 1,
+      "message": "LGTM for readability to null out the URL explicitly, but I think the cover comment should be updated in that case.",
+      "revId": "565d679dc0bc836887b4f4a99adbd4d56851115e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25038c98_77a25844",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1172,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-26T03:17:54Z",
+      "side": 1,
+      "message": "I\u0027d say it\u0027s OK to be explicit here, but this is already done by setNetworkPartial called above I think ?",
+      "range": {
+        "startLine": 1172,
+        "startChar": 12,
+        "endLine": 1172,
+        "endChar": 36
+      },
+      "revId": "565d679dc0bc836887b4f4a99adbd4d56851115e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
