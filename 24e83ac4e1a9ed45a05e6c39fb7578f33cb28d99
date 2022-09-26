@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ec1c2a2_cf2df010",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1251,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-09-26T01:57:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "29b242df_4e041590",
+      "range": {
+        "startLine": 1251,
+        "startChar": 70,
+        "endLine": 1251,
+        "endChar": 74
+      },
+      "revId": "24e83ac4e1a9ed45a05e6c39fb7578f33cb28d99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db83f757_cdbc6abc",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-16T06:14:08Z",
       "side": 1,
       "message": "do you want to address the warning since you\u0027re touching this.",
+      "range": {
+        "startLine": 1475,
+        "startChar": 45,
+        "endLine": 1475,
+        "endChar": 68
+      },
+      "revId": "24e83ac4e1a9ed45a05e6c39fb7578f33cb28d99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbe11972_7c6e11c5",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1475,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-09-26T01:57:30Z",
+      "side": 1,
+      "message": "I\u0027ll address the warning part in a follow-up CL.",
+      "parentUuid": "db83f757_cdbc6abc",
       "range": {
         "startLine": 1475,
         "startChar": 45,
