@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a2a6b58_be260454",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 5115,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-26T08:05:04Z",
+      "side": 1,
+      "message": "As per the lint error, this will always say \"true\", so maybe not necessary ?",
+      "range": {
+        "startLine": 5115,
+        "startChar": 54,
+        "endLine": 5115,
+        "endChar": 68
+      },
+      "revId": "df5d20e0f167514b3a552260e8cf39de415d248f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea31047b_832018a5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 5139,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-26T08:05:04Z",
+      "side": 1,
+      "message": "(supernit: space)",
+      "range": {
+        "startLine": 5139,
+        "startChar": 50,
+        "endLine": 5139,
+        "endChar": 51
+      },
+      "revId": "df5d20e0f167514b3a552260e8cf39de415d248f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f745f7c_e273c6a2",
+        "filename": "service/src/com/android/server/connectivity/MultinetworkPolicyTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-26T08:05:04Z",
+      "side": 1,
+      "message": "For consistency with other flags, and better rollback safety, it would be better to have CONFIG_ACTIVELY_PREFER_BAD_WIFI_VERSION which would be the minimum version number to enable the feature; and read it with DeviceConfigUtils.isFeatureEnabled\n\nHere you could use `isFeatureEnabled(namespace, flag, isAtLeastU() || configActivelyPrefersBadWifi)` to get the same behavior (default-enable the feature if U+ or enabled via overlay)",
+      "range": {
+        "startLine": 72,
+        "startChar": 32,
+        "endLine": 72,
+        "endChar": 63
+      },
+      "revId": "df5d20e0f167514b3a552260e8cf39de415d248f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ab7ab60_f5e8e151",
+        "filename": "service/src/com/android/server/connectivity/MultinetworkPolicyTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-26T08:05:04Z",
+      "side": 1,
+      "message": "Not introduced here, but I think this method isn\u0027t useful anymore: `DeviceConfig.getInt(String, String, Int)` does basically the same thing. It was added at around the same time but reached AOSP later (ag/I10523a7b591d9f062d5de88c5fc4edd8c7c73ee0 vs. aosp/I8e1fb5b47fff3bf624131ba1f5732daabd991e6d)",
+      "range": {
+        "startLine": 97,
+        "startChar": 37,
+        "endLine": 97,
+        "endChar": 63
+      },
+      "revId": "df5d20e0f167514b3a552260e8cf39de415d248f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14b54f03_0e5743da",
+        "filename": "service/src/com/android/server/connectivity/MultinetworkPolicyTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-26T08:05:04Z",
+      "side": 1,
+      "message": "Not introduced here, but I find the naming very non-explicit; it may be difficult to explain to OEMs when going over how to configure their devices. I\u0027d prefer some naming that really explains the behavior like stayOnJustConnectedBadWifiIfNotPortal or preferBadWifiIfJustConnected or...",
+      "range": {
+        "startLine": 253,
+        "startChar": 13,
+        "endLine": 254,
+        "endChar": 70
+      },
+      "revId": "df5d20e0f167514b3a552260e8cf39de415d248f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b4dd595_ef856d69",
+        "filename": "tests/unit/java/com/android/server/connectivity/MultinetworkPolicyTrackerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-26T08:05:04Z",
+      "side": 1,
+      "message": "This doesn\u0027t handle the case where arg2 \u003e  SystemClock.uptimeMillis(), so if that\u0027s unexpected in the test, might as well fail the test in that case. It would not be obvious to debug if the code starts scheduling messages with a delay.\n\nIf the test does need to process events with delay, a real Handler wrapping android.testing.TestableLooper may be a better choice.",
+      "range": {
+        "startLine": 102,
+        "startChar": 46,
+        "endLine": 102,
+        "endChar": 55
+      },
+      "revId": "df5d20e0f167514b3a552260e8cf39de415d248f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ae97c23_22198129",
+        "filename": "tests/unit/java/com/android/server/connectivity/MultinetworkPolicyTrackerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-26T08:05:04Z",
+      "side": 1,
+      "message": "(supernit: might want to mention this is immediate because an inline handler is used in the test)",
+      "range": {
+        "startLine": 170,
+        "startChar": 48,
+        "endLine": 170,
+        "endChar": 61
+      },
+      "revId": "df5d20e0f167514b3a552260e8cf39de415d248f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f6fe1ab_0a38dfd0",
+        "filename": "tests/unit/java/com/android/server/connectivity/MultinetworkPolicyTrackerTestDependencies.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-26T08:05:04Z",
+      "side": 1,
+      "message": "Maybe it would be better to make the constant public in MultinetworkPolicyTracker ? I think it\u0027s better than duplicating it, which is error-prone",
+      "range": {
+        "startLine": 11,
+        "startChar": 18,
+        "endLine": 11,
+        "endChar": 49
+      },
+      "revId": "df5d20e0f167514b3a552260e8cf39de415d248f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbb2e02b_14eacf77",
+        "filename": "tests/unit/java/com/android/server/connectivity/MultinetworkPolicyTrackerTestDependencies.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-26T08:05:04Z",
+      "side": 1,
+      "message": "Should this return without calling the callbacks if `configActivelyPreferBadWifi \u003d\u003d value` ?",
+      "range": {
+        "startLine": 22,
+        "startChar": 12,
+        "endLine": 22,
+        "endChar": 47
+      },
+      "revId": "df5d20e0f167514b3a552260e8cf39de415d248f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
