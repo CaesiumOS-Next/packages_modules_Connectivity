@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1af9e862_c867cf83",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2876,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-26T08:31:03Z",
+      "side": 1,
+      "message": "Maybe this would be better inside the \"try\" ? (also the putInt below)",
+      "range": {
+        "startLine": 2876,
+        "startChar": 29,
+        "endLine": 2876,
+        "endChar": 40
+      },
+      "revId": "fc485c3a4c642a3c583393c8cdcd9c94bc2647a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab6a6a0c_e363672d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2880,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-26T08:31:03Z",
+      "side": 1,
+      "message": "tryTest/cleanup ? I think the finally doesn\u0027t currently have code that would fail easily, but as an example for other tests",
+      "range": {
+        "startLine": 2880,
+        "startChar": 8,
+        "endLine": 2880,
+        "endChar": 11
+      },
+      "revId": "fc485c3a4c642a3c583393c8cdcd9c94bc2647a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "422c65e9_f70621e0",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2893,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-26T08:31:03Z",
+      "side": 1,
+      "message": "That\u0027s a really long test, using 30 seconds to test this. Can we avoid that ? Just 3 seconds should be enough if this is to test no code gets run immediately to make cell default.",
+      "range": {
+        "startLine": 2893,
+        "startChar": 15,
+        "endLine": 2893,
+        "endChar": 34
+      },
+      "revId": "fc485c3a4c642a3c583393c8cdcd9c94bc2647a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e070035c_04ac6a20",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2906,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-26T08:31:03Z",
+      "side": 1,
+      "message": "I\u0027m interested in how you test this if you get to this; UIAutomator can open the notification shade but actually checking notifications depends on OEM UI AFAIK, so I couldn\u0027t figure out a good method. Maybe the notification team has some methods though, I haven\u0027t tried asking.",
+      "range": {
+        "startLine": 2906,
+        "startChar": 22,
+        "endLine": 2906,
+        "endChar": 41
+      },
+      "revId": "fc485c3a4c642a3c583393c8cdcd9c94bc2647a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a3f1085_028585c7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2918,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-26T08:31:03Z",
+      "side": 1,
+      "message": "You could also use mTestValidationConfigRule to have this reset for you, but whether the setting can be classified as \"test validation\" is debatable",
+      "range": {
+        "startLine": 2918,
+        "startChar": 33,
+        "endLine": 2918,
+        "endChar": 44
+      },
+      "revId": "fc485c3a4c642a3c583393c8cdcd9c94bc2647a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
