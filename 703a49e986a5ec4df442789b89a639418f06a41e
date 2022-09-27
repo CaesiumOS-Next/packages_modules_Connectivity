@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c5584b0_27976c98",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-27T07:00:12Z",
+      "side": 1,
+      "message": "Per discussion, my assertion here is incorrect – connect is not waiting for the network to be connected if |validated| is false. It should.",
+      "parentUuid": "df75275e_a43f7cbb",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 23
+      },
+      "revId": "703a49e986a5ec4df442789b89a639418f06a41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "d581b278_29744907",
@@ -37,6 +61,23 @@
       "writtenOn": "2022-09-26T03:16:12Z",
       "side": 1,
       "message": "I don\u0027t think this will actually fix the flake.",
+      "revId": "703a49e986a5ec4df442789b89a639418f06a41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34f57180_8ce442d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-27T07:00:12Z",
+      "side": 1,
+      "message": "Instead of using waitForIdle, I think we should have #connect wait for the network to be connected in all cases.",
       "revId": "703a49e986a5ec4df442789b89a639418f06a41e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
