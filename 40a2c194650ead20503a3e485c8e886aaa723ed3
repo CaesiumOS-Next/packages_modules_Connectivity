@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb951f5a_96f4ce18",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2125,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-27T06:10:42Z",
+      "side": 1,
+      "message": "Rather than having all tests make sure the telephony network is validated when they exit, I think it would scale better to have either of these premises :\n• Have all tests make sure the situation is what they expect (in this case this would mean having the failing test wait for validation before it sets the URLs)\n• Strengthen the standard situation that all tests expect and have setUp() wait for that. In this case this would mean setUp() waits for available.",
+      "range": {
+        "startLine": 2125,
+        "startChar": 34,
+        "endLine": 2125,
+        "endChar": 62
+      },
+      "revId": "40a2c194650ead20503a3e485c8e886aaa723ed3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
