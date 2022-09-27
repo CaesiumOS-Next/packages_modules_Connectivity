@@ -2852,6 +2852,20 @@ public class ConnectivityManagerTest {
         }
     }
 
+    private void expectNotification(int netId, @NonNull final String notificationTypeName)
+            throws IOException {
+        final String command = "dumpsys connectivity";
+        final String dumpsysString = runShellCommand(mInstrumentation, command);
+
+        final Matcher m = Pattern.compile("Notification:.*" + netId + ".*" + notificationTypeName,
+                        Pattern.MULTILINE | Pattern.UNIX_LINES)
+                .matcher(dumpsysString);
+        if (!m.find()) {
+            fail("Notification expected but not found: netid=" + netId
+                    + " type=" + notificationTypeName);
+        }
+    }
+
     @AppModeFull(reason = "WRITE_DEVICE_CONFIG permission can't be granted to instant apps")
     @Test
     public void testPreferBadWifi() throws Exception {
@@ -2889,6 +2903,7 @@ public class ConnectivityManagerTest {
             // Wait for 25 seconds and make sure cell is still the default network.
             defaultCb.assertNoCallbackThat(25_000 /* timeout */,
                     cb -> cb instanceof CallbackEntry.Available);
+            expectNotification(portalWifi.netId, "SIGN_IN");
 
             // Disconnect wifi, make sure the next wifi is bad, and reconnect it.
             mCtsNetUtils.ensureWifiDisconnected(portalWifi);
@@ -2896,12 +2911,13 @@ public class ConnectivityManagerTest {
             final Network badWifi = mCtsNetUtils.ensureWifiConnected();
 
             // Wait 5 seconds and make sure cell is still the default. Then, make sure the default
-            // default network changes to wifi within 20 seconds.
+            // default network changes to wifi within 20 seconds and there is a notification to
+            // warn the user that this network doesn't work.
             defaultCb.assertNoCallbackThat(5_000 /* timeout */,
                     cb -> cb instanceof CallbackEntry.Available);
-            // TODO : expect notification
             defaultCb.eventuallyExpect(CallbackEntry.AVAILABLE, 20_000 /* timeout */, cb ->
                     cb.getNetwork().equals(badWifi));
+                    expectNotification(badWifi.netId, "LOST_INTERNET");
         }, /* finally */
                 () -> resetAvoidBadWifi(previousAvoidBadWifi),
                 () -> mHttpServer.stop(),
