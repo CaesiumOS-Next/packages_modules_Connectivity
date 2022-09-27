@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e7f4542_30db5b5e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-27T11:19:02Z",
+      "side": 1,
+      "message": "Nits can be ignored",
+      "revId": "0e9c8ea3f70b659b19d5894fb9dc9505b4b1dae7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eea62092_57e36e7f",
+        "filename": "service/src/com/android/server/connectivity/MultinetworkPolicyTracker.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-27T11:19:02Z",
+      "side": 1,
+      "message": "Nit: You could return early if properties doesn\u0027t contain an interesting key. I think this doesn\u0027t save a lot of processing today anyway though ?",
+      "range": {
+        "startLine": 217,
+        "startChar": 30,
+        "endLine": 217,
+        "endChar": 48
+      },
+      "revId": "0e9c8ea3f70b659b19d5894fb9dc9505b4b1dae7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c4b9932_ef14a998",
+        "filename": "tests/unit/java/com/android/server/connectivity/MultinetworkPolicyTrackerTestDependencies.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-27T11:19:02Z",
+      "side": 1,
+      "message": "Nit: I think \"resources\" is the usual Kotlin naming ?",
+      "range": {
+        "startLine": 12,
+        "startChar": 60,
+        "endLine": 12,
+        "endChar": 70
+      },
+      "revId": "0e9c8ea3f70b659b19d5894fb9dc9505b4b1dae7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
