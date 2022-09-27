@@ -189,6 +189,30 @@
       },
       "revId": "c682b1b3f384c0ac8e4f85aa6d73d96f557f9bc8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff16adcf_948995de",
+        "filename": "service/proguard.flags",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-27T03:39:43Z",
+      "side": 1,
+      "message": "Got it; can you add it to the commit message ? This will be useful for context in our release reviews.",
+      "parentUuid": "9d7455f1_1d037024",
+      "range": {
+        "startLine": 7,
+        "startChar": 11,
+        "endLine": 7,
+        "endChar": 19
+      },
+      "revId": "c682b1b3f384c0ac8e4f85aa6d73d96f557f9bc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c617ac1c_c846b0ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-27T03:39:43Z",
+      "side": 1,
+      "message": "Thanks for this change; November was already cut so I think this should go into January. Natasha said there\u0027s some talks about getting new cuts for Soong and 64-bit fixes, but hopefully these can be done with cherry-picks (this change needs to go through a full testing cycle)",
+      "revId": "5f4bc8b582e39da425318ef8cbcedf4341e54f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

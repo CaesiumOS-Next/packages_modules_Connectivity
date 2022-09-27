@@ -46,6 +46,30 @@
       },
       "revId": "1fe9bf0de1d6520578804b83d02304689c9a1930",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2f20b40_0e60f495",
+        "filename": "service/proguard.flags",
+        "patchSetId": 12
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-27T03:39:43Z",
+      "side": 0,
+      "message": "Oh I see thanks; can you mention in the commit message that this is covered by another change in build/ ?",
+      "parentUuid": "0593c627_ecbdbc2d",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 82
+      },
+      "revId": "1fe9bf0de1d6520578804b83d02304689c9a1930",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
