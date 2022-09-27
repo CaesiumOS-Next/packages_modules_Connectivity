@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "997e785a_934cd432",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 5115,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-27T09:02:56Z",
+      "side": 1,
+      "message": "I\u0027ve seen the lint error and I think :\n• This is useful for humans reading dumpsys\n• This code is easier to understand than the literal \"true\"\nHence the current code.",
+      "parentUuid": "7a2a6b58_be260454",
+      "range": {
+        "startLine": 5115,
+        "startChar": 54,
+        "endLine": 5115,
+        "endChar": 68
+      },
+      "revId": "df5d20e0f167514b3a552260e8cf39de415d248f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea31047b_832018a5",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-26T08:05:04Z",
       "side": 1,
       "message": "(supernit: space)",
+      "range": {
+        "startLine": 5139,
+        "startChar": 50,
+        "endLine": 5139,
+        "endChar": 51
+      },
+      "revId": "df5d20e0f167514b3a552260e8cf39de415d248f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f034c8e1_6becd871",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 5139,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-27T09:02:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea31047b_832018a5",
       "range": {
         "startLine": 5139,
         "startChar": 50,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "183473fa_a97201f2",
+        "filename": "service/src/com/android/server/connectivity/MultinetworkPolicyTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-27T09:02:56Z",
+      "side": 1,
+      "message": "After a long discussion in person, we decided this wasn\u0027t very appropriate for this device config, as it\u0027s a tri-state (force off/force on/unset), and it only ships on S+ meaning rollback protection is enforced by device config anyway. We could achieve this by having two different flags (one for force on and one for force off) but the complexity that comes with this doesn\u0027t sound like time very well spent.\n\nAgreed to have a comment in the code to tell possible future developers that this scheme is not what you need for features.",
+      "parentUuid": "6f745f7c_e273c6a2",
+      "range": {
+        "startLine": 72,
+        "startChar": 32,
+        "endLine": 72,
+        "endChar": 63
+      },
+      "revId": "df5d20e0f167514b3a552260e8cf39de415d248f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ab7ab60_f5e8e151",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-09-26T08:05:04Z",
       "side": 1,
       "message": "Not introduced here, but I think this method isn\u0027t useful anymore: `DeviceConfig.getInt(String, String, Int)` does basically the same thing. It was added at around the same time but reached AOSP later (ag/I10523a7b591d9f062d5de88c5fc4edd8c7c73ee0 vs. aosp/I8e1fb5b47fff3bf624131ba1f5732daabd991e6d)",
+      "range": {
+        "startLine": 97,
+        "startChar": 37,
+        "endLine": 97,
+        "endChar": 63
+      },
+      "revId": "df5d20e0f167514b3a552260e8cf39de415d248f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d50b2270_9b5e5407",
+        "filename": "service/src/com/android/server/connectivity/MultinetworkPolicyTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-27T09:02:56Z",
+      "side": 1,
+      "message": "I\u0027m not sure what your point is – do you think I should inline this method ? Use DeviceConfig.getInt() ? I think it might be the latter, but then IIUC this is made obsolete by your comment above.",
+      "parentUuid": "6ab7ab60_f5e8e151",
       "range": {
         "startLine": 97,
         "startChar": 37,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ead27ec_e8c9ce0d",
+        "filename": "service/src/com/android/server/connectivity/MultinetworkPolicyTracker.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-27T09:02:56Z",
+      "side": 1,
+      "message": "This is in contrast and in context with the \"avoid bad wifi\" setting. I think the behavior is complex and we are better off giving it a rather symbolic name than trying to describe it, because any description will be either wrong or 6-lines long. Case in point :\n• If you don\u0027t have the context, I don\u0027t think your suggestions are easier to understand. You still need to have \"avoid bad wifi\" off, which is a complex combination of mcc/mnc-dependent configs, a setting, and a per-network toggle ; most of the complexity is still hidden from the namings you suggest, and I think they may make things harder to grasp by suggesting that \"staying on just connected bad wifi if not portal\" is all there is to it.\n• Conversely, if you do have the context, then staying is really not the matter, nor is being just connected, and it becomes more confusing than the current naming too.\n• I think there is something to say for shorter names. The current name is already painful for its unwieldliness.",
+      "parentUuid": "14b54f03_0e5743da",
+      "range": {
+        "startLine": 253,
+        "startChar": 13,
+        "endLine": 254,
+        "endChar": 70
+      },
+      "revId": "df5d20e0f167514b3a552260e8cf39de415d248f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b4dd595_ef856d69",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-09-26T08:05:04Z",
       "side": 1,
       "message": "This doesn\u0027t handle the case where arg2 \u003e  SystemClock.uptimeMillis(), so if that\u0027s unexpected in the test, might as well fail the test in that case. It would not be obvious to debug if the code starts scheduling messages with a delay.\n\nIf the test does need to process events with delay, a real Handler wrapping android.testing.TestableLooper may be a better choice.",
+      "range": {
+        "startLine": 102,
+        "startChar": 46,
+        "endLine": 102,
+        "endChar": 55
+      },
+      "revId": "df5d20e0f167514b3a552260e8cf39de415d248f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf23c564_ec56435d",
+        "filename": "tests/unit/java/com/android/server/connectivity/MultinetworkPolicyTrackerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-27T09:02:56Z",
+      "side": 1,
+      "message": "I want to keep the test simple ; running a real handler makes it significantly more complex and is not needed for now. Following your suggestion, I decided scheduling messages with a delay was not supported and added an explicit error for that.",
+      "parentUuid": "1b4dd595_ef856d69",
       "range": {
         "startLine": 102,
         "startChar": 46,
@@ -185,6 +329,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b490d01_d99299ad",
+        "filename": "tests/unit/java/com/android/server/connectivity/MultinetworkPolicyTrackerTestDependencies.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-27T09:02:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f6fe1ab_0a38dfd0",
+      "range": {
+        "startLine": 11,
+        "startChar": 18,
+        "endLine": 11,
+        "endChar": 49
+      },
+      "revId": "df5d20e0f167514b3a552260e8cf39de415d248f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bbb2e02b_14eacf77",
@@ -198,6 +366,30 @@
       "writtenOn": "2022-09-26T08:05:04Z",
       "side": 1,
       "message": "Should this return without calling the callbacks if `configActivelyPreferBadWifi \u003d\u003d value` ?",
+      "range": {
+        "startLine": 22,
+        "startChar": 12,
+        "endLine": 22,
+        "endChar": 47
+      },
+      "revId": "df5d20e0f167514b3a552260e8cf39de415d248f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f72ffbb7_d26ecdc2",
+        "filename": "tests/unit/java/com/android/server/connectivity/MultinetworkPolicyTrackerTestDependencies.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-27T09:02:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbb2e02b_14eacf77",
       "range": {
         "startLine": 22,
         "startChar": 12,
