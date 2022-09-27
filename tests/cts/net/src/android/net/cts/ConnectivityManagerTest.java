@@ -2121,8 +2121,8 @@ public class ConnectivityManagerTest {
             // Verify that turning airplane mode off takes effect as expected.
             // connectToCell only registers a request, it cannot / does not need to be called twice
             mCtsNetUtils.ensureWifiConnected();
-            if (supportWifi) waitForAvailable(wifiCb);
-            if (supportTelephony) waitForAvailable(telephonyCb);
+            if (supportWifi) waitForAvailableAndValidated(wifiCb);
+            if (supportTelephony) waitForAvailableAndValidated(telephonyCb);
         } finally {
             // Restore the previous state of airplane mode and permissions:
             runShellCommand("cmd connectivity airplane-mode "
@@ -2134,6 +2134,15 @@ public class ConnectivityManagerTest {
             @NonNull final TestableNetworkCallback cb) {
         registerNetworkCallback(request, cb);
         waitForAvailable(cb);
+    }
+
+    private void waitForAvailableAndValidated(@NonNull final TestableNetworkCallback cb) {
+        cb.eventuallyExpect(CallbackEntry.AVAILABLE, NETWORK_CALLBACK_TIMEOUT_MS,
+                c -> c instanceof CallbackEntry.Available);
+        cb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED,
+                NETWORK_CALLBACK_TIMEOUT_MS,
+                entry -> ((CallbackEntry.CapabilitiesChanged) entry).getCaps()
+                        .hasCapability(NET_CAPABILITY_VALIDATED));
     }
 
     private void waitForAvailable(@NonNull final TestableNetworkCallback cb) {
