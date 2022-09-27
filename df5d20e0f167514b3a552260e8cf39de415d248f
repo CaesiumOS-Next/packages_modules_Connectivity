@@ -306,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "577e725b_2c337d9e",
+        "filename": "tests/unit/java/com/android/server/connectivity/MultinetworkPolicyTrackerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-27T09:04:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ae97c23_22198129",
+      "range": {
+        "startLine": 170,
+        "startChar": 48,
+        "endLine": 170,
+        "endChar": 61
+      },
+      "revId": "df5d20e0f167514b3a552260e8cf39de415d248f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f6fe1ab_0a38dfd0",
