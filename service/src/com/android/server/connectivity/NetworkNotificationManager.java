@@ -46,6 +46,8 @@ import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.messages.nano.SystemMessageProto.SystemMessage;
 
+import java.io.PrintWriter;
+
 public class NetworkNotificationManager {
 
 
@@ -404,6 +406,27 @@ public class NetworkNotificationManager {
     static String nameOf(int eventId) {
         NotificationType t = NotificationType.getFromId(eventId);
         return (t != null) ? t.name() : "UNKNOWN";
+    }
+
+    /**
+     * Dump the current status of all notifications to the passed writer.
+     */
+    public void dump(@NonNull final PrintWriter pw) {
+        // This method is on the wrong thread to access mNotificationTypeMap, but locking just
+        // for dump() is inefficient given that most devices never run this code. Instead, just
+        // avoid crashes summarily.
+        for (int tries = 0; tries < 3; ++tries) {
+            try {
+                for (int i = 0; i < mNotificationTypeMap.size(); ++i) {
+                    final int key = mNotificationTypeMap.keyAt(i);
+                    final int value = mNotificationTypeMap.valueAt(i);
+                    pw.println("NetId=" + key + " -> " + nameOf(value));
+                    return;
+                }
+            } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
+                // Concurrent access to mNotificationTypeMap, retry
+            }
+        }
     }
 
     /**
