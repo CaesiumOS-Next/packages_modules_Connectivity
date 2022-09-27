@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2470c88_0db26d60",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-09-27T13:29:23Z",
+      "side": 1,
+      "message": "So, do you mean handle this on CS handler so that if someone calls ki.start() then it should wait until stop() finish.",
+      "range": {
+        "startLine": 238,
+        "startChar": 37,
+        "endLine": 238,
+        "endChar": 38
+      },
+      "revId": "2c1f41888c7f51c9b54be43e7925512e3d4697bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
