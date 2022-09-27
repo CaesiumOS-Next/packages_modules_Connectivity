@@ -324,6 +324,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static final String NETWORK_ARG = "networks";
     private static final String REQUEST_ARG = "requests";
     private static final String TRAFFICCONTROLLER_ARG = "trafficcontroller";
+    private static final String NOTIFICATIONS_ARG = "notifications";
 
     private static final boolean DBG = true;
     private static final boolean DDBG = Log.isLoggable(TAG, Log.DEBUG);
@@ -3224,6 +3225,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
             boolean verbose = !CollectionUtils.contains(args, SHORT_ARG);
             dumpTrafficController(pw, fd, verbose);
             return;
+        } else if (CollectionUtils.contains(args, NOTIFICATIONS_ARG)) {
+            mNotifier.dump(pw);
+            return;
         }
 
         pw.println("NetworkProviders for:");
@@ -3355,6 +3359,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
         pw.println("Legacy network activity:");
         pw.increaseIndent();
         mNetworkActivityTracker.dump(pw);
+        pw.decreaseIndent();
+
+        pw.println();
+        pw.println("Active notifications:");
+        pw.increaseIndent();
+        mNotifier.dump(pw);
         pw.decreaseIndent();
     }
 
