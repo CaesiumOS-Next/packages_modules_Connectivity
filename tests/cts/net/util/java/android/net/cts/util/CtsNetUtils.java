@@ -304,7 +304,8 @@ public final class CtsNetUtils {
                 wifiBoundSocket = getBoundSocket(wifiNetworkToCheck, TEST_HOST, HTTP_PORT);
                 testHttpRequest(wifiBoundSocket);
             } catch (IOException e) {
-                fail("HTTP request before wifi disconnected failed with: " + e);
+                fail("HTTP request before wifi " + wifiNetworkToCheck
+                        + " disconnected failed with: " + e);
             }
         }
 

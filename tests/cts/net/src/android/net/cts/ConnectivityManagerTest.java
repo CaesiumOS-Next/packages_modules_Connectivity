@@ -2852,6 +2852,20 @@ public class ConnectivityManagerTest {
         }
     }
 
+    private void expectNotification(int netId, @NonNull final String notificationTypeName)
+            throws IOException {
+        final String command = "dumpsys connectivity";
+        final String dumpsysString = runShellCommand(mInstrumentation, command);
+
+        final Matcher m = Pattern.compile("Notification:.*" + netId + ".*" + notificationTypeName,
+                        Pattern.MULTILINE | Pattern.UNIX_LINES)
+                .matcher(dumpsysString);
+        if (!m.find()) {
+            fail("Notification expected but not found: netid=" + netId
+                    + " type=" + notificationTypeName);
+        }
+    }
+
     // This test can take in excess of 1 minute as it has to make sure some processing has not
     // taken place after 20 seconds.
     @AppModeFull(reason = "WRITE_DEVICE_CONFIG permission can't be granted to instant apps")
@@ -2896,7 +2910,7 @@ public class ConnectivityManagerTest {
                     cb -> cb instanceof CallbackEntry.Available);
             defaultCb.eventuallyExpect(CallbackEntry.AVAILABLE, 60_000 /* timeout */, cb ->
                     cb.getNetwork().equals(badWifi));
-            // TODO : expect notification
+            expectNotification(badWifi.netId, "LOST_INTERNET");
             // Measure how long this has taken, to minimize the amount of waiting time in the
             // next test section.
             final long delay = SystemClock.uptimeMillis() - start;
@@ -2913,6 +2927,7 @@ public class ConnectivityManagerTest {
             // default network, to ensure the behavior is inhibited by the captive portal.
             defaultCb.assertNoCallbackThat(delay + 5_000 /* timeout */,
                     cb -> cb instanceof CallbackEntry.Available);
+            expectNotification(portalWifi.netId, "SIGN_IN");
         }, /* finally */
                 () -> resetAvoidBadWifi(previousAvoidBadWifi),
                 () -> mHttpServer.stop(),

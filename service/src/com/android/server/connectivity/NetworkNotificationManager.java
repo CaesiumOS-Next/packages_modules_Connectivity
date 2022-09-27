@@ -46,6 +46,8 @@ import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.messages.nano.SystemMessageProto.SystemMessage;
 
+import java.io.PrintWriter;
+
 public class NetworkNotificationManager {
 
 
@@ -404,6 +406,17 @@ public class NetworkNotificationManager {
     static String nameOf(int eventId) {
         NotificationType t = NotificationType.getFromId(eventId);
         return (t != null) ? t.name() : "UNKNOWN";
+    }
+
+    /**
+     * Dump the current status of all notifications to the passed writer.
+     */
+    public void dump(@NonNull final PrintWriter pw) {
+        for (int i = 0; i < mNotificationTypeMap.size(); ++i) {
+            final int key = mNotificationTypeMap.keyAt(i);
+            final int value = mNotificationTypeMap.valueAt(i);
+            pw.println("Notification: NetId=" + key + " -> " + nameOf(value));
+        }
     }
 
     /**
