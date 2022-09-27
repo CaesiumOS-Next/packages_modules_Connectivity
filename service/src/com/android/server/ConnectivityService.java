@@ -3356,6 +3356,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
         pw.increaseIndent();
         mNetworkActivityTracker.dump(pw);
         pw.decreaseIndent();
+
+        pw.println();
+        pw.println("Active notifications:");
+        pw.increaseIndent();
+        mNotifier.dump(pw);
+        pw.decreaseIndent();
     }
 
     private void dumpNetworks(IndentingPrintWriter pw) {
