@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef14c794_5ae67d1c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 2856,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-28T04:07:28Z",
+      "side": 1,
+      "message": "The default timeout in test_mapping presubmit is 1min; if this test is an exception, you\u0027d need to use @Test(timeout \u003d somethingelse).\n\nAlso might want to consider adding @SkipPresubmit after finishing the feature, although the more problematic impact is maybe in local runs where people typically don\u0027t use the annotation.\n\nAnother option would be to have a more limited version of the test that doesn\u0027t wait for that long for presubmit (just checking there\u0027s no quick network switch), and only cover the long case in a separate test in postsubmit.",
+      "range": {
+        "startLine": 2856,
+        "startChar": 5,
+        "endLine": 2856,
+        "endChar": 9
+      },
+      "revId": "856b8b9f491523597152d9ee3ba1f3bd32dd4214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f34cfbf_71ac7e26",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 2857,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-28T04:07:28Z",
+      "side": 1,
+      "message": "If this is \"S+ with latest Connectivity module\", add @ConnectivityModuleTest (otherwise NetworkStack tests won\u0027t be happy)\n\n(this should be in presubmit after aosp/2110090 finally gets merged)",
+      "range": {
+        "startLine": 2857,
+        "startChar": 16,
+        "endLine": 2857,
+        "endChar": 33
+      },
+      "revId": "856b8b9f491523597152d9ee3ba1f3bd32dd4214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3501120e_583e5f48",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 2877,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-28T04:07:28Z",
+      "side": 1,
+      "message": "Should this also check that it\u0027s validated ? To avoid the flake we\u0027ve seen this week where NetworkMonitor hasn\u0027t started yet and gets the test URL later.\n\n(as we\u0027ve discussed this may be fixed by having the assertion in setUp instead but since there\u0027s an available check here...)",
+      "range": {
+        "startLine": 2877,
+        "startChar": 64,
+        "endLine": 2877,
+        "endChar": 88
+      },
+      "revId": "856b8b9f491523597152d9ee3ba1f3bd32dd4214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9d8ebc3_a00bd075",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 2889,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-28T04:07:28Z",
+      "side": 1,
+      "message": "Not a fan of this fixed value; if we want to change it in the production code, it will break older CTS so we\u0027d be stuck.\n\nIf you have a test for the notification, one way may be to first test the broken case, and wait up to e.g. 1~2min for the notification; while still checking that there\u0027s no Available in the first few seconds as you do today. Then wait for the same duration with a small delta for the portal case. This would also make it clear that in the portal case, the point of waiting is to compare the 2 cases.\n\nThis way we\u0027d have a bit more flexibility to update the timing in the 10secs~1-2min range.\n\nThis requires a change to test for notifications though.",
+      "range": {
+        "startLine": 2889,
+        "startChar": 24,
+        "endLine": 2889,
+        "endChar": 34
+      },
+      "revId": "856b8b9f491523597152d9ee3ba1f3bd32dd4214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ada15395_55c3314d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 2899,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-28T04:07:28Z",
+      "side": 1,
+      "message": "Typo ? (double default)",
+      "range": {
+        "startLine": 2898,
+        "startChar": 91,
+        "endLine": 2899,
+        "endChar": 22
+      },
+      "revId": "856b8b9f491523597152d9ee3ba1f3bd32dd4214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
