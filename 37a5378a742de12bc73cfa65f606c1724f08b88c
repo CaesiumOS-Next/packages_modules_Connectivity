@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1bfd537_d7aef56f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-28T11:36:43Z",
+      "side": 1,
+      "message": "Do not submit : this is a demo change for reference, but checking it in would enable the \"prefer bad wifi\" feature across the board before OEMs check it.",
+      "revId": "37a5378a742de12bc73cfa65f606c1724f08b88c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
