@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89c95cc0_e8015de9",
+        "filename": "service/src/com/android/server/connectivity/MultinetworkPolicyTracker.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-28T02:58:14Z",
+      "side": 1,
+      "message": "It\u0027s not trivial (I\u0027d need to cache the interesting values – the caches we have now are combined with other factors), and I don\u0027t think it would save any significant amount of resources. This will read the resources, settings and device config again. If and only if there is a change in the *result* (e.g. a resource may have changed, but still be overridden) then it runs some reevaluation in CS.\n\nSo I don\u0027t think the savings are worth the complexity.",
+      "parentUuid": "eea62092_57e36e7f",
+      "range": {
+        "startLine": 217,
+        "startChar": 30,
+        "endLine": 217,
+        "endChar": 48
+      },
+      "revId": "0e9c8ea3f70b659b19d5894fb9dc9505b4b1dae7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c4b9932_ef14a998",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-09-27T11:19:02Z",
       "side": 1,
       "message": "Nit: I think \"resources\" is the usual Kotlin naming ?",
+      "range": {
+        "startLine": 12,
+        "startChar": 60,
+        "endLine": 12,
+        "endChar": 70
+      },
+      "revId": "0e9c8ea3f70b659b19d5894fb9dc9505b4b1dae7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eea4361_3527e52d",
+        "filename": "tests/unit/java/com/android/server/connectivity/MultinetworkPolicyTrackerTestDependencies.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-28T02:58:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c4b9932_ef14a998",
       "range": {
         "startLine": 12,
         "startChar": 60,
