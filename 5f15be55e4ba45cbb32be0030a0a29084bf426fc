@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca2fec2d_55e2f456",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkScoreTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-28T11:24:17Z",
+      "side": 1,
+      "message": "Sorry to do this to you but I think we should wait for the correct netId here, and that will unfortunately require that you add a version of eventuallyExpect that takes a hasNetwork, so you\u0027ll need a patch in frameworks/libs/net :(",
+      "range": {
+        "startLine": 88,
+        "startChar": 63,
+        "endLine": 88,
+        "endChar": 65
+      },
+      "revId": "5f15be55e4ba45cbb32be0030a0a29084bf426fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
