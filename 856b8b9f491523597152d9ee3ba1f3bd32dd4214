@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfbd7e6a_2e206ae1",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 2856,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-28T10:16:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef14c794_5ae67d1c",
+      "range": {
+        "startLine": 2856,
+        "startChar": 5,
+        "endLine": 2856,
+        "endChar": 9
+      },
+      "revId": "856b8b9f491523597152d9ee3ba1f3bd32dd4214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f34cfbf_71ac7e26",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-28T04:07:28Z",
       "side": 1,
       "message": "If this is \"S+ with latest Connectivity module\", add @ConnectivityModuleTest (otherwise NetworkStack tests won\u0027t be happy)\n\n(this should be in presubmit after aosp/2110090 finally gets merged)",
+      "range": {
+        "startLine": 2857,
+        "startChar": 16,
+        "endLine": 2857,
+        "endChar": 33
+      },
+      "revId": "856b8b9f491523597152d9ee3ba1f3bd32dd4214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ba0d741_7d920081",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 2857,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-28T10:16:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f34cfbf_71ac7e26",
       "range": {
         "startLine": 2857,
         "startChar": 16,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e79d04c6_be9f45cc",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 2877,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-28T10:16:22Z",
+      "side": 1,
+      "message": "It\u0027s already checking that : observe `true /* validated */` in l.2882.",
+      "parentUuid": "3501120e_583e5f48",
+      "range": {
+        "startLine": 2877,
+        "startChar": 64,
+        "endLine": 2877,
+        "endChar": 88
+      },
+      "revId": "856b8b9f491523597152d9ee3ba1f3bd32dd4214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9d8ebc3_a00bd075",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cf807f2_740ef390",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 2889,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-28T10:16:22Z",
+      "side": 1,
+      "message": "Done, but it makes the test a little bit more complex to give us a limited ability to do something that we probably won\u0027t have to do (namely, make the timeout longer), so I\u0027m not super convinced it\u0027s valuable.",
+      "parentUuid": "a9d8ebc3_a00bd075",
+      "range": {
+        "startLine": 2889,
+        "startChar": 24,
+        "endLine": 2889,
+        "endChar": 34
+      },
+      "revId": "856b8b9f491523597152d9ee3ba1f3bd32dd4214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ada15395_55c3314d",
@@ -106,6 +202,30 @@
       "writtenOn": "2022-09-28T04:07:28Z",
       "side": 1,
       "message": "Typo ? (double default)",
+      "range": {
+        "startLine": 2898,
+        "startChar": 91,
+        "endLine": 2899,
+        "endChar": 22
+      },
+      "revId": "856b8b9f491523597152d9ee3ba1f3bd32dd4214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f33e1f2_74e8a570",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 2899,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-28T10:16:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ada15395_55c3314d",
       "range": {
         "startLine": 2898,
         "startChar": 91,
