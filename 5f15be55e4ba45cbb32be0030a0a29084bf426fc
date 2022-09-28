@@ -22,6 +22,30 @@
       },
       "revId": "5f15be55e4ba45cbb32be0030a0a29084bf426fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "545ecb2d_b5095dbc",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkScoreTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-28T11:27:48Z",
+      "side": 1,
+      "message": "Wait no, there is a version with a predicate so you could say\n\n    agentCleanUpCb.eventuallyExpect\u003cCallbackEntry.Lost\u003e { it.network \u003d\u003d agent.mNetwork }\n\nand you don\u0027t need a patch in another repo.",
+      "parentUuid": "ca2fec2d_55e2f456",
+      "range": {
+        "startLine": 88,
+        "startChar": 63,
+        "endLine": 88,
+        "endChar": 65
+      },
+      "revId": "5f15be55e4ba45cbb32be0030a0a29084bf426fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
