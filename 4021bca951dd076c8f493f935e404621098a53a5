@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93751ee7_6226d16a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-28T03:00:52Z",
+      "side": 1,
+      "message": "Do we still need this ? I think we found a better solution and this is likely no longer useful.",
+      "revId": "4021bca951dd076c8f493f935e404621098a53a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
