@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8a51085_75120441",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkScoreTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-28T09:22:20Z",
+      "side": 1,
+      "message": "It seems to me this is likely Yes.\nSince this is CTS test which deal with real networks and if TIMEOUT_MS is not specified, the DEFAULT_TIMEOUT is 200 ms. Which caused some flaky on CTS tests before.\nReopen if disagree.",
+      "parentUuid": "b37d613a_16bdbe48",
+      "range": {
+        "startLine": 81,
+        "startChar": 45,
+        "endLine": 81,
+        "endChar": 55
+      },
+      "revId": "40429c3dafe2b2d3e2ece9a3957ed98018b6cb33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee8931f7_9657302b",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-22T07:16:02Z",
       "side": 1,
       "message": "Maybe you can register this callback only once instead of once per network agent.",
+      "range": {
+        "startLine": 82,
+        "startChar": 20,
+        "endLine": 82,
+        "endChar": 43
+      },
+      "revId": "40429c3dafe2b2d3e2ece9a3957ed98018b6cb33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "410c6ed1_c532df4e",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkScoreTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-28T09:22:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee8931f7_9657302b",
       "range": {
         "startLine": 82,
         "startChar": 20,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57e0c5b5_30839be5",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkScoreTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-28T09:22:20Z",
+      "side": 1,
+      "message": "Register callback once as suggested in the above comment, hence this comment is obsolete?",
+      "parentUuid": "1f984468_eb51cd6b",
+      "range": {
+        "startLine": 84,
+        "startChar": 25,
+        "endLine": 84,
+        "endChar": 41
+      },
+      "revId": "40429c3dafe2b2d3e2ece9a3957ed98018b6cb33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "884cbbec_ecd0713d",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-09-22T07:16:02Z",
       "side": 1,
       "message": "I think it\u0027s kind of cleaner if you make a pair of calls register/unregister instead of adding this to the array and rely on l.92",
+      "range": {
+        "startLine": 86,
+        "startChar": 16,
+        "endLine": 86,
+        "endChar": 34
+      },
+      "revId": "40429c3dafe2b2d3e2ece9a3957ed98018b6cb33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c76b55b0_8352e86d",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkScoreTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-28T09:22:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "884cbbec_ecd0713d",
       "range": {
         "startLine": 86,
         "startChar": 16,
