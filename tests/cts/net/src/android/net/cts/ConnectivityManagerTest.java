@@ -2751,6 +2751,27 @@ public class ConnectivityManagerTest {
                 mCm.getActiveNetwork(), false /* accept */ , false /* always */));
     }
 
+    private void ensureNetworkValidatedBeforeMockingValidationUrls() {
+        // Verify that current supported network is validated so that the mock http server will not
+        // apply to unexpected networks.
+        if (mPackageManager.hasSystemFeature(FEATURE_WIFI)) {
+            ensureValidatedNetwork(makeWifiNetworkRequest());
+        }
+
+        if (mPackageManager.hasSystemFeature(FEATURE_TELEPHONY)) {
+            ensureValidatedNetwork(makeCellNetworkRequest());
+        }
+    }
+
+    private void ensureValidatedNetwork(NetworkRequest request) {
+        final TestableNetworkCallback cb = new TestableNetworkCallback();
+        registerNetworkCallback(request, cb);
+        cb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED,
+                NETWORK_CALLBACK_TIMEOUT_MS,
+                entry -> ((CallbackEntry.CapabilitiesChanged) entry).getCaps()
+                        .hasCapability(NET_CAPABILITY_VALIDATED));
+    }
+
     @AppModeFull(reason = "WRITE_DEVICE_CONFIG permission can't be granted to instant apps")
     @Test
     public void testAcceptPartialConnectivity_validatedNetwork() throws Exception {
@@ -2758,6 +2779,7 @@ public class ConnectivityManagerTest {
         assumeTrue("testAcceptPartialConnectivity_validatedNetwork cannot execute"
                         + " unless device supports WiFi",
                 mPackageManager.hasSystemFeature(FEATURE_WIFI));
+        ensureNetworkValidatedBeforeMockingValidationUrls();
 
         try {
             // Wait for partial connectivity to be detected on the network
@@ -2783,6 +2805,7 @@ public class ConnectivityManagerTest {
         assumeTrue("testAcceptPartialConnectivity_validatedNetwork cannot execute"
                         + " unless device supports WiFi",
                 mPackageManager.hasSystemFeature(FEATURE_WIFI));
+        ensureNetworkValidatedBeforeMockingValidationUrls();
 
         final TestNetworkCallback cb = new TestNetworkCallback();
         try {
@@ -2822,6 +2845,7 @@ public class ConnectivityManagerTest {
                 && mPackageManager.hasSystemFeature(FEATURE_TELEPHONY);
         assumeTrue("testAcceptPartialConnectivity_validatedNetwork cannot execute"
                         + " unless device supports WiFi and telephony", canRunTest);
+        ensureNetworkValidatedBeforeMockingValidationUrls();
 
         final TestableNetworkCallback wifiCb = new TestableNetworkCallback();
         try {
@@ -2859,6 +2883,7 @@ public class ConnectivityManagerTest {
                 && mPackageManager.hasSystemFeature(FEATURE_TELEPHONY);
         assumeTrue("testSetAvoidUnvalidated cannot execute"
                 + " unless device supports WiFi and telephony", canRunTest);
+        ensureNetworkValidatedBeforeMockingValidationUrls();
 
         final TestableNetworkCallback wifiCb = new TestableNetworkCallback();
         final TestableNetworkCallback defaultCb = new TestableNetworkCallback();
