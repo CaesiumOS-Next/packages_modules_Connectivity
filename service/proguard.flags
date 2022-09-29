@@ -6,3 +6,7 @@
 -keepclassmembers public class * extends **.com.android.net.module.util.Struct {
     *;
 }
+
+-keepclassmembers public class com.android.server.connectivity.FullScore {
+    public static final int POLICY_*;
+}
