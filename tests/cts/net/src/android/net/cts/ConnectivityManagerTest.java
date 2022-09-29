@@ -2751,6 +2751,26 @@ public class ConnectivityManagerTest {
                 mCm.getActiveNetwork(), false /* accept */ , false /* always */));
     }
 
+    private void ensureCellIsValidatedBeforeMockingValidationUrls() {
+        // Verify that current supported network is validated so that the mock http server will not
+        // apply to unexpected networks. Also see aosp/2208680.
+        //
+        // This may also apply to wifi in principle, but in practice methods that mock validation
+        // URL all disconnect wifi forcefully anyway, so don't wait for wifi to validate.
+        if (mPackageManager.hasSystemFeature(FEATURE_TELEPHONY)) {
+            ensureValidatedNetwork(makeCellNetworkRequest());
+        }
+    }
+
+    private void ensureValidatedNetwork(NetworkRequest request) {
+        final TestableNetworkCallback cb = new TestableNetworkCallback();
+        registerNetworkCallback(request, cb);
+        cb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED,
+                NETWORK_CALLBACK_TIMEOUT_MS,
+                entry -> ((CallbackEntry.CapabilitiesChanged) entry).getCaps()
+                        .hasCapability(NET_CAPABILITY_VALIDATED));
+    }
+
     @AppModeFull(reason = "WRITE_DEVICE_CONFIG permission can't be granted to instant apps")
     @Test
     public void testAcceptPartialConnectivity_validatedNetwork() throws Exception {
@@ -2822,6 +2842,7 @@ public class ConnectivityManagerTest {
                 && mPackageManager.hasSystemFeature(FEATURE_TELEPHONY);
         assumeTrue("testAcceptPartialConnectivity_validatedNetwork cannot execute"
                         + " unless device supports WiFi and telephony", canRunTest);
+        ensureCellIsValidatedBeforeMockingValidationUrls();
 
         final TestableNetworkCallback wifiCb = new TestableNetworkCallback();
         try {
@@ -2859,6 +2880,7 @@ public class ConnectivityManagerTest {
                 && mPackageManager.hasSystemFeature(FEATURE_TELEPHONY);
         assumeTrue("testSetAvoidUnvalidated cannot execute"
                 + " unless device supports WiFi and telephony", canRunTest);
+        ensureCellIsValidatedBeforeMockingValidationUrls();
 
         final TestableNetworkCallback wifiCb = new TestableNetworkCallback();
         final TestableNetworkCallback defaultCb = new TestableNetworkCallback();
@@ -2980,6 +3002,8 @@ public class ConnectivityManagerTest {
     }
 
     private Network preparePartialConnectivity() throws Exception {
+        ensureCellIsValidatedBeforeMockingValidationUrls();
+
         prepareHttpServer();
         // Configure response code for partial connectivity
         configTestServer(Status.INTERNAL_ERROR  /* httpsStatusCode */,
