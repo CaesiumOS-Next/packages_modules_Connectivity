@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acde96bb_e2843641",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-29T09:02:46Z",
+      "side": 1,
+      "message": "It is new String[] { null } below.\nWhat is the difference?",
+      "range": {
+        "startLine": 201,
+        "startChar": 20,
+        "endLine": 201,
+        "endChar": 24
+      },
+      "revId": "78fb3aafcc4f81b76c479bbdaaf5a6962bb18cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d0ea8af_229114d7",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-29T09:02:46Z",
+      "side": 1,
+      "message": "IIUC this matches only networks with no subscriberId, is this expected?",
+      "range": {
+        "startLine": 216,
+        "startChar": 31,
+        "endLine": 216,
+        "endChar": 35
+      },
+      "revId": "78fb3aafcc4f81b76c479bbdaaf5a6962bb18cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10873c7d_29b7baf3",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-29T09:02:46Z",
+      "side": 1,
+      "message": "Is it feasible to remove this variable in a parent CL by making all subscriberId callers check matchSubscriberIds instead?",
+      "range": {
+        "startLine": 349,
+        "startChar": 20,
+        "endLine": 349,
+        "endChar": 42
+      },
+      "revId": "78fb3aafcc4f81b76c479bbdaaf5a6962bb18cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42b3bb46_562ea9bb",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-29T09:02:46Z",
+      "side": 1,
+      "message": "Is it feasible to remove this variable in a parent CL by making all subscriberIdMatchRule callers check matchSubscriberIds instead?",
+      "range": {
+        "startLine": 350,
+        "startChar": 49,
+        "endLine": 350,
+        "endChar": 94
+      },
+      "revId": "78fb3aafcc4f81b76c479bbdaaf5a6962bb18cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3a3a782_4d7022a6",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-29T09:02:46Z",
+      "side": 1,
+      "message": "Can we also deprecate this?",
+      "range": {
+        "startLine": 528,
+        "startChar": 5,
+        "endLine": 528,
+        "endChar": 24
+      },
+      "revId": "78fb3aafcc4f81b76c479bbdaaf5a6962bb18cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ab1c890_03afd0b6",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-29T09:02:46Z",
+      "side": 1,
+      "message": "Can we also deprecate this?",
+      "range": {
+        "startLine": 538,
+        "startChar": 5,
+        "endLine": 538,
+        "endChar": 24
+      },
+      "revId": "78fb3aafcc4f81b76c479bbdaaf5a6962bb18cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
