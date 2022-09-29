@@ -16,6 +16,23 @@
       "message": "Hi Lorenzo and the team. Could you please help to review this one? Thanks",
       "revId": "ab4d0bcc8be71f84614c7b6802dbfec1070156f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "315db0f8_05aef72c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1222074
+      },
+      "writtenOn": "2022-09-29T21:37:20Z",
+      "side": 1,
+      "message": "Please set autosubmit vote",
+      "revId": "ab4d0bcc8be71f84614c7b6802dbfec1070156f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
