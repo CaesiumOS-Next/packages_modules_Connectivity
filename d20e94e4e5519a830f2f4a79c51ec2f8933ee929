@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c24b7074_c998eb3a",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 1059872
+      },
+      "writtenOn": "2022-09-29T16:19:22Z",
+      "side": 1,
+      "message": "Since the values are contiguous, you can just do\nALL_VALID_CAPABILITIES \u003d (1 \u003c\u003c (MAX_NET_CAPABILITY + 1)) - 1",
+      "range": {
+        "startLine": 635,
+        "startChar": 7,
+        "endLine": 639,
+        "endChar": 38
+      },
+      "revId": "d20e94e4e5519a830f2f4a79c51ec2f8933ee929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "292c8d95_27dd3a00",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1172,
+      "author": {
+        "id": 1059872
+      },
+      "writtenOn": "2022-09-29T16:19:22Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 1168,
+        "startChar": 8,
+        "endLine": 1172,
+        "endChar": 42
+      },
+      "revId": "d20e94e4e5519a830f2f4a79c51ec2f8933ee929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
