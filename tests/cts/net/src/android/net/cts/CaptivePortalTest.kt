@@ -141,7 +141,7 @@ class CaptivePortalTest {
         assumeTrue(pm.hasSystemFeature(FEATURE_WIFI))
         assumeFalse(pm.hasSystemFeature(FEATURE_WATCH))
         utils.ensureWifiConnected()
-        val cellNetwork = utils.connectToCell()
+        val cellNetwork = utils.ensureCellConnected()
 
         // Verify cell network is validated
         val cellReq = NetworkRequest.Builder()

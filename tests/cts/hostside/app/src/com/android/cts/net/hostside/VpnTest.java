@@ -853,7 +853,7 @@ public class VpnTest {
             // Ensure both of wifi and mobile data are connected.
             final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
             assertTrue("Wifi is not connected", (wifiNetwork != null));
-            final Network cellNetwork = mCtsNetUtils.connectToCell();
+            final Network cellNetwork = mCtsNetUtils.ensureCellConnected();
             assertTrue("Mobile data is not connected", (cellNetwork != null));
             // Store current default network.
             final Network defaultNetwork = mCM.getActiveNetwork();

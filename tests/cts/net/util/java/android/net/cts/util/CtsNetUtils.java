@@ -355,7 +355,7 @@ public final class CtsNetUtils {
         return network;
     }
 
-    public Network connectToCell() throws InterruptedException {
+    public Network ensureCellConnected() throws InterruptedException {
         if (cellConnectAttempted()) {
             mCm.unregisterNetworkCallback(mCellNetworkCallback);
         }
