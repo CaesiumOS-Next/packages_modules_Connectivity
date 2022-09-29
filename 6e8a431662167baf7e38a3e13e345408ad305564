@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6e0a4cf_82da7bb8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-29T04:29:42Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "6e8a431662167baf7e38a3e13e345408ad305564",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2562d17d_e4ef0b74",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-29T04:29:42Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "6e8a431662167baf7e38a3e13e345408ad305564",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ded8409_eb2aff1b",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-29T04:29:42Z",
+      "side": 1,
+      "message": "Seems better to make this consistent with the UDP codepath by using bindSocket in line 941 and here just using:\n    Socket(InetAddress.getLoopbackAddress(), 0)",
+      "range": {
+        "startLine": 940,
+        "startChar": 53,
+        "endLine": 940,
+        "endChar": 97
+      },
+      "revId": "6e8a431662167baf7e38a3e13e345408ad305564",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a74fa96_5075c951",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 1011,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-09-29T04:29:42Z",
+      "side": 1,
+      "message": "Remove this and pass in IPPROTO_TCP on line 996.",
+      "range": {
+        "startLine": 1011,
+        "startChar": 58,
+        "endLine": 1011,
+        "endChar": 72
+      },
+      "revId": "6e8a431662167baf7e38a3e13e345408ad305564",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
