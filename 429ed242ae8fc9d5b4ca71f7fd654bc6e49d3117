@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b038b514_4435264c",
+        "filename": "service/proguard.flags",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1944425
+      },
+      "writtenOn": "2022-09-29T21:02:56Z",
+      "side": 1,
+      "message": "Thank you for catching this. You are right, we need to add the related rules. I did a query https://cs.android.com/search?q\u003dMessageUtils%20-f:.*test.*\u0026sq\u003d\u0026ss\u003dandroid%2Fplatform%2Fsuperproject:packages%2Fmodules%2FConnectivity%2F\n\nSo do you think following \n\n```\n-keepclassmembers public class com.android.server.** {\n    static final % POLICY_*;\n    static final % NOTIFY_TYPE_*;\n    static final % TRANSPORT_*;\n    static final % CMD_*;\n    static final % EVENT_*;\n}\n```\n\nwould be good?",
+      "range": {
+        "startLine": 10,
+        "startChar": 1,
+        "endLine": 10,
+        "endChar": 17
+      },
+      "revId": "429ed242ae8fc9d5b4ca71f7fd654bc6e49d3117",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
