@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a51e847e_fff05f92",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-09-29T12:55:40Z",
+      "side": 1,
+      "message": "Since Socket(InetAddress.getLoopbackAddress(), 0) executes connect(), we need serverSocket. However, even thought it\u0027s connected with the serverSocket, It returns exception when we try network.bindSocket(it) because a socket already connected is not available to bind to a network. So I updated it with Socket().",
+      "parentUuid": "3ded8409_eb2aff1b",
+      "range": {
+        "startLine": 940,
+        "startChar": 53,
+        "endLine": 940,
+        "endChar": 97
+      },
+      "revId": "6e8a431662167baf7e38a3e13e345408ad305564",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a74fa96_5075c951",
@@ -71,6 +95,30 @@
       "writtenOn": "2022-09-29T04:29:42Z",
       "side": 1,
       "message": "Remove this and pass in IPPROTO_TCP on line 996.",
+      "range": {
+        "startLine": 1011,
+        "startChar": 58,
+        "endLine": 1011,
+        "endChar": 72
+      },
+      "revId": "6e8a431662167baf7e38a3e13e345408ad305564",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c80f8e3e_16bad20f",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 1011,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2022-09-29T12:55:40Z",
+      "side": 1,
+      "message": "Oh, I missed to fix this. Sorry about that.\nDone.",
+      "parentUuid": "0a74fa96_5075c951",
       "range": {
         "startLine": 1011,
         "startChar": 58,
