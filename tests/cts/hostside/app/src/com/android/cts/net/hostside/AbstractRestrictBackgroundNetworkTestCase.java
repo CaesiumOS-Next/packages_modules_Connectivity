@@ -854,6 +854,7 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
             return;
         } else if (type == TYPE_COMPONENT_ACTIVTIY) {
             turnScreenOn();
+            SystemClock.sleep(2000);
             final CountDownLatch latch = new CountDownLatch(1);
             final Intent launchIntent = getIntentForComponent(type);
             final Bundle extras = new Bundle();
