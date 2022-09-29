@@ -22,6 +22,30 @@
       },
       "revId": "40a2c194650ead20503a3e485c8e886aaa723ed3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0ca5aef_b711ba7c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2125,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-09-29T07:36:40Z",
+      "side": 1,
+      "message": "Updated to wait for validation before setting the URLs.",
+      "parentUuid": "fb951f5a_96f4ce18",
+      "range": {
+        "startLine": 2125,
+        "startChar": 34,
+        "endLine": 2125,
+        "endChar": 62
+      },
+      "revId": "40a2c194650ead20503a3e485c8e886aaa723ed3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
