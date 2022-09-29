@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3deb7545_6677da6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-29T09:30:37Z",
+      "side": 1,
+      "message": "This broke at least FullScore#toString. I have aosp/2238573 to fix forward, but I\u0027m a bit concerned other classes using MessageUtils may be similarly broken",
+      "revId": "b33a2638db698a58380025d23fcc73b713fb8389",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
