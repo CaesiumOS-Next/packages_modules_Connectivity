@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2810ee6_982a501a",
+        "filename": "service/src/com/android/server/connectivity/MultinetworkPolicyTracker.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-30T07:53:08Z",
+      "side": 1,
+      "message": "I meant you could do:\n\n    properties -\u003e {\n        if (!properties.getKeyset().contains(CONFIG_ACTIVELY_PREFER_BAD_WIFI)) return;\n        reevaluateInternal();\n    }\n\nSince \"properties\" is the map of changed properties. One disadvantage is that it kind of \"leaks\" out of reevaluateInternal the list of properties that are used there, so I\u0027m OK not having it either.",
+      "parentUuid": "89c95cc0_e8015de9",
+      "range": {
+        "startLine": 217,
+        "startChar": 30,
+        "endLine": 217,
+        "endChar": 48
+      },
+      "revId": "0e9c8ea3f70b659b19d5894fb9dc9505b4b1dae7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c4b9932_ef14a998",

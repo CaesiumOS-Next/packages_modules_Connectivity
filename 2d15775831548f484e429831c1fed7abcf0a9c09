@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b3816a0_d4fac2d1",
+        "filename": "service/src/com/android/server/connectivity/MultinetworkPolicyTracker.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-30T07:53:08Z",
+      "side": 1,
+      "message": "Is this necessary for the other changes ? This may be a good fix but if this change is to be cherry-picked in an earlier release, additional fixes may be better merged in the usual cycle.\n\nThis introduces questions like mActiveSubId being updated via ActiveDataSubscriptionIdListener, which has unknown timing; whether it\u0027s OK to have a return value here that may change over time with the change of mActiveSubId, possible races between onActiveDataSubscriptionIdChanged and this method, and whether the slight change of behavior would behave well on released device. Most of the answers are probably that it\u0027s fine, but if this fix does not need to be in the cherry-picks, I\u0027d rather have it separate.",
+      "range": {
+        "startLine": 356,
+        "startChar": 21,
+        "endLine": 356,
+        "endChar": 47
+      },
+      "revId": "2d15775831548f484e429831c1fed7abcf0a9c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71f8c118_7a4977a5",
+        "filename": "tests/unit/java/com/android/server/connectivity/MultinetworkPolicyTrackerTest.kt",
+        "patchSetId": 24
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-30T07:53:08Z",
+      "side": 1,
+      "message": "I don\u0027t understand why waitForIdle is needed after calling tracker.updateAvoidBadWifi(); updateAvoidBadWifi doesn\u0027t queue anything in the handler right ? Maybe I\u0027m missing something",
+      "range": {
+        "startLine": 129,
+        "startChar": 20,
+        "endLine": 129,
+        "endChar": 31
+      },
+      "revId": "2d15775831548f484e429831c1fed7abcf0a9c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3852c8e_f2435ff5",
+        "filename": "tests/unit/java/com/android/server/connectivity/MultinetworkPolicyTrackerTest.kt",
+        "patchSetId": 24
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-30T07:53:08Z",
+      "side": 1,
+      "message": "If you\u0027re updating all calls in this method, there\u0027s also this one",
+      "range": {
+        "startLine": 133,
+        "startChar": 19,
+        "endLine": 133,
+        "endChar": 47
+      },
+      "revId": "2d15775831548f484e429831c1fed7abcf0a9c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
