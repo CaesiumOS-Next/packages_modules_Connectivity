@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dbd2906_80f8776a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3214,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-30T05:50:27Z",
+      "side": 1,
+      "message": "Good idea, done",
+      "parentUuid": "d2190857_a7ae1813",
+      "range": {
+        "startLine": 3214,
+        "startChar": 28,
+        "endLine": 3214,
+        "endChar": 36
+      },
+      "revId": "d42446e4406983eaa75c96c2beca8263823d7dcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "134c8d4c_4486bca6",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-28T04:24:20Z",
       "side": 1,
       "message": "Could this crash if clearNotification is called during / close to dump ? We\u0027re generally not as careful in dump but it would be good to avoid crashes at least.\n\nI guess it would also be possible to have tests flake if notifications are enqueued during the dump",
+      "range": {
+        "startLine": 416,
+        "startChar": 28,
+        "endLine": 416,
+        "endChar": 48
+      },
+      "revId": "d42446e4406983eaa75c96c2beca8263823d7dcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2305b63a_d2e5930d",
+        "filename": "service/src/com/android/server/connectivity/NetworkNotificationManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-30T05:50:27Z",
+      "side": 1,
+      "message": "I mean, in other dump() methods we happily crash. Here, there are only two ways that I can see to avoid crashes :\n❶ Lock throughout and pay the performance penalty all the time\n❷ Catch here\n\nDid ❷, see if that works for you",
+      "parentUuid": "134c8d4c_4486bca6",
       "range": {
         "startLine": 416,
         "startChar": 28,
@@ -88,6 +136,54 @@
         "startChar": 56,
         "endLine": 2860,
         "endChar": 57
+      },
+      "revId": "d42446e4406983eaa75c96c2beca8263823d7dcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9a67115_b319d729",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2860,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-30T05:50:27Z",
+      "side": 1,
+      "message": "I thought of this and thought it did really not matter ^^\n\nWord boundaries solve this anyway.",
+      "parentUuid": "72975663_4709a9aa",
+      "range": {
+        "startLine": 2860,
+        "startChar": 56,
+        "endLine": 2860,
+        "endChar": 57
+      },
+      "revId": "d42446e4406983eaa75c96c2beca8263823d7dcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7423566c_b6ccd89c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2860,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-30T05:50:27Z",
+      "side": 1,
+      "message": "Added word boundary matches to avoid this.",
+      "parentUuid": "261b8415_7f31ec5a",
+      "range": {
+        "startLine": 2860,
+        "startChar": 77,
+        "endLine": 2860,
+        "endChar": 97
       },
       "revId": "d42446e4406983eaa75c96c2beca8263823d7dcd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
