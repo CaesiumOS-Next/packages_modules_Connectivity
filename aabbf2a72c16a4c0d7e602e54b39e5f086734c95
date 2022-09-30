@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1676a5db_f12cbcca",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-30T07:12:21Z",
+      "side": 1,
+      "message": "I\u0027m guessing this was not caught by tests because they use DeviceConfig, which overrides the resource ?\n\nI guess both behaviors are considered \"OK\" (since it\u0027s OEM-configurable) so our tests don\u0027t flag anything as broken. But it would be good to do a round of manual testing on S/T to make sure the latest behavior is as expected",
+      "range": {
+        "startLine": 100,
+        "startChar": 70,
+        "endLine": 100,
+        "endChar": 71
+      },
+      "revId": "aabbf2a72c16a4c0d7e602e54b39e5f086734c95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
