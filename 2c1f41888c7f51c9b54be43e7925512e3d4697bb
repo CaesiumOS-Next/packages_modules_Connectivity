@@ -22,6 +22,30 @@
       },
       "revId": "2c1f41888c7f51c9b54be43e7925512e3d4697bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de2a746a_86752ade",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-09-30T09:53:49Z",
+      "side": 1,
+      "message": "Yes, which is better than before I think.\nDeal with this case by checking the started state in the start.\nSee if it works for you.",
+      "parentUuid": "a2470c88_0db26d60",
+      "range": {
+        "startLine": 238,
+        "startChar": 37,
+        "endLine": 238,
+        "endChar": 38
+      },
+      "revId": "2c1f41888c7f51c9b54be43e7925512e3d4697bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
