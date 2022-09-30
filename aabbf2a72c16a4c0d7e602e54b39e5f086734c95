@@ -22,6 +22,30 @@
       },
       "revId": "aabbf2a72c16a4c0d7e602e54b39e5f086734c95",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11b9aa88_5a78008a",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-09-30T10:44:58Z",
+      "side": 1,
+      "message": "More exactly, the tests always test all possible behaviors. They don\u0027t particularly check that the default is off. Even if they did, they would have to check that the default is off when only avoidBadWifi is overridden, and if I had thought of that case I would not have missed this in the first place. Writing such a test now that it\u0027s fixed has no value. It would be a change-detector.\n\nI did check manually of all behaviors of course. But the default is to have avoidBadWifi \u003d 1, which masks the behavior of this by default, and I needed to check the new behavior which always goes together with this. But I (and my reviewers) didn\u0027t notice that existing mcc/mnc with avoidBadWifi\u003d0 would inherit this and trigger the new behavior.\n\nThis is very confusing because of all the legacy unfortunately, and the number of cases to tests is very large and time-consuming. It\u0027s not a lack of manual testing, it\u0027s a difficult to handle design because of the requirement to keep backward-compatibility.",
+      "parentUuid": "1676a5db_f12cbcca",
+      "range": {
+        "startLine": 100,
+        "startChar": 70,
+        "endLine": 100,
+        "endChar": 71
+      },
+      "revId": "aabbf2a72c16a4c0d7e602e54b39e5f086734c95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
