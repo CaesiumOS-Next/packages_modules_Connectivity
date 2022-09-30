@@ -22,6 +22,30 @@
       },
       "revId": "429ed242ae8fc9d5b4ca71f7fd654bc6e49d3117",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12c0acc6_f788cde4",
+        "filename": "service/proguard.flags",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-09-30T01:41:24Z",
+      "side": 1,
+      "message": "Having something a bit generic sounds like a good idea, considering that this likely does not keep much (just constants). MessageUtils assumes int/short/byte so we can also limit to that I think (possibly only int, MessageUtils could also be updated to ignore the others).\n\nAlso this should include android.net I think; this is the target package for jarjar.",
+      "parentUuid": "b038b514_4435264c",
+      "range": {
+        "startLine": 10,
+        "startChar": 1,
+        "endLine": 10,
+        "endChar": 17
+      },
+      "revId": "429ed242ae8fc9d5b4ca71f7fd654bc6e49d3117",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
