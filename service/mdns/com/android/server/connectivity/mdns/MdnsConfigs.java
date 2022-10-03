@@ -89,4 +89,8 @@ public class MdnsConfigs {
     public static boolean preferIpv6() {
         return false;
     }
+
+    public static boolean allowNetworkInterfaceIndexPropagation() {
+        return true;
+    }
 }
