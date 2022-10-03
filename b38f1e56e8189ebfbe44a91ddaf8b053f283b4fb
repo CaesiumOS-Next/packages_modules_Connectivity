@@ -140,6 +140,30 @@
       },
       "revId": "b38f1e56e8189ebfbe44a91ddaf8b053f283b4fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "add861c9_d0d7efd3",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2763,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-10-03T02:35:27Z",
+      "side": 1,
+      "message": "Ack, I forgot that we have a pre-check for it.",
+      "parentUuid": "bf4b2516_7c3d06d1",
+      "range": {
+        "startLine": 2761,
+        "startChar": 8,
+        "endLine": 2763,
+        "endChar": 9
+      },
+      "revId": "b38f1e56e8189ebfbe44a91ddaf8b053f283b4fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
