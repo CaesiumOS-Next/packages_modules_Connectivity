@@ -1,5 +1,52 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31f72f0e_dd48de97",
+        "filename": "service/src/com/android/server/connectivity/MultinetworkPolicyTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-03T09:43:17Z",
+      "side": 1,
+      "message": "Any reason not to be consistent with the existing scheme?\n\n- That would allow us to roll out this feature via flag\n- I believe it still allows hard-disabling or hard-enabling the feature, by setting it to 0 or 999999999.",
+      "range": {
+        "startLine": 100,
+        "startChar": 15,
+        "endLine": 100,
+        "endChar": 49
+      },
+      "revId": "e0fdea3c5e7eb44812ce7344822781cd4d220a0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c729f5e0_b670b19d",
+        "filename": "service/src/com/android/server/connectivity/MultinetworkPolicyTracker.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-03T09:43:17Z",
+      "side": 1,
+      "message": "Error Prone says that {@see is an invalid tag. I think this should just be:\n\n     * @see #configActivelyPrefersBadWifi for a description of what this does. This device\n\nwithout the {.",
+      "range": {
+        "startLine": 301,
+        "startChar": 9,
+        "endLine": 301,
+        "endChar": 12
+      },
+      "revId": "e0fdea3c5e7eb44812ce7344822781cd4d220a0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
