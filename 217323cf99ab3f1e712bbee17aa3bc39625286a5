@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce83aadc_cee1719c",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-03T01:45:59Z",
+      "side": 0,
+      "message": "I assumed this was removed on purpose.",
+      "range": {
+        "startLine": 938,
+        "startChar": 8,
+        "endLine": 938,
+        "endChar": 48
+      },
+      "revId": "217323cf99ab3f1e712bbee17aa3bc39625286a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
