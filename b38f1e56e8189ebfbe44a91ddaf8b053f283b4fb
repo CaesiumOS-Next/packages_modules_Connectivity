@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29fea0b8_0d0050ab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-10-03T02:28:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6abc5838_155584b1",
+      "range": {
+        "startLine": 13,
+        "startChar": 50,
+        "endLine": 13,
+        "endChar": 55
+      },
+      "revId": "b38f1e56e8189ebfbe44a91ddaf8b053f283b4fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae0af986_ca4d7e54",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01b6535d_13587fe7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-10-03T02:28:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae0af986_ca4d7e54",
+      "range": {
+        "startLine": 18,
+        "startChar": 7,
+        "endLine": 18,
+        "endChar": 13
+      },
+      "revId": "b38f1e56e8189ebfbe44a91ddaf8b053f283b4fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cfd8494e_cb05ca79",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-10-03T02:20:00Z",
       "side": 1,
       "message": "It seems like this assumes that the cell network is connected, otherwise the test will fail.\nBut setUp() doesn\u0027t try to connect cell network, and tearDown() will try to disconnect cell network if there is any.\n\nAm I missing something?",
+      "range": {
+        "startLine": 2761,
+        "startChar": 8,
+        "endLine": 2763,
+        "endChar": 9
+      },
+      "revId": "b38f1e56e8189ebfbe44a91ddaf8b053f283b4fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf4b2516_7c3d06d1",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2763,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-10-03T02:28:35Z",
+      "side": 1,
+      "message": "Yes, it\u0027s the base assumption before running the test that cell network should be available. We also have a pre-check before running the test.",
+      "parentUuid": "cfd8494e_cb05ca79",
       "range": {
         "startLine": 2761,
         "startChar": 8,
