@@ -3755,6 +3755,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
                             (results.mRedirectUrl == null) ? "" : results.mRedirectUrl);
                     break;
                 }
+                // TODO : this event is driven by NetworkMonitor callbacks, but instead it
+                // should be managed by ConnectivityService in #handleNetworkTested. See comments
+                // above #showProvisioningNotification for details.
                 case EVENT_PROVISIONING_NOTIFICATION: {
                     final boolean visible = toBool(msg.arg1);
                     // If captive portal status has changed, update capabilities or disconnect.
@@ -3862,9 +3865,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     nai.onPreventAutomaticReconnect();
                     teardownUnneededNetwork(nai);
                     return;
-                } else {
-                    updateCapabilitiesForNetwork(nai);
                 }
+                updateCapabilitiesForNetwork(nai);
             } else if (becameEvaluated) {
                 // If valid or partial connectivity changed, updateCapabilities* has
                 // done the rematch.
@@ -4008,6 +4010,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     0, mNetId, data));
         }
 
+        // TODO : the provisioning notification is driven by NetworkMonitor for historical
+        // reasons. Now that there is a path for NetworkMonitor to inform ConnectivityService
+        // of the full state of validation, including probes, this notification should be
+        // driven by ConnectivityService, from #handleNetworkTested. This method and
+        // #hideProvisioningNotification below should be removed.
         @Override
         public void showProvisioningNotification(String action, String packageName) {
             final Intent intent = new Intent(action);
@@ -4030,6 +4037,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     mNetId, pendingIntent));
         }
 
+        // TODO : remove this ; see comments above #showProvisioningNotification
         @Override
         public void hideProvisioningNotification() {
             mTrackerHandler.sendMessage(mTrackerHandler.obtainMessage(
