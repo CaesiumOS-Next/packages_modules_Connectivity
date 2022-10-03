@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b69f78d_618ddf31",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3807,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-03T09:32:31Z",
+      "side": 1,
+      "message": "That\u0027s unrelated to this patch (which does not change this), but you are correct. This is something I also noticed and I produced a fix for it : aosp/2215163. You can see comments over there where we decided not to take the patch for November for the added risk, and in fact not to take it at all given that this is only ever running on S and already tested to be performing as required by its users.",
+      "parentUuid": "e559b681_71eaff70",
+      "range": {
+        "startLine": 3807,
+        "startChar": 16,
+        "endLine": 3807,
+        "endChar": 22
+      },
+      "revId": "8a9061f0b5acc7b91778a57785269c7e06eeb42a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5c86b1b_cc1fdc93",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-10-03T09:02:38Z",
       "side": 1,
       "message": "This was called above already if becameEvaluated, it seems a bit strange to do it twice (although IIUC this isn\u0027t a big problem ?)",
+      "range": {
+        "startLine": 3815,
+        "startChar": 16,
+        "endLine": 3815,
+        "endChar": 48
+      },
+      "revId": "8a9061f0b5acc7b91778a57785269c7e06eeb42a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf3dded2_923f4fbf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3815,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-03T09:32:31Z",
+      "side": 1,
+      "message": "That\u0027s the drawback of not taking aosp/2215163. Because there is a return in l.3807 something has to give ; either we\u0027re taking the risk of aosp/2215163, or we run this twice, or we move l.3800 to l.3807 before the return.",
+      "parentUuid": "c5c86b1b_cc1fdc93",
       "range": {
         "startLine": 3815,
         "startChar": 16,
