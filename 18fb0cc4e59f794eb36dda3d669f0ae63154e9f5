@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbb0217f_6548e90b",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-03T03:50:41Z",
+      "side": 1,
+      "message": "Can\u0027t we write like following so that we don\u0027t need `assumeChangingCarrierSupported`?\n```\nval iface \u003d createInterface()\nval cb \u003d requestNetwork(ETH_REQUEST)\nremoveInterface(iface)\ncb.assertNeverAvailable()\n```",
+      "range": {
+        "startLine": 818,
+        "startChar": 8,
+        "endLine": 818,
+        "endChar": 38
+      },
+      "revId": "18fb0cc4e59f794eb36dda3d669f0ae63154e9f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "052aa88d_e8b1b96f",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-03T03:50:41Z",
+      "side": 1,
+      "message": "Nit: /* hasCarrier */",
+      "range": {
+        "startLine": 819,
+        "startChar": 36,
+        "endLine": 819,
+        "endChar": 41
+      },
+      "revId": "18fb0cc4e59f794eb36dda3d669f0ae63154e9f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52cbf834_df6b256c",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-03T03:50:41Z",
+      "side": 1,
+      "message": "I think this also races as you commented on above test.\nIs it also unlikely to fail?\n```\n// TUNSETCARRIER races with the bring up code, so the network *can* become available despite\n// it being \"created with no carrier\".\n// TODO(b/249611919): re-enable assertion once kernel supports IFF_NO_CARRIER.\n// cb.assertNeverAvailable()\n```",
+      "revId": "18fb0cc4e59f794eb36dda3d669f0ae63154e9f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
