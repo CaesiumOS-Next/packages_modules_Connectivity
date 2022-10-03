@@ -28,6 +28,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doReturn;
@@ -45,6 +46,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.net.INetd;
 import android.net.InetAddresses;
+import android.net.Network;
 import android.net.mdns.aidl.DiscoveryInfo;
 import android.net.mdns.aidl.GetAddressInfo;
 import android.net.mdns.aidl.IMDnsEventListener;
@@ -71,6 +73,8 @@ import androidx.annotation.NonNull;
 import androidx.test.filters.SmallTest;
 
 import com.android.server.NsdService.Dependencies;
+import com.android.server.connectivity.mdns.MdnsDiscoveryManager;
+import com.android.server.connectivity.mdns.MdnsSocketProvider;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.HandlerUtils;
@@ -118,6 +122,8 @@ public class NsdServiceTest {
     @Mock MDnsManager mMockMDnsM;
     @Mock WifiManager mWifiManager;
     @Mock Dependencies mDeps;
+    @Mock MdnsDiscoveryManager mDiscoveryManager;
+    @Mock MdnsSocketProvider mSocketProvider;
     HandlerThread mThread;
     TestHandler mHandler;
     NsdService mService;
@@ -567,16 +573,42 @@ public class NsdServiceTest {
 
     @Test
     public void testMdnsDiscoveryManagerFeature() {
-        // Create NsdService w/o feature enabled.
-        connectClient(mService);
+        // Verify MulticastLock is never created if feature is not enabled.
         verify(mWifiManager, never()).createMulticastLock("NsdService");
 
-        // Create NsdService again w/ feature enabled.
+        // Create NsdService again w/ feature enabled and verify MulticastLock is created.
         doReturn(true).when(mDeps).isMdnsDiscoveryManagerEnabled(any(Context.class));
         doReturn(mock(WifiManager.MulticastLock.class))
                 .when(mWifiManager).createMulticastLock(anyString());
+        doReturn(mDiscoveryManager).when(mDeps).makeMdnsDiscoveryManager(any(), any());
+        doReturn(mSocketProvider).when(mDeps).makeMdnsSocketProvider(any());
         makeService();
         verify(mWifiManager).createMulticastLock("NsdService");
+    }
+
+    @Test
+    public void testDiscoveryWithMdnsDiscoveryManager() {
+        doReturn(true).when(mDeps).isMdnsDiscoveryManagerEnabled(any(Context.class));
+        doReturn(mock(WifiManager.MulticastLock.class))
+                .when(mWifiManager).createMulticastLock(anyString());
+        doReturn(mDiscoveryManager).when(mDeps).makeMdnsDiscoveryManager(any(), any());
+        doReturn(mSocketProvider).when(mDeps).makeMdnsSocketProvider(any());
+
+        mService = makeService();
+        final NsdManager client = connectClient(mService);
+        final DiscoveryListener discListener = mock(DiscoveryListener.class);
+        final Network network = new Network(999);
+        client.discoverServices(SERVICE_TYPE, PROTOCOL, network, r -> r.run(), discListener);
+        waitForIdle();
+        verify(mSocketProvider).startMonitoringSockets();
+        verify(mDiscoveryManager).registerListener(eq(SERVICE_TYPE), any(),
+                argThat(options -> network.equals(options.getNetwork())));
+        verify(discListener, timeout(TIMEOUT_MS)).onDiscoveryStarted(SERVICE_TYPE);
+
+        client.stopServiceDiscovery(discListener);
+        waitForIdle();
+        verify(mDiscoveryManager).unregisterListener(eq(SERVICE_TYPE), any());
+        verify(discListener, timeout(TIMEOUT_MS)).onDiscoveryStopped(SERVICE_TYPE);
     }
 
     private void waitForIdle() {
