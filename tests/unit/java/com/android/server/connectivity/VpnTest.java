@@ -1591,6 +1591,7 @@ public class VpnTest extends VpnTestBase {
 
     @Test
     public void testVpnManagerEventWillNotBeSentToSettingsVpn() throws Exception {
+<<<<<<< HEAD   (a0fb9e Merge "BpfCoordinator: ignore stopping event monitoring if n)
         startLegacyVpn(createVpn(PRIMARY_USER.id), mVpnProfile);
         triggerOnAvailableAndGetCallback();
 
@@ -1610,6 +1611,28 @@ public class VpnTest extends VpnTestBase {
 
         final Context userContext =
                 mContext.createContextAsUser(UserHandle.of(PRIMARY_USER.id), 0 /* flags */);
+=======
+        startLegacyVpn(createVpn(primaryUser.id), mVpnProfile);
+        triggerOnAvailableAndGetCallback();
+
+        verifyInterfaceSetCfgWithFlags(IF_STATE_UP);
+
+        final IkeNonProtocolException exception = mock(IkeNonProtocolException.class);
+        final IkeTimeoutException ikeTimeoutException =
+                new IkeTimeoutException("IkeTimeoutException");
+        when(exception.getCause()).thenReturn(ikeTimeoutException);
+
+        final ArgumentCaptor<IkeSessionCallback> captor =
+                ArgumentCaptor.forClass(IkeSessionCallback.class);
+        verify(mIkev2SessionCreator, timeout(TEST_TIMEOUT_MS))
+                .createIkeSession(any(), any(), any(), any(), captor.capture(), any());
+        final IkeSessionCallback ikeCb = captor.getValue();
+        ikeCb.onClosedWithException(exception);
+
+        // userContext is the same Context that VPN is using, see createVpn().
+        final Context userContext =
+                mContext.createContextAsUser(UserHandle.of(primaryUser.id), 0 /* flags */);
+>>>>>>> BRANCH (7570c2 Merge cherrypicks of [19415386] into tm-release.)
         verify(userContext, never()).startService(any());
     }
 
