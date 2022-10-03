@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "814bff7e_b5089dcc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 5124,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-03T02:37:41Z",
+      "side": 1,
+      "message": "It was to distinguish more clearly between the setting for avoiding bad wifi vs the various other configs. It\u0027s pretty confusing already, I thought it was better to be more explicit. Newer patchsets take more horizontal space to spell this out.",
+      "parentUuid": "d5ea6fc8_1c490589",
+      "range": {
+        "startLine": 5124,
+        "startChar": 20,
+        "endLine": 5124,
+        "endChar": 38
+      },
+      "revId": "2ec4a0c7596f2f6a53abf8f46f044ba66bba7752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f260a41_7ee1b9df",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61fa5ca7_ceb0c96e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 5125,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-03T02:37:41Z",
+      "side": 1,
+      "message": "It was done already in l.5116 in this patchset",
+      "parentUuid": "8f260a41_7ee1b9df",
+      "range": {
+        "startLine": 5125,
+        "startChar": 63,
+        "endLine": 5125,
+        "endChar": 96
+      },
+      "revId": "2ec4a0c7596f2f6a53abf8f46f044ba66bba7752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b94c8731_3e600575",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-10-03T00:37:18Z",
       "side": 1,
       "message": "Actively prefer bad Wi-Fi",
+      "range": {
+        "startLine": 5133,
+        "startChar": 20,
+        "endLine": 5133,
+        "endChar": 38
+      },
+      "revId": "2ec4a0c7596f2f6a53abf8f46f044ba66bba7752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "223d03ec_519bf4d4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 5133,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-03T02:37:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b94c8731_3e600575",
       "range": {
         "startLine": 5133,
         "startChar": 20,

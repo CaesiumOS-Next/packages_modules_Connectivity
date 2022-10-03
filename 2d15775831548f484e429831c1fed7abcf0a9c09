@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bec16a2_eb6ec934",
+        "filename": "service/src/com/android/server/connectivity/MultinetworkPolicyTracker.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-03T02:37:41Z",
+      "side": 1,
+      "message": "This is not absolutely necessary, but it\u0027s :\n• A bugfix. Before, if an OEM had a resource set for this resource for a given mcc/mnc, it would not work.\n• MUCH simpler than the alternative, which is to add new heavy instrumentation in the test ; including simpler if you only consider the production code since that would require moving more stuff into the dependencies.\n\nThe timing is not unknown. It\u0027s reevaluateInternal(), which is called at well-known times, including when configuration changes (which is relevant here). It\u0027s also not a problem to call this if it hasn\u0027t changed, which is why I think this is safe.",
+      "parentUuid": "4b3816a0_d4fac2d1",
+      "range": {
+        "startLine": 356,
+        "startChar": 21,
+        "endLine": 356,
+        "endChar": 47
+      },
+      "revId": "2d15775831548f484e429831c1fed7abcf0a9c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71f8c118_7a4977a5",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cdb5fe7_087e7d19",
+        "filename": "tests/unit/java/com/android/server/connectivity/MultinetworkPolicyTrackerTest.kt",
+        "patchSetId": 24
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-03T02:37:41Z",
+      "side": 1,
+      "message": "I meant this for reevaluate \u003c.\u003c\n\nGood thing I have careful reviewers. This is not required at all.",
+      "parentUuid": "71f8c118_7a4977a5",
+      "range": {
+        "startLine": 129,
+        "startChar": 20,
+        "endLine": 129,
+        "endChar": 31
+      },
+      "revId": "2d15775831548f484e429831c1fed7abcf0a9c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3852c8e_f2435ff5",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-09-30T07:53:08Z",
       "side": 1,
       "message": "If you\u0027re updating all calls in this method, there\u0027s also this one",
+      "range": {
+        "startLine": 133,
+        "startChar": 19,
+        "endLine": 133,
+        "endChar": 47
+      },
+      "revId": "2d15775831548f484e429831c1fed7abcf0a9c09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3627ad41_addd8591",
+        "filename": "tests/unit/java/com/android/server/connectivity/MultinetworkPolicyTrackerTest.kt",
+        "patchSetId": 24
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-03T02:37:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3852c8e_f2435ff5",
       "range": {
         "startLine": 133,
         "startChar": 19,
