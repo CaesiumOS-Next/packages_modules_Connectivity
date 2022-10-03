@@ -45,6 +45,30 @@
       },
       "revId": "9708f7239ca0d7f16d65acfb2e20b8dbfd80c652",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "453d77f4_63274bb4",
+        "filename": "service/src/com/android/server/connectivity/NetworkRanker.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-03T11:01:08Z",
+      "side": 1,
+      "message": "Maybe an isValidated() convenience method (or hasValidatedPolicy or...) that checks either POLICY_IS_VALIDATED or POLICY_ACCEPT_UNVALIDATED?",
+      "parentUuid": "050721cb_8b9cbdbb",
+      "range": {
+        "startLine": 163,
+        "startChar": 28,
+        "endLine": 163,
+        "endChar": 47
+      },
+      "revId": "9708f7239ca0d7f16d65acfb2e20b8dbfd80c652",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
