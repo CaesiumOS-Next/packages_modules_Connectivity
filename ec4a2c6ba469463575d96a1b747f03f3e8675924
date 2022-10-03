@@ -39,6 +39,76 @@
       },
       "revId": "ec4a2c6ba469463575d96a1b747f03f3e8675924",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1df57ed_2f31059d",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1813,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-10-03T23:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c097aaa_850156aa",
+      "range": {
+        "startLine": 1813,
+        "startChar": 45,
+        "endLine": 1813,
+        "endChar": 56
+      },
+      "revId": "ec4a2c6ba469463575d96a1b747f03f3e8675924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1c6b203_6ee028e2",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1847,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-10-03T23:56:07Z",
+      "side": 1,
+      "message": "It seems like we can put these altogether into l.1818.",
+      "range": {
+        "startLine": 1838,
+        "startChar": 8,
+        "endLine": 1847,
+        "endChar": 40
+      },
+      "revId": "ec4a2c6ba469463575d96a1b747f03f3e8675924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9eb81f2f_e2e7a204",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1942,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-10-03T23:56:07Z",
+      "side": 1,
+      "message": "I think this is wrong since MTU has changed, right?",
+      "range": {
+        "startLine": 1942,
+        "startChar": 8,
+        "endLine": 1942,
+        "endChar": 71
+      },
+      "revId": "ec4a2c6ba469463575d96a1b747f03f3e8675924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
