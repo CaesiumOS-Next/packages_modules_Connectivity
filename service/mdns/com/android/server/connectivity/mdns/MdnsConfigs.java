@@ -93,4 +93,8 @@ public class MdnsConfigs {
     public static boolean allowNetworkInterfaceIndexPropagation() {
         return true;
     }
+
+    public static boolean allowMultipleSrvRecordsPerHost() {
+        return true;
+    }
 }
