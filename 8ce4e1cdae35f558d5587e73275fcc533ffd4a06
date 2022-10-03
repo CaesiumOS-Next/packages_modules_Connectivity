@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19a64a92_e06d8916",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetNetworkFactoryTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-03T09:01:39Z",
+      "side": 1,
+      "message": "Nit: We can remove this. `testUpdateInterfaceLinkStateForUnprovisionedInterface` was a only caller.",
+      "range": {
+        "startLine": 284,
+        "startChar": 17,
+        "endLine": 284,
+        "endChar": 45
+      },
+      "revId": "8ce4e1cdae35f558d5587e73275fcc533ffd4a06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
