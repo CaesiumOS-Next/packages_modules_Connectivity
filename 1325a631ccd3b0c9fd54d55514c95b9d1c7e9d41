@@ -93,6 +93,30 @@
       },
       "revId": "1325a631ccd3b0c9fd54d55514c95b9d1c7e9d41",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7d37eaf_3098213e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 5092,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-03T10:47:39Z",
+      "side": 1,
+      "message": "I think there are cases in which shouldNotifyWifiUnvalidated() returns false, but avoidBadWifi() returns true. One example is, I think, when the config disables bad wifi, but the setting is set to 1.\n\nIn this case, we won\u0027t display a notification, but this code will still clear it. I don\u0027t think that\u0027s harmful. But we might want to add a comment?",
+      "parentUuid": "1929553f_42b6e77f",
+      "range": {
+        "startLine": 5092,
+        "startChar": 85,
+        "endLine": 5092,
+        "endChar": 98
+      },
+      "revId": "1325a631ccd3b0c9fd54d55514c95b9d1c7e9d41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
