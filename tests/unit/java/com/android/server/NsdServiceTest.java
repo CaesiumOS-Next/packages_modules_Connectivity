@@ -18,6 +18,7 @@ package com.android.server;
 
 import static android.net.nsd.NsdManager.FAILURE_INTERNAL_ERROR;
 
+import static com.android.server.NsdService.MDNS_SERVICE_VERSION;
 import static com.android.testutils.ContextUtils.mockService;
 
 import static libcore.junit.util.compat.CoreCompatChangeRule.DisableCompatChanges;
@@ -26,6 +27,7 @@ import static libcore.junit.util.compat.CoreCompatChangeRule.EnableCompatChanges
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.any;
@@ -70,6 +72,8 @@ import android.os.Message;
 import androidx.annotation.NonNull;
 import androidx.test.filters.SmallTest;
 
+import com.android.server.NsdService.Dependencies;
+import com.android.server.connectivity.mdns.MdnsDiscoveryManager;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.HandlerUtils;
@@ -117,6 +121,8 @@ public class NsdServiceTest {
     @Mock MDnsManager mMockMDnsM;
     @Mock WifiManager mWifiManager;
     @Mock WifiManager.MulticastLock mLock;
+    @Mock Dependencies mDeps;
+    @Mock MdnsDiscoveryManager mDiscoveryManager;
     HandlerThread mThread;
     TestHandler mHandler;
     NsdService mService;
@@ -155,6 +161,9 @@ public class NsdServiceTest {
         doReturn(true).when(mMockMDnsM).resolve(
                 anyInt(), anyString(), anyString(), anyString(), anyInt());
         doReturn(mLock).when(mWifiManager).createMulticastLock(anyString());
+        doReturn(false).when(mDeps).isFeatureEnabled(
+                any(), eq(MDNS_SERVICE_VERSION), anyBoolean());
+        doReturn(mDiscoveryManager).when(mDeps).makeMdnsDiscoveryManager(any(), any());
 
         mService = makeService();
     }
@@ -564,12 +573,32 @@ public class NsdServiceTest {
                 anyInt()/* interfaceIdx */);
     }
 
+    @Test
+    public void testDiscoveryWithGmsMdnsService() {
+        doReturn(true).when(mDeps).isFeatureEnabled(
+                any(), eq(MDNS_SERVICE_VERSION), anyBoolean());
+
+        mService = makeService();
+        final NsdManager client = connectClient(mService);
+        final DiscoveryListener discListener = mock(DiscoveryListener.class);
+        client.discoverServices(SERVICE_TYPE, PROTOCOL, discListener);
+        waitForIdle();
+        verify(mDiscoveryManager, timeout(TIMEOUT_MS))
+                .registerListener(eq(SERVICE_TYPE), any(), any());
+        verify(discListener, timeout(TIMEOUT_MS)).onDiscoveryStarted(SERVICE_TYPE);
+
+        client.stopServiceDiscovery(discListener);
+        waitForIdle();
+        verify(mDiscoveryManager, timeout(TIMEOUT_MS)).unregisterListener(eq(SERVICE_TYPE), any());
+        verify(discListener, timeout(TIMEOUT_MS)).onDiscoveryStopped(SERVICE_TYPE);
+    }
+
     private void waitForIdle() {
         HandlerUtils.waitForIdle(mHandler, TIMEOUT_MS);
     }
 
     NsdService makeService() {
-        final NsdService service = new NsdService(mContext, mHandler, CLEANUP_DELAY_MS) {
+        final NsdService service = new NsdService(mContext, mHandler, CLEANUP_DELAY_MS, mDeps) {
             @Override
             public INsdServiceConnector connect(INsdManagerCallback baseCb) {
                 // Wrap the callback in a transparent mock, to mock asBinder returning a
