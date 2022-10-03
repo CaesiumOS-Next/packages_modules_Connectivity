@@ -29,11 +29,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.cts.util.CtsNetUtils;
 import android.net.wifi.WifiManager;
+import android.os.BatteryManager;
 import android.os.BatteryStatsManager;
 import android.os.Build;
 import android.os.connectivity.CellularBatteryStats;
@@ -87,6 +90,7 @@ public class BatteryStatsManagerTest{
         mWm = mContext.getSystemService(WifiManager.class);
         mPm = mContext.getPackageManager();
         mCtsNetUtils = new CtsNetUtils(mContext);
+        Log.d(TAG, "hasBattery? " + hasBattery());
     }
 
     // reportNetworkInterfaceForTransports classifies one network interface as wifi or mobile, so
@@ -174,6 +178,7 @@ public class BatteryStatsManagerTest{
         // Generate traffic on wifi network.
         Log.d(TAG, "Generate traffic on wifi network.");
         generateNetworkTraffic(wifiNetwork, url);
+        Log.d(TAG, "Generate traffic on wifi network done.");
         // Wifi battery stats are updated when wifi on.
         mCtsNetUtils.toggleWifi();
 
@@ -194,6 +199,12 @@ public class BatteryStatsManagerTest{
         final int[] transportType = mCm.getNetworkCapabilities(wifiNetwork).getTransportTypes();
         assertThrows(SecurityException.class,
                 () -> mBsm.reportNetworkInterfaceForTransports(iface, transportType));
+    }
+
+    private boolean hasBattery() {
+        final Intent batteryInfo =
+                mContext.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        return batteryInfo.getBooleanExtra(BatteryManager.EXTRA_PRESENT, true);
     }
 
     private void generateNetworkTraffic(Network network, URL url) throws IOException {
@@ -235,10 +246,30 @@ public class BatteryStatsManagerTest{
 
     private static boolean wifiBatteryStatsIncreased(WifiBatteryStats before,
             WifiBatteryStats after) {
-        return (after.getNumBytesTx() > before.getNumBytesTx())
-                && (after.getNumBytesRx() > before.getNumBytesRx())
-                && (after.getNumPacketsTx() > before.getNumPacketsTx())
-                && (after.getNumPacketsRx() > before.getNumPacketsRx());
+        final long txBytesBefore = before.getNumBytesTx();
+        final long txPacketsBefore = before.getNumPacketsTx();
+        final long rxBytesBefore = before.getNumBytesRx();
+        final long rxPacketsBefore = before.getNumPacketsRx();
+        final long txBytesAfter = after.getNumBytesTx();
+        final long txPacketsAfter = after.getNumPacketsTx();
+        final long rxBytesAfter = after.getNumBytesRx();
+        final long rxPacketsAfter = after.getNumPacketsRx();
+
+        Log.d(TAG, "Before["
+                + " rxb=" + rxBytesBefore
+                + ", rxp" + rxPacketsBefore
+                + ", txb=" + txBytesBefore
+                + ", txp=" + txPacketsBefore + " ]"
+                + ", After[ "
+                + " rxb=" + rxBytesAfter
+                + ", rxp=" + rxPacketsAfter
+                + ", txb=" + txBytesAfter
+                + ", txp=" + txPacketsAfter + " ]");
+
+        return (txBytesAfter > txBytesBefore)
+                && (rxBytesAfter > rxBytesBefore)
+                && (txPacketsAfter > txPacketsBefore)
+                && (rxPacketsAfter > rxPacketsBefore);
     }
 
     private static String executeShellCommand(String command) {
