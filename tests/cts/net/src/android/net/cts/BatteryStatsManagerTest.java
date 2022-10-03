@@ -174,6 +174,7 @@ public class BatteryStatsManagerTest{
         // Generate traffic on wifi network.
         Log.d(TAG, "Generate traffic on wifi network.");
         generateNetworkTraffic(wifiNetwork, url);
+        Log.d(TAG, "Generate traffic on wifi network done.");
         // Wifi battery stats are updated when wifi on.
         mCtsNetUtils.toggleWifi();
 
@@ -235,10 +236,30 @@ public class BatteryStatsManagerTest{
 
     private static boolean wifiBatteryStatsIncreased(WifiBatteryStats before,
             WifiBatteryStats after) {
-        return (after.getNumBytesTx() > before.getNumBytesTx())
-                && (after.getNumBytesRx() > before.getNumBytesRx())
-                && (after.getNumPacketsTx() > before.getNumPacketsTx())
-                && (after.getNumPacketsRx() > before.getNumPacketsRx());
+        final long txBytesBefore = before.getNumBytesTx();
+        final long txPacketsBefore = before.getNumPacketsTx();
+        final long rxBytesBefore = before.getNumBytesRx();
+        final long rxPacketsBefore = before.getNumPacketsRx();
+        final long txBytesAfter = after.getNumBytesTx();
+        final long txPacketsAfter = after.getNumPacketsTx();
+        final long rxBytesAfter = after.getNumBytesRx();
+        final long rxPacketsAfter = after.getNumPacketsRx();
+
+        Log.d(TAG, "Before["
+                + " rxb=" + rxBytesBefore
+                + ", rxp" + rxPacketsBefore
+                + ", txb=" + txBytesBefore
+                + ", txp=" + txPacketsBefore + " ]"
+                + ", After[ "
+                + " rxb=" + rxBytesAfter
+                + ", rxp=" + rxPacketsAfter
+                + ", txb=" + txBytesAfter
+                + ", txp=" + txPacketsAfter + " ]");
+
+        return (txBytesAfter > txBytesBefore)
+                && (rxBytesAfter > rxBytesBefore)
+                && (txPacketsAfter > txPacketsBefore)
+                && (rxPacketsAfter > rxPacketsBefore);
     }
 
     private static String executeShellCommand(String command) {
