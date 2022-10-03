@@ -46,6 +46,30 @@
       },
       "revId": "e63c42f5433c5c96775ec6f70c257aa2e32c7e98",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52f39c16_93a4e041",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 9245,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-03T10:16:50Z",
+      "side": 1,
+      "message": "... actually, shouldn\u0027t we just ensure that activelyPreferBadWifi() can only be true if avoidBadWifi is false?",
+      "parentUuid": "934f3315_59f58ccb",
+      "range": {
+        "startLine": 9245,
+        "startChar": 31,
+        "endLine": 9245,
+        "endChar": 52
+      },
+      "revId": "e63c42f5433c5c96775ec6f70c257aa2e32c7e98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
