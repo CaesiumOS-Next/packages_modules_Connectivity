@@ -18,6 +18,7 @@ package com.android.server.connectivity.mdns;
 
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -45,6 +46,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -489,5 +491,20 @@ public class MdnsSocketClientTests {
         assertFalse(mdnsClient.receivedMulticastResponse);
         assertFalse(mdnsClient.receivedUnicastResponse);
         assertFalse(mdnsClient.cannotReceiveMulticastResponse.get());
+    }
+
+    @Test
+    public void startDiscovery_andPropagateInterfaceIndex_includesInterfaceIndex()
+            throws Exception {
+        //MdnsConfigsFlagsImpl.allowNetworkInterfaceIndexPropagation.override(true);
+
+        when(mockMulticastSocket.getInterfaceIndex()).thenReturn(21);
+        mdnsClient.startDiscovery();
+
+        ArgumentCaptor<MdnsResponse> mdnsResponseCaptor =
+                ArgumentCaptor.forClass(MdnsResponse.class);
+        verify(mockCallback, timeout(TIMEOUT).atLeast(1))
+                .onResponseReceived(mdnsResponseCaptor.capture());
+        assertEquals(mdnsResponseCaptor.getValue().getInterfaceIndex(), 21);
     }
 }
