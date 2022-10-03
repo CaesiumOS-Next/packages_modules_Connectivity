@@ -3,6 +3,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e559b681_71eaff70",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3807,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-03T09:02:38Z",
+      "side": 1,
+      "message": "This means captive portals won\u0027t be detected anymore shortly after roam; this sounds unexpected ?",
+      "range": {
+        "startLine": 3807,
+        "startChar": 16,
+        "endLine": 3807,
+        "endChar": 22
+      },
+      "revId": "8a9061f0b5acc7b91778a57785269c7e06eeb42a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5c86b1b_cc1fdc93",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3815,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-03T09:02:38Z",
+      "side": 1,
+      "message": "This was called above already if becameEvaluated, it seems a bit strange to do it twice (although IIUC this isn\u0027t a big problem ?)",
+      "range": {
+        "startLine": 3815,
+        "startChar": 16,
+        "endLine": 3815,
+        "endChar": 48
+      },
+      "revId": "8a9061f0b5acc7b91778a57785269c7e06eeb42a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c4f9a79_0cabb6b3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3848,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-03T09:02:38Z",
+      "side": 1,
+      "message": "If a network goes from valid to a portal, it would go in the first branch and no this one; is that expected ? IIUC CAPTIVE_PORTAL_MODE_AVOID wouldn\u0027t be applied in that case",
+      "range": {
+        "startLine": 3848,
+        "startChar": 14,
+        "endLine": 3848,
+        "endChar": 18
+      },
+      "revId": "8a9061f0b5acc7b91778a57785269c7e06eeb42a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78c896c2_a6d505e8",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 2
