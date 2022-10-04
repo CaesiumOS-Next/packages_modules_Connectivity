@@ -24,6 +24,8 @@ import android.net.EthernetManager
 import android.net.EthernetManager.ETHERNET_STATE_DISABLED
 import android.net.EthernetManager.ETHERNET_STATE_ENABLED
 import android.net.EthernetManager.InterfaceStateListener
+import android.net.EthernetManager.ETHERNET_STATE_DISABLED
+import android.net.EthernetManager.ETHERNET_STATE_ENABLED
 import android.net.EthernetManager.ROLE_CLIENT
 import android.net.EthernetManager.ROLE_NONE
 import android.net.EthernetManager.ROLE_SERVER
@@ -90,7 +92,10 @@ import java.net.Socket
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.TimeUnit
+<<<<<<< HEAD   (a0fb9e Merge "BpfCoordinator: ignore stopping event monitoring if n)
 import java.util.concurrent.TimeoutException
+=======
+>>>>>>> BRANCH (88f253 TestOnly: add setEthernetEnable support to EthernetManagerTe)
 import java.util.function.IntConsumer
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -201,6 +206,7 @@ class EthernetManagerTest {
                 val state: Int,
                 val role: Int,
                 val configuration: IpConfiguration?
+<<<<<<< HEAD   (a0fb9e Merge "BpfCoordinator: ignore stopping event monitoring if n)
             ) : CallbackEntry() {
                 override fun toString(): String {
                     val stateString = when (state) {
@@ -230,6 +236,11 @@ class EthernetManagerTest {
                     return "EthernetStateChanged(state=$stateString)"
                 }
             }
+=======
+            ) : CallbackEntry()
+
+            data class EthernetStateChanged(val state: Int) : CallbackEntry()
+>>>>>>> BRANCH (88f253 TestOnly: add setEthernetEnable support to EthernetManagerTe)
         }
 
         override fun onInterfaceStateChanged(
@@ -259,6 +270,10 @@ class EthernetManagerTest {
             expectCallback(EthernetStateChanged(state))
         }
 
+        fun expectCallback(state: Int) {
+            expectCallback(EthernetStateChanged(state))
+        }
+
         fun createChangeEvent(iface: String, state: Int, role: Int) =
                 InterfaceStateChanged(iface, state, role,
                         if (state != STATE_ABSENT) DEFAULT_IP_CONFIGURATION else null)
@@ -277,6 +292,10 @@ class EthernetManagerTest {
         fun eventuallyExpect(state: Int) {
             val event = EthernetStateChanged(state)
             assertNotNull(eventuallyExpect(event), "Never received expected $event")
+        }
+
+        fun eventuallyExpect(state: Int) {
+            assertNotNull(eventuallyExpect(EthernetStateChanged(state)))
         }
 
         fun assertNoCallback() {
@@ -458,6 +477,7 @@ class EthernetManagerTest {
         }
     }
 
+<<<<<<< HEAD   (a0fb9e Merge "BpfCoordinator: ignore stopping event monitoring if n)
     private fun releaseRequest(cb: TestableNetworkCallback) {
         cm.unregisterNetworkCallback(cb)
         registeredCallbacks.remove(cb)
@@ -508,6 +528,22 @@ class EthernetManagerTest {
     // NetworkRequest.Builder does not create a copy of the passed NetworkRequest, so in order to
     // keep ETH_REQUEST as it is, a defensive copy is created here.
     private fun NetworkRequest.copyWithEthernetSpecifier(ifaceName: String) =
+=======
+    private fun setEthernetEnabled(enabled: Boolean) {
+        runAsShell(NETWORK_SETTINGS) { em.setEthernetEnabled(enabled) }
+
+        val listener = EthernetStateListener()
+        em.addEthernetStateListener(HandlerExecutor(Handler(Looper.getMainLooper())), listener)
+        try {
+            listener.eventuallyExpect(
+                    if (enabled) ETHERNET_STATE_ENABLED else ETHERNET_STATE_DISABLED)
+        } finally {
+            em.removeEthernetStateListener(listener)
+        }
+    }
+
+    private fun NetworkRequest.createCopyWithEthernetSpecifier(ifaceName: String) =
+>>>>>>> BRANCH (88f253 TestOnly: add setEthernetEnable support to EthernetManagerTe)
         NetworkRequest.Builder(NetworkRequest(ETH_REQUEST))
             .setNetworkSpecifier(EthernetNetworkSpecifier(ifaceName)).build()
 
