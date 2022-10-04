@@ -42,6 +42,9 @@ import org.junit.runner.RunWith;
 public class QosCallbackExceptionTest {
     private static final String ERROR_MESSAGE = "Test Error Message";
 
+    @Rule
+    public final DevSdkIgnoreRule mIgnoreRule = new DevSdkIgnoreRule();
+
     @Test
     public void testQosCallbackException() throws Exception {
         final Throwable testcause = new Throwable(ERROR_MESSAGE);
@@ -69,7 +72,7 @@ public class QosCallbackExceptionTest {
     }
 
     @Test
-    public void testSocketLocalAddressChangedExceptions() throws  Exception {
+    public void testSocketLocalAddressChangedExceptions() throws Exception {
         final Throwable localAddressChangedException = new SocketLocalAddressChangedException();
         final QosCallbackException exception =
                 new QosCallbackException(localAddressChangedException);
@@ -78,7 +81,7 @@ public class QosCallbackExceptionTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S)
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
     public void testSocketNotConnectedExceptions() throws Exception {
         final Throwable sockNotConnectedException = new SocketNotConnectedException();
         final QosCallbackException exception = new QosCallbackException(sockNotConnectedException);
@@ -87,8 +90,8 @@ public class QosCallbackExceptionTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S)
-    public void testSocketRemoteAddressChangedExceptions() throws  Exception {
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testSocketRemoteAddressChangedExceptions() throws Exception {
         final Throwable remoteAddressChangedException = new SocketRemoteAddressChangedException();
         final QosCallbackException exception =
                 new QosCallbackException(remoteAddressChangedException);
@@ -99,16 +102,16 @@ public class QosCallbackExceptionTest {
 
     private void validateQosCallbackException(
             QosCallbackException e, Throwable cause, Class c) throws Exception {
-        if (c == SocketNotConnectedException.class) {
-            assertTrue(e.getCause() instanceof SocketNotConnectedException);
-        } else if (c == SocketRemoteAddressChangedException.class) {
-            assertTrue(e.getCause() instanceof SocketRemoteAddressChangedException);
-        } else if (c == SocketLocalAddressChangedException.class) {
+        if (c == SocketLocalAddressChangedException.class) {
             assertTrue(e.getCause() instanceof SocketLocalAddressChangedException);
         } else if (c == SocketNotBoundException.class) {
             assertTrue(e.getCause() instanceof SocketNotBoundException);
         } else if (c == NetworkReleasedException.class) {
             assertTrue(e.getCause() instanceof NetworkReleasedException);
+        } else if (c == SocketNotConnectedException.class) {
+            assertTrue(e.getCause() instanceof SocketNotConnectedException);
+        } else if (c == SocketRemoteAddressChangedException.class) {
+            assertTrue(e.getCause() instanceof SocketRemoteAddressChangedException);
         } else {
             fail("unexpected error msg.");
         }
