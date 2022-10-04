@@ -270,7 +270,8 @@ public class ConnectivityManagerTest {
     private static final int MIN_KEEPALIVE_INTERVAL = 10;
 
     private static final int NETWORK_CALLBACK_TIMEOUT_MS = 30_000;
-    private static final int LISTEN_ACTIVITY_TIMEOUT_MS = 5_000;
+    // Timeout for waiting network to be validated. Set 30s to be at least more than DNS timeout.
+    private static final int LISTEN_ACTIVITY_TIMEOUT_MS = 30_000;
     private static final int NO_CALLBACK_TIMEOUT_MS = 100;
     private static final int SOCKET_TIMEOUT_MS = 100;
     private static final int NUM_TRIES_MULTIPATH_PREF_CHECK = 20;
