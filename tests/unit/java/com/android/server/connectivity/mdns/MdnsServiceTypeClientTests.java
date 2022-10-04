@@ -24,6 +24,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -35,6 +36,7 @@ import static org.mockito.Mockito.when;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import android.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.android.server.connectivity.mdns.MdnsServiceInfo.TextEntry;
 import com.android.server.connectivity.mdns.MdnsServiceTypeClient.QueryTaskConfig;
@@ -57,6 +59,7 @@ import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.SocketAddress;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -71,6 +74,7 @@ import java.util.concurrent.TimeUnit;
 public class MdnsServiceTypeClientTests {
 
     private static final String SERVICE_TYPE = "_googlecast._tcp.local";
+    private static final String[] SERVICE_TYPE_LABELS = TextUtils.split(SERVICE_TYPE, "\\.");
 
     @Mock
     private MdnsServiceBrowserListener mockListenerOne;
@@ -496,12 +500,20 @@ public class MdnsServiceTypeClientTests {
         client.startSendAndReceive(mockListenerTwo, MdnsSearchOptions.getDefaultOptions());
 
         MdnsResponse response = mock(MdnsResponse.class);
-        when(response.getServiceInstanceName()).thenReturn("goodbye-service-instance-name");
+        final String goodbyeServiceName = "goodbye-service-instance-name";
+        when(response.getServiceInstanceName()).thenReturn(goodbyeServiceName);
+        when(response.getInterfaceIndex()).thenReturn(999);
         when(response.isGoodbye()).thenReturn(true);
         client.processResponse(response);
 
-        verify(mockListenerOne).onServiceRemoved("goodbye-service-instance-name");
-        verify(mockListenerTwo).onServiceRemoved("goodbye-service-instance-name");
+        verify(mockListenerOne).onServiceRemoved(argThat(
+                info -> goodbyeServiceName.equals(info.getServiceInstanceName())
+                        && Arrays.equals(SERVICE_TYPE_LABELS, info.getServiceType())
+                        && info.getInterfaceIndex() == 999));
+        verify(mockListenerTwo).onServiceRemoved(argThat(
+                info -> goodbyeServiceName.equals(info.getServiceInstanceName())
+                        && Arrays.equals(SERVICE_TYPE_LABELS, info.getServiceType())
+                        && info.getInterfaceIndex() == 999));
     }
 
     @Test
@@ -563,7 +575,7 @@ public class MdnsServiceTypeClientTests {
         firstMdnsTask.run();
 
         // Verify onServiceRemoved was not called.
-        verify(mockListenerOne, never()).onServiceRemoved(serviceInstanceName);
+        verify(mockListenerOne, never()).onServiceRemoved(any());
     }
 
     @Test
@@ -586,7 +598,7 @@ public class MdnsServiceTypeClientTests {
         MdnsResponse initialResponse =
                 createResponse(
                         serviceInstanceName, "192.168.1.1", 5353, List.of("ABCDE"),
-                        Map.of());
+                        Map.of(), 999 /* interfaceIndex */);
         client.processResponse(initialResponse);
 
         // Clear the scheduled runnable.
@@ -597,14 +609,17 @@ public class MdnsServiceTypeClientTests {
         firstMdnsTask.run();
 
         // Verify onServiceRemoved was not called.
-        verify(mockListenerOne, never()).onServiceRemoved(serviceInstanceName);
+        verify(mockListenerOne, never()).onServiceRemoved(any());
 
         // Simulate the case where the response is after TTL.
         when(initialResponse.getServiceRecord().getRemainingTTL(anyLong())).thenReturn((long) 0);
         firstMdnsTask.run();
 
         // Verify onServiceRemoved was called.
-        verify(mockListenerOne, times(1)).onServiceRemoved(serviceInstanceName);
+        verify(mockListenerOne, times(1)).onServiceRemoved(argThat(
+                info -> serviceInstanceName.equals(info.getServiceInstanceName())
+                        && Arrays.equals(SERVICE_TYPE_LABELS, info.getServiceType())
+                        && info.getInterfaceIndex() == 999));
     }
 
     @Test
@@ -636,7 +651,7 @@ public class MdnsServiceTypeClientTests {
         firstMdnsTask.run();
 
         // Verify onServiceRemoved was not called.
-        verify(mockListenerOne, never()).onServiceRemoved(serviceInstanceName);
+        verify(mockListenerOne, never()).onServiceRemoved(any());
     }
 
     @Test
@@ -659,7 +674,7 @@ public class MdnsServiceTypeClientTests {
         MdnsResponse initialResponse =
                 createResponse(
                         serviceInstanceName, "192.168.1.1", 5353, List.of("ABCDE"),
-                        Map.of());
+                        Map.of(), 999 /* interfaceIndex */);
         client.processResponse(initialResponse);
 
         // Clear the scheduled runnable.
@@ -669,8 +684,11 @@ public class MdnsServiceTypeClientTests {
         when(initialResponse.getServiceRecord().getRemainingTTL(anyLong())).thenReturn((long) 0);
         firstMdnsTask.run();
 
-        // Verify onServiceRemoved was not called.
-        verify(mockListenerOne, times(1)).onServiceRemoved(serviceInstanceName);
+        // Verify onServiceRemoved was called.
+        verify(mockListenerOne, times(1)).onServiceRemoved(argThat(
+                info -> serviceInstanceName.equals(info.getServiceInstanceName())
+                        && Arrays.equals(SERVICE_TYPE_LABELS, info.getServiceType())
+                        && info.getInterfaceIndex() == 999));
     }
 
     // verifies that the right query was enqueued with the right delay, and send query by executing

@@ -194,14 +194,14 @@ public class MdnsServiceTypeClient {
             // {@link instanceNameToResponse} won’t be modified at the same time.
             synchronized (lock) {
                 if (response.isGoodbye()) {
-                    onGoodbyeReceived(response.getServiceInstanceName());
+                    onGoodbyeReceived(response);
                 } else {
                     onResponseReceived(response);
                 }
             }
         } else {
             if (response.isGoodbye()) {
-                onGoodbyeReceived(response.getServiceInstanceName());
+                onGoodbyeReceived(response);
             } else {
                 onResponseReceived(response);
             }
@@ -245,13 +245,33 @@ public class MdnsServiceTypeClient {
         }
     }
 
-    private void onGoodbyeReceived(@Nullable String serviceInstanceName) {
+    private static MdnsServiceInfo buildRemovedMdnsServiceInfo(String serviceInstanceName,
+            String[] serviceTypeLabels, int interfaceIndex) {
+        return new MdnsServiceInfo(
+                serviceInstanceName,
+                serviceTypeLabels,
+                null /* subtypes */,
+                null /* hostName */,
+                0 /* port */,
+                null /* ipv4Address */,
+                null /* ipv6Address */,
+                null /* textStrings */,
+                null /* textEntries */,
+                interfaceIndex);
+    }
+
+    private void onGoodbyeReceived(@NonNull MdnsResponse response) {
+        final String serviceInstanceName = response.getServiceInstanceName();
         if (serviceInstanceName == null) {
             return;
         }
         instanceNameToResponse.remove(serviceInstanceName);
         for (MdnsServiceBrowserListener listener : listeners) {
-            listener.onServiceRemoved(serviceInstanceName);
+            final MdnsServiceInfo serviceInfo = buildRemovedMdnsServiceInfo(
+                    serviceInstanceName,
+                    serviceTypeLabels,
+                    response.getInterfaceIndex());
+            listener.onServiceRemoved(serviceInfo);
         }
     }
 
@@ -425,7 +445,12 @@ public class MdnsServiceTypeClient {
                                 String serviceInstanceName =
                                         existingResponse.getServiceInstanceName();
                                 if (serviceInstanceName != null) {
-                                    listener.onServiceRemoved(serviceInstanceName);
+                                    final MdnsServiceInfo serviceInfo =
+                                            buildRemovedMdnsServiceInfo(
+                                                    serviceInstanceName,
+                                                    serviceTypeLabels,
+                                                    existingResponse.getInterfaceIndex());
+                                    listener.onServiceRemoved(serviceInfo);
                                 }
                             }
                         }
