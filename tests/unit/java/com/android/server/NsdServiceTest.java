@@ -74,6 +74,8 @@ import androidx.test.filters.SmallTest;
 
 import com.android.server.NsdService.Dependencies;
 import com.android.server.connectivity.mdns.MdnsDiscoveryManager;
+import com.android.server.connectivity.mdns.MdnsServiceBrowserListener;
+import com.android.server.connectivity.mdns.MdnsServiceInfo;
 import com.android.server.connectivity.mdns.MdnsSocketManager;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
@@ -91,6 +93,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 // TODOs:
@@ -598,12 +601,36 @@ public class NsdServiceTest {
         final NsdManager client = connectClient(mService);
         final DiscoveryListener discListener = mock(DiscoveryListener.class);
         final Network network = new Network(999);
+        final ArgumentCaptor<MdnsServiceBrowserListener> listenerCaptor =
+                ArgumentCaptor.forClass(MdnsServiceBrowserListener.class);
         client.discoverServices(SERVICE_TYPE, PROTOCOL, network, r -> r.run(), discListener);
         waitForIdle();
         verify(mSocketManager).startMonitorMulticastNetworks();
-        verify(mDiscoveryManager).registerListener(eq(SERVICE_TYPE), any(),
+        verify(mDiscoveryManager).registerListener(eq(SERVICE_TYPE), listenerCaptor.capture(),
                 argThat(options -> network == options.getNetwork()));
         verify(discListener, timeout(TIMEOUT_MS)).onDiscoveryStarted(SERVICE_TYPE);
+
+        final MdnsServiceBrowserListener listener = listenerCaptor.getValue();
+        final String serviceName = "Nsd-Service-Test";
+        final String serviceType = "_nsd._tcp";
+        final MdnsServiceInfo mdnsServiceInfo = new MdnsServiceInfo(
+                serviceName, /* serviceInstanceName */
+                serviceType.split("\\."), /* serviceType */
+                List.of(), /* subtypes */
+                new String[] {"android", "local"}, /* hostName */
+                12345, /* port */
+                "192.168.1.1", /* ipv4Address */
+                "2001::1", /* ipv6Address */
+                List.of(), /* textStrings */
+                List.of(), /* textEntries */
+                1234, /* interfaceIndex */
+                network);
+        // Verify onServiceFound callback
+        listener.onServiceFound(mdnsServiceInfo);
+        verify(discListener, timeout(TIMEOUT_MS)).onServiceFound(argThat(info ->
+                info.getServiceName().equals(serviceName)
+                        && info.getServiceType().equals(serviceType)
+                        && info.getNetwork().netId == network.netId));
 
         client.stopServiceDiscovery(discListener);
         waitForIdle();
