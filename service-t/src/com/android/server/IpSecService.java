@@ -200,7 +200,7 @@ public class IpSecService extends IIpSecService.Stub {
         int mRefCount = 1; // starts at 1 for user's reference.
         IBinder mBinder;
 
-        RefcountedResource(T resource, IBinder binder, RefcountedResource... children) {
+        public RefcountedResource(T resource, IBinder binder, RefcountedResource... children) {
             synchronized (IpSecService.this) {
                 this.mResource = resource;
                 this.mChildren = new ArrayList<>(children.length);
@@ -480,7 +480,8 @@ public class IpSecService extends IIpSecService.Stub {
         }
     }
 
-    @VisibleForTesting final UserResourceTracker mUserResourceTracker = new UserResourceTracker();
+    @VisibleForTesting
+    public final UserResourceTracker mUserResourceTracker = new UserResourceTracker();
 
     /**
      * The OwnedResourceRecord class provides a facility to cleanly and reliably track system

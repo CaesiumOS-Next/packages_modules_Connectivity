@@ -1,0 +1,8 @@
+# Exclue ConnectivityServiceTest which hard code the class name.
+# rule com.android.server.ConnectivityServiceTest* @0
+
+# Jarjar the tests with same prefix android.net.connectivity* to keep package
+# scope accessibity with other connectivity jarjar'ed classes.
+rule com.android.server.LegacyTypeTrackerTest* android.net.connectivity.@0
+rule com.android.server.IpSecServiceParameterizedTest* android.net.connectivity.@0
+rule com.android.server.IpSecServiceRefcountedResourceTest* android.net.connectivity.@0

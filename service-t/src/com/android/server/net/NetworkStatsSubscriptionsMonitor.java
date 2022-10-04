@@ -81,7 +81,7 @@ public class NetworkStatsSubscriptionsMonitor extends
     @NonNull
     private final Executor mExecutor;
 
-    NetworkStatsSubscriptionsMonitor(@NonNull Context context,
+    public NetworkStatsSubscriptionsMonitor(@NonNull Context context,
             @NonNull Executor executor, @NonNull Delegate delegate) {
         super();
         mSubscriptionManager = (SubscriptionManager) context.getSystemService(

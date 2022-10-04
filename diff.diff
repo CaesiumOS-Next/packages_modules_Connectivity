@@ -1,0 +1,187 @@
+diff --git a/service/src/com/android/server/ConnectivityService.java b/service/src/com/android/server/ConnectivityService.java
+index bbc20d1fe..93ebd288f 100755
+--- a/service/src/com/android/server/ConnectivityService.java
++++ b/service/src/com/android/server/ConnectivityService.java
+@@ -379,12 +379,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
+     static final int MAX_NETWORK_REQUESTS_PER_SYSTEM_UID = 250;
+ 
+     @VisibleForTesting
+-    protected int mLingerDelayMs;  // Can't be final, or test subclass constructors can't change it.
++    public int mLingerDelayMs;  // Can't be final, or test subclass constructors can't change it.
+     @VisibleForTesting
+-    protected int mNascentDelayMs;
++    public int mNascentDelayMs;
+     // True if the cell radio of the device is capable of time-sharing.
+     @VisibleForTesting
+-    protected boolean mCellularRadioTimesharingCapable = true;
++    public boolean mCellularRadioTimesharingCapable = true;
+ 
+     // How long to delay to removal of a pending intent based request.
+     // See ConnectivitySettingsManager.CONNECTIVITY_RELEASE_PENDING_INTENT_DELAY_MS
+@@ -879,7 +879,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
+      *    changes.
+      */
+     @VisibleForTesting
+-    static class LegacyTypeTracker {
++    public static class LegacyTypeTracker {
+ 
+         private static final boolean DBG = true;
+         private static final boolean VDBG = false;
+@@ -914,7 +914,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
+         @NonNull
+         private ArrayMap<Integer, Integer> mRestoreTimers = new ArrayMap<>();
+ 
+-        LegacyTypeTracker(@NonNull ConnectivityService service) {
++        public LegacyTypeTracker(@NonNull ConnectivityService service) {
+             mService = service;
+             mTypeLists = new ArrayList[ConnectivityManager.MAX_NETWORK_TYPE + 1];
+         }
+@@ -1402,7 +1402,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
+     }
+ 
+     @VisibleForTesting
+-    protected ConnectivityService(Context context, IDnsResolver dnsresolver,
++    public ConnectivityService(Context context, IDnsResolver dnsresolver,
+             IpConnectivityLog logger, INetd netd, Dependencies deps) {
+         if (DBG) log("ConnectivityService starting up");
+ 
+@@ -1641,7 +1641,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
+     // 2. Give FakeSettingsProvider an alternative notification mechanism and have the test use it
+     //    by subclassing SettingsObserver.
+     @VisibleForTesting
+-    void updateAlwaysOnNetworks() {
++    public void updateAlwaysOnNetworks() {
+         mHandler.sendEmptyMessage(EVENT_CONFIGURE_ALWAYS_ON_NETWORKS);
+     }
+ 
+@@ -9428,7 +9428,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
+     }
+ 
+     @VisibleForTesting
+-    protected void sendLegacyNetworkBroadcast(NetworkAgentInfo nai, DetailedState state, int type) {
++    public void sendLegacyNetworkBroadcast(NetworkAgentInfo nai, DetailedState state, int type) {
+         // The NetworkInfo we actually send out has no bearing on the real
+         // state of affairs. For example, if the default connection is mobile,
+         // and a request for HIPRI has just gone away, we need to pretend that
+diff --git a/service/src/com/android/server/connectivity/FullScore.java b/service/src/com/android/server/connectivity/FullScore.java
+index aec4a7193..d4a547f39 100644
+--- a/service/src/com/android/server/connectivity/FullScore.java
++++ b/service/src/com/android/server/connectivity/FullScore.java
+@@ -140,7 +140,7 @@ public class FullScore {
+ 
+     private final int mKeepConnectedReason;
+ 
+-    FullScore(final long policies, @KeepConnectedReason final int keepConnectedReason) {
++    public FullScore(final long policies, @KeepConnectedReason final int keepConnectedReason) {
+         mPolicies = policies;
+         mKeepConnectedReason = keepConnectedReason;
+     }
+diff --git a/tests/common/Android.bp b/tests/common/Android.bp
+index 5c9cc6359..697ed65e2 100644
+--- a/tests/common/Android.bp
++++ b/tests/common/Android.bp
+@@ -65,7 +65,7 @@ genrule {
+     defaults: ["jarjar-rules-combine-defaults"],
+     srcs: [
+         "tethering-jni-jarjar-rules.txt",
+-        ":connectivity-jarjar-rules",
++        ":connectivity-test-jarjar-rules",
+         ":TetheringTestsJarJarRules",
+         ":NetworkStackJarJarRules",
+     ],
+diff --git a/tests/integration/util/com/android/server/NetworkAgentWrapper.java b/tests/integration/util/com/android/server/NetworkAgentWrapper.java
+index 28edcb22a..4200841ff 100644
+--- a/tests/integration/util/com/android/server/NetworkAgentWrapper.java
++++ b/tests/integration/util/com/android/server/NetworkAgentWrapper.java
+@@ -416,14 +416,14 @@ public class NetworkAgentWrapper implements TestableNetworkCallback.HasNetwork {
+         HandlerUtils.waitForIdle(mHandlerThread, timeoutMs);
+     }
+ 
+-    abstract static class CallbackType {
+-        final int mQosCallbackId;
++    public abstract static class CallbackType {
++        public final int mQosCallbackId;
+ 
+-        protected CallbackType(final int qosCallbackId) {
++        public CallbackType(final int qosCallbackId) {
+             mQosCallbackId = qosCallbackId;
+         }
+ 
+-        static class OnQosCallbackRegister extends CallbackType {
++        public static class OnQosCallbackRegister extends CallbackType {
+             final QosFilter mFilter;
+             OnQosCallbackRegister(final int qosCallbackId, final QosFilter filter) {
+                 super(qosCallbackId);
+@@ -445,7 +445,7 @@ public class NetworkAgentWrapper implements TestableNetworkCallback.HasNetwork {
+             }
+         }
+ 
+-        static class OnQosCallbackUnregister extends CallbackType {
++        public static class OnQosCallbackUnregister extends CallbackType {
+             OnQosCallbackUnregister(final int qosCallbackId) {
+                 super(qosCallbackId);
+             }
+diff --git a/tests/unit/Android.bp b/tests/unit/Android.bp
+index cb68235e3..1e0dea899 100644
+--- a/tests/unit/Android.bp
++++ b/tests/unit/Android.bp
+@@ -137,6 +137,17 @@ android_library {
+     visibility: ["//packages/modules/Connectivity/tests:__subpackages__"],
+ }
+ 
++genrule {
++    name: "connectivity-test-jarjar-rules",
++    defaults: ["jarjar-rules-combine-defaults"],
++    srcs: [
++        "connectivity-test-default-jarjar.txt",
++        ":connectivity-jarjar-rules",
++    ],
++    out: ["connectivity-test-jarjar-rules.txt"],
++    visibility: ["//packages/modules/Connectivity:__subpackages__"],
++}
++
+ android_test {
+     name: "FrameworksNetTests",
+     enabled: enable_frameworks_net_tests,
+@@ -144,7 +155,7 @@ android_test {
+         "FrameworksNetTestsDefaults",
+         "FrameworksNetTests-jni-defaults",
+     ],
+-    jarjar_rules: ":connectivity-jarjar-rules",
++    jarjar_rules: ":connectivity-test-jarjar-rules",
+     test_suites: ["device-tests"],
+     static_libs: [
+         "services.core",
+diff --git a/tests/unit/AndroidManifest.xml b/tests/unit/AndroidManifest.xml
+index 54e1cd058..8f268c7d8 100644
+--- a/tests/unit/AndroidManifest.xml
++++ b/tests/unit/AndroidManifest.xml
+@@ -54,7 +54,7 @@
+         <uses-library android:name="android.test.runner" />
+         <uses-library android:name="android.net.ipsec.ike" />
+         <activity
+-            android:name="com.android.server.connectivity.NetworkNotificationManagerTest$TestDialogActivity"/>
++            android:name="android.net.connectivity.com.android.server.connectivity.NetworkNotificationManagerTest$TestDialogActivity"/>
+     </application>
+ 
+     <instrumentation
+diff --git a/tests/unit/java/com/android/server/ConnectivityServiceTest.java b/tests/unit/java/com/android/server/ConnectivityServiceTest.java
+index 7993a5cf8..fe585ac56 100755
+--- a/tests/unit/java/com/android/server/ConnectivityServiceTest.java
++++ b/tests/unit/java/com/android/server/ConnectivityServiceTest.java
+@@ -2062,6 +2062,7 @@ public class ConnectivityServiceTest {
+ 
+     @After
+     public void tearDown() throws Exception {
++        /*
+         unregisterDefaultNetworkCallbacks();
+         maybeTearDownEnterpriseNetwork();
+         setAlwaysOnNetworks(false);
+@@ -2090,6 +2091,7 @@ public class ConnectivityServiceTest {
+ 
+         mCsHandlerThread.quitSafely();
+         mAlarmManagerThread.quitSafely();
++        */
+     }
+ 
+     private void mockDefaultPackages() throws Exception {

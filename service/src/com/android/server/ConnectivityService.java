@@ -7280,7 +7280,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     @VisibleForTesting
-    protected boolean isDefaultNetwork(NetworkAgentInfo nai) {
+    public boolean isDefaultNetwork(NetworkAgentInfo nai) {
         return nai == getDefaultNetwork();
     }
 
