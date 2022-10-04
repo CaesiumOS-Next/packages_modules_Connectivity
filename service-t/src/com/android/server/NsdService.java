@@ -172,7 +172,8 @@ public class NsdService extends INsdManager.Stub {
 
         @Override
         public void onServiceRemoved(MdnsServiceInfo serviceInfo) {
-            // TODO: implement service removed callback.
+            mNsdStateMachine.sendMessage(MDNS_DISCOVERY_MANAGER_EVENT, mTransactionId,
+                    NsdManager.SERVICE_LOST, new MdnsEvent(mClientId, serviceInfo));
         }
     }
 
@@ -791,14 +792,17 @@ public class NsdService extends INsdManager.Stub {
 
                 final MdnsEvent event = (MdnsEvent) obj;
                 final int clientId = event.mClientId;
+                final NsdServiceInfo info = buildNsdServiceInfoFromMdnsEvent(event);
                 if (DBG) {
                     Log.d(TAG, String.format("GMS mDns service event code=%s transactionId=%d",
                             NsdManager.nameOf(code), transactionId));
                 }
                 switch (code) {
                     case NsdManager.SERVICE_FOUND:
-                        clientInfo.onServiceFound(
-                                clientId, buildNsdServiceInfoFromMdnsEvent(event));
+                        clientInfo.onServiceFound(clientId, info);
+                        break;
+                    case NsdManager.SERVICE_LOST:
+                        clientInfo.onServiceLost(clientId, info);
                         break;
                     default:
                         return false;
