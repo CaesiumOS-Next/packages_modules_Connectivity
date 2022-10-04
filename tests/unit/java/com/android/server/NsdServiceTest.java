@@ -605,9 +605,15 @@ public class NsdServiceTest {
                 "192.168.1.1", /* ipv4Address */
                 "2001::1", /* ipv6Address */
                 List.of() /* textStrings */);
-        // Verify onServiceFound callback
+        // Verify MdnsServiceBrowserListener#onServiceFound callback
         listener.onServiceFound(mdnsServiceInfo);
         verify(discListener, timeout(TIMEOUT_MS)).onServiceFound(argThat(info ->
+                info.getServiceName().equals(serviceName)
+                        && info.getServiceType().equals(serviceType)));
+
+        // Verify MdnsServiceBrowserListener#onServiceRemoved callback
+        listener.onServiceRemoved(mdnsServiceInfo);
+        verify(discListener, timeout(TIMEOUT_MS)).onServiceLost(argThat(info ->
                 info.getServiceName().equals(serviceName)
                         && info.getServiceType().equals(serviceType)));
 
