@@ -24,6 +24,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -500,8 +501,10 @@ public class MdnsServiceTypeClientTests {
         when(response.isGoodbye()).thenReturn(true);
         client.processResponse(response);
 
-        verify(mockListenerOne).onServiceRemoved("goodbye-service-instance-name");
-        verify(mockListenerTwo).onServiceRemoved("goodbye-service-instance-name");
+        verify(mockListenerOne).onServiceRemoved(argThat(
+                info -> info.getServiceInstanceName().equals("goodbye-service-instance-name")));
+        verify(mockListenerTwo).onServiceRemoved(argThat(
+                info -> info.getServiceInstanceName().equals("goodbye-service-instance-name")));
     }
 
     @Test
@@ -563,7 +566,7 @@ public class MdnsServiceTypeClientTests {
         firstMdnsTask.run();
 
         // Verify onServiceRemoved was not called.
-        verify(mockListenerOne, never()).onServiceRemoved(serviceInstanceName);
+        verify(mockListenerOne, never()).onServiceRemoved(any());
     }
 
     @Test
@@ -597,14 +600,15 @@ public class MdnsServiceTypeClientTests {
         firstMdnsTask.run();
 
         // Verify onServiceRemoved was not called.
-        verify(mockListenerOne, never()).onServiceRemoved(serviceInstanceName);
+        verify(mockListenerOne, never()).onServiceRemoved(any());
 
         // Simulate the case where the response is after TTL.
         when(initialResponse.getServiceRecord().getRemainingTTL(anyLong())).thenReturn((long) 0);
         firstMdnsTask.run();
 
         // Verify onServiceRemoved was called.
-        verify(mockListenerOne, times(1)).onServiceRemoved(serviceInstanceName);
+        verify(mockListenerOne, times(1)).onServiceRemoved(argThat(
+                info -> info.getServiceInstanceName().equals(serviceInstanceName)));
     }
 
     @Test
@@ -636,7 +640,7 @@ public class MdnsServiceTypeClientTests {
         firstMdnsTask.run();
 
         // Verify onServiceRemoved was not called.
-        verify(mockListenerOne, never()).onServiceRemoved(serviceInstanceName);
+        verify(mockListenerOne, never()).onServiceRemoved(any());
     }
 
     @Test
@@ -669,8 +673,9 @@ public class MdnsServiceTypeClientTests {
         when(initialResponse.getServiceRecord().getRemainingTTL(anyLong())).thenReturn((long) 0);
         firstMdnsTask.run();
 
-        // Verify onServiceRemoved was not called.
-        verify(mockListenerOne, times(1)).onServiceRemoved(serviceInstanceName);
+        // Verify onServiceRemoved was called.
+        verify(mockListenerOne, times(1)).onServiceRemoved(argThat(
+                info -> info.getServiceInstanceName().equals(serviceInstanceName)));
     }
 
     // verifies that the right query was enqueued with the right delay, and send query by executing
