@@ -111,7 +111,6 @@ import com.android.net.module.util.ip.IpNeighborMonitor;
 import com.android.net.module.util.ip.IpNeighborMonitor.NeighborEvent;
 import com.android.net.module.util.ip.IpNeighborMonitor.NeighborEventConsumer;
 import com.android.networkstack.tethering.BpfCoordinator;
-import com.android.networkstack.tethering.BpfCoordinator.ClientInfo;
 import com.android.networkstack.tethering.BpfCoordinator.Ipv6ForwardingRule;
 import com.android.networkstack.tethering.PrivateAddressCoordinator;
 import com.android.networkstack.tethering.Tether6Value;
@@ -188,10 +187,6 @@ public class IpServerTest {
     @Mock private DadProxy mDadProxy;
     @Mock private RouterAdvertisementDaemon mRaDaemon;
     @Mock private IpNeighborMonitor mIpNeighborMonitor;
-    // IpNeighborMonitor which is used in IpServer.
-    // TODO: remove once IpNeighborMonitor is removed form IpServer to BpfCoordinator.
-    // Temporarily assign a simple suffix '2' for don't conflict the monitor for BpfCoordinator.
-    @Mock private IpNeighborMonitor mIpNeighborMonitor2;
     @Mock private IpServer.Dependencies mDependencies;
     @Mock private PrivateAddressCoordinator mAddressCoordinator;
     @Mock private NetworkStatsManager mStatsManager;
@@ -215,10 +210,6 @@ public class IpServerTest {
     private IpServer mIpServer;
     private InterfaceConfigurationParcel mInterfaceConfiguration;
     private NeighborEventConsumer mNeighborEventConsumer;
-    // NeighborEventConsumer which is used in IpServer.
-    // TODO: remove once IpNeighborMonitor is removed form IpServer to BpfCoordinator.
-    // Temporarily assign a simple suffix '2' for don't conflict the monitor for BpfCoordinator.
-    private NeighborEventConsumer mNeighborEventConsumer2;
     private BpfCoordinator mBpfCoordinator;
     private BpfCoordinator.Dependencies mBpfDeps;
 
@@ -242,11 +233,6 @@ public class IpServerTest {
             mInterfaceConfiguration.prefixLength = BLUETOOTH_DHCP_PREFIX_LENGTH;
         }
 
-        ArgumentCaptor<NeighborEventConsumer> neighborCaptor =
-                ArgumentCaptor.forClass(NeighborEventConsumer.class);
-        doReturn(mIpNeighborMonitor2).when(mDependencies).getIpNeighborMonitor(any(), any(),
-                neighborCaptor.capture());
-
         when(mTetherConfig.isBpfOffloadEnabled()).thenReturn(usingBpfOffload);
         when(mTetherConfig.useLegacyDhcpServer()).thenReturn(usingLegacyDhcp);
         when(mTetherConfig.getP2pLeasesSubnetPrefixLength()).thenReturn(P2P_SUBNET_PREFIX_LENGTH);
@@ -254,7 +240,6 @@ public class IpServerTest {
                 IFACE_NAME, mLooper.getLooper(), interfaceType, mSharedLog, mNetd, mBpfCoordinator,
                 mCallback, mTetherConfig, mAddressCoordinator, mTetheringMetrics, mDependencies);
         mIpServer.start();
-        mNeighborEventConsumer2 = neighborCaptor.getValue();
 
         // Starting the state machine always puts us in a consistent state and notifies
         // the rest of the world that we've changed from an unknown to available state.
@@ -397,8 +382,6 @@ public class IpServerTest {
 
     @Test
     public void startsOutAvailable() {
-        when(mDependencies.getIpNeighborMonitor(any(), any(), any()))
-                .thenReturn(mIpNeighborMonitor2);
         mIpServer = new IpServer(IFACE_NAME, mLooper.getLooper(), TETHERING_BLUETOOTH, mSharedLog,
                 mNetd, mBpfCoordinator, mCallback, mTetherConfig, mAddressCoordinator,
                 mTetheringMetrics, mDependencies);
@@ -1645,71 +1628,5 @@ public class IpServerTest {
         final MacAddress mac = MacAddress.fromString("00:00:00:00:00:0a");
         recvNewNeigh(myIfindex, neigh, NUD_REACHABLE, mac);
         verifyNeverTetherOffloadRuleAdd();
-    }
-
-    // TODO: move to BpfCoordinatorTest once IpNeighborMonitor is migrated to BpfCoordinator.
-    private void recvNewNeigh2(int ifindex, InetAddress addr, short nudState, MacAddress mac) {
-        mNeighborEventConsumer2.accept(new NeighborEvent(0, RTM_NEWNEIGH, ifindex, addr,
-                nudState, mac));
-        mLooper.dispatchAll();
-    }
-
-    // TODO: move to BpfCoordinatorTest once IpNeighborMonitor is migrated to BpfCoordinator.
-    private void recvDelNeigh2(int ifindex, InetAddress addr, short nudState, MacAddress mac) {
-        mNeighborEventConsumer2.accept(new NeighborEvent(0, RTM_DELNEIGH, ifindex, addr,
-                nudState, mac));
-        mLooper.dispatchAll();
-    }
-
-    // TODO: move to BpfCoordinatorTest once IpNeighborMonitor is migrated to BpfCoordinator.
-    @Test
-    public void addRemoveTetherClient() throws Exception {
-        initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE, false /* usingLegacyDhcp */,
-                DEFAULT_USING_BPF_OFFLOAD);
-
-        final int myIfindex = TEST_IFACE_PARAMS.index;
-        final int notMyIfindex = myIfindex - 1;
-
-        final InetAddress neighA = InetAddresses.parseNumericAddress("192.168.80.1");
-        final InetAddress neighB = InetAddresses.parseNumericAddress("192.168.80.2");
-        final InetAddress neighLL = InetAddresses.parseNumericAddress("169.254.0.1");
-        final InetAddress neighMC = InetAddresses.parseNumericAddress("224.0.0.1");
-        final MacAddress macNull = MacAddress.fromString("00:00:00:00:00:00");
-        final MacAddress macA = MacAddress.fromString("00:00:00:00:00:0a");
-        final MacAddress macB = MacAddress.fromString("11:22:33:00:00:0b");
-
-        // Events on other interfaces are ignored.
-        recvNewNeigh2(notMyIfindex, neighA, NUD_REACHABLE, macA);
-        verifyNoMoreInteractions(mBpfCoordinator);
-
-        // Events on this interface are received and sent to BpfCoordinator.
-        recvNewNeigh2(myIfindex, neighA, NUD_REACHABLE, macA);
-        verify(mBpfCoordinator).tetherOffloadClientAdd(mIpServer, new ClientInfo(myIfindex,
-                TEST_IFACE_PARAMS.macAddr, (Inet4Address) neighA, macA));
-        clearInvocations(mBpfCoordinator);
-
-        recvNewNeigh2(myIfindex, neighB, NUD_REACHABLE, macB);
-        verify(mBpfCoordinator).tetherOffloadClientAdd(mIpServer, new ClientInfo(myIfindex,
-                TEST_IFACE_PARAMS.macAddr, (Inet4Address) neighB, macB));
-        clearInvocations(mBpfCoordinator);
-
-        // Link-local and multicast neighbors are ignored.
-        recvNewNeigh2(myIfindex, neighLL, NUD_REACHABLE, macA);
-        verifyNoMoreInteractions(mBpfCoordinator);
-        recvNewNeigh2(myIfindex, neighMC, NUD_REACHABLE, macA);
-        verifyNoMoreInteractions(mBpfCoordinator);
-        clearInvocations(mBpfCoordinator);
-
-        // A neighbor that is no longer valid causes the client to be removed.
-        // NUD_FAILED events do not have a MAC address.
-        recvNewNeigh2(myIfindex, neighA, NUD_FAILED, null);
-        verify(mBpfCoordinator).tetherOffloadClientRemove(mIpServer,  new ClientInfo(myIfindex,
-                TEST_IFACE_PARAMS.macAddr, (Inet4Address) neighA, macNull));
-        clearInvocations(mBpfCoordinator);
-
-        // A neighbor that is deleted causes the client to be removed.
-        recvDelNeigh2(myIfindex, neighB, NUD_STALE, macB);
-        verify(mBpfCoordinator).tetherOffloadClientRemove(mIpServer, new ClientInfo(myIfindex,
-                TEST_IFACE_PARAMS.macAddr, (Inet4Address) neighB, macNull));
     }
 }
