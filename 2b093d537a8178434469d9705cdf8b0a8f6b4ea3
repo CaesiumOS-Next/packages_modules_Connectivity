@@ -16,6 +16,92 @@
       "message": "LGTM assuming TH will be happy",
       "revId": "2b093d537a8178434469d9705cdf8b0a8f6b4ea3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f1b8904_d111d4e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-04T04:51:29Z",
+      "side": 1,
+      "message": "LGTM when comments are addressed",
+      "revId": "2b093d537a8178434469d9705cdf8b0a8f6b4ea3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e492b98_8890dc44",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1256,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-04T04:51:29Z",
+      "side": 1,
+      "message": "I had the hardest time figuring out that this is the line that actually will add the additional entries in wifiStats below. Can you add comments explaining that getUidStatsForTransport (through getNetworkStatsUidDetail) adds all operation counts to the stats with the active interface, and that interface is mobile, so this test makes sure that these operations are not surfaced in getUidStatsForTransport if the transport doesn\u0027t match them ?",
+      "range": {
+        "startLine": 1256,
+        "startChar": 17,
+        "endLine": 1256,
+        "endChar": 40
+      },
+      "revId": "2b093d537a8178434469d9705cdf8b0a8f6b4ea3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c6d8f69_68ec3437",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2227,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-04T04:51:29Z",
+      "side": 1,
+      "message": "I think mocking this in this way is difficult to understand because it overrides all interfaces used by getUidStatsForTransport, and it\u0027s very implementation-dependent.\n\nYour test is already calling `mService.notifyNetworkStatus`. I think this should fill in the necessary interfaces that the service thinks it saw. The only thing you\u0027d need to do is make sure that augmentWithStackedInterfaces doesn\u0027t change them.\n\nThe best way to do this would be to call the real method, unfortunately you don\u0027t have an object to call the real method. So instead, one thing you could do that makes sense is to just say that augmentWithStackedInterfaces always returns the list of ifaces that were passed. You could do this with something like :\n\n    doAnwser(inv -\u003e inv.getArgument(0))\n            .when(mStatFactory).augmentWithStackedIntefaces(any()));\n\n...or if you need a copy (the real method returns a copy)\n\n    doAnswer(inv -\u003e inv.getArgument(0).clone())\n            .when(mStatFactory).augmentWithStackedIntefaces(any()));\n\nAn advantage is that you can do this in setup(), and future users of this test will be less surprised by the behavior. WDYT ?",
+      "range": {
+        "startLine": 2227,
+        "startChar": 52,
+        "endLine": 2227,
+        "endChar": 80
+      },
+      "revId": "2b093d537a8178434469d9705cdf8b0a8f6b4ea3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f1afcd6_d8d29763",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2252,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-04T04:51:29Z",
+      "side": 1,
+      "message": "Does this actually use array equality ? ISTM that this may not mock the stats correctly if you pass a copy of the array. Maybe you want AdditionalMatchers.aryEq().\n\nOf course, if the test is passing like this, given that ref equality is a subset of array equality anyway, maybe it\u0027s not worth spending a lot of time. If AdditionalMatchers.aryEq() is not possible for some reason you may just leave a comment or something",
+      "range": {
+        "startLine": 2252,
+        "startChar": 49,
+        "endLine": 2252,
+        "endChar": 55
+      },
+      "revId": "2b093d537a8178434469d9705cdf8b0a8f6b4ea3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
