@@ -256,6 +256,9 @@ public class MdnsResponseDecoder {
                         response = new MdnsResponse(now);
                         responses.add(response);
                     }
+                    // Set interface index earlier because some responses have PTR record only.
+                    // Need to know every response is getting from which interface.
+                    response.setInterfaceIndex(interfaceIndex);
                     response.addPointerRecord((MdnsPointerRecord) record);
                 }
             }
