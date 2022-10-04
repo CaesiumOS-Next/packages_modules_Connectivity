@@ -144,7 +144,7 @@ public class NsdService extends INsdManager.Stub {
         }
 
         @Override
-        public void onServiceRemoved(String serviceInstanceName) {
+        public void onServiceRemoved(MdnsServiceInfo serviceInfo) {
             // TODO: Deliver service lost callback.
         }
 

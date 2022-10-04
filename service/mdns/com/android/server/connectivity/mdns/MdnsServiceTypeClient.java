@@ -167,7 +167,7 @@ public class MdnsServiceTypeClient {
 
     public synchronized void processResponse(@NonNull MdnsResponse response) {
         if (response.isGoodbye()) {
-            onGoodbyeReceived(response.getServiceInstanceName());
+            onGoodbyeReceived(response);
         } else {
             onResponseReceived(response);
         }
@@ -207,10 +207,22 @@ public class MdnsServiceTypeClient {
         }
     }
 
-    private void onGoodbyeReceived(@NonNull String serviceInstanceName) {
+    private void onGoodbyeReceived(@NonNull MdnsResponse response) {
+        final String serviceInstanceName = response.getServiceInstanceName();
         instanceNameToResponse.remove(serviceInstanceName);
         for (MdnsServiceBrowserListener listener : listeners) {
-            listener.onServiceRemoved(serviceInstanceName);
+            final MdnsServiceInfo serviceInfo = new MdnsServiceInfo(
+                    response.getServiceInstanceName(),
+                    serviceTypeLabels,
+                    null /* subtypes */,
+                    null /* hostName */,
+                    0 /* port */,
+                    null /* ipv4Address */,
+                    null /* ipv6Address */,
+                    null /* textStrings */,
+                    null /* textEntries */,
+                    response.getInterfaceIndex());
+            listener.onServiceRemoved(serviceInfo);
         }
     }
 
