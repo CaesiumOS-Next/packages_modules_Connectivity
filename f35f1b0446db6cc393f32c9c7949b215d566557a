@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea9522f2_65851a63",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2756,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-04T08:06:41Z",
+      "side": 1,
+      "message": "Suggest adding : also see aosp/2208680",
+      "range": {
+        "startLine": 2756,
+        "startChar": 39,
+        "endLine": 2756,
+        "endChar": 40
+      },
+      "revId": "f35f1b0446db6cc393f32c9c7949b215d566557a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f1ae7e9_d572286f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2760,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-04T08:06:41Z",
+      "side": 1,
+      "message": "I appreciate the feeling but in practice your patch is useful to wait for cell to validate – you want this to happen before calls to prepareValidatedNetwork, preparePartialConnectivity, prepareUnvalidatedNetwork. All of these will forcefully disconnect wifi, which means here you\u0027re waiting for wifi to validate only to disconnect it later. That means this will make the test take longer for no good reason.\n\nI think you could call this ensureCellIsValidatedBeforeMockingValidationUrls and only do this on cell.\n\nIt\u0027s probably a good idea to add comments saying something like :\n  // This may also apply to wifi in principle, but in practice methods that mock \n  // validation URL all disconnect wifi forcefully anyway, so don\u0027t wait for wifi\n  // to validate.",
+      "range": {
+        "startLine": 2757,
+        "startChar": 0,
+        "endLine": 2760,
+        "endChar": 0
+      },
+      "revId": "f35f1b0446db6cc393f32c9c7949b215d566557a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f5cfd8f_b82500c3",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2773,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-04T08:06:41Z",
+      "side": 1,
+      "message": "unregisterCallback",
+      "range": {
+        "startLine": 2773,
+        "startChar": 4,
+        "endLine": 2773,
+        "endChar": 5
+      },
+      "revId": "f35f1b0446db6cc393f32c9c7949b215d566557a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "079b29d5_8e150f7d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2782,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-04T08:06:41Z",
+      "side": 1,
+      "message": "IIUC, you wrote this because you think it\u0027s easier to understand if we always call it in prepartePartialConnectivity() and other methods mocking validation URLs. If that\u0027s true, why not call it directly in these methods, instead of having each test call this ?",
+      "revId": "f35f1b0446db6cc393f32c9c7949b215d566557a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
