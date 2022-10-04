@@ -29,6 +29,8 @@ import android.net.SocketNotConnectedException;
 import android.net.SocketRemoteAddressChangedException;
 import android.os.Build;
 
+import androidx.test.filters.SdkSuppress;
+
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.DevSdkIgnoreRunner;
 
@@ -76,7 +78,7 @@ public class QosCallbackExceptionTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S)
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.UPSIDE_DOWN_CAKE, codeName = "UpsideDownCake")
     public void testSocketNotConnectedExceptions() throws Exception {
         final Throwable sockNotConnectedException = new SocketNotConnectedException();
         final QosCallbackException exception = new QosCallbackException(sockNotConnectedException);
@@ -85,7 +87,7 @@ public class QosCallbackExceptionTest {
     }
 
     @Test
-    @IgnoreUpTo(Build.VERSION_CODES.S)
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.UPSIDE_DOWN_CAKE, codeName = "UpsideDownCake")
     public void testSocketRemoteAddressChangedExceptions() throws  Exception {
         final Throwable remoteAddressChangedException = new SocketRemoteAddressChangedException();
         final QosCallbackException exception =
@@ -97,16 +99,16 @@ public class QosCallbackExceptionTest {
 
     private void validateQosCallbackException(
             QosCallbackException e, Throwable cause, Class c) throws Exception {
-        if (c == SocketNotConnectedException.class) {
-            assertTrue(e.getCause() instanceof SocketNotConnectedException);
-        } else if (c == SocketRemoteAddressChangedException.class) {
-            assertTrue(e.getCause() instanceof SocketRemoteAddressChangedException);
-        } else if (c == SocketLocalAddressChangedException.class) {
+        if (c == SocketLocalAddressChangedException.class) {
             assertTrue(e.getCause() instanceof SocketLocalAddressChangedException);
         } else if (c == SocketNotBoundException.class) {
             assertTrue(e.getCause() instanceof SocketNotBoundException);
         } else if (c == NetworkReleasedException.class) {
             assertTrue(e.getCause() instanceof NetworkReleasedException);
+        } else if (c == SocketNotConnectedException.class) {
+            assertTrue(e.getCause() instanceof SocketNotConnectedException);
+        } else if (c == SocketRemoteAddressChangedException.class) {
+            assertTrue(e.getCause() instanceof SocketRemoteAddressChangedException);
         } else {
             fail("unexpected error msg.");
         }
