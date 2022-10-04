@@ -1548,6 +1548,21 @@ public class BpfCoordinatorTest {
         mIpv6UpstreamIfaces.put(mIpServer, new Pair<>(UPSTREAM_IFINDEX, UPSTREAM_IFACE));
         coordinator.removeIpv6UpstreamIfaceStatus(mIpServer);
         assertFalse(mIpv6UpstreamIfaces.isEmpty());
+
+        // The IPv4 client mapping can't be added.
+        final ClientInfo clientInfo = new ClientInfo(DOWNSTREAM_IFINDEX, DOWNSTREAM_MAC,
+                PRIVATE_ADDR, MAC_A);
+        coordinator.tetherOffloadClientAdd(mIpServer, clientInfo);
+        assertTrue(mTetherClients.isEmpty());
+
+        // The IPv4 client mapping can't be removed. This is not a realistic case because adding
+        // mapping is not allowed. That implies no mapping could be removed. Verify this case
+        // just in case.
+        final HashMap<Inet4Address, ClientInfo> clients =  new HashMap<>();
+        clients.put(clientInfo.clientAddress, clientInfo);
+        mTetherClients.put(mIpServer, clients);
+        coordinator.tetherOffloadClientRemove(mIpServer, clientInfo);
+        assertFalse(mTetherClients.isEmpty());
     }
 
     @Test
@@ -2500,6 +2515,54 @@ public class BpfCoordinatorTest {
         assertNull(mTetherClients.get(mIpServer));
         assertNull(mBpfUpstream4Map.getValue(upstream4KeyB));
         assertNull(mBpfDownstream4Map.getValue(downstream4KeyB));
+    }
+
+    @Test
+    public void testAddRemoveTetherClient() throws Exception {
+        final BpfCoordinator coordinator = makeBpfCoordinator();
+
+        // Used to add a given IpServer record to the monitoring list. Once IP neighbor event
+        // received, we can use the downstream interface index to find which IpServer is belonged
+        // to a given IP neighbor event.
+        // See BpfCoordinator#getIpServerByDownstreamIfindex.
+        coordinator.startMonitoring(mIpServer);
+
+        final int myIfindex = DOWNSTREAM_IFINDEX;
+        final int notMyIfindex = myIfindex - 1;
+
+        // Link-local and multicast neighbors are ignored.
+        final InetAddress neighLL = InetAddresses.parseNumericAddress("169.254.0.1");
+        final InetAddress neighMC = InetAddresses.parseNumericAddress("224.0.0.1");
+        recvNewNeigh(myIfindex, neighLL, NUD_REACHABLE, MAC_A);
+        assertTrue(mTetherClients.isEmpty());
+        recvNewNeigh(myIfindex, neighMC, NUD_REACHABLE, MAC_A);
+        assertTrue(mTetherClients.isEmpty());
+
+        // Events on other interfaces are ignored.
+        recvNewNeigh(notMyIfindex, PRIVATE_ADDR, NUD_REACHABLE, MAC_A);
+        assertTrue(mTetherClients.isEmpty());
+
+        // Events on this interface are received and sent to BpfCoordinator.
+        recvNewNeigh(myIfindex, PRIVATE_ADDR, NUD_REACHABLE, MAC_A);
+        asseertClientInfoExist(mIpServer, new ClientInfo(DOWNSTREAM_IFINDEX, DOWNSTREAM_MAC,
+                PRIVATE_ADDR, MAC_A));
+        recvNewNeigh(myIfindex, PRIVATE_ADDR2, NUD_REACHABLE, MAC_B);
+        asseertClientInfoExist(mIpServer, new ClientInfo(DOWNSTREAM_IFINDEX, DOWNSTREAM_MAC,
+                PRIVATE_ADDR2, MAC_B));
+
+        // A neighbor that is no longer valid causes the client to be removed.
+        // NUD_FAILED events do not have a MAC address.
+        recvNewNeigh(myIfindex, PRIVATE_ADDR, NUD_FAILED, null);
+        asseertClientInfoNotExist(mIpServer, new ClientInfo(DOWNSTREAM_IFINDEX, DOWNSTREAM_MAC,
+                PRIVATE_ADDR, MAC_A));
+
+        // A neighbor that is deleted causes the client to be removed.
+        // Exactly, ClientInfo for a given IpServer is removed because the last client
+        // has been removed from the downstream. Can't use the helper #asseertClientInfoNotExist
+        // to check because the container ClientInfo for a given downstream has been removed.
+        // See #asseertClientInfoNotExist.
+        recvDelNeigh(myIfindex, PRIVATE_ADDR2, NUD_STALE, MAC_B);
+        assertTrue(mTetherClients.isEmpty());
     }
 
     @Test
