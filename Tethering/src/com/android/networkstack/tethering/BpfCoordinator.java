@@ -1852,6 +1852,8 @@ public class BpfCoordinator {
             final InterfaceParams interfaceParams = ipServer.getInterfaceParams();
             if (interfaceParams != null && !interfaceParams.hasMacAddress) return;
 
+            updateClientInfoIpv4(ipServer, e);
+
             final Pair<Integer, String> upstreamIndexIfacePair = mIpv6UpstreamIfaces.get(ipServer);
             if (upstreamIndexIfacePair == null) return;
 
@@ -1859,6 +1861,31 @@ public class BpfCoordinator {
             final String upstreamIface = upstreamIndexIfacePair.second;
 
             updateIpv6ForwardingRules(ipServer, upstreamIndex, upstreamIndex, upstreamIface, e);
+        }
+    }
+
+    private void updateClientInfoIpv4(@NonNull final IpServer ipServer, @NonNull NeighborEvent e) {
+        if (!isUsingBpf()) return;
+
+        if (e == null) return;
+        if (!(e.ip instanceof Inet4Address) || e.ip.isMulticastAddress()
+                || e.ip.isLoopbackAddress() || e.ip.isLinkLocalAddress()) {
+            return;
+        }
+
+        final InterfaceParams interfaceParams = ipServer.getInterfaceParams();
+        if (interfaceParams == null) return;
+
+        // When deleting clients, IpServer still need to pass a non-null MAC, even though it's
+        // ignored. Do this here instead of in the ClientInfo constructor to ensure that
+        // IpServer never add clients with a null MAC, only delete them.
+        final MacAddress clientMac = e.isValid() ? e.macAddr : NULL_MAC_ADDRESS;
+        final ClientInfo clientInfo = new ClientInfo(interfaceParams.index,
+                interfaceParams.macAddr, (Inet4Address) e.ip, clientMac);
+        if (e.isValid()) {
+            tetherOffloadClientAdd(ipServer, clientInfo);
+        } else {
+            tetherOffloadClientRemove(ipServer, clientInfo);
         }
     }
 
