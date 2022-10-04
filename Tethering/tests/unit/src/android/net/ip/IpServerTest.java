@@ -68,6 +68,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import android.app.usage.NetworkStatsManager;
+import android.content.Context;
 import android.net.INetd;
 import android.net.InetAddresses;
 import android.net.InterfaceConfigurationParcel;
@@ -92,6 +93,7 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
@@ -200,6 +202,7 @@ public class IpServerTest {
 
     @Captor private ArgumentCaptor<DhcpServingParamsParcel> mDhcpParamsCaptor;
 
+    private final Context mContext = InstrumentationRegistry.getContext();
     private final TestLooper mLooper = new TestLooper();
     private final ArgumentCaptor<LinkProperties> mLinkPropertiesCaptor =
             ArgumentCaptor.forClass(LinkProperties.class);
@@ -216,7 +219,7 @@ public class IpServerTest {
     private void initStateMachine(int interfaceType, boolean usingLegacyDhcp,
             boolean usingBpfOffload) throws Exception {
         when(mDependencies.getDadProxy(any(), any())).thenReturn(mDadProxy);
-        when(mDependencies.getRouterAdvertisementDaemon(any())).thenReturn(mRaDaemon);
+        when(mDependencies.getRouterAdvertisementDaemon(any(), any())).thenReturn(mRaDaemon);
         when(mDependencies.getInterfaceParams(IFACE_NAME)).thenReturn(TEST_IFACE_PARAMS);
         when(mDependencies.getInterfaceParams(UPSTREAM_IFACE)).thenReturn(UPSTREAM_IFACE_PARAMS);
         when(mDependencies.getInterfaceParams(UPSTREAM_IFACE2)).thenReturn(UPSTREAM_IFACE_PARAMS2);
@@ -238,8 +241,9 @@ public class IpServerTest {
         when(mTetherConfig.useLegacyDhcpServer()).thenReturn(usingLegacyDhcp);
         when(mTetherConfig.getP2pLeasesSubnetPrefixLength()).thenReturn(P2P_SUBNET_PREFIX_LENGTH);
         mIpServer = new IpServer(
-                IFACE_NAME, mLooper.getLooper(), interfaceType, mSharedLog, mNetd, mBpfCoordinator,
-                mCallback, mTetherConfig, mAddressCoordinator, mTetheringMetrics, mDependencies);
+                IFACE_NAME, mContext, mLooper.getLooper(), interfaceType, mSharedLog, mNetd,
+                mBpfCoordinator, mCallback, mTetherConfig, mAddressCoordinator, mTetheringMetrics,
+                mDependencies);
         mIpServer.start();
         mNeighborEventConsumer = neighborCaptor.getValue();
 
@@ -369,8 +373,8 @@ public class IpServerTest {
     public void startsOutAvailable() {
         when(mDependencies.getIpNeighborMonitor(any(), any(), any()))
                 .thenReturn(mIpNeighborMonitor);
-        mIpServer = new IpServer(IFACE_NAME, mLooper.getLooper(), TETHERING_BLUETOOTH, mSharedLog,
-                mNetd, mBpfCoordinator, mCallback, mTetherConfig, mAddressCoordinator,
+        mIpServer = new IpServer(IFACE_NAME, mContext, mLooper.getLooper(), TETHERING_BLUETOOTH,
+                mSharedLog, mNetd, mBpfCoordinator, mCallback, mTetherConfig, mAddressCoordinator,
                 mTetheringMetrics, mDependencies);
         mIpServer.start();
         mLooper.dispatchAll();
