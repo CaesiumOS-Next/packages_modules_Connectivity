@@ -613,7 +613,7 @@ public class NsdServiceTest {
         final MdnsServiceBrowserListener listener = listenerCaptor.getValue();
         final String serviceName = "Nsd-Service-Test";
         final String serviceType = "_nsd._tcp";
-        final MdnsServiceInfo mdnsServiceInfo = new MdnsServiceInfo(
+        final MdnsServiceInfo foundInfo = new MdnsServiceInfo(
                 serviceName, /* serviceInstanceName */
                 serviceType.split("\\."), /* serviceType */
                 List.of(), /* subtypes */
@@ -626,8 +626,28 @@ public class NsdServiceTest {
                 1234, /* interfaceIndex */
                 network);
         // Verify onServiceFound callback
-        listener.onServiceFound(mdnsServiceInfo);
+        listener.onServiceFound(foundInfo);
         verify(discListener, timeout(TIMEOUT_MS)).onServiceFound(argThat(info ->
+                info.getServiceName().equals(serviceName)
+                        && info.getServiceType().equals(serviceType)
+                        && info.getNetwork().equals(network)));
+
+
+        final MdnsServiceInfo removedInfo = new MdnsServiceInfo(
+                serviceName, /* serviceInstanceName */
+                serviceType.split("\\."), /* serviceType */
+                null, /* subtypes */
+                null, /* hostName */
+                0, /* port */
+                null, /* ipv4Address */
+                null, /* ipv6Address */
+                null, /* textStrings */
+                null, /* textEntries */
+                1234, /* interfaceIndex */
+                network);
+        // Verify onServiceRemoved callback
+        listener.onServiceRemoved(removedInfo);
+        verify(discListener, timeout(TIMEOUT_MS)).onServiceLost(argThat(info ->
                 info.getServiceName().equals(serviceName)
                         && info.getServiceType().equals(serviceType)
                         && info.getNetwork().equals(network)));
