@@ -30,6 +30,7 @@ import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doReturn;
@@ -74,6 +75,8 @@ import androidx.test.filters.SmallTest;
 
 import com.android.server.NsdService.Dependencies;
 import com.android.server.connectivity.mdns.MdnsDiscoveryManager;
+import com.android.server.connectivity.mdns.MdnsServiceBrowserListener;
+import com.android.server.connectivity.mdns.MdnsServiceInfo;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.HandlerUtils;
@@ -90,6 +93,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 // TODOs:
@@ -581,11 +585,31 @@ public class NsdServiceTest {
         mService = makeService();
         final NsdManager client = connectClient(mService);
         final DiscoveryListener discListener = mock(DiscoveryListener.class);
+        final ArgumentCaptor<MdnsServiceBrowserListener> listenerCaptor =
+                ArgumentCaptor.forClass(MdnsServiceBrowserListener.class);
         client.discoverServices(SERVICE_TYPE, PROTOCOL, discListener);
         waitForIdle();
         verify(mDiscoveryManager, timeout(TIMEOUT_MS))
-                .registerListener(eq(SERVICE_TYPE), any(), any());
+                .registerListener(eq(SERVICE_TYPE), listenerCaptor.capture(), any());
         verify(discListener, timeout(TIMEOUT_MS)).onDiscoveryStarted(SERVICE_TYPE);
+
+        final MdnsServiceBrowserListener listener = listenerCaptor.getValue();
+        final String serviceName = "Nsd-Service-Test";
+        final String serviceType = "_nsd._tcp";
+        final MdnsServiceInfo mdnsServiceInfo = new MdnsServiceInfo(
+                serviceName, /* serviceInstanceName */
+                serviceType.split("\\."), /* serviceType */
+                List.of(), /* subtypes */
+                new String[] {"android", "local"}, /* hostName */
+                12345, /* port */
+                "192.168.1.1", /* ipv4Address */
+                "2001::1", /* ipv6Address */
+                List.of() /* textStrings */);
+        // Verify onServiceFound callback
+        listener.onServiceFound(mdnsServiceInfo);
+        verify(discListener, timeout(TIMEOUT_MS)).onServiceFound(argThat(info ->
+                info.getServiceName().equals(serviceName)
+                        && info.getServiceType().equals(serviceType)));
 
         client.stopServiceDiscovery(discListener);
         waitForIdle();
