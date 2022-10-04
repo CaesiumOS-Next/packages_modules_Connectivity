@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adc7c6d6_814343a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-04T06:51:40Z",
+      "side": 1,
+      "message": "LGTM as is, but look at the suggestion to simplify the code",
+      "revId": "dc723bc28b4d7f8d39f59445ae3e18a1c5ac8b3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e99e5f1_714b72ea",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1102,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-04T06:51:40Z",
+      "side": 1,
+      "message": "What you have will work, but I think maybe you could have written it more simply. `onAvailable` is always followed by `onCapabilitiesChanged`, so you could have simply put `availableCv.open()` in onCapabilitiesChanged in l.1089 before the if{}. (you would have to rename `availableCv` because its name would no longer match what you\u0027re doing)\n\nUp to you",
+      "range": {
+        "startLine": 1102,
+        "startChar": 20,
+        "endLine": 1102,
+        "endChar": 31
+      },
+      "revId": "dc723bc28b4d7f8d39f59445ae3e18a1c5ac8b3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
