@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88c3039a_05c78cb9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-04T04:13:19Z",
+      "side": 1,
+      "message": "LGTM if comments addressed.",
+      "revId": "275af13ed950f4c1fb8f2c266044a27b601cdd31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b99b40ff_d4ac2ff9",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 5879,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-04T04:13:19Z",
+      "side": 1,
+      "message": "In general, calling reset is not great because it can cause the test to ignore unwanted events when it shouldn\u0027t.\n\nInstead of doing this reset, perhaps you could use an inOrder object constructed from mNotificationManager, and just use that for all the assertions?\n\nFailing that, maybe put a \"verifyNoMoreInteractions(mNotificationManager)\" before this reset?",
+      "range": {
+        "startLine": 5879,
+        "startChar": 8,
+        "endLine": 5879,
+        "endChar": 13
+      },
+      "revId": "275af13ed950f4c1fb8f2c266044a27b601cdd31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
