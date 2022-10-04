@@ -48,7 +48,7 @@ public class SkDestroyListener extends NetlinkMonitor {
 
     private final IBpfMap<CookieTagMapKey, CookieTagMapValue> mCookieTagMap;
 
-    SkDestroyListener(final IBpfMap<CookieTagMapKey, CookieTagMapValue> cookieTagMap,
+    public SkDestroyListener(final IBpfMap<CookieTagMapKey, CookieTagMapValue> cookieTagMap,
             final Handler handler, final SharedLog log) {
         super(handler, log, "SkDestroyListener", NETLINK_INET_DIAG,
                 1 << (SKNLGRP_INET_TCP_DESTROY - 1)
