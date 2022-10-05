@@ -16,14 +16,357 @@
 
 package com.android.server.connectivity.mdns;
 
+import android.annotation.NonNull;
+import android.content.Context;
+import android.net.nsd.NsdServiceInfo;
+import android.net.util.SocketUtils;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.ParcelFileDescriptor;
+import android.system.ErrnoException;
+import android.system.Os;
+import android.system.OsConstants;
+import android.util.ArrayMap;
 import android.util.Log;
+
+import com.android.net.module.util.HexDump;
+import com.android.server.connectivity.mdns.MdnsPacketRepeater.PacketRepeaterCallback;
+
+import java.io.FileDescriptor;
+import java.io.IOException;
+import java.net.Inet4Address;
+import java.net.Inet6Address;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.InterfaceAddress;
+import java.net.MulticastSocket;
+import java.net.NetworkInterface;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * MdnsAdvertiser manages advertising services per {@link com.android.server.NsdService} requests.
- *
- * TODO: implement
  */
 public class MdnsAdvertiser {
     private static final String TAG = MdnsAdvertiser.class.getSimpleName();
-    public static final boolean DBG = Log.isLoggable(TAG, Log.DEBUG);
+    static final boolean DBG = Log.isLoggable(TAG, Log.DEBUG);
+
+    private static final int CMD_ADD_SERVICE = 1;
+    private static final int CMD_REMOVE_SERVICE = 2;
+    private static final int CMD_SEND_PROBE = 3;
+
+    // https://datatracker.ietf.org/doc/html/rfc6762#section-8.1
+    private static final long PROBE_DELAY_MS = 250;
+    private static final int PROBE_COUNT = 2;
+    static final InetSocketAddress IPV6_ADDR = new InetSocketAddress(
+            MdnsConstants.getMdnsIPv6Address(), MdnsConstants.MDNS_PORT);
+    static final InetSocketAddress IPV4_ADDR = new InetSocketAddress(
+                    MdnsConstants.getMdnsIPv4Address(), MdnsConstants.MDNS_PORT);
+
+    private final Context mContext;
+    private final Looper mLooper;
+    private final AdvertiserCallback mCb;
+
+    // Max-sized buffers to be used as temporary buffer to read/build packets. May be used by
+    // multiple components, but only for self-contained operations in the looper thread, so not
+    // concurrently.
+    private final byte[] mPacketCreationBuffer = new byte[1500];
+    private final byte[] mPacketReaderBuffer = new byte[1500];
+
+    private final ArrayMap<NetworkInterface, InterfaceAdvertiser> mInterfaceAdvertisers
+            = new ArrayMap<>();
+
+    /**
+     * Callbacks for advertising services.
+     *
+     * Every method is called on the MdnsAdvertiser looper thread.
+     */
+    public interface AdvertiserCallback {
+        /**
+         * Called when a service was successfully registered, after probing.
+         *
+         * @param serviceId ID of the service provided when registering.
+         * @param registeredInfo Registered info, which may be different from the requested info,
+         *                       after probing and possibly choosing alternative service names.
+         */
+        void onRegisterServiceSucceeded(int serviceId, NsdServiceInfo registeredInfo);
+
+        /**
+         * Called when service registration failed.
+         *
+         * @param serviceId ID of the service provided when registering.
+         * @param errorCode One of {@code NsdManager.FAILURE_*}
+         */
+        void onRegisterServiceFailed(int serviceId, int errorCode);
+
+        /**
+         * Called when service unregistration succeeded.
+         *
+         * @param serviceId ID of the service provided when registering.
+         */
+        void onUnregisterServiceSucceeded(int serviceId);
+    }
+
+    private class InterfaceAdvertiser implements MulticastPacketReader.PacketHandler {
+        private final ProbingCallback mProbingCallback = new ProbingCallback();
+        private final AnnouncingCallback mAnnouncingCallback = new AnnouncingCallback();
+        private final MulticastSocket mSocket;
+        private final MdnsRecordRepository mRecordRepository;
+        private final MdnsAnnouncer mAnnouncer;
+        private final MdnsProber mProber;
+        private final MdnsReplySender mReplySender;
+        private final MulticastPacketReader mPacketReader;
+
+        private List<InterfaceAddress> mAddresses;
+        private boolean mJoinedIpv4;
+        private boolean mJoinedIpv6;
+
+        private class ProbingCallback implements PacketRepeaterCallback<MdnsProber.ProbingInfo> {
+            @Override
+            public void onFinished(MdnsProber.ProbingInfo info) {
+                final MdnsAnnouncer.AnnouncementInfo announcementInfo;
+                if (DBG) {
+                    Log.v(TAG, "Probing finished for service " + info.getServiceId());
+                }
+                try {
+                    announcementInfo = mRecordRepository.onProbingSucceeded(info);
+                } catch (IOException e) {
+                    Log.e(TAG, "Error building announcements", e);
+                    return;
+                }
+
+                mCb.onRegisterServiceSucceeded(info.getServiceId(), info.getServiceInfo());
+                mAnnouncer.startSending(info.getServiceId(), announcementInfo,
+                        0L /* initialDelayMs */);
+            }
+        }
+
+        private class AnnouncingCallback
+                implements PacketRepeaterCallback<MdnsAnnouncer.AnnouncementInfo> {
+            @Override
+            public void onSent(int index, @NonNull MdnsAnnouncer.AnnouncementInfo info) {
+                mRecordRepository.onAdvertisementSent(info.getServiceId());
+            }
+
+            @Override
+            public void onFinished(@NonNull MdnsAnnouncer.AnnouncementInfo info) {
+                if (info instanceof MdnsAnnouncer.ExitAnnouncementInfo
+                        && mRecordRepository.getServicesCount() == 0) {
+                    destroy();
+                }
+            }
+        }
+
+        public InterfaceAdvertiser(NetworkInterface iface) throws IOException {
+            mRecordRepository = new MdnsRecordRepository(iface, mLooper);
+            // TODO: this may return addresses from stacked interfaces ? Avoid that
+            mAddresses = iface.getInterfaceAddresses();
+            mSocket = new MulticastSocket(MdnsConstants.MDNS_PORT);
+            mReplySender = new MdnsReplySender(iface.getName(), mLooper, mSocket,
+                    mPacketCreationBuffer);
+            mAnnouncer = new MdnsAnnouncer(iface.getName(), mLooper, mReplySender,
+                    mAnnouncingCallback);
+            mProber = new MdnsProber(iface.getName(), mLooper, mReplySender, mRecordRepository,
+                    mProbingCallback);
+            // TTL as per https://datatracker.ietf.org/doc/html/rfc6762#section-11
+            mSocket.setTimeToLive(255);
+            final ParcelFileDescriptor pfd = ParcelFileDescriptor.fromDatagramSocket(mSocket);
+            try {
+                final FileDescriptor fd = pfd.getFileDescriptor();
+                final int flags = Os.fcntlInt(fd, OsConstants.F_GETFL, 0);
+                Os.fcntlInt(fd, OsConstants.F_SETFL, flags | OsConstants.SOCK_NONBLOCK);
+                // TODO: if the advertiser sees its own packets it may detect conflicts, in case
+                // records have changed between the time a packet is sent and received back.
+                // But disabling IP_MULTICAST_LOOP prevents mdnsresponder from seeing packets
+                // from this advertiser.
+                // Figure out a way to fix that.
+                // Os.setsockoptInt(fd, OsConstants.IPPROTO_IP, OsConstants.IP_MULTICAST_LOOP, 0);
+                // Os.setsockoptInt(fd, OsConstants.IPPROTO_IPV6,
+                //         OsConstants.IPV6_MULTICAST_LOOP, 0);
+                // Ensure that received packets are only from that interface
+                SocketUtils.bindSocketToInterface(fd, iface.getName());
+            } catch (ErrnoException e) {
+                throw new IOException("Error setting socket options", e);
+            }
+
+            mSocket.setNetworkInterface(iface);
+            maybeJoinIpv6(iface, mAddresses);
+            maybeJoinIpv4(iface, mAddresses);
+            mPacketReader = new MulticastPacketReader(iface.getName(), pfd,
+                    new Handler(mLooper), mPacketReaderBuffer, this /* packetHandler */);
+            mPacketReader.start();
+        }
+
+        public void onLinkPropertiesUpdated(NetworkInterface iface) {
+            final List<InterfaceAddress> addrs = iface.getInterfaceAddresses();
+            final boolean changed = !Objects.equals(addrs, mAddresses);
+            if (changed) {
+                mAddresses = addrs;
+                maybeJoinIpv6(iface, addrs);
+                maybeJoinIpv4(iface, addrs);
+                // Do something: notify repository to update records, go back to advertising etc.
+            }
+        }
+
+        private void destroy() {
+            // TODO: stop responder
+            mPacketReader.stop();
+            try {
+                if (mJoinedIpv4) {
+                    mSocket.leaveGroup(MdnsConstants.getMdnsIPv4Address());
+                }
+                if (mJoinedIpv6) {
+                    mSocket.leaveGroup(MdnsConstants.getMdnsIPv6Address());
+                }
+            } catch (IOException e) {
+                Log.e(TAG, "Error leaving multicast groups", e);
+            }
+            mSocket.close();
+        }
+
+        public void addService(int id, NsdServiceInfo service) throws IOException {
+            final MdnsProber.ProbingInfo info = mRecordRepository.addService(id, service);
+            mProber.startProbing(info);
+        }
+
+        public boolean removeServiceAndMaybeDestroy(int id) {
+            mProber.stop(id);
+            mAnnouncer.stop(id);
+            final MdnsAnnouncer.ExitAnnouncementInfo exitInfo = mRecordRepository.removeService(id);
+            if (exitInfo != null) {
+                // This effectively schedules destroy(), as it is called when the exit announcement
+                // finishes if there is no service left.
+                mAnnouncer.startSending(id, exitInfo, 0L /* initialDelayMs */);
+            } else if (mRecordRepository.getServicesCount() == 0) {
+                destroy();
+            }
+            return mRecordRepository.getServicesCount() == 0;
+        }
+
+        private <T extends InetAddress> boolean hasAddress(List<InterfaceAddress> addrs,
+                Class<T> addrClass) {
+            for (InterfaceAddress addr : addrs) {
+                if (addrClass.isAssignableFrom(addr.getAddress().getClass())) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private boolean joinGroup(NetworkInterface iface, InetAddress multicastAddr) {
+            try {
+                mSocket.joinGroup(
+                        new InetSocketAddress(multicastAddr, MdnsConstants.MDNS_PORT), iface);
+                return true;
+            } catch (IOException e) {
+                // The address may have just been removed
+                Log.e(TAG, "Error joining multicast group for " + iface, e);
+                return false;
+            }
+        }
+
+        private void maybeJoinIpv4(NetworkInterface iface, List<InterfaceAddress> addrs) {
+            final boolean hasAddr = hasAddress(addrs, Inet4Address.class);
+            if (!mJoinedIpv4 && hasAddr) {
+                mJoinedIpv4 = joinGroup(iface, MdnsConstants.getMdnsIPv4Address());
+            } else if (!hasAddr) {
+                // Lost IPv4 address
+                mJoinedIpv4 = false;
+            }
+        }
+
+        private void maybeJoinIpv6(NetworkInterface iface, List<InterfaceAddress> addrs) {
+            final boolean hasAddr = hasAddress(addrs, Inet6Address.class);
+            if (!mJoinedIpv6 && hasAddr) {
+                mJoinedIpv6 = joinGroup(iface, MdnsConstants.getMdnsIPv6Address());
+            } else if (!hasAddr) {
+                // Lost IPv6 address
+                mJoinedIpv6 = false;
+            }
+        }
+
+        @Override
+        public void handlePacket(byte[] recvbuf, int length, InetSocketAddress src) {
+            final MdnsPacket packet;
+            try {
+                packet = MdnsPacket.parse(new MdnsPacketReader(recvbuf, length));
+            } catch (IOException e) {
+                Log.e(TAG, "Error parsing mDNS packet", e);
+                if (DBG) Log.v(TAG, "Packet: " + HexDump.toHexString(recvbuf, 0, length));
+                return;
+            }
+
+            if (MdnsAdvertiser.DBG) {
+                Log.v(TAG, "Parsed packet with " + packet.questions.size() + " questions, "
+                        + packet.answers.size() + " answers, "
+                        + packet.authorityRecords.size() + " authority, "
+                        + packet.additionalRecords.size() + " additional from " + src);
+            }
+
+            for (MdnsProber.ProbingInfo restartedServices : mProber.maybeHandleConflict(packet)) {
+                if (MdnsAdvertiser.DBG) {
+                    Log.v(TAG, "Found conflict, restarted probing for service "
+                            + restartedServices.getServiceId());
+                }
+                if (!restartedServices.isInitialProbing()) {
+                    // TODO: make sure that's the actual callback that gets called here
+                    mCb.onUnregisterServiceSucceeded(restartedServices.getServiceId());
+                }
+                mAnnouncer.stop(restartedServices.getServiceId());
+            }
+            final MdnsRecordRepository.ReplyInfo answers =
+                    mRecordRepository.getReply(packet, src);
+
+            if (answers == null) return;
+            mReplySender.queueReply(answers);
+        }
+    }
+
+    public MdnsAdvertiser(Looper looper, Context context, AdvertiserCallback cb) {
+        mLooper = looper;
+        mContext = context;
+        mCb = cb;
+    }
+
+    // NsdService should work with Network objects and file a NetworkCallback to get LinkProperties
+    // updates. It sends services to advertise down to MdnsAdvertiser after resolving the interface
+    // that goes with the Network.
+    public void addService(int id, NsdServiceInfo service, List<NetworkInterface> ifaces) {
+        if (DBG) {
+            Log.i(TAG, "Adding service " + service + " with ID " + id + " to interfaces " + ifaces);
+        }
+        try {
+            for (NetworkInterface iface : ifaces) {
+                InterfaceAdvertiser advertiser = mInterfaceAdvertisers.get(iface);
+                if (advertiser == null) {
+                    advertiser = new InterfaceAdvertiser(iface);
+                    mInterfaceAdvertisers.put(iface, advertiser);
+                }
+                advertiser.addService(id, service);
+                // TODO: do probing
+            }
+        } catch (IOException e) {
+            Log.e(TAG, "Error adding service " + service, e);
+            removeService(id);
+        }
+    }
+
+    public void onLinkPropertiesUpdated(NetworkInterface iface) {
+        // TODO: sent by NsdService when there is a LinkProperties update for a Network on the given
+        // interface. To be used to reevaluate records and possibly go back to advertising (as per
+        // RFC on network changes).
+    }
+
+    public void removeService(int id) {
+        if (DBG) {
+            Log.i(TAG, "Removing service with ID " + id);
+        }
+        for (int i = mInterfaceAdvertisers.size() - 1; i >= 0; i--) {
+            final InterfaceAdvertiser advertiser = mInterfaceAdvertisers.valueAt(i);
+            if (advertiser.removeServiceAndMaybeDestroy(id)) {
+                mInterfaceAdvertisers.removeAt(i);
+            }
+        }
+    }
 }

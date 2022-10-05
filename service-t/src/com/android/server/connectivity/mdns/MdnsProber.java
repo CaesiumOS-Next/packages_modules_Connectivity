@@ -17,13 +17,13 @@
 package com.android.server.connectivity.mdns;
 
 import android.annotation.NonNull;
+import android.net.nsd.NsdServiceInfo;
 import android.os.Looper;
 
 import com.android.internal.annotations.VisibleForTesting;
 
 import java.net.SocketAddress;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
@@ -34,15 +34,18 @@ import java.util.function.Supplier;
  * TODO: implement receiving replies and handling conflicts.
  */
 public class MdnsProber extends MdnsPacketRepeater<MdnsProber.ProbingInfo> {
+    private static final long CONFLICT_RETRY_DELAY_MS = 5_000L;
+    @NonNull
+    private final MdnsRecordRepository mRepository;
     @NonNull
     private final String mLogTag;
 
     public MdnsProber(@NonNull String interfaceTag, @NonNull Looper looper,
-            @NonNull MdnsReplySender replySender,
+            @NonNull MdnsReplySender replySender, @NonNull MdnsRecordRepository repository,
             @NonNull PacketRepeaterCallback<ProbingInfo> cb) {
-        // 3 packets as per https://datatracker.ietf.org/doc/html/rfc6762#section-8.1
         super(looper, replySender, cb);
         mLogTag = MdnsProber.class.getSimpleName() + "/" + interfaceTag;
+        mRepository = repository;
     }
 
     static class ProbingInfo implements Request {
@@ -50,6 +53,14 @@ public class MdnsProber extends MdnsPacketRepeater<MdnsProber.ProbingInfo> {
         private final int mServiceId;
         @NonNull
         private final MdnsPacket mPacket;
+        @NonNull
+        private final NsdServiceInfo mServiceInfo;
+        /**
+         * Indicates that this probing request is for probing before initial service registration,
+         * as opposed to a service going back to probing state after initial registration, for
+         * example if a conflict is found later.
+         */
+        private final boolean mIsInitialProbing;
         @NonNull
         private final Supplier<Iterable<SocketAddress>> mDestinationsSupplier;
 
@@ -61,14 +72,27 @@ public class MdnsProber extends MdnsPacketRepeater<MdnsProber.ProbingInfo> {
          *                             probe handler thread for each probe.
          */
         ProbingInfo(int serviceId, @NonNull List<MdnsRecord> probeRecords,
+                @NonNull NsdServiceInfo serviceInfo,
+                boolean isInitialProbing,
                 @NonNull Supplier<Iterable<SocketAddress>> destinationsSupplier) {
             mServiceId = serviceId;
             mPacket = makePacket(probeRecords);
+            mServiceInfo = serviceInfo;
+            mIsInitialProbing = isInitialProbing;
             mDestinationsSupplier = destinationsSupplier;
         }
 
         public int getServiceId() {
             return mServiceId;
+        }
+
+        @NonNull
+        public NsdServiceInfo getServiceInfo() {
+            return mServiceInfo;
+        }
+
+        public boolean isInitialProbing() {
+            return mIsInitialProbing;
         }
 
         @NonNull
@@ -99,7 +123,7 @@ public class MdnsProber extends MdnsPacketRepeater<MdnsProber.ProbingInfo> {
             final ArrayList<MdnsRecord> questions = new ArrayList<>(records.size());
             for (int i = 0; i < records.size(); i++) {
                 final MdnsRecord record = records.get(i);
-                if (containsName(records, record.getName(), i)) {
+                if (MdnsRecordRepository.findByName(records, record.getName(), i) >= 0) {
                     // Already added this name
                     continue;
                 }
@@ -119,23 +143,6 @@ public class MdnsProber extends MdnsPacketRepeater<MdnsProber.ProbingInfo> {
                     Collections.emptyList() /* answers */,
                     records /* authorityRecords */,
                     Collections.emptyList() /* additionalRecords */);
-        }
-
-        /**
-         * Return whether the specified name is present among the first records of the list.
-         *
-         * This allows scanning through a small list of records, and extracting a unique list of
-         * names without doing allocations.
-         * @param indexLimit The maximum index (exclusive) of records to scan.
-         */
-        private static boolean containsName(@NonNull List<MdnsRecord> records,
-                @NonNull String[] name, int indexLimit) {
-            for (int i = 0; i < indexLimit; i++) {
-                if (Arrays.equals(records.get(i).getName(), name)) {
-                    return true;
-                }
-            }
-            return false;
         }
     }
 
@@ -161,5 +168,29 @@ public class MdnsProber extends MdnsPacketRepeater<MdnsProber.ProbingInfo> {
 
     private void startProbing(@NonNull ProbingInfo info, long delay) {
         startSending(info.getServiceId(), info, delay);
+    }
+
+    /**
+     * If the incoming packet conflicts with any records, update records and restart probing on
+     * all conflicting services.
+     *
+     * As per https://datatracker.ietf.org/doc/html/rfc6762#section-9, this is done regardless of
+     * whether probing is in progress.
+     * @param packet Incoming packet
+     * @return The new probing info of services that were reset to probing
+     */
+    public List<ProbingInfo> maybeHandleConflict(@NonNull MdnsPacket packet) {
+        final List<ProbingInfo> newInfo = mRepository.maybeUpdateForConflicts(packet);
+        for (ProbingInfo info : newInfo) {
+            stop(info.getServiceId());
+
+            /* RFC 6762 8.1: "If fifteen conflicts occur within any ten-second period, then the host
+            MUST wait at least five seconds before each successive additional probe attempt. [...]
+            For very simple devices, a valid way to comply with this requirement is to always wait
+            five seconds after any failed probe attempt before trying again. */
+            // TODO: count 15 conflicts in 10s instead of waiting for 5s every time
+            startProbing(info, CONFLICT_RETRY_DELAY_MS);
+        }
+        return newInfo;
     }
 }
