@@ -78,7 +78,7 @@ class MdnsAnnouncerTest {
 
     @Test
     fun testAnnounce() {
-        val replySender = MdnsReplySender(thread.looper, socket, buffer)
+        val replySender = MdnsReplySender("testiface", thread.looper, socket, buffer)
         @Suppress("UNCHECKED_CAST")
         val cb = mock(MdnsPacketRepeater.PacketRepeaterCallback::class.java)
                 as MdnsPacketRepeater.PacketRepeaterCallback<BaseAnnouncementInfo>

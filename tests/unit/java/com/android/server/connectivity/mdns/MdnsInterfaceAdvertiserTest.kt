@@ -81,7 +81,7 @@ class MdnsInterfaceAdvertiserTest {
     @Before
     fun setUp() {
         doReturn(repository).`when`(deps).makeRecordRepository(any())
-        doReturn(replySender).`when`(deps).makeReplySender(any(), any(), any())
+        doReturn(replySender).`when`(deps).makeReplySender(any(), any(), any(), any())
         doReturn(announcer).`when`(deps).makeMdnsAnnouncer(any(), any(), any(), any())
         doReturn(prober).`when`(deps).makeMdnsProber(any(), any(), any(), any())
 
