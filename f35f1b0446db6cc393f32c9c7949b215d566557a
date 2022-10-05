@@ -142,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40632202_5cc8db8d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2773,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-05T01:56:44Z",
+      "side": 1,
+      "message": "Okay so that makes sense and it works, but I think it\u0027s a bit unobvious locally. You could add a comment saying\n\n  // Callback will be unregistered in tearDown()\n\nThat being said if you ask me I don\u0027t think that such a comment is more useful than a call to unregisterCallback() ; in fact I think the call is more obvious. Plus, you don\u0027t know how often this will be called and if it\u0027s called a lot all of these callbacks count toward the 100 callbacks limit per process, so you might run into problems here eventually. All in all, I would still unregister here.\n\nBut up to you, I\u0027m happy with either your current code, or a comment, or the call to unregister.",
+      "parentUuid": "c9f9f5de_6c73e00e",
+      "range": {
+        "startLine": 2773,
+        "startChar": 4,
+        "endLine": 2773,
+        "endChar": 5
+      },
+      "revId": "f35f1b0446db6cc393f32c9c7949b215d566557a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "079b29d5_8e150f7d",

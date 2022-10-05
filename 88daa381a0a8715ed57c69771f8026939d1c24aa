@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65f2a8ba_75938f3f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2908,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-05T01:56:44Z",
+      "side": 1,
+      "message": "For the sake of symmetry I think it may be useful to create a new method like prepareValidatedNetwork and friends to do this for you. Then that method could host ensureCellIsValidatedBeforeMockingValidationUrls and you\u0027d have all tests working the same way, which is easier for people copy-pasting it.",
+      "range": {
+        "startLine": 2908,
+        "startChar": 0,
+        "endLine": 2908,
+        "endChar": 75
+      },
+      "revId": "88daa381a0a8715ed57c69771f8026939d1c24aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7194359c_2346353e",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3005,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-05T01:56:44Z",
+      "side": 1,
+      "message": "Why not in prepareValidatedNetwork and prepareUnvalidatedNetwork ?",
+      "range": {
+        "startLine": 3005,
+        "startChar": 8,
+        "endLine": 3005,
+        "endChar": 56
+      },
+      "revId": "88daa381a0a8715ed57c69771f8026939d1c24aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
