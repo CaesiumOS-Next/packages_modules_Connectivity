@@ -30,7 +30,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 /**
- * This class keeps tracking the set of registered {@link MdnsServiceBrowserListener} instances, and
+ * This class keeps tracking the set of registered {@link MdnsServiceListener} instances, and
  * notify them when a mDNS service instance is found, updated, or removed?
  */
 public class MdnsDiscoveryManager implements MdnsSocketClient.Callback {
@@ -53,14 +53,14 @@ public class MdnsDiscoveryManager implements MdnsSocketClient.Callback {
      * {@code listener} for receiving mDNS service discovery responses.
      *
      * @param serviceType   The type of the service to discover.
-     * @param listener      The {@link MdnsServiceBrowserListener} listener.
+     * @param listener      The {@link MdnsServiceListener} listener.
      * @param searchOptions The {@link MdnsSearchOptions} to be used for discovering {@code
      *                      serviceType}.
      */
     @RequiresPermission(permission.CHANGE_WIFI_MULTICAST_STATE)
     public synchronized void registerListener(
             @NonNull String serviceType,
-            @NonNull MdnsServiceBrowserListener listener,
+            @NonNull MdnsServiceListener listener,
             @NonNull MdnsSearchOptions searchOptions) {
         LOGGER.log(
                 "Registering listener for subtypes: %s",
@@ -88,11 +88,11 @@ public class MdnsDiscoveryManager implements MdnsSocketClient.Callback {
      * registered for the given service type, stops discovery for the service type.
      *
      * @param serviceType The type of the service to discover.
-     * @param listener    The {@link MdnsServiceBrowserListener} listener.
+     * @param listener    The {@link MdnsServiceListener} listener.
      */
     @RequiresPermission(permission.CHANGE_WIFI_MULTICAST_STATE)
     public synchronized void unregisterListener(
-            @NonNull String serviceType, @NonNull MdnsServiceBrowserListener listener) {
+            @NonNull String serviceType, @NonNull MdnsServiceListener listener) {
         LOGGER.log("Unregistering listener for service type: %s", serviceType);
         MdnsServiceTypeClient serviceTypeClient = serviceTypeClients.get(serviceType);
         if (serviceTypeClient == null) {

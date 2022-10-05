@@ -18,14 +18,12 @@ package com.android.server.connectivity.mdns;
 
 import android.annotation.NonNull;
 
-import java.util.List;
-
 /**
  * Listener interface for mDNS service instance discovery events.
  *
  * @hide
  */
-public interface MdnsServiceBrowserListener {
+public interface MdnsServiceBrowserListener extends MdnsServiceListener {
 
     /**
      * Called when an mDNS service instance is found.
@@ -59,20 +57,4 @@ public interface MdnsServiceBrowserListener {
 
     /** Called when it failed to start an mDNS service discovery process. */
     void onSearchFailedToStart();
-
-    /**
-     * Called when a mDNS service discovery query has been sent.
-     *
-     * @param subtypes      The list of subtypes in the discovery query.
-     * @param transactionId The transaction ID of the query.
-     */
-    void onDiscoveryQuerySent(@NonNull List<String> subtypes, int transactionId);
-
-    /**
-     * Called when an error has happened when parsing a received mDNS response packet.
-     *
-     * @param receivedPacketNumber The packet sequence number of the received packet.
-     * @param errorCode            The error code, defined in {@link MdnsResponseErrorCode}.
-     */
-    void onFailedToParseMdnsResponse(int receivedPacketNumber, int errorCode);
 }

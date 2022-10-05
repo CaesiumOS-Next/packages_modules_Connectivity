@@ -61,6 +61,7 @@ import com.android.server.connectivity.mdns.MdnsDiscoveryManager;
 import com.android.server.connectivity.mdns.MdnsSearchOptions;
 import com.android.server.connectivity.mdns.MdnsServiceBrowserListener;
 import com.android.server.connectivity.mdns.MdnsServiceInfo;
+import com.android.server.connectivity.mdns.MdnsServiceListener;
 import com.android.server.connectivity.mdns.MdnsSocketClient;
 
 import java.io.FileDescriptor;
@@ -158,7 +159,7 @@ public class NsdService extends INsdManager.Stub {
         }
 
         @Override
-        public void onDiscoveryQuerySent(List<String> subtypes, int transactionId) {
+        public void onQuerySent(List<String> subtypes, int transactionId) {
         }
 
         @Override
@@ -369,7 +370,7 @@ public class NsdService extends INsdManager.Stub {
             }
 
             private void storeListenerMap(int clientId, int transactionId,
-                    MdnsServiceBrowserListener listener, ClientInfo clientInfo) {
+                    MdnsServiceListener listener, ClientInfo clientInfo) {
                 clientInfo.mClientIds.put(clientId, transactionId);
                 clientInfo.mListeners.put(clientId, listener);
                 mIdToClientInfoMap.put(transactionId, clientInfo);
@@ -408,7 +409,7 @@ public class NsdService extends INsdManager.Stub {
 
                         id = getUniqueId();
                         if (mGmsMdnsService) {
-                            final MdnsServiceBrowserListener listener =
+                            final MdnsServiceListener listener =
                                     new DiscoveryListener(clientId, id, args.serviceInfo);
                             final MdnsSearchOptions options =
                                     MdnsSearchOptions.newBuilder().setIsPassiveMode(true).build();
@@ -1124,8 +1125,8 @@ public class NsdService extends INsdManager.Stub {
         /* A map from client id to the type of the request we had received */
         private final SparseIntArray mClientRequests = new SparseIntArray();
 
-        /* A map from client id to the MdnsServiceBrowserListener */
-        private final SparseArray<MdnsServiceBrowserListener> mListeners = new SparseArray<>();
+        /* A map from client id to the MdnsServiceListener */
+        private final SparseArray<MdnsServiceListener> mListeners = new SparseArray<>();
 
         // The target SDK of this client < Build.VERSION_CODES.S
         private boolean mIsLegacy = false;
