@@ -1,0 +1,762 @@
+/*
+ * Copyright (C) 2022 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.android.server.connectivity.mdns;
+
+import android.annotation.NonNull;
+import android.annotation.Nullable;
+import android.net.nsd.NsdServiceInfo;
+import android.os.Looper;
+import android.os.SystemClock;
+import android.util.ArraySet;
+import android.util.Log;
+import android.util.SparseArray;
+
+import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.CollectionUtils;
+import com.android.net.module.util.HexDump;
+
+import java.io.IOException;
+import java.net.Inet4Address;
+import java.net.Inet6Address;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.NetworkInterface;
+import java.net.SocketAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
+
+/**
+ *
+ * Not thread-safe
+ */
+public class MdnsRecordRepository {
+    private static final String TAG = MdnsRecordRepository.class.getSimpleName();
+    // RFC6762 p.15
+    private static final long MIN_MULTICAST_REPLY_INTERVAL_MS = 1_000L;
+
+    // TTLs as per RFC6762 10.
+    // TTL for records with a host name as the resource record's name (e.g., A, AAAA, HINFO) or a
+    // host name contained within the resource record's rdata (e.g., SRV, reverse mapping PTR
+    // record)
+    private static final long NAME_RECORDS_TTL_MILLIS = TimeUnit.SECONDS.toMillis(120);
+    // TTL for other records
+    private static final long NON_NAME_RECORDS_TTL_MILLIS = TimeUnit.MINUTES.toMillis(75);
+
+    private static final String[] DNS_SD_SERVICE_NAME =
+            new String[] { "_services", "_dns-sd", "_udp", "local" };
+
+    private static final int SERVICE_ID_GENERAL_RECORDS = 0;
+
+    @NonNull
+    private final Random mDelayGenerator = new Random();
+
+    @NonNull
+    private final NetworkInterface mIface;
+
+    // Service unique ID -> records for service
+    // ID 0 reserved for non-service-specific records (like address records)
+    @NonNull
+    private final SparseArray<ServiceRegistration> mServices = new SparseArray<>();
+    @NonNull
+    private final Looper mLooper;
+    @NonNull
+    private String[] mDeviceHostname;
+    @Nullable
+    private InetSocketAddress mInet6MulticastAddress;
+    @Nullable
+    private InetSocketAddress mInet4MulticastAddress;
+    @NonNull
+    private ArrayList<SocketAddress> mProbeAnnounceDestinations;
+    @NonNull
+    private final Supplier<Iterable<SocketAddress>> mProbeAnnounceDestSupplier;
+
+    public MdnsRecordRepository(@NonNull NetworkInterface iface, @NonNull Looper looper) {
+        this(iface, looper, new Dependencies());
+    }
+
+    @VisibleForTesting
+    public MdnsRecordRepository(@NonNull NetworkInterface iface, @NonNull Looper looper,
+            @NonNull Dependencies deps) {
+        mIface = iface;
+        mDeviceHostname = getHostname(iface, deps);
+        mLooper = looper;
+        mProbeAnnounceDestSupplier = () -> {
+            if (Thread.currentThread() != mLooper.getThread()) {
+                throw new IllegalStateException(
+                        "Destination supplier must be called on looper thread");
+            }
+            return mProbeAnnounceDestinations;
+        };
+
+        final List<RecordInfo<?>> generalRecords = new ArrayList<>();
+        // TODO: handle interface address changes, and set hostname based on one address
+        boolean hasIpv4Addr = false;
+        boolean hasIpv6Addr = false;
+        final Enumeration<InetAddress> ifaceAddrs = deps.getInterfaceInetAddresses(iface);
+        while (ifaceAddrs.hasMoreElements()) {
+            final InetAddress addr = ifaceAddrs.nextElement();
+            if (addr instanceof Inet4Address) {
+                hasIpv4Addr = true;
+            } else if (addr instanceof Inet6Address) {
+                hasIpv6Addr = true;
+            }
+            final String[] revDnsAddr = getReverseDnsAddress(addr);
+            generalRecords.add(new RecordInfo<>(
+                    null /* serviceInfo */,
+                    new MdnsPointerRecord(
+                        revDnsAddr,
+                        0L /* receiptTimeMillis */,
+                        true /* cacheFlush */,
+                        NAME_RECORDS_TTL_MILLIS,
+                        mDeviceHostname),
+                    false /* sharedName */, false /* probing */));
+
+            generalRecords.add(new RecordInfo<>(
+                    null /* serviceInfo */,
+                    new MdnsInetAddressRecord(
+                        mDeviceHostname,
+                        0L /* receiptTimeMillis */,
+                        true /* cacheFlush */,
+                        NAME_RECORDS_TTL_MILLIS,
+                        addr),
+                    false /* sharedName */, false /* probing */));
+        }
+        mServices.put(SERVICE_ID_GENERAL_RECORDS, new ServiceRegistration(generalRecords));
+        mProbeAnnounceDestinations = new ArrayList<>(2);
+        if (hasIpv6Addr) {
+            try {
+                mInet6MulticastAddress = new InetSocketAddress(
+                        Inet6Address.getByAddress(null,
+                                MdnsConstants.getMdnsIPv6Address().getAddress(),
+                                iface),
+                        MdnsConstants.MDNS_PORT);
+                mProbeAnnounceDestinations.add(mInet6MulticastAddress);
+            } catch (UnknownHostException e) {
+                Log.e(TAG, "No inet6 multicast address on " + iface, e);
+            }
+        }
+        if (hasIpv4Addr) {
+            mInet4MulticastAddress = new InetSocketAddress(
+                    MdnsConstants.getMdnsIPv4Address(),
+                    MdnsConstants.MDNS_PORT);
+            mProbeAnnounceDestinations.add(mInet4MulticastAddress);
+        }
+    }
+
+    @VisibleForTesting
+    public static class Dependencies {
+        @NonNull
+        public byte[] getInterfaceHardwareAddress(@NonNull NetworkInterface iface)
+                throws SocketException {
+            return iface.getHardwareAddress();
+        }
+
+        @NonNull
+        public Enumeration<InetAddress> getInterfaceInetAddresses(@NonNull NetworkInterface iface) {
+            return iface.getInetAddresses();
+        }
+    }
+
+    private static class RecordInfo<T extends MdnsRecord> {
+        final T record;
+        final NsdServiceInfo serviceInfo;
+
+        /**
+         * Whether the name of this record is expected to be fully owned by the service or may be
+         * advertised by other hosts as well (shared).
+         */
+        final boolean isSharedName;
+
+        /**
+         * Whether probing is still in progress for the record.
+         */
+        boolean isProbing;
+
+        /**
+         * Last time (as per SystemClock.elapsedRealtime) when advertised via multicast, 0 if never
+         */
+        long lastAdvertisedTimeMs;
+
+        /**
+         * Last time (as per SystemClock.elapsedRealtime) when sent via unicast or multicast,
+         * 0 if never
+         */
+        long lastSentTimeMs;
+
+         RecordInfo(NsdServiceInfo serviceInfo, T record, boolean sharedName,
+                 boolean probing) {
+            this.serviceInfo = serviceInfo;
+            this.record = record;
+            this.isSharedName = sharedName;
+            this.isProbing = probing;
+        }
+    }
+
+    private static class ServiceRegistration {
+        final List<RecordInfo<?>> allRecords;
+        @Nullable
+        final RecordInfo<MdnsPointerRecord> ptrRecord;
+        @Nullable
+        final RecordInfo<MdnsServiceRecord> srvRecord;
+        @Nullable
+        final RecordInfo<MdnsTextRecord> txtRecord;
+
+        /**
+         * Create a ServiceRegistration for dns-sd service registration (RFC6763).
+         */
+        ServiceRegistration(String[] deviceHostname, NsdServiceInfo serviceInfo) {
+            final String[] serviceName = splitServiceName(serviceInfo);
+            final String[] serviceType = splitServiceName(serviceInfo.getServiceType());
+
+            // Service PTR record
+            ptrRecord = new RecordInfo<>(
+                    serviceInfo,
+                    new MdnsPointerRecord(
+                            serviceType,
+                            0L /* receiptTimeMillis */,
+                            false /* cacheFlush */,
+                            NON_NAME_RECORDS_TTL_MILLIS,
+                            serviceName),
+                    true /* sharedName */, true /* probing */);
+
+            srvRecord = new RecordInfo<>(
+                    serviceInfo,
+                    new MdnsServiceRecord(serviceName,
+                            0L /* receiptTimeMillis */,
+                            true /* cacheFlush */,
+                            NAME_RECORDS_TTL_MILLIS, 0 /* servicePriority */, 0 /* serviceWeight */,
+                            serviceInfo.getPort(),
+                            deviceHostname),
+                    false /* sharedName */, true /* probing */);
+
+            txtRecord = new RecordInfo<>(
+                    serviceInfo,
+                    new MdnsTextRecord(serviceName,
+                            0L /* receiptTimeMillis */,
+                            true /* cacheFlush */, // Service name is verified unique after probing
+                            NON_NAME_RECORDS_TTL_MILLIS,
+                            attributesToList(serviceInfo.getAttributes())),
+                    false /* sharedName */, true /* probing */);
+
+            final ArrayList<RecordInfo<?>> allRecords = new ArrayList<>(4);
+            allRecords.add(ptrRecord);
+            allRecords.add(srvRecord);
+            allRecords.add(txtRecord);
+            // Service type enumeration record (RFC6763 9.)
+            allRecords.add(new RecordInfo<>(
+                    serviceInfo,
+                    new MdnsPointerRecord(
+                            DNS_SD_SERVICE_NAME,
+                            0L /* receiptTimeMillis */,
+                            false /* cacheFlush */,
+                            NON_NAME_RECORDS_TTL_MILLIS,
+                            serviceType),
+                    true /* sharedName */, true /* probing */));
+
+            this.allRecords = Collections.unmodifiableList(allRecords);
+        }
+
+        /**
+         * Create a ServiceRegistration for an arbitrary set of records.
+         */
+        ServiceRegistration(List<RecordInfo<?>> records) {
+            allRecords = Collections.unmodifiableList(records);
+            ptrRecord = null;
+            srvRecord = null;
+            txtRecord = null;
+        }
+    }
+
+    public MdnsProber.ProbingInfo addService(int serviceId, NsdServiceInfo serviceInfo)
+            throws IOException {
+
+        // TODO: immediately report a conflict if the service conflicts with another known service
+        final ServiceRegistration registration =
+                new ServiceRegistration(mDeviceHostname, serviceInfo);
+        mServices.put(serviceId, registration);
+
+        final List<MdnsRecord> probingRecords = new ArrayList<>();
+        final MdnsServiceRecord srvRecord = registration.srvRecord.record;
+        // Probe with cacheFlush cleared; it is set when announcing, as it was verified unique:
+        // RFC6762 10.2
+        probingRecords.add(new MdnsServiceRecord(srvRecord.getName(),
+                0L /* receiptTimeMillis */,
+                false /* cacheFlush */,
+                srvRecord.getTtl(),
+                srvRecord.getServicePriority(), srvRecord.getServiceWeight(),
+                srvRecord.getServicePort(),
+                srvRecord.getServiceHost()));
+
+        return new MdnsProber.ProbingInfo(serviceId, probingRecords, mProbeAnnounceDestSupplier);
+    }
+
+    private static List<MdnsServiceInfo.TextEntry> attributesToList(Map<String, byte[]> attrs) {
+        final List<MdnsServiceInfo.TextEntry> out = new ArrayList<>(attrs.size());
+        for (Map.Entry<String, byte[]> attr : attrs.entrySet()) {
+            out.add(new MdnsServiceInfo.TextEntry(attr.getKey(), attr.getValue()));
+        }
+        return out;
+    }
+
+    public static class ReplyInfo {
+        public final List<MdnsRecord> answers;
+        public final List<MdnsRecord> additionalAnswers;
+        public final long sendDelayMs;
+        public final InetSocketAddress destination;
+
+        public ReplyInfo(
+                List<MdnsRecord> answers,
+                List<MdnsRecord> additionalAnswers,
+                long sendDelayMs,
+                InetSocketAddress destination) {
+            this.answers = answers;
+            this.additionalAnswers = additionalAnswers;
+            this.sendDelayMs = sendDelayMs;
+            this.destination = destination;
+        }
+
+        @Override
+        public String toString() {
+            return "{ReplyInfo to " + destination + ", answers: " + answers.size()
+                    + ", additionalAnswers: " + additionalAnswers.size()
+                    + ", sendDelayMs " + sendDelayMs + "}";
+        }
+    }
+
+    /**
+     * Remove a service from the repository.
+     * @param id ID of the service, used at registration time.
+     * @return The "reply" to send to indicate the service was removed, or null if not necessary.
+     */
+    @Nullable
+    public MdnsAnnouncer.ExitAnnouncementInfo removeService(int id) {
+        final ServiceRegistration registration = mServices.get(id);
+        if (registration == null) return null;
+
+        mServices.delete(id);
+        // Send exit (TTL 0) for the PTR record, if the record was sent (in particular don't send
+        // if still probing)
+        if (registration.ptrRecord == null) return null;
+        if (registration.ptrRecord.lastSentTimeMs == 0L) return null;
+
+        final MdnsPointerRecord expiredRecord = new MdnsPointerRecord(
+                registration.ptrRecord.record.getName(),
+                0L /* receiptTimeMillis */,
+                true /* cacheFlush */,
+                0L /* ttlMillis */,
+                registration.ptrRecord.record.getPointer());
+
+        // Exit should be skipped if the record is still advertised by another service, but that
+        // would be a conflict (2 service registrations with the same service name), so it would
+        // not have been allowed by the repository.
+        return new MdnsAnnouncer.ExitAnnouncementInfo(id,
+                Collections.singletonList(expiredRecord), mProbeAnnounceDestSupplier);
+    }
+
+    /**
+     * @return The number of services currently held in the repository.
+     */
+    public int getServicesCount() {
+        // mServices has one element for SERVICE_ID_GENERAL_RECORDS
+        return mServices.size() - 1;
+    }
+
+    @Nullable
+    public ReplyInfo getReply(MdnsPacket packet, InetSocketAddress src) {
+        final long now = SystemClock.elapsedRealtime();
+        final boolean replyUnicast = (packet.flags & MdnsConstants.QCLASS_UNICAST) != 0;
+        final ArrayList<MdnsRecord> additionalAnswerRecords = new ArrayList<>();
+        final ArrayList<RecordInfo<?>> answerInfo = new ArrayList<>();
+        for (MdnsRecord question : packet.questions) {
+            for (int i = 0; i < mServices.size(); i++) {
+                final ServiceRegistration registration = mServices.valueAt(i);
+                addReplyFromService(question, registration, replyUnicast, now, answerInfo,
+                        additionalAnswerRecords);
+            }
+        }
+
+        if (answerInfo.size() == 0 && additionalAnswerRecords.size() == 0) {
+            return null;
+        }
+
+        final long delayMs;
+        if ((packet.flags & MdnsConstants.FLAG_TRUNCATED) != 0) {
+            // RFC 6762 6.: 400-500ms delay if TC bit is set
+            delayMs = 400L + mDelayGenerator.nextInt(100);
+        } else if (packet.questions.size() > 1
+                || CollectionUtils.any(answerInfo, a -> a.isSharedName)) {
+            // 20-120ms if there may be responses from other hosts (not a fully owned
+            // name) (RFC 6762 6.), or if there are multiple questions (6.3).
+            // TODO: this should be 0 if this is a probe query ("can be distinguished from a
+            // normal query by the fact that a probe query contains a proposed record in the
+            // Authority Section that answers the question" in 6.), and the reply is for a fully
+            // owned record.
+            delayMs = 20L + mDelayGenerator.nextInt(100);
+        } else {
+            delayMs = 0L;
+        }
+
+        final InetSocketAddress dest;
+        if (replyUnicast) {
+            dest = src;
+        } else if (src.getAddress() instanceof Inet4Address) {
+            dest = MdnsAdvertiser.IPV4_ADDR;
+        } else if (mInet6MulticastAddress == null) {
+            Log.e(TAG, "Cannot reply via IPv6 multicast: link-local address unknown on " + mIface);
+            return null;
+        } else {
+            // TODO: maybe could use an address without the scope, since the MulticastSocket is
+            // bound to the interface anyway ?
+            dest = mInet6MulticastAddress;
+        }
+
+        final ArrayList<MdnsRecord> answerRecords = new ArrayList<>(answerInfo.size());
+        for (RecordInfo<?> info : answerInfo) {
+            // TODO: consider actual packet send delay after response aggregation
+            info.lastSentTimeMs = now + delayMs;
+            if (!replyUnicast) {
+                info.lastAdvertisedTimeMs = info.lastSentTimeMs;
+            }
+            answerRecords.add(info.record);
+        }
+
+        return new ReplyInfo(answerRecords, additionalAnswerRecords, delayMs, dest);
+    }
+
+    /**
+     * Add answers and additional answers for a question, from a ServiceRegistration.
+     */
+    private void addReplyFromService(MdnsRecord question, ServiceRegistration registration,
+            boolean replyUnicast, long now, List<RecordInfo<?>> answerInfo,
+            List<MdnsRecord> additionalAnswerRecords) {
+        boolean hasDnsSdPtrRecordAnswer = false;
+        boolean hasDnsSdSrvRecordAnswer = false;
+        boolean hasFullyOwnedNameMatch = false;
+        boolean hasKnownAnswer = false;
+
+        final int answersStartIndex = answerInfo.size();
+        for (RecordInfo<?> info : registration.allRecords) {
+            if (info.isProbing) continue;
+
+             /* RFC6762 6.: the record name must match the question name, the record rrtype
+             must match the question qtype unless the qtype is "ANY" (255) or the rrtype is
+             "CNAME" (5), and the record rrclass must match the question qclass unless the
+             qclass is "ANY" (255) */
+            if (!Arrays.equals(info.record.getName(), question.getName())) continue;
+            hasFullyOwnedNameMatch |= !info.isSharedName;
+
+            // The repository does not store CNAME records
+            if (question.getType() != MdnsRecord.TYPE_ANY
+                    && question.getType() != info.record.getType()) {
+                continue;
+            }
+            if (question.getRecordClass() != MdnsRecord.CLASS_ANY
+                    && question.getRecordClass() != info.record.getRecordClass()) {
+                continue;
+            }
+
+            hasKnownAnswer = true;
+            hasDnsSdPtrRecordAnswer |= (info == registration.ptrRecord);
+            hasDnsSdSrvRecordAnswer |= (info == registration.srvRecord);
+
+            // TODO: responses to probe queries should bypass this check and only ensure the
+            // reply is sent 250ms after the last sent time (RFC 6762 p.15); this was not
+            // implemented by the legacy MDNS implementation either though.
+            // TODO: recheck that assertion
+            if (!replyUnicast && info.lastAdvertisedTimeMs > 0L
+                    && now - info.lastAdvertisedTimeMs < MIN_MULTICAST_REPLY_INTERVAL_MS) {
+                continue;
+            }
+
+            // TODO: Don't reply if in known answers of the querier (7.1) if TTL is > half
+
+            answerInfo.add(info);
+        }
+
+        // RFC6762 6.1:
+        // "Any time a responder receives a query for a name for which it has verified exclusive
+        // ownership, for a type for which that name has no records, the responder MUST [...]
+        // respond asserting the nonexistence of that record"
+        if (hasFullyOwnedNameMatch && !hasKnownAnswer) {
+            additionalAnswerRecords.add(new MdnsNsecRecord(
+                    question.getName(),
+                    0L /* receiptTimeMillis */,
+                    true /* cacheFlush */,
+                    // TODO: RFC6762 6.1: "In general, the TTL given for an NSEC record SHOULD
+                    // be the same as the TTL that the record would have had, had it existed."
+                    NAME_RECORDS_TTL_MILLIS,
+                    question.getName(),
+                    new int[] { question.getType() }));
+        }
+
+        // No more records to add if no answer
+        if (answerInfo.size() == 0) return;
+
+        final List<RecordInfo<?>> additionalAnswerInfo = new ArrayList<>();
+        // RFC6763 12.1: if including PTR record, include the SRV and TXT records it names
+        if (hasDnsSdPtrRecordAnswer) {
+            if (registration.txtRecord != null) {
+                additionalAnswerInfo.add(registration.txtRecord);
+            }
+            if (registration.srvRecord != null) {
+                additionalAnswerInfo.add(registration.srvRecord);
+            }
+        }
+
+        // RFC6763 12.1&.2: if including PTR or SRV record, include the address records it names
+        if (hasDnsSdPtrRecordAnswer || hasDnsSdSrvRecordAnswer) {
+            for (RecordInfo<?> record :
+                    mServices.get(SERVICE_ID_GENERAL_RECORDS).allRecords) {
+                if (record.record instanceof MdnsInetAddressRecord) {
+                    additionalAnswerInfo.add(record);
+                }
+            }
+        }
+
+        for (RecordInfo<?> info : additionalAnswerInfo) {
+            additionalAnswerRecords.add(info.record);
+        }
+
+        // RFC6762 6.1: negative responses
+        addNsecRecordsForUniqueNames(answerInfo, answersStartIndex,
+                additionalAnswerInfo, additionalAnswerRecords);
+    }
+
+    /**
+     * Add NSEC records indicating that the response records are unique.
+     *
+     * Following RFC6762 6.1:
+     * "On receipt of a question for a particular name, rrtype, and rrclass, for which a responder
+     * does have one or more unique answers, the responder MAY also include an NSEC record in the
+     * Additional Record Section indicating the nonexistence of other rrtypes for that name and
+     * rrclass."
+     * @param answers List of answered records based on which to add NSEC records
+     * @param additionalAnswerRecords List to add the records to. Maybe the same as {@code answers}.
+     */
+    private static void addNsecRecordsForUniqueNames(
+            List<RecordInfo<?>> answers, int answersStartIndex,
+            List<RecordInfo<?>> additionalAnswerInfo, List<MdnsRecord> additionalAnswerRecords) {
+        // Group unique records by name. Use a TreeMap with comparator as arrays don't implement
+        // equals / hashCode.
+        final Map<String[], List<MdnsRecord>> nsecByName = new TreeMap<>(Arrays::compare);
+        // But keep the list of names in added order, otherwise records would be sorted in
+        // alphabetical order instead of the order of the original records, which would look like
+        // inconsistent behavior depending on service name.
+        final List<String[]> namesInAddedOrder = new ArrayList<>();
+        addUniqueRecords(answers, answersStartIndex, nsecByName, namesInAddedOrder);
+        addUniqueRecords(additionalAnswerInfo, 0, nsecByName, namesInAddedOrder);
+
+        for (String[] nsecName : namesInAddedOrder) {
+            final List<MdnsRecord> entryRecords = nsecByName.get(nsecName);
+            long minTtl = Long.MAX_VALUE;
+            final Set<Integer> types = new ArraySet<>(entryRecords.size());
+            for (MdnsRecord record : entryRecords) {
+                if (minTtl > record.getTtl()) minTtl = record.getTtl();
+                types.add(record.getType());
+            }
+
+            additionalAnswerRecords.add(new MdnsNsecRecord(
+                    nsecName,
+                    0L /* receiptTimeMillis */,
+                    true /* cacheFlush */,
+                    minTtl,
+                    nsecName,
+                    CollectionUtils.toIntArray(types)));
+        }
+    }
+
+    private static void addUniqueRecords(
+            List<RecordInfo<?>> records, int startIndex, Map<String[], List<MdnsRecord>> dest,
+            List<String[]> namesInAddedOrder) {
+        for (int i = startIndex; i < records.size(); i++) {
+            final RecordInfo<?> answer = records.get(i);
+            if (answer.isSharedName) continue;
+            final List<MdnsRecord> recordsForName = dest.computeIfAbsent(answer.record.name,
+                    key -> {
+                namesInAddedOrder.add(key);
+                return new ArrayList<>();
+            });
+            recordsForName.add(answer.record);
+        }
+    }
+
+    public MdnsAnnouncer.AnnouncementInfo onProbingSucceeded(
+            MdnsProber.ProbingInfo probeSuccessInfo)
+            throws IOException {
+
+        final ServiceRegistration registration = mServices.get(probeSuccessInfo.getServiceId());
+        if (registration == null) throw new IOException(
+                "Service is not registered: " + probeSuccessInfo.getServiceId());
+        for (RecordInfo<?> record : registration.allRecords) {
+            record.isProbing = false;
+        }
+
+        final ArrayList<MdnsRecord> answers = new ArrayList<>();
+        final ArrayList<MdnsRecord> additionalAnswers = new ArrayList<>();
+
+        // Interface address pointer records
+        final int[] ptrTypes = new int[] { MdnsRecord.TYPE_PTR };
+        for (RecordInfo<?> record : mServices.get(SERVICE_ID_GENERAL_RECORDS).allRecords) {
+            answers.add(record.record);
+            additionalAnswers.add(new MdnsNsecRecord(
+                    record.record.getName(),
+                    0L,
+                    true /* cacheFlush */,
+                    NAME_RECORDS_TTL_MILLIS,
+                    record.record.getName() /* nextDomain */,
+                    ptrTypes));
+        }
+
+        // All service records
+        for (RecordInfo<?> info : registration.allRecords) {
+            answers.add(info.record);
+        }
+
+        // A / AAAA NSEC record for the hostname. If A / AAAA records were added this record shows
+        // there is no other address. If they were not, it indicates that the device does not have
+        // IPv4 or IPv6 addresses.
+        // See rfc6762 6.2
+        additionalAnswers.add(new MdnsNsecRecord(
+                mDeviceHostname,
+                0L,
+                true /* cacheFlush */,
+                NAME_RECORDS_TTL_MILLIS,
+                mDeviceHostname /* nextDomain */,
+                new int[] { MdnsRecord.TYPE_A, MdnsRecord.TYPE_AAAA }));
+
+        return new MdnsAnnouncer.AnnouncementInfo(probeSuccessInfo.getServiceId(),
+                answers, additionalAnswers, mProbeAnnounceDestSupplier);
+    }
+
+    public List<MdnsProber.ProbingInfo> maybeUpdateForConflicts(MdnsPacket packet) {
+        // TODO: check for conflicts, return new ProbingInfo for services that were updated
+        // packet may be probes in case of simultaneous probe tiebreaking, or may be responses
+        return Collections.emptyList();
+    }
+
+    public void onAdvertisementSent(int serviceId) {
+        final ServiceRegistration registration = mServices.get(serviceId);
+        if (registration == null) return;
+
+        final long now = SystemClock.elapsedRealtime();
+        for (RecordInfo<?> record : registration.allRecords) {
+            record.lastSentTimeMs = now;
+        }
+    }
+
+    private static String[] getReverseDnsAddress(InetAddress addr) {
+        // xxx.xxx.xxx.xxx.in-addr.arpa (up to 28 characters)
+        // or 32 hex characters separated by dots + .ip6.arpa
+        final byte[] addrBytes = addr.getAddress();
+        final List<String> out = new ArrayList<>();
+        if (addr instanceof Inet4Address) {
+            for (int i = addrBytes.length - 1; i >= 0; i--) {
+                out.add(String.valueOf(Byte.toUnsignedInt(addrBytes[i])));
+            }
+            out.add("in-addr");
+        } else {
+            final String hexAddr = HexDump.toHexString(addrBytes);
+
+            for (int i = hexAddr.length() - 1; i >= 0; i--) {
+                out.add(String.valueOf(hexAddr.charAt(i)));
+            }
+            out.add("ip6");
+        }
+        out.add("arpa");
+
+        final String[] outArr = new String[out.size()];
+        return out.toArray(outArr);
+    }
+
+    private static String[] splitServiceName(NsdServiceInfo info) {
+        final String[] typeSplit = splitName(info.getServiceType());
+        final String[] serviceSplit = splitName(info.getServiceName());
+        final String[] names = new String[typeSplit.length + serviceSplit.length + 1];
+        System.arraycopy(serviceSplit, 0, names, 0, serviceSplit.length);
+        System.arraycopy(typeSplit, 0, names, serviceSplit.length, typeSplit.length);
+        names[names.length - 1] = "local";
+
+        return names;
+    }
+
+    private static String[] splitServiceName(String name) {
+        final String[] nameSplit = splitName(name);
+        final String[] names = new String[nameSplit.length + 1];
+        System.arraycopy(nameSplit, 0, names, 0, nameSplit.length);
+        names[nameSplit.length] = "local";
+
+        return names;
+    }
+
+    private static String[] splitName(String name) {
+        // String.split(pattern, 0) removes trailing empty strings, which would appear when
+        // splitting "domain.name." (with a dot a the end)
+        return name.split("\\.", 0);
+    }
+
+    private static String[] getHostname(@NonNull NetworkInterface iface, Dependencies deps) {
+        // TODO: use interface IP address (preferably link-local IPv6) instead of hardware, or UUID
+        // if not availble.
+
+        // Generate the hostname from the interface hardware address. This allows minimizing
+        // possible conflicts to the point that probing for it is no longer necessary (as per
+        // https://datatracker.ietf.org/doc/html/rfc6762#section-8.1 last paragraph), and does not
+        // leak more information than what could already be obtained by looking at the mDNS packets
+        // source address.
+        // This differs from historical behavior that just used "Android.local" for many devices,
+        // creating a lot of conflicts.
+        // Having a different hostname per interface is an acceptable option as per
+        // https://datatracker.ietf.org/doc/html/rfc6762#section-14
+        byte[] hwAddr;
+        try {
+            hwAddr = deps.getInterfaceHardwareAddress(iface);
+        } catch (SocketException e) {
+            // SocketException is only thrown when the interface is gone. The hostname returned
+            // here will not be sent anywhere in that case.
+            hwAddr = new byte[6];
+        }
+        return new String[] { "Android_" + HexDump.toHexString(hwAddr), "local" };
+    }
+
+    /**
+     * Return the index of the first matching record among the first records of the list.
+     *
+     * @param indexLimit The maximum index (exclusive) of records to scan.
+     * @return The index of the found record, or -1 if none.
+     */
+    static int findByName(@NonNull List<MdnsRecord> records, @NonNull String[] name,
+            int indexLimit) {
+        for (int i = 0; i < indexLimit; i++) {
+            final MdnsRecord record = records.get(i);
+            if (Arrays.equals(record.getName(), name)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+}
