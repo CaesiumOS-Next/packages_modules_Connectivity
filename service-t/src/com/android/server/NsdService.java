@@ -19,6 +19,8 @@ package com.android.server;
 import static android.net.ConnectivityManager.NETID_UNSET;
 import static android.net.nsd.NsdManager.MDNS_SERVICE_EVENT;
 
+import android.annotation.NonNull;
+import android.annotation.Nullable;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -47,10 +49,13 @@ import android.util.Pair;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 
+import com.android.server.connectivity.mdns.MdnsAdvertiser;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.State;
 import com.android.internal.util.StateMachine;
 import com.android.net.module.util.PermissionUtils;
+import com.android.server.connectivity.mdns.MulticastNetworkInterfaceProvider;
+import com.android.server.connectivity.mdns.NetworkInterfaceWrapper;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -58,7 +63,10 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Network Service Discovery Service handles remote service discovery operation requests by
@@ -70,7 +78,7 @@ public class NsdService extends INsdManager.Stub {
     private static final String TAG = "NsdService";
     private static final String MDNS_TAG = "mDnsConnector";
 
-    private static final boolean DBG = Log.isLoggable(TAG, Log.DEBUG);
+    public static final boolean DBG = Log.isLoggable(TAG, Log.DEBUG);
     private static final long CLEANUP_DELAY_MS = 10000;
     private static final int IFACE_IDX_ANY = 0;
 
@@ -78,6 +86,8 @@ public class NsdService extends INsdManager.Stub {
     private final NsdStateMachine mNsdStateMachine;
     private final MDnsManager mMDnsManager;
     private final MDnsEventCallback mMDnsEventCallback;
+    private final MdnsAdvertiser mAdvertiser;
+    private final MulticastNetworkInterfaceProvider mInterfaceProvider;
     // WARNING : Accessing this value in any thread is not safe, it must only be changed in the
     // state machine thread. If change this outside state machine, it will need to introduce
     // synchronization.
@@ -113,6 +123,7 @@ public class NsdService extends INsdManager.Stub {
                 if (DBG) Log.d(TAG, "Daemon is already started.");
                 return;
             }
+            mInterfaceProvider.startWatchingConnectivityChanges();
             mMDnsManager.registerEventListener(mMDnsEventCallback);
             mMDnsManager.startDaemon();
             mIsDaemonStarted = true;
@@ -124,6 +135,7 @@ public class NsdService extends INsdManager.Stub {
                 if (DBG) Log.d(TAG, "Daemon has not been started.");
                 return;
             }
+            mInterfaceProvider.stopWatchingConnectivityChanges();
             mMDnsManager.unregisterEventListener(mMDnsEventCallback);
             mMDnsManager.stopDaemon();
             mIsDaemonStarted = false;
@@ -369,6 +381,30 @@ public class NsdService extends INsdManager.Stub {
                             break;
                         }
 
+                        id = getUniqueId();
+                        // TODO: get interfaces properly
+                        final List<NetworkInterface> ifaces;
+
+                        if (args.serviceInfo.getNetwork() == null) {
+                            final List<NetworkInterfaceWrapper> ifWrap =
+                                    mInterfaceProvider.getMulticastNetworkInterfaces();
+                            ifaces = new ArrayList<>(ifWrap.size());
+                            for (NetworkInterfaceWrapper w : ifWrap) {
+                                ifaces.add(w.getNetworkInterface());
+                            }
+                        } else {
+                            final NetworkInterface iface = getNetworkInterface(
+                                    args.serviceInfo.getNetwork());
+                            if (iface == null) {
+                                clientInfo.onRegisterServiceFailed(
+                                        clientId, NsdManager.FAILURE_INTERNAL_ERROR);
+                                break;
+                            }
+                            ifaces = Collections.singletonList(iface);
+                        }
+                        mAdvertiser.addService(id, args.serviceInfo, ifaces);
+                        storeRequestMap(clientId, id, clientInfo, msg.what);
+                        /*
                         maybeStartDaemon();
                         id = getUniqueId();
                         if (registerService(id, args.serviceInfo)) {
@@ -380,6 +416,7 @@ public class NsdService extends INsdManager.Stub {
                             clientInfo.onRegisterServiceFailed(
                                     clientId, NsdManager.FAILURE_INTERNAL_ERROR);
                         }
+                         */
                         break;
                     case NsdManager.UNREGISTER_SERVICE:
                         if (DBG) Log.d(TAG, "unregister service");
@@ -394,12 +431,17 @@ public class NsdService extends INsdManager.Stub {
                         }
                         id = clientInfo.mClientIds.get(clientId);
                         removeRequestMap(clientId, id, clientInfo);
+
+                        mAdvertiser.removeService(id);
+                        clientInfo.onUnregisterServiceSucceeded(clientId);
+                        /*
                         if (unregisterService(id)) {
                             clientInfo.onUnregisterServiceSucceeded(clientId);
                         } else {
                             clientInfo.onUnregisterServiceFailed(
                                     clientId, NsdManager.FAILURE_INTERNAL_ERROR);
                         }
+                         */
                         break;
                     case NsdManager.RESOLVE_SERVICE:
                         if (DBG) Log.d(TAG, "Resolve service");
@@ -652,10 +694,12 @@ public class NsdService extends INsdManager.Stub {
     NsdService(Context ctx, Handler handler, long cleanupDelayMs) {
         mCleanupDelayMs = cleanupDelayMs;
         mContext = ctx;
+        mInterfaceProvider = new MulticastNetworkInterfaceProvider(mContext);
         mNsdStateMachine = new NsdStateMachine(TAG, handler);
         mNsdStateMachine.start();
         mMDnsManager = ctx.getSystemService(MDnsManager.class);
         mMDnsEventCallback = new MDnsEventCallback(mNsdStateMachine);
+        mAdvertiser = new MdnsAdvertiser(handler.getLooper(), new AdvertiserCallback());
     }
 
     public static NsdService create(Context context) {
@@ -705,6 +749,59 @@ public class NsdService extends INsdManager.Stub {
         @Override
         public String getInterfaceHash() throws RemoteException {
             return this.HASH;
+        }
+    }
+
+    private class AdvertiserCallback implements MdnsAdvertiser.AdvertiserCallback {
+        @Override
+        public void onRegisterServiceSucceeded(int serviceId, NsdServiceInfo registeredInfo) {
+            final ClientInfo clientInfo = getClientInfoOrLog(serviceId);
+            if (clientInfo == null) return;
+
+            final int clientId = getClientIdOrLog(clientInfo, serviceId);
+            if (clientId < 0) return;
+
+            // onRegisterServiceSucceeded only has the service name in its info
+            final NsdServiceInfo cbInfo = new NsdServiceInfo(registeredInfo.getServiceName(), null);
+            clientInfo.onRegisterServiceSucceeded(clientId, cbInfo);
+        }
+
+        @Override
+        public void onRegisterServiceFailed(int serviceId, int errorCode) {
+            final ClientInfo clientInfo = getClientInfoOrLog(serviceId);
+            if (clientInfo == null) return;
+
+            final int clientId = getClientIdOrLog(clientInfo, serviceId);
+            if (clientId < 0) return;
+
+            clientInfo.onRegisterServiceFailed(clientId, errorCode);
+        }
+
+        @Override
+        public void onUnregisterServiceSucceeded(int serviceId) {
+            final ClientInfo clientInfo = getClientInfoOrLog(serviceId);
+            if (clientInfo == null) return;
+
+            final int clientId = getClientIdOrLog(clientInfo, serviceId);
+            if (clientId < 0) return;
+
+            clientInfo.onUnregisterServiceSucceeded(clientId);
+        }
+
+        private ClientInfo getClientInfoOrLog(int serviceId) {
+            final ClientInfo clientInfo = mIdToClientInfoMap.get(serviceId);
+            if (clientInfo == null) {
+                Log.e(TAG, String.format("Callback for service %d has no client", serviceId));
+            }
+            return clientInfo;
+        }
+
+        private int getClientIdOrLog(@NonNull ClientInfo info, int serviceId) {
+            final int clientId = info.getClientId(serviceId);
+            if (clientId < 0) {
+                Log.e(TAG, String.format("Client ID not found for service %d", serviceId));
+            }
+            return clientId;
         }
     }
 
@@ -854,13 +951,22 @@ public class NsdService extends INsdManager.Stub {
             return IFACE_IDX_ANY;
         }
 
+        final NetworkInterface iface = getNetworkInterface(network);
+        if (iface == null) {
+            return IFACE_IDX_ANY;
+        }
+        return iface.getIndex();
+    }
+
+    @Nullable
+    private NetworkInterface getNetworkInterface(@NonNull Network network) {
         final ConnectivityManager cm = mContext.getSystemService(ConnectivityManager.class);
         if (cm == null) {
             Log.wtf(TAG, "No ConnectivityManager for resolveService");
-            return IFACE_IDX_ANY;
+            return null;
         }
         final LinkProperties lp = cm.getLinkProperties(network);
-        if (lp == null) return IFACE_IDX_ANY;
+        if (lp == null) return null;
 
         // Only resolve on non-stacked interfaces
         final NetworkInterface iface;
@@ -868,15 +974,15 @@ public class NsdService extends INsdManager.Stub {
             iface = NetworkInterface.getByName(lp.getInterfaceName());
         } catch (SocketException e) {
             Log.e(TAG, "Error querying interface", e);
-            return IFACE_IDX_ANY;
+            return null;
         }
 
         if (iface == null) {
             Log.e(TAG, "Interface not found: " + lp.getInterfaceName());
-            return IFACE_IDX_ANY;
+            return null;
         }
 
-        return iface.getIndex();
+        return iface;
     }
 
     private boolean stopResolveService(int resolveId) {
@@ -968,7 +1074,8 @@ public class NsdService extends INsdManager.Stub {
                         stopResolveService(globalId);
                         break;
                     case NsdManager.REGISTER_SERVICE:
-                        unregisterService(globalId);
+                        mAdvertiser.removeService(globalId);
+                        // unregisterService(globalId);
                         break;
                     default:
                         break;
