@@ -141,6 +141,7 @@ java_library {
     min_sdk_version: "30",
     srcs: [
         "src/**/*.java",
+        "mdns/**/*.java",
         ":framework-connectivity-shared-srcs",
         ":services-connectivity-shared-srcs",
     ],
@@ -170,6 +171,7 @@ java_library {
         "PlatformProperties",
         "service-connectivity-protos",
         "NetworkStackApiStableShims",
+        // "service-mdns",
     ],
     apex_available: [
         "com.android.tethering",

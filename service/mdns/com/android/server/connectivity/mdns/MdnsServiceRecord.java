@@ -16,6 +16,8 @@
 
 package com.android.server.connectivity.mdns;
 
+import android.net.DnsResolver;
+
 import com.android.internal.annotations.VisibleForTesting;
 
 import java.io.IOException;
@@ -40,6 +42,16 @@ public class MdnsServiceRecord extends MdnsRecord {
 
     public MdnsServiceRecord(String[] name, MdnsPacketReader reader) throws IOException {
         super(name, TYPE_SRV, reader);
+    }
+
+    public MdnsServiceRecord(String[] name, long receiptTimeMillis, boolean cacheFlush,
+                    long ttlMillis, int servicePriority, int serviceWeight, int servicePort,
+                    String[] serviceHost) {
+        super(name, TYPE_SRV, DnsResolver.CLASS_IN, receiptTimeMillis, cacheFlush, ttlMillis);
+        this.servicePriority = servicePriority;
+        this.serviceWeight = serviceWeight;
+        this.servicePort = servicePort;
+        this.serviceHost = serviceHost;
     }
 
     /** Returns the service's port number. */
