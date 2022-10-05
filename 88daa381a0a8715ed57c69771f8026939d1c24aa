@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8f0ee38b_05760f82",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2908,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-10-05T03:13:08Z",
+      "side": 1,
+      "message": "The validation of cellular network is checked in prepareValidatedNetwork(). The mock http server is also started there(l.2892 in patchset 7). This means any cellular network reconnects happen after that will use the mock test URLs. Configuring the response code here changes the return value but the URLs will not be changed before stopping the http server. Check cellular network validated does no help here. Reconnect is also not helpful since reconnect will also take the mock URLs until the mock http server being stopped. This situation that cellular network being reconnected could happen in other tests in random places using mock http server. Th flow may be more complicate if we want to cover these cases. I tend to think we do not need to do so until it happens frequently. But in that case, I think we need to find out why so many cellular network reconnects happen unexpectedly. What do you think?",
+      "parentUuid": "15580d28_c312006a",
+      "range": {
+        "startLine": 2908,
+        "startChar": 0,
+        "endLine": 2908,
+        "endChar": 75
+      },
+      "revId": "88daa381a0a8715ed57c69771f8026939d1c24aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7194359c_2346353e",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 6
