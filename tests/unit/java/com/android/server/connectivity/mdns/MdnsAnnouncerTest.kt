@@ -68,7 +68,7 @@ class MdnsAnnouncerTest {
     private class TestAnnouncementInfo(
         announcedRecords: List<MdnsRecord>,
         additionalRecords: List<MdnsRecord>
-    ) : AnnouncementInfo(announcedRecords, additionalRecords) {
+    ) : AnnouncementInfo(1 /* serviceId */, announcedRecords, additionalRecords) {
         override fun getDelayMs(nextIndex: Int) =
                 if (nextIndex < FIRST_ANNOUNCES_COUNT) {
                     FIRST_ANNOUNCES_DELAY
@@ -79,7 +79,7 @@ class MdnsAnnouncerTest {
 
     @Test
     fun testAnnounce() {
-        val replySender = MdnsReplySender(thread.looper, socket, buffer)
+        val replySender = MdnsReplySender("testiface", thread.looper, socket, buffer, cb)
         @Suppress("UNCHECKED_CAST")
         val cb = mock(MdnsPacketRepeater.PacketRepeaterCallback::class.java)
                 as MdnsPacketRepeater.PacketRepeaterCallback<AnnouncementInfo>
