@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9d6cecc_1551abcf",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 995,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-05T18:49:38Z",
+      "side": 1,
+      "message": "without the fix, we receive a network available callback here, despite there being no link 😞",
+      "range": {
+        "startLine": 995,
+        "startChar": 8,
+        "endLine": 995,
+        "endChar": 27
+      },
+      "revId": "906efdfb081b825db5b70fa5a1c31716994e8815",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
