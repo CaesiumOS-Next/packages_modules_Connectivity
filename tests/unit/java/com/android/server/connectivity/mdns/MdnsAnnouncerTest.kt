@@ -67,8 +67,8 @@ class MdnsAnnouncerTest {
     private class TestAnnouncementInfo(
         announcedRecords: List<MdnsRecord>,
         additionalRecords: List<MdnsRecord>
-    )
-        : AnnouncementInfo(announcedRecords, additionalRecords, destinationsSupplier) {
+    ) : AnnouncementInfo(1 /* serviceId */, announcedRecords, additionalRecords,
+            destinationsSupplier) {
         override fun getDelayMs(nextIndex: Int) =
                 if (nextIndex < FIRST_ANNOUNCES_COUNT) {
                     FIRST_ANNOUNCES_DELAY
@@ -79,7 +79,7 @@ class MdnsAnnouncerTest {
 
     @Test
     fun testAnnounce() {
-        val replySender = MdnsReplySender(thread.looper, socket, buffer)
+        val replySender = MdnsReplySender("testiface", thread.looper, socket, buffer)
         val announcer = MdnsAnnouncer("testiface", thread.looper, replySender, null /* cb */)
         val expected = "00008400000000050000000403313233013001320331393207696E2D6164647204617270" +
                 "6100000C800100000078000F07416E64726F6964056C6F63616C000133013201310130013001300" +
