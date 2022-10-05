@@ -22,6 +22,8 @@ import android.net.nsd.NsdServiceInfo
 import android.os.Build
 import android.os.HandlerThread
 import com.android.server.connectivity.mdns.MdnsAnnouncer.AnnouncementInfo
+import com.android.server.connectivity.mdns.MdnsAnnouncer.BaseAnnouncementInfo
+import com.android.server.connectivity.mdns.MdnsAnnouncer.ExitAnnouncementInfo
 import com.android.server.connectivity.mdns.MdnsInterfaceAdvertiser.EXIT_ANNOUNCEMENT_DELAY_MS
 import com.android.server.connectivity.mdns.MdnsPacketRepeater.PacketRepeaterCallback
 import com.android.server.connectivity.mdns.MdnsProber.ProbingInfo
@@ -66,7 +68,7 @@ class MdnsInterfaceAdvertiserTest {
     private val probeCbCaptor = ArgumentCaptor.forClass(PacketRepeaterCallback::class.java)
             as ArgumentCaptor<PacketRepeaterCallback<ProbingInfo>>
     private val announceCbCaptor = ArgumentCaptor.forClass(PacketRepeaterCallback::class.java)
-            as ArgumentCaptor<PacketRepeaterCallback<AnnouncementInfo>>
+            as ArgumentCaptor<PacketRepeaterCallback<BaseAnnouncementInfo>>
 
     private val probeCb get() = probeCbCaptor.value
     private val announceCb get() = announceCbCaptor.value
@@ -78,7 +80,7 @@ class MdnsInterfaceAdvertiserTest {
     @Before
     fun setUp() {
         doReturn(repository).`when`(deps).makeRecordRepository(any())
-        doReturn(replySender).`when`(deps).makeReplySender(any(), any(), any())
+        doReturn(replySender).`when`(deps).makeReplySender(any(), any(), any(), any())
         doReturn(announcer).`when`(deps).makeMdnsAnnouncer(any(), any(), any(), any())
         doReturn(prober).`when`(deps).makeMdnsProber(any(), any(), any(), any())
 
@@ -117,7 +119,7 @@ class MdnsInterfaceAdvertiserTest {
         verify(cb).onRegisterServiceSucceeded(advertiser, TEST_SERVICE_ID_1)
 
         // Remove the service: expect exit announcements
-        val testExitInfo = mock(AnnouncementInfo::class.java)
+        val testExitInfo = mock(ExitAnnouncementInfo::class.java)
         doReturn(testExitInfo).`when`(repository).exitService(TEST_SERVICE_ID_1)
         advertiser.removeService(TEST_SERVICE_ID_1)
 

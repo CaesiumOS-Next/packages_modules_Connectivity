@@ -96,7 +96,7 @@ public class MdnsSocketProviderTest {
                 .getNetworkInterfaceByName(LOCAL_ONLY_IFACE_NAME);
         doReturn(mTetheredIfaceWrapper).when(mDeps).getNetworkInterfaceByName(TETHERED_IFACE_NAME);
         doReturn(mock(MdnsInterfaceSocket.class))
-                .when(mDeps).createMdnsInterfaceSocket(any(), anyInt());
+                .when(mDeps).createMdnsInterfaceSocket(any(), anyInt(), any(), any());
         final HandlerThread thread = new HandlerThread("MdnsSocketProviderTest");
         thread.start();
         mHandler = new Handler(thread.getLooper());

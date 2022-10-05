@@ -28,12 +28,17 @@ import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.connectivity.mdns.MdnsPacketRepeater.PacketRepeaterCallback;
 
 import java.io.IOException;
+import com.android.net.module.util.HexDump;
+import com.android.server.connectivity.mdns.MdnsAnnouncer.BaseAnnouncementInfo;
+
+import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.util.List;
 
 /**
  * A class that handles advertising services on a {@link MdnsInterfaceSocket} tied to an interface.
  */
-public class MdnsInterfaceAdvertiser {
+public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHandler {
     private static final boolean DBG = MdnsAdvertiser.DBG;
     @VisibleForTesting
     public static final long EXIT_ANNOUNCEMENT_DELAY_MS = 100L;
@@ -112,9 +117,22 @@ public class MdnsInterfaceAdvertiser {
     /**
      * Callbacks from {@link MdnsAnnouncer}.
      */
-    private class AnnouncingCallback
-            implements PacketRepeaterCallback<MdnsAnnouncer.AnnouncementInfo> {
-        // TODO: implement
+    private class AnnouncingCallback implements PacketRepeaterCallback<BaseAnnouncementInfo> {
+        @Override
+        public void onSent(int index, @NonNull BaseAnnouncementInfo info) {
+            mRecordRepository.onAdvertisementSent(info.getServiceId());
+        }
+
+        @Override
+        public void onFinished(@NonNull BaseAnnouncementInfo info) {
+            if (info instanceof MdnsAnnouncer.ExitAnnouncementInfo) {
+                mRecordRepository.removeService(info.getServiceId());
+
+                if (mRecordRepository.getServicesCount() == 0) {
+                    destroyNow();
+                }
+            }
+        }
     }
 
     /**
@@ -130,15 +148,15 @@ public class MdnsInterfaceAdvertiser {
 
         /** @see MdnsReplySender */
         @NonNull
-        public MdnsReplySender makeReplySender(@NonNull Looper looper,
+        public MdnsReplySender makeReplySender(@NonNull String logTag, @NonNull Looper looper,
                 @NonNull MdnsInterfaceSocket socket, @NonNull byte[] packetCreationBuffer) {
-            return new MdnsReplySender(looper, socket, packetCreationBuffer);
+            return new MdnsReplySender(logTag, looper, socket, packetCreationBuffer);
         }
 
         /** @see MdnsAnnouncer */
         public MdnsAnnouncer makeMdnsAnnouncer(@NonNull String interfaceTag, @NonNull Looper looper,
                 @NonNull MdnsReplySender replySender,
-                @Nullable PacketRepeaterCallback<MdnsAnnouncer.AnnouncementInfo> cb) {
+                @Nullable PacketRepeaterCallback<MdnsAnnouncer.BaseAnnouncementInfo> cb) {
             return new MdnsAnnouncer(interfaceTag, looper, replySender, cb);
         }
 
@@ -167,7 +185,7 @@ public class MdnsInterfaceAdvertiser {
         mSocket = socket;
         mCb = cb;
         mCbHandler = new Handler(looper);
-        mReplySender = deps.makeReplySender(looper, socket, packetCreationBuffer);
+        mReplySender = deps.makeReplySender(logTag, looper, socket, packetCreationBuffer);
         mAnnouncer = deps.makeMdnsAnnouncer(logTag, looper, mReplySender,
                 mAnnouncingCallback);
         mProber = deps.makeMdnsProber(logTag, looper, mReplySender, mProbingCallback);
@@ -181,7 +199,7 @@ public class MdnsInterfaceAdvertiser {
      * {@link #destroyNow()}.
      */
     public void start() {
-        // TODO: start receiving packets
+        mSocket.addPacketHandler(this);
     }
 
     /**
@@ -211,7 +229,7 @@ public class MdnsInterfaceAdvertiser {
     public void removeService(int id) {
         if (mProber != null) mProber.stop(id);
         if (mAnnouncer != null) mAnnouncer.stop(id);
-        final MdnsAnnouncer.AnnouncementInfo exitInfo = mRecordRepository.exitService(id);
+        final MdnsAnnouncer.ExitAnnouncementInfo exitInfo = mRecordRepository.exitService(id);
         if (exitInfo != null && mAnnouncer != null) {
             // This effectively schedules destroyNow(), as it is to be called when the exit
             // announcement finishes if there is no service left.
@@ -250,8 +268,8 @@ public class MdnsInterfaceAdvertiser {
             mProber.stop(serviceId);
             mAnnouncer.stop(serviceId);
         }
-
-        // TODO: stop receiving packets
+        mReplySender.cancelAll();
+        mSocket.removePacketHandler(this);
         mCbHandler.post(() -> mCb.onDestroyed(mSocket));
     }
 
@@ -259,14 +277,21 @@ public class MdnsInterfaceAdvertiser {
      * Reset a service to the probing state due to a conflict found on the network.
      */
     public void restartProbingForConflict(int serviceId) {
-        // TODO: implement
+        final MdnsProber.ProbingInfo probingInfo = mRecordRepository.setServiceProbing(serviceId);
+        if (probingInfo == null) return;
+
+        mProber.restartForConflict(probingInfo);
     }
 
     /**
      * Rename a service following a conflict found on the network, and restart probing.
      */
     public void renameServiceForConflict(int serviceId, NsdServiceInfo newInfo) {
-        // TODO: implement
+        final MdnsProber.ProbingInfo probingInfo = mRecordRepository.renameServiceForConflict(
+                serviceId, newInfo);
+        if (probingInfo == null) return;
+
+        mProber.restartForConflict(probingInfo);
     }
 
     /**
@@ -276,5 +301,38 @@ public class MdnsInterfaceAdvertiser {
      */
     public boolean isProbing(int serviceId) {
         return mRecordRepository.isProbing(serviceId);
+    }
+
+    @Override
+    public void handlePacket(byte[] recvbuf, int length, InetSocketAddress src) {
+        final MdnsPacket packet;
+        try {
+            packet = MdnsPacket.parse(new MdnsPacketReader(recvbuf, length));
+        } catch (IOException e) {
+            Log.e(mTag, "Error parsing mDNS packet", e);
+            if (DBG) {
+                Log.v(
+                        mTag, "Packet: " + HexDump.toHexString(recvbuf, 0, length));
+            }
+            return;
+        }
+
+        if (DBG) {
+            Log.v(mTag,
+                    "Parsed packet with " + packet.questions.size() + " questions, "
+                            + packet.answers.size() + " answers, "
+                            + packet.authorityRecords.size() + " authority, "
+                            + packet.additionalRecords.size() + " additional from " + src);
+        }
+
+        for (int conflictServiceId : mRecordRepository.getConflictingServices(packet)) {
+            mCbHandler.post(() -> mCb.onServiceConflict(this, conflictServiceId));
+        }
+
+        final MdnsRecordRepository.ReplyInfo answers =
+                mRecordRepository.getReply(packet, src);
+
+        if (answers == null) return;
+        if (mReplySender != null) mReplySender.queueReply(answers);
     }
 }
