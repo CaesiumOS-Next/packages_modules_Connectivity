@@ -37,7 +37,6 @@ public abstract class MdnsPacketRepeater<T extends MdnsPacketRepeater.Request> {
     protected final Handler mHandler;
     @Nullable
     private final PacketRepeaterCallback<T> mCb;
-    private final int mNumSends;
 
     /**
      * Status callback from {@link MdnsPacketRepeater}.
@@ -47,9 +46,14 @@ public abstract class MdnsPacketRepeater<T extends MdnsPacketRepeater.Request> {
      */
     public interface PacketRepeaterCallback<T extends MdnsPacketRepeater.Request> {
         /**
+         * Called when a packet was sent.
+         */
+        default void onSent(int index, @NonNull T info) {}
+
+        /**
          * Called when the {@link MdnsPacketRepeater} is done sending packets.
          */
-        void onFinished(@NonNull T info);
+        default void onFinished(@NonNull T info) {}
     }
 
     /**
@@ -69,9 +73,17 @@ public abstract class MdnsPacketRepeater<T extends MdnsPacketRepeater.Request> {
          */
         @NonNull
         Iterable<SocketAddress> getDestinations(int index);
-    }
 
-    protected abstract long getDelayMs(int nextIndex);
+        /**
+         * Get the delay in milliseconds until the next packet transmission.
+         */
+        long getDelayMs(int nextIndex);
+
+        /**
+         * Get the number of packets that should be sent.
+         */
+        int getNumSends();
+    }
 
     /**
      * Get the logging tag to use.
@@ -89,7 +101,7 @@ public abstract class MdnsPacketRepeater<T extends MdnsPacketRepeater.Request> {
             final int index = msg.arg1;
             final T request = (T) msg.obj;
 
-            if (index >= mNumSends) {
+            if (index >= request.getNumSends()) {
                 if (mCb != null) {
                     mCb.onFinished(request);
                 }
@@ -100,7 +112,7 @@ public abstract class MdnsPacketRepeater<T extends MdnsPacketRepeater.Request> {
             final Iterable<SocketAddress> destinations = request.getDestinations(index);
             if (MdnsAdvertiser.DBG) {
                 Log.v(getTag(), "Sending packets to " + destinations + " for iteration "
-                        + index + " out of " + mNumSends);
+                        + index + " out of " + request.getNumSends());
             }
             for (SocketAddress destination : destinations) {
                 try {
@@ -112,22 +124,21 @@ public abstract class MdnsPacketRepeater<T extends MdnsPacketRepeater.Request> {
 
             int nextIndex = index + 1;
             // No need to go through the last handler loop if there's no callback to call
-            if (nextIndex >= mNumSends && mCb == null) return;
+            if (nextIndex >= request.getNumSends() && mCb == null) return;
             // TODO: consider using AlarmManager / WakeupMessage to avoid missing sending during
             // deep sleep; but this would affect battery life, and discovered services are likely
             // not to be available since the device is in deep sleep anyway.
-            final long delay = getDelayMs(nextIndex);
+            final long delay = request.getDelayMs(nextIndex);
             sendMessageDelayed(obtainMessage(msg.what, nextIndex, 0, request), delay);
             if (MdnsAdvertiser.DBG) Log.v(getTag(), "Scheduled next packet in " + delay + "ms");
         }
     }
 
     protected MdnsPacketRepeater(@NonNull Looper looper, @NonNull MdnsReplySender replySender,
-            @Nullable PacketRepeaterCallback<T> cb, int numSends) {
+            @Nullable PacketRepeaterCallback<T> cb) {
         mHandler = new ProbeHandler(looper);
         mReplySender = replySender;
         mCb = cb;
-        mNumSends = numSends;
     }
 
     protected void startSending(int id, @NonNull T request, long initialDelayMs) {

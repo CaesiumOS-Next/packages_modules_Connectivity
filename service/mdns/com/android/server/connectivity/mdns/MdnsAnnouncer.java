@@ -17,6 +17,7 @@
 package com.android.server.connectivity.mdns;
 
 import android.annotation.NonNull;
+import android.annotation.Nullable;
 import android.os.Looper;
 
 import com.android.internal.annotations.VisibleForTesting;
@@ -32,17 +33,24 @@ class MdnsAnnouncer extends MdnsPacketRepeater<MdnsAnnouncer.AnnouncementInfo> {
     @VisibleForTesting
     static final int ANNOUNCEMENT_COUNT = 8;
 
+    // Matches delay and GoodbyeCount used by the legacy implementation
+    private static final long EXIT_DELAY_MS = 2000L;
+    private static final int EXIT_COUNT = 3;
+
     @NonNull
     private final String mLogTag;
 
     static class AnnouncementInfo implements MdnsPacketRepeater.Request {
+        private final int mServiceId;
         @NonNull
         private final MdnsPacket mPacket;
         @NonNull
         private final Supplier<Iterable<SocketAddress>> mDestinationsSupplier;
 
-        AnnouncementInfo(List<MdnsRecord> announcedRecords, List<MdnsRecord> additionalRecords,
+        AnnouncementInfo(int serviceId, List<MdnsRecord> announcedRecords,
+                List<MdnsRecord> additionalRecords,
                 Supplier<Iterable<SocketAddress>> destinationsSupplier) {
+            mServiceId = serviceId;
             // Records to announce (as answers)
             // Records to place in the "Additional records", with NSEC negative responses
             // to mark records that have been verified unique
@@ -55,6 +63,10 @@ class MdnsAnnouncer extends MdnsPacketRepeater<MdnsAnnouncer.AnnouncementInfo> {
             mDestinationsSupplier = destinationsSupplier;
         }
 
+        public int getServiceId() {
+            return mServiceId;
+        }
+
         @Override
         public MdnsPacket getPacket(int index) {
             return mPacket;
@@ -64,18 +76,41 @@ class MdnsAnnouncer extends MdnsPacketRepeater<MdnsAnnouncer.AnnouncementInfo> {
         public Iterable<SocketAddress> getDestinations(int index) {
             return mDestinationsSupplier.get();
         }
+
+        @Override
+        public long getDelayMs(int nextIndex) {
+            // Delay is doubled for each announcement
+            return ANNOUNCEMENT_INITIAL_DELAY_MS << (nextIndex - 1);
+        }
+
+        @Override
+        public int getNumSends() {
+            return ANNOUNCEMENT_COUNT;
+        }
+    }
+
+    static class ExitAnnouncementInfo extends AnnouncementInfo {
+        ExitAnnouncementInfo(int serviceId, List<MdnsRecord> announcedRecords,
+                Supplier<Iterable<SocketAddress>> destinationsSupplier) {
+            super(serviceId, announcedRecords, Collections.emptyList(), destinationsSupplier);
+        }
+
+        @Override
+        public long getDelayMs(int nextIndex) {
+            return EXIT_DELAY_MS;
+        }
+
+        @Override
+        public int getNumSends() {
+            return EXIT_COUNT;
+        }
     }
 
     MdnsAnnouncer(@NonNull String interfaceTag, @NonNull Looper looper,
-            @NonNull MdnsReplySender replySender) {
-        super(looper, replySender, null /* cb */, ANNOUNCEMENT_COUNT);
-        mLogTag = MdnsProber.class.getSimpleName() + "/" + interfaceTag;
-    }
-
-    @Override
-    protected long getDelayMs(int nextIndex) {
-        // Delay is doubled for each announcement
-        return ANNOUNCEMENT_INITIAL_DELAY_MS << (nextIndex - 1);
+            @NonNull MdnsReplySender replySender,
+            @Nullable PacketRepeaterCallback<AnnouncementInfo> cb) {
+        super(looper, replySender, cb);
+        mLogTag = MdnsAnnouncer.class.getSimpleName() + "/" + interfaceTag;
     }
 
     @Override

@@ -18,7 +18,6 @@ package com.android.server.connectivity.mdns
 
 import android.net.InetAddresses.parseNumericAddress
 import android.os.HandlerThread
-import android.os.Looper
 import android.os.SystemClock
 import com.android.internal.util.HexDump
 import com.android.server.connectivity.mdns.MdnsAnnouncer.AnnouncementInfo
@@ -45,6 +44,9 @@ private const val FIRST_ANNOUNCES_COUNT = 2
 private const val NEXT_ANNOUNCES_DELAY = 1L
 private const val TEST_TIMEOUT_MS = 1000L
 
+private val destinationsSupplier = {
+    listOf(InetSocketAddress(MdnsConstants.getMdnsIPv6Address(), MdnsConstants.MDNS_PORT)) }
+
 @RunWith(DevSdkIgnoreRunner::class)
 class MdnsAnnouncerTest {
 
@@ -62,8 +64,11 @@ class MdnsAnnouncerTest {
         thread.quitSafely()
     }
 
-    private class TestAnnouncer(looper: Looper, replySender: MdnsReplySender)
-        : MdnsAnnouncer("testiface", looper, replySender) {
+    private class TestAnnouncementInfo(
+            announcedRecords: List<MdnsRecord>,
+            additionalRecords: List<MdnsRecord>)
+        : AnnouncementInfo(1 /* serviceId */, announcedRecords, additionalRecords,
+            destinationsSupplier) {
         override fun getDelayMs(nextIndex: Int): Long {
             // Have some delay for the first few announces, but don't wait for that long every time
             return if (nextIndex < FIRST_ANNOUNCES_COUNT) FIRST_ANNOUNCES_DELAY
@@ -73,8 +78,8 @@ class MdnsAnnouncerTest {
 
     @Test
     fun testAnnounce() {
-        val replySender = MdnsReplySender(thread.looper, socket, buffer)
-        val announcer = TestAnnouncer(thread.looper, replySender)
+        val replySender = MdnsReplySender("testiface", thread.looper, socket, buffer)
+        val announcer = MdnsAnnouncer("testiface", thread.looper, replySender, null /* cb */)
         val expected = "00008400000000050000000403313233013001320331393207696E2D6164647204617270" +
                 "6100000C800100000078000F07416E64726F6964056C6F63616C000133013201310130013001300" +
                 "1300130013001300130013001300130013001300130013001300130013001300130013001380142" +
@@ -151,9 +156,7 @@ class MdnsAnnouncerTest {
                         120000 /* ttlMillis */,
                         hostname,
                         intArrayOf(MdnsRecord.TYPE_A, MdnsRecord.TYPE_AAAA)))
-        val destinationSupplier = { listOf(
-                InetSocketAddress(MdnsConstants.getMdnsIPv6Address(), MdnsConstants.MDNS_PORT)) }
-        val request = AnnouncementInfo(announcedRecords, additionalRecords, destinationSupplier)
+        val request = TestAnnouncementInfo(announcedRecords, additionalRecords)
 
         val timeStart = SystemClock.elapsedRealtime()
         val startDelay = 50L

@@ -34,15 +34,18 @@ import java.util.function.Supplier;
  * TODO: implement receiving replies and handling conflicts.
  */
 public class MdnsProber extends MdnsPacketRepeater<MdnsProber.ProbingInfo> {
+    private static final long CONFLICT_RETRY_DELAY_MS = 5_000L;
+    @NonNull
+    private final MdnsRecordRepository mRepository;
     @NonNull
     private final String mLogTag;
 
     public MdnsProber(@NonNull String interfaceTag, @NonNull Looper looper,
-            @NonNull MdnsReplySender replySender,
+            @NonNull MdnsReplySender replySender, @NonNull MdnsRecordRepository repository,
             @NonNull PacketRepeaterCallback<ProbingInfo> cb) {
-        // 3 packets as per https://datatracker.ietf.org/doc/html/rfc6762#section-8.1
-        super(looper, replySender, cb, 3 /* numPackets */);
+        super(looper, replySender, cb);
         mLogTag = MdnsProber.class.getSimpleName() + "/" + interfaceTag;
+        mRepository = repository;
     }
 
     static class ProbingInfo implements Request {
@@ -81,6 +84,18 @@ public class MdnsProber extends MdnsPacketRepeater<MdnsProber.ProbingInfo> {
         @Override
         public Iterable<SocketAddress> getDestinations(int index) {
             return mDestinationsSupplier.get();
+        }
+
+        @Override
+        public long getDelayMs(int nextIndex) {
+            // As per https://datatracker.ietf.org/doc/html/rfc6762#section-8.1
+            return 250L;
+        }
+
+        @Override
+        public int getNumSends() {
+            // 3 packets as per https://datatracker.ietf.org/doc/html/rfc6762#section-8.1
+            return 3;
         }
 
         private static MdnsPacket makePacket(@NonNull List<MdnsRecord> records) {
@@ -127,12 +142,6 @@ public class MdnsProber extends MdnsPacketRepeater<MdnsProber.ProbingInfo> {
         }
     }
 
-    @Override
-    protected long getDelayMs(int nextIndex) {
-        // As per https://datatracker.ietf.org/doc/html/rfc6762#section-8.1
-        return 250L;
-    }
-
     @NonNull
     @Override
     protected String getTag() {
@@ -155,5 +164,29 @@ public class MdnsProber extends MdnsPacketRepeater<MdnsProber.ProbingInfo> {
 
     private void startProbing(@NonNull ProbingInfo info, long delay) {
         startSending(info.getServiceId(), info, delay);
+    }
+
+    /**
+     * If the incoming packet conflicts with any records, update records and restart probing on
+     * all conflicting services.
+     *
+     * As per https://datatracker.ietf.org/doc/html/rfc6762#section-9, this is done regardless of
+     * whether probing is in progress.
+     * @param packet Incoming packet
+     * @return The new probing info of services that were reset to probing
+     */
+    public List<ProbingInfo> maybeHandleConflict(@NonNull MdnsPacket packet) {
+        final List<ProbingInfo> newInfo = mRepository.maybeUpdateForConflicts(packet);
+        for (ProbingInfo info : newInfo) {
+            stop(info.getServiceId());
+
+            /* RFC 6762 8.1: "If fifteen conflicts occur within any ten-second period, then the host
+            MUST wait at least five seconds before each successive additional probe attempt. [...]
+            For very simple devices, a valid way to comply with this requirement is to always wait
+            five seconds after any failed probe attempt before trying again. */
+            // TODO: count 15 conflicts in 10s instead of waiting for 5s every time
+            startProbing(info, CONFLICT_RETRY_DELAY_MS);
+        }
+        return newInfo;
     }
 }
