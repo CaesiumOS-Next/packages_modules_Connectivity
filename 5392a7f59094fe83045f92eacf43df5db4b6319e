@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6ab9375_e85c7054",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 973,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-05T04:10:19Z",
+      "side": 1,
+      "message": "I preferred to show what the match Pair is here, so let me keep this.",
+      "parentUuid": "ae4f4e2b_96170c64",
+      "range": {
+        "startLine": 973,
+        "startChar": 12,
+        "endLine": 973,
+        "endChar": 50
+      },
+      "revId": "5392a7f59094fe83045f92eacf43df5db4b6319e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65b0fece_04f768b3",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-25T23:10:56Z",
       "side": 1,
       "message": "nit: this could just be `if (matchMask \u0026 matchFlag) {`",
+      "range": {
+        "startLine": 974,
+        "startChar": 16,
+        "endLine": 974,
+        "endChar": 44
+      },
+      "revId": "5392a7f59094fe83045f92eacf43df5db4b6319e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1adb74ff_30cf2bf6",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-05T04:10:19Z",
+      "side": 1,
+      "message": "I think we can\u0027t write that in Java.\n```\nerror: incompatible types: long cannot be converted to boolean\n            if (matchMask \u0026 matchFlag) {\n                          ^\n1 error         \n```",
+      "parentUuid": "65b0fece_04f768b3",
       "range": {
         "startLine": 974,
         "startChar": 16,
