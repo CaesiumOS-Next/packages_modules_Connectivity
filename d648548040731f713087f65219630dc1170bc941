@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ec193a7_e83afabd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-05T03:22:06Z",
+      "side": 1,
+      "message": "LGTM ; I can\u0027t +1 without giving OWNERS so please find Lorenzo for OWNERS.",
+      "revId": "d648548040731f713087f65219630dc1170bc941",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
