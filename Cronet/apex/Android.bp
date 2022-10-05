@@ -41,6 +41,7 @@ apex {
     name: "com.android.cronet",
     defaults: ["com.android.cronet-defaults"],
     manifest: "manifest.json",
+    enabled: false,
 }
 
 apex_key {
