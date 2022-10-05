@@ -22,6 +22,30 @@
       },
       "revId": "f4fbf8ed52be08aa48bedf2d0ff0aa3044eebe31",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "713582ad_1b4b8aab",
+        "filename": "tests/unit/java/android/app/usage/NetworkStatsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-05T01:48:12Z",
+      "side": 1,
+      "message": "Personally I like the new code a little bit better because it\u0027s shorter, and anybody who wonders what this constant is presumably can just look it up in their IDE. But I also don\u0027t feel strongly.\n\nIf you want me as a tie-breaker, I\u0027d say keep Aaron\u0027s code.",
+      "parentUuid": "f27ed39e_7c2b2e21",
+      "range": {
+        "startLine": 259,
+        "startChar": 69,
+        "endLine": 259,
+        "endChar": 81
+      },
+      "revId": "f4fbf8ed52be08aa48bedf2d0ff0aa3044eebe31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
