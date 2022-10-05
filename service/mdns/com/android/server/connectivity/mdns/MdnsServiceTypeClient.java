@@ -43,7 +43,7 @@ import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * Instance of this class sends and receives mDNS packets of a given service type and invoke
- * registered {@link MdnsServiceBrowserListener} instances.
+ * registered {@link MdnsServiceListener} instances.
  */
 public class MdnsServiceTypeClient {
 
@@ -55,7 +55,7 @@ public class MdnsServiceTypeClient {
     private final MdnsSocketClient socketClient;
     private final ScheduledExecutorService executor;
     private final Object lock = new Object();
-    private final Set<MdnsServiceBrowserListener> listeners = new ArraySet<>();
+    private final Set<MdnsServiceListener> listeners = new ArraySet<>();
     private final Map<String, MdnsResponse> instanceNameToResponse = new HashMap<>();
     private final boolean removeServiceAfterTtlExpires =
             MdnsConfigs.removeServiceAfterTtlExpires();
@@ -132,18 +132,18 @@ public class MdnsServiceTypeClient {
      * starts
      * (or continue) to send mDNS queries periodically.
      *
-     * @param listener      The {@link MdnsServiceBrowserListener} to register.
+     * @param listener      The {@link MdnsServiceListener} to register.
      * @param searchOptions {@link MdnsSearchOptions} contains the list of subtypes to discover.
      */
     public void startSendAndReceive(
-            @NonNull MdnsServiceBrowserListener listener,
+            @NonNull MdnsServiceListener listener,
             @NonNull MdnsSearchOptions searchOptions) {
         synchronized (lock) {
             this.searchOptions = searchOptions;
             if (listeners.add(listener)) {
                 for (MdnsResponse existingResponse : instanceNameToResponse.values()) {
                     if (existingResponse.isComplete()) {
-                        listener.onServiceFound(
+                        ((MdnsServiceBrowserListener) listener).onServiceFound(
                                 buildMdnsServiceInfoFromResponse(existingResponse,
                                         serviceTypeLabels));
                     }
@@ -168,11 +168,11 @@ public class MdnsServiceTypeClient {
     /**
      * Unregisters {@code listener} from receiving discovery event of mDNS service instances.
      *
-     * @param listener The {@link MdnsServiceBrowserListener} to unregister.
+     * @param listener The {@link MdnsServiceListener} to unregister.
      * @return {@code true} if no listener is registered with this client after unregistering {@code
      * listener}. Otherwise returns {@code false}.
      */
-    public boolean stopSendAndReceive(@NonNull MdnsServiceBrowserListener listener) {
+    public boolean stopSendAndReceive(@NonNull MdnsServiceListener listener) {
         synchronized (lock) {
             listeners.remove(listener);
             if (listeners.isEmpty() && requestTaskFuture != null) {
@@ -209,7 +209,7 @@ public class MdnsServiceTypeClient {
     }
 
     public synchronized void onFailedToParseMdnsResponse(int receivedPacketNumber, int errorCode) {
-        for (MdnsServiceBrowserListener listener : listeners) {
+        for (MdnsServiceListener listener : listeners) {
             listener.onFailedToParseMdnsResponse(receivedPacketNumber, errorCode);
         }
     }
@@ -236,11 +236,11 @@ public class MdnsServiceTypeClient {
         MdnsServiceInfo serviceInfo =
                 buildMdnsServiceInfoFromResponse(currentResponse, serviceTypeLabels);
 
-        for (MdnsServiceBrowserListener listener : listeners) {
+        for (MdnsServiceListener listener : listeners) {
             if (newServiceFound) {
-                listener.onServiceFound(serviceInfo);
+                ((MdnsServiceBrowserListener) listener).onServiceFound(serviceInfo);
             } else {
-                listener.onServiceUpdated(serviceInfo);
+                ((MdnsServiceBrowserListener) listener).onServiceUpdated(serviceInfo);
             }
         }
     }
@@ -250,8 +250,8 @@ public class MdnsServiceTypeClient {
             return;
         }
         instanceNameToResponse.remove(serviceInstanceName);
-        for (MdnsServiceBrowserListener listener : listeners) {
-            listener.onServiceRemoved(serviceInstanceName);
+        for (MdnsServiceListener listener : listeners) {
+            ((MdnsServiceBrowserListener) listener).onServiceRemoved(serviceInstanceName);
         }
     }
 
@@ -407,8 +407,8 @@ public class MdnsServiceTypeClient {
                     }
                 }
                 if ((result != null)) {
-                    for (MdnsServiceBrowserListener listener : listeners) {
-                        listener.onDiscoveryQuerySent(result.second, result.first);
+                    for (MdnsServiceListener listener : listeners) {
+                        listener.onQuerySent(result.second, result.first);
                     }
                 }
                 if (shouldRemoveServiceAfterTtlExpires()) {
@@ -421,11 +421,12 @@ public class MdnsServiceTypeClient {
                                 .getRemainingTTL(SystemClock.elapsedRealtime())
                                 == 0) {
                             iter.remove();
-                            for (MdnsServiceBrowserListener listener : listeners) {
+                            for (MdnsServiceListener listener : listeners) {
                                 String serviceInstanceName =
                                         existingResponse.getServiceInstanceName();
                                 if (serviceInstanceName != null) {
-                                    listener.onServiceRemoved(serviceInstanceName);
+                                    ((MdnsServiceBrowserListener) listener).onServiceRemoved(
+                                            serviceInstanceName);
                                 }
                             }
                         }
