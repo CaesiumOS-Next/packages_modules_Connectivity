@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "970f2075_94fe6a88",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-05T10:48:39Z",
+      "side": 1,
+      "message": "LGTM but I guess Lorenzo should +1 since it\u0027s not a cherry-pick ?",
+      "revId": "519377f6ce0a33a045ba7c1b18496f04776d3699",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
