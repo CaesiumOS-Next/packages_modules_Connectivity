@@ -19,6 +19,7 @@ package com.android.server;
 import static android.net.nsd.NsdManager.FAILURE_INTERNAL_ERROR;
 
 import static com.android.server.NsdService.MDNS_SERVICE_VERSION;
+import static com.android.server.connectivity.mdns.MdnsSocket.INTERFACE_INDEX_UNSPECIFIED;
 import static com.android.testutils.ContextUtils.mockService;
 
 import static libcore.junit.util.compat.CoreCompatChangeRule.DisableCompatChanges;
@@ -46,8 +47,11 @@ import static org.mockito.Mockito.when;
 import android.compat.testing.PlatformCompatChangeRule;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.net.INetd;
 import android.net.InetAddresses;
+import android.net.LinkProperties;
+import android.net.Network;
 import android.net.mdns.aidl.DiscoveryInfo;
 import android.net.mdns.aidl.GetAddressInfo;
 import android.net.mdns.aidl.IMDnsEventListener;
@@ -127,6 +131,7 @@ public class NsdServiceTest {
     @Mock WifiManager.MulticastLock mLock;
     @Mock Dependencies mDeps;
     @Mock MdnsDiscoveryManager mDiscoveryManager;
+    @Mock ConnectivityManager mCm;
     HandlerThread mThread;
     TestHandler mHandler;
     NsdService mService;
@@ -150,6 +155,7 @@ public class NsdServiceTest {
         when(mContext.getContentResolver()).thenReturn(mResolver);
         mockService(mContext, MDnsManager.class, MDnsManager.MDNS_SERVICE, mMockMDnsM);
         mockService(mContext, WifiManager.class, Context.WIFI_SERVICE, mWifiManager);
+        mockService(mContext, ConnectivityManager.class, Context.CONNECTIVITY_SERVICE, mCm);
         if (mContext.getSystemService(MDnsManager.class) == null) {
             // Test is using mockito-extended
             doCallRealMethod().when(mContext).getSystemService(MDnsManager.class);
@@ -157,6 +163,10 @@ public class NsdServiceTest {
         if (mContext.getSystemService(WifiManager.class) == null) {
             // Test is using mockito-extended
             doCallRealMethod().when(mContext).getSystemService(WifiManager.class);
+        }
+        if (mContext.getSystemService(ConnectivityManager.class) == null) {
+            // Test is using mockito-extended
+            doCallRealMethod().when(mContext).getSystemService(ConnectivityManager.class);
         }
         doReturn(true).when(mMockMDnsM).registerService(
                 anyInt(), anyString(), anyString(), anyInt(), any(), anyInt());
@@ -579,8 +589,16 @@ public class NsdServiceTest {
 
     @Test
     public void testDiscoveryWithGmsMdnsService() {
+        final Network network = new Network(54321);
+        final String ifaceName = "NsdService-test";
+        final int interfaceIndex = 999;
+        final LinkProperties lp = new LinkProperties();
+        lp.setInterfaceName(ifaceName);
         doReturn(true).when(mDeps).isFeatureEnabled(
                 any(), eq(MDNS_SERVICE_VERSION), anyBoolean());
+        doReturn(new Network[]{network}).when(mCm).getAllNetworks();
+        doReturn(lp).when(mCm).getLinkProperties(network);
+        doReturn(ifaceName).when(mDeps).getInterfaceNameByIndex(interfaceIndex);
 
         mService = makeService();
         final NsdManager client = connectClient(mService);
@@ -604,23 +622,58 @@ public class NsdServiceTest {
                 12345, /* port */
                 "192.168.1.1", /* ipv4Address */
                 "2001::1", /* ipv6Address */
-                List.of() /* textStrings */);
+                List.of() /* textStrings */,
+                List.of() /* textEntries */,
+                interfaceIndex);
         // Verify MdnsServiceBrowserListener#onServiceFound callback
         listener.onServiceFound(mdnsServiceInfo);
         verify(discListener, timeout(TIMEOUT_MS)).onServiceFound(argThat(info ->
                 info.getServiceName().equals(serviceName)
-                        && info.getServiceType().equals(serviceType)));
+                        && info.getServiceType().equals(serviceType)
+                        && info.getNetwork().equals(network)));
 
         // Verify MdnsServiceBrowserListener#onServiceRemoved callback
         listener.onServiceRemoved(mdnsServiceInfo);
         verify(discListener, timeout(TIMEOUT_MS)).onServiceLost(argThat(info ->
                 info.getServiceName().equals(serviceName)
-                        && info.getServiceType().equals(serviceType)));
+                        && info.getServiceType().equals(serviceType)
+                        && info.getNetwork().equals(network)));
 
         client.stopServiceDiscovery(discListener);
         waitForIdle();
         verify(mDiscoveryManager, timeout(TIMEOUT_MS)).unregisterListener(eq(SERVICE_TYPE), any());
         verify(discListener, timeout(TIMEOUT_MS)).onDiscoveryStopped(SERVICE_TYPE);
+    }
+
+    @Test
+    public void testGetNetIdFromInterfaceIndex() {
+        assertEquals(0, mService.getNetIdFromInterfaceIndex(
+                INTERFACE_INDEX_UNSPECIFIED, null /* info */));
+
+        final int interfaceIndex = 999;
+        final int netId = 54321;
+        final NsdServiceInfo info = new NsdServiceInfo();
+        final Network network = new Network(netId);
+        info.setInterfaceIndex(interfaceIndex);
+        info.setNetwork(network);
+        assertEquals(netId, mService.getNetIdFromInterfaceIndex(interfaceIndex, info));
+
+        doReturn(null).when(mCm).getAllNetworks();
+        assertEquals(0, mService.getNetIdFromInterfaceIndex(interfaceIndex, null));
+
+        doReturn(new Network[]{network}).when(mCm).getAllNetworks();
+        doReturn(null).when(mDeps).getInterfaceNameByIndex(interfaceIndex);
+        assertEquals(0, mService.getNetIdFromInterfaceIndex(interfaceIndex, null));
+
+        final String ifaceName = "NsdService-test";
+        doReturn(ifaceName).when(mDeps).getInterfaceNameByIndex(interfaceIndex);
+
+        final LinkProperties lp = new LinkProperties();
+        doReturn(lp).when(mCm).getLinkProperties(network);
+        assertEquals(0, mService.getNetIdFromInterfaceIndex(interfaceIndex, null));
+
+        lp.setInterfaceName(ifaceName);
+        assertEquals(netId, mService.getNetIdFromInterfaceIndex(interfaceIndex, null));
     }
 
     private void waitForIdle() {
