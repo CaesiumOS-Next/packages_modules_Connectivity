@@ -31,6 +31,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -77,6 +78,8 @@ public class MdnsServiceTypeClientTests {
     private MdnsServiceBrowserListener mockListenerOne;
     @Mock
     private MdnsServiceBrowserListener mockListenerTwo;
+    @Mock
+    private MdnsServiceResolutionListener mResolutionListener;
     @Mock
     private MdnsPacketWriter mockPacketWriter;
     @Mock
@@ -495,6 +498,7 @@ public class MdnsServiceTypeClientTests {
     public void processResponse_goodBye() {
         client.startSendAndReceive(mockListenerOne, MdnsSearchOptions.getDefaultOptions());
         client.startSendAndReceive(mockListenerTwo, MdnsSearchOptions.getDefaultOptions());
+        client.startSendAndReceive(mResolutionListener, MdnsSearchOptions.getDefaultOptions());
 
         MdnsResponse response = mock(MdnsResponse.class);
         when(response.getServiceInstanceName()).thenReturn("goodbye-service-instance-name");
@@ -505,6 +509,7 @@ public class MdnsServiceTypeClientTests {
                 info -> info.getServiceInstanceName().equals("goodbye-service-instance-name")));
         verify(mockListenerTwo).onServiceRemoved(argThat(
                 info -> info.getServiceInstanceName().equals("goodbye-service-instance-name")));
+        verifyNoMoreInteractions(mResolutionListener);
     }
 
     @Test
@@ -676,6 +681,45 @@ public class MdnsServiceTypeClientTests {
         // Verify onServiceRemoved was called.
         verify(mockListenerOne, times(1)).onServiceRemoved(argThat(
                 info -> info.getServiceInstanceName().equals(serviceInstanceName)));
+    }
+
+    @Test
+    public void testResolutionService() throws Exception {
+        final String serviceName = "service-instance-1";
+        final String ipV4Address = "192.168.1.1";
+        final int port = 5353;
+        final List<String> subtypes = Collections.singletonList("ABCDE");
+        final int interfaceIndex = 20;
+        client.startSendAndReceive(mResolutionListener, MdnsSearchOptions.getDefaultOptions());
+
+        // Process the initial response.
+        final MdnsResponse response = createResponse(serviceName, ipV4Address, port,
+                subtypes, Collections.emptyMap() /* textAttributes */, interfaceIndex);
+        client.processResponse(response);
+
+        // Verify onServiceResolved was called once for the response.
+        verify(mResolutionListener).onServiceResolved(serviceInfoCaptor.capture());
+        final MdnsServiceInfo info = serviceInfoCaptor.getValue();
+        assertEquals(serviceName, info.getServiceInstanceName());
+        assertEquals(ipV4Address, info.getIpv4Address());
+        assertEquals(port, info.getPort());
+        assertEquals(subtypes, info.getSubtypes());
+        assertNull(info.getAttributeByKey("key"));
+        assertEquals(interfaceIndex, info.getInterfaceIndex());
+
+        // Register other listener and verify the onServiceResolved will receive.
+        final MdnsServiceResolutionListener otherListener =
+                mock(MdnsServiceResolutionListener.class);
+        client.startSendAndReceive(otherListener, MdnsSearchOptions.getDefaultOptions());
+
+        verify(otherListener).onServiceResolved(serviceInfoCaptor.capture());
+        final MdnsServiceInfo otherInfo = serviceInfoCaptor.getValue();
+        assertEquals(serviceName, otherInfo.getServiceInstanceName());
+        assertEquals(ipV4Address, otherInfo.getIpv4Address());
+        assertEquals(port, otherInfo.getPort());
+        assertEquals(subtypes, otherInfo.getSubtypes());
+        assertNull(otherInfo.getAttributeByKey("key"));
+        assertEquals(interfaceIndex, otherInfo.getInterfaceIndex());
     }
 
     // verifies that the right query was enqueued with the right delay, and send query by executing
