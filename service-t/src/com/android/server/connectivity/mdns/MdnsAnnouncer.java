@@ -32,25 +32,29 @@ import java.util.function.Supplier;
  *
  * This allows maintaining other hosts' caches up-to-date. See RFC6762 8.3.
  */
-public class MdnsAnnouncer extends MdnsPacketRepeater<MdnsAnnouncer.AnnouncementInfo> {
+public class MdnsAnnouncer extends MdnsPacketRepeater<MdnsAnnouncer.BaseAnnouncementInfo> {
     private static final long ANNOUNCEMENT_INITIAL_DELAY_MS = 1000L;
     @VisibleForTesting
     static final int ANNOUNCEMENT_COUNT = 8;
 
+    // Matches delay and GoodbyeCount used by the legacy implementation
+    private static final long EXIT_DELAY_MS = 2000L;
+    private static final int EXIT_COUNT = 3;
+
     @NonNull
     private final String mLogTag;
 
-    static class AnnouncementInfo implements MdnsPacketRepeater.Request {
+    abstract static class BaseAnnouncementInfo implements MdnsPacketRepeater.Request {
+        private final int mServiceId;
         @NonNull
         private final MdnsPacket mPacket;
         @NonNull
         private final Supplier<Iterable<SocketAddress>> mDestinationsSupplier;
 
-        AnnouncementInfo(List<MdnsRecord> announcedRecords, List<MdnsRecord> additionalRecords,
-                Supplier<Iterable<SocketAddress>> destinationsSupplier) {
-            // Records to announce (as answers)
-            // Records to place in the "Additional records", with NSEC negative responses
-            // to mark records that have been verified unique
+        protected BaseAnnouncementInfo(int serviceId, @NonNull List<MdnsRecord> announcedRecords,
+                @NonNull List<MdnsRecord> additionalRecords,
+                @NonNull Supplier<Iterable<SocketAddress>> destinationsSupplier) {
+            mServiceId = serviceId;
             final int flags = 0x8400; // Response, authoritative (rfc6762 18.4)
             mPacket = new MdnsPacket(flags,
                     Collections.emptyList() /* questions */,
@@ -58,6 +62,10 @@ public class MdnsAnnouncer extends MdnsPacketRepeater<MdnsAnnouncer.Announcement
                     Collections.emptyList() /* authorityRecords */,
                     additionalRecords);
             mDestinationsSupplier = destinationsSupplier;
+        }
+
+        public int getServiceId() {
+            return mServiceId;
         }
 
         @Override
@@ -68,6 +76,14 @@ public class MdnsAnnouncer extends MdnsPacketRepeater<MdnsAnnouncer.Announcement
         @Override
         public Iterable<SocketAddress> getDestinations(int index) {
             return mDestinationsSupplier.get();
+        }
+    }
+
+    static class AnnouncementInfo extends BaseAnnouncementInfo {
+        AnnouncementInfo(int serviceId, List<MdnsRecord> announcedRecords,
+                List<MdnsRecord> additionalRecords,
+                Supplier<Iterable<SocketAddress>> destinationsSupplier) {
+            super(serviceId, announcedRecords, additionalRecords, destinationsSupplier);
         }
 
         @Override
@@ -82,9 +98,26 @@ public class MdnsAnnouncer extends MdnsPacketRepeater<MdnsAnnouncer.Announcement
         }
     }
 
+    static class ExitAnnouncementInfo extends BaseAnnouncementInfo {
+        ExitAnnouncementInfo(int serviceId, List<MdnsRecord> announcedRecords,
+                Supplier<Iterable<SocketAddress>> destinationsSupplier) {
+            super(serviceId, announcedRecords, Collections.emptyList(), destinationsSupplier);
+        }
+
+        @Override
+        public long getDelayMs(int nextIndex) {
+            return EXIT_DELAY_MS;
+        }
+
+        @Override
+        public int getNumSends() {
+            return EXIT_COUNT;
+        }
+    }
+
     public MdnsAnnouncer(@NonNull String interfaceTag, @NonNull Looper looper,
             @NonNull MdnsReplySender replySender,
-            @Nullable PacketRepeaterCallback<AnnouncementInfo> cb) {
+            @Nullable PacketRepeaterCallback<BaseAnnouncementInfo> cb) {
         super(looper, replySender, cb);
         mLogTag = MdnsAnnouncer.class.getSimpleName() + "/" + interfaceTag;
     }

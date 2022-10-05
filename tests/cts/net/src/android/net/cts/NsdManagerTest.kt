@@ -19,6 +19,7 @@ import android.Manifest.permission.MANAGE_TEST_NETWORKS
 import android.app.compat.CompatChanges
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.NetworkCallback
+import android.net.LinkAddress
 import android.net.LinkProperties
 import android.net.Network
 import android.net.NetworkAgentConfig
@@ -55,6 +56,7 @@ import android.platform.test.annotations.AppModeFull
 import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
+import com.android.modules.utils.build.SdkLevel
 import com.android.net.module.util.ArrayTrackRecord
 import com.android.net.module.util.TrackRecord
 import com.android.networkstack.apishim.NsdShimImpl
@@ -76,6 +78,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.File
+import java.net.NetworkInterface
 import java.net.ServerSocket
 import java.nio.charset.StandardCharsets
 import java.util.Random
@@ -144,6 +147,7 @@ class NsdManagerTest {
             if (expectedThreadId != null) {
                 assertEquals(expectedThreadId, myTid(), "Callback is running on the wrong thread")
             }
+            Log.i(TAG, "Received $e on $this")
             return history.add(e)
         }
 
@@ -312,6 +316,10 @@ class NsdManagerTest {
                 },
                 LinkProperties().apply {
                     interfaceName = ifaceName
+                    // TODO: handle races !
+                    setLinkAddresses(NetworkInterface.getByName(ifaceName).interfaceAddresses.map {
+                        LinkAddress(it.address, it.networkPrefixLength.toInt())
+                    })
                 },
                 NetworkAgentConfig.Builder().build())
         agent.register()
@@ -392,6 +400,11 @@ class NsdManagerTest {
         // Expect a service record to be discovered
         val foundInfo = discoveryRecord.waitForServiceDiscovered(registeredInfo.serviceName)
 
+        android.util.Log.i("MdnsTesting", "First service was found on " + foundInfo.network)
+        val discoveryRecord2 = NsdDiscoveryRecord()
+        nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD, foundInfo.network,
+                Runnable::run, discoveryRecord2)
+
         // Test resolving without an Executor
         val resolveRecord = NsdResolveRecord()
         nsdManager.resolveService(foundInfo, resolveRecord)
@@ -414,11 +427,16 @@ class NsdManagerTest {
         assertEquals(localPort, resolvedService.port)
 
         // Unregister the service
+        android.util.Log.i("MdnsTesting", "Unregistering first service")
         nsdManager.unregisterService(registrationRecord)
         registrationRecord.expectCallback<ServiceUnregistered>()
 
         // Expect a callback for service lost
+        android.util.Log.i("MdnsTesting", "Expecting service lost")
         discoveryRecord.expectCallbackEventually<ServiceLost> {
+            it.serviceInfo.serviceName == serviceName
+        }
+        discoveryRecord2.expectCallbackEventually<ServiceLost> {
             it.serviceInfo.serviceName == serviceName
         }
 
@@ -428,13 +446,17 @@ class NsdManagerTest {
         si2.serviceName = serviceName
         si2.port = localPort
         val registrationRecord2 = NsdRegistrationRecord()
+        android.util.Log.i("MdnsTesting", "Registering new service")
         nsdManager.registerService(si2, NsdManager.PROTOCOL_DNS_SD, registrationRecord2)
         val registeredInfo2 = registrationRecord2.expectCallback<ServiceRegistered>(
                 REGISTRATION_TIMEOUT_MS).serviceInfo
 
         // Expect a service record to be discovered (and filter the ones
         // that are unrelated to this test)
-        val foundInfo2 = discoveryRecord.waitForServiceDiscovered(registeredInfo2.serviceName)
+        android.util.Log.i("MdnsTesting", "Waiting for new service discovered")
+        val foundInfo2 = discoveryRecord2.waitForServiceDiscovered(registeredInfo2.serviceName)
+
+        android.util.Log.i("MdnsTesting", "New service was found on " + foundInfo2.network)
 
         // Resolve the service
         val resolveRecord2 = NsdResolveRecord()
@@ -445,8 +467,10 @@ class NsdManagerTest {
         assertEquals(0, resolvedService2.attributes.size)
 
         nsdManager.stopServiceDiscovery(discoveryRecord)
-
         discoveryRecord.expectCallbackEventually<DiscoveryStopped>()
+
+        nsdManager.stopServiceDiscovery(discoveryRecord2)
+        discoveryRecord2.expectCallbackEventually<DiscoveryStopped>()
 
         nsdManager.unregisterService(registrationRecord2)
         registrationRecord2.expectCallback<ServiceUnregistered>()

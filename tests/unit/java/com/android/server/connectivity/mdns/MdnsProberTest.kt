@@ -58,6 +58,7 @@ private val TEST_SERVICE_NAME_2 = arrayOf("testservice2", "_nmt", "_tcp", "local
 class MdnsProberTest {
     private val thread = HandlerThread(MdnsProberTest::class.simpleName)
     private val socket = mock(MulticastSocket::class.java)
+    private val repository = mock(MdnsRecordRepository::class.java)
     @Suppress("UNCHECKED_CAST")
     private val cb = mock(MdnsPacketRepeater.PacketRepeaterCallback::class.java)
         as MdnsPacketRepeater.PacketRepeaterCallback<ProbingInfo>
@@ -83,8 +84,9 @@ class MdnsProberTest {
     private class TestProber(
         looper: Looper,
         replySender: MdnsReplySender,
+        repository: MdnsRecordRepository,
         cb: PacketRepeaterCallback<ProbingInfo>
-    ) : MdnsProber("testiface", looper, replySender, cb) {
+    ) : MdnsProber("testiface", looper, replySender, repository, cb) {
         override fun getInitialDelay() = 0L
     }
 
@@ -117,8 +119,8 @@ class MdnsProberTest {
 
     @Test
     fun testProbe() {
-        val replySender = MdnsReplySender(thread.looper, socket, buffer)
-        val prober = TestProber(thread.looper, replySender, cb)
+        val replySender = MdnsReplySender("testiface", thread.looper, socket, buffer, cb)
+        val prober = TestProber(thread.looper, replySender, repository, cb)
         val probeInfo = TestProbeInfo(
                 listOf(makeServiceRecord(TEST_SERVICE_NAME_1, 37890)))
         prober.startProbing(probeInfo)
