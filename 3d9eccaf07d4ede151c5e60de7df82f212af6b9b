@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c8651ec_b8fe140f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1886780
+      },
+      "writtenOn": "2022-10-05T11:13:41Z",
+      "side": 1,
+      "message": "Hi Remi, Ken and Sewook\nMay I request to review this CL?",
+      "revId": "3d9eccaf07d4ede151c5e60de7df82f212af6b9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
