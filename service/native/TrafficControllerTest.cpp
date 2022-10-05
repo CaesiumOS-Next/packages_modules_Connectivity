@@ -769,46 +769,6 @@ TEST_F(TrafficControllerTest, TestGrantDuplicatePermissionSlientlyFail) {
     expectPrivilegedUserSetEmpty();
 }
 
-TEST_F(TrafficControllerTest, TestDumpsys) {
-    StatsKey tagStatsMapKey;
-    populateFakeStats(TEST_COOKIE, TEST_UID, TEST_TAG, &tagStatsMapKey);
-    populateFakeCounterSet(TEST_UID3, TEST_COUNTERSET);
-
-    // Expect: (part of this depends on hard-code values in populateFakeStats())
-    //
-    // mCookieTagMap:
-    // cookie=1 tag=0x2a uid=10086
-    //
-    // mUidCounterSetMap:
-    // 98765 1
-    //
-    // mAppUidStatsMap::
-    // uid rxBytes rxPackets txBytes txPackets
-    // 10086 100 1 0 0
-    //
-    // mStatsMapA:
-    // ifaceIndex ifaceName tag_hex uid_int cnt_set rxBytes rxPackets txBytes txPackets
-    // 999 test0 0x2a 10086 1 100 1 0 0
-    std::vector<std::string> expectedLines = {
-        "mCookieTagMap:",
-        fmt::format("cookie={} tag={:#x} uid={}", TEST_COOKIE, TEST_TAG, TEST_UID)};
-
-    EXPECT_TRUE(expectDumpsysContains(expectedLines));
-}
-
-TEST_F(TrafficControllerTest, dumpsysInvalidMaps) {
-    makeTrafficControllerMapsInvalid();
-
-    const std::string kErrIterate = "print end with error: Get firstKey map -1 failed: "
-            "Bad file descriptor";
-    const std::string kErrReadRulesConfig = "read ownerMatch configure failed with error: "
-            "Read value of map -1 failed: Bad file descriptor";
-
-    std::vector<std::string> expectedLines = {
-        fmt::format("mCookieTagMap {}", kErrIterate)};
-    EXPECT_TRUE(expectDumpsysContains(expectedLines));
-}
-
 TEST_F(TrafficControllerTest, getFirewallType) {
     static const struct TestConfig {
         ChildChain childChain;
