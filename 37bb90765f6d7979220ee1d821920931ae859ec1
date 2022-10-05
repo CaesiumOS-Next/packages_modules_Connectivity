@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "980c153e_c26bb591",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-10-05T08:27:33Z",
+      "side": 1,
+      "message": "should we also override the onReachabilityFailure(int reason) which was introduced since NetworkStack-aidl version 13?. If the NetworkStack module version is higher, then onReachabilityFailure will be triggered instead of legacy onReachabilityLost(). And then post updateNeighborLostEvent there as well.",
+      "range": {
+        "startLine": 352,
+        "startChar": 24,
+        "endLine": 352,
+        "endChar": 42
+      },
+      "revId": "37bb90765f6d7979220ee1d821920931ae859ec1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
