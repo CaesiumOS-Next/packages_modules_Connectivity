@@ -47,10 +47,13 @@ import android.util.Pair;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 
+import com.android.connectivity.mdns.MdnsAdvertiser;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.State;
 import com.android.internal.util.StateMachine;
 import com.android.net.module.util.PermissionUtils;
+import com.android.server.connectivity.mdns.MulticastNetworkInterfaceProvider;
+import com.android.server.connectivity.mdns.NetworkInterfaceWrapper;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -58,7 +61,9 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Network Service Discovery Service handles remote service discovery operation requests by
@@ -78,6 +83,8 @@ public class NsdService extends INsdManager.Stub {
     private final NsdStateMachine mNsdStateMachine;
     private final MDnsManager mMDnsManager;
     private final MDnsEventCallback mMDnsEventCallback;
+    private final MdnsAdvertiser mAdvertiser;
+    private final MulticastNetworkInterfaceProvider mInterfaceProvider;
     // WARNING : Accessing this value in any thread is not safe, it must only be changed in the
     // state machine thread. If change this outside state machine, it will need to introduce
     // synchronization.
@@ -113,6 +120,7 @@ public class NsdService extends INsdManager.Stub {
                 if (DBG) Log.d(TAG, "Daemon is already started.");
                 return;
             }
+            mInterfaceProvider.startWatchingConnectivityChanges();
             mMDnsManager.registerEventListener(mMDnsEventCallback);
             mMDnsManager.startDaemon();
             mIsDaemonStarted = true;
@@ -124,6 +132,7 @@ public class NsdService extends INsdManager.Stub {
                 if (DBG) Log.d(TAG, "Daemon has not been started.");
                 return;
             }
+            mInterfaceProvider.stopWatchingConnectivityChanges();
             mMDnsManager.unregisterEventListener(mMDnsEventCallback);
             mMDnsManager.stopDaemon();
             mIsDaemonStarted = false;
@@ -369,6 +378,18 @@ public class NsdService extends INsdManager.Stub {
                             break;
                         }
 
+                        id = getUniqueId();
+                        // TODO: get interfaces properly
+                        final List<NetworkInterfaceWrapper> ifWrap =
+                                mInterfaceProvider.getMulticastNetworkInterfaces();
+                        final List<NetworkInterface> ifaces = new ArrayList<>(ifWrap.size());
+                        for (NetworkInterfaceWrapper w : ifWrap) {
+                            ifaces.add(w.getNetworkInterface());
+                        }
+                        mAdvertiser.addService(id, args.serviceInfo, ifaces);
+                        storeRequestMap(clientId, id, clientInfo, msg.what);
+                        clientInfo.onRegisterServiceSucceeded(clientId, args.serviceInfo);
+                        /*
                         maybeStartDaemon();
                         id = getUniqueId();
                         if (registerService(id, args.serviceInfo)) {
@@ -380,6 +401,7 @@ public class NsdService extends INsdManager.Stub {
                             clientInfo.onRegisterServiceFailed(
                                     clientId, NsdManager.FAILURE_INTERNAL_ERROR);
                         }
+                         */
                         break;
                     case NsdManager.UNREGISTER_SERVICE:
                         if (DBG) Log.d(TAG, "unregister service");
@@ -394,12 +416,17 @@ public class NsdService extends INsdManager.Stub {
                         }
                         id = clientInfo.mClientIds.get(clientId);
                         removeRequestMap(clientId, id, clientInfo);
+
+                        mAdvertiser.removeService(id);
+                        clientInfo.onUnregisterServiceSucceeded(clientId);
+                        /*
                         if (unregisterService(id)) {
                             clientInfo.onUnregisterServiceSucceeded(clientId);
                         } else {
                             clientInfo.onUnregisterServiceFailed(
                                     clientId, NsdManager.FAILURE_INTERNAL_ERROR);
                         }
+                         */
                         break;
                     case NsdManager.RESOLVE_SERVICE:
                         if (DBG) Log.d(TAG, "Resolve service");
@@ -652,10 +679,12 @@ public class NsdService extends INsdManager.Stub {
     NsdService(Context ctx, Handler handler, long cleanupDelayMs) {
         mCleanupDelayMs = cleanupDelayMs;
         mContext = ctx;
+        mInterfaceProvider = new MulticastNetworkInterfaceProvider(mContext);
         mNsdStateMachine = new NsdStateMachine(TAG, handler);
         mNsdStateMachine.start();
         mMDnsManager = ctx.getSystemService(MDnsManager.class);
         mMDnsEventCallback = new MDnsEventCallback(mNsdStateMachine);
+        mAdvertiser = new MdnsAdvertiser(handler.getLooper(), ctx);
     }
 
     public static NsdService create(Context context) {

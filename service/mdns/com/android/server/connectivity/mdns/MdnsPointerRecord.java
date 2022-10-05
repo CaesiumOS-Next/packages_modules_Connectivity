@@ -16,6 +16,8 @@
 
 package com.android.server.connectivity.mdns;
 
+import android.net.DnsResolver;
+
 import com.android.internal.annotations.VisibleForTesting;
 
 import java.io.IOException;
@@ -30,6 +32,12 @@ public class MdnsPointerRecord extends MdnsRecord {
 
     public MdnsPointerRecord(String[] name, MdnsPacketReader reader) throws IOException {
         super(name, TYPE_PTR, reader);
+    }
+
+    public MdnsPointerRecord(String[] name, long receiptTimeMillis, boolean cacheFlush,
+                    long ttlMillis, String[] pointer) {
+        super(name, TYPE_PTR, DnsResolver.CLASS_IN, receiptTimeMillis, cacheFlush, ttlMillis);
+        this.pointer = pointer;
     }
 
     /** Returns the pointer as an array of labels. */
