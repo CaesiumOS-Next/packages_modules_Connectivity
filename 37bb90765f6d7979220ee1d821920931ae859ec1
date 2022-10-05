@@ -22,6 +22,30 @@
       },
       "revId": "37bb90765f6d7979220ee1d821920931ae859ec1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9132172a_30d3828a",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-05T15:34:33Z",
+      "side": 1,
+      "message": "Oh, I wasn\u0027t aware we had added a new callback. Looking at the ReachabilityLossInfoParcelable, I see that we have added a loss reason. However, does do not seem super applicable to ethernet -- I don\u0027t see how ROAM or CONFIRM could ever happen. Are you trying to get rid of onReachabilityFailure? In either case, I would suggest that the change belongs in a separate CL 😊",
+      "parentUuid": "980c153e_c26bb591",
+      "range": {
+        "startLine": 352,
+        "startChar": 24,
+        "endLine": 352,
+        "endChar": 42
+      },
+      "revId": "37bb90765f6d7979220ee1d821920931ae859ec1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
