@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2804650a_89ea9271",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1087,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-05T01:50:04Z",
+      "side": 1,
+      "message": "Suggest asserting once before clearInterface, so you can show that the interface has indeed been recorded, before you show it has been cleared",
+      "range": {
+        "startLine": 1087,
+        "startChar": 74,
+        "endLine": 1087,
+        "endChar": 75
+      },
+      "revId": "69a253bd52a98dacc485bbe73b16f79b90cd5a53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
