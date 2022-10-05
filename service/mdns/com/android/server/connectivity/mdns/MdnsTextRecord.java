@@ -16,6 +16,8 @@
 
 package com.android.server.connectivity.mdns;
 
+import android.net.DnsResolver;
+
 import com.android.internal.annotations.VisibleForTesting;
 
 import java.io.IOException;
@@ -33,6 +35,12 @@ public class MdnsTextRecord extends MdnsRecord {
 
     public MdnsTextRecord(String[] name, MdnsPacketReader reader) throws IOException {
         super(name, TYPE_TXT, reader);
+    }
+
+    public MdnsTextRecord(String[] name, long receiptTimeMillis, boolean cacheFlush, long ttlMillis,
+                    List<String> strings) {
+        super(name, TYPE_TXT, DnsResolver.CLASS_IN, receiptTimeMillis, cacheFlush, ttlMillis);
+        this.strings = strings;
     }
 
     /** Returns the list of strings. */
