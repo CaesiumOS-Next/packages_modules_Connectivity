@@ -166,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c25e8833_5dc39eb3",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2773,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-10-05T02:21:37Z",
+      "side": 1,
+      "message": "Updated to unregister here.",
+      "parentUuid": "40632202_5cc8db8d",
+      "range": {
+        "startLine": 2773,
+        "startChar": 4,
+        "endLine": 2773,
+        "endChar": 5
+      },
+      "revId": "f35f1b0446db6cc393f32c9c7949b215d566557a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "079b29d5_8e150f7d",
