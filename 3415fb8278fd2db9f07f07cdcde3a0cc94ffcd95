@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56cbf1e8_9c02c0e1",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 933,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-05T04:09:17Z",
+      "side": 1,
+      "message": "I added the comment to explain why this is error.\nThis string will be displayed in the dump so not sure if I want to log.",
+      "parentUuid": "98ce7139_a9bb47c6",
+      "range": {
+        "startLine": 933,
+        "startChar": 20,
+        "endLine": 933,
+        "endChar": 48
+      },
+      "revId": "3415fb8278fd2db9f07f07cdcde3a0cc94ffcd95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5fe77fbf_e945470a",
@@ -71,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0efe45d9_2a9e6f2c",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-05T04:09:17Z",
+      "side": 1,
+      "message": "Let me keep this to be consistent with `matchToString`",
+      "parentUuid": "aa788b5c_3c1b725a",
+      "range": {
+        "startLine": 929,
+        "startChar": 7,
+        "endLine": 948,
+        "endChar": 29
+      },
+      "revId": "3415fb8278fd2db9f07f07cdcde3a0cc94ffcd95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9618885f_ba495112",
@@ -84,6 +132,30 @@
       "writtenOn": "2022-09-22T19:28:26Z",
       "side": 1,
       "message": "nit: Suggest wrapping the second BpfDump statement in the if(verbose) {}. Positive logic is a little bit easier to read.",
+      "range": {
+        "startLine": 967,
+        "startChar": 38,
+        "endLine": 974,
+        "endChar": 89
+      },
+      "revId": "3415fb8278fd2db9f07f07cdcde3a0cc94ffcd95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f80b260_36bc03a9",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-05T04:09:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9618885f_ba495112",
       "range": {
         "startLine": 967,
         "startChar": 38,
