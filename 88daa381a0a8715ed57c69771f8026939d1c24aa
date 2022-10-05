@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "15580d28_c312006a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2908,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-05T02:44:09Z",
+      "side": 1,
+      "message": "Not done ? I think you\u0027ve only removed the call to ensureCellIsValidatedBeforeMockingValidationUrl, which means now this can flake again right ?",
+      "parentUuid": "79d4b552_349d41de",
+      "range": {
+        "startLine": 2908,
+        "startChar": 0,
+        "endLine": 2908,
+        "endChar": 75
+      },
+      "revId": "88daa381a0a8715ed57c69771f8026939d1c24aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7194359c_2346353e",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 6
