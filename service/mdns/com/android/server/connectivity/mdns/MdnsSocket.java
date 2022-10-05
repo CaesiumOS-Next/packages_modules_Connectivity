@@ -39,7 +39,7 @@ import java.util.List;
 public class MdnsSocket {
     private static final MdnsLogger LOGGER = new MdnsLogger("MdnsSocket");
 
-    static final int INTERFACE_INDEX_UNSPECIFIED = -1;
+    public static final int INTERFACE_INDEX_UNSPECIFIED = -1;
     private static final InetSocketAddress MULTICAST_IPV4_ADDRESS =
             new InetSocketAddress(MdnsConstants.getMdnsIPv4Address(), MdnsConstants.MDNS_PORT);
     private static final InetSocketAddress MULTICAST_IPV6_ADDRESS =

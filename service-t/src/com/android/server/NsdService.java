@@ -21,6 +21,8 @@ import static android.net.nsd.NsdManager.GMS_MDNS_SERVICE_EVENT;
 import static android.net.nsd.NsdManager.MDNS_SERVICE_EVENT;
 import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 
+import static com.android.server.connectivity.mdns.MdnsSocket.INTERFACE_INDEX_UNSPECIFIED;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -90,6 +92,7 @@ public class NsdService extends INsdManager.Stub {
     private static final int IFACE_IDX_ANY = 0;
 
     private final Context mContext;
+    private final Dependencies mDeps;
     private final NsdStateMachine mNsdStateMachine;
     private final MDnsManager mMDnsManager;
     private final MDnsEventCallback mMDnsEventCallback;
@@ -135,19 +138,22 @@ public class NsdService extends INsdManager.Stub {
         @Override
         public void onServiceFound(MdnsServiceInfo serviceInfo) {
             mNsdStateMachine.sendMessage(GMS_MDNS_SERVICE_EVENT, mTransactionId,
-                    NsdManager.SERVICE_FOUND, new MdnsEvent(mClientId, serviceInfo));
+                    NsdManager.SERVICE_FOUND,
+                    new MdnsEvent(mClientId, serviceInfo, mReqServiceInfo));
         }
 
         @Override
         public void onServiceUpdated(MdnsServiceInfo serviceInfo) {
             mNsdStateMachine.sendMessage(GMS_MDNS_SERVICE_EVENT, mTransactionId,
-                    NsdManager.SERVICE_FOUND, new MdnsEvent(mClientId, serviceInfo));
+                    NsdManager.SERVICE_FOUND,
+                    new MdnsEvent(mClientId, serviceInfo, mReqServiceInfo));
         }
 
         @Override
         public void onServiceRemoved(MdnsServiceInfo serviceInfo) {
             mNsdStateMachine.sendMessage(GMS_MDNS_SERVICE_EVENT, mTransactionId,
-                    NsdManager.SERVICE_LOST, new MdnsEvent(mClientId, serviceInfo));
+                    NsdManager.SERVICE_LOST,
+                    new MdnsEvent(mClientId, serviceInfo, mReqServiceInfo));
         }
 
         @Override
@@ -173,10 +179,12 @@ public class NsdService extends INsdManager.Stub {
     class MdnsEvent {
         final int mClientId;
         final MdnsServiceInfo mMdnsServiceInfo;
+        final NsdServiceInfo mReqServiceInfo;
 
-        MdnsEvent(int clientId, MdnsServiceInfo mdnsServiceInfo) {
+        MdnsEvent(int clientId, MdnsServiceInfo mdnsServiceInfo, NsdServiceInfo reqServiceInfo) {
             mClientId = clientId;
             mMdnsServiceInfo = mdnsServiceInfo;
+            mReqServiceInfo = reqServiceInfo;
         }
     }
 
@@ -730,7 +738,10 @@ public class NsdService extends INsdManager.Stub {
                 final String[] serviceTypeArray = serviceInfo.getServiceType();
                 final String serviceType = String.join(".", serviceTypeArray);
                 final String serviceName = serviceInfo.getServiceInstanceName();
+                final int interfaceIndex = serviceInfo.getInterfaceIndex();
+                final int netId = getNetIdFromInterfaceIndex(interfaceIndex, event.mReqServiceInfo);
                 final NsdServiceInfo servInfo = new NsdServiceInfo(serviceName, serviceType);
+                setServiceNetworkForCallback(servInfo, netId, interfaceIndex);
                 return servInfo;
             }
 
@@ -762,6 +773,46 @@ public class NsdService extends INsdManager.Stub {
                 return true;
             }
        }
+    }
+
+    @VisibleForTesting
+    int getNetIdFromInterfaceIndex(int interfaceIndex, NsdServiceInfo info) {
+        if (interfaceIndex == INTERFACE_INDEX_UNSPECIFIED) {
+            return 0;
+        }
+
+        if (info != null
+                && info.getInterfaceIndex() == interfaceIndex
+                && info.getNetwork() != null) {
+            return info.getNetwork().getNetId();
+        }
+
+        final ConnectivityManager cm = mContext.getSystemService(ConnectivityManager.class);
+        if (cm == null) {
+            Log.wtf(TAG, "No ConnectivityManager!");
+            return 0;
+        }
+        final Network[] networks = cm.getAllNetworks();
+        if (networks == null || networks.length == 0) {
+            Log.e(TAG, "No available networks");
+            return 0;
+        }
+
+        final String ifaceName = mDeps.getInterfaceNameByIndex(interfaceIndex);
+        if (ifaceName == null) {
+            Log.e(TAG, "Interface name not found for index: " + interfaceIndex);
+            return 0;
+        }
+        for (Network network : networks) {
+            final LinkProperties lp = cm.getLinkProperties(network);
+            if (lp != null) {
+                if (ifaceName.equals(lp.getInterfaceName())) {
+                    return network.getNetId();
+                }
+            }
+        }
+        if (DBG) Log.d(TAG, "Interface index does not match any of network.");
+        return 0;
     }
 
     private static void setServiceNetworkForCallback(NsdServiceInfo info, int netId, int ifaceIdx) {
@@ -822,6 +873,7 @@ public class NsdService extends INsdManager.Stub {
             final Dependencies deps) {
         mCleanupDelayMs = cleanupDelayMs;
         mContext = ctx;
+        mDeps = deps;
         mNsdStateMachine = new NsdStateMachine(TAG, handler);
         mNsdStateMachine.start();
         mMDnsManager = ctx.getSystemService(MDnsManager.class);
@@ -871,6 +923,18 @@ public class NsdService extends INsdManager.Stub {
         public MdnsDiscoveryManager makeMdnsDiscoveryManager(
                 ExecutorProvider executorProvider, MdnsSocketClient socketClient) {
             return new MdnsDiscoveryManager(executorProvider, socketClient);
+        }
+
+        /**
+         * Get interface name by interface index.
+         */
+        public String getInterfaceNameByIndex(int index) {
+            try {
+                return NetworkInterface.getByIndex(index).getName();
+            } catch (IllegalArgumentException | SocketException e) {
+                Log.e(TAG, "Error querying interface", e);
+                return null;
+            }
         }
     }
 
