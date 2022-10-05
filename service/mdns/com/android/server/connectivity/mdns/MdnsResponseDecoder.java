@@ -23,12 +23,9 @@ import android.os.SystemClock;
 
 import com.android.server.connectivity.mdns.util.MdnsLogger;
 
-import java.io.EOFException;
-import java.io.IOException;
 import java.net.DatagramPacket;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 /** A class that decodes mDNS responses from UDP packets. */
@@ -46,12 +43,6 @@ public class MdnsResponseDecoder {
     public MdnsResponseDecoder(@NonNull Clock clock, @Nullable String[] serviceType) {
         this.clock = clock;
         this.serviceType = serviceType;
-    }
-
-    private static void skipMdnsRecord(MdnsPacketReader reader) throws IOException {
-        reader.skip(2 + 4); // skip the class and TTL
-        int dataLength = reader.readUInt16();
-        reader.skip(dataLength);
     }
 
     private static MdnsResponse findResponseWithPointer(
@@ -101,120 +92,48 @@ public class MdnsResponseDecoder {
      */
     public int decode(@NonNull DatagramPacket packet, @NonNull List<MdnsResponse> responses,
             int interfaceIndex, @Nullable Network network) {
-        MdnsPacketReader reader = new MdnsPacketReader(packet);
+        return decode(packet.getData(), packet.getLength(), responses, interfaceIndex, network);
+    }
 
-        List<MdnsRecord> records;
+    /**
+     * Decodes all mDNS responses for the desired service type from a packet. The class does not
+     * check
+     * the responses for completeness; the caller should do that.
+     *
+     * @param recvbuf The received data buffer to read from.
+     * @param length The length of received data buffer.
+     * @param interfaceIndex the network interface index (or {@link
+     *     MdnsSocket#INTERFACE_INDEX_UNSPECIFIED} if not known) at which the packet was received
+     * @param network the network at which the packet was received, or null if it is unknown.
+     * @return A list of mDNS responses, or null if the packet contained no appropriate responses.
+     */
+    public int decode(@NonNull byte[] recvbuf, int length, @NonNull List<MdnsResponse> responses,
+            int interfaceIndex, @Nullable Network network) {
+        MdnsPacketReader reader = new MdnsPacketReader(recvbuf, length);
+
+        final MdnsPacket mdnsPacket;
         try {
-            reader.readUInt16(); // transaction ID (not used)
-            int flags = reader.readUInt16();
-            if ((flags & MdnsConstants.FLAGS_RESPONSE_MASK) != MdnsConstants.FLAGS_RESPONSE) {
+            mdnsPacket = MdnsPacket.parse(reader);
+            if ((mdnsPacket.flags & MdnsConstants.FLAGS_RESPONSE_MASK)
+                    != MdnsConstants.FLAGS_RESPONSE) {
                 return MdnsResponseErrorCode.ERROR_NOT_RESPONSE_MESSAGE;
             }
 
-            int numQuestions = reader.readUInt16();
-            int numAnswers = reader.readUInt16();
-            int numAuthority = reader.readUInt16();
-            int numRecords = reader.readUInt16();
-
-            LOGGER.log(String.format(
-                    "num questions: %d, num answers: %d, num authority: %d, num records: %d",
-                    numQuestions, numAnswers, numAuthority, numRecords));
-
-            if (numAnswers < 1) {
+            if (mdnsPacket.answers.size() < 1) {
                 return MdnsResponseErrorCode.ERROR_NO_ANSWERS;
             }
-
-            records = new LinkedList<>();
-
-            for (int i = 0; i < (numAnswers + numAuthority + numRecords); ++i) {
-                String[] name;
-                try {
-                    name = reader.readLabels();
-                } catch (IOException e) {
-                    LOGGER.e("Failed to read labels from mDNS response.", e);
-                    return MdnsResponseErrorCode.ERROR_READING_RECORD_NAME;
-                }
-                int type = reader.readUInt16();
-
-                switch (type) {
-                    case MdnsRecord.TYPE_A: {
-                        try {
-                            records.add(new MdnsInetAddressRecord(name, MdnsRecord.TYPE_A, reader));
-                        } catch (IOException e) {
-                            LOGGER.e("Failed to read A record from mDNS response.", e);
-                            return MdnsResponseErrorCode.ERROR_READING_A_RDATA;
-                        }
-                        break;
-                    }
-
-                    case MdnsRecord.TYPE_AAAA: {
-                        try {
-                            // AAAA should only contain the IPv6 address.
-                            MdnsInetAddressRecord record =
-                                    new MdnsInetAddressRecord(name, MdnsRecord.TYPE_AAAA, reader);
-                            if (record.getInet6Address() != null) {
-                                records.add(record);
-                            }
-                        } catch (IOException e) {
-                            LOGGER.e("Failed to read AAAA record from mDNS response.", e);
-                            return MdnsResponseErrorCode.ERROR_READING_AAAA_RDATA;
-                        }
-                        break;
-                    }
-
-                    case MdnsRecord.TYPE_PTR: {
-                        try {
-                            records.add(new MdnsPointerRecord(name, reader));
-                        } catch (IOException e) {
-                            LOGGER.e("Failed to read PTR record from mDNS response.", e);
-                            return MdnsResponseErrorCode.ERROR_READING_PTR_RDATA;
-                        }
-                        break;
-                    }
-
-                    case MdnsRecord.TYPE_SRV: {
-                        if (name.length == 4) {
-                            try {
-                                records.add(new MdnsServiceRecord(name, reader));
-                            } catch (IOException e) {
-                                LOGGER.e("Failed to read SRV record from mDNS response.", e);
-                                return MdnsResponseErrorCode.ERROR_READING_SRV_RDATA;
-                            }
-                        } else {
-                            try {
-                                skipMdnsRecord(reader);
-                            } catch (IOException e) {
-                                LOGGER.e("Failed to skip SVR record from mDNS response.", e);
-                                return MdnsResponseErrorCode.ERROR_SKIPPING_SRV_RDATA;
-                            }
-                        }
-                        break;
-                    }
-
-                    case MdnsRecord.TYPE_TXT: {
-                        try {
-                            records.add(new MdnsTextRecord(name, reader));
-                        } catch (IOException e) {
-                            LOGGER.e("Failed to read TXT record from mDNS response.", e);
-                            return MdnsResponseErrorCode.ERROR_READING_TXT_RDATA;
-                        }
-                        break;
-                    }
-
-                    default: {
-                        try {
-                            skipMdnsRecord(reader);
-                        } catch (IOException e) {
-                            LOGGER.e("Failed to skip mDNS record.", e);
-                            return MdnsResponseErrorCode.ERROR_SKIPPING_UNKNOWN_RECORD;
-                        }
-                    }
-                }
-            }
-        } catch (EOFException e) {
-            LOGGER.e("Reached the end of the mDNS response unexpectedly.", e);
-            return MdnsResponseErrorCode.ERROR_END_OF_FILE;
+        } catch (MdnsPacket.ParseException e) {
+            LOGGER.e(e.getMessage(), e);
+            return e.code;
         }
+
+        final ArrayList<MdnsRecord> records = new ArrayList<>(
+                mdnsPacket.questions.size() + mdnsPacket.answers.size() +
+                        mdnsPacket.authorityRecords.size() + mdnsPacket.additionalRecords.size());
+        records.addAll(mdnsPacket.questions);
+        records.addAll(mdnsPacket.answers);
+        records.addAll(mdnsPacket.authorityRecords);
+        records.addAll(mdnsPacket.additionalRecords);
 
         // The response records are structured in a hierarchy, where some records reference
         // others, as follows:

@@ -113,7 +113,7 @@ public abstract class MdnsPacketRepeater<T extends MdnsPacketRepeater.Request> {
             final Iterable<SocketAddress> destinations = request.getDestinations(index);
             if (DBG) {
                 Log.v(getTag(), "Sending packets to " + destinations + " for iteration "
-                        + index + " out of " + request.getNumSends());
+                        + index + " out of " + request.getNumSends() + " for ID " + msg.what);
             }
             for (SocketAddress destination : destinations) {
                 try {
