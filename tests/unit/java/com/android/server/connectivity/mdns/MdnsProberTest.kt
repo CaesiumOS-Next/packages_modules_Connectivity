@@ -54,6 +54,7 @@ private val TEST_SERVICE_NAME_2 = arrayOf("testservice2", "_nmt", "_tcp", "local
 class MdnsProberTest {
     private val thread = HandlerThread(MdnsProberTest::class.simpleName)
     private val socket = mock(MdnsInterfaceSocket::class.java)
+    private val repository = mock(MdnsRecordRepository::class.java)
     @Suppress("UNCHECKED_CAST")
     private val cb = mock(MdnsPacketRepeater.PacketRepeaterCallback::class.java)
         as MdnsPacketRepeater.PacketRepeaterCallback<ProbingInfo>

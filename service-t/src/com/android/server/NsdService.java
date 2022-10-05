@@ -54,6 +54,7 @@ import android.util.Pair;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 
+import com.android.server.connectivity.mdns.MdnsAdvertiser;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.State;
 import com.android.internal.util.StateMachine;

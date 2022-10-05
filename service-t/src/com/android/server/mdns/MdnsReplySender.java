@@ -26,6 +26,7 @@ import android.util.Log;
 
 import com.android.server.connectivity.mdns.MdnsRecordRepository.ReplyInfo;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.Inet4Address;
@@ -41,6 +42,7 @@ import java.util.Collections;
  * TODO: implement sending after a delay, combining queued replies and duplicate answer suppression
  */
 public class MdnsReplySender {
+    private static final int FLAG_TRUNCATED = 0x400;
     private static final boolean DBG = MdnsAdvertiser.DBG;
     private static final int MSG_SEND = 1;
 
@@ -87,35 +89,94 @@ public class MdnsReplySender {
             return;
         }
 
-        // TODO: support packets over size (send in multiple packets with TC bit set)
-        final MdnsPacketWriter writer = new MdnsPacketWriter(mPacketCreationBuffer);
+        // If a MdnsPacket can't fit in one actual packet, send multiple packets with the TC bit set
+        // Only valid for questions.
+        final boolean isQuestion = (packet.flags & MdnsConstants.FLAGS_RESPONSE) == 0;
+        MdnsPacket remainingPacket = packet;
+        while (remainingPacket != null) {
+            final MdnsPacketWriter writer = new MdnsPacketWriter(mPacketCreationBuffer);
+            writer.writeUInt16(0); // Transaction ID (advertisement: 0)
+            final int flagsPos = writer.getWritePosition();
+            writer.writeUInt16(0); // Flags, written later
 
-        writer.writeUInt16(0); // Transaction ID (advertisement: 0)
-        writer.writeUInt16(packet.flags); // Response, authoritative (rfc6762 18.4)
-        writer.writeUInt16(packet.questions.size()); // questions count
-        writer.writeUInt16(packet.answers.size()); // answers count
-        writer.writeUInt16(packet.authorityRecords.size()); // authority entries count
-        writer.writeUInt16(packet.additionalRecords.size()); // additional records count
+            writer.writeUInt16(0); // questions count, written later
+            writer.writeUInt16(0); // answers count, written later
+            writer.writeUInt16(0); // authority entries count, written later
+            writer.writeUInt16(0); // additional records count, written later
 
-        for (MdnsRecord record : packet.questions) {
-            // Questions do not have TTL or data
-            record.writeHeaderFields(writer);
-        }
-        for (MdnsRecord record : packet.answers) {
-            record.write(writer, 0L);
-        }
-        for (MdnsRecord record : packet.authorityRecords) {
-            record.write(writer, 0L);
-        }
-        for (MdnsRecord record : packet.additionalRecords) {
-            record.write(writer, 0L);
-        }
+            int writtenQuestions = 0;
+            int writtenAnswers = 0;
+            int writtenAuthority = 0;
+            int writtenAdditional = 0;
+            int lastValidPos = writer.getWritePosition();
 
-        final int len = writer.getWritePosition();
-        final byte[] outBuffer = new byte[len];
-        System.arraycopy(mPacketCreationBuffer, 0, outBuffer, 0, len);
+            try {
+                for (MdnsRecord record : remainingPacket.questions) {
+                    // Questions do not have TTL or data
+                    record.writeHeaderFields(writer);
+                    writtenQuestions++;
+                    lastValidPos = writer.getWritePosition();
+                }
+                for (MdnsRecord record : remainingPacket.answers) {
+                    record.write(writer, 0L);
+                    writtenAnswers++;
+                    lastValidPos = writer.getWritePosition();
+                }
+                for (MdnsRecord record : remainingPacket.authorityRecords) {
+                    record.write(writer, 0L);
+                    writtenAuthority++;
+                    lastValidPos = writer.getWritePosition();
+                }
+                // TODO: should not do TC / continuation for additional records ?
+                for (MdnsRecord record : remainingPacket.additionalRecords) {
+                    record.write(writer, 0L);
+                    writtenAdditional++;
+                    lastValidPos = writer.getWritePosition();
+                }
+                remainingPacket = null;
+            } catch (EOFException e) {
+                // Went over the packet limit; truncate
+                if (writtenQuestions == 0 && writtenAnswers == 0 && writtenAuthority == 0
+                        && writtenAdditional == 0) {
+                    // No space to write even one record: just throw (as subclass of IOException)
+                    throw e;
+                }
 
-        mSocket.send(new DatagramPacket(outBuffer, 0, len, destination));
+                // Set the last valid position as the final position (not as a rewind)
+                writer.rewind(lastValidPos);
+                writer.clearRewind();
+
+                // If this is a question, send the rest separately (will set the truncated bit)
+                // TODO: probably also for replies if it's the answers that are cut ?
+                if (isQuestion) {
+                    remainingPacket = new MdnsPacket(packet.flags,
+                            remainingPacket.questions.subList(
+                                    writtenQuestions, remainingPacket.questions.size()),
+                            remainingPacket.answers.subList(
+                                    writtenAnswers, remainingPacket.answers.size()),
+                            remainingPacket.authorityRecords.subList(
+                                    writtenAuthority, remainingPacket.authorityRecords.size()),
+                            remainingPacket.additionalRecords.subList(
+                                    writtenAdditional, remainingPacket.additionalRecords.size()));
+                } else {
+                    remainingPacket = null;
+                }
+            }
+
+            final int len = writer.getWritePosition();
+            writer.rewind(flagsPos);
+            writer.writeUInt16(packet.flags | (remainingPacket == null ? 0 : FLAG_TRUNCATED));
+            writer.writeUInt16(writtenQuestions);
+            writer.writeUInt16(writtenAnswers);
+            writer.writeUInt16(writtenAuthority);
+            writer.writeUInt16(writtenAdditional);
+            writer.unrewind();
+
+            final byte[] outBuffer = new byte[len];
+            System.arraycopy(mPacketCreationBuffer, 0, outBuffer, 0, len);
+
+            mSocket.send(new DatagramPacket(outBuffer, 0, len, destination));
+        }
     }
 
     /**
