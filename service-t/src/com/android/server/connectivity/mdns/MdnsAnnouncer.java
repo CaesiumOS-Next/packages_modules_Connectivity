@@ -38,17 +38,24 @@ public class MdnsAnnouncer extends MdnsPacketRepeater<MdnsAnnouncer.Announcement
     @VisibleForTesting
     static final int ANNOUNCEMENT_COUNT = 8;
 
+    // Matches delay and GoodbyeCount used by the legacy implementation
+    private static final long EXIT_DELAY_MS = 2000L;
+    private static final int EXIT_COUNT = 3;
+
     @NonNull
     private final String mLogTag;
 
     static class AnnouncementInfo implements MdnsPacketRepeater.Request {
+        private final int mServiceId;
         @NonNull
         private final MdnsPacket mPacket;
         @NonNull
         private final Supplier<Iterable<SocketAddress>> mDestinationsSupplier;
 
-        AnnouncementInfo(List<MdnsRecord> announcedRecords, List<MdnsRecord> additionalRecords,
+        AnnouncementInfo(int serviceId, List<MdnsRecord> announcedRecords,
+                List<MdnsRecord> additionalRecords,
                 Supplier<Iterable<SocketAddress>> destinationsSupplier) {
+            mServiceId = serviceId;
             // Records to announce (as answers)
             // Records to place in the "Additional records", with NSEC negative responses
             // to mark records that have been verified unique
@@ -59,6 +66,10 @@ public class MdnsAnnouncer extends MdnsPacketRepeater<MdnsAnnouncer.Announcement
                     Collections.emptyList() /* authorityRecords */,
                     additionalRecords);
             mDestinationsSupplier = destinationsSupplier;
+        }
+
+        public int getServiceId() {
+            return mServiceId;
         }
 
         @Override
@@ -80,6 +91,23 @@ public class MdnsAnnouncer extends MdnsPacketRepeater<MdnsAnnouncer.Announcement
         @Override
         public int getNumSends() {
             return ANNOUNCEMENT_COUNT;
+        }
+    }
+
+    static class ExitAnnouncementInfo extends AnnouncementInfo {
+        ExitAnnouncementInfo(int serviceId, List<MdnsRecord> announcedRecords,
+                Supplier<Iterable<SocketAddress>> destinationsSupplier) {
+            super(serviceId, announcedRecords, Collections.emptyList(), destinationsSupplier);
+        }
+
+        @Override
+        public long getDelayMs(int nextIndex) {
+            return EXIT_DELAY_MS;
+        }
+
+        @Override
+        public int getNumSends() {
+            return EXIT_COUNT;
         }
     }
 
