@@ -148,12 +148,12 @@ java_library {
     libs: [
         "framework-annotations-lib",
         "framework-connectivity-pre-jarjar",
-        "framework-connectivity-t.stubs.module_lib",
-        "framework-tethering.stubs.module_lib",
-        "framework-wifi.stubs.module_lib",
+        "framework-connectivity-t",
+        "framework-tethering",
+        "framework-wifi",
         "unsupportedappusage",
         "ServiceConnectivityResources",
-        "framework-statsd.stubs.module_lib",
+        "framework-statsd",
     ],
     static_libs: [
         // Do not add libs here if they are already included
@@ -194,7 +194,7 @@ java_library {
     libs: [
         "framework-annotations-lib",
         "framework-connectivity-pre-jarjar",
-        "framework-wifi.stubs.module_lib",
+        "framework-wifi",
         "service-connectivity-pre-jarjar",
     ],
     visibility: [
@@ -246,8 +246,8 @@ java_defaults {
         "framework-annotations-lib",
         "framework-connectivity.impl",
         "framework-connectivity-t.impl",
-        "framework-tethering.stubs.module_lib",
-        "framework-wifi.stubs.module_lib",
+        "framework-tethering",
+        "framework-wifi",
         "libprotobuf-java-nano",
     ],
     jarjar_rules: ":connectivity-jarjar-rules",
