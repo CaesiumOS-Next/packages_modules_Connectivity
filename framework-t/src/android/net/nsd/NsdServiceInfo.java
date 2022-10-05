@@ -354,6 +354,21 @@ public final class NsdServiceInfo implements Parcelable {
         mInterfaceIndex = interfaceIndex;
     }
 
+    /**
+     * Create a new {@link NsdServiceInfo}, only changing the name.
+     * @hide
+     */
+    @NonNull
+    public NsdServiceInfo withName(@NonNull String newName) {
+        final NsdServiceInfo newInfo = new NsdServiceInfo(newName, mServiceType);
+        newInfo.mTxtRecord.putAll(mTxtRecord);
+        newInfo.mHost = mHost;
+        newInfo.mPort = mPort;
+        newInfo.mNetwork = mNetwork;
+        newInfo.mInterfaceIndex = mInterfaceIndex;
+        return newInfo;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
