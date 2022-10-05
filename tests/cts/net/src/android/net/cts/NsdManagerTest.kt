@@ -375,6 +375,10 @@ class NsdManagerTest {
         nsdManager.registerService(si, NsdManager.PROTOCOL_DNS_SD, registrationRecord)
         val registeredInfo = registrationRecord.expectCallback<ServiceRegistered>().serviceInfo
 
+        // TODO: REMOVE
+        // Wait for announcements to end
+        Thread.sleep(5000)
+
         val discoveryRecord = NsdDiscoveryRecord()
         // Test discovering without an Executor
         nsdManager.discoverServices(SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, discoveryRecord)
@@ -423,6 +427,10 @@ class NsdManagerTest {
         val registrationRecord2 = NsdRegistrationRecord()
         nsdManager.registerService(si2, NsdManager.PROTOCOL_DNS_SD, registrationRecord2)
         val registeredInfo2 = registrationRecord2.expectCallback<ServiceRegistered>().serviceInfo
+
+        // TODO: REMOVE
+        // Wait for announcements to end
+        Thread.sleep(5000)
 
         // Expect a service record to be discovered (and filter the ones
         // that are unrelated to this test)
@@ -686,6 +694,10 @@ class NsdManagerTest {
         nsdManager.registerService(si, NsdManager.PROTOCOL_DNS_SD, registrationRecord)
         registrationRecord.expectCallback<ServiceRegistered>()
 
+        // TODO: REMOVE
+        // Wait for announcements to end
+        Thread.sleep(5000)
+
         tryTest {
             // Discover that service name.
             val discoveryRecord = NsdDiscoveryRecord()
@@ -731,6 +743,43 @@ class NsdManagerTest {
                 NsdManager.RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER))
     }
 
+    @Test
+    fun testAdvertisement() {
+        val si = NsdServiceInfo()
+        si.serviceType = SERVICE_TYPE
+        si.serviceName = this.serviceName
+        si.port = 12345 // Test won't try to connect so port does not matter
+
+        val handler = Handler(handlerThread.looper)
+        val executor = Executor { handler.post(it) }
+
+        Log.i(TAG, "Starting registration")
+        val registrationRecord = NsdRegistrationRecord()
+        val registeredInfo1 = registerService(registrationRecord, si, executor)
+
+        Log.i(TAG, "Starting discovery")
+        val discoveryRecord = NsdDiscoveryRecord()
+        nsdShim.discoverServices(nsdManager, SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD,
+                null as Network?, Executor { it.run() }, discoveryRecord)
+
+        val foundInfo = discoveryRecord.waitForServiceDiscovered(registeredInfo1.serviceName)
+        nsdManager.stopServiceDiscovery(discoveryRecord)
+        Thread.sleep(5000)
+
+        Log.i(TAG, "Starting resolve")
+        val resolveRecord = NsdResolveRecord()
+        nsdShim.resolveService(nsdManager, foundInfo, Executor { it.run() }, resolveRecord)
+
+        val resolvedCb = resolveRecord.expectCallback<ServiceResolved>()
+        assertEquals(foundInfo.serviceName, resolvedCb.serviceInfo.serviceName)
+
+        Thread.sleep(5000)
+
+        Log.i(TAG, "Unregistering")
+        nsdManager.unregisterService(registrationRecord)
+        registrationRecord.expectCallbackEventually<ServiceUnregistered>()
+    }
+
     /**
      * Register a service and return its registration record.
      */
@@ -740,6 +789,11 @@ class NsdManagerTest {
         executor: Executor = Executor { it.run() }
     ): NsdServiceInfo {
         nsdShim.registerService(nsdManager, si, NsdManager.PROTOCOL_DNS_SD, executor, record)
+
+        // TODO: REMOVE
+        // Wait for announcements to end
+        Thread.sleep(5000)
+
         // We may not always get the name that we tried to register;
         // This events tells us the name that was registered.
         val cb = record.expectCallback<ServiceRegistered>()
