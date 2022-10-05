@@ -45,6 +45,7 @@ public abstract class MdnsRecord {
     private static final int FLAG_CACHE_FLUSH = 0x8000;
 
     public static final long RECEIPT_TIME_NOT_SENT = 0L;
+    public static final int CLASS_ANY = 0x00ff;
 
     /** Status indicating that the record is current. */
     public static final int STATUS_OK = 0;
@@ -201,6 +202,17 @@ public abstract class MdnsRecord {
     protected abstract void readData(MdnsPacketReader reader) throws IOException;
 
     /**
+     * Write the first fields of the record, which are common fields for questions and answers.
+     *
+     * @param writer The writer to use.
+     */
+    public final void writeHeaderFields(MdnsPacketWriter writer) throws IOException {
+        writer.writeLabels(name);
+        writer.writeUInt16(type);
+        writer.writeUInt16(cls);
+    }
+
+    /**
      * Writes the record to a packet.
      *
      * @param writer The writer to use.
@@ -208,9 +220,7 @@ public abstract class MdnsRecord {
      */
     @VisibleForTesting
     public final void write(MdnsPacketWriter writer, long now) throws IOException {
-        writer.writeLabels(name);
-        writer.writeUInt16(type);
-        writer.writeUInt16(cls);
+        writeHeaderFields(writer);
 
         writer.writeUInt32(MILLISECONDS.toSeconds(getRemainingTTL(now)));
 
