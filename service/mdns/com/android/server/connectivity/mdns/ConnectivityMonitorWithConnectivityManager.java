@@ -17,15 +17,26 @@
 package com.android.server.connectivity.mdns;
 
 import android.annotation.Nullable;
+import android.annotation.NonNull;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.ConnectivityThread;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
+import android.net.TetheringManager;
 import android.os.Build;
+import android.os.Handler;
+import android.system.OsConstants;
+import android.util.Log;
 
+import com.android.net.module.util.ip.NetlinkMonitor;
+import com.android.net.module.util.netlink.NetlinkConstants;
+import com.android.net.module.util.netlink.NetlinkMessage;
 import com.android.server.connectivity.mdns.util.MdnsLogger;
+
+import java.util.List;
 
 /** Class for monitoring connectivity changes using {@link ConnectivityManager}. */
 public class ConnectivityMonitorWithConnectivityManager implements ConnectivityMonitor {
@@ -34,7 +45,9 @@ public class ConnectivityMonitorWithConnectivityManager implements ConnectivityM
 
     private final Listener listener;
     private final ConnectivityManager.NetworkCallback networkCallback;
-    private final ConnectivityManager connectivityManager;
+    private final TetheringManager.TetheringEventCallback tetheringCallback;
+    private final NetlinkMonitor netlinkMonitor;
+    private final Context context;
     // TODO(b/71901993): Ideally we shouldn't need this flag. However we still don't have clues why
     // the receiver is unregistered twice yet.
     private boolean isCallbackRegistered = false;
@@ -44,9 +57,7 @@ public class ConnectivityMonitorWithConnectivityManager implements ConnectivityM
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ConnectivityMonitorWithConnectivityManager(Context context, Listener listener) {
         this.listener = listener;
-
-        connectivityManager =
-                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        this.context = context;
         networkCallback =
                 new ConnectivityManager.NetworkCallback() {
                     @Override
@@ -68,6 +79,33 @@ public class ConnectivityMonitorWithConnectivityManager implements ConnectivityM
                         notifyConnectivityChange();
                     }
                 };
+        // TODO: don't just notifyConnectivityChange; surface Network objects that map to each
+        // interface so the Network <-> interface mapping is known
+        tetheringCallback = new TetheringManager.TetheringEventCallback() {
+            @Override
+            public void onTetheredInterfacesChanged(@NonNull List<String> interfaces) {
+                notifyConnectivityChange();
+            }
+
+            @Override
+            public void onLocalOnlyInterfacesChanged(@NonNull List<String> interfaces) {
+                notifyConnectivityChange();
+            }
+        };
+        // MulticastNetworkInterfaceProvider excludes interfaces that have no address: need to
+        // refresh on address change, both for upstream and downstream interfaces
+        // TODO: technically LinkPropertiesChanged may be enough, since for tethering downstreams
+        // the available callback is sent after interfaces are configured (maybe ?)
+        netlinkMonitor = new NetlinkMonitor(new Handler(ConnectivityThread.getInstanceLooper()),
+                LOGGER.mLog, TAG, OsConstants.NETLINK_ROUTE,
+                NetlinkConstants.RTMGRP_IPV4_IFADDR | NetlinkConstants.RTMGRP_IPV6_IFADDR) {
+            @Override
+            protected void processNetlinkMessage(NetlinkMessage nlMsg, long whenMs) {
+                // TODO: remove this log
+                Log.i(TAG, "Got netlink message for address change on iface: " + nlMsg);
+                notifyConnectivityChange();
+            }
+        };
     }
 
     @Override
@@ -87,10 +125,13 @@ public class ConnectivityMonitorWithConnectivityManager implements ConnectivityM
             return;
         }
 
-        connectivityManager.registerNetworkCallback(
+        context.getSystemService(ConnectivityManager.class).registerNetworkCallback(
                 new NetworkRequest.Builder().addTransportType(
                         NetworkCapabilities.TRANSPORT_WIFI).build(),
                 networkCallback);
+        context.getSystemService(TetheringManager.class).registerTetheringEventCallback(
+                Runnable::run, tetheringCallback);
+        netlinkMonitor.getHandler().post(netlinkMonitor::start);
         isCallbackRegistered = true;
     }
 
@@ -103,7 +144,11 @@ public class ConnectivityMonitorWithConnectivityManager implements ConnectivityM
             return;
         }
 
-        connectivityManager.unregisterNetworkCallback(networkCallback);
+        context.getSystemService(ConnectivityManager.class)
+                .unregisterNetworkCallback(networkCallback);
+        context.getSystemService(TetheringManager.class).unregisterTetheringEventCallback(
+                tetheringCallback);
+        netlinkMonitor.getHandler().post(netlinkMonitor::stop);
         isCallbackRegistered = false;
     }
 
