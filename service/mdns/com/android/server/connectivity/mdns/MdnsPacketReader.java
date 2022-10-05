@@ -35,8 +35,12 @@ public class MdnsPacketReader {
 
     /** Constructs a reader for the given packet. */
     public MdnsPacketReader(DatagramPacket packet) {
-        buf = packet.getData();
-        count = packet.getLength();
+        this(packet.getData(), packet.getLength());
+    }
+
+    public MdnsPacketReader(byte[] buffer, int length) {
+        buf = buffer;
+        count = length;
         pos = 0;
         limit = -1;
         labelDictionary = new SparseArray<>(16);
@@ -193,6 +197,22 @@ public class MdnsPacketReader {
         String val = new String(buf, pos, len, MdnsConstants.getUtf8Charset());
         pos += len;
         return val;
+    }
+
+    /**
+     * Reads bytes of a length-prefixed string.
+     *
+     * Useful for string-like data that is not necessarily UTF-8 text.
+     * @throws EOFException If there are not enough bytes remaining in the packet to satisfy the
+     *                      read.
+     */
+    public byte[] readRawString() throws EOFException {
+        int len = readUInt8();
+        checkRemaining(len);
+        // len is at least smaller than the buffer, so it can't be unreasonably large
+        final byte[] bytes = new byte[len];
+        readBytes(bytes);
+        return bytes;
     }
 
     /**

@@ -728,6 +728,24 @@ class NsdManagerTest {
                 NsdManager.RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER))
     }
 
+    @Test
+    fun testAdvertisement() {
+        val si = NsdServiceInfo()
+        si.serviceType = SERVICE_TYPE
+        si.serviceName = this.serviceName
+        si.port = 12345 // Test won't try to connect so port does not matter
+
+        val handler = Handler(handlerThread.looper)
+        val executor = Executor { handler.post(it) }
+
+        val registrationRecord = NsdRegistrationRecord(expectedThreadId = handlerThread.threadId)
+        Thread.sleep(10000)
+        val registeredInfo1 = registerService(registrationRecord, si, executor)
+        Thread.sleep(10000)
+
+        nsdManager.unregisterService(registrationRecord)
+    }
+
     /**
      * Register a service and return its registration record.
      */

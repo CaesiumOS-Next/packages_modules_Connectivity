@@ -38,6 +38,11 @@ public abstract class MdnsRecord {
     public static final int TYPE_PTR = 0x000C;
     public static final int TYPE_SRV = 0x0021;
     public static final int TYPE_TXT = 0x0010;
+    public static final int TYPE_NSEC = 0x002f;
+    public static final int TYPE_ANY = 0x00ff;
+    public static final int CLASS_ANY = 0x00ff;
+
+    private static final int FLAG_CACHE_FLUSH = 0x8000;
 
     /** Status indicating that the record is current. */
     public static final int STATUS_OK = 0;
@@ -59,18 +64,44 @@ public abstract class MdnsRecord {
      * @param reader The reader to read the record from.
      * @throws IOException If an error occurs while reading the packet.
      */
-    protected MdnsRecord(String[] name, int type, MdnsPacketReader reader) throws IOException {
+    protected MdnsRecord(String[] name, int type, MdnsPacketReader reader, boolean isQuestion)
+            throws IOException {
         this.name = name;
         this.type = type;
         cls = reader.readUInt16();
-        ttlMillis = TimeUnit.SECONDS.toMillis(reader.readUInt32());
-        int dataLength = reader.readUInt16();
-
         receiptTimeMillis = SystemClock.elapsedRealtime();
 
-        reader.setLimit(dataLength);
-        readData(reader);
-        reader.clearLimit();
+        if (isQuestion) {
+            // Questions do not have TTL or data
+            ttlMillis = 0L;
+        } else {
+            ttlMillis = TimeUnit.SECONDS.toMillis(reader.readUInt32());
+            int dataLength = reader.readUInt16();
+
+            reader.setLimit(dataLength);
+            readData(reader);
+            reader.clearLimit();
+        }
+    }
+
+    /**
+     * Constructs a new record with the given name and type.
+     *
+     * @param reader The reader to read the record from.
+     * @throws IOException If an error occurs while reading the packet.
+     */
+    protected MdnsRecord(String[] name, int type, MdnsPacketReader reader)
+            throws IOException {
+        this(name, type, reader, true);
+    }
+
+    protected MdnsRecord(String[] name, int type, int cls, long receiptTimeMillis, boolean cacheFlush,
+                    long ttlMillis) {
+        this.name = name;
+        this.type = type;
+        this.cls = cls | (cacheFlush ? FLAG_CACHE_FLUSH : 0);
+        this.receiptTimeMillis = receiptTimeMillis;
+        this.ttlMillis = ttlMillis;
     }
 
     /**
@@ -122,6 +153,11 @@ public abstract class MdnsRecord {
         return type;
     }
 
+    /** Return the record's class. */
+    public final int getRecordClass() {
+        return cls & ~FLAG_CACHE_FLUSH;
+    }
+
     /**
      * Returns the record's remaining TTL.
      *
@@ -129,6 +165,10 @@ public abstract class MdnsRecord {
      * @return The remaning TTL, in milliseconds.
      */
     public long getRemainingTTL(final long now) {
+        if (receiptTimeMillis == 0L) {
+            return ttlMillis;
+        }
+
         long age = now - receiptTimeMillis;
         if (age > ttlMillis) {
             return 0;
@@ -183,6 +223,9 @@ public abstract class MdnsRecord {
 
     /** Gets the status of the record. */
     public int getStatus(final long now) {
+        if (receiptTimeMillis == 0L) {
+            return STATUS_OK;
+        }
         final long age = now - receiptTimeMillis;
         if (age > ttlMillis) {
             return STATUS_EXPIRED;

@@ -161,7 +161,7 @@ public class MdnsResponseTests {
         MdnsInetAddressRecord record = new MdnsInetAddressRecord(name, MdnsRecord.TYPE_A, reader);
         MdnsResponse response = new MdnsResponse(0);
         assertFalse(response.hasInet4AddressRecord());
-        assertTrue(response.setInet4AddressRecord(record));
+        response.setInet4AddressRecord(record);
         assertEquals(response.getInet4AddressRecord(), record);
     }
 
@@ -175,7 +175,7 @@ public class MdnsResponseTests {
                 new MdnsInetAddressRecord(name, MdnsRecord.TYPE_AAAA, reader);
         MdnsResponse response = new MdnsResponse(0);
         assertFalse(response.hasInet6AddressRecord());
-        assertTrue(response.setInet6AddressRecord(record));
+        response.setInet6AddressRecord(record);
         assertEquals(response.getInet6AddressRecord(), record);
     }
 
@@ -204,7 +204,7 @@ public class MdnsResponseTests {
         MdnsServiceRecord record = new MdnsServiceRecord(name, reader);
         MdnsResponse response = new MdnsResponse(0);
         assertFalse(response.hasServiceRecord());
-        assertTrue(response.setServiceRecord(record));
+        response.setServiceRecord(record);
         assertEquals(response.getServiceRecord(), record);
     }
 
@@ -217,7 +217,7 @@ public class MdnsResponseTests {
         MdnsTextRecord record = new MdnsTextRecord(name, reader);
         MdnsResponse response = new MdnsResponse(0);
         assertFalse(response.hasTextRecord());
-        assertTrue(response.setTextRecord(record));
+        response.setTextRecord(record);
         assertEquals(response.getTextRecord(), record);
     }
 

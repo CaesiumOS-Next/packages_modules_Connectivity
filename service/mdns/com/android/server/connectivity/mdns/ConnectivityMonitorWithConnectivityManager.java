@@ -33,7 +33,7 @@ public class ConnectivityMonitorWithConnectivityManager implements ConnectivityM
 
     private final Listener listener;
     private final ConnectivityManager.NetworkCallback networkCallback;
-    private final ConnectivityManager connectivityManager;
+    private final Context context;
     // TODO(b/71901993): Ideally we shouldn't need this flag. However we still don't have clues why
     // the receiver is unregistered twice yet.
     private boolean isCallbackRegistered = false;
@@ -42,9 +42,7 @@ public class ConnectivityMonitorWithConnectivityManager implements ConnectivityM
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ConnectivityMonitorWithConnectivityManager(Context context, Listener listener) {
         this.listener = listener;
-
-        connectivityManager =
-                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        this.context = context;
         networkCallback =
                 new ConnectivityManager.NetworkCallback() {
                     @Override
@@ -84,7 +82,7 @@ public class ConnectivityMonitorWithConnectivityManager implements ConnectivityM
             return;
         }
 
-        connectivityManager.registerNetworkCallback(
+        context.getSystemService(ConnectivityManager.class).registerNetworkCallback(
                 new NetworkRequest.Builder().addTransportType(
                         NetworkCapabilities.TRANSPORT_WIFI).build(),
                 networkCallback);
@@ -100,7 +98,8 @@ public class ConnectivityMonitorWithConnectivityManager implements ConnectivityM
             return;
         }
 
-        connectivityManager.unregisterNetworkCallback(networkCallback);
+        context.getSystemService(ConnectivityManager.class)
+                .unregisterNetworkCallback(networkCallback);
         isCallbackRegistered = false;
     }
 }

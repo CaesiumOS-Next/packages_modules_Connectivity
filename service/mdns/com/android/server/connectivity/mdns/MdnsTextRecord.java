@@ -16,10 +16,14 @@
 
 package com.android.server.connectivity.mdns;
 
+import android.net.DnsResolver;
+
 import com.android.internal.annotations.VisibleForTesting;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -29,30 +33,48 @@ import java.util.Objects;
 @SuppressWarnings("nullness")
 @VisibleForTesting
 public class MdnsTextRecord extends MdnsRecord {
-    private List<String> strings;
+    private List<byte[]> strings;
 
     public MdnsTextRecord(String[] name, MdnsPacketReader reader) throws IOException {
-        super(name, TYPE_TXT, reader);
+        this(name, reader, false);
+    }
+
+    public MdnsTextRecord(String[] name, MdnsPacketReader reader, boolean isQuestion)
+            throws IOException {
+        super(name, TYPE_TXT, reader, isQuestion);
+    }
+
+    public MdnsTextRecord(String[] name, long receiptTimeMillis, boolean cacheFlush, long ttlMillis,
+            List<byte[]> strings) {
+        super(name, TYPE_TXT, DnsResolver.CLASS_IN, receiptTimeMillis, cacheFlush, ttlMillis);
+        this.strings = strings;
     }
 
     /** Returns the list of strings. */
     public List<String> getStrings() {
-        return Collections.unmodifiableList(strings);
+        final ArrayList<String> ret = new ArrayList<>(strings.size());
+        for (byte[] bytes : strings) {
+            // String constructor will replace malformed string with the charset default replacement
+            // if the bytes cannot be fully interpreted as a string
+            ret.add(new String(bytes, StandardCharsets.UTF_8));
+        }
+        return ret;
     }
 
     @Override
     protected void readData(MdnsPacketReader reader) throws IOException {
         strings = new ArrayList<>();
         while (reader.getRemaining() > 0) {
-            strings.add(reader.readString());
+            strings.add(reader.readRawString());
         }
     }
 
     @Override
     protected void writeData(MdnsPacketWriter writer) throws IOException {
         if (strings != null) {
-            for (String string : strings) {
-                writer.writeString(string);
+            for (byte[] string : strings) {
+                writer.writeUInt8(string.length);
+                writer.writeBytes(string);
             }
         }
     }
@@ -62,7 +84,7 @@ public class MdnsTextRecord extends MdnsRecord {
         StringBuilder sb = new StringBuilder();
         sb.append("TXT: {");
         if (strings != null) {
-            for (String string : strings) {
+            for (String string : getStrings()) {
                 sb.append(' ').append(string);
             }
         }
@@ -73,7 +95,13 @@ public class MdnsTextRecord extends MdnsRecord {
 
     @Override
     public int hashCode() {
-        return (super.hashCode() * 31) + Objects.hash(strings);
+        // byte[] doesn't have a .hashCode implementation, calculate as per List#hashCode
+        // documentation
+        int listHash = 1;
+        for (byte[] string : strings) {
+            listHash = listHash * 31 + Arrays.hashCode(string);
+        }
+        return (super.hashCode() * 31) + listHash;
     }
 
     @Override
@@ -84,7 +112,21 @@ public class MdnsTextRecord extends MdnsRecord {
         if (!(other instanceof MdnsTextRecord)) {
             return false;
         }
-
-        return super.equals(other) && Objects.equals(strings, ((MdnsTextRecord) other).strings);
+        if (!super.equals(other)) return false;
+        final List<byte[]> otherStrings = ((MdnsTextRecord) other).strings;
+        if (strings != otherStrings && (strings == null || otherStrings == null)) {
+            return false;
+        }
+        if (strings != null) { // otherStrings != null as per the above check
+            if (strings.size() != otherStrings.size()) {
+                return false;
+            }
+            for (int i = 0; i < strings.size(); i++) {
+                if (!Arrays.equals(strings.get(i), otherStrings.get(i))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
