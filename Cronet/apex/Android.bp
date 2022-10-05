@@ -41,7 +41,8 @@ apex {
     name: "com.android.cronet",
     defaults: ["com.android.cronet-defaults"],
     manifest: "manifest.json",
-    enabled: false,
+    // Enables cronet apex only in the aosp
+    enabled: true,
 }
 
 apex_key {
