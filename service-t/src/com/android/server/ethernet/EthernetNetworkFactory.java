@@ -156,9 +156,7 @@ public class EthernetNetworkFactory {
                 .setNetworkSpecifier(new EthernetNetworkSpecifier(ifaceName))
                 .build();
 
-        if (DBG) {
-            Log.d(TAG, "addInterface, iface: " + ifaceName + ", capabilities: " + nc);
-        }
+        Log.e("MDBG", "EthernetNetworkFactory addInterface, iface: " + ifaceName + ", capabilities: " + nc);
 
         final NetworkInterfaceState iface = new NetworkInterfaceState(
                 ifaceName, hwAddress, mHandler, mContext, ipConfig, nc, mProvider, mDeps);
@@ -236,6 +234,7 @@ public class EthernetNetworkFactory {
         if (!hasInterface(ifaceName)) {
             return false;
         }
+        Log.e("MDBG", "EthernetNetworkFactory updateInterfaceLinkState, iface: " + ifaceName + ", up: " + up);
 
         if (DBG) {
             Log.d(TAG, "updateInterfaceLinkState, iface: " + ifaceName + ", up: " + up);

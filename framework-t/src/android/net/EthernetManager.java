@@ -31,6 +31,7 @@ import android.os.Build;
 import android.os.OutcomeReceiver;
 import android.os.RemoteException;
 import android.util.ArrayMap;
+import android.util.Log;
 
 import com.android.internal.annotations.GuardedBy;
 import com.android.modules.utils.BackgroundThread;
@@ -292,6 +293,7 @@ public class EthernetManager {
             @Override
             public void onInterfaceStateChanged(String iface, int state, int role,
                     IpConfiguration configuration) {
+                Log.e("MDBG", "EthernetServiceListener onInterfaceStateChanged iface=" + iface + " state=" + state + " role=" +role);
                 executor.execute(() ->
                         listener.onInterfaceStateChanged(iface, state, role, configuration));
             }
@@ -658,6 +660,14 @@ public class EthernetManager {
         final IEthernetServiceListener.Stub serviceListener = new IEthernetServiceListener.Stub() {
             @Override
             public void onEthernetStateChanged(int state) {
+                Log.e("MDBG", "EthernetService Listener onEthernetStateChanged: " + state);
+
+                try {
+                    Exception e = new Exception();
+                    throw e;
+                } catch(Exception e) {
+                    Log.e("MDBG", "EthernetService onEthernetStateChanged", e);
+                }
                 executor.execute(() -> listener.accept(state));
             }
 

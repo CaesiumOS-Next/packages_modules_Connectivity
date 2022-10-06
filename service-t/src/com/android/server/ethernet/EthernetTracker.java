@@ -166,15 +166,15 @@ public class EthernetTracker {
 
         private void onNewLink(String ifname, boolean linkUp) {
             if (!mFactory.hasInterface(ifname) && !ifname.equals(mTetheringInterface)) {
-                Log.i(TAG, "onInterfaceAdded, iface: " + ifname);
+                Log.i("MDBG", "EthernetNetlinkMonitor onInterfaceAdded, iface: " + ifname);
                 maybeTrackInterface(ifname);
             }
-            Log.i(TAG, "interfaceLinkStateChanged, iface: " + ifname + ", up: " + linkUp);
+            Log.i("MDBG", "EthernetNetlinkMonitor interfaceLinkStateChanged, iface: " + ifname + ", up: " + linkUp);
             updateInterfaceState(ifname, linkUp);
         }
 
         private void onDelLink(String ifname) {
-            Log.i(TAG, "onInterfaceRemoved, iface: " + ifname);
+            Log.i("MDBG", "EthernetNetlinkMonitor onInterfaceRemoved, iface: " + ifname);
             stopTrackingInterface(ifname);
         }
 
@@ -193,10 +193,12 @@ public class EthernetTracker {
             switch (msg.getHeader().nlmsg_type) {
                 case NetlinkConstants.RTM_NEWLINK:
                     final boolean linkUp = (ifinfomsg.flags & NetlinkConstants.IFF_LOWER_UP) != 0;
+                    Log.e("MDBG", "EthernetNetlinkMonitor receives RTM_NEWLINK (ifname= " + ifname + " linkUp=" + linkUp +")");
                     onNewLink(ifname, linkUp);
                     break;
 
                 case NetlinkConstants.RTM_DELLINK:
+                    Log.e("MDBG", "EthernetNetlinkMonitor receives RTM_DELLINK (ifname= " + ifname + ")");
                     onDelLink(ifname);
                     break;
 
@@ -429,11 +431,13 @@ public class EthernetTracker {
                 // Remote process has already died
                 return;
             }
+            Log.e("MDBG", "EthernetTracker addListener start");
             for (String iface : getInterfaces(canUseRestrictedNetworks)) {
                 unicastInterfaceStateChange(listener, iface);
             }
 
             unicastEthernetStateChange(listener, mEthernetState);
+            Log.e("MDBG", "EthernetTracker addListener done");
         });
     }
 
@@ -574,6 +578,7 @@ public class EthernetTracker {
     }
 
     private void addInterface(String iface) {
+        Log.e("MDBG", "addInterface " + iface);
         InterfaceConfigurationParcel config = null;
         // Bring up the interface so we get link status indications.
         try {
@@ -625,6 +630,7 @@ public class EthernetTracker {
             // no need to send an interface state change as this is not a true "state change". The
             // callers (maybeTrackInterface() and setTetheringInterfaceMode()) already broadcast the
             // state change.
+            Log.e("MDBG", "addInterface calls updateInterfaceLinkState: " + iface);
             mFactory.updateInterfaceLinkState(iface, true);
         }
     }
@@ -679,6 +685,7 @@ public class EthernetTracker {
         // If we don't already track this interface, and if this interface matches
         // our regex, start tracking it.
         if (mFactory.hasInterface(iface) || iface.equals(mTetheringInterface)) {
+            Log.e("MDBG", "maybeTrackInterface ignore already-tracked interface " + iface);
             if (DBG) Log.w(TAG, "Ignoring already-tracked interface " + iface);
             return;
         }

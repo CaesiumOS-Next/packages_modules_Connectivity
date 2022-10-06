@@ -19,6 +19,7 @@ import android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS
 import android.Manifest.permission.MANAGE_TEST_NETWORKS
 import android.Manifest.permission.NETWORK_SETTINGS
 import android.content.Context
+import android.util.Log
 import android.net.ConnectivityManager
 import android.net.EthernetManager
 import android.net.EthernetManager.ETHERNET_STATE_DISABLED
@@ -86,6 +87,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
+import java.lang.Exception
 import java.net.Inet6Address
 import java.util.Random
 import java.net.Socket
@@ -245,10 +247,12 @@ class EthernetManagerTest {
             role: Int,
             cfg: IpConfiguration?
         ) {
+            Log.e("MDBG", "EthernetStateListener onInterfaceStateChanged iface=" + iface + " state=" + state + " role=" + role + " cfg=" + cfg)
             add(InterfaceStateChanged(iface, state, role, cfg))
         }
 
         override fun accept(state: Int) {
+            Log.e("MDBG", "EthernetStateListener accept state="+state)
             add(EthernetStateChanged(state))
         }
 
@@ -566,34 +570,36 @@ class EthernetManagerTest {
     @Test
     fun testCallbacks() {
         // If an interface exists when the callback is registered, it is reported on registration.
+        Log.e("MDBG", "createInterface start")
         val iface = createInterface()
-        val listener1 = EthernetStateListener()
-        addInterfaceStateListener(listener1)
-        validateListenerOnRegistration(listener1)
-
-        // If an interface appears, existing callbacks see it.
-        val iface2 = createInterface()
-        listener1.expectCallback(iface2, STATE_LINK_DOWN, ROLE_CLIENT)
-        listener1.expectCallback(iface2, STATE_LINK_UP, ROLE_CLIENT)
-
-        // Register a new listener, it should see state of all existing interfaces immediately.
-        val listener2 = EthernetStateListener()
-        addInterfaceStateListener(listener2)
-        validateListenerOnRegistration(listener2)
-
-        // Removing interfaces first sends link down, then STATE_ABSENT/ROLE_NONE.
-        removeInterface(iface)
-        for (listener in listOf(listener1, listener2)) {
-            listener.expectCallback(iface, STATE_LINK_DOWN, ROLE_CLIENT)
-            listener.expectCallback(iface, STATE_ABSENT, ROLE_NONE)
-        }
-
-        removeInterface(iface2)
-        for (listener in listOf(listener1, listener2)) {
-            listener.expectCallback(iface2, STATE_LINK_DOWN, ROLE_CLIENT)
-            listener.expectCallback(iface2, STATE_ABSENT, ROLE_NONE)
-            listener.assertNoCallback()
-        }
+        Log.e("MDBG", "createInterface done")
+//        val listener1 = EthernetStateListener()
+//        addInterfaceStateListener(listener1)
+//        validateListenerOnRegistration(listener1)
+//
+//        // If an interface appears, existing callbacks see it.
+//        val iface2 = createInterface()
+//        listener1.expectCallback(iface2, STATE_LINK_DOWN, ROLE_CLIENT)
+//        listener1.expectCallback(iface2, STATE_LINK_UP, ROLE_CLIENT)
+//
+//        // Register a new listener, it should see state of all existing interfaces immediately.
+//        val listener2 = EthernetStateListener()
+//        addInterfaceStateListener(listener2)
+//        validateListenerOnRegistration(listener2)
+//
+//        // Removing interfaces first sends link down, then STATE_ABSENT/ROLE_NONE.
+//        removeInterface(iface)
+//        for (listener in listOf(listener1, listener2)) {
+//            listener.expectCallback(iface, STATE_LINK_DOWN, ROLE_CLIENT)
+//            listener.expectCallback(iface, STATE_ABSENT, ROLE_NONE)
+//        }
+//
+//        removeInterface(iface2)
+//        for (listener in listOf(listener1, listener2)) {
+//            listener.expectCallback(iface2, STATE_LINK_DOWN, ROLE_CLIENT)
+//            listener.expectCallback(iface2, STATE_ABSENT, ROLE_NONE)
+//            listener.assertNoCallback()
+//        }
     }
 
     @Test
