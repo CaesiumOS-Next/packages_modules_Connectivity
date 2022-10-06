@@ -28,6 +28,7 @@ import static libcore.junit.util.compat.CoreCompatChangeRule.EnableCompatChanges
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -81,6 +82,7 @@ import com.android.server.NsdService.Dependencies;
 import com.android.server.connectivity.mdns.MdnsDiscoveryManager;
 import com.android.server.connectivity.mdns.MdnsServiceBrowserListener;
 import com.android.server.connectivity.mdns.MdnsServiceInfo;
+import com.android.server.connectivity.mdns.MdnsServiceResolutionListener;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.HandlerUtils;
@@ -96,6 +98,9 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -643,6 +648,62 @@ public class NsdServiceTest {
         waitForIdle();
         verify(mDiscoveryManager, timeout(TIMEOUT_MS)).unregisterListener(eq(SERVICE_TYPE), any());
         verify(discListener, timeout(TIMEOUT_MS)).onDiscoveryStopped(SERVICE_TYPE);
+    }
+
+    @Test
+    public void testResolutionWithGmsMdnsService() throws UnknownHostException {
+        final Network network = new Network(54321);
+        final String ifaceName = "NsdService-test";
+        final int interfaceIndex = 999;
+        final LinkProperties lp = new LinkProperties();
+        lp.setInterfaceName(ifaceName);
+        doReturn(true).when(mDeps).isFeatureEnabled(
+                any(), eq(MDNS_SERVICE_VERSION), anyBoolean());
+        doReturn(new Network[]{network}).when(mCm).getAllNetworks();
+        doReturn(lp).when(mCm).getLinkProperties(network);
+        doReturn(ifaceName).when(mDeps).getInterfaceNameByIndex(interfaceIndex);
+
+        mService = makeService();
+        final NsdManager client = connectClient(mService);
+        final ResolveListener resolveListener = mock(ResolveListener.class);
+        final ArgumentCaptor<MdnsServiceResolutionListener> listenerCaptor =
+                ArgumentCaptor.forClass(MdnsServiceResolutionListener.class);
+        final NsdServiceInfo request = new NsdServiceInfo(SERVICE_NAME, SERVICE_TYPE);
+        client.resolveService(request, resolveListener);
+        waitForIdle();
+        verify(mDiscoveryManager, timeout(TIMEOUT_MS))
+                .registerListener(eq(SERVICE_TYPE), listenerCaptor.capture(), any());
+
+        final MdnsServiceResolutionListener listener = listenerCaptor.getValue();
+        final MdnsServiceInfo mdnsServiceInfo = new MdnsServiceInfo(
+                SERVICE_NAME,
+                SERVICE_TYPE.split("\\."),
+                List.of(), /* subtypes */
+                new String[] {"android", "local"}, /* hostName */
+                PORT,
+                "192.168.1.1", /* ipv4Address */
+                "2001::1", /* ipv6Address */
+                List.of() /* textStrings */,
+                List.of(MdnsServiceInfo.TextEntry.fromBytes(new byte[] {
+                        'k', 'e', 'y', '=', (byte) 0xFF, (byte) 0xFE})) /* textEntries */,
+                interfaceIndex);
+        // Verify MdnsServiceResolutionListener#onServiceResolved callback
+        listener.onServiceResolved(mdnsServiceInfo);
+        final ArgumentCaptor<NsdServiceInfo> infoCaptor =
+                ArgumentCaptor.forClass(NsdServiceInfo.class);
+        verify(resolveListener, timeout(TIMEOUT_MS)).onServiceResolved(infoCaptor.capture());
+        final NsdServiceInfo info = infoCaptor.getValue();
+        assertTrue(SERVICE_NAME.equals(info.getServiceName()));
+        assertTrue(SERVICE_TYPE.equals(info.getServiceType()));
+        assertEquals(PORT, info.getPort());
+        assertTrue(info.getAttributes().containsKey("key"));
+        assertTrue(Arrays.equals(info.getAttributes().get("key"),
+                new byte[] {(byte) 0xFF, (byte) 0xFE}));
+        assertEquals(InetAddress.getByName("192.168.1.1"), info.getHost());
+        assertTrue(network.equals(info.getNetwork()));
+
+        // Verify the listener has been unregistered.
+        verify(mDiscoveryManager, timeout(TIMEOUT_MS)).unregisterListener(eq(SERVICE_TYPE), any());
     }
 
     @Test
