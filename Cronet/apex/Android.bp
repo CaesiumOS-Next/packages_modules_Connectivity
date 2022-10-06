@@ -37,12 +37,6 @@ filegroup {
     ],
 }
 
-apex {
-    name: "com.android.cronet",
-    defaults: ["com.android.cronet-defaults"],
-    manifest: "manifest.json",
-}
-
 apex_key {
     name: "com.android.cronet.key",
     public_key: "com.android.cronet.avbpubkey",
