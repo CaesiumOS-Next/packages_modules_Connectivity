@@ -20,21 +20,24 @@ java_import {
     name: "cronet_impl_native_java",
     jars: ["prebuilt/cronet_impl_native_java.jar"],
     visibility: ["//visibility:private"],
-    apex_available: ["com.android.cronet"],
+    apex_available: ["com.android.tethering"],
+    min_sdk_version: "30",
 }
 
 java_import {
     name: "cronet_impl_common_java",
     jars: ["prebuilt/cronet_impl_common_java.jar"],
     visibility: ["//visibility:private"],
-    apex_available: ["com.android.cronet"],
+    apex_available: ["com.android.tethering"],
+    min_sdk_version: "30",
 }
 
 java_import {
     name: "cronet_impl_platform_java",
     jars: ["prebuilt/cronet_impl_platform_java.jar"],
     visibility: ["//visibility:private"],
-    apex_available: ["com.android.cronet"],
+    apex_available: ["com.android.tethering"],
+    min_sdk_version: "30",
 }
 
 cc_prebuilt_library_shared {
@@ -66,7 +69,7 @@ cc_prebuilt_library_shared {
     strip: {
         none: true,
     },
-    apex_available: ["com.android.cronet"],
+    apex_available: ["com.android.tethering"],
 }
 
 genrule {
@@ -98,9 +101,10 @@ java_sdk_library {
     ],
     // Add dependencies on files used by droiddoc_options.
     droiddoc_option_files: [":cronet-api-current.txt"],
-    apex_available: ["com.android.cronet"],
+    apex_available: ["com.android.tethering"],
     unsafe_ignore_missing_latest_api: true,
     dist_group: "android",
+    min_sdk_version: "30",
 }
 
 // Make the current.txt available for use by the cts/tests/signature tests.
