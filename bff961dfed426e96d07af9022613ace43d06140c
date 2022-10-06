@@ -16,6 +16,23 @@
       "message": "LGTM and please have someone else to take a look.",
       "revId": "bff961dfed426e96d07af9022613ace43d06140c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba39b117_88a700af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-06T09:19:30Z",
+      "side": 1,
+      "message": "There\u0027s no test for this. It seems that the test is not easy to write?",
+      "revId": "bff961dfed426e96d07af9022613ace43d06140c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
