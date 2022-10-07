@@ -16,20 +16,20 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
-apex_defaults {
+soong_config_module_type {
+    name: "cronet_apex_defaults",
+    module_type: "apex_defaults",
+    config_namespace: "cronet",
+    bool_variables: ["enable_cronet"],
+    properties: ["jni_libs", "java_libs"],
+}
+
+cronet_apex_defaults {
     name: "com.android.cronet-defaults",
-    // defaults may have a different value depending on the branch.
-    // Use "com.android.cronet-defaults-enabled" to include Cronet .so and .jar files in the apex
-    // Use "com.android.cronet-defaults-disabled" not to include
-    defaults: ["com.android.cronet-defaults-enabled"],
-}
-
-apex_defaults {
-    name: "com.android.cronet-defaults-enabled",
-    jni_libs: ["libcronet.80.0.3986.0"],
-    java_libs: ["org.chromium.net.cronet"],
-}
-
-apex_defaults {
-    name: "com.android.cronet-defaults-disabled",
+    soong_config_variables: {
+        enable_cronet: {
+            jni_libs: ["libcronet.80.0.3986.0"],
+            java_libs: ["org.chromium.net.cronet"],
+        }
+    },
 }
