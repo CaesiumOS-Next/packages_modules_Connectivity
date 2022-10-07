@@ -22,6 +22,30 @@
       },
       "revId": "d4dd9e4716eaec05db3a35682d45d64e4074d75a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3bc6297_cdbffbf2",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-10-07T05:43:35Z",
+      "side": 1,
+      "message": "We can also consider add a unit test in a follow-up to verify if the restart() was ignored after getting rid of EthernetNetworkFactory.",
+      "parentUuid": "a7ed25b9_4433c360",
+      "range": {
+        "startLine": 563,
+        "startChar": 19,
+        "endLine": 564,
+        "endChar": 23
+      },
+      "revId": "d4dd9e4716eaec05db3a35682d45d64e4074d75a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
