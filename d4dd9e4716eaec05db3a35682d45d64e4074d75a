@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7ed25b9_4433c360",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-07T02:27:19Z",
+      "side": 1,
+      "message": "mention that NetworkMonitor will not verify network.",
+      "range": {
+        "startLine": 563,
+        "startChar": 19,
+        "endLine": 564,
+        "endChar": 23
+      },
+      "revId": "d4dd9e4716eaec05db3a35682d45d64e4074d75a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
