@@ -46,6 +46,30 @@
       },
       "revId": "d4dd9e4716eaec05db3a35682d45d64e4074d75a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f05db5fd_5c369020",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-07T15:58:07Z",
+      "side": 1,
+      "message": "I was thinking about that. I am not particularly happy with the current unit test setup -- they are not very good at catching bugs. Preferably, I want to add a test to EthernetManagerTest. That *should* be possible.",
+      "parentUuid": "f3bc6297_cdbffbf2",
+      "range": {
+        "startLine": 563,
+        "startChar": 19,
+        "endLine": 564,
+        "endChar": 23
+      },
+      "revId": "d4dd9e4716eaec05db3a35682d45d64e4074d75a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
