@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e32c9d8b_5a4027a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-07T10:38:20Z",
+      "side": 1,
+      "message": "This need to be submitted after cronet is disabled (set com.android.cronet-defaults-disabled) in the internal branch.",
+      "revId": "9b038cd346665f1602f31f0735440fb92cb14da0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
