@@ -87,6 +87,11 @@ public class EthernetConfigStoreTest {
 
     @After
     public void tearDown() {
+        final File apexConfigFile = new File(mApexTestDir.getPath(), "test.txt");
+        apexConfigFile.delete();
+        final File legacyConfigFile = new File(mLegacyTestDir.getPath(), "test.txt");
+        legacyConfigFile.delete();
+
         mApexTestDir.delete();
         mLegacyTestDir.delete();
     }
@@ -108,24 +113,20 @@ public class EthernetConfigStoreTest {
     public void testWriteIpConfigToApexFilePathAndRead() throws Exception {
         // Write the config file to the apex file path, pretend the config file exits and
         // check if IP config should be read from apex file path.
-        mApexConfigFile = new File(mApexTestDir.getPath(), "test.txt");
-        mEthernetConfigStore.write("eth0", APEX_IP_CONFIG, mApexConfigFile.getPath());
+        mEthernetConfigStore.write("eth0", APEX_IP_CONFIG, mApexTestDir.getPath(), "test.txt");
         waitForMs(50);
 
         mEthernetConfigStore.read(mApexTestDir.getPath(), mLegacyTestDir.getPath(), "/test.txt");
         final ArrayMap<String, IpConfiguration> ipConfigurations =
                 mEthernetConfigStore.getIpConfigurations();
         assertEquals(APEX_IP_CONFIG, ipConfigurations.get("eth0"));
-
-        mApexConfigFile.delete();
     }
 
     @Test
     public void testWriteIpConfigToLegacyFilePathAndRead() throws Exception {
         // Write the config file to the legacy file path, pretend the config file exits and
         // check if IP config should be read from legacy file path.
-        mLegacyConfigFile = new File(mLegacyTestDir, "test.txt");
-        mEthernetConfigStore.write("0", LEGACY_IP_CONFIG, mLegacyConfigFile.getPath());
+        mEthernetConfigStore.write("0", LEGACY_IP_CONFIG, mLegacyTestDir.getPath(), "test.txt");
         waitForMs(50);
 
         mEthernetConfigStore.read(mApexTestDir.getPath(), mLegacyTestDir.getPath(), "/test.txt");
@@ -135,9 +136,5 @@ public class EthernetConfigStoreTest {
 
         // Check the same config file in apex file path is created.
         assertConfigFileExist(mApexTestDir.getPath() + "/test.txt");
-
-        final File apexConfigFile = new File(mApexTestDir.getPath() + "/test.txt");
-        apexConfigFile.delete();
-        mLegacyConfigFile.delete();
     }
 }

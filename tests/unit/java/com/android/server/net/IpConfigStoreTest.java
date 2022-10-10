@@ -17,6 +17,7 @@
 package com.android.server.net;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
@@ -38,6 +39,8 @@ import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.HandlerUtils;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -83,6 +86,20 @@ public class IpConfigStoreTest {
     private static final ProxyInfo PROXY_INFO =
             ProxyInfo.buildDirectProxy("10.10.10.10", 88, Arrays.asList("host1", "host2"));
 
+    private File mTestDir;
+
+    @Before
+    public void setUp() {
+        final Context context = InstrumentationRegistry.getContext();
+        mTestDir = new File(context.getFilesDir().getPath());
+        mTestDir.mkdirs();
+    }
+
+    @After
+    public void tearDown() {
+        mTestDir.delete();
+    }
+
     @Test
     public void backwardCompatibility2to3() throws IOException {
         ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
@@ -117,7 +134,8 @@ public class IpConfigStoreTest {
 
         final MockedDelayedDiskWrite writer = new MockedDelayedDiskWrite();
         final IpConfigStore store = new IpConfigStore(writer);
-        store.writeIpConfigurations("file/path/not/used/", expectedNetworks);
+        store.writeIpConfigurations(mTestDir.getPath(), "IpConfigStoreTest-ipconfig.txt",
+                expectedNetworks);
 
         final InputStream in = new ByteArrayInputStream(writer.mByteStream.toByteArray());
         final ArrayMap<String, IpConfiguration> actualNetworks =
@@ -126,6 +144,9 @@ public class IpConfigStoreTest {
         assertEquals(2, actualNetworks.size());
         assertEquals(expectedNetworks.get(IFACE_1), actualNetworks.get(IFACE_1));
         assertEquals(expectedNetworks.get(IFACE_2), actualNetworks.get(IFACE_2));
+
+        final File configFile = new File(mTestDir.getPath(), "IpConfigStoreTest-ipconfig.txt");
+        configFile.delete();
     }
 
     @Test
@@ -149,12 +170,11 @@ public class IpConfigStoreTest {
         expectedNetworks.put(IFACE_1, ipConfig);
 
         // Write IP config to specific file path and read it later.
-        final Context context = InstrumentationRegistry.getContext();
-        final File configFile = new File(context.getFilesDir().getPath(),
-                "IpConfigStoreTest-ipconfig.txt");
+        final File configFile = new File(mTestDir.getPath(), "IpConfigStoreTest-ipconfig.txt");
         final DelayedDiskWrite writer = new DelayedDiskWrite(dependencies);
         final IpConfigStore store = new IpConfigStore(writer);
-        store.writeIpConfigurations(configFile.getPath(), expectedNetworks);
+        store.writeIpConfigurations(mTestDir.getPath(), "IpConfigStoreTest-ipconfig.txt",
+                expectedNetworks);
         HandlerUtils.waitForIdle(testHandlerThread, TIMEOUT_MS);
 
         // Read IP config from the file path.
@@ -169,6 +189,15 @@ public class IpConfigStoreTest {
                 IpConfigStore.readIpConfigurations("/dev/null");
         assertNotNull(emptyNetworks);
         assertEquals(0, emptyNetworks.size());
+
+        // Write IP config to an non-exist directory and check config file doesn't exist after
+        // write. Since writeIpConfigurations returns immediately due to the directory doesn't
+        // exist, we don't need to wait for handler becomes idle.
+        store.writeIpConfigurations(mTestDir.getPath() + "/apex", "IpConfigStoreTest-ipconfig.txt",
+                expectedNetworks);
+        final File nonExistConfigFile =
+                new File(mTestDir.getPath() + "/apex", "IpConfigStoreTest-ipconfig.txt");
+        assertFalse(nonExistConfigFile.exists());
 
         configFile.delete();
     }

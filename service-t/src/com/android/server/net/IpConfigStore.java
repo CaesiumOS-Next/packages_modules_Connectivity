@@ -35,6 +35,7 @@ import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -200,10 +201,19 @@ public class IpConfigStore {
 
     /**
      *  Write the IP configuration associated to the target networks to the destination path.
+     *
+     *  @param directory The directory name of a new directory to be created for config file,
+     *                   The directory must exist before writing.
+     *  @param filename The name of config file.
      */
-    public void writeIpConfigurations(String filePath,
+    public void writeIpConfigurations(String directory, String filename,
                                       ArrayMap<String, IpConfiguration> networks) {
-        mWriter.write(filePath, out -> {
+        if (!new File(directory).exists()) {
+            Log.wtf(TAG, "Directory: " + directory + " doesn't exist.");
+            return;
+        }
+        final File filePath = new File(directory, filename);
+        mWriter.write(filePath.getPath(), out -> {
             out.writeInt(IPCONFIG_FILE_VERSION);
             for (int i = 0; i < networks.size(); i++) {
                 writeConfig(out, networks.keyAt(i), networks.valueAt(i));

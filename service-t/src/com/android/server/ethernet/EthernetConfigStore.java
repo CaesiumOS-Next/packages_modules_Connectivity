@@ -59,9 +59,7 @@ public class EthernetConfigStore {
     private void writeLegacyIpConfigToApexPath(final String newFilePath, final String oldFilePath,
             final String filename) {
         final File directory = new File(newFilePath);
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
+        directory.mkdirs();
 
         // Write the legacy IP config to the apex file path.
         FileOutputStream fos = null;
@@ -116,18 +114,19 @@ public class EthernetConfigStore {
     }
 
     public void write(String iface, IpConfiguration config) {
-        final File directory = new File(APEX_IP_CONFIG_FILE_PATH);
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
-        write(iface, config, APEX_IP_CONFIG_FILE_PATH + CONFIG_FILE);
+        write(iface, config, APEX_IP_CONFIG_FILE_PATH, CONFIG_FILE);
     }
 
     @VisibleForTesting
-    void write(String iface, IpConfiguration config, String filepath) {
+    void write(String iface, IpConfiguration config, String directory, String filename) {
         boolean modified;
 
         synchronized (mSync) {
+            final File dir = new File(directory);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
             if (config == null) {
                 modified = mIpConfigurations.remove(iface) != null;
             } else {
@@ -136,7 +135,7 @@ public class EthernetConfigStore {
             }
 
             if (modified) {
-                mStore.writeIpConfigurations(filepath, mIpConfigurations);
+                mStore.writeIpConfigurations(directory, filename, mIpConfigurations);
             }
         }
     }
