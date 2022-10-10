@@ -16,6 +16,24 @@
       "message": "tyanh@: We are trying to fix http://b/250514846. Would you be able to provide Dr.No+1 for this?",
       "revId": "9a35fd31861a1462476fbfba7dc06e373fca72e3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f54ad055_9aba264b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1061057
+      },
+      "writtenOn": "2022-10-10T06:18:31Z",
+      "side": 1,
+      "message": "Just realized that this is a CTS fix. It needs to be cherry picked to aosp-android13-tests-dev instead.",
+      "parentUuid": "7b65770c_1f3a621f",
+      "revId": "9a35fd31861a1462476fbfba7dc06e373fca72e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
