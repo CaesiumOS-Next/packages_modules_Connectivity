@@ -200,6 +200,18 @@ public class IpConfigStore {
 
     /**
      *  Write the IP configuration associated to the target networks to the destination path.
+     *
+     *  @param directory The directory name of a new directory to be created for config file,
+     *                   ending with "/". The directory must exist before writing.
+     *  @param filename The name of config file.
+     */
+    public void writeIpConfigurations(String directory, String filename,
+                                      ArrayMap<String, IpConfiguration> networks) {
+        writeIpConfigurations(directory + filename, networks);
+    }
+
+    /**
+     *  Write the IP configuration associated to the target networks to the destination path.
      */
     public void writeIpConfigurations(String filePath,
                                       ArrayMap<String, IpConfiguration> networks) {
