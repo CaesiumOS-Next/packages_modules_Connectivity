@@ -31,7 +31,7 @@ java_library {
         "android.test.base",
         "android.test.mock",
         "androidx.annotation_annotation",
-        "org.chromium.net.cronet.stubs",
+        "framework-cronet.stubs",
     ],
 }
 
