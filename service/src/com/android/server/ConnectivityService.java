@@ -9159,9 +9159,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         if (shouldCreateNativeNetwork(networkAgent, state)) {
-            // A network that has just connected has zero requests and is thus a foreground network.
-            networkAgent.networkCapabilities.addCapability(NET_CAPABILITY_FOREGROUND);
-
             if (!createNativeNetwork(networkAgent)) return;
             if (SdkLevel.isAtLeastU()) {
                 applyInitialLinkProperties(networkAgent);
