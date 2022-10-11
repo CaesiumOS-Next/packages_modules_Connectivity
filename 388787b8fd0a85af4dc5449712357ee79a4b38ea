@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8844767_65730ca1",
+        "filename": "tests/cts/net/src/android/net/cts/QosCallbackExceptionTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-11T06:16:48Z",
+      "side": 0,
+      "message": "This doesn\u0027t work because this is DevSdkignoreRule.IgnoreUpTo, and this test is not using DevSdkIgnoreRule\n\nYou should just add:\n\n    @Rule\n    public final DevSdkIgnoreRule mIgnoreRule \u003d new DevSdkIgnoreRule();\n\nto the class, and the tests should be skipped as per the annotation. If the annotation isn\u0027t working I think it\u0027s important to make sure we know why before using a workaround.",
+      "range": {
+        "startLine": 81,
+        "startChar": 5,
+        "endLine": 81,
+        "endChar": 15
+      },
+      "revId": "388787b8fd0a85af4dc5449712357ee79a4b38ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
