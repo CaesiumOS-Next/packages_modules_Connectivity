@@ -83,8 +83,12 @@ genrule {
 }
 
 java_sdk_library {
+<<<<<<< HEAD
     name: "org.chromium.net.cronet",
     defaults: ["framework-module-defaults"],
+=======
+    name: "framework-cronet",
+>>>>>>> 4f7e25d4f (Rename org.chromium.net.cronet to framework-cronet)
     srcs: [
         ":cronet_api-src",
     ],
