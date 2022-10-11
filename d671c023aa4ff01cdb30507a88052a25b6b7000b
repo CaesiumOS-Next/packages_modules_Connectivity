@@ -75,6 +75,24 @@
       "parentUuid": "a2c056a3_90e4118d",
       "revId": "d671c023aa4ff01cdb30507a88052a25b6b7000b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91f6a004_f9b85353",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-11T23:44:42Z",
+      "side": 1,
+      "message": "The new description doesn\u0027t answer most of the questions I had though; I think I would still have needed to search for a lot of internal docs to review it, and when we go through this change in our module release meeting the team will have to ask me what this is and why it was safe to approve. Having documentation outside of the change is good but it won\u0027t be readable by AOSP contributors, so changes should be self-explanatory.\n\nSorry you ended up losing the +1, didn\u0027t expect that ^^\u0027 +2 should stick better !",
+      "parentUuid": "8462fd2f_04471543",
+      "revId": "d671c023aa4ff01cdb30507a88052a25b6b7000b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
