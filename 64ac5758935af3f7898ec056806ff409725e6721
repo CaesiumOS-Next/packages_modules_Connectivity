@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "485e1c63_6e7f9b82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-11T07:03:25Z",
+      "side": 1,
+      "message": "Still one comment left to investigate.",
+      "revId": "64ac5758935af3f7898ec056806ff409725e6721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37947eb0_78092fe7",
@@ -31,6 +48,30 @@
       "writtenOn": "2022-09-16T09:12:45Z",
       "side": 1,
       "message": "I\u0027m not sure this TODO brings much. The one condition is : this should be done before the first rematch or capabilities change after the network is connected, to avoid having caps updated callbacks for this immediately. It\u0027s fine to do it here, like it would be fine to do it in l.9188. I don\u0027t think there is any drawback to leaving it here, so I don\u0027t see the point of this TODO.\n\nThe one thing that can be said is, if we had updateCapabilities return after it\u0027s mixed in the capabilities (l.7956 in this patchset) if !everConnected, then we should be able to remove this line, and remove the test in l.9175, and always call updateCapabilitiesForNetwork in l.9179. It would clarify (and prove) that updateCapabilities never sends callbacks when the network is not everConnected, and would simplify usage of it because it would no longer be implicit in the code (e.g. here without this change you\u0027d have a capabilities callback in l.9179 if you only remove this line).\n\nNo strong opinion. If you choose to do the cleanup that I\u0027m suggesting it should be in another patch, and the TODO here should reflect that work. Otherwise, I think we can just remove this TODO.",
+      "range": {
+        "startLine": 9163,
+        "startChar": 0,
+        "endLine": 9165,
+        "endChar": 56
+      },
+      "revId": "64ac5758935af3f7898ec056806ff409725e6721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7db173f_52e6d495",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 9165,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-11T07:03:25Z",
+      "side": 1,
+      "message": "Actually I\u0027m not even sure this is needed any more, because the FOREGROUND capability will already be set. Removed the TODO and uploaded aosp/2248453 to fix it.\n\nYour suggestion to have updateCapabilities return immediately if !everConnected seems good on the surface, but I think there are things in updateCapabilities that seem like they should run even if the network never connected. Examples are updateNetworkInfoForRoamingAndSuspended (though that code has historically been buggy before the network went into CONNECTED), propagateUnderlyingNetworkCapabilities, etc.",
+      "parentUuid": "37947eb0_78092fe7",
       "range": {
         "startLine": 9163,
         "startChar": 0,
@@ -66,6 +107,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fc45c837_b5473b5b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 9197,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-11T07:03:25Z",
+      "side": 1,
+      "message": "We can\u0027t actually use that method because it skips some updates if it sees that the LinkProperties haven\u0027t changed. As an example, it won\u0027t call networkAgent.clatd.update().\n\nThe reason I put this code here is that before this CL, updateLinkProperties was always called when a network went into CONNECTED state, and there is some code in updateLinkProperties that behaves differently depending on the NetworkInfo\u0027s state.\n\nI think I\u0027ll need to audit all the code in updateLinkProperties to enumerate all such instances, and figure out what to do about each of them.",
+      "parentUuid": "3abca705_a5a74edf",
+      "range": {
+        "startLine": 9197,
+        "startChar": 19,
+        "endLine": 9197,
+        "endChar": 87
+      },
+      "revId": "64ac5758935af3f7898ec056806ff409725e6721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2a950f8b_195a1966",
         "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
         "patchSetId": 19
@@ -77,6 +142,30 @@
       "writtenOn": "2022-09-16T09:12:45Z",
       "side": 1,
       "message": "Since this is positionally in the right place, you can dispense with \"transports \u003d \", seeing how it doesn\u0027t bring anything here",
+      "range": {
+        "startLine": 1319,
+        "startChar": 65,
+        "endLine": 1319,
+        "endChar": 88
+      },
+      "revId": "64ac5758935af3f7898ec056806ff409725e6721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53948fdb_f0427067",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 1319,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-11T07:03:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a950f8b_195a1966",
       "range": {
         "startLine": 1319,
         "startChar": 65,
@@ -110,6 +199,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "371d5c17_bc0727ad",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 1364,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-11T07:03:25Z",
+      "side": 1,
+      "message": "Ah, thanks. Done.",
+      "parentUuid": "9a04a6dc_c7d2bb50",
+      "range": {
+        "startLine": 1363,
+        "startChar": 0,
+        "endLine": 1364,
+        "endChar": 45
+      },
+      "revId": "64ac5758935af3f7898ec056806ff409725e6721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ede3b348_1700facc",
@@ -123,6 +236,30 @@
       "writtenOn": "2022-09-16T09:12:45Z",
       "side": 1,
       "message": "could do the same on the listen, though it\u0027s not very high value",
+      "range": {
+        "startLine": 1394,
+        "startChar": 8,
+        "endLine": 1394,
+        "endChar": 23
+      },
+      "revId": "64ac5758935af3f7898ec056806ff409725e6721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afa912ea_58423682",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 1394,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-11T07:03:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ede3b348_1700facc",
       "range": {
         "startLine": 1394,
         "startChar": 8,
@@ -156,6 +293,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23b9e43a_cb2dcb43",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 1408,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-11T07:03:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5c62a0c_392b9776",
+      "range": {
+        "startLine": 1408,
+        "startChar": 36,
+        "endLine": 1408,
+        "endChar": 64
+      },
+      "revId": "64ac5758935af3f7898ec056806ff409725e6721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d2c06e6_5ef82b52",
@@ -169,6 +330,54 @@
       "writtenOn": "2022-09-16T09:12:45Z",
       "side": 1,
       "message": "We\u0027re losing the inOrder property here, maybe you want to pass the inOrder object ?",
+      "range": {
+        "startLine": 14394,
+        "startChar": 16,
+        "endLine": 14394,
+        "endChar": 42
+      },
+      "revId": "64ac5758935af3f7898ec056806ff409725e6721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc7e2e2f_ab23bf0e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 14394,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-11T07:03:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d2c06e6_5ef82b52",
+      "range": {
+        "startLine": 14394,
+        "startChar": 16,
+        "endLine": 14394,
+        "endChar": 42
+      },
+      "revId": "64ac5758935af3f7898ec056806ff409725e6721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70dc1aba_c4b417e5",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 14394,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-11T07:03:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d2c06e6_5ef82b52",
       "range": {
         "startLine": 14394,
         "startChar": 16,
