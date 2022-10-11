@@ -16,6 +16,52 @@
       "message": "NDK API changes LGTM",
       "revId": "d0547deeba32772d20ef213b1e568bf0385b17fa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "358153ae_47f2f6f8",
+        "filename": "service/libconnectivity/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2022-10-11T18:20:43Z",
+      "side": 1,
+      "message": "Why is sdk_version \u0026 min_sdk_version specified? This wasn\u0027t on API 30, so the min_sdk_version looks off?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 26
+      },
+      "revId": "d0547deeba32772d20ef213b1e568bf0385b17fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebbc7d3d_e24bb8aa",
+        "filename": "service/libconnectivity/include/connectivity_native.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2022-10-11T18:20:43Z",
+      "side": 1,
+      "message": "T is already API complete, did you mean U here?",
+      "range": {
+        "startLine": 38,
+        "startChar": 73,
+        "endLine": 38,
+        "endChar": 90
+      },
+      "revId": "d0547deeba32772d20ef213b1e568bf0385b17fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
