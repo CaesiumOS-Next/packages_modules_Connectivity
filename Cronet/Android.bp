@@ -83,7 +83,7 @@ genrule {
 }
 
 java_sdk_library {
-    name: "org.chromium.net.cronet",
+    name: "framework-cronet",
     srcs: [
         ":cronet_api-src",
     ],
