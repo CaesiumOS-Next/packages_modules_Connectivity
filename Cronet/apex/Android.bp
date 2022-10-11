@@ -29,7 +29,7 @@ apex_defaults {
 apex_defaults {
     name: "CronetApexDefaultsEnabled",
     jni_libs: ["libcronet.80.0.3986.0"],
-    java_libs: ["org.chromium.net.cronet"],
+    java_libs: ["com.android.cronet"],
 }
 
 apex_defaults {
@@ -40,7 +40,7 @@ apex_defaults {
     name: "com.android.cronet-defaults",
     compile_multilib: "both",
     jni_libs: ["libcronet.80.0.3986.0"],
-    java_libs: ["org.chromium.net.cronet"],
+    java_libs: ["com.android.cronet"],
     key: "com.android.cronet.key",
     certificate: ":com.android.cronet.certificate",
     updatable: false,
