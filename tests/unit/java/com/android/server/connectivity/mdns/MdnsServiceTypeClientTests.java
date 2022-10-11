@@ -16,6 +16,7 @@
 
 package com.android.server.connectivity.mdns;
 
+import static com.android.server.connectivity.mdns.MdnsSocket.INTERFACE_INDEX_UNSPECIFIED;
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.junit.Assert.assertEquals;
@@ -124,6 +125,10 @@ public class MdnsServiceTypeClientTests {
                 .thenReturn(expectedPackets[13])
                 .thenReturn(expectedPackets[14])
                 .thenReturn(expectedPackets[15]);
+
+        doReturn(INTERFACE_INDEX_UNSPECIFIED).when(mockListenerOne).getInterfaceIndex();
+        doReturn(INTERFACE_INDEX_UNSPECIFIED).when(mockListenerTwo).getInterfaceIndex();
+        doReturn(INTERFACE_INDEX_UNSPECIFIED).when(mResolutionListener).getInterfaceIndex();
 
         client =
                 new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor) {
@@ -509,6 +514,7 @@ public class MdnsServiceTypeClientTests {
                 info -> info.getServiceInstanceName().equals("goodbye-service-instance-name")));
         verify(mockListenerTwo).onServiceRemoved(argThat(
                 info -> info.getServiceInstanceName().equals("goodbye-service-instance-name")));
+        verify(mResolutionListener).getInterfaceIndex();
         verifyNoMoreInteractions(mResolutionListener);
     }
 
@@ -710,6 +716,7 @@ public class MdnsServiceTypeClientTests {
         // Register other listener and verify the onServiceResolved will receive.
         final MdnsServiceResolutionListener otherListener =
                 mock(MdnsServiceResolutionListener.class);
+        doReturn(interfaceIndex).when(otherListener).getInterfaceIndex();
         client.startSendAndReceive(otherListener, MdnsSearchOptions.getDefaultOptions());
 
         verify(otherListener).onServiceResolved(serviceInfoCaptor.capture());
@@ -720,6 +727,13 @@ public class MdnsServiceTypeClientTests {
         assertEquals(subtypes, otherInfo.getSubtypes());
         assertNull(otherInfo.getAttributeByKey("key"));
         assertEquals(interfaceIndex, otherInfo.getInterfaceIndex());
+
+        // Register other listener with different interface index and verify no callback received.
+        final MdnsServiceResolutionListener otherListener2 =
+                mock(MdnsServiceResolutionListener.class);
+        doReturn(interfaceIndex + 1).when(otherListener2).getInterfaceIndex();
+        client.startSendAndReceive(otherListener2, MdnsSearchOptions.getDefaultOptions());
+        verify(otherListener2, never()).onServiceResolved(any());
     }
 
     // verifies that the right query was enqueued with the right delay, and send query by executing
