@@ -137,6 +137,17 @@ android_library {
     visibility: ["//packages/modules/Connectivity/tests:__subpackages__"],
 }
 
+genrule {
+    name: "connectivity-test-jarjar-rules",
+    defaults: ["jarjar-rules-combine-defaults"],
+    srcs: [
+        "connectivity-test-default-jarjar.txt",
+        ":connectivity-jarjar-rules",
+    ],
+    out: ["connectivity-test-jarjar-rules.txt"],
+    visibility: ["//packages/modules/Connectivity:__subpackages__"],
+}
+
 android_test {
     name: "FrameworksNetTests",
     enabled: enable_frameworks_net_tests,
@@ -144,7 +155,7 @@ android_test {
         "FrameworksNetTestsDefaults",
         "FrameworksNetTests-jni-defaults",
     ],
-    jarjar_rules: ":connectivity-jarjar-rules",
+    jarjar_rules: ":connectivity-test-jarjar-rules",
     test_suites: ["device-tests"],
     static_libs: [
         "services.core",

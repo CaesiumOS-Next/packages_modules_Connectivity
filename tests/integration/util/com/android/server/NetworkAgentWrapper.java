@@ -416,14 +416,14 @@ public class NetworkAgentWrapper implements TestableNetworkCallback.HasNetwork {
         HandlerUtils.waitForIdle(mHandlerThread, timeoutMs);
     }
 
-    abstract static class CallbackType {
-        final int mQosCallbackId;
+    public abstract static class CallbackType {
+        public final int mQosCallbackId;
 
-        protected CallbackType(final int qosCallbackId) {
+        public CallbackType(final int qosCallbackId) {
             mQosCallbackId = qosCallbackId;
         }
 
-        static class OnQosCallbackRegister extends CallbackType {
+        public static class OnQosCallbackRegister extends CallbackType {
             final QosFilter mFilter;
             OnQosCallbackRegister(final int qosCallbackId, final QosFilter filter) {
                 super(qosCallbackId);
@@ -445,7 +445,7 @@ public class NetworkAgentWrapper implements TestableNetworkCallback.HasNetwork {
             }
         }
 
-        static class OnQosCallbackUnregister extends CallbackType {
+        public static class OnQosCallbackUnregister extends CallbackType {
             OnQosCallbackUnregister(final int qosCallbackId) {
                 super(qosCallbackId);
             }
