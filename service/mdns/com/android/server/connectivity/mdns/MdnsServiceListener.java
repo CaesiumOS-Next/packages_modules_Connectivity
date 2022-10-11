@@ -16,6 +16,8 @@
 
 package com.android.server.connectivity.mdns;
 
+import static com.android.server.connectivity.mdns.MdnsSocket.INTERFACE_INDEX_UNSPECIFIED;
+
 import android.annotation.NonNull;
 
 import java.util.List;
@@ -41,4 +43,13 @@ public interface MdnsServiceListener {
      * @param errorCode            The error code, defined in {@link MdnsResponseErrorCode}.
      */
     void onFailedToParseMdnsResponse(int receivedPacketNumber, int errorCode);
+
+
+    /**
+     * Get the interface index on which to do a mDNS service query. Default value is
+     * INTERFACE_INDEX_UNSPECIFIED which indicates "all interfaces".
+     */
+    default int getInterfaceIndex() {
+        return INTERFACE_INDEX_UNSPECIFIED;
+    }
 }

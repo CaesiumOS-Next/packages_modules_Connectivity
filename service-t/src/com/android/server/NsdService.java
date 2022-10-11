@@ -127,11 +127,13 @@ public class NsdService extends INsdManager.Stub {
         protected final int mClientId;
         protected final int mTransactionId;
         protected final NsdServiceInfo mReqServiceInfo;
+        protected final int mInterfaceIndex;
 
         Listener(int clientId, int transactionId, NsdServiceInfo reqServiceInfo) {
             mClientId = clientId;
             mTransactionId = transactionId;
             mReqServiceInfo = reqServiceInfo;
+            mInterfaceIndex = getNetworkInterfaceIndex(reqServiceInfo);
         }
 
         public String getServiceType() {
@@ -143,6 +145,14 @@ public class NsdService extends INsdManager.Stub {
 
         DiscoveryListener(int clientId, int transactionId, NsdServiceInfo reqServiceInfo) {
             super(clientId, transactionId, reqServiceInfo);
+        }
+
+        @Override
+        public int getInterfaceIndex() {
+            if (mInterfaceIndex == IFACE_IDX_ANY) {
+                return INTERFACE_INDEX_UNSPECIFIED;
+            }
+            return mInterfaceIndex;
         }
 
         @Override
@@ -186,6 +196,14 @@ public class NsdService extends INsdManager.Stub {
     private class ResolutionListener extends Listener implements MdnsServiceResolutionListener {
         ResolutionListener(int clientId, int transactionId, NsdServiceInfo reqServiceInfo) {
             super(clientId, transactionId, reqServiceInfo);
+        }
+
+        @Override
+        public int getInterfaceIndex() {
+            if (mInterfaceIndex == IFACE_IDX_ANY) {
+                return INTERFACE_INDEX_UNSPECIFIED;
+            }
+            return mInterfaceIndex;
         }
 
         @Override

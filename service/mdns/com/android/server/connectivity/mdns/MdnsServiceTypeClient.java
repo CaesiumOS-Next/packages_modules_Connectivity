@@ -16,6 +16,8 @@
 
 package com.android.server.connectivity.mdns;
 
+import static com.android.server.connectivity.mdns.MdnsSocket.INTERFACE_INDEX_UNSPECIFIED;
+
 import android.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.ArraySet;
@@ -121,14 +123,18 @@ public class MdnsServiceTypeClient {
                 listeners.add(listener);
                 for (MdnsResponse existingResponse : instanceNameToResponse.values()) {
                     if (existingResponse.isComplete()) {
-                        if (listener instanceof MdnsServiceResolutionListener) {
-                            ((MdnsServiceResolutionListener) listener).onServiceResolved(
-                                    buildMdnsServiceInfoFromResponse(existingResponse,
-                                            serviceTypeLabels));
-                        } else if (listener instanceof MdnsServiceBrowserListener) {
-                            ((MdnsServiceBrowserListener) listener).onServiceFound(
-                                    buildMdnsServiceInfoFromResponse(existingResponse,
-                                            serviceTypeLabels));
+                        final int interfaceIndex = listener.getInterfaceIndex();
+                        if (INTERFACE_INDEX_UNSPECIFIED == interfaceIndex
+                                || existingResponse.getInterfaceIndex() == interfaceIndex) {
+                            if (listener instanceof MdnsServiceResolutionListener) {
+                                ((MdnsServiceResolutionListener) listener).onServiceResolved(
+                                        buildMdnsServiceInfoFromResponse(existingResponse,
+                                                serviceTypeLabels));
+                            } else if (listener instanceof MdnsServiceBrowserListener) {
+                                ((MdnsServiceBrowserListener) listener).onServiceFound(
+                                        buildMdnsServiceInfoFromResponse(existingResponse,
+                                                serviceTypeLabels));
+                            }
                         }
                     }
                 }
@@ -205,13 +211,17 @@ public class MdnsServiceTypeClient {
                 buildMdnsServiceInfoFromResponse(currentResponse, serviceTypeLabels);
 
         for (MdnsServiceListener listener : listeners) {
-            if (listener instanceof MdnsServiceResolutionListener) {
-                ((MdnsServiceResolutionListener) listener).onServiceResolved(serviceInfo);
-            } else if (listener instanceof MdnsServiceBrowserListener) {
-                if (newServiceFound) {
-                    ((MdnsServiceBrowserListener) listener).onServiceFound(serviceInfo);
-                } else {
-                    ((MdnsServiceBrowserListener) listener).onServiceUpdated(serviceInfo);
+            final int interfaceIndex = listener.getInterfaceIndex();
+            if (INTERFACE_INDEX_UNSPECIFIED == interfaceIndex
+                    || currentResponse.getInterfaceIndex() == interfaceIndex) {
+                if (listener instanceof MdnsServiceResolutionListener) {
+                    ((MdnsServiceResolutionListener) listener).onServiceResolved(serviceInfo);
+                } else if (listener instanceof MdnsServiceBrowserListener) {
+                    if (newServiceFound) {
+                        ((MdnsServiceBrowserListener) listener).onServiceFound(serviceInfo);
+                    } else {
+                        ((MdnsServiceBrowserListener) listener).onServiceUpdated(serviceInfo);
+                    }
                 }
             }
         }
@@ -221,19 +231,23 @@ public class MdnsServiceTypeClient {
         final String serviceInstanceName = response.getServiceInstanceName();
         instanceNameToResponse.remove(serviceInstanceName);
         for (MdnsServiceListener listener : listeners) {
-            if (listener instanceof MdnsServiceBrowserListener) {
-                final MdnsServiceInfo serviceInfo = new MdnsServiceInfo(
-                        response.getServiceInstanceName(),
-                        serviceTypeLabels,
-                        null /* subtypes */,
-                        null /* hostName */,
-                        0 /* port */,
-                        null /* ipv4Address */,
-                        null /* ipv6Address */,
-                        null /* textStrings */,
-                        null /* textEntries */,
-                        response.getInterfaceIndex());
-                ((MdnsServiceBrowserListener) listener).onServiceRemoved(serviceInfo);
+            final int interfaceIndex = listener.getInterfaceIndex();
+            if (INTERFACE_INDEX_UNSPECIFIED == interfaceIndex
+                    || response.getInterfaceIndex() == interfaceIndex) {
+                if (listener instanceof MdnsServiceBrowserListener) {
+                    final MdnsServiceInfo serviceInfo = new MdnsServiceInfo(
+                            response.getServiceInstanceName(),
+                            serviceTypeLabels,
+                            null /* subtypes */,
+                            null /* hostName */,
+                            0 /* port */,
+                            null /* ipv4Address */,
+                            null /* ipv6Address */,
+                            null /* textStrings */,
+                            null /* textEntries */,
+                            response.getInterfaceIndex());
+                    ((MdnsServiceBrowserListener) listener).onServiceRemoved(serviceInfo);
+                }
             }
         }
     }
