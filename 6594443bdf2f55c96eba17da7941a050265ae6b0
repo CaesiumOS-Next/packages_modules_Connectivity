@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8072914b_965e5b92",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-11T04:39:42Z",
+      "side": 1,
+      "message": "Do we want to mention in the name that this is polling the synchronous call ? I don\u0027t think we have any prior art for that. You could call this e.g. `expectGetLinkPropertiesEventually`.",
+      "range": {
+        "startLine": 339,
+        "startChar": 8,
+        "endLine": 339,
+        "endChar": 38
+      },
+      "revId": "6594443bdf2f55c96eba17da7941a050265ae6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dc34c63_8e39b377",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-11T04:39:42Z",
+      "side": 1,
+      "message": "Standard Kotlin recommends `(LinkProperties?) -\u003e Boolean` for this.\nIt also recomments to put it last (that lets you write `expectLinkPropertiesEventually(n, \"become non-null\") { it \u003d\u003d null }`)",
+      "range": {
+        "startLine": 341,
+        "startChar": 19,
+        "endLine": 341,
+        "endChar": 28
+      },
+      "revId": "6594443bdf2f55c96eba17da7941a050265ae6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54a89125_28c7f1e2",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-11T04:39:42Z",
+      "side": 1,
+      "message": "What you have is fine but it might be more generally useful if it returns the LP.",
+      "range": {
+        "startLine": 346,
+        "startChar": 58,
+        "endLine": 346,
+        "endChar": 64
+      },
+      "revId": "6594443bdf2f55c96eba17da7941a050265ae6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92b926c0_0f4796a9",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-11T04:39:42Z",
+      "side": 1,
+      "message": "Well this is just a test, but this will mean drift (possibly big drift in relative terms as 10ms is only 10x HZ) ; the generally accepted pattern is to compute a deadline in l.344 and check for the deadline in l.345 by reading the current time again.",
+      "range": {
+        "startLine": 348,
+        "startChar": 12,
+        "endLine": 348,
+        "endChar": 24
+      },
+      "revId": "6594443bdf2f55c96eba17da7941a050265ae6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b6954c4_83006182",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-11T04:39:42Z",
+      "side": 1,
+      "message": "Did you mean $description ?",
+      "range": {
+        "startLine": 350,
+        "startChar": 48,
+        "endLine": 350,
+        "endChar": 58
+      },
+      "revId": "6594443bdf2f55c96eba17da7941a050265ae6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6404b6b8_fe01dc8f",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 1305,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-11T04:39:42Z",
+      "side": 1,
+      "message": "Maybe `agent6.DEFAULT_TIMEOUT_MS + 1_000` then ? It\u0027s public.",
+      "range": {
+        "startLine": 1305,
+        "startChar": 42,
+        "endLine": 1305,
+        "endChar": 94
+      },
+      "revId": "6594443bdf2f55c96eba17da7941a050265ae6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
