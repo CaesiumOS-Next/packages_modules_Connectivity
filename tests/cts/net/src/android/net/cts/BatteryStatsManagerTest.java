@@ -29,11 +29,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.cts.util.CtsNetUtils;
 import android.net.wifi.WifiManager;
+import android.os.BatteryManager;
 import android.os.BatteryStatsManager;
 import android.os.Build;
 import android.os.connectivity.CellularBatteryStats;
@@ -136,6 +139,11 @@ public class BatteryStatsManagerTest{
             return;
         }
 
+        if (!hasBattery()) {
+            Log.d(TAG, "Skip cell battery stats test because battery is not present.");
+            return;
+        }
+
         final Network cellNetwork = mCtsNetUtils.connectToCell();
         final URL url = new URL(TEST_URL);
 
@@ -168,6 +176,11 @@ public class BatteryStatsManagerTest{
             return;
         }
 
+        if (!hasBattery()) {
+            Log.d(TAG, "Skip wifi battery stats test because battery is not present.");
+            return;
+        }
+
         WifiBatteryStats wifiStatsBefore = runAsShell(UPDATE_DEVICE_STATS,
                 mBsm::getWifiBatteryStats);
 
@@ -194,6 +207,12 @@ public class BatteryStatsManagerTest{
         final int[] transportType = mCm.getNetworkCapabilities(wifiNetwork).getTransportTypes();
         assertThrows(SecurityException.class,
                 () -> mBsm.reportNetworkInterfaceForTransports(iface, transportType));
+    }
+
+    private boolean hasBattery() {
+        final Intent batteryInfo =
+                mContext.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        return batteryInfo.getBooleanExtra(BatteryManager.EXTRA_PRESENT, true);
     }
 
     private void generateNetworkTraffic(Network network, URL url) throws IOException {
