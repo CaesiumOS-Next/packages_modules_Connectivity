@@ -26,14 +26,19 @@ import static com.android.testutils.MiscAsserts.assertThrows;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeTrue;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.cts.util.CtsNetUtils;
 import android.net.wifi.WifiManager;
+import android.os.BatteryManager;
 import android.os.BatteryStatsManager;
 import android.os.Build;
 import android.os.connectivity.CellularBatteryStats;
@@ -97,6 +102,7 @@ public class BatteryStatsManagerTest{
     @RequiresDevice // Virtual hardware does not support wifi battery stats
     public void testReportNetworkInterfaceForTransports() throws Exception {
         try {
+            assumeTrue("Battery is not present. Ignore test.", hasBattery());
             // Simulate the device being unplugged from charging.
             executeShellCommand("cmd battery unplug");
             executeShellCommand("cmd battery set status " + BATTERY_STATUS_DISCHARGING);
@@ -194,6 +200,13 @@ public class BatteryStatsManagerTest{
         final int[] transportType = mCm.getNetworkCapabilities(wifiNetwork).getTransportTypes();
         assertThrows(SecurityException.class,
                 () -> mBsm.reportNetworkInterfaceForTransports(iface, transportType));
+    }
+
+    private boolean hasBattery() {
+        final Intent batteryInfo =
+                mContext.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        assertNotNull("batteryInfo is null.", batteryInfo);
+        return batteryInfo.getBooleanExtra(BatteryManager.EXTRA_PRESENT, true);
     }
 
     private void generateNetworkTraffic(Network network, URL url) throws IOException {
