@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf17e5e1_ea60cd3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1366077
+      },
+      "writtenOn": "2022-10-11T00:06:26Z",
+      "side": 1,
+      "message": "PTAL, this is a trivial cleanup CL.",
+      "revId": "2bf3a3831bca74c8a85f80f5a4130e60ff5bb7fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
