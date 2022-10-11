@@ -9159,12 +9159,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         if (shouldCreateNativeNetwork(networkAgent, state)) {
-            // A network that has just connected has zero requests and is thus a foreground network.
-            // TODO: historically this was here because as soon as created becomes true, the network
-            // can start satisfying requests. But now it can only satisfy requests when it becomes
-            // connected. Should we move this elsewhere?
-            networkAgent.networkCapabilities.addCapability(NET_CAPABILITY_FOREGROUND);
-
             if (!createNativeNetwork(networkAgent)) return;
             if (SdkLevel.isAtLeastU()) {
                 applyInitialLinkProperties(networkAgent);
