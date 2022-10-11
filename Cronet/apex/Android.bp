@@ -27,3 +27,13 @@ apex_defaults {
     name: "CronetApexDefaults",
     defaults: [cronet_apex_defaults],
 }
+
+apex_defaults {
+    name: "CronetApexDefaultsEnabled",
+    jni_libs: ["libcronet.80.0.3986.0"],
+    java_libs: ["framework-cronet"],
+}
+
+apex_defaults {
+    name: "CronetApexDefaultsDisabled",
+}
