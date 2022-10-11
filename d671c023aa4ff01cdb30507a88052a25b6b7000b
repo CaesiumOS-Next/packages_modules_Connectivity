@@ -39,6 +39,24 @@
       "message": "Could you add a description that explains the change for AOSP contributors before submitting (just changing description should keep the +1/+2) ? I also had to do a good bit of searching to understand the change so it would help. This seems to be a big change for module build/workflow, I think it would help to briefly explain here:\n\n - What is DCLA\n - What is the impact of this change on the module binary (make it have min_sdk 31, except if APEX_BUILD_FOR_PRE_S_DEVICES is set, in which case it\u0027s 30 ?)\n - Does this mean we\u0027ll now have 2 different binary artifacts, for R devices and for S+ devices ? And 2 different .apks bundles, or one .apks that covers the 2 variants ?\n - If yes, what do developers need to do now to test a build on R ? We have some scripts/documentation to sideload modules so that will need to be updated accordingly.\n - Why does min_sdk need to be 31 for S+ devices (presumably to make sure that variant doesn\u0027t get installed on R ?)\n \nThis is probably worth a PSA to mainline-module-authors too, or to module owners of R+ modules, if it changes workflows to install modules (in sideloading or tests in particular)",
       "revId": "d671c023aa4ff01cdb30507a88052a25b6b7000b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2c056a3_90e4118d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1949445
+      },
+      "writtenOn": "2022-10-11T17:18:53Z",
+      "side": 1,
+      "message": "Description changed to reflect this change, and more documentation will be updated outside of the CL to reflect the new behavior. (This change did revoke owner approval however, so looks like you\u0027ll need to approve again for me to merge.)",
+      "parentUuid": "e9d42343_03027fbf",
+      "revId": "d671c023aa4ff01cdb30507a88052a25b6b7000b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
