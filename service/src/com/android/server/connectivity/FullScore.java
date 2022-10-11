@@ -140,7 +140,7 @@ public class FullScore {
 
     private final int mKeepConnectedReason;
 
-    FullScore(final long policies, @KeepConnectedReason final int keepConnectedReason) {
+    public FullScore(final long policies, @KeepConnectedReason final int keepConnectedReason) {
         mPolicies = policies;
         mKeepConnectedReason = keepConnectedReason;
     }
