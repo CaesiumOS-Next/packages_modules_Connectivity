@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f86f401f_98ba9093",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-11T08:39:03Z",
+      "side": 1,
+      "message": "Changed to assertLinkPropertiesEventuallyXyz. \"assert\" is a fundamentally synchronous operation so it implies no callbacks are needed.",
+      "parentUuid": "8072914b_965e5b92",
+      "range": {
+        "startLine": 339,
+        "startChar": 8,
+        "endLine": 339,
+        "endChar": 38
+      },
+      "revId": "6594443bdf2f55c96eba17da7941a050265ae6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6dc34c63_8e39b377",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-10-11T04:39:42Z",
       "side": 1,
       "message": "Standard Kotlin recommends `(LinkProperties?) -\u003e Boolean` for this.\nIt also recomments to put it last (that lets you write `expectLinkPropertiesEventually(n, \"become non-null\") { it \u003d\u003d null }`)",
+      "range": {
+        "startLine": 341,
+        "startChar": 19,
+        "endLine": 341,
+        "endChar": 28
+      },
+      "revId": "6594443bdf2f55c96eba17da7941a050265ae6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d828f07_659c8112",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-11T08:39:03Z",
+      "side": 1,
+      "message": "Ah, better, thanks. Done.",
+      "parentUuid": "6dc34c63_8e39b377",
       "range": {
         "startLine": 341,
         "startChar": 19,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "67f34d48_7cd7b828",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-11T08:39:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54a89125_28c7f1e2",
+      "range": {
+        "startLine": 346,
+        "startChar": 58,
+        "endLine": 346,
+        "endChar": 64
+      },
+      "revId": "6594443bdf2f55c96eba17da7941a050265ae6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92b926c0_0f4796a9",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-10-11T04:39:42Z",
       "side": 1,
       "message": "Well this is just a test, but this will mean drift (possibly big drift in relative terms as 10ms is only 10x HZ) ; the generally accepted pattern is to compute a deadline in l.344 and check for the deadline in l.345 by reading the current time again.",
+      "range": {
+        "startLine": 348,
+        "startChar": 12,
+        "endLine": 348,
+        "endChar": 24
+      },
+      "revId": "6594443bdf2f55c96eba17da7941a050265ae6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1efb76b_04c8a1e0",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-11T08:39:03Z",
+      "side": 1,
+      "message": "I don\u0027t think that even 10% or 20% drift matters here, but done.",
+      "parentUuid": "92b926c0_0f4796a9",
       "range": {
         "startLine": 348,
         "startChar": 12,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b5a4e10_6595044c",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-11T08:39:03Z",
+      "side": 1,
+      "message": "Oops. Done.",
+      "parentUuid": "9b6954c4_83006182",
+      "range": {
+        "startLine": 350,
+        "startChar": 48,
+        "endLine": 350,
+        "endChar": 58
+      },
+      "revId": "6594443bdf2f55c96eba17da7941a050265ae6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6404b6b8_fe01dc8f",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-10-11T04:39:42Z",
       "side": 1,
       "message": "Maybe `agent6.DEFAULT_TIMEOUT_MS + 1_000` then ? It\u0027s public.",
+      "range": {
+        "startLine": 1305,
+        "startChar": 42,
+        "endLine": 1305,
+        "endChar": 94
+      },
+      "revId": "6594443bdf2f55c96eba17da7941a050265ae6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43b2fe74_dd3e9842",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 1305,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-11T08:39:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6404b6b8_fe01dc8f",
       "range": {
         "startLine": 1305,
         "startChar": 42,
