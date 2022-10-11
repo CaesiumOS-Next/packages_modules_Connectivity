@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "78f669f8_1a647486",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-11T15:52:03Z",
+      "side": 1,
+      "message": "Can you put the two changes in two separate CLs?",
+      "range": {
+        "startLine": 12,
+        "startChar": 5,
+        "endLine": 12,
+        "endChar": 17
+      },
+      "revId": "b94b1316e623f476af0fb332a90839cae9d4d487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "319b5788_77aa5307",
         "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
         "patchSetId": 6
@@ -111,6 +134,29 @@
         "startChar": 25,
         "endLine": 205,
         "endChar": 40
+      },
+      "revId": "b94b1316e623f476af0fb332a90839cae9d4d487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76e7e462_52d19f87",
+        "filename": "service-t/src/com/android/server/net/IpConfigStore.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-11T15:52:03Z",
+      "side": 1,
+      "message": "If we are doing this, then we should also Log.wtf() here if the directory doesn\u0027t exist.",
+      "range": {
+        "startLine": 208,
+        "startChar": 38,
+        "endLine": 208,
+        "endChar": 71
       },
       "revId": "b94b1316e623f476af0fb332a90839cae9d4d487",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
