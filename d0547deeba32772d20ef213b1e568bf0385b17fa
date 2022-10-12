@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8e65bbf1_0a0098df",
+        "filename": "service/libconnectivity/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2022-10-12T01:26:00Z",
+      "side": 1,
+      "message": "should support min_sdk_version(30) for \"com.android.tethering\"",
+      "parentUuid": "358153ae_47f2f6f8",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 26
+      },
+      "revId": "d0547deeba32772d20ef213b1e568bf0385b17fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ebbc7d3d_e24bb8aa",
         "filename": "service/libconnectivity/include/connectivity_native.h",
         "patchSetId": 7
@@ -54,6 +78,30 @@
       "writtenOn": "2022-10-11T18:20:43Z",
       "side": 1,
       "message": "T is already API complete, did you mean U here?",
+      "range": {
+        "startLine": 38,
+        "startChar": 73,
+        "endLine": 38,
+        "endChar": 90
+      },
+      "revId": "d0547deeba32772d20ef213b1e568bf0385b17fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2553550_0209686f",
+        "filename": "service/libconnectivity/include/connectivity_native.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2022-10-12T01:26:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebbc7d3d_e24bb8aa",
       "range": {
         "startLine": 38,
         "startChar": 73,
