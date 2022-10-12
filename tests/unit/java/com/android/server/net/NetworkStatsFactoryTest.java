@@ -497,6 +497,7 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
         // Verify that the stats of the removed uids were removed.
         assertValues(removedUidsStats, TEST_IFACE, UID_RED, 0L, 0L, 0L, 0L);
         assertValues(removedUidsStats, TEST_IFACE, UID_BLUE, 0L, 0L, 0L, 0L);
+        // Verify that the stats of non-removed uid does not go down.
         assertValues(removedUidsStats, TEST_IFACE, UID_GREEN, 64L, 3L, 1024L, 8L);
     }
 
