@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f952c73_9268a94f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1890055
+      },
+      "writtenOn": "2022-10-12T21:05:33Z",
+      "side": 1,
+      "message": "If it was just a matter of changing the min_sdk, then yes, it\u0027d be simpler to do that in the infra that trims the module post-build.\n\nHowever there\u0027s another implication of setting the \"APEX_BUILD_FOR_PRE_S_DEVICES\" - the \"library_linking_strategy\" soong variable is set to \"prefer_static\" (see https://googleplex-android.googlesource.com/platform/build/+/fa30bcbf28bbbd1f0e61c38537fff1a14aab161b/core/android_soong_config_vars.mk#94) \n\nThis so that module developers can optimize the build for devices where DCLA is not available, by linking (most/many) libraries statically (see https://googleplex-android.googlesource.com/platform/packages/modules/adb/+/b1aeb61c57b80fcc78d24e736d28f76236e80d5f/Android.bp#145 for an example of this).\n\nThe linking strategy can\u0027t be changed post-build in the same way the we could change the min_sdk, and I\u0027d imagine that that\u0027s at least one of the the factors which influenced the decision of building separate apexes: a trimm-able one for S+, and a \"everything can be static\" one for R-.\n\nWe plan to work with module teams on honoring the linking strategy soong flag, if we find that this could reduce the size of the R- module significantly (we think it likely will). The general rule of thumb is that a library should be linked statically if a single binary depends on it - this allows the linker to trim unused library symbols.\n\nNada wasn\u0027t covering this aspect of DCLA in the change description, to keep it simple, because tethering ignores the linking strategy flag at the moment, so this has no impact yet. If you think it\u0027s worth mentioning it, happy to add it. In any case we\u0027ll cover this in Mainline documentation.\n\nKeeping this comment unresolved, let me know if this makes sense.",
+      "parentUuid": "d6c2d1cb_3326b284",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 21
+      },
+      "revId": "d671c023aa4ff01cdb30507a88052a25b6b7000b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e9d42343_03027fbf",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
