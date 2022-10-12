@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ace8b94d_79f6335b",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1096,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-12T07:35:40Z",
+      "side": 1,
+      "message": "nit: /* iface */\nFeel free to ignore.",
+      "range": {
+        "startLine": 1096,
+        "startChar": 36,
+        "endLine": 1096,
+        "endChar": 45
+      },
+      "revId": "7015e65fec7d9b2b86da813aa7862fee56e44bf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
