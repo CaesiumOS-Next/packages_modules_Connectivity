@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "105969b1_817f7115",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-12T07:09:09Z",
+      "side": 1,
+      "message": "I did this change under this topic because original name (`org.chromium.net.cronet`) caused merge conflict in allowed_deps.txt",
+      "revId": "30d4a72faae5877816a0f64aa9911fae9361a299",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
