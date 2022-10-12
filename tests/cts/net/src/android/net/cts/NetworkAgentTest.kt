@@ -76,8 +76,11 @@ import android.os.Message
 import android.os.Process
 import android.os.SystemClock
 import android.platform.test.annotations.AppModeFull
+import android.system.Os
+import android.system.OsConstants.AF_INET6
 import android.system.OsConstants.IPPROTO_TCP
 import android.system.OsConstants.IPPROTO_UDP
+import android.system.OsConstants.SOCK_DGRAM
 import android.telephony.TelephonyManager
 import android.telephony.data.EpsBearerQosSessionAttributes
 import android.util.DebugUtils.valueToString
@@ -86,6 +89,7 @@ import com.android.compatibility.common.util.SystemUtil.runWithShellPermissionId
 import com.android.compatibility.common.util.ThrowingSupplier
 import com.android.modules.utils.build.SdkLevel
 import com.android.net.module.util.ArrayTrackRecord
+import com.android.net.module.util.HexDump
 import com.android.testutils.CompatUtil
 import com.android.testutils.ConnectivityModuleTest
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
@@ -348,8 +352,8 @@ class NetworkAgentTest {
         assertNoCallback()
     }
 
-    private fun createTunInterface(): TestNetworkInterface = realContext.getSystemService(
-                TestNetworkManager::class.java)!!.createTunInterface(emptyList()).also {
+    private fun createTunInterface(addrs: List<LinkAddress>): TestNetworkInterface =
+        realContext.getSystemService(TestNetworkManager::class.java)!!.createTunInterface(addrs).also {
             ifacesToCleanUp.add(it)
         }
 
@@ -1351,7 +1355,8 @@ class NetworkAgentTest {
     }
 
     fun doTestNativeNetworkCreation(expectCreatedImmediately: Boolean, transports: IntArray) {
-        val iface = createTunInterface()
+        val address = LinkAddress("2001:db8::1/64")
+        val iface = createTunInterface(listOf(address))
         val ifName = iface.interfaceName
         val nc = makeTestNetworkCapabilities(ifName, transports).also {
             if (transports.contains(TRANSPORT_VPN)) {
@@ -1362,7 +1367,7 @@ class NetworkAgentTest {
         }
         val lp = LinkProperties().apply {
             interfaceName = ifName
-            addLinkAddress(LinkAddress("2001:db8::1/64"))
+            addLinkAddress(address)
             addRoute(RouteInfo(IpPrefix("2001:db8::/64"), null /* nextHop */, ifName))
             addRoute(RouteInfo(IpPrefix("::/0"),
                     InetAddresses.parseNumericAddress("fe80::abcd"),
@@ -1427,6 +1432,15 @@ class NetworkAgentTest {
         listenCallback.expectCapabilitiesThat(network) {
             it.hasCapability(NET_CAPABILITY_VALIDATED)
         }
+
+        val s = Os.socket(AF_INET6, SOCK_DGRAM, 0)
+        network.bindSocket(s)
+        Os.connect(s, InetAddresses.parseNumericAddress("2001:db8:ab:cd::f00"), 53)
+        val localAddress = Os.getsockname(s)
+        assertEquals(address.address, (localAddress as InetSocketAddress).address)
+        Os.write(s, "hello".getBytes("UTF-8"))
+        Os.close(s)
+
         unregister(agent)
         // Lost implicitly checks that no further callbacks happened after connect.
         requestCallback.expectCallback<Lost>(network)
