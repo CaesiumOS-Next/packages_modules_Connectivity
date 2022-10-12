@@ -22,6 +22,30 @@
       },
       "revId": "5ec73aef2d6a67f7cce2e1802a68b34ff26f60ea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c1b0028_22516db7",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-12T19:27:27Z",
+      "side": 1,
+      "message": "Great call, actually. I guess this is a good time to finally clean up the timeouts!",
+      "parentUuid": "3bfa18a0_d3e195c4",
+      "range": {
+        "startLine": 106,
+        "startChar": 3,
+        "endLine": 106,
+        "endChar": 68
+      },
+      "revId": "5ec73aef2d6a67f7cce2e1802a68b34ff26f60ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
