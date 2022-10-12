@@ -2138,6 +2138,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         // Verify the stats of the removed uid is removed.
         assertUidTotal(sTemplateWifi, UID_RED, 0L, 0L, 0L, 0L, 0);
         assertUidTotal(sTemplateWifi, UID_BLUE, 0L, 0L, 0L, 0L, 0);
+        // Verify that the stats of the non-removed uid did not go down.
         assertUidTotal(sTemplateWifi, UID_GREEN, 64L, 3L, 1024L, 8L, 0);
     }
 
