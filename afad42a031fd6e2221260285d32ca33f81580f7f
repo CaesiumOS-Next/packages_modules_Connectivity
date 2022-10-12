@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "992e0847_0626f555",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-12T07:31:25Z",
+      "side": 1,
+      "message": "Style: should fit in 1 line?\nMaybe also check other places?",
+      "range": {
+        "startLine": 398,
+        "startChar": 15,
+        "endLine": 398,
+        "endChar": 33
+      },
+      "revId": "afad42a031fd6e2221260285d32ca33f81580f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e08785d_400bd684",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-12T07:31:25Z",
+      "side": 1,
+      "message": "Maybe add comment for this?\nAlso maybe try to simplify this?",
+      "range": {
+        "startLine": 735,
+        "startChar": 16,
+        "endLine": 736,
+        "endChar": 97
+      },
+      "revId": "afad42a031fd6e2221260285d32ca33f81580f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7681a178_29b59150",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-12T07:31:25Z",
+      "side": 1,
+      "message": "1. why?\n2. This repeats several times. Maybe try to refactor?",
+      "range": {
+        "startLine": 788,
+        "startChar": 16,
+        "endLine": 789,
+        "endChar": 96
+      },
+      "revId": "afad42a031fd6e2221260285d32ca33f81580f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfb01cba_25856938",
+        "filename": "tests/common/java/android/net/netstats/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-12T07:31:25Z",
+      "side": 1,
+      "message": "It seems to me, empty means MATCH_RULE_ALL and [null] means to match null.\nWhat does this mean? Should we change it to remove the confusion?",
+      "range": {
+        "startLine": 108,
+        "startChar": 20,
+        "endLine": 108,
+        "endChar": 24
+      },
+      "revId": "afad42a031fd6e2221260285d32ca33f81580f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da4e0160_e0c7906d",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-12T07:31:25Z",
+      "side": 1,
+      "message": "It seems to me the meaning of buildTemplateWifi(String, String) is changed?\nIs that OK? who are the callers? Can we just delete it?",
+      "range": {
+        "startLine": 171,
+        "startChar": 28,
+        "endLine": 171,
+        "endChar": 51
+      },
+      "revId": "afad42a031fd6e2221260285d32ca33f81580f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
