@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09a87725_ca86b08e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-12T07:05:15Z",
+      "side": 1,
+      "message": "`Cronet/tests/apitest/src/org/chromium/net/test/CronetApiTest.java` failed pre-upload hooks.\nI will fix this in separate CL so that this CL only contains code move.",
+      "revId": "633cc2d7648385f88aff372eb38d37f0f5ca7092",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
