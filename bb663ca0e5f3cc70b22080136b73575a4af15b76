@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebda194a_d5d69e5d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1046320
+      },
+      "writtenOn": "2022-10-12T23:38:45Z",
+      "side": 1,
+      "message": "Ross, this is a cherry pick from aosp-master (merged already), please take a look, thanks!",
+      "revId": "bb663ca0e5f3cc70b22080136b73575a4af15b76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
