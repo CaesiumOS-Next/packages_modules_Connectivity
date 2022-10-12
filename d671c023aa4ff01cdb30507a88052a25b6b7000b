@@ -93,6 +93,24 @@
       "parentUuid": "8462fd2f_04471543",
       "revId": "d671c023aa4ff01cdb30507a88052a25b6b7000b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e0ddde2_c3b773a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1949445
+      },
+      "writtenOn": "2022-10-12T20:14:48Z",
+      "side": 1,
+      "message": "Added, let me know if you want anything else added/changed in the description!",
+      "parentUuid": "91f6a004_f9b85353",
+      "revId": "d671c023aa4ff01cdb30507a88052a25b6b7000b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
