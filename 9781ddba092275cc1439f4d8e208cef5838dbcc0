@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b57025b_9bfa1808",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-10-12T09:12:23Z",
+      "side": 1,
+      "message": "Nit: should this be 128? If IPv4 use 32, should this expect to be 128?",
+      "range": {
+        "startLine": 204,
+        "startChar": 46,
+        "endLine": 204,
+        "endChar": 48
+      },
+      "revId": "9781ddba092275cc1439f4d8e208cef5838dbcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50df1b83_a7a606bc",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1768,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-10-12T09:12:23Z",
+      "side": 1,
+      "message": "Nit: maybe replace with `IPV6_MIN_MTU - 1`",
+      "range": {
+        "startLine": 1768,
+        "startChar": 21,
+        "endLine": 1768,
+        "endChar": 25
+      },
+      "revId": "9781ddba092275cc1439f4d8e208cef5838dbcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c786196_f860a1e7",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1927,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-10-12T09:12:23Z",
+      "side": 1,
+      "message": "Nit: final",
+      "range": {
+        "startLine": 1927,
+        "startChar": 8,
+        "endLine": 1927,
+        "endChar": 9
+      },
+      "revId": "9781ddba092275cc1439f4d8e208cef5838dbcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
