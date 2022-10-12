@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bfa18a0_d3e195c4",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-12T15:29:06Z",
+      "side": 1,
+      "message": "Minor but I think this is not true for the test with `assumeNoInterfaceForTetheringAvailable`",
+      "range": {
+        "startLine": 106,
+        "startChar": 3,
+        "endLine": 106,
+        "endChar": 68
+      },
+      "revId": "5ec73aef2d6a67f7cce2e1802a68b34ff26f60ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
