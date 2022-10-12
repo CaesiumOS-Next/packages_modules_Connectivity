@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36894f97_33d49291",
+        "filename": "service/libconnectivity/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-12T02:03:52Z",
+      "side": 1,
+      "message": "Right, this is part of a mainline module (com.android.tethering) which ships to R+ devices, so the min_sdk_version needs to be 30. The build would fail otherwise due to APEX build rule restrictions, and it makes sense since the library would end up being present on R+ devices.",
+      "parentUuid": "8e65bbf1_0a0098df",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 26
+      },
+      "revId": "d0547deeba32772d20ef213b1e568bf0385b17fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ebbc7d3d_e24bb8aa",
         "filename": "service/libconnectivity/include/connectivity_native.h",
         "patchSetId": 7
