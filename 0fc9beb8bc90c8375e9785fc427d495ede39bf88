@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2474b38c_485e16fc",
+        "filename": "Cronet/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-12T06:30:15Z",
+      "side": 1,
+      "message": "Got the number from\nhttp://cs/aosp-master/packages/modules/Cronet/apex/AndroidManifest.xml;l\u003d22;rcl\u003d1492f56e8332a6943e188f3bd34ce933c01b03c1",
+      "revId": "0fc9beb8bc90c8375e9785fc427d495ede39bf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
