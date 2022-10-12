@@ -83,6 +83,7 @@ public final class NetworkCapabilities implements Parcelable {
     /**
      * Redact any fields that need {@link android.Manifest.permission#ACCESS_FINE_LOCATION}
      * permission since the receiving app does not hold this permission or the location toggle
+     * permission since the receiving app does not hold this permission or the location toggle
      * is off.
      *
      * @see android.Manifest.permission#ACCESS_FINE_LOCATION
@@ -2037,6 +2038,33 @@ public final class NetworkCapabilities implements Parcelable {
         }
 
         return joiner.toString();
+    }
+
+    /**
+     * Returns a short but human-readable string of updates from an older set of capabilities.
+     * @param old the old capabilities to diff from
+     * @return a string fit for logging differences, or null if no differences
+     * @hide
+     */
+    @Nullable
+    public String describeCapsDifferencesFrom(@Nullable final NetworkCapabilities old) {
+        final long oldCaps = null == old ? 0 : old.mNetworkCapabilities;
+        final long changed = oldCaps ^ mNetworkCapabilities;
+        if (0 == changed) return null;
+        final long removed = oldCaps & changed;
+        final long added = mNetworkCapabilities & changed;
+        final StringBuilder sb = new StringBuilder();
+        if (0 != removed) {
+            sb.append("-");
+            appendStringRepresentationOfBitMaskToStringBuilder(sb, removed,
+                    NetworkCapabilities::capabilityNameOf, "&");
+        }
+        if (0 != added) {
+            sb.append("+");
+            appendStringRepresentationOfBitMaskToStringBuilder(sb, added,
+                    NetworkCapabilities::capabilityNameOf, "&");
+        }
+        return sb.toString();
     }
 
     /**
