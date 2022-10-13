@@ -46,6 +46,30 @@
       },
       "revId": "429ed242ae8fc9d5b4ca71f7fd654bc6e49d3117",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0a641d0_21f4c625",
+        "filename": "service/proguard.flags",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-13T04:13:41Z",
+      "side": 1,
+      "message": "I don\u0027t think we should limit to int, because I see no value to that limitation but I see the drawbacks. We may not have any byte/short matching today, but anyone using one of those would expect it to work and would be surprised by this limitation.\nI also don\u0027t think it brings anything to limit to int+short+byte, if anything because % matches any primitive type and it\u0027s a lot harder to write – and again it brings no value to limit, it would only be another puzzling point to anyone trying to use other primitive types.\n\nandroid.net is definitely needed. We should also likely unify this with the ad-hoc directives for com.android.networkstack in Tethering/.\n\nDone",
+      "parentUuid": "12c0acc6_f788cde4",
+      "range": {
+        "startLine": 10,
+        "startChar": 1,
+        "endLine": 10,
+        "endChar": 17
+      },
+      "revId": "429ed242ae8fc9d5b4ca71f7fd654bc6e49d3117",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
