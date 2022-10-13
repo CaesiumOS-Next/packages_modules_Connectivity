@@ -62,7 +62,6 @@ java_defaults {
     min_sdk_version: "30",
     srcs: [
         ":framework-connectivity-sources",
-        ":net-utils-framework-common-srcs",
         ":framework-connectivity-api-shared-srcs",
     ],
     aidl: {
@@ -82,7 +81,9 @@ java_defaults {
     impl_only_libs: [
         "framework-tethering.stubs.module_lib",
         "framework-wifi.stubs.module_lib",
-        "net-utils-device-common",
+    ],
+    impl_only_static_libs: [
+        "net-utils-framework-common",
     ],
     static_libs: [
         "mdns_aidl_interface-lateststable-java",
@@ -113,6 +114,11 @@ java_library {
         // TetheringRequest depends on LinkAddress).
         "framework-tethering.stubs.module_lib",
         "framework-wifi.stubs.module_lib",
+    ],
+    static_libs: [
+        // This is in impl_only_static_libs in the defaults, but java_library only
+        // understands static_libs.
+        "net-utils-framework-common",
     ],
     visibility: ["//packages/modules/Connectivity:__subpackages__"]
 }
