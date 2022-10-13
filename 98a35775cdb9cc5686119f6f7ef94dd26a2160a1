@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47b7b590_8ab6ffc7",
+        "filename": "tests/native/connectivity_native_test/connectivity_native_test.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2022-10-13T01:45:04Z",
+      "side": 0,
+      "message": "Moving to in_port_t ensures 0-65535 port range is used. These tests are no longer needed.",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 274,
+        "endChar": 0
+      },
+      "revId": "98a35775cdb9cc5686119f6f7ef94dd26a2160a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
