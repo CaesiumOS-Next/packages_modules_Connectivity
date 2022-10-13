@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48c15e78_4be4dbbb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-10-13T18:50:23Z",
+      "side": 1,
+      "message": "though 0 timeout makes me feel a little wary, would prefer something like 200ms instead",
+      "revId": "1c1f1e1416575115766380412b03b222d37162ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
