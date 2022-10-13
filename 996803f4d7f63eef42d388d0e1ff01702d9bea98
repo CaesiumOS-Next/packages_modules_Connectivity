@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4aa1daec_388dc19d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-13T12:44:06Z",
+      "side": 1,
+      "message": "Actually I meant LGTM assuming comments addressed.",
+      "parentUuid": "f0887337_e5cad87b",
+      "revId": "996803f4d7f63eef42d388d0e1ff01702d9bea98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c60250c5_60131813",
         "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
         "patchSetId": 1
