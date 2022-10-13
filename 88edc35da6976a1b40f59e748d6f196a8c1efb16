@@ -16,6 +16,23 @@
       "message": "(I\u0027d like to double check the binary result so starting TH)",
       "revId": "88edc35da6976a1b40f59e748d6f196a8c1efb16",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7939e07_f9b142fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-13T06:01:21Z",
+      "side": 1,
+      "message": "FYI, diff of decompiled service-connectivity: go/paste/5831529933570048\nJust a bunch of additional static fields as expected. This shows ConnectivityService and LingerMonitor logging was likely affected, apart from FullScore.\n\nAnd the diff for Tethering.apk is empty",
+      "revId": "88edc35da6976a1b40f59e748d6f196a8c1efb16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
