@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "44b37f11_6255c19d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-13T06:08:32Z",
+      "side": 1,
+      "message": "IIUC this log will be useful to clarify network selection problem.\nDo we consider do the same for updateLinkProperties?",
+      "revId": "f7aa67f287f4472918f9b3dab31beb3af67bf0bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "933de80a_8f03d195",
         "filename": "framework/src/android/net/NetworkCapabilities.java",
         "patchSetId": 2
