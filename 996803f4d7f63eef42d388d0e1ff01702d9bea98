@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0887337_e5cad87b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-13T12:43:27Z",
+      "side": 1,
+      "message": "Generally LGTM (and LGTM for OWNERS approval).\n\nBefore you merge this change, can you ensure that hasBattery() always returns true on devices that have a battery, such as phones? We should make sure that the various \"",
+      "revId": "996803f4d7f63eef42d388d0e1ff01702d9bea98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c60250c5_60131813",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-13T12:43:27Z",
+      "side": 1,
+      "message": "Instead of using return statements in the middle of tests like this, it\u0027s better to use something like:\n\n    assumeTrue(hasBattery());\n\nat the beginning of each test that needs a battery. (In this case, at the beginning of testReportNetworkInterfaceForTransports).\n\nIt\u0027s better because if the device has no battery, the test will be (correctly) skipped. What you have now will run the test and the test will appear to pass, but it won\u0027t actually do anything.\n\nAdditionally, it seems safer to call hasBattery() before calling the various \"cmd battery unplug\" commands. That way, even if those commands (or future commands) cause hasBattery() to return false, the test will still run because hasBattery is called at the beginning.",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 9
+      },
+      "revId": "996803f4d7f63eef42d388d0e1ff01702d9bea98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
