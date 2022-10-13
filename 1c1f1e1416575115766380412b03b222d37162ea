@@ -16,6 +16,24 @@
       "message": "though 0 timeout makes me feel a little wary, would prefer something like 200ms instead",
       "revId": "1c1f1e1416575115766380412b03b222d37162ea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a7e6963_1ac08811",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-13T18:53:59Z",
+      "side": 1,
+      "message": "Oh, never noticed that NO_CALLBACK_TIMEOUT_MS was poorly named. It\u0027s 500ms and usually used for functions that always wait (like asserting that no callback is received after a specific action).",
+      "parentUuid": "48c15e78_4be4dbbb",
+      "revId": "1c1f1e1416575115766380412b03b222d37162ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
