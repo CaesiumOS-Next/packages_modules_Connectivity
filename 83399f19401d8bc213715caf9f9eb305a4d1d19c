@@ -22,6 +22,30 @@
       },
       "revId": "83399f19401d8bc213715caf9f9eb305a4d1d19c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5307b849_91430971",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 4098,
+      "author": {
+        "id": 1878533
+      },
+      "writtenOn": "2022-10-13T06:16:51Z",
+      "side": 1,
+      "message": "yes, you are right.\nI have just changed the code according to the first option.\nplease help review again.thanks.",
+      "parentUuid": "ca66b62a_55d776fb",
+      "range": {
+        "startLine": 4098,
+        "startChar": 16,
+        "endLine": 4098,
+        "endChar": 40
+      },
+      "revId": "83399f19401d8bc213715caf9f9eb305a4d1d19c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
