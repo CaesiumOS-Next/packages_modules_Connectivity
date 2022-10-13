@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca66b62a_55d776fb",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 4098,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-13T05:24:14Z",
+      "side": 1,
+      "message": "I think this can\u0027t actually happen, because for this message to be sent sInstance must have been initialized. If that\u0027s wrong, then we should probably learn about it instead of just ignoring it (otherwise we may eventually crash the app for OOM and that will be very very hard to diagnose).\n\nSo instead of checking nullity, I think it\u0027s better to just have a comment saying that sInstance can\u0027t be null because to send this message a ConnectivityManager instance must have been created prior to creating the thread on which this Handler is running.\n\nAnother option is to replace sCallbackHandler with a member mCallbackHandler that would still be lazily initialized but not static, and have one instance of this handler per instance of ConnectivityManager. That\u0027s probably a bit cleaner.\n\nI think either option works ; this is very old code that we\u0027re hopefully looking to remove one of these years, considering how long requestNetworkForFeature has been deprecated.",
+      "range": {
+        "startLine": 4098,
+        "startChar": 16,
+        "endLine": 4098,
+        "endChar": 40
+      },
+      "revId": "83399f19401d8bc213715caf9f9eb305a4d1d19c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
