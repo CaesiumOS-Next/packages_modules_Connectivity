@@ -331,6 +331,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                 public int run(
                         Network ipsecNetwork, IpSecTunnelInterface tunnelIface, TunUtils tunUtils)
                         throws Exception {
+                    android.util.Log.d("TEST", "OutputIpSecTunnelTestRunnableFactory run");
                     // Build a socket and send traffic
                     JavaUdpSocket socket = new JavaUdpSocket(localInner);
                     ipsecNetwork.bindSocket(socket.mSocket);
@@ -349,6 +350,28 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                     // Verify that an encrypted packet is sent. As of right now, checking encrypted
                     // body is not possible, due to the test not knowing some of the fields of the
                     // inner IP header (flow label, flags, etc)
+
+                    InetAddress myRemoteOuter = remoteOuter;
+                    if (testCnt % 2 == 1) {
+                        myRemoteOuter = REMOTE_OUTER_6_NEW;
+                    }
+                    testCnt++;
+                    int innerFamily = localInner instanceof Inet4Address ? AF_INET : AF_INET6;
+                    int outerFamily = myRemoteOuter instanceof Inet4Address ? AF_INET : AF_INET6;
+                    boolean useEncap = encapPort != 0;
+
+                    android.util.Log.d("TEST", "input expectedPacketSize " + expectedPacketSize);
+                    android.util.Log.d("TEST", "innerFamily " + innerFamily);
+                    android.util.Log.d("TEST", "outerFamily " + outerFamily);
+                    android.util.Log.d("TEST", "useEncap " + useEncap);
+                    android.util.Log.d("TEST", "transportInTunnelMode " + transportInTunnelMode);
+
+                    int expectedPacketSize =
+                            getPacketSize(
+                                    innerFamily, outerFamily, useEncap, transportInTunnelMode);
+                    android.util.Log.d(
+                            "TEST", "calculated expectedPacketSize " + expectedPacketSize);
+
                     tunUtils.awaitEspPacketNoPlaintext(
                             spi, TEST_DATA, encapPort != 0, expectedPacketSize);
 
@@ -405,6 +428,8 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
         }
     }
 
+    static int testCnt = 0;
+
     private class InputPacketGeneratorIpSecTunnelTestRunnableFactory
             implements IpSecTunnelTestRunnableFactory {
         public IpSecTunnelTestRunnable getIpSecTunnelTestRunnable(
@@ -425,6 +450,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                 public int run(
                         Network ipsecNetwork, IpSecTunnelInterface tunnelIface, TunUtils tunUtils)
                         throws Exception {
+                    android.util.Log.d("TEST", "InputPacketGeneratorIpSecTunnelTestRunnable run");
                     // Build a socket and receive traffic
                     JavaUdpSocket socket = new JavaUdpSocket(localInner);
                     ipsecNetwork.bindSocket(socket.mSocket);
@@ -437,6 +463,17 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                                 socket.mSocket, IpSecManager.DIRECTION_OUT, inTransportTransform);
                     }
 
+                    InetAddress myRemoteOuter = remoteOuter;
+                    InetAddress myLocalOuter = localOuter;
+                    int seqNum = 1;
+
+                    if (testCnt % 2 == 1) {
+                        myRemoteOuter = REMOTE_OUTER_6_NEW;
+                        myLocalOuter = LOCAL_OUTER_6_NEW;
+                        seqNum = 2;
+                    }
+                    testCnt++;
+
                     byte[] pkt;
                     if (transportInTunnelMode) {
                         pkt =
@@ -445,24 +482,31 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                                         spi,
                                         remoteInner,
                                         localInner,
-                                        remoteOuter,
-                                        localOuter,
+                                        myRemoteOuter,
+                                        myLocalOuter,
                                         socket.getPort(),
                                         encapPort);
                     } else {
+                        android.util.Log.d("TEST", "myRemoteOuter " + myRemoteOuter);
+                        android.util.Log.d("TEST", "myLocalOuter " + myLocalOuter);
                         pkt =
                                 getTunnelModePacket(
                                         spi,
                                         remoteInner,
                                         localInner,
-                                        remoteOuter,
-                                        localOuter,
+                                        myRemoteOuter,
+                                        myLocalOuter,
                                         socket.getPort(),
                                         encapPort);
                     }
+                    android.util.Log.d(
+                            "TEST", "InputPacketGeneratorIpSecTunnelTestRunnable injectPacket");
                     tunUtils.injectPacket(pkt);
 
                     // Receive packet from socket, and validate
+                    android.util.Log.d(
+                            "TEST",
+                            "InputPacketGeneratorIpSecTunnelTestRunnable receiveAndValidatePacket");
                     receiveAndValidatePacket(socket);
 
                     socket.close();
@@ -517,31 +561,47 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                                     expectedPacketSize)
                             .run(ipsecNetwork, tunnelIface, sTunWrapper.utils);
 
-                    tunnelIface.setUnderlyingNetwork(sTunWrapperNew.network);
+                    // tunnelIface.setUnderlyingNetwork(sTunWrapperNew.network);
 
-                    // Verify migrating to IPv4 and IPv6 addresses. It ensures that not only
-                    // can IPsec tunnel migrate across interfaces, IPsec tunnel can also migrate to
-                    // a different address on the same interface.
-                    checkMigratedTunnel(
-                            localInner,
-                            remoteInner,
-                            LOCAL_OUTER_4_NEW,
-                            REMOTE_OUTER_4_NEW,
-                            encapPort != 0,
-                            transportInTunnelMode,
-                            sTunWrapperNew.utils,
-                            tunnelIface,
-                            ipsecNetwork);
-                    checkMigratedTunnel(
-                            localInner,
-                            remoteInner,
-                            LOCAL_OUTER_6_NEW,
-                            REMOTE_OUTER_6_NEW,
-                            false, // IPv6 does not support UDP encapsulation
-                            transportInTunnelMode,
-                            sTunWrapperNew.utils,
-                            tunnelIface,
-                            ipsecNetwork);
+                    // mTestRunnableFactory
+                    //         .getIpSecTunnelTestRunnable(
+                    //                 transportInTunnelMode,
+                    //                 spi,
+                    //                 localInner,
+                    //                 remoteInner,
+                    //                 localOuter,
+                    //                 remoteOuter,
+                    //                 inTransportTransform,
+                    //                 outTransportTransform,
+                    //                 encapPort,
+                    //                 unusedInnerSocketPort,
+                    //                 expectedPacketSize)
+                    //         .run(ipsecNetwork, tunnelIface, sTunWrapper.utils);
+
+                    // // Verify migrating to IPv4 and IPv6 addresses. It ensures that not only
+                    // // can IPsec tunnel migrate across interfaces, IPsec tunnel can also migrate
+                    // to
+                    // // a different address on the same interface.
+                    // checkMigratedTunnel(
+                    //         localInner,
+                    //         remoteInner,
+                    //         LOCAL_OUTER_4_NEW,
+                    //         REMOTE_OUTER_4_NEW,
+                    //         encapPort != 0,
+                    //         transportInTunnelMode,
+                    //         sTunWrapperNew.utils,
+                    //         tunnelIface,
+                    //         ipsecNetwork);
+                    // checkMigratedTunnel(
+                    //         localInner,
+                    //         remoteInner,
+                    //         LOCAL_OUTER_6_NEW,
+                    //         REMOTE_OUTER_6_NEW,
+                    //         false, // IPv6 does not support UDP encapsulation
+                    //         transportInTunnelMode,
+                    //         sTunWrapperNew.utils,
+                    //         tunnelIface,
+                    //         ipsecNetwork);
 
                     return 0;
                 }
@@ -862,7 +922,27 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                 mISM.applyTunnelModeTransform(
                         tunnelIface, IpSecManager.DIRECTION_OUT, outTransform);
 
+                android.util.Log.d("TEST", "Ready to send");
+                Thread.currentThread().sleep(10000);
                 innerSocketPort = test.run(testNetwork, tunnelIface, sTunWrapper.utils);
+
+                tunnelIface.setUnderlyingNetwork(sTunWrapperNew.network);
+                // inTransform.startMigration(REMOTE_OUTER_4_NEW, LOCAL_OUTER_4_NEW);
+                // outTransform.startMigration(LOCAL_OUTER_4_NEW, REMOTE_OUTER_4_NEW);
+                inTransform.startMigration(REMOTE_OUTER_6_NEW, LOCAL_OUTER_6_NEW);
+                outTransform.startMigration(LOCAL_OUTER_6_NEW, REMOTE_OUTER_6_NEW);
+                android.util.Log.d("TEST", "startMigration done");
+
+                android.util.Log.d("TEST", "applyTunnelModeTransform DIRECTION_IN");
+                mISM.applyTunnelModeTransform(tunnelIface, IpSecManager.DIRECTION_IN, inTransform);
+                android.util.Log.d("TEST", "applyTunnelModeTransform DIRECTION_OUT");
+                mISM.applyTunnelModeTransform(
+                        tunnelIface, IpSecManager.DIRECTION_OUT, outTransform);
+
+                android.util.Log.d("TEST", "Migration done");
+                android.util.Log.d("TEST", "Ready to send");
+                Thread.currentThread().sleep(10000);
+                test.run(testNetwork, tunnelIface, sTunWrapperNew.utils);
             }
 
             // Teardown the test network
@@ -904,6 +984,13 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
             int spi, InetAddress src, InetAddress dst, int port, Payload payload) throws Exception {
         IpHeader preEspIpHeader = getIpHeader(payload.getProtocolId(), src, dst, payload);
 
+        //             int seqNum = 1;
+
+        //             if (testCnt % 2 == 1) {
+        //                 seqNum = 2;
+        //             }
+        // android.util.Log.d("TEST", "buildTransportModeEspPacket seqNum " + seqNum);
+
         return new EspHeader(
                 payload.getProtocolId(),
                 spi,
@@ -923,10 +1010,18 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
             Payload payload)
             throws Exception {
         IpHeader innerIp = getIpHeader(payload.getProtocolId(), srcInner, dstInner, payload);
+
+        int seqNum = 1;
+
+        if (testCnt % 2 == 1) {
+            seqNum = 2;
+        }
+        android.util.Log.d("TEST", "buildTunnelModeEspPacket seqNum " + seqNum);
+
         return new EspHeader(
                 innerIp.getProtocolId(),
                 spi,
-                1, // sequence number
+                seqNum, // sequence number
                 CRYPT_KEY, // Same key for auth and crypt
                 innerIp.getPacketBytes());
     }
@@ -989,9 +1084,14 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     private void doTestMigrateTunnel(
             int innerFamily, int outerFamily, boolean useEncap, boolean transportInTunnelMode)
             throws Exception {
+        android.util.Log.d("TEST", "doTestMigrateTunnel");
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
-        checkTunnelOutput(innerFamily, outerFamily, useEncap, transportInTunnelMode);
-        checkTunnelInput(innerFamily, outerFamily, useEncap, transportInTunnelMode);
+
+        // checkMigrateTunnelOutput(innerFamily, outerFamily, useEncap, transportInTunnelMode);
+        // android.util.Log.d("TEST", "checkMigrateTunnelOutput done");
+
+        checkMigrateTunnelInput(innerFamily, outerFamily, useEncap, transportInTunnelMode);
+        android.util.Log.d("TEST", "checkMigrateTunnelInput done");
     }
 
     // Transport-in-Tunnel mode tests

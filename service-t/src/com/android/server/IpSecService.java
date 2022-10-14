@@ -1673,6 +1673,7 @@ public class IpSecService extends IIpSecService.Stub {
     private void createOrUpdateTransform(
             IpSecConfig c, int resourceId, SpiRecord spiRecord, EncapSocketRecord socketRecord)
             throws RemoteException {
+        Log.d(TAG, "createOrUpdateTransform" + direction);
         int encapType = c.getEncapType(), encapLocalPort = 0, encapRemotePort = 0;
         if (encapType != IpSecTransform.ENCAP_NONE) {
             encapLocalPort = socketRecord.getPort();
@@ -1846,6 +1847,7 @@ public class IpSecService extends IIpSecService.Stub {
     public synchronized void applyTunnelModeTransform(
             int tunnelResourceId, int direction, int transformResourceId, String callingPackage)
             throws RemoteException {
+        Log.d(TAG, "applyTunnelModeTransform direction" + direction);
         enforceTunnelFeatureAndPermissions(callingPackage);
         checkDirection(direction);
 
@@ -1910,6 +1912,7 @@ public class IpSecService extends IIpSecService.Stub {
 
             // Always update the policy with the relevant XFRM_IF_ID
             for (int selAddrFamily : ADDRESS_FAMILIES) {
+                Log.d(TAG, "ipSecUpdateSecurityPolicy for selAddrFamily " + selAddrFamily);
                 mNetd.ipSecUpdateSecurityPolicy(
                         callingUid,
                         selAddrFamily,
@@ -1927,6 +1930,7 @@ public class IpSecService extends IIpSecService.Stub {
 
             if (transformInfo.isMigrating()) {
                 for (int selAddrFamily : ADDRESS_FAMILIES) {
+                    Log.d(TAG, "ipSecMigrate for selAddrFamily " + selAddrFamily);
                     final IpSecMigrateInfoParcel migrateInfo = new IpSecMigrateInfoParcel();
                     migrateInfo.transformId = Binder.getCallingUid();
                     migrateInfo.selAddrFamily = selAddrFamily;
@@ -1940,6 +1944,7 @@ public class IpSecService extends IIpSecService.Stub {
                             (c.getNetwork() != null) ? c.getNetwork().netId : 0;
 
                     mNetd.ipSecMigrate(migrateInfo);
+                    Log.d(TAG, "ipSecMigrate for selAddrFamily done " + selAddrFamily);
                 }
                 transformInfo.finishMigration();
             }

@@ -141,11 +141,25 @@ public class TunUtils {
             int spi, byte[] plaintext, boolean useEncap, int expectedPacketSize) throws Exception {
         final byte[] espPkt = awaitPacket(
                 (pkt) -> isEspFailIfSpecifiedPlaintextFound(pkt, spi, useEncap, plaintext));
+        android.util.Log.d(
+                "TEST", "awaitEspPacketNoPlaintext espPkt " + byteArrayToHexString(espPkt));
 
         // Validate packet size
         assertEquals(expectedPacketSize, espPkt.length);
 
         return espPkt; // We've found the packet we're looking for.
+    }
+
+    public static String byteArrayToHexString(byte[] data) {
+        if (data == null || data.length == 0) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (byte b : data) {
+            sb.append(String.format(java.util.Locale.US, "%02X", b));
+        }
+        return sb.toString();
     }
 
     public byte[] awaitEspPacket(int spi, boolean useEncap) throws Exception {
