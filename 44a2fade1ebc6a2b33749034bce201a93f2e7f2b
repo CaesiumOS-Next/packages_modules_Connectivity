@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e3d58e9_5acfab47",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetConfigStoreTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-14T11:18:39Z",
+      "side": 1,
+      "message": "How about having a test that does not do this ? So the new code path is tested",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 84,
+        "endChar": 21
+      },
+      "revId": "44a2fade1ebc6a2b33749034bce201a93f2e7f2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "992dfbdb_b42c0bca",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetConfigStoreTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-14T11:18:39Z",
+      "side": 1,
+      "message": "Use a constant to make sure that the same \"test.txt\" name is used by all tests (otherwise someone could change the name in tests and forget to update here)",
+      "range": {
+        "startLine": 90,
+        "startChar": 70,
+        "endLine": 90,
+        "endChar": 78
+      },
+      "revId": "44a2fade1ebc6a2b33749034bce201a93f2e7f2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b50b086e_bb4262ab",
+        "filename": "tests/unit/java/com/android/server/net/IpConfigStoreTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-14T11:18:39Z",
+      "side": 1,
+      "message": "Also use a constant to share between all usages",
+      "range": {
+        "startLine": 137,
+        "startChar": 57,
+        "endLine": 137,
+        "endChar": 87
+      },
+      "revId": "44a2fade1ebc6a2b33749034bce201a93f2e7f2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "534ecac3_c79eb87a",
+        "filename": "tests/unit/java/com/android/server/net/IpConfigStoreTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-14T11:18:39Z",
+      "side": 1,
+      "message": "But then you wouldn\u0027t hit the bug that this is trying to test: if writeIpConfigurations forgets to check that the directory exists, and you don\u0027t wait for the handler, the test could succeed before a bug happens on the handler.\n\nSo I think you can still wait for the handler to be idle (in the working case it will already be idle), to prove that nothing bad happens",
+      "range": {
+        "startLine": 194,
+        "startChar": 18,
+        "endLine": 195,
+        "endChar": 65
+      },
+      "revId": "44a2fade1ebc6a2b33749034bce201a93f2e7f2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0635ba22_c0ffebdb",
+        "filename": "tests/unit/java/com/android/server/net/IpConfigStoreTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-14T11:18:39Z",
+      "side": 1,
+      "message": "Will this log a .wtf ? This would crash on eng builds I think.\n\nYou can avoid that with Log.setWtfHandler to override the default behavior",
+      "range": {
+        "startLine": 196,
+        "startChar": 14,
+        "endLine": 196,
+        "endChar": 35
+      },
+      "revId": "44a2fade1ebc6a2b33749034bce201a93f2e7f2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

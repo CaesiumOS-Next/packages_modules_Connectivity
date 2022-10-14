@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "264930e8_9821bad7",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfigStore.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-14T11:18:39Z",
+      "side": 1,
+      "message": "Oh sorry, didn\u0027t notice it would return false when the directory already exists; not only when it fails.\n\nYou could do if(!directory.exists() \u0026\u0026 !directory.mkdirs()) Log.wtf..., but maybe it\u0027s not that important since it would throw IOException later anyway.",
+      "parentUuid": "16a39301_291a2afb",
+      "range": {
+        "startLine": 62,
+        "startChar": 18,
+        "endLine": 62,
+        "endChar": 24
+      },
+      "revId": "b94b1316e623f476af0fb332a90839cae9d4d487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62151378_9b8b58de",
