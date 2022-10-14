@@ -34,6 +34,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Random;
 
 
@@ -162,7 +163,9 @@ public class IPv6TetheringCoordinator {
     private void updateIPv6TetheringInterfaces() {
         for (IpServer ipServer : mNotifyList) {
             final LinkProperties lp = getInterfaceIPv6LinkProperties(ipServer);
-            ipServer.handleMessage(IpServer.CMD_IPV6_TETHER_UPDATE, getTtlAdjustment(), 0, lp);
+            if (!Objects.equals(lp, ipServer.getLastIPv6LinkProperties())) {
+                ipServer.handleMessage(IpServer.CMD_IPV6_TETHER_UPDATE, getTtlAdjustment(), 0, lp);
+            }
             break;
         }
     }
@@ -324,6 +327,8 @@ public class IPv6TetheringCoordinator {
     }
 
     private static void stopIPv6TetheringOn(IpServer ipServer) {
+        if (ipServer.getLastIPv6LinkProperties() == null) return;
+
         ipServer.handleMessage(IpServer.CMD_IPV6_TETHER_UPDATE, 0, 0, null);
     }
 }
