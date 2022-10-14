@@ -121,8 +121,8 @@ public class IpServer extends StateMachine {
     private static final MacAddress NULL_MAC_ADDRESS = MacAddress.fromString("00:00:00:00:00:00");
 
     private static final String TAG = "IpServer";
-    private static final boolean DBG = false;
-    private static final boolean VDBG = false;
+    private static final boolean DBG = true;
+    private static final boolean VDBG = true;
     private static final Class[] sMessageClasses = {
             IpServer.class
     };
@@ -277,7 +277,7 @@ public class IpServer extends StateMachine {
 
     private class MyNeighborEventConsumer implements IpNeighborMonitor.NeighborEventConsumer {
         public void accept(NeighborEvent e) {
-            sendMessage(CMD_NEIGHBOR_EVENT, e);
+            handleMessage(CMD_NEIGHBOR_EVENT, e);
         }
     }
 
@@ -380,7 +380,7 @@ public class IpServer extends StateMachine {
 
     /** Stop this IpServer. After this is called this IpServer should not be used any more. */
     public void stop() {
-        sendMessage(CMD_INTERFACE_DOWN);
+        handleMessage(CMD_INTERFACE_DOWN);
     }
 
     /**
@@ -388,7 +388,7 @@ public class IpServer extends StateMachine {
      * next tethering request.
      */
     public void unwanted() {
-        sendMessage(CMD_TETHER_UNREQUESTED);
+        handleMessage(CMD_TETHER_UNREQUESTED);
     }
 
     /** Internals. */
@@ -511,7 +511,7 @@ public class IpServer extends StateMachine {
         @Override
         public void onNewPrefixRequest(@NonNull final IpPrefix currentPrefix) {
             Objects.requireNonNull(currentPrefix);
-            sendMessage(CMD_NEW_PREFIX_REQUEST, currentPrefix);
+            handleMessage(CMD_NEW_PREFIX_REQUEST, currentPrefix);
         }
 
         @Override

@@ -135,7 +135,7 @@ public class PrivateAddressCoordinator {
 
             for (IpPrefix source : prefixes) {
                 if (isConflictPrefix(source, target)) {
-                    downstream.sendMessage(IpServer.CMD_NOTIFY_PREFIX_CONFLICT);
+                    downstream.handleMessage(IpServer.CMD_NOTIFY_PREFIX_CONFLICT);
                     break;
                 }
             }

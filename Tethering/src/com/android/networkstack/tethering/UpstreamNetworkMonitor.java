@@ -582,7 +582,7 @@ public class UpstreamNetworkMonitor {
     }
 
     private void notifyTarget(int which, Object obj) {
-        mTarget.sendMessage(mWhat, which, 0, obj);
+        mTarget.handleMessage(mWhat, which, 0, obj);
     }
 
     private static class TypeStatePair {

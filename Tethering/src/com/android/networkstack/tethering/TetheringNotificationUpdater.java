@@ -335,6 +335,7 @@ public class TetheringNotificationUpdater {
 
         if (delayToShowUpstreamNotification < 0) return NO_NOTIFY;
 
+        // FIXIT: support this in other way ?
         mHandler.sendMessageDelayed(mHandler.obtainMessage(EVENT_SHOW_NO_UPSTREAM),
                 delayToShowUpstreamNotification);
         return NOTIFY_DONE;

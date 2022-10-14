@@ -171,8 +171,8 @@ import java.util.concurrent.atomic.AtomicReference;
 public class Tethering {
 
     private static final String TAG = Tethering.class.getSimpleName();
-    private static final boolean DBG = false;
-    private static final boolean VDBG = false;
+    private static final boolean DBG = true;
+    private static final boolean VDBG = true;
 
     private static final Class[] sMessageClasses = {
             Tethering.class, TetherMainSM.class, IpServer.class
@@ -306,7 +306,7 @@ public class Tethering {
         mConnectedClientsTracker = new ConnectedClientsTracker();
 
         mTetherMainSM = new TetherMainSM("TetherMain", mLooper, deps);
-        mTetherMainSM.start();
+        mTetherMainSM.startSynced();
 
         mHandler = mTetherMainSM.getHandler();
         mOffloadController = mDeps.getOffloadController(mHandler, mLog,
@@ -326,7 +326,7 @@ public class Tethering {
         // EntitlementManager will send EVENT_UPSTREAM_PERMISSION_CHANGED when cellular upstream
         // permission is changed according to entitlement check result.
         mEntitlementMgr = mDeps.getEntitlementManager(mContext, mHandler, mLog,
-                () -> mTetherMainSM.sendMessage(
+                () -> mTetherMainSM.handleMessage(
                 TetherMainSM.EVENT_UPSTREAM_PERMISSION_CHANGED));
         mEntitlementMgr.setOnTetherProvisioningFailedListener((downstream, reason) -> {
             mLog.log("OBSERVED OnTetherProvisioningFailed : " + reason);
@@ -1008,7 +1008,7 @@ public class Tethering {
         if (request != null) {
             mActiveTetheringRequests.delete(type);
         }
-        tetherState.ipServer.sendMessage(IpServer.CMD_TETHER_REQUESTED, requestedState, 0,
+        tetherState.ipServer.handleMessage(IpServer.CMD_TETHER_REQUESTED, requestedState, 0,
                 request);
         return TETHER_ERROR_NO_ERROR;
     }
@@ -1033,7 +1033,7 @@ public class Tethering {
             Log.e(TAG, "Tried to untether an inactive iface :" + iface + ", ignoring");
             return TETHER_ERROR_UNAVAIL_IFACE;
         }
-        tetherState.ipServer.sendMessage(IpServer.CMD_TETHER_UNREQUESTED);
+        tetherState.ipServer.handleMessage(IpServer.CMD_TETHER_UNREQUESTED);
         return TETHER_ERROR_NO_ERROR;
     }
 
@@ -1213,7 +1213,7 @@ public class Tethering {
             }
 
             if (VDBG) Log.d(TAG, "Tethering got CONNECTIVITY_ACTION: " + networkInfo.toString());
-            mTetherMainSM.sendMessage(TetherMainSM.CMD_UPSTREAM_CHANGED);
+            mTetherMainSM.handleMessage(TetherMainSM.CMD_UPSTREAM_CHANGED);
         }
 
         private void handleUsbAction(Intent intent) {
@@ -1845,6 +1845,7 @@ public class Tethering {
                     mUpstreamNetworkMonitor.setTryCell(true);
                     // We think mobile should be coming up; don't set a retry.
                 } else {
+                    // FIXIT: support this in other way.
                     sendMessageDelayed(CMD_RETRY_UPSTREAM, UPSTREAM_SETTLE_TIME_MS);
                 }
             } else if (!isCellular(ns)) {
@@ -1915,7 +1916,7 @@ public class Tethering {
         protected void notifyDownstreamsOfNewUpstreamIface(InterfaceSet ifaces) {
             mCurrentUpstreamIfaceSet = ifaces;
             for (IpServer ipServer : mNotifyList) {
-                ipServer.sendMessage(IpServer.CMD_TETHER_CONNECTION_CHANGED, ifaces);
+                ipServer.handleMessage(IpServer.CMD_TETHER_CONNECTION_CHANGED, ifaces);
             }
         }
 
@@ -2105,7 +2106,7 @@ public class Tethering {
                         IpServer who = (IpServer) message.obj;
                         if (VDBG) Log.d(TAG, "Tether Mode requested by " + who);
                         handleInterfaceServingStateActive(message.arg1, who);
-                        who.sendMessage(IpServer.CMD_TETHER_CONNECTION_CHANGED,
+                        who.handleMessage(IpServer.CMD_TETHER_CONNECTION_CHANGED,
                                 mCurrentUpstreamIfaceSet);
                         // If there has been a change and an upstream is now
                         // desired, kick off the selection process.
@@ -2191,7 +2192,7 @@ public class Tethering {
                 switch (message.what) {
                     case EVENT_IFACE_SERVING_STATE_ACTIVE:
                         IpServer who = (IpServer) message.obj;
-                        who.sendMessage(mErrorNotification);
+                        who.handleMessage(mErrorNotification);
                         break;
                     case CMD_CLEAR_ERROR:
                         mErrorNotification = TETHER_ERROR_NO_ERROR;
@@ -2206,7 +2207,7 @@ public class Tethering {
             void notify(int msgType) {
                 mErrorNotification = msgType;
                 for (IpServer ipServer : mNotifyList) {
-                    ipServer.sendMessage(msgType);
+                    ipServer.handleMessage(msgType);
                 }
             }
 
@@ -2742,7 +2743,7 @@ public class Tethering {
         // Thus we give a chance for TetherMainSM to recover to InitialState
         // by sending CMD_CLEAR_ERROR
         if (error == TETHER_ERROR_INTERNAL_ERROR) {
-            mTetherMainSM.sendMessage(TetherMainSM.CMD_CLEAR_ERROR, who);
+            mTetherMainSM.handleMessage(TetherMainSM.CMD_CLEAR_ERROR, who);
         }
         int which;
         switch (state) {
@@ -2758,7 +2759,7 @@ public class Tethering {
                 Log.wtf(TAG, "Unknown interface state: " + state);
                 return;
         }
-        mTetherMainSM.sendMessage(which, state, 0, who);
+        mTetherMainSM.handleMessage(which, state, 0, who);
         sendTetherStateChangedBroadcast();
     }
 
@@ -2777,7 +2778,7 @@ public class Tethering {
                 "OBSERVED LinkProperties update iface=%s state=%s lp=%s",
                 iface, IpServer.getStateString(state), newLp));
         final int which = TetherMainSM.EVENT_IFACE_UPDATE_LINKPROPERTIES;
-        mTetherMainSM.sendMessage(which, state, 0, newLp);
+        mTetherMainSM.handleMessage(which, state, 0, newLp);
     }
 
     private boolean hasSystemFeature(final String feature) {
@@ -2822,7 +2823,7 @@ public class Tethering {
                              makeControlCallback(), mConfig, mPrivateAddressCoordinator,
                              mTetheringMetrics, mDeps.getIpServerDependencies()), isNcm);
         mTetherStates.put(iface, tetherState);
-        tetherState.ipServer.start();
+        tetherState.ipServer.startSynced();
     }
 
     private void ensureIpServerStopped(final String iface) {
