@@ -54,6 +54,7 @@ import android.net.NetworkRequest;
 import android.os.BatteryManager;
 import android.os.Binder;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.os.RemoteCallback;
 import android.os.SystemClock;
 import android.provider.DeviceConfig;
@@ -63,6 +64,7 @@ import android.util.Pair;
 
 import com.android.compatibility.common.util.BatteryUtils;
 import com.android.compatibility.common.util.DeviceConfigStateHelper;
+import com.android.compatibility.common.util.FeatureUtil;
 
 import org.junit.Rule;
 import org.junit.rules.RuleChain;
@@ -163,6 +165,7 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
     private int mMyUid;
     private MyServiceClient mServiceClient;
     private DeviceConfigStateHelper mDeviceIdleDeviceConfigStateHelper;
+    private PowerManager.WakeLock mWakeLock;
 
     @Rule
     public final RuleChain mRuleChain = RuleChain.outerRule(new RequiredPropertiesRule())
@@ -179,6 +182,10 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
                 new DeviceConfigStateHelper(DeviceConfig.NAMESPACE_DEVICE_IDLE);
         mUid = getUid(TEST_APP2_PKG);
         mMyUid = getUid(mContext.getPackageName());
+
+        final PowerManager pm = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
+        mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
+
         mServiceClient = new MyServiceClient(mContext);
         mServiceClient.bind();
         executeShellCommand("cmd netpolicy start-watching " + mUid);
@@ -695,12 +702,18 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
     }
 
     protected void turnScreenOff() throws Exception {
+        if (mWakeLock != null && !mWakeLock.isHeld() && FeatureUtil.isTV()) {
+            mWakeLock.acquire();
+        }
         executeSilentShellCommand("input keyevent KEYCODE_SLEEP");
     }
 
     protected void turnScreenOn() throws Exception {
         executeSilentShellCommand("input keyevent KEYCODE_WAKEUP");
         executeSilentShellCommand("wm dismiss-keyguard");
+        if (mWakeLock != null && mWakeLock.isHeld() && FeatureUtil.isTV()) {
+            mWakeLock.release();
+        }
     }
 
     protected void setBatterySaverMode(boolean enabled) throws Exception {
