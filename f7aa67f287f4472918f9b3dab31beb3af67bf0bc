@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c964ac6b_56f5fc4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-14T05:33:17Z",
+      "side": 1,
+      "message": "Not at this patch at least. We may want to expand this in the future to other fields in NetworkCapabilities, and to LinkProperties, but immediately I think this gives us most of the benefit and is still only a small amount of code.",
+      "parentUuid": "44b37f11_6255c19d",
+      "revId": "f7aa67f287f4472918f9b3dab31beb3af67bf0bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "933de80a_8f03d195",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-10-13T06:05:28Z",
       "side": 1,
       "message": "redundant.",
+      "range": {
+        "startLine": 86,
+        "startChar": 5,
+        "endLine": 86,
+        "endChar": 25
+      },
+      "revId": "f7aa67f287f4472918f9b3dab31beb3af67bf0bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b750ccc0_39e738fc",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-14T05:33:17Z",
+      "side": 1,
+      "message": "Oops",
+      "parentUuid": "933de80a_8f03d195",
       "range": {
         "startLine": 86,
         "startChar": 5,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0674d111_d8abddb7",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2050,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-14T05:33:17Z",
+      "side": 1,
+      "message": "Yup, thanks for keeping me honest. Done",
+      "parentUuid": "127dbed7_90245693",
+      "range": {
+        "startLine": 2050,
+        "startChar": 18,
+        "endLine": 2050,
+        "endChar": 45
+      },
+      "revId": "f7aa67f287f4472918f9b3dab31beb3af67bf0bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f8a1687_88d4644c",
@@ -77,6 +143,30 @@
       "writtenOn": "2022-10-13T06:05:28Z",
       "side": 1,
       "message": "1. What is the difference between returning null and \"\"? Do we want to align the behavior?\n\n2. It seems to me the function will return \"\" if no difference? If so, maybe update the documentation.",
+      "range": {
+        "startLine": 2067,
+        "startChar": 18,
+        "endLine": 2067,
+        "endChar": 26
+      },
+      "revId": "f7aa67f287f4472918f9b3dab31beb3af67bf0bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c312ff9_b602189f",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2067,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-14T05:33:17Z",
+      "side": 1,
+      "message": "It should not be possible to return \"\". The reason is, if removed \u003d\u003d 0 \u0026\u0026 added \u003d\u003d 0, then changed \u003d\u003d 0 and l.2053 returns.\n\nAdded comments to clarify.",
+      "parentUuid": "7f8a1687_88d4644c",
       "range": {
         "startLine": 2067,
         "startChar": 18,
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "482e70ab_572d3b0a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 7999,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-14T05:33:17Z",
+      "side": 1,
+      "message": "Same reasoning. Please reopen if you feel strongly.",
+      "parentUuid": "8d0d4bb5_bcc09741",
+      "range": {
+        "startLine": 7999,
+        "startChar": 12,
+        "endLine": 7999,
+        "endChar": 16
+      },
+      "revId": "f7aa67f287f4472918f9b3dab31beb3af67bf0bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12603c3d_4f1b4087",
@@ -123,6 +237,30 @@
       "writtenOn": "2022-10-13T06:05:28Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 342,
+        "startChar": 53,
+        "endLine": 342,
+        "endChar": 78
+      },
+      "revId": "f7aa67f287f4472918f9b3dab31beb3af67bf0bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "870d6d61_c2e88481",
+        "filename": "service/src/com/android/server/connectivity/FullScore.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-14T05:33:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12603c3d_4f1b4087",
       "range": {
         "startLine": 342,
         "startChar": 53,
@@ -156,6 +294,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "869f3f61_3b5a9a95",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1230,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-14T05:33:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed01b058_63c1fba5",
+      "range": {
+        "startLine": 1230,
+        "startChar": 0,
+        "endLine": 1230,
+        "endChar": 22
+      },
+      "revId": "f7aa67f287f4472918f9b3dab31beb3af67bf0bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "929e8255_16ff49a8",
@@ -169,6 +331,30 @@
       "writtenOn": "2022-10-13T06:05:28Z",
       "side": 1,
       "message": "It seems to me TextUtils.isEmpty is more robust.",
+      "range": {
+        "startLine": 1234,
+        "startChar": 20,
+        "endLine": 1234,
+        "endChar": 31
+      },
+      "revId": "f7aa67f287f4472918f9b3dab31beb3af67bf0bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2e5f4d2_2573c1ce",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-14T05:33:17Z",
+      "side": 1,
+      "message": "It is more robust but also slower ; considering it\u0027s not possible that the method returns \"\", I think this is slightly more correct.\n\nIf for some reason it becomes possible in the future that \"\" is returned, I think it will be relatively obvious in the log, and anybody looking into this will understand this was not expected.\n\nSo I think this is actually slightly better. But if you feel strongly please reopen and I\u0027ll change it.",
+      "parentUuid": "929e8255_16ff49a8",
       "range": {
         "startLine": 1234,
         "startChar": 20,
