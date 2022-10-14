@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c7151b9_b88b5a34",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-14T05:26:02Z",
+      "side": 1,
+      "message": "Happy with this as is as it\u0027s a strict improvement, but do consider the suggestion.",
+      "revId": "5dc975d7cdf20042e324b1b4edcd991c389813e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96ab840f_ae0acfee",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4239,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-14T05:26:02Z",
+      "side": 1,
+      "message": "One thing we could do is simply initialize lastRoamTime to Long.MIN_VALUE or some other suitably negative number. The main drawback is that other timestamps in NAI don\u0027t work like that so it might be a little bit less obvious, but it would be sufficient even without this check.",
+      "range": {
+        "startLine": 4239,
+        "startChar": 70,
+        "endLine": 4239,
+        "endChar": 87
+      },
+      "revId": "5dc975d7cdf20042e324b1b4edcd991c389813e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
