@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f0ebeac_9ef859e6",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 16743,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-14T05:19:49Z",
+      "side": 1,
+      "message": "This doesn\u0027t hurt but it also doesn\u0027t change anything seeing how these are the default capabilities. Did you want to make this more explicit here maybe ?\n\nAnyway, no strong opinion.",
+      "range": {
+        "startLine": 16741,
+        "startChar": 0,
+        "endLine": 16743,
+        "endChar": 54
+      },
+      "revId": "ffcbbe2542c49f09e55af1f2d496d9341307dd21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e8d0db1_03725f2f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 16839,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-14T05:19:49Z",
+      "side": 1,
+      "message": "pre-existing but I think this should probably move to after the if, seeing how it won\u0027t be unregistered by cleanup()",
+      "range": {
+        "startLine": 16839,
+        "startChar": 16,
+        "endLine": 16839,
+        "endChar": 41
+      },
+      "revId": "ffcbbe2542c49f09e55af1f2d496d9341307dd21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
