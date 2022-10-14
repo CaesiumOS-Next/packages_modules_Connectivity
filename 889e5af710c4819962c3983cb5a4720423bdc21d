@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2cda2b6_287fbbe2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-14T06:57:36Z",
+      "side": 1,
+      "message": "Production code LGTM\n\nI notice we don\u0027t seem to have test coverage for networks being FOREGROUND while they are nascent, nor for VPNs always being FOREGROUND, so ideally we\u0027d add it, but I don\u0027t think it\u0027s essential for this patch",
+      "revId": "889e5af710c4819962c3983cb5a4720423bdc21d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
