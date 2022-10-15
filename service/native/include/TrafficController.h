@@ -62,8 +62,8 @@ class TrafficController {
     netdutils::Status replaceRulesInMap(UidOwnerMatchType match, const std::vector<int32_t>& uids)
             EXCLUDES(mMutex);
 
-    netdutils::Status addUidInterfaceRules(const int ifIndex, const std::vector<int32_t>& uids)
-            EXCLUDES(mMutex);
+    netdutils::Status addUidInterfaceRules(const int ifIndex, const std::vector<int32_t>& uids,
+                                           bool isolate = true) EXCLUDES(mMutex);
     netdutils::Status removeUidInterfaceRules(const std::vector<int32_t>& uids) EXCLUDES(mMutex);
 
     netdutils::Status updateUidLockdownRule(const uid_t uid, const bool add) EXCLUDES(mMutex);
