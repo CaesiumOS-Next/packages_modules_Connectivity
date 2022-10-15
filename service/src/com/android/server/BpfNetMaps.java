@@ -441,7 +441,8 @@ public class BpfNetMaps {
     }
 
     private void addRule(final int uid, final long match, final int iif, final String caller) {
-        if (match != IIF_MATCH && iif != 0) {
+        // We also accept NO_MATCH to solely store the ingress interface. See addUidInterfaceRules.
+        if (match != IIF_MATCH && match != NO_MATCH && iif != 0) {
             throw new ServiceSpecificException(EINVAL,
                     "Non-interface match must have zero interface index");
         }
@@ -452,8 +453,14 @@ public class BpfNetMaps {
 
                 final UidOwnerValue newMatch;
                 if (oldMatch != null) {
+                    int newIif;
+                    if ((match != IIF_MATCH) && (match != NO_MATCH || iif == 0)) {
+                        newIif = oldMatch.iif;
+                    } else {
+                        newIif = iif;
+                    }
                     newMatch = new UidOwnerValue(
-                            (match == IIF_MATCH) ? iif : oldMatch.iif,
+                            newIif,
                             oldMatch.rule | match
                     );
                 } else {
@@ -732,11 +739,13 @@ public class BpfNetMaps {
      * @param ifName the name of the interface on which the filtering rules will allow packets to
      *               be received.
      * @param uids   an array of UIDs which the filtering rules will be set
+     * @param isolate whether or not the interface (VPN) should be isolated
      * @throws RemoteException when netd has crashed.
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
      */
-    public void addUidInterfaceRules(final String ifName, final int[] uids) throws RemoteException {
+    public void addUidInterfaceRules(final String ifName, final int[] uids, final boolean isolate)
+            throws RemoteException {
         if (PRE_T) {
             mNetd.firewallAddUidInterfaceRules(ifName, uids);
             return;
@@ -756,14 +765,18 @@ public class BpfNetMaps {
                 }
             }
             for (final int uid : uids) {
+                // When isolate is false, NO_MATCH is used to store the interface in mUidOwnerMap
+                // despite VPN isolation not being in effect, for example when the VPN is not
+                // fully-routed. This allows LOCKDOWN_VPN_MATCH to consider the interface and
+                // perform ingress filtering when "Block connections without VPN" is enabled, too.
                 try {
-                    addRule(uid, IIF_MATCH, ifIndex, "addUidInterfaceRules");
+                    addRule(uid, isolate ? IIF_MATCH : NO_MATCH, ifIndex, "addUidInterfaceRules");
                 } catch (ServiceSpecificException e) {
                     Log.e(TAG, "addRule failed uid=" + uid + " ifName=" + ifName + ", " + e);
                 }
             }
         } else {
-            final int err = native_addUidInterfaceRules(ifName, uids);
+            final int err = native_addUidInterfaceRules(ifName, uids, isolate);
             maybeThrow(err, "Unable to add uid interface rules");
         }
     }
@@ -1064,7 +1077,7 @@ public class BpfNetMaps {
     private native int native_setChildChain(int childChain, boolean enable);
     private native int native_replaceUidChain(String name, boolean isAllowlist, int[] uids);
     private native int native_setUidRule(int childChain, int uid, int firewallRule);
-    private native int native_addUidInterfaceRules(String ifName, int[] uids);
+    private native int native_addUidInterfaceRules(String ifName, int[] uids, boolean isolate);
     private native int native_removeUidInterfaceRules(int[] uids);
     private native int native_updateUidLockdownRule(int uid, boolean add);
     private native int native_swapActiveStatsMap();
