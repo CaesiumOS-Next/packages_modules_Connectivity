@@ -242,6 +242,10 @@ Status TrafficController::updateOwnerMapEntry(UidOwnerMatchType match, uid_t uid
 Status TrafficController::removeRule(uint32_t uid, UidOwnerMatchType match) {
     auto oldMatch = mUidOwnerMap.readValue(uid);
     if (oldMatch.ok()) {
+        // In practice, whenever IIF_MATCH is specified here, it is because the interface
+        // is being brought down. Therefore, even though LOCKDOWN_VPN_MATCH uses iif
+        // as well, we must set iif to 0 so that incoming traffic from *all* interfaces
+        // is dropped when a VPN in lockdown mode goes down.
         UidOwnerValue newMatch = {
                 .iif = (match == IIF_MATCH) ? 0 : oldMatch.value().iif,
                 .rule = oldMatch.value().rule & ~match,
@@ -258,13 +262,24 @@ Status TrafficController::removeRule(uint32_t uid, UidOwnerMatchType match) {
 }
 
 Status TrafficController::addRule(uint32_t uid, UidOwnerMatchType match, uint32_t iif) {
-    if (match != IIF_MATCH && iif != 0) {
-        return statusFromErrno(EINVAL, "Non-interface match must have zero interface index");
+    // We accept NO_MATCH to solely store the ingress interface. See addUidInterfaceRules.
+    // Currently, LOCKDOWN_VPN_MATCH is not used in combination with iif in calls to this function,
+    // but it is a reasonable potential use case, so it is allowed as well.
+    bool matchTypeAcceptsIif = (match == IIF_MATCH || match == NO_MATCH
+            || match == LOCKDOWN_VPN_MATCH);
+
+    if (iif != 0 && !matchTypeAcceptsIif) {
+        return statusFromErrno(EINVAL, "Specified match type does not expect iif != 0");
+    }
+    if (iif == 0 && match == IIF_MATCH) {
+        // To achieve previous "wildcard" behavior of IIF_MATCH, caller should use NO_MATCH.
+        return statusFromErrno(EINVAL, "IIF_MATCH requires iif != 0");
     }
     auto oldMatch = mUidOwnerMap.readValue(uid);
     if (oldMatch.ok()) {
+        // iif is optional for match types other than IIF_MATCH, so it can be 0 to be ignored.
         UidOwnerValue newMatch = {
-                .iif = (match == IIF_MATCH) ? iif : oldMatch.value().iif,
+                .iif = (matchTypeAcceptsIif && iif != 0) ? iif : oldMatch.value().iif,
                 .rule = oldMatch.value().rule | match,
         };
         RETURN_IF_NOT_OK(mUidOwnerMap.writeValue(uid, newMatch, BPF_ANY));
@@ -382,11 +397,16 @@ Status TrafficController::replaceRulesInMap(const UidOwnerMatchType match,
 }
 
 Status TrafficController::addUidInterfaceRules(const int iif,
-                                               const std::vector<int32_t>& uidsToAdd) {
+                                               const std::vector<int32_t>& uidsToAdd,
+                                               bool allowAllIngress) {
     std::lock_guard guard(mMutex);
 
     for (auto uid : uidsToAdd) {
-        netdutils::Status result = addRule(uid, IIF_MATCH, iif);
+        // With allowAllIngress, NO_MATCH is used to store the interface in mUidOwnerMap despite
+        // VPN isolation not being in effect, for example when the VPN is not fully-routed.
+        // This allows LOCKDOWN_VPN_MATCH to consider the interface and perform ingress filtering
+        // too, when "Block connections without VPN" is enabled.
+        netdutils::Status result = addRule(uid, allowAllIngress ? NO_MATCH : IIF_MATCH, iif);
         if (!isOk(result)) {
             ALOGW("addRule failed(%d): uid=%d iif=%d", result.code(), uid, iif);
         }

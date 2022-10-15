@@ -125,15 +125,19 @@ static jint native_setUidRule(JNIEnv* env, jobject self, jint childChain, jint u
     return (jint)res;
 }
 
-static jint native_addUidInterfaceRules(JNIEnv* env, jobject self, jstring ifName,
-                                        jintArray jUids) {
-    // Null ifName is a wildcard to allow apps to receive packets on all interfaces and ifIndex is
-    // set to 0.
+static jint native_addUidInterfaceRules(JNIEnv* env, jobject clazz, jstring ifName,
+                                        jintArray jUids, jboolean allowAllIngress) {
+    // allowAllIngress allows apps to receive packets on all interfaces rather than only
+    // the specified interface.
     int ifIndex = 0;
     if (ifName != nullptr) {
         const ScopedUtfChars ifNameUtf8(env, ifName);
         const std::string interfaceName(ifNameUtf8.c_str());
         ifIndex = if_nametoindex(interfaceName.c_str());
+    } else {
+        ALOGE("%s failed: ifName must not be null. Set allowAllIngress "
+                "to allow all incoming traffic.", __func__);
+        return -EINVAL;
     }
 
     ScopedIntArrayRO uids(env, jUids);
@@ -142,7 +146,7 @@ static jint native_addUidInterfaceRules(JNIEnv* env, jobject self, jstring ifNam
     size_t size = uids.size();
     static_assert(sizeof(*(uids.get())) == sizeof(int32_t));
     std::vector<int32_t> data ((int32_t *)&uids[0], (int32_t*)&uids[size]);
-    Status status = mTc.addUidInterfaceRules(ifIndex, data);
+    Status status = mTc.addUidInterfaceRules(ifIndex, data, allowAllIngress);
     CHECK_LOG(status);
     return (jint)status.code();
 }
@@ -217,7 +221,7 @@ static const JNINativeMethod gMethods[] = {
     (void*)native_replaceUidChain},
     {"native_setUidRule", "(III)I",
     (void*)native_setUidRule},
-    {"native_addUidInterfaceRules", "(Ljava/lang/String;[I)I",
+    {"native_addUidInterfaceRules", "(Ljava/lang/String;[IZ)I",
     (void*)native_addUidInterfaceRules},
     {"native_removeUidInterfaceRules", "([I)I",
     (void*)native_removeUidInterfaceRules},

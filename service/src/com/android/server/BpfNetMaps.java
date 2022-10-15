@@ -441,9 +441,20 @@ public class BpfNetMaps {
     }
 
     private void addRule(final int uid, final long match, final int iif, final String caller) {
-        if (match != IIF_MATCH && iif != 0) {
+        // We accept NO_MATCH to solely store the ingress interface. See addUidInterfaceRules.
+        // Currently, LOCKDOWN_VPN_MATCH is not used in combination with iif in calls to this function,
+        // but it is a reasonable potential use case, so it is allowed as well.
+        final boolean matchTypeAcceptsIif = (match == IIF_MATCH || match == NO_MATCH
+                || match == LOCKDOWN_VPN_MATCH);
+
+        if (iif != 0 && !matchTypeAcceptsIif) {
             throw new ServiceSpecificException(EINVAL,
-                    "Non-interface match must have zero interface index");
+                    "Specified match type does not expect iif != 0");
+        }
+        if (iif == 0 && match == IIF_MATCH) {
+            // To achieve previous "wildcard" behavior of IIF_MATCH, caller should use NO_MATCH.
+            throw new ServiceSpecificException(EINVAL,
+                    "IIF_MATCH requires iif != 0");
         }
 
         try {
@@ -452,8 +463,10 @@ public class BpfNetMaps {
 
                 final UidOwnerValue newMatch;
                 if (oldMatch != null) {
+                    // iif is optional for match types other than IIF_MATCH, so it can be 0
+                    // to be ignored.
                     newMatch = new UidOwnerValue(
-                            (match == IIF_MATCH) ? iif : oldMatch.iif,
+                            (matchTypeAcceptsIif && iif != 0) ? iif : oldMatch.iif,
                             oldMatch.rule | match
                     );
                 } else {
@@ -732,22 +745,27 @@ public class BpfNetMaps {
      * @param ifName the name of the interface on which the filtering rules will allow packets to
      *               be received.
      * @param uids   an array of UIDs which the filtering rules will be set
+     * @param allowAllIngress whether or not ingress should be allowed from outside the interface
      * @throws RemoteException when netd has crashed.
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *                                  cause of the failure.
      */
-    public void addUidInterfaceRules(final String ifName, final int[] uids) throws RemoteException {
+    public void addUidInterfaceRules(final String ifName, final int[] uids,
+            final boolean allowAllIngress) throws RemoteException {
         if (PRE_T) {
-            mNetd.firewallAddUidInterfaceRules(ifName, uids);
+            mNetd.firewallAddUidInterfaceRules(allowAllIngress ? NULL : ifName, uids);
             return;
         }
 
         if (sEnableJavaBpfMap) {
-            // Null ifName is a wildcard to allow apps to receive packets on all interfaces and
-            // ifIndex is set to 0.
+            // allowAllIngress allows apps to receive packets on all interfaces rather than only
+            // the specified interface.
             final int ifIndex;
             if (ifName == null) {
-                ifIndex = 0;
+                final String msg = "addRule failed: ifName must not be null. Set "
+                        + "allowAllIngress to allow all incoming traffic.";
+                Log.e(TAG, msg);
+                throw new ServiceSpecificException(EINVAL, msg);
             } else {
                 ifIndex = mDeps.getIfIndex(ifName);
                 if (ifIndex == 0) {
@@ -756,14 +774,19 @@ public class BpfNetMaps {
                 }
             }
             for (final int uid : uids) {
+                // With allowAllIngress, NO_MATCH is used to store the interface in mUidOwnerMap
+                // despite VPN isolation not being in effect, for example when the VPN is not
+                // fully-routed. This allows LOCKDOWN_VPN_MATCH to consider the interface and
+                // perform ingress filtering too, when "Block connections without VPN" is enabled.
                 try {
-                    addRule(uid, IIF_MATCH, ifIndex, "addUidInterfaceRules");
+                    addRule(uid, allowAllIngress ? NO_MATCH : IIF_MATCH, ifIndex,
+                            "addUidInterfaceRules");
                 } catch (ServiceSpecificException e) {
                     Log.e(TAG, "addRule failed uid=" + uid + " ifName=" + ifName + ", " + e);
                 }
             }
         } else {
-            final int err = native_addUidInterfaceRules(ifName, uids);
+            final int err = native_addUidInterfaceRules(ifName, uids, allowAllIngress);
             maybeThrow(err, "Unable to add uid interface rules");
         }
     }
@@ -1043,7 +1066,8 @@ public class BpfNetMaps {
                             + " uid=" + value.uid);
             BpfDump.dumpMap(sUidOwnerMap, pw, "sUidOwnerMap",
                     (uid, match) -> {
-                        if ((match.rule & IIF_MATCH) != 0) {
+                        if ((match.rule & IIF_MATCH) != 0
+                                || (match.rule & LOCKDOWN_VPN_MATCH) != 0) {
                             // TODO: convert interface index to interface name by IfaceIndexNameMap
                             return uid.val + " " + matchToString(match.rule) + " " + match.iif;
                         } else {
@@ -1064,7 +1088,8 @@ public class BpfNetMaps {
     private native int native_setChildChain(int childChain, boolean enable);
     private native int native_replaceUidChain(String name, boolean isAllowlist, int[] uids);
     private native int native_setUidRule(int childChain, int uid, int firewallRule);
-    private native int native_addUidInterfaceRules(String ifName, int[] uids);
+    private native int native_addUidInterfaceRules(String ifName, int[] uids,
+            boolean allowAllIngress);
     private native int native_removeUidInterfaceRules(int[] uids);
     private native int native_updateUidLockdownRule(int uid, boolean add);
     private native int native_swapActiveStatsMap();
