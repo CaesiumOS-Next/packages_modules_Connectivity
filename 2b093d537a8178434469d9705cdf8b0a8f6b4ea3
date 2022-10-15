@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9eeb77b1_a4ca812b",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1256,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-15T08:02:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e492b98_8890dc44",
+      "range": {
+        "startLine": 1256,
+        "startChar": 17,
+        "endLine": 1256,
+        "endChar": 40
+      },
+      "revId": "2b093d537a8178434469d9705cdf8b0a8f6b4ea3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c6d8f69_68ec3437",
@@ -81,6 +105,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41cbea79_e0869ee1",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2227,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-15T08:02:01Z",
+      "side": 1,
+      "message": "Done. Yeah, this looks a good idea. augmentWithStackedIntefaces takes the interfaces that were obtained from getAllIfacesSinceBoot and it returns the same `String[]` should be expected.\n\nGot the following error if I use clone. It probably fine if it\u0027s not a copy.\n```\n error: clone() has protected access in Object\n        doAnswer(inv -\u003e inv.getArgument(0).clone())\n\n```",
+      "parentUuid": "8c6d8f69_68ec3437",
+      "range": {
+        "startLine": 2227,
+        "startChar": 52,
+        "endLine": 2227,
+        "endChar": 80
+      },
+      "revId": "2b093d537a8178434469d9705cdf8b0a8f6b4ea3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f1afcd6_d8d29763",
@@ -94,6 +142,30 @@
       "writtenOn": "2022-10-04T04:51:29Z",
       "side": 1,
       "message": "Does this actually use array equality ? ISTM that this may not mock the stats correctly if you pass a copy of the array. Maybe you want AdditionalMatchers.aryEq().\n\nOf course, if the test is passing like this, given that ref equality is a subset of array equality anyway, maybe it\u0027s not worth spending a lot of time. If AdditionalMatchers.aryEq() is not possible for some reason you may just leave a comment or something",
+      "range": {
+        "startLine": 2252,
+        "startChar": 49,
+        "endLine": 2252,
+        "endChar": 55
+      },
+      "revId": "2b093d537a8178434469d9705cdf8b0a8f6b4ea3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35e395ae_bcbe699d",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2252,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-15T08:02:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f1afcd6_d8d29763",
       "range": {
         "startLine": 2252,
         "startChar": 49,
