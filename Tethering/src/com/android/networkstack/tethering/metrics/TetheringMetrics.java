@@ -74,8 +74,7 @@ public class TetheringMetrics {
         statsBuilder.setDownstreamType(downstreamTypeToEnum(downstreamType))
                     .setUserType(userTypeToEnum(callerPkg))
                     .setUpstreamType(UpstreamType.UT_UNKNOWN)
-                    .setErrorCode(ErrorCode.EC_NO_ERROR)
-                    .build();
+                    .setErrorCode(ErrorCode.EC_NO_ERROR);
         mBuilderMap.put(downstreamType, statsBuilder);
     }
 

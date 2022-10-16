@@ -2691,7 +2691,7 @@ public class ConnectivityServiceTest {
         final TestNetworkCallback generalCb = new TestNetworkCallback();
         final TestNetworkCallback defaultCb = new TestNetworkCallback();
         mCm.registerNetworkCallback(
-                new NetworkRequest.Builder().addTransportType(transport | transport).build(),
+                new NetworkRequest.Builder().addTransportType(transport).build(),
                 generalCb);
         mCm.registerDefaultNetworkCallback(defaultCb);
 
@@ -4763,6 +4763,7 @@ public class ConnectivityServiceTest {
     @Test
     public void testNetworkSpecifier() throws Exception {
         // A NetworkSpecifier subclass that matches all networks but must not be visible to apps.
+        @SuppressWarnings("ParcelableCreator")
         class ConfidentialMatchAllNetworkSpecifier extends NetworkSpecifier implements
                 Parcelable {
             @Override
@@ -4786,6 +4787,7 @@ public class ConnectivityServiceTest {
 
         // A network specifier that matches either another LocalNetworkSpecifier with the same
         // string or a ConfidentialMatchAllNetworkSpecifier, and can be passed to apps as is.
+        @SuppressWarnings("ParcelableCreator")
         class LocalStringNetworkSpecifier extends NetworkSpecifier implements Parcelable {
             private String mString;
 
@@ -4918,6 +4920,7 @@ public class ConnectivityServiceTest {
                 return false;
             }
         };
+        @SuppressWarnings("ParcelableCreator")
         class ParcelableSpecifier extends NonParcelableSpecifier implements Parcelable {
             @Override public int describeContents() { return 0; }
             @Override public void writeToParcel(Parcel p, int flags) {}
