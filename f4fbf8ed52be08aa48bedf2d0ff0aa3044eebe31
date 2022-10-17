@@ -46,6 +46,30 @@
       },
       "revId": "f4fbf8ed52be08aa48bedf2d0ff0aa3044eebe31",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44bae84b_63495bcb",
+        "filename": "tests/unit/java/android/app/usage/NetworkStatsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-17T02:06:09Z",
+      "side": 1,
+      "message": "I\u0027d prefer the new code as well.",
+      "parentUuid": "713582ad_1b4b8aab",
+      "range": {
+        "startLine": 259,
+        "startChar": 69,
+        "endLine": 259,
+        "endChar": 81
+      },
+      "revId": "f4fbf8ed52be08aa48bedf2d0ff0aa3044eebe31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
