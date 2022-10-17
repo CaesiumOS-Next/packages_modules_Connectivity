@@ -129,6 +129,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71cc8be0_97858538",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2227,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-17T04:05:05Z",
+      "side": 1,
+      "message": "Ah, that\u0027s because getArgument() returns an Object, but in practice this is an array. You could get rid of the error by casting the argument into the actual array.\n\nBut it\u0027s fine as is I think.",
+      "parentUuid": "41cbea79_e0869ee1",
+      "range": {
+        "startLine": 2227,
+        "startChar": 52,
+        "endLine": 2227,
+        "endChar": 80
+      },
+      "revId": "2b093d537a8178434469d9705cdf8b0a8f6b4ea3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f1afcd6_d8d29763",
