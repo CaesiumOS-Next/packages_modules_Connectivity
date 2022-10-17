@@ -33,6 +33,29 @@
       "message": "Got the number from\nhttp://cs/aosp-master/packages/modules/Cronet/apex/AndroidManifest.xml;l\u003d22;rcl\u003d1492f56e8332a6943e188f3bd34ce933c01b03c1",
       "revId": "0fc9beb8bc90c8375e9785fc427d495ede39bf88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40118b8c_9f2f14ec",
+        "filename": "Cronet/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-17T04:27:03Z",
+      "side": 1,
+      "message": "Is this a right version?",
+      "range": {
+        "startLine": 108,
+        "startChar": 18,
+        "endLine": 108,
+        "endChar": 32
+      },
+      "revId": "0fc9beb8bc90c8375e9785fc427d495ede39bf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
