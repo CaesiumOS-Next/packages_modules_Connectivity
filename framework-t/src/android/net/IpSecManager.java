@@ -78,7 +78,9 @@ public class IpSecManager {
      * @hide
      */
     // Define this flag here so that IPsec code shipped in a mainline module can build on old
-    // platforms before FEATURE_IPSEC_TUNNEL_MIGRATION API is released.
+    // platforms before FEATURE_IPSEC_TUNNEL_MIGRATION API is released. Expose it as @SystemApi for
+    // CTS.
+    @SystemApi(client = MODULE_LIBRARIES)
     public static final String FEATURE_IPSEC_TUNNEL_MIGRATION =
             "android.software.ipsec_tunnel_migration";
 
