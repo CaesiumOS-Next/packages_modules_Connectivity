@@ -213,6 +213,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77b22ef4_58c38004",
+        "filename": "tests/common/java/android/net/netstats/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-18T09:44:57Z",
+      "side": 1,
+      "message": "This method converts mMatchSubscriberIds to Set\u003cString\u003e and asList requires NonNull array to new a ArrayList. Thus I think we should make mMatchSubscriberIds NonNull further. WDYT?\n```\n    public Set\u003cString\u003e getSubscriberIds() {\n        return new ArraySet\u003c\u003e(Arrays.asList(mMatchSubscriberIds));\n    }\n```\nhttps://cs.android.com/android/platform/superproject/+/master:libcore/ojluni/src/main/java/java/util/Arrays.java;l\u003d4163",
+      "parentUuid": "fb326d47_1520656f",
+      "range": {
+        "startLine": 108,
+        "startChar": 20,
+        "endLine": 108,
+        "endChar": 24
+      },
+      "revId": "afad42a031fd6e2221260285d32ca33f81580f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da4e0160_e0c7906d",
