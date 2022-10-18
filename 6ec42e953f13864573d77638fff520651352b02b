@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "777e0107_d0aa46d3",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-18T13:51:04Z",
+      "side": 1,
+      "message": "Is this to avoid listener getting call back for existing non-restricted physical interface?\nIs it guaranteed that the device must have tethering interface if the device has non-restricted physical interface?",
+      "range": {
+        "startLine": 575,
+        "startChar": 11,
+        "endLine": 575,
+        "endChar": 87
+      },
+      "revId": "6ec42e953f13864573d77638fff520651352b02b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1903deac_7c3c813c",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-18T13:51:04Z",
+      "side": 1,
+      "message": "I felt assuming this callback order might be depending on internal logic.\nIt looks this order is coming from EthernetNetworkFactory#getAvailableInterfaces.",
+      "range": {
+        "startLine": 597,
+        "startChar": 8,
+        "endLine": 597,
+        "endChar": 17
+      },
+      "revId": "6ec42e953f13864573d77638fff520651352b02b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
