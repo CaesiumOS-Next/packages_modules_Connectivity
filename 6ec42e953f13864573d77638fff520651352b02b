@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "439c27ce_85b66009",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-18T18:38:37Z",
+      "side": 1,
+      "message": "Interfaces that have network capabilities defined in the config.xml (see config_ethernet_interfaces), cannot be used for tethering. The primary purpose of using the config xml is to restrict interfaces, so yes and no, it is certainly not guaranteed, but it is probably a safe assumption to make.",
+      "parentUuid": "777e0107_d0aa46d3",
+      "range": {
+        "startLine": 575,
+        "startChar": 11,
+        "endLine": 575,
+        "endChar": 87
+      },
+      "revId": "6ec42e953f13864573d77638fff520651352b02b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "1903deac_7c3c813c",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-10-18T13:51:04Z",
       "side": 1,
       "message": "I felt assuming this callback order might be depending on internal logic.\nIt looks this order is coming from EthernetNetworkFactory#getAvailableInterfaces.",
+      "range": {
+        "startLine": 597,
+        "startChar": 8,
+        "endLine": 597,
+        "endChar": 17
+      },
+      "revId": "6ec42e953f13864573d77638fff520651352b02b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc628b96_3c4f3dfc",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-18T18:38:37Z",
+      "side": 1,
+      "message": "I think this is a reasonable expectation to add to the test. Changing the order of callbacks may break certain apps. TV\u0027s for instance only support one interface in their settings UI. I can\u0027t remember if it\u0027s the first one that\u0027s discovered or just eth0, but either way, changing the older of callbacks could affect an application (however terrible) like that.",
+      "parentUuid": "1903deac_7c3c813c",
       "range": {
         "startLine": 597,
         "startChar": 8,
