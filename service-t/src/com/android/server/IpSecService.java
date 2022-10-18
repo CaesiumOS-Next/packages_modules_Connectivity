@@ -17,6 +17,7 @@
 package com.android.server;
 
 import static android.Manifest.permission.DUMP;
+import static android.net.IpSecManager.FEATURE_IPSEC_TUNNEL_MIGRATION;
 import static android.net.IpSecManager.INVALID_RESOURCE_ID;
 import static android.system.OsConstants.AF_INET;
 import static android.system.OsConstants.AF_INET6;
@@ -1670,6 +1671,14 @@ public class IpSecService extends IIpSecService.Stub {
                 android.Manifest.permission.MANAGE_IPSEC_TUNNELS, "IpSecService");
     }
 
+    private void enforceMigrateFeature() {
+        if (!mContext.getPackageManager().hasSystemFeature(FEATURE_IPSEC_TUNNEL_MIGRATION)) {
+            throw new UnsupportedOperationException(
+                    "IPsec Tunnel migration requires"
+                            + " PackageManager.FEATURE_IPSEC_TUNNEL_MIGRATION");
+        }
+    }
+
     private void createOrUpdateTransform(
             IpSecConfig c, int resourceId, SpiRecord spiRecord, EncapSocketRecord socketRecord)
             throws RemoteException {
@@ -1780,6 +1789,7 @@ public class IpSecService extends IIpSecService.Stub {
             String newDestinationAddress,
             String callingPackage) {
         enforceTunnelFeatureAndPermissions(callingPackage);
+        enforceMigrateFeature();
 
         UserRecord userRecord = mUserResourceTracker.getUserRecord(Binder.getCallingUid());
         TransformRecord transformInfo =
