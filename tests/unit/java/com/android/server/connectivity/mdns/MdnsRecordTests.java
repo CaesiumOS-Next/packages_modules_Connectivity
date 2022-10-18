@@ -353,9 +353,10 @@ public class MdnsRecordTests {
         assertEquals(60_000L, record.getTtl());
         assertEquals("nextdomain.android.com", MdnsRecord.labelsToString(record.getNextDomain()));
         assertArrayEquals(new int[] { MdnsRecord.TYPE_TXT,
+                MdnsRecord.TYPE_SRV,
                 // CAA rtype; not generally used in MDNS, but testing a type > 256
-                257,
-                MdnsRecord.TYPE_SRV }, record.getTypes());
+                257
+        }, record.getTypes());
 
         // Encode
         MdnsPacketWriter writer = new MdnsPacketWriter(MAX_PACKET_SIZE);

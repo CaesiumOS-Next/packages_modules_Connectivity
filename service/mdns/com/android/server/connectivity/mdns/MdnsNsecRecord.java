@@ -84,7 +84,7 @@ public class MdnsNsecRecord extends MdnsRecord {
             for (int bitmapIndex = 0; bitmapIndex < bitmap.length; bitmapIndex++) {
                 final byte bitmapByte = bitmap[bitmapIndex];
                 for (int bit = 0; bit < 8; bit++) {
-                    if ((bitmapByte & (1 << bit)) != 0) {
+                    if ((bitmapByte & (1 << (7 - bit))) != 0) {
                         types.add(blockNumber * 256 + bitmapIndex * 8 + bit);
                     }
                 }
