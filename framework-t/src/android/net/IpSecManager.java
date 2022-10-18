@@ -80,6 +80,7 @@ public class IpSecManager {
      * @see android.content.pm.PackageManager#FEATURE_IPSEC_TUNNEL_MIGRATION
      * @hide
      */
+    @SystemApi
     public static final String FEATURE_IPSEC_TUNNEL_MIGRATION =
             "android.software.ipsec_tunnel_migration";
 
