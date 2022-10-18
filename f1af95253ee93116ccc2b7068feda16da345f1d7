@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97a20835_48cc719b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1958109
+      },
+      "writtenOn": "2022-10-18T22:54:22Z",
+      "side": 1,
+      "message": "Have not tested in master, only tested a variant for 13. This issue improves behavior for apps like bitmask_android that provide exclusion routes for LAN or don\u0027t fully route IPv6; for these apps, outgoing to LAN is blocked with lockdown, but paradoxically, inbound is not.",
+      "revId": "f1af95253ee93116ccc2b7068feda16da345f1d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
