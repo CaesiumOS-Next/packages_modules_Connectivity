@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7d93583_cc963c4a",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-18T15:34:46Z",
+      "side": 1,
+      "message": "I think they are different,\nString[] {null} has length \u003d 1 and contains a null in array\nAnother one is a null object.\nUpdate constructor and use String[] {null}",
+      "parentUuid": "acde96bb_e2843641",
+      "range": {
+        "startLine": 201,
+        "startChar": 20,
+        "endLine": 201,
+        "endChar": 24
+      },
+      "revId": "78fb3aafcc4f81b76c479bbdaaf5a6962bb18cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d0ea8af_229114d7",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-29T09:02:46Z",
       "side": 1,
       "message": "IIUC this matches only networks with no subscriberId, is this expected?",
+      "range": {
+        "startLine": 216,
+        "startChar": 31,
+        "endLine": 216,
+        "endChar": 35
+      },
+      "revId": "78fb3aafcc4f81b76c479bbdaaf5a6962bb18cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7eba476e_488dc1e0",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-18T15:34:46Z",
+      "side": 1,
+      "message": "updated, in the new patch, matchesWifi() checks the following\nif identity is `TYPE_WIFI`\n- if matchSubcriberIds is null or {null} then check if mMatchWifiNetworkKeys is empty or not. If it\u0027s empty then return true, otherwise depends on the result of if wifiNetworkKey matchesWifiNetworkKey().\n- Otherwise, if matchSubcriberIds is not empty then it depends on the result of if subscriberId matchesSubscriberId() and if wifiNetworkKey matchesWifiNetworkKey().\n\nif identity is `TYPE_WIFI_P2P`, then it returns true if (matchSubcriberIds is null or {null} \u0026\u0026 mMatchWifiNetworkKeys is empty), otherwise it returns false.",
+      "parentUuid": "1d0ea8af_229114d7",
       "range": {
         "startLine": 216,
         "startChar": 31,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af1d6ac3_d750569b",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-18T15:34:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10873c7d_29b7baf3",
+      "range": {
+        "startLine": 349,
+        "startChar": 20,
+        "endLine": 349,
+        "endChar": 42
+      },
+      "revId": "78fb3aafcc4f81b76c479bbdaaf5a6962bb18cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42b3bb46_562ea9bb",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-09-29T09:02:46Z",
       "side": 1,
       "message": "Is it feasible to remove this variable in a parent CL by making all subscriberIdMatchRule callers check matchSubscriberIds instead?",
+      "range": {
+        "startLine": 350,
+        "startChar": 49,
+        "endLine": 350,
+        "endChar": 94
+      },
+      "revId": "78fb3aafcc4f81b76c479bbdaaf5a6962bb18cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41ed8f37_072c72f5",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-18T15:34:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42b3bb46_562ea9bb",
       "range": {
         "startLine": 350,
         "startChar": 49,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4fee6dc_e161f7da",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-18T15:34:46Z",
+      "side": 1,
+      "message": "IIUC, we should have alternative if we want to deprecate an API.",
+      "parentUuid": "c3a3a782_4d7022a6",
+      "range": {
+        "startLine": 528,
+        "startChar": 5,
+        "endLine": 528,
+        "endChar": 24
+      },
+      "revId": "78fb3aafcc4f81b76c479bbdaaf5a6962bb18cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ab1c890_03afd0b6",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-09-29T09:02:46Z",
       "side": 1,
       "message": "Can we also deprecate this?",
+      "range": {
+        "startLine": 538,
+        "startChar": 5,
+        "endLine": 538,
+        "endChar": 24
+      },
+      "revId": "78fb3aafcc4f81b76c479bbdaaf5a6962bb18cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd14698e_4b0b714a",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-18T15:34:46Z",
+      "side": 1,
+      "message": "Done in aosp/2241058.",
+      "parentUuid": "8ab1c890_03afd0b6",
       "range": {
         "startLine": 538,
         "startChar": 5,
