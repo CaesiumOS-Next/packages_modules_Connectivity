@@ -65,6 +65,7 @@ package android.net {
 
   public class IpSecManager {
     field public static final int DIRECTION_FWD = 2; // 0x2
+    field public static final String FEATURE_IPSEC_TUNNEL_MIGRATION = "android.software.ipsec_tunnel_migration";
   }
 
   public static final class IpSecManager.UdpEncapsulationSocket implements java.lang.AutoCloseable {
