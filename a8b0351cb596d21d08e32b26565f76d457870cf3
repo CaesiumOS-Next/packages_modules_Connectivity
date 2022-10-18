@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff2be0ed_92875b4e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-18T05:58:14Z",
+      "side": 1,
+      "message": "nit: Not sure if we want to specify ConnectivityServiceTest#TestNetworkCallback given that there are multiple TestNetworkCallback in the codebase. I was confused which one are you mentioning.",
+      "range": {
+        "startLine": 9,
+        "startChar": 19,
+        "endLine": 9,
+        "endChar": 38
+      },
+      "revId": "a8b0351cb596d21d08e32b26565f76d457870cf3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b77a5eed_a4a9e895",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-18T05:58:14Z",
+      "side": 1,
+      "message": "LGTM with nits that can be ignored.",
+      "revId": "a8b0351cb596d21d08e32b26565f76d457870cf3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2414c9ec_8db569a0",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2972,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-18T05:58:14Z",
+      "side": 1,
+      "message": "Nit: maybe also document why we expect something like this for future developers to reference?\nno strong opinion.",
+      "range": {
+        "startLine": 2972,
+        "startChar": 66,
+        "endLine": 2972,
+        "endChar": 81
+      },
+      "revId": "a8b0351cb596d21d08e32b26565f76d457870cf3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
