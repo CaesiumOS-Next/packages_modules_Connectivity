@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdae1049_65477f50",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-18T06:54:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "992e0847_0626f555",
+      "range": {
+        "startLine": 398,
+        "startChar": 15,
+        "endLine": 398,
+        "endChar": 33
+      },
+      "revId": "afad42a031fd6e2221260285d32ca33f81580f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e08785d_400bd684",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-10-12T07:31:25Z",
       "side": 1,
       "message": "Maybe add comment for this?\nAlso maybe try to simplify this?",
+      "range": {
+        "startLine": 735,
+        "startChar": 16,
+        "endLine": 736,
+        "endChar": 97
+      },
+      "revId": "afad42a031fd6e2221260285d32ca33f81580f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98871718_07eb994d",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-18T06:54:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e08785d_400bd684",
       "range": {
         "startLine": 735,
         "startChar": 16,
@@ -70,6 +118,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d024c55_58abff60",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-18T06:54:55Z",
+      "side": 1,
+      "message": "Check this again, it looks like that this check is not necessary.\n- If the template is biult through buildTemplateWifiWildcard() then the subscriberId is null which indicates the mMatchSubscriberIds would be {null}.\n- If the template is built through Builder(MATCH_WIFI).build() then the mMatchSubscriberIds would be `new String[0]`.\n- If user creates a template by `new NetworkTemplate(MATCH_WIFIWILDCARD, null/*subscriberId*/, null /*subscriberIds*/, new String[]{\"wifiKey\"}, ...)` (and external user should use Builder to build template) then this might be a wrong usage of NetworkTemplate.",
+      "parentUuid": "7681a178_29b59150",
+      "range": {
+        "startLine": 788,
+        "startChar": 16,
+        "endLine": 789,
+        "endChar": 96
+      },
+      "revId": "afad42a031fd6e2221260285d32ca33f81580f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d0b93bc_79b0dfa0",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-18T06:54:55Z",
+      "side": 1,
+      "message": "Check this again, it looks",
+      "parentUuid": "7681a178_29b59150",
+      "range": {
+        "startLine": 788,
+        "startChar": 16,
+        "endLine": 789,
+        "endChar": 96
+      },
+      "revId": "afad42a031fd6e2221260285d32ca33f81580f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dfb01cba_25856938",
@@ -93,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb326d47_1520656f",
+        "filename": "tests/common/java/android/net/netstats/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-18T06:54:55Z",
+      "side": 1,
+      "message": "Yeah, it\u0027s fine to fix this. The costructor doesn\u0027t have any annotations for this field so this field may be null or non-null. I think that\u0027s why we left a TODO in the constructor.\n```\n   // TODO: Check whether mMatchSubscriberIds \u003d null or mMatchSubscriberIds \u003d {null} when\n   // mSubscriberId is null`\n```\nIf the mSubscriberIdMatchRule is SUBSCRIBER_ID_MATCH_RULE_ALL then it won\u0027t care about the subscriberIds.\nIf the mSubscriberIdMatchRule is SUBSCRIBER_ID_MATCH_RULE_EXACT then the subscriberId still need to match even it\u0027s null.\nThus I think whether a template should match null subscriberId depends on the subscriberIdMatchRule.\n\nDoes this answer your question?",
+      "parentUuid": "dfb01cba_25856938",
+      "range": {
+        "startLine": 108,
+        "startChar": 20,
+        "endLine": 108,
+        "endChar": 24
+      },
+      "revId": "afad42a031fd6e2221260285d32ca33f81580f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da4e0160_e0c7906d",
@@ -106,6 +226,30 @@
       "writtenOn": "2022-10-12T07:31:25Z",
       "side": 1,
       "message": "It seems to me the meaning of buildTemplateWifi(String, String) is changed?\nIs that OK? who are the callers? Can we just delete it?",
+      "range": {
+        "startLine": 171,
+        "startChar": 28,
+        "endLine": 171,
+        "endChar": 51
+      },
+      "revId": "afad42a031fd6e2221260285d32ca33f81580f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bac1539d_25a23b3e",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-18T06:54:55Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "da4e0160_e0c7906d",
       "range": {
         "startLine": 171,
         "startChar": 28,
