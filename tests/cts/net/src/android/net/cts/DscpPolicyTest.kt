@@ -222,7 +222,7 @@ class DscpPolicyTest {
         var inet6Addr: Inet6Address? = null
         val onLinkPrefix = raResponder.prefix
         val startTime = SystemClock.elapsedRealtime()
-        while (SystemClock.elapsedRealtime() - startTime < PACKET_TIMEOUT_MS) {
+        while (SystemClock.elapsedRealtime() - startTime < 10_000) {
             SystemClock.sleep(50 /* ms */)
             val sock = Os.socket(AF_INET6, SOCK_DGRAM, IPPROTO_UDP)
             try {
