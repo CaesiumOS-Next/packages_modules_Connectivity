@@ -237,6 +237,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba2dfe5f_8f892750",
+        "filename": "tests/common/java/android/net/netstats/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-18T09:48:25Z",
+      "side": 1,
+      "message": "The \"This method\" above, I mean getSubscriberIds().",
+      "parentUuid": "77b22ef4_58c38004",
+      "range": {
+        "startLine": 108,
+        "startChar": 20,
+        "endLine": 108,
+        "endChar": 24
+      },
+      "revId": "afad42a031fd6e2221260285d32ca33f81580f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da4e0160_e0c7906d",
