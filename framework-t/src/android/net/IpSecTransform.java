@@ -15,6 +15,7 @@
  */
 package android.net;
 
+import static android.net.IpSecManager.FEATURE_IPSEC_TUNNEL_MIGRATION;
 import static android.net.IpSecManager.INVALID_RESOURCE_ID;
 
 import android.annotation.IntDef;
@@ -114,8 +115,7 @@ public final class IpSecTransform implements AutoCloseable {
      * @param newDestinationAddress the new destination address
      * @hide
      */
-    // TODO: b/169169973 Require FEATURE_IPSEC_MIGRATE
-    @RequiresFeature(PackageManager.FEATURE_IPSEC_TUNNELS)
+    @RequiresFeature(FEATURE_IPSEC_TUNNEL_MIGRATION)
     @RequiresPermission(android.Manifest.permission.MANAGE_IPSEC_TUNNELS)
     public void startMigration(
             @NonNull InetAddress newSourceAddress, @NonNull InetAddress newDestinationAddress) {

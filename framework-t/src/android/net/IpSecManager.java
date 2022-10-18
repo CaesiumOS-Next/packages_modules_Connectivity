@@ -65,6 +65,25 @@ public class IpSecManager {
     private static final String TAG = "IpSecManager";
 
     /**
+     * Feature flag to declare the kernel support of updating IPsac SAs.
+     *
+     * <p>Feature for {@link #getSystemAvailableFeatures} and {@link #hasSystemFeature}: The device
+     * has the requisite kernel support for migrating IPsec tunnels to new source/destination
+     * addresses.
+     *
+     * <p>This feature implies that the device supports XFRM Migration (CONFIG_XFRM_MIGRATE) and has
+     * the kernel fixes to allow XFRM Migration correctly
+     *
+     * <p>Define this flag here so that IPsec code shipped in a mainline module can build on old
+     * platforms before FEATURE_IPSEC_TUNNEL_MIGRATION API is released.
+     *
+     * @see android.content.pm.PackageManager#FEATURE_IPSEC_TUNNEL_MIGRATION
+     * @hide
+     */
+    public static final String FEATURE_IPSEC_TUNNEL_MIGRATION =
+            "android.software.ipsec_tunnel_migration";
+
+    /**
      * Used when applying a transform to direct traffic through an {@link IpSecTransform}
      * towards the host.
      *
