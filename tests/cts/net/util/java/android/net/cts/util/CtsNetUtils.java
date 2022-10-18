@@ -17,6 +17,7 @@
 package android.net.cts.util;
 
 import static android.Manifest.permission.NETWORK_SETTINGS;
+import static android.net.IpSecManager.FEATURE_IPSEC_TUNNEL_MIGRATION;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
@@ -111,6 +112,11 @@ public final class CtsNetUtils {
     public boolean hasIpsecTunnelsFeature() {
         return mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_IPSEC_TUNNELS)
                 || getFirstApiLevel() >= Build.VERSION_CODES.Q;
+    }
+
+    /** Checks if FEATURE_IPSEC_TUNNEL_MIGRATION is enabled on the device */
+    public boolean hasIpsecTunnelMigrateFeature() {
+        return mContext.getPackageManager().hasSystemFeature(FEATURE_IPSEC_TUNNEL_MIGRATION);
     }
 
     /**
