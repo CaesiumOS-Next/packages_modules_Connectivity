@@ -297,7 +297,7 @@ public class EthernetTracker {
     }
 
     private IpConfiguration getIpConfigurationForCallback(String iface, int state) {
-        return (state == EthernetManager.STATE_ABSENT) ? null : getOrCreateIpConfiguration(iface);
+        return (state == STATE_ABSENT) ? null : getOrCreateIpConfiguration(iface);
     }
 
     private void ensureRunningOnEthernetServiceThread() {
@@ -559,7 +559,7 @@ public class EthernetTracker {
             // server mode interfaces are not tracked by the factory.
             return mTetheringInterfaceState;
         }
-        return EthernetManager.STATE_ABSENT;
+        return STATE_ABSENT;
     }
 
     private int getInterfaceRole(final String iface) {
