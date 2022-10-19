@@ -141,6 +141,30 @@
       },
       "revId": "6ec42e953f13864573d77638fff520651352b02b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1960ec8c_9f39d0b3",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-19T20:14:44Z",
+      "side": 1,
+      "message": "Agreed that the APIs should be better documented! It\u0027s on my task list to do so (most APIs in EthernetManager.java have terrible documentation).",
+      "parentUuid": "3942298d_f1020589",
+      "range": {
+        "startLine": 597,
+        "startChar": 8,
+        "endLine": 597,
+        "endChar": 17
+      },
+      "revId": "6ec42e953f13864573d77638fff520651352b02b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
