@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d227a4da_ed489b6f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-19T01:24:46Z",
+      "side": 1,
+      "message": "LGTM as cherry-pick from upstream with some adaptations for compatibility",
+      "revId": "ce9e94585cc5ce90621ae8134af9a7169a37fc12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
