@@ -419,12 +419,18 @@ class EthernetManagerTest {
 
     // WARNING: setting hasCarrier to false requires kernel support. Call
     // assumeChangingCarrierSupported() at the top of your test.
-    private fun createInterface(hasCarrier: Boolean = true): EthernetTestInterface {
+    private fun createInterface(
+        hasCarrier: Boolean = true,
+        verifyCallbacks: Boolean = true
+    ): EthernetTestInterface {
         val iface = EthernetTestInterface(
             context,
             handler,
             hasCarrier
         ).also { createdIfaces.add(it) }
+
+        // Do not verify the down / up callbacks. Use with caution.
+        if (!verifyCallbacks) return iface
 
         // when an interface comes up, we should always see a down cb before an up cb.
         ifaceListener.eventuallyExpect(iface, STATE_LINK_DOWN, ROLE_CLIENT)
@@ -650,6 +656,7 @@ class EthernetManagerTest {
     fun testCallbacks_forServerModeInterfaces() {
         // do not run this test if an interface that can be used for tethering already exists.
         assumeNoInterfaceForTetheringAvailable()
+        assumeChangingCarrierSupported()
 
         val iface = createInterface()
         requestTetheredInterface().expectOnAvailable()
@@ -665,8 +672,13 @@ class EthernetManagerTest {
         listener.eventuallyExpect(iface, STATE_LINK_UP, ROLE_CLIENT)
 
         requestTetheredInterface().expectOnAvailable()
-        // This should be changed to expectCallback, once b/236895792 is fixed.
-        listener.eventuallyExpect(iface, STATE_LINK_UP, ROLE_SERVER)
+        listener.expectCallback(iface, STATE_LINK_UP, ROLE_SERVER)
+
+        iface.setCarrierEnabled(false)
+        listener.expectCallback(iface, STATE_LINK_DOWN, ROLE_SERVER)
+
+        iface.setCarrierEnabled(true)
+        listener.expectCallback(iface, STATE_LINK_UP, ROLE_SERVER)
 
         releaseTetheredInterface()
         listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
@@ -835,17 +847,23 @@ class EthernetManagerTest {
     }
 
     @Test
-    fun testRemoveInterface_whileInServerMode() {
+    fun testAddRemoveInterface_whileInServerMode() {
         assumeNoInterfaceForTetheringAvailable()
 
         val listener = EthernetStateListener()
         addInterfaceStateListener(listener)
 
-        val iface = createInterface()
-        val ifaceName = requestTetheredInterface().expectOnAvailable()
+        val request = requestTetheredInterface()
+        // setEthernetEnabled forces the test to wait on a callback, so it is guaranteed that
+        // tethering is enabled before the interface is created.
+        setEthernetEnabled(true)
+        // Do not verify the callbacks as they expect ROLE_CLIENT.
+        // This is safe as this test explicitly checks the callbacks. 
+        val iface = createInterface(verifyCallbacks = false)
+        assertEquals(iface.name, request.expectOnAvailable())
 
-        assertEquals(iface.name, ifaceName)
-        listener.eventuallyExpect(iface, STATE_LINK_UP, ROLE_SERVER)
+        listener.expectCallback(iface, STATE_LINK_DOWN, ROLE_SERVER)
+        listener.expectCallback(iface, STATE_LINK_UP, ROLE_SERVER)
 
         removeInterface(iface)
 
