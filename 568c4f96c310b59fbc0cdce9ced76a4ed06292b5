@@ -22,6 +22,30 @@
       },
       "revId": "568c4f96c310b59fbc0cdce9ced76a4ed06292b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4795d976_abc4f101",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1947766
+      },
+      "writtenOn": "2022-10-19T20:04:40Z",
+      "side": 1,
+      "message": "Fixed now aosp/2122467.\n\nWe expect that there shouldn\u0027t be any change in any branch after merging this change. Just that during the Sdk finalisation, the correct Sdk version would be handled by soong.",
+      "parentUuid": "7414f1df_17b7e98c",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 13
+      },
+      "revId": "568c4f96c310b59fbc0cdce9ced76a4ed06292b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
