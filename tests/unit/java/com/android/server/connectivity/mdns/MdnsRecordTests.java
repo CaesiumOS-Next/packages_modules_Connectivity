@@ -18,11 +18,13 @@ package com.android.server.connectivity.mdns;
 
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
 import android.util.Log;
 
@@ -308,6 +310,61 @@ public class MdnsRecordTests {
         String dataOutText = HexDump.dumpHexString(dataOut, 0, packet.getLength());
         Log.d(TAG, dataOutText);
 
+        assertEquals(dataInText, dataOutText);
+    }
+
+    @Test
+    public void testNsecRecord() throws IOException {
+        final byte[] dataIn = HexDump.hexStringToByteArray(
+                // record.android.com
+                "067265636F726407616E64726F696403636F6D00"
+                        // Type 0x002f (NSEC), cache flush set on class IN (0x8001)
+                        + "002F8001"
+                        // TTL 0x0000ea60 (60 secs)
+                        + "0000003C"
+                        // Data length
+                        + "0022"
+                        // nextdomain.android.com
+                        + "0A6E657874646F6D61696E07616E64726F696403636F6D00"
+                        // Type bitmaps: window block 0x00, bitmap length 0x05,
+                        // bits 16 (TXT) and 33 (SRV) set: 0x0000800040
+                        + "00050000800040"
+                        // Window block 0x01, bitmap length 0x01, bit 1 set (256 + 1 = 257): 0x40
+                        + "010140");
+        assertNotNull(dataIn);
+        String dataInText = HexDump.dumpHexString(dataIn, 0, dataIn.length);
+
+        // Decode
+        DatagramPacket packet = new DatagramPacket(dataIn, dataIn.length);
+        MdnsPacketReader reader = new MdnsPacketReader(packet);
+
+        String[] name = reader.readLabels();
+        assertNotNull(name);
+        assertEquals(3, name.length);
+        String fqdn = MdnsRecord.labelsToString(name);
+        assertEquals("record.android.com", fqdn);
+
+        int type = reader.readUInt16();
+        assertEquals(MdnsRecord.TYPE_NSEC, type);
+
+        MdnsNsecRecord record = new MdnsNsecRecord(name, reader);
+        assertEquals("record.android.com", MdnsRecord.labelsToString(record.name));
+        assertTrue(record.getCacheFlush());
+        assertEquals(60_000L, record.getTtl());
+        assertEquals("nextdomain.android.com", MdnsRecord.labelsToString(record.getNextDomain()));
+        assertArrayEquals(new int[] { MdnsRecord.TYPE_TXT,
+                // CAA rtype; not generally used in MDNS, but testing a type > 256
+                257,
+                MdnsRecord.TYPE_SRV }, record.getTypes());
+
+        // Encode
+        MdnsPacketWriter writer = new MdnsPacketWriter(MAX_PACKET_SIZE);
+        record.write(writer, record.getReceiptTime());
+
+        packet = writer.getPacket(MULTICAST_IPV4_ADDRESS);
+        byte[] dataOut = packet.getData();
+
+        String dataOutText = HexDump.dumpHexString(dataOut, 0, packet.getLength());
         assertEquals(dataInText, dataOutText);
     }
 
