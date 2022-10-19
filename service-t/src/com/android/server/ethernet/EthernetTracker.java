@@ -170,7 +170,11 @@ public class EthernetTracker {
                 maybeTrackInterface(ifname);
             }
             Log.i(TAG, "interfaceLinkStateChanged, iface: " + ifname + ", up: " + linkUp);
-            updateInterfaceState(ifname, linkUp);
+            // TODO: For server mode interfaces, EthernetNetworkFactory#updateInterfaceLinkState is
+            // a noop and returns false.
+            if (mFactory.updateInterfaceLinkState(ifname, linkUp)) {
+                broadcastInterfaceStateChange(ifname);
+            }
         }
 
         private void onDelLink(String ifname) {
@@ -635,27 +639,6 @@ public class EthernetTracker {
             // state change.
             mFactory.updateInterfaceLinkState(iface, true);
         }
-    }
-
-    private void updateInterfaceState(String iface, boolean up) {
-        updateInterfaceState(iface, up, new EthernetCallback(null /* cb */));
-    }
-
-    // TODO(b/225315248): enable/disableInterface() should not affect link state.
-    private void updateInterfaceState(String iface, boolean up, EthernetCallback cb) {
-        final int mode = getInterfaceMode(iface);
-        if (mode == INTERFACE_MODE_SERVER || !mFactory.hasInterface(iface)) {
-            // The interface is in server mode or is not tracked.
-            cb.onError("Failed to set link state " + (up ? "up" : "down") + " for " + iface);
-            return;
-        }
-
-        if (mFactory.updateInterfaceLinkState(iface, up)) {
-            broadcastInterfaceStateChange(iface);
-        }
-        // If updateInterfaceLinkState returns false, the interface is already in the correct state.
-        // Always return success.
-        cb.onResult(iface);
     }
 
     private void maybeUpdateServerModeInterfaceState(String iface, boolean available) {
