@@ -16,6 +16,8 @@
 
 package com.android.server.connectivity.mdns;
 
+import android.net.DnsResolver;
+
 import com.android.internal.annotations.VisibleForTesting;
 
 import java.io.IOException;
@@ -43,7 +45,32 @@ public class MdnsInetAddressRecord extends MdnsRecord {
      */
     public MdnsInetAddressRecord(String[] name, int type, MdnsPacketReader reader)
             throws IOException {
-        super(name, type, reader);
+        this(name, type, reader, false);
+    }
+
+    /**
+     * Constructs the {@link MdnsRecord}
+     *
+     * @param name       the service host name
+     * @param type       the type of record (either Type 'AAAA' or Type 'A')
+     * @param reader     the reader to read the record from.
+     * @param isQuestion whether the record is in the question section
+     */
+    public MdnsInetAddressRecord(String[] name, int type, MdnsPacketReader reader,
+            boolean isQuestion)
+            throws IOException {
+        super(name, type, reader, isQuestion);
+    }
+
+    public MdnsInetAddressRecord(String[] name, long receiptTimeMillis, boolean cacheFlush,
+                    long ttlMillis, InetAddress address) {
+        super(name, address instanceof Inet4Address ? TYPE_A : TYPE_AAAA, DnsResolver.CLASS_IN,
+                        receiptTimeMillis, cacheFlush, ttlMillis);
+        if (address instanceof Inet4Address) {
+            inet4Address = (Inet4Address) address;
+        } else {
+            inet6Address = (Inet6Address) address;
+        }
     }
 
     /** Returns the IPv6 address. */
