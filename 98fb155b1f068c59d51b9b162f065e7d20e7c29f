@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7c4097d_3c567da9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2022-10-19T09:15:15Z",
+      "side": 1,
+      "message": "This was recently fixed in android-11 branch using https://r.android.com/2097198. I requested them to cherry-pick it to master, which should address the issue you are having.",
+      "revId": "98fb155b1f068c59d51b9b162f065e7d20e7c29f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
