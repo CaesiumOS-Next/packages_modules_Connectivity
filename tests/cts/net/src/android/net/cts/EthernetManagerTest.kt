@@ -849,8 +849,7 @@ class EthernetManagerTest {
 
         removeInterface(iface)
 
-        // Note: removeInterface already verifies that a STATE_ABSENT, ROLE_NONE callback is
-        // received, but it can't hurt to explicitly check for it.
+        listener.expectCallback(iface, STATE_LINK_DOWN, ROLE_SERVER)
         listener.expectCallback(iface, STATE_ABSENT, ROLE_NONE)
         releaseTetheredInterface()
         listener.assertNoCallback()
