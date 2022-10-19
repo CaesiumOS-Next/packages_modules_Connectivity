@@ -18,6 +18,9 @@ package com.android.server.ethernet;
 
 import static android.net.EthernetManager.ETHERNET_STATE_DISABLED;
 import static android.net.EthernetManager.ETHERNET_STATE_ENABLED;
+import static android.net.EthernetManager.STATE_ABSENT;
+import static android.net.EthernetManager.STATE_LINK_DOWN;
+import static android.net.EthernetManager.STATE_LINK_UP;
 import static android.net.TestNetworkManager.TEST_TAP_PREFIX;
 
 import static com.android.internal.annotations.VisibleForTesting.Visibility.PACKAGE;
@@ -131,6 +134,8 @@ public class EthernetTracker {
     // current mode is reflected in mTetheringInterfaceMode.
     private String mTetheringInterface;
     private int mTetheringInterfaceMode = INTERFACE_MODE_CLIENT;
+    private int mTetheringInterfaceState = STATE_ABSENT;
+
     // Tracks whether clients were notified that the tethered interface is available
     private boolean mTetheredInterfaceWasAvailable = false;
 
@@ -170,9 +175,15 @@ public class EthernetTracker {
                 maybeTrackInterface(ifname);
             }
             Log.i(TAG, "interfaceLinkStateChanged, iface: " + ifname + ", up: " + linkUp);
-            // TODO: For server mode interfaces, EthernetNetworkFactory#updateInterfaceLinkState is
-            // a noop and returns false.
-            if (mFactory.updateInterfaceLinkState(ifname, linkUp)) {
+
+            boolean linkStateChanged = mFactory.updateInterfaceLinkState(ifname, linkUp);
+            if (getInterfaceMode(ifname) == INTERFACE_MODE_SERVER) {
+                final int newInterfaceState = linkUp ? STATE_LINK_UP : STATE_LINK_DOWN;
+                linkStateChanged = newInterfaceState != mTetheringInterfaceState;
+                mTetheringInterfaceState = newInterfaceState;
+            }
+
+            if (linkStateChanged) {
                 broadcastInterfaceStateChange(ifname);
             }
         }
@@ -547,9 +558,7 @@ public class EthernetTracker {
         }
         if (getInterfaceMode(iface) == INTERFACE_MODE_SERVER) {
             // server mode interfaces are not tracked by the factory.
-            // TODO(b/234743836): interface state for server mode interfaces is not tracked
-            // properly; just return link up.
-            return EthernetManager.STATE_LINK_UP;
+            return mTetheringInterfaceState;
         }
         return EthernetManager.STATE_ABSENT;
     }
@@ -609,7 +618,13 @@ public class EthernetTracker {
             return;
         }
 
+        final boolean isAlreadyRunning = NetdUtils.hasFlag(config, INetd.IF_FLAG_RUNNING);
         if (getInterfaceMode(iface) == INTERFACE_MODE_SERVER) {
+            // If an interface switches from client to server mode, it is possible that the link has
+            // changed right before reading the interface flags. In this case, we broadcast one
+            // callback containing the new interface mode and link state. The subsequent RTM_NEWLINK
+            // callback is ignored as the interface already tracks the correct state.
+            mTetheringInterfaceState = isAlreadyRunning ? STATE_LINK_UP : STATE_LINK_DOWN;
             maybeUpdateServerModeInterfaceState(iface, true);
             return;
         }
@@ -633,7 +648,7 @@ public class EthernetTracker {
         // Note: if the interface already has link (e.g., if we crashed and got
         // restarted while it was running), we need to fake a link up notification so we
         // start configuring it.
-        if (NetdUtils.hasFlag(config, INetd.IF_FLAG_RUNNING)) {
+        if (isAlreadyRunning) {
             // no need to send an interface state change as this is not a true "state change". The
             // callers (maybeTrackInterface() and setTetheringInterfaceMode()) already broadcast the
             // state change.
