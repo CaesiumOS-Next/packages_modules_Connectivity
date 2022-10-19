@@ -245,6 +245,19 @@ public class EthernetNetworkFactory {
         return iface.updateLinkState(up);
     }
 
+    public void setInterfaceEnabled(String ifaceName, boolean enabled) {
+        // The caller already checks that this interface exists, so technically this is not
+        // necessary. But it also does not hurt and can always be removed when
+        // EthernetNetworkFactory is merged into EthernetTracker.
+        if (!hasInterface(ifaceName)) {
+            return;
+        }
+        Log.i(TAG, "setInterfaceEnabled(" + ifaceName + "," + (enabled ? "enabled)" : "disabled)"));
+
+        NetworkInterfaceState iface = mTrackingInterfaces.get(ifaceName);
+        iface.setEnabled(enabled);
+    }
+
     @VisibleForTesting
     protected boolean hasInterface(String ifaceName) {
         return mTrackingInterfaces.containsKey(ifaceName);
@@ -263,7 +276,11 @@ public class EthernetNetworkFactory {
 
         private static String sTcpBufferSizes = null;  // Lazy initialized.
 
+        // Both mLinkUp and mEnabled decide over whether an IpClient should be created on the
+        // interface. If either of them is false, the interface stays inactive.
         private boolean mLinkUp;
+        private boolean mEnabled = true;
+
         private int mLegacyType;
         private LinkProperties mLinkProperties = new LinkProperties();
         private final Set<Integer> mRequestIds = new ArraySet<>();
@@ -576,22 +593,31 @@ public class EthernetNetworkFactory {
             restart();
         }
 
+        private void handleInterfaceStateChange() {
+            if (mLinkUp && mEnabled) { // was inactive, becomes active
+                registerNetworkOffer();
+            } else { // was active, becomes inactive
+                unregisterNetworkOfferAndStop();
+            }
+        }
+
         /** Returns true if state has been modified */
         boolean updateLinkState(final boolean up) {
             if (mLinkUp == up)  {
                 return false;
             }
             mLinkUp = up;
-
-            if (!up) { // was up, goes down
-                // retract network offer and stop IpClient.
-                unregisterNetworkOfferAndStop();
-            } else { // was down, goes up
-                // register network offer
-                registerNetworkOffer();
-            }
-
+            handleInterfaceStateChange();
             return true;
+        }
+
+        /** Enable / disable interface. A disabled interface does not start an IpClient. */
+        public void setEnabled(boolean enabled) {
+            if (mEnabled == enabled) {
+                return;
+            }
+            mEnabled = enabled;
+            handleInterfaceStateChange();
         }
 
         private void stop() {

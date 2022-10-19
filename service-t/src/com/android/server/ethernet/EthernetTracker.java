@@ -373,7 +373,17 @@ public class EthernetTracker {
     @VisibleForTesting(visibility = PACKAGE)
     protected void setInterfaceEnabled(@NonNull final String iface, boolean enabled,
             @Nullable final EthernetCallback cb) {
-        mHandler.post(() -> updateInterfaceState(iface, enabled, cb));
+        mHandler.post(() -> {
+            final int mode = getInterfaceMode(iface);
+            if (mode == INTERFACE_MODE_SERVER || !mFactory.hasInterface(iface)) {
+                // The interface is in server mode or is not tracked.
+                cb.onError("Failed to " + (enabled ? "enable " : "disable ") + iface);
+                return;
+            }
+
+            mFactory.setInterfaceEnabled(iface, enabled);
+            cb.onResult(iface);
+        });
     }
 
     IpConfiguration getIpConfiguration(String iface) {
