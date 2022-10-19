@@ -306,6 +306,30 @@
       },
       "revId": "afad42a031fd6e2221260285d32ca33f81580f7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6a46b1d_3e094291",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-19T02:31:18Z",
+      "side": 1,
+      "message": "It seems to me the way it matches template should not be changed.\nCan we keep the test? If not, why?",
+      "parentUuid": "bac1539d_25a23b3e",
+      "range": {
+        "startLine": 171,
+        "startChar": 28,
+        "endLine": 171,
+        "endChar": 51
+      },
+      "revId": "afad42a031fd6e2221260285d32ca33f81580f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

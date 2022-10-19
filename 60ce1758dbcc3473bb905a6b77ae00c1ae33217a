@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a781716e_0ed3bed3",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-19T02:31:18Z",
+      "side": 1,
+      "message": "1. It seems to me matchSubscriberIds \u003d null doesn\u0027t mean anything.\nIf so, can we requireNonNull inside the function?\n\n2. Can we remove this function or replace the implementation with Builder?",
+      "range": {
+        "startLine": 217,
+        "startChar": 20,
+        "endLine": 217,
+        "endChar": 24
+      },
+      "revId": "60ce1758dbcc3473bb905a6b77ae00c1ae33217a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6782225_6826c340",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-19T02:31:18Z",
+      "side": 1,
+      "message": "1. It seems to me [null] or [] are also a valid MatchSubscriberIds, right?\nIf so we should not name it this way.\n\n2. Is [xxx, null] valid for MATCH_CARRIER?",
+      "range": {
+        "startLine": 347,
+        "startChar": 25,
+        "endLine": 347,
+        "endChar": 92
+      },
+      "revId": "60ce1758dbcc3473bb905a6b77ae00c1ae33217a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ea337ee_18b31ad4",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-19T02:31:18Z",
+      "side": 1,
+      "message": "It seems to me the function name is not correct and I don\u0027t understand why we need this function. Can you help to explain?",
+      "range": {
+        "startLine": 712,
+        "startChar": 16,
+        "endLine": 714,
+        "endChar": 17
+      },
+      "revId": "60ce1758dbcc3473bb905a6b77ae00c1ae33217a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3d3a41e_b06fcbb3",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-19T02:31:18Z",
+      "side": 1,
+      "message": "Do we want to remove this case?\nThe comment does not match the code, it seems to me it should be {} and {null}, right?",
+      "range": {
+        "startLine": 788,
+        "startChar": 48,
+        "endLine": 788,
+        "endChar": 52
+      },
+      "revId": "60ce1758dbcc3473bb905a6b77ae00c1ae33217a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c6b1e5e_eba77b62",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-19T02:31:18Z",
+      "side": 1,
+      "message": "templateWifiImsi1Key1?",
+      "range": {
+        "startLine": 566,
+        "startChar": 12,
+        "endLine": 566,
+        "endChar": 24
+      },
+      "revId": "60ce1758dbcc3473bb905a6b77ae00c1ae33217a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b5308e3_e067a969",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-19T02:31:18Z",
+      "side": 0,
+      "message": "Who is calling this function? Will this break something stored in user device?",
+      "range": {
+        "startLine": 457,
+        "startChar": 8,
+        "endLine": 457,
+        "endChar": 46
+      },
+      "revId": "bda6a2d3108599e8166816835ba6dcac4098e96e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
