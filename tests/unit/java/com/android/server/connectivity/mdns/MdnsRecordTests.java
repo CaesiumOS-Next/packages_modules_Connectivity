@@ -277,6 +277,41 @@ public class MdnsRecordTests {
     }
 
     @Test
+    public void testAnyRecord() throws IOException {
+        final byte[] dataIn = HexDump.hexStringToByteArray(
+                "047465737407616E64726F696403636F6D0000FF0001000000000000");
+        assertNotNull(dataIn);
+        String dataInText = HexDump.dumpHexString(dataIn, 0, dataIn.length);
+
+        // Decode
+        DatagramPacket packet = new DatagramPacket(dataIn, dataIn.length);
+        MdnsPacketReader reader = new MdnsPacketReader(packet);
+
+        String[] name = reader.readLabels();
+        assertNotNull(name);
+        assertEquals(3, name.length);
+        String fqdn = MdnsRecord.labelsToString(name);
+        assertEquals("test.android.com", fqdn);
+
+        int type = reader.readUInt16();
+        assertEquals(MdnsRecord.TYPE_ANY, type);
+
+        MdnsAnyRecord record = new MdnsAnyRecord(name, reader);
+
+        // Encode
+        MdnsPacketWriter writer = new MdnsPacketWriter(MAX_PACKET_SIZE);
+        record.write(writer, record.getReceiptTime());
+
+        packet = writer.getPacket(MULTICAST_IPV4_ADDRESS);
+        byte[] dataOut = packet.getData();
+
+        String dataOutText = HexDump.dumpHexString(dataOut, 0, packet.getLength());
+        Log.d(TAG, dataOutText);
+
+        assertEquals(dataInText, dataOutText);
+    }
+
+    @Test
     public void testTextRecord() throws IOException {
         final byte[] dataIn = HexDump.hexStringToByteArray(
                 "0474657374000010"
