@@ -17,11 +17,13 @@
 package com.android.server;
 
 import android.content.Context;
+import android.net.wear.CompanionDeviceManagerProxy;
 import android.util.Log;
 
 import com.android.modules.utils.build.SdkLevel;
 import com.android.networkstack.apishim.ConstantsShim;
 import com.android.server.connectivity.ConnectivityNativeService;
+import com.android.server.connectivity.wear.CompanionDeviceManagerProxyService;
 import com.android.server.ethernet.EthernetService;
 import com.android.server.ethernet.EthernetServiceImpl;
 import com.android.server.nearby.NearbyService;
@@ -38,6 +40,7 @@ public final class ConnectivityServiceInitializer extends SystemService {
     private final NsdService mNsdService;
     private final NearbyService mNearbyService;
     private final EthernetServiceImpl mEthernetServiceImpl;
+    private final CompanionDeviceManagerProxyService mCompanionDeviceManagerProxyService;
 
     public ConnectivityServiceInitializer(Context context) {
         super(context);
@@ -49,6 +52,8 @@ public final class ConnectivityServiceInitializer extends SystemService {
         mConnectivityNative = createConnectivityNativeService(context);
         mNsdService = createNsdService(context);
         mNearbyService = createNearbyService(context);
+        // TODO: use a separate method
+        mCompanionDeviceManagerProxyService = new CompanionDeviceManagerProxyService(context);
     }
 
     @Override
@@ -85,6 +90,8 @@ public final class ConnectivityServiceInitializer extends SystemService {
                     /* allowIsolated= */ false);
         }
 
+        publishBinderService(CompanionDeviceManagerProxy.COMPANION_DEVICE_MANAGER_PROXY_SERVICE,
+                mCompanionDeviceManagerProxyService, /* allowIsolated= */ false);
     }
 
     @Override

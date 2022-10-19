@@ -80,7 +80,7 @@ java_defaults {
         "framework-connectivity-t.stubs.module_lib",
     ],
     impl_only_libs: [
-        "framework-tethering.stubs.module_lib",
+        "framework-tethering.impl", // Shouldn't need to say .impl explicitly ?
         "framework-wifi.stubs.module_lib",
         "net-utils-device-common",
     ],
@@ -109,9 +109,9 @@ java_library {
     libs: [
         // This cannot be in the defaults clause above because if it were, it would be used
         // to generate the connectivity stubs. That would create a circular dependency
-        // because the tethering stubs depend on the connectivity stubs (e.g.,
+        // because the tethering impl depend on the connectivity stubs (e.g.,
         // TetheringRequest depends on LinkAddress).
-        "framework-tethering.stubs.module_lib",
+        "framework-tethering.impl",
         "framework-wifi.stubs.module_lib",
     ],
     visibility: ["//packages/modules/Connectivity:__subpackages__"]

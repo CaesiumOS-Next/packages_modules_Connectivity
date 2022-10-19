@@ -148,7 +148,7 @@ java_library {
         "framework-annotations-lib",
         "framework-connectivity-pre-jarjar",
         "framework-connectivity-t.stubs.module_lib",
-        "framework-tethering.stubs.module_lib",
+        "framework-tethering.impl",  // Shouldn't need to say .impl explicitly ?
         "framework-wifi.stubs.module_lib",
         "unsupportedappusage",
         "ServiceConnectivityResources",

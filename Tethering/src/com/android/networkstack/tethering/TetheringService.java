@@ -28,6 +28,8 @@ import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_UNSUPPORTED;
 import static android.net.dhcp.IDhcpServer.STATUS_UNKNOWN_ERROR;
 
+import static com.android.modules.utils.build.SdkLevel.isAtLeastS;
+
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
@@ -41,6 +43,7 @@ import android.net.TetheringRequestParcel;
 import android.net.dhcp.DhcpServerCallbacks;
 import android.net.dhcp.DhcpServingParamsParcel;
 import android.net.ip.IpServer;
+import android.net.wear.CompanionDeviceManagerProxy;
 import android.os.Binder;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -78,6 +81,15 @@ public class TetheringService extends Service {
         mConnector = new TetheringConnector(makeTethering(deps), TetheringService.this);
 
         mSettingsShim = SettingsShimImpl.newInstance();
+
+        if (isAtLeastS()) {
+            final CompanionDeviceManagerProxy cdmp =
+                    getSystemService(CompanionDeviceManagerProxy.class);
+            Log.i(TAG, "Got CDMP: " + (cdmp != null));
+            if (cdmp != null) {
+                Log.i(TAG, "Associations: " + cdmp.getAllAssociations());
+            }
+        }
     }
 
     /**

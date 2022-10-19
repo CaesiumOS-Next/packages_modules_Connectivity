@@ -19,6 +19,8 @@ package android.net;
 import android.annotation.SystemApi;
 import android.app.SystemServiceRegistry;
 import android.content.Context;
+import android.net.wear.CompanionDeviceManagerProxy;
+import android.net.wear.ICompanionDeviceManagerProxy;
 
 /**
  * Class for performing registration for all core connectivity services.
@@ -74,5 +76,11 @@ public final class ConnectivityFrameworkInitializer {
                 DnsResolverServiceManager.class,
                 (context, serviceBinder) -> new DnsResolverServiceManager(serviceBinder)
         );
+
+        SystemServiceRegistry.registerStaticService(
+                CompanionDeviceManagerProxy.COMPANION_DEVICE_MANAGER_PROXY_SERVICE,
+                CompanionDeviceManagerProxy.class,
+                serviceBinder -> new CompanionDeviceManagerProxy(
+                        ICompanionDeviceManagerProxy.Stub.asInterface(serviceBinder)));
     }
 }
