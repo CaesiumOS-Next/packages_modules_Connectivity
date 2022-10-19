@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "bda7fd21_68f3a6e9",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-19T02:50:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "439c27ce_85b66009",
+      "range": {
+        "startLine": 575,
+        "startChar": 11,
+        "endLine": 575,
+        "endChar": 87
+      },
+      "revId": "6ec42e953f13864573d77638fff520651352b02b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "1903deac_7c3c813c",
         "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
         "patchSetId": 26
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "I think this is a reasonable expectation to add to the test. Changing the order of callbacks may break certain apps. TV\u0027s for instance only support one interface in their settings UI. I can\u0027t remember if it\u0027s the first one that\u0027s discovered or just eth0, but either way, changing the older of callbacks could affect an application (however terrible) like that.",
       "parentUuid": "1903deac_7c3c813c",
+      "range": {
+        "startLine": 597,
+        "startChar": 8,
+        "endLine": 597,
+        "endChar": 17
+      },
+      "revId": "6ec42e953f13864573d77638fff520651352b02b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3942298d_f1020589",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-19T02:50:07Z",
+      "side": 1,
+      "message": "Not sure if we usually write this kind of behavior in the API doc.\nBut if we guarantee the order, I felt it\u0027s better to write in the API comment otherwise users are not sure if they can depend on this behavior.",
+      "parentUuid": "fc628b96_3c4f3dfc",
       "range": {
         "startLine": 597,
         "startChar": 8,
