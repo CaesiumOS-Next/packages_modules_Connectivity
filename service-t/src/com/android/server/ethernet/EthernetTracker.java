@@ -370,9 +370,7 @@ public class EthernetTracker {
         });
     }
 
-    @VisibleForTesting(visibility = PACKAGE)
-    protected void setInterfaceEnabled(@NonNull final String iface, boolean enabled,
-            @Nullable final EthernetCallback cb) {
+    public void setInterfaceEnabled(String iface, boolean enabled, EthernetCallback cb) {
         mHandler.post(() -> {
             final int mode = getInterfaceMode(iface);
             if (mode == INTERFACE_MODE_SERVER || !mFactory.hasInterface(iface)) {
