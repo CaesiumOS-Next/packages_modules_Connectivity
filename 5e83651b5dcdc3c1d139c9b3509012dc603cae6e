@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4899d8c1_21daae33",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1033608
+      },
+      "writtenOn": "2022-10-19T18:50:50Z",
+      "side": 1,
+      "message": "This is a great start, thanks! Both comments mentioned below I could resolve on my own, in a separate CL, but still wanted to give you a heads up",
+      "revId": "5e83651b5dcdc3c1d139c9b3509012dc603cae6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a42415bc_b5f4aca4",
+        "filename": "Tethering/common/TetheringLib/src/android/net/wear/CompanionDeviceManagerProxy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1033608
+      },
+      "writtenOn": "2022-10-19T18:50:50Z",
+      "side": 1,
+      "message": "We can\u0027t actually refer to their types directly, because they are called differently and are hidden in Android S: https://android.googlesource.com/platform/frameworks/base/+/refs/heads/android12L-release/core/java/android/companion/Association.java\n\nThat\u0027s the reason I had my own type specified in the other CL",
+      "revId": "5e83651b5dcdc3c1d139c9b3509012dc603cae6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29c9d8e0_297a8daa",
+        "filename": "service/src/com/android/server/connectivity/wear/CompanionDeviceManagerProxyService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1033608
+      },
+      "writtenOn": "2022-10-19T18:50:50Z",
+      "side": 1,
+      "message": "And we will likely need the opposite direction too, to push updates to the lib. However, I can add that with some callbacks.",
+      "revId": "5e83651b5dcdc3c1d139c9b3509012dc603cae6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
