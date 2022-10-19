@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "40fece85_2d190e15",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-19T11:03:22Z",
+      "side": 1,
+      "message": "I checked that hasBattery() returns ture on device. Not sure what value will be returned if a device with removable battery, I\u0027m asking battery team on the bug and will have a build to tester for verifying that the test can be ignored.",
+      "parentUuid": "4aa1daec_388dc19d",
+      "revId": "996803f4d7f63eef42d388d0e1ff01702d9bea98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c60250c5_60131813",
         "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
         "patchSetId": 1
@@ -83,6 +101,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3edc691a_15a82d3a",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-19T11:03:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebe37518_1deeafe7",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 9
+      },
+      "revId": "996803f4d7f63eef42d388d0e1ff01702d9bea98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45ed1559_49acfc19",
@@ -96,6 +138,30 @@
       "writtenOn": "2022-10-18T01:04:39Z",
       "side": 1,
       "message": "Nit: it would be good to have an assertNotNull with an error message on this, to avoid failing with NPE if the broadcast was not sent up to now; NPE would not be very explicit",
+      "range": {
+        "startLine": 215,
+        "startChar": 15,
+        "endLine": 215,
+        "endChar": 26
+      },
+      "revId": "996803f4d7f63eef42d388d0e1ff01702d9bea98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c66d0c5_258e0c29",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-19T11:03:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45ed1559_49acfc19",
       "range": {
         "startLine": 215,
         "startChar": 15,
