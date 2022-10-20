@@ -22,6 +22,122 @@
       },
       "revId": "8250840af4774e42f39cb814f71b41a0a65e7838",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5564e9f8_e09f2ee0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-20T05:29:33Z",
+      "side": 1,
+      "message": "+1 ; also it may be much more useful to display INTERNET, NETWORK, SYSTEM and the like instead of an int.",
+      "parentUuid": "867d825a_a0cce2e3",
+      "range": {
+        "startLine": 16,
+        "startChar": 316,
+        "endLine": 16,
+        "endChar": 800
+      },
+      "revId": "8250840af4774e42f39cb814f71b41a0a65e7838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdb2ec4e_4736a2ee",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-20T05:29:33Z",
+      "side": 1,
+      "message": "This method doesn\u0027t \"hide\" stuff from the passed sparse int array. It renders it without the none permission.\n\nSuggest renaming this to \"renderPermissions\" instead.",
+      "range": {
+        "startLine": 543,
+        "startChar": 19,
+        "endLine": 543,
+        "endChar": 23
+      },
+      "revId": "8250840af4774e42f39cb814f71b41a0a65e7838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "574caeef_208b892e",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-20T05:29:33Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 549,
+        "startChar": 8,
+        "endLine": 549,
+        "endChar": 21
+      },
+      "revId": "8250840af4774e42f39cb814f71b41a0a65e7838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d5c25e5_0f1d38c8",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-20T05:29:33Z",
+      "side": 1,
+      "message": "I think you\u0027ll need to justify this magic constant. Also IIUC this is vastly overestimated, since for each UID we\u0027ll show \"$uid\u003d$perm, \" and that\u0027s generally 9 characters, plus \"{}\". So 9 or 10 here sounds like a better choice, possibly adding +2 for the {}.\n\n(that\u0027s true for the current scheme, but this changes if you follow the comments below and on the cover comment)",
+      "range": {
+        "startLine": 549,
+        "startChar": 56,
+        "endLine": 549,
+        "endChar": 58
+      },
+      "revId": "8250840af4774e42f39cb814f71b41a0a65e7838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00e52ca0_75505a05",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-20T05:29:33Z",
+      "side": 1,
+      "message": "Can we show a useful string instead of 1 2 3 4 ?",
+      "range": {
+        "startLine": 562,
+        "startChar": 26,
+        "endLine": 562,
+        "endChar": 31
+      },
+      "revId": "8250840af4774e42f39cb814f71b41a0a65e7838",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
