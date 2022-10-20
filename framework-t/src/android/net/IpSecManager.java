@@ -823,16 +823,17 @@ public class IpSecManager {
          * Update the underlying network for this IpSecTunnelInterface.
          *
          * <p>This new underlying network will be used for all transforms applied AFTER this call is
-         * complete. Before new {@link IpSecTransform}(s) with matching addresses are applied to
-         * this tunnel interface, traffic will still use the old SA, and be routed on the old
-         * underlying network.
+         * complete. Before {@link IpSecTransform}(s) with matching addresses are applied to this
+         * tunnel interface, traffic will still use the old SA, and be routed on the old underlying
+         * network.
          *
          * <p>To migrate IPsec tunnel mode traffic, a caller should:
          *
          * <ol>
          *   <li>Update the IpSecTunnelInterface’s underlying network.
-         *   <li>Apply {@link IpSecTransform}(s) with matching addresses to this
-         *       IpSecTunnelInterface.
+         *   <li>Apply {@link IpSecTransform}(s) with matching addresses or {@link
+         *       IpSecTransform}(s) that have started migration (see {@link
+         *       IpSecManager#startMigration}) to addresses matching this IpSecTunnelInterface.
          * </ol>
          *
          * @param underlyingNetwork the new {@link Network} that will carry traffic for this tunnel.
@@ -841,7 +842,6 @@ public class IpSecManager {
          *     method will throw an {@link IllegalArgumentException}. If the IpSecTunnelInterface is
          *     later added to this network, all outbound traffic will be blackholed.
          */
-        // TODO: b/169171001 Update the documentation when transform migration is supported.
         // The purpose of making updating network and applying transforms separate is to leave open
         // the possibility to support lossless migration procedures. To do that, Android platform
         // will need to support multiple inbound tunnel mode transforms, just like it can support
@@ -1011,7 +1011,9 @@ public class IpSecManager {
      *
      * <p>Begins the process of migrating a transform. To complete the migration once started,
      * callers MUST apply the same transform to the appropriate tunnel using {@link
-     * IpSecManager#applyTunnelModeTransform}.
+     * IpSecManager#applyTunnelModeTransform}. Otherwise, the address update will not be committed
+     * and the transform will still only process traffic between the current source and destination
+     * address.
      *
      * <p>The provided source and destination addresses MUST share the same address family, but they
      * can have a different family from the current addresses.
@@ -1025,6 +1027,7 @@ public class IpSecManager {
      * @param newDestinationAddress the new destination address
      * @hide
      */
+    @SystemApi
     @RequiresFeature(FEATURE_IPSEC_TUNNEL_MIGRATION)
     @RequiresPermission(android.Manifest.permission.MANAGE_IPSEC_TUNNELS)
     public void startMigration(
