@@ -688,6 +688,7 @@ public class TetheringTest {
 
         when(mPackageManager.hasSystemFeature(PackageManager.FEATURE_WIFI)).thenReturn(true);
         when(mPackageManager.hasSystemFeature(PackageManager.FEATURE_WIFI_DIRECT)).thenReturn(true);
+        doReturn(false).when(mConfig).ignoreNetdIfaceChangeEvent();
     }
 
     private void setTetheringSupported(final boolean supported) {
@@ -935,7 +936,7 @@ public class TetheringTest {
         failingLocalOnlyHotspotLegacyApBroadcast(false);
     }
 
-    private void verifyStopHotpot() throws Exception {
+    private void verifyStopHotspot() throws Exception {
         verify(mNetd).tetherApplyDnsInterfaces();
         verify(mNetd).tetherInterfaceRemove(TEST_WLAN_IFNAME);
         verify(mNetd).networkRemoveInterface(INetd.LOCAL_NET_ID, TEST_WLAN_IFNAME);
@@ -943,13 +944,19 @@ public class TetheringTest {
         verify(mNetd, times(3)).interfaceSetCfg(any(InterfaceConfigurationParcel.class));
         verify(mNetd).tetherStop();
         verify(mNetd).ipfwdDisableForwarding(TETHERING_NAME);
-        verify(mWifiManager, times(3)).updateInterfaceIpState(
+        // Both enabling/disabling would update IFACE_IP_MODE_UNSPECIFIED.
+        verify(mWifiManager, times(2)).updateInterfaceIpState(
                 TEST_WLAN_IFNAME, WifiManager.IFACE_IP_MODE_UNSPECIFIED);
         verifyNoMoreInteractions(mNetd);
         verifyNoMoreInteractions(mWifiManager);
+    }
+
+    private void verifyIpServerUnavailable(String iface) throws Exception {
         // Asking for the last error after the per-interface state machine
         // has been reaped yields an unknown interface error.
-        assertEquals(TETHER_ERROR_UNKNOWN_IFACE, mTethering.getLastErrorForTest(TEST_WLAN_IFNAME));
+        assertEquals(TETHER_ERROR_UNKNOWN_IFACE, mTethering.getLastErrorForTest(iface));
+        assertNotContains(Arrays.asList(mTethering.getTetheredIfaces()), iface);
+        assertNotContains(Arrays.asList(mTethering.getTetherableIfacesForTest()), iface);
     }
 
     private void verifyStartHotspot() throws Exception {
@@ -988,6 +995,12 @@ public class TetheringTest {
         // hotspot mode is to be started.
         if (emulateInterfaceStatusChanged) {
             mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
+            mLooper.dispatchAll();
+            assertContains(Arrays.asList(mTethering.getTetherableIfacesForTest()),
+                    TEST_WLAN_IFNAME);
+        } else {
+            assertNotContains(Arrays.asList(mTethering.getTetherableIfacesForTest()),
+                    TEST_WLAN_IFNAME);
         }
         sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_LOCAL_ONLY);
 
@@ -997,10 +1010,16 @@ public class TetheringTest {
         // Emulate externally-visible WifiManager effects, when hotspot mode
         // is being torn down.
         sendWifiApStateChanged(WIFI_AP_STATE_DISABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_LOCAL_ONLY);
-        mTethering.interfaceRemoved(TEST_WLAN_IFNAME);
-        mLooper.dispatchAll();
+        verifyStopHotspot();
+        reset(mWifiManager);
 
-        verifyStopHotpot();
+        if (emulateInterfaceStatusChanged) {
+            mTethering.interfaceRemoved(TEST_WLAN_IFNAME);
+            verifyIpServerUnavailable(TEST_WLAN_IFNAME);
+        } else {
+            assertContains(Arrays.asList(mTethering.getTetherableIfacesForTest()),
+                    TEST_WLAN_IFNAME);
+        }
     }
 
     /**
@@ -1544,10 +1563,10 @@ public class TetheringTest {
         // Emulate externally-visible WifiManager effects, when tethering mode
         // is being torn down.
         sendWifiApStateChanged(WIFI_AP_STATE_DISABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
-        mTethering.interfaceRemoved(TEST_WLAN_IFNAME);
-        mLooper.dispatchAll();
+        verifyStopHotspot();
 
-        verifyStopHotpot();
+        mTethering.interfaceRemoved(TEST_WLAN_IFNAME);
+        verifyIpServerUnavailable(TEST_WLAN_IFNAME);
     }
 
     // TODO: Test with and without interfaceStatusChanged().
@@ -2028,49 +2047,69 @@ public class TetheringTest {
         verifyNoMoreInteractions(mEm);
     }
 
-    private void workingWifiP2pGroupOwner(
-            boolean emulateInterfaceStatusChanged) throws Exception {
-        if (emulateInterfaceStatusChanged) {
-            mTethering.interfaceStatusChanged(TEST_P2P_IFNAME, true);
-        }
-        sendWifiP2pConnectionChanged(true, true, TEST_P2P_IFNAME);
-
+    private void verifyP2pStarted() throws Exception {
         verifyInterfaceServingModeStarted(TEST_P2P_IFNAME);
         verifyTetheringBroadcast(TEST_P2P_IFNAME, EXTRA_AVAILABLE_TETHER);
-        verify(mNetd, times(1)).ipfwdEnableForwarding(TETHERING_NAME);
-        verify(mNetd, times(1)).tetherStartWithConfiguration(any());
+        verify(mNetd).ipfwdEnableForwarding(TETHERING_NAME);
+        verify(mNetd).tetherStartWithConfiguration(any());
         verifyNoMoreInteractions(mNetd);
         verifyTetheringBroadcast(TEST_P2P_IFNAME, EXTRA_ACTIVE_LOCAL_ONLY);
-        verify(mUpstreamNetworkMonitor, times(1)).startObserveAllNetworks();
+        verify(mUpstreamNetworkMonitor).startObserveAllNetworks();
         // There are 2 IpServer state change events: STATE_AVAILABLE -> STATE_LOCAL_ONLY
         verify(mNotificationUpdater, times(2)).onDownstreamChanged(DOWNSTREAM_NONE);
 
         assertEquals(TETHER_ERROR_NO_ERROR, mTethering.getLastErrorForTest(TEST_P2P_IFNAME));
+    }
+
+    private void verifyP2pStopped() throws Exception {
+        verify(mNetd).tetherApplyDnsInterfaces();
+        verify(mNetd).tetherInterfaceRemove(TEST_P2P_IFNAME);
+        verify(mNetd).networkRemoveInterface(INetd.LOCAL_NET_ID, TEST_P2P_IFNAME);
+        // interfaceSetCfg() called once for enabling and twice for disabling IPv4.
+        verify(mNetd, times(3)).interfaceSetCfg(any(InterfaceConfigurationParcel.class));
+        verify(mNetd).tetherStop();
+        verify(mNetd).ipfwdDisableForwarding(TETHERING_NAME);
+        verify(mUpstreamNetworkMonitor, never()).getCurrentPreferredUpstream();
+        verify(mUpstreamNetworkMonitor, never()).selectPreferredUpstreamType(any());
+        verifyNoMoreInteractions(mNetd);
+    }
+
+    private void workingWifiP2pGroupOwner(
+            boolean emulateInterfaceStatusChanged) throws Exception {
+        if (emulateInterfaceStatusChanged) {
+            mTethering.interfaceStatusChanged(TEST_P2P_IFNAME, true);
+            mLooper.dispatchAll();
+            assertContains(Arrays.asList(mTethering.getTetherableIfacesForTest()), TEST_P2P_IFNAME);
+        } else {
+            assertNotContains(Arrays.asList(mTethering.getTetherableIfacesForTest()),
+                    TEST_P2P_IFNAME);
+        }
+        sendWifiP2pConnectionChanged(true, true, TEST_P2P_IFNAME);
+
+        verifyP2pStarted();
 
         // Emulate externally-visible WifiP2pManager effects, when wifi p2p group
         // is being removed.
         sendWifiP2pConnectionChanged(false, true, TEST_P2P_IFNAME);
-        mTethering.interfaceRemoved(TEST_P2P_IFNAME);
 
-        verify(mNetd, times(1)).tetherApplyDnsInterfaces();
-        verify(mNetd, times(1)).tetherInterfaceRemove(TEST_P2P_IFNAME);
-        verify(mNetd, times(1)).networkRemoveInterface(INetd.LOCAL_NET_ID, TEST_P2P_IFNAME);
-        // interfaceSetCfg() called once for enabling and twice for disabling IPv4.
-        verify(mNetd, times(3)).interfaceSetCfg(any(InterfaceConfigurationParcel.class));
-        verify(mNetd, times(1)).tetherStop();
-        verify(mNetd, times(1)).ipfwdDisableForwarding(TETHERING_NAME);
-        verify(mUpstreamNetworkMonitor, never()).getCurrentPreferredUpstream();
-        verify(mUpstreamNetworkMonitor, never()).selectPreferredUpstreamType(any());
-        verifyNoMoreInteractions(mNetd);
-        // Asking for the last error after the per-interface state machine
-        // has been reaped yields an unknown interface error.
-        assertEquals(TETHER_ERROR_UNKNOWN_IFACE, mTethering.getLastErrorForTest(TEST_P2P_IFNAME));
+        verifyP2pStopped();
+        if (emulateInterfaceStatusChanged) {
+            mTethering.interfaceRemoved(TEST_P2P_IFNAME);
+            verifyIpServerUnavailable(TEST_P2P_IFNAME);
+        } else {
+            assertContains(Arrays.asList(mTethering.getTetherableIfacesForTest()), TEST_P2P_IFNAME);
+        }
     }
 
     private void workingWifiP2pGroupClient(
             boolean emulateInterfaceStatusChanged) throws Exception {
         if (emulateInterfaceStatusChanged) {
             mTethering.interfaceStatusChanged(TEST_P2P_IFNAME, true);
+            mLooper.dispatchAll();
+            assertContains(Arrays.asList(mTethering.getTetherableIfacesForTest()), TEST_P2P_IFNAME);
+        } else {
+            assertNotContains(Arrays.asList(mTethering.getTetherableIfacesForTest()),
+                    TEST_P2P_IFNAME);
         }
         sendWifiP2pConnectionChanged(true, false, TEST_P2P_IFNAME);
 
@@ -2083,7 +2122,6 @@ public class TetheringTest {
         // Emulate externally-visible WifiP2pManager effects, when wifi p2p group
         // is being removed.
         sendWifiP2pConnectionChanged(false, false, TEST_P2P_IFNAME);
-        mTethering.interfaceRemoved(TEST_P2P_IFNAME);
 
         verify(mNetd, never()).tetherApplyDnsInterfaces();
         verify(mNetd, never()).tetherInterfaceRemove(TEST_P2P_IFNAME);
@@ -2092,9 +2130,15 @@ public class TetheringTest {
         verify(mNetd, never()).tetherStop();
         verify(mNetd, never()).ipfwdDisableForwarding(TETHERING_NAME);
         verifyNoMoreInteractions(mNetd);
-        // Asking for the last error after the per-interface state machine
-        // has been reaped yields an unknown interface error.
-        assertEquals(TETHER_ERROR_UNKNOWN_IFACE, mTethering.getLastErrorForTest(TEST_P2P_IFNAME));
+
+        if (emulateInterfaceStatusChanged) {
+            mTethering.interfaceRemoved(TEST_P2P_IFNAME);
+            verifyIpServerUnavailable(TEST_P2P_IFNAME);
+        } else {
+            assertNotContains(Arrays.asList(mTethering.getTetherableIfacesForTest()),
+                    TEST_P2P_IFNAME);
+        }
+
     }
 
     @Test
@@ -2189,6 +2233,10 @@ public class TetheringTest {
 
     private static <T> void assertContains(Collection<T> collection, T element) {
         assertTrue(element + " not found in " + collection, collection.contains(element));
+    }
+
+    private static <T> void assertNotContains(Collection<T> collection, T element) {
+        assertFalse(element + " found in " + collection, collection.contains(element));
     }
 
     private class ResultListener extends IIntResultListener.Stub {
@@ -3044,6 +3092,69 @@ public class TetheringTest {
             final ArraySet<Integer> expectedTypes) {
         assertEquals(expectedTypes.size() > 0, mTethering.isTetheringSupported());
         callback.expectSupportedTetheringTypes(expectedTypes);
+    }
+
+    @Test
+    public void testHotspotWithIgnoreWifiNetdChange() throws Exception {
+        doReturn(true).when(mConfig).ignoreNetdIfaceChangeEvent();
+        when(mWifiManager.startTetheredHotspot(any(SoftApConfiguration.class))).thenReturn(true);
+
+        mTethering.startTethering(createTetheringRequestParcel(TETHERING_WIFI), TEST_CALLER_PKG,
+                null);
+        mLooper.dispatchAll();
+        verify(mWifiManager, times(1)).startTetheredHotspot(null);
+        verifyNoMoreInteractions(mWifiManager);
+        verifyNoMoreInteractions(mNetd);
+
+        // Verify no ipServer created when receiving netd wifi change event.
+        mTethering.interfaceAdded(TEST_WLAN_IFNAME);
+        mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
+        assertNotContains(Arrays.asList(mTethering.getTetherableIfacesForTest()), TEST_WLAN_IFNAME);
+        verifyNoMoreInteractions(mNetd);
+
+        // Only wifi ap change intent can start ipServer.
+        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+        verifyStartHotspot();
+        verifyTetheringBroadcast(TEST_WLAN_IFNAME, EXTRA_ACTIVE_TETHER);
+
+        mTethering.stopTethering(TETHERING_WIFI);
+        mLooper.dispatchAll();
+        verify(mWifiManager, times(1)).stopSoftAp();
+        verifyNoMoreInteractions(mWifiManager);
+        verifyNoMoreInteractions(mNetd);
+
+        // Verify still ipServer still be tethered state when receiving netd wifi change event.
+        mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, false);
+        mTethering.interfaceRemoved(TEST_WLAN_IFNAME);
+        verifyNoMoreInteractions(mNetd);
+        assertContains(Arrays.asList(mTethering.getTetheredIfaces()), TEST_WLAN_IFNAME);
+
+        // Only wifi ap change intent can stop ipServer.
+        sendWifiApStateChanged(WIFI_AP_STATE_DISABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+        verifyStopHotspot();
+        verifyIpServerUnavailable(TEST_WLAN_IFNAME);
+    }
+
+    @Test
+    public void testP2pWithIgnoreWifiNetdChange() throws Exception {
+        doReturn(true).when(mConfig).ignoreNetdIfaceChangeEvent();
+
+        // Verify no ipServer created when receiving netd p2p change event.
+        mTethering.interfaceAdded(TEST_P2P_IFNAME);
+        mTethering.interfaceStatusChanged(TEST_P2P_IFNAME, true);
+        assertNotContains(Arrays.asList(mTethering.getTetherableIfacesForTest()), TEST_P2P_IFNAME);
+        verifyNoMoreInteractions(mNetd);
+
+        sendWifiP2pConnectionChanged(true, true, TEST_P2P_IFNAME);
+        verifyP2pStarted();
+
+        mTethering.interfaceStatusChanged(TEST_P2P_IFNAME, false);
+        mTethering.interfaceRemoved(TEST_P2P_IFNAME);
+        verifyNoMoreInteractions(mNetd);
+
+        sendWifiP2pConnectionChanged(false, true, TEST_P2P_IFNAME);
+        verifyP2pStopped();
+        verifyIpServerUnavailable(TEST_P2P_IFNAME);
     }
     // TODO: Test that a request for hotspot mode doesn't interfere with an
     // already operating tethering mode interface.
