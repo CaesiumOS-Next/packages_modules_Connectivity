@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "087bf59c_51bed8f2",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1222,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-20T05:35:48Z",
+      "side": 1,
+      "message": "I don\u0027t think you can log quite that much output. On my test device with AOSP freshly flashed this is about 9000 lines long. Log will throttle this very aggressively, making the log mostly useless.",
+      "range": {
+        "startLine": 1222,
+        "startChar": 27,
+        "endLine": 1222,
+        "endChar": 33
+      },
+      "revId": "e429b30754dbc12479372bd439c712281dcb6a27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
