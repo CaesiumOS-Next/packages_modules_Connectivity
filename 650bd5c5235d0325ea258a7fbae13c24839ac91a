@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a54310ad_ea07c328",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1298,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-20T06:31:15Z",
+      "side": 1,
+      "message": "Did you want to also lock this ?",
+      "range": {
+        "startLine": 1298,
+        "startChar": 36,
+        "endLine": 1298,
+        "endChar": 57
+      },
+      "revId": "650bd5c5235d0325ea258a7fbae13c24839ac91a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
