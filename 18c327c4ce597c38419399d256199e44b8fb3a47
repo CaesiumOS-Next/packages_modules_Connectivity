@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f3af946_7052bc2a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3024,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-20T06:28:47Z",
+      "side": 1,
+      "message": "Your code is never using the value of this object, so you\u0027ll be much better served by a ConditionVariable.",
+      "range": {
+        "startLine": 3024,
+        "startChar": 32,
+        "endLine": 3024,
+        "endChar": 38
+      },
+      "revId": "18c327c4ce597c38419399d256199e44b8fb3a47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36fe2600_93044588",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3053,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-20T06:28:47Z",
+      "side": 1,
+      "message": "I don\u0027t think this is acceptable with regard to the comment in l.3021. If PermissionMonitor#startMonitoring fails to complete within 3 seconds, this happily continues execution with MultipathPolicyTracker.start() before PermissionMonitor is done, so it silently breaks the system !\n\nToday this method waits for PermissionMonitor#start, no matter how long it takes. So if you wait forever here, you\u0027re not changing the logic.\n\nI understand why you\u0027d want to establish a time limit for this to run, and that\u0027s fine, but you need to be VERY, VERY sure it will never be exceeded. Have you tested that this runs under 3 seconds on the slowest OEM device with hundreds of apps installed ?",
+      "range": {
+        "startLine": 3053,
+        "startChar": 12,
+        "endLine": 3053,
+        "endChar": 74
+      },
+      "revId": "18c327c4ce597c38419399d256199e44b8fb3a47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
