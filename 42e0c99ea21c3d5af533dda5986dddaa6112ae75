@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fe01cb8_384c1a68",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-20T06:08:21Z",
+      "side": 1,
+      "message": "Like below, this is not a very useful place to have a check because this is immediately guaranteed by registering the broadcast with the right handler. See below for a more useful idea.",
+      "range": {
+        "startLine": 163,
+        "startChar": 12,
+        "endLine": 163,
+        "endChar": 40
+      },
+      "revId": "42e0c99ea21c3d5af533dda5986dddaa6112ae75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b098c3d_205e34d6",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-20T06:08:21Z",
+      "side": 1,
+      "message": "This check is not very useful because this is guaranteed by registerContentObserver immediately.\n\nI think it\u0027s a lot more useful to check this in places where we do the actual work, like sendUidsNetworkPermission and sendAppIdsTrafficPermission for example.",
+      "range": {
+        "startLine": 454,
+        "startChar": 24,
+        "endLine": 454,
+        "endChar": 52
+      },
+      "revId": "42e0c99ea21c3d5af533dda5986dddaa6112ae75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5f958c3_51b154e4",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-20T06:08:21Z",
+      "side": 1,
+      "message": "This is running on the wrong thread now isn\u0027t it ? It\u0027s not the handler thread here.\n\nFollowing the advice above would have told you that too.",
+      "range": {
+        "startLine": 461,
+        "startChar": 8,
+        "endLine": 461,
+        "endChar": 45
+      },
+      "revId": "42e0c99ea21c3d5af533dda5986dddaa6112ae75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26f6e45a_1d78207c",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-20T06:08:21Z",
+      "side": 1,
+      "message": "Nit : it would be a little bit more realistic to mimic what the production code is doing : in this case, the production code starts the handler thread *after* it creates PermissionMonitor, so the test should probably do the same thing.",
+      "range": {
+        "startLine": 203,
+        "startChar": 23,
+        "endLine": 203,
+        "endChar": 28
+      },
+      "revId": "42e0c99ea21c3d5af533dda5986dddaa6112ae75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e95f369a_14f0a935",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1178,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-20T06:08:21Z",
+      "side": 1,
+      "message": "This is a copy of Runnable ; you can remove it and replace with Runnable in l.1182 and `execute()` with `run()` in l.1184, and you don\u0027t even have to change any of the other code",
+      "range": {
+        "startLine": 1178,
+        "startChar": 22,
+        "endLine": 1178,
+        "endChar": 37
+      },
+      "revId": "42e0c99ea21c3d5af533dda5986dddaa6112ae75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ca43d89_85986074",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1233,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-20T06:08:21Z",
+      "side": 1,
+      "message": "You can simplify this code by having expectRegisterContentObserver return a ContentObserver that does this for you.\n\n    -return captor.getValue();\n    +final ContentObserver originalObserver \u003d captor.getValue();\n    +return new ContentObserver(mHandler) {\n    +  @Override\n    +  public void onChange(final boolean selfChange) {\n    +    processOnHandlerThread(() -\u003e originalObserver.onChange(selfChange));\n    +  };\n\nYou can do exactly the same thing with expectBroadcastReceiver.",
+      "range": {
+        "startLine": 1233,
+        "startChar": 8,
+        "endLine": 1233,
+        "endChar": 30
+      },
+      "revId": "42e0c99ea21c3d5af533dda5986dddaa6112ae75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
