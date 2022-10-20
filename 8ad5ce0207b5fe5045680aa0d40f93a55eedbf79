@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a25f70c4_da4a61e7",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsResponseDecoderTests.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-20T02:11:36Z",
+      "side": 1,
+      "message": "Upstream had another test case for the other flag value, maybe also include it with @Ignore to avoid merge conflicts ?",
+      "revId": "8ad5ce0207b5fe5045680aa0d40f93a55eedbf79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
