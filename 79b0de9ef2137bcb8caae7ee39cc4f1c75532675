@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f409d2d3_86ccb418",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-20T03:04:53Z",
+      "side": 1,
+      "message": "LGTM but Jean may want to do another pass",
+      "revId": "79b0de9ef2137bcb8caae7ee39cc4f1c75532675",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
