@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52755640_0bce76d3",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-20T05:49:14Z",
+      "side": 1,
+      "message": "Why not just add these two lines in l.413 ?",
+      "range": {
+        "startLine": 429,
+        "startChar": 0,
+        "endLine": 430,
+        "endChar": 63
+      },
+      "revId": "131488dd3df456e609019428f3382ec2188f2383",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
