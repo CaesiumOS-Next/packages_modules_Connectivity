@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77feb1cd_1157a990",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3488,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-20T05:47:04Z",
+      "side": 1,
+      "message": "...so that PermissionMonitor will call getPackageInfo for this package again.",
+      "range": {
+        "startLine": 3488,
+        "startChar": 62,
+        "endLine": 3488,
+        "endChar": 63
+      },
+      "revId": "914d0def255f148061d53d509bec697f6a8385d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
