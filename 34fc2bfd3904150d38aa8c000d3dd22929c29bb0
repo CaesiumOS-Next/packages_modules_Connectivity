@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8224aa2_9312f84e",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1061164
+      },
+      "writtenOn": "2022-10-20T15:09:52Z",
+      "side": 1,
+      "message": "android_library doesn\u0027t need target_sdk_version usually? any reason to add it here?",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 29
+      },
+      "revId": "34fc2bfd3904150d38aa8c000d3dd22929c29bb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2142ecb9_b280cb47",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1061164
+      },
+      "writtenOn": "2022-10-20T15:09:52Z",
+      "side": 1,
+      "message": "TetheringNext is all about being able to use preview API and being able to compile against latest SDK. Do we actually need to keep specific version here though? Maybe remove?",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 219,
+        "endChar": 29
+      },
+      "revId": "34fc2bfd3904150d38aa8c000d3dd22929c29bb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
