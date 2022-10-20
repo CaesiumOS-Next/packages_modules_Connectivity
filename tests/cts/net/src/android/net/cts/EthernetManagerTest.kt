@@ -279,8 +279,12 @@ class EthernetManagerTest {
         fun eventuallyExpect(expected: CallbackEntry) = events.poll(TIMEOUT_MS) { it == expected }
 
         fun eventuallyExpect(iface: EthernetTestInterface, state: Int, role: Int) {
+<<<<<<< HEAD   (916556 [automerger skipped] ethernet: add test for removing interfa)
             val event = createChangeEvent(iface.name, state, role)
             assertNotNull(eventuallyExpect(event), "Never received expected $event")
+=======
+            assertNotNull(eventuallyExpect(createChangeEvent(iface.interfaceName, state, role)))
+>>>>>>> BRANCH (1cfc1a ethernet: expand server mode callbacks test)
         }
 
         fun eventuallyExpect(state: Int) {
@@ -654,6 +658,9 @@ class EthernetManagerTest {
         val iface = createInterface()
         requestTetheredInterface().expectOnAvailable()
 
+        val iface = createInterface()
+        requestTetheredInterface().expectOnAvailable()
+
         val listener = EthernetStateListener()
         addInterfaceStateListener(listener)
         // TODO(b/236895792): THIS IS A BUG! Existing server mode interfaces are not reported when
@@ -663,6 +670,17 @@ class EthernetManagerTest {
 
         releaseTetheredInterface()
         listener.eventuallyExpect(iface, STATE_LINK_UP, ROLE_CLIENT)
+<<<<<<< HEAD   (916556 [automerger skipped] ethernet: add test for removing interfa)
+=======
+
+        requestTetheredInterface().expectOnAvailable()
+        // This should be changed to expectCallback, once b/236895792 is fixed.
+        listener.eventuallyExpect(iface, STATE_LINK_UP, ROLE_SERVER)
+
+        releaseTetheredInterface()
+        listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
+    }
+>>>>>>> BRANCH (1cfc1a ethernet: expand server mode callbacks test)
 
         requestTetheredInterface().expectOnAvailable()
         // This should be changed to expectCallback, once b/236895792 is fixed.
