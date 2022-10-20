@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f25d0263_c1ecf5d0",
+        "filename": "Tethering/common/TetheringLib/src/android/net/wear/CompanionDeviceManagerProxy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-20T11:47:54Z",
+      "side": 1,
+      "message": "Got it, the base idea is that this class should just wrap the APIs, so I\u0027m guessing there are 2 APIs of CompanionDeviceManager, one S+ that uses the old class names, and one T+ that uses AssociationInfo ? Then we\u0027d have both here too.",
+      "parentUuid": "a42415bc_b5f4aca4",
+      "revId": "5e83651b5dcdc3c1d139c9b3509012dc603cae6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "29c9d8e0_297a8daa",
         "filename": "service/src/com/android/server/connectivity/wear/CompanionDeviceManagerProxyService.java",
         "patchSetId": 1
@@ -48,6 +66,24 @@
       "writtenOn": "2022-10-19T18:50:50Z",
       "side": 1,
       "message": "And we will likely need the opposite direction too, to push updates to the lib. However, I can add that with some callbacks.",
+      "revId": "5e83651b5dcdc3c1d139c9b3509012dc603cae6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9a722e3_7a2d4a3b",
+        "filename": "service/src/com/android/server/connectivity/wear/CompanionDeviceManagerProxyService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-20T11:47:54Z",
+      "side": 1,
+      "message": "Sounds good; I think what we noted in the design review is that the API here should just mirror what CompanionDeviceManager does, so if there\u0027s another API to register a callback with CompanionDeviceManager, it should be added here as wrapper.\n\nOr I think you mentioned at some point that older versions need to poll ? In which case this should be implemented in Tethering to just keep this class a wrapper (also what we discussed in the review I think)\n\n(this is just a PoC to prove that one of the APIs can be wrapped, but I expect more stuff would land here)",
+      "parentUuid": "29c9d8e0_297a8daa",
       "revId": "5e83651b5dcdc3c1d139c9b3509012dc603cae6e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
