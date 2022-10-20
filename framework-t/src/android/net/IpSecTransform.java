@@ -99,11 +99,12 @@ public final class IpSecTransform implements AutoCloseable {
     /**
      * Starts migrating this tunnel mode transform to new source/destination addresses.
      *
-     * <p>Begin the process of migrating this transform. To complete the migration once started,
-     * callers should call {@link IpSecManager#applyTunnelModeTransform}.
+     * <p>Begins the process of migrating this transform. To complete the migration once started,
+     * callers MUST apply this transform to the appropriate tunnel using {@link
+     * IpSecManager#applyTunnelModeTransform}.
      *
-     * <p>Provided source and destination addresses MUST share the same address family, but they can
-     * have a different family from the current addresses.
+     * <p>The provided source and destination addresses MUST share the same address family, but they
+     * can have a different family from the current addresses.
      *
      * <p>Transform migration is only supported for Tunnel mode Transform(s). Calling this method on
      * other types of Transform(s) will throw an {@code UnsupportedOperationException}.
@@ -113,6 +114,7 @@ public final class IpSecTransform implements AutoCloseable {
      * @param newDestinationAddress the new destination address
      * @hide
      */
+    @SystemApi
     @RequiresFeature(FEATURE_IPSEC_TUNNEL_MIGRATION)
     @RequiresPermission(android.Manifest.permission.MANAGE_IPSEC_TUNNELS)
     public void startMigration(
