@@ -90,6 +90,7 @@ import java.util.Random
 import java.net.Socket
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutionException
+import java.util.concurrent.TimeoutException
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 import java.util.function.IntConsumer
@@ -611,6 +612,7 @@ class EthernetManagerTest {
         }
     }
 
+<<<<<<< HEAD   (177839 Merge "offload.c - make tether_error_map read only.")
     @Test
     fun testCallbacks_withRunningInterface() {
         assumeFalse(isAdbOverEthernet())
@@ -644,15 +646,44 @@ class EthernetManagerTest {
             // tethering.
             releaseTetheredInterface()
         }
+=======
+    private fun assumeNoInterfaceForTetheringAvailable() {
+        // Interfaces that have configured NetworkCapabilities will never be used for tethering,
+        // see aosp/2123900.
+        try {
+            // assumeException does not exist.
+            requestTetheredInterface().expectOnAvailable()
+            // interface used for tethering is available, throw an assumption error.
+            assumeTrue(false)
+        } catch (e: TimeoutException) {
+            // do nothing -- the TimeoutException indicates that no interface is available for
+            // tethering.
+            releaseTetheredInterface()
+        }
+    }
+
+    // TODO: this function is now used in two places (EthernetManagerTest and
+    // EthernetTetheringTest), so it should be moved to testutils.
+    private fun isAdbOverNetwork(): Boolean {
+        // If adb TCP port opened, this test may running by adb over network.
+        return (SystemProperties.getInt("persist.adb.tcp.port", -1) > -1 ||
+                SystemProperties.getInt("service.adb.tcp.port", -1) > -1)
+>>>>>>> BRANCH (edb331 ethernet: add test for removing interface while in server mo)
     }
 
     @Test
     fun testCallbacks_forServerModeInterfaces() {
+<<<<<<< HEAD   (177839 Merge "offload.c - make tether_error_map read only.")
         // do not run this test if an interface that can be used for tethering already exists.
         assumeNoInterfaceForTetheringAvailable()
 
         val iface = createInterface()
         requestTetheredInterface().expectOnAvailable()
+=======
+        // do not run this test when adb might be connected over ethernet.
+        // TODO: Consider using assumeNoInterfaceForTetheringAvailable() instead, so this runs on CF
+        assumeFalse(isAdbOverNetwork())
+>>>>>>> BRANCH (edb331 ethernet: add test for removing interface while in server mo)
 
         val listener = EthernetStateListener()
         addInterfaceStateListener(listener)
