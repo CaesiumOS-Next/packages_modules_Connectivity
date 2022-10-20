@@ -68,6 +68,7 @@ java_defaults {
     ],
     defaults: ["TetheringExternalLibs"],
     libs: [
+        "connectivity-internal-api-util",
         "framework-tethering.impl",
     ],
     plugins: ["java_api_finder"],
