@@ -115,6 +115,9 @@ public class TetheringConfiguration {
     public static final String TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION =
             "tether_force_upstream_automatic_version";
 
+    public static final String TETHER_IGNORE_NETD_WIFI_CHANGE_EVENT =
+            "tether_no_wifi_ipserver_change_from_netd";
+
     /**
      * Settings key to foce choosing usb functions for usb tethering.
      *
@@ -162,6 +165,7 @@ public class TetheringConfiguration {
     private final boolean mEnableBpfOffload;
     private final boolean mEnableWifiP2pDedicatedIp;
     private final int mP2pLeasesSubnetPrefixLength;
+    private final boolean mIgnoreNetdWifiChangeEvent;
 
     private final int mUsbTetheringFunction;
     protected final ContentResolver mContentResolver;
@@ -233,6 +237,9 @@ public class TetheringConfiguration {
                 false /* defaultValue */);
 
         mP2pLeasesSubnetPrefixLength = getP2pLeasesSubnetPrefixLengthFromRes(res, configLog);
+
+        mIgnoreNetdWifiChangeEvent = isFeatureEnabled(ctx,
+                TETHER_IGNORE_NETD_WIFI_CHANGE_EVENT, SdkLevel.isAtLeastU());
 
         configLog.log(toString());
     }
@@ -364,6 +371,9 @@ public class TetheringConfiguration {
 
         pw.print("mUsbTetheringFunction: ");
         pw.println(isUsingNcm() ? "NCM" : "RNDIS");
+
+        pw.print("ignoreNetdWifiChangeEvent: ");
+        pw.println(mIgnoreNetdWifiChangeEvent);
     }
 
     /** Returns the string representation of this object.*/
@@ -426,6 +436,11 @@ public class TetheringConfiguration {
 
     public boolean isBpfOffloadEnabled() {
         return mEnableBpfOffload;
+    }
+
+    /** Check whether ignore netd wifi interface change event. */
+    public boolean ignoreNetdWifiChangeEvent() {
+        return mIgnoreNetdWifiChangeEvent;
     }
 
     private int getUsbTetheringFunction(Resources res) {

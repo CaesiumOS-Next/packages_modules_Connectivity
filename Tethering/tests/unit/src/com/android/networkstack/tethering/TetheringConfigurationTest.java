@@ -22,6 +22,7 @@ import static android.net.ConnectivityManager.TYPE_MOBILE_DUN;
 import static android.net.ConnectivityManager.TYPE_MOBILE_HIPRI;
 import static android.net.ConnectivityManager.TYPE_WIFI;
 import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
+import static android.provider.DeviceConfig.NAMESPACE_TETHERING;
 import static android.telephony.CarrierConfigManager.KEY_CARRIER_CONFIG_APPLIED_BOOL;
 import static android.telephony.CarrierConfigManager.KEY_REQUIRE_ENTITLEMENT_CHECKS_BOOL;
 import static android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID;
@@ -30,6 +31,7 @@ import static com.android.dx.mockito.inline.extended.ExtendedMockito.doReturn;
 import static com.android.dx.mockito.inline.extended.ExtendedMockito.mockitoSession;
 import static com.android.networkstack.apishim.ConstantsShim.KEY_CARRIER_SUPPORTS_TETHERING_BOOL;
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_FORCE_USB_FUNCTIONS;
+import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_IGNORE_NETD_WIFI_CHANGE_EVENT;
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_USB_NCM_FUNCTION;
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_USB_RNDIS_FUNCTION;
 
@@ -704,5 +706,38 @@ public class TetheringConfigurationTest {
         final TetheringConfiguration p2pCfg =
                 new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID);
         assertEquals(p2pLeasesSubnetPrefixLength, p2pCfg.getP2pLeasesSubnetPrefixLength());
+    }
+
+    private void setTetheringFeatureFlag(String flag, Long version) {
+        doReturn(version == null ? null : Long.toString(version)).when(
+                () -> DeviceConfig.getProperty(eq(NAMESPACE_TETHERING), eq(flag)));
+    }
+
+    private void assertIgnoreNetdWifiChangeEventIs(boolean value) {
+        assertEquals(value, new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID)
+                .ignoreNetdWifiChangeEvent());
+    }
+
+    @Test
+    public void testIgnoreNetdWifiChangeEvent() throws Exception {
+        // test feature default value.
+        setTetheringFeatureFlag(TETHER_IGNORE_NETD_WIFI_CHANGE_EVENT, null);
+        assertIgnoreNetdWifiChangeEventIs(SdkLevel.isAtLeastU());
+
+        // flag version zero means default value.
+        setTetheringFeatureFlag(TETHER_IGNORE_NETD_WIFI_CHANGE_EVENT, 0L);
+        assertIgnoreNetdWifiChangeEventIs(SdkLevel.isAtLeastU());
+
+        // enable feature, module version > flag version.
+        setTetheringFeatureFlag(TETHER_IGNORE_NETD_WIFI_CHANGE_EVENT, TEST_PACKAGE_VERSION - 1);
+        assertIgnoreNetdWifiChangeEventIs(true);
+
+        // enable feature, module version == flag version.
+        setTetheringFeatureFlag(TETHER_IGNORE_NETD_WIFI_CHANGE_EVENT, TEST_PACKAGE_VERSION);
+        assertIgnoreNetdWifiChangeEventIs(true);
+
+        // disable feature, module version < flag version.
+        setTetheringFeatureFlag(TETHER_IGNORE_NETD_WIFI_CHANGE_EVENT, TEST_PACKAGE_VERSION + 1);
+        assertIgnoreNetdWifiChangeEventIs(false);
     }
 }
