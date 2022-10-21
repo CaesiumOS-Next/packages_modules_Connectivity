@@ -92,6 +92,7 @@ public final class IpSecTransform implements AutoCloseable {
     }
 
     private IpSecManager getIpSecManager(Context context) {
+        android.util.Log.d("TEST", "getIpSecManager context " + context);
         return context.getSystemService(IpSecManager.class);
     }
 
@@ -161,8 +162,14 @@ public final class IpSecTransform implements AutoCloseable {
                     IpSecManager.SpiUnavailableException {
         synchronized (this) {
             try {
-                IpSecTransformResponse result = getIpSecManager(mContext).createTransform(
-                        mConfig, new Binder(), mContext.getOpPackageName());
+                IpSecManager mgr = getIpSecManager(mContext);
+                android.util.Log.d("TEST", "activate mContext " + mContext);
+                android.util.Log.d("TEST", "activate mgr " + mgr);
+
+                IpSecTransformResponse result =
+                        mgr.createTransform(mConfig, new Binder(), mContext.getOpPackageName());
+                android.util.Log.d("TEST", "activate result " + result);
+
                 int status = result.status;
                 checkResultStatus(status);
                 mResourceId = result.resourceId;
