@@ -16,6 +16,29 @@
       "message": "Untested.  But I think TH should have sufficient coverage.\n\nBased on cs/ for\np:aosp-master file:ipsec DEVICE_INITIAL_SDK_INT",
       "revId": "25c566c5a39567c6a1574d2d1723bb7487bfa1c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30a7c377_e6a73e45",
+        "filename": "framework-t/src/android/net/IpSecAlgorithm.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-10-21T19:07:35Z",
+      "side": 1,
+      "message": "Was looking at go/ctswrite#write-a-test-depending-on-api-level and PropertyUtil#getVsrApiLevel(). Seems we also need to check ro.board.first_api_level?\n\nAn alternative is to use \"ro.vendor.api_level\" which calculates all properties needed.",
+      "range": {
+        "startLine": 355,
+        "startChar": 0,
+        "endLine": 356,
+        "endChar": 96
+      },
+      "revId": "25c566c5a39567c6a1574d2d1723bb7487bfa1c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
