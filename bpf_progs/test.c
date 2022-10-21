@@ -40,6 +40,10 @@
 #define TETHERING_GID AID_NETWORK_STACK
 #endif
 
+// This is non production code, only used for testing
+// Needed because the bitmap array definition is non-kosher for pre-T OS devices.
+#define BPF_TEST_ONLY
+
 #include "bpf_helpers.h"
 #include "bpf_net_helpers.h"
 #include "bpf_tethering.h"
