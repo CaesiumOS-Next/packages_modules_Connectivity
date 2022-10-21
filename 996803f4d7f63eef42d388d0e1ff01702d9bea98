@@ -54,6 +54,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74078043_ba913be6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-21T10:48:18Z",
+      "side": 1,
+      "message": "The test can be ignored that if battery is not present. I think if a device with removable battery then it should be tested with battery.",
+      "parentUuid": "40fece85_2d190e15",
+      "revId": "996803f4d7f63eef42d388d0e1ff01702d9bea98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c60250c5_60131813",
