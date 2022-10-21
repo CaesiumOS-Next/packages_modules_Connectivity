@@ -27,6 +27,7 @@ import static org.mockito.Mockito.mock;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Parcel;
+import android.os.SystemProperties;
 
 import androidx.test.filters.SmallTest;
 
@@ -123,9 +124,7 @@ public class IpSecAlgorithmTest {
 
     @Test
     public void testValidationForAlgosAddedInS() throws Exception {
-        if (Build.VERSION.DEVICE_INITIAL_SDK_INT <= Build.VERSION_CODES.R) {
-            return;
-        }
+        if (SystemProperties.getInt("ro.vendor.api_level", 10000) <= Build.VERSION_CODES.R) return;
 
         for (int len : new int[] {160, 224, 288}) {
             checkCryptKeyLenValidation(IpSecAlgorithm.CRYPT_AES_CTR, len);
@@ -194,15 +193,19 @@ public class IpSecAlgorithmTest {
     }
 
     private static Set<String> getMandatoryAlgos() {
+        int productFirstApiLevel = Build.VERSION.DEVICE_INITIAL_SDK_INT;
+        int boardApiLevel = SystemProperties.getInt("ro.board.api_level", productFirstApiLevel);
         return CollectionUtils.filter(
                 ALGO_TO_REQUIRED_FIRST_SDK.keySet(),
-                i -> Build.VERSION.DEVICE_INITIAL_SDK_INT >= ALGO_TO_REQUIRED_FIRST_SDK.get(i));
+                i -> boardApiLevel >= ALGO_TO_REQUIRED_FIRST_SDK.get(i));
     }
 
     private static Set<String> getOptionalAlgos() {
+        int productFirstApiLevel = Build.VERSION.DEVICE_INITIAL_SDK_INT;
+        int boardApiLevel = SystemProperties.getInt("ro.board.api_level", productFirstApiLevel);
         return CollectionUtils.filter(
                 ALGO_TO_REQUIRED_FIRST_SDK.keySet(),
-                i -> Build.VERSION.DEVICE_INITIAL_SDK_INT < ALGO_TO_REQUIRED_FIRST_SDK.get(i));
+                i -> boardApiLevel < ALGO_TO_REQUIRED_FIRST_SDK.get(i));
     }
 
     @Test
