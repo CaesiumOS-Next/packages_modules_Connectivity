@@ -74,6 +74,12 @@ public class IpSecTransformTest {
                 .thenReturn(Context.IPSEC_SERVICE);
         when(mMockContext.getSystemService(Context.IPSEC_SERVICE)).thenReturn(mIpSecManager);
 
+        // DEBUG
+        IpSecManager mgr = mMockContext.getSystemService(IpSecManager.class);
+        android.util.Log.d("TEST", "setUp() mgr " + mgr);
+        android.util.Log.d("TEST", "setUp() mMockContext " + mMockContext);
+        android.util.Log.d("TEST", "setUp() mIpSecManager " + mIpSecManager);
+
         final IpSecSpiResponse spiResp =
                 new IpSecSpiResponse(IpSecManager.Status.OK, DUMMY_RESOURCE_ID, DROID_SPI);
         when(mMockIpSecService.allocateSecurityParameterIndex(any(), anyInt(), any()))
