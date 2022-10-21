@@ -46,6 +46,30 @@
       },
       "revId": "02c02a3e83700c91f108b74499212d25b9a1bb62",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22e064ac_ea5d430f",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-21T09:15:02Z",
+      "side": 0,
+      "message": "Done. Import data for DEV prefix and it\u0027s no longer update the new data. Please review if it works for you.",
+      "parentUuid": "0cda3271_9df59c24",
+      "range": {
+        "startLine": 978,
+        "startChar": 34,
+        "endLine": 978,
+        "endChar": 46
+      },
+      "revId": "02c02a3e83700c91f108b74499212d25b9a1bb62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
