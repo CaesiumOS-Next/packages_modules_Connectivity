@@ -151,7 +151,7 @@ def compute_source_dependencies(out, system_buildtools=False):
 def label_to_path(label):
   """Turn a GN output label (e.g., //some_dir/file.cc) into a path."""
   assert label.startswith('//')
-  return label[2:]
+  return label[2:] or "./"
 
 
 def label_without_toolchain(label):
@@ -310,8 +310,8 @@ class GnParser(object):
       self.name = name  # e.g. //src/ipc:ipc
 
       VALID_TYPES = ('static_library', 'shared_library', 'executable', 'group',
-                     'action', 'source_set', 'proto_library')
-      assert (type in VALID_TYPES)
+                     'action', 'source_set', 'proto_library', 'copy', 'action_foreach')
+      assert type in VALID_TYPES, ('type %s in %s' % (type, name))
       self.type = type
       self.testonly = False
       self.toolchain = None
@@ -351,6 +351,9 @@ class GnParser(object):
       # this flag is used to stop the recursion and create an empty
       # placeholder target once we hit //gn:protoc or similar.
       self.is_third_party_dep_ = False
+
+      self.response_file_contents = set()
+      self.desc = dict()
 
     def __lt__(self, other):
       if isinstance(other, self.__class__):
@@ -393,6 +396,8 @@ class GnParser(object):
 
     desc = self.gn_desc_[gn_target_name]
     target = GnParser.Target(gn_target_name, desc['type'])
+    # HACK!
+    target.desc = desc
     target.testonly = desc.get('testonly', False)
     target.toolchain = desc.get('toolchain', None)
     self.all_targets[gn_target_name] = target
@@ -400,7 +405,12 @@ class GnParser(object):
     # We should never have GN targets directly depend on buidtools. They
     # should hop via //gn:xxx, so we can give generators an opportunity to
     # override them.
-    assert (not gn_target_name.startswith('//buildtools'))
+    if 'libc++' in gn_target_name:
+        # ignore libc++ dependency
+        return target
+    if gn_target_name.startswith('//buildtools'):
+        raise Exception ("gn targets not allowed to depend on buildtools. Found %s" % gn_target_name)
+    #assert (not gn_target_name.startswith('//buildtools'))
 
     # Don't descend further into third_party targets. Genrators are supposed
     # to either ignore them or route to other externally-provided targets.
@@ -423,7 +433,7 @@ class GnParser(object):
     elif target.type in LINKER_UNIT_TYPES:
       self.linker_units[gn_target_name] = target
       target.sources.update(desc.get('sources', []))
-    elif target.type == 'action':
+    elif target.type in ['action', 'action_foreach']:
       self.actions[gn_target_name] = target
       target.inputs.update(desc.get('inputs', []))
       target.sources.update(desc.get('sources', []))
@@ -433,6 +443,12 @@ class GnParser(object):
       # Args are typically relative to the root build dir (../../xxx)
       # because root build dir is typically out/xxx/).
       target.args = [re.sub('^../../', '//', x) for x in desc['args']]
+      # TODO: support response_file_contents
+      target.response_file_contents = desc.get('response_file_contents', [])
+    elif target.type == 'copy':
+      self.actions[gn_target_name] = target
+      #TODO: implement
+      pass
 
     # Default for 'public' is //* - all headers in 'sources' are public.
     # TODO(primiano): if a 'public' section is specified (even if empty), then
