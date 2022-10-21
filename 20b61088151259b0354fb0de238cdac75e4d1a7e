@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "441885ab_93776267",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1222074
+      },
+      "writtenOn": "2022-10-21T22:26:26Z",
+      "side": 1,
+      "message": "Could you please change this from Work In Progress to \"Active\" mode.",
+      "revId": "20b61088151259b0354fb0de238cdac75e4d1a7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
