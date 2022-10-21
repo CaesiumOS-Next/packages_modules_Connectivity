@@ -22,6 +22,7 @@ import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -70,9 +71,36 @@ public class IpSecTransformTest {
         mMockIpSecService = mock(IpSecService.class);
         mIpSecManager = new IpSecManager(mMockContext, mMockIpSecService);
 
+        android.util.Log.d("TEST", "setUp() mMockContext " + mMockContext);
+        android.util.Log.d("TEST", "setUp() mIpSecManager " + mIpSecManager);
+
         when(mMockContext.getSystemServiceName(IpSecManager.class))
                 .thenReturn(Context.IPSEC_SERVICE);
         when(mMockContext.getSystemService(Context.IPSEC_SERVICE)).thenReturn(mIpSecManager);
+
+        // DEBUG
+        IpSecManager mgr = mMockContext.getSystemService(IpSecManager.class);
+        android.util.Log.d("TEST", "setUp() mgr " + mgr);
+
+        // // DEBUG
+        // doCallRealMethod().when(mMockContext).getSystemService(IpSecManager.class);
+        // mgr = mMockContext.getSystemService(IpSecManager.class);
+        // android.util.Log.d("TEST", "setUp(): After setting doCallRealMethod mgr " + mgr);
+
+        // DEBUG
+        Context testContext = mock(Context.class);
+        doReturn(Context.IPSEC_SERVICE).when(testContext).getSystemServiceName(IpSecManager.class);
+        doReturn(mIpSecManager).when(testContext).getSystemService(Context.IPSEC_SERVICE);
+        mgr = testContext.getSystemService(IpSecManager.class);
+        android.util.Log.d("TEST", "setUp(): test doReturn mgr " + mgr);
+
+        // DEBUG
+        Context testContext2 = mock(Context.class);
+        when(testContext2.getSystemServiceName(eq(IpSecManager.class)))
+                .thenReturn(Context.IPSEC_SERVICE);
+        when(testContext2.getSystemService(eq(Context.IPSEC_SERVICE))).thenReturn(mIpSecManager);
+        mgr = testContext2.getSystemService(IpSecManager.class);
+        android.util.Log.d("TEST", "setUp(): test using eq() mgr " + mgr);
 
         final IpSecSpiResponse spiResp =
                 new IpSecSpiResponse(IpSecManager.Status.OK, DUMMY_RESOURCE_ID, DROID_SPI);
