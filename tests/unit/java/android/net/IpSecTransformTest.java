@@ -28,6 +28,7 @@ import static org.mockito.Mockito.when;
 
 import android.content.Context;
 import android.os.Build;
+import android.test.mock.MockContext;
 
 import androidx.test.filters.SmallTest;
 
@@ -59,20 +60,76 @@ public class IpSecTransformTest {
     private static final InetAddress DST_ADDRESS_V6 =
             InetAddresses.parseNumericAddress("2001:db8::201");
 
-    private Context mMockContext;
+    private MockContext mMockContext;
     private IpSecService mMockIpSecService;
 
     private IpSecManager mIpSecManager;
 
     @Before
     public void setUp() throws Exception {
-        mMockContext = mock(Context.class);
         mMockIpSecService = mock(IpSecService.class);
-        mIpSecManager = new IpSecManager(mMockContext, mMockIpSecService);
+        mIpSecManager = new IpSecManager(mock(Context.class) /* unused */, mMockIpSecService);
 
-        when(mMockContext.getSystemServiceName(IpSecManager.class))
-                .thenReturn(Context.IPSEC_SERVICE);
-        when(mMockContext.getSystemService(Context.IPSEC_SERVICE)).thenReturn(mIpSecManager);
+        mMockContext =
+                new MockContext() {
+                    @Override
+                    public String getSystemServiceName(Class<?> serviceClass) {
+                        if (serviceClass.equals(IpSecManager.class)) {
+                            return Context.IPSEC_SERVICE;
+                        }
+                        throw new UnsupportedOperationException();
+                    }
+
+                    @Override
+                    public Object getSystemService(String name) {
+                        if (name.equals(Context.IPSEC_SERVICE)) {
+                            return mIpSecManager;
+                        }
+                        throw new UnsupportedOperationException();
+                    }
+
+                    @Override
+                    public String getOpPackageName() {
+                        return "fooPackage";
+                    }
+                };
+
+        // android.util.Log.d("TEST", "setUp() mMockContext " + mMockContext);
+        // android.util.Log.d("TEST", "setUp() mIpSecManager " + mIpSecManager);
+
+        // when(mMockContext.getSystemServiceName(any())).thenReturn(Context.IPSEC_SERVICE);
+        // when(mMockContext.getSystemService(anyString())).thenReturn(mIpSecManager);
+
+        // // DEBUG
+        // String serviceName = mMockContext.getSystemServiceName(IpSecManager.class);
+        // android.util.Log.d("TEST", "setUp() serviceName " + serviceName);
+
+        // IpSecManager mgr = mMockContext.getSystemService(IpSecManager.class);
+        // android.util.Log.d("TEST", "setUp() mgr " + mgr);
+        // IpSecManager ipsecMgr = (IpSecManager)
+        // mMockContext.getSystemService(Context.IPSEC_SERVICE);
+        // android.util.Log.d("TEST", "setUp() ipsecMgr " + ipsecMgr);
+
+        // // // DEBUG
+        // // doCallRealMethod().when(mMockContext).getSystemService(IpSecManager.class);
+        // // mgr = mMockContext.getSystemService(IpSecManager.class);
+        // // android.util.Log.d("TEST", "setUp(): After setting doCallRealMethod mgr " + mgr);
+
+        // // DEBUG
+        // Context testContext = mock(Context.class);
+        // doReturn(Context.IPSEC_SERVICE).when(testContext).getSystemServiceName(IpSecManager.class);
+        // doReturn(mIpSecManager).when(testContext).getSystemService(Context.IPSEC_SERVICE);
+        // mgr = testContext.getSystemService(IpSecManager.class);
+        // android.util.Log.d("TEST", "setUp(): test doReturn mgr " + mgr);
+
+        // // DEBUG
+        // Context testContext2 = mock(Context.class);
+        // when(testContext2.getSystemServiceName(eq(IpSecManager.class)))
+        //         .thenReturn(Context.IPSEC_SERVICE);
+        // when(testContext2.getSystemService(eq(Context.IPSEC_SERVICE)))
+        //         .thenReturn(mIpSecManager);
+        // mgr = testContext2.getSystemService(IpSecManager.class);
+        // android.util.Log.d("TEST", "setUp(): test using eq() mgr " + mgr);
 
         final IpSecSpiResponse spiResp =
                 new IpSecSpiResponse(IpSecManager.Status.OK, DUMMY_RESOURCE_ID, DROID_SPI);
