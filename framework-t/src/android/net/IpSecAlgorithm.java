@@ -21,6 +21,7 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.os.SystemProperties;
 
 import com.android.internal.annotations.VisibleForTesting;
 
@@ -351,8 +352,10 @@ public final class IpSecAlgorithm implements Parcelable {
             }
         }
 
+        int productFirstApiLevel = Build.VERSION.DEVICE_INITIAL_SDK_INT;
+        int boardApiLevel = SystemProperties.getInt("ro.board.api_level", productFirstApiLevel);
         for (Entry<String, Integer> entry : ALGO_TO_REQUIRED_FIRST_SDK.entrySet()) {
-            if (Build.VERSION.DEVICE_INITIAL_SDK_INT >= entry.getValue()) {
+            if (boardApiLevel >= entry.getValue()) {
                 enabledAlgos.add(entry.getKey());
             }
         }
