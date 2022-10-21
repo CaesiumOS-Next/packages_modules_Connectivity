@@ -114,7 +114,7 @@ proto_groups = {
 }
 
 # All module names are prefixed with this string to avoid collisions.
-module_prefix = 'perfetto_'
+module_prefix = 'cronet_aml_'
 
 # Shared libraries which are directly translated to Android system equivalents.
 shared_library_allowlist = [
@@ -489,6 +489,7 @@ class Module(object):
     self.defaults = set()
     self.cflags = set()
     self.include_dirs = set()
+    self.local_include_dirs = set()
     self.header_libs = set()
     self.required = set()
     self.user_debug_flag = False
@@ -537,6 +538,7 @@ class Module(object):
     self._output_field(output, 'defaults')
     self._output_field(output, 'cflags')
     self._output_field(output, 'include_dirs')
+    self._output_field(output, 'local_include_dirs')
     self._output_field(output, 'header_libs')
     self._output_field(output, 'required')
     self._output_field(output, 'dist')
@@ -807,6 +809,74 @@ def create_cc_proto_descriptor_module(blueprint, target):
   return module
 
 
+def fix_action_args(target):
+  if target.script == '//build/write_buildflag_header.py':
+    i = target.args.index('--gen-dir')
+    target.args[i + 1] = '$(genDir)'
+
+  # TODO: how many action scripts are there?
+  elif target.script in [
+      '//tools/protoc_wrapper/protoc_wrapper.py',
+      '//third_party/perfetto/gn/write_buildflag_header.py',
+      '//build/write_build_date_header.py',
+      '//base/android/jni_generator/jni_generator.py',
+  ]:
+    pass
+  else:
+    raise Exception("Add support for new action calling %s" % target.script)
+
+# TODO(prohr): generates genrule from gn action.
+# in order to emulate response_file_contents, we may have to create a dependent
+# gensrcs target that writes flags to a tmp file.
+def create_action_genrule(blueprint, target):
+  bp_module_name = label_to_module_name(target.name)
+  module = Module('genrule', bp_module_name, target.name)
+  fix_action_args(target)
+  response_file_cmd = None
+  if '{{response_file_name}}' in target.args:
+    for t in target.args:
+      t.replace('{{response_file_name}}', '/dev/stdin')
+    response_file_cmd = 'echo \'' + ' '.join(target.response_file_contents) + '\' |'
+
+  module.tool_files = [target.script]
+  module.cmd = ' '.join(filter(None, [
+      response_file_cmd,
+      '$(location %s)' % target.script,
+  ] + target.args))
+  module.genrule_headers.add(module.name)
+  module.srcs.update(
+      ':' + label_to_module_name(dep) for dep in target.deps)
+  # For gn actions, sources and inputs are treated equally and create a
+  # dependency on the files being present.
+  module.srcs.update(target.inputs)
+  module.srcs.update(target.sources)
+  module.out.update(target.outputs)
+  blueprint.add_module(module)
+  return module
+
+
+def create_buildflag_header(blueprint, target):
+  bp_module_name = label_to_module_name(target.name)
+  module = Module('genrule', bp_module_name, target.name)
+  module.tool_files = [
+      'build/write_buildflag_header.py',
+  ]
+  assert 'header_dir' in target.desc, ('no header_dir set on target %s') % target.name
+  header = ('%s/%s') % (target.desc['header_dir'], target.desc['header'])
+  module.cmd = ' '.join([
+      'echo --flags', '"' + ' '.join(target.desc['flags']) + '"', '|',
+      '$(location build/write_buildflag_header.py)',
+      '--output $(in)',
+      '--rulename', target.name,
+      '--gen-dir=$(genDir)',
+      '--definitions /dev/stdin'
+  ])
+  module.srcs.update(header)
+  module.out.update(target.outputs)
+  blueprint.add_module(module)
+  return module
+
+
 def create_gen_version_module(blueprint, target, bp_module_name):
   module = Module('genrule', bp_module_name, gn_utils.GEN_VERSION_TARGET)
   script_path = gn_utils.label_to_path(target.script)
@@ -897,7 +967,8 @@ def create_modules_from_target(blueprint, gn, gn_target_name):
         name_without_toolchain == gn_utils.GEN_VERSION_TARGET:
       module = create_gen_version_module(blueprint, target, bp_module_name)
     else:
-      raise Error('Unhandled action: {}'.format(target.name))
+      module = create_action_genrule(blueprint, target)
+      #raise Error('Unhandled action: {}'.format(target.name))
   else:
     raise Error('Unknown target %s (%s)' % (target.name, target.type))
 
@@ -912,6 +983,7 @@ def create_modules_from_target(blueprint, gn, gn_target_name):
 
   if target.type in gn_utils.LINKER_UNIT_TYPES:
     module.cflags.update(_get_cflags(target))
+    module.local_include_dirs.update(gn_utils.label_to_path(label) for label in target.include_dirs)
 
   module_is_compiled = module.type not in ('genrule', 'filegroup')
   if module_is_compiled:
@@ -1007,6 +1079,7 @@ def create_blueprint_for_targets(gn, desc, targets):
   """Generate a blueprint for a list of GN targets."""
   blueprint = Blueprint()
 
+  # TODO(prohr): reasonable defaults.
   # Default settings used by all modules.
   defaults = Module('cc_defaults', defaults_module, '//gn:default_deps')
 
@@ -1015,10 +1088,10 @@ def create_blueprint_for_targets(gn, desc, targets):
   # test/**/Android.bp; (ii) if we use local_include_dirs instead, paths
   # become relative to the Android.bp that *uses* cc_defaults (not the one
   # that defines it).s
-  defaults.include_dirs = {
-      tree_path, tree_path + '/include', tree_path + '/' + buildflags_dir,
-      tree_path + '/src/profiling/memory/include'
-  }
+  #defaults.include_dirs = {
+  #    tree_path, tree_path + '/include', tree_path + '/' + buildflags_dir,
+  #    tree_path + '/src/profiling/memory/include'
+  #}
   defaults.cflags = [
       '-Wno-error=return-type',
       '-Wno-sign-compare',
@@ -1027,8 +1100,8 @@ def create_blueprint_for_targets(gn, desc, targets):
       '-fvisibility=hidden',
       '-O2',
   ]
-  defaults.user_debug_flag = True
-  defaults.lto = True
+  #defaults.user_debug_flag = True
+  #defaults.lto = True
 
   blueprint.add_module(defaults)
   for target in targets:
@@ -1082,8 +1155,8 @@ def main():
   # checker = gn_utils.ODRChecker(gn, target_name)
 
   # Add any proto groups to the blueprint.
-  for l_name, t_names in proto_groups.items():
-    create_proto_group_modules(blueprint, gn, l_name, t_names)
+  #for l_name, t_names in proto_groups.items():
+  #  create_proto_group_modules(blueprint, gn, l_name, t_names)
 
   output = [
       """// Copyright (C) 2017 The Android Open Source Project
@@ -1104,9 +1177,9 @@ def main():
 """ % (tool_name)
   ]
   blueprint.to_string(output)
-  with open(args.extras, 'r') as r:
-    for line in r:
-      output.append(line.rstrip("\n\r"))
+  #with open(args.extras, 'r') as r:
+  #  for line in r:
+  #    output.append(line.rstrip("\n\r"))
 
   out_files = []
 
@@ -1119,10 +1192,11 @@ def main():
 
   # Generate the perfetto_build_flags.h file.
   out_files.append(os.path.join(buildflags_dir, 'perfetto_build_flags.h.swp'))
-  gn_utils.gen_buildflags(gn_args, out_files[-1])
+  #gn_utils.gen_buildflags(gn_args, out_files[-1])
 
   # Either check the contents or move the files to their final destination.
-  return gn_utils.check_or_commit_generated_files(out_files, args.check_only)
+  #return gn_utils.check_or_commit_generated_files(out_files, args.check_only)
+  return 0
 
 
 if __name__ == '__main__':
