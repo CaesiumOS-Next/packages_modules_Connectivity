@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c113e04_006dfb44",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-24T08:25:59Z",
+      "side": 1,
+      "message": "Why not use BatteryUtils.hasBattery as advised in http://b/245075045#comment17 ? This test should already be using the library through \"cts-net-utils\" which depends on \"compatibility-device-util-axt\".\n\nThis would avoid having to update this test if the maintainers of the broadcast change it.",
+      "revId": "d71900a59548071d5f1479005709edb3165bae05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
