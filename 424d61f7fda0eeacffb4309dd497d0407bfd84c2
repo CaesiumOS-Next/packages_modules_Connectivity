@@ -16,6 +16,23 @@
       "message": "Tested on android-13.0.0_r11",
       "revId": "424d61f7fda0eeacffb4309dd497d0407bfd84c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0071a1a_168230d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-10-24T14:10:28Z",
+      "side": 1,
+      "message": "looks like call site in packages/modules/Connectivity/service/native/libs/libclat/clatutils_test.cpp was missed (add a ,0 I guess)?",
+      "revId": "424d61f7fda0eeacffb4309dd497d0407bfd84c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
