@@ -45,6 +45,30 @@
       },
       "revId": "ffcbbe2542c49f09e55af1f2d496d9341307dd21",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "500bf24f_0938dff2",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 16839,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-24T14:30:01Z",
+      "side": 1,
+      "message": "Moved to before the if (enabled), since it\u0027s not used in that block either.",
+      "parentUuid": "6e8d0db1_03725f2f",
+      "range": {
+        "startLine": 16839,
+        "startChar": 16,
+        "endLine": 16839,
+        "endChar": 41
+      },
+      "revId": "ffcbbe2542c49f09e55af1f2d496d9341307dd21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
