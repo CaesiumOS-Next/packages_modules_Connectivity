@@ -812,6 +812,21 @@ def create_cc_proto_descriptor_module(blueprint, target):
 
 
 def fix_action_args(target):
+  # Convert //build/write_build_date_header.py to build/write_build_date_header.py
+  # Try to convert in general but this may casuse issue for some targets.
+  if target.script.startswith("\/\/"):
+    target.script = target.script[2:]
+
+  # if arg is gen/$(out), this likely to be the output path. so replace by $(out)
+  # Try to convert in general but this may casuse issue for some targets.
+  for i in range(len(target.args)):
+    if target.args[i].startswith("gen/") and target.args[i][4:] in target.outputs:
+      target.args[i] = "$(out)"
+
+  if target.script not in ['//build/write_build_date_header.py']:
+    raise Exception("Unknown script %s" % target.script)
+  return
+
   if target.script == '//build/write_buildflag_header.py':
     i = target.args.index('--gen-dir')
     target.args[i + 1] = '$(genDir)'
