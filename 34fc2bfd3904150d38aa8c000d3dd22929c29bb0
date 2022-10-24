@@ -26,6 +26,53 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f783740d_b1360420",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-10-24T16:46:44Z",
+      "side": 1,
+      "message": "Any reason don\u0027t suggest to have target_sdk_version in android_library ? The TetheringApi{Current, Stable}Lib library would share with test code, we want to make sure the test code target the same sdk with the code it tested.\n\nBut TetheringApiCurrentLib here for development only, just let build system decide the target sdk (keep target sdk 33 you add in l.103) ?",
+      "parentUuid": "b8224aa2_9312f84e",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 29
+      },
+      "revId": "34fc2bfd3904150d38aa8c000d3dd22929c29bb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ac1b7ac_033bf185",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-10-24T16:46:44Z",
+      "side": 1,
+      "message": "Remove this ? InProcessTethering is not updatable, let build system decide it ?",
+      "range": {
+        "startLine": 185,
+        "startChar": 4,
+        "endLine": 185,
+        "endChar": 29
+      },
+      "revId": "34fc2bfd3904150d38aa8c000d3dd22929c29bb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2142ecb9_b280cb47",
         "filename": "Tethering/Android.bp",
         "patchSetId": 3
@@ -37,6 +84,30 @@
       "writtenOn": "2022-10-20T15:09:52Z",
       "side": 1,
       "message": "TetheringNext is all about being able to use preview API and being able to compile against latest SDK. Do we actually need to keep specific version here though? Maybe remove?",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 219,
+        "endChar": 29
+      },
+      "revId": "34fc2bfd3904150d38aa8c000d3dd22929c29bb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4725d262_731392d1",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-10-24T16:46:44Z",
+      "side": 1,
+      "message": "+1 removed because TetheringNext only be used for development. But I think you need to add target_sdk_version 33 into Tethering because it is used for release. TetheringGoogle would override it.",
+      "parentUuid": "2142ecb9_b280cb47",
       "range": {
         "startLine": 219,
         "startChar": 0,
