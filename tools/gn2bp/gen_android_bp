@@ -812,6 +812,22 @@ def create_cc_proto_descriptor_module(blueprint, target):
 
 
 def fix_action_args(target):
+
+  # Convert //build/write_build_date_header.py to build/write_build_date_header.py
+  # Do we need? Can this be generic rule?
+  if target.script.startswith("\/\/"):
+    target.script = target.script[2:]
+
+  # if arg is gen/$(out), replace by $(out)
+  # Do we need? Can this be generic rule?
+  for i in range(len(target.args)):
+    if target.args[i].startswith("gen/") and target.args[i][4:] in target.outputs:
+      target.args[i] = "$(out)"
+
+  if target.script not in ['//build/write_build_date_header.py']:
+    raise Exception("Unknown script %s" % target.script)
+  return
+
   if target.script == '//build/write_buildflag_header.py':
     i = target.args.index('--gen-dir')
     target.args[i + 1] = '$(genDir)'
