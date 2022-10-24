@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dffdbea7_589ee3ab",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocket.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-24T06:46:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2835edc1_e1ec513d",
+      "range": {
+        "startLine": 119,
+        "startChar": 69,
+        "endLine": 119,
+        "endChar": 71
+      },
+      "revId": "73930dfdb9d8aaa5e4a403259b2ab2b771a5786b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dbb6d4b6_c63140a8",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76756591_451d46cb",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketClientTests.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-24T06:46:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbb6d4b6_c63140a8",
+      "revId": "73930dfdb9d8aaa5e4a403259b2ab2b771a5786b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5bc718d8_553b8e86",
@@ -54,6 +96,24 @@
       "writtenOn": "2022-10-20T01:58:19Z",
       "side": 1,
       "message": "Upstream has one more test that we wouldn\u0027t really exercise since allowNetworkInterfaceIndexPropagation is always true here. But maybe you could also cherry-pick it, and mark it @Ignore ? This would reduce merge conflicts",
+      "revId": "73930dfdb9d8aaa5e4a403259b2ab2b771a5786b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffb35986_6e653e8f",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketClientTests.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-24T06:46:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bc718d8_553b8e86",
       "revId": "73930dfdb9d8aaa5e4a403259b2ab2b771a5786b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
