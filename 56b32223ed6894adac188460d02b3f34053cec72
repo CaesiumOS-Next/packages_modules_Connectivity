@@ -16,6 +16,23 @@
       "message": "Wasn\u0027t sure to add as reviewer, please correct if I am wrong. :-)",
       "revId": "56b32223ed6894adac188460d02b3f34053cec72",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e70fa52c_1af193d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-10-24T14:07:45Z",
+      "side": 1,
+      "message": "Affected are netd.c maps:\n\nDEFINE_BPF_MAP_NO_NETD(uid_counterset_map, HASH, uint32_t, uint8_t, UID_COUNTERSET_MAP_SIZE)\n\nDEFINE_BPF_MAP_NO_NETD(uid_owner_map, HASH, uint32_t, UidOwnerValue /* u32 iif + u32 rule */, UID_OWNER_MAP_SIZE)\n\nDEFINE_BPF_MAP_RW_NETD(uid_permission_map, HASH, uint32_t, uint8_t, UID_OWNER_MAP_SIZE)\n\nside note: from a memory perspective it would probably make sense to merge these into just 1 map - but knowing life that\u0027s non trivial to do because of lifetime semantics (though I haven\u0027t looked) and/or the actual uid\u0027s we use during lookup may not be the same (uid vs appuid).\n\nOf course that would also give netd r/w access to the first two, so perhaps finding a way to first make that third one not required by netd, or at least r/o would be beneficial.\n\nI guess this is just idle musing...",
+      "revId": "56b32223ed6894adac188460d02b3f34053cec72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
