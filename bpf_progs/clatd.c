@@ -104,6 +104,17 @@ static inline __always_inline int nat64(struct __sk_buff* skb, bool is_ethernet)
     __be16 ip_id = 0;
     __be16 frag_off = htons(IP_DF);
 
+    if (proto == IPPROTO_FRAGMENT) {
+        // Must have (ethernet and) ipv6 header and ipv6 fragment extension header
+        if (data + l2_header_size + sizeof(*ip6) + sizeof(struct frag_hdr) > data_end) return TC_ACT_PIPE;
+        const struct frag_hdr *frag = (const struct frag_hdr *)(ip6 + 1);
+        proto = frag->nexthdr;
+        ip_id = (frag->identification) ^ (frag->identification >> 16);
+        frag_off = ntohs(frag->frag_off);
+        frag_off = ((frag_off & 1) << 13) | (frag_off >> 13);
+        frag_off = htons(frag_off);
+    }
+
     switch (proto) {
         case IPPROTO_TCP:  // For TCP & UDP the checksum neutrality of the chosen IPv6
         case IPPROTO_UDP:  // address means there is no need to update their checksums.
@@ -185,6 +196,13 @@ static inline __always_inline int nat64(struct __sk_buff* skb, bool is_ethernet)
     // else
     //   return -ENOTSUPP;
     bpf_csum_update(skb, sum6);
+
+    if (frag_off != htons(IP_DF)) {
+        // If we're converting an IPv6 Fragment, we need to trim off 8 more bytes
+        // We're beyond recovery on error here... but hard to imagine how this could fail.
+        if (bpf_skb_adjust_room(skb, -(__s32)sizeof(struct frag_hdr), BPF_ADJ_ROOM_NET, 0))
+            return TC_ACT_SHOT;
+    }
 
     // bpf_skb_change_proto() invalidates all pointers - reload them.
     data = (void*)(long)skb->data;
