@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7413ed4_84e9f3c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-10-24T14:24:21Z",
+      "side": 1,
+      "message": "(though that probably needs a comment to that effect)",
+      "revId": "f1af95253ee93116ccc2b7068feda16da345f1d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6bf0aac_90125e59",
@@ -36,6 +53,29 @@
         "startChar": 71,
         "endLine": 258,
         "endChar": 78
+      },
+      "revId": "f1af95253ee93116ccc2b7068feda16da345f1d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fd96944_a0414a84",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-10-24T14:24:21Z",
+      "side": 1,
+      "message": "side note: this !allowed_iif || is probably spurious, since I think there\u0027s no way an ingress packet can have skb-\u003eifindex \u003d\u003d 0, so skb-\u003eifindex !\u003d allowed_iif will already be unconditionally true if allowed_iif is 0",
+      "range": {
+        "startLine": 258,
+        "startChar": 55,
+        "endLine": 258,
+        "endChar": 71
       },
       "revId": "f1af95253ee93116ccc2b7068feda16da345f1d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
