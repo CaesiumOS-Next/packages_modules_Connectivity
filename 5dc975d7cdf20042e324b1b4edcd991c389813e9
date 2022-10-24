@@ -39,6 +39,30 @@
       },
       "revId": "5dc975d7cdf20042e324b1b4edcd991c389813e9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90106c50_25fefe85",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4239,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-24T14:29:50Z",
+      "side": 1,
+      "message": "Ack. I think that maintaining consistency in those timestamps is better than avoiding a bit of extra code in this code.",
+      "parentUuid": "96ab840f_ae0acfee",
+      "range": {
+        "startLine": 4239,
+        "startChar": 70,
+        "endLine": 4239,
+        "endChar": 87
+      },
+      "revId": "5dc975d7cdf20042e324b1b4edcd991c389813e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
