@@ -56,9 +56,12 @@ import android.net.cts.EthernetManagerTest.EthernetStateListener.CallbackEntry.I
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+<<<<<<< HEAD   (8203a1 Merge "[CC05] Replace expectCallback* with expect")
 import android.os.OutcomeReceiver
 import android.os.SystemProperties
 import android.os.Process
+=======
+>>>>>>> BRANCH (20b610 ethernet: enable testCallbacks_forServerModeInterfaces on CF)
 import android.platform.test.annotations.AppModeFull
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.net.module.util.ArrayTrackRecord
@@ -78,7 +81,6 @@ import com.android.testutils.assertThrows
 import com.android.testutils.runAsShell
 import com.android.testutils.waitForIdle
 import org.junit.After
-import org.junit.Assume.assumeFalse
 import org.junit.Assume.assumeTrue
 import org.junit.Before
 import org.junit.Test
