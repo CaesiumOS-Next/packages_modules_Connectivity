@@ -79,6 +79,54 @@
       },
       "revId": "f1af95253ee93116ccc2b7068feda16da345f1d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab144370_ab4132f7",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1958109
+      },
+      "writtenOn": "2022-10-24T19:42:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fd96944_a0414a84",
+      "range": {
+        "startLine": 258,
+        "startChar": 55,
+        "endLine": 258,
+        "endChar": 71
+      },
+      "revId": "f1af95253ee93116ccc2b7068feda16da345f1d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6379450_820bb43d",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1958109
+      },
+      "writtenOn": "2022-10-24T19:42:01Z",
+      "side": 1,
+      "message": "Oops, yes, thank you.",
+      "parentUuid": "c6bf0aac_90125e59",
+      "range": {
+        "startLine": 258,
+        "startChar": 71,
+        "endLine": 258,
+        "endChar": 78
+      },
+      "revId": "f1af95253ee93116ccc2b7068feda16da345f1d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
