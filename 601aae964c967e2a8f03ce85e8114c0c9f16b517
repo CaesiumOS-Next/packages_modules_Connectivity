@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5975028d_961310f1",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-24T06:08:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c762845b_360f91d1",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 49
+      },
+      "revId": "601aae964c967e2a8f03ce85e8114c0c9f16b517",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "135d44ef_15f746ec",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-10-19T03:29:49Z",
       "side": 1,
       "message": "Nit: empty line above for consistency with upstream",
+      "revId": "601aae964c967e2a8f03ce85e8114c0c9f16b517",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8d6e887_3895cf4f",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-24T06:08:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "135d44ef_15f746ec",
       "revId": "601aae964c967e2a8f03ce85e8114c0c9f16b517",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27308c1d_3740aa50",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-24T06:08:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20a08380_17dcb042",
+      "range": {
+        "startLine": 147,
+        "startChar": 30,
+        "endLine": 147,
+        "endChar": 36
+      },
+      "revId": "601aae964c967e2a8f03ce85e8114c0c9f16b517",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "750563b7_6f301437",
@@ -77,6 +143,24 @@
       "writtenOn": "2022-10-19T03:29:49Z",
       "side": 1,
       "message": "This is above getAttributes upstream, can you keep it there to avoid future merge conflicts ?",
+      "revId": "601aae964c967e2a8f03ce85e8114c0c9f16b517",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d844b5d_2020ab8a",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-24T06:08:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "750563b7_6f301437",
       "revId": "601aae964c967e2a8f03ce85e8114c0c9f16b517",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -98,6 +182,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3967c090_60c6f799",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-24T06:08:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e0a6a66_4f61e508",
+      "revId": "601aae964c967e2a8f03ce85e8114c0c9f16b517",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d54881f2_8560b31d",
@@ -111,6 +213,24 @@
       "writtenOn": "2022-10-19T03:29:49Z",
       "side": 1,
       "message": "Can you move this and the method below to libs/net CollectionUtils ? This would limit merge conflicts in this class too.\n\nAlso include them in CollectionUtilsTest",
+      "revId": "601aae964c967e2a8f03ce85e8114c0c9f16b517",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0a6d8a0_9c80a053",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-24T06:08:16Z",
+      "side": 1,
+      "message": "Done in aosp/2261411.",
+      "parentUuid": "d54881f2_8560b31d",
       "revId": "601aae964c967e2a8f03ce85e8114c0c9f16b517",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -132,6 +252,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecd39e2c_dcb01c7a",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceInfoTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-24T06:08:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a26870f_fa1d4386",
+      "revId": "601aae964c967e2a8f03ce85e8114c0c9f16b517",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff6024a7_3e8f9dd4",
@@ -145,6 +283,30 @@
       "writtenOn": "2022-10-19T03:29:49Z",
       "side": 1,
       "message": "Nit: assertEquals (also other calls below)",
+      "range": {
+        "startLine": 145,
+        "startChar": 17,
+        "endLine": 145,
+        "endChar": 23
+      },
+      "revId": "601aae964c967e2a8f03ce85e8114c0c9f16b517",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37c6472f_bf28e240",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceInfoTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-24T06:08:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff6024a7_3e8f9dd4",
       "range": {
         "startLine": 145,
         "startChar": 17,
