@@ -33,6 +33,24 @@
       "message": "looks like call site in packages/modules/Connectivity/service/native/libs/libclat/clatutils_test.cpp was missed (add a ,0 I guess)?",
       "revId": "424d61f7fda0eeacffb4309dd497d0407bfd84c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3da616a9_9c6ec3af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-10-24T14:11:37Z",
+      "side": 1,
+      "message": "presumably     EXPECT_EQ(-ENETUNREACH, generateIpv6Address(tun.name().c_str(), v4, nat64Prefix, \u0026v6));",
+      "parentUuid": "f0071a1a_168230d6",
+      "revId": "424d61f7fda0eeacffb4309dd497d0407bfd84c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
