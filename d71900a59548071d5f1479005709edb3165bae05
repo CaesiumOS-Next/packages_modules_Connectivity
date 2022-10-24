@@ -16,6 +16,24 @@
       "message": "Why not use BatteryUtils.hasBattery as advised in http://b/245075045#comment17 ? This test should already be using the library through \"cts-net-utils\" which depends on \"compatibility-device-util-axt\".\n\nThis would avoid having to update this test if the maintainers of the broadcast change it.",
       "revId": "d71900a59548071d5f1479005709edb3165bae05",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4049b986_58dcf634",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-24T09:48:15Z",
+      "side": 1,
+      "message": "I remember that I got cannot find symbol compile error while I used the util. However, I can build pass now so I think that error might just cause by typo and I did not notice it at that time.",
+      "parentUuid": "5c113e04_006dfb44",
+      "revId": "d71900a59548071d5f1479005709edb3165bae05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
