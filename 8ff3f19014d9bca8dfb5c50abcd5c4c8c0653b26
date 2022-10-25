@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5af2cc26_2d1b07f8",
+        "filename": "tests/cts/net/src/android/net/cts/TunUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-10-25T00:27:26Z",
+      "side": 1,
+      "message": "Legacy of a time gone by?",
+      "range": {
+        "startLine": 156,
+        "startChar": 0,
+        "endLine": 161,
+        "endChar": 8
+      },
+      "revId": "8ff3f19014d9bca8dfb5c50abcd5c4c8c0653b26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50cf88e1_37701478",
+        "filename": "tests/cts/net/src/android/net/cts/TunUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-10-25T00:27:26Z",
+      "side": 1,
+      "message": "And?\n\nor perhaps \"checkExpectedSpiAndSeq()\"?",
+      "range": {
+        "startLine": 171,
+        "startChar": 41,
+        "endLine": 171,
+        "endChar": 43
+      },
+      "revId": "8ff3f19014d9bca8dfb5c50abcd5c4c8c0653b26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
