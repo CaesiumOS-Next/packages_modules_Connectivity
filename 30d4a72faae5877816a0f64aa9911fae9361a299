@@ -16,6 +16,57 @@
       "message": "I did this change under this topic because original name (`org.chromium.net.cronet`) caused merge conflict in allowed_deps.txt",
       "revId": "30d4a72faae5877816a0f64aa9911fae9361a299",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6adc059_d696302b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-25T10:10:50Z",
+      "side": 1,
+      "message": "LGTM but see comments",
+      "revId": "30d4a72faae5877816a0f64aa9911fae9361a299",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83648930_55df521f",
+        "filename": "Cronet/tests/apitest/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-25T10:10:50Z",
+      "side": 1,
+      "message": "Would just saying \"framework-cronet\" work here ? The stubs corresponding to the API level used should be used automaticall7 (although here the tests use private API)",
+      "revId": "30d4a72faae5877816a0f64aa9911fae9361a299",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69c804c2_52534f7c",
+        "filename": "Cronet/tests/apitest/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-25T10:10:50Z",
+      "side": 1,
+      "message": "Curious: is this actually necessary ? Could the tests build against sdk_version: \"test_current\" for example ? What APIs are missing ?",
+      "revId": "30d4a72faae5877816a0f64aa9911fae9361a299",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
