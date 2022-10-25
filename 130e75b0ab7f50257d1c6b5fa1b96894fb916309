@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac9671c8_a17a56b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-25T04:06:48Z",
+      "side": 1,
+      "message": "Diff with patchset 2 LGTM",
+      "revId": "130e75b0ab7f50257d1c6b5fa1b96894fb916309",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
