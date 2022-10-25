@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e72c326_677cebf5",
+        "filename": "Cronet/apex/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-25T10:06:08Z",
+      "side": 1,
+      "message": "You might want to make this at least 2-3 lines to have a higher chance to avoid merge conflicts",
+      "revId": "f6021595ca1a0b2338a93b73091b5c37d766bb01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e320d9e6_b4544bee",
+        "filename": "Cronet/apex/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-25T10:06:08Z",
+      "side": 1,
+      "message": "You could also remove the var and just put these defaults in the \"may have merge conflicts\" section, but either works",
+      "revId": "f6021595ca1a0b2338a93b73091b5c37d766bb01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
