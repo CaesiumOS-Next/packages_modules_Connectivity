@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a5756ed_9aab91f0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7649,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-25T08:12:42Z",
+      "side": 1,
+      "message": "This is a private method only used in ConnectivityService. Although here checks if the newLp is null or not. IIUC, it depends on what updateLinkProperties() gets and currently updateLinkProperties() requires NonNull for newLp. Is this possible to be a null object?\n\nsame question to updateProxy.",
+      "range": {
+        "startLine": 7649,
+        "startChar": 33,
+        "endLine": 7649,
+        "endChar": 42
+      },
+      "revId": "967870e150215b9604fd533d08cdff1cc066e035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de2e3a19_5c049b6e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7723,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-25T08:12:42Z",
+      "side": 1,
+      "message": "Missing nullability.",
+      "range": {
+        "startLine": 7723,
+        "startChar": 36,
+        "endLine": 7723,
+        "endChar": 56
+      },
+      "revId": "967870e150215b9604fd533d08cdff1cc066e035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
