@@ -131,6 +131,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "bfae4a2a_dbc5b692",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 7446,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-25T07:49:36Z",
+      "side": 1,
+      "message": "Done, please refer to https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2267165",
+      "parentUuid": "6121d783_fa0e96d1",
+      "range": {
+        "startLine": 7446,
+        "startChar": 32,
+        "endLine": 7446,
+        "endChar": 37
+      },
+      "revId": "193d9edbff3522c40ccc92350a351713d3d29d98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b59557e3_2a9861e8",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 2
