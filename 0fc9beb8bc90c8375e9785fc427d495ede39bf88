@@ -37,6 +37,74 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1cfd9d0d_05ee8d30",
+        "filename": "Cronet/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-25T10:19:48Z",
+      "side": 1,
+      "message": "Is there a bug for this ? There should be one triaged to resolve this before U and before the libraries are also included in the module release branch",
+      "revId": "0fc9beb8bc90c8375e9785fc427d495ede39bf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00a20895_fe9c9525",
+        "filename": "Cronet/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-25T10:19:48Z",
+      "side": 1,
+      "message": "Curious: are there other classes outside of these ? If not then it can be removed ?",
+      "revId": "0fc9beb8bc90c8375e9785fc427d495ede39bf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06bcc76f_9ac8f894",
+        "filename": "Cronet/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-25T10:19:48Z",
+      "side": 1,
+      "message": "But there\u0027s no droiddoc_options specified here, is this really necessary ?",
+      "revId": "0fc9beb8bc90c8375e9785fc427d495ede39bf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47d98fe2_07d39286",
+        "filename": "Cronet/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-25T10:19:48Z",
+      "side": 1,
+      "message": "Can this be removed ?",
+      "revId": "0fc9beb8bc90c8375e9785fc427d495ede39bf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "40118b8c_9f2f14ec",
         "filename": "Cronet/Android.bp",
         "patchSetId": 2
@@ -54,6 +122,47 @@
         "endLine": 108,
         "endChar": 32
       },
+      "revId": "0fc9beb8bc90c8375e9785fc427d495ede39bf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "231ab32b_906893a7",
+        "filename": "Cronet/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-25T10:19:48Z",
+      "side": 1,
+      "message": "Yes but you should use framework-module-defaults which will take care of it",
+      "parentUuid": "40118b8c_9f2f14ec",
+      "range": {
+        "startLine": 108,
+        "startChar": 18,
+        "endLine": 108,
+        "endChar": 32
+      },
+      "revId": "0fc9beb8bc90c8375e9785fc427d495ede39bf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40de24fd_e2befca7",
+        "filename": "Cronet/apex/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-10-25T10:19:48Z",
+      "side": 1,
+      "message": "Can this be removed ? Also the keys ?",
       "revId": "0fc9beb8bc90c8375e9785fc427d495ede39bf88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
