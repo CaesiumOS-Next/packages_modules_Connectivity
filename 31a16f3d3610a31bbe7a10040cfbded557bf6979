@@ -1,0 +1,203 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65d25bfe_34e3a693",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-25T14:23:49Z",
+      "side": 1,
+      "message": "Used to run gn gen\nNeed to update (or can be removed)",
+      "revId": "31a16f3d3610a31bbe7a10040cfbded557bf6979",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7251fb4b_0f3c06c5",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-25T14:23:49Z",
+      "side": 1,
+      "message": "Maybe we can remove or we can have targets we support?",
+      "revId": "31a16f3d3610a31bbe7a10040cfbded557bf6979",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25d9be45_ff6c5789",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-25T14:23:49Z",
+      "side": 1,
+      "message": "When we need to add init_rc?\nLooks this is not specified from .gn",
+      "revId": "31a16f3d3610a31bbe7a10040cfbded557bf6979",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4cbb180_3624ed43",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-25T14:23:49Z",
+      "side": 1,
+      "message": "\u003e host_supported bool, If set to true, build a variant of the module for the host. Defaults to false.\n\nCan we use host_supported for the target that has multiple toolchain in gn desc?\ne.g. \n```\n\"//third_party/perfetto:libperfetto\"\n\"//third_party/perfetto:libperfetto(//build/toolchain/android:robolectric_x64)\"\n\"//third_party/perfetto:libperfetto(//build/toolchain/linux:clang_x64)\":\n```",
+      "revId": "31a16f3d3610a31bbe7a10040cfbded557bf6979",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25e9ffd4_2cfa831d",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-25T14:23:49Z",
+      "side": 1,
+      "message": "If we put all flags to cflags, does this cause any issue?",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 75
+      },
+      "revId": "31a16f3d3610a31bbe7a10040cfbded557bf6979",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6b2c6ef_eae68cd6",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-25T14:23:49Z",
+      "side": 1,
+      "message": "for `perfetto_unittests`. we can remove.",
+      "range": {
+        "startLine": 170,
+        "startChar": 4,
+        "endLine": 170,
+        "endChar": 23
+      },
+      "revId": "31a16f3d3610a31bbe7a10040cfbded557bf6979",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7d290c7_8969bb40",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-25T14:23:49Z",
+      "side": 1,
+      "message": "Can add some third party libs android has (e.g. perfetto, icu, turbine)?\nIf that\u0027s the case, can we remove some rules specific for perfetto?",
+      "revId": "31a16f3d3610a31bbe7a10040cfbded557bf6979",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23f96d19_1fce7913",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-25T14:23:49Z",
+      "side": 1,
+      "message": "proto module generation is specific to perfetto\n(https://source.corp.google.com/aosp-master/external/perfetto/gn/proto_library.gni)",
+      "revId": "31a16f3d3610a31bbe7a10040cfbded557bf6979",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93fab648_09a3f4b8",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-25T14:23:49Z",
+      "side": 1,
+      "message": "if lib is not in the allowlist, build will fail?",
+      "revId": "31a16f3d3610a31bbe7a10040cfbded557bf6979",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c13271a_64abf0bc",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-25T14:23:49Z",
+      "side": 1,
+      "message": "Only used by `gen_amalgamated`",
+      "revId": "31a16f3d3610a31bbe7a10040cfbded557bf6979",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7eee6134_e02d8d9a",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-25T14:23:49Z",
+      "side": 1,
+      "message": "I\u0027m not clear about this.",
+      "revId": "31a16f3d3610a31bbe7a10040cfbded557bf6979",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

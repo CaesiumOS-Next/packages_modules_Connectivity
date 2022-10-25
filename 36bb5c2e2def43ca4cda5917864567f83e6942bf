@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1100f426_bc776659",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-25T14:23:49Z",
+      "side": 1,
+      "message": "Commented random thought while reading.\nI will check later and want to talk about some of them in the sync.",
+      "revId": "36bb5c2e2def43ca4cda5917864567f83e6942bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cae8a9a_fc3ba952",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-25T14:23:49Z",
+      "side": 1,
+      "message": "I don\u0027t see `lto` in the Android.bp under `/packages`",
+      "revId": "36bb5c2e2def43ca4cda5917864567f83e6942bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
