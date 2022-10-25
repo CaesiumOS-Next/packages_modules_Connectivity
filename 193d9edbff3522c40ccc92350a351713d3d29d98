@@ -60,6 +60,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a6bb6541_2358ba23",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 7444,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-25T07:30:39Z",
+      "side": 1,
+      "message": "Done.\nYes from code flow IIUC you are correct.\nAlso added log and run FrameworksNetTests, the isRunning check never passes with lp \u003d\u003d null.",
+      "parentUuid": "06c456a8_663beb00",
+      "range": {
+        "startLine": 7444,
+        "startChar": 47,
+        "endLine": 7444,
+        "endChar": 52
+      },
+      "revId": "193d9edbff3522c40ccc92350a351713d3d29d98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "70232b2b_33a35a4f",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 2
@@ -71,6 +95,30 @@
       "writtenOn": "2022-10-17T08:35:36Z",
       "side": 1,
       "message": "(Only if you have time) ideally the argument to this (and other uses of oldLp below) should be annotated @Nullable, since all of them are. It\u0027s kind of tangential to your change though, so only if you have time.",
+      "range": {
+        "startLine": 7446,
+        "startChar": 32,
+        "endLine": 7446,
+        "endChar": 37
+      },
+      "revId": "193d9edbff3522c40ccc92350a351713d3d29d98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6121d783_fa0e96d1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 7446,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-25T07:30:39Z",
+      "side": 1,
+      "message": "yes but would like to address in the follow-up.\nKeep it open for tracking.",
+      "parentUuid": "70232b2b_33a35a4f",
       "range": {
         "startLine": 7446,
         "startChar": 32,
@@ -94,6 +142,30 @@
       "writtenOn": "2022-10-17T08:35:36Z",
       "side": 1,
       "message": "Interestingly updateInterfaces also computes this, though in a slightly different manner, I wonder if there is a way to factorize or simplify this. I can\u0027t immediately think of a way though",
+      "range": {
+        "startLine": 7492,
+        "startChar": 12,
+        "endLine": 7493,
+        "endChar": 99
+      },
+      "revId": "193d9edbff3522c40ccc92350a351713d3d29d98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc51c158_ad6d3abe",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 7493,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-25T07:30:39Z",
+      "side": 1,
+      "message": "No idea now.\nIt seems to me this would be a common pattern in java (compares to kotlin null handling).\nFor now maybe not worth to refactor it, but we can revisit when it shows up again.",
+      "parentUuid": "b59557e3_2a9861e8",
       "range": {
         "startLine": 7492,
         "startChar": 12,
