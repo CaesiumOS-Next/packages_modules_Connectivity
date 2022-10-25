@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a26ae39b_c7748318",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1061164
+      },
+      "writtenOn": "2022-10-25T15:27:08Z",
+      "side": 1,
+      "message": "Are these tests in MTS? If so, if we remove the target_sdk_version declaration the build system will set it to either 10000 before finalization or specific int after finalization both for updatable:true apps and android_tests that are in MTS.",
+      "parentUuid": "f783740d_b1360420",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 29
+      },
+      "revId": "34fc2bfd3904150d38aa8c000d3dd22929c29bb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6ac1b7ac_033bf185",
         "filename": "Tethering/Android.bp",
         "patchSetId": 3
