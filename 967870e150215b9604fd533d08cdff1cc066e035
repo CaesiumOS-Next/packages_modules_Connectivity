@@ -3,6 +3,98 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9e54aa2e_58d4a9ee",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3119,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-25T09:23:26Z",
+      "side": 1,
+      "message": "This method also calls by updateLinkProperties. Do you want to add nullability annotations too?",
+      "range": {
+        "startLine": 3119,
+        "startChar": 17,
+        "endLine": 3119,
+        "endChar": 37
+      },
+      "revId": "967870e150215b9604fd533d08cdff1cc066e035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edaf8635_473583f4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5700,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-25T09:23:26Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 5700,
+        "startChar": 17,
+        "endLine": 5700,
+        "endChar": 40
+      },
+      "revId": "967870e150215b9604fd533d08cdff1cc066e035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff587af1_61c256a1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5712,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-25T09:23:26Z",
+      "side": 1,
+      "message": "The only usage for updateProxy() is at l.7472 and newLp is a @NonNull argument there. Thus, I think this should be @NonNull probably. If so, the null check for newLp below can be removed either.",
+      "range": {
+        "startLine": 5712,
+        "startChar": 29,
+        "endLine": 5712,
+        "endChar": 38
+      },
+      "revId": "967870e150215b9604fd533d08cdff1cc066e035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bd1b0f2_89eee0ed",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7583,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-25T09:23:26Z",
+      "side": 1,
+      "message": "If newLp marks @NonNull on another updateXXX(), this argument should be aligned to others.",
+      "range": {
+        "startLine": 7583,
+        "startChar": 40,
+        "endLine": 7583,
+        "endChar": 49
+      },
+      "revId": "967870e150215b9604fd533d08cdff1cc066e035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2a5756ed_9aab91f0",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 1
@@ -14,6 +106,30 @@
       "writtenOn": "2022-10-25T08:12:42Z",
       "side": 1,
       "message": "This is a private method only used in ConnectivityService. Although here checks if the newLp is null or not. IIUC, it depends on what updateLinkProperties() gets and currently updateLinkProperties() requires NonNull for newLp. Is this possible to be a null object?\n\nsame question to updateProxy.",
+      "range": {
+        "startLine": 7649,
+        "startChar": 33,
+        "endLine": 7649,
+        "endChar": 42
+      },
+      "revId": "967870e150215b9604fd533d08cdff1cc066e035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "212aa041_804b2903",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7649,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-25T09:23:26Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "2a5756ed_9aab91f0",
       "range": {
         "startLine": 7649,
         "startChar": 33,
