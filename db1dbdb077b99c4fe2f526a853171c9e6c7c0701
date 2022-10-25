@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "43825c1a_4110be50",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 8092,
+      "author": {
+        "id": 1958109
+      },
+      "writtenOn": "2022-10-25T10:31:27Z",
+      "side": 1,
+      "message": "From its usage, getVpnIsolationInterface looks intended to return a result entirely based on its arguments, not external factors like lockdown state, which unfortunately does not appear to be available as part of NetworkAgentInfo, NetworkCapabilities, or LinkProperties. The lockdown state would therefore need to be passed in as an argument, and functions which call this (updateVpnUids, updateVpnFiltering) would somehow need to be able to know the prior lockdown state in order to handle changes consistently.",
+      "revId": "db1dbdb077b99c4fe2f526a853171c9e6c7c0701",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "802d30fa_ee51e2c7",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 4
@@ -48,6 +65,23 @@
       "writtenOn": "2022-10-25T03:43:03Z",
       "side": 1,
       "message": "bpf_progs/net.d should be bpf_progs/netd.c, oops",
+      "revId": "db1dbdb077b99c4fe2f526a853171c9e6c7c0701",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dad62452_bb4afab2",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1018,
+      "author": {
+        "id": 1958109
+      },
+      "writtenOn": "2022-10-25T10:31:27Z",
+      "side": 1,
+      "message": "As described in the comments, getVpnIsolationInterface is our primary changed function -- it now considers lockdown status -- but it is only actually called from two functions, both within ConnectivityService (not here in PermissionMonitor): updateVpnUids and updateVpnFiltering. Neither of these is triggered in any way by this call to updateVpnUid within PermissionMonitor, so this shouldn\u0027t work. One place that might work is handleSetRequireVpnForUids, but in order to utilize existing functions, we must be able to reliably track previous and current lockdown state, because onVpnUidRangesRemoved and onVpnUidRangesAdded need to know the old and new isolation interface. See other comment.\n\nAnyway, I am still not sure how this patch overall *ever* works when toggling lockdown, but it does appear to work sometimes.",
       "revId": "db1dbdb077b99c4fe2f526a853171c9e6c7c0701",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
