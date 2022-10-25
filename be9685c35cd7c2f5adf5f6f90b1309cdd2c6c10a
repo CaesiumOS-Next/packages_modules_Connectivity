@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07a59233_151deb5d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-10-25T23:24:00Z",
+      "side": 1,
+      "message": "It builds, only comments were added since TH+2\u0027ed patchset 4.",
+      "revId": "be9685c35cd7c2f5adf5f6f90b1309cdd2c6c10a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
