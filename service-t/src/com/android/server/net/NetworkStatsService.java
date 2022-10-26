@@ -180,7 +180,6 @@ import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -436,7 +435,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
      * the caller of open session and it is only for debugging.
      */
     @GuardedBy("mOpenSessionCallsLock")
-    private final HashMap<OpenSessionKey, Integer> mOpenSessionCallsPerCaller = new HashMap<>();
+    private final ArrayMap<OpenSessionKey, Integer> mOpenSessionCallsPerCaller = new ArrayMap<>();
 
     private final static int DUMP_STATS_SESSION_COUNT = 20;
 
@@ -2677,11 +2676,17 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             pw.decreaseIndent();
 
             // Get the top openSession callers
-            final HashMap calls;
+            final ArrayMap calls;
             synchronized (mOpenSessionCallsLock) {
-                calls = new HashMap<>(mOpenSessionCallsPerCaller);
+                calls = new ArrayMap<OpenSessionKey, Integer>(mOpenSessionCallsPerCaller);
             }
-            final List<Map.Entry<OpenSessionKey, Integer>> list = new ArrayList<>(calls.entrySet());
+            final ArrayList<Map.Entry<OpenSessionKey, Integer>> list = new ArrayList<>();
+            for (int i = 0; i < calls.size(); i++) {
+                final OpenSessionKey key = (OpenSessionKey) calls.keyAt(i);
+                Integer val = (Integer) calls.get(key);
+                final Map.Entry e = Map.entry(key, val);
+                list.add(e);
+            }
             Collections.sort(list,
                     (left, right) -> Integer.compare(left.getValue(), right.getValue()));
             final int num = list.size();
