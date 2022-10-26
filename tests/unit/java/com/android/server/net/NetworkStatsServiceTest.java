@@ -19,6 +19,8 @@ package com.android.server.net;
 import static android.Manifest.permission.DUMP;
 import static android.Manifest.permission.READ_NETWORK_USAGE_HISTORY;
 import static android.Manifest.permission.UPDATE_DEVICE_STATS;
+import static android.app.usage.NetworkStatsManager.FLAG_AUGMENT_WITH_SUBSCRIPTION_PLAN;
+import static android.app.usage.NetworkStatsManager.FLAG_POLL_ON_OPEN;
 import static android.app.usage.NetworkStatsManager.PREFIX_DEV;
 import static android.content.Intent.ACTION_UID_REMOVED;
 import static android.content.Intent.EXTRA_UID;
@@ -122,6 +124,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.os.Process;
 import android.os.SimpleClock;
 import android.provider.Settings;
 import android.system.ErrnoException;
@@ -185,6 +188,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Tests for {@link NetworkStatsService}.
@@ -204,6 +209,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private static final String IMSI_1 = "310004";
     private static final String IMSI_2 = "310260";
     private static final String TEST_WIFI_NETWORK_KEY = "WifiNetworkKey";
+    private static final String TEST_PACKAGE = "test.package.name";
 
     private static NetworkTemplate sTemplateWifi = new NetworkTemplate.Builder(MATCH_WIFI)
             .setWifiNetworkKeys(Set.of(TEST_WIFI_NETWORK_KEY)).build();
@@ -877,6 +883,42 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         assertUidTotal(sTemplateWifi, UID_GREEN, 16L, 1L, 16L, 1L, 0);
         assertUidTotal(sTemplateWifi, UID_REMOVED, 4112L, 259L, 528L, 33L, 10);
 
+    }
+
+    @Test
+    public void testRemoveOpenSessionCountsFromMap() throws Exception {
+        final int uid = Process.myUid();
+        final int flags = FLAG_AUGMENT_WITH_SUBSCRIPTION_PLAN | FLAG_POLL_ON_OPEN;
+        final String dumpIdentifier = "\\{uid=" + uid + ",package=" + TEST_PACKAGE + "\\}=\\d*";
+        final Pattern dumpPattern = Pattern.compile(dumpIdentifier);
+
+        // Open session and record the package calls to the map.
+        mService.openSessionForUsageStats(flags, TEST_PACKAGE);
+
+        final String dumpIncludesCounts = getDump();
+        final Matcher dumpIncludesCountsMatcher = dumpPattern.matcher(dumpIncludesCounts);
+
+        int includeCount = 0;
+        while (dumpIncludesCountsMatcher.find()) {
+            includeCount++;
+        }
+        // Verify that there's only 1 pattern for the record.
+        assertEquals(1, includeCount);
+
+        // Simulate the package is removed.
+        final Intent intent = new Intent(ACTION_UID_REMOVED);
+        intent.putExtra(EXTRA_UID, uid);
+        mServiceContext.sendBroadcast(intent);
+
+        final String dumpRemovesCounts = getDump();
+        final Matcher dumpRemoveCountMatcher = dumpPattern.matcher(dumpRemovesCounts);
+
+        int removeCount = 0;
+        while (dumpRemoveCountMatcher.find()) {
+            removeCount++;
+        }
+        // Verify that the record should be removed.
+        assertEquals(0, removeCount);
     }
 
     @Test
