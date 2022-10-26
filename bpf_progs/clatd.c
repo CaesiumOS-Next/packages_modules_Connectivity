@@ -272,19 +272,20 @@ DEFINE_BPF_PROG("schedcls/egress4/clat_rawip", AID_ROOT, AID_SYSTEM, sched_cls_e
     // IP version must be 4
     if (ip4->version != 4) return TC_ACT_PIPE;
 
-    // We cannot handle IP options, just standard 20 byte == 5 dword minimal IPv4 header
-    if (ip4->ihl != 5) return TC_ACT_PIPE;
+    // IPv4 without options, ie. just standard 20 byte == 5 dword minimal IPv4 header
+    if (ip4->ihl < 5) return TC_ACT_PIPE;
 
     // Calculate the IPv4 one's complement checksum of the IPv4 header.
-    __wsum sum4 = 0;
-    for (int i = 0; i < sizeof(*ip4) / sizeof(__u16); ++i) {
-        sum4 += ((__u16*)ip4)[i];
-    }
+    // IPv4 header is 20..60 bytes, in multiples of 4 bytes.
+    // As such max sum of component u16s is 30 * 0xFFFF.
+    int64_t sum4 = bpf_csum_diff(/*src*/ NULL, /*len*/ 0, /*dst*/ ip4, /*len*/ ip4->ihl * 4, /*seed*/ 0);
+    // However, this might sum u32s instead, so we do need to collapse from u64 to u32.
+    sum4 = (sum4 & 0xFFFFFFFF) + (sum4 >> 32);
     // Note that sum4 is guaranteed to be non-zero by virtue of ip4->version == 4
     sum4 = (sum4 & 0xFFFF) + (sum4 >> 16);  // collapse u32 into range 1 .. 0x1FFFE
     sum4 = (sum4 & 0xFFFF) + (sum4 >> 16);  // collapse any potential carry into u16
     // for a correct checksum we should get *a* zero, but sum4 must be positive, ie 0xFFFF
-    if (sum4 != 0xFFFF) return TC_ACT_PIPE;
+    if (sum4 != 0xFFFF) return TC_ACT_DROP;
 
     // Minimum IPv4 total length is the size of the header
     if (ntohs(ip4->tot_len) < sizeof(*ip4)) return TC_ACT_PIPE;
