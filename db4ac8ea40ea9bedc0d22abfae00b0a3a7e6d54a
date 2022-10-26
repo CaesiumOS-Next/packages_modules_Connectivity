@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd48dac1_8d6e308c",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-26T16:06:48Z",
+      "side": 0,
+      "message": "Note that we might want to use this once we are further along. But we can always add it back eventually.",
+      "range": {
+        "startLine": 210,
+        "startChar": 6,
+        "endLine": 210,
+        "endChar": 16
+      },
+      "revId": "db4ac8ea40ea9bedc0d22abfae00b0a3a7e6d54a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
