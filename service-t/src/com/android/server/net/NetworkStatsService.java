@@ -186,7 +186,6 @@ import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -431,6 +430,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
     private long mLastStatsSessionPoll;
 
+    // Some code is taking mStatsLock and then mOpenSessionCallsLock, therefore it is forbidden
+    // to take them in the reverse order.
     private final Object mOpenSessionCallsLock = new Object();
 
     /**
@@ -438,7 +439,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
      * the caller of open session and it is only for debugging.
      */
     @GuardedBy("mOpenSessionCallsLock")
-    private final HashMap<OpenSessionKey, Integer> mOpenSessionCallsPerCaller = new HashMap<>();
+    private final ArrayMap<OpenSessionKey, Integer> mOpenSessionCallsPerCaller = new ArrayMap<>();
 
     private final static int DUMP_STATS_SESSION_COUNT = 20;
 
@@ -2519,8 +2520,23 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         // Clear kernel stats associated with UID
         for (int uid : uids) {
             deleteKernelTagData(uid);
+            removeOpenSessionCountsByUid(uid);
         }
-        // TODO: Remove the UID's entries from mOpenSessionCallsPerCaller.
+    }
+
+    /**
+     * Remove open sessions counts with the given uid from {@code mOpenSessionCallsPerCaller}.
+     */
+    private void removeOpenSessionCountsByUid(int uid) {
+        // This is called with mStatsLock taken so it needs to be careful of the lock inversion.
+        synchronized (mOpenSessionCallsLock) {
+            for (int i = mOpenSessionCallsPerCaller.size() - 1; i >= 0; i--) {
+                final OpenSessionKey key = mOpenSessionCallsPerCaller.keyAt(i);
+                if (key.uid == uid) {
+                    mOpenSessionCallsPerCaller.removeAt(i);
+                }
+            }
+        }
     }
 
     /**
@@ -2689,24 +2705,11 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             }
             pw.println();
             pw.decreaseIndent();
+            pw.println();
 
-            // Get the top openSession callers
-            final HashMap calls;
-            synchronized (mOpenSessionCallsLock) {
-                calls = new HashMap<>(mOpenSessionCallsPerCaller);
-            }
-            final List<Map.Entry<OpenSessionKey, Integer>> list = new ArrayList<>(calls.entrySet());
-            Collections.sort(list,
-                    (left, right) -> Integer.compare(left.getValue(), right.getValue()));
-            final int num = list.size();
-            final int end = Math.max(0, num - DUMP_STATS_SESSION_COUNT);
             pw.println("Top openSession callers:");
             pw.increaseIndent();
-            for (int j = num - 1; j >= end; j--) {
-                final Map.Entry<OpenSessionKey, Integer> entry = list.get(j);
-                pw.print(entry.getKey()); pw.print("="); pw.println(entry.getValue());
-
-            }
+            dumpOpenSessionCallsPerCaller(pw);
             pw.decreaseIndent();
             pw.println();
 
@@ -2932,6 +2935,25 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                             + value.txBytes + " "
                             + value.txPackets;
                 });
+    }
+
+    private void dumpOpenSessionCallsPerCaller(final IndentingPrintWriter pw) {
+        // Get the top openSession callers
+        final ArrayList<Map.Entry<OpenSessionKey, Integer>> list = new ArrayList<>();
+        synchronized (mOpenSessionCallsLock) {
+            for (Map.Entry<OpenSessionKey, Integer> elem : mOpenSessionCallsPerCaller.entrySet()) {
+                list.add(Map.entry(elem.getKey(), elem.getValue()));
+            }
+        }
+
+        // Sort the items in descending order.
+        Collections.sort(list, Collections.reverseOrder(
+                (left, right) -> Integer.compare(left.getValue(), right.getValue())));
+        int remaining = DUMP_STATS_SESSION_COUNT;
+        for (Map.Entry<OpenSessionKey, Integer> entry : list) {
+            pw.print(entry.getKey()); pw.print("="); pw.println(entry.getValue());
+            if (--remaining <= 0) break;
+        }
     }
 
     private NetworkStats readNetworkStatsSummaryXt() {

@@ -19,6 +19,8 @@ package com.android.server.net;
 import static android.Manifest.permission.DUMP;
 import static android.Manifest.permission.READ_NETWORK_USAGE_HISTORY;
 import static android.Manifest.permission.UPDATE_DEVICE_STATS;
+import static android.app.usage.NetworkStatsManager.FLAG_AUGMENT_WITH_SUBSCRIPTION_PLAN;
+import static android.app.usage.NetworkStatsManager.FLAG_POLL_ON_OPEN;
 import static android.app.usage.NetworkStatsManager.PREFIX_DEV;
 import static android.content.Intent.ACTION_UID_REMOVED;
 import static android.content.Intent.EXTRA_UID;
@@ -75,6 +77,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.mockito.AdditionalMatchers.aryEq;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
@@ -93,8 +96,10 @@ import static org.mockito.Mockito.verify;
 
 import android.annotation.NonNull;
 import android.app.AlarmManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.net.ConnectivityResources;
@@ -122,6 +127,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.os.Process;
 import android.os.SimpleClock;
 import android.provider.Settings;
 import android.system.ErrnoException;
@@ -183,8 +189,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Tests for {@link NetworkStatsService}.
@@ -204,6 +216,8 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private static final String IMSI_1 = "310004";
     private static final String IMSI_2 = "310260";
     private static final String TEST_WIFI_NETWORK_KEY = "WifiNetworkKey";
+    private static final String TEST_PACKAGE = "test.package.name";
+    private static final int BROADCAST_TIMEOUT_MS = 30_000;
 
     private static NetworkTemplate sTemplateWifi = new NetworkTemplate.Builder(MATCH_WIFI)
             .setWifiNetworkKeys(Set.of(TEST_WIFI_NETWORK_KEY)).build();
@@ -338,6 +352,45 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         parcel.txPackets = txPackets;
         parcel.ifIndex = ifIndex;
         return parcel;
+    }
+
+    private class ExpectedBroadcast extends CompletableFuture<Intent> {
+        private final BroadcastReceiver mReceiver;
+
+        ExpectedBroadcast(BroadcastReceiver receiver) {
+            mReceiver = receiver;
+        }
+
+        public Intent expectBroadcast(int timeoutMs) throws Exception {
+            try {
+                return get(timeoutMs, TimeUnit.MILLISECONDS);
+            } catch (TimeoutException e) {
+                fail("Expected broadcast not received after " + timeoutMs + " ms");
+                return null;
+            } finally {
+                mServiceContext.unregisterReceiver(mReceiver);
+            }
+        }
+
+        public Intent expectBroadcast() throws Exception {
+            return expectBroadcast(BROADCAST_TIMEOUT_MS);
+        }
+    }
+
+    private ExpectedBroadcast registerBroadcastReceiver(String action) {
+        final IntentFilter filter = new IntentFilter(action);
+        final AtomicReference<ExpectedBroadcast> expectedRef = new AtomicReference<>();
+
+        final BroadcastReceiver receiver = new BroadcastReceiver() {
+            public void onReceive(Context context, Intent intent) {
+                expectedRef.get().complete(intent);
+            }
+        };
+
+        final ExpectedBroadcast expected = new ExpectedBroadcast(receiver);
+        expectedRef.set(expected);
+        mServiceContext.registerReceiver(receiver, filter);
+        return expected;
     }
 
     @Before
@@ -877,6 +930,27 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         assertUidTotal(sTemplateWifi, UID_GREEN, 16L, 1L, 16L, 1L, 0);
         assertUidTotal(sTemplateWifi, UID_REMOVED, 4112L, 259L, 528L, 33L, 10);
 
+    }
+
+    @Test
+    public void testRemoveOpenSessionCountsFromMap() throws Exception {
+        final int uid = Process.myUid();
+        final int flags = FLAG_AUGMENT_WITH_SUBSCRIPTION_PLAN | FLAG_POLL_ON_OPEN;
+
+        // Open session and record the package calls to the map.
+        mService.openSessionForUsageStats(flags, TEST_PACKAGE);
+
+        assertWhetherUidIsInTopSessionCallers(getDump(), true /* expected*/, uid);
+
+        // Simulate the package is removed.
+        final ExpectedBroadcast b = registerBroadcastReceiver(ACTION_UID_REMOVED);
+        final Intent intent = new Intent(ACTION_UID_REMOVED);
+        intent.putExtra(EXTRA_UID, uid);
+        mServiceContext.sendBroadcast(intent);
+        // Verify the broadcast is received since sendBroadcast is asynchronous.
+        b.expectBroadcast();
+
+        assertWhetherUidIsInTopSessionCallers(getDump(), false /* expected */, uid);
     }
 
     @Test
@@ -2494,6 +2568,30 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private void assertDumpContains(final String dump, final String message) {
         assertTrue(String.format("dump(%s) does not contain '%s'", dump, message),
                 dump.contains(message));
+    }
+
+    private void assertWhetherUidIsInTopSessionCallers(String dump, boolean expected, int uid) {
+        final String uidRegExp = "\\d+";
+        // The package name may contain uppercase or lowercase letters ('A' through 'Z'),
+        // numbers, and underscores ('_'). However, individual package name parts may only
+        // start with letters.
+        final String packageRegExp = "([A-Za-z]{1}[A-Za-z\\d_]*\\.)*[A-Za-z][A-Za-z\\d_]*";
+        final String section = "Top openSession callers:\n((\\s+\\{uid="
+                + uidRegExp + ",package=" + packageRegExp + "\\}=\\d+\n)*)";
+        final Pattern sectionPattern = Pattern.compile(section);
+        final Matcher sectionMatcher = sectionPattern.matcher(dump);
+
+        // Verify that there's "Top openSesion callers" section.
+        assertTrue(sectionMatcher.find());
+
+        // Get the records from the section.
+        final String records = sectionMatcher.group(1);
+        final String identifier = "\\{uid=" + uid + ",package=" + TEST_PACKAGE + "\\}=\\d+\n";
+        final Pattern pattern = Pattern.compile(identifier);
+        final Matcher matcher = pattern.matcher(records);
+
+        // Verify whether there's a record for the given uid or not.
+        assertEquals(expected, matcher.find());
     }
 
     private String getDump(final String[] args) {
