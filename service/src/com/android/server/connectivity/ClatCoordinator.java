@@ -907,7 +907,12 @@ public class ClatCoordinator {
         // TODO: move map dump to a global place to avoid duplicate dump while there are two or
         // more IPv6 only networks.
         if (isStarted()) {
-            pw.println("CLAT tracker: " + mClatdTracker.toString());
+            // Don't crash if CLAT is stopping while dumping in bugreports.
+            try {
+                pw.println("CLAT tracker: " + mClatdTracker.toString());
+            } catch (NullPointerException e) {
+                pw.println("Error dumping CLAT tracker: " + e);
+            }
             pw.println("Forwarding rules:");
             pw.increaseIndent();
             dumpBpfIngress(pw);
