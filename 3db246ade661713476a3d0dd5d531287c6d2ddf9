@@ -34,6 +34,24 @@
       "parentUuid": "44d4583d_b52be63e",
       "revId": "3db246ade661713476a3d0dd5d531287c6d2ddf9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5736f4a0_9107896a",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-26T02:21:07Z",
+      "side": 0,
+      "message": "Great idea! Let\u0027s do it.",
+      "parentUuid": "1c1318ba_e3210adf",
+      "revId": "3db246ade661713476a3d0dd5d531287c6d2ddf9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

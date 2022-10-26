@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1a42926_58dd09ed",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-26T02:21:07Z",
+      "side": 1,
+      "message": "spurious change, sorry about that.",
+      "range": {
+        "startLine": 1006,
+        "startChar": 0,
+        "endLine": 1006,
+        "endChar": 3
+      },
+      "revId": "1aa504a3ea9902c383f258005bbd25b4ee47629e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
