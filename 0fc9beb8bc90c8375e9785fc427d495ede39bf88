@@ -86,6 +86,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa18e8b0_71e527b3",
+        "filename": "Cronet/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-26T14:13:37Z",
+      "side": 1,
+      "message": "It seems this was not used.",
+      "parentUuid": "06bcc76f_9ac8f894",
+      "revId": "0fc9beb8bc90c8375e9785fc427d495ede39bf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47d98fe2_07d39286",
@@ -163,6 +181,24 @@
       "writtenOn": "2022-10-25T10:19:48Z",
       "side": 1,
       "message": "Can this be removed ? Also the keys ?",
+      "revId": "0fc9beb8bc90c8375e9785fc427d495ede39bf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "018a40d4_9bece86d",
+        "filename": "Cronet/apex/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-26T14:13:37Z",
+      "side": 1,
+      "message": "Removed unused modules and files.",
+      "parentUuid": "40de24fd_e2befca7",
       "revId": "0fc9beb8bc90c8375e9785fc427d495ede39bf88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
