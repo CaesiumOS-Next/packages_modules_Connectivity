@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8882079_1b81e7ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1958109
+      },
+      "writtenOn": "2022-10-26T04:08:55Z",
+      "side": 1,
+      "message": "Returned to previous method but with some code changes and updating/addition of many comments to better represent the new behavior. Tested on android-13.0.0_r11 tag, but alterations for master were necessary and were not built/tested there.\n\nReady for review now I think 😊",
+      "revId": "c70ac51674ea410aee1e1065f768092286226364",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
