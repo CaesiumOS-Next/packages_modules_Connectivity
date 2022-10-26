@@ -84,6 +84,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f9a1d3aa_fed31164",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 36
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-26T14:11:30Z",
+      "side": 1,
+      "message": "This docs explains above situation in a bit more detail.\nhttps://docs.google.com/document/d/1qv2gex2qYFl6bBfRb9Al6i6WWBm0Eq-g8abOjJzk0Zk/edit?resourcekey\u003d0-epb6w8GFwLcpnT4r6QavXA\u0026disco\u003dAAAAiLbgEhY\n(Before LOCKDOWN_VPN_MATCH is introduced, allowed_iif can not be 0.)",
+      "parentUuid": "6447464f_6aa3e9ff",
+      "range": {
+        "startLine": 224,
+        "startChar": 10,
+        "endLine": 224,
+        "endChar": 14
+      },
+      "revId": "b08654ca0450d021da709a762ab509a8d4f87d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aecbd8e8_72f89b5a",
         "filename": "framework/src/android/net/ConnectivityManager.java",
         "patchSetId": 36
