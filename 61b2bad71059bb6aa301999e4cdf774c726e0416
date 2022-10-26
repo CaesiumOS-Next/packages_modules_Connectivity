@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c092ed29_e1256bf8",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-26T01:37:10Z",
+      "side": 1,
+      "message": "what does aml mean?",
+      "range": {
+        "startLine": 55,
+        "startChar": 24,
+        "endLine": 55,
+        "endChar": 28
+      },
+      "revId": "61b2bad71059bb6aa301999e4cdf774c726e0416",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
