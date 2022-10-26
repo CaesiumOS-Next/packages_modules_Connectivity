@@ -853,18 +853,19 @@ public class ClatCoordinator {
     }
 
     private void dumpBpfIngress(@NonNull IndentingPrintWriter pw) {
-        if (mIngressMap == null) {
+        final IBpfMap<ClatIngress6Key, ClatIngress6Value> ingressMap = mIngressMap;
+        if (ingressMap == null) {
             pw.println("No BPF ingress6 map");
             return;
         }
 
         try {
-            if (mIngressMap.isEmpty()) {
+            if (ingressMap.isEmpty()) {
                 pw.println("<empty>");
             }
             pw.println("BPF ingress map: iif nat64Prefix v6Addr -> v4Addr oif");
             pw.increaseIndent();
-            mIngressMap.forEach((k, v) -> {
+            ingressMap.forEach((k, v) -> {
                 // TODO: print interface name
                 pw.println(String.format("%d %s/96 %s -> %s %d", k.iif, k.pfx96, k.local6,
                         v.local4, v.oif));
@@ -876,18 +877,19 @@ public class ClatCoordinator {
     }
 
     private void dumpBpfEgress(@NonNull IndentingPrintWriter pw) {
-        if (mEgressMap == null) {
+        final IBpfMap<ClatEgress4Key, ClatEgress4Value> egressMap = mEgressMap;
+        if (egressMap == null) {
             pw.println("No BPF egress4 map");
             return;
         }
 
         try {
-            if (mEgressMap.isEmpty()) {
+            if (egressMap.isEmpty()) {
                 pw.println("<empty>");
             }
             pw.println("BPF egress map: iif v4Addr -> v6Addr nat64Prefix oif");
             pw.increaseIndent();
-            mEgressMap.forEach((k, v) -> {
+            egressMap.forEach((k, v) -> {
                 // TODO: print interface name
                 pw.println(String.format("%d %s -> %s %s/96 %d %s", k.iif, k.local4, v.local6,
                         v.pfx96, v.oif, v.oifIsEthernet != 0 ? "ether" : "rawip"));
@@ -899,7 +901,7 @@ public class ClatCoordinator {
     }
 
     /**
-     * Dump the cordinator information.
+     * Dump the coordinator information.
      *
      * @param pw print writer.
      */
@@ -907,7 +909,7 @@ public class ClatCoordinator {
         // TODO: move map dump to a global place to avoid duplicate dump while there are two or
         // more IPv6 only networks.
         if (isStarted()) {
-            pw.println("CLAT tracker: " + mClatdTracker.toString());
+            pw.println("CLAT tracker: " + mClatdTracker);
             pw.println("Forwarding rules:");
             pw.increaseIndent();
             dumpBpfIngress(pw);
