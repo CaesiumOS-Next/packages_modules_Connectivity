@@ -179,13 +179,13 @@ import java.time.Instant;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Semaphore;
@@ -436,7 +436,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
      * the caller of open session and it is only for debugging.
      */
     @GuardedBy("mOpenSessionCallsLock")
-    private final HashMap<OpenSessionKey, Integer> mOpenSessionCallsPerCaller = new HashMap<>();
+    private final ArrayMap<OpenSessionKey, Integer> mOpenSessionCallsPerCaller = new ArrayMap<>();
 
     private final static int DUMP_STATS_SESSION_COUNT = 20;
 
@@ -2505,8 +2505,22 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         // Clear kernel stats associated with UID
         for (int uid : uids) {
             deleteKernelTagData(uid);
+            removeOpenSessionCountsByUid(uid);
         }
-        // TODO: Remove the UID's entries from mOpenSessionCallsPerCaller.
+    }
+
+    /**
+     * Remove open sessions counts with the given uid from {@code mOpenSessionCallsPerCaller}.
+     */
+    private void removeOpenSessionCountsByUid(int uid) {
+        synchronized (mOpenSessionCallsLock) {
+            for (int i = mOpenSessionCallsPerCaller.size() - 1; i >= 0; i--) {
+                final OpenSessionKey key = mOpenSessionCallsPerCaller.keyAt(i);
+                if (key.uid == uid) {
+                    mOpenSessionCallsPerCaller.removeAt(i);
+                }
+            }
+        }
     }
 
     /**
@@ -2542,6 +2556,30 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         }
         invokeForAllStatsProviderCallbacks((cb) -> cb.mProvider.onSetWarningAndLimit(iface,
                 warning, limit));
+    }
+
+    private static class DumpedSession implements Comparable<DumpedSession> {
+        final OpenSessionKey mKey;
+        final int mCount;
+
+        DumpedSession(OpenSessionKey key, int count) {
+            mKey = key;
+            mCount = count;
+        }
+
+        // Compare this {@code count} with {@code other} in descending order.
+        public int compareTo(@NonNull final DumpedSession other) {
+            return Integer.compare(other.mCount, mCount);
+        }
+
+        @Override
+        public String toString() {
+            final StringBuilder sb = new StringBuilder();
+            sb.append(mKey);
+            sb.append("=");
+            sb.append(mCount);
+            return sb.toString();
+        }
     }
 
     @Override
@@ -2675,26 +2713,13 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             }
             pw.println();
             pw.decreaseIndent();
+            pw.println();
 
-            // Get the top openSession callers
-            final HashMap calls;
-            synchronized (mOpenSessionCallsLock) {
-                calls = new HashMap<>(mOpenSessionCallsPerCaller);
-            }
-            final List<Map.Entry<OpenSessionKey, Integer>> list = new ArrayList<>(calls.entrySet());
-            Collections.sort(list,
-                    (left, right) -> Integer.compare(left.getValue(), right.getValue()));
-            final int num = list.size();
-            final int end = Math.max(0, num - DUMP_STATS_SESSION_COUNT);
             pw.println("Top openSession callers:");
             pw.increaseIndent();
-            for (int j = num - 1; j >= end; j--) {
-                final Map.Entry<OpenSessionKey, Integer> entry = list.get(j);
-                pw.print(entry.getKey()); pw.print("="); pw.println(entry.getValue());
-
-            }
-            pw.decreaseIndent();
+            dumpOpenSessionCallsPerCaller(pw);
             pw.println();
+            pw.decreaseIndent();
 
             pw.println("Stats Providers:");
             pw.increaseIndent();
@@ -2914,6 +2939,27 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                             + value.txBytes + " "
                             + value.txPackets;
                 });
+    }
+
+    private void dumpOpenSessionCallsPerCaller(final IndentingPrintWriter pw) {
+        // Get the top openSession callers
+        final SortedSet<DumpedSession> recordSet = new TreeSet<>();
+
+        synchronized (mOpenSessionCallsLock) {
+            for (int i = 0; i < mOpenSessionCallsPerCaller.size(); i++) {
+                final OpenSessionKey key =
+                        (OpenSessionKey) mOpenSessionCallsPerCaller.keyAt(i);
+                final Integer val = (Integer) mOpenSessionCallsPerCaller.valueAt(i);
+                DumpedSession record = new DumpedSession(key, val);
+                recordSet.add(record);
+            }
+        }
+
+        int remaining = DUMP_STATS_SESSION_COUNT;
+        for (final DumpedSession s : recordSet) {
+            pw.println(s);
+            if (--remaining <= 0) break;
+        }
     }
 
     private NetworkStats readNetworkStatsSummaryDev() {
