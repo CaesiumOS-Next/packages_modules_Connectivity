@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6447464f_6aa3e9ff",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 36
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-26T14:09:50Z",
+      "side": 1,
+      "message": "Situation: Device enables Lockdown mode and established VPN that can not have isolation interface.\nIn this situation it is expected to BPF_PASS with `LOCKDOWN_VPN_MATCH\u003denabled`, `IIF_MATCH\u003denabled`, and `allowed_iif\u003d0`.\nBut if we BPF_PASS with these values in other situation, that would be unexpected.\n\nCondition to have isolation interface\nhttp://cs/aosp-master/packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java;l\u003d8093;rcl\u003df5146d3fd6af53d9ec89ccd7afb0666cdd2fc577\n\nSet IIF_MATCH with allowed_iif\u003d0 is expected\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/service/jni/com_android_server_BpfNetMaps.cpp;l\u003d130-131?q\u003dnative_addUidInterfaceRules\u0026ss\u003dpiper%2FGoogle%2Faosp-master",
+      "parentUuid": "4988d8bd_6b6ecd66",
+      "range": {
+        "startLine": 224,
+        "startChar": 10,
+        "endLine": 224,
+        "endChar": 14
+      },
+      "revId": "b08654ca0450d021da709a762ab509a8d4f87d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aecbd8e8_72f89b5a",
         "filename": "framework/src/android/net/ConnectivityManager.java",
         "patchSetId": 36
