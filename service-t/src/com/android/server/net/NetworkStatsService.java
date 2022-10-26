@@ -2504,8 +2504,23 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         // Clear kernel stats associated with UID
         for (int uid : uids) {
             deleteKernelTagData(uid);
+            removeOpenSessionCountsByUid(uid);
         }
-        // TODO: Remove the UID's entries from mOpenSessionCallsPerCaller.
+    }
+
+    /**
+     * Remove open sessions counts with the given uid from {@code mOpenSessionCallsPerCaller}.
+     */
+    @GuardedBy("mOpenSessionCallsLock")
+    private void removeOpenSessionCountsByUid(int uid) {
+        synchronized (mOpenSessionCallsLock) {
+            for (int i = mOpenSessionCallsPerCaller.size() - 1; i >= 0; i--) {
+                final OpenSessionKey key = mOpenSessionCallsPerCaller.keyAt(i);
+                if (key.uid == uid) {
+                    mOpenSessionCallsPerCaller.removeAt(i);
+                }
+            }
+        }
     }
 
     /**
