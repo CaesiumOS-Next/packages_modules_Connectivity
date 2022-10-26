@@ -56,6 +56,29 @@
       },
       "revId": "c70ac51674ea410aee1e1065f768092286226364",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37a75995_92616925",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-10-26T07:21:34Z",
+      "side": 1,
+      "message": "btw the fact this code doesn\u0027t care and there is no difference between IIF_MATCH and LOCKDOWN_VPN_MATCH at the bpf layer... so perhaps *only* the upper layers behaviour should be modified, and this file should be left alone?",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 260,
+        "endChar": 72
+      },
+      "revId": "c70ac51674ea410aee1e1065f768092286226364",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
