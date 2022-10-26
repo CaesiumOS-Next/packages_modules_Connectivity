@@ -22,6 +22,30 @@
       },
       "revId": "bdb173a2485b2772263d7a7dc2143a263a658afa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37302808_639c4d4d",
+        "filename": "tools/gn2bp/update_results.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-26T16:08:49Z",
+      "side": 1,
+      "message": "yes, otherwise we may all work with different versions.",
+      "parentUuid": "8b7dcd81_f70dc0a4",
+      "range": {
+        "startLine": 5,
+        "startChar": 23,
+        "endLine": 5,
+        "endChar": 32
+      },
+      "revId": "bdb173a2485b2772263d7a7dc2143a263a658afa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
