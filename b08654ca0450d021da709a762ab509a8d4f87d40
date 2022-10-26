@@ -37,6 +37,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4988d8bd_6b6ecd66",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 36
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-26T12:57:27Z",
+      "side": 1,
+      "message": "Discussing with maze@ :\nWe think this \u0027else\u0027 might have to be removed ; if IIF_MATCH but not allowed_iif we BPF_PASS even if LOCKDOWN_VPN_MATCH. Is that correct ?",
+      "range": {
+        "startLine": 224,
+        "startChar": 10,
+        "endLine": 224,
+        "endChar": 14
+      },
+      "revId": "b08654ca0450d021da709a762ab509a8d4f87d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aecbd8e8_72f89b5a",
         "filename": "framework/src/android/net/ConnectivityManager.java",
         "patchSetId": 36
