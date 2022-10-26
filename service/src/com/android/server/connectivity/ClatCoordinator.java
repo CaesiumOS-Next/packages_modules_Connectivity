@@ -56,6 +56,7 @@ import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
+import java.util.ConcurrentModificationException;
 import java.util.Objects;
 
 /**
@@ -907,12 +908,21 @@ public class ClatCoordinator {
         // TODO: move map dump to a global place to avoid duplicate dump while there are two or
         // more IPv6 only networks.
         if (isStarted()) {
-            pw.println("CLAT tracker: " + mClatdTracker.toString());
-            pw.println("Forwarding rules:");
-            pw.increaseIndent();
-            dumpBpfIngress(pw);
-            dumpBpfEgress(pw);
-            pw.decreaseIndent();
+            try {
+                pw.println("CLAT tracker: " + mClatdTracker.toString());
+                pw.println("Forwarding rules:");
+                pw.increaseIndent();
+                dumpBpfIngress(pw);
+                dumpBpfEgress(pw);
+                pw.decreaseIndent();
+            } catch (NullPointerException | ConcurrentModificationException e) {
+                // This is a very rare case where clatd is currently starting or stopping
+                // on another thread. Don't crash so as not to prevent the rest of the dump
+                // function to complete, as that would deprive debuggers of essential information.
+                // The indent may or may not have been increased, but that doesn't matter too
+                // much as it would only mean following lines are uniformly too indented
+                pw.println("<clatd currently starting or stopping>");
+            }
         } else {
             pw.println("<not started>");
         }
