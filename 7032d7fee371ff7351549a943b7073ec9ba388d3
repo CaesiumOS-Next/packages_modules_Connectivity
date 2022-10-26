@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e4c66a9_bbb4de89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-10-26T06:20:54Z",
+      "side": 1,
+      "message": "LGTM assume comment fix.",
+      "revId": "7032d7fee371ff7351549a943b7073ec9ba388d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc433940_55388535",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/ConntrackSocketTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-10-26T06:20:54Z",
+      "side": 1,
+      "message": "Could we print the exception instead of throwing it out ? If this is expected to happen somehow the test fail, this would crash the whole test process then the following up test cases would also not able to be tested.",
+      "range": {
+        "startLine": 144,
+        "startChar": 35,
+        "endLine": 144,
+        "endChar": 43
+      },
+      "revId": "7032d7fee371ff7351549a943b7073ec9ba388d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
