@@ -16,6 +16,24 @@
       "message": "Is that necessary ? Or could it be module_33 ? I think the build can be sightly faster in development branches with a fixed SDK, since it\u0027s prebuilt right ?",
       "revId": "bf82b12896d51b1f852136a34e3664c9637046f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d13c74e2_860c154c",
+        "filename": "service/ServiceConnectivityResources/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1947766
+      },
+      "writtenOn": "2022-10-26T08:01:20Z",
+      "side": 1,
+      "message": "Yes it is necessary because target_sdk_version for updatable apps defaults to this sdk_version, which should be \"current\"",
+      "parentUuid": "9f1cc29d_ae0dfb51",
+      "revId": "bf82b12896d51b1f852136a34e3664c9637046f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
