@@ -16,6 +16,24 @@
       "message": "I thought we can have targets we supported and we can submit the generated bp file so that, for each CL, we can see how the bp file changes.\nAlso, we can make sure the change does\u0027t break previous support.",
       "revId": "3db246ade661713476a3d0dd5d531287c6d2ddf9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c1318ba_e3210adf",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-26T02:10:53Z",
+      "side": 0,
+      "message": "This can be done by something other than `default_targets`",
+      "parentUuid": "44d4583d_b52be63e",
+      "revId": "3db246ade661713476a3d0dd5d531287c6d2ddf9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
