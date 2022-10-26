@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62293f55_6ed72e75",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1958109
+      },
+      "writtenOn": "2022-10-26T10:00:31Z",
+      "side": 1,
+      "message": "I appreciate your time!",
+      "parentUuid": "93750d9f_e01972c5",
+      "revId": "c70ac51674ea410aee1e1065f768092286226364",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a9fd449_f89a9e36",
@@ -71,6 +89,30 @@
       "writtenOn": "2022-10-26T07:21:34Z",
       "side": 1,
       "message": "btw the fact this code doesn\u0027t care and there is no difference between IIF_MATCH and LOCKDOWN_VPN_MATCH at the bpf layer... so perhaps *only* the upper layers behaviour should be modified, and this file should be left alone?",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 260,
+        "endChar": 72
+      },
+      "revId": "c70ac51674ea410aee1e1065f768092286226364",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d582f2c_9a4df8fa",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1958109
+      },
+      "writtenOn": "2022-10-26T10:00:31Z",
+      "side": 1,
+      "message": "Oh, good point! I don\u0027t think that was possible prior to this patch attempt but it should be now. I can look at that.",
+      "parentUuid": "37a75995_92616925",
       "range": {
         "startLine": 260,
         "startChar": 0,
