@@ -16,6 +16,46 @@
       "message": "Returned to previous method but with some code changes and updating/addition of many comments to better represent the new behavior. Tested on android-13.0.0_r11 tag, but alterations for master were necessary and were not built/tested there.\n\nReady for review now I think 😊",
       "revId": "c70ac51674ea410aee1e1065f768092286226364",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93750d9f_e01972c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-10-26T07:19:50Z",
+      "side": 1,
+      "message": "I\u0027m not very cognizant in most of the higher layer code and how this works...",
+      "revId": "c70ac51674ea410aee1e1065f768092286226364",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a9fd449_f89a9e36",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-10-26T07:19:50Z",
+      "side": 1,
+      "message": "check without ||\n\nif uidRules \u0026 (IIF_MATCH | LOCKDOWN_VPN_MATCH)\n\n[bpf verifier speed is a major pain point... every extra || \u0026\u0026 if, etc. slows it down due to needing to follow every code path till termination]",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 260,
+        "endChar": 72
+      },
+      "revId": "c70ac51674ea410aee1e1065f768092286226364",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
