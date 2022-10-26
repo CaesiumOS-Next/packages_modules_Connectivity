@@ -19,6 +19,7 @@ package com.android.server.net;
 import static android.Manifest.permission.NETWORK_STATS_PROVIDER;
 import static android.Manifest.permission.READ_NETWORK_USAGE_HISTORY;
 import static android.Manifest.permission.UPDATE_DEVICE_STATS;
+import static android.app.BroadcastOptions.DELIVERY_GROUP_POLICY_MOST_RECENT;
 import static android.app.usage.NetworkStatsManager.PREFIX_DEV;
 import static android.content.Intent.ACTION_SHUTDOWN;
 import static android.content.Intent.ACTION_UID_REMOVED;
@@ -69,6 +70,7 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.TargetApi;
 import android.app.AlarmManager;
+import android.app.BroadcastOptions;
 import android.app.PendingIntent;
 import android.app.usage.NetworkStatsManager;
 import android.content.ApexEnvironment;
@@ -149,6 +151,7 @@ import com.android.connectivity.resources.R;
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.FileRotator;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
 import com.android.net.module.util.BestClock;
 import com.android.net.module.util.BinderUtils;
@@ -526,8 +529,15 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                 case MSG_BROADCAST_NETWORK_STATS_UPDATED: {
                     final Intent updatedIntent = new Intent(ACTION_NETWORK_STATS_UPDATED);
                     updatedIntent.setFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY);
+                    final BroadcastOptions opts;
+                    if (SdkLevel.isAtLeastU()) {
+                        opts = BroadcastOptions.makeBasic();
+                        opts.setDeliveryGroupPolicy(DELIVERY_GROUP_POLICY_MOST_RECENT);
+                    } else {
+                        opts = null;
+                    }
                     mContext.sendBroadcastAsUser(updatedIntent, UserHandle.ALL,
-                            READ_NETWORK_USAGE_HISTORY);
+                            READ_NETWORK_USAGE_HISTORY, opts == null ? null : opts.toBundle());
                     break;
                 }
             }
