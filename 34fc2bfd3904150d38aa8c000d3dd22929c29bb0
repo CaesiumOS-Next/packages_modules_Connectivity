@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6f5657ee_9b60b45d",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1947766
+      },
+      "writtenOn": "2022-10-26T07:06:09Z",
+      "side": 1,
+      "message": "I was not sure if adding target_sdk_version to android_library would have any impact. I found `TetheringTestsLatestSdkLib` android_library having target_sdk_version so added here too as this library was also being used for similar tests. \nhttps://source.corp.google.com/tm-mainline-prod/packages/modules/Connectivity/Tethering/tests/unit/Android.bp;l\u003d93?q\u003d%22TetheringApiCurrentLib%22\u0026sq\u003dp:tm-mainline-prod",
+      "parentUuid": "b8224aa2_9312f84e",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 29
+      },
+      "revId": "34fc2bfd3904150d38aa8c000d3dd22929c29bb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6ac1b7ac_033bf185",
         "filename": "Tethering/Android.bp",
         "patchSetId": 3
@@ -85,6 +109,30 @@
       "writtenOn": "2022-10-24T16:46:44Z",
       "side": 1,
       "message": "Remove this ? InProcessTethering is not updatable, let build system decide it ?",
+      "range": {
+        "startLine": 185,
+        "startChar": 4,
+        "endLine": 185,
+        "endChar": 29
+      },
+      "revId": "34fc2bfd3904150d38aa8c000d3dd22929c29bb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46a872a3_d217405d",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1947766
+      },
+      "writtenOn": "2022-10-26T07:06:09Z",
+      "side": 1,
+      "message": "Build system can not decide for non-updatable modules so it would be incorrect if we remove it (for eg. it would make 10000 for `InProcessTethering` in tm-mainline-prod but it should be 33)",
+      "parentUuid": "6ac1b7ac_033bf185",
       "range": {
         "startLine": 185,
         "startChar": 4,
@@ -131,6 +179,30 @@
       "writtenOn": "2022-10-24T16:46:44Z",
       "side": 1,
       "message": "+1 removed because TetheringNext only be used for development. But I think you need to add target_sdk_version 33 into Tethering because it is used for release. TetheringGoogle would override it.",
+      "parentUuid": "2142ecb9_b280cb47",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 219,
+        "endChar": 29
+      },
+      "revId": "34fc2bfd3904150d38aa8c000d3dd22929c29bb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9511a005_ecbad57c",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1947766
+      },
+      "writtenOn": "2022-10-26T07:06:09Z",
+      "side": 1,
+      "message": "Ohh okay, updated for TetheringNext.\n\nSince tethering is Updatable, soong will automatically set the targetSdkVersion to 33 in tm-mainline-prod and 10000 in master, and same would be overridden by TetheringGoogle. So it does not require to set targetSdkVersion.",
       "parentUuid": "2142ecb9_b280cb47",
       "range": {
         "startLine": 219,
