@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a47a8f46_85d1fdeb",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-10-27T07:15:52Z",
+      "side": 1,
+      "message": "You also need to add explicitly specify target sdk for \"Tethering\" because this is used for release (TetheringGoogle override Tethering build target)",
+      "range": {
+        "startLine": 197,
+        "startChar": 11,
+        "endLine": 197,
+        "endChar": 20
+      },
+      "revId": "062d022678bfc553e9ef71b2c56aec159771c120",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

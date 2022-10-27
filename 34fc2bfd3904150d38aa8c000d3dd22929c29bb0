@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "63dade7f_872036ba",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-10-27T07:15:52Z",
+      "side": 1,
+      "message": "This target don\u0027t use in *-mainline-prod, we separate the target into release vs dev. ConnectivityNextEnableDefaults would be false in *-mainline-prod branch.\n\n// Defaults to enable/disable java targets which uses development APIs. \"enabled\" may have a\n// different value depending on the branch.\njava_defaults {\n    name: \"ConnectivityNextEnableDefaults\",\n    enabled: true,\n}\n\nTetheringApiCurrentLib + TetheringNext: used in aosp and git_master would override it to TetheringGoogleNext.\n\nTetheringApiStableLib + Tethering: used in *-mainline-prod and *-dev and would be override to TetheringGoogle",
+      "parentUuid": "6f5657ee_9b60b45d",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 29
+      },
+      "revId": "34fc2bfd3904150d38aa8c000d3dd22929c29bb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6ac1b7ac_033bf185",
         "filename": "Tethering/Android.bp",
         "patchSetId": 3
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "Build system can not decide for non-updatable modules so it would be incorrect if we remove it (for eg. it would make 10000 for `InProcessTethering` in tm-mainline-prod but it should be 33)",
       "parentUuid": "6ac1b7ac_033bf185",
+      "range": {
+        "startLine": 185,
+        "startChar": 4,
+        "endLine": 185,
+        "endChar": 29
+      },
+      "revId": "34fc2bfd3904150d38aa8c000d3dd22929c29bb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "535bb25e_35c1169a",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-10-27T07:15:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "46a872a3_d217405d",
       "range": {
         "startLine": 185,
         "startChar": 4,

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d027f46_ecda42fa",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-10-27T07:15:52Z",
+      "side": 0,
+      "message": "Could you have TetheringReleaseTargetSdk and include this into \"TetheringApiStableLib\", \"Tethering\" and \"InProcessTethering\" build target ? It would be more convenience that we only need to change TetheringReleaseTargetSdk when we want to bump target sdk value. \n\njava_defaults {\n    name: \"TetheringReleaseTargetSdk\",\n    target_sdk_version: \"33\",\n}",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 29
+      },
+      "revId": "efb5d60243a7a8d510580f07738873431ecb7738",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
