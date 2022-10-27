@@ -22,6 +22,30 @@
       },
       "revId": "efb5d60243a7a8d510580f07738873431ecb7738",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53b7de92_5dff4cf6",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1947766
+      },
+      "writtenOn": "2022-10-27T10:54:46Z",
+      "side": 0,
+      "message": "Updated.",
+      "parentUuid": "7d027f46_ecda42fa",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 29
+      },
+      "revId": "efb5d60243a7a8d510580f07738873431ecb7738",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

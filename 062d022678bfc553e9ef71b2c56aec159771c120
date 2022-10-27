@@ -22,6 +22,30 @@
       },
       "revId": "062d022678bfc553e9ef71b2c56aec159771c120",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9b722ff_6efc2f1d",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1947766
+      },
+      "writtenOn": "2022-10-27T10:54:46Z",
+      "side": 1,
+      "message": "We want to achieve that Security team doesn\u0027t need to chase each module one by one for bumping the target_sdk_version during release. We made changes in soong so that apps having `updatable: true` are by default having correct sdk version. Since Tethering and TetheringGoogle are both Updatable, target_sdk_version is not required for them.",
+      "parentUuid": "a47a8f46_85d1fdeb",
+      "range": {
+        "startLine": 197,
+        "startChar": 11,
+        "endLine": 197,
+        "endChar": 20
+      },
+      "revId": "062d022678bfc553e9ef71b2c56aec159771c120",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
