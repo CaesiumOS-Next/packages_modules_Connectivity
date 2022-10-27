@@ -104,10 +104,19 @@ public class MdnsSocketClient {
     @Nullable private Timer logMdnsPacketTimer;
     private AtomicInteger packetsCount;
     @Nullable private Timer checkMulticastResponseTimer;
+    @Nullable private final NetworkInterfaceWrapper mNetworkInterface;
+    @Nullable private final Network mNetwork;
 
     public MdnsSocketClient(@NonNull Context context, @NonNull MulticastLock multicastLock) {
+        this(context, multicastLock, null /* networkInterface */, null /* network */);
+    }
+
+    public MdnsSocketClient(@NonNull Context context, @NonNull MulticastLock multicastLock,
+            @Nullable NetworkInterfaceWrapper networkInterface, @Nullable Network network) {
         this.context = context;
         this.multicastLock = multicastLock;
+        mNetworkInterface = networkInterface;
+        mNetwork = network;
         responseDecoder = new MdnsResponseDecoder(new MdnsResponseDecoder.Clock(), null);
         if (useSeparateSocketForUnicast) {
             unicastReceiverBuffer = new byte[RECEIVER_BUFFER_SIZE];
@@ -399,8 +408,7 @@ public class MdnsSocketClient {
                             /* interfaceIndex= */ (socket == null || !propagateInterfaceIndex)
                                     ? MdnsSocket.INTERFACE_INDEX_UNSPECIFIED
                                     : socket.getInterfaceIndex(),
-                            // TODO: Assign Network object when create socket per network.
-                            /* network= */ null);
+                            mNetwork);
                 }
             } catch (IOException e) {
                 if (!shouldStopSocketLoop) {
@@ -450,6 +458,9 @@ public class MdnsSocketClient {
 
     @VisibleForTesting
     MdnsSocket createMdnsSocket(int port) throws IOException {
+        if (mNetworkInterface != null) {
+            return new MdnsInterfaceSocket(mNetworkInterface.getNetworkInterface(), port);
+        }
         return new MdnsSocket(new MulticastNetworkInterfaceProvider(context), port);
     }
 

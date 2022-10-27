@@ -98,6 +98,15 @@ public class MulticastNetworkInterfaceProvider {
         }
     }
 
+    /**
+     * Returns the updated list of {@link NetworkInterfaceWrapper} instances available for
+     * multi-cast messaging.
+     */
+    public synchronized List<NetworkInterfaceWrapper> updateAndGetMulticastNetworkInterfaces() {
+        connectivityChanged = true;
+        return getMulticastNetworkInterfaces();
+    }
+
     public boolean isOnIpV6OnlyNetwork(List<NetworkInterfaceWrapper> networkInterfaces) {
         if (networkInterfaces.isEmpty()) {
             return false;
