@@ -164,7 +164,8 @@ public class MdnsServiceInfoTest {
                         List.of("vn=Alphabet Inc.", "mn=Google Nest Hub Max", "id=12345"),
                         List.of(
                                 MdnsServiceInfo.TextEntry.fromString("vn=Google Inc."),
-                                MdnsServiceInfo.TextEntry.fromString("mn=Google Nest Hub Max")));
+                                MdnsServiceInfo.TextEntry.fromString("mn=Google Nest Hub Max"),
+                                MdnsServiceInfo.TextEntry.fromString("test=")));
 
         beforeParcel.writeToParcel(parcel, 0);
         parcel.setDataPosition(0);
@@ -269,5 +270,13 @@ public class MdnsServiceInfoTest {
         assertEquals(new TextEntry("AA", "xxyyzz"), new TextEntry("AA", "xxyyzz"));
         assertEquals(new TextEntry("BB", "xxyyzz"), new TextEntry("BB", "xxyyzz"));
         assertEquals(new TextEntry("AA", "XXYYZZ"), new TextEntry("AA", "XXYYZZ"));
+    }
+
+    @Test
+    public void textEntry_fromString_valueIsEmpty() {
+        TextEntry entry = TextEntry.fromString("AA=");
+
+        assertEquals("AA", entry.getKey());
+        assertNull(entry.getValue());
     }
 }
