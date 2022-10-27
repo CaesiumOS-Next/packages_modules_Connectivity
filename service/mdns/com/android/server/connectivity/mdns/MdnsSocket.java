@@ -34,14 +34,9 @@ import java.util.List;
  *
  * @see MulticastSocket for javadoc of each public method.
  */
-public class MdnsSocket {
+public class MdnsSocket implements MdnsSocketBase {
     private static final MdnsLogger LOGGER = new MdnsLogger("MdnsSocket");
 
-    static final int INTERFACE_INDEX_UNSPECIFIED = -1;
-    private static final InetSocketAddress MULTICAST_IPV4_ADDRESS =
-            new InetSocketAddress(MdnsConstants.getMdnsIPv4Address(), MdnsConstants.MDNS_PORT);
-    private static final InetSocketAddress MULTICAST_IPV6_ADDRESS =
-            new InetSocketAddress(MdnsConstants.getMdnsIPv6Address(), MdnsConstants.MDNS_PORT);
     private final MulticastNetworkInterfaceProvider multicastNetworkInterfaceProvider;
     private final MulticastSocket multicastSocket;
     private boolean isOnIPv6OnlyNetwork;
@@ -66,6 +61,7 @@ public class MdnsSocket {
         isOnIPv6OnlyNetwork = false;
     }
 
+    @Override
     public void send(DatagramPacket packet) throws IOException {
         List<NetworkInterfaceWrapper> networkInterfaces =
                 multicastNetworkInterfaceProvider.getMulticastNetworkInterfaces();
@@ -75,10 +71,12 @@ public class MdnsSocket {
         }
     }
 
+    @Override
     public void receive(DatagramPacket packet) throws IOException {
         multicastSocket.receive(packet);
     }
 
+    @Override
     public void joinGroup() throws IOException {
         List<NetworkInterfaceWrapper> networkInterfaces =
                 multicastNetworkInterfaceProvider.getMulticastNetworkInterfaces();
@@ -94,6 +92,7 @@ public class MdnsSocket {
         }
     }
 
+    @Override
     public void leaveGroup() throws IOException {
         List<NetworkInterfaceWrapper> networkInterfaces =
                 multicastNetworkInterfaceProvider.getMulticastNetworkInterfaces();
@@ -106,6 +105,7 @@ public class MdnsSocket {
         }
     }
 
+    @Override
     public void close() {
         // This is a race with the use of the file descriptor (b/27403984).
         multicastSocket.close();
@@ -116,6 +116,7 @@ public class MdnsSocket {
      * Returns the index of the network interface that this socket is bound to. If the interface
      * cannot be determined, returns -1.
      */
+    @Override
     public int getInterfaceIndex() {
         try {
             return multicastSocket.getNetworkInterface().getIndex();
@@ -125,6 +126,7 @@ public class MdnsSocket {
         }
     }
 
+    @Override
     public boolean isOnIPv6OnlyNetwork() {
         return isOnIPv6OnlyNetwork;
     }

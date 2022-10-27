@@ -27,6 +27,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
@@ -35,6 +36,7 @@ import static org.mockito.Mockito.when;
 import android.Manifest.permission;
 import android.annotation.RequiresPermission;
 import android.content.Context;
+import android.net.Network;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.MulticastLock;
 import android.text.format.DateUtils;
@@ -71,8 +73,8 @@ public class MdnsSocketClientTests {
 
     @Mock private Context mContext;
     @Mock private WifiManager mockWifiManager;
-    @Mock private MdnsSocket mockMulticastSocket;
-    @Mock private MdnsSocket mockUnicastSocket;
+    @Mock private MdnsSocketBase mockMulticastSocket;
+    @Mock private MdnsSocketBase mockUnicastSocket;
     @Mock private MulticastLock mockMulticastLock;
     @Mock private MdnsSocketClient.Callback mockCallback;
 
@@ -85,9 +87,10 @@ public class MdnsSocketClientTests {
         when(mockWifiManager.createMulticastLock(ArgumentMatchers.anyString()))
                 .thenReturn(mockMulticastLock);
 
-        mdnsClient = new MdnsSocketClient(mContext, mockMulticastLock) {
+        mdnsClient = new MdnsSocketClient(
+                mContext, mockMulticastLock, mock(MdnsSocketBase.class), mock(Network.class)) {
                     @Override
-                    MdnsSocket createMdnsSocket(int port) throws IOException {
+                    MdnsSocketBase createMdnsSocket(int port) throws IOException {
                         if (port == MdnsConstants.MDNS_PORT) {
                             return mockMulticastSocket;
                         }
@@ -501,10 +504,10 @@ public class MdnsSocketClientTests {
         //MdnsConfigsFlagsImpl.allowNetworkInterfaceIndexPropagation.override(true);
 
         when(mockMulticastSocket.getInterfaceIndex()).thenReturn(21);
-        mdnsClient =
-                new MdnsSocketClient(mContext, mockMulticastLock) {
+        mdnsClient = new MdnsSocketClient(
+                mContext, mockMulticastLock, mock(MdnsSocketBase.class), mock(Network.class)) {
                     @Override
-                    MdnsSocket createMdnsSocket(int port) {
+                    MdnsSocketBase createMdnsSocket(int port) {
                         if (port == MdnsConstants.MDNS_PORT) {
                             return mockMulticastSocket;
                         }
@@ -525,10 +528,10 @@ public class MdnsSocketClientTests {
         //MdnsConfigsFlagsImpl.allowNetworkInterfaceIndexPropagation.override(false);
 
         when(mockMulticastSocket.getInterfaceIndex()).thenReturn(21);
-        mdnsClient =
-                new MdnsSocketClient(mContext, mockMulticastLock) {
+        mdnsClient = new MdnsSocketClient(
+                mContext, mockMulticastLock, mock(MdnsSocketBase.class), mock(Network.class)) {
                     @Override
-                    MdnsSocket createMdnsSocket(int port) {
+                    MdnsSocketBase createMdnsSocket(int port) {
                         if (port == MdnsConstants.MDNS_PORT) {
                             return mockMulticastSocket;
                         }

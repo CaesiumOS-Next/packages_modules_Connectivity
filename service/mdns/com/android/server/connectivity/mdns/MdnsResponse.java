@@ -16,6 +16,7 @@
 
 package com.android.server.connectivity.mdns;
 
+import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.net.Network;
 
@@ -37,10 +38,10 @@ public class MdnsResponse {
     private MdnsInetAddressRecord inet6AddressRecord;
     private long lastUpdateTime;
     private final int interfaceIndex;
-    @Nullable private final Network mNetwork;
+    @NonNull private final Network mNetwork;
 
     /** Constructs a new, empty response. */
-    public MdnsResponse(long now, int interfaceIndex, @Nullable Network network) {
+    public MdnsResponse(long now, int interfaceIndex, @NonNull Network network) {
         lastUpdateTime = now;
         records = new LinkedList<>();
         pointerRecords = new LinkedList<>();
@@ -220,9 +221,9 @@ public class MdnsResponse {
     }
 
     /**
-     * Returns the network at which this response was received or null if the network is unknown.
+     * Returns the network at which this response was received.
      */
-    @Nullable
+    @NonNull
     public synchronized Network getNetwork() {
         return mNetwork;
     }

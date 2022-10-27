@@ -96,11 +96,11 @@ public class MdnsResponseDecoder {
      * @param packet The packet to read from.
      * @param interfaceIndex the network interface index (or {@link
      *     MdnsSocket#INTERFACE_INDEX_UNSPECIFIED} if not known) at which the packet was received
-     * @param network the network (or null if not known) at which the packet was received.
+     * @param network the network at which the packet was received.
      * @return A list of mDNS responses, or null if the packet contained no appropriate responses.
      */
     public int decode(@NonNull DatagramPacket packet, @NonNull List<MdnsResponse> responses,
-            int interfaceIndex, @Nullable Network network) {
+            int interfaceIndex, @NonNull Network network) {
         MdnsPacketReader reader = new MdnsPacketReader(packet);
 
         List<MdnsRecord> records;

@@ -98,16 +98,21 @@ public class MdnsSocketClient {
     @VisibleForTesting @Nullable Thread unicastReceiveThread;
     private volatile boolean shouldStopSocketLoop;
     @Nullable private Callback callback;
-    @Nullable private MdnsSocket multicastSocket;
-    @Nullable private MdnsSocket unicastSocket;
+    @Nullable private MdnsSocketBase multicastSocket;
+    @Nullable private MdnsSocketBase unicastSocket;
     private int receivedPacketNumber = 0;
     @Nullable private Timer logMdnsPacketTimer;
     private AtomicInteger packetsCount;
     @Nullable private Timer checkMulticastResponseTimer;
+    @NonNull private final MdnsSocketBase mNetworkSocket;
+    @NonNull private final Network mNetwork;
 
-    public MdnsSocketClient(@NonNull Context context, @NonNull MulticastLock multicastLock) {
+    public MdnsSocketClient(@NonNull Context context, @NonNull MulticastLock multicastLock,
+            @NonNull MdnsSocketBase socket, @NonNull Network network) {
         this.context = context;
         this.multicastLock = multicastLock;
+        mNetworkSocket = socket;
+        mNetwork = network;
         responseDecoder = new MdnsResponseDecoder(new MdnsResponseDecoder.Clock(), null);
         if (useSeparateSocketForUnicast) {
             unicastReceiverBuffer = new byte[RECEIVER_BUFFER_SIZE];
@@ -378,7 +383,7 @@ public class MdnsSocketClient {
         }
     }
 
-    private void receiveThreadMain(byte[] receiverBuffer, @Nullable MdnsSocket socket) {
+    private void receiveThreadMain(byte[] receiverBuffer, @Nullable MdnsSocketBase socket) {
         DatagramPacket packet = new DatagramPacket(receiverBuffer, receiverBuffer.length);
 
         while (!shouldStopSocketLoop) {
@@ -397,10 +402,9 @@ public class MdnsSocketClient {
                             packet,
                             responseType,
                             /* interfaceIndex= */ (socket == null || !propagateInterfaceIndex)
-                                    ? MdnsSocket.INTERFACE_INDEX_UNSPECIFIED
+                                    ? MdnsSocketBase.INTERFACE_INDEX_UNSPECIFIED
                                     : socket.getInterfaceIndex(),
-                            // TODO: Assign Network object when create a socket per network.
-                            /* network= */ null);
+                            mNetwork);
                 }
             } catch (IOException e) {
                 if (!shouldStopSocketLoop) {
@@ -412,7 +416,7 @@ public class MdnsSocketClient {
     }
 
     private int processResponsePacket(@NonNull DatagramPacket packet, String responseType,
-            int interfaceIndex, @Nullable Network network) {
+            int interfaceIndex, @NonNull Network network) {
         int packetNumber = ++receivedPacketNumber;
 
         List<MdnsResponse> responses = new LinkedList<>();
@@ -449,11 +453,14 @@ public class MdnsSocketClient {
     }
 
     @VisibleForTesting
-    MdnsSocket createMdnsSocket(int port) throws IOException {
+    MdnsSocketBase createMdnsSocket(int port) throws IOException {
+        if (port == MdnsConstants.MDNS_PORT) {
+            return mNetworkSocket;
+        }
         return new MdnsSocket(new MulticastNetworkInterfaceProvider(context), port);
     }
 
-    private void sendPackets(List<DatagramPacket> packets, MdnsSocket socket) {
+    private void sendPackets(List<DatagramPacket> packets, MdnsSocketBase socket) {
         String requestType = socket == multicastSocket ? "multicast" : "unicast";
         for (DatagramPacket packet : packets) {
             if (shouldStopSocketLoop) {
@@ -512,6 +519,11 @@ public class MdnsSocketClient {
 
     public boolean isOnIPv6OnlyNetwork() {
         return multicastSocket != null && multicastSocket.isOnIPv6OnlyNetwork();
+    }
+
+    /** Get the network of this socket client */
+    public Network getNetwork() {
+        return mNetwork;
     }
 
     /** Callback for {@link MdnsSocketClient}. */
