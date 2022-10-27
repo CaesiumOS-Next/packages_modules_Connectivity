@@ -96,6 +96,5 @@ java_sdk_library {
         "cronet_impl_platform_java",
     ],
     apex_available: ["com.android.tethering"],
-    unsafe_ignore_missing_latest_api: true,
     dist_group: "android",
 }
