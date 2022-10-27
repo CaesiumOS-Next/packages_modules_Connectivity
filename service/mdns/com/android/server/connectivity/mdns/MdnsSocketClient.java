@@ -103,10 +103,17 @@ public class MdnsSocketClient {
     @Nullable private Timer logMdnsPacketTimer;
     private AtomicInteger packetsCount;
     @Nullable private Timer checkMulticastResponseTimer;
+    @Nullable private final NetworkInterfaceWrapper mNetworkInterface;
 
     public MdnsSocketClient(@NonNull Context context, @NonNull MulticastLock multicastLock) {
+        this(context, multicastLock, null /* networkInterface */);
+    }
+
+    public MdnsSocketClient(@NonNull Context context, @NonNull MulticastLock multicastLock,
+            @Nullable NetworkInterfaceWrapper networkInterface) {
         this.context = context;
         this.multicastLock = multicastLock;
+        mNetworkInterface = networkInterface;
         responseDecoder = new MdnsResponseDecoder(new MdnsResponseDecoder.Clock(), null);
         if (useSeparateSocketForUnicast) {
             unicastReceiverBuffer = new byte[RECEIVER_BUFFER_SIZE];
@@ -447,6 +454,9 @@ public class MdnsSocketClient {
 
     @VisibleForTesting
     MdnsSocket createMdnsSocket(int port) throws IOException {
+        if (mNetworkInterface != null) {
+            return new MdnsInterfaceSocket(mNetworkInterface.getNetworkInterface(), port);
+        }
         return new MdnsSocket(new MulticastNetworkInterfaceProvider(context), port);
     }
 

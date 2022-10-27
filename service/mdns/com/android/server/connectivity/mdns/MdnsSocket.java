@@ -46,6 +46,11 @@ public class MdnsSocket {
     private final MulticastSocket multicastSocket;
     private boolean isOnIPv6OnlyNetwork;
 
+    protected MdnsSocket() {
+        multicastNetworkInterfaceProvider = null;
+        multicastSocket = null;
+    }
+
     public MdnsSocket(
             @NonNull MulticastNetworkInterfaceProvider multicastNetworkInterfaceProvider, int port)
             throws IOException {
