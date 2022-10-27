@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22bd0120_df5e9ef6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3119,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-27T07:42:07Z",
+      "side": 1,
+      "message": "We are mainly focusing on LinkProperties this time.\nBut it is no harm to add this one, done.",
+      "parentUuid": "9e54aa2e_58d4a9ee",
+      "range": {
+        "startLine": 3119,
+        "startChar": 17,
+        "endLine": 3119,
+        "endChar": 37
+      },
+      "revId": "967870e150215b9604fd533d08cdff1cc066e035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "edaf8635_473583f4",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-10-25T09:23:26Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 5700,
+        "startChar": 17,
+        "endLine": 5700,
+        "endChar": 40
+      },
+      "revId": "967870e150215b9604fd533d08cdff1cc066e035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "203950d8_6aed1696",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5700,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-27T07:42:07Z",
+      "side": 1,
+      "message": "Done, but it doesn\u0027t look like helpful though.",
+      "parentUuid": "edaf8635_473583f4",
       "range": {
         "startLine": 5700,
         "startChar": 17,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74d4e6e9_6e16f038",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5712,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-27T07:42:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff587af1_61c256a1",
+      "range": {
+        "startLine": 5712,
+        "startChar": 29,
+        "endLine": 5712,
+        "endChar": 38
+      },
+      "revId": "967870e150215b9604fd533d08cdff1cc066e035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4bd1b0f2_89eee0ed",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-10-25T09:23:26Z",
       "side": 1,
       "message": "If newLp marks @NonNull on another updateXXX(), this argument should be aligned to others.",
+      "range": {
+        "startLine": 7583,
+        "startChar": 40,
+        "endLine": 7583,
+        "endChar": 49
+      },
+      "revId": "967870e150215b9604fd533d08cdff1cc066e035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10b64427_b4127b7e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7583,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-27T07:42:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bd1b0f2_89eee0ed",
       "range": {
         "startLine": 7583,
         "startChar": 40,
@@ -140,6 +236,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82e902d0_22ae106a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7649,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-27T07:42:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "212aa041_804b2903",
+      "range": {
+        "startLine": 7649,
+        "startChar": 33,
+        "endLine": 7649,
+        "endChar": 42
+      },
+      "revId": "967870e150215b9604fd533d08cdff1cc066e035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de2e3a19_5c049b6e",
@@ -153,6 +273,30 @@
       "writtenOn": "2022-10-25T08:12:42Z",
       "side": 1,
       "message": "Missing nullability.",
+      "range": {
+        "startLine": 7723,
+        "startChar": 36,
+        "endLine": 7723,
+        "endChar": 56
+      },
+      "revId": "967870e150215b9604fd533d08cdff1cc066e035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afb97d86_6f8060d7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7723,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-27T07:42:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de2e3a19_5c049b6e",
       "range": {
         "startLine": 7723,
         "startChar": 36,
