@@ -83,6 +83,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25b2a22e_ed457640",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1335,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-27T08:12:27Z",
+      "side": 1,
+      "message": "Remove the change.",
+      "parentUuid": "e119f4f6_675fd276",
+      "revId": "25e79a4a12114c7bef989497fccc225519d47505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a64da731_b6b437ce",
@@ -96,6 +114,30 @@
       "writtenOn": "2022-08-25T10:06:47Z",
       "side": 1,
       "message": "Did you mean \"Remove open sessions with the given uid from...\" ?",
+      "range": {
+        "startLine": 2479,
+        "startChar": 7,
+        "endLine": 2479,
+        "endChar": 55
+      },
+      "revId": "25e79a4a12114c7bef989497fccc225519d47505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9736538_65336043",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2479,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-27T08:12:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a64da731_b6b437ce",
       "range": {
         "startLine": 2479,
         "startChar": 7,
@@ -175,6 +217,78 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "309bf48e_f7aca505",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2482,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-27T08:12:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c017c5e_46162c35",
+      "range": {
+        "startLine": 2482,
+        "startChar": 46,
+        "endLine": 2482,
+        "endChar": 49
+      },
+      "revId": "25e79a4a12114c7bef989497fccc225519d47505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ad39fa0_59f77f06",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2482,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-27T08:12:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99253ff4_9829798f",
+      "range": {
+        "startLine": 2482,
+        "startChar": 61,
+        "endLine": 2482,
+        "endChar": 87
+      },
+      "revId": "25e79a4a12114c7bef989497fccc225519d47505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db86ce83_903fff3b",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2482,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-27T08:12:27Z",
+      "side": 1,
+      "message": "Originally I use HashMap because it needs to be converted to List in dump() method and the entrySet() in ArrayMap doesn\u0027t support toArray(). So I kept using HashMap.\n\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2092348/10..12/service-t/src/com/android/server/net/NetworkStatsService.java#b392\n\nNow I add a parent CL aosp/2270708 to change to use ArrayMap for mOpenSessionCallsPerCaller",
+      "parentUuid": "5bc35c12_9e3a84e4",
+      "range": {
+        "startLine": 2482,
+        "startChar": 61,
+        "endLine": 2482,
+        "endChar": 87
+      },
+      "revId": "25e79a4a12114c7bef989497fccc225519d47505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04a3e481_1a4dc7ed",
@@ -222,6 +336,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "785fc736_580770ec",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 853,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-27T08:12:27Z",
+      "side": 1,
+      "message": "Done, move this test to aosp/2273088.",
+      "parentUuid": "6e8bbaab_a35bc4d1",
+      "range": {
+        "startLine": 853,
+        "startChar": 59,
+        "endLine": 853,
+        "endChar": 74
+      },
+      "revId": "25e79a4a12114c7bef989497fccc225519d47505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "badb82f9_66de391d",
@@ -235,6 +373,30 @@
       "writtenOn": "2022-08-25T10:06:47Z",
       "side": 1,
       "message": "The fact that restrictFlagsForCaller is called when a session is opened, and that mOpenSessionCallsPerCallerTestMap would be used to store the session are both implementation details; this is testing the implementation details, but not the behavior as a whole.",
+      "range": {
+        "startLine": 853,
+        "startChar": 14,
+        "endLine": 854,
+        "endChar": 50
+      },
+      "revId": "25e79a4a12114c7bef989497fccc225519d47505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5432851_ce8a5dfe",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-27T08:12:27Z",
+      "side": 1,
+      "message": "Done, move this test to aosp/2273088.",
+      "parentUuid": "badb82f9_66de391d",
       "range": {
         "startLine": 853,
         "startChar": 14,
@@ -306,6 +468,30 @@
       "side": 1,
       "message": "+1, I don\u0027t think making isRestrictForCaller, restrictFlagsForCaller, and makeOpenSessionCallsPerCaller visible makes a good test. It depends too much on internal implementation details, the test should exercise the external API of NetworkStatsService to be a realistic test that does not break when we change internals.\n\nAs Junyu suggested, can you openSession instead, to replicate what callers of NetworkStatsService will actually do ?",
       "parentUuid": "8274c775_f22631b0",
+      "range": {
+        "startLine": 885,
+        "startChar": 0,
+        "endLine": 886,
+        "endChar": 5
+      },
+      "revId": "25e79a4a12114c7bef989497fccc225519d47505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c883ebdc_d4db39be",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-27T08:12:27Z",
+      "side": 1,
+      "message": "Done, move this test to aosp/2273088.",
+      "parentUuid": "4de33ad6_e4ae318b",
       "range": {
         "startLine": 885,
         "startChar": 0,

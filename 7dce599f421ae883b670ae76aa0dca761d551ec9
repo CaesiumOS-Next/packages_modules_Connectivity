@@ -70,6 +70,30 @@
       },
       "revId": "7dce599f421ae883b670ae76aa0dca761d551ec9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7e21a23_fd3bb762",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-27T08:12:27Z",
+      "side": 0,
+      "message": "Delete the change and use another way for test in aosp/2273088.",
+      "parentUuid": "100f9610_cd9750a9",
+      "range": {
+        "startLine": 1307,
+        "startChar": 37,
+        "endLine": 1307,
+        "endChar": 52
+      },
+      "revId": "7dce599f421ae883b670ae76aa0dca761d551ec9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
