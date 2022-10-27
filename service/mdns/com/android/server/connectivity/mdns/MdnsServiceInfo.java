@@ -207,7 +207,7 @@ public class MdnsServiceInfo implements Parcelable {
                 (this.textEntries != null) ? this.textEntries : parseTextStrings(this.textStrings);
         Map<String, byte[]> attributes = new HashMap<>(entries.size());
         for (TextEntry entry : entries) {
-            String key = entry.getKey().toLowerCase(Locale.ENGLISH);
+            String key = entry.getKey();
 
             // Per https://datatracker.ietf.org/doc/html/rfc6763#section-6.4, only the first entry
             // of the same key should be accepted:
@@ -310,14 +310,15 @@ public class MdnsServiceInfo implements Parcelable {
      */
     @Nullable
     public byte[] getAttributeAsBytes(@NonNull String key) {
-        return attributes.get(key.toLowerCase(Locale.ENGLISH));
+        return attributes.get(key);
     }
 
     /** Returns an immutable map of all attributes. */
     public Map<String, String> getAttributes() {
         Map<String, String> map = new HashMap<>(attributes.size());
         for (Map.Entry<String, byte[]> kv : attributes.entrySet()) {
-            map.put(kv.getKey(), new String(kv.getValue(), UTF_8));
+            final byte[] value = kv.getValue();
+            map.put(kv.getKey(), value == null ? null : new String(value, UTF_8));
         }
         return Collections.unmodifiableMap(map);
     }
@@ -375,12 +376,14 @@ public class MdnsServiceInfo implements Parcelable {
         /** Creates a new {@link TextEntry} instance from a '=' separated string. */
         @Nullable
         public static TextEntry fromString(String textString) {
+            if (textString == null) return null;
             return fromBytes(textString.getBytes(UTF_8));
         }
 
         /** Creates a new {@link TextEntry} instance from a '=' separated byte array. */
         @Nullable
         public static TextEntry fromBytes(byte[] textBytes) {
+            if (textBytes == null) return null;
             int delimitPos = ByteUtils.indexOf(textBytes, (byte) '=');
 
             // Per https://datatracker.ietf.org/doc/html/rfc6763#section-6.4:
@@ -394,25 +397,31 @@ public class MdnsServiceInfo implements Parcelable {
             } else if (delimitPos == 0) {
                 return null;
             }
+            final int valueLength = textBytes.length - (delimitPos + 1);
             return new TextEntry(
                     new String(Arrays.copyOf(textBytes, delimitPos), US_ASCII),
-                    Arrays.copyOfRange(textBytes, delimitPos + 1, textBytes.length));
+                    valueLength == 0 ? null : Arrays.copyOfRange(
+                            textBytes, delimitPos + 1, textBytes.length));
         }
 
         /** Creates a new {@link TextEntry} with given key and value of a UTF-8 string. */
         public TextEntry(String key, String value) {
-            this(key, value.getBytes(UTF_8));
+            this(key, value == null ? null : value.getBytes(UTF_8));
         }
 
         /** Creates a new {@link TextEntry} with given key and value of a byte array. */
         public TextEntry(String key, byte[] value) {
             this.key = key;
-            this.value = value.clone();
+            this.value = value == null ? null : value.clone();
         }
 
         private TextEntry(Parcel in) {
             key = in.readString();
-            value = in.createByteArray();
+            if (in.readInt() == 0) {
+                value = null;
+            } else {
+                value = in.createByteArray();
+            }
         }
 
         public String getKey() {
@@ -420,18 +429,19 @@ public class MdnsServiceInfo implements Parcelable {
         }
 
         public byte[] getValue() {
-            return value.clone();
+            return value == null ? null : value.clone();
         }
 
         /** Converts this {@link TextEntry} instance to '=' separated byte array. */
         public byte[] toBytes() {
-            return ByteUtils.concat(key.getBytes(US_ASCII), new byte[]{'='}, value);
+            return ByteUtils.concat(
+                    key.getBytes(US_ASCII), new byte[]{'='}, value == null ? new byte[0] : value);
         }
 
         /** Converts this {@link TextEntry} instance to '=' separated string. */
         @Override
         public String toString() {
-            return key + "=" + new String(value, UTF_8);
+            return key + "=" + (value == null ? "null" : new String(value, UTF_8));
         }
 
         @Override
@@ -459,7 +469,12 @@ public class MdnsServiceInfo implements Parcelable {
         @Override
         public void writeToParcel(Parcel out, int flags) {
             out.writeString(key);
-            out.writeByteArray(value);
+            if (value != null) {
+                out.writeInt(value.length);
+                out.writeByteArray(value);
+            } else {
+                out.writeInt(0);
+            }
         }
     }
 }
