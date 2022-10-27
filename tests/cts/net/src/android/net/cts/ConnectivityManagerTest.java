@@ -581,7 +581,9 @@ public class ConnectivityManagerTest {
             assertEquals("", caps.describeImmutableDifferences(
                     snapshot.getNetworkCapabilities()
                             .setNetworkSpecifier(redactedSnapshotCapSpecifier)));
-            assertEquals(mCm.getLinkProperties(network), snapshot.getLinkProperties());
+            // Don't check that the mutable fields are the same as the device
+            // may add or remove content of these fields in the middle of the test.
+            assertNotNull(snapshot.getLinkProperties());
             assertEquals(mCm.getNetworkInfo(network).getType(), snapshot.getLegacyType());
 
             if (network.equals(cellNetwork)) {
