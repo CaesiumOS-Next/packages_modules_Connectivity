@@ -835,6 +835,11 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                 IBpfMap<CookieTagMapKey, CookieTagMapValue> cookieTagMap, Handler handler) {
             return new SkDestroyListener(cookieTagMap, handler, new SharedLog(TAG));
         }
+
+        /** Return elapsed time since boot */
+        public long getElapsedRealtime() {
+            return SystemClock.elapsedRealtime();
+        }
     }
 
     /**
@@ -1377,7 +1382,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
     private boolean isRateLimitedForPoll(@NonNull OpenSessionKey key) {
         final long lastCallTime;
-        final long now = SystemClock.elapsedRealtime();
+        final long now = mDeps.getElapsedRealtime();
 
         synchronized (mOpenSessionCallsLock) {
             Integer callsPerCaller = mOpenSessionCallsPerCaller.get(key);
