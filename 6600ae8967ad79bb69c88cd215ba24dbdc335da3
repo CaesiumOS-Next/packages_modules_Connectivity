@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85b122dd_cd9e8d03",
+        "filename": "framework-t/src/android/net/IpSecTransform.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-10-27T23:01:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f37a934e_53754e5c",
+      "range": {
+        "startLine": 102,
+        "startChar": 29,
+        "endLine": 102,
+        "endChar": 33
+      },
+      "revId": "6600ae8967ad79bb69c88cd215ba24dbdc335da3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "efee7730_73da3cc0",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e880e72_b7109235",
+        "filename": "framework-t/src/android/net/IpSecTransform.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-10-27T23:01:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efee7730_73da3cc0",
+      "range": {
+        "startLine": 106,
+        "startChar": 79,
+        "endLine": 106,
+        "endChar": 87
+      },
+      "revId": "6600ae8967ad79bb69c88cd215ba24dbdc335da3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95869341_73d85d78",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-10-27T02:38:31Z",
       "side": 1,
       "message": "Suggest \"Transform migration is only supported for Tunnel mode Transform(s). Calling this method on other types of Transform(s) will throw an UnsupportedOperationException\"",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 0
+      },
+      "revId": "6600ae8967ad79bb69c88cd215ba24dbdc335da3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a42f4e9b_e22f8c57",
+        "filename": "framework-t/src/android/net/IpSecTransform.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-10-27T23:01:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95869341_73d85d78",
       "range": {
         "startLine": 109,
         "startChar": 0,
