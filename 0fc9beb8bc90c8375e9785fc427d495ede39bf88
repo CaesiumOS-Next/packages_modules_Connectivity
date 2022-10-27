@@ -52,6 +52,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f86a751_0b8e82de",
+        "filename": "Cronet/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-27T08:48:15Z",
+      "side": 1,
+      "message": "This came from https://android-review.googlesource.com/c/platform/packages/modules/Cronet/+/1184259/comment/90f44c7c_ced3e259/\n\nI compared the libraries in the apex with cronet and without cronet.\nonly `libcronet.80.0.3986.0.so` is different in `apex/com.android.tethering/lib` and `apex/com.android.tethering/lib64` \nSo, I removed this comment",
+      "parentUuid": "1cfd9d0d_05ee8d30",
+      "revId": "0fc9beb8bc90c8375e9785fc427d495ede39bf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00a20895_fe9c9525",
@@ -65,6 +83,24 @@
       "writtenOn": "2022-10-25T10:19:48Z",
       "side": 1,
       "message": "Curious: are there other classes outside of these ? If not then it can be removed ?",
+      "revId": "0fc9beb8bc90c8375e9785fc427d495ede39bf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5454f5f4_a3235cdb",
+        "filename": "Cronet/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-27T08:48:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00a20895_fe9c9525",
       "revId": "0fc9beb8bc90c8375e9785fc427d495ede39bf88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -123,6 +159,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4ac2ef51_b5c9cfb9",
+        "filename": "Cronet/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-27T08:48:15Z",
+      "side": 1,
+      "message": "I remove this in a separate CL. (https://android-review.googlesource.com/q/topic:cronet_api_track)",
+      "parentUuid": "47d98fe2_07d39286",
+      "revId": "0fc9beb8bc90c8375e9785fc427d495ede39bf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "40118b8c_9f2f14ec",
         "filename": "Cronet/Android.bp",
         "patchSetId": 2
@@ -168,6 +222,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c262de6_4c5db0b3",
+        "filename": "Cronet/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-27T08:48:15Z",
+      "side": 1,
+      "message": "Added `framework-module-defaults` to defaults",
+      "parentUuid": "231ab32b_906893a7",
+      "range": {
+        "startLine": 108,
+        "startChar": 18,
+        "endLine": 108,
+        "endChar": 32
+      },
+      "revId": "0fc9beb8bc90c8375e9785fc427d495ede39bf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40de24fd_e2befca7",
@@ -199,6 +277,24 @@
       "side": 1,
       "message": "Removed unused modules and files.",
       "parentUuid": "40de24fd_e2befca7",
+      "revId": "0fc9beb8bc90c8375e9785fc427d495ede39bf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd7feca5_14bb85e8",
+        "filename": "Cronet/apex/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-27T08:48:15Z",
+      "side": 1,
+      "message": "To keep empty apex, I moved some modules and key back.",
+      "parentUuid": "018a40d4_9bece86d",
       "revId": "0fc9beb8bc90c8375e9785fc427d495ede39bf88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
