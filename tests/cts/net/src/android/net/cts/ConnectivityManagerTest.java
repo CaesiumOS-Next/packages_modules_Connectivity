@@ -581,7 +581,7 @@ public class ConnectivityManagerTest {
             assertEquals("", caps.describeImmutableDifferences(
                     snapshot.getNetworkCapabilities()
                             .setNetworkSpecifier(redactedSnapshotCapSpecifier)));
-            assertEquals(mCm.getLinkProperties(network), snapshot.getLinkProperties());
+            assertNotNull(snapshot.getLinkProperties());
             assertEquals(mCm.getNetworkInfo(network).getType(), snapshot.getLegacyType());
 
             if (network.equals(cellNetwork)) {
