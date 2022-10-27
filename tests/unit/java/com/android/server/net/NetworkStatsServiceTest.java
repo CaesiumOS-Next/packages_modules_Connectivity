@@ -288,6 +288,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private @Mock PersistentInt mImportLegacyFallbacksCounter;
     private @Mock Resources mResources;
     private Boolean mIsDebuggable;
+    private long mRateLimitMs = 15_000;
 
     private class MockContext extends BroadcastInterceptingContext {
         private final Context mBaseContext;
@@ -534,6 +535,11 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
             public SkDestroyListener makeSkDestroyListener(
                     IBpfMap<CookieTagMapKey, CookieTagMapValue> cookieTagMap, Handler handler) {
                 return mSkDestroyListener;
+            }
+
+            @Override
+            public long getElapsedRealtime() {
+                return currentTimeMillis();
             }
         };
     }
@@ -900,6 +906,54 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         intent.putExtra(EXTRA_UID, uid);
         mServiceContext.sendBroadcast(intent);
         assertTopSessionCallers(getDump(), false /* expected */, uid);
+    }
+
+    @Test
+    public void testRestrictFlagsForCaller() throws Exception {
+        final int flags = FLAG_AUGMENT_WITH_SUBSCRIPTION_PLAN | FLAG_POLL_ON_OPEN;
+
+        incrementCurrentTime(HOUR_IN_MILLIS);
+        mockDefaultSettings();
+        final NetworkStateSnapshot[] states = new NetworkStateSnapshot[] {buildWifiState()};
+        mockNetworkStatsSummary(buildEmptyStats());
+        mockNetworkStatsUidDetail(buildEmptyStats());
+
+        mService.notifyNetworkStatus(NETWORKS_WIFI, states, getActiveIface(states),
+                new UnderlyingNetworkInfo[0]);
+
+        incrementCurrentTime(MINUTE_IN_MILLIS);
+        // create some traffic on network
+        mockDefaultSettings();
+        mockNetworkStatsSummary(new NetworkStats(getElapsedRealtime(), 1)
+                .insertEntry(TEST_IFACE, 2048L, 16L, 512L, 4L));
+        mockNetworkStatsUidDetail(new NetworkStats(getElapsedRealtime(), 3)
+                .insertEntry(TEST_IFACE, UID_RED, SET_DEFAULT, TAG_NONE, 1536L, 12L, 512L, 4L, 0L)
+                .insertEntry(TEST_IFACE, UID_RED, SET_DEFAULT, 0xF00D, 512L, 4L, 512L, 4L, 0L));
+
+        // Call openSession after 1 minute which is less than rate-limited time so it will
+        // call performPoll to update stats.
+        mService.openSessionForUsageStats(flags, TEST_PACKAGE);
+
+        // Verify that the stats are polled to latest status.
+        assertNetworkTotal(sTemplateWifi, 2048L, 16L, 512L, 4L, 0);
+        assertUidTotal(sTemplateWifi, UID_RED, 1536L, 12L, 512L, 4L, 0);
+
+        // Increment time for 10 seconds, and then call open session.
+        // This should be rate-limited to poll stats so the stats will not be updated.
+        incrementCurrentTime(10_000);
+        mockDefaultSettings();
+        mockNetworkStatsSummary(new NetworkStats(getElapsedRealtime(), 1)
+                .insertEntry(TEST_IFACE, 2048L + 20L, 16L + 2L, 512L + 128L, 4L + 3L));
+        mockNetworkStatsUidDetail(new NetworkStats(getElapsedRealtime(), 3)
+                .insertEntry(TEST_IFACE, UID_RED, SET_DEFAULT, TAG_NONE, 1536L + 1220L, 12L + 32L,
+                         512L + 122L, 4L + 20L, 0L)
+                .insertEntry(TEST_IFACE, UID_RED, SET_DEFAULT, 0xF00D, 512L + 200L, 4L + 30L,
+                         512L + 129L, 4L + 10L, 0L));
+
+        mService.openSessionForUsageStats(flags, TEST_PACKAGE);
+        // Verify that the stats did not be polled.
+        assertNetworkTotal(sTemplateWifi, 2048L, 16L, 512L, 4L, 0);
+        assertUidTotal(sTemplateWifi, UID_RED, 1536L, 12L, 512L, 4L, 0);
     }
 
     @Test
