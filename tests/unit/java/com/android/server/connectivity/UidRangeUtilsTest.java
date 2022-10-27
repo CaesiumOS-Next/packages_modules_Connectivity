@@ -34,8 +34,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Tests for UidRangeUtils.
@@ -401,5 +404,323 @@ public class UidRangeUtilsTest {
         expected.add(uids10_14);
         expected.add(uids20_24);
         assertEquals(expected, UidRangeUtils.convertArrayToUidRange(input));
+    }
+
+    private static void assertSortedRangesEquals(String msg,
+            List<UidRange> listA, List<UidRange> listB) {
+        assertEquals(msg,
+                listA.stream().sorted(UidRangeUtils::compare).collect(Collectors.toList()),
+                listB.stream().sorted(UidRangeUtils::compare).collect(Collectors.toList()));
+    }
+
+    private static void assertInPlaceDiffOperationsMatch(String msg, UidRangeUtils.Diff expected,
+            List<UidRange> rangesA, List<UidRange> rangesB) {
+        // exclude in place
+        List<UidRange> listA = new ArrayList<>(rangesA);
+        List<UidRange> listB = new ArrayList<>(rangesB);
+        UidRangeUtils.excludeInPlace(listA, listB);
+        assertSortedRangesEquals(msg + " : exclude in place", expected.onlyA, listA);
+        assertSortedRangesEquals(msg + " : exclude in place matches exclude",
+                UidRangeUtils.exclude(listA, listB), listA);
+        Set<UidRange> setA = new ArraySet<>(rangesA);
+        Set<UidRange> setB = new ArraySet<>(rangesB);
+        UidRangeUtils.excludeInPlace(setA, setB);
+        assertEquals(msg + " : exclude in place (sets)", new ArraySet<>(expected.onlyA), setA);
+
+        // intersect in place
+        listA = new ArrayList<>(rangesA);
+        listB = new ArrayList<>(rangesB);
+        UidRangeUtils.intersectInPlace(listA, listB);
+        assertSortedRangesEquals(msg + " : intersect in place", expected.intersection, listA);
+        assertSortedRangesEquals(msg + " : intersect in place matches intersect",
+                UidRangeUtils.intersect(listA, listB), listA);
+        setA = new ArraySet<>(rangesA);
+        setB = new ArraySet<>(rangesB);
+        UidRangeUtils.intersectInPlace(setA, setB);
+        assertEquals(msg + " : intersect in place (sets)",
+                new ArraySet<>(expected.intersection), setA);
+
+        // merge in place matches merge
+        listA = new ArrayList<>(rangesA);
+        listB = new ArrayList<>(rangesB);
+        UidRangeUtils.mergeInPlace(listA, listB);
+        List<UidRange> expectedMerge = UidRangeUtils.merge(expected.intersection,
+                expected.onlyA);
+        expectedMerge = UidRangeUtils.merge(expectedMerge, expected.onlyB);
+        assertSortedRangesEquals(msg + " : merge in place", expectedMerge, listA);
+        assertSortedRangesEquals(msg + " : merge in place matches merge",
+                UidRangeUtils.merge(listA, listB), listA);
+        setA = new ArraySet<>(rangesA);
+        setB = new ArraySet<>(rangesB);
+        UidRangeUtils.mergeInPlace(setA, setB);
+        assertEquals(msg + " : merge in place (sets)", new ArraySet<>(expectedMerge), setA);
+    }
+
+    private static void assertDiffMatchesReversibly(String msg, UidRangeUtils.Diff expected,
+            List<UidRange> setA, List<UidRange> setB) {
+        final UidRangeUtils.Diff diff = UidRangeUtils.diff(setA, setB);
+        assertEquals(msg + " : comparing ranges " + setA + " and " + setB + ": ",
+                expected,
+                diff);
+        assertInPlaceDiffOperationsMatch(msg, expected, setA, setB);
+
+        final UidRangeUtils.Diff reversedExpected = new UidRangeUtils.Diff(
+                expected.intersection, expected.onlyB, expected.onlyA);
+        final UidRangeUtils.Diff reversedDiff = UidRangeUtils.diff(setB, setA);
+        assertEquals(msg + " : reversed: comparing ranges, now " + setB + " and "
+                        + setA + ": ",
+                reversedExpected,
+                reversedDiff);
+        assertInPlaceDiffOperationsMatch(msg + " : reversed", reversedExpected, setB, setA);
+    }
+
+    private static void assertAllDiffOperationsMatchReversiblyAndShuffled(
+            UidRangeUtils.Diff expected, List<UidRange> setA, List<UidRange> setB) {
+        assertDiffMatchesReversibly("unshuffled", expected, setA, setB);
+        List<UidRange> listA = new ArrayList<>(setA);
+        List<UidRange> listB = new ArrayList<>(setB);
+
+        Random r = new Random(7); // consistent random seed
+
+        if (listA.size() <= 1 && listB.size() <= 1) {
+            return;
+        }
+
+        // shuffle 20 times (or just reverse once if both lists are <= 2 items)
+        for (int i = 0; i < 20; i++) {
+            if (listA.size() <= 2) {
+                Collections.reverse(listA);
+            } else {
+                Collections.shuffle(listA, r);
+            }
+            if (listB.size() <= 2) {
+                Collections.reverse(listA);
+            } else {
+                Collections.shuffle(listB, r);
+            }
+            assertDiffMatchesReversibly("shuffle " + i, expected, listA, listB);
+            if (listA.size() <= 2 && listB.size() <= 2) {
+                break;
+            }
+        }
+    }
+
+    @Test @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testComputeDiff() {
+        final UidRange uids1_1 = new UidRange(1, 1);
+        final UidRange uids1_2 = new UidRange(1, 2);
+        final UidRange uids1_3 = new UidRange(1, 3);
+        final UidRange uids1_5 = new UidRange(1, 5);
+        final UidRange uids1_7 = new UidRange(1, 7);
+        final UidRange uids1_10 = new UidRange(1, 10);
+        final UidRange uids3_3 = new UidRange(3, 3);
+        final UidRange uids3_5 = new UidRange(3, 5);
+        final UidRange uids3_7 = new UidRange(3, 7);
+        final UidRange uids4_5 = new UidRange(4, 5);
+        final UidRange uids6_6 = new UidRange(6, 6);
+        final UidRange uids6_7 = new UidRange(6, 7);
+        final UidRange uids6_10 = new UidRange(6, 10);
+        final UidRange uids7_7 = new UidRange(7, 7);
+        final UidRange uids7_10 = new UidRange(7, 10);
+        final UidRange uids8_9 = new UidRange(8, 9);
+        final UidRange uids8_10 = new UidRange(8, 10);
+        final UidRange uids9_9 = new UidRange(9, 9);
+        final UidRange uids10_10 = new UidRange(10, 10);
+        final List<UidRange> setA = new ArrayList<>();
+        final List<UidRange> setB = new ArrayList<>();
+        final List<UidRange> emptyRanges = new ArrayList<>();
+        UidRangeUtils.Diff expected;
+
+        // EMPTY
+        //   Both empty
+        expected = new UidRangeUtils.Diff(emptyRanges, emptyRanges, emptyRanges);
+        assertAllDiffOperationsMatchReversiblyAndShuffled(expected, setA, setB);
+
+        //   One empty
+        setA.add(uids1_5);
+        expected = new UidRangeUtils.Diff(emptyRanges, setA, emptyRanges);
+        assertAllDiffOperationsMatchReversiblyAndShuffled(expected, setA, setB);
+
+        // IDENTICAL
+        //   Single range, Same
+        setB.add(uids1_5);
+        expected = new UidRangeUtils.Diff();
+        expected.intersection.addAll(setA);
+        assertAllDiffOperationsMatchReversiblyAndShuffled(expected, setA, setB);
+
+        //   Multiple ranges, Same
+        setA.add(uids7_10);
+        setB.add(uids7_10);
+        expected = new UidRangeUtils.Diff();
+        expected.intersection.addAll(setA);
+        assertAllDiffOperationsMatchReversiblyAndShuffled(expected, setA, setB);
+
+        //   Multiple ranges, Adjacent
+        setA.clear();
+        setB.clear();
+        setA.add(uids1_5);
+        setA.add(uids6_10);
+        setB.add(uids1_5);
+        setB.add(uids6_10);
+        expected = new UidRangeUtils.Diff();
+        expected.intersection.addAll(setA);
+        assertAllDiffOperationsMatchReversiblyAndShuffled(expected, setA, setB);
+
+        // CONTAINED RANGES
+        //   setB contains setA, Start-aligned, and reversed
+        setA.clear();
+        setB.clear();
+        setA.add(uids1_5);
+        setB.add(uids1_10);
+        expected = new UidRangeUtils.Diff();
+        expected.intersection.add(uids1_5);
+        expected.onlyB.add(uids6_10);
+        assertAllDiffOperationsMatchReversiblyAndShuffled(expected, setA, setB);
+
+        //   setB contains setA, Stop-aligned, and reversed
+        setA.clear();
+        setB.clear();
+        setA.add(uids6_10);
+        setB.add(uids1_10);
+        expected = new UidRangeUtils.Diff();
+        expected.intersection.add(uids6_10);
+        expected.onlyB.add(uids1_5);
+        assertAllDiffOperationsMatchReversiblyAndShuffled(expected, setA, setB);
+
+        //   setB contains setA, Middle, and reversed
+        setA.clear();
+        setB.clear();
+        setA.add(uids3_7);
+        setB.add(uids1_10);
+        expected = new UidRangeUtils.Diff();
+        expected.intersection.add(uids3_7);
+        expected.onlyB.add(uids1_2);
+        expected.onlyB.add(uids8_10);
+        assertAllDiffOperationsMatchReversiblyAndShuffled(expected, setA, setB);
+
+        // PARTIAL OVERLAP
+        //   setA Starts within setB, but Stops after, and reversed
+        setA.clear();
+        setB.clear();
+        setA.add(uids6_10);
+        setB.add(uids3_7);
+        expected = new UidRangeUtils.Diff();
+        expected.intersection.add(uids6_7);
+        expected.onlyA.add(uids8_10);
+        expected.onlyB.add(uids3_5);
+        assertAllDiffOperationsMatchReversiblyAndShuffled(expected, setA, setB);
+
+        // SINGLE NUMBER OVERLAPS
+        setA.clear();
+        setB.clear();
+        setA.add(uids1_3);
+        setA.add(uids6_7);
+        setB.add(uids3_5);
+        setB.add(uids7_10);
+        expected = new UidRangeUtils.Diff();
+        expected.intersection.add(uids3_3);
+        expected.intersection.add(uids7_7);
+        expected.onlyA.add(uids1_2);
+        expected.onlyA.add(uids6_6);
+        expected.onlyB.add(uids4_5);
+        expected.onlyB.add(uids8_10);
+        assertAllDiffOperationsMatchReversiblyAndShuffled(expected, setA, setB);
+
+        // SINGLE NUMBERS
+        setA.clear();
+        setB.clear();
+        setA.add(uids1_1);
+        setA.add(uids7_7);
+        setB.add(uids7_7);
+        setB.add(uids10_10);
+        expected = new UidRangeUtils.Diff();
+        expected.intersection.add(uids7_7);
+        expected.onlyA.add(uids1_1);
+        expected.onlyB.add(uids10_10);
+        assertAllDiffOperationsMatchReversiblyAndShuffled(expected, setA, setB);
+
+        // NO SHARED RANGES - no overlap
+        setA.clear();
+        setB.clear();
+        setA.add(uids1_1);
+        setA.add(uids3_5);
+        setB.add(uids6_7);
+        setB.add(uids8_10);
+        expected = new UidRangeUtils.Diff();
+        expected.onlyA.addAll(setA);
+        expected.onlyB.add(uids6_7);
+        expected.onlyB.add(uids8_10);
+        assertAllDiffOperationsMatchReversiblyAndShuffled(expected, setA, setB);
+
+        // COMBINATIONS
+        //   Combo 1
+        setA.clear();
+        setB.clear();
+        setA.add(uids3_5);
+        setA.add(uids7_10);
+        setB.add(uids1_5);
+        setB.add(uids7_7);
+        expected = new UidRangeUtils.Diff();
+        expected.intersection.add(uids3_5);
+        expected.intersection.add(uids7_7);
+        expected.onlyA.add(uids8_10);
+        expected.onlyB.add(uids1_2);
+        assertAllDiffOperationsMatchReversiblyAndShuffled(expected, setA, setB);
+
+        //   Combo 2
+        setA.clear();
+        setB.clear();
+        setA.add(uids1_2);
+        setA.add(uids3_5);
+        setA.add(uids8_10);
+        setB.add(uids1_7);
+        setB.add(uids10_10);
+        expected = new UidRangeUtils.Diff();
+        expected.intersection.add(uids1_2);
+        expected.intersection.add(uids3_5);
+        expected.intersection.add(uids10_10);
+        expected.onlyA.add(uids8_9);
+        expected.onlyB.add(uids6_7);
+        assertAllDiffOperationsMatchReversiblyAndShuffled(expected, setA, setB);
+
+        //   Combo 3
+        setA.clear();
+        setB.clear();
+        setA.add(uids1_3);
+        setA.add(uids7_7);
+        setA.add(uids9_9);
+        setB.add(uids1_2);
+        setB.add(uids6_7);
+        setB.add(uids9_9);
+        setB.add(uids10_10);
+        expected = new UidRangeUtils.Diff();
+        expected.intersection.add(uids1_2);
+        expected.intersection.add(uids7_7);
+        expected.intersection.add(uids9_9);
+        expected.onlyA.add(uids3_3);
+        expected.onlyB.add(uids6_6);
+        expected.onlyB.add(uids10_10);
+        assertAllDiffOperationsMatchReversiblyAndShuffled(expected, setA, setB);
+
+        // And now, a common test case that once caused an array index -1 crash on-device...
+        setA.clear();
+        setB.clear();
+        setA.add(new UidRange(1, 10162));
+        setA.add(new UidRange(10164, 20162));
+        setA.add(new UidRange(20164, 99999));
+        setB.add(new UidRange(1, 10164));
+        setB.add(new UidRange(10166, 20164));
+        setB.add(new UidRange(20166, 99999));
+        expected = new UidRangeUtils.Diff();
+        expected.intersection.add(new UidRange(1, 10162));
+        expected.intersection.add(new UidRange(10164, 10164));
+        expected.intersection.add(new UidRange(10166, 20162));
+        expected.intersection.add(new UidRange(20164, 20164));
+        expected.intersection.add(new UidRange(20166, 99999));
+        expected.onlyA.add(new UidRange(10165, 10165));
+        expected.onlyA.add(new UidRange(20165, 20165));
+        expected.onlyB.add(new UidRange(10163, 10163));
+        expected.onlyB.add(new UidRange(20163, 20163));
+        assertAllDiffOperationsMatchReversiblyAndShuffled(expected, setA, setB);
     }
 }
