@@ -816,6 +816,11 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                 IBpfMap<CookieTagMapKey, CookieTagMapValue> cookieTagMap, Handler handler) {
             return new SkDestroyListener(cookieTagMap, handler, new SharedLog(TAG));
         }
+
+        /** Return open session rate limit time. */
+        public long getRateLimitMs() {
+            return POLL_RATE_LIMIT_MS;
+        }
     }
 
     /**
@@ -1365,7 +1370,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             mLastStatsSessionPoll = now;
         }
 
-        return now - lastCallTime < POLL_RATE_LIMIT_MS;
+        return now - lastCallTime < mDeps.getRateLimitMs();
     }
 
     private int restrictFlagsForCaller(int flags, @NonNull String callingPackage) {
