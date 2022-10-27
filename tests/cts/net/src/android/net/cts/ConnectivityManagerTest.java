@@ -556,6 +556,11 @@ public class ConnectivityManagerTest {
         // got from other APIs.
         final Network[] networks = mCm.getAllNetworks();
         assertGreaterOrEqual(networks.length, 1);
+        final TestableNetworkCallback allNetworkLinkPropertiesListener =
+                new TestableNetworkCallback();
+        mCm.registerNetworkCallback(new NetworkRequest.Builder().clearCapabilities().build(),
+                allNetworkLinkPropertiesListener);
+
         final List<NetworkStateSnapshot> snapshots = runWithShellPermissionIdentity(
                 () -> mCm.getAllNetworkStateSnapshots(), NETWORK_SETTINGS);
         assertEquals(networks.length, snapshots.size());
@@ -581,7 +586,17 @@ public class ConnectivityManagerTest {
             assertEquals("", caps.describeImmutableDifferences(
                     snapshot.getNetworkCapabilities()
                             .setNetworkSpecifier(redactedSnapshotCapSpecifier)));
-            assertEquals(mCm.getLinkProperties(network), snapshot.getLinkProperties());
+
+            // Don't check that the mutable fields are the same with synchronous calls, as
+            // the device may add or remove content of these fields in the middle of the test.
+            // Instead, search the target LinkProperties from received LinkPropertiesChanged
+            // callbacks.
+            final LinkProperties lpFromSnapshot = snapshot.getLinkProperties();
+            allNetworkLinkPropertiesListener.eventuallyExpect(CallbackEntry.LINK_PROPERTIES_CHANGED,
+                    NETWORK_CALLBACK_TIMEOUT_MS, 0 /* mark */, entry ->
+                            entry.getNetwork().equals(network)
+                                    && entry.getLp().equals(lpFromSnapshot));
+
             assertEquals(mCm.getNetworkInfo(network).getType(), snapshot.getLegacyType());
 
             if (network.equals(cellNetwork)) {
