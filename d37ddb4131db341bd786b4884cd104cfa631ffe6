@@ -16,6 +16,24 @@
       "message": "This isn\u0027t a great solution :\n• If we\u0027re just interested in mClatdTracker we could just put it in a local, which is a lot nicer than catching NPE\n• dumpBpfIngress and dumpBpfEgress can still crash with NPE.\n\nGenerally, testing a member and reading it again later assuming it has not changed is a very bad idea. In multithreaded code it\u0027s deadly, and for this reason it should generally be avoided even outside of multithreaded code, for readability and future-proofing reasons.\nYou can see my patch solves the issue about mIngressMap and mEgressMap in this way. Now for mClatdTracker, we can just remove the explicit call to toString, which will just print \"null\".",
       "revId": "d37ddb4131db341bd786b4884cd104cfa631ffe6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a489385e_b2019d91",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-10-27T05:40:08Z",
+      "side": 1,
+      "message": "thanks for your explanation and commit. \nlet\u0027s move to aosp/2271110 and abandon this commit",
+      "parentUuid": "56291885_754275c8",
+      "revId": "d37ddb4131db341bd786b4884cd104cfa631ffe6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
