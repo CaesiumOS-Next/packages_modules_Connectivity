@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7710542f_0d3b6014",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-10-27T02:37:09Z",
+      "side": 1,
+      "message": "Is this a general refactor? If so, can we do this in a separate CL so we can see what the exact delta is of the new tests?",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 251,
+        "endChar": 76
+      },
+      "revId": "6cd9f5af44c205369e48d9650182085fa1dbe3c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ff162f0_fcfe4f67",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-10-27T02:37:09Z",
+      "side": 1,
+      "message": "update?",
+      "range": {
+        "startLine": 262,
+        "startChar": 18,
+        "endLine": 262,
+        "endChar": 36
+      },
+      "revId": "6cd9f5af44c205369e48d9650182085fa1dbe3c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
