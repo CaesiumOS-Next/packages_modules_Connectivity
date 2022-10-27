@@ -17,12 +17,17 @@
 package com.android.server.connectivity;
 
 import android.annotation.NonNull;
+import android.annotation.Nullable;
 import android.net.UidRange;
 import android.util.ArraySet;
 
+import com.android.internal.annotations.VisibleForTesting;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -183,5 +188,147 @@ public final class UidRangeUtils {
         }
         uidRangeSet.add(new UidRange(start, stop));
         return uidRangeSet;
+    }
+
+    public static final class Diff {
+        public UidRange intersection;
+        public final List<UidRange> onlyA = new ArrayList<>(2);
+        public final List<UidRange> onlyB = new ArrayList<>(2);
+
+        public static void computeInto(Diff diff, UidRange A, UidRange B) {
+            diff.onlyA.clear();
+            diff.onlyB.clear();
+            if (A.equals(B)) {
+                diff.intersection = A;
+                return;
+            }
+            int startX = Math.max(A.start, B.start);
+            int stopX = Math.min(A.stop, B.stop);
+            if (stopX < startX) {
+                // no intersection
+                diff.intersection = null;
+                diff.onlyA.add(A);
+                diff.onlyB.add(B);
+                return;
+            }
+            diff.intersection = new UidRange(startX, stopX);
+            if (A.start < startX) {
+                diff.onlyA.add(new UidRange(A.start, startX - 1));
+            } else if (B.start < startX) {
+                diff.onlyB.add(new UidRange(B.start, startX - 1));
+            }
+            if (A.stop > stopX) {
+                diff.onlyA.add(new UidRange(stopX + 1, A.stop));
+            } else if (B.stop > stopX) {
+                diff.onlyB.add(new UidRange(stopX + 1, B.stop));
+            }
+        }
+        public static Diff compute(UidRange A, UidRange B) {
+            Diff diff = new Diff();
+            computeInto(diff, A, B);
+            return diff;
+        }
+        @Override
+        public String toString() {
+            return "UidRangeUtils.Diff{intersection=" + intersection + ", onlyA=" + onlyA + ", "
+                    + "onlyB=" + onlyB + "}";
+        }
+    }
+
+    public static final class SetDiff {
+        public final List<UidRange> intersection;
+        public final List<UidRange> onlyA;
+        public final List<UidRange> onlyB;
+
+        public SetDiff() {
+            this.intersection = new ArrayList<>();
+            this.onlyA = new ArrayList<>();
+            this.onlyB = new ArrayList<>();
+        }
+        public SetDiff(@NonNull List<UidRange> intersection, @NonNull List<UidRange> onlyA,
+                    @NonNull List<UidRange> onlyB) {
+            Objects.requireNonNull(intersection);
+            Objects.requireNonNull(onlyA);
+            Objects.requireNonNull(onlyB);
+            this.intersection = intersection;
+            this.onlyA = onlyA;
+            this.onlyB = onlyB;
+        }
+
+        /**
+         * Computes the differences between two collections of UID ranges. Assumes there are no
+         * duplicate or overlapping ranges within either individual collection.
+         *
+         * @param setA first collection of ranges
+         * @param setB second collection of ranges
+         * @return {@code SetDiff} containing common and different ranges between the sets
+         * @hide
+         */
+        public static SetDiff compute(Collection<UidRange> setA, Collection<UidRange> setB) {
+            SetDiff setDiff = new SetDiff();
+            setDiff.onlyA.addAll(setA);
+            setDiff.onlyB.addAll(setB);
+            Diff diff = new Diff();
+            for (int i = 0; i < setDiff.onlyA.size(); i++) {
+                UidRange A = setDiff.onlyA.get(i);
+                final Iterator<UidRange> iteratorB = setDiff.onlyB.iterator();
+                while (iteratorB.hasNext()) {
+                    UidRange B = iteratorB.next();
+                    if (A.equals(B)) {
+                        setDiff.onlyA.remove(i--);
+                        iteratorB.remove();
+                        setDiff.intersection.add(A);
+                        break;
+                    }
+                    Diff.computeInto(diff, A, B);
+                    if (diff.intersection != null) {
+                        setDiff.onlyA.remove(i--);
+                        iteratorB.remove();
+                        setDiff.add(diff);
+                        break;
+                    }
+                }
+            }
+            return setDiff;
+        }
+
+        private void add(Diff diff) {
+            if (diff.intersection != null) {
+                this.intersection.add(diff.intersection);
+            }
+            this.onlyA.addAll(diff.onlyA);
+            this.onlyB.addAll(diff.onlyB);
+        }
+
+        public Set<UidRange> getIntersectionSet() {
+            return new ArraySet<>(intersection);
+        }
+        public Set<UidRange> getOnlyASet() {
+            return new ArraySet<>(onlyA);
+        }
+        public Set<UidRange> getOnlyBSet() {
+            return new ArraySet<>(onlyB);
+        }
+
+        @Override
+        public boolean equals(@Nullable Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o instanceof SetDiff) {
+                SetDiff other = (SetDiff) o;
+
+                return other.getIntersectionSet().equals(getIntersectionSet())
+                        && other.getOnlyASet().equals(getOnlyASet())
+                        && other.getOnlyBSet().equals(getOnlyBSet());
+            }
+            return false;
+        }
+
+        @Override
+        public String toString() {
+            return "UidRangeUtils.SetDiff{intersection=" + intersection + ", onlyA=" + onlyA + ", "
+                    + "onlyB=" + onlyB + "}";
+        }
     }
 }
