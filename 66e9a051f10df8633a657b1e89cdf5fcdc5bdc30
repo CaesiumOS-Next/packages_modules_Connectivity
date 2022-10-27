@@ -1,0 +1,291 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4fa43d5_8271779e",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-27T08:02:44Z",
+      "side": 1,
+      "message": "Can we delete this function?",
+      "revId": "66e9a051f10df8633a657b1e89cdf5fcdc5bdc30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05bfb00f_a64eefd2",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-27T08:02:44Z",
+      "side": 1,
+      "message": "Can we use the builder instead, also for other build* functions that cannot be deleted?",
+      "revId": "66e9a051f10df8633a657b1e89cdf5fcdc5bdc30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8aa12538_b1c25b3b",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-27T08:02:44Z",
+      "side": 1,
+      "message": "Maybe // TODO: Deprecate this constructor, mark it @UnsupportedAppUsage(maxTargetSdk \u003d U) ?\nAlso for other @UnsupportedAppUsage functions.",
+      "range": {
+        "startLine": 243,
+        "startChar": 5,
+        "endLine": 243,
+        "endChar": 24
+      },
+      "revId": "66e9a051f10df8633a657b1e89cdf5fcdc5bdc30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b91ff0b_322fffd1",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-27T08:02:44Z",
+      "side": 1,
+      "message": "Can we delete this function?",
+      "range": {
+        "startLine": 264,
+        "startChar": 34,
+        "endLine": 264,
+        "endChar": 51
+      },
+      "revId": "66e9a051f10df8633a657b1e89cdf5fcdc5bdc30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c7c869a_a540bbce",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-27T08:02:44Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 280,
+        "startChar": 15,
+        "endLine": 280,
+        "endChar": 80
+      },
+      "revId": "66e9a051f10df8633a657b1e89cdf5fcdc5bdc30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c024ac58_56cfeb63",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-27T08:02:44Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 289,
+        "startChar": 34,
+        "endLine": 289,
+        "endChar": 56
+      },
+      "revId": "66e9a051f10df8633a657b1e89cdf5fcdc5bdc30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11eb678f_6e0ec0f7",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-27T08:02:44Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 299,
+        "startChar": 34,
+        "endLine": 299,
+        "endChar": 52
+      },
+      "revId": "66e9a051f10df8633a657b1e89cdf5fcdc5bdc30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ade4e03_14abee32",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-27T08:02:44Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 308,
+        "startChar": 34,
+        "endLine": 308,
+        "endChar": 61
+      },
+      "revId": "66e9a051f10df8633a657b1e89cdf5fcdc5bdc30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1de5705b_dd49d3c7",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-27T08:02:44Z",
+      "side": 1,
+      "message": "U?",
+      "range": {
+        "startLine": 357,
+        "startChar": 85,
+        "endLine": 357,
+        "endChar": 87
+      },
+      "revId": "66e9a051f10df8633a657b1e89cdf5fcdc5bdc30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e448c3c_6d10529d",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-27T08:02:44Z",
+      "side": 1,
+      "message": "Can we do this?",
+      "range": {
+        "startLine": 377,
+        "startChar": 3,
+        "endLine": 377,
+        "endChar": 56
+      },
+      "revId": "66e9a051f10df8633a657b1e89cdf5fcdc5bdc30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c350ddb4_c05db373",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-27T08:02:44Z",
+      "side": 1,
+      "message": "Ids?",
+      "range": {
+        "startLine": 515,
+        "startChar": 45,
+        "endLine": 515,
+        "endChar": 47
+      },
+      "revId": "66e9a051f10df8633a657b1e89cdf5fcdc5bdc30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5146dcc0_ada4a822",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-27T08:02:44Z",
+      "side": 1,
+      "message": "Does anyone still use this function?",
+      "range": {
+        "startLine": 856,
+        "startChar": 34,
+        "endLine": 856,
+        "endChar": 43
+      },
+      "revId": "66e9a051f10df8633a657b1e89cdf5fcdc5bdc30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84879031_b7764c6c",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-27T08:02:44Z",
+      "side": 1,
+      "message": "Why this has to be a special case?",
+      "range": {
+        "startLine": 863,
+        "startChar": 16,
+        "endLine": 864,
+        "endChar": 67
+      },
+      "revId": "66e9a051f10df8633a657b1e89cdf5fcdc5bdc30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
