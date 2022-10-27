@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcbcd867_576d8350",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-27T07:26:36Z",
+      "side": 1,
+      "message": "LGTM. You can rebase this change now since previous change has been merged.",
+      "revId": "a6025f3fe018789288b5595414484f235528bd6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c9a0b2c_3a8a692f",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsRecord.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-27T07:26:36Z",
+      "side": 1,
+      "message": "Nit: SECONDS. TimeUnit.SECONDS is static imported now.",
+      "range": {
+        "startLine": 78,
+        "startChar": 24,
+        "endLine": 78,
+        "endChar": 40
+      },
+      "revId": "a6025f3fe018789288b5595414484f235528bd6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
