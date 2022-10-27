@@ -33,6 +33,23 @@
       "message": "Thanks for the fix !",
       "revId": "79b0de9ef2137bcb8caae7ee39cc4f1c75532675",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "496c2bff_df37fd46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1878533
+      },
+      "writtenOn": "2022-10-27T10:56:19Z",
+      "side": 1,
+      "message": "Hi Remi\nThere are warnings which make the change fail to autosubmit.\nIf something is wrong, please tell me, or help submit if nothings is bad.\nThanks",
+      "revId": "79b0de9ef2137bcb8caae7ee39cc4f1c75532675",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
