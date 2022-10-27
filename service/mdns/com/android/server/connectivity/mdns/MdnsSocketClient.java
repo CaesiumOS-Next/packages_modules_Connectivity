@@ -104,10 +104,19 @@ public class MdnsSocketClient {
     @Nullable private Timer logMdnsPacketTimer;
     private AtomicInteger packetsCount;
     @Nullable private Timer checkMulticastResponseTimer;
+    @Nullable private final MdnsSocket mNetworkSocket;
+    @Nullable private final Network mNetwork;
 
     public MdnsSocketClient(@NonNull Context context, @NonNull MulticastLock multicastLock) {
+        this(context, multicastLock, null /* socket */, null /* network */);
+    }
+
+    public MdnsSocketClient(@NonNull Context context, @NonNull MulticastLock multicastLock,
+            @Nullable MdnsSocket socket, @Nullable Network network) {
         this.context = context;
         this.multicastLock = multicastLock;
+        mNetworkSocket = socket;
+        mNetwork = network;
         responseDecoder = new MdnsResponseDecoder(new MdnsResponseDecoder.Clock(), null);
         if (useSeparateSocketForUnicast) {
             unicastReceiverBuffer = new byte[RECEIVER_BUFFER_SIZE];
@@ -134,7 +143,8 @@ public class MdnsSocketClient {
         shouldStopSocketLoop = false;
         try {
             // TODO (changed when importing code): consider setting thread stats tag
-            multicastSocket = createMdnsSocket(MdnsConstants.MDNS_PORT);
+            multicastSocket = mNetworkSocket != null
+                    ? mNetworkSocket : createMdnsSocket(MdnsConstants.MDNS_PORT);
             multicastSocket.joinGroup();
             if (useSeparateSocketForUnicast) {
                 // For unicast, use port 0 and the system will assign it with any available port.
@@ -399,8 +409,7 @@ public class MdnsSocketClient {
                             /* interfaceIndex= */ (socket == null || !propagateInterfaceIndex)
                                     ? MdnsSocket.INTERFACE_INDEX_UNSPECIFIED
                                     : socket.getInterfaceIndex(),
-                            // TODO: Assign Network object when create socket per network.
-                            /* network= */ null);
+                            mNetwork);
                 }
             } catch (IOException e) {
                 if (!shouldStopSocketLoop) {
@@ -512,6 +521,11 @@ public class MdnsSocketClient {
 
     public boolean isOnIPv6OnlyNetwork() {
         return multicastSocket != null && multicastSocket.isOnIPv6OnlyNetwork();
+    }
+
+    /** Get the network of this socket client */
+    public Network getNetwork() {
+        return mNetwork;
     }
 
     /** Callback for {@link MdnsSocketClient}. */

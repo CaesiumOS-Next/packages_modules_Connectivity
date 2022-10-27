@@ -205,6 +205,7 @@ java_library {
     libs: [
         "framework-annotations-lib",
         "framework-connectivity-pre-jarjar",
+        "framework-tethering",
         "framework-wifi",
         "service-connectivity-pre-jarjar",
     ],
