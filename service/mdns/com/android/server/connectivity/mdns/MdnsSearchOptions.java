@@ -17,6 +17,7 @@
 package com.android.server.connectivity.mdns;
 
 import android.annotation.NonNull;
+import android.net.Network;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
@@ -43,7 +44,8 @@ public class MdnsSearchOptions implements Parcelable {
                 @Override
                 public MdnsSearchOptions createFromParcel(Parcel source) {
                     return new MdnsSearchOptions(source.createStringArrayList(),
-                            source.readBoolean(), source.readBoolean());
+                            source.readBoolean(), source.readBoolean(),
+                            source.readParcelable(null));
                 }
 
                 @Override
@@ -56,15 +58,18 @@ public class MdnsSearchOptions implements Parcelable {
 
     private final boolean isPassiveMode;
     private final boolean removeExpiredService;
+    private final Network mNetwork;
 
-    /** Parcelable constructs for a {@link MdnsServiceInfo}. */
-    MdnsSearchOptions(List<String> subtypes, boolean isPassiveMode, boolean removeExpiredService) {
+    /** Parcelable constructs for a {@link MdnsSearchOptions}. */
+    MdnsSearchOptions(List<String> subtypes, boolean isPassiveMode, boolean removeExpiredService,
+            Network network) {
         this.subtypes = new ArrayList<>();
         if (subtypes != null) {
             this.subtypes.addAll(subtypes);
         }
         this.isPassiveMode = isPassiveMode;
         this.removeExpiredService = removeExpiredService;
+        mNetwork = network;
     }
 
     /** Returns a {@link Builder} for {@link MdnsSearchOptions}. */
@@ -98,6 +103,11 @@ public class MdnsSearchOptions implements Parcelable {
         return removeExpiredService;
     }
 
+    /** Returns the network which the mdns query should target on */
+    public Network getNetwork() {
+        return mNetwork;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -108,6 +118,7 @@ public class MdnsSearchOptions implements Parcelable {
         out.writeStringList(subtypes);
         out.writeBoolean(isPassiveMode);
         out.writeBoolean(removeExpiredService);
+        out.writeParcelable(mNetwork, 0);
     }
 
     /** A builder to create {@link MdnsSearchOptions}. */
@@ -115,6 +126,7 @@ public class MdnsSearchOptions implements Parcelable {
         private final Set<String> subtypes;
         private boolean isPassiveMode = true;
         private boolean removeExpiredService;
+        private Network mNetwork;
 
         private Builder() {
             subtypes = new ArraySet<>();
@@ -165,10 +177,20 @@ public class MdnsSearchOptions implements Parcelable {
             return this;
         }
 
+        /**
+         * Sets if the mdns query should target on specific network.
+         *
+         * @param network the mdns query will target on given network.
+         */
+        public Builder setNetwork(Network network) {
+            mNetwork = network;
+            return this;
+        }
+
         /** Builds a {@link MdnsSearchOptions} with the arguments supplied to this builder. */
         public MdnsSearchOptions build() {
-            return new MdnsSearchOptions(
-                    new ArrayList<>(subtypes), isPassiveMode, removeExpiredService);
+            return new MdnsSearchOptions(new ArrayList<>(subtypes), isPassiveMode,
+                    removeExpiredService, mNetwork);
         }
     }
 }
