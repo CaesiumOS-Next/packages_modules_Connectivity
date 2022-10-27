@@ -22,6 +22,30 @@
       },
       "revId": "f8d69e34adf261990923bf407140f6235ef0327a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9e78d2c_beb9f820",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-10-27T12:28:36Z",
+      "side": 1,
+      "message": "As the javadoc in ArrayMap. ArrayMap is desinged to be more memory efficient than HashMap. It is not appropriate for data structures that may contain large numbers of items. I tihnk the ArrayMap we used here won\u0027t contain thousands of items, so this should be a better structure for storing the information of calls of caller.\n\nRef.\nhttps://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/util/ArrayMap.java;l\u003d34;bpv\u003d0;bpt\u003d1\n\nThis change is also for the follow-up CL, the record should be removed when the package is removed. It\u0027s easier to iterate to remove the item from the map.",
+      "parentUuid": "999cd4ce_94949ecb",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 13
+      },
+      "revId": "f8d69e34adf261990923bf407140f6235ef0327a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
