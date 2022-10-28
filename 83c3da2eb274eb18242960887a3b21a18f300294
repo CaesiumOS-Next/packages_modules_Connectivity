@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77675759_9f8f25a7",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-28T15:49:00Z",
+      "side": 1,
+      "message": "I wonder if this should just be script specific. It\u0027s so hard to figure out generally applicable transformations. 😞",
+      "range": {
+        "startLine": 677,
+        "startChar": 0,
+        "endLine": 677,
+        "endChar": 74
+      },
+      "revId": "83c3da2eb274eb18242960887a3b21a18f300294",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
