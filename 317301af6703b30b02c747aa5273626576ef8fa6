@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01663a45_960416bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-10-28T06:29:14Z",
+      "side": 1,
+      "message": "lgtm for Tether4Key.java, Tether4Value.java, EthernetTetheringTest, BpfCoordinatorTest. Need other reviewers for the remaining files.",
+      "revId": "317301af6703b30b02c747aa5273626576ef8fa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
