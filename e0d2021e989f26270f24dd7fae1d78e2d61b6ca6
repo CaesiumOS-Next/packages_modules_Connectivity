@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1d89255_4bd60a8b",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-28T16:15:57Z",
+      "side": 1,
+      "message": "This doesn\u0027t look very portable anymore. It\u0027s possible that you could do:\n`[\u0027$(out)\u0027 if out in arg for arg in target.args]` though, I am not sure that will work in all cases either.",
+      "range": {
+        "startLine": 687,
+        "startChar": 18,
+        "endLine": 687,
+        "endChar": 97
+      },
+      "revId": "e0d2021e989f26270f24dd7fae1d78e2d61b6ca6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
