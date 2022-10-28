@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "862106ed_1da2c169",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1607903
+      },
+      "writtenOn": "2022-10-28T11:01:06Z",
+      "side": 1,
+      "message": "Will make the change",
+      "parentUuid": "39b20167_03f24901",
+      "range": {
+        "startLine": 606,
+        "startChar": 8,
+        "endLine": 606,
+        "endChar": 15
+      },
+      "revId": "dbc6ffb34500f952da6fab1508913a754ee4b68e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "04b31c98_0725cf4d",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 2
@@ -54,6 +78,30 @@
       "writtenOn": "2022-10-28T07:24:21Z",
       "side": 1,
       "message": "This is right direction and what I want to do but I think it is very risky without experiment data or solid testing in all R+ mainline supported devices.\n\nI also have change to do this which default flag off before U.\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2263122",
+      "range": {
+        "startLine": 634,
+        "startChar": 41,
+        "endLine": 634,
+        "endChar": 66
+      },
+      "revId": "dbc6ffb34500f952da6fab1508913a754ee4b68e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b88a0b3_0ce2707a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1607903
+      },
+      "writtenOn": "2022-10-28T11:01:06Z",
+      "side": 1,
+      "message": "If this event is handled for WiFi, ipServer will be started for TYPE_WIFI all the time. In LOHS + SAP, this will lead to issues where both the ifaces will be assigned same ip.",
+      "parentUuid": "04b31c98_0725cf4d",
       "range": {
         "startLine": 634,
         "startChar": 41,
@@ -89,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ee1ce59e_ef31fff4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1607903
+      },
+      "writtenOn": "2022-10-28T11:01:06Z",
+      "side": 1,
+      "message": "Sure I will remove these redundant checks.",
+      "parentUuid": "4164ba19_ff733f55",
+      "range": {
+        "startLine": 812,
+        "startChar": 8,
+        "endLine": 823,
+        "endChar": 9
+      },
+      "revId": "dbc6ffb34500f952da6fab1508913a754ee4b68e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aa47a780_f01c6d86",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 2
@@ -100,6 +172,30 @@
       "writtenOn": "2022-10-28T07:24:21Z",
       "side": 1,
       "message": "If I read the code correctly, this doesn\u0027t make sense because #startTethering would post to tethering handler thread and setLoHsTethering run under tethering handler thread. So the calling identity here already be tethering.",
+      "range": {
+        "startLine": 825,
+        "startChar": 34,
+        "endLine": 825,
+        "endChar": 54
+      },
+      "revId": "dbc6ffb34500f952da6fab1508913a754ee4b68e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e30f6582_9429077a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1607903
+      },
+      "writtenOn": "2022-10-28T11:01:06Z",
+      "side": 1,
+      "message": "Yes no need for this. Can we remove it in setWiFiTethering as well @ https://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/Tethering.java;l\u003d755;drc\u003db45a2ea782074944f79fc388df20b06e01f265f7?q\u003dtethering.java",
+      "parentUuid": "aa47a780_f01c6d86",
       "range": {
         "startLine": 825,
         "startChar": 34,
