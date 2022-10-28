@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87008e07_c181f04c",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-28T16:01:43Z",
+      "side": 1,
+      "message": "This is a good idea. I messed with generic ways to transform arguments all day yesterday but couldn\u0027t find a way to get it to work. Doing this on a per script basis is probably the only way to go.",
+      "range": {
+        "startLine": 667,
+        "startChar": 0,
+        "endLine": 669,
+        "endChar": 0
+      },
+      "revId": "bf569d4199bab8e42cae557a357451bcb764ae00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8727ee42_35ea3745",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-28T16:01:43Z",
+      "side": 1,
+      "message": "nit: you can use `for i, val in enumerate(target.args):`",
+      "range": {
+        "startLine": 673,
+        "startChar": 4,
+        "endLine": 673,
+        "endChar": 39
+      },
+      "revId": "bf569d4199bab8e42cae557a357451bcb764ae00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
