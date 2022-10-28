@@ -94,6 +94,30 @@
       },
       "revId": "7dce599f421ae883b670ae76aa0dca761d551ec9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9576981_12c03d54",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-28T03:00:09Z",
+      "side": 0,
+      "message": "Hmmm.\nI don\u0027t think time change really matters here.\nIt might mistakenly allow one or two polls seldomly, in the case of NTP time or manual adjustment.\nIt seems to me every other part of NetworkStats would be broke if time jump forwards or back. e.g. The statistics recorded into disk would be wrong.\n\nHowever, using elapsedRealtime has serious impact on testibility.\nBecause currently we can use incrementCurrentTime to simulate the time forward.\nWhen not calling it, the time is frozen.\nBut as you can see aosp/2273088 break this fact and use the real time to test.\nWhich is confusing to future developers I think.\nAny idea?",
+      "parentUuid": "c7e21a23_fd3bb762",
+      "range": {
+        "startLine": 1307,
+        "startChar": 37,
+        "endLine": 1307,
+        "endChar": 52
+      },
+      "revId": "7dce599f421ae883b670ae76aa0dca761d551ec9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
