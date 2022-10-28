@@ -168,8 +168,16 @@ public class NetworkNotificationManager {
                     .getVenueFriendlyName())) {
                 name = nai.linkProperties.getCaptivePortalData().getVenueFriendlyName();
             } else {
-                name = TextUtils.isEmpty(extraInfo)
-                        ? WifiInfo.sanitizeSsid(nai.networkCapabilities.getSsid()) : extraInfo;
+                if (!TextUtils.isEmpty(extraInfo)) {
+                    name = extraInfo;
+                } else {
+                    String ssid = nai.networkCapabilities.getSsid();
+                    if (!TextUtils.isEmpty(ssid) && ssid.startsWith("\"")) {
+                        name = WifiInfo.sanitizeSsid(nai.networkCapabilities.getSsid());
+                    } else {
+                        name = "";
+                    }
+                }
             }
             // Only notify for Internet-capable networks.
             if (!nai.networkCapabilities.hasCapability(NET_CAPABILITY_INTERNET)) return;
@@ -220,7 +228,11 @@ public class NetworkNotificationManager {
             if (transportType == TRANSPORT_CELLULAR) {
                 title = r.getString(R.string.mobile_no_internet);
             } else if (transportType == TRANSPORT_WIFI) {
-                title = r.getString(R.string.wifi_no_internet, name);
+                if (!TextUtils.isEmpty(name)) {
+                    title = r.getString(R.string.wifi_no_internet, name);
+                } else {
+                    title = r.getString(R.string.wifi_no_internet_no_network_name);
+                }
             } else {
                 title = r.getString(R.string.other_networks_no_internet);
             }
