@@ -45,6 +45,30 @@
       },
       "revId": "bf569d4199bab8e42cae557a357451bcb764ae00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db04c0d8_227556ac",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-28T16:33:37Z",
+      "side": 1,
+      "message": "fixed in aosp/2276155",
+      "parentUuid": "8727ee42_35ea3745",
+      "range": {
+        "startLine": 673,
+        "startChar": 4,
+        "endLine": 673,
+        "endChar": 39
+      },
+      "revId": "bf569d4199bab8e42cae557a357451bcb764ae00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
