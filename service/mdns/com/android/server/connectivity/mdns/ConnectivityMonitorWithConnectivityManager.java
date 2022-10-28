@@ -20,7 +20,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Network;
-import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.os.Build;
 
@@ -33,7 +32,7 @@ public class ConnectivityMonitorWithConnectivityManager implements ConnectivityM
 
     private final Listener listener;
     private final ConnectivityManager.NetworkCallback networkCallback;
-    private final ConnectivityManager connectivityManager;
+    private final Context mContext;
     // TODO(b/71901993): Ideally we shouldn't need this flag. However we still don't have clues why
     // the receiver is unregistered twice yet.
     private boolean isCallbackRegistered = false;
@@ -43,8 +42,7 @@ public class ConnectivityMonitorWithConnectivityManager implements ConnectivityM
     public ConnectivityMonitorWithConnectivityManager(Context context, Listener listener) {
         this.listener = listener;
 
-        connectivityManager =
-                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        mContext = context;
         networkCallback =
                 new ConnectivityManager.NetworkCallback() {
                     @Override
@@ -84,10 +82,8 @@ public class ConnectivityMonitorWithConnectivityManager implements ConnectivityM
             return;
         }
 
-        connectivityManager.registerNetworkCallback(
-                new NetworkRequest.Builder().addTransportType(
-                        NetworkCapabilities.TRANSPORT_WIFI).build(),
-                networkCallback);
+        mContext.getSystemService(ConnectivityManager.class).registerNetworkCallback(
+                new NetworkRequest.Builder().build(), networkCallback);
         isCallbackRegistered = true;
     }
 
@@ -100,7 +96,8 @@ public class ConnectivityMonitorWithConnectivityManager implements ConnectivityM
             return;
         }
 
-        connectivityManager.unregisterNetworkCallback(networkCallback);
+        mContext.getSystemService(ConnectivityManager.class)
+                .unregisterNetworkCallback(networkCallback);
         isCallbackRegistered = false;
     }
 }

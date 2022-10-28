@@ -16,10 +16,10 @@
 
 package com.android.server.connectivity.mdns;
 
+import static com.android.testutils.ContextUtils.mockService;
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -54,8 +54,8 @@ public class ConnectivityMonitorWithConnectivityManagerTests {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        doReturn(mConnectivityManager).when(mContext)
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        mockService(mContext, ConnectivityManager.class, Context.CONNECTIVITY_SERVICE,
+                mConnectivityManager);
         monitor = new ConnectivityMonitorWithConnectivityManager(mContext, mockListener);
     }
 
