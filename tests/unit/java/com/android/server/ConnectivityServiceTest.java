@@ -4974,9 +4974,6 @@ public class ConnectivityServiceTest {
 
     @Test
     public void testRegisterDefaultNetworkCallback() throws Exception {
-        // NETWORK_SETTINGS is necessary to call registerSystemDefaultNetworkCallback.
-        mServiceContext.setPermission(NETWORK_SETTINGS, PERMISSION_GRANTED);
-
         final TestNetworkCallback defaultNetworkCallback = new TestNetworkCallback();
         mCm.registerDefaultNetworkCallback(defaultNetworkCallback);
         defaultNetworkCallback.assertNoCallback();
@@ -5121,9 +5118,10 @@ public class ConnectivityServiceTest {
     }
 
     @Test
-    public void testRegisterPrivilegedDefaultCallbacksRequireNetworkSettings() throws Exception {
+    public void testRegisterPrivilegedDefaultCallbacksRequirePermissions() throws Exception {
         mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
         mCellNetworkAgent.connect(false /* validated */);
+        mServiceContext.setPermission(CONNECTIVITY_USE_RESTRICTED_NETWORKS, PERMISSION_DENIED);
 
         final Handler handler = new Handler(ConnectivityThread.getInstanceLooper());
         final TestNetworkCallback callback = new TestNetworkCallback();
@@ -5133,6 +5131,12 @@ public class ConnectivityServiceTest {
         assertThrows(SecurityException.class,
                 () -> mCm.registerDefaultNetworkCallbackForUid(APP1_UID, callback, handler));
         callback.assertNoCallback();
+
+        mServiceContext.setPermission(CONNECTIVITY_USE_RESTRICTED_NETWORKS, PERMISSION_GRANTED);
+        mCm.registerSystemDefaultNetworkCallback(callback, handler);
+        mServiceContext.setPermission(CONNECTIVITY_USE_RESTRICTED_NETWORKS, PERMISSION_DENIED);
+        callback.expectAvailableCallbacksUnvalidated(mCellNetworkAgent);
+        mCm.unregisterNetworkCallback(callback);
 
         mServiceContext.setPermission(NETWORK_SETTINGS, PERMISSION_GRANTED);
         mCm.registerSystemDefaultNetworkCallback(callback, handler);

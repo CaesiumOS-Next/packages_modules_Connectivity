@@ -1050,6 +1050,14 @@ public class ConnectivityManagerTest {
             }, NETWORK_SETTINGS);
             registerBestMatchingNetworkCallback(makeDefaultRequest(), bestMatchingCallback, h);
         }
+        if (TestUtils.shouldTestTApis()) {
+            // Verify registerSystemDefaultNetworkCallback can be accessed via
+            // CONNECTIVITY_USE_RESTRICTED_NETWORKS permission.
+            final TestNetworkCallback systemDefaultCallback2 = new TestNetworkCallback();
+            runWithShellPermissionIdentity(() ->
+                    registerSystemDefaultNetworkCallback(systemDefaultCallback2, h),
+                    CONNECTIVITY_USE_RESTRICTED_NETWORKS);
+        }
 
         Network wifiNetwork = null;
         mCtsNetUtils.ensureWifiConnected();
