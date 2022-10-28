@@ -667,6 +667,11 @@ def create_proto_group_modules(blueprint, gn, module_name, target_names):
 # There may be a better way to do target specific modification
 # Target specific modification before create_action_module
 def pre_create_action_module(target):
+  # Convert ['--param=value'] to ['--param', 'value'] for consistency.
+  # TODO: we may want to only do this for python scripts arguments. If argparse
+  # is used, this transformation is safe.
+  target.args = [str for it in target.args for str in it.split('=')]
+
   if target.script == "//build/write_buildflag_header.py":
     # write_buildflag_header.py writes result to args.genDir/args.output
     # So, override args.genDir by '.' so that args.output=$(out) works
