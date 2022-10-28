@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d997d90_2545a223",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-10-28T07:24:21Z",
+      "side": 1,
+      "message": "Could you also add the test ?",
+      "revId": "dbc6ffb34500f952da6fab1508913a754ee4b68e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39b20167_03f24901",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-10-28T07:24:21Z",
+      "side": 1,
+      "message": "Wrong indent. Should be 4 space instead of 8 ?",
+      "range": {
+        "startLine": 606,
+        "startChar": 8,
+        "endLine": 606,
+        "endChar": 15
+      },
+      "revId": "dbc6ffb34500f952da6fab1508913a754ee4b68e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04b31c98_0725cf4d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-10-28T07:24:21Z",
+      "side": 1,
+      "message": "This is right direction and what I want to do but I think it is very risky without experiment data or solid testing in all R+ mainline supported devices.\n\nI also have change to do this which default flag off before U.\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2263122",
+      "range": {
+        "startLine": 634,
+        "startChar": 41,
+        "endLine": 634,
+        "endChar": 66
+      },
+      "revId": "dbc6ffb34500f952da6fab1508913a754ee4b68e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4164ba19_ff733f55",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-10-28T07:24:21Z",
+      "side": 1,
+      "message": "Why this matter ? we already check the argument in TetheringManager.\nhttps://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/Tethering/common/TetheringLib/src/android/net/TetheringManager.java;l\u003d714?q\u003dtetheringmanager.java",
+      "range": {
+        "startLine": 812,
+        "startChar": 8,
+        "endLine": 823,
+        "endChar": 9
+      },
+      "revId": "dbc6ffb34500f952da6fab1508913a754ee4b68e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa47a780_f01c6d86",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-10-28T07:24:21Z",
+      "side": 1,
+      "message": "If I read the code correctly, this doesn\u0027t make sense because #startTethering would post to tethering handler thread and setLoHsTethering run under tethering handler thread. So the calling identity here already be tethering.",
+      "range": {
+        "startLine": 825,
+        "startChar": 34,
+        "endLine": 825,
+        "endChar": 54
+      },
+      "revId": "dbc6ffb34500f952da6fab1508913a754ee4b68e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed412907_d367ffac",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-10-28T07:24:21Z",
+      "side": 1,
+      "message": "What happen if device doesn\u0027t support wifi tethering and local only hotspot concurrency ? If device start local only hotspot first, then start wifi tethering would disable local only hotspot (onStopped callback fired ?). Does local hotspot resume after wifi tethering stop ? If no, the code here doesn\u0027t work.",
+      "range": {
+        "startLine": 834,
+        "startChar": 12,
+        "endLine": 842,
+        "endChar": 13
+      },
+      "revId": "dbc6ffb34500f952da6fab1508913a754ee4b68e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
