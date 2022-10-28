@@ -736,6 +736,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static final int EVENT_INITIAL_EVALUATION_TIMEOUT = 57;
 
     /**
+     * Used internally when user does not want the network from Captive Portal.
+     */
+    private static final int EVENT_USER_DOES_NOT_WANT = 58;
+
+    /**
      * Argument for {@link #EVENT_PROVISIONING_NOTIFICATION} to indicate that the notification
      * should be shown.
      */
@@ -5050,6 +5055,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
         public void appResponse(final int response) {
             if (response == CaptivePortal.APP_RETURN_WANTED_AS_IS) {
                 enforceSettingsPermission();
+            } else if (response == CaptivePortal.APP_RETURN_UNWANTED) {
+                mHandler.sendMessage(mHandler.obtainMessage(EVENT_USER_DOES_NOT_WANT, mNetwork));
+                // Since we will teardown the network, we do not need to notify NetworkMonitor
+                return;
             }
 
             final NetworkMonitorManager nm = getNetworkMonitorManager(mNetwork);
@@ -5490,6 +5499,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     break;
                 case EVENT_INGRESS_RATE_LIMIT_CHANGED:
                     handleIngressRateLimitChanged();
+                    break;
+                case EVENT_USER_DOES_NOT_WANT:
+                    NetworkAgentInfo nai = getNetworkAgentInfoForNetwork((Network) msg.obj);
+                    if (nai == null) break;
+                    nai.onPreventAutomaticReconnect();
+                    nai.disconnect();
                     break;
             }
         }
