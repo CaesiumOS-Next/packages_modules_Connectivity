@@ -20,6 +20,47 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e9876a6d_aa91fa4a",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-28T15:12:57Z",
+      "side": 1,
+      "message": "No, the script reads from a file (where {{response_file_name}} is replaced with the filename). Unfortunately, there is no way to pass the flags directly.",
+      "parentUuid": "5592a667_23bf54f0",
+      "revId": "8a4e2bd1961a73f77c132b5263e622c4d9193070",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78a51320_487fae96",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-28T15:12:57Z",
+      "side": 1,
+      "message": "This comment is wrong.",
+      "range": {
+        "startLine": 682,
+        "startChar": 16,
+        "endLine": 682,
+        "endChar": 38
+      },
+      "revId": "8a4e2bd1961a73f77c132b5263e622c4d9193070",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "02638bb1_db07676f",
         "filename": "tools/gn2bp/gen_android_bp",
         "patchSetId": 1
@@ -31,6 +72,24 @@
       "writtenOn": "2022-10-28T01:43:46Z",
       "side": 1,
       "message": "It\u0027s totally ok but I haven\u0027t seen python code using `it` in comprehensions except something like `for it in iterables`\n\nhttps://source.corp.google.com/search?q\u003d%22for%20it%20in%22%20f:python\u0026sq\u003d\u0026ss\u003dpiper%2FGoogle%2Faosp-master\nhttps://source.corp.google.com/search?q\u003d%22for%20arg%20in%22%20f:python\u0026ss\u003dpiper%2FGoogle%2Faosp-master",
+      "revId": "8a4e2bd1961a73f77c132b5263e622c4d9193070",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e4848dc_6513a8da",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-28T15:12:57Z",
+      "side": 1,
+      "message": "Oh, good point, thanks for pointing this out!",
+      "parentUuid": "02638bb1_db07676f",
       "revId": "8a4e2bd1961a73f77c132b5263e622c4d9193070",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
