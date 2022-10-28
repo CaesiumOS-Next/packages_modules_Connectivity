@@ -43,7 +43,7 @@ import java.util.Collections;
 public class MdnsDiscoveryManagerTests {
 
     private static final String SERVICE_TYPE_1 = "_googlecast._tcp.local";
-    private static final String SERVICE_TYPE_2 = "_test._tcp.local";
+    private static final String SERVICE_TYPE_2 = "_test._tcp";
 
     @Mock private ExecutorProvider executorProvider;
     @Mock private MdnsSocketClient socketClient;
@@ -116,6 +116,11 @@ public class MdnsDiscoveryManagerTests {
         verify(mockServiceTypeClientOne).processResponse(responseForServiceTypeOne);
 
         MdnsResponse responseForServiceTypeTwo = createMockResponse(SERVICE_TYPE_2);
+        discoveryManager.onResponseReceived(responseForServiceTypeTwo);
+        verify(mockServiceTypeClientTwo).processResponse(responseForServiceTypeTwo);
+
+        // Verify response is still processing when the type includes local domain.
+        responseForServiceTypeTwo = createMockResponse(SERVICE_TYPE_2 + ".local");
         discoveryManager.onResponseReceived(responseForServiceTypeTwo);
         verify(mockServiceTypeClientTwo).processResponse(responseForServiceTypeTwo);
 

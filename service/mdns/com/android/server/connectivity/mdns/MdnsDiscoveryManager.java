@@ -110,6 +110,29 @@ public class MdnsDiscoveryManager implements MdnsSocketClient.Callback {
         }
     }
 
+    private boolean isResponseTypeMatchedRequestType(String[] response, String[] request) {
+        if (Arrays.equals(response, request)) {
+            return true;
+        }
+
+        // Re-check the name with ignoring the "local" domain name in the end.
+        final int length = response.length;
+        final int offset = response.length - request.length;
+        if (offset == 1 && response[length - 1].equals("local") // local domain name
+                && Arrays.equals(
+                        Arrays.copyOfRange(response, 0, length - 2),
+                        Arrays.copyOfRange(request, 0, request.length - 1))) {
+            return true;
+        }
+
+        if ((response.length == (request.length + 2))
+                && response[1].equals(MdnsConstants.SUBTYPE_LABEL)
+                && MdnsRecord.labelsAreSuffix(request, response)) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public synchronized void onResponseReceived(@NonNull MdnsResponse response) {
         String[] name =
@@ -119,10 +142,7 @@ public class MdnsDiscoveryManager implements MdnsSocketClient.Callback {
         if (name != null) {
             for (MdnsServiceTypeClient serviceTypeClient : serviceTypeClients.values()) {
                 String[] serviceType = serviceTypeClient.getServiceTypeLabels();
-                if ((Arrays.equals(name, serviceType)
-                        || ((name.length == (serviceType.length + 2))
-                        && name[1].equals(MdnsConstants.SUBTYPE_LABEL)
-                        && MdnsRecord.labelsAreSuffix(serviceType, name)))) {
+                if (isResponseTypeMatchedRequestType(name, serviceType)) {
                     serviceTypeClient.processResponse(response);
                     return;
                 }
