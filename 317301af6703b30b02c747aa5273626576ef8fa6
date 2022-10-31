@@ -16,6 +16,29 @@
       "message": "lgtm for Tether4Key.java, Tether4Value.java, EthernetTetheringTest, BpfCoordinatorTest. Need other reviewers for the remaining files.",
       "revId": "317301af6703b30b02c747aa5273626576ef8fa6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f1fb26e_89631709",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4768,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-31T06:04:30Z",
+      "side": 1,
+      "message": "Can we implement CREATOR instead ? That should be trivial :\n\n    public static final @NonNull Creator\u003cConfidentialMatchAllNetworkSecifier\u003e CREATOR \u003d\n        new Creator\u003c\u003e() {\n            public ConfidentialMatchAllNetworkSpecifer createFromParcel(Parcel in) {\n                return new ConfidentialMatchAllNetworkSpecifier();\n        };",
+      "range": {
+        "startLine": 4768,
+        "startChar": 9,
+        "endLine": 4768,
+        "endChar": 25
+      },
+      "revId": "317301af6703b30b02c747aa5273626576ef8fa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
