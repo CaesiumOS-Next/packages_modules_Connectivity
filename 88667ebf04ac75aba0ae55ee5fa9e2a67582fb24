@@ -22,6 +22,30 @@
       },
       "revId": "88667ebf04ac75aba0ae55ee5fa9e2a67582fb24",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "378c56db_5cdf3310",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-31T08:16:24Z",
+      "side": 1,
+      "message": "IIUC no, because we are not sure the wifi has/will have IPv6 ability.\nIn worst case, IPv4/IPv6(or even clat) might be added/removed in anytime.\n\nAlternatively, we can create test network, and only verify the fields just for the test network, and ignore real networks. But I don\u0027t think that is a better solution.\n\nWDYT?",
+      "parentUuid": "4dc8f355_fa5362d0",
+      "range": {
+        "startLine": 584,
+        "startChar": 12,
+        "endLine": 584,
+        "endChar": 25
+      },
+      "revId": "88667ebf04ac75aba0ae55ee5fa9e2a67582fb24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
