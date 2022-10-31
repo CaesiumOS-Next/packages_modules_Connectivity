@@ -16,6 +16,24 @@
       "message": "whoops! good catch! 😊",
       "revId": "6f9139d9727c3aabc01e257cc63d82b8eb4f7f4f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d7fcf2b_191cb72e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-10-31T16:28:54Z",
+      "side": 1,
+      "message": "Oh, just realized that this just recently broke, and my code is not up-to-date yet 😞\nhttps://chromium-review.googlesource.com/c/chromium/src/+/3949850\n\nThat actually really sucks. Maintaining this script might be more work than expected.",
+      "parentUuid": "026b30f0_1383705b",
+      "revId": "6f9139d9727c3aabc01e257cc63d82b8eb4f7f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
