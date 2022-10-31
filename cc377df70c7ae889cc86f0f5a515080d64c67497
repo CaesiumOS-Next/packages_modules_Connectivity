@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfc19466_91c1a34b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-31T02:10:03Z",
+      "side": 1,
+      "message": "As sort of CI test, I preferred to have Android.bp with supported targets so that I can make sure my change doesn\u0027t break the target other people supported.\nBut //base:base is small enough to see the changes.\nAnd I agree this is useful to see the impact of my change on other targets which is not supported yet but need to support later.",
+      "revId": "cc377df70c7ae889cc86f0f5a515080d64c67497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
