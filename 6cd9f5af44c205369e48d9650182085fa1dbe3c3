@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bd33979_68fef71f",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-10-31T22:56:09Z",
+      "side": 1,
+      "message": "As chatted offline, I did not add new CTS in this CL, it is in the followup CL.",
+      "parentUuid": "7710542f_0d3b6014",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 251,
+        "endChar": 76
+      },
+      "revId": "6cd9f5af44c205369e48d9650182085fa1dbe3c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ff162f0_fcfe4f67",
