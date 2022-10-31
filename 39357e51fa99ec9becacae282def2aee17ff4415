@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cdd6c0c_4564920c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-31T03:19:26Z",
+      "side": 1,
+      "message": "Maybe you can add the test to existed CTS test.\nhttps://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java;l\u003d1035",
+      "revId": "39357e51fa99ec9becacae282def2aee17ff4415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3bfd56d_b3da71f2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2803,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-31T03:19:26Z",
+      "side": 1,
+      "message": "Networks?",
+      "range": {
+        "startLine": 2803,
+        "startChar": 47,
+        "endLine": 2803,
+        "endChar": 54
+      },
+      "revId": "39357e51fa99ec9becacae282def2aee17ff4415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "412c3ca4_0a42560a",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4978,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-31T03:19:26Z",
+      "side": 1,
+      "message": "Nit: CONNECTIVITY_USE_RESTRICTED_NETWORKS is granted when test set up. With you change on CS, this is unnecessary now. Would you like to remove this? You can do it with a follow-up commit.",
+      "range": {
+        "startLine": 4977,
+        "startChar": 8,
+        "endLine": 4978,
+        "endChar": 76
+      },
+      "revId": "39357e51fa99ec9becacae282def2aee17ff4415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdfcffc8_0a26f92c",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5141,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-31T03:19:26Z",
+      "side": 1,
+      "message": "Does this test really work? If so, maybe you can switch the order for these two lines to avoid confusion.",
+      "range": {
+        "startLine": 5140,
+        "startChar": 8,
+        "endLine": 5141,
+        "endChar": 72
+      },
+      "revId": "39357e51fa99ec9becacae282def2aee17ff4415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
