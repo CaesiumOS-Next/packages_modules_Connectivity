@@ -58,7 +58,7 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
         }
     }
 
-    private final WeakReference<MdnsSocketClient> weakRequestSender;
+    private final WeakReference<MdnsSocketManager> weakRequestSender;
     private final MdnsPacketWriter packetWriter;
     private final String[] serviceTypeLabels;
     private final List<String> subtypes;
@@ -66,7 +66,7 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
     private final int transactionId;
 
     EnqueueMdnsQueryCallable(
-            @NonNull MdnsSocketClient requestSender,
+            @NonNull MdnsSocketManager requestSender,
             @NonNull MdnsPacketWriter packetWriter,
             @NonNull String serviceType,
             @NonNull Collection<String> subtypes,
@@ -86,7 +86,7 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
     @Nullable
     public Pair<Integer, List<String>> call() {
         try {
-            MdnsSocketClient requestSender = weakRequestSender.get();
+            MdnsSocketManager requestSender = weakRequestSender.get();
             if (requestSender == null) {
                 return null;
             }
@@ -128,12 +128,9 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
                             | (expectUnicastResponse ? MdnsConstants.QCLASS_UNICAST : 0));
 
             InetAddress mdnsAddress = MdnsConstants.getMdnsIPv4Address();
-            if (requestSender.isOnIPv6OnlyNetwork()) {
-                mdnsAddress = MdnsConstants.getMdnsIPv6Address();
-            }
-
-            sendPacketTo(requestSender,
-                    new InetSocketAddress(mdnsAddress, MdnsConstants.MDNS_PORT));
+            // Build packet with IPv4 first then replace to IPv6 on MdnsSocketManager if necessary.
+            sendPacketTo(requestSender, new InetSocketAddress(
+                    MdnsConstants.getMdnsIPv4Address(), MdnsConstants.MDNS_PORT));
             for (Integer emulatorPort : castShellEmulatorMdnsPorts) {
                 sendPacketTo(requestSender, new InetSocketAddress(mdnsAddress, emulatorPort));
             }
@@ -145,7 +142,7 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
         }
     }
 
-    private void sendPacketTo(MdnsSocketClient requestSender, InetSocketAddress address)
+    private void sendPacketTo(MdnsSocketManager requestSender, InetSocketAddress address)
             throws IOException {
         DatagramPacket packet = packetWriter.getPacket(address);
         if (expectUnicastResponse) {

@@ -25,6 +25,7 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
+import java.net.InetSocketAddress;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class MdnsSocketManager {
     private final Map<String, MdnsSocketClient> mInterfaceSocketClients = new ArrayMap<>();
     private MdnsSocketClient.Callback mCallback = null;
 
-    MdnsSocketManager(Context context, MulticastNetworkInterfaceProvider provider,
+    public MdnsSocketManager(Context context, MulticastNetworkInterfaceProvider provider,
             MulticastLock multicastLock) {
         mContext = context;
         mInterfaceProvider = provider;
@@ -47,7 +48,7 @@ public class MdnsSocketManager {
     }
 
     /*** Create a socket on each interface that are available for mDns  */
-    public void createSocketClients() {
+    private void createSocketClients() {
         final List<NetworkInterfaceWrapper> nwIfaceWraps =
                 mInterfaceProvider.updateAndGetMulticastNetworkInterfaces();
         for (NetworkInterfaceWrapper nwIfceWrap : nwIfaceWraps) {
@@ -75,6 +76,9 @@ public class MdnsSocketManager {
     /*** Start mDns discovery on each socket */
     public void startDiscovery() throws IOException {
         boolean discoveryStarted = false;
+        // Check all available interfaces and create socket if necessary.
+        createSocketClients();
+
         for (MdnsSocketClient client : mInterfaceSocketClients.values()) {
             try {
                 client.startDiscovery();
@@ -118,6 +122,10 @@ public class MdnsSocketManager {
     /*** Send multicast packet to each socket */
     public void sendMulticastPacket(@NonNull DatagramPacket packet) {
         for (MdnsSocketClient client : mInterfaceSocketClients.values()) {
+            if (client.isOnIPv6OnlyNetwork()) {
+                packet.setSocketAddress(new InetSocketAddress(
+                        MdnsConstants.getMdnsIPv6Address(), MdnsConstants.MDNS_PORT));
+            }
             client.sendMulticastPacket(packet);
         }
     }
@@ -125,6 +133,10 @@ public class MdnsSocketManager {
     /*** Send unicast packet to each socket */
     public void sendUnicastPacket(DatagramPacket packet) {
         for (MdnsSocketClient client : mInterfaceSocketClients.values()) {
+            if (client.isOnIPv6OnlyNetwork()) {
+                packet.setSocketAddress(new InetSocketAddress(
+                        MdnsConstants.getMdnsIPv6Address(), MdnsConstants.MDNS_PORT));
+            }
             client.sendUnicastPacket(packet);
         }
     }

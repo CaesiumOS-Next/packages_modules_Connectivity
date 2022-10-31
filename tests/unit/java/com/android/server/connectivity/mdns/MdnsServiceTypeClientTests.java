@@ -84,7 +84,7 @@ public class MdnsServiceTypeClientTests {
     @Mock
     private MdnsPacketWriter mockPacketWriter;
     @Mock
-    private MdnsSocketClient mockSocketClient;
+    private MdnsSocketManager mockSocketManager;
     @Captor
     private ArgumentCaptor<MdnsServiceInfo> serviceInfoCaptor;
 
@@ -131,7 +131,7 @@ public class MdnsServiceTypeClientTests {
         doReturn(INTERFACE_INDEX_UNSPECIFIED).when(mResolutionListener).getInterfaceIndex();
 
         client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor) {
+                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketManager, currentThreadExecutor) {
                     @Override
                     MdnsPacketWriter createMdnsPacketWriter() {
                         return mockPacketWriter;
@@ -587,7 +587,7 @@ public class MdnsServiceTypeClientTests {
         //MdnsConfigsFlagsImpl.allowSearchOptionsToRemoveExpiredService.override(true);
         final String serviceInstanceName = "service-instance-1";
         client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor) {
+                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketManager, currentThreadExecutor) {
                     @Override
                     MdnsPacketWriter createMdnsPacketWriter() {
                         return mockPacketWriter;
@@ -627,7 +627,7 @@ public class MdnsServiceTypeClientTests {
             throws Exception {
         final String serviceInstanceName = "service-instance-1";
         client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor) {
+                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketManager, currentThreadExecutor) {
                     @Override
                     MdnsPacketWriter createMdnsPacketWriter() {
                         return mockPacketWriter;
@@ -661,7 +661,7 @@ public class MdnsServiceTypeClientTests {
         //MdnsConfigsFlagsImpl.removeServiceAfterTtlExpires.override(true);
         final String serviceInstanceName = "service-instance-1";
         client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor) {
+                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketManager, currentThreadExecutor) {
                     @Override
                     MdnsPacketWriter createMdnsPacketWriter() {
                         return mockPacketWriter;
@@ -742,9 +742,9 @@ public class MdnsServiceTypeClientTests {
         assertEquals(currentThreadExecutor.getAndClearLastScheduledDelayInMs(), timeInMs);
         currentThreadExecutor.getAndClearLastScheduledRunnable().run();
         if (expectsUnicastResponse) {
-            verify(mockSocketClient).sendUnicastPacket(expectedPackets[index]);
+            verify(mockSocketManager).sendUnicastPacket(expectedPackets[index]);
         } else {
-            verify(mockSocketClient).sendMulticastPacket(expectedPackets[index]);
+            verify(mockSocketManager).sendMulticastPacket(expectedPackets[index]);
         }
     }
 

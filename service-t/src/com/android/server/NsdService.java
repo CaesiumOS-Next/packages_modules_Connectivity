@@ -66,7 +66,8 @@ import com.android.server.connectivity.mdns.MdnsServiceBrowserListener;
 import com.android.server.connectivity.mdns.MdnsServiceInfo;
 import com.android.server.connectivity.mdns.MdnsServiceListener;
 import com.android.server.connectivity.mdns.MdnsServiceResolutionListener;
-import com.android.server.connectivity.mdns.MdnsSocketClient;
+import com.android.server.connectivity.mdns.MdnsSocketManager;
+import com.android.server.connectivity.mdns.MulticastNetworkInterfaceProvider;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -100,9 +101,10 @@ public class NsdService extends INsdManager.Stub {
     private final MDnsManager mMDnsManager;
     private final MDnsEventCallback mMDnsEventCallback;
     private final ExecutorProvider mExecutorProvider;
-    private final MdnsSocketClient mMdnsSocketClient;
+    private final MdnsSocketManager mMdnsSocketManager;
     private final MdnsDiscoveryManager mMdnsDiscoveryManager;
     private final boolean mGmsMdnsServiceEnabled;
+    private final MulticastNetworkInterfaceProvider mInterfaceProvider;
     // WARNING : Accessing this value in any thread is not safe, it must only be changed in the
     // state machine thread. If change this outside state machine, it will need to introduce
     // synchronization.
@@ -961,9 +963,11 @@ public class NsdService extends INsdManager.Stub {
                 ctx.getSystemService(WifiManager.class).createMulticastLock(TAG);
         multicastLock.setReferenceCounted(false);
         mExecutorProvider = new ExecutorProvider();
-        mMdnsSocketClient = new MdnsSocketClient(ctx, multicastLock);
-        mMdnsDiscoveryManager = deps.makeMdnsDiscoveryManager(mExecutorProvider, mMdnsSocketClient);
-        mMdnsSocketClient.setCallback(mMdnsDiscoveryManager);
+        mInterfaceProvider = new MulticastNetworkInterfaceProvider(mContext);
+        mMdnsSocketManager = new MdnsSocketManager(mContext, mInterfaceProvider, multicastLock);
+        mMdnsDiscoveryManager =
+                deps.makeMdnsDiscoveryManager(mExecutorProvider, mMdnsSocketManager);
+        mMdnsSocketManager.setCallback(mMdnsDiscoveryManager);
         mGmsMdnsServiceEnabled =
                 deps.isFeatureEnabled(ctx, MDNS_SERVICE_VERSION, false /* defaultEnabled */);
     }
@@ -1001,8 +1005,8 @@ public class NsdService extends INsdManager.Stub {
          * Create a MdnsDiscoveryManager to use in NsdService.
          */
         public MdnsDiscoveryManager makeMdnsDiscoveryManager(
-                ExecutorProvider executorProvider, MdnsSocketClient socketClient) {
-            return new MdnsDiscoveryManager(executorProvider, socketClient);
+                ExecutorProvider executorProvider, MdnsSocketManager socketManager) {
+            return new MdnsDiscoveryManager(executorProvider, socketManager);
         }
 
         /**
