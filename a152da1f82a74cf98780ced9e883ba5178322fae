@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34fe4218_6fb41092",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1055,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-31T09:33:28Z",
+      "side": 1,
+      "message": "Is it possible to test that it can\u0027t be used without it ?",
+      "range": {
+        "startLine": 1054,
+        "startChar": 0,
+        "endLine": 1055,
+        "endChar": 63
+      },
+      "revId": "a152da1f82a74cf98780ced9e883ba5178322fae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
