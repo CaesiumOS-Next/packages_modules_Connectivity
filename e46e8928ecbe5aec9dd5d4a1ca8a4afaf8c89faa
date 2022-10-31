@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3719976_6a1f7a6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-31T02:25:12Z",
+      "side": 1,
+      "message": "This change is in aosp/2276593 which is in the CL chain and merged.",
+      "revId": "e46e8928ecbe5aec9dd5d4a1ca8a4afaf8c89faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
