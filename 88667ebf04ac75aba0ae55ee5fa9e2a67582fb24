@@ -46,6 +46,30 @@
       },
       "revId": "88667ebf04ac75aba0ae55ee5fa9e2a67582fb24",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bdf1a24_83d24c65",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-31T09:30:11Z",
+      "side": 1,
+      "message": "Then can you at least check that the properties that are immutable are the same ?",
+      "parentUuid": "378c56db_5cdf3310",
+      "range": {
+        "startLine": 584,
+        "startChar": 12,
+        "endLine": 584,
+        "endChar": 25
+      },
+      "revId": "88667ebf04ac75aba0ae55ee5fa9e2a67582fb24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
