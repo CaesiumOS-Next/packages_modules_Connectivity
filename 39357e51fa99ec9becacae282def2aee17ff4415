@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f130d431_8878682b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-31T03:26:55Z",
+      "side": 1,
+      "message": "Allow ?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 7
+      },
+      "revId": "39357e51fa99ec9becacae282def2aee17ff4415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "0cdd6c0c_4564920c",
@@ -14,6 +37,23 @@
       "writtenOn": "2022-10-31T03:19:26Z",
       "side": 1,
       "message": "Maybe you can add the test to existed CTS test.\nhttps://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java;l\u003d1035",
+      "revId": "39357e51fa99ec9becacae282def2aee17ff4415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abb52522_8aa8e9bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-31T03:26:55Z",
+      "side": 1,
+      "message": "It would be nice to also have a CTS for this.",
       "revId": "39357e51fa99ec9becacae282def2aee17ff4415",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -58,6 +98,29 @@
         "startLine": 4977,
         "startChar": 8,
         "endLine": 4978,
+        "endChar": 76
+      },
+      "revId": "39357e51fa99ec9becacae282def2aee17ff4415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cea9afe6_1685bbef",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5124,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-31T03:26:55Z",
+      "side": 1,
+      "message": "Either update the name of this test or make a new test function",
+      "range": {
+        "startLine": 5124,
+        "startChar": 16,
+        "endLine": 5124,
         "endChar": 76
       },
       "revId": "39357e51fa99ec9becacae282def2aee17ff4415",
