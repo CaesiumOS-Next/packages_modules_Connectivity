@@ -39,6 +39,30 @@
       },
       "revId": "317301af6703b30b02c747aa5273626576ef8fa6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba619bdf_745c7f70",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4768,
+      "author": {
+        "id": 1535516
+      },
+      "writtenOn": "2022-10-31T18:26:10Z",
+      "side": 1,
+      "message": "Done. Initially I didn\u0027t do it because there was no method to actually read anything from the parcel, but now I see that we don\u0027t write anything to the parcel either. Also it required moving the classes out of methods so they could be made static.",
+      "parentUuid": "3f1fb26e_89631709",
+      "range": {
+        "startLine": 4768,
+        "startChar": 9,
+        "endLine": 4768,
+        "endChar": 25
+      },
+      "revId": "317301af6703b30b02c747aa5273626576ef8fa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
