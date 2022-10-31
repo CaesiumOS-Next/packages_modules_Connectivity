@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdf12d94_c327b434",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1958109
+      },
+      "writtenOn": "2022-10-31T13:59:13Z",
+      "side": 1,
+      "message": "* Rebased due to merge conflict.\n* Added `@Nullable` annotation to `removeVpnLockdownUids`\u0027 iface parameter.\n* Added inline comments to identify `add` parameter of calls to `updateVpnLockdownUidInterfaceRules`.\n\nThanks for bearing with all of the changes up to this point. That is all, pending further review. :-)",
+      "revId": "e1c5a594d6ca381a1e85d1f18d1c82a822cca595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
