@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc6bc8d8_89651289",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsAnyRecord.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-31T08:32:27Z",
+      "side": 1,
+      "message": "IIUC, this is to do the cache flush for unicast. Why not just pass the unicast value to determine whether it should do cache flush? \n\n```\nprotected MdnsAnyRecord(String[] name, boolean unicast) {\n    super(name, TYPE_ANY, DnsResolver.CLASS_IN /* cls */,\n        0L /* receiptTimeMillis */, unicast /* cacheFlush */, 0L /* ttlMillis */);\n}\n```",
+      "range": {
+        "startLine": 34,
+        "startChar": 16,
+        "endLine": 34,
+        "endChar": 72
+      },
+      "revId": "389d027a4f8938143755fe781bb777497dd8b674",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba3358e9_51f3cec1",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-31T08:32:27Z",
+      "side": 1,
+      "message": "Nit: Looks like we are using same way to verify the encoding. It\u0027s better to add a method for these to avoid duplication.",
+      "range": {
+        "startLine": 301,
+        "startChar": 8,
+        "endLine": 311,
+        "endChar": 46
+      },
+      "revId": "389d027a4f8938143755fe781bb777497dd8b674",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
