@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dbce50b_5deaa890",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-10-31T14:46:55Z",
+      "side": 1,
+      "message": "Straight code move from packages/modules/Cronet to packages/modules/Connectivity.",
+      "revId": "ceb2a75099ae5cd9ea7942ef13ebce08611c1cad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
