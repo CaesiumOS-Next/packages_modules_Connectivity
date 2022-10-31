@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1df7107c_d4b9a8a7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-31T09:13:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f130d431_8878682b",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 7
+      },
+      "revId": "39357e51fa99ec9becacae282def2aee17ff4415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "0cdd6c0c_4564920c",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -58,6 +82,42 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f1195c0_913fed5e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-31T09:13:02Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "0cdd6c0c_4564920c",
+      "revId": "39357e51fa99ec9becacae282def2aee17ff4415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb50ab57_bff7ecb7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-31T09:13:02Z",
+      "side": 1,
+      "message": "Done, but only verify the permission part, given that the functionality has been verified by other part of the test.",
+      "parentUuid": "abb52522_8aa8e9bc",
+      "revId": "39357e51fa99ec9becacae282def2aee17ff4415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f3bfd56d_b3da71f2",
@@ -71,6 +131,30 @@
       "writtenOn": "2022-10-31T03:19:26Z",
       "side": 1,
       "message": "Networks?",
+      "range": {
+        "startLine": 2803,
+        "startChar": 47,
+        "endLine": 2803,
+        "endChar": 54
+      },
+      "revId": "39357e51fa99ec9becacae282def2aee17ff4415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b97c324b_4baa25a2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2803,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-31T09:13:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3bfd56d_b3da71f2",
       "range": {
         "startLine": 2803,
         "startChar": 47,
@@ -104,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "175323f1_2fdf5451",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4978,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-31T09:13:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "412c3ca4_0a42560a",
+      "range": {
+        "startLine": 4977,
+        "startChar": 8,
+        "endLine": 4978,
+        "endChar": 76
+      },
+      "revId": "39357e51fa99ec9becacae282def2aee17ff4415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cea9afe6_1685bbef",
@@ -127,6 +235,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cfd49bd_ef2a663f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5124,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-31T09:13:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cea9afe6_1685bbef",
+      "range": {
+        "startLine": 5124,
+        "startChar": 16,
+        "endLine": 5124,
+        "endChar": 76
+      },
+      "revId": "39357e51fa99ec9becacae282def2aee17ff4415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fdfcffc8_0a26f92c",
@@ -140,6 +272,30 @@
       "writtenOn": "2022-10-31T03:19:26Z",
       "side": 1,
       "message": "Does this test really work? If so, maybe you can switch the order for these two lines to avoid confusion.",
+      "range": {
+        "startLine": 5140,
+        "startChar": 8,
+        "endLine": 5141,
+        "endChar": 72
+      },
+      "revId": "39357e51fa99ec9becacae282def2aee17ff4415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6af2f0d_79e44728",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5141,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-10-31T09:13:02Z",
+      "side": 1,
+      "message": "Yes the test does work.\nreceiving callback doesn\u0027t need extra permission after registered.\nThus I think these line should stay as, to make it clear that this is working without the need of USE_RESTRICTED_NETWORKS.\nReopen if any idea.",
+      "parentUuid": "fdfcffc8_0a26f92c",
       "range": {
         "startLine": 5140,
         "startChar": 8,
