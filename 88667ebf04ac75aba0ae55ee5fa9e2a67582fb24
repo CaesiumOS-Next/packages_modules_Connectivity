@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dc8f355_fa5362d0",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-10-31T03:21:26Z",
+      "side": 1,
+      "message": "ISTM this weakens the test significantly. Can we instead wait for the v6 address to be allocated before we call getAllNetworkStateSnapshots in l.560 ?",
+      "range": {
+        "startLine": 584,
+        "startChar": 12,
+        "endLine": 584,
+        "endChar": 25
+      },
+      "revId": "88667ebf04ac75aba0ae55ee5fa9e2a67582fb24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
