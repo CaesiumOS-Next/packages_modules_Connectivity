@@ -22,6 +22,29 @@
       },
       "revId": "a152da1f82a74cf98780ced9e883ba5178322fae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ef4558b_95f0d501",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1087,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-31T09:33:50Z",
+      "side": 1,
+      "message": "You should verify the available callback was receviced on systemDefaultCallback2.",
+      "range": {
+        "startLine": 1087,
+        "startChar": 8,
+        "endLine": 1087,
+        "endChar": 9
+      },
+      "revId": "a152da1f82a74cf98780ced9e883ba5178322fae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

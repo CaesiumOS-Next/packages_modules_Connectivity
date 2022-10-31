@@ -214,6 +214,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d625afaf_10c8cfa8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4978,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-10-31T09:33:50Z",
+      "side": 1,
+      "message": "Not done. There are other places that should be updated too.\nhttps://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/tests/unit/java/com/android/server/ConnectivityServiceTest.java?q\u003d%22registerSystemDefaultNetworkCallback%22",
+      "parentUuid": "175323f1_2fdf5451",
+      "range": {
+        "startLine": 4977,
+        "startChar": 8,
+        "endLine": 4978,
+        "endChar": 76
+      },
+      "revId": "39357e51fa99ec9becacae282def2aee17ff4415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cea9afe6_1685bbef",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 2
