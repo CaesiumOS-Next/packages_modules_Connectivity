@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c8644da_6908ca59",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-10-31T02:19:44Z",
+      "side": 1,
+      "message": "Do we need to keep first line?\nIt looks First line is overridden by second line.",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 236,
+        "endChar": 32
+      },
+      "revId": "7aa98f9cdb93dcd8f6adc73d9406098178ae7328",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
