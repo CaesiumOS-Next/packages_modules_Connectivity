@@ -16,6 +16,46 @@
       "message": "My apologies *again*. Missed a spot when addressing merge conflict. Fixed now.",
       "revId": "c4d3c275c39e0324537b5991dbf7e056acf4ce3b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a3bfcbe_bf587304",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-10-31T14:25:16Z",
+      "side": 1,
+      "message": "I\u0027m afraid I have absolutely no idea how this is supposed to work ;-)\n(but it does seem like tests are missing)\n\nIn the mean time we can see if this builds and/or passes tests.\n\n[+2 CR/-2 OSL/+1 PR juggle to get TH to even try it, CR+2 not meant as true code review]",
+      "revId": "c4d3c275c39e0324537b5991dbf7e056acf4ce3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3699fc5_4bf8e9ee",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-10-31T14:25:16Z",
+      "side": 1,
+      "message": "it feels like maybe this shouldn\u0027t take iface as a parameter at all, and the null check should be at the callsites instead?\n\n(the doc text doesn\u0027t seem correct if iface isn\u0027t null)",
+      "range": {
+        "startLine": 1084,
+        "startChar": 0,
+        "endLine": 1084,
+        "endChar": 28
+      },
+      "revId": "c4d3c275c39e0324537b5991dbf7e056acf4ce3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
