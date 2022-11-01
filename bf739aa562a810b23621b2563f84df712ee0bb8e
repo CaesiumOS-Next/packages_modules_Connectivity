@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "372ea3a4_20d806fd",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-01T17:33:02Z",
+      "side": 1,
+      "message": "Is your plan to unroll the foreach? I guess that works too and might be easier to get right.\nCan you add more comments to your code, so it becomes easier to follow? Python isn\u0027t particularly readable, so I find comments very helpful.",
+      "range": {
+        "startLine": 684,
+        "startChar": 4,
+        "endLine": 694,
+        "endChar": 53
+      },
+      "revId": "bf739aa562a810b23621b2563f84df712ee0bb8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
