@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b6b3f01_6751f1f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2022-11-01T09:49:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d42ff1cb_08f2cb26",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 1
+      },
+      "revId": "8187a563e1eca416b3ae9c00ca26ec41199843c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a49b964_3025770c",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-11-01T06:42:30Z",
       "side": 1,
       "message": "Please also document what object this event taken. Similar to EVENT_REGISTER_NETWORK_OFFER or EVENT_SET_PROFILE_NETWORK_PREFERENCE.",
+      "range": {
+        "startLine": 739,
+        "startChar": 78,
+        "endLine": 740,
+        "endChar": 7
+      },
+      "revId": "8187a563e1eca416b3ae9c00ca26ec41199843c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75555771_50103810",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2022-11-01T09:49:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a49b964_3025770c",
       "range": {
         "startLine": 739,
         "startChar": 78,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de5d8a69_cd00defa",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5060,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2022-11-01T09:49:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed12d9f2_9af1df6d",
+      "range": {
+        "startLine": 5060,
+        "startChar": 25,
+        "endLine": 5060,
+        "endChar": 27
+      },
+      "revId": "8187a563e1eca416b3ae9c00ca26ec41199843c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "018cad87_3e4c3188",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-11-01T06:42:30Z",
       "side": 1,
       "message": "final",
+      "range": {
+        "startLine": 5504,
+        "startChar": 20,
+        "endLine": 5504,
+        "endChar": 21
+      },
+      "revId": "8187a563e1eca416b3ae9c00ca26ec41199843c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b54c2f3_5a3fba85",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5504,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2022-11-01T09:49:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "018cad87_3e4c3188",
       "range": {
         "startLine": 5504,
         "startChar": 20,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1862a737_c23b86c9",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4439,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2022-11-01T09:49:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80159218_88b44438",
+      "range": {
+        "startLine": 4439,
+        "startChar": 30,
+        "endLine": 4439,
+        "endChar": 47
+      },
+      "revId": "8187a563e1eca416b3ae9c00ca26ec41199843c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4b307f5_4a508c51",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-11-01T06:42:30Z",
       "side": 1,
       "message": "Could you also verify that mNetworkMonitor.notifyCaptivePortalAppFinished is not called?",
+      "range": {
+        "startLine": 4526,
+        "startChar": 8,
+        "endLine": 4526,
+        "endChar": 9
+      },
+      "revId": "8187a563e1eca416b3ae9c00ca26ec41199843c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5051cf85_8912198d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4526,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2022-11-01T09:49:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4b307f5_4a508c51",
       "range": {
         "startLine": 4526,
         "startChar": 8,
