@@ -70,6 +70,30 @@
       },
       "revId": "f8d69e34adf261990923bf407140f6235ef0327a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17089ce9_e8e3b347",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-01T05:57:35Z",
+      "side": 1,
+      "message": "Add description in the commit message. I think the structure change is still valuable so I\u0027d prefer to keep this as a separate CL. Let me know if you strongly recommand to merge this into the follow-up CL.",
+      "parentUuid": "5d8220d9_4625b460",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 13
+      },
+      "revId": "f8d69e34adf261990923bf407140f6235ef0327a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
