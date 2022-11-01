@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e15e739_6c6871ca",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-01T17:00:47Z",
+      "side": 1,
+      "message": "I saw that and was wondering that too. I thought that gn desc resolves public/private deps for us, but I am not sure anymore if it really does? It\u0027s also possible that there\u0027s a bug in that code. We should look into this some more.",
+      "range": {
+        "startLine": 923,
+        "startChar": 5,
+        "endLine": 924,
+        "endChar": 66
+      },
+      "revId": "e246febca580b139781b926f71c4fa8b6a0541cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
