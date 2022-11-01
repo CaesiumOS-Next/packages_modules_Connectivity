@@ -84,6 +84,17 @@ bpf {
 }
 
 bpf {
+    name: "enforceKernel.o",
+    srcs: ["enforceKernel.c"],
+    btf: true,
+    cflags: [
+        "-Wall",
+        "-Werror",
+    ],
+    sub_dir: "net_private",
+}
+
+bpf {
     name: "offload.o",
     srcs: ["offload.c"],
     cflags: [
