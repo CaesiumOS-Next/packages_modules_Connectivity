@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d42ff1cb_08f2cb26",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-11-01T06:42:30Z",
+      "side": 1,
+      "message": "Could you also describe why we want to do so? The commit message should explain why we need to have this patch. Some time later if someone would like to know the reason for this change. They could find the reason easily and do any modification.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 1
+      },
+      "revId": "8187a563e1eca416b3ae9c00ca26ec41199843c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a49b964_3025770c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-11-01T06:42:30Z",
+      "side": 1,
+      "message": "Please also document what object this event taken. Similar to EVENT_REGISTER_NETWORK_OFFER or EVENT_SET_PROFILE_NETWORK_PREFERENCE.",
+      "range": {
+        "startLine": 739,
+        "startChar": 78,
+        "endLine": 740,
+        "endChar": 7
+      },
+      "revId": "8187a563e1eca416b3ae9c00ca26ec41199843c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed12d9f2_9af1df6d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5060,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-11-01T06:42:30Z",
+      "side": 1,
+      "message": "Avoid using we in comments and commmit message. See go/avoidwe",
+      "range": {
+        "startLine": 5060,
+        "startChar": 25,
+        "endLine": 5060,
+        "endChar": 27
+      },
+      "revId": "8187a563e1eca416b3ae9c00ca26ec41199843c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "018cad87_3e4c3188",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5504,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-11-01T06:42:30Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 5504,
+        "startChar": 20,
+        "endLine": 5504,
+        "endChar": 21
+      },
+      "revId": "8187a563e1eca416b3ae9c00ca26ec41199843c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80159218_88b44438",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4439,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-11-01T06:42:30Z",
+      "side": 1,
+      "message": "I am not sure if it\u0027s a good idea to use it inside this private method. The usage may be quite limited. Maybe better to take mWiFiNetworkAgent as a parameter in this method.",
+      "range": {
+        "startLine": 4439,
+        "startChar": 30,
+        "endLine": 4439,
+        "endChar": 47
+      },
+      "revId": "8187a563e1eca416b3ae9c00ca26ec41199843c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4b307f5_4a508c51",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4526,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-11-01T06:42:30Z",
+      "side": 1,
+      "message": "Could you also verify that mNetworkMonitor.notifyCaptivePortalAppFinished is not called?",
+      "range": {
+        "startLine": 4526,
+        "startChar": 8,
+        "endLine": 4526,
+        "endChar": 9
+      },
+      "revId": "8187a563e1eca416b3ae9c00ca26ec41199843c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
