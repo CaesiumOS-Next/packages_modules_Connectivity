@@ -667,6 +667,40 @@ def create_proto_group_modules(blueprint, gn, module_name, target_names):
 
   blueprint.add_module(module)
 
+def create_action_foreach_modules(blueprint, target):
+  bp_module_name = label_to_module_name(target.name)
+  """ The following assumes that rebase_path exists in the args.
+  The args of an action_foreach contains hints about which output files are generated
+  by which source files.
+  
+  This is copied directly from the args
+  "gen/net/base/registry_controlled_domains/{{source_name_part}}-reversed-inc.cc"
+  So each source file will generate an output whose name is the {source_name-reversed-inc.cc}
+  """
+
+  # This contains the {{source_name_part}}-reversed-inc.cc, and by knowing the source file
+  # I can match them to a corresponding output file
+  out_files_template = []
+  # Contains all the other arguments not related to rebase_path
+  non_rebase_args = []
+  script = gn_utils.label_to_path(target.script)
+  for arg in target.args:
+    if "{{source_name_part}}" in arg:
+      out_files_template.append(arg[arg.find("{{source_name_part}}"):])
+    else:
+      non_rebase_args.append(arg.replace("//", ""))
+  sources = [source.replace("//", "") for source in target.sources]
+  print(out_files_template)
+  for i in range(len(sources)):
+    source = gn_utils.label_to_path(sources[i])
+    source_file_name = source[source.rfind("/"):source.rfind(".")]
+    module = Module('genrule', bp_module_name + "_{}".format(i), target.name)
+    module.tool_files.update([script, source])
+    module.cmd = "$(location {}) \n".format(script)
+    module.cmd = module.cmd + "\n".join(non_rebase_args)
+    module.cmd = module.cmd.replace("{{source}}", "$(location {})".format(source))
+    #module.out.update((outs[i]))
+
 def create_action_module(blueprint, target):
   bp_module_name = label_to_module_name(target.name)
   module = Module('genrule', bp_module_name, target.name)
@@ -827,8 +861,7 @@ def create_modules_from_target(blueprint, gn, gn_target_name):
     else:
       module = create_action_module(blueprint, target)
   elif target.type == 'action_foreach':
-    return None
-      # Add basic support for action_foreach
+    module = create_action_foreach_modules(blueprint, target)
   elif target.type == 'copy':
     # TODO: careful now! copy targets are not supported yet, but this will stop
     # traversing the dependency tree. For //base:base, this is not a big
