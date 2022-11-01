@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf38b9bc_27a3ba5d",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-01T18:07:56Z",
+      "side": 1,
+      "message": "a action_foreach could have dependencies as well, we probably should not return here.",
+      "range": {
+        "startLine": 869,
+        "startChar": 4,
+        "endLine": 869,
+        "endChar": 59
+      },
+      "revId": "771631652737050ab8be1b9126a655a59a1d0cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7481c41_78ed48f8",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-01T18:07:56Z",
+      "side": 1,
+      "message": "I think creating a list of genrules makes a lot of this harder. Let\u0027s try and create a single genrule for the action.",
+      "range": {
+        "startLine": 963,
+        "startChar": 30,
+        "endLine": 963,
+        "endChar": 34
+      },
+      "revId": "771631652737050ab8be1b9126a655a59a1d0cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
