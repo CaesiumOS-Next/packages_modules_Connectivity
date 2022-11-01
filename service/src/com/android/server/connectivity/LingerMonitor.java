@@ -38,7 +38,7 @@ import android.util.SparseIntArray;
 
 import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
-import com.android.internal.util.MessageUtils;
+import com.android.net.module.util.MessageUtils;
 import com.android.server.connectivity.NetworkNotificationManager.NotificationType;
 
 import java.util.Arrays;
