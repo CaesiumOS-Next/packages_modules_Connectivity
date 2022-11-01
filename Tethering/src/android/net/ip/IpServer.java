@@ -777,6 +777,8 @@ public class IpServer extends StateMachine {
         if (mDadProxy != null) {
             mDadProxy.setUpstreamIface(upstreamIfaceParams);
         }
+
+        sendLinkProperties();
     }
 
     private void removeRoutesFromLocalNetwork(@NonNull final List<RouteInfo> toBeRemoved) {
@@ -1146,9 +1148,6 @@ public class IpServer extends StateMachine {
                 case CMD_INTERFACE_DOWN:
                     transitionTo(mUnavailableState);
                     break;
-                case CMD_IPV6_TETHER_UPDATE:
-                    updateUpstreamIPv6LinkProperties((LinkProperties) message.obj, message.arg1);
-                    break;
                 default:
                     return NOT_HANDLED;
             }
@@ -1225,7 +1224,6 @@ public class IpServer extends StateMachine {
                     break;
                 case CMD_IPV6_TETHER_UPDATE:
                     updateUpstreamIPv6LinkProperties((LinkProperties) message.obj, message.arg1);
-                    sendLinkProperties();
                     break;
                 case CMD_IP_FORWARDING_ENABLE_ERROR:
                 case CMD_IP_FORWARDING_DISABLE_ERROR:
