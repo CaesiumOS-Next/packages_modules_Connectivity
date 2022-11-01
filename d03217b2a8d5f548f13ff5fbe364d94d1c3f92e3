@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2af3e97_3b0d3104",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-11-01T11:51:23Z",
+      "side": 1,
+      "message": "Is there a reason for supporting x64 over x86? I\u0027m just curious.",
+      "revId": "d03217b2a8d5f548f13ff5fbe364d94d1c3f92e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
