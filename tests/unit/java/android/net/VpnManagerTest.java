@@ -34,7 +34,7 @@ import android.util.SparseArray;
 import androidx.test.filters.SmallTest;
 
 import com.android.internal.net.VpnProfile;
-import com.android.internal.util.MessageUtils;
+import com.android.net.module.util.MessageUtils;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 

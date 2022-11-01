@@ -35,7 +35,7 @@ import android.util.Log;
 import android.util.SparseArray;
 
 import com.android.internal.annotations.VisibleForTesting;
-import com.android.internal.util.MessageUtils;
+import com.android.net.module.util.MessageUtils;
 
 import java.util.StringJoiner;
 
