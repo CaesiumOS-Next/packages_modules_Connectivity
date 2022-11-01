@@ -17,7 +17,7 @@
 // GN: //base/allocator:buildflags
 genrule {
     name: "cronet_aml_base_allocator_buildflags",
-    cmd: "echo '--flags USE_PARTITION_ALLOC=\"false\" USE_ALLOCATOR_SHIM=\"true\" USE_PARTITION_ALLOC_AS_MALLOC=\"false\" USE_BACKUP_REF_PTR=\"false\" USE_ASAN_BACKUP_REF_PTR=\"false\" USE_PARTITION_ALLOC_AS_GWP_ASAN_STORE=\"false\" USE_MTE_CHECKED_PTR=\"false\" FORCE_ENABLE_RAW_PTR_EXCLUSION=\"false\"' | " +
+    cmd: "python echo '--flags USE_PARTITION_ALLOC=\"false\" USE_ALLOCATOR_SHIM=\"true\" USE_PARTITION_ALLOC_AS_MALLOC=\"false\" USE_BACKUP_REF_PTR=\"false\" USE_ASAN_BACKUP_REF_PTR=\"false\" USE_PARTITION_ALLOC_AS_GWP_ASAN_STORE=\"false\" USE_MTE_CHECKED_PTR=\"false\" FORCE_ENABLE_RAW_PTR_EXCLUSION=\"false\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -37,7 +37,7 @@ genrule {
 // GN: //base/allocator/partition_allocator:chromecast_buildflags
 genrule {
     name: "cronet_aml_base_allocator_partition_allocator_chromecast_buildflags",
-    cmd: "echo '--flags PA_IS_CAST_ANDROID=\"false\" PA_IS_CASTOS=\"false\"' | " +
+    cmd: "python echo '--flags PA_IS_CAST_ANDROID=\"false\" PA_IS_CASTOS=\"false\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -57,7 +57,7 @@ genrule {
 // GN: //base/allocator/partition_allocator:chromeos_buildflags
 genrule {
     name: "cronet_aml_base_allocator_partition_allocator_chromeos_buildflags",
-    cmd: "echo '--flags PA_IS_CHROMEOS_ASH=\"false\"' | " +
+    cmd: "python echo '--flags PA_IS_CHROMEOS_ASH=\"false\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -77,7 +77,7 @@ genrule {
 // GN: //base/allocator/partition_allocator:debugging_buildflags
 genrule {
     name: "cronet_aml_base_allocator_partition_allocator_debugging_buildflags",
-    cmd: "echo '--flags PA_DCHECK_IS_ON=\"true\" PA_EXPENSIVE_DCHECKS_ARE_ON=\"true\" PA_DCHECK_IS_CONFIGURABLE=\"false\"' | " +
+    cmd: "python echo '--flags PA_DCHECK_IS_ON=\"true\" PA_EXPENSIVE_DCHECKS_ARE_ON=\"true\" PA_DCHECK_IS_CONFIGURABLE=\"false\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -97,7 +97,7 @@ genrule {
 // GN: //base/allocator/partition_allocator:logging_buildflags
 genrule {
     name: "cronet_aml_base_allocator_partition_allocator_logging_buildflags",
-    cmd: "echo '--flags PA_ENABLE_LOG_ERROR_NOT_REACHED=\"false\"' | " +
+    cmd: "python echo '--flags PA_ENABLE_LOG_ERROR_NOT_REACHED=\"false\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -224,7 +224,7 @@ cc_library_static {
 // GN: //base/allocator/partition_allocator:partition_alloc_buildflags
 genrule {
     name: "cronet_aml_base_allocator_partition_allocator_partition_alloc_buildflags",
-    cmd: "echo '--flags ENABLE_PARTITION_ALLOC_AS_MALLOC_SUPPORT=\"true\" ENABLE_BACKUP_REF_PTR_SUPPORT=\"true\" ENABLE_BACKUP_REF_PTR_SLOW_CHECKS=\"false\" ENABLE_DANGLING_RAW_PTR_CHECKS=\"false\" PUT_REF_COUNT_IN_PREVIOUS_SLOT=\"true\" ENABLE_GWP_ASAN_SUPPORT=\"true\" ENABLE_MTE_CHECKED_PTR_SUPPORT=\"false\" RECORD_ALLOC_INFO=\"false\" USE_FREESLOT_BITMAP=\"false\" GLUE_CORE_POOLS=\"false\" ENABLE_SHADOW_METADATA_FOR_64_BITS_POINTERS=\"false\" STARSCAN=\"true\" PA_USE_BASE_TRACING=\"true\" ENABLE_PKEYS=\"false\"' | " +
+    cmd: "python echo '--flags ENABLE_PARTITION_ALLOC_AS_MALLOC_SUPPORT=\"true\" ENABLE_BACKUP_REF_PTR_SUPPORT=\"true\" ENABLE_BACKUP_REF_PTR_SLOW_CHECKS=\"false\" ENABLE_DANGLING_RAW_PTR_CHECKS=\"false\" PUT_REF_COUNT_IN_PREVIOUS_SLOT=\"true\" ENABLE_GWP_ASAN_SUPPORT=\"true\" ENABLE_MTE_CHECKED_PTR_SUPPORT=\"false\" RECORD_ALLOC_INFO=\"false\" USE_FREESLOT_BITMAP=\"false\" GLUE_CORE_POOLS=\"false\" ENABLE_SHADOW_METADATA_FOR_64_BITS_POINTERS=\"false\" STARSCAN=\"true\" PA_USE_BASE_TRACING=\"true\" ENABLE_PKEYS=\"false\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -244,7 +244,7 @@ genrule {
 // GN: //base:anchor_functions_buildflags
 genrule {
     name: "cronet_aml_base_anchor_functions_buildflags",
-    cmd: "echo '--flags USE_LLD=\"true\" SUPPORTS_CODE_ORDERING=\"true\"' | " +
+    cmd: "python echo '--flags USE_LLD=\"true\" SUPPORTS_CODE_ORDERING=\"true\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -264,7 +264,7 @@ genrule {
 // GN: //base:android_runtime_jni_headers
 genrule {
     name: "cronet_aml_base_android_runtime_jni_headers",
-    cmd: "$(location base/android/jni_generator/jni_generator.py) --ptr_type " +
+    cmd: "python $(location base/android/jni_generator/jni_generator.py) --ptr_type " +
          "long " +
          " " +
          " " +
@@ -1017,7 +1017,7 @@ genrule {
         "base/android/java/src/org/chromium/base/task/PostTask.java",
         "base/android/java/src/org/chromium/base/task/TaskRunnerImpl.java",
     ],
-    cmd: "$(location base/android/jni_generator/jni_generator.py) --ptr_type " +
+    cmd: "python $(location base/android/jni_generator/jni_generator.py) --ptr_type " +
          "long " +
          " " +
          " " +
@@ -1281,7 +1281,7 @@ cc_library_static {
 // GN: //base:build_date
 genrule {
     name: "cronet_aml_base_build_date",
-    cmd: "$(location build/write_build_date_header.py) $(out) " +
+    cmd: "python $(location build/write_build_date_header.py) $(out) " +
          "1664686800",
     out: [
         "base/generated_build_date.h",
@@ -1294,7 +1294,7 @@ genrule {
 // GN: //base:cfi_buildflags
 genrule {
     name: "cronet_aml_base_cfi_buildflags",
-    cmd: "echo '--flags CFI_CAST_CHECK=\"false && false\" CFI_DIAG=\"false && false\" CFI_ICALL_CHECK=\"false && false\" CFI_ENFORCEMENT_TRAP=\"false && !false\" CFI_ENFORCEMENT_DIAGNOSTIC=\"false && false && !false\"' | " +
+    cmd: "python echo '--flags CFI_CAST_CHECK=\"false && false\" CFI_DIAG=\"false && false\" CFI_ICALL_CHECK=\"false && false\" CFI_ENFORCEMENT_TRAP=\"false && !false\" CFI_ENFORCEMENT_DIAGNOSTIC=\"false && false && !false\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -1314,7 +1314,7 @@ genrule {
 // GN: //base:clang_profiling_buildflags
 genrule {
     name: "cronet_aml_base_clang_profiling_buildflags",
-    cmd: "echo '--flags CLANG_PROFILING=\"false\" CLANG_PROFILING_INSIDE_SANDBOX=\"false\" USE_CLANG_COVERAGE=\"false\"' | " +
+    cmd: "python echo '--flags CLANG_PROFILING=\"false\" CLANG_PROFILING_INSIDE_SANDBOX=\"false\" USE_CLANG_COVERAGE=\"false\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -1334,7 +1334,7 @@ genrule {
 // GN: //base:debugging_buildflags
 genrule {
     name: "cronet_aml_base_debugging_buildflags",
-    cmd: "echo '--flags DCHECK_IS_CONFIGURABLE=\"false\" ENABLE_LOCATION_SOURCE=\"true\" ENABLE_PROFILING=\"false\" CAN_UNWIND_WITH_FRAME_POINTERS=\"false\" UNSAFE_DEVELOPER_BUILD=\"true\" CAN_UNWIND_WITH_CFI_TABLE=\"false\" EXCLUDE_UNWIND_TABLES=\"false\" ENABLE_GDBINIT_WARNING=\"true\" ENABLE_LLDBINIT_WARNING=\"false\" EXPENSIVE_DCHECKS_ARE_ON=\"true\" ENABLE_STACK_TRACE_LINE_NUMBERS=\"false\"' | " +
+    cmd: "python echo '--flags DCHECK_IS_CONFIGURABLE=\"false\" ENABLE_LOCATION_SOURCE=\"true\" ENABLE_PROFILING=\"false\" CAN_UNWIND_WITH_FRAME_POINTERS=\"false\" UNSAFE_DEVELOPER_BUILD=\"true\" CAN_UNWIND_WITH_CFI_TABLE=\"false\" EXCLUDE_UNWIND_TABLES=\"false\" ENABLE_GDBINIT_WARNING=\"true\" ENABLE_LLDBINIT_WARNING=\"false\" EXPENSIVE_DCHECKS_ARE_ON=\"true\" ENABLE_STACK_TRACE_LINE_NUMBERS=\"false\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -1354,7 +1354,7 @@ genrule {
 // GN: //base:feature_list_buildflags
 genrule {
     name: "cronet_aml_base_feature_list_buildflags",
-    cmd: "echo '--flags ENABLE_BANNED_BASE_FEATURE_PREFIX=\"false\"' | " +
+    cmd: "python echo '--flags ENABLE_BANNED_BASE_FEATURE_PREFIX=\"false\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -1374,7 +1374,7 @@ genrule {
 // GN: //base:ios_cronet_buildflags
 genrule {
     name: "cronet_aml_base_ios_cronet_buildflags",
-    cmd: "echo '--flags CRONET_BUILD=\"false\"' | " +
+    cmd: "python echo '--flags CRONET_BUILD=\"false\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -1394,7 +1394,7 @@ genrule {
 // GN: //base:jni_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_base_jni_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -1472,7 +1472,7 @@ genrule {
         "base/android/java/src/org/chromium/base/annotations/NativeClassQualifiedName.java",
         "base/android/java/src/org/chromium/base/annotations/NativeMethods.java",
     ],
-    cmd: "$(location build/android/gyp/compile_java.py) --depfile " +
+    cmd: "python $(location build/android/gyp/compile_java.py) --depfile " +
          "gen/base/jni_java__compile_java.d " +
          "--generated-dir " +
          "gen/base/jni_java/generated_java " +
@@ -1534,7 +1534,7 @@ genrule {
 // GN: //base:jni_java__dex
 genrule {
     name: "cronet_aml_base_jni_java__dex",
-    cmd: "$(location build/android/gyp/dex.py) --depfile " +
+    cmd: "python $(location build/android/gyp/dex.py) --depfile " +
          "gen/base/jni_java__dex.d " +
          "--output " +
          "obj/base/jni_java.dex.jar " +
@@ -1597,7 +1597,7 @@ genrule {
         "base/android/java/src/org/chromium/base/annotations/NativeClassQualifiedName.java",
         "base/android/java/src/org/chromium/base/annotations/NativeMethods.java",
     ],
-    cmd: "$(location build/android/gyp/compile_java.py) --depfile " +
+    cmd: "python $(location build/android/gyp/compile_java.py) --depfile " +
          "gen/base/jni_java__errorprone.d " +
          "--generated-dir " +
          "gen/base/jni_java/generated_java " +
@@ -1675,7 +1675,7 @@ genrule {
         "base/android/java/src/org/chromium/base/annotations/NativeClassQualifiedName.java",
         "base/android/java/src/org/chromium/base/annotations/NativeMethods.java",
     ],
-    cmd: "$(location build/android/gyp/turbine.py) --depfile " +
+    cmd: "python $(location build/android/gyp/turbine.py) --depfile " +
          "gen/base/jni_java__header.d " +
          "--generated-dir " +
          "gen/base/jni_java/generated_java " +
@@ -1736,7 +1736,7 @@ genrule {
 // GN: //base:jni_java__host
 genrule {
     name: "cronet_aml_base_jni_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "obj/base/jni_java.processed.jar " +
          "--output " +
          "lib.java/base/jni_java.jar " +
@@ -1759,7 +1759,7 @@ genrule {
 // GN: //base:jni_java__validate
 genrule {
     name: "cronet_aml_base_jni_java__validate",
-    cmd: "$(location build/android/gyp/bytecode_processor.py) --target-name " +
+    cmd: "python $(location build/android/gyp/bytecode_processor.py) --target-name " +
          "//base:jni_java__validate " +
          "--script " +
          "bin/helper/bytecode_processor " +
@@ -1793,7 +1793,7 @@ genrule {
 // GN: //base:logging_buildflags
 genrule {
     name: "cronet_aml_base_logging_buildflags",
-    cmd: "echo '--flags ENABLE_LOG_ERROR_NOT_REACHED=\"false\" USE_RUNTIME_VLOG=\"true\"' | " +
+    cmd: "python echo '--flags ENABLE_LOG_ERROR_NOT_REACHED=\"false\" USE_RUNTIME_VLOG=\"true\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -1813,7 +1813,7 @@ genrule {
 // GN: //base:message_pump_buildflags
 genrule {
     name: "cronet_aml_base_message_pump_buildflags",
-    cmd: "echo '--flags ENABLE_MESSAGE_PUMP_EPOLL=\"true\"' | " +
+    cmd: "python echo '--flags ENABLE_MESSAGE_PUMP_EPOLL=\"true\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -1838,7 +1838,7 @@ filegroup {
 // GN: //base:orderfile_buildflags
 genrule {
     name: "cronet_aml_base_orderfile_buildflags",
-    cmd: "echo '--flags DEVTOOLS_INSTRUMENTATION_DUMPING=\"false\" ORDERFILE_INSTRUMENTATION=\"false\"' | " +
+    cmd: "python echo '--flags DEVTOOLS_INSTRUMENTATION_DUMPING=\"false\" ORDERFILE_INSTRUMENTATION=\"false\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -1858,7 +1858,7 @@ genrule {
 // GN: //base:parsing_buildflags
 genrule {
     name: "cronet_aml_base_parsing_buildflags",
-    cmd: "echo '--flags BUILD_RUST_JSON_PARSER=\"false\"' | " +
+    cmd: "python echo '--flags BUILD_RUST_JSON_PARSER=\"false\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -1878,7 +1878,7 @@ genrule {
 // GN: //base:power_monitor_buildflags
 genrule {
     name: "cronet_aml_base_power_monitor_buildflags",
-    cmd: "echo '--flags HAS_BATTERY_LEVEL_PROVIDER_IMPL=\"false\"' | " +
+    cmd: "python echo '--flags HAS_BATTERY_LEVEL_PROVIDER_IMPL=\"false\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -1898,7 +1898,7 @@ genrule {
 // GN: //base:profiler_buildflags
 genrule {
     name: "cronet_aml_base_profiler_buildflags",
-    cmd: "echo '--flags ENABLE_ARM_CFI_TABLE=\"false\" IOS_STACK_PROFILER_ENABLED=\"true\" USE_ANDROID_UNWINDER_V2=\"true\"' | " +
+    cmd: "python echo '--flags ENABLE_ARM_CFI_TABLE=\"false\" IOS_STACK_PROFILER_ENABLED=\"true\" USE_ANDROID_UNWINDER_V2=\"true\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -1918,7 +1918,7 @@ genrule {
 // GN: //base:sanitizer_buildflags
 genrule {
     name: "cronet_aml_base_sanitizer_buildflags",
-    cmd: "echo '--flags IS_HWASAN=\"false\" USING_SANITIZER=\"false\"' | " +
+    cmd: "python echo '--flags IS_HWASAN=\"false\" USING_SANITIZER=\"false\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -1938,7 +1938,7 @@ genrule {
 // GN: //base:synchronization_buildflags
 genrule {
     name: "cronet_aml_base_synchronization_buildflags",
-    cmd: "echo '--flags ENABLE_MUTEX_PRIORITY_INHERITANCE=\"false\"' | " +
+    cmd: "python echo '--flags ENABLE_MUTEX_PRIORITY_INHERITANCE=\"false\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -2035,7 +2035,7 @@ cc_library_static {
 // GN: //base:tracing_buildflags
 genrule {
     name: "cronet_aml_base_tracing_buildflags",
-    cmd: "echo '--flags ENABLE_BASE_TRACING=\"false\" USE_PERFETTO_CLIENT_LIBRARY=\"false\" OPTIONAL_TRACE_EVENTS_ENABLED=\"false\"' | " +
+    cmd: "python echo '--flags ENABLE_BASE_TRACING=\"false\" USE_PERFETTO_CLIENT_LIBRARY=\"false\" OPTIONAL_TRACE_EVENTS_ENABLED=\"false\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -2082,7 +2082,7 @@ genrule {
 // GN: //build/android:build_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_build_android_build_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -2159,7 +2159,7 @@ genrule {
         "build/android/java/src/org/chromium/build/annotations/MockedInTests.java",
         "build/android/java/src/org/chromium/build/annotations/UsedByReflection.java",
     ],
-    cmd: "$(location build/android/gyp/compile_java.py) --depfile " +
+    cmd: "python $(location build/android/gyp/compile_java.py) --depfile " +
          "gen/build/android/build_java__compile_java.d " +
          "--generated-dir " +
          "gen/build/android/build_java/generated_java " +
@@ -2225,7 +2225,7 @@ genrule {
 // GN: //build/android:build_java__dex
 genrule {
     name: "cronet_aml_build_android_build_java__dex",
-    cmd: "$(location build/android/gyp/dex.py) --depfile " +
+    cmd: "python $(location build/android/gyp/dex.py) --depfile " +
          "gen/build/android/build_java__dex.d " +
          "--output " +
          "obj/build/android/build_java.dex.jar " +
@@ -2285,7 +2285,7 @@ genrule {
         "build/android/java/src/org/chromium/build/annotations/MockedInTests.java",
         "build/android/java/src/org/chromium/build/annotations/UsedByReflection.java",
     ],
-    cmd: "$(location build/android/gyp/compile_java.py) --depfile " +
+    cmd: "python $(location build/android/gyp/compile_java.py) --depfile " +
          "gen/build/android/build_java__errorprone.d " +
          "--generated-dir " +
          "gen/build/android/build_java/generated_java " +
@@ -2361,7 +2361,7 @@ genrule {
         "build/android/java/src/org/chromium/build/annotations/MockedInTests.java",
         "build/android/java/src/org/chromium/build/annotations/UsedByReflection.java",
     ],
-    cmd: "$(location build/android/gyp/turbine.py) --depfile " +
+    cmd: "python $(location build/android/gyp/turbine.py) --depfile " +
          "gen/build/android/build_java__header.d " +
          "--generated-dir " +
          "gen/build/android/build_java/generated_java " +
@@ -2426,7 +2426,7 @@ genrule {
 // GN: //build/android:build_java__host
 genrule {
     name: "cronet_aml_build_android_build_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "obj/build/android/build_java.javac.jar " +
          "--output " +
          "lib.java/build/android/build_java.jar " +
@@ -2449,7 +2449,7 @@ genrule {
 // GN: //build/android:build_java__process_device
 genrule {
     name: "cronet_aml_build_android_build_java__process_device",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "obj/build/android/build_java.javac.jar " +
          "--output " +
          "obj/build/android/build_java.processed.jar " +
@@ -2472,7 +2472,7 @@ genrule {
 // GN: //build/android:build_java__validate
 genrule {
     name: "cronet_aml_build_android_build_java__validate",
-    cmd: "$(location build/android/gyp/bytecode_processor.py) --target-name " +
+    cmd: "python $(location build/android/gyp/bytecode_processor.py) --target-name " +
          "//build/android:build_java__validate " +
          "--script " +
          "bin/helper/bytecode_processor " +
@@ -2506,7 +2506,7 @@ genrule {
 // GN: //build/android/bytecode:bytecode_processor__build_config_crbug_908819
 genrule {
     name: "cronet_aml_build_android_bytecode_bytecode_processor__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_binary " +
          " " +
          " " +
@@ -2559,7 +2559,7 @@ genrule {
 // GN: //build/android/bytecode:bytecode_processor__java_binary_script
 genrule {
     name: "cronet_aml_build_android_bytecode_bytecode_processor__java_binary_script",
-    cmd: "$(location build/android/gyp/create_java_binary_script.py) --output " +
+    cmd: "python $(location build/android/gyp/create_java_binary_script.py) --output " +
          "bin/helper/bytecode_processor " +
          "--main-class " +
          "org.chromium.bytecode.ByteCodeProcessor " +
@@ -2581,7 +2581,7 @@ genrule {
 // GN: //build/android/bytecode:bytecode_processor_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_build_android_bytecode_bytecode_processor_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -2645,7 +2645,7 @@ genrule {
         "build/android/bytecode/java/org/chromium/bytecode/ClassPathValidator.java",
         "build/android/bytecode/java/org/chromium/bytecode/TypeUtils.java",
     ],
-    cmd: "$(location build/android/gyp/compile_java.py) --depfile " +
+    cmd: "python $(location build/android/gyp/compile_java.py) --depfile " +
          "gen/build/android/bytecode/bytecode_processor_java__compile_java.d " +
          "--generated-dir " +
          "gen/build/android/bytecode/bytecode_processor_java/generated_java " +
@@ -2712,7 +2712,7 @@ genrule {
         "build/android/bytecode/java/org/chromium/bytecode/ClassPathValidator.java",
         "build/android/bytecode/java/org/chromium/bytecode/TypeUtils.java",
     ],
-    cmd: "$(location build/android/gyp/compile_java.py) --depfile " +
+    cmd: "python $(location build/android/gyp/compile_java.py) --depfile " +
          "gen/build/android/bytecode/bytecode_processor_java__errorprone.d " +
          "--generated-dir " +
          "gen/build/android/bytecode/bytecode_processor_java/generated_java " +
@@ -2781,7 +2781,7 @@ genrule {
         "build/android/bytecode/java/org/chromium/bytecode/ClassPathValidator.java",
         "build/android/bytecode/java/org/chromium/bytecode/TypeUtils.java",
     ],
-    cmd: "$(location build/android/gyp/turbine.py) --depfile " +
+    cmd: "python $(location build/android/gyp/turbine.py) --depfile " +
          "gen/build/android/bytecode/bytecode_processor_java__header.d " +
          "--generated-dir " +
          "gen/build/android/bytecode/bytecode_processor_java/generated_java " +
@@ -2842,7 +2842,7 @@ genrule {
 // GN: //build/android/bytecode:bytecode_processor_java__host
 genrule {
     name: "cronet_aml_build_android_bytecode_bytecode_processor_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "obj/build/android/bytecode/bytecode_processor_java.javac.jar " +
          "--output " +
          "lib.java/build/android/bytecode/bytecode_processor_java.jar " +
@@ -2865,7 +2865,7 @@ genrule {
 // GN: //build/android:native_libraries_gen
 genrule {
     name: "cronet_aml_build_android_native_libraries_gen",
-    cmd: "$(location build/android/gyp/write_native_libraries_java.py) --output " +
+    cmd: "python $(location build/android/gyp/write_native_libraries_java.py) --output " +
          "$(out) " +
          "--cpu-family " +
          "CPU_FAMILY_X86",
@@ -2883,7 +2883,7 @@ genrule {
 // GN: //build:branding_buildflags
 genrule {
     name: "cronet_aml_build_branding_buildflags",
-    cmd: "echo '--flags CHROMIUM_BRANDING=\"1\" GOOGLE_CHROME_BRANDING=\"0\"' | " +
+    cmd: "python echo '--flags CHROMIUM_BRANDING=\"1\" GOOGLE_CHROME_BRANDING=\"0\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -2908,7 +2908,7 @@ filegroup {
 // GN: //build:chromecast_buildflags
 genrule {
     name: "cronet_aml_build_chromecast_buildflags",
-    cmd: "echo '--flags IS_CASTOS=\"false\" IS_CAST_ANDROID=\"false\" ENABLE_CAST_RECEIVER=\"false\" IS_CHROMECAST=\"false\"' | " +
+    cmd: "python echo '--flags IS_CASTOS=\"false\" IS_CAST_ANDROID=\"false\" ENABLE_CAST_RECEIVER=\"false\" IS_CHROMECAST=\"false\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -2928,7 +2928,7 @@ genrule {
 // GN: //build:chromeos_buildflags
 genrule {
     name: "cronet_aml_build_chromeos_buildflags",
-    cmd: "echo '--flags IS_CHROMEOS_DEVICE=\"false\" IS_CHROMEOS_LACROS=\"false\" IS_CHROMEOS_ASH=\"false\" IS_CHROMEOS_WITH_HW_DETAILS=\"false\" IS_REVEN=\"false\"' | " +
+    cmd: "python echo '--flags IS_CHROMEOS_DEVICE=\"false\" IS_CHROMEOS_LACROS=\"false\" IS_CHROMEOS_ASH=\"false\" IS_CHROMEOS_WITH_HW_DETAILS=\"false\" IS_REVEN=\"false\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -2948,7 +2948,7 @@ genrule {
 // GN: //build/config/compiler:compiler_buildflags
 genrule {
     name: "cronet_aml_build_config_compiler_compiler_buildflags",
-    cmd: "echo '--flags CLANG_PGO=\"0\" SYMBOL_LEVEL=\"1\"' | " +
+    cmd: "python echo '--flags CLANG_PGO=\"0\" SYMBOL_LEVEL=\"1\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -2978,7 +2978,7 @@ filegroup {
 // GN: //crypto:buildflags
 genrule {
     name: "cronet_aml_crypto_buildflags",
-    cmd: "echo '--flags USE_NSS_CERTS=\"false\"' | " +
+    cmd: "python echo '--flags USE_NSS_CERTS=\"false\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -3088,10 +3088,67 @@ filegroup {
     name: "cronet_aml_ipc_param_traits",
 }
 
+// GN: //net/base/registry_controlled_domains:registry_controlled_domains
+genrule {
+    name: "cronet_aml_net_base_registry_controlled_domains_registry_controlled_domains",
+    cmd: "python $(location net/tools/dafsa/make_dafsa.py) --reverse " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest1.gperf) " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest1-reversed-inc.cc) " +
+         "&& " +
+         "python $(location net/tools/dafsa/make_dafsa.py) " +
+         "--reverse " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest2.gperf) " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest2-reversed-inc.cc) " +
+         "&& " +
+         "python $(location net/tools/dafsa/make_dafsa.py) " +
+         "--reverse " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest5.gperf) " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest5-reversed-inc.cc) " +
+         "&& " +
+         "python $(location net/tools/dafsa/make_dafsa.py) " +
+         "--reverse " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest3.gperf) " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest3-reversed-inc.cc) " +
+         "&& " +
+         "python $(location net/tools/dafsa/make_dafsa.py) " +
+         "--reverse " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest4.gperf) " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest4-reversed-inc.cc) " +
+         "&& " +
+         "python $(location net/tools/dafsa/make_dafsa.py) " +
+         "--reverse " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names.gperf) " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names-reversed-inc.cc) " +
+         "&& " +
+         "python $(location net/tools/dafsa/make_dafsa.py) " +
+         "--reverse " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest6.gperf) " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest6-reversed-inc.cc)",
+    out: [
+        "net/base/registry_controlled_domains/effective_tld_names-reversed-inc.cc",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest1-reversed-inc.cc",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest2-reversed-inc.cc",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest3-reversed-inc.cc",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest4-reversed-inc.cc",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest5-reversed-inc.cc",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest6-reversed-inc.cc",
+    ],
+    tool_files: [
+        "net/base/registry_controlled_domains/effective_tld_names.gperf",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest1.gperf",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest2.gperf",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest3.gperf",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest4.gperf",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest5.gperf",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest6.gperf",
+        "net/tools/dafsa/make_dafsa.py",
+    ],
+}
+
 // GN: //net:buildflags
 genrule {
     name: "cronet_aml_net_buildflags",
-    cmd: "echo '--flags POSIX_BYPASS_MMAP=\"true\" DISABLE_FILE_SUPPORT=\"true\" ENABLE_MDNS=\"false\" ENABLE_REPORTING=\"true\" ENABLE_WEBSOCKETS=\"false\" INCLUDE_TRANSPORT_SECURITY_STATE_PRELOAD_LIST=\"false\" USE_KERBEROS=\"true\" USE_EXTERNAL_GSSAPI=\"false\" TRIAL_COMPARISON_CERT_VERIFIER_SUPPORTED=\"false\" CHROME_ROOT_STORE_SUPPORTED=\"false\"' | " +
+    cmd: "python echo '--flags POSIX_BYPASS_MMAP=\"true\" DISABLE_FILE_SUPPORT=\"true\" ENABLE_MDNS=\"false\" ENABLE_REPORTING=\"true\" ENABLE_WEBSOCKETS=\"false\" INCLUDE_TRANSPORT_SECURITY_STATE_PRELOAD_LIST=\"false\" USE_KERBEROS=\"true\" USE_EXTERNAL_GSSAPI=\"false\" TRIAL_COMPARISON_CERT_VERIFIER_SUPPORTED=\"false\" CHROME_ROOT_STORE_SUPPORTED=\"false\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -3162,7 +3219,7 @@ genrule {
     srcs: [
         "net/cert/root_store.proto",
     ],
-    cmd: "$(location tools/protoc_wrapper/protoc_wrapper.py) root_store.proto " +
+    cmd: "python $(location tools/protoc_wrapper/protoc_wrapper.py) root_store.proto " +
          "--protoc " +
          "./clang_x64/protoc " +
          "--proto-in-dir " +
@@ -3189,7 +3246,7 @@ filegroup {
 // GN: //net/data/ssl/chrome_root_store:gen_root_store_inc
 genrule {
     name: "cronet_aml_net_data_ssl_chrome_root_store_gen_root_store_inc",
-    cmd: "$(location build/gn_run_binary.py) clang_x64/root_store_tool " +
+    cmd: "python $(location build/gn_run_binary.py) clang_x64/root_store_tool " +
          "--root-store " +
          "../../net/data/ssl/chrome_root_store/root_store.textproto " +
          "--certs " +
@@ -3299,7 +3356,7 @@ filegroup {
 // GN: //net:ios_cronet_buildflags
 genrule {
     name: "cronet_aml_net_ios_cronet_buildflags",
-    cmd: "echo '--flags CRONET_BUILD=\"false\"' | " +
+    cmd: "python echo '--flags CRONET_BUILD=\"false\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -3369,7 +3426,7 @@ genrule {
     srcs: [
         "net/base/isolation_info.proto",
     ],
-    cmd: "$(location tools/protoc_wrapper/protoc_wrapper.py) isolation_info.proto " +
+    cmd: "python $(location tools/protoc_wrapper/protoc_wrapper.py) isolation_info.proto " +
          "--protoc " +
          "./clang_x64/protoc " +
          "--proto-in-dir " +
@@ -4008,7 +4065,7 @@ genrule {
         "net/android/java/src/org/chromium/net/ProxyChangeListener.java",
         "net/android/java/src/org/chromium/net/X509Util.java",
     ],
-    cmd: "$(location base/android/jni_generator/jni_generator.py) --ptr_type " +
+    cmd: "python $(location base/android/jni_generator/jni_generator.py) --ptr_type " +
          "long " +
          " " +
          " " +
@@ -4147,7 +4204,7 @@ genrule {
     srcs: [
         "net/nqe/proto/network_id_proto.proto",
     ],
-    cmd: "$(location tools/protoc_wrapper/protoc_wrapper.py) network_id_proto.proto " +
+    cmd: "python $(location tools/protoc_wrapper/protoc_wrapper.py) network_id_proto.proto " +
          "--protoc " +
          "./clang_x64/protoc " +
          "--proto-in-dir " +
@@ -4184,7 +4241,7 @@ filegroup {
 // GN: //net:net_resources_grit
 genrule {
     name: "cronet_aml_net_net_resources_grit",
-    cmd: "$(location tools/grit/grit.py) -i " +
+    cmd: "python $(location tools/grit/grit.py) -i " +
          "../../net/base/net_resources.grd " +
          "build " +
          "-o " +
@@ -4368,7 +4425,7 @@ genrule {
         "net/third_party/quiche/src/quiche/quic/core/proto/crypto_server_config.proto",
         "net/third_party/quiche/src/quiche/quic/core/proto/source_address_token.proto",
     ],
-    cmd: "$(location tools/protoc_wrapper/protoc_wrapper.py) quiche/quic/core/proto/cached_network_parameters.proto " +
+    cmd: "python $(location tools/protoc_wrapper/protoc_wrapper.py) quiche/quic/core/proto/cached_network_parameters.proto " +
          "quiche/quic/core/proto/crypto_server_config.proto " +
          "quiche/quic/core/proto/source_address_token.proto " +
          "--protoc " +
@@ -4455,7 +4512,7 @@ genrule {
     srcs: [
         "net/third_party/quiche/src/quiche/quic/test_tools/send_algorithm_test_result.proto",
     ],
-    cmd: "$(location tools/protoc_wrapper/protoc_wrapper.py) send_algorithm_test_result.proto " +
+    cmd: "python $(location tools/protoc_wrapper/protoc_wrapper.py) send_algorithm_test_result.proto " +
          "--protoc " +
          "./clang_x64/protoc " +
          "--proto-in-dir " +
@@ -5805,7 +5862,7 @@ filegroup {
 // GN: //third_party/android_deps:auto_service_processor__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_auto_service_processor__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_annotation_processor " +
          " " +
          " " +
@@ -5859,7 +5916,7 @@ genrule {
 // GN: //third_party/android_deps:com_github_ben_manes_caffeine_caffeine_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_com_github_ben_manes_caffeine_caffeine_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -5918,7 +5975,7 @@ genrule {
 // GN: //third_party/android_deps:com_github_ben_manes_caffeine_caffeine_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_com_github_ben_manes_caffeine_caffeine_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/com_github_ben_manes_caffeine_caffeine/caffeine-2.8.8.jar " +
          "obj/third_party/android_deps/com_github_ben_manes_caffeine_caffeine.ijar.jar",
     out: [
@@ -5937,7 +5994,7 @@ genrule {
 // GN: //third_party/android_deps:com_github_ben_manes_caffeine_caffeine_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_com_github_ben_manes_caffeine_caffeine_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/com_github_ben_manes_caffeine_caffeine/caffeine-2.8.8.jar " +
          "--output " +
          "lib.java/third_party/android_deps/com_github_ben_manes_caffeine_caffeine.jar " +
@@ -5960,7 +6017,7 @@ genrule {
 // GN: //third_party/android_deps:com_github_kevinstern_software_and_algorithms_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_com_github_kevinstern_software_and_algorithms_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -6019,7 +6076,7 @@ genrule {
 // GN: //third_party/android_deps:com_github_kevinstern_software_and_algorithms_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_com_github_kevinstern_software_and_algorithms_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/com_github_kevinstern_software_and_algorithms/software-and-algorithms-1.0.jar " +
          "obj/third_party/android_deps/com_github_kevinstern_software_and_algorithms.ijar.jar",
     out: [
@@ -6038,7 +6095,7 @@ genrule {
 // GN: //third_party/android_deps:com_github_kevinstern_software_and_algorithms_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_com_github_kevinstern_software_and_algorithms_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/com_github_kevinstern_software_and_algorithms/software-and-algorithms-1.0.jar " +
          "--output " +
          "lib.java/third_party/android_deps/com_github_kevinstern_software_and_algorithms.jar " +
@@ -6061,7 +6118,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_auto_auto_common_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_auto_auto_common_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -6120,7 +6177,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_auto_auto_common_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_auto_auto_common_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/com_google_auto_auto_common/auto-common-1.2.1.jar " +
          "obj/third_party/android_deps/com_google_auto_auto_common.ijar.jar",
     out: [
@@ -6139,7 +6196,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_auto_auto_common_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_auto_auto_common_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/com_google_auto_auto_common/auto-common-1.2.1.jar " +
          "--output " +
          "lib.java/third_party/android_deps/com_google_auto_auto_common.jar " +
@@ -6162,7 +6219,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_auto_service_auto_service_annotations_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_auto_service_auto_service_annotations_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -6221,7 +6278,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_auto_service_auto_service_annotations_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_auto_service_auto_service_annotations_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/com_google_auto_service_auto_service_annotations/auto-service-annotations-1.0-rc6.jar " +
          "obj/third_party/android_deps/com_google_auto_service_auto_service_annotations.ijar.jar",
     out: [
@@ -6240,7 +6297,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_auto_service_auto_service_annotations_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_auto_service_auto_service_annotations_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/com_google_auto_service_auto_service_annotations/auto-service-annotations-1.0-rc6.jar " +
          "--output " +
          "lib.java/third_party/android_deps/com_google_auto_service_auto_service_annotations.jar " +
@@ -6263,7 +6320,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_auto_service_auto_service_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_auto_service_auto_service_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -6322,7 +6379,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_auto_service_auto_service_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_auto_service_auto_service_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/com_google_auto_service_auto_service/auto-service-1.0-rc6.jar " +
          "--output " +
          "lib.java/third_party/android_deps/com_google_auto_service_auto_service.jar " +
@@ -6345,7 +6402,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_auto_value_auto_value_annotations_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_auto_value_auto_value_annotations_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -6404,7 +6461,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_auto_value_auto_value_annotations_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_auto_value_auto_value_annotations_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/com_google_auto_value_auto_value_annotations/auto-value-annotations-1.9.jar " +
          "obj/third_party/android_deps/com_google_auto_value_auto_value_annotations.ijar.jar",
     out: [
@@ -6423,7 +6480,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_auto_value_auto_value_annotations_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_auto_value_auto_value_annotations_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/com_google_auto_value_auto_value_annotations/auto-value-annotations-1.9.jar " +
          "--output " +
          "lib.java/third_party/android_deps/com_google_auto_value_auto_value_annotations.jar " +
@@ -6446,7 +6503,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_code_findbugs_jsr305_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_code_findbugs_jsr305_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -6510,7 +6567,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_code_findbugs_jsr305_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_code_findbugs_jsr305_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/com_google_code_findbugs_jsr305/jsr305-3.0.2.jar " +
          "obj/third_party/android_deps/com_google_code_findbugs_jsr305.ijar.jar",
     out: [
@@ -6529,7 +6586,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_code_findbugs_jsr305_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_code_findbugs_jsr305_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/com_google_code_findbugs_jsr305/jsr305-3.0.2.jar " +
          "--output " +
          "lib.java/third_party/android_deps/com_google_code_findbugs_jsr305.jar " +
@@ -6552,7 +6609,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_errorprone_error_prone_annotation_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_errorprone_error_prone_annotation_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -6611,7 +6668,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_errorprone_error_prone_annotation_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_errorprone_error_prone_annotation_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/com_google_errorprone_error_prone_annotation/error_prone_annotation-2.11.0.jar " +
          "obj/third_party/android_deps/com_google_errorprone_error_prone_annotation.ijar.jar",
     out: [
@@ -6630,7 +6687,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_errorprone_error_prone_annotation_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_errorprone_error_prone_annotation_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/com_google_errorprone_error_prone_annotation/error_prone_annotation-2.11.0.jar " +
          "--output " +
          "lib.java/third_party/android_deps/com_google_errorprone_error_prone_annotation.jar " +
@@ -6653,7 +6710,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_errorprone_error_prone_annotations_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_errorprone_error_prone_annotations_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -6717,7 +6774,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_errorprone_error_prone_annotations_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_errorprone_error_prone_annotations_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/com_google_errorprone_error_prone_annotations/error_prone_annotations-2.14.0.jar " +
          "obj/third_party/android_deps/com_google_errorprone_error_prone_annotations.ijar.jar",
     out: [
@@ -6736,7 +6793,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_errorprone_error_prone_annotations_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_errorprone_error_prone_annotations_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/com_google_errorprone_error_prone_annotations/error_prone_annotations-2.14.0.jar " +
          "--output " +
          "lib.java/third_party/android_deps/com_google_errorprone_error_prone_annotations.jar " +
@@ -6759,7 +6816,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_errorprone_error_prone_check_api_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_errorprone_error_prone_check_api_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -6818,7 +6875,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_errorprone_error_prone_check_api_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_errorprone_error_prone_check_api_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/com_google_errorprone_error_prone_check_api/error_prone_check_api-2.11.0.jar " +
          "obj/third_party/android_deps/com_google_errorprone_error_prone_check_api.ijar.jar",
     out: [
@@ -6837,7 +6894,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_errorprone_error_prone_check_api_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_errorprone_error_prone_check_api_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/com_google_errorprone_error_prone_check_api/error_prone_check_api-2.11.0.jar " +
          "--output " +
          "lib.java/third_party/android_deps/com_google_errorprone_error_prone_check_api.jar " +
@@ -6860,7 +6917,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_errorprone_error_prone_core_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_errorprone_error_prone_core_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -6919,7 +6976,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_errorprone_error_prone_core_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_errorprone_error_prone_core_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/com_google_errorprone_error_prone_core/error_prone_core-2.11.0.jar " +
          "obj/third_party/android_deps/com_google_errorprone_error_prone_core.ijar.jar",
     out: [
@@ -6938,7 +6995,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_errorprone_error_prone_core_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_errorprone_error_prone_core_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/com_google_errorprone_error_prone_core/error_prone_core-2.11.0.jar " +
          "--output " +
          "lib.java/third_party/android_deps/com_google_errorprone_error_prone_core.jar " +
@@ -6961,7 +7018,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_errorprone_error_prone_type_annotations_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_errorprone_error_prone_type_annotations_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -7020,7 +7077,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_errorprone_error_prone_type_annotations_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_errorprone_error_prone_type_annotations_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/com_google_errorprone_error_prone_type_annotations/error_prone_type_annotations-2.11.0.jar " +
          "obj/third_party/android_deps/com_google_errorprone_error_prone_type_annotations.ijar.jar",
     out: [
@@ -7039,7 +7096,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_errorprone_error_prone_type_annotations_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_errorprone_error_prone_type_annotations_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/com_google_errorprone_error_prone_type_annotations/error_prone_type_annotations-2.11.0.jar " +
          "--output " +
          "lib.java/third_party/android_deps/com_google_errorprone_error_prone_type_annotations.jar " +
@@ -7062,7 +7119,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_errorprone_javac_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_errorprone_javac_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -7121,7 +7178,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_errorprone_javac_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_errorprone_javac_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/com_google_errorprone_javac/javac-9+181-r4173-1.jar " +
          "obj/third_party/android_deps/com_google_errorprone_javac.ijar.jar",
     out: [
@@ -7140,7 +7197,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_errorprone_javac_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_errorprone_javac_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/com_google_errorprone_javac/javac-9+181-r4173-1.jar " +
          "--output " +
          "lib.java/third_party/android_deps/com_google_errorprone_javac.jar " +
@@ -7163,7 +7220,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_guava_failureaccess_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_guava_failureaccess_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -7227,7 +7284,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_guava_failureaccess_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_guava_failureaccess_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/com_google_guava_failureaccess/failureaccess-1.0.1.jar " +
          "obj/third_party/android_deps/com_google_guava_failureaccess.ijar.jar",
     out: [
@@ -7246,7 +7303,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_guava_failureaccess_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_guava_failureaccess_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/com_google_guava_failureaccess/failureaccess-1.0.1.jar " +
          "--output " +
          "lib.java/third_party/android_deps/com_google_guava_failureaccess.jar " +
@@ -7269,7 +7326,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_guava_guava_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_guava_guava_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -7328,7 +7385,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_guava_guava_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_guava_guava_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/com_google_guava_guava/guava-31.0.1-jre.jar " +
          "obj/third_party/android_deps/com_google_guava_guava.ijar.jar",
     out: [
@@ -7347,7 +7404,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_guava_guava_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_guava_guava_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/com_google_guava_guava/guava-31.0.1-jre.jar " +
          "--output " +
          "lib.java/third_party/android_deps/com_google_guava_guava.jar " +
@@ -7370,7 +7427,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_guava_listenablefuture_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_guava_listenablefuture_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -7434,7 +7491,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_guava_listenablefuture_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_guava_listenablefuture_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/com_google_guava_listenablefuture/listenablefuture-1.0.jar " +
          "obj/third_party/android_deps/com_google_guava_listenablefuture.ijar.jar",
     out: [
@@ -7453,7 +7510,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_guava_listenablefuture_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_guava_listenablefuture_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/com_google_guava_listenablefuture/listenablefuture-1.0.jar " +
          "--output " +
          "lib.java/third_party/android_deps/com_google_guava_listenablefuture.jar " +
@@ -7476,7 +7533,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_j2objc_j2objc_annotations_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_j2objc_j2objc_annotations_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -7540,7 +7597,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_j2objc_j2objc_annotations_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_j2objc_j2objc_annotations_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/com_google_j2objc_j2objc_annotations/j2objc-annotations-1.3.jar " +
          "obj/third_party/android_deps/com_google_j2objc_j2objc_annotations.ijar.jar",
     out: [
@@ -7559,7 +7616,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_j2objc_j2objc_annotations_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_j2objc_j2objc_annotations_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/com_google_j2objc_j2objc_annotations/j2objc-annotations-1.3.jar " +
          "--output " +
          "lib.java/third_party/android_deps/com_google_j2objc_j2objc_annotations.jar " +
@@ -7582,7 +7639,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_protobuf_protobuf_java_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_protobuf_protobuf_java_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -7641,7 +7698,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_protobuf_protobuf_java_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_protobuf_protobuf_java_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/com_google_protobuf_protobuf_java/protobuf-java-3.19.2.jar " +
          "obj/third_party/android_deps/com_google_protobuf_protobuf_java.ijar.jar",
     out: [
@@ -7660,7 +7717,7 @@ genrule {
 // GN: //third_party/android_deps:com_google_protobuf_protobuf_java_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_com_google_protobuf_protobuf_java_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/com_google_protobuf_protobuf_java/protobuf-java-3.19.2.jar " +
          "--output " +
          "lib.java/third_party/android_deps/com_google_protobuf_protobuf_java.jar " +
@@ -7683,7 +7740,7 @@ genrule {
 // GN: //third_party/android_deps:io_github_java_diff_utils_java_diff_utils_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_io_github_java_diff_utils_java_diff_utils_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -7742,7 +7799,7 @@ genrule {
 // GN: //third_party/android_deps:io_github_java_diff_utils_java_diff_utils_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_io_github_java_diff_utils_java_diff_utils_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/io_github_java_diff_utils_java_diff_utils/java-diff-utils-4.0.jar " +
          "obj/third_party/android_deps/io_github_java_diff_utils_java_diff_utils.ijar.jar",
     out: [
@@ -7761,7 +7818,7 @@ genrule {
 // GN: //third_party/android_deps:io_github_java_diff_utils_java_diff_utils_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_io_github_java_diff_utils_java_diff_utils_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/io_github_java_diff_utils_java_diff_utils/java-diff-utils-4.0.jar " +
          "--output " +
          "lib.java/third_party/android_deps/io_github_java_diff_utils_java_diff_utils.jar " +
@@ -7784,7 +7841,7 @@ genrule {
 // GN: //third_party/android_deps:org_checkerframework_checker_qual_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_org_checkerframework_checker_qual_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -7848,7 +7905,7 @@ genrule {
 // GN: //third_party/android_deps:org_checkerframework_checker_qual_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_org_checkerframework_checker_qual_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/org_checkerframework_checker_qual/checker-qual-3.25.0.jar " +
          "obj/third_party/android_deps/org_checkerframework_checker_qual.ijar.jar",
     out: [
@@ -7867,7 +7924,7 @@ genrule {
 // GN: //third_party/android_deps:org_checkerframework_checker_qual_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_org_checkerframework_checker_qual_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/org_checkerframework_checker_qual/checker-qual-3.25.0.jar " +
          "--output " +
          "lib.java/third_party/android_deps/org_checkerframework_checker_qual.jar " +
@@ -7890,7 +7947,7 @@ genrule {
 // GN: //third_party/android_deps:org_checkerframework_dataflow_errorprone_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_org_checkerframework_dataflow_errorprone_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -7949,7 +8006,7 @@ genrule {
 // GN: //third_party/android_deps:org_checkerframework_dataflow_errorprone_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_org_checkerframework_dataflow_errorprone_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/org_checkerframework_dataflow_errorprone/dataflow-errorprone-3.15.0.jar " +
          "obj/third_party/android_deps/org_checkerframework_dataflow_errorprone.ijar.jar",
     out: [
@@ -7968,7 +8025,7 @@ genrule {
 // GN: //third_party/android_deps:org_checkerframework_dataflow_errorprone_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_org_checkerframework_dataflow_errorprone_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/org_checkerframework_dataflow_errorprone/dataflow-errorprone-3.15.0.jar " +
          "--output " +
          "lib.java/third_party/android_deps/org_checkerframework_dataflow_errorprone.jar " +
@@ -7991,7 +8048,7 @@ genrule {
 // GN: //third_party/android_deps:org_eclipse_jgit_org_eclipse_jgit_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_org_eclipse_jgit_org_eclipse_jgit_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -8050,7 +8107,7 @@ genrule {
 // GN: //third_party/android_deps:org_eclipse_jgit_org_eclipse_jgit_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_org_eclipse_jgit_org_eclipse_jgit_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/org_eclipse_jgit_org_eclipse_jgit/org.eclipse.jgit-4.4.1.201607150455-r.jar " +
          "obj/third_party/android_deps/org_eclipse_jgit_org_eclipse_jgit.ijar.jar",
     out: [
@@ -8069,7 +8126,7 @@ genrule {
 // GN: //third_party/android_deps:org_eclipse_jgit_org_eclipse_jgit_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_org_eclipse_jgit_org_eclipse_jgit_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/org_eclipse_jgit_org_eclipse_jgit/org.eclipse.jgit-4.4.1.201607150455-r.jar " +
          "--output " +
          "lib.java/third_party/android_deps/org_eclipse_jgit_org_eclipse_jgit.jar " +
@@ -8092,7 +8149,7 @@ genrule {
 // GN: //third_party/android_deps:org_ow2_asm_asm_analysis_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_org_ow2_asm_asm_analysis_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -8151,7 +8208,7 @@ genrule {
 // GN: //third_party/android_deps:org_ow2_asm_asm_analysis_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_org_ow2_asm_asm_analysis_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/org_ow2_asm_asm_analysis/asm-analysis-9.2.jar " +
          "obj/third_party/android_deps/org_ow2_asm_asm_analysis.ijar.jar",
     out: [
@@ -8170,7 +8227,7 @@ genrule {
 // GN: //third_party/android_deps:org_ow2_asm_asm_analysis_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_org_ow2_asm_asm_analysis_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/org_ow2_asm_asm_analysis/asm-analysis-9.2.jar " +
          "--output " +
          "lib.java/third_party/android_deps/org_ow2_asm_asm_analysis.jar " +
@@ -8193,7 +8250,7 @@ genrule {
 // GN: //third_party/android_deps:org_ow2_asm_asm_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_org_ow2_asm_asm_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -8252,7 +8309,7 @@ genrule {
 // GN: //third_party/android_deps:org_ow2_asm_asm_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_org_ow2_asm_asm_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/org_ow2_asm_asm/asm-9.2.jar " +
          "obj/third_party/android_deps/org_ow2_asm_asm.ijar.jar",
     out: [
@@ -8271,7 +8328,7 @@ genrule {
 // GN: //third_party/android_deps:org_ow2_asm_asm_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_org_ow2_asm_asm_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/org_ow2_asm_asm/asm-9.2.jar " +
          "--output " +
          "lib.java/third_party/android_deps/org_ow2_asm_asm.jar " +
@@ -8294,7 +8351,7 @@ genrule {
 // GN: //third_party/android_deps:org_ow2_asm_asm_tree_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_org_ow2_asm_asm_tree_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -8353,7 +8410,7 @@ genrule {
 // GN: //third_party/android_deps:org_ow2_asm_asm_tree_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_org_ow2_asm_asm_tree_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/org_ow2_asm_asm_tree/asm-tree-9.2.jar " +
          "obj/third_party/android_deps/org_ow2_asm_asm_tree.ijar.jar",
     out: [
@@ -8372,7 +8429,7 @@ genrule {
 // GN: //third_party/android_deps:org_ow2_asm_asm_tree_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_org_ow2_asm_asm_tree_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/org_ow2_asm_asm_tree/asm-tree-9.2.jar " +
          "--output " +
          "lib.java/third_party/android_deps/org_ow2_asm_asm_tree.jar " +
@@ -8395,7 +8452,7 @@ genrule {
 // GN: //third_party/android_deps:org_ow2_asm_asm_util_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_org_ow2_asm_asm_util_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -8454,7 +8511,7 @@ genrule {
 // GN: //third_party/android_deps:org_ow2_asm_asm_util_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_org_ow2_asm_asm_util_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/org_ow2_asm_asm_util/asm-util-9.2.jar " +
          "obj/third_party/android_deps/org_ow2_asm_asm_util.ijar.jar",
     out: [
@@ -8473,7 +8530,7 @@ genrule {
 // GN: //third_party/android_deps:org_ow2_asm_asm_util_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_org_ow2_asm_asm_util_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/org_ow2_asm_asm_util/asm-util-9.2.jar " +
          "--output " +
          "lib.java/third_party/android_deps/org_ow2_asm_asm_util.jar " +
@@ -8496,7 +8553,7 @@ genrule {
 // GN: //third_party/android_deps:org_pcollections_pcollections_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_deps_org_pcollections_pcollections_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -8555,7 +8612,7 @@ genrule {
 // GN: //third_party/android_deps:org_pcollections_pcollections_java__header
 genrule {
     name: "cronet_aml_third_party_android_deps_org_pcollections_pcollections_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_deps/libs/org_pcollections_pcollections/pcollections-3.1.4.jar " +
          "obj/third_party/android_deps/org_pcollections_pcollections.ijar.jar",
     out: [
@@ -8574,7 +8631,7 @@ genrule {
 // GN: //third_party/android_deps:org_pcollections_pcollections_java__host
 genrule {
     name: "cronet_aml_third_party_android_deps_org_pcollections_pcollections_java__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "../../third_party/android_deps/libs/org_pcollections_pcollections/pcollections-3.1.4.jar " +
          "--output " +
          "lib.java/third_party/android_deps/org_pcollections_pcollections.jar " +
@@ -8605,7 +8662,7 @@ filegroup {
 // GN: //third_party/android_sdk:android_sdk_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_third_party_android_sdk_android_sdk_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "system_java_library " +
          " " +
          " " +
@@ -8663,7 +8720,7 @@ genrule {
 // GN: //third_party/android_sdk:android_sdk_java__header
 genrule {
     name: "cronet_aml_third_party_android_sdk_android_sdk_java__header",
-    cmd: "$(location build/android/gyp/ijar.py) clang_x64/ijar " +
+    cmd: "python $(location build/android/gyp/ijar.py) clang_x64/ijar " +
          "../../third_party/android_sdk/public/platforms/android-33/android.jar " +
          "obj/third_party/android_sdk/android.ijar.jar",
     out: [
@@ -9841,7 +9898,7 @@ filegroup {
 // GN: //tools/android/errorprone_plugin:errorprone_plugin__build_config_crbug_908819
 genrule {
     name: "cronet_aml_tools_android_errorprone_plugin_errorprone_plugin__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_binary " +
          " " +
          " " +
@@ -9914,7 +9971,7 @@ genrule {
         "tools/android/errorprone_plugin/src/org/chromium/tools/errorprone/plugin/TestClassNameCheck.java",
         "tools/android/errorprone_plugin/src/org/chromium/tools/errorprone/plugin/UseNetworkAnnotations.java",
     ],
-    cmd: "$(location build/android/gyp/compile_java.py) --depfile " +
+    cmd: "python $(location build/android/gyp/compile_java.py) --depfile " +
          "gen/tools/android/errorprone_plugin/errorprone_plugin__compile_java.d " +
          "--generated-dir " +
          "gen/tools/android/errorprone_plugin/errorprone_plugin/generated_java " +
@@ -9986,7 +10043,7 @@ genrule {
         "tools/android/errorprone_plugin/src/org/chromium/tools/errorprone/plugin/TestClassNameCheck.java",
         "tools/android/errorprone_plugin/src/org/chromium/tools/errorprone/plugin/UseNetworkAnnotations.java",
     ],
-    cmd: "$(location build/android/gyp/turbine.py) --depfile " +
+    cmd: "python $(location build/android/gyp/turbine.py) --depfile " +
          "gen/tools/android/errorprone_plugin/errorprone_plugin__header.d " +
          "--generated-dir " +
          "gen/tools/android/errorprone_plugin/errorprone_plugin/generated_java " +
@@ -10047,7 +10104,7 @@ genrule {
 // GN: //tools/android/errorprone_plugin:errorprone_plugin__host
 genrule {
     name: "cronet_aml_tools_android_errorprone_plugin_errorprone_plugin__host",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "obj/tools/android/errorprone_plugin/errorprone_plugin.javac.jar " +
          "--output " +
          "lib.java/tools/android/errorprone_plugin/errorprone_plugin.jar " +
@@ -10070,7 +10127,7 @@ genrule {
 // GN: //tools/android/errorprone_plugin:errorprone_plugin__java_binary_script
 genrule {
     name: "cronet_aml_tools_android_errorprone_plugin_errorprone_plugin__java_binary_script",
-    cmd: "$(location build/android/gyp/create_java_binary_script.py) --output " +
+    cmd: "python $(location build/android/gyp/create_java_binary_script.py) --output " +
          "bin/bin/helper/errorprone_plugin " +
          "--main-class " +
          "<ignore> " +
@@ -10107,7 +10164,7 @@ genrule {
 // GN: //tools/gritsettings:default_resource_ids
 genrule {
     name: "cronet_aml_tools_gritsettings_default_resource_ids",
-    cmd: "$(location tools/grit/grit.py) update_resource_ids " +
+    cmd: "python $(location tools/grit/grit.py) update_resource_ids " +
          "-o " +
          "gen/tools/gritsettings/default_resource_ids " +
          "--add-header " +
@@ -10127,7 +10184,7 @@ genrule {
 // GN: //url:buildflags
 genrule {
     name: "cronet_aml_url_buildflags",
-    cmd: "echo '--flags USE_PLATFORM_ICU_ALTERNATIVES=\"true\"' | " +
+    cmd: "python echo '--flags USE_PLATFORM_ICU_ALTERNATIVES=\"true\"' | " +
          "$(location build/write_buildflag_header.py) --output " +
          "$(out) " +
          "--rulename " +
@@ -10463,7 +10520,7 @@ cc_library_static {
 // GN: //url:url_java__build_config_crbug_908819
 genrule {
     name: "cronet_aml_url_url_java__build_config_crbug_908819",
-    cmd: "$(location build/android/gyp/write_build_config.py) --type " +
+    cmd: "python $(location build/android/gyp/write_build_config.py) --type " +
          "java_library " +
          " " +
          " " +
@@ -10531,7 +10588,7 @@ genrule {
     srcs: [
         "url/android/java/src/org/chromium/url/IDNStringUtil.java",
     ],
-    cmd: "$(location build/android/gyp/compile_java.py) --depfile " +
+    cmd: "python $(location build/android/gyp/compile_java.py) --depfile " +
          "gen/url/url_java__compile_java.d " +
          "--generated-dir " +
          "gen/url/url_java/generated_java " +
@@ -10597,7 +10654,7 @@ genrule {
 // GN: //url:url_java__dex
 genrule {
     name: "cronet_aml_url_url_java__dex",
-    cmd: "$(location build/android/gyp/dex.py) --depfile " +
+    cmd: "python $(location build/android/gyp/dex.py) --depfile " +
          "gen/url/url_java__dex.d " +
          "--output " +
          "obj/url/url_java.dex.jar " +
@@ -10650,7 +10707,7 @@ genrule {
     srcs: [
         "url/android/java/src/org/chromium/url/IDNStringUtil.java",
     ],
-    cmd: "$(location build/android/gyp/compile_java.py) --depfile " +
+    cmd: "python $(location build/android/gyp/compile_java.py) --depfile " +
          "gen/url/url_java__errorprone.d " +
          "--generated-dir " +
          "gen/url/url_java/generated_java " +
@@ -10721,7 +10778,7 @@ genrule {
     srcs: [
         "url/android/java/src/org/chromium/url/IDNStringUtil.java",
     ],
-    cmd: "$(location build/android/gyp/turbine.py) --depfile " +
+    cmd: "python $(location build/android/gyp/turbine.py) --depfile " +
          "gen/url/url_java__header.d " +
          "--generated-dir " +
          "gen/url/url_java/generated_java " +
@@ -10786,7 +10843,7 @@ genrule {
 // GN: //url:url_java__process_device
 genrule {
     name: "cronet_aml_url_url_java__process_device",
-    cmd: "$(location build/android/gyp/filter_zip.py) --input " +
+    cmd: "python $(location build/android/gyp/filter_zip.py) --input " +
          "obj/url/url_java.javac.jar " +
          "--output " +
          "obj/url/url_java.processed.jar " +
@@ -10809,7 +10866,7 @@ genrule {
 // GN: //url:url_java__validate
 genrule {
     name: "cronet_aml_url_url_java__validate",
-    cmd: "$(location build/android/gyp/bytecode_processor.py) --target-name " +
+    cmd: "python $(location build/android/gyp/bytecode_processor.py) --target-name " +
          "//url:url_java__validate " +
          "--script " +
          "bin/helper/bytecode_processor " +
@@ -10849,7 +10906,7 @@ genrule {
         "url/android/java/src/org/chromium/url/IDNStringUtil.java",
         "url/android/java/src/org/chromium/url/Origin.java",
     ],
-    cmd: "$(location base/android/jni_generator/jni_generator.py) --ptr_type " +
+    cmd: "python $(location base/android/jni_generator/jni_generator.py) --ptr_type " +
          "long " +
          " " +
          " " +
