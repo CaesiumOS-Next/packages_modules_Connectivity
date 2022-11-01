@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8e91767_40bd58e7",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-01T17:59:42Z",
+      "side": 1,
+      "message": "I wonder: could we change write_blueprint_key_value to append raw strings to fix this?",
+      "range": {
+        "startLine": 768,
+        "startChar": 0,
+        "endLine": 768,
+        "endChar": 35
+      },
+      "revId": "a064c5e94f3e4eb25d30f10dd55304fbde747c24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52231f4e_b737b955",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-01T17:59:42Z",
+      "side": 1,
+      "message": "use enumerate() instead",
+      "range": {
+        "startLine": 769,
+        "startChar": 11,
+        "endLine": 769,
+        "endChar": 20
+      },
+      "revId": "a064c5e94f3e4eb25d30f10dd55304fbde747c24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "deaa0fc5_786997b0",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-01T17:59:42Z",
+      "side": 1,
+      "message": "should this just `replace(\u0027\\\\\u0027, \u0027\\\\\\\\\u0027)`",
+      "range": {
+        "startLine": 771,
+        "startChar": 43,
+        "endLine": 771,
+        "endChar": 59
+      },
+      "revId": "a064c5e94f3e4eb25d30f10dd55304fbde747c24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
