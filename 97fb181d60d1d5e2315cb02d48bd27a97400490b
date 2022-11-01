@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8733efa_d9f6853d",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-01T16:57:52Z",
+      "side": 1,
+      "message": "that\u0027s crazy! is this fixable in upstream?",
+      "range": {
+        "startLine": 866,
+        "startChar": 0,
+        "endLine": 868,
+        "endChar": 52
+      },
+      "revId": "97fb181d60d1d5e2315cb02d48bd27a97400490b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
