@@ -765,6 +765,10 @@ def create_action_module(blueprint, target):
 
   # put all args on a new line for better diffs.
   NEWLINE = ' " +\n         "'
+  # Fix genrules character escaping
+  for i in range(len(target.args)):
+    target.args[i] = target.args[i].replace("\"", "\\\"")
+    target.args[i] = target.args[i].replace("\\$", "\\\\$")
   arg_string = NEWLINE.join(target.args)
   module.cmd = '$(location %s) %s' % (script, arg_string)
 
