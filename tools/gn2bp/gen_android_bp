@@ -678,20 +678,28 @@ def create_action_foreach_modules(blueprint, target):
     else:
       non_rebase_args.append(arg.replace("//", ""))
   sources = [source.replace("//", "") for source in target.sources]
+  modules = []
   for i in range(len(sources)):
     source = sources[i].replace("//", "")
     source_file_name = source[source.rfind("/"):source.rfind(".")]
     target_outputs = [out_template.replace("{{source_name_part}}", source_file_name) for out_template in out_files_template]
     module = Module('genrule', bp_module_name + '_%s' % (i), target.name)
     module.tool_files.update([script, source])
-    module.cmd = '$(location %s) \n' % (script)
-    module.cmd = module.cmd + "\n".join(non_rebase_args)
-    module.cmd = module.cmd.replace("{{source}}", '$(location %s)' % (source))
+    NEWLINE = ' " +\n         "'
+    args = ['$(location %s)' % (script)]
+    for arg in non_rebase_args:
+      if "{{source}}" in arg:
+        arg = arg.replace("{{source}}", '$(location %s)' % (source))
+      args.append(arg)
     for out in target.outputs:
       for trial_output in target_outputs:
         if trial_output in out:
           module.out.add(out)
-          module.cmd = '%s \n %s' % (module.cmd, out)
+          args.append('$(location %s)' % (out))
+    module.cmd = NEWLINE.join(args)
+    blueprint.add_module(module)
+    modules.append(module)
+  return modules
 
 def create_action_module(blueprint, target):
   bp_module_name = label_to_module_name(target.name)
@@ -858,7 +866,7 @@ def create_modules_from_target(blueprint, gn, gn_target_name):
       module = create_action_module(blueprint, target)
   elif target.type == 'action_foreach':
     # Add basic support for action_foreach
-    module = create_action_foreach_modules(blueprint, target)
+    return create_action_foreach_modules(blueprint, target)
   elif target.type == 'copy':
     # TODO: careful now! copy targets are not supported yet, but this will stop
     # traversing the dependency tree. For //base:base, this is not a big
@@ -950,6 +958,15 @@ def create_modules_from_target(blueprint, gn, gn_target_name):
       continue
 
     dep_module = create_modules_from_target(blueprint, gn, dep_name)
+
+    # A list of genrules generated for a single action_foreach
+    if isinstance(dep_module, list):
+      for dep in dep_module:
+        module.generated_headers.update(dep.genrule_headers)
+        module.srcs.update(dep.genrule_srcs)
+        module.shared_libs.update(dep.genrule_shared_libs)
+        module.header_libs.update(dep.genrule_header_libs)
+      return module
 
     # TODO: Proper dependency check for genrule.
     # Currently, only propagating genrule dependencies.
