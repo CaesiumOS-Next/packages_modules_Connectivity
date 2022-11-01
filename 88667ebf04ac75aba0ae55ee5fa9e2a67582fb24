@@ -94,6 +94,30 @@
       },
       "revId": "88667ebf04ac75aba0ae55ee5fa9e2a67582fb24",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6da50396_decbd849",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-01T06:30:53Z",
+      "side": 1,
+      "message": "Done for the comments.\nHowever, it seems we don\u0027t have any immutable field in LinkProperties.",
+      "parentUuid": "3c3d9531_a04ca1a7",
+      "range": {
+        "startLine": 584,
+        "startChar": 12,
+        "endLine": 584,
+        "endChar": 25
+      },
+      "revId": "88667ebf04ac75aba0ae55ee5fa9e2a67582fb24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
