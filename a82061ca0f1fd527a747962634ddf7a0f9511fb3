@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c02c4fff_d9d7e20f",
+        "filename": "framework-t/src/android/net/IpSecTransform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-11-01T23:47:59Z",
+      "side": 1,
+      "message": "Begins",
+      "range": {
+        "startLine": 102,
+        "startChar": 10,
+        "endLine": 102,
+        "endChar": 15
+      },
+      "revId": "a82061ca0f1fd527a747962634ddf7a0f9511fb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de990bda_dcb89a06",
+        "filename": "framework-t/src/android/net/IpSecTransform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-11-01T23:47:59Z",
+      "side": 1,
+      "message": "Apply this transform to the appropriate tunnel using IpSecManager...",
+      "range": {
+        "startLine": 103,
+        "startChar": 22,
+        "endLine": 103,
+        "endChar": 26
+      },
+      "revId": "a82061ca0f1fd527a747962634ddf7a0f9511fb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38fb5800_ab8457f8",
+        "filename": "framework-t/src/android/net/IpSecTransform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-11-01T23:47:59Z",
+      "side": 1,
+      "message": "MUST",
+      "range": {
+        "startLine": 103,
+        "startChar": 15,
+        "endLine": 103,
+        "endChar": 21
+      },
+      "revId": "a82061ca0f1fd527a747962634ddf7a0f9511fb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42a44c06_23b046d7",
+        "filename": "framework-t/src/android/net/IpSecTransform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-11-01T23:47:59Z",
+      "side": 1,
+      "message": "The provided source and destination...",
+      "range": {
+        "startLine": 105,
+        "startChar": 10,
+        "endLine": 105,
+        "endChar": 18
+      },
+      "revId": "a82061ca0f1fd527a747962634ddf7a0f9511fb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
