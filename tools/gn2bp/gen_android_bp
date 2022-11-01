@@ -690,16 +690,20 @@ def create_action_foreach_modules(blueprint, target):
     else:
       non_rebase_args.append(arg.replace("//", ""))
   sources = [source.replace("//", "") for source in target.sources]
-  print(out_files_template)
   for i in range(len(sources)):
     source = gn_utils.label_to_path(sources[i])
     source_file_name = source[source.rfind("/"):source.rfind(".")]
-    module = Module('genrule', bp_module_name + "_{}".format(i), target.name)
+    target_outputs = [out_template.replace("{{source_name_part}}", source_file_name) for out_template in out_files_template]
+    module = Module('genrule', bp_module_name + '_%s' % (i), target.name)
     module.tool_files.update([script, source])
-    module.cmd = "$(location {}) \n".format(script)
+    module.cmd = '$(location %s) \n' % (script)
     module.cmd = module.cmd + "\n".join(non_rebase_args)
-    module.cmd = module.cmd.replace("{{source}}", "$(location {})".format(source))
-    #module.out.update((outs[i]))
+    module.cmd = module.cmd.replace("{{source}}", '$(location %s)' % (source))
+    for out in target.outputs:
+      for trial_output in target_outputs:
+        if trial_output in out:
+          module.out.add(out)
+          module.cmd = '%s \n %s' % (module.cmd, out)
 
 def create_action_module(blueprint, target):
   bp_module_name = label_to_module_name(target.name)
