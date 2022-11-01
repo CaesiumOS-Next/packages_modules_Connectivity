@@ -269,6 +269,14 @@ public class IpServerTest {
             LinkProperties lp = new LinkProperties();
             lp.setInterfaceName(upstreamIface);
             dispatchTetherConnectionChanged(upstreamIface, lp, 0);
+            // One for enter tethered state, another one for ipv6 upstream updated.
+            verify(mCallback, times(2)).updateLinkProperties(eq(mIpServer),
+                    any(LinkProperties.class));
+        } else {
+            dispatchTetherConnectionChanged(null, null, 0);
+            verify(mCallback).updateLinkProperties(eq(mIpServer),
+                    any(LinkProperties.class));
+
         }
         reset(mNetd, mCallback, mAddressCoordinator, mBpfCoordinator);
         when(mAddressCoordinator.requestDownstreamAddress(any(), anyBoolean())).thenReturn(
