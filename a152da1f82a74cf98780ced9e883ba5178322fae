@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f3a0a16_ec9fd3dc",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1055,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-02T06:25:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34fe4218_6fb41092",
+      "range": {
+        "startLine": 1054,
+        "startChar": 0,
+        "endLine": 1055,
+        "endChar": 63
+      },
+      "revId": "a152da1f82a74cf98780ced9e883ba5178322fae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ef4558b_95f0d501",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-10-31T09:33:50Z",
       "side": 1,
       "message": "You should verify the available callback was receviced on systemDefaultCallback2.",
+      "range": {
+        "startLine": 1087,
+        "startChar": 8,
+        "endLine": 1087,
+        "endChar": 9
+      },
+      "revId": "a152da1f82a74cf98780ced9e883ba5178322fae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36fa052c_a7dba4b3",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1087,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-02T06:25:33Z",
+      "side": 1,
+      "message": "IIUC that doesn\u0027t increase test coverage since it is already verified by systemDefaultCallback. Reopen if feel strongly.",
+      "parentUuid": "9ef4558b_95f0d501",
       "range": {
         "startLine": 1087,
         "startChar": 8,
