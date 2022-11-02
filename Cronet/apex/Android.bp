@@ -32,6 +32,12 @@ apex_defaults {
     name: "CronetApexDefaultsEnabled",
     jni_libs: ["libcronet.80.0.3986.0"],
     java_libs: ["framework-cronet"],
+    // TODO: add riscv64 support
+    target: {
+        android_riscv64: {
+            enabled: false,
+        },
+    },
 }
 
 apex_defaults {
