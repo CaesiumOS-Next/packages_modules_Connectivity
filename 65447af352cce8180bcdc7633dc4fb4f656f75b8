@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff2ef90f_af5a0b9d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-02T05:05:16Z",
+      "side": 1,
+      "message": "Happy with this for Connectivity metrics ; over to reminv for NSD",
+      "revId": "65447af352cce8180bcdc7633dc4fb4f656f75b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
