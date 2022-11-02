@@ -16,6 +16,29 @@
       "message": "Happy with this for Connectivity metrics ; over to reminv for NSD",
       "revId": "65447af352cce8180bcdc7633dc4fb4f656f75b8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b7b87ec_7dbad549",
+        "filename": "service/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-02T09:06:38Z",
+      "side": 1,
+      "message": "This should be part of service-connectivity-pre-jarjar, not here. As you can see from the comment above, this build rule is for combining system server jars that use different bootclasspath jars, it\u0027s not for general usage.",
+      "range": {
+        "startLine": 247,
+        "startChar": 8,
+        "endLine": 247,
+        "endChar": 41
+      },
+      "revId": "65447af352cce8180bcdc7633dc4fb4f656f75b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
