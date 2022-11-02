@@ -1413,7 +1413,7 @@ public class BpfCoordinatorTest {
 
         // [1] Don't stop monitoring if it has never started.
         coordinator.stopMonitoring(mIpServer);
-        verify(mConntrackMonitor, never()).stop();
+        verify(mConntrackMonitor, never()).start();
 
         // [2] Start monitoring.
         coordinator.startMonitoring(mIpServer);
