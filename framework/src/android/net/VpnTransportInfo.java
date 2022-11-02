@@ -16,7 +16,7 @@
 
 package android.net;
 
-import static android.annotation.SystemApi.Client.MODULE_LIBRARIES;
+import static android.annotation.SystemApi.Client.PRIVILEGED_APPS;
 import static android.net.NetworkCapabilities.REDACT_FOR_NETWORK_SETTINGS;
 
 import android.annotation.NonNull;
@@ -37,13 +37,15 @@ import java.util.Objects;
  *
  * @hide
  */
-@SystemApi(client = MODULE_LIBRARIES)
+@SystemApi(client = PRIVILEGED_APPS)
 public final class VpnTransportInfo implements TransportInfo, Parcelable {
     /** Type of this VPN. */
     private final int mType;
 
     @Nullable
     private final String mSessionId;
+
+    private final boolean mBypassable;
 
     @Override
     public @RedactionType long getApplicableRedactions() {
@@ -60,8 +62,20 @@ public final class VpnTransportInfo implements TransportInfo, Parcelable {
     }
 
     public VpnTransportInfo(int type, @Nullable String sessionId) {
+        this(type, sessionId, false /* bypassable */);
+    }
+
+    public VpnTransportInfo(int type, @Nullable String sessionId, boolean bypassable) {
         this.mType = type;
         this.mSessionId = sessionId;
+        this.mBypassable = bypassable;
+    }
+
+    /**
+     * Returns whether the VPN is allowing bypass.
+     */
+    public boolean getBypassable() {
+        return mBypassable;
     }
 
     /**
