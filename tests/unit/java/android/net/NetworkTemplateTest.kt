@@ -435,14 +435,14 @@ class NetworkTemplateTest {
 
     @Test
     fun testParcelUnparcel() {
-        val templateMobile = NetworkTemplate(MATCH_MOBILE, TEST_IMSI1, null,
+        val templateMobile = NetworkTemplate(MATCH_MOBILE, TEST_IMSI1, arrayOf<String>(),
                 arrayOf<String>(), METERED_ALL, ROAMING_ALL, DEFAULT_NETWORK_ALL,
                 TelephonyManager.NETWORK_TYPE_LTE, OEM_MANAGED_ALL,
                 SUBSCRIBER_ID_MATCH_RULE_EXACT)
-        val templateWifi = NetworkTemplate(MATCH_WIFI, null, null,
+        val templateWifi = NetworkTemplate(MATCH_WIFI, null, arrayOf<String>(),
                 arrayOf(TEST_WIFI_KEY1), METERED_ALL, ROAMING_ALL, DEFAULT_NETWORK_ALL, 0,
                 OEM_MANAGED_ALL, SUBSCRIBER_ID_MATCH_RULE_EXACT)
-        val templateOem = NetworkTemplate(MATCH_MOBILE, null, null,
+        val templateOem = NetworkTemplate(MATCH_MOBILE, null, arrayOf<String>(),
                 arrayOf<String>(), METERED_ALL, ROAMING_ALL, DEFAULT_NETWORK_ALL, 0,
                 OEM_MANAGED_YES, SUBSCRIBER_ID_MATCH_RULE_EXACT)
         assertParcelSane(templateMobile, 10)
