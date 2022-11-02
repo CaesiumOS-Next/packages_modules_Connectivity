@@ -697,6 +697,60 @@ def override_build_config_gen(module):
   module.cmd = NEWLINE.join(cmd)
   return module
 
+def _add_output_per_source_file(args, pattern, outputs):
+  # Add output files to args (It is not there by default
+  # due to {{source_name_part}} template transformation.
+  for output in outputs:
+    if pattern in output:
+      args.append('$(locations %s)' % (output))
+  return args
+
+def _replace_source_template(args, source):
+  # Replace each {{source}} with the appropriate Soong variables.
+  for i, arg in enumerate(args):
+    if '{{source}}' in arg:
+      args[i] = arg.replace('{{source}}', '$(locations %s)' % source)
+  return args
+
+def create_action_foreach_modules(blueprint, target):
+  """ The following assumes that rebase_path exists in the args.
+  The args of an action_foreach contains hints about which output files are generated
+  by which source files.
+  This is copied directly from the args
+  "gen/net/base/registry_controlled_domains/{{source_name_part}}-reversed-inc.cc"
+  So each source file will generate an output whose name is the {source_name-reversed-inc.cc}
+  """
+
+  # This contains the {{source_name_part}}-reversed-inc.cc, and by knowing the source file
+  # I can match them to a corresponding output file
+  out_files_template = []
+  # Contains all the other arguments not related to rebase_path
+  non_rebase_args = []
+  for arg in target.args:
+    if "{{source_name_part}}" in arg:
+      out_files_template.append(arg[arg.find("{{source_name_part}}"):])
+    else:
+      non_rebase_args.append(arg.replace("//", ""))
+  temp_args = []
+  script = gn_utils.label_to_path(target.script)
+  for i, source in enumerate(target.sources):
+    # Add the args with replaced {{source}}
+    temp_args.extend(_replace_source_template(non_rebase_args.copy(), gn_utils.label_to_path(source)))
+    file_name = source[source.rfind("/") + 1:source.rfind(".")]
+    for pattern in out_files_template:
+      pattern = pattern.replace("{{source_name_part}}", file_name)
+      # Add the desired output in the args
+      _add_output_per_source_file(temp_args, pattern, target.outputs)
+    # Don't append to the last command
+    if i+1 < len(target.sources):
+      temp_args.append('&&')
+      if script.endswith(".py"):
+        temp_args.append('python $(location %s)' % (script))
+      else:
+        temp_args.append('$(location %s)' % (script))
+
+  target.args = temp_args
+  return create_action_module(blueprint, target)
 
 def create_action_module(blueprint, target):
   bp_module_name = label_to_module_name(target.name)
@@ -937,8 +991,7 @@ def create_modules_from_target(blueprint, gn, gn_target_name):
     else:
       module = create_action_module(blueprint, target)
   elif target.type == 'action_foreach':
-    return None
-      # Add basic support for action_foreach
+    module = create_action_foreach_modules(blueprint, target)
   elif target.type == 'copy':
     # TODO: careful now! copy targets are not supported yet, but this will stop
     # traversing the dependency tree. For //base:base, this is not a big

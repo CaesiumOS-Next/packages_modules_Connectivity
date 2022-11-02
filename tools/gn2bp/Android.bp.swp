@@ -3088,6 +3088,63 @@ filegroup {
     name: "cronet_aml_ipc_param_traits",
 }
 
+// GN: //net/base/registry_controlled_domains:registry_controlled_domains
+genrule {
+    name: "cronet_aml_net_base_registry_controlled_domains_registry_controlled_domains",
+    cmd: "$(location net/tools/dafsa/make_dafsa.py) --reverse " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest2.gperf) " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest2-reversed-inc.cc) " +
+         "&& " +
+         "python $(location net/tools/dafsa/make_dafsa.py) " +
+         "--reverse " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest1.gperf) " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest1-reversed-inc.cc) " +
+         "&& " +
+         "python $(location net/tools/dafsa/make_dafsa.py) " +
+         "--reverse " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest3.gperf) " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest3-reversed-inc.cc) " +
+         "&& " +
+         "python $(location net/tools/dafsa/make_dafsa.py) " +
+         "--reverse " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest6.gperf) " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest6-reversed-inc.cc) " +
+         "&& " +
+         "python $(location net/tools/dafsa/make_dafsa.py) " +
+         "--reverse " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names.gperf) " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names-reversed-inc.cc) " +
+         "&& " +
+         "python $(location net/tools/dafsa/make_dafsa.py) " +
+         "--reverse " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest5.gperf) " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest5-reversed-inc.cc) " +
+         "&& " +
+         "python $(location net/tools/dafsa/make_dafsa.py) " +
+         "--reverse " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest4.gperf) " +
+         "$(locations net/base/registry_controlled_domains/effective_tld_names_unittest4-reversed-inc.cc)",
+    out: [
+        "net/base/registry_controlled_domains/effective_tld_names-reversed-inc.cc",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest1-reversed-inc.cc",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest2-reversed-inc.cc",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest3-reversed-inc.cc",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest4-reversed-inc.cc",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest5-reversed-inc.cc",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest6-reversed-inc.cc",
+    ],
+    tool_files: [
+        "net/base/registry_controlled_domains/effective_tld_names.gperf",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest1.gperf",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest2.gperf",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest3.gperf",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest4.gperf",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest5.gperf",
+        "net/base/registry_controlled_domains/effective_tld_names_unittest6.gperf",
+        "net/tools/dafsa/make_dafsa.py",
+    ],
+}
+
 // GN: //net:buildflags
 genrule {
     name: "cronet_aml_net_buildflags",
@@ -9738,6 +9795,7 @@ cc_library_static {
 cc_library_static {
     name: "cronet_aml_third_party_zlib_zlib",
     srcs: [
+        ":cronet_aml_third_party_android_ndk_cpu_features",
         ":cronet_aml_third_party_zlib_zlib_adler32_simd",
         ":cronet_aml_third_party_zlib_zlib_common_headers",
         ":cronet_aml_third_party_zlib_zlib_crc32_simd",
@@ -9764,26 +9822,22 @@ cc_library_static {
     ],
     cflags: [
         "-DADLER32_SIMD_SSSE3",
+        "-DANDROID",
+        "-DANDROID_NDK_VERSION_ROLL=r23_1",
         "-DCRC32_SIMD_SSE42_PCLMUL",
         "-DCR_CLANG_REVISION=\"llvmorg-16-init-8697-g60809cd2-1\"",
         "-DCR_LIBCXX_REVISION=47b31179d10646029c260702650a25d24f555acc",
-        "-DCR_SYSROOT_KEY=20220331T153654Z-0",
         "-DDCHECK_ALWAYS_ON=1",
         "-DDEFLATE_SLIDE_HASH_SSE2",
         "-DDYNAMIC_ANNOTATIONS_ENABLED=1",
+        "-DHAVE_SYS_UIO_H",
         "-DINFLATE_CHUNK_READ_64LE",
         "-DINFLATE_CHUNK_SIMD_SSE2",
-        "-DUSE_AURA=1",
-        "-DUSE_OZONE=1",
-        "-DUSE_UDEV",
         "-DX86_NOT_WINDOWS",
         "-DZLIB_DEBUG",
         "-DZLIB_IMPLEMENTATION",
         "-D_DEBUG",
-        "-D_FILE_OFFSET_BITS=64",
         "-D_GNU_SOURCE",
-        "-D_LARGEFILE64_SOURCE",
-        "-D_LARGEFILE_SOURCE",
         "-D_LIBCPP_AVAILABILITY_CUSTOM_VERBOSE_ABORT_PROVIDED=1",
         "-D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS",
         "-D_LIBCPP_ENABLE_ASSERTIONS_DEFAULT=1",
@@ -9796,8 +9850,9 @@ cc_library_static {
         "buildtools/third_party/libc++/",
         "buildtools/third_party/libc++/trunk/include",
         "buildtools/third_party/libc++abi/trunk/include",
+        "third_party/android_ndk/sources/android/cpufeatures/",
         "third_party/zlib/",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include",
+        "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
     ],
     cpp_std: "c++20",
 }
