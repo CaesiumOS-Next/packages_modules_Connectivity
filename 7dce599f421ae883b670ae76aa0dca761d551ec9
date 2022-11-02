@@ -142,6 +142,30 @@
       },
       "revId": "7dce599f421ae883b670ae76aa0dca761d551ec9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a007bd8_6bb2f48c",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-02T09:02:09Z",
+      "side": 0,
+      "message": "If the user sets the time to 1 day in the past, polls would stop happening for a day if the wall clock is used (now - lastCallTime \u003c 0). Generally this code expects that time increases monotonically and using the wall clock breaks this assumption, which can be a source of unexpected bugs. Even if it didn\u0027t cause problems for this particular usage I think it would set a bad example that could be copy-pasted in other places and cause bugs.\n\nFor unit testing I think mocking the call to elapsedRealtime would be fine (putting it in the dependency object). Or if mocking the interval like is done in aosp/2273088 works, that should be good too.",
+      "parentUuid": "6b1c3576_53563323",
+      "range": {
+        "startLine": 1307,
+        "startChar": 37,
+        "endLine": 1307,
+        "endChar": 52
+      },
+      "revId": "7dce599f421ae883b670ae76aa0dca761d551ec9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
