@@ -16,6 +16,29 @@
       "message": "Just realized this is part of CTS -- adjusting reviewers.",
       "revId": "35793752b1302632b822c0bc8a093ea61d46e5c1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "221ca8df_0eca81f0",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-11-02T03:53:57Z",
+      "side": 1,
+      "message": "Can you introduce a named constant for this? IPV6_ADDRESS_WAIT_TIME_MS?",
+      "range": {
+        "startLine": 225,
+        "startChar": 59,
+        "endLine": 225,
+        "endChar": 65
+      },
+      "revId": "35793752b1302632b822c0bc8a093ea61d46e5c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
