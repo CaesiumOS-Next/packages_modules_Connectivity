@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2144fc75_30922d1c",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-11-02T10:58:07Z",
+      "side": 1,
+      "message": "I think we might need to have a list of all the overriden targets? Basically a dictionary that maps a target name to a method. Since I doubt they will be just one.\n\nOther than that. This is great.",
+      "range": {
+        "startLine": 857,
+        "startChar": 1,
+        "endLine": 858,
+        "endChar": 46
+      },
+      "revId": "a6c331501c6e55b7f9317462f448e2f027471eda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
