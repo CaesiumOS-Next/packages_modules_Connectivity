@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ca5cba4_dfda27c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-11-02T06:06:03Z",
+      "side": 1,
+      "message": "You may also want to remove the TODO comment in NetworkMonitor since it\u0027s done here.",
+      "revId": "008d164ffb93e2aeea4375ba62ca92e2d4a64b51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78ba4335_adcc0d2a",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 4528,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-11-02T06:06:03Z",
+      "side": 1,
+      "message": "Suggest:\n```\n// Check no interaction with NetworkMonitor    \nverify(mWiFiNetworkAgent.mNetworkMonitor, never())\n       .notifyCaptivePortalAppFinished(CaptivePortal.APP_RETURN_UNWANTED);\n\n// Report that the network is disconnected\nverify(mWiFiNetworkAgent.mNetworkMonitor).notifyNetworkDisconnected();\n```\nIdea is the comment should come with the verification code and add comments to explain what you want to verify. It helps people to understand what you try to verify.",
+      "range": {
+        "startLine": 4525,
+        "startChar": 8,
+        "endLine": 4528,
+        "endChar": 78
+      },
+      "revId": "008d164ffb93e2aeea4375ba62ca92e2d4a64b51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dfe8b66_ababb7fb",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 4528,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-11-02T06:06:03Z",
+      "side": 1,
+      "message": "Nit: From the code flow, the agent disconnect should happen earlier than notifying NetworkMonitor. I think it\u0027s more reasonable to verify NM.notifyNetworkDisconnected after l.4530.",
+      "range": {
+        "startLine": 4528,
+        "startChar": 8,
+        "endLine": 4528,
+        "endChar": 78
+      },
+      "revId": "008d164ffb93e2aeea4375ba62ca92e2d4a64b51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
