@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "239d9c57_66cbfdec",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 4824,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-02T02:09:31Z",
+      "side": 1,
+      "message": "Sorry to impose but if you can be bothered, I think we should actually write mString to the parcel and re-read it in the creator.",
+      "range": {
+        "startLine": 4824,
+        "startChar": 58,
+        "endLine": 4824,
+        "endChar": 60
+      },
+      "revId": "64bba2026f08492791f81c456656a046abd51710",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
