@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bc6b325_60a84a06",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-02T20:13:50Z",
+      "side": 1,
+      "message": "I still think what\u0027s being done here is overkill. Would something like this not work?\n```\nnew_args \u003d []\nfor i, src in enumerate(target.sources):\n  # don\u0027t add script arg for the first source -- create_action_module\n  # already does this.\n  if i !\u003d 0:\n    new_args.add(\u0027\u0026\u0026 python3 $(location %s)\u0027 % \n                 gn_utils.label_to_path(target.script))\n  for arg in target.args:\n    if \u0027{{source_name_part}}\u0027 in arg:\n      source_name_part \u003d os.part.splitext(os.part.basename(src))[0]\n      arg.replace(\u0027{{source_name_part}}\u0027, source_name_part)\n    if \u0027{{blah}}\u0027 in arg:\n      # and so on...\n      pass\n      \ntarget.args \u003d new_args\nreturn create_action_module(blueprint, target)\n```",
+      "range": {
+        "startLine": 724,
+        "startChar": 0,
+        "endLine": 750,
+        "endChar": 53
+      },
+      "revId": "82c7832a59510141d5a014b0634a282ca40f642a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
