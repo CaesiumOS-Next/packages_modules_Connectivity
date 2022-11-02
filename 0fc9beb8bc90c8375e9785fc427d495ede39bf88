@@ -193,6 +193,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1092c735_ed349035",
+        "filename": "Cronet/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-02T02:42:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4ac2ef51_b5c9cfb9",
+      "revId": "0fc9beb8bc90c8375e9785fc427d495ede39bf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40118b8c_9f2f14ec",
@@ -313,6 +331,24 @@
       "side": 1,
       "message": "To keep empty apex, I moved some modules and key back.",
       "parentUuid": "018a40d4_9bece86d",
+      "revId": "0fc9beb8bc90c8375e9785fc427d495ede39bf88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3f8f267_f19f58cb",
+        "filename": "Cronet/apex/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-02T02:42:28Z",
+      "side": 1,
+      "message": "Can you link to the change that cleans this up when you have it ?\n\nIIUC the plan is to merge the change to PRODUCT_PACKAGES in separate branches due to merge conflicts, and have a single AOSP change to clean this up.",
+      "parentUuid": "dd7feca5_14bb85e8",
       "revId": "0fc9beb8bc90c8375e9785fc427d495ede39bf88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

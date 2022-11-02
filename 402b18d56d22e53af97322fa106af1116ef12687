@@ -16,6 +16,29 @@
       "message": "API approving empty change.",
       "revId": "402b18d56d22e53af97322fa106af1116ef12687",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "810c41e4_5e1269e3",
+        "filename": "Cronet/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-02T02:42:28Z",
+      "side": 1,
+      "message": "Nit: This is already set in framework-module-defaults -\u003e framework-module-common-defaults.\n\nNot important enough to respin though.",
+      "range": {
+        "startLine": 100,
+        "startChar": 4,
+        "endLine": 100,
+        "endChar": 26
+      },
+      "revId": "402b18d56d22e53af97322fa106af1116ef12687",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
