@@ -20,6 +20,7 @@ import collections
 import errno
 import filecmp
 import json
+import logging as log
 import os
 import re
 import shutil
@@ -243,6 +244,29 @@ class GnParser(object):
     elif target.type == 'copy':
       # TODO: copy rules are not currently implemented.
       self.actions[gn_target_name] = target
+    elif target.type == 'group':
+      # HACK: figure out if a group is of GN templated type java_library or
+      # android_library.  This information is not present in the gn desc
+      # output, so all there is to go off of are the dependencies.
+      # template("java_library_impl") creates a TARGET__dex target.
+      # TODO: the only way to do this properly is by parsing BUILD.gn files.
+      # This can probably be hacked by searching for
+      # "android_library(\"target_name_extension\").
+      deps = desc.get('deps', [])
+      # both java_library and android_library groups create a __dex target.
+      if target.name + '__dex' in deps:
+        log.debug('Found __dex dependency in %s', target.name)
+        if target.name + '__host' in deps:
+          log.debug('%s is a java_library', target.name)
+          target.type = 'java_library'
+        else:
+          log.debug('%s is an android_library', target.name)
+          target.type = 'android_library'
+        # HACK: Sources are inside inputs of the dependent (via *__dex)
+        # *__compile_java target. Filter inputs for .java files.
+        sources_target_name = target.name + '__compile_java'
+        target.sources.update([src for src in self.gn_desc_[sources_target_name]['inputs']
+                               if os.path.splitext(src)[1] == '.java'])
 
     # Default for 'public' is //* - all headers in 'sources' are public.
     # TODO(primiano): if a 'public' section is specified (even if empty), then
@@ -258,8 +282,14 @@ class GnParser(object):
     target.defines.update(desc.get('defines', []))
     target.include_dirs.update(desc.get('include_dirs', []))
 
+    deps = desc.get('deps', [])
+    # HACK: filter out java_library / android_library dependencies.
+    if target.type in ['android_library', 'java_library']:
+      java_dep_match = re.escape(target.name) + '__[a-z_]+$'
+      deps = [dep for dep in deps if not re.match(java_dep_match, dep)]
+
     # Recurse in dependencies.
-    for dep_name in desc.get('deps', []):
+    for dep_name in deps:
       dep = self.get_target(dep_name)
       if dep.is_third_party_dep_:
         target.deps.add(dep_name)
