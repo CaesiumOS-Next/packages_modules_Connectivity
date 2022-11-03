@@ -57,6 +57,8 @@ import android.system.OsConstants;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.android.compatibility.common.util.PollingCheck;
+import com.android.compatibility.common.util.ShellIdentityUtils;
 import com.android.compatibility.common.util.SystemUtil;
 import com.android.net.module.util.ConnectivitySettingsUtils;
 import com.android.testutils.ConnectUtil;
@@ -78,6 +80,7 @@ public final class CtsNetUtils {
 
     private static final int PRIVATE_DNS_SETTING_TIMEOUT_MS = 10_000;
     private static final int CONNECTIVITY_CHANGE_TIMEOUT_SECS = 30;
+    private static final int WIFI_DISABLE_POLLING_TIMEOUT_MS = 10_000;
 
     private static final String PRIVATE_DNS_MODE_OPPORTUNISTIC = "opportunistic";
     private static final String PRIVATE_DNS_MODE_STRICT = "hostname";
@@ -268,6 +271,19 @@ public final class CtsNetUtils {
     }
 
     /**
+     * Disable WiFi and wait for the connection info to be cleared.
+     */
+    public void disableWifi() throws Exception {
+        SystemUtil.runShellCommand("svc wifi disable");
+        PollingCheck.check(
+                "Wifi not disconnected! Current network is not null "
+                        + mWifiManager.getConnectionInfo().getNetworkId(),
+                WIFI_DISABLE_POLLING_TIMEOUT_MS,
+                () -> ShellIdentityUtils.invokeWithShellPermissions(
+                        () -> mWifiManager.getConnectionInfo().getNetworkId()) == -1);
+    }
+
+    /**
      * Disable WiFi and wait for it to become disconnected from the network.
      *
      * @param wifiNetworkToCheck If non-null, a network that should be disconnected. This network
@@ -323,7 +339,7 @@ public final class CtsNetUtils {
                 }
             }
         } catch (InterruptedException ex) {
-            fail("disconnectFromWifi was interrupted");
+            fail("disconnectFromWifi was interrupted " + ex);
         } finally {
             mCm.unregisterNetworkCallback(callback);
             mContext.unregisterReceiver(receiver);

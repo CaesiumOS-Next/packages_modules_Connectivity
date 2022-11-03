@@ -54,6 +54,8 @@ import android.os.ConditionVariable;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.android.compatibility.common.util.PollingCheck;
+import com.android.compatibility.common.util.ShellIdentityUtils;
 import com.android.compatibility.common.util.SystemUtil;
 import com.android.net.module.util.ArrayTrackRecord;
 
@@ -478,7 +480,9 @@ public final class CtsTetheringUtils {
             waitForWifiEnabled(ctx);
             return runAsShell(ACCESS_WIFI_STATE, () -> wm.isPortableHotspotSupported());
         } finally {
-            if (!previousWifiEnabledState) SystemUtil.runShellCommand("svc wifi disable");
+            if (!previousWifiEnabledState) {
+                new CtsNetUtils(ctx).disableWifi();
+            }
         }
     }
 
