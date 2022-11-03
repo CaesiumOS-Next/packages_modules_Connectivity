@@ -8900,6 +8900,13 @@ public class ConnectivityServiceTest {
         removedIntent.putExtra(Intent.EXTRA_USER, UserHandle.of(RESTRICTED_USER));
         removedIntent.putExtra(Intent.EXTRA_USER_HANDLE, RESTRICTED_USER);
         processBroadcast(removedIntent);
+        // There is now a short delay in the processing of removals from lockdown rules to prevent
+        // UIDs from being briefly unblocked when removing and adding overlapping ranges.
+        // Wait for a generous length of time, then wait for idle, and then do the checks.
+        final int waitTime =
+                Math.max(5, ConnectivityService.SET_REQUIRE_VPN_FOR_UIDS_REMOVAL_DELAY_MS) * 2;
+        Thread.sleep(waitTime);
+        waitForIdle();
         assertNull(mCm.getActiveNetworkForUid(uid));
         assertNotNull(mCm.getActiveNetworkForUid(restrictedUid));
 
@@ -9848,9 +9855,15 @@ public class ConnectivityServiceTest {
 
         // Disable lockdown
         mCm.setRequireVpnForUids(false /* requireVPN */, lockdownRange);
-        waitForIdle();
 
         // Lockdown rule is removed from apps uids
+        // There is now a short delay in the processing of removals from lockdown rules to prevent
+        // UIDs from being briefly unblocked when removing and adding overlapping ranges.
+        // Wait for a generous length of time, then wait for idle, and then do the checks.
+        final int waitTime =
+                Math.max(5, ConnectivityService.SET_REQUIRE_VPN_FOR_UIDS_REMOVAL_DELAY_MS) * 2;
+        Thread.sleep(waitTime);
+        waitForIdle();
         verify(mBpfNetMaps, times(3)).updateUidLockdownRule(anyInt(), eq(false) /* add */);
         verify(mBpfNetMaps).updateUidLockdownRule(APP1_UID, false /* add */);
         verify(mBpfNetMaps).updateUidLockdownRule(APP2_UID, false /* add */);
@@ -10912,15 +10925,13 @@ public class ConnectivityServiceTest {
         assertContainsExactly(uidCaptor.getAllValues().get(1), APP1_UID, APP2_UID);
 
         reset(mBpfNetMaps);
-        InOrder inOrder = inOrder(mBpfNetMaps);
         lp.setInterfaceName("tun1");
         mMockVpn.sendLinkProperties(lp);
         waitForIdle();
-        // VPN handover (switch to a new interface) should result in rules being updated (old rules
-        // removed first, then new rules added)
-        inOrder.verify(mBpfNetMaps).removeUidInterfaceRules(uidCaptor.capture());
-        assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
-        inOrder.verify(mBpfNetMaps).addUidInterfaceRules(eq("tun1"), uidCaptor.capture());
+        // VPN handover (switch to a new interface) should result in rules being updated.
+        // This does not require removing old rules.
+        verify(mBpfNetMaps, never()).removeUidInterfaceRules(any());
+        verify(mBpfNetMaps).addUidInterfaceRules(eq("tun1"), uidCaptor.capture());
         assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
 
         reset(mBpfNetMaps);
@@ -10929,9 +10940,17 @@ public class ConnectivityServiceTest {
         lp.addRoute(new RouteInfo(new IpPrefix("192.0.2.0/24"), null, "tun1"));
         mMockVpn.sendLinkProperties(lp);
         waitForIdle();
-        // VPN not routing everything should no longer have interface filtering rules
-        verify(mBpfNetMaps).removeUidInterfaceRules(uidCaptor.capture());
-        assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
+        if (SdkLevel.isAtLeastT()) {
+            // VPN not routing everything should switch to wildcard interface filtering rule
+            verify(mBpfNetMaps).addUidInterfaceRules(eq(null) /* iface */,
+                    uidCaptor.capture());
+            assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
+            verify(mBpfNetMaps, never()).removeUidInterfaceRules(any());
+        } else {
+            // VPN not routing everything should no longer have interface filtering rules
+            verify(mBpfNetMaps).removeUidInterfaceRules(uidCaptor.capture());
+            assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
+        }
 
         reset(mBpfNetMaps);
         lp = new LinkProperties();
@@ -10943,6 +10962,8 @@ public class ConnectivityServiceTest {
         // Back to routing all IPv6 traffic should have filtering rules
         verify(mBpfNetMaps).addUidInterfaceRules(eq("tun1"), uidCaptor.capture());
         assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
+        // Still should not need to remove anything for an interface change
+        verify(mBpfNetMaps, never()).removeUidInterfaceRules(any());
     }
 
     @Test
@@ -10968,11 +10989,11 @@ public class ConnectivityServiceTest {
         waitForIdle();
 
         ArgumentCaptor<int[]> uidCaptor = ArgumentCaptor.forClass(int[].class);
-        // Verify old rules are removed before new rules are added
+        // Verify APP1 is removed and nothing is added, as this is the only change.
         inOrder.verify(mBpfNetMaps).removeUidInterfaceRules(uidCaptor.capture());
-        assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
-        inOrder.verify(mBpfNetMaps).addUidInterfaceRules(eq("tun0"), uidCaptor.capture());
-        assertContainsExactly(uidCaptor.getValue(), APP2_UID);
+        assertContainsExactly(uidCaptor.getValue(), APP1_UID);
+        inOrder.verify(mBpfNetMaps, never()).addUidInterfaceRules(any(), any());
+        reset(mBpfNetMaps);
     }
 
     @Test
@@ -12176,6 +12197,12 @@ public class ConnectivityServiceTest {
         inOrder.verify(mMockNetd, times(1)).socketDestroy(eq(toUidRangeStableParcels(vpnRanges)),
                 exemptUidCaptor.capture());
         assertContainsExactly(exemptUidCaptor.getValue(), Process.VPN_UID, exemptUid);
+
+        // VPN UID ranges are not expected to be updated back-to-back now that a diff is computed.
+        inOrder.verify(mMockNetd, never()).socketDestroy(any(), any());
+        inOrder.verify(mMockNetd, never()).networkAddUidRangesParcel(any());
+        inOrder.verify(mMockNetd, never()).networkRemoveUidRangesParcel(any());
+        reset(mMockNetd);
     }
 
     @Test
@@ -12206,8 +12233,12 @@ public class ConnectivityServiceTest {
         mMockVpn.setUids(newRanges);
         waitForIdle();
 
-        assertVpnUidRangesUpdated(true, newRanges, VPN_UID);
-        assertVpnUidRangesUpdated(false, vpnRanges, VPN_UID);
+        // APP1_UID = 10100
+        // prevRanges: 0-99999
+        //  newRanges: 0-10099, 10101-99999
+        // expected update: remove 10100-10100
+        assertVpnUidRangesUpdated(false /* add */,
+                new HashSet<>(asList(new UidRange(APP1_UID, APP1_UID))), VPN_UID);
 
         // Uid has changed but proxy is not set, so there is no need to send proxy broadcast.
         b2.expectNoBroadcast(500);
