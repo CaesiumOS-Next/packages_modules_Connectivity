@@ -291,16 +291,19 @@ public final class MacAddress implements Parcelable {
         return longAddr;
     }
 
+    private static @NonNull String octetToString(long octet) {
+        StringBuilder sb = new StringBuilder();
+        if (octet < 0x10) sb.append("0");
+        sb.append(Long.toHexString(octet));
+        return sb.toString();
+    }
+
     // Internal conversion function equivalent to stringAddrFromByteAddr(byteAddrFromLongAddr(addr))
     // that avoids the allocation of an intermediary byte[].
     private static @NonNull String stringAddrFromLongAddr(long addr) {
-        return String.format("%02x:%02x:%02x:%02x:%02x:%02x",
-                (addr >> 40) & 0xff,
-                (addr >> 32) & 0xff,
-                (addr >> 24) & 0xff,
-                (addr >> 16) & 0xff,
-                (addr >> 8) & 0xff,
-                addr & 0xff);
+        return octetToString((addr >> 40) & 0xff) + ":" + octetToString((addr >> 32) & 0xff) + ":"
+                + octetToString((addr >> 24) & 0xff) + ":" + octetToString((addr >> 16) & 0xff)
+                + ":" + octetToString((addr >> 8) & 0xff) + ":" + octetToString(addr & 0xff);
     }
 
     /**
