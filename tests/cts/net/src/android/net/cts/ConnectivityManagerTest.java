@@ -181,6 +181,8 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.RequiresDevice;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.compatibility.common.util.PollingCheck;
+import com.android.compatibility.common.util.ShellIdentityUtils;
 import com.android.internal.util.ArrayUtils;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.CollectionUtils;
@@ -2823,6 +2825,11 @@ public class ConnectivityManagerTest {
             // apply here. Thus, turn off wifi first and restart to restore.
             mTestValidationConfigRule.runAfterNextCleanup(() -> {
                 runShellCommand("svc wifi disable");
+                PollingCheck.check(
+                        "Wifi not disconnected! Current network is not null",
+                        10_000,
+                        () -> ShellIdentityUtils.invokeWithShellPermissions(
+                                () -> mWifiManager.getConnectionInfo().getNetworkId()) != -1);
                 mCtsNetUtils.ensureWifiConnected();
             });
         }
@@ -2865,6 +2872,11 @@ public class ConnectivityManagerTest {
             // apply here. Thus, turn off wifi first and restart to restore.
             mTestValidationConfigRule.runAfterNextCleanup(() -> {
                 runShellCommand("svc wifi disable");
+                PollingCheck.check(
+                        "Wifi not disconnected! Current network is not null",
+                        10_000,
+                        () -> ShellIdentityUtils.invokeWithShellPermissions(
+                                () -> mWifiManager.getConnectionInfo().getNetworkId()) != -1);
                 mCtsNetUtils.ensureWifiConnected();
             });
         }
