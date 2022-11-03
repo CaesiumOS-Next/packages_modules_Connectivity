@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc4f1578_a50b9ed4",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsNsecRecord.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-03T06:07:44Z",
+      "side": 1,
+      "message": "Suggestion: use mTypeBitMaps as RFC3845 #2.1.2 title to avoid confusion with mType.",
+      "range": {
+        "startLine": 32,
+        "startChar": 18,
+        "endLine": 32,
+        "endChar": 24
+      },
+      "revId": "0e5b0c700c7d05a2fe9a044c262bdad47ce4ec40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbe4fa77_c84881e1",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsNsecRecord.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-03T06:07:44Z",
+      "side": 1,
+      "message": "Fit for one line.",
+      "range": {
+        "startLine": 126,
+        "startChar": 12,
+        "endLine": 127,
+        "endChar": 33
+      },
+      "revId": "0e5b0c700c7d05a2fe9a044c262bdad47ce4ec40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "273528ea_ce5e1468",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-03T06:07:44Z",
+      "side": 1,
+      "message": "Not sure what you mean here?",
+      "range": {
+        "startLine": 323,
+        "startChar": 37,
+        "endLine": 323,
+        "endChar": 41
+      },
+      "revId": "0e5b0c700c7d05a2fe9a044c262bdad47ce4ec40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e07c6da7_a701b4ce",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-03T06:07:44Z",
+      "side": 1,
+      "message": "The name is verified on Line#348, it\u0027s not necessary to verify again.",
+      "range": {
+        "startLine": 351,
+        "startChar": 7,
+        "endLine": 351,
+        "endChar": 83
+      },
+      "revId": "0e5b0c700c7d05a2fe9a044c262bdad47ce4ec40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bcf2656_548de188",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-03T06:07:44Z",
+      "side": 1,
+      "message": "This is upside down as I discompose the hex by scapy. But I saw you corret it on next commit. Maybe put that change here.",
+      "range": {
+        "startLine": 357,
+        "startChar": 16,
+        "endLine": 358,
+        "endChar": 35
+      },
+      "revId": "0e5b0c700c7d05a2fe9a044c262bdad47ce4ec40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73e8daa2_d83176b4",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-03T06:07:44Z",
+      "side": 1,
+      "message": "These are also duplicated with any, text, service record encoding check. We should add a method for these.",
+      "range": {
+        "startLine": 360,
+        "startChar": 8,
+        "endLine": 368,
+        "endChar": 46
+      },
+      "revId": "0e5b0c700c7d05a2fe9a044c262bdad47ce4ec40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
