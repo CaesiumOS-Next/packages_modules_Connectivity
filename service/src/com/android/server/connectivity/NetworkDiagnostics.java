@@ -404,12 +404,21 @@ public class NetworkDiagnostics {
     }
 
 
-    private class SimpleSocketCheck implements Closeable {
+    private class CloseableSocketFd implements Closeable {
+        protected FileDescriptor mSocketFd;
+        protected CloseableSocketFd(int addressFamily, int sockType, int protocol) throws ErrnoException {
+            mSocketFd = Os.socket(addressFamily, sockType, protocol);
+        }
+        @Override
+        public void close() {
+            IoUtils.closeQuietly(mSocketFd);
+        }
+    }
+    private class SimpleSocketCheck {
         protected final InetAddress mSource;  // Usually null.
         protected final InetAddress mTarget;
         protected final int mAddressFamily;
         protected final Measurement mMeasurement;
-        protected FileDescriptor mFileDescriptor;
         protected SocketAddress mSocketAddress;
 
         protected SimpleSocketCheck(
@@ -442,30 +451,36 @@ public class NetworkDiagnostics {
             this(null, target, measurement);
         }
 
-        protected void setupSocket(
+        protected CloseableSocketFd setupSocket(
                 int sockType, int protocol, long writeTimeout, long readTimeout, int dstPort)
                 throws ErrnoException, IOException {
             final int oldTag = TrafficStats.getAndSetThreadStatsTag(
                     NetworkStackConstants.TAG_SYSTEM_PROBE);
+            CloseableSocketFd socketFd = null;
             try {
-                mFileDescriptor = Os.socket(mAddressFamily, sockType, protocol);
-            } finally {
-                // TODO: The tag should remain set until all traffic is sent and received.
-                // Consider tagging the socket after the measurement thread is started.
-                TrafficStats.setThreadStatsTag(oldTag);
+                try {
+                    socketFd = new CloseableSocketFd(mAddressFamily, sockType, protocol);
+                } finally {
+                    // TODO: The tag should remain set until all traffic is sent and received.
+                    // Consider tagging the socket after the measurement thread is started.
+                    TrafficStats.setThreadStatsTag(oldTag);
+                }
+                // Setting SNDTIMEO is purely for defensive purposes.
+                Os.setsockoptTimeval(socketFd.mSocketFd,
+                        SOL_SOCKET, SO_SNDTIMEO, StructTimeval.fromMillis(writeTimeout));
+                Os.setsockoptTimeval(socketFd.mSocketFd,
+                        SOL_SOCKET, SO_RCVTIMEO, StructTimeval.fromMillis(readTimeout));
+                // TODO: Use IP_RECVERR/IPV6_RECVERR, pending OsContants availability.
+                mNetwork.bindSocket(socketFd.mSocketFd);
+                if (mSource != null) {
+                    Os.bind(socketFd.mSocketFd, mSource, 0);
+                }
+                Os.connect(socketFd.mSocketFd, mTarget, dstPort);
+                mSocketAddress = Os.getsockname(socketFd.mSocketFd);
+            } catch (ErrnoException | IOException e) {
+                mMeasurement.recordFailure(e.toString());
             }
-            // Setting SNDTIMEO is purely for defensive purposes.
-            Os.setsockoptTimeval(mFileDescriptor,
-                    SOL_SOCKET, SO_SNDTIMEO, StructTimeval.fromMillis(writeTimeout));
-            Os.setsockoptTimeval(mFileDescriptor,
-                    SOL_SOCKET, SO_RCVTIMEO, StructTimeval.fromMillis(readTimeout));
-            // TODO: Use IP_RECVERR/IPV6_RECVERR, pending OsContants availability.
-            mNetwork.bindSocket(mFileDescriptor);
-            if (mSource != null) {
-                Os.bind(mFileDescriptor, mSource, 0);
-            }
-            Os.connect(mFileDescriptor, mTarget, dstPort);
-            mSocketAddress = Os.getsockname(mFileDescriptor);
+            return socketFd;
         }
 
         protected boolean ensureMeasurementNecessary() {
@@ -474,11 +489,6 @@ public class NetworkDiagnostics {
             // Countdown latch was not decremented when the measurement failed during setup.
             mCountDownLatch.countDown();
             return true;
-        }
-
-        @Override
-        public void close() {
-            IoUtils.closeQuietly(mFileDescriptor);
         }
     }
 
@@ -509,17 +519,7 @@ public class NetworkDiagnostics {
         public IcmpCheck(InetAddress target, Measurement measurement) {
             this(null, target, measurement);
         }
-
-        @Override
-        public void run() {
-            if (ensureMeasurementNecessary()) return;
-
-            try {
-                setupSocket(SOCK_DGRAM, mProtocol, TIMEOUT_SEND, TIMEOUT_RECV, 0);
-            } catch (ErrnoException | IOException e) {
-                mMeasurement.recordFailure(e.toString());
-                return;
-            }
+        private void sendIcmpProbe(CloseableSocketFd socketFd) {
             mMeasurement.description += " src{" + socketAddressToString(mSocketAddress) + "}";
 
             // Build a trivial ICMP packet.
@@ -533,7 +533,7 @@ public class NetworkDiagnostics {
                 count++;
                 icmpPacket[icmpPacket.length - 1] = (byte) count;
                 try {
-                    Os.write(mFileDescriptor, icmpPacket, 0, icmpPacket.length);
+                    Os.write(socketFd.mSocketFd, icmpPacket, 0, icmpPacket.length);
                 } catch (ErrnoException | InterruptedIOException e) {
                     mMeasurement.recordFailure(e.toString());
                     break;
@@ -541,7 +541,7 @@ public class NetworkDiagnostics {
 
                 try {
                     ByteBuffer reply = ByteBuffer.allocate(PACKET_BUFSIZE);
-                    Os.read(mFileDescriptor, reply);
+                    Os.read(socketFd.mSocketFd, reply);
                     // TODO: send a few pings back to back to guesstimate packet loss.
                     mMeasurement.recordSuccess("1/" + count);
                     break;
@@ -552,8 +552,19 @@ public class NetworkDiagnostics {
             if (mMeasurement.finishTime == 0) {
                 mMeasurement.recordFailure("0/" + count);
             }
+        }
 
-            close();
+        @Override
+        public void run() {
+            if (ensureMeasurementNecessary()) return;
+
+            try (CloseableSocketFd socketFd = setupSocket(SOCK_DGRAM, mProtocol, TIMEOUT_SEND, TIMEOUT_RECV, 0)){
+                if (socketFd == null) return;
+                sendIcmpProbe(socketFd);
+            } catch (ErrnoException | IOException e) {
+                mMeasurement.recordFailure(e.toString());
+                return;
+            }
         }
     }
 
@@ -590,19 +601,7 @@ public class NetworkDiagnostics {
 
             mMeasurement.description = "DNS UDP dst{" + mTarget.getHostAddress() + "}";
         }
-
-        @Override
-        public void run() {
-            if (ensureMeasurementNecessary()) return;
-
-            try {
-                setupSocket(SOCK_DGRAM, IPPROTO_UDP, TIMEOUT_SEND, TIMEOUT_RECV,
-                        NetworkConstants.DNS_SERVER_PORT);
-            } catch (ErrnoException | IOException e) {
-                mMeasurement.recordFailure(e.toString());
-                return;
-            }
-
+        void sendDnsUdpProbe(CloseableSocketFd socketFd) {
             // This needs to be fixed length so it can be dropped into the pre-canned packet.
             final String sixRandomDigits = String.valueOf(mRandom.nextInt(900000) + 100000);
             appendDnsToMeasurementDescription(sixRandomDigits, mSocketAddress);
@@ -615,7 +614,7 @@ public class NetworkDiagnostics {
             while (now() < mDeadlineTime - (TIMEOUT_RECV + TIMEOUT_RECV)) {
                 count++;
                 try {
-                    Os.write(mFileDescriptor, dnsPacket, 0, dnsPacket.length);
+                    Os.write(socketFd.mSocketFd, dnsPacket, 0, dnsPacket.length);
                 } catch (ErrnoException | InterruptedIOException e) {
                     mMeasurement.recordFailure(e.toString());
                     break;
@@ -623,7 +622,7 @@ public class NetworkDiagnostics {
 
                 try {
                     ByteBuffer reply = ByteBuffer.allocate(PACKET_BUFSIZE);
-                    Os.read(mFileDescriptor, reply);
+                    Os.read(socketFd.mSocketFd, reply);
                     // TODO: more correct and detailed evaluation of the response,
                     // possibly adding the returned IP address(es) to the output.
                     final String rcodeStr = (reply.limit() > 3)
@@ -638,8 +637,20 @@ public class NetworkDiagnostics {
             if (mMeasurement.finishTime == 0) {
                 mMeasurement.recordFailure("0/" + count);
             }
+        }
 
-            close();
+        @Override
+        public void run() {
+            if (ensureMeasurementNecessary()) return;
+
+            try (CloseableSocketFd socketFd = setupSocket(SOCK_DGRAM, IPPROTO_UDP, TIMEOUT_SEND, TIMEOUT_RECV,
+                        NetworkConstants.DNS_SERVER_PORT)){
+                if (socketFd == null) return;
+                sendDnsUdpProbe(socketFd);
+            } catch (ErrnoException | IOException e) {
+                mMeasurement.recordFailure(e.toString());
+                return;
+            }
         }
 
         protected byte[] getDnsQueryPacket(String sixRandomDigits) {
