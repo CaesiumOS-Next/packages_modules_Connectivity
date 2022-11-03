@@ -181,6 +181,8 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.RequiresDevice;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.compatibility.common.util.PollingCheck;
+import com.android.compatibility.common.util.ShellIdentityUtils;
 import com.android.internal.util.ArrayUtils;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.CollectionUtils;
@@ -2822,7 +2824,7 @@ public class ConnectivityManagerTest {
             // Wifi will not automatically reconnect to the network. ensureWifiDisconnected cannot
             // apply here. Thus, turn off wifi first and restart to restore.
             mTestValidationConfigRule.runAfterNextCleanup(() -> {
-                runShellCommand("svc wifi disable");
+                mCtsNetUtils.disableWifi();
                 mCtsNetUtils.ensureWifiConnected();
             });
         }
@@ -2864,7 +2866,7 @@ public class ConnectivityManagerTest {
             /// Wifi will not automatically reconnect to the network. ensureWifiDisconnected cannot
             // apply here. Thus, turn off wifi first and restart to restore.
             mTestValidationConfigRule.runAfterNextCleanup(() -> {
-                runShellCommand("svc wifi disable");
+                mCtsNetUtils.disableWifi();
                 mCtsNetUtils.ensureWifiConnected();
             });
         }

@@ -57,6 +57,8 @@ import android.system.OsConstants;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.android.compatibility.common.util.PollingCheck;
+import com.android.compatibility.common.util.ShellIdentityUtils;
 import com.android.compatibility.common.util.SystemUtil;
 import com.android.net.module.util.ConnectivitySettingsUtils;
 import com.android.testutils.ConnectUtil;
@@ -268,6 +270,19 @@ public final class CtsNetUtils {
     }
 
     /**
+     * Disable WiFi and wait for the connection info to be cleared.
+     */
+    public void disableWifi() throws Exception {
+        SystemUtil.runShellCommand("svc wifi disable");
+        PollingCheck.check(
+                "Wifi not disconnected! Current network is not null "
+                        + mWifiManager.getConnectionInfo().getNetworkId(),
+                10_000,
+                () -> ShellIdentityUtils.invokeWithShellPermissions(
+                        () -> mWifiManager.getConnectionInfo().getNetworkId()) == -1);
+    }
+
+    /**
      * Disable WiFi and wait for it to become disconnected from the network.
      *
      * @param wifiNetworkToCheck If non-null, a network that should be disconnected. This network
@@ -322,8 +337,8 @@ public final class CtsNetUtils {
                     assertTrue("Wifi failed to reach DISCONNECTED state.", receiver.waitForState());
                 }
             }
-        } catch (InterruptedException ex) {
-            fail("disconnectFromWifi was interrupted");
+        } catch (Exception ex) {
+            fail("disconnectFromWifi was interrupted " + ex);
         } finally {
             mCm.unregisterNetworkCallback(callback);
             mContext.unregisterReceiver(receiver);
