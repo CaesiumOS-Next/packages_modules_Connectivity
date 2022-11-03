@@ -65,14 +65,11 @@ public class MdnsDiscoveryManager implements MdnsSocketClient.Callback {
         LOGGER.log(
                 "Registering listener for subtypes: %s",
                 TextUtils.join(",", searchOptions.getSubtypes()));
-        if (serviceTypeClients.isEmpty()) {
-            // First listener. Starts the socket client.
-            try {
-                mSocketManager.startDiscovery();
-            } catch (IOException e) {
-                LOGGER.e("Failed to start discover.", e);
-                return;
-            }
+        try {
+            mSocketManager.startDiscovery(listener);
+        } catch (IOException e) {
+            LOGGER.e("Failed to start discover.", e);
+            return;
         }
         // All listeners of the same service types shares the same MdnsServiceTypeClient.
         MdnsServiceTypeClient serviceTypeClient = serviceTypeClients.get(serviceType);
@@ -102,11 +99,8 @@ public class MdnsDiscoveryManager implements MdnsSocketClient.Callback {
             // No listener is registered for the service type anymore, remove it from the list of
             // the service type clients.
             serviceTypeClients.remove(serviceType);
-            if (serviceTypeClients.isEmpty()) {
-                // No discovery request. Stops the socket client.
-                mSocketManager.stopDiscovery();
-            }
         }
+        mSocketManager.stopDiscovery(listener);
     }
 
     private boolean isResponseTypeMatchedRequestType(String[] response, String[] request) {

@@ -396,4 +396,8 @@ public class MdnsResponse {
 
         return count;
     }
+
+    public synchronized String getNameWithIndex() {
+        return getServiceInstanceName() + "/" + interfaceIndex;
+    }
 }

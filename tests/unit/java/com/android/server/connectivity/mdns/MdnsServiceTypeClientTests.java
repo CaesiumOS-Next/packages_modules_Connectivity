@@ -32,7 +32,6 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -500,34 +499,60 @@ public class MdnsServiceTypeClientTests {
     }
 
     @Test
-    public void processResponse_goodBye() {
+    public void processResponse_goodBye() throws Exception {
         client.startSendAndReceive(mockListenerOne, MdnsSearchOptions.getDefaultOptions());
         client.startSendAndReceive(mockListenerTwo, MdnsSearchOptions.getDefaultOptions());
         client.startSendAndReceive(mResolutionListener, MdnsSearchOptions.getDefaultOptions());
 
-        MdnsResponse response = mock(MdnsResponse.class);
-        when(response.getServiceInstanceName()).thenReturn("goodbye-service-instance-name");
-        when(response.isGoodbye()).thenReturn(true);
-        client.processResponse(response);
+        final String serviceName = "goodbye-service-instance-name";
+        MdnsResponse goodbyeResponse = mock(MdnsResponse.class);
+        when(goodbyeResponse.getServiceInstanceName()).thenReturn(serviceName);
+        when(goodbyeResponse.isGoodbye()).thenReturn(true);
+        client.processResponse(goodbyeResponse);
 
+        verify(mockListenerOne, never()).onServiceRemoved(any());
+        verify(mockListenerTwo, never()).onServiceRemoved(any());
+
+        final String ipV4Address = "192.168.1.1";
+        final int interfaceIndex = 999;
+        doReturn(serviceName + "/" + interfaceIndex).when(goodbyeResponse).getNameWithIndex();
+        // Process the initial response.
+        MdnsResponse initialResponse =
+                createResponse(
+                        serviceName,
+                        ipV4Address,
+                        5353,
+                        Collections.singletonList("ABCDE"),
+                        Collections.emptyMap(),
+                        /* interfaceIndex= */ interfaceIndex);
+        client.processResponse(initialResponse);
+        verify(mockListenerOne).onServiceFound(argThat(
+                info -> info.getServiceInstanceName().equals(serviceName)));
+        verify(mockListenerTwo).onServiceFound(argThat(
+                info -> info.getServiceInstanceName().equals(serviceName)));
+        verify(mResolutionListener).onServiceResolved(argThat(
+                info -> info.getServiceInstanceName().equals(serviceName)));
+
+        client.processResponse(goodbyeResponse);
         verify(mockListenerOne).onServiceRemoved(argThat(
-                info -> info.getServiceInstanceName().equals("goodbye-service-instance-name")));
+                info -> info.getServiceInstanceName().equals(serviceName)));
         verify(mockListenerTwo).onServiceRemoved(argThat(
-                info -> info.getServiceInstanceName().equals("goodbye-service-instance-name")));
-        verify(mResolutionListener).getInterfaceIndex();
-        verifyNoMoreInteractions(mResolutionListener);
+                info -> info.getServiceInstanceName().equals(serviceName)));
     }
 
     @Test
     public void reportExistingServiceToNewlyRegisteredListeners() throws Exception {
+        final String serviceName = "service-instance-1";
+        final int interfaceIndex = 999;
         // Process the initial response.
         MdnsResponse initialResponse =
                 createResponse(
-                        "service-instance-1",
+                        serviceName,
                         "192.168.1.1",
                         5353,
                         Collections.singletonList("ABCDE"),
-                        Collections.emptyMap());
+                        Collections.emptyMap(),
+                        interfaceIndex);
         client.processResponse(initialResponse);
 
         client.startSendAndReceive(mockListenerOne, MdnsSearchOptions.getDefaultOptions());
@@ -535,7 +560,7 @@ public class MdnsServiceTypeClientTests {
         // Verify onServiceFound was called once for the existing response.
         verify(mockListenerOne).onServiceFound(serviceInfoCaptor.capture());
         MdnsServiceInfo existingServiceInfo = serviceInfoCaptor.getAllValues().get(0);
-        assertEquals(existingServiceInfo.getServiceInstanceName(), "service-instance-1");
+        assertEquals(existingServiceInfo.getServiceInstanceName(), serviceName);
         assertEquals(existingServiceInfo.getIpv4Address(), "192.168.1.1");
         assertEquals(existingServiceInfo.getPort(), 5353);
         assertEquals(existingServiceInfo.getSubtypes(), Collections.singletonList("ABCDE"));
@@ -543,8 +568,9 @@ public class MdnsServiceTypeClientTests {
 
         // Process a goodbye message for the existing response.
         MdnsResponse goodByeResponse = mock(MdnsResponse.class);
-        when(goodByeResponse.getServiceInstanceName()).thenReturn("service-instance-1");
+        when(goodByeResponse.getServiceInstanceName()).thenReturn(serviceName);
         when(goodByeResponse.isGoodbye()).thenReturn(true);
+        doReturn(serviceName + "/" + interfaceIndex).when(goodByeResponse).getNameWithIndex();
         client.processResponse(goodByeResponse);
 
         client.startSendAndReceive(mockListenerTwo, MdnsSearchOptions.getDefaultOptions());

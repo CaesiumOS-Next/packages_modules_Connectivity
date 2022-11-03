@@ -25,6 +25,7 @@ import android.annotation.Nullable;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.ArraySet;
+import android.util.Log;
 import android.util.Pair;
 
 import com.android.internal.annotations.GuardedBy;
@@ -48,7 +49,8 @@ import java.util.concurrent.ScheduledExecutorService;
  * registered {@link MdnsServiceListener} instances.
  */
 public class MdnsServiceTypeClient {
-
+    private static final String TAG = MdnsServiceTypeClient.class.getSimpleName();
+    private static final boolean DBG = Log.isLoggable(TAG, Log.DEBUG);
     private static final int DEFAULT_MTU = 1500;
     private static final MdnsLogger LOGGER = new MdnsLogger("MdnsServiceTypeClient");
 
@@ -231,17 +233,21 @@ public class MdnsServiceTypeClient {
     }
 
     private void onResponseReceived(@NonNull MdnsResponse response) {
+        if (!response.isComplete()) {
+            if (DBG) Log.d(TAG, "Ignore the incomplete response!");
+            return;
+        }
+
         MdnsResponse currentResponse;
-        currentResponse = instanceNameToResponse.get(response.getServiceInstanceName());
+        currentResponse = instanceNameToResponse.get(response.getNameWithIndex());
 
         boolean newServiceFound = false;
         boolean existingServiceChanged = false;
         if (currentResponse == null) {
             newServiceFound = true;
             currentResponse = response;
-            String serviceInstanceName = response.getServiceInstanceName();
-            if (serviceInstanceName != null) {
-                instanceNameToResponse.put(serviceInstanceName, currentResponse);
+            if (response.getServiceInstanceName() != null) {
+                instanceNameToResponse.put(response.getNameWithIndex(), currentResponse);
             }
         } else if (currentResponse.mergeRecordsFrom(response)) {
             existingServiceChanged = true;
@@ -288,7 +294,12 @@ public class MdnsServiceTypeClient {
         if (serviceInstanceName == null) {
             return;
         }
-        instanceNameToResponse.remove(serviceInstanceName);
+        final String nameWithIndex = response.getNameWithIndex();
+        if (!instanceNameToResponse.containsKey(nameWithIndex)) {
+            if (DBG) Log.d(TAG, "Service is already removed or not existed.");
+            return;
+        }
+        instanceNameToResponse.remove(nameWithIndex);
         for (MdnsServiceListener listener : listeners) {
             final int interfaceIndex = listener.getInterfaceIndex();
             if (isResponseInterfaceMatched(interfaceIndex, response)) {

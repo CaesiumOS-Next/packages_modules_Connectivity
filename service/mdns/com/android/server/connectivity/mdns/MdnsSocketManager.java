@@ -16,6 +16,8 @@
 
 package com.android.server.connectivity.mdns;
 
+import static com.android.server.connectivity.mdns.MdnsSocket.INTERFACE_INDEX_UNSPECIFIED;
+
 import android.annotation.NonNull;
 import android.content.Context;
 import android.net.wifi.WifiManager.MulticastLock;
@@ -39,6 +41,8 @@ public class MdnsSocketManager {
     private final MulticastLock mMulticastLock;
     private final Map<String, MdnsSocketClient> mInterfaceSocketClients = new ArrayMap<>();
     private MdnsSocketClient.Callback mCallback = null;
+    private final Set<MdnsServiceListener> mRequests = new ArraySet<>();
+    private final Set<MdnsSocketClient> mDiscoveryClients = new ArraySet<>();
 
     public MdnsSocketManager(Context context, MulticastNetworkInterfaceProvider provider,
             MulticastLock multicastLock) {
@@ -73,22 +77,28 @@ public class MdnsSocketManager {
         }
     }
 
-    /*** Start mDns discovery on each socket */
-    public void startDiscovery() throws IOException {
+    /*** Start discovery on given request's interface */
+    public void startDiscovery(MdnsServiceListener request) throws IOException {
         boolean discoveryStarted = false;
         // Check all available interfaces and create socket if necessary.
         createSocketClients();
 
+        final int requestIndex = request.getInterfaceIndex();
         for (MdnsSocketClient client : mInterfaceSocketClients.values()) {
-            try {
-                client.startDiscovery();
-                discoveryStarted = true;
-            } catch (IOException e) {
-                Log.e(TAG, "Can not start discovery on client=" + client);
+            final int clientIndex = client.getInterfaceIndex();
+            if (requestIndex == INTERFACE_INDEX_UNSPECIFIED || requestIndex == clientIndex) {
+                try {
+                    client.startDiscovery();
+                    discoveryStarted = true;
+                    mDiscoveryClients.add(client);
+                } catch (IOException e) {
+                    Log.e(TAG, "Can not start discovery on client=" + client);
+                }
             }
         }
 
         if (!discoveryStarted) throw new IOException("Can not start discovery on all clients");
+        mRequests.add(request);
     }
 
     private void clearSocketClientsIfNeed() {
@@ -111,17 +121,33 @@ public class MdnsSocketManager {
         }
     }
 
-    /*** Stop mDns discovery on each socket */
-    public void stopDiscovery() {
-        for (MdnsSocketClient client : mInterfaceSocketClients.values()) {
-            client.stopDiscovery();
+    /*** Stop discovery on given request's interface */
+    public void stopDiscovery(MdnsServiceListener request) {
+        mRequests.remove(request);
+
+        final Set<MdnsSocketClient> clients = new ArraySet<>(mDiscoveryClients);
+        final int stoppedIndex = request.getInterfaceIndex();
+        for (MdnsSocketClient client : clients) {
+            boolean keepDiscovering = false;
+            for (MdnsServiceListener r : mRequests) {
+                final int discoveringIndex = r.getInterfaceIndex();
+                if (discoveringIndex == INTERFACE_INDEX_UNSPECIFIED
+                        || discoveringIndex == stoppedIndex) {
+                    keepDiscovering = true;
+                    break;
+                }
+            }
+            if (!keepDiscovering) {
+                client.stopDiscovery();
+                mDiscoveryClients.remove(client);
+            }
         }
         clearSocketClientsIfNeed();
     }
 
     /*** Send multicast packet to each socket */
     public void sendMulticastPacket(@NonNull DatagramPacket packet) {
-        for (MdnsSocketClient client : mInterfaceSocketClients.values()) {
+        for (MdnsSocketClient client : mDiscoveryClients) {
             if (client.isOnIPv6OnlyNetwork()) {
                 packet.setSocketAddress(new InetSocketAddress(
                         MdnsConstants.getMdnsIPv6Address(), MdnsConstants.MDNS_PORT));
@@ -132,7 +158,7 @@ public class MdnsSocketManager {
 
     /*** Send unicast packet to each socket */
     public void sendUnicastPacket(DatagramPacket packet) {
-        for (MdnsSocketClient client : mInterfaceSocketClients.values()) {
+        for (MdnsSocketClient client : mDiscoveryClients) {
             if (client.isOnIPv6OnlyNetwork()) {
                 packet.setSocketAddress(new InetSocketAddress(
                         MdnsConstants.getMdnsIPv6Address(), MdnsConstants.MDNS_PORT));

@@ -521,6 +521,14 @@ public class MdnsSocketClient {
         return multicastSocket != null && multicastSocket.isOnIPv6OnlyNetwork();
     }
 
+    /** Get the interface index of the socket */
+    public int getInterfaceIndex() {
+        if (mNetworkInterface == null) {
+            return -1;
+        }
+        return mNetworkInterface.getNetworkInterface().getIndex();
+    }
+
     /** Callback for {@link MdnsSocketClient}. */
     public interface Callback {
         void onResponseReceived(@NonNull MdnsResponse response);

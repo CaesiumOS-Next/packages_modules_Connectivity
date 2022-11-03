@@ -256,6 +256,7 @@ public class MdnsResponseDecoder {
                         response = new MdnsResponse(now);
                         responses.add(response);
                     }
+                    response.setInterfaceIndex(interfaceIndex);
                     response.addPointerRecord((MdnsPointerRecord) record);
                 }
             }

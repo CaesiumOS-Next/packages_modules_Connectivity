@@ -23,6 +23,7 @@ import java.net.DatagramPacket;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.InterfaceAddress;
 import java.net.MulticastSocket;
 import java.net.NetworkInterface;
@@ -76,9 +77,9 @@ public class MdnsInterfaceSocket extends MdnsSocket {
         maybeJoinIpv6();
     }
 
-    private boolean joinGroup(InetAddress multicastAddr) {
+    private boolean joinGroup(InetSocketAddress multicastAddress) {
         try {
-            mMulticastSocket.joinGroup(multicastAddr);
+            mMulticastSocket.joinGroup(multicastAddress, mNetworkInterface);
             return true;
         } catch (IOException e) {
             // The IPv4 address may have just been removed
@@ -91,7 +92,7 @@ public class MdnsInterfaceSocket extends MdnsSocket {
         final boolean hasAddr = hasAddress(mNetworkInterface.getInterfaceAddresses(),
                 Inet4Address.class);
         if (!mJoinedIpv4 && hasAddr) {
-            mJoinedIpv4 = joinGroup(MdnsConstants.getMdnsIPv4Address());
+            mJoinedIpv4 = joinGroup(MULTICAST_IPV4_ADDRESS);
         } else if (!hasAddr) {
             // Lost IPv4 address
             mJoinedIpv4 = false;
@@ -102,7 +103,7 @@ public class MdnsInterfaceSocket extends MdnsSocket {
         final boolean hasAddr = hasAddress(mNetworkInterface.getInterfaceAddresses(),
                 Inet6Address.class);
         if (!mJoinedIpv6 && hasAddr) {
-            mJoinedIpv6 = joinGroup(MdnsConstants.getMdnsIPv6Address());
+            mJoinedIpv6 = joinGroup(MULTICAST_IPV6_ADDRESS);
         } else if (!hasAddr) {
             // Lost IPv6 address
             mJoinedIpv6 = false;
@@ -112,11 +113,11 @@ public class MdnsInterfaceSocket extends MdnsSocket {
     @Override
     public void leaveGroup() throws IOException {
         if (mJoinedIpv4) {
-            mMulticastSocket.leaveGroup(MdnsConstants.getMdnsIPv4Address());
+            mMulticastSocket.leaveGroup(MULTICAST_IPV4_ADDRESS, mNetworkInterface);
             mJoinedIpv4 = false;
         }
         if (mJoinedIpv6) {
-            mMulticastSocket.leaveGroup(MdnsConstants.getMdnsIPv6Address());
+            mMulticastSocket.leaveGroup(MULTICAST_IPV6_ADDRESS, mNetworkInterface);
             mJoinedIpv6 = false;
         }
     }

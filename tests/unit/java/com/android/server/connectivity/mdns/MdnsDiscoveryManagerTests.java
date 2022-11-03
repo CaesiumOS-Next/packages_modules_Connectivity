@@ -80,21 +80,21 @@ public class MdnsDiscoveryManagerTests {
     public void registerListener_unregisterListener() throws IOException {
         discoveryManager.registerListener(
                 SERVICE_TYPE_1, mockListenerOne, MdnsSearchOptions.getDefaultOptions());
-        verify(mSocketManager).startDiscovery();
+        verify(mSocketManager).startDiscovery(mockListenerOne);
         verify(mockServiceTypeClientOne)
                 .startSendAndReceive(mockListenerOne, MdnsSearchOptions.getDefaultOptions());
 
         when(mockServiceTypeClientOne.stopSendAndReceive(mockListenerOne)).thenReturn(true);
         discoveryManager.unregisterListener(SERVICE_TYPE_1, mockListenerOne);
         verify(mockServiceTypeClientOne).stopSendAndReceive(mockListenerOne);
-        verify(mSocketManager).stopDiscovery();
+        verify(mSocketManager).stopDiscovery(mockListenerOne);
     }
 
     @Test
     public void registerMultipleListeners() throws IOException {
         discoveryManager.registerListener(
                 SERVICE_TYPE_1, mockListenerOne, MdnsSearchOptions.getDefaultOptions());
-        verify(mSocketManager).startDiscovery();
+        verify(mSocketManager).startDiscovery(mockListenerOne);
         verify(mockServiceTypeClientOne)
                 .startSendAndReceive(mockListenerOne, MdnsSearchOptions.getDefaultOptions());
 

@@ -38,9 +38,9 @@ public class MdnsSocket {
     private static final MdnsLogger LOGGER = new MdnsLogger("MdnsSocket");
 
     public static final int INTERFACE_INDEX_UNSPECIFIED = -1;
-    private static final InetSocketAddress MULTICAST_IPV4_ADDRESS =
+    protected static final InetSocketAddress MULTICAST_IPV4_ADDRESS =
             new InetSocketAddress(MdnsConstants.getMdnsIPv4Address(), MdnsConstants.MDNS_PORT);
-    private static final InetSocketAddress MULTICAST_IPV6_ADDRESS =
+    protected static final InetSocketAddress MULTICAST_IPV6_ADDRESS =
             new InetSocketAddress(MdnsConstants.getMdnsIPv6Address(), MdnsConstants.MDNS_PORT);
     private final MulticastNetworkInterfaceProvider multicastNetworkInterfaceProvider;
     private final MulticastSocket multicastSocket;
