@@ -227,6 +227,30 @@
       },
       "revId": "dbc6ffb34500f952da6fab1508913a754ee4b68e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cff33244_9c410a5b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1607903
+      },
+      "writtenOn": "2022-11-03T09:11:28Z",
+      "side": 1,
+      "message": "If LoHS + Tethered SAP concurrency isn’t allowed, SAP is give priority and LoHS is stopped and onStopped will be triggered. There is no re-start for LoHS once Tethered SAP is stopped.",
+      "parentUuid": "ed412907_d367ffac",
+      "range": {
+        "startLine": 834,
+        "startChar": 12,
+        "endLine": 842,
+        "endChar": 13
+      },
+      "revId": "dbc6ffb34500f952da6fab1508913a754ee4b68e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
