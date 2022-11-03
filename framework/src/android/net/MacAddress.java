@@ -294,13 +294,14 @@ public final class MacAddress implements Parcelable {
     // Internal conversion function equivalent to stringAddrFromByteAddr(byteAddrFromLongAddr(addr))
     // that avoids the allocation of an intermediary byte[].
     private static @NonNull String stringAddrFromLongAddr(long addr) {
-        return String.format("%02x:%02x:%02x:%02x:%02x:%02x",
-                (addr >> 40) & 0xff,
-                (addr >> 32) & 0xff,
-                (addr >> 24) & 0xff,
-                (addr >> 16) & 0xff,
-                (addr >> 8) & 0xff,
-                addr & 0xff);
+        StringBuilder sb = new StringBuilder();
+        for (int i = ETHER_ADDR_LEN - 1; i >= 0; i--) {
+            long octet = (addr >> (8 * i)) & 0xff;
+            if (octet < 0x10) sb.append("0");
+            sb.append(Long.toHexString(octet));
+            if (i > 0) sb.append(":");
+        }
+        return sb.toString();
     }
 
     /**
