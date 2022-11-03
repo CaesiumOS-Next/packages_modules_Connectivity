@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb1f3460_05d5711c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-03T23:06:37Z",
+      "side": 1,
+      "message": "I will let you address the comments in a follow up, so I don\u0027t block this any further.",
+      "revId": "bab6c89572f7a85bd3d17f1e2ba3564a699cc507",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b93569df_0e7ccb88",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 9
+      },
+      "lineNbr": 3091,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-03T23:06:37Z",
+      "side": 1,
+      "message": "(something to figure out)\nThis seems to be a test target. Is there a flag to prevent this from being built altogether?",
+      "range": {
+        "startLine": 3091,
+        "startChar": 0,
+        "endLine": 3091,
+        "endChar": 73
+      },
+      "revId": "bab6c89572f7a85bd3d17f1e2ba3564a699cc507",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f84031b7_a4ff2043",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-03T23:06:37Z",
+      "side": 1,
+      "message": "nit: should be \"create_action_foreach_module()\" for consistency.",
+      "range": {
+        "startLine": 700,
+        "startChar": 4,
+        "endLine": 700,
+        "endChar": 33
+      },
+      "revId": "bab6c89572f7a85bd3d17f1e2ba3564a699cc507",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20fbe7f5_44714520",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-03T23:06:37Z",
+      "side": 1,
+      "message": "nit: maybe mention that currently the only supported target is //net/base/registry_controlled_domains:registry_controlled_domains",
+      "range": {
+        "startLine": 704,
+        "startChar": 0,
+        "endLine": 704,
+        "endChar": 39
+      },
+      "revId": "bab6c89572f7a85bd3d17f1e2ba3564a699cc507",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc5ec5fe_67ae4130",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-03T23:06:37Z",
+      "side": 1,
+      "message": "Use python standard library to do this (See os.path https://docs.python.org/3/library/os.path.html).\nThis can be written as `os.path.splitext(os.path.basename(src))[0]`.\nThis makes the code less errorprone and more readable.",
+      "range": {
+        "startLine": 719,
+        "startChar": 8,
+        "endLine": 720,
+        "endChar": 90
+      },
+      "revId": "bab6c89572f7a85bd3d17f1e2ba3564a699cc507",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdb7a3b0_c005783f",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-03T23:06:37Z",
+      "side": 1,
+      "message": "use os.path.basename()",
+      "range": {
+        "startLine": 721,
+        "startChar": 73,
+        "endLine": 721,
+        "endChar": 88
+      },
+      "revId": "bab6c89572f7a85bd3d17f1e2ba3564a699cc507",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
