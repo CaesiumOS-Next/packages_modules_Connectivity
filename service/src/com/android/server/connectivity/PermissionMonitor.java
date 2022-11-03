@@ -959,11 +959,26 @@ public class PermissionMonitor {
         final Set<Integer> changedUids = intersectUids(rangesToAdd, mAllApps);
         removeBypassingUids(changedUids, vpnAppUid);
         updateVpnUidsInterfaceRules(iface, changedUids, true /* add */);
-        if (mVpnInterfaceUidRanges.containsKey(iface)) {
-            mVpnInterfaceUidRanges.get(iface).addAll(rangesToAdd);
-        } else {
-            mVpnInterfaceUidRanges.put(iface, new HashSet<UidRange>(rangesToAdd));
-        }
+        addTrackedVpnUidRanges(iface, rangesToAdd);
+    }
+
+    /**
+     * Called when a set of UID ranges is moved from one interface to another
+     *
+     * @param oldIface The previous VPN interface name
+     * @param newIface The new VPN interface name
+     * @param ranges The UID ranges to be moved
+     * @param vpnAppUid The uid of the VPN app
+     */
+    public synchronized void onVpnUidRangesReplaced(@Nullable String oldIface,
+            @Nullable String newIface, Set<UidRange> ranges, int vpnAppUid) {
+        // Adding via updateVpnUidsInterfaceRules replaces the existing iface.
+        // Old ranges only need to be removed from a particular interface for tracking purposes.
+        final Set<Integer> changedUids = intersectUids(ranges, mAllApps);
+        removeBypassingUids(changedUids, vpnAppUid);
+        updateVpnUidsInterfaceRules(newIface, changedUids, true /* add */);
+        addTrackedVpnUidRanges(newIface, ranges);
+        removeTrackedVpnUidRanges(oldIface, ranges);
     }
 
     /**
@@ -981,15 +996,7 @@ public class PermissionMonitor {
         final Set<Integer> changedUids = intersectUids(rangesToRemove, mAllApps);
         removeBypassingUids(changedUids, vpnAppUid);
         updateVpnUidsInterfaceRules(iface, changedUids, false /* add */);
-        Set<UidRange> existingRanges = mVpnInterfaceUidRanges.getOrDefault(iface, null);
-        if (existingRanges == null) {
-            loge("Attempt to remove unknown vpn uid Range iface = " + iface);
-            return;
-        }
-        existingRanges.removeAll(rangesToRemove);
-        if (existingRanges.size() == 0) {
-            mVpnInterfaceUidRanges.remove(iface);
-        }
+        removeTrackedVpnUidRanges(iface, rangesToRemove);
     }
 
     /**
@@ -1077,6 +1084,38 @@ public class PermissionMonitor {
     private void removeBypassingUids(Set<Integer> uids, int vpnAppUid) {
         uids.remove(vpnAppUid);
         uids.removeIf(this::hasRestrictedNetworksPermission);
+    }
+
+    /** Add given ranges to our tracked UID ranges for a VPN iface (or null for wildcard). */
+    private synchronized void addTrackedVpnUidRanges(@Nullable String iface,
+            Set<UidRange> rangesToAdd) {
+        Set<UidRange> existingRanges = mVpnInterfaceUidRanges.getOrDefault(iface, null);
+        if (existingRanges == null) {
+            existingRanges = new ArraySet<>(rangesToAdd);
+            mVpnInterfaceUidRanges.put(iface, existingRanges);
+            UidRangeUtils.mergeAdjacent(existingRanges);
+        } else {
+            // ConnectivityService uses diffs to decide what exactly should be added or removed,
+            // which means we should ensure added ranges don't overlap, as this could interfere
+            // with removals; the set should be minimal.
+            UidRangeUtils.mergeInPlace(existingRanges, rangesToAdd);
+        }
+    }
+
+    /** Remove given ranges from our tracked UID ranges for a VPN iface (or null for wildcard). */
+    private synchronized void removeTrackedVpnUidRanges(@Nullable String iface,
+            Set<UidRange> rangesToRemove) {
+        Set<UidRange> existingRanges = mVpnInterfaceUidRanges.getOrDefault(iface, null);
+        if (existingRanges == null) {
+            loge("Attempt to remove unknown vpn uid Range iface = " + iface);
+            return;
+        }
+        // ConnectivityService uses diffs to decide what exactly should be added or removed,
+        // which means we need to support non-exact removals.
+        UidRangeUtils.excludeInPlace(existingRanges, rangesToRemove);
+        if (existingRanges.size() == 0) {
+            mVpnInterfaceUidRanges.remove(iface);
+        }
     }
 
     /**

@@ -5963,13 +5963,60 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 encodeBool(requireVpn), 0 /* arg2 */, ranges));
     }
 
+    private final Runnable mSetRequireVpnForUidsRemovalDelayed = new Runnable() {
+        @Override
+        public void run() {
+            UidRange[] rangesToRemove = mVpnBlockedUidRangesQueuedForRemoval;
+            mVpnBlockedUidRangesQueuedForRemoval = null;
+            if (VDBG) log("performing queued removal for setRequireVpnForUids");
+            handleSetRequireVpnForUidsNow(false, rangesToRemove);
+        }
+    };
     private void handleSetRequireVpnForUids(boolean requireVpn, UidRange[] ranges) {
+        mHandler.removeCallbacks(mSetRequireVpnForUidsRemovalDelayed);
+        if (!requireVpn) {
+            // Removals are postponed because for range changes, the VPN code calls
+            // setRequireVpnForUids in pairs, first removing old ranges and then adding new ones;
+            // however, if the ranges to remove or to add are empty, only one call is made. For
+            // these paired calls, there could be a window of opportunity during which UIDS in
+            // existing ranges may be unblocked until the updated ranges are added, if the old
+            // and new ranges intersect. So, on removals, we wait briefly for a call with
+            // additions, in which case we process the difference at that point; if such a call
+            // is not made, the removals will still be processed shortly.
+            // See handleSetRequireVpnForUidsNow.
+            if (mVpnBlockedUidRangesQueuedForRemoval != null) {
+                // Remove is being called again even though we already have queued ranges.
+                // To preserve original behavior and simplify logic, do the call now; we really
+                // only care about remove/add pairs to address the issue above, not remove/remove.
+                UidRange[] rangesToRemove = mVpnBlockedUidRangesQueuedForRemoval;
+                mVpnBlockedUidRangesQueuedForRemoval = null;
+                if (VDBG) log("performing queued removal early for setRequireVpnForUids");
+                handleSetRequireVpnForUidsNow(false, rangesToRemove);
+            }
+            if (VDBG) {
+                log("postponing call to setRequireVpnForUids(false, "
+                        + Arrays.toString(ranges) + ")");
+            }
+            mVpnBlockedUidRangesQueuedForRemoval = ranges;
+            mHandler.postDelayed(mSetRequireVpnForUidsRemovalDelayed,
+                    SET_REQUIRE_VPN_FOR_UIDS_REMOVAL_DELAY_MS);
+        } else {
+            handleSetRequireVpnForUidsNow(requireVpn, ranges);
+        }
+    }
+
+    private void handleSetRequireVpnForUidsNow(boolean requireVpn, UidRange[] ranges) {
+        if (ranges == null) {
+            Log.wtf(TAG, "setRequireVpnForUids(" + requireVpn + ", null): should not be null!");
+            return;
+        }
         if (DBG) {
             Log.d(TAG, "Setting VPN " + (requireVpn ? "" : "not ") + "required for UIDs: "
                     + Arrays.toString(ranges));
         }
         // Cannot use a Set since the list of UID ranges might contain duplicates.
         final List<UidRange> newVpnBlockedUidRanges = new ArrayList(mVpnBlockedUidRanges);
+        if (VDBG) log("setRequireVpnForUids: previous ranges: " + newVpnBlockedUidRanges);
         for (int i = 0; i < ranges.length; i++) {
             if (requireVpn) {
                 newVpnBlockedUidRanges.add(ranges[i]);
@@ -5977,16 +6024,41 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 newVpnBlockedUidRanges.remove(ranges[i]);
             }
         }
-
-        try {
-            mNetd.networkRejectNonSecureVpn(requireVpn, toUidRangeStableParcels(ranges));
-        } catch (RemoteException | ServiceSpecificException e) {
-            Log.e(TAG, "setRequireVpnForUids(" + requireVpn + ", "
-                    + Arrays.toString(ranges) + "): netd command failed: " + e);
+        UidRange[] rangesToRemove = null;
+        UidRange[] rangesToAdd = null;
+        if (requireVpn) {
+            final UidRange[] blockedUidRangesToRemove = mVpnBlockedUidRangesQueuedForRemoval;
+            if (blockedUidRangesToRemove == null) {
+                rangesToAdd = ranges;
+            } else {
+                final UidRangeUtils.Diff removeVsAdd = UidRangeUtils.diff(
+                        Arrays.asList(blockedUidRangesToRemove) /* setA */,
+                        Arrays.asList(ranges) /* setB */);
+                if (removeVsAdd.intersection.isEmpty()) {
+                    rangesToRemove = blockedUidRangesToRemove;
+                    rangesToAdd = ranges;
+                } else {
+                    if (!removeVsAdd.onlyA.isEmpty()) {
+                        rangesToRemove = removeVsAdd.onlyA.toArray(new UidRange[0]);
+                    }
+                    if (!removeVsAdd.onlyB.isEmpty()) {
+                        rangesToAdd = removeVsAdd.onlyB.toArray(new UidRange[0]);
+                    }
+                }
+            }
+        } else {
+            rangesToRemove = ranges;
         }
-
-        if (SdkLevel.isAtLeastT()) {
-            mPermissionMonitor.updateVpnLockdownUidRanges(requireVpn, ranges);
+        if (rangesToRemove == null && rangesToAdd == null) {
+            Log.wtf(TAG, "setRequireVpnForUids(" + requireVpn + ", " + Arrays.toString(ranges)
+                    + "): ultimately encountered no ranges to add or remove!");
+            return;
+        }
+        if (rangesToRemove != null) {
+            updateNetdAndLockdownVpnMatchRules(false, rangesToRemove);
+        }
+        if (rangesToAdd != null) {
+            updateNetdAndLockdownVpnMatchRules(true, rangesToAdd);
         }
 
         for (final NetworkAgentInfo nai : mNetworkAgentInfos) {
@@ -5996,6 +6068,22 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         mVpnBlockedUidRanges = newVpnBlockedUidRanges;
+    }
+
+    private void updateNetdAndLockdownVpnMatchRules(boolean requireVpn, UidRange[] ranges) {
+        if (VDBG) {
+            log("updateNetdAndLockdownVpnMatchRules(" + requireVpn + ", "
+                    + Arrays.toString(ranges) + ")");
+        }
+        try {
+            mNetd.networkRejectNonSecureVpn(requireVpn, toUidRangeStableParcels(ranges));
+        } catch (RemoteException | ServiceSpecificException e) {
+            Log.e(TAG, "updateNetdAndLockdownVpnMatchRules(" + requireVpn + ", "
+                    + Arrays.toString(ranges) + "): netd command failed: " + e);
+        }
+        if (SdkLevel.isAtLeastT()) {
+            mPermissionMonitor.updateVpnLockdownUidRanges(requireVpn, ranges);
+        }
     }
 
     @Override
@@ -7063,6 +7151,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
     // (on the handler thread).
     private volatile List<UidRange> mVpnBlockedUidRanges = new ArrayList<>();
 
+    // UID ranges queued for removal from the list of blocked UID ranges.
+    // Only assigned on the handler thread.
+    private UidRange[] mVpnBlockedUidRangesQueuedForRemoval = null;
+
+    // The amount to delay the removal of blocked UID ranges.
+    @VisibleForTesting
+    protected static final int SET_REQUIRE_VPN_FOR_UIDS_REMOVAL_DELAY_MS = 1;
+
     // Must only be accessed on the handler thread
     @NonNull
     private final ArrayList<NetworkOfferInfo> mNetworkOffers = new ArrayList<>();
@@ -7805,14 +7901,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         final int vpnAppUid = nai.networkCapabilities.getOwnerUid();
-        // TODO: this create a window of opportunity for apps to receive traffic between the time
-        // when the old rules are removed and the time when new rules are added. To fix this,
-        // make eBPF support two allowlisted interfaces so here new rules can be added before the
-        // old rules are being removed.
         if (wasFiltering) {
-            mPermissionMonitor.onVpnUidRangesRemoved(oldIface, ranges, vpnAppUid);
-        }
-        if (needsFiltering) {
+            if (needsFiltering) {
+                mPermissionMonitor.onVpnUidRangesReplaced(oldIface, newIface, ranges, vpnAppUid);
+            } else {
+                mPermissionMonitor.onVpnUidRangesRemoved(oldIface, ranges, vpnAppUid);
+            }
+        } else if (needsFiltering) {
             mPermissionMonitor.onVpnUidRangesAdded(newIface, ranges, vpnAppUid);
         }
     }
@@ -8227,49 +8322,30 @@ public class ConnectivityService extends IConnectivityManager.Stub
         newRanges.removeAll(prevRangesCopy);
 
         try {
-            // When updating the VPN uid routing rules, add the new range first then remove the old
-            // range. If old range were removed first, there would be a window between the old
-            // range being removed and the new range being added, during which UIDs contained
-            // in both ranges are not subject to any VPN routing rules. Adding new range before
-            // removing old range works because, unlike the filtering rules below, it's possible to
-            // add duplicate UID routing rules.
-            // TODO: calculate the intersection of add & remove. Imagining that we are trying to
-            // remove uid 3 from a set containing 1-5. Intersection of the prev and new sets is:
-            //   [1-5] & [1-2],[4-5] == [3]
-            // Then we can do:
-            //   maybeCloseSockets([3])
-            //   mNetd.networkAddUidRanges([1-2],[4-5])
-            //   mNetd.networkRemoveUidRanges([1-5])
-            //   maybeCloseSockets([3])
-            // This can prevent the sockets of uid 1-2, 4-5 from being closed. It also reduce the
-            // number of binder calls from 6 to 4.
-            if (!newRanges.isEmpty()) {
-                updateVpnUidRanges(true, nai, newRanges);
+            // Compute an accurate diff on Set<UidRange> to prevent a window of opportunity in
+            // which unchanged UIDs are not subject to filtering.
+            final UidRangeUtils.Diff diff = UidRangeUtils.diff(
+                    prevRanges /* setA */, newRanges /* setB */);
+            final Set<UidRange> rangesToRemove = diff.getOnlyASet();
+            final Set<UidRange> rangesToAdd = diff.getOnlyBSet();
+            final LinkProperties lp = nai.linkProperties;
+            if (!rangesToRemove.isEmpty()) {
+                updateVpnUidRanges(false, nai, rangesToRemove);
+                final String oldIface = getVpnIsolationInterface(nai, prevNc, lp);
+                final boolean wasFiltering = requiresVpnAllowRule(nai, lp, oldIface);
+                if (wasFiltering) {
+                    mPermissionMonitor.onVpnUidRangesRemoved(oldIface, rangesToRemove,
+                            prevNc.getOwnerUid());
+                }
             }
-            if (!prevRanges.isEmpty()) {
-                updateVpnUidRanges(false, nai, prevRanges);
-            }
-            final String oldIface = getVpnIsolationInterface(nai, prevNc, nai.linkProperties);
-            final String newIface = getVpnIsolationInterface(nai, newNc, nai.linkProperties);
-            final boolean wasFiltering = requiresVpnAllowRule(nai, nai.linkProperties, oldIface);
-            final boolean shouldFilter = requiresVpnAllowRule(nai, nai.linkProperties, newIface);
-            // For VPN uid interface filtering, old ranges need to be removed before new ranges can
-            // be added, due to the range being expanded and stored as individual UIDs. For example
-            // the UIDs might be updated from [0, 99999] to ([0, 10012], [10014, 99999]) which means
-            // prevRanges = [0, 99999] while newRanges = [0, 10012], [10014, 99999]. If prevRanges
-            // were added first and then newRanges got removed later, there would be only one uid
-            // 10013 left. A consequence of removing old ranges before adding new ranges is that
-            // there is now a window of opportunity when the UIDs are not subject to any filtering.
-            // Note that this is in contrast with the (more robust) update of VPN routing rules
-            // above, where the addition of new ranges happens before the removal of old ranges.
-            // TODO Fix this window by computing an accurate diff on Set<UidRange>, so the old range
-            // to be removed will never overlap with the new range to be added.
-            if (wasFiltering && !prevRanges.isEmpty()) {
-                mPermissionMonitor.onVpnUidRangesRemoved(oldIface, prevRanges,
-                        prevNc.getOwnerUid());
-            }
-            if (shouldFilter && !newRanges.isEmpty()) {
-                mPermissionMonitor.onVpnUidRangesAdded(newIface, newRanges, newNc.getOwnerUid());
+            if (!rangesToAdd.isEmpty()) {
+                updateVpnUidRanges(true, nai, rangesToAdd);
+                final String newIface = getVpnIsolationInterface(nai, newNc, lp);
+                final boolean shouldFilter = requiresVpnAllowRule(nai, lp, newIface);
+                if (shouldFilter) {
+                    mPermissionMonitor.onVpnUidRangesAdded(newIface, rangesToAdd,
+                            newNc.getOwnerUid());
+                }
             }
         } catch (Exception e) {
             // Never crash!
