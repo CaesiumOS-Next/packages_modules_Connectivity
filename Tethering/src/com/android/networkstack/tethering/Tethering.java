@@ -610,7 +610,7 @@ public class Tethering {
         if (type == TETHERING_BLUETOOTH && SdkLevel.isAtLeastT()) return;
 
         if (enabled) {
-            ensureIpServerStarted(iface);
+            ensureIpServerStarted(iface, type);
         } else {
             ensureIpServerStopped(iface);
         }
@@ -640,6 +640,10 @@ public class Tethering {
 
     private int ifaceNameToType(String iface) {
         final TetheringConfiguration cfg = mConfig;
+        if (cfg.ignoreNetdIfaceChangeEvent()) {
+            final TetherState tetherState = mTetherStates.get(iface);
+            if (tetherState != null) return tetherState.ipServer.interfaceType();
+        }
 
         if (cfg.isWifi(iface)) {
             return TETHERING_WIFI;
@@ -2804,9 +2808,7 @@ public class Tethering {
         return type != TETHERING_INVALID;
     }
 
-    private void ensureIpServerStarted(final String iface) {
-        // If we don't care about this type of interface, ignore.
-        final int interfaceType = ifaceNameToType(iface);
+    private void ensureIpServerStarted(final String iface, int interfaceType) {
         if (!checkTetherableType(interfaceType)) {
             mLog.log(iface + " is used for " + interfaceType + " which is not tetherable"
                      + " (-1 == INVALID is expected on upstream interface)");
