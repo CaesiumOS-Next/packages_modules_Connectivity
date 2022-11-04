@@ -2,17 +2,17 @@
 # Classes from the framework-connectivity-shared-srcs filegroup.
 # If there are files in that filegroup that are not covered below, the classes in the
 # module will be overwritten by the ones in the framework.
-rule com.android.internal.util.** com.android.networkstack.tethering.util.@1
+rule com.android.internal.util.** com.android.networkstack.tethering.@0
 rule android.util.LocalLog* com.android.networkstack.tethering.util.LocalLog@1
 rule android.util.IndentingPrintWriter* com.android.networkstack.tethering.util.AndroidUtilIndentingPrintWriter@1
 
 rule android.net.shared.Inet4AddressUtils* com.android.networkstack.tethering.shared.Inet4AddressUtils@1
 
-# Classes from net-utils-framework-common
-rule com.android.net.module.util.** com.android.networkstack.tethering.util.@1
+# Jarjar to package name because the classes load JNI and the JNI library name is the package name.
+rule com.android.net.module.util.BpfMap* com.android.networkstack.tethering.util.BpfMap@1
+rule com.android.net.module.util.TcUtil* com.android.networkstack.tethering.util.TcUtil@1
 
-# Classes from net-utils-device-common
-rule com.android.net.module.util.Struct* com.android.networkstack.tethering.util.Struct@1
+rule com.android.net.module.util.** com.android.networkstack.tethering.@0
 
 rule com.google.protobuf.** com.android.networkstack.tethering.protobuf@1
 
