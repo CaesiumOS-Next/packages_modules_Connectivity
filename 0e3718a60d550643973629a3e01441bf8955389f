@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fe59e7c_d416fda8",
+        "filename": "service/libconnectivity/include/connectivity_native.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2022-11-04T03:54:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c8953c7_401e915f",
+      "range": {
+        "startLine": 38,
+        "startChar": 73,
+        "endLine": 38,
+        "endChar": 75
+      },
+      "revId": "0e3718a60d550643973629a3e01441bf8955389f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd71ac5b_5c1b2da4",
