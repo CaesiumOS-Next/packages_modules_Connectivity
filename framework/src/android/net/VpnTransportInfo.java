@@ -17,6 +17,7 @@
 package android.net;
 
 import static android.annotation.SystemApi.Client.MODULE_LIBRARIES;
+import static android.annotation.SystemApi.Client.PRIVILEGED_APPS;
 import static android.net.NetworkCapabilities.REDACT_FOR_NETWORK_SETTINGS;
 
 import android.annotation.NonNull;
@@ -37,13 +38,15 @@ import java.util.Objects;
  *
  * @hide
  */
-@SystemApi(client = MODULE_LIBRARIES)
+@SystemApi(client = PRIVILEGED_APPS)
 public final class VpnTransportInfo implements TransportInfo, Parcelable {
     /** Type of this VPN. */
     private final int mType;
 
     @Nullable
     private final String mSessionId;
+
+    private final boolean mBypassable;
 
     @Override
     public @RedactionType long getApplicableRedactions() {
@@ -56,12 +59,26 @@ public final class VpnTransportInfo implements TransportInfo, Parcelable {
     @NonNull
     public VpnTransportInfo makeCopy(@RedactionType long redactions) {
         return new VpnTransportInfo(mType,
-            ((redactions & REDACT_FOR_NETWORK_SETTINGS) != 0) ? null : mSessionId);
+            ((redactions & REDACT_FOR_NETWORK_SETTINGS) != 0) ? null : mSessionId, mBypassable);
     }
 
+    /** @hide */
+    @SystemApi(client = MODULE_LIBRARIES)
     public VpnTransportInfo(int type, @Nullable String sessionId) {
+        this(type, sessionId, false /* bypassable */);
+    }
+
+    public VpnTransportInfo(int type, @Nullable String sessionId, boolean bypassable) {
         this.mType = type;
         this.mSessionId = sessionId;
+        this.mBypassable = bypassable;
+    }
+
+    /**
+     * Returns whether the VPN is allowing bypass.
+     */
+    public boolean getBypassable() {
+        return mBypassable;
     }
 
     /**
@@ -84,17 +101,19 @@ public final class VpnTransportInfo implements TransportInfo, Parcelable {
         if (!(o instanceof VpnTransportInfo)) return false;
 
         VpnTransportInfo that = (VpnTransportInfo) o;
-        return (this.mType == that.mType) && TextUtils.equals(this.mSessionId, that.mSessionId);
+        return (this.mType == that.mType) && TextUtils.equals(this.mSessionId, that.mSessionId)
+                && (this.mBypassable == that.mBypassable);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mType, mSessionId);
+        return Objects.hash(mType, mSessionId, mBypassable);
     }
 
     @Override
     public String toString() {
-        return String.format("VpnTransportInfo{type=%d, sessionId=%s}", mType, mSessionId);
+        return String.format("VpnTransportInfo{type=%d, sessionId=%s, bypassable=%b}",
+                mType, mSessionId, mBypassable);
     }
 
     @Override
@@ -106,12 +125,13 @@ public final class VpnTransportInfo implements TransportInfo, Parcelable {
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeInt(mType);
         dest.writeString(mSessionId);
+        dest.writeBoolean(mBypassable);
     }
 
     public static final @NonNull Creator<VpnTransportInfo> CREATOR =
             new Creator<VpnTransportInfo>() {
         public VpnTransportInfo createFromParcel(Parcel in) {
-            return new VpnTransportInfo(in.readInt(), in.readString());
+            return new VpnTransportInfo(in.readInt(), in.readString(), in.readBoolean());
         }
         public VpnTransportInfo[] newArray(int size) {
             return new VpnTransportInfo[size];
