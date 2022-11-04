@@ -34,6 +34,24 @@
       "parentUuid": "24912c76_b8997811",
       "revId": "4368cdeff3a4834c1b02df4d44aaf2636daab2e9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16c240d8_926b25d4",
+        "filename": "Tethering/jarjar-rules.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-11-04T07:15:10Z",
+      "side": 1,
+      "message": "Ack, upload the patch to fix my comment and see whether TH is happy.",
+      "parentUuid": "14011f46_baa1792d",
+      "revId": "4368cdeff3a4834c1b02df4d44aaf2636daab2e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
