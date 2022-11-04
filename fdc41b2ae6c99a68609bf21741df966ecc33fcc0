@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e0199c6_7efdcbb5",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-04T19:51:15Z",
+      "side": 1,
+      "message": "I don\u0027t think .py should be in the outputs at all (do you know what the contents of that script are? I am surprised to see it in the outputs of this action. Is it something used in tests?).\n\nJust discussed with Mohannad another issue with the protoc_wrapper actions. genrules can only generate one type of output (either sources or headers in this case), so we\u0027ll actually need two genrules for protoc_wrapper.py actions. See perfetto for reference (search for perfetto_protos_perfetto_android_vendor_cpp_gen or perfetto_protos_perfetto_android_vendor_cpp_gen_headers): https://source.corp.google.com/aosp-master/external/perfetto/Android.bp;l\u003d2195\n\nThe sources target will need to populate genrule_srcs while the headers target sets genrule_headers.",
+      "range": {
+        "startLine": 862,
+        "startChar": 4,
+        "endLine": 862,
+        "endChar": 80
+      },
+      "revId": "fdc41b2ae6c99a68609bf21741df966ecc33fcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
