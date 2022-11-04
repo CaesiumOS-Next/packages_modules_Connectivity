@@ -3432,7 +3432,7 @@ genrule {
          "--proto-in-dir " +
          "`dirname $(location net/nqe/proto/network_id_proto.proto)` " +
          "--cc-out-dir " +
-         "gen/net/base " +
+         "$(genDir)/net/base " +
          "--py-out-dir " +
          "pyproto/net/base",
     out: [
@@ -4213,7 +4213,7 @@ genrule {
          "--proto-in-dir " +
          "`dirname $(location net/nqe/proto/network_id_proto.proto)` " +
          "--cc-out-dir " +
-         "gen/net/nqe/proto " +
+         "$(genDir)/net/nqe/proto " +
          "--cc-options " +
          "dllexport_decl " +
          "NET_EXPORT_PRIVATE: " +
@@ -4441,7 +4441,7 @@ genrule {
          "--proto-in-dir " +
          "`dirname $(location net/nqe/proto/network_id_proto.proto)` " +
          "--cc-out-dir " +
-         "gen/net/third_party/quiche/src " +
+         "$(genDir)/net/third_party/quiche/src " +
          "--cc-options " +
          "dllexport_decl " +
          "COMPONENT_EXPORT(QUICHE): " +
@@ -4529,7 +4529,7 @@ genrule {
          "--proto-in-dir " +
          "`dirname $(location net/nqe/proto/network_id_proto.proto)` " +
          "--cc-out-dir " +
-         "gen/net/third_party/quiche/src/quiche/quic/test_tools " +
+         "$(genDir)/net/third_party/quiche/src/quiche/quic/test_tools " +
          "--cc-options " +
          "dllexport_decl " +
          "NET_EXPORT_PRIVATE: " +

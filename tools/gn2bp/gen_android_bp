@@ -879,6 +879,8 @@ def create_action_module(blueprint, target):
         target.args[i + 1] = '$(location aprotoc)'
       elif val == '--proto-in-dir':
         target.args[i + 1] = '`dirname $(location net/nqe/proto/network_id_proto.proto)`'
+      elif val == '--cc-out-dir':
+        target.args[i + 1] = re.sub('^gen', '$(genDir)', target.args[i + 1])
 
   script = gn_utils.label_to_path(target.script)
   module.tool_files.add(script)
