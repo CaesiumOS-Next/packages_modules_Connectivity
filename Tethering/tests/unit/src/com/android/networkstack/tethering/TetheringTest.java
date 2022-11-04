@@ -1398,10 +1398,10 @@ public class TetheringTest {
         mLooper.dispatchAll();
         inOrder.verify(mUpstreamNetworkMonitor).setTryCell(false);
         inOrder.verify(mUpstreamNetworkMonitor, never()).setCurrentUpstream(any());
-        // BUG: when wifi disconnect, the dun request would not be filed again because wifi is
-        // no longer be default network which do not have CONNECTIVIY_ACTION broadcast.
         wifi.fakeDisconnect();
         mLooper.dispatchAll();
+        // BUG: when wifi disconnect, the dun request would not be filed again because wifi is
+        // no longer be default network which do not have CONNECTIVIY_ACTION broadcast.
         inOrder.verify(mCm, never()).requestNetwork(any(), eq(0), eq(TYPE_MOBILE_DUN), any(),
                 any());
 
