@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "743fa96b_e1cecc21",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-11-04T03:58:07Z",
+      "side": 1,
+      "message": "No, outside of class should not call #isFeatureEnabled. They should use #isBpfOffloadEnabled, #checkDunRequired, ... to check specific feature/settings is enabled or not.\n\nThe caller of this is added in follow-up change which also inside TetheringConfiguration.\n\nRename isFeatureEnabled to isTetheringFeatureEnabled, hope it would be more clear.",
+      "parentUuid": "3b77f404_22ed0577",
+      "range": {
+        "startLine": 578,
+        "startChar": 4,
+        "endLine": 578,
+        "endChar": 11
+      },
+      "revId": "179e8ba6099bf7027e9ab180a4864265a188975e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19a07da4_4c2453bf",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-11-03T09:46:55Z",
       "side": 1,
       "message": "do we allow any namespace?",
+      "range": {
+        "startLine": 583,
+        "startChar": 59,
+        "endLine": 583,
+        "endChar": 68
+      },
+      "revId": "179e8ba6099bf7027e9ab180a4864265a188975e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dbeb1d0_c6ef8a51",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-11-04T03:58:07Z",
+      "side": 1,
+      "message": "This function is used to be injected for testing because DeviceConfigUtils.isFeatureEnabled is static function. And this is why the its visibility is protected instead of public that we don\u0027t call this directly in production code.",
+      "parentUuid": "19a07da4_4c2453bf",
       "range": {
         "startLine": 583,
         "startChar": 59,
