@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d79f573_961a91b1",
+        "filename": "tests/native/connectivity_native_test/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2022-11-04T03:58:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1437c69b_1261b907",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 15
+      },
+      "revId": "0e3718a60d550643973629a3e01441bf8955389f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca9ca427_5f0dfbd7",
@@ -108,6 +132,24 @@
       "writtenOn": "2022-11-04T03:56:10Z",
       "side": 1,
       "message": "Add a comment saying this is necessary because the library cannot be linked against before U, and there is no Sdk34ModuleController in tradefed yet.\nTODO: link against the library directly and add Sdk34ModuleController to AndroidTest.txml when available",
+      "revId": "0e3718a60d550643973629a3e01441bf8955389f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fe24476_89f7aa3b",
+        "filename": "tests/native/connectivity_native_test/connectivity_native_test.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2022-11-04T03:58:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca9ca427_5f0dfbd7",
       "revId": "0e3718a60d550643973629a3e01441bf8955389f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

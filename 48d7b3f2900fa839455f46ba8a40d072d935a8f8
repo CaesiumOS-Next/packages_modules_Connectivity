@@ -16,6 +16,24 @@
       "message": "If we need to use dlopen, add a comment to say that this is necessary because there is no",
       "revId": "48d7b3f2900fa839455f46ba8a40d072d935a8f8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c13970d2_ffadb588",
+        "filename": "tests/native/connectivity_native_test/connectivity_native_test.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2022-11-04T03:58:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42cae4e1_20d422ef",
+      "revId": "48d7b3f2900fa839455f46ba8a40d072d935a8f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
