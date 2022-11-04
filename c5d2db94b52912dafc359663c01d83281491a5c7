@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "876c311d_ef3b9d8a",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-04T17:58:46Z",
+      "side": 1,
+      "message": "I wonder if this could be solved by wrapping the proto file in $(location) with the corresponding source and setting --proto-in-dir to \u0027./\u0027. (I believe all genrule commands are run from croot, and $(location) returns the directory relative to croot).",
+      "range": {
+        "startLine": 869,
+        "startChar": 0,
+        "endLine": 873,
+        "endChar": 47
+      },
+      "revId": "c5d2db94b52912dafc359663c01d83281491a5c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
