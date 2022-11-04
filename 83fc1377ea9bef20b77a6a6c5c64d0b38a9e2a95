@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3fc3fc7_9383157f",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-11-04T07:05:06Z",
+      "side": 1,
+      "message": "Do you know why this is still remaining in module API?",
+      "range": {
+        "startLine": 232,
+        "startChar": 4,
+        "endLine": 232,
+        "endChar": 71
+      },
+      "revId": "83fc1377ea9bef20b77a6a6c5c64d0b38a9e2a95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf3e7724_cd4b7289",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-11-04T07:05:06Z",
+      "side": 1,
+      "message": "Question: Is there any dependency that someone in module will use this constructor?",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 95
+      },
+      "revId": "83fc1377ea9bef20b77a6a6c5c64d0b38a9e2a95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
