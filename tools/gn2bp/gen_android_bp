@@ -855,6 +855,10 @@ def create_action_module(blueprint, target):
     # If this file is used by other module, we may need to add this file to the outputs.
     target.args[2] = '$(genDir)/' + target.args[2].split('/')[-1]
   elif target.script == "//tools/grit/grit.py":
+    # grit.py imports other python scripts under tools/grit
+    module.tool_files.add("tools/grit/**/*")
+    # grit.py imports six
+    module.tool_files.add("third_party/six/src/six.py")
     for i, val in enumerate(target.args):
         if val == '-o':
           target.args[i + 1] = '$(out)'

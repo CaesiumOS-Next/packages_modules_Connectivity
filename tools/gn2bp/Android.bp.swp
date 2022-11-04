@@ -4308,6 +4308,8 @@ genrule {
         "net/base/net_resources.grd",
         "out/test/gen/tools/gritsettings/default_resource_ids",
         "out/test/obj/net/net_resources_expected_outputs.txt",
+        "third_party/six/src/six.py",
+        "tools/grit/**/*",
         "tools/grit/grit.py",
     ],
 }
@@ -10170,6 +10172,8 @@ genrule {
         "tools/gritsettings/default_resource_ids",
     ],
     tool_files: [
+        "third_party/six/src/six.py",
+        "tools/grit/**/*",
         "tools/grit/grit.py",
         "tools/gritsettings/resource_ids.spec",
     ],
