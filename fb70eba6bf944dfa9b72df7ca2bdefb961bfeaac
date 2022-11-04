@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87776799_18e757c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-04T04:02:47Z",
+      "side": 1,
+      "message": "@jreck: looks like this lost NDK+1 when changing the API from T to U, can you have another look ?",
+      "revId": "fb70eba6bf944dfa9b72df7ca2bdefb961bfeaac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
