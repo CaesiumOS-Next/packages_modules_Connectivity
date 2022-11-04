@@ -42,7 +42,10 @@ public class VpnTransportInfoTest {
     @Test
     public void testParceling() {
         VpnTransportInfo v = new VpnTransportInfo(VpnManager.TYPE_VPN_PLATFORM, "12345");
-        assertParcelSane(v, 2 /* fieldCount */);
+        assertParcelSane(v, 3 /* fieldCount */);
+
+        VpnTransportInfo v2 = new VpnTransportInfo(VpnManager.TYPE_VPN_PLATFORM, "12345", true);
+        assertParcelSane(v2, 3 /* fieldCount */);
     }
 
     @Test
@@ -54,19 +57,26 @@ public class VpnTransportInfoTest {
         VpnTransportInfo v13 = new VpnTransportInfo(VpnManager.TYPE_VPN_PLATFORM, session1);
         VpnTransportInfo v14 = new VpnTransportInfo(VpnManager.TYPE_VPN_LEGACY, session1);
         VpnTransportInfo v15 = new VpnTransportInfo(VpnManager.TYPE_VPN_OEM, session1);
+        VpnTransportInfo v16 = new VpnTransportInfo(VpnManager.TYPE_VPN_OEM, session1, true);
+        VpnTransportInfo v17 = new VpnTransportInfo(VpnManager.TYPE_VPN_OEM, session1, true);
         VpnTransportInfo v21 = new VpnTransportInfo(VpnManager.TYPE_VPN_LEGACY, session2);
 
         VpnTransportInfo v31 = v11.makeCopy(REDACT_FOR_NETWORK_SETTINGS);
         VpnTransportInfo v32 = v13.makeCopy(REDACT_FOR_NETWORK_SETTINGS);
+        VpnTransportInfo v33 = v16.makeCopy(REDACT_FOR_NETWORK_SETTINGS);
+        VpnTransportInfo v34 = v17.makeCopy(REDACT_FOR_NETWORK_SETTINGS);
 
         assertNotEquals(v11, v12);
         assertNotEquals(v13, v14);
         assertNotEquals(v14, v15);
         assertNotEquals(v14, v21);
+        assertNotEquals(v15, v16);
 
         assertEquals(v11, v13);
         assertEquals(v31, v32);
+        assertEquals(v33, v34);
         assertEquals(v11.hashCode(), v13.hashCode());
+        assertEquals(v16.hashCode(), v17.hashCode());
         assertEquals(REDACT_FOR_NETWORK_SETTINGS, v32.getApplicableRedactions());
         assertEquals(session1, v15.makeCopy(REDACT_NONE).getSessionId());
     }
