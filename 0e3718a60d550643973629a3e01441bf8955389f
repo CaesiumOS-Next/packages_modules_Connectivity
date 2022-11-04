@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c8953c7_401e915f",
+        "filename": "service/libconnectivity/include/connectivity_native.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-04T03:43:10Z",
+      "side": 1,
+      "message": "It may be better to actually use `__ANDROID_API_U__`, but with something like:\n\n    // For branches that do not yet have __ANDROID_API_U__ defined, like module\n    // release branches\n    #ifndef __ANDROID_API_U__\n    #define __ANDROID_API_U__ 34\n    #endif",
+      "range": {
+        "startLine": 38,
+        "startChar": 73,
+        "endLine": 38,
+        "endChar": 75
+      },
+      "revId": "0e3718a60d550643973629a3e01441bf8955389f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd71ac5b_5c1b2da4",
+        "filename": "tests/native/connectivity_native_test/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-04T03:43:10Z",
+      "side": 1,
+      "message": "Can you add the lib to header_libs here and avoid defining the function proto in the test ?\n(will test)",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 15
+      },
+      "revId": "0e3718a60d550643973629a3e01441bf8955389f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
