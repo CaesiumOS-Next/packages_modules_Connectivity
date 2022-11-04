@@ -16,6 +16,24 @@
       "message": "I think this may cause boot fail if we don\u0027t change corresponding JNI package name:\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/Tethering/jni/onload.cpp;l\u003d41\n\nYou probably also need to change the JNI package name:\ncom/android/networkstack/tethering/util/BpfMap -\u003e com/android/networkstack/tethering/com/android/net/module/util/BpfMap\n\ncom/android/networkstack/tethering/util/TcUtils -\u003e com/android/networkstack/tethering/com/android/net/module/util/TcUtils",
       "revId": "4368cdeff3a4834c1b02df4d44aaf2636daab2e9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14011f46_baa1792d",
+        "filename": "Tethering/jarjar-rules.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-04T07:02:41Z",
+      "side": 1,
+      "message": "Oops; can you have a look at that ? It would be good to do the same change as would be done in aosp/2173600",
+      "parentUuid": "24912c76_b8997811",
+      "revId": "4368cdeff3a4834c1b02df4d44aaf2636daab2e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
