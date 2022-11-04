@@ -69,6 +69,47 @@
       },
       "revId": "0e3718a60d550643973629a3e01441bf8955389f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1437c69b_1261b907",
+        "filename": "tests/native/connectivity_native_test/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-04T03:56:10Z",
+      "side": 1,
+      "message": "Checked locally and this would require a separate header_lib to be defined (can\u0027t use the existing build rule)",
+      "parentUuid": "bd71ac5b_5c1b2da4",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 15
+      },
+      "revId": "0e3718a60d550643973629a3e01441bf8955389f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca9ca427_5f0dfbd7",
+        "filename": "tests/native/connectivity_native_test/connectivity_native_test.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-04T03:56:10Z",
+      "side": 1,
+      "message": "Add a comment saying this is necessary because the library cannot be linked against before U, and there is no Sdk34ModuleController in tradefed yet.\nTODO: link against the library directly and add Sdk34ModuleController to AndroidTest.txml when available",
+      "revId": "0e3718a60d550643973629a3e01441bf8955389f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
