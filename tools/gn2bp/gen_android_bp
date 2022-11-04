@@ -874,6 +874,11 @@ def create_action_module(blueprint, target):
       elif val == 'dllexport_decl':
         target.args[i] += '=' + target.args[i+1]
         target.args[i+1] = ''
+      elif val == '--include':
+        # This should come from the filegroup this target depends on, but currently we don't support
+        # .h file in the srcs. So adding manually for now.
+        module.srcs.add(target.args[i+1])
+        target.args[i + 1] = '$(location %s)' % target.args[i + 1]
 
   script = gn_utils.label_to_path(target.script)
   module.tool_files.add(script)
