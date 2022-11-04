@@ -83,7 +83,7 @@ public class ApfCapabilitiesTest {
         assertTrue(caps.hasDataAccess());
     }
 
-    @Test
+    @Test @IgnoreAfter(Build.VERSION_CODES.R)
     public void testGetApfDrop8023Frames() {
         // Get com.android.internal.R.bool.config_apfDrop802_3Frames. The test cannot directly
         // use R.bool.config_apfDrop802_3Frames because that is not a stable resource ID.
@@ -105,7 +105,7 @@ public class ApfCapabilitiesTest {
                 ApfCapabilities.getApfDrop8023Frames());
     }
 
-    @Test
+    @Test @IgnoreAfter(Build.VERSION_CODES.R)
     public void testGetApfEtherTypeBlackList() {
         // Get com.android.internal.R.array.config_apfEthTypeBlackList. The test cannot directly
         // use R.array.config_apfEthTypeBlackList because that is not a stable resource ID.
