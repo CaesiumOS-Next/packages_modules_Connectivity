@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbd4b453_e6175098",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-04T06:01:16Z",
+      "side": 1,
+      "message": "LGTM. +1\u0027ed because need tier-2 reviewer to comment",
+      "revId": "00fad17aabc96216daf56b6a6a6ed4757f0d22bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
