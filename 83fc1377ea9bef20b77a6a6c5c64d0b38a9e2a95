@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b50e102e_9898120d",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-11-04T07:47:51Z",
+      "side": 1,
+      "message": "The scope of its parent(TransportInfo) is module API, the API check require this also stay in module-lib API.",
+      "parentUuid": "f3fc3fc7_9383157f",
+      "range": {
+        "startLine": 232,
+        "startChar": 4,
+        "endLine": 232,
+        "endChar": 71
+      },
+      "revId": "83fc1377ea9bef20b77a6a6c5c64d0b38a9e2a95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bf3e7724_cd4b7289",
         "filename": "framework/src/android/net/VpnTransportInfo.java",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2022-11-04T07:05:06Z",
       "side": 1,
       "message": "Question: Is there any dependency that someone in module will use this constructor?",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 95
+      },
+      "revId": "83fc1377ea9bef20b77a6a6c5c64d0b38a9e2a95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3b85933_787b295f",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-11-04T07:47:51Z",
+      "side": 1,
+      "message": "This is related to the question in current.txt.\n\nThis constructor is required because makeCopy stays in module API. The check requires a constructor in module API. \n\nThere are 2 solutions here:\n1. Current patch. Have VpnTransportInfo(int,String) constructor in module API.\n\n2. Also move the Transport#makeCopy() to system API. Then there is no more module API dependency. Use RemovedClass to remove whole VpnTransportInfo class from module API in incompatibilities.txt\n\nI think option 1 does not cause any further issue. We can say constructor with 2 parameter is only for modules. For option 2, it depends on any concern moving makeCopy to system API. makeCopy() was system API at the beginning but update to module lib in aosp/1601458. VpnTransportInfo, VcnTransportInfo and WifiInfo are the existing implementations. VcnTransportInfo is hidden so it\u0027s not impact. VpnTransportInfo is what we would like to expose as a system API this time. The only concern may be WifiInfo if it\u0027s OK to turn WifiInfo#makeCopy() into a system API. If privileged app caller already got a instance, it seems to me that we do not need to restrict the usage of makeCopy. It does not provide further protection to me.\n\nOption 2 may be cleaner if we do not have concern expose TransportInfo#makeCopy(). Leave this to Jean for API review.",
+      "parentUuid": "bf3e7724_cd4b7289",
       "range": {
         "startLine": 65,
         "startChar": 4,
