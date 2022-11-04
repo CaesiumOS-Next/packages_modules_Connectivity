@@ -598,7 +598,7 @@ public class Tethering {
 
     private void processInterfaceStateChange(final String iface, boolean enabled) {
         final int type = ifaceNameToType(iface);
-        if (type == TETHERING_WIFI || type == TETHERING_WIFI_P2P) {
+        if (type == TETHERING_WIFI || type == TETHERING_WIFI_P2P || type == TETHERING_ETHERNET) {
             if (mConfig.ignoreNetdIfaceChangeEvent()) return;
         }
 
