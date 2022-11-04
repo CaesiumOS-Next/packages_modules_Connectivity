@@ -4239,11 +4239,11 @@ genrule {
          "../../net/base/net_resources.grd " +
          "build " +
          "-o " +
-         "gen/net " +
+         "$(out) " +
          "--depdir " +
          ". " +
-         "--depfile " +
-         "gen/net/net_resources_grit.d " +
+         " " +
+         " " +
          "--write-only-new " +
          "1 " +
          "--depend-on-stamp " +
@@ -10160,12 +10160,12 @@ genrule {
     name: "cronet_aml_tools_gritsettings_default_resource_ids",
     cmd: "$(location tools/grit/grit.py) update_resource_ids " +
          "-o " +
-         "gen/tools/gritsettings/default_resource_ids " +
+         "$(out) " +
          "--add-header " +
-         "--depfile " +
-         "gen/tools/gritsettings/default_resource_ids.d " +
+         " " +
+         " " +
          "--input " +
-         "../../tools/gritsettings/resource_ids.spec",
+         "$(location tools/gritsettings/resource_ids.spec)",
     out: [
         "tools/gritsettings/default_resource_ids",
     ],

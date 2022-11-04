@@ -854,6 +854,18 @@ def create_action_module(blueprint, target):
     # Specifying file under $(genDir) so that parent directory exists.
     # If this file is used by other module, we may need to add this file to the outputs.
     target.args[2] = '$(genDir)/' + target.args[2].split('/')[-1]
+  elif target.script == "//tools/grit/grit.py":
+    for i, val in enumerate(target.args):
+        if val == '-o':
+          target.args[i + 1] = '$(out)'
+        elif val == '--depfile':
+          # In soong, all the files used by this script needs to be specified in
+          # tool_files or srcs. So we don't need to generate depfile.
+          target.args[i] = ''
+          target.args[i + 1] = ''
+        elif val == '--input':
+          filename = re.sub('^\.\./\.\./', '', target.args[i + 1])
+          target.args[i + 1] = '$(location %s)' % filename
 
   script = gn_utils.label_to_path(target.script)
   module.tool_files.add(script)
