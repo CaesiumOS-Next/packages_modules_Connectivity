@@ -65,6 +65,7 @@ import static android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID;
 
 import static com.android.modules.utils.build.SdkLevel.isAtLeastS;
 import static com.android.modules.utils.build.SdkLevel.isAtLeastT;
+import static com.android.modules.utils.build.SdkLevel.isAtLeastU;
 import static com.android.net.module.util.Inet4AddressUtils.inet4AddressToIntHTH;
 import static com.android.net.module.util.Inet4AddressUtils.intToInet4AddressHTH;
 import static com.android.networkstack.tethering.OffloadHardwareInterface.OFFLOAD_HAL_VERSION_1_0;
@@ -1373,12 +1374,19 @@ public class TetheringTest {
         mLooper.dispatchAll();
         inOrder.verify(mUpstreamNetworkMonitor).setTryCell(false);
         inOrder.verify(mUpstreamNetworkMonitor, never()).setCurrentUpstream(any());
-        // BUG: when wifi disconnect, the dun request would not be filed again because wifi is
-        // no longer be default network which do not have CONNECTIVIY_ACTION broadcast.
         wifi.fakeDisconnect();
         mLooper.dispatchAll();
-        inOrder.verify(mCm, never()).requestNetwork(any(), eq(0), eq(TYPE_MOBILE_DUN), any(),
-                any());
+        if (isAtLeastU()) {
+            // CONNECTIVIY_ACTION broadcast is not handled since U+ device. WIFI disconnection
+            // triggers EVENT_ON_LOST which kicks upstream selection on U+ device.
+            inOrder.verify(mUpstreamNetworkMonitor).setTryCell(true);
+            inOrder.verify(mCm).requestNetwork(any(), eq(0), eq(TYPE_MOBILE_DUN), any(), any());
+        } else {
+            // BUG: when wifi disconnect, the dun request would not be filed again because wifi is
+            // no longer be default network which do not have CONNECTIVIY_ACTION broadcast.
+            inOrder.verify(mCm, never()).requestNetwork(any(), eq(0), eq(TYPE_MOBILE_DUN), any(),
+                    any());
+        }
 
         // Change the legacy priority list that dun is higher than wifi.
         when(mResources.getIntArray(R.array.config_tether_upstream_types)).thenReturn(

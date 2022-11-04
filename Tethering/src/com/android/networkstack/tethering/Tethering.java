@@ -1213,7 +1213,11 @@ public class Tethering {
             }
 
             if (VDBG) Log.d(TAG, "Tethering got CONNECTIVITY_ACTION: " + networkInfo.toString());
-            mTetherMainSM.sendMessage(TetherMainSM.CMD_UPSTREAM_CHANGED);
+            if (SdkLevel.isAtLeastU()) {
+                Log.d(TAG, "CONNECTIVITY_ACTION is not handled since U+ device.");
+            } else {
+                mTetherMainSM.sendMessage(TetherMainSM.CMD_UPSTREAM_CHANGED);
+            }
         }
 
         private void handleUsbAction(Intent intent) {
@@ -2004,6 +2008,15 @@ public class Tethering {
                 return;
             }
 
+            if (SdkLevel.isAtLeastU()) {
+                // Re-evaluate the current available upstreams if new upstream doesn't pertain to
+                // current upstream.
+                if (ns != null && !pertainsToCurrentUpstream(ns)) {
+                    chooseUpstreamType(false);
+                    return;
+                }
+            }
+
             if (ns == null || !pertainsToCurrentUpstream(ns)) {
                 // TODO: In future, this is where upstream evaluation and selection
                 // could be handled for notifications which include sufficient data.
@@ -2036,6 +2049,11 @@ public class Tethering {
                     // broadcasts that result in being passed a
                     // TetherMainSM.CMD_UPSTREAM_CHANGED.
                     handleNewUpstreamNetworkState(null);
+
+                    if (SdkLevel.isAtLeastU()) {
+                        // Need to try DUN immediately if Wi-Fi goes down.
+                        chooseUpstreamType(true);
+                    }
                     break;
                 default:
                     mLog.e("Unknown arg1 value: " + arg1);
