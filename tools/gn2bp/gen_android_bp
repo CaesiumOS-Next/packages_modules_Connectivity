@@ -872,6 +872,11 @@ def create_action_module(blueprint, target):
         elif val == '--input':
           filename = re.sub('^\.\./\.\./', '', target.args[i + 1])
           target.args[i + 1] = '$(location %s)' % filename
+  elif target.script == "//tools/protoc_wrapper/protoc_wrapper.py":
+    module.tools.add("aprotoc")
+    for i, val in enumerate(target.args):
+      if val == '--protoc':
+        target.args[i + 1] = '$(location aprotoc)'
 
   script = gn_utils.label_to_path(target.script)
   module.tool_files.add(script)
