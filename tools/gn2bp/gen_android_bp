@@ -861,6 +861,14 @@ def create_action_module(blueprint, target):
     for i, val in enumerate(target.args):
       if val == '--protoc':
         target.args[i + 1] = '$(location aprotoc)'
+      elif val == '--proto-in-dir':
+        # Path of proto files in the cmd is relative path from --proto-in-dir
+        # Proto files are specified without directory except net_quic_proto_gen
+        proto_file = gn_utils.label_to_path(sorted(list(target.sources))[0])
+        target.args[i + 1] = '`dirname $(location %s)`' % proto_file
+        # Manually adjusting path for net_quic_proto_gen
+        if target.name == "//net/third_party/quiche:net_quic_proto_gen":
+          target.args[i + 1] = '`dirname $(location %s)`/../../../../' % proto_file
 
   script = gn_utils.label_to_path(target.script)
   module.tool_files.add(script)
