@@ -877,6 +877,13 @@ def create_action_module(blueprint, target):
     for i, val in enumerate(target.args):
       if val == '--protoc':
         target.args[i + 1] = '$(location aprotoc)'
+      elif val == '--proto-in-dir':
+        proto_file = sorted(list(target.sources))[0]
+        # Specifies the directory that contains sources proto files.
+        target.args[i + 1] = '`dirname $(location %s)`' % proto_file
+        # Manually specifying for net_quic_proto_gen
+        if target.name == "//net/third_party/quiche:net_quic_proto_gen":
+          target.args[i + 1] = '`dirname $(location %s)`/../../../../' % proto_file
 
   script = gn_utils.label_to_path(target.script)
   module.tool_files.add(script)
