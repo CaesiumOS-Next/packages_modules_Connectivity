@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfe82fcc_2fa67738",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-07T02:50:25Z",
+      "side": 1,
+      "message": "Happy with the code when comments are addressed, not giving +1 to avoid giving owners",
+      "revId": "f7f7e363266390f907ec3f896379d58239825466",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "329e64eb_368f6720",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-07T02:50:25Z",
+      "side": 1,
+      "message": "Did you want clearCapabilities() ? The callback says \"allNetworks\" but this will still only listen to NOT_RESTRICTED, TRUSTED, NOT_VPN networks. Or if you want to keep these, maybe rename the callback.",
+      "range": {
+        "startLine": 562,
+        "startChar": 65,
+        "endLine": 562,
+        "endChar": 81
+      },
+      "revId": "f7f7e363266390f907ec3f896379d58239825466",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5537ffa_67a1ffd7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-07T02:50:25Z",
+      "side": 1,
+      "message": "synchronous",
+      "range": {
+        "startLine": 591,
+        "startChar": 69,
+        "endLine": 591,
+        "endChar": 80
+      },
+      "revId": "f7f7e363266390f907ec3f896379d58239825466",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cb3455e_620e8dcb",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-07T02:50:25Z",
+      "side": 1,
+      "message": "Please make it actually final. Also suggest calling getLinkProperties here instead of in l.600",
+      "range": {
+        "startLine": 595,
+        "startChar": 12,
+        "endLine": 595,
+        "endChar": 32
+      },
+      "revId": "f7f7e363266390f907ec3f896379d58239825466",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3307633e_813ace73",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-07T02:50:25Z",
+      "side": 1,
+      "message": "I don\u0027t think you need this as there is a version of eventuallyExpect(type, timeout, predicate)\n\nI can see that version has the predicate defined as `(T: CallbackEntry) -\u003e Boolean` instead of `(cb: T) -\u003e Boolean` which forces you to cast like you\u0027re doing in l.599, but you\u0027re already doing it.\n\nAlternatively, keep this version (with a comment referencing b/157405399) but you should be able to remove the cast in l.599 since entry should already be an instance of CallbackEntry.LinkPropertiesChanged",
+      "range": {
+        "startLine": 597,
+        "startChar": 49,
+        "endLine": 597,
+        "endChar": 61
+      },
+      "revId": "f7f7e363266390f907ec3f896379d58239825466",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
