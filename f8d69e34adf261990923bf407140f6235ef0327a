@@ -94,6 +94,30 @@
       },
       "revId": "f8d69e34adf261990923bf407140f6235ef0327a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2702e81_6cb35552",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-07T03:44:27Z",
+      "side": 1,
+      "message": "Merge to aosp/2157800.",
+      "parentUuid": "17089ce9_e8e3b347",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 13
+      },
+      "revId": "f8d69e34adf261990923bf407140f6235ef0327a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
