@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ce9ee78_6cf8942a",
+        "filename": "framework-t/src/android/net/IpSecManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-11-07T23:04:41Z",
+      "side": 1,
+      "message": "Nit, this shouldn\u0027t be part of the actual javadoc. Suggest adding this as a comment after, with a Todo to figure out how to shim this properly (preferably Remi already has one)",
+      "range": {
+        "startLine": 77,
+        "startChar": 7,
+        "endLine": 78,
+        "endChar": 71
+      },
+      "revId": "d827407981fe0e9f724e55077614c4dbfc8fa895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
