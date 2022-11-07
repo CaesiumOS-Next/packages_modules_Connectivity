@@ -46,6 +46,30 @@
       },
       "revId": "fb71a00ed095e5127a287a9dce89dacf84ccb80a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88ffb437_7620ca43",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2828,
+      "author": {
+        "id": 1133258
+      },
+      "writtenOn": "2022-11-07T23:50:27Z",
+      "side": 1,
+      "message": "Looked into the proposal moving the pollling into the utility:\n1. the ensureWifiConnected() doesn\u0027t know if wifi has been disabled and expect the network info is null. Only the test case knows it.\n(The ConnectUtil.kt#ensureWifiConnected may have a valid usage that do not connect if current network info is not null)\n2. the test utility doesn\u0027t throw exception to do the polling check. There will be more code to change to make all calls in the path throws exception.",
+      "parentUuid": "88f66cbd_91086fa7",
+      "range": {
+        "startLine": 2828,
+        "startChar": 16,
+        "endLine": 2828,
+        "endChar": 35
+      },
+      "revId": "fb71a00ed095e5127a287a9dce89dacf84ccb80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
