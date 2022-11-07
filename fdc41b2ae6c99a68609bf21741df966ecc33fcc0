@@ -22,6 +22,30 @@
       },
       "revId": "fdc41b2ae6c99a68609bf21741df966ecc33fcc0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "126a06ee_44350143",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-11-07T10:48:13Z",
+      "side": 1,
+      "message": "Thank for pointing this out.\n\nI have split the genrule module to the source and the header in aosp/2289454.\nI haven\u0027t found the user of python files so I have removed python generation in aosp/2289455",
+      "parentUuid": "4e0199c6_7efdcbb5",
+      "range": {
+        "startLine": 862,
+        "startChar": 4,
+        "endLine": 862,
+        "endChar": 80
+      },
+      "revId": "fdc41b2ae6c99a68609bf21741df966ecc33fcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
