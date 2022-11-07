@@ -166,6 +166,30 @@
       },
       "revId": "7dce599f421ae883b670ae76aa0dca761d551ec9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc29f6bf_8f376042",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-07T07:26:51Z",
+      "side": 0,
+      "message": "• Rémi : analysis looks wrong here because l.1328 (ps5) updates the last timestamp unconditionally, so only one poll gets culled.\n• Aaron : I think Rémi\u0027s reasoning and conclusion is right though : instead of changing this clock to something that is no longer monotonic, we should simply have a different dependency injection for this clock.\n\nAnother option is to use mClock here, and return false (not rate limited) if the new timestamp is older than the last one. In which case, the only ill effect is one unlimited poll, which I think is completely inconsequential. This however would need very careful comments.",
+      "parentUuid": "3a007bd8_6bb2f48c",
+      "range": {
+        "startLine": 1307,
+        "startChar": 37,
+        "endLine": 1307,
+        "endChar": 52
+      },
+      "revId": "7dce599f421ae883b670ae76aa0dca761d551ec9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
