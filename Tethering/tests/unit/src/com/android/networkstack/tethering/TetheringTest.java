@@ -196,6 +196,7 @@ import com.android.networkstack.apishim.common.UnsupportedApiLevelException;
 import com.android.networkstack.tethering.TestConnectivityManager.TestNetworkAgent;
 import com.android.networkstack.tethering.metrics.TetheringMetrics;
 import com.android.testutils.DevSdkIgnoreRule;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.MiscAsserts;
 
@@ -1212,13 +1213,12 @@ public class TetheringTest {
         inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(wifi.networkId);
     }
 
-    @Test
-    public void testAutomaticUpstreamSelection() throws Exception {
+    private void verifyAutomaticUpstreamSelection(boolean configAutomatic) throws Exception {
         TestNetworkAgent mobile = new TestNetworkAgent(mCm, buildMobileDualStackUpstreamState());
         TestNetworkAgent wifi = new TestNetworkAgent(mCm, buildWifiUpstreamState());
         InOrder inOrder = inOrder(mCm, mUpstreamNetworkMonitor);
         // Enable automatic upstream selection.
-        upstreamSelectionTestCommon(true, inOrder, mobile, wifi);
+        upstreamSelectionTestCommon(configAutomatic, inOrder, mobile, wifi);
 
         // This code has historically been racy, so test different orderings of CONNECTIVITY_ACTION
         // broadcasts and callbacks, and add mLooper.dispatchAll() calls between the two.
@@ -1298,6 +1298,20 @@ public class TetheringTest {
     }
 
     @Test
+    public void testAutomaticUpstreamSelection() throws Exception {
+        verifyAutomaticUpstreamSelection(true /* configAutomatic */);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testAutomaticUpstreamSelectionWithConfigDisabled() throws Exception {
+        // Expect that automatic config can't disable the automatic mode because automatic mode
+        // is always enabled on U+ device.
+        verifyAutomaticUpstreamSelection(false /* configAutomatic */);
+    }
+
+    @Test
+    @IgnoreAfter(Build.VERSION_CODES.TIRAMISU)
     public void testLegacyUpstreamSelection() throws Exception {
         TestNetworkAgent mobile = new TestNetworkAgent(mCm, buildMobileDualStackUpstreamState());
         TestNetworkAgent wifi = new TestNetworkAgent(mCm, buildWifiUpstreamState());
@@ -1323,8 +1337,7 @@ public class TetheringTest {
         verifyDisableTryCellWhenTetheringStop(inOrder);
     }
 
-    @Test
-    public void testChooseDunUpstreamByAutomaticMode() throws Exception {
+    private void verifyChooseDunUpstreamByAutomaticMode(boolean configAutomatic) throws Exception {
         // Enable automatic upstream selection.
         TestNetworkAgent mobile = new TestNetworkAgent(mCm, buildMobileDualStackUpstreamState());
         TestNetworkAgent wifi = new TestNetworkAgent(mCm, buildWifiUpstreamState());
@@ -1359,6 +1372,18 @@ public class TetheringTest {
     }
 
     @Test
+    public void testChooseDunUpstreamByAutomaticMode() throws Exception {
+        verifyChooseDunUpstreamByAutomaticMode(true /* configAutomatic */);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testChooseDunUpstreamByAutomaticModeWithConfigDisabled() throws Exception {
+        verifyChooseDunUpstreamByAutomaticMode(false /* configAutomatic */);
+    }
+
+    @Test
+    @IgnoreAfter(Build.VERSION_CODES.TIRAMISU)
     public void testChooseDunUpstreamByLegacyMode() throws Exception {
         // Enable Legacy upstream selection.
         TestNetworkAgent mobile = new TestNetworkAgent(mCm, buildMobileDualStackUpstreamState());
