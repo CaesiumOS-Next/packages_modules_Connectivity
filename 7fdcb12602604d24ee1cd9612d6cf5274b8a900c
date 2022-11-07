@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79decdb1_f32a840b",
+        "filename": "framework-t/src/android/net/IpSecTransform.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-11-07T23:00:53Z",
+      "side": 1,
+      "message": "Could you add a comment in the commit message discussing why we needed to design it this way? It\u0027ll be good for history",
+      "range": {
+        "startLine": 102,
+        "startChar": 58,
+        "endLine": 104,
+        "endChar": 46
+      },
+      "revId": "7fdcb12602604d24ee1cd9612d6cf5274b8a900c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
