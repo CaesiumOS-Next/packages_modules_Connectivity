@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "855ee801_a5d3920e",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2828,
+      "author": {
+        "id": 1039103
+      },
+      "writtenOn": "2022-11-07T05:49:06Z",
+      "side": 1,
+      "message": "But the failure isn\u0027t here - it\u0027s in the test utility below, ensureWifiConnected(). Can you fix that root cause (better to fix in the utility rather than in each test).",
+      "range": {
+        "startLine": 2828,
+        "startChar": 16,
+        "endLine": 2828,
+        "endChar": 35
+      },
+      "revId": "fb71a00ed095e5127a287a9dce89dacf84ccb80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
