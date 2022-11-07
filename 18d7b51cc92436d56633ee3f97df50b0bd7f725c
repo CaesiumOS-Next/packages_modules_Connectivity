@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "170a5736_8a1f3c5f",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 1
+      },
+      "lineNbr": 5742,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-07T18:50:05Z",
+      "side": 0,
+      "message": "why are there so many spurious changes in the diff?",
+      "range": {
+        "startLine": 5722,
+        "startChar": 31,
+        "endLine": 5742,
+        "endChar": 30
+      },
+      "revId": "18d7b51cc92436d56633ee3f97df50b0bd7f725c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

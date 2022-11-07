@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1be1a81c_9fb2759d",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-07T18:50:05Z",
+      "side": 1,
+      "message": "So it looks like net_deps bloated with stuff that isn\u0027t actually needed. We should be able to get rid of :net_resources and //net/base/registry_controlled_domains\" -- then we won\u0027t have to worry about making this work at all.",
+      "range": {
+        "startLine": 860,
+        "startChar": 25,
+        "endLine": 860,
+        "endChar": 45
+      },
+      "revId": "033c9d6d858082ff7e9dbf5ab51379d89ba466a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46ae45b0_072f1c6e",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-07T18:50:05Z",
+      "side": 1,
+      "message": "I wonder if os.path.isdir() could be used here; it might not work due to the fact the script is executed from Android croot, not from within chromium/src context.",
+      "range": {
+        "startLine": 868,
+        "startChar": 8,
+        "endLine": 868,
+        "endChar": 29
+      },
+      "revId": "033c9d6d858082ff7e9dbf5ab51379d89ba466a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a0c0985_4e30b0fd",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-07T18:50:05Z",
+      "side": 1,
+      "message": "nit: file 😊",
+      "range": {
+        "startLine": 872,
+        "startChar": 30,
+        "endLine": 872,
+        "endChar": 33
+      },
+      "revId": "033c9d6d858082ff7e9dbf5ab51379d89ba466a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d351d14_85435e5e",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-07T18:50:05Z",
+      "side": 1,
+      "message": "merge this together with \u0027-i\u0027. They seem to be doing the same thing.\n\n```\nif val in [\u0027-i\u0027, \u0027--input\u0027]:\n  ...\n```",
+      "range": {
+        "startLine": 885,
+        "startChar": 6,
+        "endLine": 885,
+        "endChar": 28
+      },
+      "revId": "033c9d6d858082ff7e9dbf5ab51379d89ba466a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
