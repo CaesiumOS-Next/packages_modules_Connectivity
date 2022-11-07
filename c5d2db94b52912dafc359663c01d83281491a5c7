@@ -22,6 +22,30 @@
       },
       "revId": "c5d2db94b52912dafc359663c01d83281491a5c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50aad6ca_bb62412f",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-11-07T04:06:46Z",
+      "side": 1,
+      "message": "It seems .cc and .h file is generated at (cc_out_dir)/(proto_file_path).cc/h and .py file is generated at (cc_out_dir)/(proto_file).py.\nFor example, with following command.\n\n```\ncmd: \"$(location tools/protoc_wrapper/protoc_wrapper.py) $(location net/nqe/proto/network_id_proto.proto) \" +\n         \"--protoc \" +\n         \"$(location aprotoc) \" +\n         \"--proto-in-dir \" +\n         \"./ \" +\n         \"--cc-out-dir \" +\n         \"$(genDir)/ \" +\n         \"--cc-options \" +\n         \"dllexport_decl\u003dNET_EXPORT_PRIVATE: \" +\n         \" \" +\n         \"--include \" +\n         \"$(location net/base/net_export.h) \" +\n         \"--py-out-dir \" +\n         \"$(genDir)/ \",\n```\n$(location net/nqe/proto/network_id_proto.proto) is `external/chromium_org/net/nqe/proto/network_id_proto.proto`\n$(genDir) is `out/soong/.temp/sbox/b7f9e326fee0f9752a2ac8037ccf4f55ae36edf6/out/`\n\nSo cc file is created at $(genDir)/$(location ..): (`out/soong/.temp/sbox/b7f9e326fee0f9752a2ac8037ccf4f55ae36edf6/out/external/chromium_org/net/nqe/proto/network_id_proto.pb.cc`)\n\nSo, I can\u0027t just specify `$(location net/nqe/proto/network_id_proto.proto)` with `--proto-in-dir ./` without changing file in the output to `external/chromium_org/net/nqe/proto/network_id_proto.pb.cc`\n\nLet me think if I can write simpler.\nIf I\u0027m not understanding your suggestion, please tell me.",
+      "parentUuid": "876c311d_ef3b9d8a",
+      "range": {
+        "startLine": 869,
+        "startChar": 0,
+        "endLine": 873,
+        "endChar": 47
+      },
+      "revId": "c5d2db94b52912dafc359663c01d83281491a5c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
