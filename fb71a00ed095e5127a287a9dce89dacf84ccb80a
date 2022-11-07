@@ -22,6 +22,30 @@
       },
       "revId": "fb71a00ed095e5127a287a9dce89dacf84ccb80a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88f66cbd_91086fa7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2828,
+      "author": {
+        "id": 1133258
+      },
+      "writtenOn": "2022-11-07T23:30:51Z",
+      "side": 1,
+      "message": "The root cause is - in ConnectUtil.kt, it checkes if getConnectionInfo and network id is -1, otherwise it will not connect to a network.\nAfter disabling wifi the network connection info will not be cleared immediately - \nso we do need the polling wait before calling ConnectUtil.kt#ensureWifiConnected.\n\nhttps://source.corp.google.com/android/frameworks/libs/net/common/testutils/devicetests/com/android/testutils/ConnectUtil.kt;rcl\u003d1254078fa148f780a6fe9056e4e5d7463709eae7;l\u003d67",
+      "parentUuid": "855ee801_a5d3920e",
+      "range": {
+        "startLine": 2828,
+        "startChar": 16,
+        "endLine": 2828,
+        "endChar": 35
+      },
+      "revId": "fb71a00ed095e5127a287a9dce89dacf84ccb80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
