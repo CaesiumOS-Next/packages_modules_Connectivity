@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f528ac37_482ab545",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-07T07:35:44Z",
+      "side": 1,
+      "message": "@NonNull?",
+      "range": {
+        "startLine": 205,
+        "startChar": 57,
+        "endLine": 205,
+        "endChar": 62
+      },
+      "revId": "4297aaa69f148d6088d0cfc361353cd02b6663c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eef8f057_d3b5cbaf",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-07T07:35:44Z",
+      "side": 1,
+      "message": "Maybe delete this?",
+      "range": {
+        "startLine": 235,
+        "startChar": 8,
+        "endLine": 236,
+        "endChar": 44
+      },
+      "revId": "4297aaa69f148d6088d0cfc361353cd02b6663c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f296328b_c86ce399",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-07T07:35:44Z",
+      "side": 1,
+      "message": "Is it easy to delete this?",
+      "range": {
+        "startLine": 317,
+        "startChar": 3,
+        "endLine": 330,
+        "endChar": 5
+      },
+      "revId": "4297aaa69f148d6088d0cfc361353cd02b6663c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c0d13df_37aa82c0",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 817,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-07T07:35:44Z",
+      "side": 1,
+      "message": "Can we delete this by moving the content to the method above?",
+      "range": {
+        "startLine": 817,
+        "startChar": 34,
+        "endLine": 817,
+        "endChar": 43
+      },
+      "revId": "4297aaa69f148d6088d0cfc361353cd02b6663c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
