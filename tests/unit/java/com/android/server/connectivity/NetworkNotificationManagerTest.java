@@ -57,6 +57,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.UserHandle;
+import android.server.wm.WindowManagerStateHelper;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.widget.TextView;
@@ -93,7 +94,6 @@ import java.util.List;
 @SmallTest
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
 public class NetworkNotificationManagerTest {
-
     private static final String TEST_SSID = "Test SSID";
     private static final String TEST_EXTRA_INFO = "extra";
     private static final int TEST_NOTIF_ID = 101;
@@ -386,7 +386,11 @@ public class NetworkNotificationManagerTest {
                 R.bool.config_notifyNoInternetAsDialogWhenHighPriority);
 
         final Instrumentation instr = InstrumentationRegistry.getInstrumentation();
-        UiDevice.getInstance(instr).pressHome();
+        final UiDevice uiDevice =  UiDevice.getInstance(instr);
+        uiDevice.pressHome();
+        final WindowManagerStateHelper wmState = new WindowManagerStateHelper();
+        wmState.waitForHomeActivityVisible();
+        wmState.assertHomeActivityVisible(true /* visible */);
 
         mManager.showNotification(TEST_NOTIF_ID, NETWORK_SWITCH, mWifiNai, mCellNai, null, false);
         // Non-"no internet" notifications are not affected
@@ -407,8 +411,7 @@ public class NetworkNotificationManagerTest {
         verify(mNotificationManager).cancel(TEST_NOTIF_TAG, NETWORK_SWITCH.eventId);
 
         // Verify that the activity is shown (the activity shows the action on screen)
-        final UiObject actionText = UiDevice.getInstance(instr).findObject(
-                new UiSelector().text(testAction));
+        final UiObject actionText = uiDevice.findObject(new UiSelector().text(testAction));
         assertTrue("Activity not shown", actionText.waitForExists(TEST_TIMEOUT_MS));
 
         // Tapping the text should dismiss the dialog
