@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecdd02be_62b12860",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1032,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-07T17:58:08Z",
+      "side": 1,
+      "message": "This could probably be added to is_supported_source_file() directly. A file inside //out is never a supported source file, thus can never be added to module.srcs.\nYou might also be able to make this even more generic: `src.startswith(\u0027//out\u0027)`",
+      "range": {
+        "startLine": 1032,
+        "startChar": 61,
+        "endLine": 1032,
+        "endChar": 75
+      },
+      "revId": "f951e500d6a6e5798712dcc9260731a5d8519f27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
