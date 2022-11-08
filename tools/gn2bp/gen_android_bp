@@ -585,7 +585,8 @@ def create_proto_modules(blueprint, gn, target):
   else:
     raise Error('Unsupported proto plugin: %s' % target.proto_plugin)
 
-  cmd += ['$(in)']
+  for input in target.proto_inputs:
+    cmd += [input]
   source_module.cmd = ' '.join(cmd)
   header_module.cmd = source_module.cmd
   source_module.tools = tools
