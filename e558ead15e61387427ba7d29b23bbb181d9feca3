@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "735b3a8d_fd7f2eba",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-08T19:53:02Z",
+      "side": 1,
+      "message": "We should reintroduce additional_args (https://source.corp.google.com/aosp-master/external/perfetto/tools/gen_android_bp;l\u003d186) to do this.",
+      "range": {
+        "startLine": 593,
+        "startChar": 0,
+        "endLine": 595,
+        "endChar": 71
+      },
+      "revId": "e558ead15e61387427ba7d29b23bbb181d9feca3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
