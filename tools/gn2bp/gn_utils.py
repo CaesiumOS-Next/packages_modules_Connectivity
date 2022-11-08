@@ -110,6 +110,8 @@ class GnParser(object):
       self.proto_plugin = None
       self.proto_paths = set()
       self.proto_exports = set()
+      # Proto file inputs specified in the args
+      self.proto_inputs = set()
 
       self.sources = set()
       # TODO(primiano): consider whether the public section should be part of
@@ -232,6 +234,7 @@ class GnParser(object):
       target.proto_plugin = proto_target_type
       target.proto_paths.update(self.get_proto_paths(proto_desc))
       target.proto_exports.update(self.get_proto_exports(proto_desc))
+      target.proto_inputs.update(self.get_proto_inputs(proto_desc))
       target.sources.update(proto_desc.get('sources', []))
       assert (all(x.endswith('.proto') for x in target.sources))
     elif target.type == 'source_set':
@@ -321,6 +324,10 @@ class GnParser(object):
     # import_dirs in metadata will be available for source_set targets.
     metadata = proto_desc.get('metadata', {})
     return metadata.get('import_dirs', [])
+
+  def get_proto_inputs(self, proto_desc):
+    args = proto_desc.get('args')
+    return [arg for arg in args if arg.endswith(".proto")]
 
   def get_proto_target_type(self, target):
     """ Checks if the target is a proto library and return the plugin.
