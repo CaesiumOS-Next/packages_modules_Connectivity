@@ -19,6 +19,8 @@ package com.android.networkstack.tethering;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING;
 import static android.text.TextUtils.isEmpty;
 
+import static com.android.modules.utils.build.SdkLevel.isAtLeastU;
+
 import android.app.Notification;
 import android.app.Notification.Action;
 import android.app.NotificationChannel;
@@ -45,6 +47,7 @@ import androidx.annotation.IntDef;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 
 import com.android.internal.annotations.VisibleForTesting;
 
@@ -122,7 +125,8 @@ public class TetheringNotificationUpdater {
     @IntDef(value = {
             RESTRICTED_NOTIFICATION_ID,
             NO_UPSTREAM_NOTIFICATION_ID,
-            ROAMING_NOTIFICATION_ID
+            ROAMING_NOTIFICATION_ID,
+            DUN_VALIDATION_NOTIFICATION_ID
     })
     @interface NotificationId {}
 
@@ -165,10 +169,14 @@ public class TetheringNotificationUpdater {
         public void handleMessage(Message msg) {
             switch(msg.what) {
                 case EVENT_SHOW_NO_UPSTREAM:
-                    notifyTetheringNoUpstream(NO_UPSTREAM_NOTIFICATION_ID);
+                    notifyTetheringNoUpstream(NO_UPSTREAM_NOTIFICATION_ID,
+                            R.string.no_upstream_notification_title,
+                            R.string.no_upstream_notification_message);
                     break;
                 case EVENT_SHOW_DUN_VALIDATION_FAILED:
-                    notifyTetheringNoUpstream(DUN_VALIDATION_NOTIFICATION_ID);
+                    notifyTetheringNoUpstream(DUN_VALIDATION_NOTIFICATION_ID,
+                            R.string.unvalidated_upstream_notification_title,
+                            R.string.unvalidated_upstream_notification_message);
                     break;
             }
         }
@@ -177,12 +185,13 @@ public class TetheringNotificationUpdater {
     /** Called when downstream has changed */
     public void onDownstreamChanged(@IntRange(from = 0, to = 7) final int downstreamTypesMask) {
         updateActiveNotifications(
-                mActiveDataSubId, downstreamTypesMask, mNoUpstream, mRoaming,mDunValidated);
+                mActiveDataSubId, downstreamTypesMask, mNoUpstream, mRoaming, mDunValidated);
     }
 
     /** Called when active data subscription id changed */
     public void onActiveDataSubscriptionIdChanged(final int subId) {
-        updateActiveNotifications(subId, mDownstreamTypesMask, mNoUpstream, mRoaming,mDunValidated);
+        updateActiveNotifications(
+                subId, mDownstreamTypesMask, mNoUpstream, mRoaming, mDunValidated);
     }
 
     /** Called when upstream network capabilities changed */
@@ -192,12 +201,15 @@ public class TetheringNotificationUpdater {
                 && !capabilities.hasCapability(NET_CAPABILITY_NOT_ROAMING);
         boolean isNoDunValidatioNotification = true;
         mDunCapable = false;
-        if(capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_DUN)){
+        if (capabilities != null
+                && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_DUN)) {
             mDunCapable = true;
-            isNoDunValidatioNotification = capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED);
+            isNoDunValidatioNotification = capabilities.hasCapability(
+                    NetworkCapabilities.NET_CAPABILITY_VALIDATED);
         }
         updateActiveNotifications(
-                mActiveDataSubId, mDownstreamTypesMask, isNoUpstream, isRoaming,isNoDunValidatioNotification);
+                mActiveDataSubId, mDownstreamTypesMask, isNoUpstream, isRoaming,
+                isNoDunValidatioNotification);
     }
 
     @NonNull
@@ -227,7 +239,7 @@ public class TetheringNotificationUpdater {
     }
 
     private void updateActiveNotifications(final int subId, final int downstreamTypes,
-            final boolean noUpstream, final boolean isRoaming,final boolean isDunValidated) {
+            final boolean noUpstream, final boolean isRoaming, final boolean isDunValidated) {
         final boolean tetheringActiveChanged =
                 (downstreamTypes == DOWNSTREAM_NONE) != (mDownstreamTypesMask == DOWNSTREAM_NONE);
         final boolean subIdChanged = subId != mActiveDataSubId;
@@ -262,14 +274,15 @@ public class TetheringNotificationUpdater {
         }
     }
 
-    private void updateDunValidationNotification(){
+    private void updateDunValidationNotification() {
         final boolean tetheringInactive = mDownstreamTypesMask == DOWNSTREAM_NONE;
-        if (tetheringInactive || !mDunCapable || mDunValidated || setupDunValidationNotification() == NO_NOTIFY) {
+        if (tetheringInactive || !mDunCapable || mDunValidated
+                || setupDunValidationNotification() == NO_NOTIFY) {
             clearNotification(DUN_VALIDATION_NOTIFICATION_ID);
             mHandler.removeMessages(EVENT_SHOW_DUN_VALIDATION_FAILED);
         }
     }
-    
+
     @VisibleForTesting
     void tetheringRestrictionLifted() {
         clearNotification(RESTRICTED_NOTIFICATION_ID);
@@ -307,10 +320,11 @@ public class TetheringNotificationUpdater {
                 RESTRICTED_NOTIFICATION_ID, false /* ongoing */, pi, new Action[0]);
     }
 
-    private void notifyTetheringNoUpstream(int notification_type) {
+    private void notifyTetheringNoUpstream(int notificationType,
+            @StringRes int titleId, @StringRes int messageId) {
         final Resources res = getResourcesForSubId(mContext, mActiveDataSubId);
-        final String title = res.getString(R.string.no_upstream_notification_title);
-        final String message = res.getString(R.string.no_upstream_notification_message);
+        final String title = res.getString(titleId);
+        final String message = res.getString(messageId);
         final String disableButton =
                 res.getString(R.string.no_upstream_notification_disable_button);
         if (isEmpty(title) || isEmpty(message) || isEmpty(disableButton)) return;
@@ -323,14 +337,9 @@ public class TetheringNotificationUpdater {
                 intent,
                 PendingIntent.FLAG_IMMUTABLE);
         final Action action = new Action.Builder(NO_ICON_ID, disableButton, pi).build();
-        
-        if(notification_type == NO_UPSTREAM_NOTIFICATION_ID){
-             showNotification(R.drawable.stat_sys_tether_general, title, message,
-                 NO_UPSTREAM_NOTIFICATION_ID, true /* ongoing */, null /* pendingIntent */, action);
-        } else if(notification_type == DUN_VALIDATION_NOTIFICATION_ID){
-             showNotification(R.drawable.stat_sys_tether_general, title, message,
-                 DUN_VALIDATION_NOTIFICATION_ID, true /* ongoing */, null /* pendingIntent */, action);
-        } 
+
+        showNotification(R.drawable.stat_sys_tether_general, title, message,
+                notificationType, true /* ongoing */, null /* pendingIntent */, action);
     }
 
     private boolean setupRoamingNotification() {
@@ -358,11 +367,15 @@ public class TetheringNotificationUpdater {
         return NOTIFY_DONE;
     }
 
-    private boolean setupDunValidationNotification(){
+    private boolean setupDunValidationNotification() {
         final Resources res = getResourcesForSubId(mContext, mActiveDataSubId);
         final int delayToShowDunValidationNotification =
-                res.getInteger(R.integer.delay_to_show_no_upstream_after_no_backhaul);
+                res.getInteger(R.integer.delay_to_show_invalid_tethering_upstream);
         if (delayToShowDunValidationNotification < 0) return NO_NOTIFY;
+        if (!isAtLeastU()
+                && !res.getBoolean(R.bool.config_show_invalid_tethering_upstream_before_u)) {
+            return NO_NOTIFY;
+        }
         mHandler.sendMessageDelayed(mHandler.obtainMessage(EVENT_SHOW_DUN_VALIDATION_FAILED),
                 delayToShowDunValidationNotification);
         return NOTIFY_DONE;

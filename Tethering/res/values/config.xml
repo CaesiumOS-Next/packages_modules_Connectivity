@@ -195,6 +195,18 @@
          "-1" for disable this feature. -->
     <integer name="delay_to_show_no_upstream_after_no_backhaul">-1</integer>
 
+    <!-- Delay(millisecond) to show a notification if tethering uses a specific (DUN) network, and
+         that network is not validated (has no internet access). If negative, the notification will
+         not be shown. -->
+    <integer name="delay_to_show_invalid_tethering_upstream">5000</integer>
+
+    <!-- Whether to show a notification if tethering uses a specific (DUN) network, and
+         that network is not validated (has no internet access). This is always considered true
+         after U, but the notification can still be disabled by setting
+         delay_to_show_invalid_tethering_upstream to a negative value. If set to true,
+         config_validate_dun_networks must also be overridden to true in NetworkStack resources. -->
+    <bool name="config_show_invalid_tethering_upstream_before_u">false</bool>
+
     <!-- Cellular roaming notification is shown when upstream is cellular network and in roaming
          state. -->
     <!-- Config for showing upstream roaming notification. -->

@@ -38,7 +38,20 @@
     <!-- String for no upstream notification message [CHAR LIMIT=200] -->
     <string name="no_upstream_notification_message"></string>
     <!-- String for no upstream notification disable button [CHAR LIMIT=200] -->
-    <string name="no_upstream_notification_disable_button"></string>
+    <string name="no_upstream_notification_disable_button">Disable tethering</string>
+
+    <!-- String for no upstream notification title. A notification is shown when the user is trying
+         to share their connection (for example wifi hotspot tethering) but the connection is not
+         working though the carrier network. This can happen if the user has bad cell reception or
+         has used all their tethering quota on their carrier data plan. This is the title of the
+         notification. [CHAR LIMIT=200] -->
+    <string name="unvalidated_upstream_notification_title">Cannot share internet</string>
+    <!-- String for no upstream notification title. A notification is shown when the user is trying
+         to share their connection (for example wifi hotspot tethering) but the connection is not
+         working though the carrier network. This can happen if the user has bad cell reception or
+         has used all their tethering quota on their carrier data plan. This is the contents of the
+         notification. [CHAR LIMIT=200] -->
+    <string name="unvalidated_upstream_notification_message">Tethering is not working on your carrier network. Check your cell reception and data plan.</string>
 
     <!-- String for cellular roaming notification title [CHAR LIMIT=200] -->
     <string name="upstream_roaming_notification_title"></string>

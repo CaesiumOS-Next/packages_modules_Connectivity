@@ -36,6 +36,8 @@
             <item type="integer" name="config_tether_offload_poll_interval"/>
             <item type="array" name="config_tether_upstream_types"/>
             <item type="bool" name="config_tether_upstream_automatic"/>
+            <item type="integer" name="delay_to_show_invalid_tethering_upstream"/>
+            <item type="bool" name="config_show_invalid_tethering_upstream_before_u"/>
             <!-- Configuration values for tethering entitlement check -->
             <item type="array" name="config_mobile_hotspot_provision_app"/>
             <item type="string" name="config_mobile_hotspot_provision_app_no_ui"/>
