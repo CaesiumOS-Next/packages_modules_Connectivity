@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcbaec82_a992aa08",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3124,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-08T03:40:03Z",
+      "side": 0,
+      "message": "these got removed. We probably need to add support for them.",
+      "range": {
+        "startLine": 3120,
+        "startChar": 0,
+        "endLine": 3124,
+        "endChar": 47
+      },
+      "revId": "76ceeb5d93469a79821df407c85a5c79e84c9cc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
