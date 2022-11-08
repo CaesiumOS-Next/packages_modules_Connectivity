@@ -50,6 +50,12 @@
     <uses-permission android:name="android.permission.NETWORK_STATS_PROVIDER" />
     <uses-permission android:name="android.permission.CONTROL_OEM_PAID_NETWORK_PREFERENCE" />
 
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.HOME"/>
+        </intent>
+    </queries>
     <application android:testOnly="true">
         <uses-library android:name="android.test.runner" />
         <uses-library android:name="android.net.ipsec.ike" />
