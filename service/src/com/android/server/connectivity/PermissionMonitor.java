@@ -75,6 +75,8 @@ import com.android.networkstack.apishim.common.ProcessShim;
 import com.android.server.BpfNetMaps;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -89,6 +91,7 @@ import java.util.Set;
 public class PermissionMonitor {
     private static final String TAG = "PermissionMonitor";
     private static final boolean DBG = true;
+    private static final boolean VDBG = Log.isLoggable(TAG, Log.VERBOSE);
     private static final int VERSION_Q = Build.VERSION_CODES.Q;
 
     private final PackageManager mPackageManager;
@@ -956,14 +959,37 @@ public class PermissionMonitor {
         // be an overestimation if an app is not installed on the user on which the VPN is running,
         // but that's safe: if an app is not installed, it cannot receive any packets, so dropping
         // packets to that UID is fine.
+        if (VDBG) {
+            logv("onVpnUidRangesAdded: " + iface + ": vpnAppUid " + vpnAppUid + ": "
+                    + rangesToAdd);
+        }
         final Set<Integer> changedUids = intersectUids(rangesToAdd, mAllApps);
         removeBypassingUids(changedUids, vpnAppUid);
         updateVpnUidsInterfaceRules(iface, changedUids, true /* add */);
-        if (mVpnInterfaceUidRanges.containsKey(iface)) {
-            mVpnInterfaceUidRanges.get(iface).addAll(rangesToAdd);
-        } else {
-            mVpnInterfaceUidRanges.put(iface, new HashSet<UidRange>(rangesToAdd));
+        addTrackedVpnUidRanges(iface, rangesToAdd);
+    }
+
+    /**
+     * Called when a set of UID ranges is moved from one interface to another
+     *
+     * @param oldIface The previous VPN interface name
+     * @param newIface The new VPN interface name
+     * @param ranges The UID ranges to be moved
+     * @param vpnAppUid The uid of the VPN app
+     */
+    public synchronized void onVpnUidRangesReplaced(@Nullable String oldIface,
+            @Nullable String newIface, Set<UidRange> ranges, int vpnAppUid) {
+        // Adding interface rules replaces the existing iface for a particular UID, so previous
+        // ranges only need to be removed from our tracked ranges and only for tracking purposes.
+        if (VDBG) {
+            logv("onVpnUidRangesReplaced: " + oldIface + " to " + newIface + ": "
+                   + "vpnAppUid " + vpnAppUid + ": " + ranges);
         }
+        final Set<Integer> changedUids = intersectUids(ranges, mAllApps);
+        removeBypassingUids(changedUids, vpnAppUid);
+        updateVpnUidsInterfaceRules(newIface, changedUids, true /* add */);
+        addTrackedVpnUidRanges(newIface, ranges);
+        removeTrackedVpnUidRanges(oldIface, ranges);
     }
 
     /**
@@ -978,19 +1004,16 @@ public class PermissionMonitor {
             Set<UidRange> rangesToRemove, int vpnAppUid) {
         // Calculate the list of app uids that are no longer under the VPN due to the removed UID
         // ranges and update Netd about them.
+        if (VDBG) {
+            logv("onVpnUidRangesRemoved: " + iface + ": vpnAppUid " + vpnAppUid + ": "
+                    + rangesToRemove);
+        }
         final Set<Integer> changedUids = intersectUids(rangesToRemove, mAllApps);
         removeBypassingUids(changedUids, vpnAppUid);
         updateVpnUidsInterfaceRules(iface, changedUids, false /* add */);
-        Set<UidRange> existingRanges = mVpnInterfaceUidRanges.getOrDefault(iface, null);
-        if (existingRanges == null) {
-            loge("Attempt to remove unknown vpn uid Range iface = " + iface);
-            return;
-        }
-        existingRanges.removeAll(rangesToRemove);
-        if (existingRanges.size() == 0) {
-            mVpnInterfaceUidRanges.remove(iface);
-        }
+        removeTrackedVpnUidRanges(iface, rangesToRemove);
     }
+
 
     /**
      * Called when UID ranges under VPN Lockdown are updated
@@ -1005,24 +1028,58 @@ public class PermissionMonitor {
      *               ranges that are currently subject to lockdown.
      */
     public synchronized void updateVpnLockdownUidRanges(boolean add, UidRange[] ranges) {
-        final Set<UidRange> affectedUidRanges = new HashSet<>();
+        updateVpnLockdownUidRanges(add ? null : ranges /* rangesToRemove */,
+                add ? ranges : null /* rangesToAdd */);
+    }
+    /**
+     * Like updateVpnLockdownUidRanges(add, ranges), but accepts both ranges to remove and ranges
+     * to add. This allows for more efficient processing while preserving PermissionMonitor's
+     * traditional lockdown UID range tracking in a MultiSet.
+     */
+    public synchronized void updateVpnLockdownUidRanges(UidRange[] rangesToRemove,
+            UidRange[] rangesToAdd) {
+        Set<UidRange> removedUidRanges = new ArraySet<>();
+        Set<UidRange> addedUidRanges = new ArraySet<>();
 
-        for (final UidRange range : ranges) {
-            if (add) {
-                // Rule will be added if mVpnLockdownUidRanges does not have this uid range entry
-                // currently.
-                if (mVpnLockdownUidRanges.add(range) == 0) {
-                    affectedUidRanges.add(range);
-                }
-            } else {
+        if (rangesToRemove != null) {
+            for (final UidRange range : rangesToRemove) {
                 // Rule will be removed if the number of the range in the set is 1 before the
                 // removal.
                 if (mVpnLockdownUidRanges.remove(range) == 1) {
-                    affectedUidRanges.add(range);
+                    removedUidRanges.add(range);
+                }
+            }
+        }
+        if (rangesToAdd != null) {
+            for (final UidRange range : rangesToAdd) {
+                // Rule will be added if mVpnLockdownUidRanges does not have this uid range entry
+                // currently.
+                if (mVpnLockdownUidRanges.add(range) == 0) {
+                    addedUidRanges.add(range);
                 }
             }
         }
 
+        // Only remove or add ranges that are present exclusively in remove/add (otherwise no-op).
+        UidRangeUtils.Diff diff = UidRangeUtils.diff(removedUidRanges, addedUidRanges);
+        removedUidRanges = diff.getOnlyASet();
+        addedUidRanges = diff.getOnlyBSet();
+
+        if (VDBG) {
+            logv("updateVpnLockdownUidRanges(" + Arrays.toString(rangesToRemove) + ", "
+                    + Arrays.toString(rangesToAdd) + "): diff: " + diff);
+        }
+
+        if (!removedUidRanges.isEmpty()) {
+            updateVpnLockdownUidRanges(false /* add */, removedUidRanges);
+        }
+        if (!addedUidRanges.isEmpty()) {
+            updateVpnLockdownUidRanges(true /* add */, addedUidRanges);
+        }
+    }
+
+    private synchronized void updateVpnLockdownUidRanges(boolean add,
+            Set<UidRange> affectedUidRanges) {
         // mAllApps only contains appIds instead of uids. So the generated uid list might contain
         // apps that are installed only on some users but not others. But that's safe: if an app is
         // not installed, it cannot receive any packets, so dropping packets to that UID is fine.
@@ -1047,7 +1104,7 @@ public class PermissionMonitor {
      *   1. falls into one of the UidRange
      *   2. matches one of the appIds
      */
-    private Set<Integer> intersectUids(Set<UidRange> ranges, Set<Integer> appIds) {
+    private Set<Integer> intersectUids(Collection<UidRange> ranges, Set<Integer> appIds) {
         Set<Integer> result = new HashSet<>();
         for (UidRange range : ranges) {
             for (int userId = range.getStartUser(); userId <= range.getEndUser(); userId++) {
@@ -1079,6 +1136,38 @@ public class PermissionMonitor {
         uids.removeIf(this::hasRestrictedNetworksPermission);
     }
 
+    /** Add given ranges to our tracked UID ranges for a VPN iface (or null for wildcard). */
+    private synchronized void addTrackedVpnUidRanges(@Nullable String iface,
+            Collection<UidRange> rangesToAdd) {
+        Set<UidRange> existingRanges = mVpnInterfaceUidRanges.getOrDefault(iface, null);
+        if (existingRanges == null) {
+            existingRanges = new ArraySet<>(rangesToAdd);
+            mVpnInterfaceUidRanges.put(iface, existingRanges);
+            UidRangeUtils.mergeAdjacent(existingRanges);
+        } else {
+            // ConnectivityService uses diffs to decide what exactly should be added or removed,
+            // which means we should ensure added ranges don't overlap, as this could interfere
+            // with removals; the set should be minimal.
+            UidRangeUtils.mergeInPlace(existingRanges, rangesToAdd);
+        }
+    }
+
+    /** Remove given ranges from our tracked UID ranges for a VPN iface (or null for wildcard). */
+    private synchronized void removeTrackedVpnUidRanges(@Nullable String iface,
+            Collection<UidRange> rangesToRemove) {
+        Set<UidRange> existingRanges = mVpnInterfaceUidRanges.getOrDefault(iface, null);
+        if (existingRanges == null) {
+            loge("Attempt to remove unknown vpn uid Range iface = " + iface);
+            return;
+        }
+        // ConnectivityService uses diffs to decide what exactly should be added or removed,
+        // which means we need to support non-exact removals.
+        UidRangeUtils.excludeInPlace(existingRanges, rangesToRemove);
+        if (existingRanges.size() == 0) {
+            mVpnInterfaceUidRanges.remove(iface);
+        }
+    }
+
     /**
      * Update netd about the list of uids that are under an active VPN connection which they cannot
      * bypass.
@@ -1107,6 +1196,7 @@ public class PermissionMonitor {
     }
 
     private void updateLockdownUidRule(int uid, boolean add) {
+        //log("updateLockdownUidRule: " + (add ? "add" : "remove") + ": " + uid);
         try {
             mBpfNetMaps.updateUidLockdownRule(uid, add);
         } catch (ServiceSpecificException e) {
@@ -1299,6 +1389,10 @@ public class PermissionMonitor {
         if (DBG) {
             Log.d(TAG, s);
         }
+    }
+
+    private static void logv(String s) {
+        Log.v(TAG, s);
     }
 
     private static void loge(String s) {

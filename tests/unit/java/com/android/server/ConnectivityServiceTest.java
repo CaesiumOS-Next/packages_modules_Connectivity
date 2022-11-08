@@ -185,9 +185,12 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
@@ -370,6 +373,7 @@ import com.android.server.connectivity.Nat464Xlat;
 import com.android.server.connectivity.NetworkAgentInfo;
 import com.android.server.connectivity.NetworkNotificationManager;
 import com.android.server.connectivity.NetworkNotificationManager.NotificationType;
+import com.android.server.connectivity.PermissionMonitor;
 import com.android.server.connectivity.ProxyTracker;
 import com.android.server.connectivity.QosCallbackTracker;
 import com.android.server.connectivity.UidRangeUtils;
@@ -598,6 +602,10 @@ public class ConnectivityServiceTest {
 
         public WrappedConnectivityManager(Context context, ConnectivityService service) {
             super(context, service);
+        }
+
+        public boolean isVpnBlockedUidRangesQueuedForRemovalWakeLockHeld() {
+            return mService.isVpnBlockedUidRangesQueuedForRemovalWakeLockHeld();
         }
     }
 
@@ -1579,12 +1587,13 @@ public class ConnectivityServiceTest {
     }
 
     private UidRangeParcel[] toUidRangeStableParcels(final @NonNull Set<UidRange> ranges) {
-        return ranges.stream().map(
+        return ranges.stream().sorted(UidRangeUtils::compare).map(
                 r -> new UidRangeParcel(r.start, r.stop)).toArray(UidRangeParcel[]::new);
     }
 
     private UidRangeParcel[] intToUidRangeStableParcels(final @NonNull Set<Integer> ranges) {
-        return ranges.stream().map(r -> new UidRangeParcel(r, r)).toArray(UidRangeParcel[]::new);
+        return ranges.stream().sorted().map(r -> new UidRangeParcel(r, r))
+                .toArray(UidRangeParcel[]::new);
     }
 
     private void assertVpnTransportInfo(NetworkCapabilities nc, int type) {
@@ -8854,6 +8863,11 @@ public class ConnectivityServiceTest {
                 && !caps.hasTransport(TRANSPORT_WIFI));
     }
 
+    private void blockUntilSetRequireVpnForUidsHandled() throws Exception {
+        // Send hint to block until lockdown UIDs are handled.
+        mCm.setRequireVpnForUids(true /* requireVpn */, Set.of());
+    }
+
     @Test
     public void testLockdownVpnWithRestrictedProfiles() throws Exception {
         // For ConnectivityService#setAlwaysOnVpnPackage.
@@ -8913,6 +8927,10 @@ public class ConnectivityServiceTest {
         removedIntent.putExtra(Intent.EXTRA_USER, UserHandle.of(RESTRICTED_USER));
         removedIntent.putExtra(Intent.EXTRA_USER_HANDLE, RESTRICTED_USER);
         processBroadcast(removedIntent);
+        // There is a short delay in the processing of removals from lockdown rules to prevent
+        // UIDs from being briefly unblocked when removing and adding overlapping ranges.
+        blockUntilSetRequireVpnForUidsHandled();
+        waitForIdle();
         assertNull(mCm.getActiveNetworkForUid(uid));
         assertNotNull(mCm.getActiveNetworkForUid(restrictedUid));
 
@@ -9458,12 +9476,22 @@ public class ConnectivityServiceTest {
         // Disable lockdown, remove our UID from the allowlist, and re-enable lockdown.
         // Everything should now be blocked.
         mMockVpn.setAlwaysOnPackage(null, false /* lockdown */, allowList);
-        waitForIdle();
-        expectNetworkRejectNonSecureVpn(inOrder, false, uidRangeParcelsAlsoExcludingUs);
+        //waitForIdle();
+        //expectNetworkRejectNonSecureVpn(inOrder, false, uidRangeParcelsAlsoExcludingUs);
         allowList.clear();
         mMockVpn.setAlwaysOnPackage(ALWAYS_ON_PACKAGE, true /* lockdown */, allowList);
         waitForIdle();
-        expectNetworkRejectNonSecureVpn(inOrder, true, uidRangeParcels);
+        //expectNetworkRejectNonSecureVpn(inOrder, true, uidRangeParcels);
+
+        // Prior to implementing diffs, we went from expecting uidRangeParcelsAlsoExcludingUs
+        // to be removed, to expecting uidRangeParcels to be added, as can be seen in the lines
+        // commented out above. VPN_UID is implied to be always excluded, so in practice, the
+        // diff between these expectations is merely the addition of the current process (`uid`)
+        // and, for T and above, its SDK sandbox UID.
+        Set<Integer> uids = SdkLevel.isAtLeastT() ? Set.of(uid, toSdkSandboxUid(uid))
+                : Set.of(uid);
+        expectNetworkRejectNonSecureVpn(inOrder, true, intToUidRangeStableParcels(uids));
+
         defaultCallback.expectBlockedStatusCallback(true, mWiFiNetworkAgent);
         assertBlockedCallbackInAnyOrder(callback, true, mWiFiNetworkAgent, mCellNetworkAgent);
         vpnUidCallback.assertNoCallback();
@@ -9844,34 +9872,210 @@ public class ConnectivityServiceTest {
         VMSHandlerThread.quitSafely();
     }
 
-    @Test @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    @Test
     public void testLockdownSetFirewallUidRule() throws Exception {
+        final Set<UidRange> vpnRange = Collections.singleton(PRIMARY_UIDRANGE);
         final Set<Range<Integer>> lockdownRange = UidRange.toIntRanges(Set.of(PRIMARY_UIDRANGE));
+
+        final LinkProperties lp = new LinkProperties();
+        lp.setInterfaceName("tun0");
+        lp.addRoute(new RouteInfo(new IpPrefix(Inet4Address.ANY, 0), null));
+        lp.addRoute(new RouteInfo(new IpPrefix(Inet6Address.ANY, 0), null));
+
+        mMockVpn.establish(lp, VPN_UID, vpnRange);
+        waitForIdle();
+        reset(mBpfNetMaps);
+
         // Enable Lockdown
         mCm.setRequireVpnForUids(true /* requireVpn */, lockdownRange);
         waitForIdle();
 
         // Lockdown rule is set to apps uids
-        verify(mBpfNetMaps, times(3)).updateUidLockdownRule(anyInt(), eq(true) /* add */);
-        verify(mBpfNetMaps).updateUidLockdownRule(APP1_UID, true /* add */);
-        verify(mBpfNetMaps).updateUidLockdownRule(APP2_UID, true /* add */);
-        verify(mBpfNetMaps).updateUidLockdownRule(VPN_UID, true /* add */);
-
+        assertLockdownChangedForUids(true /* active */, true /* vpnEstablished */,
+                false /* partiallyRouted */, VPN_UID, APP1_UID, APP2_UID);
         reset(mBpfNetMaps);
 
         // Disable lockdown
+        Log.d(TAG, "will want to see lockdown ranges removed imminently");
+
         mCm.setRequireVpnForUids(false /* requireVPN */, lockdownRange);
+        blockUntilSetRequireVpnForUidsHandled();
         waitForIdle();
 
         // Lockdown rule is removed from apps uids
-        verify(mBpfNetMaps, times(3)).updateUidLockdownRule(anyInt(), eq(false) /* add */);
-        verify(mBpfNetMaps).updateUidLockdownRule(APP1_UID, false /* add */);
-        verify(mBpfNetMaps).updateUidLockdownRule(APP2_UID, false /* add */);
-        verify(mBpfNetMaps).updateUidLockdownRule(VPN_UID, false /* add */);
+        assertLockdownChangedForUids(false /* active */, true /* vpnEstablished */,
+                false /* partiallyRouted */, VPN_UID, APP1_UID, APP2_UID);
 
-        // Interface rules are not changed by Lockdown mode enable/disable
-        verify(mBpfNetMaps, never()).addUidInterfaceRules(any(), any());
-        verify(mBpfNetMaps, never()).removeUidInterfaceRules(any());
+        if (SdkLevel.isAtLeastT()) {
+            // Interface rules are not changed by Lockdown mode enable/disable
+            verify(mBpfNetMaps, never()).addUidInterfaceRules(any(), any());
+            verify(mBpfNetMaps, never()).removeUidInterfaceRules(any());
+        }
+        reset(mBpfNetMaps);
+    }
+
+    private int getWaitTimeForLockdownRemovals() {
+        return 75 + ConnectivityService.SET_REQUIRE_VPN_FOR_UIDS_REMOVAL_DELAY_MS;
+    }
+
+    // TODO: call this function with all the various boolean values, and ensure
+    // it works properly with them (vpnEstablished, partiallyRouted, etc. need
+    // to be called as both false and true, and mix).
+    private void assertLockdownChangedForUids(boolean active, boolean vpnEstablished,
+            boolean partiallyRouted, int vpnAppUid, int... uids)
+            throws Exception {
+        // There is a short delay in the processing of removals from lockdown rules to prevent
+        // UIDs from being briefly unblocked when removing and adding overlapping ranges.
+        // Wait for a generous length of time.
+        final int waitTime = getWaitTimeForLockdownRemovals();
+        if (SdkLevel.isAtLeastT()) {
+            // T and above includes the vpnAppUid
+            int numUidsToTest = uids.length + (vpnAppUid == -1 ? 0 : 1);
+            if (active) {
+                verify(mBpfNetMaps, times(numUidsToTest)).updateUidLockdownRule(anyInt(),
+                        eq(true) /* add */);
+                if (vpnAppUid != -1) {
+                    verify(mBpfNetMaps).updateUidLockdownRule(eq(vpnAppUid), eq(true) /* add */);
+                }
+                for (Integer uid : uids) {
+                    verify(mBpfNetMaps).updateUidLockdownRule(eq(uid), eq(true) /* add */);
+                }
+            } else {
+                verify(mBpfNetMaps, timeout(waitTime).times(numUidsToTest)).updateUidLockdownRule(
+                        anyInt(), eq(false) /* add */);
+                if (vpnAppUid != -1) {
+                    verify(mBpfNetMaps).updateUidLockdownRule(eq(vpnAppUid), eq(false) /* add */);
+                }
+                for (Integer uid : uids) {
+                    verify(mBpfNetMaps).updateUidLockdownRule(eq(uid), eq(false) /* add */);
+                }
+            }
+        } else {
+            // Pre-T does not have LOCKDOWN_VPN_MATCH, so we gauge whether lockdown changes
+            // took effect based on whether interface filtering rules were applied.
+            // Lockdown UIDs are intended to be treated identically to isolated UIDs (filtered).
+            // Therefore, if a UID is isolated, and lockdown is removed, we won't see a change.
+
+            // TODO: does not include the vpnAppUid, why?
+            Log.d(TAG, "expect uids with" + (active ? "" : "out") + " lockdown: "
+                    + Arrays.toString(uids));
+            if (active) {
+                final ArgumentCaptor<int[]> uidCaptor = ArgumentCaptor.forClass(int[].class);
+                verify(mBpfNetMaps, timeout(waitTime)).addUidInterfaceRules(notNull(),
+                        uidCaptor.capture());
+                int[] values = uidCaptor.getValue();
+                Log.d(TAG, "uidCaptor.getValue(): " + Arrays.toString(values));
+                assertContainsExactly(uids, values);
+            } else {
+                if (partiallyRouted) {
+                    // Not isolated, so removal of lockdown should remove the rule.
+                    final ArgumentCaptor<int[]> uidCaptor = ArgumentCaptor.forClass(int[].class);
+                    verify(mBpfNetMaps, timeout(waitTime).times(1)).removeUidInterfaceRules(
+                            uidCaptor.capture());
+                    int[] values = uidCaptor.getValue();
+                    Log.d(TAG, "uidCaptor.getValue(): " + Arrays.toString(values));
+                    assertContainsExactly(uids, values);
+                } else {
+                    // Isolated, so there should be no change. We trust this.
+                    verify(mBpfNetMaps, never()).removeUidInterfaceRules(any());
+                    verify(mBpfNetMaps, never()).addUidInterfaceRules(any(), any());
+                }
+            }
+        }
+        waitForIdle();
+    }
+
+    private void assertLockdownRemovalWakeLockHeld(boolean expectHeld) throws Exception {
+        boolean wakeLockHeld = !expectHeld;
+        for (int tries = 0; tries < 3; tries++) {
+            wakeLockHeld = mCm.isVpnBlockedUidRangesQueuedForRemovalWakeLockHeld();
+            if (wakeLockHeld == expectHeld) {
+                break;
+            }
+            if (expectHeld) {
+                break;
+            }
+            Thread.sleep(getWaitTimeForLockdownRemovals());
+        }
+        if (expectHeld) {
+            assertTrue("wake lock should be held", wakeLockHeld);
+        } else {
+            assertFalse("wake lock should not be held", wakeLockHeld);
+        }
+    }
+
+    @Test
+    public void testLockdownSetFirewallUidRuleBackToBack() throws Exception {
+        testLockdownSetFirewallUidRuleBackToBack(false /* checkTiming */);
+    }
+    @Test
+    public void testLockdownSetFirewallUidRuleBackToBackRaceCondition() throws Exception {
+        testLockdownSetFirewallUidRuleBackToBack(true /* checkTiming */);
+    }
+
+    private void testLockdownSetFirewallUidRuleBackToBack(boolean checkTiming) throws Exception {
+        final Set<UidRange> vpnRange = Collections.singleton(PRIMARY_UIDRANGE);
+        final Set<Range<Integer>> lockdownRange = UidRange.toIntRanges(Set.of(PRIMARY_UIDRANGE));
+        final Set<Range<Integer>> lockdownRangeMinusApp2 = new ArraySet<Range<Integer>>();
+        lockdownRangeMinusApp2.add(new Range<Integer>(PRIMARY_UIDRANGE.start, APP2_UID-1));
+        lockdownRangeMinusApp2.add(new Range<Integer>(APP2_UID+1, PRIMARY_UIDRANGE.stop));
+
+        final LinkProperties lp = new LinkProperties();
+        lp.setInterfaceName("tun0");
+        lp.addRoute(new RouteInfo(new IpPrefix(Inet4Address.ANY, 0), null));
+        lp.addRoute(new RouteInfo(new IpPrefix(Inet6Address.ANY, 0), null));
+        mMockVpn.establish(lp, VPN_UID, vpnRange);
+        waitForIdle();
+        reset(mBpfNetMaps);
+
+        // Ensure removal of UIDs is ignored when immediately followed by the addition of the
+        // same UIDs. This is what the aforementioned delay is meant to resolve.
+
+        final int numTests = checkTiming ? 20 : 100;
+        // Test multiple times for potential race condition / timing issues.
+        for (int i = 0; i < numTests; i++) {
+            // Turn lockdown on and wait...
+            mCm.setRequireVpnForUids(true /* requireVpn */, lockdownRange);
+            waitForIdle();
+
+            // Lockdown rule is set to apps uids
+            assertLockdownChangedForUids(true /* active */, true /* vpnEstablished */,
+                    false /* partiallyRouted */, VPN_UID, APP1_UID, APP2_UID);
+            reset(mBpfNetMaps);
+
+            // Turn lockdown off and immediately back on with APP2_UID removed from lockdown.
+            mCm.setRequireVpnForUids(false /* requireVpn */, lockdownRange);
+            mCm.setRequireVpnForUids(true /* requireVpn */, lockdownRangeMinusApp2);
+
+            if (!checkTiming) {
+                blockUntilSetRequireVpnForUidsHandled();
+            }
+            waitForIdle();
+
+            // Because a diff is used, the only change should be that APP2_UID is allowed now.
+            assertLockdownChangedForUids(false /* active */, true /* vpnEstablished */,
+                    false /* partiallyRouted */, -1 /* vpnAppUid */, APP2_UID);
+            reset(mBpfNetMaps);
+
+            assertLockdownRemovalWakeLockHeld(false);
+
+            // Turn lockdown back off. This must be done using the same range it was turned
+            // on with, due to the way PermissionMonitor tracks lockdown UIDs.
+            mCm.setRequireVpnForUids(false /* requireVpn */, lockdownRangeMinusApp2);
+            assertLockdownRemovalWakeLockHeld(true);
+
+            if (!checkTiming) {
+                blockUntilSetRequireVpnForUidsHandled();
+            }
+            waitForIdle();
+
+            // When checking timing, wait for what we *don't* expect to ensure
+            // removal wake lock is not held.
+            assertLockdownChangedForUids(false /* active */, true /* vpnEstablished */,
+                    false /* partiallyRouted */, VPN_UID, APP1_UID);
+            reset(mBpfNetMaps);
+            assertLockdownRemovalWakeLockHeld(false);
+        }
     }
 
     private void doTestSetUidFirewallRule(final int chain, final int defaultRule) {
@@ -10925,15 +11129,13 @@ public class ConnectivityServiceTest {
         assertContainsExactly(uidCaptor.getAllValues().get(1), APP1_UID, APP2_UID);
 
         reset(mBpfNetMaps);
-        InOrder inOrder = inOrder(mBpfNetMaps);
         lp.setInterfaceName("tun1");
         mMockVpn.sendLinkProperties(lp);
         waitForIdle();
-        // VPN handover (switch to a new interface) should result in rules being updated (old rules
-        // removed first, then new rules added)
-        inOrder.verify(mBpfNetMaps).removeUidInterfaceRules(uidCaptor.capture());
-        assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
-        inOrder.verify(mBpfNetMaps).addUidInterfaceRules(eq("tun1"), uidCaptor.capture());
+        // VPN handover (switch to a new interface) should result in rules being updated.
+        // This does not require removing old rules.
+        verify(mBpfNetMaps, never()).removeUidInterfaceRules(any());
+        verify(mBpfNetMaps).addUidInterfaceRules(eq("tun1"), uidCaptor.capture());
         assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
 
         reset(mBpfNetMaps);
@@ -10942,9 +11144,17 @@ public class ConnectivityServiceTest {
         lp.addRoute(new RouteInfo(new IpPrefix("192.0.2.0/24"), null, "tun1"));
         mMockVpn.sendLinkProperties(lp);
         waitForIdle();
-        // VPN not routing everything should no longer have interface filtering rules
-        verify(mBpfNetMaps).removeUidInterfaceRules(uidCaptor.capture());
-        assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
+        if (SdkLevel.isAtLeastT()) {
+            // VPN not routing everything should switch to wildcard interface filtering rule
+            verify(mBpfNetMaps).addUidInterfaceRules(eq(null) /* iface */,
+                    uidCaptor.capture());
+            assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
+            verify(mBpfNetMaps, never()).removeUidInterfaceRules(any());
+        } else {
+            // VPN not routing everything should no longer have interface filtering rules
+            verify(mBpfNetMaps).removeUidInterfaceRules(uidCaptor.capture());
+            assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
+        }
 
         reset(mBpfNetMaps);
         lp = new LinkProperties();
@@ -10956,6 +11166,8 @@ public class ConnectivityServiceTest {
         // Back to routing all IPv6 traffic should have filtering rules
         verify(mBpfNetMaps).addUidInterfaceRules(eq("tun1"), uidCaptor.capture());
         assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
+        // Still should not need to remove anything for an interface change
+        verify(mBpfNetMaps, never()).removeUidInterfaceRules(any());
     }
 
     @Test
@@ -10981,11 +11193,11 @@ public class ConnectivityServiceTest {
         waitForIdle();
 
         ArgumentCaptor<int[]> uidCaptor = ArgumentCaptor.forClass(int[].class);
-        // Verify old rules are removed before new rules are added
+        // Verify APP1 is removed and nothing is added, as this is the only change.
         inOrder.verify(mBpfNetMaps).removeUidInterfaceRules(uidCaptor.capture());
-        assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
-        inOrder.verify(mBpfNetMaps).addUidInterfaceRules(eq("tun0"), uidCaptor.capture());
-        assertContainsExactly(uidCaptor.getValue(), APP2_UID);
+        assertContainsExactly(uidCaptor.getValue(), APP1_UID);
+        inOrder.verify(mBpfNetMaps, never()).addUidInterfaceRules(any(), any());
+        reset(mBpfNetMaps);
     }
 
     @Test
@@ -12189,6 +12401,12 @@ public class ConnectivityServiceTest {
         inOrder.verify(mMockNetd, times(1)).socketDestroy(eq(toUidRangeStableParcels(vpnRanges)),
                 exemptUidCaptor.capture());
         assertContainsExactly(exemptUidCaptor.getValue(), Process.VPN_UID, exemptUid);
+
+        // VPN UID ranges are not expected to be updated back-to-back now that a diff is computed.
+        inOrder.verify(mMockNetd, never()).socketDestroy(any(), any());
+        inOrder.verify(mMockNetd, never()).networkAddUidRangesParcel(any());
+        inOrder.verify(mMockNetd, never()).networkRemoveUidRangesParcel(any());
+        reset(mMockNetd);
     }
 
     @Test
@@ -12219,8 +12437,12 @@ public class ConnectivityServiceTest {
         mMockVpn.setUids(newRanges);
         waitForIdle();
 
-        assertVpnUidRangesUpdated(true, newRanges, VPN_UID);
-        assertVpnUidRangesUpdated(false, vpnRanges, VPN_UID);
+        // APP1_UID = 10100
+        // prevRanges: 0-99999
+        //  newRanges: 0-10099, 10101-99999
+        // expected update: remove 10100-10100
+        assertVpnUidRangesUpdated(false /* add */,
+                new HashSet<>(asList(new UidRange(APP1_UID, APP1_UID))), VPN_UID);
 
         // Uid has changed but proxy is not set, so there is no need to send proxy broadcast.
         b2.expectNoBroadcast(500);
