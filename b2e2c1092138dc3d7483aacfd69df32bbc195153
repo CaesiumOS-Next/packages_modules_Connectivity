@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3de9b19c_c79f1323",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-08T06:31:13Z",
+      "side": 1,
+      "message": "Maybe describe why this change is safe?\nIs there any caller rely on it?",
+      "revId": "b2e2c1092138dc3d7483aacfd69df32bbc195153",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
