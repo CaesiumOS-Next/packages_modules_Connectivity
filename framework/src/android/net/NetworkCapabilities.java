@@ -710,7 +710,11 @@ public final class NetworkCapabilities implements Parcelable {
             NET_CAPABILITY_NOT_ROAMING,
             NET_CAPABILITY_NOT_CONGESTED,
             NET_CAPABILITY_NOT_SUSPENDED,
-            NET_CAPABILITY_NOT_VCN_MANAGED);
+            NET_CAPABILITY_NOT_VCN_MANAGED,
+            NET_CAPABILITY_TRUSTED,
+            // Test DUN networks can be created to test how they are handled by tethering but cannot
+            // have routes. See code handling test DUN networks in ConnectivityService.
+            NET_CAPABILITY_DUN);
 
     /**
      * Adds the given capability to this {@code NetworkCapability} instance.
