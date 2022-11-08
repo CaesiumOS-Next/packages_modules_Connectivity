@@ -118,6 +118,30 @@
       },
       "revId": "fb71a00ed095e5127a287a9dce89dacf84ccb80a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edabae5b_db44bf97",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2828,
+      "author": {
+        "id": 1133258
+      },
+      "writtenOn": "2022-11-08T02:29:45Z",
+      "side": 1,
+      "message": "Correction:\nAt the moment the getWifiEnabledState returns wifi disabled, the network connection info may not be cleared - it takes longer time for the state machine enters disconnect state. So polling wifi disabled won\u0027t guarantee the ensureWifiConnected checking network connection info cleared.",
+      "parentUuid": "0a3f63a4_9a676d74",
+      "range": {
+        "startLine": 2828,
+        "startChar": 16,
+        "endLine": 2828,
+        "endChar": 35
+      },
+      "revId": "fb71a00ed095e5127a287a9dce89dacf84ccb80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
