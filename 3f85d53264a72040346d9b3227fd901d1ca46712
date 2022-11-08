@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0809b2d_70a2c1bf",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-11-08T11:09:50Z",
+      "side": 1,
+      "message": "Nit: We should probably consider creating a function for removing the leading ../../ as it appears quite often.",
+      "range": {
+        "startLine": 330,
+        "startChar": 11,
+        "endLine": 330,
+        "endChar": 76
+      },
+      "revId": "3f85d53264a72040346d9b3227fd901d1ca46712",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
