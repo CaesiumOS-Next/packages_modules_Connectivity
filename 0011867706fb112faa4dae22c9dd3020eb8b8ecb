@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7288b975_52ceb40f",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-11-08T19:37:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71c27fa0_ecab1e0d",
+      "range": {
+        "startLine": 640,
+        "startChar": 21,
+        "endLine": 640,
+        "endChar": 27
+      },
+      "revId": "0011867706fb112faa4dae22c9dd3020eb8b8ecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "760b61e4_434b24bb",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "368425cf_edadf4f8",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1768,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-11-08T19:37:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "760b61e4_434b24bb",
+      "range": {
+        "startLine": 1768,
+        "startChar": 0,
+        "endLine": 1768,
+        "endChar": 56
+      },
+      "revId": "0011867706fb112faa4dae22c9dd3020eb8b8ecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57a8f6e1_95ca8002",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-11-07T23:11:36Z",
       "side": 1,
       "message": "Wait, why is this transformId? Isn\u0027t transform ID a concept for IpSecService only?",
+      "range": {
+        "startLine": 1939,
+        "startChar": 46,
+        "endLine": 1939,
+        "endChar": 68
+      },
+      "revId": "0011867706fb112faa4dae22c9dd3020eb8b8ecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "226aafee_97e23dbc",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1939,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-11-08T19:37:46Z",
+      "side": 1,
+      "message": "hmmm, all the ipSec methods use transformId. Maybe transform here just mean the resource?\n\nhttps://osscs.corp.google.com/android/platform/superproject/+/master:frameworks/libs/net/common/netd/aidl_api/netd_aidl_interface/current/android/net/INetd.aidl;l\u003d62",
+      "parentUuid": "57a8f6e1_95ca8002",
       "range": {
         "startLine": 1939,
         "startChar": 46,
