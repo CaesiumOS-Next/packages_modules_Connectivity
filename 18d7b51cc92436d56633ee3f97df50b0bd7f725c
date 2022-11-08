@@ -22,6 +22,30 @@
       },
       "revId": "18d7b51cc92436d56633ee3f97df50b0bd7f725c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76b98339_c9008b28",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 1
+      },
+      "lineNbr": 5742,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-11-08T02:32:44Z",
+      "side": 0,
+      "message": "It seems the order to visit `//third_party/zlib:zlib` with toolchain and without toolchain is not deterministic.\nAnd many fields are different between them.",
+      "parentUuid": "170a5736_8a1f3c5f",
+      "range": {
+        "startLine": 5722,
+        "startChar": 31,
+        "endLine": 5742,
+        "endChar": 30
+      },
+      "revId": "18d7b51cc92436d56633ee3f97df50b0bd7f725c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
