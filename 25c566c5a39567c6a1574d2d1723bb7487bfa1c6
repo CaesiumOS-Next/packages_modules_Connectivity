@@ -52,6 +52,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ed4f729_2e3a34b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-11-09T00:40:45Z",
+      "side": 1,
+      "message": "which means that on T\n\nro.vendor.api_level\n\nis the minimum of:\n  the first of {\"ro.board.api_level\", \"ro.board.first_api_level\", API_LEVEL_CURRENT (10000)}\nand\n  the first of {\"ro.product.first_api_level\", \"ro.build.version.sdk\", API_LEVEL_CURRENT (10000)}",
+      "revId": "25c566c5a39567c6a1574d2d1723bb7487bfa1c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30a7c377_e6a73e45",
