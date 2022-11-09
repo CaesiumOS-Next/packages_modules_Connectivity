@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d33a980f_d3b77888",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-09T06:52:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f528ac37_482ab545",
+      "range": {
+        "startLine": 205,
+        "startChar": 57,
+        "endLine": 205,
+        "endChar": 62
+      },
+      "revId": "4297aaa69f148d6088d0cfc361353cd02b6663c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eef8f057_d3b5cbaf",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-11-07T07:35:44Z",
       "side": 1,
       "message": "Maybe delete this?",
+      "range": {
+        "startLine": 235,
+        "startChar": 8,
+        "endLine": 236,
+        "endChar": 44
+      },
+      "revId": "4297aaa69f148d6088d0cfc361353cd02b6663c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a59a1069_366ff6bb",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-09T06:52:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eef8f057_d3b5cbaf",
       "range": {
         "startLine": 235,
         "startChar": 8,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a19d9c8_6cf740d1",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-09T06:52:58Z",
+      "side": 1,
+      "message": "It\u0027s used by constructor at l.313 and it can be replaced with the constructor at l.333.\n\nBut this is also used in normalize() to build the template, the concern is that the meteredness field should be the same as this constructor(METERED_YES if match rule is MATCH_MOBILE || MATCH_MOBILE_WILDCARD || MATCH_CARRIER, otherwise it\u0027s METERED_ALL)? Or it should get the meteredness from the template which is passed to normalize().",
+      "parentUuid": "f296328b_c86ce399",
+      "range": {
+        "startLine": 317,
+        "startChar": 3,
+        "endLine": 330,
+        "endChar": 5
+      },
+      "revId": "4297aaa69f148d6088d0cfc361353cd02b6663c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c0d13df_37aa82c0",
         "filename": "framework-t/src/android/net/NetworkTemplate.java",
         "patchSetId": 2
@@ -83,6 +155,30 @@
       "writtenOn": "2022-11-07T07:35:44Z",
       "side": 1,
       "message": "Can we delete this by moving the content to the method above?",
+      "range": {
+        "startLine": 817,
+        "startChar": 34,
+        "endLine": 817,
+        "endChar": 43
+      },
+      "revId": "4297aaa69f148d6088d0cfc361353cd02b6663c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6504fa73_307c8861",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 817,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-09T06:52:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c0d13df_37aa82c0",
       "range": {
         "startLine": 817,
         "startChar": 34,
