@@ -35,6 +35,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c857494_4fd6baf8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-11-09T00:37:16Z",
+      "side": 1,
+      "message": "tm-dev system/core/init/property_service.cpp has\n\nstatic void property_initialize_ro_vendor_api_level() {\n    // ro.vendor.api_level shows the api_level that the vendor images (vendor, odm, ...) are\n    // required to support.\n    constexpr auto VENDOR_API_LEVEL_PROP \u003d \"ro.vendor.api_level\";\n\n    // Api level properties of the board. The order of the properties must be kept.\n    std::vector\u003cstd::string\u003e BOARD_API_LEVEL_PROPS \u003d {\"ro.board.api_level\",\n                                                      \"ro.board.first_api_level\"};\n    // Api level properties of the device. The order of the properties must be kept.\n    std::vector\u003cstd::string\u003e DEVICE_API_LEVEL_PROPS \u003d {\"ro.product.first_api_level\",\n                                                       \"ro.build.version.sdk\"};\n\n    int api_level \u003d std::min(read_api_level_props(BOARD_API_LEVEL_PROPS),\n                             read_api_level_props(DEVICE_API_LEVEL_PROPS));\n    std::string error;\n    uint32_t res \u003d PropertySet(VENDOR_API_LEVEL_PROP, std::to_string(api_level), \u0026error);\n    if (res !\u003d PROP_SUCCESS) {\n        LOG(ERROR) \u003c\u003c \"Failed to set \" \u003c\u003c VENDOR_API_LEVEL_PROP \u003c\u003c \" with \" \u003c\u003c api_level \u003c\u003c \": \"\n                   \u003c\u003c error \u003c\u003c \"(\" \u003c\u003c res \u003c\u003c \")\";\n    }\n}",
+      "revId": "25c566c5a39567c6a1574d2d1723bb7487bfa1c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30a7c377_e6a73e45",
