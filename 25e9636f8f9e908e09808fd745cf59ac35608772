@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3a8f480_41d0823c",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-09T07:59:51Z",
+      "side": 1,
+      "message": "This will be null on devices that don\u0027t have PackageManager.FEATURE_WIFI:\n\nhttps://cs.android.com/android/platform/superproject/+/master:frameworks/base/services/java/com/android/server/SystemServer.java;drc\u003d14543d1ec72202422373622ee818fe7549be5c7a;l\u003d1952",
+      "range": {
+        "startLine": 667,
+        "startChar": 16,
+        "endLine": 667,
+        "endChar": 55
+      },
+      "revId": "25e9636f8f9e908e09808fd745cf59ac35608772",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55da2941_4b47fb4b",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-09T07:59:51Z",
+      "side": 1,
+      "message": "NsdService didn\u0027t hold multicast locks before; this is likely to be error-prone because before T and without a module update discovering without the lock wouldn\u0027t work properly, but it will on U+.\n\nSo apps that have min_sdk \u003c U may think that it works fine when testing on U, but it doesn\u0027t actually work before that because NsdService doesn\u0027t hold the lock for you in earlier releases.\n\nWe should probably have some log messages, or even sometimes throw if an app targeting U+ with min_sdk \u003c U tries to discover on wifi without the multicast lock held. Maybe file a bug for that at least ?",
+      "revId": "25e9636f8f9e908e09808fd745cf59ac35608772",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12f9d0d5_bba11159",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-09T07:59:51Z",
+      "side": 1,
+      "message": "Creating all of these should be flagged off; can you add a DeviceConfig flag for now ? (we can think about target SDK later)",
+      "revId": "25e9636f8f9e908e09808fd745cf59ac35608772",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e48d01f6_329dff12",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-09T07:59:51Z",
+      "side": 1,
+      "message": "It would be good to verify that none of these are created when the flag is off, when added",
+      "revId": "25e9636f8f9e908e09808fd745cf59ac35608772",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
