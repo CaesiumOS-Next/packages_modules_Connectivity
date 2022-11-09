@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fd717a28_842788cc",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-09T10:46:23Z",
+      "side": 1,
+      "message": "Discovery should be able to succeed even if there is no A or AAAA record known yet\n\nThis seems to be the fundamental difference between service found and resolved; mdns responders are not required to reply with the A and AAAA record for a SVC query AFAIK; see rfc6763 12.1 and 12.2, including the records in the \"additional records\" section is a SHOULD, not a requirement.\n\nSo at least here there should be a difference between service found and resolved, where found doesn\u0027t require the response to be \"complete\".\n\nAlso we should (probably separately) send additional queries for the other records if the response is not complete (only has PTR records as replies for example). And have tests for that; maybe file a bug",
+      "revId": "f5ba383d88cff866a0d173015f3e0698d478e554",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9e9ab5f8_84bddff4",
         "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
         "patchSetId": 3
@@ -14,6 +31,24 @@
       "writtenOn": "2022-11-09T07:09:58Z",
       "side": 1,
       "message": "This really doesn\u0027t feel great; effectively there\u0027s listeners with 2 different behaviors, although they\u0027re so similar that I don\u0027t understand why a separate MdnsServiceResolutionListener is necessary.\n\nCould whatever uses MdnsServiceResolutionListener use MdnsServiceBrowserListener instead ?\n\nBetter discuss this directly I think",
+      "revId": "f5ba383d88cff866a0d173015f3e0698d478e554",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8929a59d_ef633c07",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-09T10:46:23Z",
+      "side": 1,
+      "message": "Looking at the rest of the changes, and the considerations above, it seems you could have just one listener with onServiceDiscovered (new method) and onServiceFound (current method, which actually is onServiceResolved).\n\nThen in NsdService, register separate listeners for discover and resolve. Ignore onServiceFound for discover requests, and ignore onServiceDiscovered for resolve requests.\n\nHere for now you could have:\n\n    onServiceDiscovered();\n    if (isComplete) {\n        onServiceFound();\n    }\n\nEventually we could add additional queries to be sent when !isComplete so onServiceFound can be sent later when the rest of the records are available",
+      "parentUuid": "9e9ab5f8_84bddff4",
       "revId": "f5ba383d88cff866a0d173015f3e0698d478e554",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
