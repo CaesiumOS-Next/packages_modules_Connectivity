@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08250d8b_592e1d9a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-09T08:15:55Z",
+      "side": 1,
+      "message": "MdnsDiscoveryManager sounds better; this code isn\u0027t using GMS, and it\u0027s not understandable to someone just looking at the source",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 20
+      },
+      "revId": "b52e15524cd415af33119a6c632f7e5eb1f458ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20c2f0e2_4b157613",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-09T08:15:55Z",
+      "side": 1,
+      "message": "This should not be called if the flag is true right ?",
+      "range": {
+        "startLine": 249,
+        "startChar": 34,
+        "endLine": 249,
+        "endChar": 52
+      },
+      "revId": "b52e15524cd415af33119a6c632f7e5eb1f458ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
