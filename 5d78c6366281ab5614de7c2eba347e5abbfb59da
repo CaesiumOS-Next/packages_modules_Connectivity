@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a76578ac_87ed60ad",
+        "filename": "framework-t/src/android/net/IpSecAlgorithm.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2022-11-09T20:47:09Z",
+      "side": 1,
+      "message": "Is this intentionally set to https://developer.android.com/reference/android/os/Build.VERSION_CODES#CUR_DEVELOPMENT?",
+      "range": {
+        "startLine": 357,
+        "startChar": 76,
+        "endLine": 357,
+        "endChar": 81
+      },
+      "revId": "5d78c6366281ab5614de7c2eba347e5abbfb59da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
