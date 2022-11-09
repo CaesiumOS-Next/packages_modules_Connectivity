@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af90a0e8_207e021f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-11-09T10:17:54Z",
+      "side": 1,
+      "message": "Are we done first with \"//net:net\"? I can see that \"//url:url\" builds fine but what about net?",
+      "revId": "ff44cb571ce09aed208f428239770a45cdf39c8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
