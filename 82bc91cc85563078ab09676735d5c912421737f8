@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0aedee09_bbbc4cb6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1216,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-11-09T07:51:41Z",
+      "side": 1,
+      "message": "Could you just add the early return at l.1208 ?",
+      "range": {
+        "startLine": 1216,
+        "startChar": 12,
+        "endLine": 1216,
+        "endChar": 41
+      },
+      "revId": "82bc91cc85563078ab09676735d5c912421737f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
