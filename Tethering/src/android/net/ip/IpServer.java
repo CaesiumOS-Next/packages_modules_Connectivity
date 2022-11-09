@@ -58,7 +58,7 @@ import androidx.annotation.Nullable;
 
 import com.android.internal.util.MessageUtils;
 import com.android.internal.util.State;
-import com.android.internal.util.StateMachine;
+import com.android.internal.util.SyncStateMachine;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.InterfaceParams;
 import com.android.net.module.util.NetdUtils;
@@ -93,7 +93,7 @@ import java.util.Set;
  *
  * @hide
  */
-public class IpServer extends StateMachine {
+public class IpServer extends SyncStateMachine {
     public static final int STATE_UNAVAILABLE = 0;
     public static final int STATE_AVAILABLE   = 1;
     public static final int STATE_TETHERED    = 2;
@@ -287,14 +287,17 @@ public class IpServer extends StateMachine {
 
     private final TetheringMetrics mTetheringMetrics;
 
+    private final Handler mHandler;
+
     // TODO: Add a dependency object to pass the data members or variables from the tethering
     // object. It helps to reduce the arguments of the constructor.
     public IpServer(
-            String ifaceName, Looper looper, int interfaceType, SharedLog log,
+            String ifaceName, Handler handler, int interfaceType, SharedLog log,
             INetd netd, @NonNull BpfCoordinator coordinator, Callback callback,
             TetheringConfiguration config, PrivateAddressCoordinator addressCoordinator,
             TetheringMetrics tetheringMetrics, Dependencies deps) {
-        super(ifaceName, looper);
+        super(ifaceName);
+        mHandler = handler;
         mLog = log.forSubComponent(ifaceName);
         mNetd = netd;
         mBpfCoordinator = coordinator;
@@ -338,6 +341,10 @@ public class IpServer extends StateMachine {
         setInitialState(mInitialState);
     }
 
+    public Handler getHandler() {
+        return mHandler;
+    }
+
     /** Interface name which IpServer served.*/
     public String interfaceName() {
         return mIfaceName;
@@ -368,6 +375,10 @@ public class IpServer extends StateMachine {
     /** The address which IpServer is using. */
     public LinkAddress getAddress() {
         return mIpv4Address;
+    }
+
+    public LinkProperties getLastIPv6LinkProperties() {
+        return mLastIPv6LinkProperties;
     }
 
     /**
@@ -1418,14 +1429,6 @@ public class IpServer extends StateMachine {
             return true;
         }
 
-        private boolean noChangeInUpstreamIfaceSet(InterfaceSet newIfaces) {
-            if (mUpstreamIfaceSet == null && newIfaces == null) return true;
-            if (mUpstreamIfaceSet != null && newIfaces != null) {
-                return mUpstreamIfaceSet.equals(newIfaces);
-            }
-            return false;
-        }
-
         private Set<String> upstreamInterfacesRemoved(InterfaceSet newIfaces) {
             if (mUpstreamIfaceSet == null) return new HashSet<>();
 
@@ -1439,6 +1442,14 @@ public class IpServer extends StateMachine {
             if (mUpstreamIfaceSet != null) added.removeAll(mUpstreamIfaceSet.ifnames);
             return added;
         }
+    }
+
+    public boolean noChangeInUpstreamIfaceSet(InterfaceSet newIfaces) {
+        if (mUpstreamIfaceSet == null && newIfaces == null) return true;
+        if (mUpstreamIfaceSet != null && newIfaces != null) {
+            return mUpstreamIfaceSet.equals(newIfaces);
+        }
+        return false;
     }
 
     /**

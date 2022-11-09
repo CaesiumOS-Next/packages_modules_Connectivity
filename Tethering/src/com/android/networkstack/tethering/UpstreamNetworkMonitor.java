@@ -44,7 +44,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.internal.annotations.VisibleForTesting;
-import com.android.internal.util.StateMachine;
+import com.android.internal.util.SyncStateMachine;
 import com.android.net.module.util.SharedLog;
 import com.android.networkstack.apishim.ConnectivityManagerShimImpl;
 import com.android.networkstack.apishim.common.ConnectivityManagerShim;
@@ -111,7 +111,7 @@ public class UpstreamNetworkMonitor {
 
     private final Context mContext;
     private final SharedLog mLog;
-    private final StateMachine mTarget;
+    private final SyncStateMachine mTarget;
     private final Handler mHandler;
     private final int mWhat;
     private final HashMap<Network, UpstreamNetworkState> mNetworkMap = new HashMap<>();
@@ -137,10 +137,10 @@ public class UpstreamNetworkMonitor {
     private Network mTetheringUpstreamNetwork;
     private boolean mPreferTestNetworks;
 
-    public UpstreamNetworkMonitor(Context ctx, StateMachine tgt, SharedLog log, int what) {
+    public UpstreamNetworkMonitor(Context ctx, SyncStateMachine tgt, SharedLog log, int what, Handler handler) {
         mContext = ctx;
         mTarget = tgt;
-        mHandler = mTarget.getHandler();
+        mHandler = handler;
         mLog = log.forSubComponent(TAG);
         mWhat = what;
         mLocalPrefixes = new HashSet<>();

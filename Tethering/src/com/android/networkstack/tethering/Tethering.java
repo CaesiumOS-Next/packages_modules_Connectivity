@@ -131,7 +131,7 @@ import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.internal.util.MessageUtils;
 import com.android.internal.util.State;
-import com.android.internal.util.StateMachine;
+import com.android.internal.util.SyncStateMachine;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
 import com.android.net.module.util.CollectionUtils;
@@ -318,7 +318,7 @@ public class Tethering {
                     }
                 });
         mUpstreamNetworkMonitor = mDeps.getUpstreamNetworkMonitor(mContext, mTetherMainSM, mLog,
-                TetherMainSM.EVENT_UPSTREAM_CALLBACK);
+                TetherMainSM.EVENT_UPSTREAM_CALLBACK, mHandler);
         mForwardedDownstreams = new HashSet<>();
 
         IntentFilter filter = new IntentFilter();
@@ -1670,7 +1670,7 @@ public class Tethering {
         return false;
     }
 
-    class TetherMainSM extends StateMachine {
+    class TetherMainSM extends SyncStateMachine {
         // an interface SM has requested Tethering/Local Hotspot
         static final int EVENT_IFACE_SERVING_STATE_ACTIVE       = BASE_MAIN_SM + 1;
         // an interface SM has unrequested Tethering/Local Hotspot
@@ -1714,9 +1714,11 @@ public class Tethering {
         private final OffloadWrapper mOffload;
 
         private static final int UPSTREAM_SETTLE_TIME_MS     = 10000;
+        private final Handler mHandler;
 
         TetherMainSM(String name, Looper looper, TetheringDependencies deps) {
-            super(name, looper);
+            super(name);
+            mHandler = new Handler(looper);
 
             mInitialState = new InitialState();
             mTetherModeAliveState = new TetherModeAliveState();
@@ -1739,6 +1741,10 @@ public class Tethering {
             mOffload = new OffloadWrapper();
 
             setInitialState(mInitialState);
+        }
+
+        public Handler getHandler() {
+            return mHandler;
         }
 
         /**
@@ -1845,7 +1851,7 @@ public class Tethering {
                     mUpstreamNetworkMonitor.setTryCell(true);
                     // We think mobile should be coming up; don't set a retry.
                 } else {
-                    sendMessageDelayed(CMD_RETRY_UPSTREAM, UPSTREAM_SETTLE_TIME_MS);
+                    //sendMessageDelayed(CMD_RETRY_UPSTREAM, UPSTREAM_SETTLE_TIME_MS);
                 }
             } else if (!isCellular(ns)) {
                 mUpstreamNetworkMonitor.setTryCell(false);
@@ -1915,6 +1921,8 @@ public class Tethering {
         protected void notifyDownstreamsOfNewUpstreamIface(InterfaceSet ifaces) {
             mCurrentUpstreamIfaceSet = ifaces;
             for (IpServer ipServer : mNotifyList) {
+                if (ipServer.noChangeInUpstreamIfaceSet(ifaces)) continue;
+
                 ipServer.sendMessage(IpServer.CMD_TETHER_CONNECTION_CHANGED, ifaces);
             }
         }
@@ -2818,7 +2826,7 @@ public class Tethering {
 
         mLog.i("adding IpServer for: " + iface);
         final TetherState tetherState = new TetherState(
-                new IpServer(iface, mLooper, interfaceType, mLog, mNetd, mBpfCoordinator,
+                new IpServer(iface, mHandler, interfaceType, mLog, mNetd, mBpfCoordinator,
                              makeControlCallback(), mConfig, mPrivateAddressCoordinator,
                              mTetheringMetrics, mDeps.getIpServerDependencies()), isNcm);
         mTetherStates.put(iface, tetherState);

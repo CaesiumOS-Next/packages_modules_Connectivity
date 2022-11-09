@@ -192,6 +192,10 @@ public class SyncStateMachine {
         return curStateInfo;
     }
 
+    public final void addState(State state) {
+        addState(state, null);
+    }
+
     /**
      * Add a new state to the state machine. Bottom up addition
      * of states is allowed but the same state may only exist
@@ -330,6 +334,10 @@ public class SyncStateMachine {
 
     public final boolean sendMessage(int what, int arg1, int arg2) {
         return sendMessage(what, arg1, arg2, null);
+    }
+
+    public boolean sendMessage(int what, int arg1, int arg2, Object obj) {
+        return sendMessage(Message.obtain(null, what, arg1, arg2, obj));
     }
 
     public final boolean sendMessage(Message msg) {
