@@ -3297,11 +3297,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mKeepaliveTracker.dump(pw);
 
         pw.println();
-        dumpAvoidBadWifiSettings(pw);
-
-        pw.println();
 
         if (!CollectionUtils.contains(args, SHORT_ARG)) {
+            pw.println();
+            dumpAvoidBadWifiSettings(pw);
+
             pw.println();
             pw.println("mNetworkRequestInfoLogs (most recent first):");
             pw.increaseIndent();
