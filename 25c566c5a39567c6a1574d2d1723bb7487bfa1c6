@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38a66678_b9095d01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-11-09T00:34:22Z",
+      "side": 1,
+      "message": "in tm-dev\u0027s system/sepolicy/private/property_contexts\n\n# GRF property for the first api level of the vendor partition\nro.board.first_api_level u:object_r:build_vendor_prop:s0 exact int\nro.board.api_level       u:object_r:build_vendor_prop:s0 exact int\nro.vendor.api_level      u:object_r:build_vendor_prop:s0 exact int\n\nro.product.first_api_level          u:object_r:build_vendor_prop:s0 exact int\n\nso we should have access to all of these.",
+      "revId": "25c566c5a39567c6a1574d2d1723bb7487bfa1c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30a7c377_e6a73e45",
