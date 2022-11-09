@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e9ab5f8_84bddff4",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-09T07:09:58Z",
+      "side": 1,
+      "message": "This really doesn\u0027t feel great; effectively there\u0027s listeners with 2 different behaviors, although they\u0027re so similar that I don\u0027t understand why a separate MdnsServiceResolutionListener is necessary.\n\nCould whatever uses MdnsServiceResolutionListener use MdnsServiceBrowserListener instead ?\n\nBetter discuss this directly I think",
+      "revId": "f5ba383d88cff866a0d173015f3e0698d478e554",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
