@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6d6ece6_01637539",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-09T10:10:19Z",
+      "side": 1,
+      "message": "That doesn\u0027t seem right; what was wrong with the previous code ?",
+      "revId": "f06fed0913d5acc696be233cbec7703aab765c6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd6d5d0b_ae559ab1",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-09T10:10:19Z",
+      "side": 1,
+      "message": "What if the list of interfaces change during discovery ? MulticastNetworkInterfaceProvider doesn\u0027t seem very helpful for that.\n\nIt also doesn\u0027t help linking interfaces with their Network object, which would be very helpful in aosp/2239480: MulticastNetworkInterfaceProvider is updated based on network callbacks.\n\nI think you could have a replacement for MulticastNetworkInterfaceProvider which:\n\n - Registers a network callback\n - Also registers a TetheringEventCallback to know about tethered interfaces\n - Associates a Network with each MdnsSocketClient on creation, since they are created from Connectivity or Tethering (LOCAL_NET_ID) callbacks; then you can use it to find the right network for aosp/2239480\n - Handles starting discovery on new interfaces if they come up while discovery is in progress for all interfaces",
+      "revId": "f06fed0913d5acc696be233cbec7703aab765c6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "103f52f2_2c04ef78",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-09T10:10:19Z",
+      "side": 1,
+      "message": "mdnsresponder would send the packet on both v4 and v6 if it\u0027s dual-stack; we should keep that behavior",
+      "revId": "f06fed0913d5acc696be233cbec7703aab765c6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
