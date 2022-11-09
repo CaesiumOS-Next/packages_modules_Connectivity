@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fb5918f_63711b10",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-09T10:16:12Z",
+      "side": 1,
+      "message": "NETID_UNSET",
+      "range": {
+        "startLine": 788,
+        "startChar": 19,
+        "endLine": 788,
+        "endChar": 20
+      },
+      "revId": "1f9e210a842e8ebf5a7eb437fd0f7d11e268aeed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a973690_dca767cd",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-09T10:16:12Z",
+      "side": 1,
+      "message": "That may be costly to do every time, but maybe it\u0027s OK if this is to be removed in a later change ?",
+      "range": {
+        "startLine": 802,
+        "startChar": 38,
+        "endLine": 802,
+        "endChar": 52
+      },
+      "revId": "1f9e210a842e8ebf5a7eb437fd0f7d11e268aeed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b76681de_e468ddfc",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-09T10:16:12Z",
+      "side": 1,
+      "message": "This won\u0027t be correct for tethering downstream; it should be LOCAL_NET_ID for those.\n\nProblem is, there\u0027s no way to know whether the network is gone since the service was found, if this is a tethering downstream, or if it\u0027s another interface that was not registered with netd at all. I\u0027ve put some suggestions in aosp/2278027: if the sockets are created when a notification is received due to a new Network (either a network callback or a new tethered interface), then you\u0027d know which Network goes with each packet.\n\nIf you want to fix it in the later change I\u0027d at least add a big TODO, file a bug and return LOCAL_NET_ID in the meantime here",
+      "range": {
+        "startLine": 822,
+        "startChar": 15,
+        "endLine": 822,
+        "endChar": 16
+      },
+      "revId": "1f9e210a842e8ebf5a7eb437fd0f7d11e268aeed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
