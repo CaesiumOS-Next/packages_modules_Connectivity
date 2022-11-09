@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "97296b91_5a6227f7",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-09T07:19:58Z",
+      "side": 1,
+      "message": "Isn\u0027t this returned by instanceNameToResponse.remove below already ?",
+      "range": {
+        "startLine": 263,
+        "startChar": 44,
+        "endLine": 263,
+        "endChar": 56
+      },
+      "revId": "6ce1f61c82a258761da7fd8bbd4e9fba65809832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0693e65d_d84aed94",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-09T07:19:58Z",
+      "side": 1,
+      "message": "Could you use buildMdnsServiceInfoFromResponse ? Especially since a more complete service info should be in instanceNameToResponse",
+      "range": {
+        "startLine": 270,
+        "startChar": 48,
+        "endLine": 270,
+        "endChar": 75
+      },
+      "revId": "6ce1f61c82a258761da7fd8bbd4e9fba65809832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b0b032a_259ad155",
         "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
         "patchSetId": 3
