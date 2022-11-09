@@ -26,6 +26,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5353a725_e030cf24",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-09T08:34:17Z",
+      "side": 1,
+      "message": "Discovery is likely to not work well when it requests unicast responses if mdnsresponder is also started (for example for advertising or if there\u0027s a per-app condition), see rfc6762 15. If the socket is not open with the right options it will conflict with mdnsresponder as well.\n\nCan you make sure that this is handled, so that queries don\u0027t set the QU flag, and the socket is open with the right options ?",
+      "revId": "b52e15524cd415af33119a6c632f7e5eb1f458ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "20c2f0e2_4b157613",
         "filename": "service-t/src/com/android/server/NsdService.java",
         "patchSetId": 3
