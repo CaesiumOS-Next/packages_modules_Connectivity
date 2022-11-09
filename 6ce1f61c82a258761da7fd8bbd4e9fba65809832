@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b0b032a_259ad155",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-09T07:05:33Z",
+      "side": 1,
+      "message": "We should have tests for this change; can you also verify the other attributes of the object ?",
+      "revId": "6ce1f61c82a258761da7fd8bbd4e9fba65809832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
