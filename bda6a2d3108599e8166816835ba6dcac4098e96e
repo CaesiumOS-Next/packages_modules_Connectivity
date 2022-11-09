@@ -22,6 +22,30 @@
       },
       "revId": "bda6a2d3108599e8166816835ba6dcac4098e96e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8c0922d_89d80b7b",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-09T08:48:37Z",
+      "side": 0,
+      "message": "Need to check if any callers persist the template on disk.",
+      "parentUuid": "3b5308e3_e067a969",
+      "range": {
+        "startLine": 457,
+        "startChar": 8,
+        "endLine": 457,
+        "endChar": 46
+      },
+      "revId": "bda6a2d3108599e8166816835ba6dcac4098e96e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
