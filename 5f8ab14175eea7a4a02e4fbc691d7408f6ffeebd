@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bc7de30_775bcb85",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-09T08:30:18Z",
+      "side": 1,
+      "message": "Typo: Service",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 8
+      },
+      "revId": "5f8ab14175eea7a4a02e4fbc691d7408f6ffeebd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4321559d_baaeaa51",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-09T08:30:18Z",
+      "side": 1,
+      "message": "Something around DiscoveryManager ?",
+      "range": {
+        "startLine": 246,
+        "startChar": 28,
+        "endLine": 246,
+        "endChar": 36
+      },
+      "revId": "5f8ab14175eea7a4a02e4fbc691d7408f6ffeebd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6479b0c_bc6252ed",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-09T08:30:18Z",
+      "side": 1,
+      "message": "This needs the Network as well\n\nThe code you will use to manage the sockets per interface may be able to provide that info",
+      "revId": "5f8ab14175eea7a4a02e4fbc691d7408f6ffeebd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
