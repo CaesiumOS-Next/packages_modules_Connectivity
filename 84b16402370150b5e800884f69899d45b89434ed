@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fd6ddf0_195270f5",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 1
+      },
+      "lineNbr": 4965,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-11-09T03:24:32Z",
+      "side": 1,
+      "message": "It seems the result is still not deterministic.",
+      "revId": "84b16402370150b5e800884f69899d45b89434ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
