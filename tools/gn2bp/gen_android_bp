@@ -1208,6 +1208,98 @@ def create_java_module(blueprint, gn):
   module.srcs.update([gn_utils.label_to_path(source) for source in gn.java_sources])
   blueprint.add_module(module)
 
+def create_libcplusplus_module(blueprint, gn):
+  bp_module_name = module_prefix + 'buildtools_third_party_libc___libc__'
+  module = Module('filegroup', bp_module_name, '//gn:buildtools/third_party/libc++:libc++')
+  module.srcs.update(
+      [
+          "buildtools/third_party/libc++/trunk/src/algorithm.cpp",
+          "buildtools/third_party/libc++/trunk/src/any.cpp",
+          "buildtools/third_party/libc++/trunk/src/atomic.cpp",
+          "buildtools/third_party/libc++/trunk/src/barrier.cpp",
+          "buildtools/third_party/libc++/trunk/src/bind.cpp",
+          "buildtools/third_party/libc++/trunk/src/charconv.cpp",
+          "buildtools/third_party/libc++/trunk/src/chrono.cpp",
+          "buildtools/third_party/libc++/trunk/src/condition_variable.cpp",
+          "buildtools/third_party/libc++/trunk/src/condition_variable_destructor.cpp",
+          "buildtools/third_party/libc++/trunk/src/exception.cpp",
+          "buildtools/third_party/libc++/trunk/src/format.cpp",
+          "buildtools/third_party/libc++/trunk/src/functional.cpp",
+          "buildtools/third_party/libc++/trunk/src/future.cpp",
+          "buildtools/third_party/libc++/trunk/src/hash.cpp",
+          "buildtools/third_party/libc++/trunk/src/ios.cpp",
+          "buildtools/third_party/libc++/trunk/src/ios.instantiations.cpp",
+          "buildtools/third_party/libc++/trunk/src/iostream.cpp",
+          "buildtools/third_party/libc++/trunk/src/legacy_pointer_safety.cpp",
+          "buildtools/third_party/libc++/trunk/src/locale.cpp",
+          "buildtools/third_party/libc++/trunk/src/memory.cpp",
+          "buildtools/third_party/libc++/trunk/src/mutex.cpp",
+          "buildtools/third_party/libc++/trunk/src/mutex_destructor.cpp",
+          "buildtools/third_party/libc++/trunk/src/new.cpp",
+          "buildtools/third_party/libc++/trunk/src/optional.cpp",
+          "buildtools/third_party/libc++/trunk/src/random.cpp",
+          "buildtools/third_party/libc++/trunk/src/random_shuffle.cpp",
+          "buildtools/third_party/libc++/trunk/src/regex.cpp",
+          "buildtools/third_party/libc++/trunk/src/ryu/d2fixed.cpp",
+          "buildtools/third_party/libc++/trunk/src/ryu/d2s.cpp",
+          "buildtools/third_party/libc++/trunk/src/ryu/f2s.cpp",
+          "buildtools/third_party/libc++/trunk/src/shared_mutex.cpp",
+          "buildtools/third_party/libc++/trunk/src/stdexcept.cpp",
+          "buildtools/third_party/libc++/trunk/src/string.cpp",
+          "buildtools/third_party/libc++/trunk/src/strstream.cpp",
+          "buildtools/third_party/libc++/trunk/src/system_error.cpp",
+          "buildtools/third_party/libc++/trunk/src/thread.cpp",
+          "buildtools/third_party/libc++/trunk/src/typeinfo.cpp",
+          "buildtools/third_party/libc++/trunk/src/utility.cpp",
+          "buildtools/third_party/libc++/trunk/src/valarray.cpp",
+          "buildtools/third_party/libc++/trunk/src/variant.cpp",
+          "buildtools/third_party/libc++/trunk/src/vector.cpp",
+          "buildtools/third_party/libc++/trunk/src/verbose_abort.cpp"]
+  )
+  blueprint.add_module(module)
+
+def create_libunwind_module(blueprint, gn):
+  bp_module_name = module_prefix + 'buildtools_third_party_libunwind_libunwind'
+  module = Module('filegroup', bp_module_name, '//gn:buildtools/third_party/libunwind:libunwind')
+  module.srcs.update(
+      [
+          "buildtools/third_party/libunwind/trunk/src/Unwind-EHABI.cpp",
+          "buildtools/third_party/libunwind/trunk/src/libunwind.cpp",
+          "buildtools/third_party/libunwind/trunk/src/Unwind-sjlj.c",
+          "buildtools/third_party/libunwind/trunk/src/UnwindLevel1-gcc-ext.c",
+          "buildtools/third_party/libunwind/trunk/src/UnwindLevel1.c",
+          "buildtools/third_party/libunwind/trunk/src/UnwindRegistersRestore.S",
+          "buildtools/third_party/libunwind/trunk/src/UnwindRegistersSave.S"
+      ])
+  blueprint.add_module(module)
+
+def create_libabicplusplus_module(blueprint, gn):
+  bp_module_name = module_prefix + 'buildtools_third_party_libc__abi_libc__abi'
+  module = Module('filegroup', bp_module_name, '//gn:buildtools/third_party/libabic++:libabic++')
+  module.srcs.update(
+      [
+          # This is libcc++abi which is a dependency of libc++ which is a dependency
+          "buildtools/third_party/libc++abi/trunk/src/abort_message.cpp",
+          "buildtools/third_party/libc++abi/trunk/src/cxa_aux_runtime.cpp",
+          "buildtools/third_party/libc++abi/trunk/src/cxa_default_handlers.cpp",
+          "buildtools/third_party/libc++abi/trunk/src/cxa_exception.cpp",
+          "buildtools/third_party/libc++abi/trunk/src/cxa_exception_storage.cpp",
+          "buildtools/third_party/libc++abi/trunk/src/cxa_handlers.cpp",
+          "buildtools/third_party/libc++abi/trunk/src/cxa_personality.cpp",
+          "buildtools/third_party/libc++abi/trunk/src/cxa_vector.cpp",
+          "buildtools/third_party/libc++abi/trunk/src/cxa_virtual.cpp",
+          "buildtools/third_party/libc++abi/trunk/src/fallback_malloc.cpp",
+          "buildtools/third_party/libc++abi/trunk/src/private_typeinfo.cpp",
+          "buildtools/third_party/libc++abi/trunk/src/stdlib_exception.cpp",
+          "buildtools/third_party/libc++abi/trunk/src/stdlib_stdexcept.cpp",
+          "buildtools/third_party/libc++abi/trunk/src/stdlib_typeinfo.cpp",
+          "buildtools/third_party/libc++abi/trunk/src/cxa_guard.cpp",
+          "buildtools/third_party/libc++abi/cxa_demangle_stub.cc",
+          "buildtools/third_party/libc++abi/trunk/src/cxa_thread_atexit.cpp",
+      ]
+  )
+  blueprint.add_module(module)
+
 def update_jni_registration_module(blueprint, gn):
   bp_module_name = label_to_module_name('//components/cronet/android:cronet_jni_registration')
   module = blueprint.modules[bp_module_name]
@@ -1514,7 +1606,9 @@ def create_blueprint_for_targets(gn, desc, targets):
   ]
   defaults.stl = 'none'
   blueprint.add_module(defaults)
-
+  create_libabicplusplus_module(blueprint, gn)
+  create_libcplusplus_module(blueprint, gn)
+  create_libunwind_module(blueprint, gn)
   for target in targets:
     create_modules_from_target(blueprint, gn, target)
 
