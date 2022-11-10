@@ -148,11 +148,8 @@ public class MdnsServiceTypeClient {
             this.searchOptions = searchOptions;
             if (listeners.add(listener)) {
                 for (MdnsResponse existingResponse : instanceNameToResponse.values()) {
-                    if (existingResponse.isComplete()) {
-                        listener.onServiceFound(
-                                buildMdnsServiceInfoFromResponse(existingResponse,
-                                        serviceTypeLabels));
-                    }
+                    listener.onServiceFound(
+                            buildMdnsServiceInfoFromResponse(existingResponse, serviceTypeLabels));
                 }
             }
             // Cancel the next scheduled periodical task.
@@ -236,7 +233,7 @@ public class MdnsServiceTypeClient {
         } else if (currentResponse.mergeRecordsFrom(response)) {
             existingServiceChanged = true;
         }
-        if (!currentResponse.isComplete() || (!newServiceFound && !existingServiceChanged)) {
+        if (!newServiceFound && !existingServiceChanged) {
             return;
         }
         MdnsServiceInfo serviceInfo =
@@ -246,7 +243,9 @@ public class MdnsServiceTypeClient {
             if (newServiceFound) {
                 listener.onServiceFound(serviceInfo);
             } else {
-                listener.onServiceUpdated(serviceInfo);
+                if (currentResponse.isComplete()) {
+                    listener.onServiceUpdated(serviceInfo);
+                }
             }
         }
     }
@@ -423,7 +422,7 @@ public class MdnsServiceTypeClient {
                     Iterator<MdnsResponse> iter = instanceNameToResponse.values().iterator();
                     while (iter.hasNext()) {
                         MdnsResponse existingResponse = iter.next();
-                        if (existingResponse.isComplete()
+                        if (existingResponse.hasServiceRecord()
                                 && existingResponse
                                 .getServiceRecord()
                                 .getRemainingTTL(SystemClock.elapsedRealtime())
