@@ -16,6 +16,24 @@
       "message": "com.android.server.connectivity.mdns.MdnsPacketReader ?",
       "revId": "ce20a7dddb0e4b0cfb2dcb30a482c380d1c761ff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccc09f32_09171cec",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsRecord.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-10T01:59:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4841fb7_2701a8b5",
+      "revId": "ce20a7dddb0e4b0cfb2dcb30a482c380d1c761ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
