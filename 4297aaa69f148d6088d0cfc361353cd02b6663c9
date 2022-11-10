@@ -166,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d6ad83f_3741e1bc",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-10T13:31:26Z",
+      "side": 1,
+      "message": "Done. Constructor cannot return any type so add @Deprecated annotation.",
+      "parentUuid": "1a665f50_79463d08",
+      "range": {
+        "startLine": 317,
+        "startChar": 3,
+        "endLine": 330,
+        "endChar": 5
+      },
+      "revId": "4297aaa69f148d6088d0cfc361353cd02b6663c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c0d13df_37aa82c0",
