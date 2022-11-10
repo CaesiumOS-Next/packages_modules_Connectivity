@@ -465,6 +465,7 @@ public class ConnectivityManagerTest {
         // getNetworkPreference() and setNetworkPreference() are both deprecated so they do
         // not preform any action.  Verify they are at least still callable.
         mCm.setNetworkPreference(mCm.getNetworkPreference());
+        fail("Test failure 1");
     }
 
     @Test
@@ -474,6 +475,7 @@ public class ConnectivityManagerTest {
         assertNotNull("You must have an active network connection to complete CTS", ni);
         assertTrue(ConnectivityManager.isNetworkTypeValid(ni.getType()));
         assertTrue(ni.getState() == State.CONNECTED);
+        fail("Test failure 2");
     }
 
     @Test
