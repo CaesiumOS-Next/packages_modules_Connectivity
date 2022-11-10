@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86c3e3f5_65b6cba3",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-11-10T02:21:06Z",
+      "side": 1,
+      "message": "Android.bp.swp was not updated.",
+      "revId": "9f4d3e347b4fefdfbfff8bc08d65294b6c9cfeed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
