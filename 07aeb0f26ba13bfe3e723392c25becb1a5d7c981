@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "987b7ced_07d8ee2b",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1300,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-10T08:03:37Z",
+      "side": 1,
+      "message": "Maybe you can reduce the lock to only these three lines.",
+      "range": {
+        "startLine": 1298,
+        "startChar": 0,
+        "endLine": 1300,
+        "endChar": 9
+      },
+      "revId": "07aeb0f26ba13bfe3e723392c25becb1a5d7c981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
