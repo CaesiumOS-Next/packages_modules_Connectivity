@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de0eefe0_a64681d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-10T07:04:43Z",
+      "side": 1,
+      "message": "Happy with this, moral +2\n\nPlease find lorenzo@ for owners.",
+      "revId": "1a931d26d77096a1688b2552926a4e66c0449bea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
