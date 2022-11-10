@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfe3f612_b753ed8d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-11-10T10:20:50Z",
+      "side": 1,
+      "message": "Might want to add a comment stating that this is guaranteed to return immediately even if the queue is already idle. (Otherwise I think this method won\u0027t work correctly?)",
+      "range": {
+        "startLine": 165,
+        "startChar": 62,
+        "endLine": 165,
+        "endChar": 85
+      },
+      "revId": "e4837c6aafff0974bb70ccd333eb69616e070096",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4c1c1eb_3d31cc58",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-11-10T10:20:50Z",
+      "side": 1,
+      "message": "Might want to add a comment here to ensure that it\u0027s safe to continue even if this command has not yet completed, because this command cannot affect future tests.\n\nRationale: if this timeout expires, this command will continue to run, potentially at the same time as a subsequent test. In the case of this specific command, that\u0027s fine, because this command (presumably) doesn\u0027t have any side effects. However, if someone later copy+pastes this code and uses it to run some other command that *does* have side effects (e.g., changes system configuration) then that could impact future tests.",
+      "range": {
+        "startLine": 167,
+        "startChar": 10,
+        "endLine": 167,
+        "endChar": 14
+      },
+      "revId": "e4837c6aafff0974bb70ccd333eb69616e070096",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
