@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cc5be61_9542afea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-11-10T13:59:24Z",
+      "side": 1,
+      "message": "Can you provide a microbenchmark or other evidence to show how much this optimization improves things? The microbenchmark doesn\u0027t have to be checked in but we\u0027d at least want some results in the commit message.\n\nAlso you\u0027ll at least want a comment in the code that explains that this optimization is necessary, otherwise it\u0027s fairly likely that someone in the future will change it back to using String.format in order to simplify the code.",
+      "revId": "87be2791c48a05147be904ab128cc6f25eb0489c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
