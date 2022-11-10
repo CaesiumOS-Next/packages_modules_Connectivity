@@ -144,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1a665f50_79463d08",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-10T07:24:47Z",
+      "side": 1,
+      "message": "For normalize() could we use Builder instead?\nIf so can we delete this function by moving the content to l.313?\nFurthermore, maybe use Builder for l.313?",
+      "parentUuid": "5a19d9c8_6cf740d1",
+      "range": {
+        "startLine": 317,
+        "startChar": 3,
+        "endLine": 330,
+        "endChar": 5
+      },
+      "revId": "4297aaa69f148d6088d0cfc361353cd02b6663c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c0d13df_37aa82c0",
         "filename": "framework-t/src/android/net/NetworkTemplate.java",
         "patchSetId": 2
