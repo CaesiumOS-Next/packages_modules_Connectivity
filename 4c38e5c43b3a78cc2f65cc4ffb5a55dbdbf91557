@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e72c134_35727a19",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-10T08:54:33Z",
+      "side": 1,
+      "message": "Not really ; this deflakes and improves the test but doesn\u0027t make progress towards b/157949581.",
+      "parentUuid": "fb580fb8_62b212dc",
+      "revId": "4c38e5c43b3a78cc2f65cc4ffb5a55dbdbf91557",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0fe2873f_d2788466",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d4b1937_ba5e7ba4",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-10T08:54:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fe2873f_d2788466",
+      "range": {
+        "startLine": 170,
+        "startChar": 11,
+        "endLine": 170,
+        "endChar": 14
+      },
+      "revId": "4c38e5c43b3a78cc2f65cc4ffb5a55dbdbf91557",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a25509ad_280c835f",
@@ -54,6 +96,30 @@
       "writtenOn": "2022-11-10T08:37:38Z",
       "side": 1,
       "message": "Thread.join(long) would have worked too I think ? This is fine though",
+      "range": {
+        "startLine": 171,
+        "startChar": 11,
+        "endLine": 171,
+        "endChar": 16
+      },
+      "revId": "4c38e5c43b3a78cc2f65cc4ffb5a55dbdbf91557",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34f3162b_e49b3a38",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-10T08:54:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a25509ad_280c835f",
       "range": {
         "startLine": 171,
         "startChar": 11,
