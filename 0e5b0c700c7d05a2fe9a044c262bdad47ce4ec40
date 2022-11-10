@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "729ff64c_41036e19",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsNsecRecord.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-10T09:50:06Z",
+      "side": 1,
+      "message": "Actually this is the array of types (TYPE_TXT, TYPE_SRV); not bitmaps which would be integers with one bit set for each type",
+      "parentUuid": "fc4f1578_a50b9ed4",
+      "range": {
+        "startLine": 32,
+        "startChar": 18,
+        "endLine": 32,
+        "endChar": 24
+      },
+      "revId": "0e5b0c700c7d05a2fe9a044c262bdad47ce4ec40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bbe4fa77_c84881e1",
         "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsNsecRecord.java",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2022-11-03T06:07:44Z",
       "side": 1,
       "message": "Fit for one line.",
+      "range": {
+        "startLine": 126,
+        "startChar": 12,
+        "endLine": 127,
+        "endChar": 33
+      },
+      "revId": "0e5b0c700c7d05a2fe9a044c262bdad47ce4ec40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36409609_743846db",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsNsecRecord.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-10T09:50:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbe4fa77_c84881e1",
       "range": {
         "startLine": 126,
         "startChar": 12,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff4fef04_4ac64d40",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-10T09:50:06Z",
+      "side": 1,
+      "message": "Oops, forgot to update the comment, done",
+      "parentUuid": "273528ea_ce5e1468",
+      "range": {
+        "startLine": 323,
+        "startChar": 37,
+        "endLine": 323,
+        "endChar": 41
+      },
+      "revId": "0e5b0c700c7d05a2fe9a044c262bdad47ce4ec40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e07c6da7_a701b4ce",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-11-03T06:07:44Z",
       "side": 1,
       "message": "The name is verified on Line#348, it\u0027s not necessary to verify again.",
+      "range": {
+        "startLine": 351,
+        "startChar": 7,
+        "endLine": 351,
+        "endChar": 83
+      },
+      "revId": "0e5b0c700c7d05a2fe9a044c262bdad47ce4ec40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eee04a31_1b913724",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-10T09:50:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e07c6da7_a701b4ce",
       "range": {
         "startLine": 351,
         "startChar": 7,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "840deec5_412e7e47",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-10T09:50:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bcf2656_548de188",
+      "range": {
+        "startLine": 357,
+        "startChar": 16,
+        "endLine": 358,
+        "endChar": 35
+      },
+      "revId": "0e5b0c700c7d05a2fe9a044c262bdad47ce4ec40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "73e8daa2_d83176b4",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-11-03T06:07:44Z",
       "side": 1,
       "message": "These are also duplicated with any, text, service record encoding check. We should add a method for these.",
+      "range": {
+        "startLine": 360,
+        "startChar": 8,
+        "endLine": 368,
+        "endChar": 46
+      },
+      "revId": "0e5b0c700c7d05a2fe9a044c262bdad47ce4ec40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52f1dce5_496b0947",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-10T09:50:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73e8daa2_d83176b4",
       "range": {
         "startLine": 360,
         "startChar": 8,
