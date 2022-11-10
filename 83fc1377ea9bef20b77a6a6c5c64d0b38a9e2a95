@@ -93,6 +93,30 @@
       },
       "revId": "83fc1377ea9bef20b77a6a6c5c64d0b38a9e2a95",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "156ea228_f1f19643",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-10T08:24:14Z",
+      "side": 1,
+      "message": "I like option 1 much better, but we should also make the old constructor deprecated. Added comments in the relevant site.",
+      "parentUuid": "f3b85933_787b295f",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 95
+      },
+      "revId": "83fc1377ea9bef20b77a6a6c5c64d0b38a9e2a95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

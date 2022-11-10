@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65624b68_cd46741d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-10T08:24:14Z",
+      "side": 1,
+      "message": "y",
+      "revId": "52346a2bef1ff78e20043d719ae27dd3525682c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27d241a3_11378fc9",
+        "filename": "framework/api/system-current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-10T08:24:14Z",
+      "side": 1,
+      "message": "Okay I thought a little bit more about this, and it turns out that the session ID is only sent when the remote side holds NETWORK_SETTINGS. So in fact, if you can only see @SystemApi and not module API, then this is guaranteed to return null, and toString() can\u0027t actually display the session ID.\n\nGiven that, I think we should keep this module API.",
+      "revId": "52346a2bef1ff78e20043d719ae27dd3525682c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1a4bedd_6f87431e",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-10T08:24:14Z",
+      "side": 1,
+      "message": "This should be @Deprecated with a comment to use the new constructor instead.",
+      "range": {
+        "startLine": 71,
+        "startChar": 11,
+        "endLine": 71,
+        "endChar": 27
+      },
+      "revId": "52346a2bef1ff78e20043d719ae27dd3525682c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd7bc9a3_43e699d6",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-10T08:24:14Z",
+      "side": 1,
+      "message": "Can you please add a comment saying something like :\n\n    // When the module runs on older SDKs, |bypassable| will always be false\n    // since the old Vpn code will call this constructor. For Settings VPNs\n    // this is always correct as they are never bypassable. For VpnManager and\n    // VpnService types this may be wrong since both of them have a choice,\n    // however on these SDKs VpnTransportInfo#getBypassable is not available\n    // anyway, so this should be harmless.\n    // False is a better choice than true here regardless because it is the\n    // default value for both VpnManager and VpnService if the app does not\n    // do anything about it.",
+      "range": {
+        "startLine": 72,
+        "startChar": 30,
+        "endLine": 72,
+        "endChar": 35
+      },
+      "revId": "52346a2bef1ff78e20043d719ae27dd3525682c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55b83c0b_3bcdc239",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-10T08:24:14Z",
+      "side": 1,
+      "message": "As we\u0027ve seen above this value makes no sense before U, so we should not allow it to be called and and it would be good if tools could warn if someones tries. So :\n\n• Please throw if SDK \u003c U\n• Add @RequiresApi for the tools. After you add @RequiresApi please check if the tools or linter will complain if module code calls this without an SDK check.",
+      "range": {
+        "startLine": 84,
+        "startChar": 19,
+        "endLine": 84,
+        "endChar": 32
+      },
+      "revId": "52346a2bef1ff78e20043d719ae27dd3525682c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6a68f53_bc8f4a04",
+        "filename": "tests/unit/java/android/net/VpnTransportInfoTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-10T08:24:14Z",
+      "side": 1,
+      "message": "While you\u0027re here, please make these 2 vars final",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 24
+      },
+      "revId": "52346a2bef1ff78e20043d719ae27dd3525682c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4100d8f4_b7b5e109",
+        "filename": "tests/unit/java/android/net/VpnTransportInfoTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-10T08:24:14Z",
+      "side": 1,
+      "message": "Did you mean to make one of these `false` ? Here you\u0027re only making a copy of v17 and checking that it\u0027s equal to a copy of v16, I\u0027m not sure what the intention is.",
+      "range": {
+        "startLine": 61,
+        "startChar": 87,
+        "endLine": 61,
+        "endChar": 91
+      },
+      "revId": "52346a2bef1ff78e20043d719ae27dd3525682c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
