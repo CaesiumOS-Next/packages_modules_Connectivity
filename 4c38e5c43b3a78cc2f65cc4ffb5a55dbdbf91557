@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb580fb8_62b212dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-10T08:37:38Z",
+      "side": 1,
+      "message": "Also 157949581 I guess ?",
+      "revId": "4c38e5c43b3a78cc2f65cc4ffb5a55dbdbf91557",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fe2873f_d2788466",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-10T08:37:38Z",
+      "side": 1,
+      "message": "errorprone says this should be start()",
+      "range": {
+        "startLine": 170,
+        "startChar": 11,
+        "endLine": 170,
+        "endChar": 14
+      },
+      "revId": "4c38e5c43b3a78cc2f65cc4ffb5a55dbdbf91557",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a25509ad_280c835f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-10T08:37:38Z",
+      "side": 1,
+      "message": "Thread.join(long) would have worked too I think ? This is fine though",
+      "range": {
+        "startLine": 171,
+        "startChar": 11,
+        "endLine": 171,
+        "endChar": 16
+      },
+      "revId": "4c38e5c43b3a78cc2f65cc4ffb5a55dbdbf91557",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
