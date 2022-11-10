@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6adebc2_d2fd9cf6",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-11-10T11:16:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b50e102e_9898120d",
+      "range": {
+        "startLine": 232,
+        "startChar": 4,
+        "endLine": 232,
+        "endChar": 71
+      },
+      "revId": "83fc1377ea9bef20b77a6a6c5c64d0b38a9e2a95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf3e7724_cd4b7289",
