@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "afc7789b_f523726d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-10T06:39:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "329e64eb_368f6720",
+      "range": {
+        "startLine": 562,
+        "startChar": 65,
+        "endLine": 562,
+        "endChar": 81
+      },
+      "revId": "f7f7e363266390f907ec3f896379d58239825466",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5537ffa_67a1ffd7",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f6a88cc_e06f807d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-10T06:39:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5537ffa_67a1ffd7",
+      "range": {
+        "startLine": 591,
+        "startChar": 69,
+        "endLine": 591,
+        "endChar": 80
+      },
+      "revId": "f7f7e363266390f907ec3f896379d58239825466",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3cb3455e_620e8dcb",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-11-07T02:50:25Z",
       "side": 1,
       "message": "Please make it actually final. Also suggest calling getLinkProperties here instead of in l.600",
+      "range": {
+        "startLine": 595,
+        "startChar": 12,
+        "endLine": 595,
+        "endChar": 32
+      },
+      "revId": "f7f7e363266390f907ec3f896379d58239825466",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3d25bd3_bf5b5ca5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-10T06:39:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cb3455e_620e8dcb",
       "range": {
         "startLine": 595,
         "startChar": 12,
@@ -124,6 +196,30 @@
       "side": 1,
       "message": "Okay now that I\u0027ve looked at the companion change I noticed that I had missed your meaning. You do need the mark here.\n\nIf you apply the change I suggest in the companion change you will be able to remove the cast in l.599",
       "parentUuid": "3307633e_813ace73",
+      "range": {
+        "startLine": 597,
+        "startChar": 49,
+        "endLine": 597,
+        "endChar": 61
+      },
+      "revId": "f7f7e363266390f907ec3f896379d58239825466",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "843740c4_be5c0d53",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-10T06:39:40Z",
+      "side": 1,
+      "message": "Done.\nThanks it greatly simplify the complexity.",
+      "parentUuid": "33a27505_65e00114",
       "range": {
         "startLine": 597,
         "startChar": 49,
