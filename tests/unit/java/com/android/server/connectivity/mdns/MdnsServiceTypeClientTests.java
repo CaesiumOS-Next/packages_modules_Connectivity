@@ -18,6 +18,7 @@ package com.android.server.connectivity.mdns;
 
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -385,11 +386,23 @@ public class MdnsServiceTypeClientTests {
 
         MdnsResponse response = mock(MdnsResponse.class);
         when(response.getServiceInstanceName()).thenReturn("service-instance-1");
+        doReturn(999).when(response).getInterfaceIndex();
         when(response.isComplete()).thenReturn(false);
 
         client.processResponse(response);
 
-        verify(mockListenerOne, never()).onServiceFound(any(MdnsServiceInfo.class));
+        verify(mockListenerOne).onServiceFound(serviceInfoCaptor.capture());
+        final MdnsServiceInfo info = serviceInfoCaptor.getAllValues().get(0);
+        assertEquals("service-instance-1", info.getServiceInstanceName());
+        assertArrayEquals(SERVICE_TYPE_LABELS, info.getServiceType());
+        assertNull(info.getIpv4Address());
+        assertNull(info.getIpv6Address());
+        assertNull(info.getHostName());
+        assertEquals(0, info.getPort());
+        assertTrue(info.getSubtypes().isEmpty());
+        assertTrue(info.getAttributes().isEmpty());
+        assertEquals(info.getInterfaceIndex(), 999);
+
         verify(mockListenerOne, never()).onServiceUpdated(any(MdnsServiceInfo.class));
     }
 
