@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ac2dd89_70f0420b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-10T13:29:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e34db00_f03d55f2",
+      "range": {
+        "startLine": 842,
+        "startChar": 20,
+        "endLine": 842,
+        "endChar": 34
+      },
+      "revId": "f7629f4353ce436864fd97d9f5996a7ded1ecdc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e6e77fe_c4e111d5",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-10T09:10:17Z",
       "side": 1,
       "message": "possibly static class method?",
+      "range": {
+        "startLine": 854,
+        "startChar": 0,
+        "endLine": 854,
+        "endChar": 4
+      },
+      "revId": "f7629f4353ce436864fd97d9f5996a7ded1ecdc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9adf70b_db3fd62d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-10T13:29:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e6e77fe_c4e111d5",
       "range": {
         "startLine": 854,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4da0d6f6_20336f5b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-10T13:29:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e8d868a_3d9bb7ef",
+      "range": {
+        "startLine": 864,
+        "startChar": 0,
+        "endLine": 864,
+        "endChar": 29
+      },
+      "revId": "f7629f4353ce436864fd97d9f5996a7ded1ecdc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06297df7_50c7d20e",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-08-10T09:10:17Z",
       "side": 1,
       "message": "FYI, I think this significantly more overhead than just the SIOCGIFADDR approach, I imagine this is dumping all addresses on the system and then filtering by interface and then filtering by ipv4.\n\nSIOCGIFADDR will simply directly retrieve the single ipv4 address on the clat interface (and there\u0027s only 1 by definition).\n\nBut maybe performance here doesn\u0027t matter since this presumably triggers once during cell/wifi v6-only connect?",
+      "range": {
+        "startLine": 865,
+        "startChar": 69,
+        "endLine": 865,
+        "endChar": 85
+      },
+      "revId": "f7629f4353ce436864fd97d9f5996a7ded1ecdc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1748725_de7c57c6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 865,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-10T13:29:26Z",
+      "side": 1,
+      "message": "NetworkInterface dumps all (getAll) and filter out with a given interface name. \nhttps://cs.android.com/android/platform/superproject/+/master:libcore/ojluni/src/main/java/java/net/NetworkInterface.java;l\u003d314\n```\npublic static NetworkInterface getByName(String name) throws SocketException {\n        if (name \u003d\u003d null)\n            throw new NullPointerException();\n\n        // Android-changed: Rewrote NetworkInterface on top of Libcore.io.\n        NetworkInterface[] nis \u003d getAll();\n        for (NetworkInterface ni : nis) {\n            if (ni.getName().equals(name)) {\n                return ni;\n            }\n        }\n        return null;\n    }\n```\n\nupdateUpstreamNetworkState() is called by \n1. upstream capability change\nEVENT_ON_CAPABILITIES -\u003e handleNewUpstreamNetworkState\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/Tethering.java;l\u003d2024\n2. upstream re-selection\nchooseUpstreamType -\u003e setUpstreamNetwork -\u003e handleNewUpstreamNetworkState\nhttps://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/Tethering.java;l\u003d1832\n\nI think that if the upstream status is not changed frequently, maybe performance doesn\u0027t matter.\n\nHi Maze, Mark\nHow do you think? Thank you",
+      "parentUuid": "06297df7_50c7d20e",
       "range": {
         "startLine": 865,
         "startChar": 69,
