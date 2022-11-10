@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "70b43bed_32dc9a79",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsAnyRecord.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-10T09:49:51Z",
+      "side": 1,
+      "message": "Oh right, done",
+      "parentUuid": "fc6bc8d8_89651289",
+      "range": {
+        "startLine": 34,
+        "startChar": 16,
+        "endLine": 34,
+        "endChar": 72
+      },
+      "revId": "389d027a4f8938143755fe781bb777497dd8b674",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba3358e9_51f3cec1",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-10-31T08:32:27Z",
       "side": 1,
       "message": "Nit: Looks like we are using same way to verify the encoding. It\u0027s better to add a method for these to avoid duplication.",
+      "range": {
+        "startLine": 301,
+        "startChar": 8,
+        "endLine": 311,
+        "endChar": 46
+      },
+      "revId": "389d027a4f8938143755fe781bb777497dd8b674",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2ca85eb_de1aeafb",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-10T09:49:51Z",
+      "side": 1,
+      "message": "Done; this may introduce merge conflicts later but it\u0027s probably OK",
+      "parentUuid": "ba3358e9_51f3cec1",
       "range": {
         "startLine": 301,
         "startChar": 8,
