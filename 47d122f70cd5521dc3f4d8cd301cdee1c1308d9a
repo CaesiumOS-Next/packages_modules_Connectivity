@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0902a1af_85dd04de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-11-10T12:02:54Z",
+      "side": 1,
+      "message": "Have you tried keeping the --sources-exclusion and investigating what would happen? I\u0027d like to know what would be the difference between this approach and keeping --sources-exclusion",
+      "revId": "47d122f70cd5521dc3f4d8cd301cdee1c1308d9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
