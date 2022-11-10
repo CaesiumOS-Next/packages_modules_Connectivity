@@ -24,6 +24,8 @@
     <option name="config-descriptor:metadata" key="mainline-param" value="CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk" />
     <option name="config-descriptor:metadata" key="mainline-param" value="com.google.android.tethering.apex" />
     <option name="not-shardable" value="true" />
+    <!-- Take a bugreport at the end of the module if at least one test case failed -->
+    <option name="auto-collect" value="BUGREPORTZ_ON_TESTCASE_FAILURE" />
     <target_preparer class="com.android.tradefed.targetprep.suite.SuiteApkInstaller">
         <option name="cleanup-apks" value="true" />
         <option name="test-file-name" value="{MODULE}.apk" />
