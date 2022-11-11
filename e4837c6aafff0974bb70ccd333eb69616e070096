@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e96f5a43_e7bc8f3d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-11T03:45:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfe3f612_b753ed8d",
+      "range": {
+        "startLine": 165,
+        "startChar": 62,
+        "endLine": 165,
+        "endChar": 85
+      },
+      "revId": "e4837c6aafff0974bb70ccd333eb69616e070096",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4c1c1eb_3d31cc58",
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "Oh right, join doesn\u0027t throw when the timeout expires apparently\n\nOr maybe just assertFalse(t.isAlive()) to make sure it terminated",
       "parentUuid": "b4c1c1eb_3d31cc58",
+      "range": {
+        "startLine": 167,
+        "startChar": 10,
+        "endLine": 167,
+        "endChar": 14
+      },
+      "revId": "e4837c6aafff0974bb70ccd333eb69616e070096",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4c6835a_5cae02bf",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-11T03:45:07Z",
+      "side": 1,
+      "message": "Done, but I don\u0027t want to throw if this times out ; instead I want to continue running the test. Explanations in new comments.",
+      "parentUuid": "c619bd76_1e2344a9",
       "range": {
         "startLine": 167,
         "startChar": 10,
