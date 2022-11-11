@@ -196,6 +196,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cca6d2b5_8d3d455f",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-11T04:31:06Z",
+      "side": 1,
+      "message": "Is there a way we can get the linter to complain ?",
+      "parentUuid": "c969ecd3_afb5cded",
+      "range": {
+        "startLine": 84,
+        "startChar": 19,
+        "endLine": 84,
+        "endChar": 32
+      },
+      "revId": "52346a2bef1ff78e20043d719ae27dd3525682c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6a68f53_bc8f4a04",
         "filename": "tests/unit/java/android/net/VpnTransportInfoTest.java",
         "patchSetId": 4
@@ -278,6 +302,30 @@
       "side": 1,
       "message": "This is similar to v11 and v13. They\u0027re used to verify two VpnTransportInfo with the same parameters behaved the same.",
       "parentUuid": "4100d8f4_b7b5e109",
+      "range": {
+        "startLine": 61,
+        "startChar": 87,
+        "endLine": 61,
+        "endChar": 91
+      },
+      "revId": "52346a2bef1ff78e20043d719ae27dd3525682c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8609e66b_a3a8c731",
+        "filename": "tests/unit/java/android/net/VpnTransportInfoTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-11T04:31:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cd856ab6_b5e4d74d",
       "range": {
         "startLine": 61,
         "startChar": 87,
