@@ -46,6 +46,30 @@
       },
       "revId": "dee11b20f2fd4c1b37c3c6ecd9d330a822335646",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9aed8423_22ce6c8e",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-11-11T23:36:04Z",
+      "side": 1,
+      "message": "\u003e IIUC, calling this will actually mutate the state in IpSecService ? If so that doesn\u0027t look like a very reasonable way to design it because it is very counter-intuitive action at a distance. Besides, if the caller forgets to call applyTunnelModeTransform, will this cause leaks in the system server ?\n\nIt should not cause leaks because we do not actually change any existing fields with this API. Instead we store the new addresses separately (see aosp/2255436 for implementation), and we only replace the current addresses with new addresses after caller applies the transform. So if caller forgets to re-apply, the new addresses will just be unused.\n\n\u003e ISTM it would be better to produce a new object that encapsulates the information needed by the desired migration.\n\nThe migration process requires the control plane (IKE) to negotiate with the peer, and the data plane (IPsec) to update the local tunnel. The biggest benefit by caching new addresses in IpSecTransform instead of a separate object is that the app (Vpn, IWLAN, VCN) does not need to worry about how IKE does the negotiation. There are two cases to negotiate mobility, taking VPN as an example.\n- 1) When both VPN client and server have kernel support, IKE client will update the transform and call callback#onMigrated(transforms), and then VPN can call #apply\n- 2) When either VPN client or server does not have kernel support, IKE client will negotiate a new transform pair instead of updating the existing one. Still IKE will call callback#onMigrated(transforms) to pass out the new transforms, and then VPN can call #apply.\n\nIn both of the two cases, VPN performs the same action and does not need to worry about how the mobility is negotiated.\n\nMore details can be found in go/android-ipsec-migration.\n\nIf it helps I can drop some time on you calendar this week to discuss it.",
+      "parentUuid": "2051d9b0_afa3e335",
+      "range": {
+        "startLine": 274,
+        "startChar": 93,
+        "endLine": 274,
+        "endChar": 107
+      },
+      "revId": "dee11b20f2fd4c1b37c3c6ecd9d330a822335646",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
