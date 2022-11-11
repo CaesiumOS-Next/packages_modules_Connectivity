@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "239f792b_ef3c640a",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-11T07:07:51Z",
+      "side": 1,
+      "message": "IIUC, calling this will actually mutate the state in IpSecService ? If so that doesn\u0027t look like a very reasonable way to design it because it is very counter-intuitive action at a distance. Besides, if the caller forgets to call applyTunnelModeTransform, will this cause leaks in the system server ?\n\nISTM it would be better to produce a new object that encapsulates the information needed by the desired migration. This could be an IpSecTransform object (possibly returned by a method like this one, but preferably simply created from the Builder), or it could be a separate object to pass to a new method in IpSecManager.\n\nAlso, only remotely related : do we intend to eventually expose tunnel mode publicly ? It looks like it would be generally useful.",
+      "range": {
+        "startLine": 274,
+        "startChar": 93,
+        "endLine": 274,
+        "endChar": 107
+      },
+      "revId": "dee11b20f2fd4c1b37c3c6ecd9d330a822335646",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
