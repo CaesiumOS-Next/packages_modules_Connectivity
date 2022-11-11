@@ -45,6 +45,30 @@
       },
       "revId": "e4837c6aafff0974bb70ccd333eb69616e070096",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c619bd76_1e2344a9",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-11T03:09:06Z",
+      "side": 1,
+      "message": "Oh right, join doesn\u0027t throw when the timeout expires apparently\n\nOr maybe just assertFalse(t.isAlive()) to make sure it terminated",
+      "parentUuid": "b4c1c1eb_3d31cc58",
+      "range": {
+        "startLine": 167,
+        "startChar": 10,
+        "endLine": 167,
+        "endChar": 14
+      },
+      "revId": "e4837c6aafff0974bb70ccd333eb69616e070096",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
