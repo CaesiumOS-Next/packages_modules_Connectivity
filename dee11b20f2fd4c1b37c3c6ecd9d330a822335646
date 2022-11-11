@@ -22,6 +22,30 @@
       },
       "revId": "dee11b20f2fd4c1b37c3c6ecd9d330a822335646",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2051d9b0_afa3e335",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2022-11-11T18:09:55Z",
+      "side": 1,
+      "message": "For the API shape question, when we approached this, the shapes were all kind of ugly for the simple reason that SAs can be manipulated (more or less directly) by callers but policies cannot be manipulated directly, ever (it would be super dangerous to allow that). Maybe Yan can refer you to the design doc and workshop it there... it\u0027ll also give you more context to aid that discussion.\n\nFor the second question, the decision not to expose tunnels was largely an agreement between me and L that since arbitrary apps shouldn\u0027t be making Networks, this shouldn\u0027t be visible. Now... it turns out that years on, I see valid use cases (there always were), but the question remains open as to whether exposing IpSecTunnel is the way that callers should support those use cases, which is where you might start to find areas of legitimate and valid disagreement.",
+      "parentUuid": "239f792b_ef3c640a",
+      "range": {
+        "startLine": 274,
+        "startChar": 93,
+        "endLine": 274,
+        "endChar": 107
+      },
+      "revId": "dee11b20f2fd4c1b37c3c6ecd9d330a822335646",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
