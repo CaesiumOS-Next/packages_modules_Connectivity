@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "969fdede_c61c6979",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-11T04:54:29Z",
+      "side": 1,
+      "message": "This doesn\u0027t look like a solution ; it relies very actively on the very specific implementation of the test to avoid the crash, which is something you never want to do because it\u0027s very hard to maintain : random changes will make this problem come back in the future and somebody else will have to redo all the analysis work that you did.\n\nI commented on the bug for better alternatives.",
+      "revId": "18c2da20a5635661957cd76bf38518e099109722",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
