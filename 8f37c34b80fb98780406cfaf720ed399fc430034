@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e101926_ce2fa45d",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-11T00:42:19Z",
+      "side": 1,
+      "message": "I wonder if this is allowed for platform code. Also, what happens when -fexceptions code is called from -fno-exceptions code?",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 10
+      },
+      "revId": "8f37c34b80fb98780406cfaf720ed399fc430034",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
