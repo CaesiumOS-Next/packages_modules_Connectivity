@@ -125,13 +125,6 @@ additional_args = {
             "libssl",
         }),
     ],
-    'cronet_aml_components_cronet_android_cronet': [
-        ('cppflags', {
-            # TODO: figure out if there is no way around this and if this is
-            # allowed for platform code.
-            "-fexceptions",
-        })
-    ]
 }
 
 
