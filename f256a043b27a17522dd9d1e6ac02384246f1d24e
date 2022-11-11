@@ -34,6 +34,41 @@
       "parentUuid": "f99e7fbd_7f338dcd",
       "revId": "f256a043b27a17522dd9d1e6ac02384246f1d24e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7f6884f_a2d920db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-11T06:56:33Z",
+      "side": 1,
+      "message": "TH blocked by aosp/2280754",
+      "revId": "f256a043b27a17522dd9d1e6ac02384246f1d24e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92219394_a52e9e91",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-11T06:56:33Z",
+      "side": 1,
+      "message": "TH blocked by aosp/2280754.",
+      "parentUuid": "7e24dda2_122e4401",
+      "revId": "f256a043b27a17522dd9d1e6ac02384246f1d24e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
