@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9808b814_5c8ac2a5",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-11T06:49:54Z",
+      "side": 1,
+      "message": "// TODO: Mark this @UnsupportedAppUsage(maxTargetSdk \u003d U) ?",
+      "range": {
+        "startLine": 792,
+        "startChar": 5,
+        "endLine": 792,
+        "endChar": 24
+      },
+      "revId": "829204e3f072413510da83d5ab4231a1209e5914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36785314_fbedc438",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-11T06:49:54Z",
+      "side": 1,
+      "message": "IIUC this is no longer needed.\nThe structure can be simplify.",
+      "range": {
+        "startLine": 800,
+        "startChar": 59,
+        "endLine": 800,
+        "endChar": 65
+      },
+      "revId": "829204e3f072413510da83d5ab4231a1209e5914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -235,6 +235,29 @@
       },
       "revId": "4297aaa69f148d6088d0cfc361353cd02b6663c9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "deda99e6_e475fc69",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-11T06:49:54Z",
+      "side": 1,
+      "message": "It is unclear to me what will be the first item given that the builder takes a set.",
+      "range": {
+        "startLine": 830,
+        "startChar": 64,
+        "endLine": 830,
+        "endChar": 73
+      },
+      "revId": "4297aaa69f148d6088d0cfc361353cd02b6663c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
