@@ -16,6 +16,24 @@
       "message": "It seems unable to build. Do you want to take a look?",
       "revId": "f256a043b27a17522dd9d1e6ac02384246f1d24e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e24dda2_122e4401",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-11T02:51:06Z",
+      "side": 1,
+      "message": "It\u0027s unrelated TH fail, retrying.\n\nerror: cannot find macro `cast_to_ffi_address` in this scope\n   --\u003e packages/modules/Bluetooth/system/gd/rust/topshim/src/profiles/hid_host.rs:310:24\n    |\n310 |         let ffi_addr \u003d cast_to_ffi_address!(addr as *mut RawAddress);\n    |                        ^^^^^^^^^^^^^^^^^^^\n\nerror: aborting due to previous error",
+      "parentUuid": "f99e7fbd_7f338dcd",
+      "revId": "f256a043b27a17522dd9d1e6ac02384246f1d24e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
