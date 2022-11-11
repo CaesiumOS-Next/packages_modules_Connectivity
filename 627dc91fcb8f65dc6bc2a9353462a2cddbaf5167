@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d31b44e_1c59a29b",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-11T19:09:20Z",
+      "side": 1,
+      "message": "Do we know why this isn\u0027t inside //net:net\u0027s flags?",
+      "range": {
+        "startLine": 123,
+        "startChar": 7,
+        "endLine": 123,
+        "endChar": 54
+      },
+      "revId": "627dc91fcb8f65dc6bc2a9353462a2cddbaf5167",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
