@@ -220,6 +220,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "89af7644_e2838399",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-11-11T05:04:16Z",
+      "side": 1,
+      "message": "yes, you can do `m lint-check\u0027. The command will do the linter check. I also commented it in the Test.",
+      "parentUuid": "cca6d2b5_8d3d455f",
+      "range": {
+        "startLine": 84,
+        "startChar": 19,
+        "endLine": 84,
+        "endChar": 32
+      },
+      "revId": "52346a2bef1ff78e20043d719ae27dd3525682c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6a68f53_bc8f4a04",
         "filename": "tests/unit/java/android/net/VpnTransportInfoTest.java",
         "patchSetId": 4

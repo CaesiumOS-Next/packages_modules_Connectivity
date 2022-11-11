@@ -22,6 +22,30 @@
       },
       "revId": "b1ddd750137041730c0f42c2ec6731e8d253d321",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1951bd1a_955acb63",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-11-11T05:04:16Z",
+      "side": 1,
+      "message": "Sorry, I missed it. Use VERSION_CODES.UPSIDE_DOWN_CAKE directly",
+      "parentUuid": "6b200b12_790f91a1",
+      "range": {
+        "startLine": 55,
+        "startChar": 42,
+        "endLine": 55,
+        "endChar": 69
+      },
+      "revId": "b1ddd750137041730c0f42c2ec6731e8d253d321",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
