@@ -16,6 +16,24 @@
       "message": "Can you provide a microbenchmark or other evidence to show how much this optimization improves things? The microbenchmark doesn\u0027t have to be checked in but we\u0027d at least want some results in the commit message.\n\nAlso you\u0027ll at least want a comment in the code that explains that this optimization is necessary, otherwise it\u0027s fairly likely that someone in the future will change it back to using String.format in order to simplify the code.",
       "revId": "87be2791c48a05147be904ab128cc6f25eb0489c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20e557b9_f3dbc0ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1133258
+      },
+      "writtenOn": "2022-11-12T03:29:07Z",
+      "side": 1,
+      "message": "Hi Lorenzo, please check the String.format performance issue here:\nhttps://g3doc.corp.google.com/gws/g3doc/user/performance/tips/java.md?cl\u003dhead\n\n\"String.format() is OK for rarely executed code like log messages. It should not be used for regular processing. Every time String.format() is called, it uses a regular expression to parse the format String.\nString.format() is ok for exceptions, one-time initialization, and complex formatting. It should be avoided in code that is frequently processed. Logger\u0027s formatting methods should be used for formatting because the Logger will defer formatting until the log message clears the severity level. For frequent log messages, it may be better to avoid the formatting and just append the output.\"\n\n\nAlso please check the performance profiling result in here:\nhttps://pprof.corp.google.com/?id\u003df62e3fde08a7af95a93076651001cc5d\u0026tab\u003dflame\u0026path\u003d103kebk0plnruf\u0026metric\u003dcpu-cycles\u0026pivot\u003dWifiConfigManager.addOrUpdateNetwork\nThe flame diagram shows the MacAddress.toString uses significant of CPU cycles.\n\nWill add some comment in the code to explain the change. thanks!",
+      "parentUuid": "8cc5be61_9542afea",
+      "revId": "87be2791c48a05147be904ab128cc6f25eb0489c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
