@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de8244da_0346e97f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-11-12T12:33:25Z",
+      "side": 1,
+      "message": "Are you sure this is correct? The conformance testing code in PropertyUtil.java has more complex logic, including reading ro.vendor.first_api_level, and supporting cases where vendor is newer than device.\n\nWhat I came up with is:\n\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2300099\n\nwhich ought to cover those cases.",
+      "revId": "5d78c6366281ab5614de7c2eba347e5abbfb59da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a76578ac_87ed60ad",
