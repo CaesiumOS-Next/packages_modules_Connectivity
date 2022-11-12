@@ -21,6 +21,7 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.os.SystemProperties;
 
 import com.android.internal.annotations.VisibleForTesting;
 
@@ -221,6 +222,23 @@ public final class IpSecAlgorithm implements Parcelable {
     public static final Map<String, Integer> ALGO_TO_REQUIRED_FIRST_SDK = new HashMap<>();
 
     private static final int SDK_VERSION_ZERO = 0;
+    private static final String BOARD_API_LEVEL = "ro.board.api_level";
+    private static final String BOARD_FIRST_API_LEVEL = "ro.board.first_api_level";
+
+    // Gets the API level of the VSR requirements applicable to the device.
+    // Matches the behaviour of the PropertyUtil conformance test code.
+    // TODO: move to common code in frameworks/libs/net.
+    // TODO: move MockableSystemProperties to the framework jar and write a unit test.
+    @VisibleForTesting
+    static int getVsrApiLevel() {
+        int val = SystemProperties.getInt(BOARD_API_LEVEL, SDK_VERSION_ZERO);
+        if (val != SDK_VERSION_ZERO) return Math.min(val, Build.VERSION.DEVICE_INITIAL_SDK_INT);
+        val = SystemProperties.getInt(BOARD_FIRST_API_LEVEL, SDK_VERSION_ZERO);
+        if (val != SDK_VERSION_ZERO) return Math.min(val, Build.VERSION.DEVICE_INITIAL_SDK_INT);
+        return Build.VERSION.DEVICE_INITIAL_SDK_INT;
+    }
+
+    private static final int VSR_API_LEVEL = getVsrApiLevel();
 
     static {
         ALGO_TO_REQUIRED_FIRST_SDK.put(CRYPT_AES_CBC, SDK_VERSION_ZERO);
@@ -352,7 +370,7 @@ public final class IpSecAlgorithm implements Parcelable {
         }
 
         for (Entry<String, Integer> entry : ALGO_TO_REQUIRED_FIRST_SDK.entrySet()) {
-            if (Build.VERSION.DEVICE_INITIAL_SDK_INT >= entry.getValue()) {
+            if (VSR_API_LEVEL >= entry.getValue()) {
                 enabledAlgos.add(entry.getKey());
             }
         }
