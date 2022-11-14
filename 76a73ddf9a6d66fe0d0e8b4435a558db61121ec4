@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0865142_4931ed7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-14T06:43:55Z",
+      "side": 1,
+      "message": "CP of aosp/2295345 with minor conflict resolution",
+      "revId": "76a73ddf9a6d66fe0d0e8b4435a558db61121ec4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
