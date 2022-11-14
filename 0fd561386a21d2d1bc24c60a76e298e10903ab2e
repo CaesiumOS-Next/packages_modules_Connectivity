@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5eddcabb_4ab4c0d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-14T07:59:36Z",
+      "side": 1,
+      "message": "registerLocalOnlyHotspotSoftApCallback has supported in T+ device@aosp\n\nhttps://source.corp.google.com/aosp-master/packages/modules/Wifi/framework/java/android/net/wifi/WifiManager.java;l\u003d4889\n\npublic void registerLocalOnlyHotspotSoftApCallback(@NonNull @CallbackExecutor Executor executor,\n            @NonNull SoftApCallback callback) {\n        if (!SdkLevel.isAtLeastT()) {\n            throw new UnsupportedOperationException();\n        }",
+      "revId": "0fd561386a21d2d1bc24c60a76e298e10903ab2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
