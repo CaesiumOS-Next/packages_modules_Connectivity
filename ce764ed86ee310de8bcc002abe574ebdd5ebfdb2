@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3828c14_91db992a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1958109
+      },
+      "writtenOn": "2022-11-14T03:31:11Z",
+      "side": 1,
+      "message": "Thanks for your patience as this has been updated and I apologize if there are too many people in the attention set at this point.\n\nThis has been reimagined again and redesigned to use UID range diffs. Tests are updated and some new ones added. It is now based on a couple of other patches submitted together that would likely better be reviewed first, although I am not sure who to add. This has been designed and tested to support pre-T, and it also fixes disconnected VPN lockdown ingress on pre-T by using interface filtering to reproduce the behavior of LOCKDOWN_VPN_MATCH.",
+      "revId": "ce764ed86ee310de8bcc002abe574ebdd5ebfdb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
