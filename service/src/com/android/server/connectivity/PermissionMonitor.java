@@ -80,7 +80,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * A utility class to inform Netd of UID permissions.
@@ -93,6 +95,9 @@ public class PermissionMonitor {
     private static final boolean DBG = true;
     private static final boolean VDBG = Log.isLoggable(TAG, Log.VERBOSE);
     private static final int VERSION_Q = Build.VERSION_CODES.Q;
+
+    // Dummy interface is set as allowed iface for disconnected lockdown VPNs in pre-T.
+    public static final String IFACE_DUMMY = "dummy0";
 
     private final PackageManager mPackageManager;
     private final UserManager mUserManager;
@@ -111,12 +116,14 @@ public class PermissionMonitor {
     @GuardedBy("this")
     private final SparseIntArray mUidToNetworkPerm = new SparseIntArray();
 
-    // NonNull keys are active non-bypassable and fully-routed VPN's interface name, Values are uid
-    // ranges for apps under the VPNs which enable interface filtering.
-    // If key is null, Values are uid ranges for apps under the VPNs which are connected but do not
-    // enable interface filtering.
+    // Keys are VPN's interface name, Values are uid ranges for apps under the VPNs.
     @GuardedBy("this")
     private final Map<String, Set<UidRange>> mVpnInterfaceUidRanges = new ArrayMap<>();
+
+    // Values are uid ranges for apps under the VPNs which are connected and enable
+    // interface filtering, not including for lockdown purposes.
+    @GuardedBy("this")
+    private final Set<UidRange> mVpnIsolatedUidRanges = new ArraySet<>();
 
     // Items are uid ranges for apps under the VPN Lockdown
     // Ranges were given through ConnectivityManager#setRequireVpnForUids, and ranges are allowed to
@@ -700,11 +707,28 @@ public class PermissionMonitor {
         if (hasRestrictedNetworksPermission(uid)) {
             return;
         }
+        if (VDBG) logv("updateVpnUid: " + add + ": " + uid);
+        // TODO: optimize this logic? helper method?
         for (Map.Entry<String, Set<UidRange>> vpn : mVpnInterfaceUidRanges.entrySet()) {
             if (UidRange.containsUid(vpn.getValue(), uid)) {
                 final Set<Integer> changedUids = new HashSet<>();
                 changedUids.add(uid);
-                updateVpnUidsInterfaceRules(vpn.getKey(), changedUids, add);
+                final boolean uidIsIsolated = UidRange.containsUid(mVpnIsolatedUidRanges, uid)
+                        || UidRange.containsUid(mVpnLockdownUidRanges.getSet(), uid);
+                if (!uidIsIsolated) {
+                    // UID is not isolated or lockdown (allows all ingress).
+                    if (SdkLevel.isAtLeastT()) {
+                        // T and above handle this with the null iface.
+                        updateVpnUidsInterfaceRules(null /* iface */, changedUids, add);
+                    } else {
+                        if (VDBG) logv("updateVpnUid: pre-T, not isolated, nothing to do");
+                        // For pre-T, there are no null interface rules.
+                        // There should be nothing to do here.
+                        //updateVpnUidsInterfaceRules(vpn.getKey(), changedUids, false /* add */);
+                    }
+                } else {
+                    updateVpnUidsInterfaceRules(vpn.getKey(), changedUids, add);
+                }
             }
         }
     }
@@ -716,7 +740,29 @@ public class PermissionMonitor {
         }
 
         if (UidRange.containsUid(mVpnLockdownUidRanges.getSet(), uid)) {
-            updateLockdownUidRule(uid, add);
+            if (SdkLevel.isAtLeastT()) {
+                // Add or remove the LOCKDOWN_VPN_MATCH rule.
+                updateLockdownUidRule(uid, add);
+            } else {
+                // Determine the existing interface, if any. If unknown, use the dummy interface,
+                // which is where UIDs covered by disconnected VPNs are placed pre-T.
+                final String iface = mVpnInterfaceUidRanges.entrySet()
+                        .stream().filter(vpn -> UidRange.containsUid(vpn.getValue(), uid))
+                        .findAny().map(vpn -> vpn.getKey()).orElse(IFACE_DUMMY);
+                if (add) {
+                    // This is a lockdown UID and therefore must have isolation.
+                    updateVpnUidsInterfaceRules(iface, Set.of(uid), true /* add */);
+                    addTrackedVpnUidRanges(iface, Set.of(new UidRange(uid, uid)));
+                } else {
+                    // We are removing a UID from lockdown. UIDs that are isolated must retain
+                    // their existing filtering rules. Non-isolated UIDs should have their
+                    // interface filtering rules removed if they are not under lockdown, pre-T.
+                    if (!UidRange.containsUid(mVpnIsolatedUidRanges, uid)) {
+                        updateVpnUidsInterfaceRules(iface, Set.of(uid), false /* add */);
+                        removeTrackedVpnUidRanges(iface, Set.of(new UidRange(uid, uid)));
+                    }
+                }
+            }
         }
     }
 
@@ -947,25 +993,28 @@ public class PermissionMonitor {
     /**
      * Called when a new set of UID ranges are added to an active VPN network
      *
-     * @param iface The active VPN network's interface name. Null iface indicates that the app is
-     *              allowed to receive packets on all interfaces.
+     * @param iface The active VPN network's interface name.
      * @param rangesToAdd The new UID ranges to be added to the network
      * @param vpnAppUid The uid of the VPN app
+     * @param isolated Whether the app is prevented from receiving packets on all interfaces,
+     *                 as opposed to allowed (aside from any lockdown restrictions).
      */
-    public synchronized void onVpnUidRangesAdded(@Nullable String iface, Set<UidRange> rangesToAdd,
-            int vpnAppUid) {
+    public synchronized void onVpnUidRangesAdded(@NonNull String iface, Set<UidRange> rangesToAdd,
+            int vpnAppUid, boolean isolated) {
         // Calculate the list of new app uids under the VPN due to the new UID ranges and update
         // Netd about them. Because mAllApps only contains appIds instead of uids, the result might
         // be an overestimation if an app is not installed on the user on which the VPN is running,
         // but that's safe: if an app is not installed, it cannot receive any packets, so dropping
         // packets to that UID is fine.
         if (VDBG) {
-            logv("onVpnUidRangesAdded: " + iface + ": vpnAppUid " + vpnAppUid + ": "
-                    + rangesToAdd);
+            logv("onVpnUidRangesAdded: " + iface + ": " + (isolated ? "" : "not ") + "isolated: "
+                    + "vpnAppUid " + vpnAppUid + ": " + rangesToAdd);
         }
-        final Set<Integer> changedUids = intersectUids(rangesToAdd, mAllApps);
-        removeBypassingUids(changedUids, vpnAppUid);
-        updateVpnUidsInterfaceRules(iface, changedUids, true /* add */);
+        Objects.requireNonNull(iface);
+        addVpnUidRangesInterfaceRules(iface, rangesToAdd, vpnAppUid, isolated);
+        if (isolated) {
+            UidRangeUtils.mergeInPlace(mVpnIsolatedUidRanges, rangesToAdd);
+        }
         addTrackedVpnUidRanges(iface, rangesToAdd);
     }
 
@@ -976,31 +1025,41 @@ public class PermissionMonitor {
      * @param newIface The new VPN interface name
      * @param ranges The UID ranges to be moved
      * @param vpnAppUid The uid of the VPN app
+     * @param isolated Whether the app is prevented from receiving packets on all interfaces,
+     *                 as opposed to allowed (aside from any lockdown restrictions).
      */
     public synchronized void onVpnUidRangesReplaced(@Nullable String oldIface,
-            @Nullable String newIface, Set<UidRange> ranges, int vpnAppUid) {
+            @NonNull String newIface, Set<UidRange> ranges, int vpnAppUid,
+            boolean isolated) {
         // Adding interface rules replaces the existing iface for a particular UID, so previous
         // ranges only need to be removed from our tracked ranges and only for tracking purposes.
         if (VDBG) {
-            logv("onVpnUidRangesReplaced: " + oldIface + " to " + newIface + ": "
-                   + "vpnAppUid " + vpnAppUid + ": " + ranges);
+            logv("onVpnUidRangesReplaced: " + oldIface + " to " + newIface + ": " + (isolated ? ""
+                   : "not ") + "isolated: vpnAppUid " + vpnAppUid + ": " + ranges);
         }
+        Objects.requireNonNull(newIface);
         final Set<Integer> changedUids = intersectUids(ranges, mAllApps);
         removeBypassingUids(changedUids, vpnAppUid);
-        updateVpnUidsInterfaceRules(newIface, changedUids, true /* add */);
+        addVpnUidRangesInterfaceRules(newIface, ranges, vpnAppUid, isolated);
+        if (isolated) {
+            UidRangeUtils.mergeInPlace(mVpnIsolatedUidRanges, ranges);
+        } else {
+            UidRangeUtils.excludeInPlace(mVpnIsolatedUidRanges, ranges);
+        }
         addTrackedVpnUidRanges(newIface, ranges);
-        removeTrackedVpnUidRanges(oldIface, ranges);
+        if (oldIface != null) {
+            removeTrackedVpnUidRanges(oldIface, ranges);
+        }
     }
 
     /**
      * Called when a set of UID ranges are removed from an active VPN network
      *
-     * @param iface The VPN network's interface name. Null iface indicates that the app is allowed
-     *              to receive packets on all interfaces.
+     * @param iface The VPN network's interface name.
      * @param rangesToRemove Existing UID ranges to be removed from the VPN network
      * @param vpnAppUid The uid of the VPN app
      */
-    public synchronized void onVpnUidRangesRemoved(@Nullable String iface,
+    public synchronized void onVpnUidRangesRemoved(@NonNull String iface,
             Set<UidRange> rangesToRemove, int vpnAppUid) {
         // Calculate the list of app uids that are no longer under the VPN due to the removed UID
         // ranges and update Netd about them.
@@ -1008,12 +1067,11 @@ public class PermissionMonitor {
             logv("onVpnUidRangesRemoved: " + iface + ": vpnAppUid " + vpnAppUid + ": "
                     + rangesToRemove);
         }
-        final Set<Integer> changedUids = intersectUids(rangesToRemove, mAllApps);
-        removeBypassingUids(changedUids, vpnAppUid);
-        updateVpnUidsInterfaceRules(iface, changedUids, false /* add */);
+        Objects.requireNonNull(iface);
+        removeVpnUidRangesInterfaceRules(iface, rangesToRemove, vpnAppUid);
+        UidRangeUtils.excludeInPlace(mVpnIsolatedUidRanges, rangesToRemove);
         removeTrackedVpnUidRanges(iface, rangesToRemove);
     }
-
 
     /**
      * Called when UID ranges under VPN Lockdown are updated
@@ -1031,6 +1089,7 @@ public class PermissionMonitor {
         updateVpnLockdownUidRanges(add ? null : ranges /* rangesToRemove */,
                 add ? ranges : null /* rangesToAdd */);
     }
+
     /**
      * Like updateVpnLockdownUidRanges(add, ranges), but accepts both ranges to remove and ranges
      * to add. This allows for more efficient processing while preserving PermissionMonitor's
@@ -1078,8 +1137,80 @@ public class PermissionMonitor {
         }
     }
 
+    public synchronized void updateLockdownUidRangesInterfaceRules(@NonNull final String iface,
+            @NonNull Collection<UidRange> ranges, int vpnAppUid, boolean add) {
+        Objects.requireNonNull(iface);
+        Objects.requireNonNull(ranges);
+        if (VDBG) {
+            logv("updateLockdownUidRangesInterfaceRules: " + iface + ", " + ranges + ", "
+                    + ", " + vpnAppUid + ", " + add);
+        }
+        if (add) {
+            // These are lockdown ranges and therefore must have isolation.
+            final Set<Integer> changedUids = intersectUids(ranges, mAllApps);
+            removeBypassingUids(changedUids, vpnAppUid);
+            updateVpnUidsInterfaceRules(iface, changedUids, true /* add */);
+        } else {
+            // UIDs that are isolated are unaffected and must retain their existing
+            // filtering rules. Non-isolated ranges have different behavior depending
+            // on SDK level.
+            final Collection<UidRange> notIsolatedRanges =
+                    UidRangeUtils.exclude(ranges, mVpnIsolatedUidRanges);
+            if (!notIsolatedRanges.isEmpty()) {
+                final Set<Integer> changedUids = intersectUids(ranges, mAllApps);
+                removeBypassingUids(changedUids, vpnAppUid);
+                if (SdkLevel.isAtLeastT()) {
+                    updateVpnUidsInterfaceRules(null /* iface */, changedUids, true /* add */);
+                } else {
+                    // Null iface not supported; remove the filtering rules.
+                    updateVpnUidsInterfaceRules(iface, changedUids, false /* add */);
+                }
+            }
+        }
+    }
+
+    private synchronized Collection<UidRange> getLockdownRangesNoIface() {
+        final Collection<UidRange> lockdownRangesNoIface =
+                new ArraySet<>(mVpnLockdownUidRanges.getSet());
+        for (Set<UidRange> ranges : mVpnInterfaceUidRanges.values()) {
+            UidRangeUtils.excludeInPlace(lockdownRangesNoIface, ranges);
+        }
+        return lockdownRangesNoIface;
+    }
+
+    private synchronized Collection<UidRange> getNonIsolatedRanges() {
+        final Collection<UidRange> allIfaceRanges = mVpnInterfaceUidRanges.values().stream()
+                .flatMap(Set::stream).collect(Collectors.toList());
+        UidRangeUtils.excludeInPlace(allIfaceRanges, mVpnIsolatedUidRanges);
+        return allIfaceRanges;
+    }
+
+    private synchronized void updateDisconnectedVpnUidRangesInterfaceRules(boolean add,
+            Collection<UidRange> ranges) {
+        // For pre-T, simulate the LOCKDOWN_VPN_MATCH behavior for disconnected VPNs
+        // by setting the interface filtering allowed interface to the dummy interface.
+        if (add) {
+            // Find any UIDs that are not tracked in other interface rules.
+            final Collection<UidRange> lockdownRangesNoIface = getLockdownRangesNoIface();
+            UidRangeUtils.intersectInPlace(lockdownRangesNoIface, ranges);
+            addTrackedVpnUidRanges(IFACE_DUMMY, lockdownRangesNoIface);
+            updateVpnUidRangesInterfaceRules(IFACE_DUMMY, lockdownRangesNoIface, true /* add */);
+        } else {
+            // Remove non-isolated ranges.
+            final Collection<UidRange> nonIsolatedRanges =
+                    UidRangeUtils.exclude(ranges, mVpnIsolatedUidRanges);
+            removeTrackedVpnUidRanges(IFACE_DUMMY, nonIsolatedRanges);
+            updateVpnUidRangesInterfaceRules(IFACE_DUMMY, nonIsolatedRanges, false /* add */);
+        }
+    }
+
     private synchronized void updateVpnLockdownUidRanges(boolean add,
             Set<UidRange> affectedUidRanges) {
+        if (!SdkLevel.isAtLeastT()) {
+            // Pre-T does not support LOCKDOWN_VPN_MATCH, so use interface rules instead.
+            updateDisconnectedVpnUidRangesInterfaceRules(add, affectedUidRanges);
+            return;
+        }
         // mAllApps only contains appIds instead of uids. So the generated uid list might contain
         // apps that are installed only on some users but not others. But that's safe: if an app is
         // not installed, it cannot receive any packets, so dropping packets to that UID is fine.
@@ -1135,6 +1266,9 @@ public class PermissionMonitor {
         uids.remove(vpnAppUid);
         uids.removeIf(this::hasRestrictedNetworksPermission);
     }
+    private void removeBypassingUids(Set<Integer> uids) {
+        uids.removeIf(this::hasRestrictedNetworksPermission);
+    }
 
     /** Add given ranges to our tracked UID ranges for a VPN iface (or null for wildcard). */
     private synchronized void addTrackedVpnUidRanges(@Nullable String iface,
@@ -1168,6 +1302,180 @@ public class PermissionMonitor {
         }
     }
 
+    private synchronized void addIsolatedUidRanges(@NonNull String iface,
+            @NonNull Collection <UidRange> ranges, int vpnAppUid) {
+        final Collection<UidRange> ifaceRanges = mVpnInterfaceUidRanges.getOrDefault(iface, null);
+        final Collection<UidRange> applicableRanges;
+        if (ifaceRanges != null) {
+            // Is the UID isolated *and* the same interface? No change; exclude it.
+            final Collection<UidRange> excludedRanges = UidRangeUtils.merge(
+                    mVpnIsolatedUidRanges, mVpnLockdownUidRanges.getSet());
+            UidRangeUtils.intersectInPlace(excludedRanges, ifaceRanges);
+            applicableRanges = UidRangeUtils.exclude(ranges, excludedRanges);
+        } else {
+            applicableRanges = ranges;
+        }
+        if (VDBG) {
+            logv("addVpnUidRangesInterfaceRules: Adding isolated ranges, which excludes "
+                    + "already-isolated ranges that are part of the same interface: "
+                    + applicableRanges);
+        }
+        updateVpnUidRangesInterfaceRules(iface, applicableRanges, vpnAppUid, true /* add */);
+    }
+
+    /** Add non-isolated ranges. May include lockdown ranges, which will be treated as isolated. */
+    private synchronized void addNonIsolatedUidRanges(@NonNull String iface,
+            @NonNull Collection<UidRange> ranges, int vpnAppUid) {
+        final Collection<UidRange> ifaceRanges = mVpnInterfaceUidRanges.getOrDefault(iface, null);
+        final UidRangeUtils.Diff rangesVsLockdown = UidRangeUtils.diff(
+                ranges, mVpnLockdownUidRanges.getSet());
+
+        // Lockdown ranges are always treated as isolated. Any existing lockdown ranges must be
+        // moved to our interface, unless they are already there, in which case they are skipped.
+        final Collection<UidRange> lockdownRanges = ifaceRanges == null
+                ? rangesVsLockdown.intersection
+                : UidRangeUtils.exclude(rangesVsLockdown.intersection, ifaceRanges);
+        final Collection<UidRange> nonLockdownRanges = rangesVsLockdown.onlyA;
+
+        if (!lockdownRanges.isEmpty()) {
+            // Restrict lockdown ranges to communication from the VPN interface.
+            if (VDBG) {
+                logv("addNonIsolatedUidRanges: Processing any new or " +
+                        "changed-iface lockdown ranges: " + lockdownRanges);
+            }
+            updateVpnUidRangesInterfaceRules(iface, lockdownRanges, vpnAppUid, true /* add */);
+        }
+
+        // Change applicable isolated ranges into non-isolated ranges, if they aren't lockdown.
+        if (!nonLockdownRanges.isEmpty()) {
+            if (SdkLevel.isAtLeastT()) {
+                // Exclude existing ranges that are not isolated, as they are already correct.
+                UidRangeUtils.excludeInPlace(nonLockdownRanges, getNonIsolatedRanges());
+
+                // T+ puts non-isolated ranges in the null interface (wildcard).
+                if (VDBG) {
+                    logv("addNonIsolatedUidRanges: Processing any non-lockdown " +
+                            "ranges by adding to null iface (T+): " + nonLockdownRanges);
+                }
+                updateVpnUidRangesInterfaceRules(null /* iface */, nonLockdownRanges,
+                        vpnAppUid, true /* add */);
+            } else {
+                // Change existing isolated ranges to non-isolated ones.
+                // Pre-T removes ranges instead of adding them to the wildcard interface.
+                UidRangeUtils.intersectInPlace(nonLockdownRanges, mVpnIsolatedUidRanges);
+                if (VDBG) {
+                    logv("addNonIsolatedUidRanges: Processing any non-isolated " +
+                            "ranges by removing (pre-T): " + nonLockdownRanges);
+                }
+                updateVpnUidRangesInterfaceRules(IFACE_DUMMY, nonLockdownRanges,
+                        vpnAppUid, false /* add */);
+            }
+        }
+    }
+
+    /**
+     * Calculate the list of UIDs and the interface to use when updating Netd regarding additions
+     * of interface rules, and performs the changes. The interface determination considers whether
+     * a UID is under lockdown, whether it is isolated, and the SDK level.
+     */
+    private synchronized void addVpnUidRangesInterfaceRules(@NonNull String iface,
+            @NonNull Collection<UidRange> ranges, int vpnAppUid, boolean isolated) {
+        // When this is called, the lockdown state of the ranges is not chaging from what it was
+        // before. The isolation state *might* be changing.
+        Objects.requireNonNull(iface);
+        Objects.requireNonNull(ranges);
+        if (VDBG) {
+            logv("addVpnUidRangesInterfaceRules: " + iface + ": " + (isolated ? "" : "not ")
+                    + "isolated: vpnAppUid " + vpnAppUid + ": " + ranges);
+        }
+        if (isolated) {
+            addIsolatedUidRanges(iface, ranges, vpnAppUid);
+        } else {
+            addNonIsolatedUidRanges(iface, ranges, vpnAppUid);
+        }
+    }
+
+    /**
+     * Calculate the list of UIDs and the interface to use when updating Netd regarding removals
+     * of interface rules, and performs the changes. The interface determination considers whether
+     * a UID is under lockdown, whether it is isolated, and the SDK level.
+     */
+    private synchronized void removeVpnUidRangesInterfaceRules(@NonNull String iface,
+            @NonNull Collection<UidRange> ranges, int vpnAppUid) {
+        // When this is called, the lockdown state of the ranges has not changed.
+        Objects.requireNonNull(iface);
+        Objects.requireNonNull(ranges);
+        if (VDBG) {
+            logv("removeVpnUidRangesInterfaceRules: " + iface + ": vpnAppUid " + vpnAppUid + ": "
+                    + ranges);
+        }
+        final Collection<UidRange> ifaceRanges = mVpnInterfaceUidRanges.getOrDefault(iface, null);
+
+        // We can only remove ranges that are already present. Otherwise, not applicable.
+        final Collection<UidRange> applicableRanges = ifaceRanges != null ?
+                UidRangeUtils.intersect(ranges, ifaceRanges) : null;
+        if (applicableRanges == null || applicableRanges.isEmpty()) {
+            return;
+        }
+
+        if (SdkLevel.isAtLeastT()) {
+            // For T and above, LOCKDOWN_VPN_MATCH rules will be added, so the interface
+            // filtering rules (IIF_MATCH) are not needed for disconnected VPNs.
+            if (VDBG) {
+                logv("removeVpnUidRangesInterfaceRules: Removing applicable ranges (T+): "
+                        + applicableRanges);
+            }
+            updateVpnUidRangesInterfaceRules(iface, applicableRanges, vpnAppUid, false /* add */);
+
+        } else {
+            // For pre-T range removals, work with UIDs that are isolated or lockdown.
+            // Any others would not have been included for filtering in the first place.
+            final Collection<UidRange> includedRanges = UidRangeUtils.merge(
+                    mVpnIsolatedUidRanges, mVpnLockdownUidRanges.getSet());
+            UidRangeUtils.intersectInPlace(applicableRanges, includedRanges);
+
+            final UidRangeUtils.Diff rangesVsLockdown = UidRangeUtils.diff(
+                    applicableRanges, mVpnLockdownUidRanges.getSet());
+
+            final Collection<UidRange> lockdownRanges = rangesVsLockdown.intersection;
+            final Collection<UidRange> nonLockdownRanges = rangesVsLockdown.onlyA;
+
+            if (!lockdownRanges.isEmpty()) {
+                // For pre-T, simulate the LOCKDOWN_VPN_MATCH behavior for disconnected VPNs
+                // by setting the interface filtering allowed interface to the dummy interface.
+                if (VDBG) {
+                    logv("removeVpnUidRangesInterfaceRules: Assigning lockdown ranges to the " +
+                            "dummy interface (pre-T): " + applicableRanges);
+                }
+                updateVpnUidRangesInterfaceRules(IFACE_DUMMY, lockdownRanges,
+                        vpnAppUid, true /* add */);
+            }
+
+            if (!nonLockdownRanges.isEmpty()) {
+                if (VDBG) {
+                    logv("removeVpnUidRangesInterfaceRules: Removing rules for non-lockdown " +
+                            "UIDs (pre-T): " + applicableRanges);
+                }
+                updateVpnUidRangesInterfaceRules(IFACE_DUMMY, nonLockdownRanges,
+                        vpnAppUid, false /* add */);
+            }
+        }
+    }
+
+    private void updateVpnUidRangesInterfaceRules(String iface, Collection<UidRange> ranges,
+            boolean add) {
+        final Set<Integer> changedUids = intersectUids(ranges, mAllApps);
+        removeBypassingUids(changedUids);
+        updateVpnUidsInterfaceRules(iface, changedUids, add);
+    }
+
+    private void updateVpnUidRangesInterfaceRules(String iface, Collection<UidRange> ranges,
+            int vpnAppUid, boolean add) {
+        final Set<Integer> changedUids = intersectUids(ranges, mAllApps);
+        removeBypassingUids(changedUids, vpnAppUid);
+        updateVpnUidsInterfaceRules(iface, changedUids, add);
+    }
+
     /**
      * Update netd about the list of uids that are under an active VPN connection which they cannot
      * bypass.
@@ -1181,6 +1489,9 @@ public class PermissionMonitor {
      *        are to be removed from the interface.
      */
     private void updateVpnUidsInterfaceRules(String iface, Set<Integer> uids, boolean add) {
+        if (VDBG) {
+            logv("updateVpnUidsInterfaceRules: " + iface + ": " + add + ": " + uids.toString());
+        }
         if (uids.size() == 0) {
             return;
         }
@@ -1295,6 +1606,50 @@ public class PermissionMonitor {
         return mVpnInterfaceUidRanges.get(iface);
     }
 
+    /**
+     * Should only be used by unit tests. Returns only the isolated ranges for an iface.
+     * Does not consider lockdown, only UID isolation status per requiresVpnIsolation.
+     */
+    public Set<UidRange> getVpnInterfaceUidRangesIsolated(String iface) {
+        Set<UidRange> ranges = mVpnInterfaceUidRanges.get(iface);
+        if (ranges == null) {
+            return null;
+        }
+        ranges = new ArraySet<>(ranges);
+        UidRangeUtils.intersectInPlace(ranges, mVpnIsolatedUidRanges);
+        return ranges;
+    }
+
+    /**
+     * Should only be used by unit tests. Returns only the isolated or lockdown ranges
+     * for an iface.
+     */
+    public Set<UidRange> getVpnInterfaceUidRangesIsolatedOrLockdown(String iface) {
+        Set<UidRange> ranges = mVpnInterfaceUidRanges.get(iface);
+        if (ranges == null) {
+            return null;
+        }
+        ranges = new ArraySet<>(ranges);
+        final Set<UidRange> isolatedOrLockdown = UidRangeUtils.merge(mVpnIsolatedUidRanges,
+                mVpnLockdownUidRanges.getSet());
+        UidRangeUtils.intersectInPlace(ranges, isolatedOrLockdown);
+        return ranges;
+    }
+
+    /**
+     * Should only be used by unit tests. Returns only the non-isolated ranges for an iface.
+     * Does not consider lockdown, only UID isolation status per requiresVpnIsolation.
+     */
+    public Set<UidRange> getVpnInterfaceUidRangesNotIsolated(String iface) {
+        Set<UidRange> ranges = mVpnInterfaceUidRanges.get(iface);
+        if (ranges == null) {
+            return null;
+        }
+        ranges = new ArraySet<>(ranges);
+        UidRangeUtils.excludeInPlace(ranges, mVpnIsolatedUidRanges);
+        return ranges;
+    }
+
     /** Should only be used by unit tests */
     @VisibleForTesting
     public Set<UidRange> getVpnLockdownUidRanges() {
@@ -1369,6 +1724,9 @@ public class PermissionMonitor {
             pw.println();
         }
         pw.decreaseIndent();
+
+        pw.println();
+        pw.println("Isolated UIDs: " + mVpnIsolatedUidRanges.toString());
 
         pw.println();
         pw.println("Lockdown filtering rules:");

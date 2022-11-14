@@ -762,8 +762,9 @@ public class PermissionMonitorTest {
                 MOCK_APPID1);
     }
 
-    private void doTestUidFilteringDuringVpnConnectDisconnectAndUidUpdates(@Nullable String ifName)
-            throws Exception {
+    private void doTestUidFilteringDuringVpnConnectDisconnectAndUidUpdates(@Nullable String ifName,
+            boolean isolated) throws Exception {
+        final String expectedIf = isolated ? ifName : null;
         doReturn(List.of(
                 buildPackageInfo(SYSTEM_PACKAGE1, SYSTEM_APP_UID11, CHANGE_NETWORK_STATE,
                         CONNECTIVITY_USE_RESTRICTED_NETWORKS),
@@ -780,47 +781,83 @@ public class PermissionMonitorTest {
         final Set<UidRange> vpnRange2 = Set.of(new UidRange(MOCK_UID12, MOCK_UID12));
 
         // When VPN is connected, expect a rule to be set up for user app MOCK_UID11
-        mPermissionMonitor.onVpnUidRangesAdded(ifName, vpnRange1, VPN_UID);
-        verify(mBpfNetMaps).addUidInterfaceRules(eq(ifName), aryEq(new int[]{MOCK_UID11}));
+        mPermissionMonitor.onVpnUidRangesAdded(ifName, vpnRange1, VPN_UID, isolated);
+        if (SdkLevel.isAtLeastT() || expectedIf != null) {
+            verify(mBpfNetMaps).addUidInterfaceRules(eq(expectedIf), aryEq(new int[]{MOCK_UID11}));
+        } else {
+            // Pre-T, no null iface, so no change.
+            verify(mBpfNetMaps, never()).addUidInterfaceRules(any(), any());
+        }
 
         reset(mBpfNetMaps);
 
         // When MOCK_UID11 package is uninstalled and reinstalled, expect Netd to be updated
         mPermissionMonitor.onPackageRemoved(MOCK_PACKAGE1, MOCK_UID11);
-        verify(mBpfNetMaps).removeUidInterfaceRules(aryEq(new int[]{MOCK_UID11}));
+        if (SdkLevel.isAtLeastT() || expectedIf != null) {
+            verify(mBpfNetMaps).removeUidInterfaceRules(aryEq(new int[]{MOCK_UID11}));
+        } else {
+            // Pre-T, no null iface, so no change.
+            verify(mBpfNetMaps, never()).removeUidInterfaceRules(any());
+        }
         mPermissionMonitor.onPackageAdded(MOCK_PACKAGE1, MOCK_UID11);
-        verify(mBpfNetMaps).addUidInterfaceRules(eq(ifName), aryEq(new int[]{MOCK_UID11}));
+        if (SdkLevel.isAtLeastT() || expectedIf != null) {
+            verify(mBpfNetMaps).addUidInterfaceRules(eq(expectedIf), aryEq(new int[]{MOCK_UID11}));
+        } else {
+            // Pre-T, no null iface, so no change.
+            verify(mBpfNetMaps, never()).addUidInterfaceRules(any(), any());
+        }
 
         reset(mBpfNetMaps);
 
         // During VPN uid update (vpnRange1 -> vpnRange2), ConnectivityService first deletes the
         // old UID rules then adds the new ones. Expect netd to be updated
         mPermissionMonitor.onVpnUidRangesRemoved(ifName, vpnRange1, VPN_UID);
-        verify(mBpfNetMaps).removeUidInterfaceRules(aryEq(new int[] {MOCK_UID11}));
-        mPermissionMonitor.onVpnUidRangesAdded(ifName, vpnRange2, VPN_UID);
-        verify(mBpfNetMaps).addUidInterfaceRules(eq(ifName), aryEq(new int[]{MOCK_UID12}));
+        if (SdkLevel.isAtLeastT() || expectedIf != null) {
+            verify(mBpfNetMaps).removeUidInterfaceRules(aryEq(new int[]{MOCK_UID11}));
+        } else {
+            // Pre-T, no null iface, so no change.
+            verify(mBpfNetMaps, never()).removeUidInterfaceRules(any());
+        }
+
+        reset(mBpfNetMaps);
+
+        mPermissionMonitor.onVpnUidRangesAdded(ifName, vpnRange2, VPN_UID, isolated);
+        if (SdkLevel.isAtLeastT() || expectedIf != null) {
+            verify(mBpfNetMaps).addUidInterfaceRules(eq(expectedIf), aryEq(new int[]{MOCK_UID12}));
+        } else {
+            // Pre-T, no null iface, so no change.
+            verify(mBpfNetMaps, never()).addUidInterfaceRules(any(), any());
+        }
 
         reset(mBpfNetMaps);
 
         // When VPN is disconnected, expect rules to be torn down
         mPermissionMonitor.onVpnUidRangesRemoved(ifName, vpnRange2, VPN_UID);
-        verify(mBpfNetMaps).removeUidInterfaceRules(aryEq(new int[] {MOCK_UID12}));
+        if (SdkLevel.isAtLeastT() || expectedIf != null) {
+            verify(mBpfNetMaps).removeUidInterfaceRules(aryEq(new int[]{MOCK_UID12}));
+        } else {
+            // Pre-T, no null iface, so no change.
+            verify(mBpfNetMaps, never()).removeUidInterfaceRules(any());
+        }
         assertNull(mPermissionMonitor.getVpnInterfaceUidRanges(ifName));
     }
 
     @Test
     public void testUidFilteringDuringVpnConnectDisconnectAndUidUpdates() throws Exception {
-        doTestUidFilteringDuringVpnConnectDisconnectAndUidUpdates("tun0");
+        doTestUidFilteringDuringVpnConnectDisconnectAndUidUpdates("tun0",
+                true /* isolated */);
     }
 
     @Test
     public void testUidFilteringDuringVpnConnectDisconnectAndUidUpdatesWithWildcard()
             throws Exception {
-        doTestUidFilteringDuringVpnConnectDisconnectAndUidUpdates(null /* ifName */);
+        doTestUidFilteringDuringVpnConnectDisconnectAndUidUpdates("tun0",
+                false /* isolated */);
     }
 
-    private void doTestUidFilteringDuringPackageInstallAndUninstall(@Nullable String ifName) throws
-            Exception {
+    private void doTestUidFilteringDuringPackageInstallAndUninstall(@NonNull String ifName,
+            boolean isolated) throws Exception {
+        final String expectedIf = isolated ? ifName : null;
         doReturn(List.of(
                 buildPackageInfo(SYSTEM_PACKAGE1, SYSTEM_APP_UID11, CHANGE_NETWORK_STATE,
                         NETWORK_STACK, CONNECTIVITY_USE_RESTRICTED_NETWORKS),
@@ -832,27 +869,39 @@ public class PermissionMonitorTest {
         mPermissionMonitor.startMonitoring();
         final Set<UidRange> vpnRange = Set.of(UidRange.createForUser(MOCK_USER1),
                 UidRange.createForUser(MOCK_USER2));
-        mPermissionMonitor.onVpnUidRangesAdded(ifName, vpnRange, VPN_UID);
+        mPermissionMonitor.onVpnUidRangesAdded(ifName, vpnRange, VPN_UID, isolated);
 
         // Newly-installed package should have uid rules added
         addPackageForUsers(new UserHandle[]{MOCK_USER1, MOCK_USER2}, MOCK_PACKAGE1, MOCK_APPID1);
-        verify(mBpfNetMaps).addUidInterfaceRules(eq(ifName), aryEq(new int[]{MOCK_UID11}));
-        verify(mBpfNetMaps).addUidInterfaceRules(eq(ifName), aryEq(new int[]{MOCK_UID21}));
+        if (SdkLevel.isAtLeastT() || expectedIf != null) {
+            verify(mBpfNetMaps).addUidInterfaceRules(eq(expectedIf), aryEq(new int[]{MOCK_UID11}));
+            verify(mBpfNetMaps).addUidInterfaceRules(eq(expectedIf), aryEq(new int[]{MOCK_UID21}));
+        } else {
+            // Pre-T, no null iface, so no change.
+            verify(mBpfNetMaps, never()).addUidInterfaceRules(any(), any());
+        }
+
+        reset(mBpfNetMaps);
 
         // Removed package should have its uid rules removed
         mPermissionMonitor.onPackageRemoved(MOCK_PACKAGE1, MOCK_UID11);
-        verify(mBpfNetMaps).removeUidInterfaceRules(aryEq(new int[]{MOCK_UID11}));
-        verify(mBpfNetMaps, never()).removeUidInterfaceRules(aryEq(new int[]{MOCK_UID21}));
+        if (SdkLevel.isAtLeastT() || expectedIf != null) {
+            verify(mBpfNetMaps).removeUidInterfaceRules(aryEq(new int[]{MOCK_UID11}));
+            verify(mBpfNetMaps, never()).removeUidInterfaceRules(aryEq(new int[]{MOCK_UID21}));
+        } else {
+            // Pre-T, no null iface, so no change.
+            verify(mBpfNetMaps, never()).removeUidInterfaceRules(any());
+        }
     }
 
     @Test
     public void testUidFilteringDuringPackageInstallAndUninstall() throws Exception {
-        doTestUidFilteringDuringPackageInstallAndUninstall("tun0");
+        doTestUidFilteringDuringPackageInstallAndUninstall("tun0", true /* isolated */);
     }
 
     @Test
     public void testUidFilteringDuringPackageInstallAndUninstallWithWildcard() throws Exception {
-        doTestUidFilteringDuringPackageInstallAndUninstall(null /* ifName */);
+        doTestUidFilteringDuringPackageInstallAndUninstall("tun0", false /* isolated */);
     }
 
     @Test
