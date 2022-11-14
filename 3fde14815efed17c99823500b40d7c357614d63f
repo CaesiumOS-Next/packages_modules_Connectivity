@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02458fc8_c11e7562",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1306,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-14T18:29:05Z",
+      "side": 1,
+      "message": "do you know why this is the case?",
+      "range": {
+        "startLine": 1305,
+        "startChar": 96,
+        "endLine": 1306,
+        "endChar": 57
+      },
+      "revId": "3fde14815efed17c99823500b40d7c357614d63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
