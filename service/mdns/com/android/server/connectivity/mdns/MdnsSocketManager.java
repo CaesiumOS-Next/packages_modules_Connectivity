@@ -16,6 +16,8 @@
 
 package com.android.server.connectivity.mdns;
 
+import static com.android.server.connectivity.mdns.MdnsSocket.INTERFACE_INDEX_UNSPECIFIED;
+
 import android.annotation.NonNull;
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -32,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/*** The {@link MdnsSocketManager} manages the multiple sockets for mDns discovery / resolution */
+/*** The {@link MdnsSocketManager} manages the multiple sockets for mDns discovery or resolution */
 public class MdnsSocketManager {
     private static final String TAG = MdnsSocketManager.class.getSimpleName();
     private static final boolean DBG = Log.isLoggable(TAG, Log.DEBUG);
@@ -40,6 +42,8 @@ public class MdnsSocketManager {
     private final MulticastNetworkInterfaceProvider mInterfaceProvider;
     private final MulticastLock mMulticastLock;
     private final Map<String, MdnsSocketClient> mInterfaceSocketClients = new ArrayMap<>();
+    private final Set<MdnsSearchOptions> mRequestedOptions = new ArraySet<>();
+    private final Set<MdnsSocketClient> mActiveClients = new ArraySet<>();
     private MdnsSocketClient.Callback mCallback = null;
 
     public MdnsSocketManager(Context context, MulticastNetworkInterfaceProvider provider,
@@ -101,22 +105,38 @@ public class MdnsSocketManager {
         }
     }
 
-    /*** Start mDns discovery on each socket */
-    public void startDiscovery() throws IOException {
+    private boolean isClientNetworkOrIndexMatched(MdnsSearchOptions options,
+            MdnsSocketClient client) {
+        final Network requestNetwork = options.getNetwork();
+        final Network clientNetwork = client.getNetwork();
+        final int requestIndex = options.getNetworkInterfaceIndex();
+        final int clientIndex = client.getNetworkInterfaceIndex();
+
+        return (requestNetwork == null && requestIndex == INTERFACE_INDEX_UNSPECIFIED)
+                || (requestNetwork != null && requestNetwork == clientNetwork)
+                || (requestIndex == clientIndex);
+    }
+
+    /*** Start mDns discovery on given search options */
+    public void startDiscovery(MdnsSearchOptions options) throws IOException {
         boolean discoveryStarted = false;
         // Check all available interfaces and create socket if necessary.
         createSocketClients();
 
         for (MdnsSocketClient client : mInterfaceSocketClients.values()) {
-            try {
-                client.startDiscovery();
-                discoveryStarted = true;
-            } catch (IOException e) {
-                Log.e(TAG, "Can not start discovery on client=" + client);
+            if (isClientNetworkOrIndexMatched(options, client)) {
+                try {
+                    client.startDiscovery();
+                    discoveryStarted = true;
+                    mActiveClients.add(client);
+                } catch (IOException e) {
+                    Log.e(TAG, "Can not start discovery on client=" + client);
+                }
             }
         }
 
-        if (!discoveryStarted) throw new IOException("Can not start discovery on all clients");
+        if (!discoveryStarted) throw new IOException("Can not start discovery on any of client.");
+        mRequestedOptions.add(options);
     }
 
     private void clearSocketClientsIfNeed() {
@@ -139,24 +159,40 @@ public class MdnsSocketManager {
         }
     }
 
-    /*** Stop mDns discovery on each socket */
-    public void stopDiscovery() {
-        for (MdnsSocketClient client : mInterfaceSocketClients.values()) {
-            client.stopDiscovery();
+    /*** Stop mDns discovery on given search options */
+    public void stopDiscovery(MdnsSearchOptions options) {
+        if (!mRequestedOptions.remove(options)) {
+            Log.e(TAG, "Can not stop discovery with unknown options=" + options);
+            return;
+        }
+
+        final Set<MdnsSocketClient> clients = new ArraySet<>(mActiveClients);
+        for (MdnsSocketClient client : clients) {
+            boolean keepDiscovering = false;
+            for (MdnsSearchOptions remainingOp : mRequestedOptions) {
+                if (isClientNetworkOrIndexMatched(remainingOp, client)) {
+                    keepDiscovering = true;
+                    break;
+                }
+            }
+            if (!keepDiscovering) {
+                client.stopDiscovery();
+                mActiveClients.remove(client);
+            }
         }
         clearSocketClientsIfNeed();
     }
 
-    /*** Send multicast packet to each socket */
+    /*** Send multicast packet to active sockets */
     public void sendMulticastPacket(@NonNull DatagramPacket packet) {
-        for (MdnsSocketClient client : mInterfaceSocketClients.values()) {
+        for (MdnsSocketClient client : mActiveClients) {
             client.sendMulticastPacket(packet);
         }
     }
 
-    /*** Send unicast packet to each socket */
+    /*** Send unicast packet to active sockets */
     public void sendUnicastPacket(DatagramPacket packet) {
-        for (MdnsSocketClient client : mInterfaceSocketClients.values()) {
+        for (MdnsSocketClient client : mActiveClients) {
             client.sendUnicastPacket(packet);
         }
     }
