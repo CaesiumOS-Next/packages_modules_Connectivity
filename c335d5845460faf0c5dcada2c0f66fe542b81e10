@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cbcb9ca_ebc6cee3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-11-14T07:05:52Z",
+      "side": 1,
+      "message": "LGTM, actually we probably accidentally force OEM using auto mode, b/256916875",
+      "revId": "c335d5845460faf0c5dcada2c0f66fe542b81e10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
