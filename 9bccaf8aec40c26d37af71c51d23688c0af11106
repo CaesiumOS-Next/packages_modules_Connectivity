@@ -16,6 +16,29 @@
       "message": "LGTM.",
       "revId": "9bccaf8aec40c26d37af71c51d23688c0af11106",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a3110dc_42b82cda",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1055,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-14T09:14:32Z",
+      "side": 1,
+      "message": "This is not a U API (no shim involved), so you could just use isAtLeastT(). Otherwise you\u0027re not testing the behavior when the test is building against stable APIs.\n\nAlso this is the behavior to expect on S+ when the module is installed right ? So this part should be in a test annotated with @ConnectivityModuleTest, @IgnoreUpTo(R). Otherwise you\u0027re not testing updated behavior on S and T.",
+      "range": {
+        "startLine": 1055,
+        "startChar": 22,
+        "endLine": 1055,
+        "endChar": 37
+      },
+      "revId": "9bccaf8aec40c26d37af71c51d23688c0af11106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
