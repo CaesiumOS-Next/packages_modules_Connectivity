@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25cebc96_704c11a5",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-11-14T23:11:45Z",
+      "side": 1,
+      "message": "\"This\" cam be ambiguous. Suggest \"Migration requested/called on non-tunnel-mode transform\" or something similar",
+      "range": {
+        "startLine": 642,
+        "startChar": 57,
+        "endLine": 642,
+        "endChar": 61
+      },
+      "revId": "f0e49132165e2f875e70c90b722b5b5b8b30359d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d2e6009_d904bebb",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-11-14T23:11:45Z",
+      "side": 1,
+      "message": "Any reason we don\u0027t just use null?",
+      "range": {
+        "startLine": 660,
+        "startChar": 32,
+        "endLine": 660,
+        "endChar": 35
+      },
+      "revId": "f0e49132165e2f875e70c90b722b5b5b8b30359d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e2f652c_9bafe358",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1937,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-11-14T23:11:45Z",
+      "side": 1,
+      "message": "Can we rename this to be reqId or requestId to align with the kernel. Separately, we should file a bug to rename this.\n\nHistorically this was the actual transform ID that we allocate, but that proved to have issues in matching policies \u0026 templates \u0026 SAs",
+      "range": {
+        "startLine": 1937,
+        "startChar": 32,
+        "endLine": 1937,
+        "endChar": 43
+      },
+      "revId": "f0e49132165e2f875e70c90b722b5b5b8b30359d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
