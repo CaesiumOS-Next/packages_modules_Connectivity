@@ -148,8 +148,12 @@ public class MdnsServiceTypeClient {
             this.searchOptions = searchOptions;
             if (listeners.add(listener)) {
                 for (MdnsResponse existingResponse : instanceNameToResponse.values()) {
-                    listener.onServiceFound(
-                            buildMdnsServiceInfoFromResponse(existingResponse, serviceTypeLabels));
+                    final MdnsServiceInfo info =
+                            buildMdnsServiceInfoFromResponse(existingResponse, serviceTypeLabels);
+                    listener.onServiceFound(info);
+                    if (existingResponse.isComplete()) {
+                        listener.onServiceResolved(info);
+                    }
                 }
             }
             // Cancel the next scheduled periodical task.
@@ -223,6 +227,7 @@ public class MdnsServiceTypeClient {
 
         boolean newServiceFound = false;
         boolean existingServiceChanged = false;
+        boolean serviceBecomesComplete = false;
         if (currentResponse == null) {
             newServiceFound = true;
             currentResponse = response;
@@ -230,8 +235,14 @@ public class MdnsServiceTypeClient {
             if (serviceInstanceName != null) {
                 instanceNameToResponse.put(serviceInstanceName, currentResponse);
             }
-        } else if (currentResponse.mergeRecordsFrom(response)) {
-            existingServiceChanged = true;
+        } else {
+            boolean before = currentResponse.isComplete();
+            existingServiceChanged = currentResponse.mergeRecordsFrom(response);
+            boolean after = currentResponse.isComplete();
+            // Compare the complete state after merge records to know whether the response becomes
+            // complete. The mergeRecordsFrom() is adding more records to the response, it can only
+            // make response become complete.
+            serviceBecomesComplete = (before != after);
         }
         if (!newServiceFound && !existingServiceChanged) {
             return;
@@ -242,8 +253,12 @@ public class MdnsServiceTypeClient {
         for (MdnsServiceBrowserListener listener : listeners) {
             if (newServiceFound) {
                 listener.onServiceFound(serviceInfo);
-            } else {
-                if (currentResponse.isComplete()) {
+            }
+
+            if (currentResponse.isComplete()) {
+                if (newServiceFound || serviceBecomesComplete) {
+                    listener.onServiceResolved(serviceInfo);
+                } else {
                     listener.onServiceUpdated(serviceInfo);
                 }
             }
