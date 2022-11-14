@@ -148,8 +148,12 @@ public class MdnsServiceTypeClient {
             this.searchOptions = searchOptions;
             if (listeners.add(listener)) {
                 for (MdnsResponse existingResponse : instanceNameToResponse.values()) {
-                    listener.onServiceFound(
-                            buildMdnsServiceInfoFromResponse(existingResponse, serviceTypeLabels));
+                    final MdnsServiceInfo info =
+                            buildMdnsServiceInfoFromResponse(existingResponse, serviceTypeLabels);
+                    listener.onServiceFound(info);
+                    if (existingResponse.isComplete()) {
+                        listener.onServiceResolved(info);
+                    }
                 }
             }
             // Cancel the next scheduled periodical task.
@@ -244,6 +248,9 @@ public class MdnsServiceTypeClient {
                 listener.onServiceFound(serviceInfo);
             } else {
                 listener.onServiceUpdated(serviceInfo);
+            }
+            if (response.isComplete()) {
+                listener.onServiceResolved(serviceInfo);
             }
         }
     }

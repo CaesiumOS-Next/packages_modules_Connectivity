@@ -404,6 +404,8 @@ public class MdnsServiceTypeClientTests {
         assertEquals(info.getInterfaceIndex(), 999);
 
         verify(mockListenerOne, never()).onServiceUpdated(any(MdnsServiceInfo.class));
+        // Verify onServiceResolved was not called when response is incomplete.
+        verify(mockListenerOne, never()).onServiceResolved(any(MdnsServiceInfo.class));
     }
 
     @Test
@@ -453,6 +455,29 @@ public class MdnsServiceTypeClientTests {
         assertEquals(updatedServiceInfo.getSubtypes(), Collections.singletonList("ABCDE"));
         assertEquals(updatedServiceInfo.getAttributeByKey("key"), "value");
         assertEquals(updatedServiceInfo.getInterfaceIndex(), 20);
+
+        // Verify onServiceResolved was called twice.
+        verify(mockListenerOne, times(2)).onServiceResolved(serviceInfoCaptor.capture());
+        MdnsServiceInfo resolvedServiceInfo1 = serviceInfoCaptor.getAllValues().get(0);
+        MdnsServiceInfo resolvedServiceInfo2 = serviceInfoCaptor.getAllValues().get(1);
+        // One is same as onServiceFound.
+        assertEquals(initialServiceInfo.getServiceInstanceName(),
+                resolvedServiceInfo1.getServiceInstanceName());
+        assertEquals(initialServiceInfo.getIpv4Address(), resolvedServiceInfo1.getIpv4Address());
+        assertEquals(initialServiceInfo.getPort(), resolvedServiceInfo1.getPort());
+        assertEquals(initialServiceInfo.getSubtypes(), resolvedServiceInfo1.getSubtypes());
+        assertEquals(initialServiceInfo.getAttributes(), resolvedServiceInfo1.getAttributes());
+        assertEquals(initialServiceInfo.getInterfaceIndex(),
+                resolvedServiceInfo1.getInterfaceIndex());
+        // One is same as onServiceUpdated.
+        assertEquals(updatedServiceInfo.getServiceInstanceName(),
+                resolvedServiceInfo2.getServiceInstanceName());
+        assertEquals(updatedServiceInfo.getIpv4Address(), resolvedServiceInfo2.getIpv4Address());
+        assertEquals(updatedServiceInfo.getPort(), resolvedServiceInfo2.getPort());
+        assertEquals(updatedServiceInfo.getSubtypes(), resolvedServiceInfo2.getSubtypes());
+        assertEquals(updatedServiceInfo.getAttributes(), resolvedServiceInfo2.getAttributes());
+        assertEquals(updatedServiceInfo.getInterfaceIndex(),
+                resolvedServiceInfo2.getInterfaceIndex());
     }
 
     @Test
@@ -505,6 +530,29 @@ public class MdnsServiceTypeClientTests {
         assertEquals(updatedServiceInfo.getSubtypes(), Collections.singletonList("ABCDE"));
         assertEquals(updatedServiceInfo.getAttributeByKey("key"), "value");
         assertEquals(updatedServiceInfo.getInterfaceIndex(), 20);
+
+        // Verify onServiceResolved was called twice.
+        verify(mockListenerOne, times(2)).onServiceResolved(serviceInfoCaptor.capture());
+        MdnsServiceInfo resolvedServiceInfo1 = serviceInfoCaptor.getAllValues().get(0);
+        MdnsServiceInfo resolvedServiceInfo2 = serviceInfoCaptor.getAllValues().get(1);
+        // One is same as onServiceFound.
+        assertEquals(initialServiceInfo.getServiceInstanceName(),
+                resolvedServiceInfo1.getServiceInstanceName());
+        assertEquals(initialServiceInfo.getIpv4Address(), resolvedServiceInfo1.getIpv4Address());
+        assertEquals(initialServiceInfo.getPort(), resolvedServiceInfo1.getPort());
+        assertEquals(initialServiceInfo.getSubtypes(), resolvedServiceInfo1.getSubtypes());
+        assertEquals(initialServiceInfo.getAttributes(), resolvedServiceInfo1.getAttributes());
+        assertEquals(initialServiceInfo.getInterfaceIndex(),
+                resolvedServiceInfo1.getInterfaceIndex());
+        // One is same as onServiceUpdated.
+        assertEquals(updatedServiceInfo.getServiceInstanceName(),
+                resolvedServiceInfo2.getServiceInstanceName());
+        assertEquals(updatedServiceInfo.getIpv4Address(), resolvedServiceInfo2.getIpv4Address());
+        assertEquals(updatedServiceInfo.getPort(), resolvedServiceInfo2.getPort());
+        assertEquals(updatedServiceInfo.getSubtypes(), resolvedServiceInfo2.getSubtypes());
+        assertEquals(updatedServiceInfo.getAttributes(), resolvedServiceInfo2.getAttributes());
+        assertEquals(updatedServiceInfo.getInterfaceIndex(),
+                resolvedServiceInfo2.getInterfaceIndex());
     }
 
     @Test
@@ -552,6 +600,18 @@ public class MdnsServiceTypeClientTests {
         assertEquals(existingServiceInfo.getSubtypes(), Collections.singletonList("ABCDE"));
         assertNull(existingServiceInfo.getAttributeByKey("key"));
 
+        // Verify onServiceResolved was also called once for the existing response.
+        verify(mockListenerOne).onServiceResolved(serviceInfoCaptor.capture());
+        MdnsServiceInfo resolvedServiceInfo = serviceInfoCaptor.getAllValues().get(0);
+        assertEquals(existingServiceInfo.getServiceInstanceName(),
+                resolvedServiceInfo.getServiceInstanceName());
+        assertEquals(existingServiceInfo.getIpv4Address(), resolvedServiceInfo.getIpv4Address());
+        assertEquals(existingServiceInfo.getPort(), resolvedServiceInfo.getPort());
+        assertEquals(existingServiceInfo.getSubtypes(), resolvedServiceInfo.getSubtypes());
+        assertEquals(existingServiceInfo.getAttributes(), resolvedServiceInfo.getAttributes());
+        assertEquals(existingServiceInfo.getInterfaceIndex(),
+                resolvedServiceInfo.getInterfaceIndex());
+
         // Process a goodbye message for the existing response.
         MdnsResponse goodByeResponse = mock(MdnsResponse.class);
         when(goodByeResponse.getServiceInstanceName()).thenReturn("service-instance-1");
@@ -560,9 +620,10 @@ public class MdnsServiceTypeClientTests {
 
         client.startSendAndReceive(mockListenerTwo, MdnsSearchOptions.getDefaultOptions());
 
-        // Verify onServiceFound was not called on the newly registered listener after the existing
-        // response is gone.
+        // Verify onServiceFound and onServiceResolved was not called on the newly registered
+        // listener after the existing response is gone.
         verify(mockListenerTwo, never()).onServiceFound(any(MdnsServiceInfo.class));
+        verify(mockListenerTwo, never()).onServiceResolved(any(MdnsServiceInfo.class));
     }
 
     @Test
