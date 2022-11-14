@@ -20,12 +20,11 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_CBS;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 
 import android.annotation.NonNull;
+import android.annotation.Nullable;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.net.NetworkCapabilities;
 import android.net.NetworkSpecifier;
 import android.net.TelephonyNetworkSpecifier;
@@ -56,7 +55,6 @@ import java.util.concurrent.RejectedExecutionException;
  */
 public class CarrierPrivilegeAuthenticator extends BroadcastReceiver {
     private static final String TAG = CarrierPrivilegeAuthenticator.class.getSimpleName();
-    private static final boolean DBG = true;
 
     // The context is for the current user (system server)
     private final Context mContext;
@@ -69,6 +67,7 @@ public class CarrierPrivilegeAuthenticator extends BroadcastReceiver {
     private final Object mLock = new Object();
     private final HandlerThread mThread;
     private final Handler mHandler;
+    @GuardedBy("mLock")
     @NonNull
     private final List<CarrierPrivilegesListenerShim> mCarrierPrivilegesChangedListeners =
             new ArrayList<>();
@@ -85,7 +84,6 @@ public class CarrierPrivilegeAuthenticator extends BroadcastReceiver {
         synchronized (mLock) {
             mModemCount = mTelephonyManager.getActiveModemCount();
             registerForCarrierChanges();
-            updateCarrierServiceUid();
         }
     }
 
@@ -100,7 +98,6 @@ public class CarrierPrivilegeAuthenticator extends BroadcastReceiver {
         synchronized (mLock) {
             mModemCount = mTelephonyManager.getActiveModemCount();
             registerForCarrierChanges();
-            updateCarrierServiceUid();
         }
     }
 
@@ -142,39 +139,41 @@ public class CarrierPrivilegeAuthenticator extends BroadcastReceiver {
     }
 
     private void handleActionMultiSimConfigChanged(Context context, Intent intent) {
-        unregisterCarrierPrivilegesListeners();
         synchronized (mLock) {
+            unregisterCarrierPrivilegesListeners();
             mModemCount = mTelephonyManager.getActiveModemCount();
+            mCarrierServiceUid = new int[mModemCount];
+            // mCarrierServiceUid will be filled by the callbacks which are guaranteed to be
+            // called as soon as they are registered.
+            registerCarrierPrivilegesListeners(mModemCount);
         }
-        registerCarrierPrivilegesListeners();
-        updateCarrierServiceUid();
     }
 
+    @GuardedBy("mLock")
     private void registerForCarrierChanges() {
         final IntentFilter filter = new IntentFilter();
         filter.addAction(TelephonyManager.ACTION_MULTI_SIM_CONFIG_CHANGED);
         mContext.registerReceiver(this, filter, null, mHandler);
-        registerCarrierPrivilegesListeners();
+        registerCarrierPrivilegesListeners(mModemCount);
     }
 
-    private void registerCarrierPrivilegesListeners() {
+    @GuardedBy("mLock")
+    private void registerCarrierPrivilegesListeners(final int modemCount) {
         final HandlerExecutor executor = new HandlerExecutor(mHandler);
-        int modemCount;
-        synchronized (mLock) {
-            modemCount = mModemCount;
-        }
         try {
             for (int i = 0; i < modemCount; i++) {
+                final int modemIndex = i;
                 CarrierPrivilegesListenerShim carrierPrivilegesListener =
                         new CarrierPrivilegesListenerShim() {
+                            private final int mLogicalSlot = modemIndex;
+
                             @Override
-                            public void onCarrierPrivilegesChanged(
-                                    @NonNull List<String> privilegedPackageNames,
-                                    @NonNull int[] privilegedUids) {
-                                // Re-trigger the synchronous check (which is also very cheap due
-                                // to caching in CarrierPrivilegesTracker). This allows consistency
-                                // with the onSubscriptionsChangedListener and broadcasts.
-                                updateCarrierServiceUid();
+                            public void onCarrierServiceChanged(
+                                    @Nullable final String carrierServicePackageName,
+                                    final int carrierServiceUid) {
+                                synchronized (mLock) {
+                                    mCarrierServiceUid[mLogicalSlot] = carrierServiceUid;
+                                }
                             }
                         };
                 addCarrierPrivilegesListener(i, executor, carrierPrivilegesListener);
@@ -205,17 +204,7 @@ public class CarrierPrivilegeAuthenticator extends BroadcastReceiver {
         }
     }
 
-    private String getCarrierServicePackageNameForLogicalSlot(int logicalSlotIndex) {
-        try {
-            return mTelephonyManagerShim.getCarrierServicePackageNameForLogicalSlot(
-                    logicalSlotIndex);
-        } catch (UnsupportedApiLevelException unsupportedApiLevelException) {
-            // Should not happen since CarrierPrivilegeAuthenticator is only used on T+
-            Log.e(TAG, "getCarrierServicePackageNameForLogicalSlot API is not available");
-        }
-        return null;
-    }
-
+    @GuardedBy("mLock")
     private void unregisterCarrierPrivilegesListeners() {
         for (CarrierPrivilegesListenerShim carrierPrivilegesListener :
                 mCarrierPrivilegesChangedListeners) {
@@ -252,16 +241,6 @@ public class CarrierPrivilegeAuthenticator extends BroadcastReceiver {
     }
 
     @VisibleForTesting
-    void updateCarrierServiceUid() {
-        synchronized (mLock) {
-            mCarrierServiceUid = new int[mModemCount];
-            for (int i = 0; i < mModemCount; i++) {
-                mCarrierServiceUid[i] = getCarrierServicePackageUidForSlot(i);
-            }
-        }
-    }
-
-    @VisibleForTesting
     int getCarrierServiceUidForSubId(int subId) {
         final int slotId = getSlotIndex(subId);
         synchronized (mLock) {
@@ -283,30 +262,5 @@ public class CarrierPrivilegeAuthenticator extends BroadcastReceiver {
             return ((TelephonyNetworkSpecifier) specifier).getSubscriptionId();
         }
         return SubscriptionManager.INVALID_SUBSCRIPTION_ID;
-    }
-
-    @VisibleForTesting
-    int getUidForPackage(String pkgName) {
-        if (pkgName == null) {
-            return Process.INVALID_UID;
-        }
-        try {
-            PackageManager pm = mContext.getPackageManager();
-            if (pm != null) {
-                ApplicationInfo applicationInfo = pm.getApplicationInfo(pkgName, 0);
-                if (applicationInfo != null) {
-                    return applicationInfo.uid;
-                }
-            }
-        } catch (PackageManager.NameNotFoundException exception) {
-            // Didn't find package. Try other users
-            Log.i(TAG, "Unable to find uid for package " + pkgName);
-        }
-        return Process.INVALID_UID;
-    }
-
-    @VisibleForTesting
-    int getCarrierServicePackageUidForSlot(int slotId) {
-        return getUidForPackage(getCarrierServicePackageNameForLogicalSlot(slotId));
     }
 }
