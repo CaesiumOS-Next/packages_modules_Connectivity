@@ -17,6 +17,7 @@
 package com.android.server.connectivity.mdns;
 
 import android.annotation.NonNull;
+import android.net.Network;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.connectivity.mdns.util.MdnsLogger;
@@ -123,6 +124,10 @@ public class MdnsSocket {
             LOGGER.e("Failed to retrieve interface index for socket.", e);
             return -1;
         }
+    }
+
+    public Network getNetwork() {
+        return multicastNetworkInterfaceProvider.getAvailableNetwork();
     }
 
     public boolean isOnIPv6OnlyNetwork() {

@@ -16,7 +16,9 @@
 
 package com.android.server.connectivity.mdns;
 
+import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.net.Network;
 
 import com.android.internal.annotations.VisibleForTesting;
 
@@ -35,13 +37,16 @@ public class MdnsResponse {
     private MdnsInetAddressRecord inet4AddressRecord;
     private MdnsInetAddressRecord inet6AddressRecord;
     private long lastUpdateTime;
-    private int interfaceIndex = MdnsSocket.INTERFACE_INDEX_UNSPECIFIED;
+    private final int interfaceIndex;
+    @NonNull private final Network network;
 
     /** Constructs a new, empty response. */
-    public MdnsResponse(long now) {
+    public MdnsResponse(long now, int interfaceIndex, @NonNull Network network) {
         lastUpdateTime = now;
         records = new LinkedList<>();
         pointerRecords = new LinkedList<>();
+        this.interfaceIndex = interfaceIndex;
+        this.network = network;
     }
 
     // This generic typed helper compares records for equality.
@@ -208,19 +213,19 @@ public class MdnsResponse {
     }
 
     /**
-     * Updates the index of the network interface at which this response was received. Can be set to
-     * {@link MdnsSocket#INTERFACE_INDEX_UNSPECIFIED} if unset.
-     */
-    public synchronized void setInterfaceIndex(int interfaceIndex) {
-        this.interfaceIndex = interfaceIndex;
-    }
-
-    /**
      * Returns the index of the network interface at which this response was received. Can be set to
      * {@link MdnsSocket#INTERFACE_INDEX_UNSPECIFIED} if unset.
      */
     public synchronized int getInterfaceIndex() {
         return interfaceIndex;
+    }
+
+    /**
+     * Returns the network at which this response was received.
+     */
+    @NonNull
+    public synchronized Network getNetwork() {
+        return network;
     }
 
     /** Gets the IPv6 address record. */
