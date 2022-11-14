@@ -24,6 +24,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import android.net.Network;
+
 import com.android.net.module.util.HexDump;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
@@ -232,6 +234,17 @@ public class MdnsResponseTests {
         MdnsResponse response = new MdnsResponse(/* now= */ 0);
         response.setInterfaceIndex(5);
         assertEquals(response.getInterfaceIndex(), 5);
+    }
+
+    @Test
+    public void testGetNetwork() {
+        final MdnsResponse response1 = new MdnsResponse(/* now= */ 0);
+        assertEquals(null, response1.getNetwork());
+
+        final MdnsResponse response2 = new MdnsResponse(/* now= */ 0);
+        final Network network = new Network(1234);
+        response2.setNetwork(network);
+        assertEquals(network, response2.getNetwork());
     }
 
     @Test
