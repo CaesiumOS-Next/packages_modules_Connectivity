@@ -75,4 +75,11 @@ public interface MdnsServiceBrowserListener {
      * @param errorCode            The error code, defined in {@link MdnsResponseErrorCode}.
      */
     void onFailedToParseMdnsResponse(int receivedPacketNumber, int errorCode);
+
+    /**
+     * Called when an mDNS service instance is resolved.
+     *
+     * @param serviceInfo The resolved mDNS service instance.
+     */
+    void onServiceResolved(@NonNull MdnsServiceInfo serviceInfo);
 }
