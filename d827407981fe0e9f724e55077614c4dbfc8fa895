@@ -22,6 +22,30 @@
       },
       "revId": "d827407981fe0e9f724e55077614c4dbfc8fa895",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a777960_7cef8593",
+        "filename": "framework-t/src/android/net/IpSecManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-11-14T22:34:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ce9ee78_6cf8942a",
+      "range": {
+        "startLine": 77,
+        "startChar": 7,
+        "endLine": 78,
+        "endChar": 71
+      },
+      "revId": "d827407981fe0e9f724e55077614c4dbfc8fa895",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
