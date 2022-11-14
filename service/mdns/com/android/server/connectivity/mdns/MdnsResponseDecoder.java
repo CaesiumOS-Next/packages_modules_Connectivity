@@ -18,6 +18,7 @@ package com.android.server.connectivity.mdns;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.net.Network;
 import android.os.SystemClock;
 
 import com.android.server.connectivity.mdns.util.MdnsLogger;
@@ -95,10 +96,11 @@ public class MdnsResponseDecoder {
      * @param packet The packet to read from.
      * @param interfaceIndex the network interface index (or {@link
      *     MdnsSocket#INTERFACE_INDEX_UNSPECIFIED} if not known) at which the packet was received
+     * @param network the network (or null if not known) at which the packet was received.
      * @return A list of mDNS responses, or null if the packet contained no appropriate responses.
      */
     public int decode(@NonNull DatagramPacket packet, @NonNull List<MdnsResponse> responses,
-            int interfaceIndex) {
+            int interfaceIndex, Network network) {
         MdnsPacketReader reader = new MdnsPacketReader(packet);
 
         List<MdnsRecord> records;
@@ -259,6 +261,7 @@ public class MdnsResponseDecoder {
                     // Set interface index earlier because some responses have PTR record only.
                     // Need to know every response is getting from which interface.
                     response.setInterfaceIndex(interfaceIndex);
+                    response.setNetwork(network);
                     response.addPointerRecord((MdnsPointerRecord) record);
                 }
             }
@@ -289,13 +292,13 @@ public class MdnsResponseDecoder {
                     List<MdnsResponse> matchingResponses =
                             findResponsesWithHostName(responses, inetRecord.getName());
                     for (MdnsResponse response : matchingResponses) {
-                        assignInetRecord(response, inetRecord, interfaceIndex);
+                        assignInetRecord(response, inetRecord, interfaceIndex, network);
                     }
                 } else {
                     MdnsResponse response =
                             findResponseWithHostName(responses, inetRecord.getName());
                     if (response != null) {
-                        assignInetRecord(response, inetRecord, interfaceIndex);
+                        assignInetRecord(response, inetRecord, interfaceIndex, network);
                     }
                 }
             }
@@ -304,14 +307,16 @@ public class MdnsResponseDecoder {
         return SUCCESS;
     }
 
-    private static void assignInetRecord(
-            MdnsResponse response, MdnsInetAddressRecord inetRecord, int interfaceIndex) {
+    private static void assignInetRecord(MdnsResponse response, MdnsInetAddressRecord inetRecord,
+            int interfaceIndex, Network network) {
         if (inetRecord.getInet4Address() != null) {
             response.setInet4AddressRecord(inetRecord);
             response.setInterfaceIndex(interfaceIndex);
+            response.setNetwork(network);
         } else if (inetRecord.getInet6Address() != null) {
             response.setInet6AddressRecord(inetRecord);
             response.setInterfaceIndex(interfaceIndex);
+            response.setNetwork(network);
         }
     }
 

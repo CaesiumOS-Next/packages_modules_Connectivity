@@ -23,6 +23,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import android.net.Network;
 import android.os.Parcel;
 
 import com.android.server.connectivity.mdns.MdnsServiceInfo.TextEntry;
@@ -150,6 +151,41 @@ public class MdnsServiceInfoTest {
     }
 
     @Test
+    public void testGetNetwork() {
+        final MdnsServiceInfo info1 =
+                new MdnsServiceInfo(
+                        "my-mdns-service",
+                        new String[] {"_googlecast", "_tcp"},
+                        List.of(),
+                        new String[] {"my-host", "local"},
+                        12345,
+                        "192.168.1.1",
+                        "2001::1",
+                        List.of(),
+                        /* textEntries= */ null,
+                        /* interfaceIndex= */ 20);
+
+        assertEquals(null, info1.getNetwork());
+
+        final Network network = new Network(999);
+        final MdnsServiceInfo info2 =
+                new MdnsServiceInfo(
+                        "my-mdns-service",
+                        new String[] {"_googlecast", "_tcp"},
+                        List.of(),
+                        new String[] {"my-host", "local"},
+                        12345,
+                        "192.168.1.1",
+                        "2001::1",
+                        List.of(),
+                        /* textEntries= */ null,
+                        /* interfaceIndex= */ 20,
+                        network);
+
+        assertEquals(network, info2.getNetwork());
+    }
+
+    @Test
     public void parcelable_canBeParceledAndUnparceled() {
         Parcel parcel = Parcel.obtain();
         MdnsServiceInfo beforeParcel =
@@ -164,7 +200,9 @@ public class MdnsServiceInfoTest {
                         List.of("vn=Alphabet Inc.", "mn=Google Nest Hub Max", "id=12345"),
                         List.of(
                                 MdnsServiceInfo.TextEntry.fromString("vn=Google Inc."),
-                                MdnsServiceInfo.TextEntry.fromString("mn=Google Nest Hub Max")));
+                                MdnsServiceInfo.TextEntry.fromString("mn=Google Nest Hub Max")),
+                        20 /* interfaceIndex */,
+                        new Network(999) /* network */);
 
         beforeParcel.writeToParcel(parcel, 0);
         parcel.setDataPosition(0);

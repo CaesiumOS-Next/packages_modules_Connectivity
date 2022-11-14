@@ -17,6 +17,7 @@
 package com.android.server.connectivity.mdns;
 
 import android.annotation.Nullable;
+import android.net.Network;
 
 import com.android.internal.annotations.VisibleForTesting;
 
@@ -36,6 +37,7 @@ public class MdnsResponse {
     private MdnsInetAddressRecord inet6AddressRecord;
     private long lastUpdateTime;
     private int interfaceIndex = MdnsSocket.INTERFACE_INDEX_UNSPECIFIED;
+    private Network mNetwork;
 
     /** Constructs a new, empty response. */
     public MdnsResponse(long now) {
@@ -221,6 +223,20 @@ public class MdnsResponse {
      */
     public synchronized int getInterfaceIndex() {
         return interfaceIndex;
+    }
+
+    /**
+     * Updates the network at which this response was received.
+     */
+    public synchronized void setNetwork(Network network) {
+        mNetwork = network;
+    }
+
+    /**
+     * Returns the network at which this response was received.
+     */
+    public synchronized Network getNetwork() {
+        return mNetwork;
     }
 
     /** Gets the IPv6 address record. */
