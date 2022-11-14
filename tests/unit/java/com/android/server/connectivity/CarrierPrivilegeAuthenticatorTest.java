@@ -29,6 +29,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.clearInvocations;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -37,11 +38,10 @@ import android.annotation.NonNull;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.net.NetworkCapabilities;
 import android.net.TelephonyNetworkSpecifier;
 import android.os.Build;
+import android.os.Process;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 
@@ -57,7 +57,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 
-import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -75,7 +74,6 @@ public class CarrierPrivilegeAuthenticatorTest {
     @NonNull private final Context mContext;
     @NonNull private final TelephonyManager mTelephonyManager;
     @NonNull private final TelephonyManagerShimImpl mTelephonyManagerShim;
-    @NonNull private final PackageManager mPackageManager;
     @NonNull private TestCarrierPrivilegeAuthenticator mCarrierPrivilegeAuthenticator;
     private final int mCarrierConfigPkgUid = 12345;
     private final String mTestPkg = "com.android.server.connectivity.test";
@@ -96,18 +94,21 @@ public class CarrierPrivilegeAuthenticatorTest {
         mContext = mock(Context.class);
         mTelephonyManager = mock(TelephonyManager.class);
         mTelephonyManagerShim = mock(TelephonyManagerShimImpl.class);
-        mPackageManager = mock(PackageManager.class);
     }
 
     @Before
     public void setUp() throws Exception {
         doReturn(SUBSCRIPTION_COUNT).when(mTelephonyManager).getActiveModemCount();
-        doReturn(mTestPkg).when(mTelephonyManagerShim)
-                .getCarrierServicePackageNameForLogicalSlot(anyInt());
-        doReturn(mPackageManager).when(mContext).getPackageManager();
-        final ApplicationInfo applicationInfo = new ApplicationInfo();
-        applicationInfo.uid = mCarrierConfigPkgUid;
-        doReturn(applicationInfo).when(mPackageManager).getApplicationInfo(eq(mTestPkg), anyInt());
+        doAnswer(invocation -> {
+            final int slotIndex = invocation.getArgument(0);
+            final CarrierPrivilegesListenerShim listener = invocation.getArgument(2);
+            if (slotIndex == 0) {
+                listener.onCarrierServiceChanged(mTestPkg, mCarrierConfigPkgUid);
+            } else {
+                listener.onCarrierServiceChanged(null, Process.INVALID_UID);
+            }
+            return null;
+        }).when(mTelephonyManagerShim).addCarrierPrivilegesListener(anyInt(), any(), any());
         mCarrierPrivilegeAuthenticator =
                 new TestCarrierPrivilegeAuthenticator(mContext, mTelephonyManager);
     }
@@ -158,7 +159,15 @@ public class CarrierPrivilegeAuthenticatorTest {
                 .addTransportType(TRANSPORT_CELLULAR)
                 .setNetworkSpecifier(new TelephonyNetworkSpecifier(0));
 
+        initialListeners.get(0).onCarrierServiceChanged(mTestPkg, mCarrierConfigPkgUid);
+
         assertTrue(mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkCapabilities(
+                mCarrierConfigPkgUid, ncBuilder.build()));
+        assertFalse(mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkCapabilities(
+                mCarrierConfigPkgUid + 1, ncBuilder.build()));
+
+        ncBuilder.setNetworkSpecifier(new TelephonyNetworkSpecifier(1));
+        assertFalse(mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkCapabilities(
                 mCarrierConfigPkgUid, ncBuilder.build()));
         assertFalse(mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkCapabilities(
                 mCarrierConfigPkgUid + 1, ncBuilder.build()));
@@ -172,6 +181,17 @@ public class CarrierPrivilegeAuthenticatorTest {
         assertNotNull(initialListeners.get(0));
         assertNotNull(initialListeners.get(1));
         assertEquals(2, initialListeners.size());
+
+        final TelephonyNetworkSpecifier specifier = new TelephonyNetworkSpecifier(0);
+        final NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                .addTransportType(TRANSPORT_CELLULAR)
+                .setNetworkSpecifier(specifier)
+                .build();
+
+        assertTrue(mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkCapabilities(
+                mCarrierConfigPkgUid, nc));
+        assertFalse(mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkCapabilities(
+                mCarrierConfigPkgUid + 1, nc));
 
         doReturn(1).when(mTelephonyManager).getActiveModemCount();
         mCarrierPrivilegeAuthenticator.onReceive(
@@ -187,11 +207,7 @@ public class CarrierPrivilegeAuthenticatorTest {
         assertNotNull(newListeners.get(0));
         assertEquals(1, newListeners.size());
 
-        final TelephonyNetworkSpecifier specifier = new TelephonyNetworkSpecifier(0);
-        final NetworkCapabilities nc = new NetworkCapabilities.Builder()
-                .addTransportType(TRANSPORT_CELLULAR)
-                .setNetworkSpecifier(specifier)
-                .build();
+        initialListeners.get(0).onCarrierServiceChanged(mTestPkg, mCarrierConfigPkgUid);
         assertTrue(mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkCapabilities(
                 mCarrierConfigPkgUid, nc));
         assertFalse(mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkCapabilities(
@@ -208,10 +224,7 @@ public class CarrierPrivilegeAuthenticatorTest {
                 .setNetworkSpecifier(specifier)
                 .build();
 
-        final ApplicationInfo applicationInfo = new ApplicationInfo();
-        applicationInfo.uid = mCarrierConfigPkgUid + 1;
-        doReturn(applicationInfo).when(mPackageManager).getApplicationInfo(eq(mTestPkg), anyInt());
-        listener.onCarrierPrivilegesChanged(Collections.emptyList(), new int[] {});
+        listener.onCarrierServiceChanged(mTestPkg, mCarrierConfigPkgUid + 1);
 
         assertFalse(mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkCapabilities(
                 mCarrierConfigPkgUid, nc));
