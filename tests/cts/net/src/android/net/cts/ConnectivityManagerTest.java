@@ -1052,7 +1052,7 @@ public class ConnectivityManagerTest {
             }, NETWORK_SETTINGS);
             registerBestMatchingNetworkCallback(makeDefaultRequest(), bestMatchingCallback, h);
         }
-        if (TestUtils.shouldTestTApis()) {
+        if (TestUtils.shouldTestUApis()) {
             // Verify registerSystemDefaultNetworkCallback can be accessed via
             // CONNECTIVITY_USE_RESTRICTED_NETWORKS permission.
             final TestNetworkCallback systemDefaultCallback2 = new TestNetworkCallback();
