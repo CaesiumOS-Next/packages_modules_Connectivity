@@ -94,6 +94,30 @@
       },
       "revId": "dee11b20f2fd4c1b37c3c6ecd9d330a822335646",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70291876_a66a6725",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-11-14T22:08:18Z",
+      "side": 1,
+      "message": "\u003e A shape where I build an object that follows every convention for being an inert bag of immutable fields, and a method on that actually reaches into the system server, seems at the very least completely out of sync with usual patterns of usage.\n\nMy thought is to follow the IPsec stack convention where in IpSecTunnelInterface we have #addAddress, #removeAddress and #setUnderlyingNetwork that end up changing states in IpSecService.\n\n\u003e A normal pattern could be something like IpSecService#startMigration(IpSecTransform).\n\nPresumably you mean IpSecManager#startMigration(IpSecTransform)? Then I think that also works if that is your preference.\n\nI think we are very close to an agreement but I put a 30 minutes slot on your calendar just in case.",
+      "parentUuid": "e2002b02_e7dafbeb",
+      "range": {
+        "startLine": 274,
+        "startChar": 93,
+        "endLine": 274,
+        "endChar": 107
+      },
+      "revId": "dee11b20f2fd4c1b37c3c6ecd9d330a822335646",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
