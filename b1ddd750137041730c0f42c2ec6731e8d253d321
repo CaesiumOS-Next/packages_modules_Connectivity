@@ -94,6 +94,30 @@
       },
       "revId": "b1ddd750137041730c0f42c2ec6731e8d253d321",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb3500c3_3c132ccf",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-11-15T05:19:20Z",
+      "side": 1,
+      "message": "There was already a cherry-pick commit in ag/19901449 to tm-mainline-prod but still under review. I will follow the progress and update it once it gets merged.",
+      "parentUuid": "38d8aadd_065b1a72",
+      "range": {
+        "startLine": 55,
+        "startChar": 42,
+        "endLine": 55,
+        "endChar": 69
+      },
+      "revId": "b1ddd750137041730c0f42c2ec6731e8d253d321",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
