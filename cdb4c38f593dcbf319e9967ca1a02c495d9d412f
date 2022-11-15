@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2e3631e_ba266274",
+        "filename": "tests/unit/java/com/android/server/connectivity/CarrierPrivilegeAuthenticatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-15T02:13:12Z",
+      "side": 1,
+      "message": "I\u0027m not a big fan of this, it\u0027s pretty strongly discouraged by the Mockito doc; although I agree there isn\u0027t a great way to do this.\n\nOne way that I think could work could be adding a \"int skipListeners\" parameter and doing:\n\n    final InOrder ordered \u003d inOrder(mTelephonyManagerShim);\n    ordered.verify(mTelephonyManagerShim, times(skipListeners))\n        .addCarrierPrivilegesListener(any(), any(), any());\n    ordered.verify(mTelephonyManagerShim, atLeastOnce())\n        .addCarrierPrivilegesListener(slotCaptor.capture(), any(), listenerCaptor.capture());\n\nSo the caller can specify how many previous calls should be skipped, and only verify the latest ones.",
+      "range": {
+        "startLine": 133,
+        "startChar": 8,
+        "endLine": 133,
+        "endChar": 24
+      },
+      "revId": "cdb4c38f593dcbf319e9967ca1a02c495d9d412f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
