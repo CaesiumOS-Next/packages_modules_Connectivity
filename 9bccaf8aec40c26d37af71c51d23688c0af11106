@@ -39,6 +39,30 @@
       },
       "revId": "9bccaf8aec40c26d37af71c51d23688c0af11106",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bd3a5d7_501e3b12",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1055,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-15T06:04:07Z",
+      "side": 1,
+      "message": "Moved to a standalone test as suggested, see if it works for you.",
+      "parentUuid": "8a3110dc_42b82cda",
+      "range": {
+        "startLine": 1055,
+        "startChar": 22,
+        "endLine": 1055,
+        "endChar": 37
+      },
+      "revId": "9bccaf8aec40c26d37af71c51d23688c0af11106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
