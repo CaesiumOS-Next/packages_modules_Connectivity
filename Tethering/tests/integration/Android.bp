@@ -17,6 +17,13 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
+filegroup {
+    name: "bpf-tethering-module-test",
+    srcs: [
+        "src/android/net/BpfEthernetTetheringTest.java",
+    ],
+}
+
 java_defaults {
     name: "TetheringIntegrationTestsDefaults",
     defaults: ["framework-connectivity-test-defaults"],
@@ -54,6 +61,7 @@ android_library {
     target_sdk_version: "33",
     platform_apis: true,
     defaults: ["TetheringIntegrationTestsDefaults"],
+    exclude_srcs: [":bpf-tethering-module-test"],
     visibility: [
         "//packages/modules/Connectivity/tests/cts/tethering",
         "//packages/modules/Connectivity/tests:__subpackages__",
@@ -68,8 +76,22 @@ android_library {
     target_sdk_version: "current",
     platform_apis: true,
     defaults: ["TetheringIntegrationTestsDefaults"],
+    exclude_srcs: [":bpf-tethering-module-test"],
     visibility: [
         "//packages/modules/Connectivity/tests/cts/tethering",
+        "//packages/modules/Connectivity/Tethering/tests/mts",
+    ]
+}
+
+// Library including BPF tethering integration tests targeting current development SDK.
+// Use with NetworkStackJarJarRules.
+android_library {
+    name: "BpfTetheringIntegrationTestsLib",
+    target_sdk_version: "current",
+    platform_apis: true,
+    defaults: ["TetheringIntegrationTestsDefaults"],
+    srcs: [":bpf-tethering-module-test"],
+    visibility: [
         "//packages/modules/Connectivity/Tethering/tests/mts",
     ]
 }
