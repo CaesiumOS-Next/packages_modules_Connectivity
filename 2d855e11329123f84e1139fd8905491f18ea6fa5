@@ -46,6 +46,23 @@
       },
       "revId": "2d855e11329123f84e1139fd8905491f18ea6fa5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae05e777_78cf98ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-15T06:52:45Z",
+      "side": 1,
+      "message": "lgtm. need tier-2 reviewer",
+      "revId": "2d855e11329123f84e1139fd8905491f18ea6fa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
