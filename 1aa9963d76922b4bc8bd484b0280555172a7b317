@@ -70,6 +70,30 @@
       },
       "revId": "1aa9963d76922b4bc8bd484b0280555172a7b317",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5901f90_76b9409a",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1149,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-11-15T06:39:41Z",
+      "side": 0,
+      "message": "It is grantee the State#exit() always be called if state machine leave the current State. State#enter() and State#exit() should always be paired. Thus, BaseServingState#exit() still be called before enter InitialState#enter().",
+      "parentUuid": "52906936_c91cad48",
+      "range": {
+        "startLine": 1149,
+        "startChar": 21,
+        "endLine": 1149,
+        "endChar": 43
+      },
+      "revId": "1aa9963d76922b4bc8bd484b0280555172a7b317",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
