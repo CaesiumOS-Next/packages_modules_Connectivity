@@ -5147,13 +5147,19 @@ public class ConnectivityService extends IConnectivityManager.Stub
             description = settingValue + " (?)";
         }
         pw.println("Avoid bad wifi setting:        " + description);
-        final Boolean configValue = mMultinetworkPolicyTracker.deviceConfigActivelyPreferBadWifi();
-        if (null == configValue) {
-            description = "unset";
-        } else if (configValue) {
-            description = "force true";
-        } else {
-            description = "force false";
+        final long callingId = Binder.clearCallingIdentity();
+        try {
+            final Boolean configValue =
+                    mMultinetworkPolicyTracker.deviceConfigActivelyPreferBadWifi();
+            if (null == configValue) {
+                description = "unset";
+            } else if (configValue) {
+                description = "force true";
+            } else {
+                description = "force false";
+            }
+        } finally {
+            Binder.restoreCallingIdentity(callingId);
         }
         pw.println("Actively prefer bad wifi conf: " + description);
         pw.println();
