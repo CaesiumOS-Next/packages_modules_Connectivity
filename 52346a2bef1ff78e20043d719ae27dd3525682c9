@@ -242,6 +242,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4019c92c_efea1345",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-15T04:15:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "89af7644_e2838399",
+      "range": {
+        "startLine": 84,
+        "startChar": 19,
+        "endLine": 84,
+        "endChar": 32
+      },
+      "revId": "52346a2bef1ff78e20043d719ae27dd3525682c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6a68f53_bc8f4a04",
