@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b959f831_36b01e99",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-15T02:35:42Z",
+      "side": 1,
+      "message": "Do you mean `return if the serviceInstanceName has been removed` like duplicated response?",
+      "parentUuid": "97296b91_5a6227f7",
+      "range": {
+        "startLine": 263,
+        "startChar": 44,
+        "endLine": 263,
+        "endChar": 56
+      },
+      "revId": "6ce1f61c82a258761da7fd8bbd4e9fba65809832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0693e65d_d84aed94",
         "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
         "patchSetId": 3
@@ -37,6 +61,30 @@
       "writtenOn": "2022-11-09T07:19:58Z",
       "side": 1,
       "message": "Could you use buildMdnsServiceInfoFromResponse ? Especially since a more complete service info should be in instanceNameToResponse",
+      "range": {
+        "startLine": 270,
+        "startChar": 48,
+        "endLine": 270,
+        "endChar": 75
+      },
+      "revId": "6ce1f61c82a258761da7fd8bbd4e9fba65809832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8451503e_3c237a5f",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-15T02:35:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0693e65d_d84aed94",
       "range": {
         "startLine": 270,
         "startChar": 48,
@@ -60,6 +108,24 @@
       "writtenOn": "2022-11-09T07:05:33Z",
       "side": 1,
       "message": "We should have tests for this change; can you also verify the other attributes of the object ?",
+      "revId": "6ce1f61c82a258761da7fd8bbd4e9fba65809832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4139fcc2_cd9ce448",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-15T02:35:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b0b032a_259ad155",
       "revId": "6ce1f61c82a258761da7fd8bbd4e9fba65809832",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
