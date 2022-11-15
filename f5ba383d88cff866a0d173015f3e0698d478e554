@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8646be79_4351db7c",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-15T02:40:00Z",
+      "side": 1,
+      "message": "Done in aosp/2240458.",
+      "parentUuid": "fd717a28_842788cc",
+      "revId": "f5ba383d88cff866a0d173015f3e0698d478e554",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e9ab5f8_84bddff4",
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "Looking at the rest of the changes, and the considerations above, it seems you could have just one listener with onServiceDiscovered (new method) and onServiceFound (current method, which actually is onServiceResolved).\n\nThen in NsdService, register separate listeners for discover and resolve. Ignore onServiceFound for discover requests, and ignore onServiceDiscovered for resolve requests.\n\nHere for now you could have:\n\n    onServiceDiscovered();\n    if (isComplete) {\n        onServiceFound();\n    }\n\nEventually we could add additional queries to be sent when !isComplete so onServiceFound can be sent later when the rest of the records are available",
       "parentUuid": "9e9ab5f8_84bddff4",
+      "revId": "f5ba383d88cff866a0d173015f3e0698d478e554",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccd2132c_9691b0dc",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-15T02:40:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8929a59d_ef633c07",
       "revId": "f5ba383d88cff866a0d173015f3e0698d478e554",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
