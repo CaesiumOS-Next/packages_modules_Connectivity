@@ -39,6 +39,30 @@
       },
       "revId": "cdb4c38f593dcbf319e9967ca1a02c495d9d412f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be886408_307b5456",
+        "filename": "tests/unit/java/com/android/server/connectivity/CarrierPrivilegeAuthenticatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-15T03:42:30Z",
+      "side": 1,
+      "message": "After offline discussion :\n• I think an argument to ignore is worse than this, because each invocation of this has to understand everything that happened before including in setup, helper methods etc.\n• inOrder might be better than this, but we don\u0027t think the improvement is worth the time it will consume.\n\nThis test is not immediately foreseen to be expanded significantly, so this is very likely manageable. We can change it later if this becomes unwieldly.",
+      "parentUuid": "d2e3631e_ba266274",
+      "range": {
+        "startLine": 133,
+        "startChar": 8,
+        "endLine": 133,
+        "endChar": 24
+      },
+      "revId": "cdb4c38f593dcbf319e9967ca1a02c495d9d412f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
