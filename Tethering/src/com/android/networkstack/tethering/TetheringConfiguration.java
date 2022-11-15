@@ -563,7 +563,7 @@ public class TetheringConfiguration {
 
     @VisibleForTesting
     protected String getDeviceConfigProperty(String name) {
-        return DeviceConfig.getProperty(NAMESPACE_CONNECTIVITY, name);
+        return DeviceConfig.getProperty(NAMESPACE_TETHERING, name);
     }
 
     /**
