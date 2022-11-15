@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2644df3b_d82a6e00",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceListener.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-15T02:43:11Z",
+      "side": 1,
+      "message": "As meeting discussion, I put the Network into MdnsServiceInfo instead.",
+      "parentUuid": "23d2617c_1a9a2aef",
+      "revId": "22a6218181e90ac9d879f178f248ac019e08e80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1cb6aa55_b2da18bc",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83624e6d_d3358fe8",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-15T02:43:11Z",
+      "side": 1,
+      "message": "Network info is adding to MdnsServiceInfo in this CL. So we can do the filtering in the callbacks now.",
+      "parentUuid": "1cb6aa55_b2da18bc",
+      "revId": "22a6218181e90ac9d879f178f248ac019e08e80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8069949d_eb45a745",
@@ -48,6 +84,30 @@
       "writtenOn": "2022-11-09T07:23:43Z",
       "side": 1,
       "message": "Avoid extra indentation with:\n\n    if (!isResponseInterfaceMatched(...)) continue;",
+      "range": {
+        "startLine": 154,
+        "startChar": 24,
+        "endLine": 154,
+        "endChar": 26
+      },
+      "revId": "22a6218181e90ac9d879f178f248ac019e08e80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b685a10c_9ea48822",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-15T02:43:11Z",
+      "side": 1,
+      "message": "This code is gone.",
+      "parentUuid": "8069949d_eb45a745",
       "range": {
         "startLine": 154,
         "startChar": 24,
