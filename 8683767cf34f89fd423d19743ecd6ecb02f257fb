@@ -16,6 +16,29 @@
       "message": "LGTM but Lorenzo needs to +1 for CTS changes (except cherry-picks and flake fixes).\n\nTechnically this is not a flake, it\u0027s always failing in mainline tests when Tethering is not part of the tested module set but due to an infra bug (b/251422430) it\u0027s reported as a flake.",
       "revId": "8683767cf34f89fd423d19743ecd6ecb02f257fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce57d007_352e421a",
+        "filename": "tests/cts/net/src/android/net/cts/TestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-15T06:10:32Z",
+      "side": 1,
+      "message": "T",
+      "range": {
+        "startLine": 38,
+        "startChar": 80,
+        "endLine": 38,
+        "endChar": 81
+      },
+      "revId": "8683767cf34f89fd423d19743ecd6ecb02f257fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
