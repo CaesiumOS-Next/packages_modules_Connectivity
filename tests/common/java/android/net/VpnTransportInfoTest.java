@@ -31,6 +31,7 @@ import android.os.Build;
 
 import androidx.test.filters.SmallTest;
 
+import com.android.testutils.ConnectivityModuleTest;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 
@@ -41,6 +42,7 @@ import org.junit.runner.RunWith;
 @RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
+@ConnectivityModuleTest
 public class VpnTransportInfoTest {
     @Rule
     public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
