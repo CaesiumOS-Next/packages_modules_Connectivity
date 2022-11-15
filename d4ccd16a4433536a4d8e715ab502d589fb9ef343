@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "491cbed1_74673980",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-15T06:10:36Z",
+      "side": 1,
+      "message": "The reasons are\n\n1. IpServer won\u0027t have the last upstream information\n\nmLastIPv6UpstreamIfindex is removed\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2234366/15/Tethering/src/android/net/ip/IpServer.java#b276\nprivate int mLastIPv6UpstreamIfindex \u003d 0;\n\n2. Want to decouple mLastIPv6LinkProperties dependencies and avoid the update ipv6 LP ordering problem as current comment mentioned.\n// Be aware that updateIpv6ForwardingRules use mLastIPv6LinkProperties, so this line should\n// be eariler than updateIpv6ForwardingRules.\n// TODO: avoid this dependencies and move this logic into BpfCoordinator.\nhttps://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/Tethering/src/android/net/ip/IpServer.java;l\u003d773",
+      "parentUuid": "b10f5285_5080c137",
+      "range": {
+        "startLine": 190,
+        "startChar": 4,
+        "endLine": 190,
+        "endChar": 79
+      },
+      "revId": "d4ccd16a4433536a4d8e715ab502d589fb9ef343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa67f4a5_f647f611",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 15
@@ -37,6 +61,30 @@
       "writtenOn": "2022-11-15T05:46:11Z",
       "side": 1,
       "message": "Since you don\u0027t revmove NeighborEventConsumer from IpServer, this is additional cost. Could you do \"move\" instead of \"add\" ? You could do this in separate change after bpf v4 logic moved, then you could totally move NeighborEventConsumer from IpServer to BpfCoordiantor. After that we could avoid duplicated NeighborEventConsumer registered for each IpServer.",
+      "range": {
+        "startLine": 1845,
+        "startChar": 10,
+        "endLine": 1845,
+        "endChar": 34
+      },
+      "revId": "d4ccd16a4433536a4d8e715ab502d589fb9ef343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4aa67756_76bc0443",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1845,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-15T06:10:36Z",
+      "side": 1,
+      "message": "Next commit aosp/2238122 has removed NeighborEventConsumer from IpServer\n\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2238122/3/Tethering/src/android/net/ip/IpServer.java#b175",
+      "parentUuid": "fa67f4a5_f647f611",
       "range": {
         "startLine": 1845,
         "startChar": 10,
