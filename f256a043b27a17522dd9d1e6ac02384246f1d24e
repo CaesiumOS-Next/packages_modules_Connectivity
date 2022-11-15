@@ -69,6 +69,23 @@
       "parentUuid": "7e24dda2_122e4401",
       "revId": "f256a043b27a17522dd9d1e6ac02384246f1d24e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be620a1e_104769e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-15T04:07:45Z",
+      "side": 1,
+      "message": "Ideally this would only ignore LP and NC changes, not everything, but I think this patch is good enough.\n\nLGTM, please find lorenzo@ for owners",
+      "revId": "f256a043b27a17522dd9d1e6ac02384246f1d24e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
