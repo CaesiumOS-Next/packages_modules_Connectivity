@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "036b2e05_6dba541b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-15T03:40:29Z",
+      "side": 1,
+      "message": "No strong preference for the suggestion in comments so LGTM either way",
+      "revId": "cdb4c38f593dcbf319e9967ca1a02c495d9d412f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d2e3631e_ba266274",
