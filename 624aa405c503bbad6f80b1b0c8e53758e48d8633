@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df81bcd4_53858c42",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1609802
+      },
+      "writtenOn": "2022-11-15T18:11:35Z",
+      "side": 1,
+      "message": "Jean, the patch LGTM. I left a small suggestion inside for your reference.",
+      "revId": "624aa405c503bbad6f80b1b0c8e53758e48d8633",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67402818_18bdbebd",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1609802
+      },
+      "writtenOn": "2022-11-15T18:11:35Z",
+      "side": 1,
+      "message": "Maybe here we have one more index validation check before assignment:\n```\n// SIM config change arrived before carrier service change, abandon uid for invalid slot\nif (mLogicalSlot \u003e\u003d mModemCount) return;\nmCarrierServiceUid[mLogicalSlot] \u003d carrierServiceUid;\n```\n\nmLogicalSlot was assigned with slot during registration. By the time the callback arrives, the mModemCount may have been updated.\n\nThe case I am worried of is from DSDS \u003d\u003e Single SIM switching, depend on the ordering of the two events below:\n- CarrierPrivilegesTracker detected the SIM state changed and may trigger the onCarrierServiceChanged callback\n- CarrierPrivilegeAuthenticator received the ACTION_MULTI_SIM_CONFIG_CHANGED broadcast receiver and updated mModemCount (and mCarrierServiceUid).\n\nIn theory, the former event should arrive first. But SIM state change in Telephony is a known caoise. It wouldn\u0027t hurt to perform the additional check to stand on the safe side.",
+      "range": {
+        "startLine": 163,
+        "startChar": 55,
+        "endLine": 163,
+        "endChar": 67
+      },
+      "revId": "624aa405c503bbad6f80b1b0c8e53758e48d8633",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
