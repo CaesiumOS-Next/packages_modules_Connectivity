@@ -22,6 +22,30 @@
       },
       "revId": "1aa9963d76922b4bc8bd484b0280555172a7b317",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c19baf3_a7e5fdaf",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1149,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-11-15T06:04:26Z",
+      "side": 0,
+      "message": "updateUpstreamIPv6LinkProperties do nothing at this moment because mRaDaemon always be null.\n\nCorrect me if anything I miss:\n1. mRaDaemon created at startIpv6() and be null at stopIpv6()\n2. startIpv6() only be called at BaseServingState#enter() and stopIpv6() only be called at BaseServingState#exit()\n3. mRaDaemon always be null if the state is not in BaseServingState.",
+      "parentUuid": "7f4c5cd0_ca5beb00",
+      "range": {
+        "startLine": 1149,
+        "startChar": 21,
+        "endLine": 1149,
+        "endChar": 43
+      },
+      "revId": "1aa9963d76922b4bc8bd484b0280555172a7b317",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

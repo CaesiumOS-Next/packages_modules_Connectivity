@@ -22,6 +22,30 @@
       },
       "revId": "2d855e11329123f84e1139fd8905491f18ea6fa5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e76e2e6_516ef0b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-11-15T06:04:26Z",
+      "side": 1,
+      "message": "Yes, the change in IpServerTest verify this.\nIt verify:\n1. If the change there is ipv6 upstream change, there is additional linkproperties update\n2. If no ipv6 upstream change, only one linkproperties update when tethering enter tethered state.",
+      "parentUuid": "fda3da29_1b5dad1f",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 59
+      },
+      "revId": "2d855e11329123f84e1139fd8905491f18ea6fa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
