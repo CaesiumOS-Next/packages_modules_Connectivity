@@ -17,16 +17,16 @@
 package android.net.cts;
 
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
+import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 
-import android.content.Context;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkUtils;
 import android.net.cts.util.CtsNetUtils;
 import android.platform.test.annotations.AppModeFull;
-import android.provider.Settings;
 import android.system.ErrnoException;
 import android.system.OsConstants;
 import android.test.AndroidTestCase;
@@ -91,6 +91,29 @@ public class MultinetworkApiTest extends AndroidTestCase {
                 "Please ensure that the device is connected to a network.",
                 testableNetworks.size() >= 1);
         return testableNetworks.toArray(new Network[0]);
+    }
+
+    private void reconnectTestableNetworks() throws InterruptedException {
+        for (Network network : getTestableNetworks()) {
+            final NetworkCapabilities nc = mCM.getNetworkCapabilities(network);
+            if (nc.hasTransport(TRANSPORT_WIFI)) {
+                reconnectWifi();
+            } else if (nc.hasTransport(TRANSPORT_CELLULAR)) {
+                reconnectCell();
+            }
+        }
+    }
+
+    private Network reconnectWifi() {
+        mCtsNetUtils.ensureWifiDisconnected(null /* wifiNetworkToCheck */);
+        return mCtsNetUtils.ensureWifiConnected();
+    }
+
+    private Network reconnectCell() throws InterruptedException {
+        if (mCtsNetUtils.cellConnectAttempted()) {
+            mCtsNetUtils.disconnectFromCell();
+        }
+        return mCtsNetUtils.connectToCell();
     }
 
     public void testGetaddrinfo() throws ErrnoException {
@@ -229,6 +252,12 @@ public class MultinetworkApiTest extends AndroidTestCase {
         // b/144521720
         try {
             mCtsNetUtils.setPrivateDnsStrictMode(GOOGLE_PRIVATE_DNS_SERVER);
+            // Reconnect the testable networks to ensure all EVENT_PRIVATE_DNS_SETTINGS_CHANGED
+            // events are processed before awaitPrivateDnsSetting(). This is to avoid private
+            // DNS servers out of sync between NetworkMonitor and the DnsResolver. See b/253698734
+            // for more details.
+            reconnectTestableNetworks();
+
             for (Network network : getTestableNetworks()) {
               // Wait for private DNS setting to propagate.
               mCtsNetUtils.awaitPrivateDnsSetting("NxDomain test wait private DNS setting timeout",
