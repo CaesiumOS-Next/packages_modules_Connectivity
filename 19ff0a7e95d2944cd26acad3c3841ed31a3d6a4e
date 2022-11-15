@@ -22,6 +22,30 @@
       },
       "revId": "19ff0a7e95d2944cd26acad3c3841ed31a3d6a4e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "976c71bc_10d3f3cc",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1092,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-15T06:34:46Z",
+      "side": 1,
+      "message": "That will be done in unregisterRegisteredCallbacks called in tearDown.\nMaybe add some comments will help? But IIUC it is well-known pattern in this test, the registerXyzCallback callers did not have explict comments in this test.",
+      "parentUuid": "62f04397_56f7c64f",
+      "range": {
+        "startLine": 1092,
+        "startChar": 65,
+        "endLine": 1092,
+        "endChar": 84
+      },
+      "revId": "19ff0a7e95d2944cd26acad3c3841ed31a3d6a4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
