@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05335ceb_b97f0e53",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-15T03:24:46Z",
+      "side": 1,
+      "message": "Maybe also describe why you change HashMap to ArrayMap?\nIf it is unrelated, maybe separate it to another CL?",
+      "revId": "0c3b8664fe82ab7d3b9b85e77522c66bcf5a270f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d63502ce_5af1cd43",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2693,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-15T03:24:46Z",
+      "side": 1,
+      "message": "It seems to me this is too much for a dump function, maybe refactor this to another function?",
+      "revId": "0c3b8664fe82ab7d3b9b85e77522c66bcf5a270f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0729121f_1a3d4bef",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2694,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-15T03:24:46Z",
+      "side": 1,
+      "message": "IIUC we already holds a mStatsLock, if someone holds mOpenSessionCallsLock first then calls a function that holds the mStatsLock, it would be a dead lock.\n\nin NPMS, there is a mUidRulesFirstLock and mNetworkPoliciesSecondLock\n to prevent from such problem, not sure how could we do better. +jchalard@ for input.",
+      "range": {
+        "startLine": 2694,
+        "startChar": 26,
+        "endLine": 2694,
+        "endChar": 47
+      },
+      "revId": "0c3b8664fe82ab7d3b9b85e77522c66bcf5a270f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eb27f61_2861e022",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2699,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-15T03:24:46Z",
+      "side": 1,
+      "message": "IIUC This performs another look up.\nCan we use valueAt or entrySet instead?",
+      "range": {
+        "startLine": 2699,
+        "startChar": 71,
+        "endLine": 2699,
+        "endChar": 74
+      },
+      "revId": "0c3b8664fe82ab7d3b9b85e77522c66bcf5a270f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a8fc33e_ed29e92b",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2706,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-15T03:24:46Z",
+      "side": 1,
+      "message": "It seems to me this is an unnecessary complexity if we sort in reverse order?\nNo strong opinion.",
+      "range": {
+        "startLine": 2705,
+        "startChar": 16,
+        "endLine": 2706,
+        "endChar": 76
+      },
+      "revId": "0c3b8664fe82ab7d3b9b85e77522c66bcf5a270f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4afb03d4_299f5d25",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-15T03:24:46Z",
+      "side": 1,
+      "message": "IIUC you need to use regex to prevent from matching similar lines in other sections.",
+      "range": {
+        "startLine": 895,
+        "startChar": 7,
+        "endLine": 895,
+        "endChar": 97
+      },
+      "revId": "0c3b8664fe82ab7d3b9b85e77522c66bcf5a270f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c1db19a_b87ffe13",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2533,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-15T03:24:46Z",
+      "side": 1,
+      "message": "Maybe assert there is only 1 matched patterns.\nIf so, when someone add something in other section it would not siliently pass the test.",
+      "range": {
+        "startLine": 2533,
+        "startChar": 16,
+        "endLine": 2533,
+        "endChar": 39
+      },
+      "revId": "0c3b8664fe82ab7d3b9b85e77522c66bcf5a270f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
