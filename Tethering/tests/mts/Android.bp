@@ -33,6 +33,8 @@ android_test {
     ],
 
     static_libs: [
+        "BpfTetheringIntegrationTestsLib",
+        "TetheringIntegrationTestsLib",
         "androidx.test.rules",
         // mockito-target-extended-minus-junit4 used in this lib have dependency with
         // jni_libs libdexmakerjvmtiagent and libstaticjvmtiagent.
