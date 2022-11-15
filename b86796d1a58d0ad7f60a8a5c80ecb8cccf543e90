@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3966b63_fdbaa144",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceListener.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-15T02:38:37Z",
+      "side": 1,
+      "message": "Use MdnsServiceBrowserListener and add onServiceResolved for resolution now.",
+      "parentUuid": "4a5bba14_a26fe2fd",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 28,
+        "endChar": 36
+      },
+      "revId": "b86796d1a58d0ad7f60a8a5c80ecb8cccf543e90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2cff88ff_fea69549",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9767b2d_3a2223e3",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-15T02:38:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cff88ff_fea69549",
+      "range": {
+        "startLine": 146,
+        "startChar": 26,
+        "endLine": 146,
+        "endChar": 52
+      },
+      "revId": "b86796d1a58d0ad7f60a8a5c80ecb8cccf543e90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8676243_bc9c2438",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-11-09T04:28:49Z",
       "side": 1,
       "message": "If all listeners in the set need to be of this type, why change the type of the set ?",
+      "range": {
+        "startLine": 241,
+        "startChar": 18,
+        "endLine": 241,
+        "endChar": 44
+      },
+      "revId": "b86796d1a58d0ad7f60a8a5c80ecb8cccf543e90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0959e8c_b4f4971f",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-15T02:38:37Z",
+      "side": 1,
+      "message": "In later change, we will notify onServiceResoloved with different listener. But this code is gone.",
+      "parentUuid": "f8676243_bc9c2438",
       "range": {
         "startLine": 241,
         "startChar": 18,
