@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b10f5285_5080c137",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-11-15T05:46:11Z",
+      "side": 1,
+      "message": "Why you need to maintain this in BpfCoordinator ? This is duplicated information as IpServer hold. Since BpgCoordinator already tracking IpServer, it just just query ipv6 upstream infomation from IpServer directly.",
+      "range": {
+        "startLine": 190,
+        "startChar": 4,
+        "endLine": 190,
+        "endChar": 79
+      },
+      "revId": "d4ccd16a4433536a4d8e715ab502d589fb9ef343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa67f4a5_f647f611",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1845,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-11-15T05:46:11Z",
+      "side": 1,
+      "message": "Since you don\u0027t revmove NeighborEventConsumer from IpServer, this is additional cost. Could you do \"move\" instead of \"add\" ? You could do this in separate change after bpf v4 logic moved, then you could totally move NeighborEventConsumer from IpServer to BpfCoordiantor. After that we could avoid duplicated NeighborEventConsumer registered for each IpServer.",
+      "range": {
+        "startLine": 1845,
+        "startChar": 10,
+        "endLine": 1845,
+        "endChar": 34
+      },
+      "revId": "d4ccd16a4433536a4d8e715ab502d589fb9ef343",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
