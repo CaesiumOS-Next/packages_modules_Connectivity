@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cb98c30_34c4b8f3",
+        "filename": "framework-t/src/android/net/IpSecManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-11-16T23:15:14Z",
+      "side": 1,
+      "message": "No longer has a clear meaning. Suggest \"migrating a transform\"",
+      "range": {
+        "startLine": 994,
+        "startChar": 42,
+        "endLine": 994,
+        "endChar": 46
+      },
+      "revId": "20601a9d4718870e0d7836f64b1d69e9b49cdad2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffa8dfd9_659a1427",
+        "filename": "framework-t/src/android/net/IpSecManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 995,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-11-16T23:15:14Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 995,
+        "startChar": 26,
+        "endLine": 995,
+        "endChar": 30
+      },
+      "revId": "20601a9d4718870e0d7836f64b1d69e9b49cdad2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc6ed627_1dd7fec1",
+        "filename": "framework-t/src/android/net/IpSecManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1001,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-11-16T23:15:14Z",
+      "side": 1,
+      "message": "This can just be \"Transforms\" I think the singular actually doesn\u0027t make sense:\n\n\"Transform migration is only supported for Tunnel mode Transform\" is a bit awkward.",
+      "range": {
+        "startLine": 1001,
+        "startChar": 73,
+        "endLine": 1001,
+        "endChar": 76
+      },
+      "revId": "20601a9d4718870e0d7836f64b1d69e9b49cdad2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "312c3345_158d591b",
+        "filename": "framework-t/src/android/net/IpSecManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1002,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-11-16T23:15:14Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 1002,
+        "startChar": 31,
+        "endLine": 1002,
+        "endChar": 34
+      },
+      "revId": "20601a9d4718870e0d7836f64b1d69e9b49cdad2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8441ccb_b9261d29",
+        "filename": "framework-t/src/android/net/IpSecManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1005,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-11-16T23:15:14Z",
+      "side": 1,
+      "message": "Suggest \"a Tunnel mode {@link IpSecTransform}\" instead",
+      "range": {
+        "startLine": 1005,
+        "startChar": 24,
+        "endLine": 1005,
+        "endChar": 26
+      },
+      "revId": "20601a9d4718870e0d7836f64b1d69e9b49cdad2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cae6b958_ef65836b",
+        "filename": "framework-t/src/android/net/IpSecManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1018,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-11-16T23:15:14Z",
+      "side": 1,
+      "message": "Android 14+?\n\nAndroid\u0027s moved away from letters in the public sphere",
+      "range": {
+        "startLine": 1018,
+        "startChar": 92,
+        "endLine": 1018,
+        "endChar": 96
+      },
+      "revId": "20601a9d4718870e0d7836f64b1d69e9b49cdad2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64446b89_94b03974",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-11-16T23:15:14Z",
+      "side": 1,
+      "message": "Could someone pass in \"\" or null to either of these?",
+      "range": {
+        "startLine": 669,
+        "startChar": 20,
+        "endLine": 669,
+        "endChar": 37
+      },
+      "revId": "20601a9d4718870e0d7836f64b1d69e9b49cdad2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd248a5a_614ca067",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1779,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-11-16T23:15:14Z",
+      "side": 1,
+      "message": "Do we need verification on these values?",
+      "range": {
+        "startLine": 1778,
+        "startChar": 0,
+        "endLine": 1779,
+        "endChar": 41
+      },
+      "revId": "20601a9d4718870e0d7836f64b1d69e9b49cdad2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8a1539e_53548483",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1936,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-11-16T23:15:14Z",
+      "side": 1,
+      "message": "Interesting; we call this twice.\n\nCould you explain to me again how this works? Does this match the policy -\u003e tmpl -\u003e SA, and update all those in that order? If so, what happens when it fails to find the SA for the second policy (because it was already updated)?\n\n```\npol4 -\u003e tmpl4 -+                      pol4\u0027 -\u003e tmpl4\u0027 -+\n               +-\u003e sa       \u003d\u003d\u003e                        +-\u003e sa\u0027\npol6 -\u003e tmpl6 -+                      pol6 -\u003e tmpl6 --------------\u003e ?\n```",
+      "range": {
+        "startLine": 1936,
+        "startChar": 41,
+        "endLine": 1936,
+        "endChar": 57
+      },
+      "revId": "20601a9d4718870e0d7836f64b1d69e9b49cdad2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e0bd1f8_baddcc5c",
+        "filename": "tests/unit/java/android/net/IpSecTransformTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-11-16T23:15:14Z",
+      "side": 1,
+      "message": "Any reason why we use this rather than a mock(Context.class)?\n\nSeems like that would be easier in that we can just do the \"when(x).do(y)\"",
+      "range": {
+        "startLine": 72,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 20
+      },
+      "revId": "20601a9d4718870e0d7836f64b1d69e9b49cdad2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
