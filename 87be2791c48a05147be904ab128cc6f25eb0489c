@@ -34,6 +34,24 @@
       "parentUuid": "8cc5be61_9542afea",
       "revId": "87be2791c48a05147be904ab128cc6f25eb0489c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe71502c_2bc0be11",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-11-16T06:19:43Z",
+      "side": 1,
+      "message": "Ok, but is the new code faster than the old code? And if so, by how much?",
+      "parentUuid": "20e557b9_f3dbc0ad",
+      "revId": "87be2791c48a05147be904ab128cc6f25eb0489c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
