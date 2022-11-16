@@ -258,6 +258,30 @@
       },
       "revId": "4297aaa69f148d6088d0cfc361353cd02b6663c9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "880b265b_cec7d784",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-16T09:16:08Z",
+      "side": 1,
+      "message": "Per discussed offline, address this after b/217805241 is resolved. Add TODO.",
+      "parentUuid": "deda99e6_e475fc69",
+      "range": {
+        "startLine": 830,
+        "startChar": 64,
+        "endLine": 830,
+        "endChar": 73
+      },
+      "revId": "4297aaa69f148d6088d0cfc361353cd02b6663c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
