@@ -67,7 +67,7 @@ public class MdnsReplySender {
         writer.writeUInt16(packet.additionalRecords.size()); // additional records count
 
         for (MdnsRecord record : packet.questions) {
-            record.write(writer, 0L);
+            record.writeHeaderFields(writer);
         }
         for (MdnsRecord record : packet.answers) {
             record.write(writer, 0L);
