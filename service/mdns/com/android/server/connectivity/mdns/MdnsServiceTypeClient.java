@@ -52,7 +52,7 @@ public class MdnsServiceTypeClient {
 
     private final String serviceType;
     private final String[] serviceTypeLabels;
-    private final MdnsSocketClient socketClient;
+    private final MdnsSocketClientBase socketClient;
     private final ScheduledExecutorService executor;
     private final Object lock = new Object();
     private final Set<MdnsServiceBrowserListener> listeners = new ArraySet<>();
@@ -77,11 +77,11 @@ public class MdnsServiceTypeClient {
      * Constructor of {@link MdnsServiceTypeClient}.
      *
      * @param socketClient Sends and receives mDNS packet.
-     * @param executor     A {@link ScheduledExecutorService} used to schedule query tasks.
+     * @param executor         A {@link ScheduledExecutorService} used to schedule query tasks.
      */
     public MdnsServiceTypeClient(
             @NonNull String serviceType,
-            @NonNull MdnsSocketClient socketClient,
+            @NonNull MdnsSocketClientBase socketClient,
             @NonNull ScheduledExecutorService executor) {
         this.serviceType = serviceType;
         this.socketClient = socketClient;
