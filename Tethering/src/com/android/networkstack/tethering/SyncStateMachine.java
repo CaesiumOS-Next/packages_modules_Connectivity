@@ -98,7 +98,7 @@ public class SyncStateMachine {
                 throw new RuntimeException("The parent must be added before child state");
             }
 
-            if (parentStateInfo.state != null) {
+            if (parentStateInfo.parentStateInfo != null) {
                 throw new RuntimeException("3+ hierarchies is not supported");
             }
         }

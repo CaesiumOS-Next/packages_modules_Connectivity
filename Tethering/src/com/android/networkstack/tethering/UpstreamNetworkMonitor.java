@@ -44,7 +44,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.internal.annotations.VisibleForTesting;
-import com.android.internal.util.StateMachine;
 import com.android.net.module.util.SharedLog;
 import com.android.networkstack.apishim.ConnectivityManagerShimImpl;
 import com.android.networkstack.apishim.common.ConnectivityManagerShim;
@@ -111,9 +110,7 @@ public class UpstreamNetworkMonitor {
 
     private final Context mContext;
     private final SharedLog mLog;
-    private final StateMachine mTarget;
     private final Handler mHandler;
-    private final int mWhat;
     private final HashMap<Network, UpstreamNetworkState> mNetworkMap = new HashMap<>();
     private HashSet<IpPrefix> mLocalPrefixes;
     private ConnectivityManager mCM;
@@ -136,13 +133,13 @@ public class UpstreamNetworkMonitor {
     // The current upstream network used for tethering.
     private Network mTetheringUpstreamNetwork;
     private boolean mPreferTestNetworks;
+    private final UpstreamCallback mCallback;
 
-    public UpstreamNetworkMonitor(Context ctx, StateMachine tgt, SharedLog log, int what) {
+    public UpstreamNetworkMonitor(Context ctx, Handler h, SharedLog log, UpstreamCallback c) {
         mContext = ctx;
-        mTarget = tgt;
-        mHandler = mTarget.getHandler();
+        mHandler = h;
+        mCallback = c;
         mLog = log.forSubComponent(TAG);
-        mWhat = what;
         mLocalPrefixes = new HashSet<>();
         mIsDefaultCellularUpstream = false;
         mCM = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -582,7 +579,7 @@ public class UpstreamNetworkMonitor {
     }
 
     private void notifyTarget(int which, Object obj) {
-        mTarget.sendMessage(mWhat, which, 0, obj);
+        mCallback.onChange(which, obj);
     }
 
     private static class TypeStatePair {
@@ -705,5 +702,9 @@ public class UpstreamNetworkMonitor {
     /** Set test network as preferred upstream. */
     public void setPreferTestNetworks(boolean prefer) {
         mPreferTestNetworks = prefer;
+    }
+
+    public static class UpstreamCallback {
+        public void onChange(int which, Object obj) { }
     }
 }

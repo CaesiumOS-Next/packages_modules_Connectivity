@@ -76,9 +76,9 @@ public abstract class TetheringDependencies {
     /**
      * Get a reference to the UpstreamNetworkMonitor to be used by tethering.
      */
-    public UpstreamNetworkMonitor getUpstreamNetworkMonitor(Context ctx, StateMachine target,
-            SharedLog log, int what) {
-        return new UpstreamNetworkMonitor(ctx, target, log, what);
+    public UpstreamNetworkMonitor getUpstreamNetworkMonitor(Context ctx, Handler h,
+            SharedLog log, UpstreamNetworkMonitor.UpstreamCallback c) {
+        return new UpstreamNetworkMonitor(ctx, h, log, c);
     }
 
     /**

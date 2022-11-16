@@ -65,6 +65,7 @@ import static android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID;
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_FORCE_USB_FUNCTIONS;
 import static com.android.networkstack.tethering.TetheringNotificationUpdater.DOWNSTREAM_NONE;
 import static com.android.networkstack.tethering.UpstreamNetworkMonitor.isCellular;
+import static com.android.networkstack.tethering.UpstreamNetworkMonitor.UpstreamCallback;
 import static com.android.networkstack.tethering.util.TetheringMessageBase.BASE_MAIN_SM;
 
 import android.app.usage.NetworkStatsManager;
@@ -131,7 +132,6 @@ import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.internal.util.MessageUtils;
 import com.android.internal.util.State;
-import com.android.internal.util.StateMachine;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
 import com.android.net.module.util.CollectionUtils;
@@ -141,6 +141,7 @@ import com.android.networkstack.apishim.common.BluetoothPanShim;
 import com.android.networkstack.apishim.common.BluetoothPanShim.TetheredInterfaceCallbackShim;
 import com.android.networkstack.apishim.common.BluetoothPanShim.TetheredInterfaceRequestShim;
 import com.android.networkstack.apishim.common.UnsupportedApiLevelException;
+import com.android.networkstack.tethering.apishim.common.StateMachineShim;
 import com.android.networkstack.tethering.metrics.TetheringMetrics;
 import com.android.networkstack.tethering.util.InterfaceSet;
 import com.android.networkstack.tethering.util.PrefixUtils;
@@ -308,7 +309,7 @@ public class Tethering {
         mTetherMainSM = new TetherMainSM("TetherMain", mLooper, deps);
         mTetherMainSM.start();
 
-        mHandler = mTetherMainSM.getHandler();
+        mHandler = new Handler(mLooper);
         mOffloadController = mDeps.getOffloadController(mHandler, mLog,
                 new OffloadController.Dependencies() {
 
@@ -317,8 +318,13 @@ public class Tethering {
                         return mConfig;
                     }
                 });
-        mUpstreamNetworkMonitor = mDeps.getUpstreamNetworkMonitor(mContext, mTetherMainSM, mLog,
-                TetherMainSM.EVENT_UPSTREAM_CALLBACK);
+        mUpstreamNetworkMonitor = mDeps.getUpstreamNetworkMonitor(mContext, mHandler, mLog,
+                new UpstreamCallback() {
+                    @Override
+                    public void onChange(int what, Object obj) {
+                        mTetherMainSM.sendMessage(TetherMainSM.EVENT_UPSTREAM_CALLBACK, what, 0, obj);
+                    }
+                });
         mForwardedDownstreams = new HashSet<>();
 
         IntentFilter filter = new IntentFilter();
@@ -1670,7 +1676,7 @@ public class Tethering {
         return false;
     }
 
-    class TetherMainSM extends StateMachine {
+    class TetherMainSM extends StateMachineShim {
         // an interface SM has requested Tethering/Local Hotspot
         static final int EVENT_IFACE_SERVING_STATE_ACTIVE       = BASE_MAIN_SM + 1;
         // an interface SM has unrequested Tethering/Local Hotspot
@@ -1845,7 +1851,8 @@ public class Tethering {
                     mUpstreamNetworkMonitor.setTryCell(true);
                     // We think mobile should be coming up; don't set a retry.
                 } else {
-                    sendMessageDelayed(CMD_RETRY_UPSTREAM, UPSTREAM_SETTLE_TIME_MS);
+                    // FIXME
+                    //sendMessageDelayed(CMD_RETRY_UPSTREAM, UPSTREAM_SETTLE_TIME_MS);
                 }
             } else if (!isCellular(ns)) {
                 mUpstreamNetworkMonitor.setTryCell(false);
@@ -2822,7 +2829,7 @@ public class Tethering {
         final TetherState tetherState = new TetherState(
                 new IpServer(iface, mLooper, interfaceType, mLog, mNetd, mBpfCoordinator,
                              makeControlCallback(), mConfig, mPrivateAddressCoordinator,
-                             mTetheringMetrics, mDeps.getIpServerDependencies()), isNcm);
+                             mTetheringMetrics, mDeps.getIpServerDependencies(), mHandler), isNcm);
         mTetherStates.put(iface, tetherState);
         tetherState.ipServer.start();
     }
