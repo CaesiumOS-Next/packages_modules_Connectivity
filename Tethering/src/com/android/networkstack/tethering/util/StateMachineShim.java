@@ -16,15 +16,18 @@
 
 package com.android.networkstack.tethering.util;
 
+import android.os.Handler;
 import android.os.Looper;
 
 import com.android.internal.util.State;
+import com.android.internal.util.StateMachine;
 
 /** A wrapper to decide whether use synchronous state machine for tethering. */
 public class StateMachineShim {
     private static final boolean USE_SYNC_SM = true;
     private final AsyncStateMachine mAsyncSM;
     private final SyncStateMachine mSyncSM;
+    private final Handler mHandler;
     private State mInitialState;
 
     /** Constructor. */
@@ -32,11 +35,17 @@ public class StateMachineShim {
         if (USE_SYNC_SM) {
             mSyncSM = new SyncStateMachine(name);
             mAsyncSM = null;
+            mHandler = new Handler(looper);
         } else {
             mAsyncSM = new AsyncStateMachine(name, looper);
             mSyncSM = null;
+            mHandler = mAsyncSM.getHandler();
         }
+    }
 
+    /** Get handler which the state machine running on. */
+    public Handler getHandler() {
+        return mHandler;
     }
 
     /** Start state machine. */
@@ -89,9 +98,19 @@ public class StateMachineShim {
         return sendMessage(what, arg1, arg2, obj, null /* destState */);
     }
 
+    /** Send message to state machine. */
+    public boolean sendMessage(int what, Object obj) {
+        return sendMessage(what, 0, 0, obj);
+    }
+
+    /** Send message to state machine. */
+    public boolean sendMessage(int what, int arg1) {
+        return sendMessage(what, arg1, 0, null);
+    }
+
     /**
      * Send message and state machine would transition to given state after processed the message.
-     * Asynchronous state machine would ignore destState paramter.
+     * Asynchronous state machine would ignore destState parameter.
      */
     public boolean sendMessage(int what, int arg1, int arg2, Object obj, final State destState) {
         if (USE_SYNC_SM) {
