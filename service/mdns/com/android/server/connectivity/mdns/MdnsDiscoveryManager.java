@@ -34,20 +34,22 @@ import java.util.Map;
  * This class keeps tracking the set of registered {@link MdnsServiceBrowserListener} instances, and
  * notify them when a mDNS service instance is found, updated, or removed?
  */
-public class MdnsDiscoveryManager implements MdnsSocketClient.Callback {
+public class MdnsDiscoveryManager implements MdnsSocketController.Callback {
     private static final String TAG = MdnsDiscoveryManager.class.getSimpleName();
     public static final boolean DBG = Log.isLoggable(TAG, Log.DEBUG);
     private static final MdnsLogger LOGGER = new MdnsLogger("MdnsDiscoveryManager");
+    private static final boolean supportMultipleSocketsDiscovery =
+            MdnsConfigs.supportMultipleSocketsDiscovery();
 
     private final ExecutorProvider executorProvider;
-    private final MdnsSocketClient socketClient;
+    private final MdnsSocketController socketController;
 
     private final Map<String, MdnsServiceTypeClient> serviceTypeClients = new ArrayMap<>();
 
-    public MdnsDiscoveryManager(
-            @NonNull ExecutorProvider executorProvider, @NonNull MdnsSocketClient socketClient) {
+    public MdnsDiscoveryManager(@NonNull ExecutorProvider executorProvider,
+            @NonNull MdnsSocketController socketController) {
         this.executorProvider = executorProvider;
-        this.socketClient = socketClient;
+        this.socketController = socketController;
     }
 
     /**
@@ -67,10 +69,11 @@ public class MdnsDiscoveryManager implements MdnsSocketClient.Callback {
         LOGGER.log(
                 "Registering listener for subtypes: %s",
                 TextUtils.join(",", searchOptions.getSubtypes()));
-        if (serviceTypeClients.isEmpty()) {
-            // First listener. Starts the socket client.
+        if (DBG) Log.d(TAG, "Registering listener for serviceType:" + serviceType);
+        if (supportMultipleSocketsDiscovery
+                || serviceTypeClients.isEmpty()) { // First listener. Starts the socket client.
             try {
-                socketClient.startDiscovery();
+                socketController.startDiscovery(listener, searchOptions.getNetwork());
             } catch (IOException e) {
                 LOGGER.e("Failed to start discover.", e);
                 return;
@@ -96,20 +99,22 @@ public class MdnsDiscoveryManager implements MdnsSocketClient.Callback {
     public synchronized void unregisterListener(
             @NonNull String serviceType, @NonNull MdnsServiceBrowserListener listener) {
         LOGGER.log("Unregistering listener for service type: %s", serviceType);
+        if (DBG) Log.d(TAG, "Unregistering listener for serviceType:" + serviceType);
         MdnsServiceTypeClient serviceTypeClient = serviceTypeClients.get(serviceType);
         if (serviceTypeClient == null) {
             return;
         }
         if (serviceTypeClient.stopSendAndReceive(listener)) {
             // No listener is registered for the service type anymore, remove it from the list of
-          // the
-            // service type clients.
+            // the service type clients.
             serviceTypeClients.remove(serviceType);
-            if (serviceTypeClients.isEmpty()) {
-                // No discovery request. Stops the socket client.
-                socketClient.stopDiscovery();
-            }
         }
+
+        if (supportMultipleSocketsDiscovery || serviceTypeClients.isEmpty()) {
+            // No discovery requests. Stops the socket client.
+            socketController.stopDiscovery(listener);
+        }
+
     }
 
     @Override
@@ -142,7 +147,7 @@ public class MdnsDiscoveryManager implements MdnsSocketClient.Callback {
     @VisibleForTesting
     MdnsServiceTypeClient createServiceTypeClient(@NonNull String serviceType) {
         return new MdnsServiceTypeClient(
-                serviceType, socketClient,
+                serviceType, socketController,
                 executorProvider.newServiceTypeClientSchedulerExecutor());
     }
 }

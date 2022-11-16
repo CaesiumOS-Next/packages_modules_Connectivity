@@ -178,7 +178,7 @@ public class MdnsSocketProviderTest {
             final SocketEvent event = mHistory.poll(DEFAULT_TIMEOUT, c -> true);
             assertNotNull(event);
             assertTrue(event instanceof InterfaceDestroyedEvent);
-            assertTrue(event.mNetwork.equals(network));
+            assertEquals(event.mNetwork, network);
         }
 
         public void expectedAddressesChangedForNetwork(Network network,
@@ -186,7 +186,7 @@ public class MdnsSocketProviderTest {
             final SocketEvent event = mHistory.poll(DEFAULT_TIMEOUT, c -> true);
             assertNotNull(event);
             assertTrue(event instanceof AddressesChangedEvent);
-            assertTrue(event.mNetwork.equals(network));
+            assertEquals(event.mNetwork, network);
             assertEquals(event.mAddresses, addresses);
         }
 
