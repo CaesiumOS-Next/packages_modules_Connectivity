@@ -16,6 +16,8 @@
 
 package com.android.server.connectivity.mdns;
 
+import static com.android.server.connectivity.mdns.MdnsSocketController.Callback;
+
 import android.Manifest.permission;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -47,7 +49,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * <p>See https://tools.ietf.org/html/rfc6763 (namely sections 4 and 5).
  */
-public class MdnsSocketClient {
+public class MdnsSocketClient implements MdnsSocketController {
 
     private static final String TAG = "MdnsClient";
     // TODO: The following values are copied from cast module. We need to think about the
@@ -116,12 +118,15 @@ public class MdnsSocketClient {
         }
     }
 
+    @Override
     public synchronized void setCallback(@Nullable Callback callback) {
         this.callback = callback;
     }
 
     @RequiresPermission(permission.CHANGE_WIFI_MULTICAST_STATE)
-    public synchronized void startDiscovery() throws IOException {
+    @Override
+    public synchronized void startDiscovery(@NonNull MdnsServiceBrowserListener listener,
+            @Nullable Network network) throws IOException {
         if (multicastSocket != null) {
             LOGGER.w("Discovery is already in progress.");
             return;
@@ -160,7 +165,8 @@ public class MdnsSocketClient {
     }
 
     @RequiresPermission(permission.CHANGE_WIFI_MULTICAST_STATE)
-    public void stopDiscovery() {
+    @Override
+    public void stopDiscovery(@NonNull MdnsServiceBrowserListener listener) {
         LOGGER.log("Stop discovery.");
         if (multicastSocket == null && unicastSocket == null) {
             return;
@@ -195,11 +201,13 @@ public class MdnsSocketClient {
     }
 
     /** Sends a mDNS request packet that asks for multicast response. */
+    @Override
     public void sendMulticastPacket(@NonNull DatagramPacket packet) {
         sendMdnsPacket(packet, multicastPacketQueue);
     }
 
     /** Sends a mDNS request packet that asks for unicast response. */
+    @Override
     public void sendUnicastPacket(DatagramPacket packet) {
         if (useSeparateSocketForUnicast) {
             sendMdnsPacket(packet, unicastPacketQueue);
@@ -511,12 +519,5 @@ public class MdnsSocketClient {
 
     public boolean isOnIPv6OnlyNetwork() {
         return multicastSocket != null && multicastSocket.isOnIPv6OnlyNetwork();
-    }
-
-    /** Callback for {@link MdnsSocketClient}. */
-    public interface Callback {
-        void onResponseReceived(@NonNull MdnsResponse response);
-
-        void onFailedToParseMdnsResponse(int receivedPacketNumber, int errorCode);
     }
 }

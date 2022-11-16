@@ -105,4 +105,8 @@ public class MdnsConfigs {
     public static boolean allowMultipleSrvRecordsPerHost() {
         return true;
     }
+
+    public static boolean supportMultipleSocketsDiscovery() {
+        return true;
+    }
 }
