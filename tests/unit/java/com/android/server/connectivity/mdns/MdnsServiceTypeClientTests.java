@@ -59,7 +59,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
-import java.net.SocketAddress;
+import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -77,6 +77,10 @@ public class MdnsServiceTypeClientTests {
 
     private static final String SERVICE_TYPE = "_googlecast._tcp.local";
     private static final String[] SERVICE_TYPE_LABELS = TextUtils.split(SERVICE_TYPE, "\\.");
+    private static final InetSocketAddress IPV4_ADDRESS = new InetSocketAddress(
+            MdnsConstants.getMdnsIPv4Address(), MdnsConstants.MDNS_PORT);
+    private static final InetSocketAddress IPV6_ADDRESS = new InetSocketAddress(
+            MdnsConstants.getMdnsIPv6Address(), MdnsConstants.MDNS_PORT);
 
     @Mock
     private MdnsServiceBrowserListener mockListenerOne;
@@ -85,7 +89,7 @@ public class MdnsServiceTypeClientTests {
     @Mock
     private MdnsPacketWriter mockPacketWriter;
     @Mock
-    private MdnsSocketClient mockSocketClient;
+    private MdnsSocketManager mSocketManager;
     @Captor
     private ArgumentCaptor<MdnsServiceInfo> serviceInfoCaptor;
 
@@ -109,7 +113,25 @@ public class MdnsServiceTypeClientTests {
             expectedPackets[i] = new DatagramPacket(buf, 0, 5);
             expectedSendFutures[i] = Mockito.mock(ScheduledFuture.class);
         }
-        when(mockPacketWriter.getPacket(any(SocketAddress.class)))
+        when(mockPacketWriter.getPacket(IPV4_ADDRESS))
+                .thenReturn(expectedPackets[0])
+                .thenReturn(expectedPackets[1])
+                .thenReturn(expectedPackets[2])
+                .thenReturn(expectedPackets[3])
+                .thenReturn(expectedPackets[4])
+                .thenReturn(expectedPackets[5])
+                .thenReturn(expectedPackets[6])
+                .thenReturn(expectedPackets[7])
+                .thenReturn(expectedPackets[8])
+                .thenReturn(expectedPackets[9])
+                .thenReturn(expectedPackets[10])
+                .thenReturn(expectedPackets[11])
+                .thenReturn(expectedPackets[12])
+                .thenReturn(expectedPackets[13])
+                .thenReturn(expectedPackets[14])
+                .thenReturn(expectedPackets[15]);
+
+        when(mockPacketWriter.getPacket(IPV6_ADDRESS))
                 .thenReturn(expectedPackets[0])
                 .thenReturn(expectedPackets[1])
                 .thenReturn(expectedPackets[2])
@@ -128,7 +150,7 @@ public class MdnsServiceTypeClientTests {
                 .thenReturn(expectedPackets[15]);
 
         client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor) {
+                new MdnsServiceTypeClient(SERVICE_TYPE, mSocketManager, currentThreadExecutor) {
                     @Override
                     MdnsPacketWriter createMdnsPacketWriter() {
                         return mockPacketWriter;
@@ -683,7 +705,7 @@ public class MdnsServiceTypeClientTests {
         final String serviceInstanceName = "service-instance-1";
         final Network network = new Network(999);
         client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor) {
+                new MdnsServiceTypeClient(SERVICE_TYPE, mSocketManager, currentThreadExecutor) {
                     @Override
                     MdnsPacketWriter createMdnsPacketWriter() {
                         return mockPacketWriter;
@@ -726,7 +748,7 @@ public class MdnsServiceTypeClientTests {
             throws Exception {
         final String serviceInstanceName = "service-instance-1";
         client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor) {
+                new MdnsServiceTypeClient(SERVICE_TYPE, mSocketManager, currentThreadExecutor) {
                     @Override
                     MdnsPacketWriter createMdnsPacketWriter() {
                         return mockPacketWriter;
@@ -761,7 +783,7 @@ public class MdnsServiceTypeClientTests {
         final String serviceInstanceName = "service-instance-1";
         final Network network = new Network(999);
         client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor) {
+                new MdnsServiceTypeClient(SERVICE_TYPE, mSocketManager, currentThreadExecutor) {
                     @Override
                     MdnsPacketWriter createMdnsPacketWriter() {
                         return mockPacketWriter;
@@ -797,10 +819,11 @@ public class MdnsServiceTypeClientTests {
     private void verifyAndSendQuery(int index, long timeInMs, boolean expectsUnicastResponse) {
         assertEquals(currentThreadExecutor.getAndClearLastScheduledDelayInMs(), timeInMs);
         currentThreadExecutor.getAndClearLastScheduledRunnable().run();
+        // Both IPv4 and IPv6 packet are sent.
         if (expectsUnicastResponse) {
-            verify(mockSocketClient).sendUnicastPacket(expectedPackets[index]);
+            verify(mSocketManager, times(2)).sendUnicastPacket(expectedPackets[index]);
         } else {
-            verify(mockSocketClient).sendMulticastPacket(expectedPackets[index]);
+            verify(mSocketManager, times(2)).sendMulticastPacket(expectedPackets[index]);
         }
     }
 

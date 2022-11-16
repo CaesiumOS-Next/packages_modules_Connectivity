@@ -52,7 +52,7 @@ public class MdnsServiceTypeClient {
 
     private final String serviceType;
     private final String[] serviceTypeLabels;
-    private final MdnsSocketClient socketClient;
+    private final MdnsSocketManager mSocketManager;
     private final ScheduledExecutorService executor;
     private final Object lock = new Object();
     private final Set<MdnsServiceBrowserListener> listeners = new ArraySet<>();
@@ -76,15 +76,15 @@ public class MdnsServiceTypeClient {
     /**
      * Constructor of {@link MdnsServiceTypeClient}.
      *
-     * @param socketClient Sends and receives mDNS packet.
+     * @param socketManager Sends and receives mDNS packet.
      * @param executor     A {@link ScheduledExecutorService} used to schedule query tasks.
      */
     public MdnsServiceTypeClient(
             @NonNull String serviceType,
-            @NonNull MdnsSocketClient socketClient,
+            @NonNull MdnsSocketManager socketManager,
             @NonNull ScheduledExecutorService executor) {
         this.serviceType = serviceType;
-        this.socketClient = socketClient;
+        mSocketManager = socketManager;
         this.executor = executor;
         serviceTypeLabels = TextUtils.split(serviceType, "\\.");
     }
@@ -391,7 +391,7 @@ public class MdnsServiceTypeClient {
             try {
                 result =
                         new EnqueueMdnsQueryCallable(
-                                socketClient,
+                                mSocketManager,
                                 createMdnsPacketWriter(),
                                 serviceType,
                                 config.subtypes,
