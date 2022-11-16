@@ -54,7 +54,6 @@ import android.net.dhcp.IDhcpServer;
 import android.net.ip.RouterAdvertisementDaemon.RaParams;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
 import android.util.Log;
@@ -65,7 +64,6 @@ import androidx.annotation.Nullable;
 
 import com.android.internal.util.MessageUtils;
 import com.android.internal.util.State;
-import com.android.internal.util.StateMachine;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.InterfaceParams;
 import com.android.net.module.util.NetdUtils;
@@ -81,6 +79,8 @@ import com.android.networkstack.tethering.TetheringConfiguration;
 import com.android.networkstack.tethering.metrics.TetheringMetrics;
 import com.android.networkstack.tethering.util.InterfaceSet;
 import com.android.networkstack.tethering.util.PrefixUtils;
+import com.android.networkstack.tethering.util.StateMachineShim;
+import com.android.networkstack.tethering.util.StateMachineShim.StateShim;
 
 import java.net.Inet4Address;
 import java.net.Inet6Address;
@@ -100,7 +100,7 @@ import java.util.Set;
  *
  * @hide
  */
-public class IpServer extends StateMachine {
+public class IpServer extends StateMachineShim {
     public static final int STATE_UNAVAILABLE = 0;
     public static final int STATE_AVAILABLE   = 1;
     public static final int STATE_TETHERED    = 2;
@@ -232,11 +232,11 @@ public class IpServer extends StateMachine {
     // request from PrivateAddressCoordinator to restart tethering.
     public static final int CMD_NOTIFY_PREFIX_CONFLICT      = BASE_IPSERVER + 13;
 
-    private final State mInitialState;
-    private final State mLocalHotspotState;
-    private final State mTetheredState;
-    private final State mUnavailableState;
-    private final State mWaitingForRestartState;
+    private final StateShim mInitialState;
+    private final StateShim mLocalHotspotState;
+    private final StateShim mTetheredState;
+    private final StateShim mUnavailableState;
+    private final StateShim mWaitingForRestartState;
 
     private final SharedLog mLog;
     private final INetd mNetd;
@@ -297,11 +297,11 @@ public class IpServer extends StateMachine {
     // TODO: Add a dependency object to pass the data members or variables from the tethering
     // object. It helps to reduce the arguments of the constructor.
     public IpServer(
-            String ifaceName, Looper looper, int interfaceType, SharedLog log,
+            String ifaceName, Handler handler, int interfaceType, SharedLog log,
             INetd netd, @NonNull BpfCoordinator coordinator, Callback callback,
             TetheringConfiguration config, PrivateAddressCoordinator addressCoordinator,
             TetheringMetrics tetheringMetrics, Dependencies deps) {
-        super(ifaceName, looper);
+        super(ifaceName, handler);
         mLog = log.forSubComponent(ifaceName);
         mNetd = netd;
         mBpfCoordinator = coordinator;
@@ -341,8 +341,19 @@ public class IpServer extends StateMachine {
         addState(mTetheredState);
         addState(mWaitingForRestartState, mTetheredState);
         addState(mUnavailableState);
+    }
 
-        setInitialState(mInitialState);
+    @Override
+    public void addState(@NonNull final StateShim child, @Nullable final StateShim parent) {
+        if (parent != null) ensureChildInheritParentState(child, parent);
+        super.addState(child, parent);
+    }
+
+    private void ensureChildInheritParentState(@NonNull final StateShim child,
+            @NonNull final StateShim parent) {
+        if (((IpServerState) child).servingMode != ((IpServerState) parent).servingMode) {
+            throw new IllegalStateException("Child and parent should use same serving mode");
+        }
     }
 
     /** Interface name which IpServer served.*/
@@ -388,6 +399,11 @@ public class IpServer extends StateMachine {
     /** Enable this IpServer. IpServer state machine will be tethered or localHotspot state. */
     public void enable(final int requestedState, final TetheringRequestParcel request) {
         sendMessage(CMD_TETHER_REQUESTED, requestedState, 0, request);
+    }
+
+    /** Start this IpServer. Invoke InitialState enter finction. */
+    public void start() {
+        start(mInitialState);
     }
 
     /** Stop this IpServer. After this is called this IpServer should not be used any more. */
@@ -1102,7 +1118,6 @@ public class IpServer extends StateMachine {
     }
 
     private void sendInterfaceState(int newInterfaceState) {
-        mServingMode = newInterfaceState;
         mCallback.updateInterfaceState(this, newInterfaceState, mLastError);
         sendLinkProperties();
     }
@@ -1130,25 +1145,79 @@ public class IpServer extends StateMachine {
         mStaticIpv4ClientAddr = request.staticClientAddress;
     }
 
-    class InitialState extends State {
-        @Override
-        public void enter() {
-            sendInterfaceState(STATE_AVAILABLE);
+    private void maybeSendInterfaceState(final int oldServingMode) {
+        if (oldServingMode != mServingMode) sendInterfaceState(mServingMode);
+    }
+
+    class IpServerState extends StateShim {
+        final int servingMode;
+
+        public IpServerState(final int state) {
+            servingMode = state;
         }
 
         @Override
-        public boolean processMessage(Message message) {
-            maybeLogMessage(this, message.what);
-            switch (message.what) {
+        public void enter() {
+            final int oldServingMode = mServingMode;
+            if (enter(TETHER_ERROR_NO_ERROR) != TETHER_ERROR_NO_ERROR) {
+                transitionTo(mInitialState);
+            }
+            maybeSendInterfaceState(oldServingMode);
+
+        }
+
+        @Override
+        public int enter(final int lastResult) {
+            final int newError = onServing();
+            mServingMode = servingMode;
+
+            if (newError != TETHER_ERROR_NO_ERROR) return newError;
+
+            return lastResult;
+        }
+
+        protected int onServing() {
+            return TETHER_ERROR_NO_ERROR;
+        }
+    }
+
+    @Override
+    protected int processMessageForSyncSM(int what, int arg1, int arg2, Object obj) {
+        final int oldServingMode = mServingMode;
+        final int ret = super.processMessageForSyncSM(what, arg1, arg2, obj);
+        // All the states of a tree have the same state so that the state could only change once or
+        // no change after performing state transitions. Send interface state change callback after
+        // complete state transitions to avoid MainTetherSM send synchronous message to IpServer
+        // after receiving callback while IpServer state transition is still in progress.
+        maybeSendInterfaceState(oldServingMode);
+
+        if (ret != TETHER_ERROR_NO_ERROR) {
+            mLog.e("Unrquest ipServer, someting wrong happen during state transition: " + ret);
+            sendMessage(CMD_TETHER_UNREQUESTED);
+        }
+
+        return ret;
+    }
+
+    class InitialState extends IpServerState {
+        public InitialState() {
+            super(STATE_AVAILABLE);
+        }
+
+        @Override
+        public boolean processMessage(final int what, final int arg1, final int arg2,
+                final Object obj) {
+            maybeLogMessage(this, what);
+            switch (what) {
                 case CMD_TETHER_REQUESTED:
                     mLastError = TETHER_ERROR_NO_ERROR;
-                    switch (message.arg1) {
+                    switch (arg1) {
                         case STATE_LOCAL_ONLY:
-                            maybeConfigureStaticIp((TetheringRequestParcel) message.obj);
+                            maybeConfigureStaticIp((TetheringRequestParcel) obj);
                             transitionTo(mLocalHotspotState);
                             break;
                         case STATE_TETHERED:
-                            maybeConfigureStaticIp((TetheringRequestParcel) message.obj);
+                            maybeConfigureStaticIp((TetheringRequestParcel) obj);
                             transitionTo(mTetheredState);
                             break;
                         default:
@@ -1173,14 +1242,18 @@ public class IpServer extends StateMachine {
         mBpfCoordinator.stopMonitoring(this);
     }
 
-    class BaseServingState extends State {
+    class BaseServingState extends IpServerState {
+        public BaseServingState(final int state) {
+            super(state);
+        }
+
         @Override
-        public void enter() {
+        protected int onServing() {
             startConntrackMonitoring();
 
             if (!startIPv4()) {
                 mLastError = TETHER_ERROR_IFACE_CFG_ERROR;
-                return;
+                return mLastError;
             }
 
             try {
@@ -1188,18 +1261,20 @@ public class IpServer extends StateMachine {
             } catch (RemoteException | ServiceSpecificException | IllegalStateException e) {
                 mLog.e("Error Tethering", e);
                 mLastError = TETHER_ERROR_TETHER_IFACE_ERROR;
-                return;
+                mLastError = TetheringManager.TETHER_ERROR_TETHER_IFACE_ERROR;
+                return mLastError;
             }
 
             if (!startIPv6()) {
                 mLog.e("Failed to startIPv6");
                 // TODO: Make this a fatal error once Bluetooth IPv6 is sorted.
-                return;
             }
+
+            return TETHER_ERROR_NO_ERROR;
         }
 
         @Override
-        public void exit() {
+        public int exit(final int lastResult) {
             // Note that at this point, we're leaving the tethered state.  We can fail any
             // of these operations, but it doesn't really change that we have to try them
             // all in sequence.
@@ -1219,11 +1294,14 @@ public class IpServer extends StateMachine {
 
             mTetheringMetrics.updateErrorCode(mInterfaceType, mLastError);
             mTetheringMetrics.sendReport(mInterfaceType);
+
+            return lastResult;
         }
 
         @Override
-        public boolean processMessage(Message message) {
-            switch (message.what) {
+        public boolean processMessage(final int what, final int arg1, final int arg2,
+                final Object obj) {
+            switch (what) {
                 case CMD_TETHER_UNREQUESTED:
                     transitionTo(mInitialState);
                     if (DBG) Log.d(TAG, "Untethered (unrequested)" + mIfaceName);
@@ -1233,7 +1311,7 @@ public class IpServer extends StateMachine {
                     if (DBG) Log.d(TAG, "Untethered (ifdown)" + mIfaceName);
                     break;
                 case CMD_IPV6_TETHER_UPDATE:
-                    updateUpstreamIPv6LinkProperties((LinkProperties) message.obj, message.arg1);
+                    updateUpstreamIPv6LinkProperties((LinkProperties) obj, arg1);
                     sendLinkProperties();
                     break;
                 case CMD_IP_FORWARDING_ENABLE_ERROR:
@@ -1245,7 +1323,7 @@ public class IpServer extends StateMachine {
                     transitionTo(mInitialState);
                     break;
                 case CMD_NEW_PREFIX_REQUEST:
-                    handleNewPrefixRequest((IpPrefix) message.obj);
+                    handleNewPrefixRequest((IpPrefix) obj);
                     break;
                 case CMD_NOTIFY_PREFIX_CONFLICT:
                     mLog.i("restart tethering: " + mInterfaceType);
@@ -1265,23 +1343,28 @@ public class IpServer extends StateMachine {
     // and forwarding and NAT rules should be handled by a coordinating
     // functional element outside of IpServer.
     class LocalHotspotState extends BaseServingState {
-        @Override
-        public void enter() {
-            super.enter();
-            if (mLastError != TETHER_ERROR_NO_ERROR) {
-                transitionTo(mInitialState);
-            }
-
-            if (DBG) Log.d(TAG, "Local hotspot " + mIfaceName);
-            sendInterfaceState(STATE_LOCAL_ONLY);
+        public LocalHotspotState() {
+            super(STATE_LOCAL_ONLY);
         }
 
         @Override
-        public boolean processMessage(Message message) {
-            if (super.processMessage(message)) return true;
+        protected int onServing() {
+            super.onServing();
+            if (mLastError != TETHER_ERROR_NO_ERROR) {
+                return mLastError;
+            }
 
-            maybeLogMessage(this, message.what);
-            switch (message.what) {
+            if (DBG) Log.d(TAG, "Local hotspot " + mIfaceName);
+            return TETHER_ERROR_NO_ERROR;
+        }
+
+        @Override
+        public boolean processMessage(final int what, final int arg1, final int arg2,
+                final Object obj) {
+            if (super.processMessage(what, arg1, arg2, obj)) return true;
+
+            maybeLogMessage(this, what);
+            switch (what) {
                 case CMD_TETHER_REQUESTED:
                     mLog.e("CMD_TETHER_REQUESTED while in local-only hotspot mode.");
                     break;
@@ -1301,21 +1384,27 @@ public class IpServer extends StateMachine {
     // and forwarding and NAT rules should be handled by a coordinating
     // functional element outside of IpServer.
     class TetheredState extends BaseServingState {
-        @Override
-        public void enter() {
-            super.enter();
-            if (mLastError != TETHER_ERROR_NO_ERROR) {
-                transitionTo(mInitialState);
-            }
-
-            if (DBG) Log.d(TAG, "Tethered " + mIfaceName);
-            sendInterfaceState(STATE_TETHERED);
+        public TetheredState() {
+            super(STATE_TETHERED);
         }
 
         @Override
-        public void exit() {
+        protected int onServing() {
+            super.onServing();
+            if (mLastError != TETHER_ERROR_NO_ERROR) {
+                return mLastError;
+            }
+
+            if (DBG) Log.d(TAG, "Tethered " + mIfaceName);
+            return TETHER_ERROR_NO_ERROR;
+        }
+
+        @Override
+        public int exit(final int lastResult) {
             cleanupUpstream();
-            super.exit();
+            super.exit(lastResult);
+
+            return lastResult;
         }
 
         // Note that IPv4 offload rules cleanup is implemented in BpfCoordinator while upstream
@@ -1355,16 +1444,17 @@ public class IpServer extends StateMachine {
         }
 
         @Override
-        public boolean processMessage(Message message) {
-            if (super.processMessage(message)) return true;
+        public boolean processMessage(final int what, final int arg1, final int arg2,
+                final Object obj) {
+            if (super.processMessage(what, arg1, arg2, obj)) return true;
 
-            maybeLogMessage(this, message.what);
-            switch (message.what) {
+            maybeLogMessage(this, what);
+            switch (what) {
                 case CMD_TETHER_REQUESTED:
                     mLog.e("CMD_TETHER_REQUESTED while already tethering.");
                     break;
                 case CMD_TETHER_CONNECTION_CHANGED:
-                    final InterfaceSet newUpstreamIfaceSet = (InterfaceSet) message.obj;
+                    final InterfaceSet newUpstreamIfaceSet = (InterfaceSet) obj;
                     if (noChangeInUpstreamIfaceSet(newUpstreamIfaceSet)) {
                         if (VDBG) Log.d(TAG, "Connection changed noop - dropping");
                         break;
@@ -1419,7 +1509,7 @@ public class IpServer extends StateMachine {
                     }
                     break;
                 case CMD_NEIGHBOR_EVENT:
-                    handleNeighborEvent((NeighborEvent) message.obj);
+                    handleNeighborEvent((NeighborEvent) obj);
                     break;
                 default:
                     return false;
@@ -1457,20 +1547,29 @@ public class IpServer extends StateMachine {
      * tethering requests.  The state machine itself will hang around until
      * the garbage collector finds it.
      */
-    class UnavailableState extends State {
+    class UnavailableState extends IpServerState {
+        public UnavailableState() {
+            super(STATE_UNAVAILABLE);
+        }
+
         @Override
-        public void enter() {
+        protected int onServing() {
             mIpNeighborMonitor.stop();
             mLastError = TETHER_ERROR_NO_ERROR;
-            sendInterfaceState(STATE_UNAVAILABLE);
+            return mLastError;
         }
     }
 
-    class WaitingForRestartState extends State {
+    class WaitingForRestartState extends IpServerState {
+        public WaitingForRestartState() {
+            super(STATE_TETHERED /* child state of tethered */);
+        }
+
         @Override
-        public boolean processMessage(Message message) {
-            maybeLogMessage(this, message.what);
-            switch (message.what) {
+        public boolean processMessage(final int what, final int arg1, final int arg2,
+                final Object obj) {
+            maybeLogMessage(this, what);
+            switch (what) {
                 case CMD_TETHER_UNREQUESTED:
                     transitionTo(mInitialState);
                     mLog.i("Untethered (unrequested) and restarting " + mIfaceName);
