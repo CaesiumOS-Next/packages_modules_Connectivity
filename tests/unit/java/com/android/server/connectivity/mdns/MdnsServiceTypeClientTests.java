@@ -31,6 +31,7 @@ import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -62,7 +63,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
-import java.net.SocketAddress;
+import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -81,6 +82,10 @@ public class MdnsServiceTypeClientTests {
     private static final String SERVICE_TYPE = "_googlecast._tcp.local";
     private static final String[] SERVICE_TYPE_LABELS = TextUtils.split(SERVICE_TYPE, "\\.");
     private static final Network NETWORK = mock(Network.class);
+    private static final InetSocketAddress IPV4_ADDRESS = new InetSocketAddress(
+            MdnsConstants.getMdnsIPv4Address(), MdnsConstants.MDNS_PORT);
+    private static final InetSocketAddress IPV6_ADDRESS = new InetSocketAddress(
+            MdnsConstants.getMdnsIPv6Address(), MdnsConstants.MDNS_PORT);
 
     @Mock
     private MdnsServiceBrowserListener mockListenerOne;
@@ -89,7 +94,7 @@ public class MdnsServiceTypeClientTests {
     @Mock
     private MdnsPacketWriter mockPacketWriter;
     @Mock
-    private MdnsSocketClient mockSocketClient;
+    private MdnsSocketController socketController;
     @Captor
     private ArgumentCaptor<MdnsServiceInfo> serviceInfoCaptor;
 
@@ -113,7 +118,25 @@ public class MdnsServiceTypeClientTests {
             expectedPackets[i] = new DatagramPacket(buf, 0, 5);
             expectedSendFutures[i] = Mockito.mock(ScheduledFuture.class);
         }
-        when(mockPacketWriter.getPacket(any(SocketAddress.class)))
+        when(mockPacketWriter.getPacket(IPV4_ADDRESS))
+                .thenReturn(expectedPackets[0])
+                .thenReturn(expectedPackets[1])
+                .thenReturn(expectedPackets[2])
+                .thenReturn(expectedPackets[3])
+                .thenReturn(expectedPackets[4])
+                .thenReturn(expectedPackets[5])
+                .thenReturn(expectedPackets[6])
+                .thenReturn(expectedPackets[7])
+                .thenReturn(expectedPackets[8])
+                .thenReturn(expectedPackets[9])
+                .thenReturn(expectedPackets[10])
+                .thenReturn(expectedPackets[11])
+                .thenReturn(expectedPackets[12])
+                .thenReturn(expectedPackets[13])
+                .thenReturn(expectedPackets[14])
+                .thenReturn(expectedPackets[15]);
+
+        when(mockPacketWriter.getPacket(IPV6_ADDRESS))
                 .thenReturn(expectedPackets[0])
                 .thenReturn(expectedPackets[1])
                 .thenReturn(expectedPackets[2])
@@ -132,7 +155,7 @@ public class MdnsServiceTypeClientTests {
                 .thenReturn(expectedPackets[15]);
 
         client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor) {
+                new MdnsServiceTypeClient(SERVICE_TYPE, socketController, currentThreadExecutor) {
                     @Override
                     MdnsPacketWriter createMdnsPacketWriter() {
                         return mockPacketWriter;
@@ -705,7 +728,7 @@ public class MdnsServiceTypeClientTests {
         //MdnsConfigsFlagsImpl.allowSearchOptionsToRemoveExpiredService.override(true);
         final String serviceInstanceName = "service-instance-1";
         client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor) {
+                new MdnsServiceTypeClient(SERVICE_TYPE, socketController, currentThreadExecutor) {
                     @Override
                     MdnsPacketWriter createMdnsPacketWriter() {
                         return mockPacketWriter;
@@ -745,7 +768,7 @@ public class MdnsServiceTypeClientTests {
             throws Exception {
         final String serviceInstanceName = "service-instance-1";
         client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor) {
+                new MdnsServiceTypeClient(SERVICE_TYPE, socketController, currentThreadExecutor) {
                     @Override
                     MdnsPacketWriter createMdnsPacketWriter() {
                         return mockPacketWriter;
@@ -779,7 +802,7 @@ public class MdnsServiceTypeClientTests {
         //MdnsConfigsFlagsImpl.removeServiceAfterTtlExpires.override(true);
         final String serviceInstanceName = "service-instance-1";
         client =
-                new MdnsServiceTypeClient(SERVICE_TYPE, mockSocketClient, currentThreadExecutor) {
+                new MdnsServiceTypeClient(SERVICE_TYPE, socketController, currentThreadExecutor) {
                     @Override
                     MdnsPacketWriter createMdnsPacketWriter() {
                         return mockPacketWriter;
@@ -926,12 +949,20 @@ public class MdnsServiceTypeClientTests {
     // verifies that the right query was enqueued with the right delay, and send query by executing
     // the runnable.
     private void verifyAndSendQuery(int index, long timeInMs, boolean expectsUnicastResponse) {
+        verifyAndSendQuery(
+                index, timeInMs, expectsUnicastResponse, true /* multipleSocketDiscovery */);
+    }
+
+    private void verifyAndSendQuery(int index, long timeInMs, boolean expectsUnicastResponse,
+            boolean multipleSocketDiscovery) {
         assertEquals(currentThreadExecutor.getAndClearLastScheduledDelayInMs(), timeInMs);
         currentThreadExecutor.getAndClearLastScheduledRunnable().run();
         if (expectsUnicastResponse) {
-            verify(mockSocketClient).sendUnicastPacket(expectedPackets[index]);
+            verify(socketController, times(multipleSocketDiscovery ? 2 : 1))
+                    .sendUnicastPacket(expectedPackets[index]);
         } else {
-            verify(mockSocketClient).sendMulticastPacket(expectedPackets[index]);
+            verify(socketController, times(multipleSocketDiscovery ? 2 : 1))
+                    .sendMulticastPacket(expectedPackets[index]);
         }
     }
 

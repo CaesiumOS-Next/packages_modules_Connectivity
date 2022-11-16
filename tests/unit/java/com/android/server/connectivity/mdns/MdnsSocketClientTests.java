@@ -27,6 +27,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
@@ -35,6 +36,7 @@ import static org.mockito.Mockito.when;
 import android.Manifest.permission;
 import android.annotation.RequiresPermission;
 import android.content.Context;
+import android.net.Network;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.MulticastLock;
 import android.text.format.DateUtils;
@@ -202,7 +204,7 @@ public class MdnsSocketClientTests {
 
     @After
     public void tearDown() {
-        mdnsClient.stopDiscovery();
+        mdnsClient.stopDiscovery(mock(MdnsServiceBrowserListener.class));
     }
 
     @Test
@@ -213,7 +215,7 @@ public class MdnsSocketClientTests {
         //MdnsConfigsFlagsImpl.checkMulticastResponse.override(true);
         //MdnsConfigsFlagsImpl.checkMulticastResponseIntervalMs
         //        .override(DateUtils.SECOND_IN_MILLIS);
-        mdnsClient.startDiscovery();
+        mdnsClient.startDiscovery(mock(MdnsServiceBrowserListener.class), mock(Network.class));
         Thread multicastReceiverThread = mdnsClient.multicastReceiveThread;
         Thread unicastReceiverThread = mdnsClient.unicastReceiveThread;
         Thread sendThread = mdnsClient.sendThread;
@@ -245,7 +247,7 @@ public class MdnsSocketClientTests {
                             @RequiresPermission(permission.CHANGE_WIFI_MULTICAST_STATE)
                             @Override
                             public void run() {
-                                mdnsClient.stopDiscovery();
+                                mdnsClient.stopDiscovery(mock(MdnsServiceBrowserListener.class));
                                 stopDiscoveryLatch.countDown();
                             }
                         });
@@ -264,7 +266,7 @@ public class MdnsSocketClientTests {
     @Test
     public void testSendPackets_useSameSocketForMulticastAndUnicast()
             throws InterruptedException, IOException {
-        mdnsClient.startDiscovery();
+        mdnsClient.startDiscovery(mock(MdnsServiceBrowserListener.class), mock(Network.class));
         Thread multicastReceiverThread = mdnsClient.multicastReceiveThread;
         Thread unicastReceiverThread = mdnsClient.unicastReceiveThread;
         Thread sendThread = mdnsClient.sendThread;
@@ -296,7 +298,7 @@ public class MdnsSocketClientTests {
                             @RequiresPermission(permission.CHANGE_WIFI_MULTICAST_STATE)
                             @Override
                             public void run() {
-                                mdnsClient.stopDiscovery();
+                                mdnsClient.stopDiscovery(mock(MdnsServiceBrowserListener.class));
                                 stopDiscoveryLatch.countDown();
                             }
                         });
@@ -315,7 +317,7 @@ public class MdnsSocketClientTests {
     @Test
     public void testStartStop() throws IOException {
         for (int i = 0; i < 5; i++) {
-            mdnsClient.startDiscovery();
+            mdnsClient.startDiscovery(mock(MdnsServiceBrowserListener.class), mock(Network.class));
 
             Thread multicastReceiverThread = mdnsClient.multicastReceiveThread;
             Thread socketThread = mdnsClient.sendThread;
@@ -323,7 +325,7 @@ public class MdnsSocketClientTests {
             assertTrue(multicastReceiverThread.isAlive());
             assertTrue(socketThread.isAlive());
 
-            mdnsClient.stopDiscovery();
+            mdnsClient.stopDiscovery(mock(MdnsServiceBrowserListener.class));
 
             assertFalse(multicastReceiverThread.isAlive());
             assertFalse(socketThread.isAlive());
@@ -332,8 +334,8 @@ public class MdnsSocketClientTests {
 
     @Test
     public void testStopDiscovery_queueIsCleared() throws IOException {
-        mdnsClient.startDiscovery();
-        mdnsClient.stopDiscovery();
+        mdnsClient.startDiscovery(mock(MdnsServiceBrowserListener.class), mock(Network.class));
+        mdnsClient.stopDiscovery(mock(MdnsServiceBrowserListener.class));
         mdnsClient.sendMulticastPacket(new DatagramPacket(buf, 0, 5));
 
         synchronized (mdnsClient.multicastPacketQueue) {
@@ -343,8 +345,8 @@ public class MdnsSocketClientTests {
 
     @Test
     public void testSendPacket_afterDiscoveryStops() throws IOException {
-        mdnsClient.startDiscovery();
-        mdnsClient.stopDiscovery();
+        mdnsClient.startDiscovery(mock(MdnsServiceBrowserListener.class), mock(Network.class));
+        mdnsClient.stopDiscovery(mock(MdnsServiceBrowserListener.class));
         mdnsClient.sendMulticastPacket(new DatagramPacket(buf, 0, 5));
 
         synchronized (mdnsClient.multicastPacketQueue) {
@@ -356,7 +358,7 @@ public class MdnsSocketClientTests {
     @Ignore("MdnsConfigs is not configurable currently.")
     public void testSendPacket_queueReachesSizeLimit() throws IOException {
         //MdnsConfigsFlagsImpl.mdnsPacketQueueMaxSize.override(2L);
-        mdnsClient.startDiscovery();
+        mdnsClient.startDiscovery(mock(MdnsServiceBrowserListener.class), mock(Network.class));
         for (int i = 0; i < 100; i++) {
             mdnsClient.sendMulticastPacket(new DatagramPacket(buf, 0, 5));
         }
@@ -370,7 +372,7 @@ public class MdnsSocketClientTests {
     public void testMulticastResponseReceived_useSeparateSocketForUnicast() throws IOException {
         mdnsClient.setCallback(mockCallback);
 
-        mdnsClient.startDiscovery();
+        mdnsClient.startDiscovery(mock(MdnsServiceBrowserListener.class), mock(Network.class));
 
         verify(mockCallback, timeout(TIMEOUT).atLeast(1))
                 .onResponseReceived(any(MdnsResponse.class));
@@ -379,12 +381,12 @@ public class MdnsSocketClientTests {
     @Test
     public void testMulticastResponseReceived_useSameSocketForMulticastAndUnicast()
             throws Exception {
-        mdnsClient.startDiscovery();
+        mdnsClient.startDiscovery(mock(MdnsServiceBrowserListener.class), mock(Network.class));
 
         verify(mockCallback, timeout(TIMEOUT).atLeastOnce())
                 .onResponseReceived(any(MdnsResponse.class));
 
-        mdnsClient.stopDiscovery();
+        mdnsClient.stopDiscovery(mock(MdnsServiceBrowserListener.class));
     }
 
     @Test
@@ -412,12 +414,12 @@ public class MdnsSocketClientTests {
                 .when(mockUnicastSocket)
                 .receive(any(DatagramPacket.class));
 
-        mdnsClient.startDiscovery();
+        mdnsClient.startDiscovery(mock(MdnsServiceBrowserListener.class), mock(Network.class));
 
         verify(mockCallback, timeout(TIMEOUT).atLeast(1))
                 .onFailedToParseMdnsResponse(anyInt(), eq(MdnsResponseErrorCode.ERROR_END_OF_FILE));
 
-        mdnsClient.stopDiscovery();
+        mdnsClient.stopDiscovery(mock(MdnsServiceBrowserListener.class));
     }
 
     @Test
@@ -433,12 +435,12 @@ public class MdnsSocketClientTests {
                 .when(mockMulticastSocket)
                 .receive(any(DatagramPacket.class));
 
-        mdnsClient.startDiscovery();
+        mdnsClient.startDiscovery(mock(MdnsServiceBrowserListener.class), mock(Network.class));
 
         verify(mockCallback, timeout(TIMEOUT).atLeast(1))
                 .onFailedToParseMdnsResponse(1, MdnsResponseErrorCode.ERROR_END_OF_FILE);
 
-        mdnsClient.stopDiscovery();
+        mdnsClient.stopDiscovery(mock(MdnsServiceBrowserListener.class));
     }
 
     @Test
@@ -451,7 +453,7 @@ public class MdnsSocketClientTests {
         enableMulticastResponse.set(false);
         enableUnicastResponse.set(true);
 
-        mdnsClient.startDiscovery();
+        mdnsClient.startDiscovery(mock(MdnsServiceBrowserListener.class), mock(Network.class));
         DatagramPacket packet = new DatagramPacket(buf, 0, 5);
         mdnsClient.sendUnicastPacket(packet);
         mdnsClient.sendMulticastPacket(packet);
@@ -476,8 +478,8 @@ public class MdnsSocketClientTests {
         // this session.
         enableMulticastResponse.set(false);
         enableUnicastResponse.set(false);
-        mdnsClient.stopDiscovery();
-        mdnsClient.startDiscovery();
+        mdnsClient.stopDiscovery(mock(MdnsServiceBrowserListener.class));
+        mdnsClient.startDiscovery(mock(MdnsServiceBrowserListener.class), mock(Network.class));
 
         // Verify the states are reset.
         assertFalse(mdnsClient.receivedMulticastResponse);
@@ -511,7 +513,7 @@ public class MdnsSocketClientTests {
                     }
                 };
         mdnsClient.setCallback(mockCallback);
-        mdnsClient.startDiscovery();
+        mdnsClient.startDiscovery(mock(MdnsServiceBrowserListener.class), mock(Network.class));
 
         verify(mockCallback, timeout(TIMEOUT).atLeastOnce())
                 .onResponseReceived(argThat(response -> response.getInterfaceIndex() == 21));
@@ -534,7 +536,7 @@ public class MdnsSocketClientTests {
                     }
                 };
         mdnsClient.setCallback(mockCallback);
-        mdnsClient.startDiscovery();
+        mdnsClient.startDiscovery(mock(MdnsServiceBrowserListener.class), mock(Network.class));
 
         ArgumentCaptor<MdnsResponse> mdnsResponseCaptor =
                 ArgumentCaptor.forClass(MdnsResponse.class);
