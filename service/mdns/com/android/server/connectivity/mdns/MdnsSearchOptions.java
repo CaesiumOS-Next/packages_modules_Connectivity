@@ -182,7 +182,7 @@ public class MdnsSearchOptions implements Parcelable {
          *
          * @param network the mdns query will target on given network.
          */
-        public Builder setInterfaceIndex(Network network) {
+        public Builder setNetwork(Network network) {
             mNetwork = network;
             return this;
         }
