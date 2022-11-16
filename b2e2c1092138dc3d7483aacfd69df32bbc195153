@@ -16,6 +16,24 @@
       "message": "Maybe describe why this change is safe?\nIs there any caller rely on it?",
       "revId": "b2e2c1092138dc3d7483aacfd69df32bbc195153",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bbcd38e_8dda3487",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-16T09:15:55Z",
+      "side": 1,
+      "message": "Done, please check if this works for you.\n`getSubscriberIds()` returns `new ArraySet\u003c\u003e(Arrays.asList(mMatchSubscriberIds)` which is NonNull and `Arrays.asList` checks the array should be required NonNull. IIUC, make this as NonNull should be correct and safer.\n\nhttps://cs.android.com/android/platform/superproject/+/master:libcore/ojluni/src/main/java/java/util/Arrays.java;l\u003d4177",
+      "parentUuid": "3de9b19c_c79f1323",
+      "revId": "b2e2c1092138dc3d7483aacfd69df32bbc195153",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
