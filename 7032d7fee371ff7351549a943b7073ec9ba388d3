@@ -39,6 +39,30 @@
       },
       "revId": "7032d7fee371ff7351549a943b7073ec9ba388d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18ac76b3_1eac5897",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/ConntrackSocketTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2022-11-16T07:54:40Z",
+      "side": 1,
+      "message": "@markchien@google.com\nDone",
+      "parentUuid": "dc433940_55388535",
+      "range": {
+        "startLine": 144,
+        "startChar": 35,
+        "endLine": 144,
+        "endChar": 43
+      },
+      "revId": "7032d7fee371ff7351549a943b7073ec9ba388d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
