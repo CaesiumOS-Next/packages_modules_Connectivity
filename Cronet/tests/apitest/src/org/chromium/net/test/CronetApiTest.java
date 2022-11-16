@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,16 +24,10 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Handler;
 import android.os.Looper;
+
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
-
-import java.nio.ByteBuffer;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executor;
-import java.util.concurrent.TimeUnit;
-import java.util.Random;
 
 import org.chromium.net.CronetEngine;
 import org.chromium.net.CronetException;
@@ -43,12 +37,18 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.nio.ByteBuffer;
+import java.util.Random;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executor;
+import java.util.concurrent.TimeUnit;
+
 @RunWith(AndroidJUnit4.class)
 public class CronetApiTest {
-    private static final String TAG = CronetApiTest.class.getSimpleName();
-    static final String HTTPS_PREFIX = "https://";
-    static final int TIMEOUT_MS = 12_000;
 
+    private static final String HTTPS_PREFIX = "https://";
+    private static final int TIMEOUT_MS = 12_000;
+    private static final String TAG = CronetApiTest.class.getSimpleName();
     private final String[] mTestDomains = {"www.google.com", "www.android.com"};
     @NonNull
     private CronetEngine mCronetEngine;
@@ -57,10 +57,15 @@ public class CronetApiTest {
     @NonNull
     private Executor mExecutor;
 
+    private static void assertGreaterThan(String msg, int first, int second) {
+        assertTrue(msg + " Excepted " + first + " to be greater than " + second, first > second);
+    }
+
     @Before
     public void setUp() throws Exception {
         Context context = InstrumentationRegistry.getInstrumentation().getContext();
         mCm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        assertHasTestableNetworks();
         CronetEngine.Builder builder = new CronetEngine.Builder(context);
         builder.enableHttpCache(CronetEngine.Builder.HTTP_CACHE_IN_MEMORY, 100 * 1024)
                 .enableHttp2(true)
@@ -70,13 +75,22 @@ public class CronetApiTest {
         mExecutor = new Handler(Looper.getMainLooper())::post;
     }
 
-    static private void assertGreaterThan(String msg, int first, int second) {
-        assertTrue(msg + " Excepted " + first + " to be greater than " + second, first > second);
+    @Test
+    public void testUrlRequestGet_CompletesSuccessfully() throws Exception {
+        String url = HTTPS_PREFIX + getRandomDomain();
+        VerifyUrlRequestCallback callback = new VerifyUrlRequestCallback(url);
+        UrlRequest request = mCronetEngine.newUrlRequestBuilder(url, callback, mExecutor).build();
+        request.start();
+        assertTrue(url + " but not complete after " + TIMEOUT_MS + "ms.",
+                callback.waitForAnswer());
+    }
+
+    public String[] getmTestDomains() {
+        return mTestDomains;
     }
 
     private void assertHasTestableNetworks() {
-        assertNotNull("This test requires a working Internet connection",
-            mCm.getActiveNetwork());
+        assertNotNull("This test requires a working Internet connection", mCm.getActiveNetwork());
     }
 
     private String getRandomDomain() {
@@ -85,7 +99,8 @@ public class CronetApiTest {
     }
 
     class VerifyUrlRequestCallback extends UrlRequest.Callback {
-        private final CountDownLatch mLatch = new CountDownLatch(1);
+
+        final CountDownLatch mLatch = new CountDownLatch(1);
         private final String mUrl;
 
         VerifyUrlRequestCallback(@NonNull String url) {
@@ -97,8 +112,8 @@ public class CronetApiTest {
         }
 
         @Override
-        public void onRedirectReceived(
-                UrlRequest request, UrlResponseInfo info, String newLocationUrl) {
+        public void onRedirectReceived(UrlRequest request, UrlResponseInfo info,
+                String newLocationUrl) {
             request.followRedirect();
         }
 
@@ -108,8 +123,8 @@ public class CronetApiTest {
         }
 
         @Override
-        public void onReadCompleted(
-            UrlRequest request, UrlResponseInfo info, ByteBuffer byteBuffer) {
+        public void onReadCompleted(UrlRequest request, UrlResponseInfo info,
+                ByteBuffer byteBuffer) {
             byteBuffer.clear();
             request.read(byteBuffer);
         }
@@ -117,10 +132,10 @@ public class CronetApiTest {
 
         @Override
         public void onSucceeded(UrlRequest request, UrlResponseInfo info) {
-            assertEquals("Unexpected http status code from " + mUrl + ".",
-                    200, info.getHttpStatusCode());
+            assertEquals("Unexpected http status code from " + mUrl + ".", 200,
+                    info.getHttpStatusCode());
             assertGreaterThan("Received byte from " + mUrl + " is 0.",
-                    (int)info.getReceivedByteCount(), 0);
+                    (int) info.getReceivedByteCount(), 0);
             mLatch.countDown();
         }
 
@@ -128,17 +143,10 @@ public class CronetApiTest {
         public void onFailed(UrlRequest request, UrlResponseInfo info, CronetException error) {
             fail(mUrl + error.getMessage());
         }
-    }
 
-    @Test
-    public void testUrlGet() throws Exception {
-        assertHasTestableNetworks();
-        String url = HTTPS_PREFIX + getRandomDomain();
-        VerifyUrlRequestCallback callback = new VerifyUrlRequestCallback(url);
-        UrlRequest.Builder builder = mCronetEngine.newUrlRequestBuilder(url, callback, mExecutor);
-        builder.build().start();
-        assertTrue(url + " but not complete after " + TIMEOUT_MS + "ms.",
-                callback.waitForAnswer());
+        @Override
+        public void onCanceled(UrlRequest request, UrlResponseInfo info) {
+            fail("onCanceled should not be called");
+        }
     }
-
 }
