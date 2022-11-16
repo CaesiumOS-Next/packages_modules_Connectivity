@@ -64,8 +64,7 @@ public class MdnsSocketProviderTest {
     private static final LinkAddress LINKADDRV4 = new LinkAddress("75.208.6.1/32");
     private static final LinkAddress LINKADDRV6 =
             new LinkAddress("2001:0db8:85a3:0000:0000:8a2e:0370:7334/128");
-    private static final Network TEST_NETWORK = new Network(999);
-    private static final Network LOCAL_NETWORK = new Network(INetd.LOCAL_NET_ID);
+    private static final Network TEST_NETWORK = mock(Network.class);
 
     @Mock private Context mContext;
     @Mock private Dependencies mDeps;
@@ -152,27 +151,40 @@ public class MdnsSocketProviderTest {
             mHistory.add(new AddressesChangedEvent(network, addresses));
         }
 
-        public void expectedSocketCreatedForNetwork(Network network, List<LinkAddress> addresses) {
+        public void expectedSocketCreatedForNetwork(Network network, List<LinkAddress> addresses,
+                boolean localNetwork) {
             final SocketEvent event = mHistory.poll(DEFAULT_TIMEOUT, c -> true);
             assertNotNull(event);
             assertTrue(event instanceof SocketCreatedEvent);
-            assertTrue(event.mNetwork.equals(network));
+            if (localNetwork) {
+                assertEquals(INetd.LOCAL_NET_ID, event.mNetwork.getNetId());
+            } else {
+                assertEquals(event.mNetwork, network);
+            }
             assertEquals(event.mAddresses, addresses);
         }
 
-        public void expectedInterfaceDestroyedForNetwork(Network network) {
+        public void expectedInterfaceDestroyedForNetwork(Network network, boolean localNetwork) {
             final SocketEvent event = mHistory.poll(DEFAULT_TIMEOUT, c -> true);
             assertNotNull(event);
             assertTrue(event instanceof InterfaceDestroyedEvent);
-            assertTrue(event.mNetwork.equals(network));
+            if (localNetwork) {
+                assertEquals(INetd.LOCAL_NET_ID, event.mNetwork.getNetId());
+            } else {
+                assertEquals(event.mNetwork, network);
+            }
         }
 
         public void expectedAddressesChangedForNetwork(Network network,
-                List<LinkAddress> addresses) {
+                List<LinkAddress> addresses, boolean localNetwork) {
             final SocketEvent event = mHistory.poll(DEFAULT_TIMEOUT, c -> true);
             assertNotNull(event);
             assertTrue(event instanceof AddressesChangedEvent);
-            assertTrue(event.mNetwork.equals(network));
+            if (localNetwork) {
+                assertEquals(INetd.LOCAL_NET_ID, event.mNetwork.getNetId());
+            } else {
+                assertEquals(event.mNetwork, network);
+            }
             assertEquals(event.mAddresses, addresses);
         }
     }
@@ -188,19 +200,24 @@ public class MdnsSocketProviderTest {
         mSocketProvider.requestSocket(TEST_NETWORK, testCallback);
         mNetworkCallback.onLinkPropertiesChanged(TEST_NETWORK, testLp);
         verify(mTestNetworkIfaceWrapper).getNetworkInterface();
-        testCallback.expectedSocketCreatedForNetwork(TEST_NETWORK, List.of(LINKADDRV4));
+        testCallback.expectedSocketCreatedForNetwork(
+                TEST_NETWORK, List.of(LINKADDRV4), false /* localNetwork */);
 
         mSocketProvider.requestSocket(null /* network */, testCallback);
         mTetheringEventCallback.onLocalOnlyInterfacesChanged(List.of(LOCAL_IFACE_NAME));
         verify(mLocalNetworkIfaceWrapper).getNetworkInterface();
-        testCallback.expectedSocketCreatedForNetwork(TEST_NETWORK, List.of(LINKADDRV4));
-        testCallback.expectedSocketCreatedForNetwork(LOCAL_NETWORK, List.of());
+        testCallback.expectedSocketCreatedForNetwork(
+                TEST_NETWORK, List.of(LINKADDRV4), false /* localNetwork */);
+        testCallback.expectedSocketCreatedForNetwork(
+                mock(Network.class), List.of(), true /* localNetwork */);
 
         mNetworkCallback.onLost(TEST_NETWORK);
-        testCallback.expectedInterfaceDestroyedForNetwork(TEST_NETWORK);
+        testCallback.expectedInterfaceDestroyedForNetwork(
+                TEST_NETWORK, false /* localNetwork */);
 
         mTetheringEventCallback.onLocalOnlyInterfacesChanged(List.of());
-        testCallback.expectedInterfaceDestroyedForNetwork(LOCAL_NETWORK);
+        testCallback.expectedInterfaceDestroyedForNetwork(
+                mock(Network.class), true /* localNetwork */);
     }
 
     @Test
@@ -214,13 +231,14 @@ public class MdnsSocketProviderTest {
         mSocketProvider.requestSocket(TEST_NETWORK, testCallback);
         mNetworkCallback.onLinkPropertiesChanged(TEST_NETWORK, testLp);
         verify(mTestNetworkIfaceWrapper).getNetworkInterface();
-        testCallback.expectedSocketCreatedForNetwork(TEST_NETWORK, List.of(LINKADDRV4));
+        testCallback.expectedSocketCreatedForNetwork(
+                TEST_NETWORK, List.of(LINKADDRV4), false /* localNetwork */);
 
         final LinkProperties newTestLp = new LinkProperties();
         newTestLp.setInterfaceName(TEST_IFACE_NAME);
         newTestLp.setLinkAddresses(List.of(LINKADDRV4, LINKADDRV6));
         mNetworkCallback.onLinkPropertiesChanged(TEST_NETWORK, newTestLp);
         testCallback.expectedAddressesChangedForNetwork(
-                TEST_NETWORK, List.of(LINKADDRV4, LINKADDRV6));
+                TEST_NETWORK, List.of(LINKADDRV4, LINKADDRV6), false /* localNetwork */);
     }
 }

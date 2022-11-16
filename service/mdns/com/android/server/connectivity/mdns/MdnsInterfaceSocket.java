@@ -177,4 +177,14 @@ public class MdnsInterfaceSocket implements MdnsSocketBase {
     public int getInterfaceIndex() {
         return mNetworkInterface.getIndex();
     }
+
+    @Override
+    public boolean hasJoinedIpv4() {
+        return mJoinedIpv4;
+    }
+
+    @Override
+    public boolean hasJoinedIpv6() {
+        return mJoinedIpv6;
+    }
 }

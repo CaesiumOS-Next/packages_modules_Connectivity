@@ -49,16 +49,21 @@ public interface MdnsSocketBase {
     /*** Closes this socket. */
     void close();
 
-    /*** Returns whether this socket is at IPv6 only network */
-    default boolean isOnIPv6OnlyNetwork() {
-        return false;
-    }
-
     /**
      * Returns the index of the network interface that this socket is bound to. If the interface
      * cannot be determined, returns -1.
      */
     default int getInterfaceIndex() {
         return INTERFACE_INDEX_UNSPECIFIED;
+    }
+
+    /*** Returns whether this socket has joined IPv4 group */
+    default boolean hasJoinedIpv4() {
+        return false;
+    }
+
+    /*** Returns whether this socket has joined IPv6 group */
+    default boolean hasJoinedIpv6() {
+        return false;
     }
 }

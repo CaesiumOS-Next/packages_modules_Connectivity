@@ -127,7 +127,12 @@ public class MdnsSocket implements MdnsSocketBase {
     }
 
     @Override
-    public boolean isOnIPv6OnlyNetwork() {
+    public boolean hasJoinedIpv4() {
+        return !isOnIPv6OnlyNetwork;
+    }
+
+    @Override
+    public boolean hasJoinedIpv6() {
         return isOnIPv6OnlyNetwork;
     }
 }

@@ -517,13 +517,19 @@ public class MdnsSocketClient {
         packets.clear();
     }
 
-    public boolean isOnIPv6OnlyNetwork() {
-        return multicastSocket != null && multicastSocket.isOnIPv6OnlyNetwork();
-    }
-
     /** Get the network of this socket client */
     public Network getNetwork() {
         return mNetwork;
+    }
+
+    /** Get whether the socket has joined the IPv4 group */
+    public boolean hasJoinedIpv4() {
+        return multicastSocket != null && multicastSocket.hasJoinedIpv4();
+    }
+
+    /** Get whether the socket has joined the IPv6 group */
+    public boolean hasJoinedIpv6() {
+        return multicastSocket != null && multicastSocket.hasJoinedIpv6();
     }
 
     /** Callback for {@link MdnsSocketClient}. */

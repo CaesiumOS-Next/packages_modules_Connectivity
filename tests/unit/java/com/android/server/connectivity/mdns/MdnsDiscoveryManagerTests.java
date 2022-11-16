@@ -23,6 +23,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import android.annotation.NonNull;
+import android.net.Network;
 import android.text.TextUtils;
 
 import com.android.testutils.DevSdkIgnoreRule;
@@ -46,7 +47,7 @@ public class MdnsDiscoveryManagerTests {
     private static final String SERVICE_TYPE_2 = "_test._tcp.local";
 
     @Mock private ExecutorProvider executorProvider;
-    @Mock private MdnsSocketClient socketClient;
+    @Mock private MdnsSocketManager mSocketManager;
     @Mock private MdnsServiceTypeClient mockServiceTypeClientOne;
     @Mock private MdnsServiceTypeClient mockServiceTypeClientTwo;
 
@@ -63,7 +64,7 @@ public class MdnsDiscoveryManagerTests {
         when(mockServiceTypeClientTwo.getServiceTypeLabels())
                 .thenReturn(TextUtils.split(SERVICE_TYPE_2, "\\."));
 
-        discoveryManager = new MdnsDiscoveryManager(executorProvider, socketClient) {
+        discoveryManager = new MdnsDiscoveryManager(executorProvider, mSocketManager) {
                     @Override
                     MdnsServiceTypeClient createServiceTypeClient(@NonNull String serviceType) {
                         if (serviceType.equals(SERVICE_TYPE_1)) {
@@ -78,28 +79,31 @@ public class MdnsDiscoveryManagerTests {
 
     @Test
     public void registerListener_unregisterListener() throws IOException {
-        discoveryManager.registerListener(
-                SERVICE_TYPE_1, mockListenerOne, MdnsSearchOptions.getDefaultOptions());
-        verify(socketClient).startDiscovery();
-        verify(mockServiceTypeClientOne)
-                .startSendAndReceive(mockListenerOne, MdnsSearchOptions.getDefaultOptions());
+        final Network network = mock(Network.class);
+        MdnsSearchOptions options =
+                MdnsSearchOptions.newBuilder().setNetwork(network).build();
+        discoveryManager.registerListener(SERVICE_TYPE_1, mockListenerOne, options);
+        verify(mSocketManager).startDiscovery(mockListenerOne, network);
+        verify(mockServiceTypeClientOne).startSendAndReceive(mockListenerOne, options);
 
         when(mockServiceTypeClientOne.stopSendAndReceive(mockListenerOne)).thenReturn(true);
         discoveryManager.unregisterListener(SERVICE_TYPE_1, mockListenerOne);
         verify(mockServiceTypeClientOne).stopSendAndReceive(mockListenerOne);
-        verify(socketClient).stopDiscovery();
+        verify(mSocketManager).stopDiscovery(mockListenerOne);
     }
 
     @Test
     public void registerMultipleListeners() throws IOException {
-        discoveryManager.registerListener(
-                SERVICE_TYPE_1, mockListenerOne, MdnsSearchOptions.getDefaultOptions());
-        verify(socketClient).startDiscovery();
-        verify(mockServiceTypeClientOne)
-                .startSendAndReceive(mockListenerOne, MdnsSearchOptions.getDefaultOptions());
+        final Network network = mock(Network.class);
+        MdnsSearchOptions options =
+                MdnsSearchOptions.newBuilder().setNetwork(network).build();
+        discoveryManager.registerListener(SERVICE_TYPE_1, mockListenerOne, options);
+        verify(mSocketManager).startDiscovery(mockListenerOne, network);
+        verify(mockServiceTypeClientOne).startSendAndReceive(mockListenerOne, options);
 
         discoveryManager.registerListener(
                 SERVICE_TYPE_2, mockListenerTwo, MdnsSearchOptions.getDefaultOptions());
+        verify(mSocketManager).startDiscovery(mockListenerTwo, null /* network */);
         verify(mockServiceTypeClientTwo)
                 .startSendAndReceive(mockListenerTwo, MdnsSearchOptions.getDefaultOptions());
     }
