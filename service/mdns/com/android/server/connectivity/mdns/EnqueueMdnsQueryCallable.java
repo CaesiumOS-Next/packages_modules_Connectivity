@@ -19,6 +19,7 @@ package com.android.server.connectivity.mdns;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Pair;
 
 import com.android.server.connectivity.mdns.util.MdnsLogger;
@@ -44,6 +45,8 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
     private static final String TAG = "MdnsQueryCallable";
     private static final MdnsLogger LOGGER = new MdnsLogger(TAG);
     private static final List<Integer> castShellEmulatorMdnsPorts;
+    private static final boolean supportMultipleSocketsDiscovery =
+            MdnsConfigs.supportMultipleSocketsDiscovery();
 
     static {
         castShellEmulatorMdnsPorts = new ArrayList<>();
@@ -58,7 +61,7 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
         }
     }
 
-    private final WeakReference<MdnsSocketClient> weakRequestSender;
+    private final WeakReference<MdnsSocketClientBase> weakRequestSender;
     private final MdnsPacketWriter packetWriter;
     private final String[] serviceTypeLabels;
     private final List<String> subtypes;
@@ -66,7 +69,7 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
     private final int transactionId;
 
     EnqueueMdnsQueryCallable(
-            @NonNull MdnsSocketClient requestSender,
+            @NonNull MdnsSocketClientBase requestSender,
             @NonNull MdnsPacketWriter packetWriter,
             @NonNull String serviceType,
             @NonNull Collection<String> subtypes,
@@ -86,7 +89,7 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
     @Nullable
     public Pair<Integer, List<String>> call() {
         try {
-            MdnsSocketClient requestSender = weakRequestSender.get();
+            MdnsSocketClientBase requestSender = weakRequestSender.get();
             if (requestSender == null) {
                 return null;
             }
@@ -127,15 +130,22 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
                     MdnsConstants.QCLASS_INTERNET
                             | (expectUnicastResponse ? MdnsConstants.QCLASS_UNICAST : 0));
 
-            InetAddress mdnsAddress = MdnsConstants.getMdnsIPv4Address();
-            if (requestSender.isOnIPv6OnlyNetwork()) {
-                mdnsAddress = MdnsConstants.getMdnsIPv6Address();
-            }
+            if (supportMultipleSocketsDiscovery) {
+                sendPacketToIpv4AndIpv6(requestSender, MdnsConstants.MDNS_PORT);
+                for (Integer emulatorPort : castShellEmulatorMdnsPorts) {
+                    sendPacketToIpv4AndIpv6(requestSender, emulatorPort);
+                }
+            } else {
+                final MdnsSocketClient client = (MdnsSocketClient) requestSender;
+                InetAddress mdnsAddress = MdnsConstants.getMdnsIPv4Address();
+                if (client.isOnIPv6OnlyNetwork()) {
+                    mdnsAddress = MdnsConstants.getMdnsIPv6Address();
+                }
 
-            sendPacketTo(requestSender,
-                    new InetSocketAddress(mdnsAddress, MdnsConstants.MDNS_PORT));
-            for (Integer emulatorPort : castShellEmulatorMdnsPorts) {
-                sendPacketTo(requestSender, new InetSocketAddress(mdnsAddress, emulatorPort));
+                sendPacketTo(client, new InetSocketAddress(mdnsAddress, MdnsConstants.MDNS_PORT));
+                for (Integer emulatorPort : castShellEmulatorMdnsPorts) {
+                    sendPacketTo(client, new InetSocketAddress(mdnsAddress, emulatorPort));
+                }
             }
             return Pair.create(transactionId, subtypes);
         } catch (IOException e) {
@@ -145,13 +155,28 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
         }
     }
 
-    private void sendPacketTo(MdnsSocketClient requestSender, InetSocketAddress address)
+    private void sendPacketTo(MdnsSocketClientBase requestSender, InetSocketAddress address)
             throws IOException {
         DatagramPacket packet = packetWriter.getPacket(address);
         if (expectUnicastResponse) {
             requestSender.sendUnicastPacket(packet);
         } else {
             requestSender.sendMulticastPacket(packet);
+        }
+    }
+
+    private void sendPacketToIpv4AndIpv6(MdnsSocketClientBase requestSender, int port) {
+        try {
+            sendPacketTo(
+                    requestSender, new InetSocketAddress(MdnsConstants.getMdnsIPv4Address(), port));
+        } catch (IOException e) {
+            Log.i(TAG, "Can't send packet to IPv4", e);
+        }
+        try {
+            sendPacketTo(
+                    requestSender, new InetSocketAddress(MdnsConstants.getMdnsIPv6Address(), port));
+        } catch (IOException e) {
+            Log.i(TAG, "Can't send packet to IPv6", e);
         }
     }
 }
