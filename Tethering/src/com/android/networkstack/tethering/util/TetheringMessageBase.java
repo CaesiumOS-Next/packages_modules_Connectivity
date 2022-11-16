@@ -19,7 +19,7 @@ package com.android.networkstack.tethering.util;
  * This class defines Message.what base addresses for various state machine.
  */
 public class TetheringMessageBase {
-    public static final int BASE_MAIN_SM   = 0;
+    public static final int BASE_MAIN_SM  = 0;
     public static final int BASE_IPSERVER = 100;
 
 }
