@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bd8f42e_ec3a23b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-11-16T09:07:36Z",
+      "side": 1,
+      "message": "Still LGTM. Since the change is base on the change which originally authored by lorenzo@, probably he also want to take a look ?",
+      "revId": "d5915a165bba8141ec9e2553c0e61f5c8b816086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "895838cc_bf30197e",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/ConntrackSocketTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-11-16T09:07:36Z",
+      "side": 1,
+      "message": "nits: suggest also print error in fail, then we can know the error code in top level message without looking into logcat.",
+      "range": {
+        "startLine": 147,
+        "startChar": 45,
+        "endLine": 147,
+        "endChar": 47
+      },
+      "revId": "d5915a165bba8141ec9e2553c0e61f5c8b816086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
