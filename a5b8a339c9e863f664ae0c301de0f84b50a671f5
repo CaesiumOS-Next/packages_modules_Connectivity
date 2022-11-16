@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "722513df_76e628a5",
+        "filename": "service/libconnectivity/include/connectivity_native.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-16T05:42:30Z",
+      "side": 1,
+      "message": "Probably this one needs to be set Nonnull too ?",
+      "range": {
+        "startLine": 81,
+        "startChar": 82,
+        "endLine": 81,
+        "endChar": 87
+      },
+      "revId": "a5b8a339c9e863f664ae0c301de0f84b50a671f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
