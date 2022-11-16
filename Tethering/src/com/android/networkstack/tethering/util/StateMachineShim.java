@@ -27,25 +27,22 @@ import com.android.networkstack.tethering.util.SyncStateMachine.SyncState;
 
 /** A wrapper to decide whether use synchronous state machine for tethering. */
 public class StateMachineShim {
-    private static final boolean USE_SYNC_SM = true;
+    public static final boolean USE_SYNC_SM = false;
     private static final int DEFAULT_STATE_VALUE = -1;
     private static final int CMD_TRANSITION_TO_INITIAL_STATE = BASE_SM_SHIM + 1;
     private final AsyncStateMachine mAsyncSM;
-    private SyncStateMachine mSyncSM;
+    private final SyncStateMachine mSyncSM;
     private final Handler mHandler;
-    private final StateShim mInitialState;
+    protected StateShim mInitialState;
     protected int mStateValue = DEFAULT_STATE_VALUE;
 
-    /** Constructor. */
-    public StateMachineShim(final String name, final Looper looper, final StateShim initialState) {
-        mInitialState = initialState;
+    public StateMachineShim(final String name, final Handler handler) {
         if (USE_SYNC_SM) {
             mAsyncSM = null;
-            mHandler = new Handler(looper);
-            mHandler.post(() -> mSyncSM = new SyncStateMachine(name, initialState));
+            mSyncSM = new SyncStateMachine(name);
+            mHandler = handler;
         } else {
-            mAsyncSM = new AsyncStateMachine(name, looper, initialState);
-            mAsyncSM.start();
+            mAsyncSM = new AsyncStateMachine(name, handler.getLooper());
             mSyncSM = null;
             mHandler = mAsyncSM.getHandler();
         }
@@ -56,6 +53,27 @@ public class StateMachineShim {
         return mHandler;
     }
 
+    public void addInitialState(final StateShim state) {
+        addInitialState(state, DEFAULT_STATE_VALUE);
+    }
+
+    public void addInitialState(final StateShim state, final int stateValue) {
+        mInitialState = state;
+        mInitialState.setStateValue(stateValue, true /* isRoot */);
+        if (USE_SYNC_SM) {
+            mSyncSM.addInitialState(state);
+        } else {
+            mAsyncSM.addState(state);
+            mAsyncSM.setInitialState(state);
+        }
+    }
+
+    public void start() {
+        if (USE_SYNC_SM) return;
+
+        mAsyncSM.start();
+    }
+
     /** Add state to state machine. */
     public void addState(final StateShim state) {
         addState(state, DEFAULT_STATE_VALUE);
@@ -63,13 +81,13 @@ public class StateMachineShim {
 
     /** Add state with stateValue to state machine. */
     public void addState(final StateShim state, final int stateValue) {
-        state.setStateValue(stateValue);
+        state.setStateValue(stateValue, true /* isRoot */);
         addState(state, null);
     }
 
     /** Add state and specify its parent state. */
     public void addState(final StateShim child, final StateShim parent) {
-        if (parent != null) child.setStateValue(parent.mStateValue);
+        if (parent != null) child.setStateValue(parent.mStateValue, false /* isRoot */);
 
         if (USE_SYNC_SM) {
             mSyncSM.addState(child, parent);
@@ -120,7 +138,7 @@ public class StateMachineShim {
         } finally {
             // Notify root state is changed if current state is transitioned from different state
             // tree.
-            if (preRootState != mStateValue) notifyRootStateChange(mStateValue);
+            if (preRootState != mStateValue) notifyRootStateChangeForSyncSM(mStateValue);
         }
     }
 
@@ -143,15 +161,11 @@ public class StateMachineShim {
     }
 
     /** A callback to notify root state is changed. */
-    public void notifyRootStateChange(final int state) { }
+    public void notifyRootStateChangeForSyncSM(final int state) { }
 
     public static class StateShim extends SyncState {
-        private final StateMachineShim mSM;
+        private boolean mIsRootState;
         private int mStateValue;
-
-        public StateShim(final StateMachineShim sm) {
-            mSM = sm;
-        }
 
         @Override
         public void enter() {
@@ -160,7 +174,7 @@ public class StateMachineShim {
             }
 
             syncEnter();
-            if (mSM.mStateValue != mStateValue) mSM.notifyRootStateChange(mStateValue);
+            if (mIsRootState) notifyRootStateChangeForAsyncSM(mStateValue);
         }
 
         @Override
@@ -177,16 +191,17 @@ public class StateMachineShim {
             return processMessage(msg.what, msg.arg1, msg.arg2, msg.obj);
         }
 
-        private void setStateValue(final int value) {
+        private void setStateValue(final int value, final boolean isRoot) {
             mStateValue = value;
+            mIsRootState = isRoot;
         }
+
+        public void notifyRootStateChangeForAsyncSM(final int state) { }
     }
 
     private class AsyncStateMachine extends StateMachine {
-        AsyncStateMachine(final String name, final Looper looper, final StateShim initialState) {
+        AsyncStateMachine(final String name, final Looper looper) {
             super(name, looper);
-            addState(initialState);
-            setInitialState(initialState);
         }
     }
 }

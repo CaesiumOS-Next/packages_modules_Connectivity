@@ -52,7 +52,7 @@ public class SyncStateMachine {
     private final String mName;
     private final Thread mMyThread;
     private final boolean mDbg;
-    private final SyncState mInitialState;
+    private SyncState mInitialState;
     private final HashMap<SyncState, StateInfo> mStateInfo = new HashMap<SyncState, StateInfo>();
 
     /**
@@ -97,21 +97,23 @@ public class SyncStateMachine {
      *
      * @param name of the state machine
      */
-    public SyncStateMachine(final String name, final SyncState initialState) {
-        this(name, initialState, false /* debug */);
+    public SyncStateMachine(final String name) {
+        this(name, false /* debug */);
     }
 
-    public SyncStateMachine(final String name, final SyncState initialState, final boolean dbg) {
+    public SyncStateMachine(final String name, final boolean dbg) {
         mName = name;
         mMyThread = Thread.currentThread();
         mDbg = dbg;
-
-        mInitialState = initialState;
-        addState(initialState);
-        mInitialState.syncEnter();
-        mStateInfo.get(initialState).active = true;
-        mCurrentState = initialState;
         mDestState = null;
+    }
+
+    public final void addInitialState(final SyncState state) {
+        mInitialState = state;
+        addState(state);
+        mInitialState.syncEnter();
+        mStateInfo.get(state).active = true;
+        mCurrentState = state;
     }
 
     /** Add a new state to the state machine. */
