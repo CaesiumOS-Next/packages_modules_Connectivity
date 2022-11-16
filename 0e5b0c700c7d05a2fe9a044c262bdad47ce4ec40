@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "583f6bd5_9b51cb7a",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsNsecRecord.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-16T08:39:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "933e5f91_bc284a39",
+      "range": {
+        "startLine": 78,
+        "startChar": 12,
+        "endLine": 78,
+        "endChar": 36
+      },
+      "revId": "0e5b0c700c7d05a2fe9a044c262bdad47ce4ec40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9638a19f_4457e71b",
@@ -84,6 +108,30 @@
       "writtenOn": "2022-11-10T10:57:35Z",
       "side": 1,
       "message": "Should be `(7 - bit)`",
+      "range": {
+        "startLine": 87,
+        "startChar": 44,
+        "endLine": 87,
+        "endChar": 47
+      },
+      "revId": "0e5b0c700c7d05a2fe9a044c262bdad47ce4ec40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c54c7799_1fa5e4df",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsNsecRecord.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-16T08:39:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9638a19f_4457e71b",
       "range": {
         "startLine": 87,
         "startChar": 44,
@@ -248,6 +296,30 @@
       "writtenOn": "2022-11-10T10:57:35Z",
       "side": 1,
       "message": "Maybe use a fake type 1234 like the example in spec.",
+      "range": {
+        "startLine": 357,
+        "startChar": 16,
+        "endLine": 357,
+        "endChar": 19
+      },
+      "revId": "0e5b0c700c7d05a2fe9a044c262bdad47ce4ec40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5910509_6e46c77a",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-16T08:39:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2c56908_99bd3e4a",
       "range": {
         "startLine": 357,
         "startChar": 16,
