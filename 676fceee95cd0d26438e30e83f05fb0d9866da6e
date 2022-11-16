@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b36c98d6_73429187",
+        "filename": "tests/common/java/android/net/VpnTransportInfoTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-16T06:56:18Z",
+      "side": 1,
+      "message": "This would throw MethodNotFoundException on S if the module is not up-to-date right ?\n\nThis class should probably be annotated with @ConnectivityModuleTest, so that it\u0027s always run with an updated connectivity/tethering module (and not in wifi or NetworkStack MTS for example).\n\nThis wasn\u0027t a problem in unit tests, but you\u0027re adding the class to MTS here.\n\nTH is actually failing but reports it as a flake instead of failure, due to b/251422430:\n\nhttps://android-build.googleplex.com/builds/tests/view?invocationId\u003dI11300010108521669\u0026testResultId\u003dTR34328372461356372",
+      "range": {
+        "startLine": 95,
+        "startChar": 66,
+        "endLine": 95,
+        "endChar": 79
+      },
+      "revId": "676fceee95cd0d26438e30e83f05fb0d9866da6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
