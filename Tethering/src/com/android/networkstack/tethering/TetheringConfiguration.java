@@ -22,7 +22,6 @@ import static android.net.ConnectivityManager.TYPE_MOBILE;
 import static android.net.ConnectivityManager.TYPE_MOBILE_DUN;
 import static android.net.ConnectivityManager.TYPE_MOBILE_HIPRI;
 import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
-
 import static com.android.networkstack.apishim.ConstantsShim.KEY_CARRIER_SUPPORTS_TETHERING_BOOL;
 
 import android.content.ContentResolver;
@@ -135,6 +134,9 @@ public class TetheringConfiguration {
      * to make the data warnings work.
      */
     public static final int DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS = 5000;
+
+    /** A flag for using synchronous or asynchronous state machine. */
+    public static final boolean USE_SYNC_SM = false;
 
     public final String[] tetherableUsbRegexs;
     public final String[] tetherableWifiRegexs;
