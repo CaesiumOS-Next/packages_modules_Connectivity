@@ -16,7 +16,7 @@
 
 package com.android.networkstack.tethering.util;
 
-import static com.android.networkstack.tethering.util.TetheringMessageBase.BASE_SM_SHIM;
+import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -27,25 +27,19 @@ import com.android.networkstack.tethering.util.SyncStateMachine.SyncState;
 
 /** A wrapper to decide whether use synchronous state machine for tethering. */
 public class StateMachineShim {
-    private static final boolean USE_SYNC_SM = true;
-    private static final int DEFAULT_STATE_VALUE = -1;
-    private static final int CMD_TRANSITION_TO_INITIAL_STATE = BASE_SM_SHIM + 1;
+    public static final boolean USE_SYNC_SM = true;
     private final AsyncStateMachine mAsyncSM;
-    private SyncStateMachine mSyncSM;
+    private final SyncStateMachine mSyncSM;
     private final Handler mHandler;
-    private final StateShim mInitialState;
-    protected int mStateValue = DEFAULT_STATE_VALUE;
 
-    /** Constructor. */
-    public StateMachineShim(final String name, final Looper looper, final StateShim initialState) {
-        mInitialState = initialState;
+    public StateMachineShim(final String name, final Handler handler) {
         if (USE_SYNC_SM) {
             mAsyncSM = null;
-            mHandler = new Handler(looper);
-            mHandler.post(() -> mSyncSM = new SyncStateMachine(name, initialState));
+            mHandler = handler;
+            mSyncSM = new SyncStateMachine(name, handler.getLooper().getThread(),
+                    TETHER_ERROR_NO_ERROR);
         } else {
-            mAsyncSM = new AsyncStateMachine(name, looper, initialState);
-            mAsyncSM.start();
+            mAsyncSM = new AsyncStateMachine(name, handler.getLooper());
             mSyncSM = null;
             mHandler = mAsyncSM.getHandler();
         }
@@ -56,21 +50,28 @@ public class StateMachineShim {
         return mHandler;
     }
 
-    /** Add state to state machine. */
-    public void addState(final StateShim state) {
-        addState(state, DEFAULT_STATE_VALUE);
+    /** Start the state machine */
+    public void start(final StateShim initialState) {
+        if (!USE_SYNC_SM) {
+            mAsyncSM.setInitialState(initialState);
+            mAsyncSM.start();
+            return;
+        }
+
+        if (!mHandler.getLooper().isCurrentThread()) {
+            mHandler.post(() -> mSyncSM.start(initialState));
+        } else {
+            mSyncSM.start(initialState);
+        }
     }
 
-    /** Add state with stateValue to state machine. */
-    public void addState(final StateShim state, final int stateValue) {
-        state.setStateValue(stateValue);
+    /** Add state to state machine. */
+    public void addState(final StateShim state) {
         addState(state, null);
     }
 
     /** Add state and specify its parent state. */
     public void addState(final StateShim child, final StateShim parent) {
-        if (parent != null) child.setStateValue(parent.mStateValue);
-
         if (USE_SYNC_SM) {
             mSyncSM.addState(child, parent);
         } else {
@@ -107,30 +108,14 @@ public class StateMachineShim {
      */
     public void sendMessage(int what, int arg1, int arg2, Object obj) {
         if (USE_SYNC_SM) {
-            if (processMessage(what, arg1, arg2, obj) == SyncStateMachine.ERROR) handleError();
+            processMessageForSyncSM(what, arg1, arg2, obj);
         } else {
             mAsyncSM.sendMessage(what, arg1, arg2, obj);
         }
     }
 
-    private int processMessage(int what, int arg1, int arg2, Object obj) {
-        final int preRootState = mStateValue;
-        try {
-            return mSyncSM.processMessage(what, arg1, arg2, obj);
-        } finally {
-            // Notify root state is changed if current state is transitioned from different state
-            // tree.
-            if (preRootState != mStateValue) notifyRootStateChange(mStateValue);
-        }
-    }
-
-    /** Error handling that transition the state to initial state. */
-    public void handleError() {
-        if (USE_SYNC_SM) {
-            processMessage(CMD_TRANSITION_TO_INITIAL_STATE, 0, 0, null);
-        } else {
-            mAsyncSM.transitionTo(mInitialState);
-        }
+    protected int processMessageForSyncSM(int what, int arg1, int arg2, Object obj) {
+        return mSyncSM.processMessage(what, arg1, arg2, obj);
     }
 
     /** Send message after delayMillis millisecond. */
@@ -142,51 +127,36 @@ public class StateMachineShim {
         }
     }
 
-    /** A callback to notify root state is changed. */
-    public void notifyRootStateChange(final int state) { }
-
     public static class StateShim extends SyncState {
-        private final StateMachineShim mSM;
-        private int mStateValue;
-
-        public StateShim(final StateMachineShim sm) {
-            mSM = sm;
-        }
-
         @Override
         public void enter() {
-            if (USE_SYNC_SM) {
-                throw new IllegalStateException("SyncSM should call syncEnter directly");
-            }
+            throwIfSyncSM();
 
-            syncEnter();
-            if (mSM.mStateValue != mStateValue) mSM.notifyRootStateChange(mStateValue);
+            enter(TETHER_ERROR_NO_ERROR);
         }
 
         @Override
         public void exit() {
-            if (USE_SYNC_SM) {
-                throw new IllegalStateException("SyncSM should call syncExit directly");
-            }
+            throwIfSyncSM();
 
-            syncExit();
+            exit(TETHER_ERROR_NO_ERROR);
         }
 
         @Override
         public boolean processMessage(Message msg) {
+            throwIfSyncSM();
+
             return processMessage(msg.what, msg.arg1, msg.arg2, msg.obj);
         }
 
-        private void setStateValue(final int value) {
-            mStateValue = value;
+        private static void throwIfSyncSM() {
+            if (USE_SYNC_SM) throw new IllegalStateException("Using SyncSM by AsyncSM");
         }
     }
 
     private class AsyncStateMachine extends StateMachine {
-        AsyncStateMachine(final String name, final Looper looper, final StateShim initialState) {
+        AsyncStateMachine(final String name, final Looper looper) {
             super(name, looper);
-            addState(initialState);
-            setInitialState(initialState);
         }
     }
 }

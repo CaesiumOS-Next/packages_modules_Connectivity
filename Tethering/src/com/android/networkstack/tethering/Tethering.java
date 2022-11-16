@@ -42,8 +42,13 @@ import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static android.net.TetheringManager.TETHERING_WIGIG;
 import static android.net.TetheringManager.TETHER_ERROR_INTERNAL_ERROR;
+import static android.net.TetheringManager.TETHER_ERROR_IP_FORWARDING_DISABLE_ERROR;
+import static android.net.TetheringManager.TETHER_ERROR_IP_FORWARDING_ENABLE_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_SERVICE_UNAVAIL;
+import static android.net.TetheringManager.TETHER_ERROR_SET_DNS_FORWARDERS_ERROR;
+import static android.net.TetheringManager.TETHER_ERROR_START_TETHERING_ERROR;
+import static android.net.TetheringManager.TETHER_ERROR_STOP_TETHERING_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_UNAVAIL_IFACE;
 import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_IFACE;
 import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_TYPE;
@@ -65,6 +70,7 @@ import static android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID;
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_FORCE_USB_FUNCTIONS;
 import static com.android.networkstack.tethering.TetheringNotificationUpdater.DOWNSTREAM_NONE;
 import static com.android.networkstack.tethering.UpstreamNetworkMonitor.isCellular;
+import static com.android.networkstack.tethering.util.StateMachineShim.USE_SYNC_SM;
 import static com.android.networkstack.tethering.util.TetheringMessageBase.BASE_MAIN_SM;
 
 import android.app.usage.NetworkStatsManager;
@@ -108,7 +114,6 @@ import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.os.ResultReceiver;
@@ -131,7 +136,6 @@ import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.internal.util.MessageUtils;
 import com.android.internal.util.State;
-import com.android.internal.util.StateMachine;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
 import com.android.net.module.util.CollectionUtils;
@@ -144,6 +148,8 @@ import com.android.networkstack.apishim.common.UnsupportedApiLevelException;
 import com.android.networkstack.tethering.metrics.TetheringMetrics;
 import com.android.networkstack.tethering.util.InterfaceSet;
 import com.android.networkstack.tethering.util.PrefixUtils;
+import com.android.networkstack.tethering.util.StateMachineShim;
+import com.android.networkstack.tethering.util.StateMachineShim.StateShim;
 import com.android.networkstack.tethering.util.TetheringUtils;
 import com.android.networkstack.tethering.util.VersionedBroadcastListener;
 
@@ -236,8 +242,8 @@ public class Tethering {
     private final ArrayMap<String, TetherState> mTetherStates;
     private final BroadcastReceiver mStateReceiver;
     private final Looper mLooper;
-    private final TetherMainSM mTetherMainSM;
-    private final OffloadController mOffloadController;
+    private TetherMainSM mTetherMainSM;
+    private final OffloadWrapper mOffload;
     private final UpstreamNetworkMonitor mUpstreamNetworkMonitor;
     // TODO: Figure out how to merge this and other downstream-tracking objects
     // into a single coherent structure.
@@ -305,18 +311,18 @@ public class Tethering {
         mTetherStates = new ArrayMap<>();
         mConnectedClientsTracker = new ConnectedClientsTracker();
 
-        mTetherMainSM = new TetherMainSM("TetherMain", mLooper, deps);
+        mTetherMainSM = new TetherMainSM("TetherMain", new Handler(mLooper), deps);
         mTetherMainSM.start();
-
         mHandler = mTetherMainSM.getHandler();
-        mOffloadController = mDeps.getOffloadController(mHandler, mLog,
+
+        mOffload = new OffloadWrapper(mDeps.getOffloadController(mHandler, mLog,
                 new OffloadController.Dependencies() {
 
                     @Override
                     public TetheringConfiguration getTetherConfig() {
                         return mConfig;
                     }
-                });
+                }));
         mUpstreamNetworkMonitor = mDeps.getUpstreamNetworkMonitor(mContext, mHandler, mLog,
                 (which, obj) -> {
                     mTetherMainSM.sendMessage(TetherMainSM.EVENT_UPSTREAM_CALLBACK, which, 0, obj);
@@ -1662,7 +1668,9 @@ public class Tethering {
         return false;
     }
 
-    class TetherMainSM extends StateMachine {
+    class TetherMainSM extends StateMachineShim {
+        static final int SYNC_SM_ACTION_NOTIFY_ERROR   = TETHER_ERROR_NO_ERROR - 1;
+        static final int SYNC_SM_ACTION_TRY_UPSTREAM   = TETHER_ERROR_NO_ERROR - 2;
         // an interface SM has requested Tethering/Local Hotspot
         static final int EVENT_IFACE_SERVING_STATE_ACTIVE       = BASE_MAIN_SM + 1;
         // an interface SM has unrequested Tethering/Local Hotspot
@@ -1679,14 +1687,16 @@ public class Tethering {
         static final int EVENT_IFACE_UPDATE_LINKPROPERTIES      = BASE_MAIN_SM + 7;
         // Events from EntitlementManager to choose upstream again.
         static final int EVENT_UPSTREAM_PERMISSION_CHANGED      = BASE_MAIN_SM + 8;
-        private final State mInitialState;
-        private final State mTetherModeAliveState;
+        static final int CMD_HANDLE_ERROR                       = BASE_MAIN_SM + 9;
+        static final int CMD_NOTIFY_ERROR                       = BASE_MAIN_SM + 10;
+        private final StateShim mInitialState;
+        private final StateShim mTetherModeAliveState;
 
-        private final State mSetIpForwardingEnabledErrorState;
-        private final State mSetIpForwardingDisabledErrorState;
-        private final State mStartTetheringErrorState;
-        private final State mStopTetheringErrorState;
-        private final State mSetDnsForwardersErrorState;
+        private final StateShim mSetIpForwardingEnabledErrorState;
+        private final StateShim mSetIpForwardingDisabledErrorState;
+        private final StateShim mStartTetheringErrorState;
+        private final StateShim mStopTetheringErrorState;
+        private final StateShim mSetDnsForwardersErrorState;
 
         // This list is a little subtle.  It contains all the interfaces that currently are
         // requesting tethering, regardless of whether these interfaces are still members of
@@ -1703,12 +1713,11 @@ public class Tethering {
         // to tear itself down.
         private final ArrayList<IpServer> mNotifyList;
         private final IPv6TetheringCoordinator mIPv6TetheringCoordinator;
-        private final OffloadWrapper mOffload;
 
         private static final int UPSTREAM_SETTLE_TIME_MS     = 10000;
 
-        TetherMainSM(String name, Looper looper, TetheringDependencies deps) {
-            super(name, looper);
+        TetherMainSM(String name, Handler handler, TetheringDependencies deps) {
+            super(name, handler);
 
             mInitialState = new InitialState();
             mTetherModeAliveState = new TetherModeAliveState();
@@ -1728,9 +1737,10 @@ public class Tethering {
 
             mNotifyList = new ArrayList<>();
             mIPv6TetheringCoordinator = deps.getIPv6TetheringCoordinator(mNotifyList, mLog);
-            mOffload = new OffloadWrapper();
+        }
 
-            setInitialState(mInitialState);
+        void start() {
+            start(mInitialState);
         }
 
         /**
@@ -1742,20 +1752,21 @@ public class Tethering {
             return mNotifyList;
         }
 
-        class InitialState extends State {
+        class InitialState extends StateShim {
             @Override
-            public boolean processMessage(Message message) {
-                logMessage(this, message.what);
-                switch (message.what) {
+            public boolean processMessage(final int what, final int arg1, final int arg2,
+                    final Object obj) {
+                logMessage(this, what);
+                switch (what) {
                     case EVENT_IFACE_SERVING_STATE_ACTIVE: {
-                        final IpServer who = (IpServer) message.obj;
+                        final IpServer who = (IpServer) obj;
                         if (VDBG) Log.d(TAG, "Tether Mode requested by " + who);
-                        handleInterfaceServingStateActive(message.arg1, who);
+                        handleInterfaceServingStateActive(arg1, who);
                         transitionTo(mTetherModeAliveState);
                         break;
                     }
                     case EVENT_IFACE_SERVING_STATE_INACTIVE: {
-                        final IpServer who = (IpServer) message.obj;
+                        final IpServer who = (IpServer) obj;
                         if (VDBG) Log.d(TAG, "Tether Mode unrequested by " + who);
                         handleInterfaceServingStateInactive(who);
                         break;
@@ -1770,14 +1781,14 @@ public class Tethering {
             }
         }
 
-        protected boolean turnOnMainTetherSettings() {
+        protected int turnOnMainTetherSettings() {
             final TetheringConfiguration cfg = mConfig;
             try {
                 mNetd.ipfwdEnableForwarding(TAG);
             } catch (RemoteException | ServiceSpecificException e) {
                 mLog.e(e);
-                transitionTo(mSetIpForwardingEnabledErrorState);
-                return false;
+                if (!USE_SYNC_SM) transitionTo(mSetIpForwardingEnabledErrorState);
+                return TETHER_ERROR_IP_FORWARDING_ENABLE_ERROR;
             }
 
             // TODO: Randomize DHCPv4 ranges, especially in hotspot mode.
@@ -1793,12 +1804,12 @@ public class Tethering {
                     NetdUtils.tetherStart(mNetd, true /** usingLegacyDnsProxy */, dhcpRanges);
                 } catch (RemoteException | ServiceSpecificException ee) {
                     mLog.e(ee);
-                    transitionTo(mStartTetheringErrorState);
-                    return false;
+                    if (!USE_SYNC_SM) transitionTo(mStartTetheringErrorState);
+                    return TETHER_ERROR_START_TETHERING_ERROR;
                 }
             }
             mLog.log("SET main tether settings: ON");
-            return true;
+            return TETHER_ERROR_NO_ERROR;
         }
 
         protected boolean turnOffMainTetherSettings() {
@@ -1821,7 +1832,7 @@ public class Tethering {
             return true;
         }
 
-        protected void chooseUpstreamType(boolean tryCell) {
+        protected void chooseUpstreamType(final boolean tryCell) {
             // We rebuild configuration on ACTION_CONFIGURATION_CHANGED, but we
             // do not currently know how to watch for changes in DUN settings.
             maybeDunSettingChanged();
@@ -1852,7 +1863,7 @@ public class Tethering {
             }
         }
 
-        protected void setUpstreamNetwork(UpstreamNetworkState ns) {
+        protected void setUpstreamNetwork(final UpstreamNetworkState ns) {
             InterfaceSet ifaces = null;
             if (ns != null) {
                 // Find the interface with the default IPv4 route. It may be the
@@ -2035,17 +2046,30 @@ public class Tethering {
             }
         }
 
-        class TetherModeAliveState extends State {
+        class TetherModeAliveState extends StateShim {
             boolean mUpstreamWanted = false;
             boolean mTryCell = true;
 
             @Override
             public void enter() {
-                // If turning on main tether settings fails, we have already
-                // transitioned to an error state; exit early.
-                if (!turnOnMainTetherSettings()) {
+                final int ret = enter(TETHER_ERROR_NO_ERROR);
+                if (ret != TETHER_ERROR_NO_ERROR) {
+                    transitionToErrorState(ret);
                     return;
                 }
+
+                if (mUpstreamWanted) {
+                    chooseUpstreamType(true /* tryCell */);
+                    mTryCell = false;
+                }
+            }
+
+            @Override
+            public int enter(final int lastResult) {
+                // If turning on main tether settings fails, we have already
+                // transitioned to an error state; exit early.
+                int ret = turnOnMainTetherSettings();
+                if (ret != TETHER_ERROR_NO_ERROR) return ret;
 
                 mPrivateAddressCoordinator.maybeRemoveDeprecatedUpstreams();
                 mUpstreamNetworkMonitor.startObserveAllNetworks();
@@ -2054,16 +2078,18 @@ public class Tethering {
                 if (upstreamWanted()) {
                     mUpstreamWanted = true;
                     mOffload.start();
-                    chooseUpstreamType(true);
-                    mTryCell = false;
+                    mTryCell = true;
+                    ret = SYNC_SM_ACTION_TRY_UPSTREAM;
                 }
 
                 // TODO: Check the upstream interface if it is managed by BPF offload.
                 mBpfCoordinator.startPolling();
+
+                return ret;
             }
 
             @Override
-            public void exit() {
+            public int exit(final int lastResult) {
                 mOffload.stop();
                 mUpstreamNetworkMonitor.stop();
                 notifyDownstreamsOfNewUpstreamIface(null);
@@ -2073,6 +2099,8 @@ public class Tethering {
                     reportUpstreamChanged(null);
                 }
                 mBpfCoordinator.stopPolling();
+
+                return lastResult;
             }
 
             private boolean updateUpstreamWanted() {
@@ -2089,14 +2117,15 @@ public class Tethering {
             }
 
             @Override
-            public boolean processMessage(Message message) {
-                logMessage(this, message.what);
+            public boolean processMessage(final int what, final int arg1, final int arg2,
+                    final Object obj) {
+                logMessage(this, what);
                 boolean retValue = true;
-                switch (message.what) {
+                switch (what) {
                     case EVENT_IFACE_SERVING_STATE_ACTIVE: {
-                        IpServer who = (IpServer) message.obj;
+                        IpServer who = (IpServer) obj;
                         if (VDBG) Log.d(TAG, "Tether Mode requested by " + who);
-                        handleInterfaceServingStateActive(message.arg1, who);
+                        handleInterfaceServingStateActive(arg1, who);
                         who.sendMessage(IpServer.CMD_TETHER_CONNECTION_CHANGED,
                                 mCurrentUpstreamIfaceSet);
                         // If there has been a change and an upstream is now
@@ -2108,7 +2137,7 @@ public class Tethering {
                         break;
                     }
                     case EVENT_IFACE_SERVING_STATE_INACTIVE: {
-                        IpServer who = (IpServer) message.obj;
+                        IpServer who = (IpServer) obj;
                         if (VDBG) Log.d(TAG, "Tether Mode unrequested by " + who);
                         handleInterfaceServingStateInactive(who);
 
@@ -2135,8 +2164,8 @@ public class Tethering {
                         break;
                     }
                     case EVENT_IFACE_UPDATE_LINKPROPERTIES: {
-                        final LinkProperties newLp = (LinkProperties) message.obj;
-                        if (message.arg1 == IpServer.STATE_TETHERED) {
+                        final LinkProperties newLp = (LinkProperties) obj;
+                        if (arg1 == IpServer.STATE_TETHERED) {
                             mOffload.updateDownstreamLinkProperties(newLp);
                         } else {
                             mOffload.excludeDownstreamInterface(newLp.getInterfaceName());
@@ -2162,10 +2191,13 @@ public class Tethering {
                     case EVENT_UPSTREAM_CALLBACK: {
                         updateUpstreamWanted();
                         if (mUpstreamWanted) {
-                            handleUpstreamNetworkMonitorCallback(message.arg1, message.obj);
+                            handleUpstreamNetworkMonitorCallback(arg1, obj);
                         }
                         break;
                     }
+                    case CMD_HANDLE_ERROR:
+                        transitionToErrorState(arg1);
+                        break;
                     default:
                         retValue = false;
                         break;
@@ -2174,57 +2206,109 @@ public class Tethering {
             }
         }
 
-        class ErrorState extends State {
-            private int mErrorNotification;
+        private void transitionToErrorState(final int error) {
+            switch (error) {
+                case TETHER_ERROR_IP_FORWARDING_ENABLE_ERROR:
+                    transitionTo(mSetIpForwardingEnabledErrorState);
+                case TETHER_ERROR_START_TETHERING_ERROR:
+                    transitionTo(mStartTetheringErrorState);
+                case TETHER_ERROR_SET_DNS_FORWARDERS_ERROR:
+                    transitionTo(mSetDnsForwardersErrorState);
+                default:
+                    // Do nothing if error is unexpected.
+            }
+        }
+
+        @Override
+        protected int processMessageForSyncSM(int what, int arg1, int arg2, Object obj) {
+            final int ret = super.processMessageForSyncSM(what, arg1, arg2, obj);
+            switch (ret) {
+                case SYNC_SM_ACTION_NOTIFY_ERROR:
+                   sendMessage(CMD_NOTIFY_ERROR);
+                   break;
+                case SYNC_SM_ACTION_TRY_UPSTREAM:
+                   sendMessage(CMD_RETRY_UPSTREAM);
+                   break;
+                case TETHER_ERROR_NO_ERROR:
+                   break;
+                default:
+                   sendMessage(CMD_HANDLE_ERROR, ret);
+                   break;
+            }
+
+            return ret;
+        }
+
+        class ErrorState extends StateShim {
+            private final int mErrorNotification;
+
+            public ErrorState(final int msgType) {
+                mErrorNotification = msgType;
+            }
 
             @Override
-            public boolean processMessage(Message message) {
-                boolean retValue = true;
-                switch (message.what) {
+            public void enter() {
+                enter(TETHER_ERROR_NO_ERROR);
+                notifyError();
+            }
+
+            @Override
+            public int enter(final int lastResult) {
+                Log.e(TAG, "enter ErrorState(" + mErrorNotification + ")");
+                cleanUp();
+
+                return SYNC_SM_ACTION_NOTIFY_ERROR;
+            }
+
+            protected void cleanUp() { }
+
+            @Override
+            public boolean processMessage(final int what, final int arg1, final int arg2,
+                    final Object obj) {
+                switch (what) {
                     case EVENT_IFACE_SERVING_STATE_ACTIVE:
-                        IpServer who = (IpServer) message.obj;
+                        IpServer who = (IpServer) obj;
                         who.sendMessage(mErrorNotification);
                         break;
                     case CMD_CLEAR_ERROR:
-                        mErrorNotification = TETHER_ERROR_NO_ERROR;
                         transitionTo(mInitialState);
                         break;
+                    case CMD_NOTIFY_ERROR:
+                        notifyError();
+                        break;
                     default:
-                        retValue = false;
+                        return false;
                 }
-                return retValue;
+                return true;
             }
 
-            void notify(int msgType) {
-                mErrorNotification = msgType;
+            void notifyError() {
                 for (IpServer ipServer : mNotifyList) {
-                    ipServer.sendMessage(msgType);
+                    ipServer.sendMessage(mErrorNotification);
                 }
             }
 
         }
 
         class SetIpForwardingEnabledErrorState extends ErrorState {
-            @Override
-            public void enter() {
-                Log.e(TAG, "Error in setIpForwardingEnabled");
-                notify(IpServer.CMD_IP_FORWARDING_ENABLE_ERROR);
+            public SetIpForwardingEnabledErrorState() {
+                super(IpServer.CMD_IP_FORWARDING_ENABLE_ERROR);
             }
         }
 
         class SetIpForwardingDisabledErrorState extends ErrorState {
-            @Override
-            public void enter() {
-                Log.e(TAG, "Error in setIpForwardingDisabled");
-                notify(IpServer.CMD_IP_FORWARDING_DISABLE_ERROR);
+            public SetIpForwardingDisabledErrorState() {
+                super(IpServer.CMD_IP_FORWARDING_DISABLE_ERROR);
             }
         }
 
         class StartTetheringErrorState extends ErrorState {
+            public StartTetheringErrorState() {
+                super(IpServer.CMD_START_TETHERING_ERROR);
+            }
+
             @Override
-            public void enter() {
-                Log.e(TAG, "Error in startTethering");
-                notify(IpServer.CMD_START_TETHERING_ERROR);
+            protected void cleanUp() {
                 try {
                     mNetd.ipfwdDisableForwarding(TAG);
                 } catch (RemoteException | ServiceSpecificException e) { }
@@ -2232,10 +2316,12 @@ public class Tethering {
         }
 
         class StopTetheringErrorState extends ErrorState {
+            public StopTetheringErrorState() {
+                super(IpServer.CMD_STOP_TETHERING_ERROR);
+            }
+
             @Override
-            public void enter() {
-                Log.e(TAG, "Error in stopTethering");
-                notify(IpServer.CMD_STOP_TETHERING_ERROR);
+            protected void cleanUp() {
                 try {
                     mNetd.ipfwdDisableForwarding(TAG);
                 } catch (RemoteException | ServiceSpecificException e) { }
@@ -2243,10 +2329,12 @@ public class Tethering {
         }
 
         class SetDnsForwardersErrorState extends ErrorState {
+            public SetDnsForwardersErrorState() {
+                super(IpServer.CMD_SET_DNS_FORWARDERS_ERROR);
+            }
+
             @Override
-            public void enter() {
-                Log.e(TAG, "Error in setDnsForwarders");
-                notify(IpServer.CMD_SET_DNS_FORWARDERS_ERROR);
+            protected void cleanUp() {
                 try {
                     mNetd.tetherStop();
                 } catch (RemoteException | ServiceSpecificException e) { }
@@ -2255,91 +2343,101 @@ public class Tethering {
                 } catch (RemoteException | ServiceSpecificException e) { }
             }
         }
+    }
 
-        // A wrapper class to handle multiple situations where several calls to
-        // the OffloadController need to happen together.
-        //
-        // TODO: This suggests that the interface between OffloadController and
-        // Tethering is in need of improvement. Refactor these calls into the
-        // OffloadController implementation.
-        class OffloadWrapper {
-            public void start() {
-                final int status = mOffloadController.start() ? TETHER_HARDWARE_OFFLOAD_STARTED
-                        : TETHER_HARDWARE_OFFLOAD_FAILED;
-                updateOffloadStatus(status);
-                sendOffloadExemptPrefixes();
-            }
+    // A wrapper class to handle multiple situations where several calls to
+    // the OffloadController need to happen together.
+    //
+    // TODO: This suggests that the interface between OffloadController and
+    // Tethering is in need of improvement. Refactor these calls into the
+    // OffloadController implementation.
+    class OffloadWrapper {
+        final OffloadController mOffloadController;
 
-            public void stop() {
-                mOffloadController.stop();
-                updateOffloadStatus(TETHER_HARDWARE_OFFLOAD_STOPPED);
-            }
+        OffloadWrapper(final OffloadController controller) {
+            mOffloadController = controller;
+        }
 
-            public void updateUpstreamNetworkState(UpstreamNetworkState ns) {
-                mOffloadController.setUpstreamLinkProperties(
-                        (ns != null) ? ns.linkProperties : null);
-            }
+        public void start() {
+            final int status = mOffloadController.start() ? TETHER_HARDWARE_OFFLOAD_STARTED
+                    : TETHER_HARDWARE_OFFLOAD_FAILED;
+            updateOffloadStatus(status);
+            sendOffloadExemptPrefixes();
+        }
 
-            public void updateDownstreamLinkProperties(LinkProperties newLp) {
-                // Update the list of offload-exempt prefixes before adding
-                // new prefixes on downstream interfaces to the offload HAL.
-                sendOffloadExemptPrefixes();
-                mOffloadController.notifyDownstreamLinkProperties(newLp);
-            }
+        public void stop() {
+            mOffloadController.stop();
+            updateOffloadStatus(TETHER_HARDWARE_OFFLOAD_STOPPED);
+        }
 
-            public void excludeDownstreamInterface(String ifname) {
-                // This and other interfaces may be in local-only hotspot mode;
-                // resend all local prefixes to the OffloadController.
-                sendOffloadExemptPrefixes();
-                mOffloadController.removeDownstreamInterface(ifname);
-            }
+        public void updateUpstreamNetworkState(UpstreamNetworkState ns) {
+            mOffloadController.setUpstreamLinkProperties(
+                    (ns != null) ? ns.linkProperties : null);
+        }
 
-            public void sendOffloadExemptPrefixes() {
-                sendOffloadExemptPrefixes(mUpstreamNetworkMonitor.getLocalPrefixes());
-            }
+        public void updateDownstreamLinkProperties(LinkProperties newLp) {
+            // Update the list of offload-exempt prefixes before adding
+            // new prefixes on downstream interfaces to the offload HAL.
+            sendOffloadExemptPrefixes();
+            mOffloadController.notifyDownstreamLinkProperties(newLp);
+        }
 
-            public void sendOffloadExemptPrefixes(final Set<IpPrefix> localPrefixes) {
-                // Add in well-known minimum set.
-                PrefixUtils.addNonForwardablePrefixes(localPrefixes);
-                // Add tragically hardcoded prefixes.
-                localPrefixes.add(PrefixUtils.DEFAULT_WIFI_P2P_PREFIX);
+        public void excludeDownstreamInterface(String ifname) {
+            // This and other interfaces may be in local-only hotspot mode;
+            // resend all local prefixes to the OffloadController.
+            sendOffloadExemptPrefixes();
+            mOffloadController.removeDownstreamInterface(ifname);
+        }
 
-                // Maybe add prefixes or addresses for downstreams, depending on
-                // the IP serving mode of each.
-                for (IpServer ipServer : mNotifyList) {
-                    final LinkProperties lp = ipServer.linkProperties();
+        public void sendOffloadExemptPrefixes() {
+            sendOffloadExemptPrefixes(mUpstreamNetworkMonitor.getLocalPrefixes());
+        }
 
-                    switch (ipServer.servingMode()) {
-                        case IpServer.STATE_UNAVAILABLE:
-                        case IpServer.STATE_AVAILABLE:
-                            // No usable LinkProperties in these states.
-                            continue;
-                        case IpServer.STATE_TETHERED:
-                            // Only add IPv4 /32 and IPv6 /128 prefixes. The
-                            // directly-connected prefixes will be sent as
-                            // downstream "offload-able" prefixes.
-                            for (LinkAddress addr : lp.getAllLinkAddresses()) {
-                                final InetAddress ip = addr.getAddress();
-                                if (ip.isLinkLocalAddress()) continue;
-                                localPrefixes.add(PrefixUtils.ipAddressAsPrefix(ip));
-                            }
-                            break;
-                        case IpServer.STATE_LOCAL_ONLY:
-                            // Add prefixes covering all local IPs.
-                            localPrefixes.addAll(PrefixUtils.localPrefixesFrom(lp));
-                            break;
-                    }
+        public void sendOffloadExemptPrefixes(final Set<IpPrefix> localPrefixes) {
+            // Add in well-known minimum set.
+            PrefixUtils.addNonForwardablePrefixes(localPrefixes);
+            // Add tragically hardcoded prefixes.
+            localPrefixes.add(PrefixUtils.DEFAULT_WIFI_P2P_PREFIX);
+
+            // Maybe add prefixes or addresses for downstreams, depending on
+            // the IP serving mode of each.
+            for (IpServer ipServer : mTetherMainSM.getAllDownstreams()) {
+                final LinkProperties lp = ipServer.linkProperties();
+
+                switch (ipServer.servingMode()) {
+                    case IpServer.STATE_UNAVAILABLE:
+                    case IpServer.STATE_AVAILABLE:
+                        // No usable LinkProperties in these states.
+                        continue;
+                    case IpServer.STATE_TETHERED:
+                        // Only add IPv4 /32 and IPv6 /128 prefixes. The
+                        // directly-connected prefixes will be sent as
+                        // downstream "offload-able" prefixes.
+                        for (LinkAddress addr : lp.getAllLinkAddresses()) {
+                            final InetAddress ip = addr.getAddress();
+                            if (ip.isLinkLocalAddress()) continue;
+                            localPrefixes.add(PrefixUtils.ipAddressAsPrefix(ip));
+                        }
+                        break;
+                    case IpServer.STATE_LOCAL_ONLY:
+                        // Add prefixes covering all local IPs.
+                        localPrefixes.addAll(PrefixUtils.localPrefixesFrom(lp));
+                        break;
                 }
-
-                mOffloadController.setLocalPrefixes(localPrefixes);
             }
 
-            private void updateOffloadStatus(final int newStatus) {
-                if (newStatus == mOffloadStatus) return;
+            mOffloadController.setLocalPrefixes(localPrefixes);
+        }
 
-                mOffloadStatus = newStatus;
-                reportOffloadStatusChanged(mOffloadStatus);
-            }
+        private void updateOffloadStatus(final int newStatus) {
+            if (newStatus == mOffloadStatus) return;
+
+            mOffloadStatus = newStatus;
+            reportOffloadStatusChanged(mOffloadStatus);
+        }
+
+        void dump(final IndentingPrintWriter pw) {
+            mOffloadController.dump(pw);
         }
     }
 
@@ -2630,7 +2728,7 @@ public class Tethering {
 
         pw.println("Hardware offload:");
         pw.increaseIndent();
-        mOffloadController.dump(pw);
+        mOffload.dump(pw);
         pw.decreaseIndent();
 
         dumpBpf(pw);
@@ -2768,8 +2866,16 @@ public class Tethering {
         mLog.log(String.format(
                 "OBSERVED LinkProperties update iface=%s state=%s lp=%s",
                 iface, IpServer.getStateString(state), newLp));
-        final int which = TetherMainSM.EVENT_IFACE_UPDATE_LINKPROPERTIES;
-        mTetherMainSM.sendMessage(which, state, 0, newLp);
+        if (USE_SYNC_SM) {
+            if (state == IpServer.STATE_TETHERED) {
+                mOffload.updateDownstreamLinkProperties(newLp);
+            } else {
+                mOffload.excludeDownstreamInterface(newLp.getInterfaceName());
+            }
+        } else {
+            final int which = TetherMainSM.EVENT_IFACE_UPDATE_LINKPROPERTIES;
+            mTetherMainSM.sendMessage(which, state, 0, newLp);
+        }
     }
 
     private boolean hasSystemFeature(final String feature) {
@@ -2810,7 +2916,7 @@ public class Tethering {
 
         mLog.i("adding IpServer for: " + iface);
         final TetherState tetherState = new TetherState(
-                new IpServer(iface, mLooper, interfaceType, mLog, mNetd, mBpfCoordinator,
+                new IpServer(iface, mHandler, interfaceType, mLog, mNetd, mBpfCoordinator,
                              makeControlCallback(), mConfig, mPrivateAddressCoordinator,
                              mTetheringMetrics, mDeps.getIpServerDependencies()), isNcm);
         mTetherStates.put(iface, tetherState);

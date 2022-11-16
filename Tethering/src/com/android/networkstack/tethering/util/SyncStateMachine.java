@@ -31,29 +31,13 @@ import java.util.HashMap;
  * All methods of this class must be called on only one thread.
  */
 public class SyncStateMachine {
-    /**
-     * Indicate the operation was successful. Return value for
-     * {@link SyncStateMachine#processMessage}, {@link SyncState#syncEnter} and
-     * {@link SyncState#syncExit}.
-     */
-    public static final int SUCCESSFUL = 0;
-    /**
-     * Indicate someting wrong happen during the state transitions. If error happened in the mid-way
-     * of state transitions, it would continuous transitions to destination state and this value
-     * would be eventually return by {@link SyncStateMachine#processMessage}. Then the caller could
-     * decide how to handle the error.
-     *
-     * Return value for {@link SyncStateMachine#processMessage}, {@link SyncState#syncEnter} and
-     * {@link SyncState#syncExit}.
-     */
-    public static final int ERROR = 1;
     private static final int DEFAULT_CAPACITY = 1;
 
     private final String mName;
     private final Thread mMyThread;
     private final boolean mDbg;
-    private final SyncState mInitialState;
     private final HashMap<SyncState, StateInfo> mStateInfo = new HashMap<SyncState, StateInfo>();
+    private final int mDefaultResult;
 
     /**
      * Information about a state.
@@ -71,7 +55,7 @@ public class SyncStateMachine {
     private boolean mIsInProcess;
 
     /**
-     * The extened state class which provide syncEnter/syncExit/processMessage methods for
+     * The extened state class which provide enter/exit/processMessage methods for
      * returning the result.
      */
     public static class SyncState extends State {
@@ -82,13 +66,13 @@ public class SyncStateMachine {
         }
 
         /** Called when a state is entered. */
-        public int syncEnter() {
-            return SUCCESSFUL;
+        public int enter(final int lastResult) {
+            return lastResult;
         }
 
         /** Called when a state is exited. */
-        public int syncExit() {
-            return SUCCESSFUL;
+        public int exit(final int lastResult) {
+            return lastResult;
         }
     }
 
@@ -97,21 +81,31 @@ public class SyncStateMachine {
      *
      * @param name of the state machine
      */
-    public SyncStateMachine(final String name, final SyncState initialState) {
-        this(name, initialState, false /* debug */);
+    public SyncStateMachine(final String name, final Thread thread, final int defaultResult) {
+        this(name, thread, defaultResult, false /* debug */);
     }
 
-    public SyncStateMachine(final String name, final SyncState initialState, final boolean dbg) {
+    public SyncStateMachine(final String name, final Thread thread, final int defaultResult,
+            final boolean dbg) {
         mName = name;
-        mMyThread = Thread.currentThread();
+        mDefaultResult = defaultResult;
+        mMyThread = thread;
         mDbg = dbg;
-
-        mInitialState = initialState;
-        addState(initialState);
-        mInitialState.syncEnter();
-        mStateInfo.get(initialState).active = true;
-        mCurrentState = initialState;
         mDestState = null;
+    }
+
+    public final void start(final SyncState initialState) {
+        ensureCorrectThread();
+        ensureValidState(initialState);
+
+        final StateInfo stateInfo = mStateInfo.get(initialState);
+        if (stateInfo.parentStateInfo != null) {
+            throw new IllegalStateException("Initial state can't be child state");
+        }
+
+        stateInfo.active = true;
+        initialState.enter(mDefaultResult);
+        mCurrentState = initialState;
     }
 
     /** Add a new state to the state machine. */
@@ -128,8 +122,6 @@ public class SyncStateMachine {
      */
     public final void addState(final SyncState state, final SyncState parent) {
         if (mDbg) Log.d(mName, "addState(" + state + ", " + parent + ")");
-        ensureCorrectThread();
-
         final StateInfo parentStateInfo;
         if (parent != null) {
             // The parent must be added before child state.
@@ -151,8 +143,8 @@ public class SyncStateMachine {
 
     /**
      * Process the message synchronously. State transitions would be performed after processing
-     * message. If current state already be destState, just return SUCCESSFUL without perform
-     * state transition. Besides, this should not a called inside SyncState.
+     * message. If current state already be destState, just return mDefaultResult without
+     * perform state transition. Besides, this should not a called inside SyncState.
      */
     public final int processMessage(int what, int arg1, int arg2, Object obj) {
         ensureCorrectThread();
@@ -201,13 +193,12 @@ public class SyncStateMachine {
         // 2. Invoke state exit list from current state to common acestor state.
         // 3. Invoke state enter list from common ancestor state to destState by going
         // through mEnterStateStack.
-        // 4. State tranistions would be interrupted if any of state exit/enter fail.
-        if (mDestState == null) return SUCCESSFUL;
+        if (mDestState == null) return mDefaultResult;
 
+        final StateInfo commonStateInfo = setupEnterStackOfInactiveState();
         try {
-            final StateInfo commonStateInfo = setupEnterStackOfInactiveState();
-            final boolean invokeExitError = invokeExitMethods(commonStateInfo);
-            return (invokeEnterMethods() && invokeExitError) ? ERROR : SUCCESSFUL;
+            final int result = invokeExitMethods(commonStateInfo);
+            return invokeEnterMethods(result);
         } finally {
             mEnterStateStack.clear();
             mDestState = null;
@@ -231,37 +222,33 @@ public class SyncStateMachine {
         return curStateInfo;
     }
 
-    private static boolean isError(final int state) {
-        return state == ERROR;
-    }
-
     // Call the exit method from current state to common ancestor state.
-    private boolean invokeExitMethods(final StateInfo commonStateInfo) {
-        boolean hasError = false;
+    private int invokeExitMethods(final StateInfo commonStateInfo) {
+        int lastResult = mDefaultResult;
         StateInfo stateInfo = mStateInfo.get(mCurrentState);
         while (stateInfo != null && stateInfo != commonStateInfo) {
             if (mDbg) Log.d(mName, stateInfo.state + " exit()");
-            hasError = isError(stateInfo.state.syncExit()) & hasError;
+            lastResult = stateInfo.state.exit(lastResult);
             stateInfo.active = false;
             stateInfo = stateInfo.parentStateInfo;
         }
 
         mCurrentState = stateInfo != null ? stateInfo.state : null;
-        return hasError;
+        return lastResult;
     }
 
     // Call the enter method from common ancestor state to destination state.
-    private boolean invokeEnterMethods() {
-        boolean hasError = false;
+    private int invokeEnterMethods(int defaultResult) {
+        int lastResult = defaultResult;
         while (!mEnterStateStack.isEmpty()) {
             final StateInfo stateInfo = mEnterStateStack.remove(mEnterStateStack.size() - 1);
             if (mDbg) Log.d(mName, stateInfo.state + " enter()");
-            hasError = isError(stateInfo.state.syncEnter()) & hasError;
+            lastResult = stateInfo.state.enter(lastResult);
             stateInfo.active = true;
             mCurrentState = stateInfo.state;
         }
 
-        return hasError;
+        return lastResult;
     }
 
     private void ensureCorrectThread() {
