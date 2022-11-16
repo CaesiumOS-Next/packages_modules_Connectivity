@@ -29,9 +29,12 @@ import androidx.annotation.NonNull;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
+import org.chromium.net.CallbackException;
 import org.chromium.net.CronetEngine;
 import org.chromium.net.CronetException;
 import org.chromium.net.UrlRequest;
+import org.chromium.net.UrlRequest.Status;
+import org.chromium.net.UrlRequest.StatusListener;
 import org.chromium.net.UrlResponseInfo;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,6 +58,8 @@ public class CronetApiTest {
     private ConnectivityManager mCm;
     @NonNull
     private Executor mExecutor;
+    @NonNull
+    private String mUrl;
 
     private static void assertGreaterThan(String msg, int first, int second) {
         assertTrue(msg + " Excepted " + first + " to be greater than " + second, first > second);
@@ -64,6 +69,7 @@ public class CronetApiTest {
     public void setUp() throws Exception {
         Context context = InstrumentationRegistry.getInstrumentation().getContext();
         mCm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        assertHasTestableNetworks();
         CronetEngine.Builder builder = new CronetEngine.Builder(context);
         builder.enableHttpCache(CronetEngine.Builder.HTTP_CACHE_IN_MEMORY, 100 * 1024)
                 .enableHttp2(true)
@@ -71,16 +77,50 @@ public class CronetApiTest {
                 .enableQuic(true);
         mCronetEngine = builder.build();
         mExecutor = new Handler(Looper.getMainLooper())::post;
+        mUrl = HTTPS_PREFIX + getRandomDomain();
     }
 
     @Test
     public void testUrlRequestGet_CompletesSuccessfully() throws Exception {
-        assertHasTestableNetworks();
-        String url = HTTPS_PREFIX + getRandomDomain();
-        VerifyUrlRequestCallback callback = new VerifyUrlRequestCallback(url);
-        UrlRequest request = mCronetEngine.newUrlRequestBuilder(url, callback, mExecutor).build();
+        VerifyUrlRequestCallback callback = new VerifyUrlRequestCallback(mUrl);
+        UrlRequest request = mCronetEngine.newUrlRequestBuilder(mUrl, callback, mExecutor).build();
         request.start();
-        assertTrue(url + " but not complete after " + TIMEOUT_MS + "ms.",
+        assertTrue(mUrl + " but not complete after " + TIMEOUT_MS + "ms.",
+                callback.waitForAnswer());
+    }
+
+    @Test
+    public void testUrlRequestStatus_Called() throws Exception {
+        VerifyUrlRequestCallback callback = new VerifyUrlRequestCallback(mUrl);
+        UrlRequest request = mCronetEngine.newUrlRequestBuilder(mUrl, callback, mExecutor).build();
+        // Calling before request is started should give Status.INVALID,
+        // since the native adapter is not created.
+        TestStatusListener statusListener = new TestStatusListener();
+        request.getStatus(statusListener);
+        assertTrue(mUrl + " onStatus not called after " + TIMEOUT_MS + "ms.",
+                statusListener.waitUntilOnStatusCalled());
+    }
+
+    @Test
+    public void testUrlRequestStatus_ThrowsExceptions() throws Exception {
+        VerifyUrlRequestCallback callback = new VerifyUrlRequestCallback(mUrl) {
+            @Override
+            public void onReadCompleted(UrlRequest request, UrlResponseInfo info,
+                    ByteBuffer byteBuffer) {
+                throw new IllegalStateException("Callback error");
+            }
+
+            @Override
+            public void onFailed(UrlRequest request, UrlResponseInfo info, CronetException error) {
+                assertTrue("Error should be a CallbackException",
+                        error instanceof CallbackException);
+                super.mLatch.countDown();
+            }
+        };
+
+        UrlRequest request = mCronetEngine.newUrlRequestBuilder(mUrl, callback, mExecutor).build();
+        request.start();
+        assertTrue(mUrl + " but does not fail after " + TIMEOUT_MS + "ms.",
                 callback.waitForAnswer());
     }
 
@@ -97,8 +137,22 @@ public class CronetApiTest {
         return mTestDomains[index];
     }
 
-    class VerifyUrlRequestCallback extends UrlRequest.Callback {
+    private static class TestStatusListener extends StatusListener {
         private final CountDownLatch mLatch = new CountDownLatch(1);
+
+        @Override
+        public void onStatus(int status) {
+            assertEquals("Expected Status to be INVALID", Status.INVALID, status);
+            mLatch.countDown();
+        }
+
+        public boolean waitUntilOnStatusCalled() throws InterruptedException {
+            return mLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        }
+    }
+
+    private static class VerifyUrlRequestCallback extends UrlRequest.Callback {
+        final CountDownLatch mLatch = new CountDownLatch(1);
         private final String mUrl;
 
         VerifyUrlRequestCallback(@NonNull String url) {
