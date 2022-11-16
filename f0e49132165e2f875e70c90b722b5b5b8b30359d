@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b8ce06f_bdb4d818",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-11-16T02:05:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25cebc96_704c11a5",
+      "range": {
+        "startLine": 642,
+        "startChar": 57,
+        "endLine": 642,
+        "endChar": 61
+      },
+      "revId": "f0e49132165e2f875e70c90b722b5b5b8b30359d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d2e6009_d904bebb",
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "af031f0d_766fde29",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-11-16T02:05:55Z",
+      "side": 1,
+      "message": "No strong reason. Basically following the existing code where we have \n\n```\n            spi \u003d mNetd.ipSecAllocateSpi(callingUid, \"\", destinationAddress, requestedSpi);\n            Log.d(TAG, \"Allocated SPI \" + spi);\n            userRecord.mSpiRecords.put(\n                    resourceId,\n                    new RefcountedResource\u003cSpiRecord\u003e(\n                            new SpiRecord(resourceId, \"\",\n                            destinationAddress, spi), binder));\n```",
+      "parentUuid": "0d2e6009_d904bebb",
+      "range": {
+        "startLine": 660,
+        "startChar": 32,
+        "endLine": 660,
+        "endChar": 35
+      },
+      "revId": "f0e49132165e2f875e70c90b722b5b5b8b30359d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e2f652c_9bafe358",
         "filename": "service-t/src/com/android/server/IpSecService.java",
         "patchSetId": 8
@@ -60,6 +108,30 @@
       "writtenOn": "2022-11-14T23:11:45Z",
       "side": 1,
       "message": "Can we rename this to be reqId or requestId to align with the kernel. Separately, we should file a bug to rename this.\n\nHistorically this was the actual transform ID that we allocate, but that proved to have issues in matching policies \u0026 templates \u0026 SAs",
+      "range": {
+        "startLine": 1937,
+        "startChar": 32,
+        "endLine": 1937,
+        "endChar": 43
+      },
+      "revId": "f0e49132165e2f875e70c90b722b5b5b8b30359d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b907210_99bb8602",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1937,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-11-16T02:05:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e2f652c_9bafe358",
       "range": {
         "startLine": 1937,
         "startChar": 32,
