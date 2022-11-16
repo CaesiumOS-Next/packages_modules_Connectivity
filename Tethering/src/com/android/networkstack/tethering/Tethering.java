@@ -1915,6 +1915,8 @@ public class Tethering {
         protected void notifyDownstreamsOfNewUpstreamIface(InterfaceSet ifaces) {
             mCurrentUpstreamIfaceSet = ifaces;
             for (IpServer ipServer : mNotifyList) {
+                if (ipServer.noChangeInUpstreamIfaceSet(ifaces)) continue;
+
                 ipServer.sendMessage(IpServer.CMD_TETHER_CONNECTION_CHANGED, ifaces);
             }
         }

@@ -370,6 +370,18 @@ public class IpServer extends StateMachine {
         return mIpv4Address;
     }
 
+    public LinkProperties getLastIPv6LinkProperties() {
+        return mLastIPv6LinkProperties;
+    }
+
+    public boolean noChangeInUpstreamIfaceSet(InterfaceSet newIfaces) {
+        if (mUpstreamIfaceSet == null && newIfaces == null) return true;
+        if (mUpstreamIfaceSet != null && newIfaces != null) {
+            return mUpstreamIfaceSet.equals(newIfaces);
+        }
+        return false;
+    }
+
     /**
      * Get the latest list of DHCP leases that was reported. Must be called on the IpServer looper
      * thread.
@@ -1414,14 +1426,6 @@ public class IpServer extends StateMachine {
                     return false;
             }
             return true;
-        }
-
-        private boolean noChangeInUpstreamIfaceSet(InterfaceSet newIfaces) {
-            if (mUpstreamIfaceSet == null && newIfaces == null) return true;
-            if (mUpstreamIfaceSet != null && newIfaces != null) {
-                return mUpstreamIfaceSet.equals(newIfaces);
-            }
-            return false;
         }
 
         private Set<String> upstreamInterfacesRemoved(InterfaceSet newIfaces) {
