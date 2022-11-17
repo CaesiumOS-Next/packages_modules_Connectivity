@@ -352,6 +352,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7abddda_52c64af3",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1936,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-11-17T21:56:10Z",
+      "side": 1,
+      "message": "The failure of finding the SA for the second policy is expected and will not fail the migration process. The kernel will just update the policy in this case.\n\n\nHere is the related code.\n```\n\t/* Stage 2 - find and update state(s) */\n\tfor (i \u003d 0, mp \u003d m; i \u003c num_migrate; i++, mp++) {\n\t\tif ((x \u003d xfrm_migrate_state_find(mp, net, if_id))) {\n\t\t\tx_cur[nx_cur] \u003d x;\n\t\t\tnx_cur++;\n\t\t\txc \u003d xfrm_state_migrate(x, mp, encap);\n\t\t\tif (xc) {\n\t\t\t\tx_new[nx_new] \u003d xc;\n\t\t\t\tnx_new++;\n\t\t\t} else {\n\t\t\t\terr \u003d -ENODATA;\n\t\t\t\tgoto restore_state;\n\t\t\t}\n\t\t}\n\t}\n\t\n\t/* Stage 3 - update policy */\n\tif ((err \u003d xfrm_policy_migrate(pol, m, num_migrate)) \u003c 0)\n\t\tgoto restore_state;\n```\nIf `xfrm_migrate_state_find` does not find anything, there won\u0027t be any SA update.",
+      "parentUuid": "e8a1539e_53548483",
+      "range": {
+        "startLine": 1936,
+        "startChar": 41,
+        "endLine": 1936,
+        "endChar": 57
+      },
+      "revId": "20601a9d4718870e0d7836f64b1d69e9b49cdad2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e0bd1f8_baddcc5c",
