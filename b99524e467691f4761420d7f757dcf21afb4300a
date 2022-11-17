@@ -70,6 +70,24 @@
       "parentUuid": "4a8adb39_75385644",
       "revId": "b99524e467691f4761420d7f757dcf21afb4300a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d92d02a9_09dc573b",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1077006
+      },
+      "writtenOn": "2022-11-17T06:56:55Z",
+      "side": 0,
+      "message": "FYI I collected some data on the latency of ServiceLost callback in our lab (ran 38 times):\n- the latency ranges between [425ms, 2531ms]\n- average is 1663ms, median is 1634ms\n- latency exceeds 2000ms in 9 out of 38 runs (~24%)\n\nI don\u0027t think it\u0027s a big deal as long as we can pass in a few retries; but as Hugo said it\u0027s nice to know which callbacks depend on the actual network environment.",
+      "parentUuid": "7f472a3d_0a0dd922",
+      "revId": "b99524e467691f4761420d7f757dcf21afb4300a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
