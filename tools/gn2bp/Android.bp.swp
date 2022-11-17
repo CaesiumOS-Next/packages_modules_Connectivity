@@ -189,40 +189,27 @@ cc_library_static {
         "cronet_aml_third_party_android_ndk_cpu_features",
     ],
     cflags: [
-        "-DANDROID",
-        "-DANDROID_NDK_VERSION_ROLL=r23_1",
         "-DCR_CLANG_REVISION=\"llvmorg-16-init-8697-g60809cd2-1\"",
         "-DCR_LIBCXX_REVISION=47b31179d10646029c260702650a25d24f555acc",
-        "-DCR_SYSROOT_KEY=20220331T153654Z-0",
         "-DDCHECK_ALWAYS_ON=1",
         "-DDYNAMIC_ANNOTATIONS_ENABLED=1",
-        "-DHAVE_SYS_UIO_H",
         "-DIS_PARTITION_ALLOC_IMPL",
         "-DPA_PCSCAN_STACK_SUPPORTED",
-        "-DUSE_AURA=1",
-        "-DUSE_OZONE=1",
-        "-DUSE_UDEV",
         "-D_DEBUG",
-        "-D_FILE_OFFSET_BITS=64",
         "-D_GNU_SOURCE",
-        "-D_LARGEFILE64_SOURCE",
-        "-D_LARGEFILE_SOURCE",
         "-D_LIBCPP_AVAILABILITY_CUSTOM_VERBOSE_ABORT_PROVIDED=1",
         "-D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS",
         "-D_LIBCPP_ENABLE_ASSERTIONS_DEFAULT=1",
         "-D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS",
         "-D__STDC_CONSTANT_MACROS",
         "-D__STDC_FORMAT_MACROS",
+        "-UANDROID",
     ],
     local_include_dirs: [
         "./",
         "buildtools/third_party/libc++/",
         "buildtools/third_party/libc++/trunk/include",
         "buildtools/third_party/libc++abi/trunk/include",
-        "third_party/android_ndk/sources/android/cpufeatures/",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include",
-        "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
     ],
     cpp_std: "c++20",
     target: {
@@ -232,6 +219,31 @@ cc_library_static {
                 "base/allocator/partition_allocator/partition_alloc_base/native_library.cc",
                 "base/allocator/partition_allocator/partition_alloc_base/native_library_posix.cc",
                 "base/allocator/partition_allocator/partition_alloc_base/time/time_android.cc",
+            ],
+            cflags: [
+                "-DANDROID",
+                "-DANDROID_NDK_VERSION_ROLL=r23_1",
+                "-DHAVE_SYS_UIO_H",
+            ],
+            local_include_dirs: [
+                "third_party/android_ndk/sources/android/cpufeatures/",
+                "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
+            ],
+        },
+        host: {
+            cflags: [
+                "-DCR_SYSROOT_KEY=20220331T153654Z-0",
+                "-DUSE_AURA=1",
+                "-DUSE_OZONE=1",
+                "-DUSE_UDEV",
+                "-D_FILE_OFFSET_BITS=64",
+                "-D_LARGEFILE64_SOURCE",
+                "-D_LARGEFILE_SOURCE",
+                "-UANDROID",
+            ],
+            local_include_dirs: [
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include",
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
             ],
         },
     },
@@ -876,38 +888,27 @@ cc_library_static {
     ],
     cflags: [
         "-DABSL_ALLOCATOR_NOTHROW=1",
-        "-DANDROID",
-        "-DANDROID_NDK_VERSION_ROLL=r23_1",
         "-DBASE_IMPLEMENTATION",
         "-DCR_CLANG_REVISION=\"llvmorg-16-init-8697-g60809cd2-1\"",
         "-DCR_LIBCXX_REVISION=47b31179d10646029c260702650a25d24f555acc",
-        "-DCR_SYSROOT_KEY=20220331T153654Z-0",
         "-DDCHECK_ALWAYS_ON=1",
         "-DDYNAMIC_ANNOTATIONS_ENABLED=1",
-        "-DGLOG_EXPORT=",
-        "-DHAVE_SYS_UIO_H",
         "-DICU_UTIL_DATA_IMPL=ICU_UTIL_DATA_FILE",
-        "-DUSE_AURA=1",
         "-DUSE_CHROMIUM_ICU=1",
-        "-DUSE_OZONE=1",
-        "-DUSE_SYMBOLIZE",
-        "-DUSE_UDEV",
         "-DU_ENABLE_DYLOAD=0",
         "-DU_ENABLE_RESOURCE_TRACING=0",
         "-DU_ENABLE_TRACING=1",
         "-DU_STATIC_IMPLEMENTATION",
         "-DU_USING_ICU_NAMESPACE=0",
         "-D_DEBUG",
-        "-D_FILE_OFFSET_BITS=64",
         "-D_GNU_SOURCE",
-        "-D_LARGEFILE64_SOURCE",
-        "-D_LARGEFILE_SOURCE",
         "-D_LIBCPP_AVAILABILITY_CUSTOM_VERBOSE_ABORT_PROVIDED=1",
         "-D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS",
         "-D_LIBCPP_ENABLE_ASSERTIONS_DEFAULT=1",
         "-D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS",
         "-D__STDC_CONSTANT_MACROS",
         "-D__STDC_FORMAT_MACROS",
+        "-UANDROID",
     ],
     local_include_dirs: [
         "./",
@@ -915,13 +916,9 @@ cc_library_static {
         "buildtools/third_party/libc++/trunk/include",
         "buildtools/third_party/libc++abi/trunk/include",
         "third_party/abseil-cpp/",
-        "third_party/android_ndk/sources/android/cpufeatures/",
         "third_party/boringssl/src/include/",
         "third_party/icu/source/common/",
         "third_party/icu/source/i18n/",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include",
-        "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
     ],
     header_libs: [
         "jni_headers",
@@ -1008,6 +1005,15 @@ cc_library_static {
                 "base/threading/platform_thread_android.cc",
                 "base/time/time_android.cc",
             ],
+            cflags: [
+                "-DANDROID",
+                "-DANDROID_NDK_VERSION_ROLL=r23_1",
+                "-DHAVE_SYS_UIO_H",
+            ],
+            local_include_dirs: [
+                "third_party/android_ndk/sources/android/cpufeatures/",
+                "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
+            ],
         },
         host: {
             srcs: [
@@ -1025,6 +1031,22 @@ cc_library_static {
                 "base/profiler/stack_sampler_posix.cc",
                 "base/stack_canary_linux.cc",
                 "base/threading/platform_thread_linux.cc",
+            ],
+            cflags: [
+                "-DCR_SYSROOT_KEY=20220331T153654Z-0",
+                "-DGLOG_EXPORT=",
+                "-DUSE_AURA=1",
+                "-DUSE_OZONE=1",
+                "-DUSE_SYMBOLIZE",
+                "-DUSE_UDEV",
+                "-D_FILE_OFFSET_BITS=64",
+                "-D_LARGEFILE64_SOURCE",
+                "-D_LARGEFILE_SOURCE",
+                "-UANDROID",
+            ],
+            local_include_dirs: [
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include",
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
             ],
         },
     },
@@ -1312,39 +1334,55 @@ cc_library_static {
         "cronet_aml_defaults",
     ],
     cflags: [
-        "-DANDROID",
-        "-DANDROID_NDK_VERSION_ROLL=r23_1",
         "-DCR_CLANG_REVISION=\"llvmorg-16-init-8697-g60809cd2-1\"",
         "-DCR_LIBCXX_REVISION=47b31179d10646029c260702650a25d24f555acc",
-        "-DCR_SYSROOT_KEY=20220331T153654Z-0",
         "-DDCHECK_ALWAYS_ON=1",
         "-DDYNAMIC_ANNOTATIONS_ENABLED=1",
-        "-DHAVE_SYS_UIO_H",
-        "-DUSE_AURA=1",
-        "-DUSE_OZONE=1",
-        "-DUSE_UDEV",
         "-D_DEBUG",
-        "-D_FILE_OFFSET_BITS=64",
         "-D_GNU_SOURCE",
-        "-D_LARGEFILE64_SOURCE",
-        "-D_LARGEFILE_SOURCE",
         "-D_LIBCPP_AVAILABILITY_CUSTOM_VERBOSE_ABORT_PROVIDED=1",
         "-D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS",
         "-D_LIBCPP_ENABLE_ASSERTIONS_DEFAULT=1",
         "-D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS",
         "-D__STDC_CONSTANT_MACROS",
         "-D__STDC_FORMAT_MACROS",
+        "-UANDROID",
     ],
     local_include_dirs: [
         "./",
         "buildtools/third_party/libc++/",
         "buildtools/third_party/libc++/trunk/include",
         "buildtools/third_party/libc++abi/trunk/include",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include",
-        "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
     ],
     cpp_std: "c++20",
+    target: {
+        android_x86_64: {
+            cflags: [
+                "-DANDROID",
+                "-DANDROID_NDK_VERSION_ROLL=r23_1",
+                "-DHAVE_SYS_UIO_H",
+            ],
+            local_include_dirs: [
+                "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
+            ],
+        },
+        host: {
+            cflags: [
+                "-DCR_SYSROOT_KEY=20220331T153654Z-0",
+                "-DUSE_AURA=1",
+                "-DUSE_OZONE=1",
+                "-DUSE_UDEV",
+                "-D_FILE_OFFSET_BITS=64",
+                "-D_LARGEFILE64_SOURCE",
+                "-D_LARGEFILE_SOURCE",
+                "-UANDROID",
+            ],
+            local_include_dirs: [
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include",
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
+            ],
+        },
+    },
 }
 
 // GN: //base:build_date
@@ -1643,39 +1681,55 @@ cc_library_static {
         "cronet_aml_defaults",
     ],
     cflags: [
-        "-DANDROID",
-        "-DANDROID_NDK_VERSION_ROLL=r23_1",
         "-DCR_CLANG_REVISION=\"llvmorg-16-init-8697-g60809cd2-1\"",
         "-DCR_LIBCXX_REVISION=47b31179d10646029c260702650a25d24f555acc",
-        "-DCR_SYSROOT_KEY=20220331T153654Z-0",
         "-DDCHECK_ALWAYS_ON=1",
         "-DDYNAMIC_ANNOTATIONS_ENABLED=1",
-        "-DHAVE_SYS_UIO_H",
-        "-DUSE_AURA=1",
-        "-DUSE_OZONE=1",
-        "-DUSE_UDEV",
         "-D_DEBUG",
-        "-D_FILE_OFFSET_BITS=64",
         "-D_GNU_SOURCE",
-        "-D_LARGEFILE64_SOURCE",
-        "-D_LARGEFILE_SOURCE",
         "-D_LIBCPP_AVAILABILITY_CUSTOM_VERBOSE_ABORT_PROVIDED=1",
         "-D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS",
         "-D_LIBCPP_ENABLE_ASSERTIONS_DEFAULT=1",
         "-D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS",
         "-D__STDC_CONSTANT_MACROS",
         "-D__STDC_FORMAT_MACROS",
+        "-UANDROID",
     ],
     local_include_dirs: [
         "./",
         "buildtools/third_party/libc++/",
         "buildtools/third_party/libc++/trunk/include",
         "buildtools/third_party/libc++abi/trunk/include",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include",
-        "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
     ],
     cpp_std: "c++20",
+    target: {
+        android_x86_64: {
+            cflags: [
+                "-DANDROID",
+                "-DANDROID_NDK_VERSION_ROLL=r23_1",
+                "-DHAVE_SYS_UIO_H",
+            ],
+            local_include_dirs: [
+                "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
+            ],
+        },
+        host: {
+            cflags: [
+                "-DCR_SYSROOT_KEY=20220331T153654Z-0",
+                "-DUSE_AURA=1",
+                "-DUSE_OZONE=1",
+                "-DUSE_UDEV",
+                "-D_FILE_OFFSET_BITS=64",
+                "-D_LARGEFILE64_SOURCE",
+                "-D_LARGEFILE_SOURCE",
+                "-UANDROID",
+            ],
+            local_include_dirs: [
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include",
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
+            ],
+        },
+    },
 }
 
 // GN: //base/third_party/dynamic_annotations:dynamic_annotations
@@ -1689,37 +1743,53 @@ cc_library_static {
         "cronet_aml_defaults",
     ],
     cflags: [
-        "-DANDROID",
-        "-DANDROID_NDK_VERSION_ROLL=r23_1",
         "-DCR_CLANG_REVISION=\"llvmorg-16-init-8697-g60809cd2-1\"",
         "-DCR_LIBCXX_REVISION=47b31179d10646029c260702650a25d24f555acc",
-        "-DCR_SYSROOT_KEY=20220331T153654Z-0",
         "-DDCHECK_ALWAYS_ON=1",
         "-DDYNAMIC_ANNOTATIONS_ENABLED=1",
-        "-DHAVE_SYS_UIO_H",
-        "-DUSE_AURA=1",
-        "-DUSE_OZONE=1",
-        "-DUSE_UDEV",
         "-D_DEBUG",
-        "-D_FILE_OFFSET_BITS=64",
         "-D_GNU_SOURCE",
-        "-D_LARGEFILE64_SOURCE",
-        "-D_LARGEFILE_SOURCE",
         "-D_LIBCPP_AVAILABILITY_CUSTOM_VERBOSE_ABORT_PROVIDED=1",
         "-D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS",
         "-D_LIBCPP_ENABLE_ASSERTIONS_DEFAULT=1",
         "-D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS",
+        "-UANDROID",
     ],
     local_include_dirs: [
         "./",
         "buildtools/third_party/libc++/",
         "buildtools/third_party/libc++/trunk/include",
         "buildtools/third_party/libc++abi/trunk/include",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include",
-        "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
     ],
     cpp_std: "c++20",
+    target: {
+        android_x86_64: {
+            cflags: [
+                "-DANDROID",
+                "-DANDROID_NDK_VERSION_ROLL=r23_1",
+                "-DHAVE_SYS_UIO_H",
+            ],
+            local_include_dirs: [
+                "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
+            ],
+        },
+        host: {
+            cflags: [
+                "-DCR_SYSROOT_KEY=20220331T153654Z-0",
+                "-DUSE_AURA=1",
+                "-DUSE_OZONE=1",
+                "-DUSE_UDEV",
+                "-D_FILE_OFFSET_BITS=64",
+                "-D_LARGEFILE64_SOURCE",
+                "-D_LARGEFILE_SOURCE",
+                "-UANDROID",
+            ],
+            local_include_dirs: [
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include",
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
+            ],
+        },
+    },
 }
 
 // GN: //base/third_party/symbolize:symbolize
@@ -1764,6 +1834,13 @@ cc_library_static {
         "build/linux/debian_bullseye_amd64-sysroot/usr/include",
     ],
     cpp_std: "c++20",
+    target: {
+        host: {
+            cflags: [
+                "-UANDROID",
+            ],
+        },
+    },
 }
 
 // GN: //base/third_party/xdg_mime:xdg_mime
@@ -1813,6 +1890,13 @@ cc_library_static {
         "build/linux/debian_bullseye_amd64-sysroot/usr/include",
     ],
     cpp_std: "c++20",
+    target: {
+        host: {
+            cflags: [
+                "-UANDROID",
+            ],
+        },
+    },
 }
 
 // GN: //base/third_party/xdg_user_dirs:xdg_user_dirs
@@ -1857,6 +1941,13 @@ cc_library_static {
         "build/linux/debian_bullseye_amd64-sysroot/usr/include",
     ],
     cpp_std: "c++20",
+    target: {
+        host: {
+            cflags: [
+                "-UANDROID",
+            ],
+        },
+    },
 }
 
 // GN: //base:tracing_buildflags
@@ -2207,6 +2298,13 @@ cc_library_shared {
         "-fexceptions",
     ],
     rtti: true,
+    target: {
+        android_x86_64: {
+            cflags: [
+                "-UANDROID",
+            ],
+        },
+    },
 }
 
 // GN: //components/cronet/android:cronet_jni_headers
@@ -2591,6 +2689,13 @@ cc_library_static {
         "jni_headers",
     ],
     cpp_std: "c++20",
+    target: {
+        android_x86_64: {
+            cflags: [
+                "-UANDROID",
+            ],
+        },
+    },
 }
 
 // GN: //crypto:buildflags
@@ -2667,42 +2772,28 @@ cc_library_static {
         "cronet_aml_defaults",
     ],
     cflags: [
-        "-DANDROID",
-        "-DANDROID_NDK_VERSION_ROLL=r23_1",
         "-DCRYPTO_IMPLEMENTATION",
         "-DCR_CLANG_REVISION=\"llvmorg-16-init-8697-g60809cd2-1\"",
         "-DCR_LIBCXX_REVISION=47b31179d10646029c260702650a25d24f555acc",
-        "-DCR_SYSROOT_KEY=20220331T153654Z-0",
         "-DDCHECK_ALWAYS_ON=1",
         "-DDYNAMIC_ANNOTATIONS_ENABLED=1",
-        "-DHAVE_SYS_UIO_H",
-        "-DUSE_AURA=1",
-        "-DUSE_OZONE=1",
-        "-DUSE_UDEV",
         "-D_DEBUG",
-        "-D_FILE_OFFSET_BITS=64",
         "-D_GNU_SOURCE",
-        "-D_LARGEFILE64_SOURCE",
-        "-D_LARGEFILE_SOURCE",
         "-D_LIBCPP_AVAILABILITY_CUSTOM_VERBOSE_ABORT_PROVIDED=1",
         "-D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS",
         "-D_LIBCPP_ENABLE_ASSERTIONS_DEFAULT=1",
         "-D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS",
         "-D__STDC_CONSTANT_MACROS",
         "-D__STDC_FORMAT_MACROS",
+        "-UANDROID",
     ],
     local_include_dirs: [
         "./",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include/nspr",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include/nss",
         "buildtools/third_party/libc++/",
         "buildtools/third_party/libc++/trunk/include",
         "buildtools/third_party/libc++abi/trunk/include",
         "third_party/abseil-cpp/",
         "third_party/boringssl/src/include/",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include",
-        "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
     ],
     cpp_std: "c++20",
     target: {
@@ -2712,10 +2803,36 @@ cc_library_static {
                 "liblog",
             ],
         },
+        android_x86_64: {
+            cflags: [
+                "-DANDROID",
+                "-DANDROID_NDK_VERSION_ROLL=r23_1",
+                "-DHAVE_SYS_UIO_H",
+            ],
+            local_include_dirs: [
+                "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
+            ],
+        },
         host: {
             srcs: [
                 "crypto/nss_key_util.cc",
                 "crypto/nss_util.cc",
+            ],
+            cflags: [
+                "-DCR_SYSROOT_KEY=20220331T153654Z-0",
+                "-DUSE_AURA=1",
+                "-DUSE_OZONE=1",
+                "-DUSE_UDEV",
+                "-D_FILE_OFFSET_BITS=64",
+                "-D_LARGEFILE64_SOURCE",
+                "-D_LARGEFILE_SOURCE",
+                "-UANDROID",
+            ],
+            local_include_dirs: [
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include",
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include/nspr",
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include/nss",
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
             ],
         },
     },
@@ -3628,6 +3745,13 @@ cc_library_static {
     ],
     cpp_std: "c++20",
     rtti: true,
+    target: {
+        android_x86_64: {
+            cflags: [
+                "-UANDROID",
+            ],
+        },
+    },
 }
 
 // GN: //net:net_deps
@@ -3835,6 +3959,13 @@ cc_library_static {
         "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
     ],
     cpp_std: "c++20",
+    target: {
+        android_x86_64: {
+            cflags: [
+                "-UANDROID",
+            ],
+        },
+    },
 }
 
 // GN: //net/third_party/quiche:net_quic_proto
@@ -4383,6 +4514,13 @@ cc_library_static {
         "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
     ],
     cpp_std: "c++20",
+    target: {
+        android_x86_64: {
+            cflags: [
+                "-UANDROID",
+            ],
+        },
+    },
 }
 
 // GN: //net/traffic_annotation:traffic_annotation
@@ -4446,6 +4584,13 @@ cc_library_static {
         "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
     ],
     cpp_std: "c++20",
+    target: {
+        android_x86_64: {
+            cflags: [
+                "-UANDROID",
+            ],
+        },
+    },
 }
 
 // GN: //third_party/abseil-cpp:absl
@@ -5493,32 +5638,23 @@ cc_library_static {
         "cronet_aml_third_party_boringssl_src_third_party_fiat_fiat_license",
     ],
     cflags: [
-        "-DANDROID",
-        "-DANDROID_NDK_VERSION_ROLL=r23_1",
         "-DBORINGSSL_ALLOW_CXX_RUNTIME",
         "-DBORINGSSL_IMPLEMENTATION",
         "-DBORINGSSL_NO_STATIC_INITIALIZER",
         "-DCR_CLANG_REVISION=\"llvmorg-16-init-8697-g60809cd2-1\"",
         "-DCR_LIBCXX_REVISION=47b31179d10646029c260702650a25d24f555acc",
-        "-DCR_SYSROOT_KEY=20220331T153654Z-0",
         "-DDCHECK_ALWAYS_ON=1",
         "-DDYNAMIC_ANNOTATIONS_ENABLED=1",
-        "-DHAVE_SYS_UIO_H",
         "-DOPENSSL_SMALL",
-        "-DUSE_AURA=1",
-        "-DUSE_OZONE=1",
-        "-DUSE_UDEV",
         "-D_DEBUG",
-        "-D_FILE_OFFSET_BITS=64",
         "-D_GNU_SOURCE",
-        "-D_LARGEFILE64_SOURCE",
-        "-D_LARGEFILE_SOURCE",
         "-D_LIBCPP_AVAILABILITY_CUSTOM_VERBOSE_ABORT_PROVIDED=1",
         "-D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS",
         "-D_LIBCPP_ENABLE_ASSERTIONS_DEFAULT=1",
         "-D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS",
         "-D__STDC_CONSTANT_MACROS",
         "-D__STDC_FORMAT_MACROS",
+        "-UANDROID",
     ],
     local_include_dirs: [
         "./",
@@ -5526,11 +5662,36 @@ cc_library_static {
         "buildtools/third_party/libc++/trunk/include",
         "buildtools/third_party/libc++abi/trunk/include",
         "third_party/boringssl/src/include/",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include",
-        "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
     ],
     cpp_std: "c++20",
+    target: {
+        android_x86_64: {
+            cflags: [
+                "-DANDROID",
+                "-DANDROID_NDK_VERSION_ROLL=r23_1",
+                "-DHAVE_SYS_UIO_H",
+            ],
+            local_include_dirs: [
+                "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
+            ],
+        },
+        host: {
+            cflags: [
+                "-DCR_SYSROOT_KEY=20220331T153654Z-0",
+                "-DUSE_AURA=1",
+                "-DUSE_OZONE=1",
+                "-DUSE_UDEV",
+                "-D_FILE_OFFSET_BITS=64",
+                "-D_LARGEFILE64_SOURCE",
+                "-D_LARGEFILE_SOURCE",
+                "-UANDROID",
+            ],
+            local_include_dirs: [
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include",
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
+            ],
+        },
+    },
 }
 
 // GN: //third_party/boringssl:boringssl_asm
@@ -5606,6 +5767,13 @@ cc_library_static {
         "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
     ],
     cpp_std: "c++20",
+    target: {
+        android_x86_64: {
+            cflags: [
+                "-UANDROID",
+            ],
+        },
+    },
 }
 
 // GN: //third_party/brotli:dec
@@ -5650,6 +5818,13 @@ cc_library_static {
         "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
     ],
     cpp_std: "c++20",
+    target: {
+        android_x86_64: {
+            cflags: [
+                "-UANDROID",
+            ],
+        },
+    },
 }
 
 // GN: //third_party/brotli:headers
@@ -5910,22 +6085,15 @@ cc_library_static {
         "cronet_aml_defaults",
     ],
     cflags: [
-        "-DANDROID",
-        "-DANDROID_NDK_VERSION_ROLL=r23_1",
         "-DCR_CLANG_REVISION=\"llvmorg-16-init-8697-g60809cd2-1\"",
         "-DCR_LIBCXX_REVISION=47b31179d10646029c260702650a25d24f555acc",
-        "-DCR_SYSROOT_KEY=20220331T153654Z-0",
         "-DDCHECK_ALWAYS_ON=1",
         "-DDYNAMIC_ANNOTATIONS_ENABLED=1",
         "-DHAVE_DLOPEN=0",
-        "-DHAVE_SYS_UIO_H",
         "-DICU_UTIL_DATA_IMPL=ICU_UTIL_DATA_FILE",
         "-DUCONFIG_ONLY_HTML_CONVERSION=1",
         "-DUCONFIG_USE_WINDOWS_LCID_MAPPING_API=0",
-        "-DUSE_AURA=1",
         "-DUSE_CHROMIUM_ICU=1",
-        "-DUSE_OZONE=1",
-        "-DUSE_UDEV",
         "-DU_CHARSET_IS_UTF8=1",
         "-DU_ENABLE_DYLOAD=0",
         "-DU_ENABLE_RESOURCE_TRACING=0",
@@ -5934,14 +6102,12 @@ cc_library_static {
         "-DU_STATIC_IMPLEMENTATION",
         "-DU_USING_ICU_NAMESPACE=0",
         "-D_DEBUG",
-        "-D_FILE_OFFSET_BITS=64",
         "-D_GNU_SOURCE",
-        "-D_LARGEFILE64_SOURCE",
-        "-D_LARGEFILE_SOURCE",
         "-D_LIBCPP_AVAILABILITY_CUSTOM_VERBOSE_ABORT_PROVIDED=1",
         "-D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS",
         "-D_LIBCPP_ENABLE_ASSERTIONS_DEFAULT=1",
         "-D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS",
+        "-UANDROID",
     ],
     local_include_dirs: [
         "./",
@@ -5950,12 +6116,37 @@ cc_library_static {
         "buildtools/third_party/libc++abi/trunk/include",
         "third_party/icu/source/common/",
         "third_party/icu/source/i18n/",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include",
-        "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
     ],
     cpp_std: "c++20",
     rtti: true,
+    target: {
+        android_x86_64: {
+            cflags: [
+                "-DANDROID",
+                "-DANDROID_NDK_VERSION_ROLL=r23_1",
+                "-DHAVE_SYS_UIO_H",
+            ],
+            local_include_dirs: [
+                "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
+            ],
+        },
+        host: {
+            cflags: [
+                "-DCR_SYSROOT_KEY=20220331T153654Z-0",
+                "-DUSE_AURA=1",
+                "-DUSE_OZONE=1",
+                "-DUSE_UDEV",
+                "-D_FILE_OFFSET_BITS=64",
+                "-D_LARGEFILE64_SOURCE",
+                "-D_LARGEFILE_SOURCE",
+                "-UANDROID",
+            ],
+            local_include_dirs: [
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include",
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
+            ],
+        },
+    },
 }
 
 // GN: //third_party/icu:icuuc_private
@@ -6168,22 +6359,15 @@ cc_library_static {
         "cronet_aml_third_party_icu_icuuc_public",
     ],
     cflags: [
-        "-DANDROID",
-        "-DANDROID_NDK_VERSION_ROLL=r23_1",
         "-DCR_CLANG_REVISION=\"llvmorg-16-init-8697-g60809cd2-1\"",
         "-DCR_LIBCXX_REVISION=47b31179d10646029c260702650a25d24f555acc",
-        "-DCR_SYSROOT_KEY=20220331T153654Z-0",
         "-DDCHECK_ALWAYS_ON=1",
         "-DDYNAMIC_ANNOTATIONS_ENABLED=1",
         "-DHAVE_DLOPEN=0",
-        "-DHAVE_SYS_UIO_H",
         "-DICU_UTIL_DATA_IMPL=ICU_UTIL_DATA_FILE",
         "-DUCONFIG_ONLY_HTML_CONVERSION=1",
         "-DUCONFIG_USE_WINDOWS_LCID_MAPPING_API=0",
-        "-DUSE_AURA=1",
         "-DUSE_CHROMIUM_ICU=1",
-        "-DUSE_OZONE=1",
-        "-DUSE_UDEV",
         "-DU_CHARSET_IS_UTF8=1",
         "-DU_COMMON_IMPLEMENTATION",
         "-DU_ENABLE_DYLOAD=0",
@@ -6193,16 +6377,14 @@ cc_library_static {
         "-DU_STATIC_IMPLEMENTATION",
         "-DU_USING_ICU_NAMESPACE=0",
         "-D_DEBUG",
-        "-D_FILE_OFFSET_BITS=64",
         "-D_GNU_SOURCE",
-        "-D_LARGEFILE64_SOURCE",
-        "-D_LARGEFILE_SOURCE",
         "-D_LIBCPP_AVAILABILITY_CUSTOM_VERBOSE_ABORT_PROVIDED=1",
         "-D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS",
         "-D_LIBCPP_ENABLE_ASSERTIONS_DEFAULT=1",
         "-D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS",
         "-D__STDC_CONSTANT_MACROS",
         "-D__STDC_FORMAT_MACROS",
+        "-UANDROID",
     ],
     local_include_dirs: [
         "./",
@@ -6211,12 +6393,37 @@ cc_library_static {
         "buildtools/third_party/libc++abi/trunk/include",
         "third_party/icu/source/common/",
         "third_party/icu/source/i18n/",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include",
-        "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
     ],
     cpp_std: "c++20",
     rtti: true,
+    target: {
+        android_x86_64: {
+            cflags: [
+                "-DANDROID",
+                "-DANDROID_NDK_VERSION_ROLL=r23_1",
+                "-DHAVE_SYS_UIO_H",
+            ],
+            local_include_dirs: [
+                "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
+            ],
+        },
+        host: {
+            cflags: [
+                "-DCR_SYSROOT_KEY=20220331T153654Z-0",
+                "-DUSE_AURA=1",
+                "-DUSE_OZONE=1",
+                "-DUSE_UDEV",
+                "-D_FILE_OFFSET_BITS=64",
+                "-D_LARGEFILE64_SOURCE",
+                "-D_LARGEFILE_SOURCE",
+                "-UANDROID",
+            ],
+            local_include_dirs: [
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include",
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
+            ],
+        },
+    },
 }
 
 // GN: //third_party/icu:icuuc_public
@@ -6248,40 +6455,56 @@ cc_library_static {
         "cronet_aml_defaults",
     ],
     cflags: [
-        "-DANDROID",
-        "-DANDROID_NDK_VERSION_ROLL=r23_1",
         "-DCR_CLANG_REVISION=\"llvmorg-16-init-8697-g60809cd2-1\"",
         "-DCR_LIBCXX_REVISION=47b31179d10646029c260702650a25d24f555acc",
-        "-DCR_SYSROOT_KEY=20220331T153654Z-0",
         "-DDCHECK_ALWAYS_ON=1",
         "-DDYNAMIC_ANNOTATIONS_ENABLED=1",
         "-DHAVE_CONFIG_H",
-        "-DHAVE_SYS_UIO_H",
-        "-DUSE_AURA=1",
-        "-DUSE_OZONE=1",
-        "-DUSE_UDEV",
         "-D_DEBUG",
-        "-D_FILE_OFFSET_BITS=64",
         "-D_GNU_SOURCE",
-        "-D_LARGEFILE64_SOURCE",
-        "-D_LARGEFILE_SOURCE",
         "-D_LIBCPP_AVAILABILITY_CUSTOM_VERBOSE_ABORT_PROVIDED=1",
         "-D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS",
         "-D_LIBCPP_ENABLE_ASSERTIONS_DEFAULT=1",
         "-D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS",
+        "-UANDROID",
     ],
     local_include_dirs: [
         "./",
         "buildtools/third_party/libc++/",
         "buildtools/third_party/libc++/trunk/include",
         "buildtools/third_party/libc++abi/trunk/include",
-        "third_party/libevent/android/",
-        "third_party/libevent/linux/",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include",
-        "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
     ],
     cpp_std: "c++20",
+    target: {
+        android_x86_64: {
+            cflags: [
+                "-DANDROID",
+                "-DANDROID_NDK_VERSION_ROLL=r23_1",
+                "-DHAVE_SYS_UIO_H",
+            ],
+            local_include_dirs: [
+                "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
+                "third_party/libevent/android/",
+            ],
+        },
+        host: {
+            cflags: [
+                "-DCR_SYSROOT_KEY=20220331T153654Z-0",
+                "-DUSE_AURA=1",
+                "-DUSE_OZONE=1",
+                "-DUSE_UDEV",
+                "-D_FILE_OFFSET_BITS=64",
+                "-D_LARGEFILE64_SOURCE",
+                "-D_LARGEFILE_SOURCE",
+                "-UANDROID",
+            ],
+            local_include_dirs: [
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include",
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
+                "third_party/libevent/linux/",
+            ],
+        },
+    },
 }
 
 // GN: //third_party/metrics_proto:metrics_proto
@@ -6434,39 +6657,55 @@ cc_library_static {
         "cronet_aml_defaults",
     ],
     cflags: [
-        "-DANDROID",
-        "-DANDROID_NDK_VERSION_ROLL=r23_1",
         "-DCR_CLANG_REVISION=\"llvmorg-16-init-8697-g60809cd2-1\"",
         "-DCR_LIBCXX_REVISION=47b31179d10646029c260702650a25d24f555acc",
-        "-DCR_SYSROOT_KEY=20220331T153654Z-0",
         "-DDCHECK_ALWAYS_ON=1",
         "-DDYNAMIC_ANNOTATIONS_ENABLED=1",
-        "-DHAVE_SYS_UIO_H",
-        "-DUSE_AURA=1",
-        "-DUSE_OZONE=1",
-        "-DUSE_UDEV",
         "-D_DEBUG",
-        "-D_FILE_OFFSET_BITS=64",
         "-D_GNU_SOURCE",
-        "-D_LARGEFILE64_SOURCE",
-        "-D_LARGEFILE_SOURCE",
         "-D_LIBCPP_AVAILABILITY_CUSTOM_VERBOSE_ABORT_PROVIDED=1",
         "-D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS",
         "-D_LIBCPP_ENABLE_ASSERTIONS_DEFAULT=1",
         "-D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS",
         "-D__STDC_CONSTANT_MACROS",
         "-D__STDC_FORMAT_MACROS",
+        "-UANDROID",
     ],
     local_include_dirs: [
         "./",
         "buildtools/third_party/libc++/",
         "buildtools/third_party/libc++/trunk/include",
         "buildtools/third_party/libc++abi/trunk/include",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include",
-        "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
     ],
     cpp_std: "c++20",
+    target: {
+        android_x86_64: {
+            cflags: [
+                "-DANDROID",
+                "-DANDROID_NDK_VERSION_ROLL=r23_1",
+                "-DHAVE_SYS_UIO_H",
+            ],
+            local_include_dirs: [
+                "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
+            ],
+        },
+        host: {
+            cflags: [
+                "-DCR_SYSROOT_KEY=20220331T153654Z-0",
+                "-DUSE_AURA=1",
+                "-DUSE_OZONE=1",
+                "-DUSE_UDEV",
+                "-D_FILE_OFFSET_BITS=64",
+                "-D_LARGEFILE64_SOURCE",
+                "-D_LARGEFILE_SOURCE",
+                "-UANDROID",
+            ],
+            local_include_dirs: [
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include",
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
+            ],
+        },
+    },
 }
 
 // GN: //third_party/protobuf:protobuf_full
@@ -6602,6 +6841,13 @@ cc_library_static {
         "build/linux/debian_bullseye_amd64-sysroot/usr/include",
     ],
     cpp_std: "c++20",
+    target: {
+        host: {
+            cflags: [
+                "-UANDROID",
+            ],
+        },
+    },
 }
 
 // GN: //third_party/protobuf:protobuf_lite
@@ -6675,6 +6921,13 @@ cc_library_static {
         "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
     ],
     cpp_std: "c++20",
+    target: {
+        android_x86_64: {
+            cflags: [
+                "-UANDROID",
+            ],
+        },
+    },
 }
 
 // GN: //third_party/protobuf:protoc
@@ -6740,6 +6993,13 @@ cc_binary {
         "-fexceptions",
     ],
     rtti: true,
+    target: {
+        host: {
+            cflags: [
+                "-UANDROID",
+            ],
+        },
+    },
 }
 
 // GN: //third_party/protobuf:protoc_lib
@@ -6875,6 +7135,13 @@ cc_library_static {
         "build/linux/debian_bullseye_amd64-sysroot/usr/include",
     ],
     cpp_std: "c++20",
+    target: {
+        host: {
+            cflags: [
+                "-UANDROID",
+            ],
+        },
+    },
 }
 
 // GN: //third_party/zlib:zlib
@@ -6909,35 +7176,26 @@ cc_library_static {
     ],
     cflags: [
         "-DADLER32_SIMD_SSSE3",
-        "-DANDROID",
-        "-DANDROID_NDK_VERSION_ROLL=r23_1",
         "-DCRC32_SIMD_SSE42_PCLMUL",
         "-DCR_CLANG_REVISION=\"llvmorg-16-init-8697-g60809cd2-1\"",
         "-DCR_LIBCXX_REVISION=47b31179d10646029c260702650a25d24f555acc",
-        "-DCR_SYSROOT_KEY=20220331T153654Z-0",
         "-DDCHECK_ALWAYS_ON=1",
         "-DDEFLATE_SLIDE_HASH_SSE2",
         "-DDYNAMIC_ANNOTATIONS_ENABLED=1",
-        "-DHAVE_SYS_UIO_H",
         "-DINFLATE_CHUNK_READ_64LE",
         "-DINFLATE_CHUNK_SIMD_SSE2",
-        "-DUSE_AURA=1",
-        "-DUSE_OZONE=1",
-        "-DUSE_UDEV",
         "-DX86_NOT_WINDOWS",
         "-DZLIB_DEBUG",
         "-DZLIB_IMPLEMENTATION",
         "-D_DEBUG",
-        "-D_FILE_OFFSET_BITS=64",
         "-D_GNU_SOURCE",
-        "-D_LARGEFILE64_SOURCE",
-        "-D_LARGEFILE_SOURCE",
         "-D_LIBCPP_AVAILABILITY_CUSTOM_VERBOSE_ABORT_PROVIDED=1",
         "-D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS",
         "-D_LIBCPP_ENABLE_ASSERTIONS_DEFAULT=1",
         "-D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS",
         "-D__STDC_CONSTANT_MACROS",
         "-D__STDC_FORMAT_MACROS",
+        "-UANDROID",
         "-mpclmul",
         "-mssse3",
     ],
@@ -6946,13 +7204,38 @@ cc_library_static {
         "buildtools/third_party/libc++/",
         "buildtools/third_party/libc++/trunk/include",
         "buildtools/third_party/libc++abi/trunk/include",
-        "third_party/android_ndk/sources/android/cpufeatures/",
         "third_party/zlib/",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
-        "build/linux/debian_bullseye_amd64-sysroot/usr/include",
-        "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
     ],
     cpp_std: "c++20",
+    target: {
+        android_x86_64: {
+            cflags: [
+                "-DANDROID",
+                "-DANDROID_NDK_VERSION_ROLL=r23_1",
+                "-DHAVE_SYS_UIO_H",
+            ],
+            local_include_dirs: [
+                "third_party/android_ndk/sources/android/cpufeatures/",
+                "third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
+            ],
+        },
+        host: {
+            cflags: [
+                "-DCR_SYSROOT_KEY=20220331T153654Z-0",
+                "-DUSE_AURA=1",
+                "-DUSE_OZONE=1",
+                "-DUSE_UDEV",
+                "-D_FILE_OFFSET_BITS=64",
+                "-D_LARGEFILE64_SOURCE",
+                "-D_LARGEFILE_SOURCE",
+                "-UANDROID",
+            ],
+            local_include_dirs: [
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include",
+                "build/linux/debian_bullseye_amd64-sysroot/usr/include/x86_64-linux-gnu",
+            ],
+        },
+    },
 }
 
 // GN: //third_party/zlib:zlib_adler32_simd
@@ -7104,6 +7387,13 @@ cc_library_static {
         "jni_headers",
     ],
     cpp_std: "c++20",
+    target: {
+        android_x86_64: {
+            cflags: [
+                "-UANDROID",
+            ],
+        },
+    },
 }
 
 // GN: //url:url_jni_headers
