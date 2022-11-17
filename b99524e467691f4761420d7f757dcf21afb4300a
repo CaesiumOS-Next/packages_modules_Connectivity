@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d933946_fec7022f",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1077006
+      },
+      "writtenOn": "2022-11-17T04:56:38Z",
+      "side": 0,
+      "message": "I backported this change to R and tried it in our (slow) lab environment. While I no longer see timeouts waiting for ServiceRegistered, I still see timeouts waiting for ServiceLost. Is it the same root cause as ServiceRegistered timeouts?\n\nThe ServiceLost callback takes right around 2 secs as far as I observed.",
+      "revId": "b99524e467691f4761420d7f757dcf21afb4300a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

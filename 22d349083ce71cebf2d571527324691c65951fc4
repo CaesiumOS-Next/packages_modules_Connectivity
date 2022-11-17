@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15944a2f_8d3c95a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1077006
+      },
+      "writtenOn": "2022-11-17T04:56:38Z",
+      "side": 1,
+      "message": "Thanks for making this patch! I can help backport it to P/R.",
+      "revId": "22d349083ce71cebf2d571527324691c65951fc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
