@@ -1,3 +1,5 @@
+<<<<<<< PATCH SET (902c40 Remove editor specific file)
+=======
 // Copyright (C) 2022 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -11325,3 +11327,4 @@ genrule {
     ],
 }
 
+>>>>>>> BASE      (a814e9 Merge "Wait for launcher is shown after calling pressHome")
