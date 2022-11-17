@@ -229,6 +229,30 @@
       },
       "revId": "20601a9d4718870e0d7836f64b1d69e9b49cdad2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96df56d8_eba16760",
+        "filename": "tests/unit/java/android/net/IpSecTransformTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-11-17T00:17:49Z",
+      "side": 1,
+      "message": "For some reason it does not work on avd. I did several experiments with aosp/2264163\n\nFor example, if I have \n```\nmMockContext \u003d mock(Context.class);\nwhen(mMockContext.getSystemServiceName(IpSecManager.class))\n                .thenReturn(Context.IPSEC_SERVICE);\nwhen(mMockContext.getSystemService(Context.IPSEC_SERVICE)).thenReturn(mIpSecManager);\n\n// DEBUG\nIpSecManager mgr \u003d mMockContext.getSystemService(IpSecManager.class);\nandroid.util.Log.d(\"TEST\", \"setUp() mgr \" + mgr);\n```\n\nThe log will be \n\n```\n10-21 06:35:10.000  2699  2716 D TEST    : setUp() mgr null\n```\n\nI also tried `doReturn`, and `getSystemServiceName(eq(IpSecManager.class))`, none of them work",
+      "parentUuid": "9e0bd1f8_baddcc5c",
+      "range": {
+        "startLine": 72,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 20
+      },
+      "revId": "20601a9d4718870e0d7836f64b1d69e9b49cdad2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
