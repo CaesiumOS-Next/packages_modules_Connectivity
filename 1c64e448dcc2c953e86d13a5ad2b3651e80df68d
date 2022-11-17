@@ -16,6 +16,24 @@
       "message": "I find this very weird. The change to android.bp.swp is very tiny, just a single local_include_dirs was removed? which shouldn\u0027t be affected by this change. I\u0027ll look into it.",
       "revId": "1c64e448dcc2c953e86d13a5ad2b3651e80df68d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57ab6e60_59ef6799",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-11-17T14:15:27Z",
+      "side": 1,
+      "message": "To make CL small, in this CL, I merged arch cflags to shared cflags.\naosp/2306314 actually set cflags per target.\n```\n      # TODO: Keep cflags per arch\n      for arch_value in self.arch.values():\n        self.cflags \u003d self.cflags.union(arch_value.cflags)\n```",
+      "parentUuid": "98d52bee_e5261e5b",
+      "revId": "1c64e448dcc2c953e86d13a5ad2b3651e80df68d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
