@@ -52,6 +52,24 @@
       "parentUuid": "7f2d55e9_1ed5292b",
       "revId": "b99524e467691f4761420d7f757dcf21afb4300a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f472a3d_0a0dd922",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2022-11-17T06:19:12Z",
+      "side": 0,
+      "message": "One thing I am not sure to understand: while registration depends on the network environment, once registration ahs completed what else in this test depends on a reply from the network ?",
+      "parentUuid": "4a8adb39_75385644",
+      "revId": "b99524e467691f4761420d7f757dcf21afb4300a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
