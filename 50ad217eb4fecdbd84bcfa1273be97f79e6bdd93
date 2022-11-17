@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b715e024_2715494c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-11-17T14:02:16Z",
+      "side": 1,
+      "message": "Elaborate more on what does this CL seeks to do from the bigger picture, please?",
+      "revId": "50ad217eb4fecdbd84bcfa1273be97f79e6bdd93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
