@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61dfe346_6116cc93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-17T05:23:40Z",
+      "side": 1,
+      "message": "Can you add some more detail on things this CL is doing?",
+      "revId": "7e25df56915793d228665ecd5f50089f5d83ab1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fb75928_7bb7e1ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-17T05:23:40Z",
+      "side": 1,
+      "message": "We\u0027ve previously talked about this under the assumption that this has to be done in 5 weeks, but with the extended timeline (January IC and 100% coverage by end of March), I think it might make sense to convert these tests to Kotlin. We have increasingly been using Kotlin in tests as it offers many features that make tests much easier to develop and more readable. If you\u0027re up for the challenge (I promise you\u0027ll get the hang of it in no time!) I would highly encourage you to do so. I\u0027ll leave it up to you though.\n\nCheck out [EthernetManagerTest](https://source.corp.google.com/aosp-master/packages/modules/Connectivity/tests/cts/net/src/android/net/cts/EthernetManagerTest.kt;l\u003d604?q\u003dethernetmanagertest) which are written in Kotlin and I believe are very readable (though I might be somewhat biased).",
+      "revId": "7e25df56915793d228665ecd5f50089f5d83ab1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "525cf081_5dd68295",
+        "filename": "Cronet/tests/apitest/src/org/chromium/net/test/CronetApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-17T05:23:40Z",
+      "side": 1,
+      "message": "Are we planning on putting all Cronet tests inside CronetApiTest, or should this be renamed to CronetUrlRequestTest? My suggestion would be to split tests up into smaller classes. We can move generally useful or common code to frameworks/libs/net/common/testutils.",
+      "range": {
+        "startLine": 50,
+        "startChar": 13,
+        "endLine": 50,
+        "endChar": 26
+      },
+      "revId": "7e25df56915793d228665ecd5f50089f5d83ab1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40d40d7c_890e75a9",
+        "filename": "Cronet/tests/apitest/src/org/chromium/net/test/CronetApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-17T05:23:40Z",
+      "side": 1,
+      "message": "if this is used in setUp(), I would suggest removing the function and making the assertion call inline.\n\n(Also, this could live in its own CL).",
+      "range": {
+        "startLine": 72,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 33
+      },
+      "revId": "7e25df56915793d228665ecd5f50089f5d83ab1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "668a011a_777767b4",
+        "filename": "Cronet/tests/apitest/src/org/chromium/net/test/CronetApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-17T05:23:40Z",
+      "side": 1,
+      "message": "I am not a big fan of this. This makes the test pretty hard to read. Let\u0027s find a way to make VerifyUrlRequestCallback more useful.\n\nI think VerifyUrlRequestCallback should be changed to use ArrayTrackRecord, see [EthernetStateListener](https://source.corp.google.com/aosp-master/packages/modules/Connectivity/tests/cts/net/src/android/net/cts/EthernetManagerTest.kt;l\u003d198), or [TestableNetworkCallback](https://source.corp.google.com/aosp-master/frameworks/libs/net/common/testutils/devicetests/com/android/testutils/TestableNetworkCallback.kt) for example.\n\nThis will allow the tests to look somewhat like:\n```\nfinal VerifyUrlRequestCallback cb \u003d new VerifyUrlRequestCallback();\nfinal UrlRequest request \u003d mCronetEngine.newUrlRequestBuilder(...).build();\nrequest.start();\ncb.expectCallbackA();\ncb.expectCallbackB();\ncb.expectOnSucceeded();\n```",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 119,
+        "endChar": 8
+      },
+      "revId": "7e25df56915793d228665ecd5f50089f5d83ab1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90e60840_37e08caf",
+        "filename": "Cronet/tests/apitest/src/org/chromium/net/test/CronetApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-17T05:23:40Z",
+      "side": 1,
+      "message": "I think a CompletableFuture\u003cInteger\u003e would be better here.",
+      "range": {
+        "startLine": 141,
+        "startChar": 11,
+        "endLine": 141,
+        "endChar": 68
+      },
+      "revId": "7e25df56915793d228665ecd5f50089f5d83ab1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a27f98f7_aadc5b76",
+        "filename": "Cronet/tests/apitest/src/org/chromium/net/test/CronetApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-17T05:23:40Z",
+      "side": 1,
+      "message": "(I know this was preexisting, but) this should also just be \"UrlRequestCallback\"",
+      "range": {
+        "startLine": 154,
+        "startChar": 25,
+        "endLine": 154,
+        "endChar": 49
+      },
+      "revId": "7e25df56915793d228665ecd5f50089f5d83ab1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
