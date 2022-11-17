@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed538bef_23ba5ba3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-17T09:28:23Z",
+      "side": 1,
+      "message": "(enable filter \"passing\")\n\nMTS test result (4 tests are passed)\nhttps://android-build.googleplex.com/builds/tests/view?invocationId\u003dI87000010109177730\u0026testResultId\u003dTR24028375993487674\n\n\nCTS test result (15 tests are passed)\nhttps://android-build.googleplex.com/builds/tests/view?invocationId\u003dI87000010109177730\u0026testResultId\u003dTR57428375993487465",
+      "revId": "c3bcbd53c117ffe01d38f56c5aa23ac9b823810c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
