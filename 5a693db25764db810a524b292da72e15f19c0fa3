@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cabd2a2e_e94da82b",
+        "filename": "framework-t/src/android/net/IpSecManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1014,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-17T08:49:44Z",
+      "side": 1,
+      "message": "Can you add a quick word about what happens if they don\u0027t ?",
+      "range": {
+        "startLine": 1014,
+        "startChar": 45,
+        "endLine": 1014,
+        "endChar": 46
+      },
+      "revId": "5a693db25764db810a524b292da72e15f19c0fa3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
