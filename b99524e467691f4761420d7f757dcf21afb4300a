@@ -16,6 +16,24 @@
       "message": "I backported this change to R and tried it in our (slow) lab environment. While I no longer see timeouts waiting for ServiceRegistered, I still see timeouts waiting for ServiceLost. Is it the same root cause as ServiceRegistered timeouts?\n\nThe ServiceLost callback takes right around 2 secs as far as I observed.",
       "revId": "b99524e467691f4761420d7f757dcf21afb4300a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f2d55e9_1ed5292b",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-17T05:52:33Z",
+      "side": 0,
+      "message": "I think this is likely not the same root cause: registration can be slow because an unused hostname has to be found, but unregistration should cause a 0-lifetime announcement to be sent every time, triggering the ServiceLost callback immediately.",
+      "parentUuid": "2d933946_fec7022f",
+      "revId": "b99524e467691f4761420d7f757dcf21afb4300a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
