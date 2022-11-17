@@ -88,6 +88,24 @@
       "parentUuid": "7f472a3d_0a0dd922",
       "revId": "b99524e467691f4761420d7f757dcf21afb4300a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fa5c72f_a47e6919",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1077006
+      },
+      "writtenOn": "2022-11-17T07:50:39Z",
+      "side": 0,
+      "message": "More FYI: I ran the same tests under our \"good\" lab (where we\u0027ve been able to pass tests), the ServiceLost callback latency is very stable around 1200ms.",
+      "parentUuid": "d92d02a9_09dc573b",
+      "revId": "b99524e467691f4761420d7f757dcf21afb4300a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
