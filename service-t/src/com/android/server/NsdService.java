@@ -167,12 +167,24 @@ public class NsdService extends INsdManager.Stub {
 
         @Override
         public void onServiceFound(MdnsServiceInfo serviceInfo) {
+            final Network requestNetwork = mReqServiceInfo.getNetwork();
+            final Network responseNetwork = serviceInfo.getNetwork();
+            if (requestNetwork != null && !requestNetwork.equals(responseNetwork)) {
+                // Ignore the response that is not required for client.
+                return;
+            }
             mNsdStateMachine.sendMessage(MDNS_DISCOVERY_MANAGER_EVENT, mTransactionId,
                     NsdManager.SERVICE_FOUND, new MdnsEvent(mClientId, serviceInfo));
         }
 
         @Override
         public void onServiceRemoved(MdnsServiceInfo serviceInfo) {
+            final Network requestNetwork = mReqServiceInfo.getNetwork();
+            final Network responseNetwork = serviceInfo.getNetwork();
+            if (requestNetwork != null && !requestNetwork.equals(responseNetwork)) {
+                // Ignore the response that is not required for client.
+                return;
+            }
             mNsdStateMachine.sendMessage(MDNS_DISCOVERY_MANAGER_EVENT, mTransactionId,
                     NsdManager.SERVICE_LOST, new MdnsEvent(mClientId, serviceInfo));
         }
@@ -185,6 +197,12 @@ public class NsdService extends INsdManager.Stub {
         }
         @Override
         public void onServiceResolved(MdnsServiceInfo serviceInfo) {
+            final Network requestNetwork = mReqServiceInfo.getNetwork();
+            final Network responseNetwork = serviceInfo.getNetwork();
+            if (requestNetwork != null && !requestNetwork.equals(responseNetwork)) {
+                // Ignore the response that is not required for client.
+                return;
+            }
             mNsdStateMachine.sendMessage(MDNS_DISCOVERY_MANAGER_EVENT, mTransactionId,
                     NsdManager.RESOLVE_SERVICE_SUCCEEDED, new MdnsEvent(mClientId, serviceInfo));
         }
