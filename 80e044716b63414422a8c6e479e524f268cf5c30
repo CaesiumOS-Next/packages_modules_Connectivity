@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "525bfc63_4a0f7899",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-11-17T13:58:29Z",
+      "side": 1,
+      "message": "Same goes here. I expected to see more changes happen to the android.bp.swp.",
+      "revId": "80e044716b63414422a8c6e479e524f268cf5c30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
