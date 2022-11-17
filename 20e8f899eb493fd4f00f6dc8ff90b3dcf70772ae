@@ -16,6 +16,24 @@
       "message": "I think it would be better to just sort them before printing them out? in the `self._output_field(\u0027local_include_dirs\u0027, sorted \u003d true)`",
       "revId": "20e8f899eb493fd4f00f6dc8ff90b3dcf70772ae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3af693f8_c861e602",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-17T18:53:14Z",
+      "side": 1,
+      "message": "Unfortunately, that doesn\u0027t work because sysroot needs to be included last. One thing we could try is using -isystem and -isysroot directly, rather than adding them to local_include_dirs.",
+      "parentUuid": "57cf673f_8d047f97",
+      "revId": "20e8f899eb493fd4f00f6dc8ff90b3dcf70772ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
