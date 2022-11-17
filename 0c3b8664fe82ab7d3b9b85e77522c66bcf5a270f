@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "54eedb14_5ae1410f",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2694,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-17T08:06:27Z",
+      "side": 1,
+      "message": "mOpenSessionCallsPerCaller is to record the open session counts of a caller, it\u0027s irrelevant to NetworkStats. Maybe we can move this part out of the section that holds mStatsLock?",
+      "parentUuid": "0729121f_1a3d4bef",
+      "range": {
+        "startLine": 2694,
+        "startChar": 26,
+        "endLine": 2694,
+        "endChar": 47
+      },
+      "revId": "0c3b8664fe82ab7d3b9b85e77522c66bcf5a270f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0eb27f61_2861e022",
         "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
         "patchSetId": 10
