@@ -22,6 +22,30 @@
       },
       "revId": "d58c1dc8d4deeb53d8d2ac55b8b448e3c72534d8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb5eb1f8_23e3086f",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-11-17T03:34:45Z",
+      "side": 1,
+      "message": "It seems I created the protoc wrongly in aosp/2301487",
+      "parentUuid": "5ae6de7b_59eef051",
+      "range": {
+        "startLine": 504,
+        "startChar": 57,
+        "endLine": 504,
+        "endChar": 91
+      },
+      "revId": "d58c1dc8d4deeb53d8d2ac55b8b448e3c72534d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
