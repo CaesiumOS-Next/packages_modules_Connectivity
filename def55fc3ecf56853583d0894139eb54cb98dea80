@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4834f29f_6b697021",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-17T13:27:45Z",
+      "side": 1,
+      "message": "❶ Couldn\u0027t you do this right now ?\n❷ Why do we want to do this ? I can\u0027t think of a case where you\u0027d want to move from maxTargetSdk \u003d R 🠊 maxTargetSdk \u003d U.",
+      "range": {
+        "startLine": 216,
+        "startChar": 13,
+        "endLine": 216,
+        "endChar": 61
+      },
+      "revId": "def55fc3ecf56853583d0894139eb54cb98dea80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d512a7c_489128a2",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-17T13:27:45Z",
+      "side": 1,
+      "message": "❶ Couldn\u0027t you do this right now ?\n❷ Why U and not T ? There are no U apps today.",
+      "range": {
+        "startLine": 230,
+        "startChar": 23,
+        "endLine": 230,
+        "endChar": 61
+      },
+      "revId": "def55fc3ecf56853583d0894139eb54cb98dea80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1968477_f5835976",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-17T13:27:45Z",
+      "side": 1,
+      "message": "T ?",
+      "range": {
+        "startLine": 311,
+        "startChar": 59,
+        "endLine": 311,
+        "endChar": 60
+      },
+      "revId": "def55fc3ecf56853583d0894139eb54cb98dea80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

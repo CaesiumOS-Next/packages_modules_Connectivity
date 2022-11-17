@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0334939_d01c4e69",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-17T13:27:45Z",
+      "side": 0,
+      "message": "Wow this was never used ?!",
+      "range": {
+        "startLine": 909,
+        "startChar": 34,
+        "endLine": 909,
+        "endChar": 43
+      },
+      "revId": "edceea23f4f18c5df2e1d25a5fd6d25ff960f9ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
