@@ -16,6 +16,24 @@
       "message": "Elaborate more on what does this CL seeks to do from the bigger picture, please?",
       "revId": "50ad217eb4fecdbd84bcfa1273be97f79e6bdd93",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd6dff32_db22a111",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-11-17T14:17:31Z",
+      "side": 1,
+      "message": "This CL allows module to have cppflags and local_include_dirs per target.\nFor example,\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/tools/gn2bp/Android.bp.swp;l\u003d227-230?q\u003dAndroid.bp.swp\u0026ss\u003dpiper%2FGoogle%2Faosp-master",
+      "parentUuid": "b715e024_2715494c",
+      "revId": "50ad217eb4fecdbd84bcfa1273be97f79e6bdd93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
