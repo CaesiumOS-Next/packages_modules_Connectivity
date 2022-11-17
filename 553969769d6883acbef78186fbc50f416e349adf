@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f5f0b47_9a38e4ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-17T04:12:32Z",
+      "side": 1,
+      "message": "LGTM but for NetworkAgent lifecycle questions I think it would be best if Jean can have a look",
+      "revId": "553969769d6883acbef78186fbc50f416e349adf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7303902_7694b29f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 5513,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-17T04:12:32Z",
+      "side": 1,
+      "message": "I don\u0027t know whether this is the right method to call to tear down the network properly, notifying the apps etc. Maybe Jean should confirm ?",
+      "range": {
+        "startLine": 5513,
+        "startChar": 24,
+        "endLine": 5513,
+        "endChar": 34
+      },
+      "revId": "553969769d6883acbef78186fbc50f416e349adf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
