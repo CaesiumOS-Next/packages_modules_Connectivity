@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "168d6348_6a35a6d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-11-17T12:57:48Z",
+      "side": 1,
+      "message": "Could you please elaborate more on this? I don\u0027t understand how this is implied by default?",
+      "revId": "4b14ffca8932f6b95ca9b1571f6c09453baf0466",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
