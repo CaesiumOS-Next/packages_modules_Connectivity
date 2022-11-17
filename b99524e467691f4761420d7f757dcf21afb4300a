@@ -34,6 +34,24 @@
       "parentUuid": "2d933946_fec7022f",
       "revId": "b99524e467691f4761420d7f757dcf21afb4300a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a8adb39_75385644",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1077006
+      },
+      "writtenOn": "2022-11-17T06:01:23Z",
+      "side": 0,
+      "message": "An example (DBG \u003d true, without 2 sec timeout):\n\n```\n11-16 23:54:12.457 10939 10956 D NsdManagerTest: Waiting for onServiceUnregistered, id\u003d14\n11-16 23:54:12.458   385   487 D NsdService: unregister service\n11-16 23:54:12.458   385   487 D NsdService: mdnssd [stop-register, 283]\n11-16 23:54:12.459   245   332 W netd    : dnssd_clientstub DNSServiceProcessResult called with NULL DNSServiceRef\n11-16 23:54:12.459 10939 10959 D NsdManagerTest: Received event onServiceUnregistered for NsdTest3672\n11-16 23:54:12.459 10939 10956 D NsdManagerTest: exiting wait id\u003d14\n11-16 23:54:12.459 10939 10956 D NsdManagerTest: Waiting for onServiceLost, id\u003d15\n11-16 23:54:14.990   385   487 D NsdService: Native daemon message SERVICE_LOST: 604 284 \"NsdTest3672\" _nmt._tcp. local.\n11-16 23:54:14.992 10939 10959 D NsdManagerTest: Received event onServiceLost for NsdTest3672\n11-16 23:54:14.992 10939 10959 D NsdManagerTest: Received event onServiceLost for NsdTest3672\n11-16 23:54:14.992 10939 10956 D NsdManagerTest: exiting wait id\u003d15\n11-16 23:54:14.992 10939 10956 D NsdManagerTest: Waiting for a bit, id\u003d15\n11-16 23:54:14.992 10939 10959 D NsdManagerTest: Received event onServiceLost for NsdTest3672\n11-16 23:54:14.992 10939 10956 D NsdManagerTest: ignoring unexpected event onServiceLost(NsdTest3672)\n11-16 23:54:14.992 10939 10956 D NsdManagerTest: Waiting for onServiceRegistered, id\u003d16\n11-16 23:54:14.993 10939 10959 D NsdManagerTest: Received event onServiceLost for NsdTest3672\n11-16 23:54:14.991   385   487 I chatty  : uid\u003d1000(system) NsdService identical 2 lines\n11-16 23:54:14.991   385   487 D NsdService: Native daemon message SERVICE_LOST: 604 284 \"NsdTest3672\" _nmt._tcp. local.\n```\n\nI see no logs in between 23:54:12.459 and 23:54:14.990. Any ideas why the callback can take more than 2 secs? +cc Hugo",
+      "parentUuid": "7f2d55e9_1ed5292b",
+      "revId": "b99524e467691f4761420d7f757dcf21afb4300a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
