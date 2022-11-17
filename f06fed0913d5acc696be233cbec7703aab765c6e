@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dec485b2_19656c8e",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-17T11:37:27Z",
+      "side": 1,
+      "message": "As meeting discussion, send packets to both IPv4 and IPv6.",
+      "parentUuid": "f6d6ece6_01637539",
+      "revId": "f06fed0913d5acc696be233cbec7703aab765c6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bd6d5d0b_ae559ab1",
         "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
         "patchSetId": 1
@@ -48,6 +66,24 @@
       "writtenOn": "2022-11-09T10:10:19Z",
       "side": 1,
       "message": "mdnsresponder would send the packet on both v4 and v6 if it\u0027s dual-stack; we should keep that behavior",
+      "revId": "f06fed0913d5acc696be233cbec7703aab765c6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c08b97ec_9f2b1533",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-17T11:37:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "103f52f2_2c04ef78",
       "revId": "f06fed0913d5acc696be233cbec7703aab765c6e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
