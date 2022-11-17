@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ec67d30_297fbe11",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-17T04:22:33Z",
+      "side": 1,
+      "message": "can you add more detail of what this CL is doing? It seems to be a mix of rearranging things and fixing linter errors. I would suggest always addressing linter errors in a separate CL, as it otherwise makes the diff hard to read.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 19
+      },
+      "revId": "5cf8a2cf7991b764caa5b6fc19d6020745ad1127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "68a16db1_1f6dffd0",
@@ -14,6 +37,167 @@
       "writtenOn": "2022-11-16T02:25:07Z",
       "side": 1,
       "message": "Something nice :)\nFixing cl upload linting errors.",
+      "revId": "5cf8a2cf7991b764caa5b6fc19d6020745ad1127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66780e29_e5e2875b",
+        "filename": "Cronet/tests/apitest/src/org/chromium/net/test/CronetApiTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-17T04:22:33Z",
+      "side": 1,
+      "message": "was the linter complaining about this? I thought packages were sorted alphabetically.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 37
+      },
+      "revId": "5cf8a2cf7991b764caa5b6fc19d6020745ad1127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0bd3ab7_cdeaceb6",
+        "filename": "Cronet/tests/apitest/src/org/chromium/net/test/CronetApiTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-17T04:22:33Z",
+      "side": 1,
+      "message": "nit: TAG exists in effectively every class and is *usually* the at the top.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 74
+      },
+      "revId": "5cf8a2cf7991b764caa5b6fc19d6020745ad1127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac7b1e21_53ff5917",
+        "filename": "Cronet/tests/apitest/src/org/chromium/net/test/CronetApiTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-17T04:22:33Z",
+      "side": 1,
+      "message": "why was this moved?",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 0
+      },
+      "revId": "5cf8a2cf7991b764caa5b6fc19d6020745ad1127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59f94fe1_1458dd10",
+        "filename": "Cronet/tests/apitest/src/org/chromium/net/test/CronetApiTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-17T04:22:33Z",
+      "side": 1,
+      "message": "In general, I think it\u0027s better to have functions defined before they are used to help readability. So I think this test should stay at the bottom of CronetApiTest. (On a side note, if you want to move something from bottom to top, it\u0027s best to put it in a separate CL to make the diff easier to understand.)",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 5
+      },
+      "revId": "5cf8a2cf7991b764caa5b6fc19d6020745ad1127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6b97914_479ebb5a",
+        "filename": "Cronet/tests/apitest/src/org/chromium/net/test/CronetApiTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-17T04:22:33Z",
+      "side": 1,
+      "message": "should be getTestDomains()",
+      "range": {
+        "startLine": 87,
+        "startChar": 20,
+        "endLine": 87,
+        "endChar": 35
+      },
+      "revId": "5cf8a2cf7991b764caa5b6fc19d6020745ad1127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e44eceb_626b94aa",
+        "filename": "Cronet/tests/apitest/src/org/chromium/net/test/CronetApiTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-17T04:22:33Z",
+      "side": 1,
+      "message": "why was this added? Was is not used anywhere. It\u0027s weird for a test class to have a public getter.",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 5
+      },
+      "revId": "5cf8a2cf7991b764caa5b6fc19d6020745ad1127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e6b87e5_3d6856a0",
+        "filename": "Cronet/tests/apitest/src/org/chromium/net/test/CronetApiTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-17T04:22:33Z",
+      "side": 1,
+      "message": "this should be in its own CL",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 9
+      },
       "revId": "5cf8a2cf7991b764caa5b6fc19d6020745ad1127",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
