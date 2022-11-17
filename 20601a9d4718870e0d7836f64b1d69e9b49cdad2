@@ -306,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d40ac58d_4aee9704",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-11-17T23:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64446b89_94b03974",
+      "range": {
+        "startLine": 669,
+        "startChar": 20,
+        "endLine": 669,
+        "endChar": 37
+      },
+      "revId": "20601a9d4718870e0d7836f64b1d69e9b49cdad2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd248a5a_614ca067",
@@ -319,6 +343,30 @@
       "writtenOn": "2022-11-16T23:15:14Z",
       "side": 1,
       "message": "Do we need verification on these values?",
+      "range": {
+        "startLine": 1778,
+        "startChar": 0,
+        "endLine": 1779,
+        "endChar": 41
+      },
+      "revId": "20601a9d4718870e0d7836f64b1d69e9b49cdad2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f01cc05f_0086dba7",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1779,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-11-17T23:10:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd248a5a_614ca067",
       "range": {
         "startLine": 1778,
         "startChar": 0,
