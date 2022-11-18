@@ -76,6 +76,7 @@ import android.net.VpnTransportInfo
 import android.net.cts.NetworkAgentTest.TestableQosCallback.CallbackEntry.OnError
 import android.net.cts.NetworkAgentTest.TestableQosCallback.CallbackEntry.OnQosSessionAvailable
 import android.net.cts.NetworkAgentTest.TestableQosCallback.CallbackEntry.OnQosSessionLost
+import android.net.wifi.WifiInfo
 import android.os.Build
 import android.os.ConditionVariable
 import android.os.Handler
@@ -589,6 +590,9 @@ class NetworkAgentTest {
             addCapability(NET_CAPABILITY_NOT_SUSPENDED)
             removeCapability(NET_CAPABILITY_NOT_RESTRICTED)
             setNetworkSpecifier(specifier)
+            if (TRANSPORT_WIFI == transport) {
+                setTransportInfo(WifiInfo.Builder().setSubscriptionId(defaultSubId).build())
+            }
             setAllowedUids(setOf(uid))
             setOwnerUid(Process.myUid())
             setAdministratorUids(intArrayOf(Process.myUid()))
@@ -745,7 +749,7 @@ class NetworkAgentTest {
             // Cell is allowed to set UIDs, but not WIFI/BLUETOOTH or agents with multiple
             // transports. ETHERNET is allowed iff the device has feature AUTOMOTIVE.
             doTestAllowedUids(TRANSPORT_CELLULAR, uid, expectUidsPresent = true)
-            doTestAllowedUids(TRANSPORT_WIFI, uid, expectUidsPresent = false)
+            doTestAllowedUids(TRANSPORT_WIFI, uid, expectUidsPresent = true)
             doTestAllowedUids(TRANSPORT_BLUETOOTH, uid, expectUidsPresent = false)
             doTestAllowedUids(TRANSPORT_CELLULAR or TRANSPORT_WIFI, uid, expectUidsPresent = false)
             doTestAllowedUids(TRANSPORT_ETHERNET, uid,
