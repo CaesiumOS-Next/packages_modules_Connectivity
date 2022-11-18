@@ -762,10 +762,10 @@ class NetworkAgentTest {
             // Needed to give time for ConnectivityService to get and process the callbacks.
             // TODO : remove this when race conditions in CarrierPrivilegeAuthenticator are gone
             Thread.sleep(1_000)
-            // Cell is allowed to set UIDs, but not WIFI/BLUETOOTH or agents with multiple
+            // Cell and WiFi are allowed to set UIDs, but not Bluetooth or agents with multiple
             // transports.
             doTestAllowedUids(defaultSubId, TRANSPORT_CELLULAR, uid, expectUidsPresent = true)
-            doTestAllowedUids(defaultSubId, TRANSPORT_WIFI, uid, expectUidsPresent = false)
+            doTestAllowedUids(defaultSubId, TRANSPORT_WIFI, uid, expectUidsPresent = true)
             doTestAllowedUids(defaultSubId, TRANSPORT_BLUETOOTH, uid, expectUidsPresent = false)
             doTestAllowedUids(defaultSubId, intArrayOf(TRANSPORT_CELLULAR, TRANSPORT_WIFI), uid,
                     expectUidsPresent = false)
