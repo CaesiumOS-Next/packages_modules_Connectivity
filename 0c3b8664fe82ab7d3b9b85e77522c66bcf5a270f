@@ -102,6 +102,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20d036a3_67dce562",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2694,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-18T10:01:18Z",
+      "side": 1,
+      "message": "I move it out of the section that holds mStatsLock, please see if this works for you.",
+      "parentUuid": "54eedb14_5ae1410f",
+      "range": {
+        "startLine": 2694,
+        "startChar": 26,
+        "endLine": 2694,
+        "endChar": 47
+      },
+      "revId": "0c3b8664fe82ab7d3b9b85e77522c66bcf5a270f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0eb27f61_2861e022",
         "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
         "patchSetId": 10
