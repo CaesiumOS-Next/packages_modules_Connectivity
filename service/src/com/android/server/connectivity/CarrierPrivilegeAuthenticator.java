@@ -17,6 +17,7 @@
 package com.android.server.connectivity;
 
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
+import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -27,6 +28,8 @@ import android.content.IntentFilter;
 import android.net.NetworkCapabilities;
 import android.net.NetworkSpecifier;
 import android.net.TelephonyNetworkSpecifier;
+import android.net.TransportInfo;
+import android.net.wifi.WifiInfo;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
@@ -116,6 +119,7 @@ public class CarrierPrivilegeAuthenticator {
 
     private class PrivilegeListener implements CarrierPrivilegesListenerShim {
         public final int mLogicalSlot;
+
         PrivilegeListener(final int logicalSlot) {
             mLogicalSlot = logicalSlot;
         }
@@ -164,15 +168,21 @@ public class CarrierPrivilegeAuthenticator {
      * It can also be used to check that a factory is entitled to grant access to a given network
      * to a given UID on grounds that it is the carrier service package.
      *
-     * @param callingUid uid of the app claimed to be the carrier service package.
+     * @param callingUid          uid of the app claimed to be the carrier service package.
      * @param networkCapabilities the network capabilities for which carrier privilege is checked.
      * @return true if uid provides the relevant carrier config else false.
      */
     public boolean hasCarrierPrivilegeForNetworkCapabilities(int callingUid,
             @NonNull NetworkCapabilities networkCapabilities) {
         if (callingUid == Process.INVALID_UID) return false;
-        if (!networkCapabilities.hasSingleTransport(TRANSPORT_CELLULAR)) return false;
-        final int subId = getSubIdFromNetworkSpecifier(networkCapabilities.getNetworkSpecifier());
+        final int subId;
+        if (networkCapabilities.hasSingleTransportBesideTest(TRANSPORT_CELLULAR)) {
+            subId = getSubIdFromTelephonySpecifier(networkCapabilities.getNetworkSpecifier());
+        } else if (networkCapabilities.hasSingleTransportBesideTest(TRANSPORT_WIFI)) {
+            subId = getSubIdFromWifiTransportInfo(networkCapabilities.getTransportInfo());
+        } else {
+            subId = SubscriptionManager.INVALID_SUBSCRIPTION_ID;
+        }
         if (SubscriptionManager.INVALID_SUBSCRIPTION_ID == subId) return false;
         return callingUid == getCarrierServiceUidForSubId(subId);
     }
@@ -191,15 +201,22 @@ public class CarrierPrivilegeAuthenticator {
     }
 
     @VisibleForTesting
-    int getSubIdFromNetworkSpecifier(NetworkSpecifier specifier) {
+    int getSubIdFromTelephonySpecifier(@Nullable final NetworkSpecifier specifier) {
         if (specifier instanceof TelephonyNetworkSpecifier) {
             return ((TelephonyNetworkSpecifier) specifier).getSubscriptionId();
         }
         return SubscriptionManager.INVALID_SUBSCRIPTION_ID;
     }
 
-    // Helper methods to avoid having to deal with UnsupportedApiLevelException.
+    @VisibleForTesting
+    int getSubIdFromWifiTransportInfo(@Nullable final TransportInfo info) {
+        if (info instanceof WifiInfo) {
+            return ((WifiInfo) info).getSubscriptionId();
+        }
+        return SubscriptionManager.INVALID_SUBSCRIPTION_ID;
+    }
 
+    // Helper methods to avoid having to deal with UnsupportedApiLevelException.
     private void addCarrierPrivilegesListener(@NonNull final Executor executor,
             @NonNull final PrivilegeListener listener) {
         try {
