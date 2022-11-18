@@ -22,6 +22,30 @@
       },
       "revId": "edceea23f4f18c5df2e1d25a5fd6d25ff960f9ae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f0c233e_5eb55d58",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-18T09:08:59Z",
+      "side": 0,
+      "message": "This was used by NPMS and Telephony.\nBut we cut the dependencies this year.",
+      "parentUuid": "e0334939_d01c4e69",
+      "range": {
+        "startLine": 909,
+        "startChar": 34,
+        "endLine": 909,
+        "endChar": 43
+      },
+      "revId": "edceea23f4f18c5df2e1d25a5fd6d25ff960f9ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
