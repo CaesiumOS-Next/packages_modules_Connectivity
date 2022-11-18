@@ -17,6 +17,7 @@
 package android.net;
 
 import static android.Manifest.permission.DUMP;
+import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
 
 import static com.android.testutils.DeviceInfoUtils.KVersion;
@@ -306,6 +307,104 @@ public class MtsEthernetTetheringTest extends EthernetTetheringTestBase {
         assumeKernelSupportBpfOffloadUdpV4();
 
         runUdp4Test();
+    }
+
+    private void runTcp4Test() throws Exception {
+        final TetheringTester tester = initTetheringTester(toList(TEST_IP4_ADDR),
+                toList(TEST_IP4_DNS));
+        final TetheredDevice tethered = tester.createTetheredDevice(TEST_MAC, false /* hasIpv6 */);
+
+        // TODO: remove the connectivity verification for upstream connected notification race.
+        // Because async upstream connected notification can't guarantee the tethering routing is
+        // ready to use. Need to test tethering connectivity before testing.
+        // For short term plan, consider using IPv6 RA to get MAC address because the prefix comes
+        // from upstream. That can guarantee that the routing is ready. Long term plan is that
+        // refactors upstream connected notification from async to sync.
+        probeV4TetheringConnectivity(tester, tethered, false /* is4To6 */);
+
+        // EthernetTetheringTestBase#runTcpTest sends TCP packets in the following flow.
+        //
+        // Server (base seq = 2000)                                  Client (base seq = 1000)
+        //   |                                                          |
+        //   |    [1] [SYN] SEQ = 1000                                  |
+        //   |<---------------------------------------------------------|  -
+        //   |                                                          |  ^
+        //   |    [2] [SYN + ACK] SEQ = 2000, ACK = 1000+1              |  |
+        //   |--------------------------------------------------------->|  three way handshake
+        //   |                                                          |  |
+        //   |    [3] [ACK] SEQ = 1001, ACK = 2000+1                    |  v
+        //   |<---------------------------------------------------------|  -
+        //   |                                                          |  ^
+        //   |    [4] [ACK] SEQ = 1001, ACK = 2001, 2 byte payload      |  |
+        //   |<---------------------------------------------------------|  data transfer
+        //   |                                                          |  |
+        //   |    [5] [ACK] SEQ = 2001, ACK = 1001+2, 2 byte payload    |  v
+        //   |--------------------------------------------------------->|  -
+        //   |                                                          |
+        //
+        // Because the offload rules are built after three way handshake, the packets [1][2][3]
+        // weren't offloaded. The packets [4][5] were offloaded and accounted by BPF stats.
+        //
+        runTcpTest(tethered.macAddr /* uploadSrcMac */, tethered.routerMacAddr /* uploadDstMac */,
+                tethered.ipv4Addr /* uploadSrcIp */, REMOTE_IP4_ADDR /* uploadDstIp */,
+                REMOTE_IP4_ADDR /* downloadSrcIp */, TEST_IP4_ADDR.getAddress() /* downloadDstIp */,
+                tester, false /* isClat */);
+
+        // [1] Verify IPv4 upstream rule map.
+        final InetAddress tetheringUpstreamIp = TEST_IP4_ADDR.getAddress();
+        final HashMap<Tether4Key, Tether4Value> upstreamMap = pollRawMapFromDump(
+                Tether4Key.class, Tether4Value.class, DUMPSYS_RAWMAP_ARG_UPSTREAM4);
+        assertNotNull(upstreamMap);
+        assertEquals(1, upstreamMap.size());
+
+        final Map.Entry<Tether4Key, Tether4Value> rule =
+                upstreamMap.entrySet().iterator().next();
+
+        final Tether4Key upstream4Key = rule.getKey();
+        assertEquals(IPPROTO_TCP, upstream4Key.l4proto);
+        assertTrue(Arrays.equals(tethered.ipv4Addr.getAddress(), upstream4Key.src4));
+        assertEquals(LOCAL_PORT, upstream4Key.srcPort);
+        assertTrue(Arrays.equals(REMOTE_IP4_ADDR.getAddress(), upstream4Key.dst4));
+        assertEquals(REMOTE_PORT, upstream4Key.dstPort);
+
+        final Tether4Value upstream4Value = rule.getValue();
+        assertTrue(Arrays.equals(tetheringUpstreamIp.getAddress(),
+                InetAddress.getByAddress(upstream4Value.src46).getAddress()));
+        assertEquals(LOCAL_PORT, upstream4Value.srcPort);
+        assertTrue(Arrays.equals(REMOTE_IP4_ADDR.getAddress(),
+                InetAddress.getByAddress(upstream4Value.dst46).getAddress()));
+        assertEquals(REMOTE_PORT, upstream4Value.dstPort);
+
+        // [2] Verify stats map.
+        final TetherStatsValue statsValue = getBpfStatsValue();
+
+        // RX stats were accounted from the packet [5].
+        // Packet [3]: iphdr (20) + tcphdr (20) + payload (2) = 42 bytes.
+        assertEquals(1, statsValue.rxPackets);
+        assertEquals(42, statsValue.rxBytes);
+        assertEquals(0, statsValue.rxErrors);
+
+        // TX stats were accounted from the packet [4].
+        // Packet [5]: ethhdr (14) + iphdr (20) + tcphdr (20) + payload (2) = 56 bytes.
+        assertEquals(1, statsValue.txPackets);
+        assertEquals(56, statsValue.txBytes);
+        assertEquals(0, statsValue.txErrors);
+    }
+
+    /**
+     * BPF offload IPv4 TCP tethering test. Verify that TCP tethered packets are offloaded by BPF.
+     * Minimum test requirement:
+     * 1. S+ device.
+     * 2. Tethering config enables tethering BPF offload.
+     *
+     * TODO: consider enabling the test even tethering config disables BPF offload. See b/238288883
+     */
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testTetherBpfOffloadTcpV4() throws Exception {
+        assumeTrue("Tethering config disabled BPF offload", isTetherConfigBpfOffloadEnabled());
+
+        runTcp4Test();
     }
 
     private void triggerNeighborUnreachabilityDetection(final InetAddress downloadSrcIp,
