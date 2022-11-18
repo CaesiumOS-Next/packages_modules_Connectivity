@@ -37,6 +37,8 @@ import static com.android.net.module.util.HexDump.dumpHexString;
 import static com.android.net.module.util.NetworkStackConstants.ETHER_TYPE_IPV4;
 import static com.android.net.module.util.NetworkStackConstants.ETHER_TYPE_IPV6;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ROUTER_ADVERTISEMENT;
+import static com.android.net.module.util.NetworkStackConstants.TCPHDR_ACK;
+import static com.android.net.module.util.NetworkStackConstants.TCPHDR_SYN;
 import static com.android.testutils.TestNetworkTrackerKt.initTestNetwork;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
 
@@ -933,6 +935,61 @@ public class EthernetTetheringTestBase {
 
             return isExpectedTcpPacket(p, false /* hasEther */, isIpv4, seq, payload);
         });
+    }
+
+    protected void runTcpTest(
+            @NonNull final MacAddress uploadSrcMac, @NonNull final MacAddress uploadDstMac,
+            @NonNull final InetAddress uploadSrcIp, @NonNull final InetAddress uploadDstIp,
+            @NonNull final InetAddress downloadSrcIp, @NonNull final InetAddress downloadDstIp,
+            @NonNull final TetheringTester tester, boolean isClat) throws Exception {
+        // Three way handshake and data transfer.
+        //
+        // Server (base seq = 2000)                                  Client (base seq = 1000)
+        //   |                                                          |
+        //   |    [1] [SYN] SEQ = 1000                                  |
+        //   |<---------------------------------------------------------|  -
+        //   |                                                          |  ^
+        //   |    [2] [SYN + ACK] SEQ = 2000, ACK = 1000+1              |  |
+        //   |--------------------------------------------------------->|  three way handshake
+        //   |                                                          |  |
+        //   |    [3] [ACK] SEQ = 1001, ACK = 2000+1                    |  v
+        //   |<---------------------------------------------------------|  -
+        //   |                                                          |  ^
+        //   |    [4] [ACK] SEQ = 1001, ACK = 2001, 2 byte payload      |  |
+        //   |<---------------------------------------------------------|  data transfer
+        //   |                                                          |  |
+        //   |    [5] [ACK] SEQ = 2001, ACK = 1001+2, 2 byte payload    |  v
+        //   |--------------------------------------------------------->|  -
+        //   |                                                          |
+        //
+
+        // This test can only verify the packets are transferred end to end but TCP state.
+        // TODO: verify TCP state change via /proc/net/nf_conntrack or netlink conntrack event.
+        // [1] [UPLOAD] [SYN]: SEQ = 1000
+        sendUploadPacketTcp(uploadSrcMac, uploadDstMac, uploadSrcIp, uploadDstIp,
+                (short) 1000 /* seq */, (short) 0 /* ack */, TCPHDR_SYN, EMPTY_PAYLOAD,
+                tester, isClat /* is4To6 */);
+
+        // [2] [DONWLOAD] [SYN + ACK]: SEQ = 2000, ACK = 1001
+        sendDownloadPacketTcp(downloadSrcIp, downloadDstIp, (short) 2000 /* seq */,
+                (short) 1001 /* ack */, (byte) ((TCPHDR_SYN | TCPHDR_ACK) & 0xff), EMPTY_PAYLOAD,
+                tester, isClat /* is6To4 */);
+
+        // [3] [UPLOAD] [ACK]: SEQ = 1001, ACK = 2001
+        //sendUploadPacketTcp(uploadSrcMac, uploadDstMac, uploadSrcIp, uploadDstIp,
+        //        (short) 1001 /* seq */, (short) 2001 /* ack */, TCPHDR_ACK, EMPTY_PAYLOAD, tester,
+        //        isClat /* is4To6 */);
+
+        // [4] [UPLOAD] [ACK]: SEQ = 1001, ACK = 2001, 2 byte payload
+        sendUploadPacketTcp(uploadSrcMac, uploadDstMac, uploadSrcIp, uploadDstIp,
+                (short) 1001 /* seq */, (short) 2001 /* ack */, TCPHDR_ACK, TX_PAYLOAD,
+                tester, isClat /* is4To6 */);
+
+        // [5] [DONWLOAD] [ACK]: SEQ = 2001, ACK = 1003, 2 byte payload
+        sendDownloadPacketTcp(downloadSrcIp, downloadDstIp, (short) 2001 /* seq */,
+                (short) 1003 /* ack */, TCPHDR_ACK, RX_PAYLOAD, tester, isClat /* is6To4 */);
+
+        // TODO: test BPF offload maps.
     }
 
     protected <T> List<T> toList(T... array) {
