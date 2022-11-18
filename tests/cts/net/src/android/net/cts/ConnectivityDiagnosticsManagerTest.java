@@ -288,6 +288,15 @@ public class ConnectivityDiagnosticsManagerTest {
         // TODO(b/157949581): replace this Thread#sleep with a deterministic signal
         Thread.sleep(DELAY_FOR_ADMIN_UIDS_MILLIS);
 
+        Thread.sleep(5_000);
+
+        // TODO(b/217559768): Receiving carrier config change and immediately checking carrier
+        //  privileges is racy, as the CP status is updated after receiving the same signal. Move
+        //  the CP check after sleep to temporarily reduce the flakiness. This will soon be fixed
+        //  by switching to CarrierPrivilegesListener.
+        assertTrue("Don't have Carrier Privileges after adding cert for this package",
+                mTelephonyManager.createForSubscriptionId(subId).hasCarrierPrivileges());
+
         final TestConnectivityDiagnosticsCallback connDiagsCallback =
                 createAndRegisterConnectivityDiagnosticsCallback(CELLULAR_NETWORK_REQUEST);
 
