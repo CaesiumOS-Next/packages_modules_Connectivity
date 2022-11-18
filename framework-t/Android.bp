@@ -135,12 +135,9 @@ java_sdk_library {
 
     impl_library_visibility: [
         "//packages/modules/Connectivity/Tethering/apex",
-        // In preparation for future move
-        "//packages/modules/Connectivity/apex",
         "//packages/modules/Connectivity/service", // For R8 only
         "//packages/modules/Connectivity/service-t",
         "//packages/modules/Connectivity/nearby/service",
-        "//frameworks/base",
 
         // Tests using hidden APIs
         "//cts/tests/netlegacy22.api",

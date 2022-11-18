@@ -125,13 +125,9 @@ java_sdk_library {
     permitted_packages: ["android.net"],
     impl_library_visibility: [
         "//packages/modules/Connectivity/Tethering/apex",
-        // In preparation for future move
-        "//packages/modules/Connectivity/apex",
         "//packages/modules/Connectivity/framework-t",
         "//packages/modules/Connectivity/service",
         "//packages/modules/Connectivity/service-t",
-        "//frameworks/base/packages/Connectivity/service",
-        "//frameworks/base",
 
         // Tests using hidden APIs
         "//cts/tests/netlegacy22.api",
