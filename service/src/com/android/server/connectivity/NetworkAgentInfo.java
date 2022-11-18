@@ -1525,10 +1525,11 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
             return true;
         }
 
-        // Factories that make cell networks can allow the UID for the carrier service package.
+        // Factories that make cell/wifi networks can allow the UID for the carrier service package.
         // This can only work in T where there is support for CarrierPrivilegeAuthenticator
         if (null != carrierPrivilegeAuthenticator
-                && nc.hasSingleTransportBesideTest(TRANSPORT_CELLULAR)
+                && (nc.hasSingleTransportBesideTest(TRANSPORT_CELLULAR)
+                        || nc.hasSingleTransportBesideTest(TRANSPORT_WIFI))
                 && (1 == nc.getAllowedUidsNoCopy().size())
                 && (carrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkCapabilities(
                         nc.getAllowedUidsNoCopy().valueAt(0), nc))) {
