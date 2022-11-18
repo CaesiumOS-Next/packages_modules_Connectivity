@@ -17,6 +17,7 @@
 package com.android.server.connectivity;
 
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
+import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 
 import static com.android.server.connectivity.ConnectivityFlags.CARRIER_SERVICE_CHANGED_USE_CALLBACK;
 
@@ -31,6 +32,8 @@ import android.content.pm.PackageManager;
 import android.net.NetworkCapabilities;
 import android.net.NetworkSpecifier;
 import android.net.TelephonyNetworkSpecifier;
+import android.net.TransportInfo;
+import android.net.wifi.WifiInfo;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
@@ -125,6 +128,7 @@ public class CarrierPrivilegeAuthenticator {
 
     private class PrivilegeListener implements CarrierPrivilegesListenerShim {
         public final int mLogicalSlot;
+
         PrivilegeListener(final int logicalSlot) {
             mLogicalSlot = logicalSlot;
         }
@@ -193,26 +197,30 @@ public class CarrierPrivilegeAuthenticator {
      *
      * This returns whether the passed UID is the carrier service package for the subscription ID
      * stored in the telephony network specifier in the passed network capabilities.
-     * If the capabilities don't code for a cellular network, or if they don't have the
+     * If the capabilities don't code for a cellular or Wi-Fi network, or if they don't have the
      * subscription ID in their specifier, this returns false.
      *
-     * This method can be used to check that a network request for {@link NET_CAPABILITY_CBS} is
-     * allowed for the UID of a caller, which must hold carrier privilege and provide the carrier
-     * config.
+     * This method can be used to check that a network request for
+     * {@link android.net.NetworkCapabilities#NET_CAPABILITY_CBS} is allowed for the UID of a
+     * caller, which must hold carrier privilege and provide the carrier config.
      * It can also be used to check that a factory is entitled to grant access to a given network
      * to a given UID on grounds that it is the carrier service package.
      *
-     * @param callingUid uid of the app claimed to be the carrier service package.
+     * @param callingUid          uid of the app claimed to be the carrier service package.
      * @param networkCapabilities the network capabilities for which carrier privilege is checked.
      * @return true if uid provides the relevant carrier config else false.
      */
     public boolean hasCarrierPrivilegeForNetworkCapabilities(int callingUid,
             @NonNull NetworkCapabilities networkCapabilities) {
         if (callingUid == Process.INVALID_UID) return false;
-        if (!networkCapabilities.hasSingleTransportBesidesTest(TRANSPORT_CELLULAR)) {
-            return false;
+        final int subId;
+        if (networkCapabilities.hasSingleTransportBesidesTest(TRANSPORT_CELLULAR)) {
+            subId = getSubIdFromTelephonySpecifier(networkCapabilities.getNetworkSpecifier());
+        } else if (networkCapabilities.hasSingleTransportBesidesTest(TRANSPORT_WIFI)) {
+            subId = getSubIdFromWifiTransportInfo(networkCapabilities.getTransportInfo());
+        } else {
+            subId = SubscriptionManager.INVALID_SUBSCRIPTION_ID;
         }
-        final int subId = getSubIdFromNetworkSpecifier(networkCapabilities.getNetworkSpecifier());
         if (SubscriptionManager.INVALID_SUBSCRIPTION_ID == subId) return false;
         return callingUid == getCarrierServiceUidForSubId(subId);
     }
@@ -241,14 +249,6 @@ public class CarrierPrivilegeAuthenticator {
     }
 
     @VisibleForTesting
-    int getSubIdFromNetworkSpecifier(NetworkSpecifier specifier) {
-        if (specifier instanceof TelephonyNetworkSpecifier) {
-            return ((TelephonyNetworkSpecifier) specifier).getSubscriptionId();
-        }
-        return SubscriptionManager.INVALID_SUBSCRIPTION_ID;
-    }
-
-    @VisibleForTesting
     int getUidForPackage(String pkgName) {
         if (pkgName == null) {
             return Process.INVALID_UID;
@@ -273,8 +273,22 @@ public class CarrierPrivilegeAuthenticator {
         return getUidForPackage(getCarrierServicePackageNameForLogicalSlot(slotId));
     }
 
-    // Helper methods to avoid having to deal with UnsupportedApiLevelException.
+    @VisibleForTesting
+    int getSubIdFromTelephonySpecifier(@Nullable final NetworkSpecifier specifier) {
+        if (specifier instanceof TelephonyNetworkSpecifier) {
+            return ((TelephonyNetworkSpecifier) specifier).getSubscriptionId();
+        }
+        return SubscriptionManager.INVALID_SUBSCRIPTION_ID;
+    }
 
+    int getSubIdFromWifiTransportInfo(@Nullable final TransportInfo info) {
+        if (info instanceof WifiInfo) {
+            return ((WifiInfo) info).getSubscriptionId();
+        }
+        return SubscriptionManager.INVALID_SUBSCRIPTION_ID;
+    }
+
+    // Helper methods to avoid having to deal with UnsupportedApiLevelException.
     private void addCarrierPrivilegesListener(@NonNull final Executor executor,
             @NonNull final PrivilegeListener listener) {
         try {

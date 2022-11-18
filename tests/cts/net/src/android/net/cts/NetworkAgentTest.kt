@@ -754,7 +754,7 @@ class NetworkAgentTest {
             // Cell is allowed to set UIDs, but not WIFI/BLUETOOTH or agents with multiple
             // transports. ETHERNET is allowed iff the device has feature AUTOMOTIVE.
             doTestAllowedUids(TRANSPORT_CELLULAR, uid, expectUidsPresent = true)
-            doTestAllowedUids(TRANSPORT_WIFI, uid, expectUidsPresent = false)
+            doTestAllowedUids(TRANSPORT_WIFI, uid, expectUidsPresent = true)
             doTestAllowedUids(TRANSPORT_BLUETOOTH, uid, expectUidsPresent = false)
             doTestAllowedUids(intArrayOf(TRANSPORT_CELLULAR, TRANSPORT_WIFI), uid,
                     expectUidsPresent = false)
