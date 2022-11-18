@@ -16,11 +16,13 @@
 
 package com.android.server.connectivity.mdns
 
+import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.Looper
 import com.android.internal.util.HexDump
 import com.android.server.connectivity.mdns.MdnsProber.ProbingInfo
+import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
 import org.junit.After
 import org.junit.Before
@@ -45,6 +47,7 @@ private const val TEST_TIMEOUT_MS = 10_000L
 private const val SHORT_TIMEOUT_MS = 50L
 
 @RunWith(DevSdkIgnoreRunner::class)
+@DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
 class MdnsProberTest {
     private val thread = HandlerThread(MdnsProberTest::class.simpleName)
     private val socket = mock(MulticastSocket::class.java)

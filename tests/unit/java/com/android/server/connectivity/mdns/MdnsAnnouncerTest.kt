@@ -17,10 +17,12 @@
 package com.android.server.connectivity.mdns
 
 import android.net.InetAddresses.parseNumericAddress
+import android.os.Build
 import android.os.HandlerThread
 import android.os.SystemClock
 import com.android.internal.util.HexDump
 import com.android.server.connectivity.mdns.MdnsAnnouncer.AnnouncementInfo
+import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
 import org.junit.After
 import org.junit.Before
@@ -49,6 +51,7 @@ private val destinationsSupplier = {
     listOf(InetSocketAddress(MdnsConstants.getMdnsIPv6Address(), MdnsConstants.MDNS_PORT)) }
 
 @RunWith(DevSdkIgnoreRunner::class)
+@DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
 class MdnsAnnouncerTest {
 
     private val thread = HandlerThread(MdnsAnnouncerTest::class.simpleName)
