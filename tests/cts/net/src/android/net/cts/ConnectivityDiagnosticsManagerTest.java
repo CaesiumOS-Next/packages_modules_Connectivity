@@ -298,8 +298,6 @@ public class ConnectivityDiagnosticsManagerTest {
 
         assertTrue("Didn't receive broadcast for ACTION_CARRIER_CONFIG_CHANGED for subId=" + subId,
                 carrierConfigReceiver.waitForCarrierConfigChanged());
-        assertTrue("Don't have Carrier Privileges after adding cert for this package",
-                mTelephonyManager.createForSubscriptionId(subId).hasCarrierPrivileges());
 
         // Wait for CarrierPrivilegesTracker to receive the ACTION_CARRIER_CONFIG_CHANGED
         // broadcast. CPT then needs to update the corresponding DataConnection, which then
@@ -310,6 +308,15 @@ public class ConnectivityDiagnosticsManagerTest {
         // delay to pass this information to CS is accounted in the delay in waiting for the
         // callback.
         waitForBroadcastIdle(DELAY_FOR_BROADCAST_IDLE);
+
+        Thread.sleep(5_000);
+
+        // TODO(b/217559768): Receiving carrier config change and immediately checking carrier
+        //  privileges is racy, as the CP status is updated after receiving the same signal. Move
+        //  the CP check after sleep to temporarily reduce the flakiness. This will soon be fixed
+        //  by switching to CarrierPrivilegesListener.
+        assertTrue("Don't have Carrier Privileges after adding cert for this package",
+                mTelephonyManager.createForSubscriptionId(subId).hasCarrierPrivileges());
 
         final TestConnectivityDiagnosticsCallback connDiagsCallback =
                 createAndRegisterConnectivityDiagnosticsCallback(CELLULAR_NETWORK_REQUEST);
