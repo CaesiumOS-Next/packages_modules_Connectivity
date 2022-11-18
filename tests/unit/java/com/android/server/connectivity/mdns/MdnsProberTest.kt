@@ -16,11 +16,13 @@
 
 package com.android.server.connectivity.mdns
 
+import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.Looper
 import com.android.internal.util.HexDump
 import com.android.server.connectivity.mdns.MdnsProber.ProbingInfo
+import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
 import org.junit.After
 import org.junit.Before
@@ -52,6 +54,7 @@ private val TEST_SERVICE_NAME_1 = arrayOf("testservice", "_nmt", "_tcp", "local"
 private val TEST_SERVICE_NAME_2 = arrayOf("testservice2", "_nmt", "_tcp", "local")
 
 @RunWith(DevSdkIgnoreRunner::class)
+@DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
 class MdnsProberTest {
     private val thread = HandlerThread(MdnsProberTest::class.simpleName)
     private val socket = mock(MulticastSocket::class.java)
