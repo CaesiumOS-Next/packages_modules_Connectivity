@@ -283,10 +283,27 @@ public class ConnectivityDiagnosticsManagerTest {
         // broadcast. CPT then needs to update the corresponding DataConnection, which then
         // updates ConnectivityService. Unfortunately, this update to the NetworkCapabilities in
         // CS does not trigger NetworkCallback#onCapabilitiesChanged as changing the
+<<<<<<< HEAD   (31ed53 Merge "Run CtsNetTestCases in SC TEST_MAPPING" into android1)
         // administratorUids is not a publicly visible change. In lieu of a better signal to
         // detministically wait for, use Thread#sleep here.
         // TODO(b/157949581): replace this Thread#sleep with a deterministic signal
         Thread.sleep(DELAY_FOR_ADMIN_UIDS_MILLIS);
+=======
+        // administratorUids is not a publicly visible change. Start by waiting for broadcast
+        // idle to make sure Telephony has received the carrier config change broadcast ; the
+        // delay to pass this information to CS is accounted in the delay in waiting for the
+        // callback.
+        waitForBroadcastIdle(DELAY_FOR_BROADCAST_IDLE);
+
+        Thread.sleep(5_000);
+
+        // TODO(b/217559768): Receiving carrier config change and immediately checking carrier
+        //  privileges is racy, as the CP status is updated after receiving the same signal. Move
+        //  the CP check after sleep to temporarily reduce the flakiness. This will soon be fixed
+        //  by switching to CarrierPrivilegesListener.
+        assertTrue("Don't have Carrier Privileges after adding cert for this package",
+                mTelephonyManager.createForSubscriptionId(subId).hasCarrierPrivileges());
+>>>>>>> CHANGE (c4cff7 Reinstate sleep pending better fix)
 
         final TestConnectivityDiagnosticsCallback connDiagsCallback =
                 createAndRegisterConnectivityDiagnosticsCallback(CELLULAR_NETWORK_REQUEST);
