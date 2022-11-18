@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cc68f4b_ba233458",
+        "filename": "Tethering/tests/jarjar-rules.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-18T06:40:20Z",
+      "side": 1,
+      "message": "This would rename to com.android.networkstack.tethering.util.BitUtilscom.android.internal.util.BitUtils\n\nThat seems wrong",
+      "range": {
+        "startLine": 3,
+        "startChar": 41,
+        "endLine": 3,
+        "endChar": 91
+      },
+      "revId": "3fe8838ebb93b52541c4742d5305f059d57ddc07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
