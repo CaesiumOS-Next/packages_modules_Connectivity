@@ -16,6 +16,29 @@
       "message": "It builds, only comments were added since TH+2\u0027ed patchset 4.",
       "revId": "be9685c35cd7c2f5adf5f6f90b1309cdd2c6c10a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6f08846_772b0c91",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-11-18T12:57:47Z",
+      "side": 1,
+      "message": "RFC 6145 says that this should use the bottom 16 bits.",
+      "range": {
+        "startLine": 114,
+        "startChar": 8,
+        "endLine": 114,
+        "endChar": 71
+      },
+      "revId": "be9685c35cd7c2f5adf5f6f90b1309cdd2c6c10a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
