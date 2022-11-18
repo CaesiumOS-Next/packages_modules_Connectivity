@@ -187,6 +187,30 @@
       },
       "revId": "f7629f4353ce436864fd97d9f5996a7ded1ecdc3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49c6a17e_54c7af58",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 865,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-11-18T08:35:32Z",
+      "side": 1,
+      "message": "I think you could just get the information from linkproperties, see the suggestion below.",
+      "parentUuid": "c1748725_de7c57c6",
+      "range": {
+        "startLine": 865,
+        "startChar": 69,
+        "endLine": 865,
+        "endChar": 85
+      },
+      "revId": "f7629f4353ce436864fd97d9f5996a7ded1ecdc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
