@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de9b7e3c_759fd97f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1609802
+      },
+      "writtenOn": "2022-11-18T16:37:31Z",
+      "side": 1,
+      "message": "Jean, overall the patch is good. Pls check the comments below to see if they make sense. Feel free to resolve the build failure. I will give another review once done. Thanks",
+      "revId": "fc2af004cdfba9325860cb4c287912bbde760933",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a20dbed2_d21bb9f3",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1609802
+      },
+      "writtenOn": "2022-11-18T16:37:31Z",
+      "side": 1,
+      "message": "nits:We can also specify the initialCapacity here to save a bit memory",
+      "range": {
+        "startLine": 70,
+        "startChar": 94,
+        "endLine": 70,
+        "endChar": 96
+      },
+      "revId": "fc2af004cdfba9325860cb4c287912bbde760933",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8842300d_1eccf809",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1609802
+      },
+      "writtenOn": "2022-11-18T16:37:31Z",
+      "side": 1,
+      "message": "+1 with the listener wrapper class. For per-slot listener management, I always prefer to those kind of wrapper. It make it more robust and readable. (I hesitated in last review and didn\u0027t recommend to you, I should).",
+      "range": {
+        "startLine": 145,
+        "startChar": 18,
+        "endLine": 145,
+        "endChar": 35
+      },
+      "revId": "fc2af004cdfba9325860cb4c287912bbde760933",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df9c0133_9b882249",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1609802
+      },
+      "writtenOn": "2022-11-18T16:37:31Z",
+      "side": 1,
+      "message": "CarrierPrivilegesListenerShim need to update (it only define onCarrierPrivilegesChanged method, no onCarrierServiceChanged). Or rebase this patch to another CL if you already did it.\n\nI think this is why this patch can\u0027t pass the build for now.",
+      "range": {
+        "startLine": 151,
+        "startChar": 9,
+        "endLine": 151,
+        "endChar": 17
+      },
+      "revId": "fc2af004cdfba9325860cb4c287912bbde760933",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca06f536_418a5907",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1609802
+      },
+      "writtenOn": "2022-11-18T16:37:31Z",
+      "side": 1,
+      "message": "The INVALID_UID does help to make logic simpler. As long as we don\u0027t need to distinguish _why_ it is INVALID_UID, with at least two different cases below:\n- There is no carrier service package and thus  INVALID_UID is the correct live status(for most carrier, they don\u0027t)\n- There is valid carrier service with its UID, we just unregistered here (or before first registration).\n\nDo we?",
+      "range": {
+        "startLine": 201,
+        "startChar": 75,
+        "endLine": 201,
+        "endChar": 94
+      },
+      "revId": "fc2af004cdfba9325860cb4c287912bbde760933",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
