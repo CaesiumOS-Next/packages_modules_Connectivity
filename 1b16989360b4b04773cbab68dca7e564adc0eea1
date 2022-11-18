@@ -16,6 +16,24 @@
       "message": "Can we have maybe a list of all of the test targets that we seek to remove from desc.json? Because this file will be automatically generated once we get to the part of running the script and importing cronet.",
       "revId": "1b16989360b4b04773cbab68dca7e564adc0eea1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7db2b816_f6e8301c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-11-18T12:55:11Z",
+      "side": 1,
+      "message": "\"//base:base_test\" is not in the chromium tree.\nThis was target I created for my local testing.\nI forgot to remove this and this was in the desc.json by mistake.",
+      "parentUuid": "7aaa2912_3b0ec0b7",
+      "revId": "1b16989360b4b04773cbab68dca7e564adc0eea1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
