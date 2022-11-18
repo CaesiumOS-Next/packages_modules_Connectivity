@@ -190,6 +190,15 @@ class GnParser(object):
         return
       self.is_finalized = True
 
+      # TODO: It might be better to skip extracting common part for all the source_set
+      # Following targets are the source_set other target depends on only in some arch
+      # Currently, source_set is converted to cc_defaults and defaults can not be target specific
+      # So, skip extracting common part and keep everthing for each arch
+      if self.name in ["//third_party/android_ndk:cpu_features",
+                      "//third_party/ashmem:ashmem",
+                      "//buildtools/third_party/libunwind:libunwind"]:
+        return
+
       # Target contains the intersection of arch-dependent properties
       self.sources = set.intersection(*[arch.sources for arch in self.arch.values()])
       self.cflags = set.intersection(*[arch.cflags for arch in self.arch.values()])

@@ -2202,15 +2202,30 @@ cc_defaults {
 // GN: //buildtools/third_party/libunwind:libunwind
 cc_defaults {
     name: "cronet_aml_buildtools_third_party_libunwind_libunwind",
-    srcs: [
-        "buildtools/third_party/libunwind/trunk/src/Unwind-EHABI.cpp",
-        "buildtools/third_party/libunwind/trunk/src/Unwind-sjlj.c",
-        "buildtools/third_party/libunwind/trunk/src/UnwindLevel1-gcc-ext.c",
-        "buildtools/third_party/libunwind/trunk/src/UnwindLevel1.c",
-        "buildtools/third_party/libunwind/trunk/src/UnwindRegistersRestore.S",
-        "buildtools/third_party/libunwind/trunk/src/UnwindRegistersSave.S",
-        "buildtools/third_party/libunwind/trunk/src/libunwind.cpp",
-    ],
+    target: {
+        android_x86: {
+            srcs: [
+                "buildtools/third_party/libunwind/trunk/src/Unwind-EHABI.cpp",
+                "buildtools/third_party/libunwind/trunk/src/Unwind-sjlj.c",
+                "buildtools/third_party/libunwind/trunk/src/UnwindLevel1-gcc-ext.c",
+                "buildtools/third_party/libunwind/trunk/src/UnwindLevel1.c",
+                "buildtools/third_party/libunwind/trunk/src/UnwindRegistersRestore.S",
+                "buildtools/third_party/libunwind/trunk/src/UnwindRegistersSave.S",
+                "buildtools/third_party/libunwind/trunk/src/libunwind.cpp",
+            ],
+        },
+        android_x86_64: {
+            srcs: [
+                "buildtools/third_party/libunwind/trunk/src/Unwind-EHABI.cpp",
+                "buildtools/third_party/libunwind/trunk/src/Unwind-sjlj.c",
+                "buildtools/third_party/libunwind/trunk/src/UnwindLevel1-gcc-ext.c",
+                "buildtools/third_party/libunwind/trunk/src/UnwindLevel1.c",
+                "buildtools/third_party/libunwind/trunk/src/UnwindRegistersRestore.S",
+                "buildtools/third_party/libunwind/trunk/src/UnwindRegistersSave.S",
+                "buildtools/third_party/libunwind/trunk/src/libunwind.cpp",
+            ],
+        },
+    },
 }
 
 // GN: //components/cronet/android:buildflags
@@ -5378,17 +5393,35 @@ cc_defaults {
 // GN: //third_party/android_ndk:cpu_features
 cc_defaults {
     name: "cronet_aml_third_party_android_ndk_cpu_features",
-    srcs: [
-        "third_party/android_ndk/sources/android/cpufeatures/cpu-features.c",
-    ],
+    target: {
+        android_x86: {
+            srcs: [
+                "third_party/android_ndk/sources/android/cpufeatures/cpu-features.c",
+            ],
+        },
+        android_x86_64: {
+            srcs: [
+                "third_party/android_ndk/sources/android/cpufeatures/cpu-features.c",
+            ],
+        },
+    },
 }
 
 // GN: //third_party/ashmem:ashmem
 cc_defaults {
     name: "cronet_aml_third_party_ashmem_ashmem",
-    srcs: [
-        "third_party/ashmem/ashmem-dev.c",
-    ],
+    target: {
+        android_x86: {
+            srcs: [
+                "third_party/ashmem/ashmem-dev.c",
+            ],
+        },
+        android_x86_64: {
+            srcs: [
+                "third_party/ashmem/ashmem-dev.c",
+            ],
+        },
+    },
 }
 
 // GN: //third_party/boringssl:boringssl
