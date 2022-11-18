@@ -106,6 +106,24 @@
       "parentUuid": "d92d02a9_09dc573b",
       "revId": "b99524e467691f4761420d7f757dcf21afb4300a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a008b130_6d0d141d",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-18T07:11:08Z",
+      "side": 0,
+      "message": "Just tested on an Android device and the latency is ~200ms. I expect this is related to answer delays in the mdns RFC such as https://datatracker.ietf.org/doc/html/rfc6762#section-6.4.\n\n1.5s or more than 2s is more than expected though; is there something unexpected happening on CrOS ? Do you have a way to take network captures ?",
+      "parentUuid": "7fa5c72f_a47e6919",
+      "revId": "b99524e467691f4761420d7f757dcf21afb4300a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
