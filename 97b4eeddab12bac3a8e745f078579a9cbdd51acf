@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9fd590c_7b465968",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-11-19T09:46:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "777c4c6c_03d377d0",
+      "revId": "97b4eeddab12bac3a8e745f078579a9cbdd51acf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b12cd94_4ca040b5",
