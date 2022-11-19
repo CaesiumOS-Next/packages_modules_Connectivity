@@ -1,5 +1,46 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a66da409_9bf0bc2b",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-11-19T01:08:58Z",
+      "side": 1,
+      "message": "This module haves \"-UANDROID\" in common and haves \"-DANDROID\" in target.\nI\u0027m not sure if this work as we expect. this might work maybe depends on the order of cflags in common and target.",
+      "revId": "97b4eeddab12bac3a8e745f078579a9cbdd51acf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b12cd94_4ca040b5",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-11-19T01:08:58Z",
+      "side": 1,
+      "message": "My comment was not enough.\n\nIn following case\n- common define does not have \"ANDROID\"\n- x64 define has \"ANDROID\"\n- host define does not have \"ANDROID\"\n\nThis adds \"-UANDROID\" to host cflags and also to common cflags.\nSo I thought we need to consider common and target defines.",
+      "range": {
+        "startLine": 965,
+        "startChar": 0,
+        "endLine": 967,
+        "endChar": 27
+      },
+      "revId": "97b4eeddab12bac3a8e745f078579a9cbdd51acf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
