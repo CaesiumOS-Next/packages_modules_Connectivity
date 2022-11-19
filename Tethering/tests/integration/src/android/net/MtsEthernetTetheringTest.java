@@ -78,11 +78,15 @@ public class MtsEthernetTetheringTest extends EthernetTetheringTestBase {
     // Give slack time for waiting UDP stream mode because handling conntrack event in user space
     // may not in precise time. Used to reduce the flaky rate.
     private static final int UDP_STREAM_SLACK_MS = 500;
-    // Per RX UDP packet size: iphdr (20) + udphdr (8) + payload (2) = 30 bytes.
-    private static final int RX_UDP_PACKET_SIZE = 30;
+    // RX IPv4 UDP packet size: iphdr (20) + udphdr (8) + payload (2) = 30 bytes.
+    protected static final int RX_IPV4_UDP_PACKET_SIZE = 30;
+    // RX IPv6 UDP packet size: ip6hdr (40) + udphdr (8) + payload (2) = 50 bytes.
+    protected static final int RX_IPV6_UDP_PACKET_SIZE = 50;
     private static final int RX_UDP_PACKET_COUNT = 456;
-    // Per TX UDP packet size: ethhdr (14) + iphdr (20) + udphdr (8) + payload (2) = 44 bytes.
-    private static final int TX_UDP_PACKET_SIZE = 44;
+    // TX IPv4 UDP packet size: ethhdr (14) + iphdr (20) + udphdr (8) + payload (2) = 44 bytes.
+    protected static final int TX_IPV4_UDP_PACKET_SIZE = 44;
+    // TX IPv6 UDP packet size: ethhdr (14) + ip6hdr (40) + udphdr (8) + payload (2) = 64 bytes.
+    protected static final int TX_IPV6_UDP_PACKET_SIZE = 64;
     private static final int TX_UDP_PACKET_COUNT = 123;
     // Give slack time for waiting neighbor event because handling neighbor event in user space
     // may not in precise time. Used to reduce the flaky rate.
@@ -284,10 +288,10 @@ public class MtsEthernetTetheringTest extends EthernetTetheringTestBase {
         // Dump stats map to verify.
         final TetherStatsValue statsValue = getBpfStatsValue();
         assertEquals(RX_UDP_PACKET_COUNT, statsValue.rxPackets);
-        assertEquals(RX_UDP_PACKET_COUNT * RX_UDP_PACKET_SIZE, statsValue.rxBytes);
+        assertEquals(RX_UDP_PACKET_COUNT * RX_IPV4_UDP_PACKET_SIZE, statsValue.rxBytes);
         assertEquals(0, statsValue.rxErrors);
         assertEquals(TX_UDP_PACKET_COUNT, statsValue.txPackets);
-        assertEquals(TX_UDP_PACKET_COUNT * TX_UDP_PACKET_SIZE, statsValue.txBytes);
+        assertEquals(TX_UDP_PACKET_COUNT * TX_IPV4_UDP_PACKET_SIZE, statsValue.txBytes);
         assertEquals(0, statsValue.txErrors);
     }
 
@@ -418,6 +422,63 @@ public class MtsEthernetTetheringTest extends EthernetTetheringTestBase {
         // Wait for neighbor event and the offload rules are built by BpfCoordinator. Avoid the
         // test to be flaky.
         Thread.sleep(NEIGHBOR_EVENT_SLACK_MS);
+    }
+
+    private void runUdp6Test() throws Exception {
+        final TetheringTester tester = initTetheringTester(toList(TEST_IP6_ADDR),
+                toList(TEST_IP6_DNS));
+        final TetheredDevice tethered = tester.createTetheredDevice(TEST_MAC, true /* hasIpv6 */);
+        triggerNeighborUnreachabilityDetection(REMOTE_IP6_ADDR /* downloadSrcIp */,
+                tethered.ipv6Addr /* downloadDstIp */, tester);
+
+        // Expect stats is zero before the test. Because IPv6 offload rules are created by
+        // interface, expect there is no other offload traffic on test network upstream before
+        // testing.
+        TetherStatsValue statsValue = getBpfStatsValue();
+        assertEquals(0, statsValue.rxPackets);
+        assertEquals(0, statsValue.rxBytes);
+        assertEquals(0, statsValue.rxErrors);
+        assertEquals(0, statsValue.txPackets);
+        assertEquals(0, statsValue.txBytes);
+        assertEquals(0, statsValue.txErrors);
+
+          // Send packets on upload direction.
+        for (int i = 0; i < TX_UDP_PACKET_COUNT; i++) {
+            sendUploadPacketUdp(tethered.macAddr, tethered.routerMacAddr,
+                    tethered.ipv6Addr, REMOTE_IP6_ADDR, tester, false /* is4To6 */);
+        }
+
+        // Send packets on download direction.
+        for (int i = 0; i < RX_UDP_PACKET_COUNT; i++) {
+            sendDownloadPacketUdp(REMOTE_IP6_ADDR, tethered.ipv6Addr, tester, false /* is6To4 */);
+        }
+
+        // Dump stats map to verify.
+        statsValue = getBpfStatsValue();
+        assertEquals(RX_UDP_PACKET_COUNT, statsValue.rxPackets);
+        assertEquals(RX_UDP_PACKET_COUNT * RX_IPV6_UDP_PACKET_SIZE, statsValue.rxBytes);
+        assertEquals(0, statsValue.rxErrors);
+        assertEquals(TX_UDP_PACKET_COUNT, statsValue.txPackets);
+        assertEquals(TX_UDP_PACKET_COUNT * TX_IPV6_UDP_PACKET_SIZE, statsValue.txBytes);
+        assertEquals(0, statsValue.txErrors);
+
+        // TODO: verify BPF offload rules.
+    }
+
+    /**
+     * BPF offload IPv6 TCP tethering test. Verify that TCP tethered packets are offloaded by BPF.
+     * Minimum test requirement:
+     * 1. S+ device.
+     * 2. Tethering config enables tethering BPF offload.
+     *
+     * TODO: consider enabling the test even tethering config disables BPF offload. See b/238288883
+     */
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testTetherBpfOffloadUdpV6() throws Exception {
+        assumeTrue("Tethering config disabled BPF offload", isTetherConfigBpfOffloadEnabled());
+
+        runUdp6Test();
     }
 
     private void runTcp6Test() throws Exception {
