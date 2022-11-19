@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "777c4c6c_03d377d0",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-19T01:22:57Z",
+      "side": 1,
+      "message": "you are correct! I actually ended up fixing this by just putting -UANDROID in the defaults for host. See aosp/2309620",
+      "parentUuid": "a66da409_9bf0bc2b",
+      "revId": "97b4eeddab12bac3a8e745f078579a9cbdd51acf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2b12cd94_4ca040b5",
         "filename": "tools/gn2bp/gen_android_bp",
         "patchSetId": 1
