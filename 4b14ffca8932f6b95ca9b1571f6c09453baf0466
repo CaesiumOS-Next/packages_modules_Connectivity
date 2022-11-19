@@ -16,6 +16,23 @@
       "message": "Could you please elaborate more on this? I don\u0027t understand how this is implied by default?",
       "revId": "4b14ffca8932f6b95ca9b1571f6c09453baf0466",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d7e8d3f_c613684d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1977191
+      },
+      "writtenOn": "2022-11-19T04:48:56Z",
+      "side": 1,
+      "message": "thanks",
+      "revId": "4b14ffca8932f6b95ca9b1571f6c09453baf0466",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
