@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "300c7df5_bc1527fb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-11-20T10:53:11Z",
+      "side": 1,
+      "message": "This clarifies why we don\u0027t want to drop inbound FIN.\n\nI think this likely makes sense.\n\nThe FIN woke us (and more importantly the modem) up, so let\u0027s send an ACK, so the server doesn\u0027t keep sending us more FINs trying to get us to ACK it... (and continuously waking us up)\n\n---\n\nBut this change will also cause us to not drop outbound FIN.\nWhich will then result in an inbound ACK (server acknowledging\nreceipt of the FIN) which presumably we\u0027ll drop... and the\nserver will resend it (or we\u0027ll resend the FIN...)\n\nI think we either need to not allow outbound FIN... or we need to somehow check socket state (if available) instead.\n\nPerhaps for example from:\n  skb-\u003esk-\u003estate\nor\n  bpf_sk_fullsock(skb-\u003esk)-\u003estate\n\n!\u003d TCP_ESTABLISHED\n\nor something more or less like that.\n\nNo idea what kernel version this requires...\nI think I need to think about this some more.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 58
+      },
+      "revId": "fe0af5477aa318d786efcfcdbcdc615ac13ebf20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8fd122e_c4374e0c",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-11-20T10:53:11Z",
+      "side": 1,
+      "message": "spurious ()",
+      "range": {
+        "startLine": 218,
+        "startChar": 15,
+        "endLine": 218,
+        "endChar": 16
+      },
+      "revId": "fe0af5477aa318d786efcfcdbcdc615ac13ebf20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f086b08e_c0bca0aa",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-11-20T10:53:11Z",
+      "side": 1,
+      "message": "spurious ()",
+      "range": {
+        "startLine": 229,
+        "startChar": 15,
+        "endLine": 229,
+        "endChar": 16
+      },
+      "revId": "fe0af5477aa318d786efcfcdbcdc615ac13ebf20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
