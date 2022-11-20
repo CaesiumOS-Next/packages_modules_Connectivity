@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "308ed973_5b89ce97",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-11-20T10:59:52Z",
+      "side": 1,
+      "message": "Bug: 259199087\nChange-Id: ...",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 6
+      },
+      "revId": "fe0af5477aa318d786efcfcdbcdc615ac13ebf20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a8fd122e_c4374e0c",
         "filename": "bpf_progs/netd.c",
         "patchSetId": 1
