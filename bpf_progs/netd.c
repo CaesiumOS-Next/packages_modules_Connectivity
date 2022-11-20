@@ -198,7 +198,8 @@ static __always_inline inline int bpf_skb_load_bytes_net(const struct __sk_buff*
         : bpf_skb_load_bytes(skb, off, to, len);
 }
 
-static __always_inline inline bool skip_owner_match(struct __sk_buff* skb, bool is_4_19) {
+static __always_inline inline bool skip_owner_match(struct __sk_buff* skb, bool egress,
+                                                    bool is_4_19) {
     uint32_t flag = 0;
     if (skb->protocol == htons(ETH_P_IP)) {
         uint8_t proto;
@@ -228,7 +229,11 @@ static __always_inline inline bool skip_owner_match(struct __sk_buff* skb, bool 
     } else {
         return false;
     }
-    return flag & TCP_FLAG_RST;  // false on read failure
+    if (egress) {
+        return flag & TCP_FLAG_RST;  // false on read failure
+    } else {
+        return flag & (TCP_FLAG_RST | TCP_FLAG_FIN);  // false on read failure
+    }
 }
 
 static __always_inline inline BpfConfig getConfig(uint32_t configKey) {
@@ -248,7 +253,7 @@ static __always_inline inline BpfConfig getConfig(uint32_t configKey) {
 
 static __always_inline inline int bpf_owner_match(struct __sk_buff* skb, uint32_t uid,
                                                   bool egress, bool is_4_19) {
-    if (skip_owner_match(skb, is_4_19)) return BPF_PASS;
+    if (skip_owner_match(skb, egress, is_4_19)) return BPF_PASS;
 
     if (is_system_uid(uid)) return BPF_PASS;
 
