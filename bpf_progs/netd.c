@@ -215,7 +215,7 @@ static __always_inline inline bool skip_owner_match(struct __sk_buff* skb, bool 
         // if the read below fails, we'll just assume no TCP flags are set, which is fine.
         (void)bpf_skb_load_bytes_net(skb, (ihl & 0xF) * 4 + TCP_FLAG32_OFF,
                                      &flag, sizeof(flag), is_4_19);
-        return flag & TCP_FLAG_RST;  // false on read failure
+        return (flag & (TCP_FLAG_RST | TCP_FLAG_FIN));  // false on read failure
     } else if (skb->protocol == htons(ETH_P_IPV6)) {
         uint8_t proto;
         // no need to check for success, proto will be zeroed if bpf_skb_load_bytes_net() fails
@@ -226,7 +226,7 @@ static __always_inline inline bool skip_owner_match(struct __sk_buff* skb, bool 
         // if the read below fails, we'll just assume no TCP flags are set, which is fine.
         (void)bpf_skb_load_bytes_net(skb, sizeof(struct ipv6hdr) + TCP_FLAG32_OFF,
                                      &flag, sizeof(flag), is_4_19);
-        return flag & TCP_FLAG_RST;  // false on read failure
+        return (flag & (TCP_FLAG_RST | TCP_FLAG_FIN));  // false on read failure
     }
     return false;
 }
