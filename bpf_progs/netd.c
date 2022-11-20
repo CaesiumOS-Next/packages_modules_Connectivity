@@ -34,16 +34,17 @@
 #include "bpf_shared.h"
 
 // This is defined for cgroup bpf filter only.
-#define BPF_DROP_UNLESS_DNS 2
-#define BPF_PASS 1
-#define BPF_DROP 0
+static const int BPF_DROP = 0;
+static const int BPF_PASS = 1;
+static const int BPF_DROP_UNLESS_DNS = 2;  // internal to our program
 
 // This is used for xt_bpf program only.
-#define BPF_NOMATCH 0
-#define BPF_MATCH 1
+static const int BPF_NOMATCH = 0;
+static const int BPF_MATCH = 1;
 
-#define BPF_EGRESS 0
-#define BPF_INGRESS 1
+// Used for 'bool egress'
+static const bool INGRESS = false;
+static const bool EGRESS = true;
 
 #define IP_PROTO_OFF offsetof(struct iphdr, protocol)
 #define IPV6_PROTO_OFF offsetof(struct ipv6hdr, nexthdr)
@@ -154,7 +155,7 @@ static __always_inline int is_system_uid(uint32_t uid) {
  */
 #define DEFINE_UPDATE_STATS(the_stats_map, TypeOfKey)                                          \
     static __always_inline inline void update_##the_stats_map(struct __sk_buff* skb,           \
-                                                              int direction, TypeOfKey* key) { \
+                                                              bool egress, TypeOfKey* key) {   \
         StatsValue* value = bpf_##the_stats_map##_lookup_elem(key);                            \
         if (!value) {                                                                          \
             StatsValue newValue = {};                                                          \
@@ -174,10 +175,10 @@ static __always_inline int is_system_uid(uint32_t uid) {
                 packets = (payload + mss - 1) / mss;                                           \
                 bytes = tcp_overhead * packets + payload;                                      \
             }                                                                                  \
-            if (direction == BPF_EGRESS) {                                                     \
+            if (egress) {                                                                      \
                 __sync_fetch_and_add(&value->txPackets, packets);                              \
                 __sync_fetch_and_add(&value->txBytes, bytes);                                  \
-            } else if (direction == BPF_INGRESS) {                                             \
+            } else {                                                                           \
                 __sync_fetch_and_add(&value->rxPackets, packets);                              \
                 __sync_fetch_and_add(&value->rxBytes, bytes);                                  \
             }                                                                                  \
@@ -246,7 +247,7 @@ static __always_inline inline BpfConfig getConfig(uint32_t configKey) {
 #define DROP_IF_UNSET (DOZABLE_MATCH | POWERSAVE_MATCH | RESTRICTED_MATCH | LOW_POWER_STANDBY_MATCH)
 
 static __always_inline inline int bpf_owner_match(struct __sk_buff* skb, uint32_t uid,
-                                                  int direction, bool is_4_19) {
+                                                  bool egress, bool is_4_19) {
     if (skip_owner_match(skb, is_4_19)) return BPF_PASS;
 
     if (is_system_uid(uid)) return BPF_PASS;
@@ -264,7 +265,7 @@ static __always_inline inline int bpf_owner_match(struct __sk_buff* skb, uint32_
     // and negating (via bit-wise xor) the bits/rules that should drop if unset.
     if (enabledRules & (DROP_IF_SET | DROP_IF_UNSET) & (uidRules ^ DROP_IF_UNSET)) return BPF_DROP;
 
-    if (direction == BPF_INGRESS && skb->ifindex != 1) {
+    if (!egress && skb->ifindex != 1) {
         if (uidRules & IIF_MATCH) {
             if (allowed_iif && skb->ifindex != allowed_iif) {
                 // Drops packets not coming from lo nor the allowed interface
@@ -280,16 +281,16 @@ static __always_inline inline int bpf_owner_match(struct __sk_buff* skb, uint32_
     return BPF_PASS;
 }
 
-static __always_inline inline void update_stats_with_config(struct __sk_buff* skb, int direction,
+static __always_inline inline void update_stats_with_config(struct __sk_buff* skb, bool egress,
                                                             StatsKey* key, uint32_t selectedMap) {
     if (selectedMap == SELECT_MAP_A) {
-        update_stats_map_A(skb, direction, key);
+        update_stats_map_A(skb, egress, key);
     } else if (selectedMap == SELECT_MAP_B) {
-        update_stats_map_B(skb, direction, key);
+        update_stats_map_B(skb, egress, key);
     }
 }
 
-static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb, int direction,
+static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb, bool egress,
                                                       bool is_4_19) {
     uint32_t sock_uid = bpf_get_socket_uid(skb);
     uint64_t cookie = bpf_get_socket_cookie(skb);
@@ -310,8 +311,8 @@ static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb, int
         return BPF_PASS;
     }
 
-    int match = bpf_owner_match(skb, sock_uid, direction, is_4_19);
-    if ((direction == BPF_EGRESS) && (match == BPF_DROP)) {
+    int match = bpf_owner_match(skb, sock_uid, egress, is_4_19);
+    if (egress && (match == BPF_DROP)) {
         // If an outbound packet is going to be dropped, we do not count that
         // traffic.
         return match;
@@ -345,12 +346,12 @@ static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb, int
     }
 
     if (key.tag) {
-        update_stats_with_config(skb, direction, &key, *selectedMap);
+        update_stats_with_config(skb, egress, &key, *selectedMap);
         key.tag = 0;
     }
 
-    update_stats_with_config(skb, direction, &key, *selectedMap);
-    update_app_uid_stats_map(skb, direction, &uid);
+    update_stats_with_config(skb, egress, &key, *selectedMap);
+    update_app_uid_stats_map(skb, egress, &uid);
     asm("%0 &= 1" : "+r"(match));
     return match;
 }
@@ -364,19 +365,19 @@ DEFINE_NETD_BPF_PROG_KVER_RANGE("cgroupskb/ingress/stats$4_19", AID_ROOT, AID_SY
 DEFINE_NETD_BPF_PROG_KVER_RANGE("cgroupskb/ingress/stats$4_14", AID_ROOT, AID_SYSTEM,
                                 bpf_cgroup_ingress_4_14, KVER_NONE, KVER(4, 19, 0))
 (struct __sk_buff* skb) {
-    return bpf_traffic_account(skb, BPF_INGRESS, /* is_4_19 */ false);
+    return bpf_traffic_account(skb, INGRESS, /* is_4_19 */ false);
 }
 
 DEFINE_NETD_BPF_PROG_KVER_RANGE("cgroupskb/egress/stats$4_19", AID_ROOT, AID_SYSTEM,
                                 bpf_cgroup_egress_4_19, KVER(4, 19, 0), KVER_INF)
 (struct __sk_buff* skb) {
-    return bpf_traffic_account(skb, BPF_EGRESS, /* is_4_19 */ true);
+    return bpf_traffic_account(skb, EGRESS, /* is_4_19 */ true);
 }
 
 DEFINE_NETD_BPF_PROG_KVER_RANGE("cgroupskb/egress/stats$4_14", AID_ROOT, AID_SYSTEM,
                                 bpf_cgroup_egress_4_14, KVER_NONE, KVER(4, 19, 0))
 (struct __sk_buff* skb) {
-    return bpf_traffic_account(skb, BPF_EGRESS, /* is_4_19 */ false);
+    return bpf_traffic_account(skb, EGRESS, /* is_4_19 */ false);
 }
 
 // WARNING: Android T's non-updatable netd depends on the name of this program.
@@ -395,7 +396,7 @@ DEFINE_XTBPF_PROG("skfilter/egress/xtbpf", AID_ROOT, AID_NET_ADMIN, xt_bpf_egres
     }
 
     uint32_t key = skb->ifindex;
-    update_iface_stats_map(skb, BPF_EGRESS, &key);
+    update_iface_stats_map(skb, EGRESS, &key);
     return BPF_MATCH;
 }
 
