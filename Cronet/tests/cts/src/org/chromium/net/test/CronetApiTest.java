@@ -24,16 +24,10 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Handler;
 import android.os.Looper;
+
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
-
-import java.nio.ByteBuffer;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executor;
-import java.util.concurrent.TimeUnit;
-import java.util.Random;
 
 import org.chromium.net.CronetEngine;
 import org.chromium.net.CronetException;
@@ -42,6 +36,12 @@ import org.chromium.net.UrlResponseInfo;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.nio.ByteBuffer;
+import java.util.Random;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executor;
+import java.util.concurrent.TimeUnit;
 
 @RunWith(AndroidJUnit4.class)
 public class CronetApiTest {
@@ -64,19 +64,18 @@ public class CronetApiTest {
         CronetEngine.Builder builder = new CronetEngine.Builder(context);
         builder.enableHttpCache(CronetEngine.Builder.HTTP_CACHE_IN_MEMORY, 100 * 1024)
                 .enableHttp2(true)
-                //.enableBrotli(true)
+                // .enableBrotli(true)
                 .enableQuic(true);
         mCronetEngine = builder.build();
         mExecutor = new Handler(Looper.getMainLooper())::post;
     }
 
-    static private void assertGreaterThan(String msg, int first, int second) {
+    private static void assertGreaterThan(String msg, int first, int second) {
         assertTrue(msg + " Excepted " + first + " to be greater than " + second, first > second);
     }
 
     private void assertHasTestableNetworks() {
-        assertNotNull("This test requires a working Internet connection",
-            mCm.getActiveNetwork());
+        assertNotNull("This test requires a working Internet connection", mCm.getActiveNetwork());
     }
 
     private String getRandomDomain() {
@@ -109,18 +108,17 @@ public class CronetApiTest {
 
         @Override
         public void onReadCompleted(
-            UrlRequest request, UrlResponseInfo info, ByteBuffer byteBuffer) {
+                UrlRequest request, UrlResponseInfo info, ByteBuffer byteBuffer) {
             byteBuffer.clear();
             request.read(byteBuffer);
         }
 
-
         @Override
         public void onSucceeded(UrlRequest request, UrlResponseInfo info) {
-            assertEquals("Unexpected http status code from " + mUrl + ".",
-                    200, info.getHttpStatusCode());
+            assertEquals("Unexpected http status code from " + mUrl + ".", 200,
+                    info.getHttpStatusCode());
             assertGreaterThan("Received byte from " + mUrl + " is 0.",
-                    (int)info.getReceivedByteCount(), 0);
+                    (int) info.getReceivedByteCount(), 0);
             mLatch.countDown();
         }
 
@@ -137,8 +135,7 @@ public class CronetApiTest {
         VerifyUrlRequestCallback callback = new VerifyUrlRequestCallback(url);
         UrlRequest.Builder builder = mCronetEngine.newUrlRequestBuilder(url, callback, mExecutor);
         builder.build().start();
-        assertTrue(url + " but not complete after " + TIMEOUT_MS + "ms.",
-                callback.waitForAnswer());
+        assertTrue(url + " but not complete after " + TIMEOUT_MS + "ms.", callback.waitForAnswer());
     }
 
 }
