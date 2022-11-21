@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4863f3f_849a02ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-11-21T19:03:40Z",
+      "side": 1,
+      "message": "Side note:\n\nit appears the bpf cgroup egress return codes are documented at:\n\nhttps://source.corp.google.com/kernel-upstream/kernel/bpf/cgroup.c;l\u003d1387\n\n                /* Return values of CGROUP EGRESS BPF programs are:\n\t\t *   0: drop packet\n\t\t *   1: keep packet\n\t\t *   2: drop packet and cn\n\t\t *   3: keep packet and cn\n\t\t *\n\t\t * The returned value is then converted to one of the NET_XMIT\n\t\t * or an error code that is then interpreted as drop packet\n\t\t * (and no cn):\n\t\t *   0: NET_XMIT_SUCCESS  skb should be transmitted\n\t\t *   1: NET_XMIT_DROP     skb should be dropped and cn\n\t\t *   2: NET_XMIT_CN       skb should be transmitted and cn\n\t\t *   3: -err              skb should be dropped\n\t\t */\n\ncn \u003d congestion notification\n\nthis is why DROP \u003d\u003d\u003d 0, PASS \u003d\u003d\u003d 1\n\ninclude/linux/bpf.h\n\n/* BPF program asks to set CN on the packet. */\n#define BPF_RET_SET_CN\t\t\t\t\t\t(1 \u003c\u003c 0)\n\nthis is the \u00272\u0027 or\u0027ed in to DROP/PASS 0/1 for congestion notification.",
+      "revId": "55474984e82bbd3230da92d68ebbe4ee94820778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
