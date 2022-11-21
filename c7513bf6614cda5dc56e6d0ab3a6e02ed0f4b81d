@@ -39,6 +39,30 @@
       },
       "revId": "c7513bf6614cda5dc56e6d0ab3a6e02ed0f4b81d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d0c4464_a3bb48d3",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-11-21T10:17:14Z",
+      "side": 1,
+      "message": "packages/modules/Connectivity/bpf_progs/netd.c:37:18: error: redefinition of \u0027BPF_DROP\u0027 as different kind of symbol\nstatic const int BPF_DROP \u003d 0;\n                 ^\nbionic/libc/kernel/uapi/linux/bpf.h:686:3: note: previous definition is here\n  BPF_DROP \u003d 2,\n  ^\n  \na kernel headers...\n\nbut bionic/libc/kernel/uapi/linux/bpf.h\n\nenum bpf_ret_code {\n  BPF_OK \u003d 0,\n  BPF_DROP \u003d 2,\n  BPF_REDIRECT \u003d 7,\n  BPF_LWT_REROUTE \u003d 128,\n};",
+      "parentUuid": "cb334ecc_1127dd78",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "c7513bf6614cda5dc56e6d0ab3a6e02ed0f4b81d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
