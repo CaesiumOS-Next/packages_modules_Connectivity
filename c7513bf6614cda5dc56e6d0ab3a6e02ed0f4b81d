@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b31b3333_4f77d8f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-11-21T00:06:03Z",
+      "side": 1,
+      "message": "LGTM assuming the compile error is fixed.",
+      "revId": "c7513bf6614cda5dc56e6d0ab3a6e02ed0f4b81d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb334ecc_1127dd78",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-11-21T00:06:03Z",
+      "side": 1,
+      "message": "We can\u0027t do this because:\n\n\u003d\u003d\u003d\u003d\npackages/modules/Connectivity/bpf_progs/netd.c:37:18: error: redefinition of \u0027BPF_DROP\u0027 as different kind of symbol\nstatic const int BPF_DROP \u003d 0;\n\u003d\u003d\u003d\u003d\n\nWe should probably use another namespace since upstream will not have a BPF_DROP_UNLESS_DNS.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "c7513bf6614cda5dc56e6d0ab3a6e02ed0f4b81d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
