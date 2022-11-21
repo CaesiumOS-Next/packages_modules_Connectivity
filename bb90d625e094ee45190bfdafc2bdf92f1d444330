@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e25f61cb_d2ebce36",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-11-21T00:34:39Z",
+      "side": 1,
+      "message": "Not sure this will work, see inline. Also, the bug was requesting that we allow FINs outbound?",
+      "revId": "bb90d625e094ee45190bfdafc2bdf92f1d444330",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81c4fdc6_fec99c3b",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-11-21T00:34:39Z",
+      "side": 1,
+      "message": "Please add a comment to explain why FINs should be allowed inbound and not outbound. From previous discussions I think this is because outbound FINs will trigger ACKs which will just be dropped?\n\nIf so, then that means that if the app calls close(), then we\u0027ll drop the FIN outbound until the app regains networking access. I guess this is fine, or at least no worse than it is before.\n\nThat said - doesn\u0027t allowing FINs inbound have the same problem? FINs are ACKed, so if we allow the FIN inbound but don\u0027t ACK it, won\u0027t the other side assume it got dropped and keep retransmitting it? I suppose we\u0027ll at least respond with a RST if the socket has already been closed, but in that case, wouldn\u0027t we have sent an RST already anyway?\n\nWould knowing the TCP state help here? On 5.10+ it looks like there\u0027s a sk_lookup_tcp helper which might allow us to get the TCP state, and on 4.19 we might be able to approximate TCP state by looking for FINs and storing them in socket local storage.\n\nDo we need to do something like allow ACKs through if they have no payload? It probably makes no sense to drop an empty ACK inbound - we\u0027ve already received the packet, after all. What about outbound?",
+      "range": {
+        "startLine": 235,
+        "startChar": 38,
+        "endLine": 235,
+        "endChar": 50
+      },
+      "revId": "bb90d625e094ee45190bfdafc2bdf92f1d444330",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
