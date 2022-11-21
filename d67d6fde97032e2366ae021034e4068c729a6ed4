@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a17d394_2b480e1f",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 2514,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-21T06:49:52Z",
+      "side": 1,
+      "message": "IIUC This is more like \"you need to gain mOpenSessionCallsLock before entering this function\", so I think this is not needed here.",
+      "range": {
+        "startLine": 2514,
+        "startChar": 4,
+        "endLine": 2514,
+        "endChar": 39
+      },
+      "revId": "d67d6fde97032e2366ae021034e4068c729a6ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09852d9f_2d74105e",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 2930,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-21T06:49:52Z",
+      "side": 1,
+      "message": "IIUC you don\u0027t need to synchronize l.2930~l.2937?",
+      "revId": "d67d6fde97032e2366ae021034e4068c729a6ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cdf4275_3e389de7",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 898,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-21T06:49:52Z",
+      "side": 1,
+      "message": "is this just the output of dump()?\nIf so maybe just name it dump?",
+      "range": {
+        "startLine": 898,
+        "startChar": 21,
+        "endLine": 898,
+        "endChar": 39
+      },
+      "revId": "d67d6fde97032e2366ae021034e4068c729a6ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc9cdc60_64cd491a",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 898,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-21T06:49:52Z",
+      "side": 1,
+      "message": "Stupid question: Where is the content of getDump()?",
+      "revId": "d67d6fde97032e2366ae021034e4068c729a6ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61a2c8ff_55e51cbd",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 904,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-21T06:49:52Z",
+      "side": 1,
+      "message": "Maybe use group()?",
+      "range": {
+        "startLine": 902,
+        "startChar": 8,
+        "endLine": 904,
+        "endChar": 9
+      },
+      "revId": "d67d6fde97032e2366ae021034e4068c729a6ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c41a7175_54b0af5c",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-21T06:49:52Z",
+      "side": 1,
+      "message": "Maybe refactor thus.",
+      "range": {
+        "startLine": 913,
+        "startChar": 8,
+        "endLine": 921,
+        "endChar": 37
+      },
+      "revId": "d67d6fde97032e2366ae021034e4068c729a6ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
