@@ -44,11 +44,10 @@
     <uses-permission android:name="android.permission.GET_INTENT_SENDER_INTENT" />
     <uses-permission android:name="android.permission.MANAGE_ACTIVITY_TASKS" />
     <uses-permission android:name="android.permission.INSTALL_PACKAGES" />
-    <uses-permission android:name="android.permission.NETWORK_STACK" />
     <uses-permission android:name="android.permission.OBSERVE_NETWORK_POLICY" />
-    <uses-permission android:name="android.permission.NETWORK_FACTORY" />
     <uses-permission android:name="android.permission.NETWORK_STATS_PROVIDER" />
-    <uses-permission android:name="android.permission.CONTROL_OEM_PAID_NETWORK_PREFERENCE" />
+    <uses-permission android:name="android.permission.SHUTDOWN" />
+    <uses-permission android:name="android.permission.NETWORK_SETTINGS" />
 
     <application android:testOnly="true">
         <uses-library android:name="android.test.runner" />

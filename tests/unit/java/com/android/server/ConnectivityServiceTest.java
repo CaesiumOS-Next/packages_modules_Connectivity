@@ -5009,6 +5009,7 @@ public class ConnectivityServiceTest {
 
     @Test
     public void testInvalidSignalStrength() {
+        denyAllLocationPrivilegedPermissions();
         NetworkRequest r = new NetworkRequest.Builder()
                 .addCapability(NET_CAPABILITY_INTERNET)
                 .addTransportType(TRANSPORT_WIFI)
@@ -5179,6 +5180,7 @@ public class ConnectivityServiceTest {
 
     @Test
     public void testRegisterPrivilegedDefaultCallbacksRequirePermissions() throws Exception {
+        mServiceContext.setPermission(NETWORK_SETTINGS, PERMISSION_DENIED);
         mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
         mCellNetworkAgent.connect(false /* validated */);
         mServiceContext.setPermission(CONNECTIVITY_USE_RESTRICTED_NETWORKS, PERMISSION_DENIED);
@@ -5210,6 +5212,7 @@ public class ConnectivityServiceTest {
 
     @Test
     public void testNetworkCallbackWithNullUids() throws Exception {
+        denyAllLocationPrivilegedPermissions();
         final NetworkRequest request = new NetworkRequest.Builder()
                 .removeCapability(NET_CAPABILITY_NOT_VPN)
                 .build();
@@ -11281,6 +11284,7 @@ public class ConnectivityServiceTest {
     @Test
     public void testCreateForCallerWithLocalMacAddressSanitizedWithoutSettingsPermission()
             throws Exception {
+        denyAllLocationPrivilegedPermissions();
         mServiceContext.setPermission(Manifest.permission.LOCAL_MAC_ADDRESS, PERMISSION_DENIED);
 
         final TransportInfo transportInfo = mock(TransportInfo.class);
@@ -11400,6 +11404,7 @@ public class ConnectivityServiceTest {
 
     @Test
     public void testVerifyLocationDataIsNotIncludedWhenInclFlagNotSet() throws Exception {
+        mServiceContext.setPermission(NETWORK_SETTINGS, PERMISSION_DENIED);
         final TestNetworkCallback wifiNetworkCallack = new TestNetworkCallback();
         final int ownerUid = Process.myUid();
         final TransportInfo transportInfo = new TestTransportInfo();
@@ -11418,6 +11423,7 @@ public class ConnectivityServiceTest {
 
     @Test
     public void testTransportInfoRedactionInSynchronousCalls() throws Exception {
+        mServiceContext.setPermission(NETWORK_SETTINGS, PERMISSION_DENIED);
         final NetworkCapabilities ncTemplate = new NetworkCapabilities()
                 .addTransportType(TRANSPORT_WIFI)
                 .setTransportInfo(new TestTransportInfo());
@@ -11431,6 +11437,7 @@ public class ConnectivityServiceTest {
         withPermission(NETWORK_SETTINGS, () -> {
             assertFalse(getTestTransportInfo(mWiFiNetworkAgent).settingsRedacted);
         });
+        mServiceContext.setPermission(NETWORK_SETTINGS, PERMISSION_DENIED);
         assertTrue(getTestTransportInfo(mWiFiNetworkAgent).settingsRedacted);
 
         // LOCAL_MAC_ADDRESS redaction is controlled by the LOCAL_MAC_ADDRESS permission
@@ -11739,7 +11746,7 @@ public class ConnectivityServiceTest {
 
     private void verifyConnectivityDiagnosticsPermissionsWithNetworkAgentInfo(
             NetworkAgentInfo info, boolean expectPermission) {
-        mServiceContext.setPermission(NETWORK_STACK, PERMISSION_DENIED);
+        denyAllLocationPrivilegedPermissions();
 
         assertEquals(
                 "Unexpected ConnDiags permission",
