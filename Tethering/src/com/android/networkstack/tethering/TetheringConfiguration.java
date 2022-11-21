@@ -148,6 +148,7 @@ public class TetheringConfiguration {
 
     public final boolean isCarrierSupportTethering;
     public final boolean isCarrierConfigAffirmsEntitlementCheckRequired;
+    public final boolean forceDunRequiredTest;
 
     public final int activeDataSubId;
 
@@ -179,6 +180,7 @@ public class TetheringConfiguration {
             legacyDhcpRanges = configParcel.legacyDhcpRanges;
             provisioningApp = configParcel.provisioningApp;
             provisioningAppNoUi = configParcel.provisioningAppNoUi;
+            forceDunRequiredTest = configParcel.forceDunRequiredTest;
         } else {
             // If usb tethering use NCM and config_tether_ncm_regexs is not empty, use
             // config_tether_ncm_regexs for tetherableUsbRegexs.
@@ -200,6 +202,7 @@ public class TetheringConfiguration {
                     R.array.config_mobile_hotspot_provision_app);
             provisioningAppNoUi = getResourceString(res,
                     R.string.config_mobile_hotspot_provision_app_no_ui);
+            forceDunRequiredTest = false;
         }
 
         // TODO: Remove entire wigig code once tethering module no longer support R devices.
@@ -208,7 +211,8 @@ public class TetheringConfiguration {
         tetherableWifiP2pRegexs = getResourceStringArray(
                 res, R.array.config_tether_wifi_p2p_regexs);
 
-        isDunRequired = checkDunRequired(ctx);
+        // Dun network requirement can be force-enabled by test via
+        isDunRequired = forceDunRequiredTest | checkDunRequired(ctx);
 
         // Here is how automatic mode enable/disable support on different Android version:
         // - R   : can be enabled/disabled by resource config_tether_upstream_automatic.
@@ -690,6 +694,7 @@ public class TetheringConfiguration {
         parcel.legacyDhcpRanges = legacyDhcpRanges;
         parcel.provisioningApp = provisioningApp;
         parcel.provisioningAppNoUi = provisioningAppNoUi;
+        parcel.forceDunRequiredTest = forceDunRequiredTest;
 
         return parcel;
     }

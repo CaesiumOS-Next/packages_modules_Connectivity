@@ -805,4 +805,20 @@ public class CtsEthernetTetheringTest extends EthernetTetheringTestBase {
                 REMOTE_NAT64_ADDR /* downloadSrcIp */, clatIp6 /* downloadDstIp */,
                 tester, true /* isClat */);
     }
+
+    @Test
+    public void testDunTetherTcpV4() throws Exception {
+        final TetheringTester tester = initTetheringTester(toList(TEST_IP4_ADDR),
+                toList(TEST_IP4_DNS), true /* isDun */);
+        final TetheredDevice tethered = tester.createTetheredDevice(TEST_MAC, false /* hasIpv6 */);
+
+        // TODO: remove the connectivity verification for upstream connected notification race.
+        // See the same reason in runUdp4Test().
+        probeV4TetheringConnectivity(tester, tethered, false /* is4To6 */);
+
+        runTcpTest(tethered.macAddr /* uploadSrcMac */, tethered.routerMacAddr /* uploadDstMac */,
+                tethered.ipv4Addr /* uploadSrcIp */, REMOTE_IP4_ADDR /* uploadDstIp */,
+                REMOTE_IP4_ADDR /* downloadSrcIp */, TEST_IP4_ADDR.getAddress() /* downloadDstIp */,
+                tester, false /* isClat */);
+    }
 }

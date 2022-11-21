@@ -56,6 +56,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.EthernetManager.TetheredInterfaceCallback;
 import android.net.EthernetManager.TetheredInterfaceRequest;
+import android.net.TetheringConfigurationParcel;
 import android.net.TetheringManager.StartTetheringCallback;
 import android.net.TetheringManager.TetheringEventCallback;
 import android.net.TetheringManager.TetheringRequest;
@@ -191,6 +192,7 @@ public class EthernetTetheringTestBase {
 
     private void cleanUp() throws Exception {
         setPreferTestNetworks(false);
+        setTetheringConfigurationForTest(null /* restore to default */);
 
         if (mUpstreamTracker != null) {
             runAsShell(MANAGE_TEST_NETWORKS, () -> {
@@ -274,6 +276,13 @@ public class EthernetTetheringTestBase {
     private void setPreferTestNetworks(boolean prefer) {
         runAsShell(NETWORK_SETTINGS, () -> {
             mTm.setPreferTestNetworks(prefer);
+        });
+    }
+
+    private void setTetheringConfigurationForTest(
+            @Nullable final TetheringConfigurationParcel config) {
+        runAsShell(NETWORK_SETTINGS, () -> {
+            mTm.setTetheringConfigurationForTest(config);
         });
     }
 
@@ -613,15 +622,38 @@ public class EthernetTetheringTestBase {
     }
 
     private TestNetworkTracker createTestUpstream(final List<LinkAddress> addresses,
-            final List<InetAddress> dnses) throws Exception {
-        setPreferTestNetworks(true);
-
+            final List<InetAddress> dnses, boolean isDun) throws Exception {
         final LinkProperties lp = new LinkProperties();
         lp.setLinkAddresses(addresses);
         lp.setDnsServers(dnses);
         lp.setNat64Prefix(TEST_NAT64PREFIX);
 
-        return runAsShell(MANAGE_TEST_NETWORKS, () -> initTestNetwork(mContext, lp, TIMEOUT_MS));
+        if (isDun) {
+            // For testing upstream selection on DUN network, need to not prefer test network.
+            // See UpstreamNetworkMonitor#getCurrentPreferredUpstream.
+            setPreferTestNetworks(false);
+
+            // Force to set DUN required.
+            final String[] emptyStringArray = new String[0];
+            final TetheringConfigurationParcel parcel = new TetheringConfigurationParcel();
+            parcel.tetherableUsbRegexs = emptyStringArray;
+            parcel.tetherableWifiRegexs = emptyStringArray;
+            parcel.tetherableBluetoothRegexs = emptyStringArray;
+            parcel.legacyDhcpRanges = emptyStringArray;
+            parcel.provisioningApp = emptyStringArray;
+            parcel.provisioningAppNoUi = "";
+            parcel.forceDunRequiredTest = true;
+            setTetheringConfigurationForTest(parcel);
+
+            // Dun network is restricted network which needs permission to access.
+            return runAsShell(MANAGE_TEST_NETWORKS, CONNECTIVITY_USE_RESTRICTED_NETWORKS,
+                () -> initTestNetwork(mContext, lp, isDun, TIMEOUT_MS));
+        } else {
+            setPreferTestNetworks(true);
+
+            return runAsShell(MANAGE_TEST_NETWORKS,
+                () -> initTestNetwork(mContext, lp, isDun, TIMEOUT_MS));
+        }
     }
 
     // TODO: remove ipv4 verification (is4To6 = false) once upstream connected notification race is
@@ -702,13 +734,13 @@ public class EthernetTetheringTestBase {
     }
 
     protected TetheringTester initTetheringTester(List<LinkAddress> upstreamAddresses,
-            List<InetAddress> upstreamDnses) throws Exception {
+            List<InetAddress> upstreamDnses, boolean isDun) throws Exception {
         assumeFalse(isInterfaceForTetheringAvailable());
 
         // MyTetheringEventCallback currently only support await first available upstream. Tethering
         // may select internet network as upstream if test network is not available and not be
         // preferred yet. Create test upstream network before enable tethering.
-        mUpstreamTracker = createTestUpstream(upstreamAddresses, upstreamDnses);
+        mUpstreamTracker = createTestUpstream(upstreamAddresses, upstreamDnses, isDun);
 
         mDownstreamIface = createTestInterface();
         setIncludeTestInterfaces(true);
@@ -743,6 +775,11 @@ public class EthernetTetheringTestBase {
         }
 
         return new TetheringTester(mDownstreamReader, mUpstreamReader);
+    }
+
+    protected TetheringTester initTetheringTester(List<LinkAddress> upstreamAddresses,
+            List<InetAddress> upstreamDnses) throws Exception {
+        return initTetheringTester(upstreamAddresses, upstreamDnses, false /* isDun */);
     }
 
     private boolean isAddressIpv4(@NonNull final  InetAddress srcIp,

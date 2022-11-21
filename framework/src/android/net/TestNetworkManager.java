@@ -88,10 +88,11 @@ public class TestNetworkManager {
             @NonNull String iface,
             @Nullable LinkProperties lp,
             boolean isMetered,
+            boolean isDun,
             @NonNull int[] administratorUids,
             @NonNull IBinder binder) {
         try {
-            mService.setupTestNetwork(iface, lp, isMetered, administratorUids, binder);
+            mService.setupTestNetwork(iface, lp, isMetered, isDun, administratorUids, binder);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
@@ -108,9 +109,9 @@ public class TestNetworkManager {
      * @hide
      */
     public void setupTestNetwork(
-            @NonNull LinkProperties lp, boolean isMetered, @NonNull IBinder binder) {
+            @NonNull LinkProperties lp, boolean isMetered, boolean isDun, @NonNull IBinder binder) {
         Objects.requireNonNull(lp, "Invalid LinkProperties");
-        setupTestNetwork(lp.getInterfaceName(), lp, isMetered, new int[0], binder);
+        setupTestNetwork(lp.getInterfaceName(), lp, isMetered, isDun, new int[0], binder);
     }
 
     /**
@@ -123,7 +124,7 @@ public class TestNetworkManager {
     @RequiresPermission(Manifest.permission.MANAGE_TEST_NETWORKS)
     @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
     public void setupTestNetwork(@NonNull String iface, @NonNull IBinder binder) {
-        setupTestNetwork(iface, null, true, new int[0], binder);
+        setupTestNetwork(iface, null, true, false, new int[0], binder);
     }
 
     /**
@@ -137,7 +138,7 @@ public class TestNetworkManager {
      */
     public void setupTestNetwork(
             @NonNull String iface, @NonNull int[] administratorUids, @NonNull IBinder binder) {
-        setupTestNetwork(iface, null, true, administratorUids, binder);
+        setupTestNetwork(iface, null, true, false, administratorUids, binder);
     }
 
     /**

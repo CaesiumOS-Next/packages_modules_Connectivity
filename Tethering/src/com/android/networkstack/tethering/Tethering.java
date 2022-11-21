@@ -543,6 +543,8 @@ public class Tethering {
     }
 
     private void maybeDunSettingChanged() {
+        if (mConfig.forceDunRequiredTest) return;  // ignore check under dun tether test
+
         final boolean isDunRequired = TetheringConfiguration.checkDunRequired(mContext);
         if (isDunRequired == mConfig.isDunRequired) return;
         updateConfiguration();
