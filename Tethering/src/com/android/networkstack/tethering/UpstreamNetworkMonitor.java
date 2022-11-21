@@ -320,22 +320,28 @@ public class UpstreamNetworkMonitor {
      * Returns null if no current upstream is available.
      */
     public UpstreamNetworkState getCurrentPreferredUpstream() {
+        mLog.i("TETHER_DEBUG: getCurrentPreferredUpstream() 1 : mNetworkMap " + mNetworkMap); // debug
         final UpstreamNetworkState dfltState = (mDefaultInternetNetwork != null)
                 ? mNetworkMap.get(mDefaultInternetNetwork)
                 : null;
+        mLog.i("TETHER_DEBUG: getCurrentPreferredUpstream() 2 mPreferTestNetworks " + mPreferTestNetworks); // debug
         if (mPreferTestNetworks) {
             final UpstreamNetworkState testState = findFirstTestNetwork(mNetworkMap.values());
             if (testState != null) return testState;
         }
 
+        mLog.i("TETHER_DEBUG: isNetworkUsableAndNotCellular() 3 dfltState " + dfltState); // debug
         if (isNetworkUsableAndNotCellular(dfltState)) return dfltState;
 
+        mLog.i("TETHER_DEBUG: isNetworkUsableAndNotCellular() 4"); // debug
         if (!isCellularUpstreamPermitted()) return null;
 
+        mLog.i("TETHER_DEBUG: mDunRequired() 5 mDunRequired " + mDunRequired); // debug
         if (!mDunRequired) return dfltState;
 
         // Find a DUN network. Note that code in Tethering causes a DUN request
         // to be filed, but this might be moved into this class in future.
+        mLog.i("TETHER_DEBUG: findFirstDunNetwork() mNetworkMap: " + mNetworkMap); // debug
         return findFirstDunNetwork(mNetworkMap.values());
     }
 

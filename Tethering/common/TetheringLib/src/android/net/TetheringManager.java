@@ -25,6 +25,7 @@ import android.annotation.RequiresPermission;
 import android.annotation.SuppressLint;
 import android.annotation.SystemApi;
 import android.content.Context;
+import android.net.TestTetheringConfigurationParcel;
 import android.os.Bundle;
 import android.os.ConditionVariable;
 import android.os.IBinder;
@@ -1682,6 +1683,26 @@ public class TetheringManager {
         final int ret = dispatcher.waitForResult((connector, listener) -> {
             try {
                 connector.setPreferTestNetworks(prefer, listener);
+            } catch (RemoteException e) {
+                throw new IllegalStateException(e);
+            }
+        });
+    }
+
+    /**
+     * Convenience method to force setting DUN required for the duration of a test.
+     *
+     * @hide
+     */
+    @RequiresPermission(android.Manifest.permission.NETWORK_SETTINGS)
+    public void setTestTetheringConfiguration(
+            @NonNull TestTetheringConfigurationParcel testConfig) {
+        Log.i(TAG, "setTestTetheringConfiguration caller: " + mContext.getOpPackageName());
+
+        final RequestDispatcher dispatcher = new RequestDispatcher();
+        dispatcher.waitForResult((connector, listener) -> {
+            try {
+                connector.setTestTetheringConfiguration(testConfig, listener);
             } catch (RemoteException e) {
                 throw new IllegalStateException(e);
             }

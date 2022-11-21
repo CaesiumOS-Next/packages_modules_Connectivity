@@ -251,6 +251,7 @@ class TestNetworkService extends ITestNetworkManager.Stub {
             @NonNull String iface,
             @Nullable LinkProperties lp,
             boolean isMetered,
+            boolean isDun,
             int callingUid,
             @NonNull int[] administratorUids,
             @NonNull IBinder binder)
@@ -264,13 +265,20 @@ class TestNetworkService extends ITestNetworkManager.Stub {
         nc.clearAll(); // Remove default capabilities.
         nc.addTransportType(NetworkCapabilities.TRANSPORT_TEST);
         nc.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED);
-        nc.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED);
         nc.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED);
         nc.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN);
         nc.setNetworkSpecifier(new TestNetworkSpecifier(iface));
         nc.setAdministratorUids(administratorUids);
         if (!isMetered) {
             nc.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED);
+        }
+        if (isDun) {
+            // Build a restricted cellular dun network. Only restricted test network can declare
+            // any transport type. See NetworkCapabilities#restrictCapabilitiesForTestNetwork.
+            nc.addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR);
+            nc.addCapability(NetworkCapabilities.NET_CAPABILITY_DUN);
+        } else {
+            nc.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED);
         }
 
         // Build LinkProperties
@@ -329,6 +337,7 @@ class TestNetworkService extends ITestNetworkManager.Stub {
             @NonNull String iface,
             @Nullable LinkProperties lp,
             boolean isMetered,
+            boolean isDun,
             @NonNull int[] administratorUids,
             @NonNull IBinder binder) {
         enforceTestNetworkPermissions(mContext);
@@ -356,6 +365,7 @@ class TestNetworkService extends ITestNetworkManager.Stub {
                                 iface,
                                 lp,
                                 isMetered,
+                                isDun,
                                 Binder.getCallingUid(),
                                 administratorUids,
                                 binder);

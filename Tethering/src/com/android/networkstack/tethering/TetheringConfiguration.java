@@ -30,6 +30,7 @@ import static com.android.networkstack.apishim.ConstantsShim.KEY_CARRIER_SUPPORT
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
+import android.net.TestTetheringConfigurationParcel;
 import android.net.TetheringConfigurationParcel;
 import android.os.PersistableBundle;
 import android.provider.DeviceConfig;
@@ -39,6 +40,7 @@ import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 
 import com.android.internal.annotations.VisibleForTesting;
@@ -191,13 +193,19 @@ public class TetheringConfiguration {
         }
     }
 
-    public TetheringConfiguration(@NonNull Context ctx, @NonNull SharedLog log, int id) {
-        this(ctx, log, id, new Dependencies());
+    public TetheringConfiguration(@NonNull Context ctx, @NonNull SharedLog log, int id,
+            @Nullable TestTetheringConfigurationParcel testConfig) {
+        this(ctx, log, id, testConfig, new Dependencies());
+    }
+
+    public TetheringConfiguration(@NonNull Context ctx, @NonNull SharedLog log, int id,
+                @NonNull Dependencies deps) {
+        this(ctx, log, id, null /* testConfig */, deps);
     }
 
     @VisibleForTesting
     public TetheringConfiguration(@NonNull Context ctx, @NonNull SharedLog log, int id,
-            @NonNull Dependencies deps) {
+            @Nullable TestTetheringConfigurationParcel testConfig, @NonNull Dependencies deps) {
         mDeps = deps;
         final SharedLog configLog = log.forSubComponent("config");
 
@@ -229,7 +237,9 @@ public class TetheringConfiguration {
         tetherableBluetoothRegexs = getResourceStringArray(
                 res, R.array.config_tether_bluetooth_regexs);
 
-        isDunRequired = checkDunRequired(ctx);
+        isDunRequired = (testConfig != null && testConfig.dunRequired != null)
+                ? testConfig.dunRequired.value
+                : checkDunRequired(ctx);
 
         // Here is how automatic mode enable/disable support on different Android version:
         // - R   : can be enabled/disabled by resource config_tether_upstream_automatic.

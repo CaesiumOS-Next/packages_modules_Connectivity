@@ -54,8 +54,10 @@ import static org.junit.Assume.assumeTrue;
 import android.app.UiAutomation;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.BooleanParcel;
 import android.net.EthernetManager.TetheredInterfaceCallback;
 import android.net.EthernetManager.TetheredInterfaceRequest;
+import android.net.TestTetheringConfigurationParcel;
 import android.net.TetheringManager.StartTetheringCallback;
 import android.net.TetheringManager.TetheringEventCallback;
 import android.net.TetheringManager.TetheringRequest;
@@ -214,6 +216,7 @@ public abstract class EthernetTetheringTestBase {
     }
 
     protected void cleanUp() throws Exception {
+        setTestTetheringConfiguration(null);
         setPreferTestNetworks(false);
 
         if (mUpstreamTracker != null) {
@@ -293,6 +296,13 @@ public abstract class EthernetTetheringTestBase {
     protected void setPreferTestNetworks(boolean prefer) {
         runAsShell(NETWORK_SETTINGS, () -> {
             mTm.setPreferTestNetworks(prefer);
+        });
+    }
+
+    protected void setTestTetheringConfiguration(
+            @Nullable TestTetheringConfigurationParcel testConfig) {
+        runAsShell(NETWORK_SETTINGS, () -> {
+            mTm.setTestTetheringConfiguration(testConfig);
         });
     }
 
@@ -633,7 +643,7 @@ public abstract class EthernetTetheringTestBase {
     }
 
     protected TestNetworkTracker createTestUpstream(final List<LinkAddress> addresses,
-            final List<InetAddress> dnses) throws Exception {
+            final List<InetAddress> dnses, boolean isDun) throws Exception {
         setPreferTestNetworks(true);
 
         final LinkProperties lp = new LinkProperties();
@@ -641,7 +651,26 @@ public abstract class EthernetTetheringTestBase {
         lp.setDnsServers(dnses);
         lp.setNat64Prefix(TEST_NAT64PREFIX);
 
-        return runAsShell(MANAGE_TEST_NETWORKS, () -> initTestNetwork(mContext, lp, TIMEOUT_MS));
+        if (isDun) {
+            final TestTetheringConfigurationParcel testConfig = new TestTetheringConfigurationParcel();
+            testConfig.dunRequired = new BooleanParcel();
+            testConfig.dunRequired.value = true;
+            setTestTetheringConfiguration(testConfig);
+
+            // For testing upstream selection on DUN network, need to not prefer test network.
+            // Or test network is selected no matter that test network has DUN capability.
+            // See UpstreamNetworkMonitor#getCurrentPreferredUpstream.
+            setPreferTestNetworks(false);
+
+            // DUN network is restricted network which needs permission to access.
+            return runAsShell(MANAGE_TEST_NETWORKS, CONNECTIVITY_USE_RESTRICTED_NETWORKS,
+                () -> initTestNetwork(mContext, lp, isDun, TIMEOUT_MS));
+        } else {
+            setPreferTestNetworks(true);
+
+            return runAsShell(MANAGE_TEST_NETWORKS,
+                () -> initTestNetwork(mContext, lp, isDun, TIMEOUT_MS));
+        }
     }
 
     private short getEthType(@NonNull final InetAddress srcIp, @NonNull final InetAddress dstIp) {
@@ -970,13 +999,13 @@ public abstract class EthernetTetheringTestBase {
     }
 
     protected TetheringTester initTetheringTester(List<LinkAddress> upstreamAddresses,
-            List<InetAddress> upstreamDnses) throws Exception {
+            List<InetAddress> upstreamDnses, boolean isDun) throws Exception {
         assumeFalse(isInterfaceForTetheringAvailable());
 
         // MyTetheringEventCallback currently only support await first available upstream. Tethering
         // may select internet network as upstream if test network is not available and not be
         // preferred yet. Create test upstream network before enable tethering.
-        mUpstreamTracker = createTestUpstream(upstreamAddresses, upstreamDnses);
+        mUpstreamTracker = createTestUpstream(upstreamAddresses, upstreamDnses, isDun);
 
         mDownstreamIface = createTestInterface();
         setIncludeTestInterfaces(true);
@@ -1011,6 +1040,11 @@ public abstract class EthernetTetheringTestBase {
         }
 
         return new TetheringTester(mDownstreamReader, mUpstreamReader);
+    }
+
+    protected TetheringTester initTetheringTester(List<LinkAddress> upstreamAddresses,
+            List<InetAddress> upstreamDnses) throws Exception {
+        return initTetheringTester(upstreamAddresses, upstreamDnses, false /* isDun */);
     }
 
     protected <T> List<T> toList(T... array) {

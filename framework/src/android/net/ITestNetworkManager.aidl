@@ -36,7 +36,7 @@ interface ITestNetworkManager
     void setCarrierEnabled(in TestNetworkInterface iface, boolean enabled);
 
     void setupTestNetwork(in String iface, in LinkProperties lp, in boolean isMetered,
-            in int[] administratorUids, in IBinder binder);
+            in boolean isDun, in int[] administratorUids, in IBinder binder);
 
     void teardownTestNetwork(int netId);
 }
