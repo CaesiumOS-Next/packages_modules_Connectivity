@@ -56,6 +56,30 @@
       },
       "revId": "43a28a80df870094560a165aa048737a71027c11",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a401b2ea_aa0e1d93",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1609802
+      },
+      "writtenOn": "2022-11-21T15:22:03Z",
+      "side": 1,
+      "message": "I noticed the base had been updated but I think this line of logic is equivalent to the rebase on TOT:\n1. We have removed the dependency on (the flaky) broadcast receiver of ACTION_CARRIER_CONFIG_CHANGED here and thus no need to keep waitForBroadcastIdle().\n2. The current TOT still have sleep(5_000), same as the sleep(DELAY_FOR_ADMIN_UIDS_MILLIS) here which is due to the reason explained in the comment above. It\u0027s not related to this refactoring.\n3. CP changed has been deterministic and thus the assert is performed before sleep.\n\nPlease let me know if you still have concern. Thanks!",
+      "parentUuid": "09ce655c_2a661f3c",
+      "range": {
+        "startLine": 245,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 50
+      },
+      "revId": "43a28a80df870094560a165aa048737a71027c11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
