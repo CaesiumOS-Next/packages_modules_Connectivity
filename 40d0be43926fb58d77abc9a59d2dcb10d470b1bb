@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a398b94_ca8ca659",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-21T18:15:30Z",
+      "side": 1,
+      "message": "(I don\u0027t think you need to set a topic here. I suggest removing it, so this CL doesn\u0027t get blocked by the CL on top of it.)",
+      "revId": "40d0be43926fb58d77abc9a59d2dcb10d470b1bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3828d195_922c0894",
+        "filename": "Cronet/tests/apitest/src/org/chromium/net/test/CronetApiTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-21T18:15:30Z",
+      "side": 1,
+      "message": "I think this should still be 2019 per https://g3doc.corp.google.com/company/teams/opensource/copyright.md?cl\u003dhead#the-year",
+      "revId": "40d0be43926fb58d77abc9a59d2dcb10d470b1bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
