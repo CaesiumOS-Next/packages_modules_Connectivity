@@ -1,7 +1,12 @@
 {
+  "presubmit": [
+    {
+      "name": "CtsCronetTestCases"
+    }
+  ],
   "postsubmit": [
     {
-      "name": "CronetApiTest"
+      "name": "CtsCronetTestCases"
     }
   ]
 }
