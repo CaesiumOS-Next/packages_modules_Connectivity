@@ -710,7 +710,10 @@ public final class NetworkCapabilities implements Parcelable {
             NET_CAPABILITY_NOT_ROAMING,
             NET_CAPABILITY_NOT_CONGESTED,
             NET_CAPABILITY_NOT_SUSPENDED,
-            NET_CAPABILITY_NOT_VCN_MANAGED);
+            //NET_CAPABILITY_NOT_VCN_MANAGED);
+            NET_CAPABILITY_NOT_VCN_MANAGED,
+            NET_CAPABILITY_DUN,
+            NET_CAPABILITY_TRUSTED);
 
     /**
      * Adds the given capability to this {@code NetworkCapability} instance.

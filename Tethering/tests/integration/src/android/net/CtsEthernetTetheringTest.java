@@ -805,4 +805,6 @@ public class CtsEthernetTetheringTest extends EthernetTetheringTestBase {
                 REMOTE_NAT64_ADDR /* downloadSrcIp */, clatIp6 /* downloadDstIp */,
                 tester, true /* isClat */);
     }
+
+
 }
