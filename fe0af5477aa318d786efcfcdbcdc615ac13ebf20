@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a48fafa_25ad0177",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1746945
+      },
+      "writtenOn": "2022-11-21T00:01:13Z",
+      "side": 1,
+      "message": "Actually, we got this problem because the outbound FIN was not sent out, as I mentioned at bugreport.\nI am curious about whether your concern is about network usage or about device power consumption.\nAn opened idle session can cause problem, and additional device wakeups.\nAnd network usage for finishing a session is a few hundred bytes at most.\nSo, for a mobile device, I think that it\u0027s better to close a session when can handle it than keep it open.",
+      "parentUuid": "300c7df5_bc1527fb",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 58
+      },
+      "revId": "fe0af5477aa318d786efcfcdbcdc615ac13ebf20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "308ed973_5b89ce97",
