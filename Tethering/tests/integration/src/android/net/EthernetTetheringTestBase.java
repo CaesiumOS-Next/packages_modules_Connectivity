@@ -614,14 +614,15 @@ public class EthernetTetheringTestBase {
 
     private TestNetworkTracker createTestUpstream(final List<LinkAddress> addresses,
             final List<InetAddress> dnses) throws Exception {
-        setPreferTestNetworks(true);
+        //setPreferTestNetworks(true);
 
         final LinkProperties lp = new LinkProperties();
         lp.setLinkAddresses(addresses);
         lp.setDnsServers(dnses);
         lp.setNat64Prefix(TEST_NAT64PREFIX);
 
-        return runAsShell(MANAGE_TEST_NETWORKS, () -> initTestNetwork(mContext, lp, TIMEOUT_MS));
+        return runAsShell(MANAGE_TEST_NETWORKS, CONNECTIVITY_USE_RESTRICTED_NETWORKS,
+                () -> initTestNetwork(mContext, lp, TIMEOUT_MS));
     }
 
     // TODO: remove ipv4 verification (is4To6 = false) once upstream connected notification race is

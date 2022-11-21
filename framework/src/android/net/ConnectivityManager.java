@@ -3684,6 +3684,7 @@ public class ConnectivityManager {
             NetworkCapabilities nc, @NonNull NetworkScore score, NetworkAgentConfig config,
             int providerId) {
         try {
+            Log.d(TAG, "[DEBUG_TETHER] registerNetworkAgent ni: " + ni + ", nc " + nc + ", na " + na); // debug
             return mService.registerNetworkAgent(na, ni, lp, nc, score, config, providerId);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
@@ -4146,6 +4147,8 @@ public class ConnectivityManager {
                 }
                 case CALLBACK_CAP_CHANGED: {
                     NetworkCapabilities cap = getObject(message, NetworkCapabilities.class);
+                    Log.w(TAG,
+                            "[DEBUG_TETHER] callback for " + getCallbackName(message.what) + " message: cap " + cap); // debug
                     callback.onCapabilitiesChanged(network, cap);
                     break;
                 }

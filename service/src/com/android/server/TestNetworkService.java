@@ -59,6 +59,7 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
+import android.util.Log;
 
 /** @hide */
 class TestNetworkService extends ITestNetworkManager.Stub {
@@ -263,8 +264,10 @@ class TestNetworkService extends ITestNetworkManager.Stub {
         NetworkCapabilities nc = new NetworkCapabilities();
         nc.clearAll(); // Remove default capabilities.
         nc.addTransportType(NetworkCapabilities.TRANSPORT_TEST);
+        nc.addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR);  // new
+        nc.addCapability(NetworkCapabilities.NET_CAPABILITY_DUN);  // new
         nc.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED);
-        nc.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED);
+       // nc.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED);  // removed
         nc.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED);
         nc.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN);
         nc.setNetworkSpecifier(new TestNetworkSpecifier(iface));
@@ -272,6 +275,7 @@ class TestNetworkService extends ITestNetworkManager.Stub {
         if (!isMetered) {
             nc.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED);
         }
+        Log.w("TestNetworkService", "[DEBUG_TETHER] registerTestNetworkAgent " + nc);  // debug
 
         // Build LinkProperties
         if (lp == null) {
