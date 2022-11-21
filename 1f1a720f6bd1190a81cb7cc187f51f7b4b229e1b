@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa8fdbc3_46f87f2e",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-11-21T12:52:20Z",
+      "side": 1,
+      "message": "Did you try to run this? Did reconnect actually happen here?\nIn the setup() of MultinetworkApiTest, it won\u0027t call connectToCell(). I.e. cellConnectAttempted() is unlikely to be true here? But the cellular network should be connected as a presumption before running CTS. It means the disconnectFromCell won\u0027t be called, so the reconnect does not actually happen here. I think that is not the intention of your patch. Did I misunderstanding anything?",
+      "range": {
+        "startLine": 113,
+        "startChar": 8,
+        "endLine": 115,
+        "endChar": 9
+      },
+      "revId": "1f1a720f6bd1190a81cb7cc187f51f7b4b229e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
