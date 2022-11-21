@@ -59,6 +59,7 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
+import android.util.Log;
 
 /** @hide */
 class TestNetworkService extends ITestNetworkManager.Stub {
@@ -251,6 +252,7 @@ class TestNetworkService extends ITestNetworkManager.Stub {
             @NonNull String iface,
             @Nullable LinkProperties lp,
             boolean isMetered,
+            boolean isDun,
             int callingUid,
             @NonNull int[] administratorUids,
             @NonNull IBinder binder)
@@ -264,7 +266,6 @@ class TestNetworkService extends ITestNetworkManager.Stub {
         nc.clearAll(); // Remove default capabilities.
         nc.addTransportType(NetworkCapabilities.TRANSPORT_TEST);
         nc.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED);
-        nc.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED);
         nc.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED);
         nc.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN);
         nc.setNetworkSpecifier(new TestNetworkSpecifier(iface));
@@ -272,6 +273,14 @@ class TestNetworkService extends ITestNetworkManager.Stub {
         if (!isMetered) {
             nc.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED);
         }
+        if (isDun) {
+            nc.addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR);  // new
+            nc.addCapability(NetworkCapabilities.NET_CAPABILITY_DUN);  // new
+            nc.removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED);
+        } else {
+            nc.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED);
+        }
+        Log.w("TestNetworkService", "[DEBUG_TETHER] registerTestNetworkAgent " + nc);  // debug
 
         // Build LinkProperties
         if (lp == null) {
@@ -329,6 +338,7 @@ class TestNetworkService extends ITestNetworkManager.Stub {
             @NonNull String iface,
             @Nullable LinkProperties lp,
             boolean isMetered,
+            boolean isDun,
             @NonNull int[] administratorUids,
             @NonNull IBinder binder) {
         enforceTestNetworkPermissions(mContext);
@@ -356,6 +366,7 @@ class TestNetworkService extends ITestNetworkManager.Stub {
                                 iface,
                                 lp,
                                 isMetered,
+                                isDun,
                                 Binder.getCallingUid(),
                                 administratorUids,
                                 binder);

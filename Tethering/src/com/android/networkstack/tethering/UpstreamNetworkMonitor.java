@@ -82,8 +82,8 @@ import java.util.Set;
  */
 public class UpstreamNetworkMonitor {
     private static final String TAG = UpstreamNetworkMonitor.class.getSimpleName();
-    private static final boolean DBG = false;
-    private static final boolean VDBG = false;
+    private static final boolean DBG = true;
+    private static final boolean VDBG = true;
 
     public static final int EVENT_ON_CAPABILITIES   = 1;
     public static final int EVENT_ON_LINKPROPERTIES = 2;
@@ -323,20 +323,27 @@ public class UpstreamNetworkMonitor {
      * Returns null if no current upstream is available.
      */
     public UpstreamNetworkState getCurrentPreferredUpstream() {
+        Log.w(TAG, "[DEBUG_TETHER] getCurrentPreferredUpstream 1");  // debug
         final UpstreamNetworkState dfltState = (mDefaultInternetNetwork != null)
                 ? mNetworkMap.get(mDefaultInternetNetwork)
                 : null;
+        Log.w(TAG, "[DEBUG_TETHER] getCurrentPreferredUpstream 2");  // debug
         if (mPreferTestNetworks) {
             final UpstreamNetworkState testState = findFirstTestNetwork(mNetworkMap.values());
+            Log.w(TAG, "[DEBUG_TETHER] getCurrentPreferredUpstream testState " + testState);  // debug
             if (testState != null) return testState;
         }
 
+        Log.w(TAG, "[DEBUG_TETHER] getCurrentPreferredUpstream 3");  // debug
         if (isNetworkUsableAndNotCellular(dfltState)) return dfltState;
 
+        Log.w(TAG, "[DEBUG_TETHER] getCurrentPreferredUpstream 4");  // debug
         if (!isCellularUpstreamPermitted()) return null;
 
+        Log.w(TAG, "[DEBUG_TETHER] getCurrentPreferredUpstream 5: mDunRequired " + mDunRequired);  // debug
         if (!mDunRequired) return dfltState;
 
+        Log.w(TAG, "[DEBUG_TETHER] getCurrentPreferredUpstream 6");  // debug
         // Find a DUN network. Note that code in Tethering causes a DUN request
         // to be filed, but this might be moved into this class in future.
         return findFirstDunNetwork(mNetworkMap.values());
@@ -503,6 +510,7 @@ public class UpstreamNetworkMonitor {
 
         @Override
         public void onCapabilitiesChanged(Network network, NetworkCapabilities newNc) {
+            Log.d(TAG, "[DEBUG_TETHER] onCapabilitiesChanged network: " + network + ", newNc: " + newNc);  // debug
             if (mCallbackType == CALLBACK_DEFAULT_INTERNET) {
                 // mDefaultInternetNetwork is not updated here because upstream selection must only
                 // run when the LinkProperties have been updated as well as the capabilities. If
@@ -656,6 +664,7 @@ public class UpstreamNetworkMonitor {
     private static UpstreamNetworkState findFirstDunNetwork(
             Iterable<UpstreamNetworkState> netStates) {
         for (UpstreamNetworkState ns : netStates) {
+            Log.w(TAG, "[DEBUG_TETHER] findFirstDunNetwork isCellular(ns): " + isCellular(ns) + ", hasCapability(ns, NET_CAPABILITY_DUN): " + hasCapability(ns, NET_CAPABILITY_DUN) + ", ns: " + ns);
             if (isCellular(ns) && hasCapability(ns, NET_CAPABILITY_DUN)) return ns;
         }
 

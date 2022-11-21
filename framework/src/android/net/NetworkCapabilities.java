@@ -51,6 +51,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.StringJoiner;
 
+import android.util.Log;
+
 /**
  * Representation of the capabilities of an active network. Instances are
  * typically obtained through
@@ -710,7 +712,9 @@ public final class NetworkCapabilities implements Parcelable {
             NET_CAPABILITY_NOT_ROAMING,
             NET_CAPABILITY_NOT_CONGESTED,
             NET_CAPABILITY_NOT_SUSPENDED,
-            NET_CAPABILITY_NOT_VCN_MANAGED);
+            NET_CAPABILITY_NOT_VCN_MANAGED,
+            NET_CAPABILITY_DUN,
+            NET_CAPABILITY_TRUSTED);
 
     /**
      * Adds the given capability to this {@code NetworkCapability} instance.
@@ -1058,6 +1062,7 @@ public final class NetworkCapabilities implements Parcelable {
         final Set<Integer> originalSubIds = getSubscriptionIds();
         final Set<Integer> originalAllowedUids = new ArraySet<>(mAllowedUids);
         clearAll();
+        Log.w("NetworkCapabilities", "restrictCapabilitiesForTestNetwork: originalCapabilities: " + originalCapabilities);  // +debug
         if (0 != (originalCapabilities & (1 << NET_CAPABILITY_NOT_RESTRICTED))) {
             // If the test network is not restricted, then it is only allowed to declare some
             // specific transports. This is to minimize impact on running apps in case an app
@@ -1066,11 +1071,13 @@ public final class NetworkCapabilities implements Parcelable {
                     (originalTransportTypes & UNRESTRICTED_TEST_NETWORKS_ALLOWED_TRANSPORTS)
                             | (1 << TRANSPORT_TEST);
 
+            Log.w("NetworkCapabilities", "restrictCapabilitiesForTestNetwork: mTransportTypes (if): " + mTransportTypes);  // +debug
             // SubIds are only allowed for Test Networks that only declare TRANSPORT_TEST.
             setSubscriptionIds(originalSubIds);
         } else {
             // If the test network is restricted, then it may declare any transport.
             mTransportTypes = (originalTransportTypes | (1 << TRANSPORT_TEST));
+            Log.w("NetworkCapabilities", "restrictCapabilitiesForTestNetwork: mTransportTypes (else): " + mTransportTypes);  // +debug
         }
         mNetworkCapabilities = originalCapabilities & TEST_NETWORKS_ALLOWED_CAPABILITIES;
         mNetworkSpecifier = originalSpecifier;

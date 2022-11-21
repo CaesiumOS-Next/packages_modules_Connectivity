@@ -192,7 +192,8 @@ public class TetheringConfiguration {
         tetherableBluetoothRegexs = getResourceStringArray(
                 res, R.array.config_tether_bluetooth_regexs);
 
-        isDunRequired = checkDunRequired(ctx);
+        isDunRequired = true;  // debug
+        //isDunRequired = checkDunRequired(ctx);  // debug
 
         // Here is how automatic mode enable/disable support on different Android version:
         // - R   : can be enabled/disabled by resource config_tether_upstream_automatic.

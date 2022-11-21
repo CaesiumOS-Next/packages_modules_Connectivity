@@ -7330,6 +7330,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         Objects.requireNonNull(networkCapabilities, "networkCapabilities must not be null");
         Objects.requireNonNull(initialScore, "initialScore must not be null");
         Objects.requireNonNull(networkAgentConfig, "networkAgentConfig must not be null");
+        Log.w(TAG, "[DEBUG_TETHER] registerNetworkAgent networkInfo " + networkInfo + "networkCapabilities " + networkCapabilities);
         if (networkCapabilities.hasTransport(TRANSPORT_TEST)) {
             enforceAnyPermissionOf(mContext, Manifest.permission.MANAGE_TEST_NETWORKS);
         } else {
@@ -7350,6 +7351,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             LinkProperties linkProperties, NetworkCapabilities networkCapabilities,
             NetworkScore currentScore, NetworkAgentConfig networkAgentConfig, int providerId,
             int uid) {
+        Log.d(TAG, "[DEBUG_TETHER] registerNetworkAgentInternal networkInfo: " + networkInfo + ", networkCapabilities " + networkCapabilities + ", na " + na); // debug
 
         // Make a copy of the passed NI, LP, NC as the caller may hold a reference to them
         // and mutate them at any time.
@@ -7382,16 +7384,24 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void handleRegisterNetworkAgent(NetworkAgentInfo nai, INetworkMonitor networkMonitor) {
         if (VDBG) log("Network Monitor created for " +  nai);
+        Log.d(TAG, "[DEBUG_TETHER] handleRegisterNetworkAgent nai.networkCapabilities: " + nai.networkCapabilities); // debug
         // Store a copy of the declared capabilities.
         nai.setDeclaredCapabilities(nai.networkCapabilities);
         // Make sure the LinkProperties and NetworkCapabilities reflect what the agent info said.
+        Log.d(TAG, "[DEBUG_TETHER] handleRegisterNetworkAgent nai: " + nai); // debug
+        Log.d(TAG, "[DEBUG_TETHER] handleRegisterNetworkAgent nai.getDeclaredCapabilitiesSanitized(mCarrierPrivilegeAuthenticator): " + nai.getDeclaredCapabilitiesSanitized(mCarrierPrivilegeAuthenticator)); // debug
+        Log.d(TAG, "[DEBUG_TETHER] handleRegisterNetworkAgent mixInCapabilities(nai, nai.getDeclaredCapabilitiesSanitized(mCarrierPrivilegeAuthenticator)): " + mixInCapabilities(nai,
+                nai.getDeclaredCapabilitiesSanitized(mCarrierPrivilegeAuthenticator))); // debug
         nai.getAndSetNetworkCapabilities(mixInCapabilities(nai,
                 nai.getDeclaredCapabilitiesSanitized(mCarrierPrivilegeAuthenticator)));
+        Log.d(TAG, "[DEBUG_TETHER] nai.getAndSetNetworkCapabilities()'ed: " + nai); // debug
         processLinkPropertiesFromAgent(nai, nai.linkProperties);
 
         nai.onNetworkMonitorCreated(networkMonitor);
 
         mNetworkAgentInfos.add(nai);
+        Log.d(TAG, "[DEBUG_TETHER] mNetworkAgentInfos.add(nai): " + nai); // debug
+
         synchronized (mNetworkForNetId) {
             mNetworkForNetId.put(nai.network.getNetId(), nai);
         }
