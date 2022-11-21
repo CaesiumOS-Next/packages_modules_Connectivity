@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea2e7953_0075e8e1",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-21T10:35:41Z",
+      "side": 1,
+      "message": "It seems to me a solid suggestion to the caller might be more helpful?\nMaybe:\nCallers should have their own logic to merge template for different IMSIs and stop calling this function.",
+      "range": {
+        "startLine": 797,
+        "startChar": 34,
+        "endLine": 797,
+        "endChar": 96
+      },
+      "revId": "8d53b7b92ac3a39e4aee9263b4205bcfec1ad412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
