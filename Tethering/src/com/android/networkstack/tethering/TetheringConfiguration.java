@@ -30,6 +30,7 @@ import static com.android.networkstack.apishim.ConstantsShim.KEY_CARRIER_SUPPORT
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
+import android.net.TestTetheringConfigurationParcel;
 import android.net.TetheringConfigurationParcel;
 import android.os.PersistableBundle;
 import android.provider.DeviceConfig;
@@ -38,6 +39,9 @@ import android.telephony.CarrierConfigManager;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.modules.utils.build.SdkLevel;
@@ -170,7 +174,8 @@ public class TetheringConfiguration {
     private final int mUsbTetheringFunction;
     protected final ContentResolver mContentResolver;
 
-    public TetheringConfiguration(Context ctx, SharedLog log, int id) {
+    public TetheringConfiguration(@NonNull Context ctx, @NonNull SharedLog log, int id,
+            @Nullable TestTetheringConfigurationParcel testConfig) {
         final SharedLog configLog = log.forSubComponent("config");
 
         activeDataSubId = id;
@@ -201,7 +206,8 @@ public class TetheringConfiguration {
         tetherableBluetoothRegexs = getResourceStringArray(
                 res, R.array.config_tether_bluetooth_regexs);
 
-        isDunRequired = checkDunRequired(ctx);
+        isDunRequired = (testConfig != null) ? testConfig.isDunRequired
+                : checkDunRequired(ctx);
 
         // Here is how automatic mode enable/disable support on different Android version:
         // - R   : can be enabled/disabled by resource config_tether_upstream_automatic.
@@ -262,6 +268,10 @@ public class TetheringConfiguration {
         }
 
         return prefixLength;
+    }
+
+    public TetheringConfiguration(@NonNull Context ctx, @NonNull SharedLog log, int id) {
+        this(ctx, log, id, null /* testConfig */);
     }
 
     /** Check whether using legacy dhcp server. */
@@ -703,6 +713,7 @@ public class TetheringConfiguration {
         parcel.legacyDhcpRanges = legacyDhcpRanges;
         parcel.provisioningApp = provisioningApp;
         parcel.provisioningAppNoUi = provisioningAppNoUi;
+        parcel.isDunRequired = isDunRequired;
 
         return parcel;
     }

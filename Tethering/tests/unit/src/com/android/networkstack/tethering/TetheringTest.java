@@ -141,6 +141,7 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.net.RouteInfo;
+import android.net.TestTetheringConfigurationParcel;
 import android.net.TetherStatesParcel;
 import android.net.TetheredClient;
 import android.net.TetheredClient.AddressInfo;
@@ -481,7 +482,7 @@ public class TetheringTest {
 
         @Override
         public TetheringConfiguration generateTetheringConfiguration(Context ctx, SharedLog log,
-                int subId) {
+                int subId, TestTetheringConfigurationParcel testConfig) {
             mConfig = spy(new FakeTetheringConfiguration(ctx, log, subId));
             return mConfig;
         }

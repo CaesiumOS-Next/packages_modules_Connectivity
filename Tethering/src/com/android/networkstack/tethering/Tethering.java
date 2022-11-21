@@ -91,6 +91,7 @@ import android.net.Network;
 import android.net.NetworkInfo;
 import android.net.TetherStatesParcel;
 import android.net.TetheredClient;
+import android.net.TestTetheringConfigurationParcel;
 import android.net.TetheringCallbackStartedParcel;
 import android.net.TetheringConfigurationParcel;
 import android.net.TetheringInterface;
@@ -261,6 +262,8 @@ public class Tethering {
     private int mActiveDataSubId = INVALID_SUBSCRIPTION_ID;
 
     private volatile TetheringConfiguration mConfig;
+    @Nullable
+    private volatile TestTetheringConfigurationParcel mTestConfig = null;
     private InterfaceSet mCurrentUpstreamIfaceSet;
 
     private boolean mRndisEnabled;       // track the RNDIS function enabled state
@@ -288,6 +291,10 @@ public class Tethering {
     // mSupportedTypeBitmap should always be updated inside tethering internal thread but it may be
     // read from binder thread which called TetheringService directly.
     private volatile long mSupportedTypeBitmap;
+
+    // For test only, set true to force using DUN network upstream during test.
+    // Otherwise, use Tethering module default process to get the setting.
+    private boolean mIsForceTestDunRequired = false;
 
     public Tethering(TetheringDependencies deps) {
         mLog.mark("Tethering.constructed");
@@ -537,7 +544,8 @@ public class Tethering {
 
     // NOTE: This is always invoked on the mLooper thread.
     private void updateConfiguration() {
-        mConfig = mDeps.generateTetheringConfiguration(mContext, mLog, mActiveDataSubId);
+        mConfig = mDeps.generateTetheringConfiguration(mContext, mLog, mActiveDataSubId,
+                mTestConfig);
         mUpstreamNetworkMonitor.setUpstreamConfig(mConfig.chooseUpstreamAutomatically,
                 mConfig.isDunRequired);
         reportConfigurationChanged(mConfig.toStableParcelable());
@@ -547,6 +555,7 @@ public class Tethering {
 
     private void maybeDunSettingChanged() {
         final boolean isDunRequired = TetheringConfiguration.checkDunRequired(mContext);
+
         if (isDunRequired == mConfig.isDunRequired) return;
         updateConfiguration();
     }
@@ -2855,6 +2864,17 @@ public class Tethering {
     void setPreferTestNetworks(final boolean prefer, IIntResultListener listener) {
         mHandler.post(() -> {
             mUpstreamNetworkMonitor.setPreferTestNetworks(prefer);
+            try {
+                listener.onResult(TETHER_ERROR_NO_ERROR);
+            } catch (RemoteException e) { }
+        });
+    }
+
+    void setTestTetheringConfiguration(final TestTetheringConfigurationParcel testConfig,
+            IIntResultListener listener) {
+        mHandler.post(() -> {
+            mTestConfig = testConfig;
+            updateConfiguration();
             try {
                 listener.onResult(TETHER_ERROR_NO_ERROR);
             } catch (RemoteException e) { }

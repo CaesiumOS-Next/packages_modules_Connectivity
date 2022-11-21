@@ -27,4 +27,5 @@ parcelable TetheringConfigurationParcel {
     String[] legacyDhcpRanges;
     String[] provisioningApp;
     String provisioningAppNoUi;
+    boolean isDunRequired;
 }

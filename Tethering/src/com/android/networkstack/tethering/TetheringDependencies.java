@@ -21,6 +21,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothPan;
 import android.content.Context;
 import android.net.INetd;
+import android.net.TestTetheringConfigurationParcel;
 import android.net.ip.IpServer;
 import android.os.Build;
 import android.os.Handler;
@@ -30,6 +31,7 @@ import android.os.SystemProperties;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.android.internal.util.StateMachine;
@@ -109,8 +111,8 @@ public abstract class TetheringDependencies {
      * Generate a new TetheringConfiguration according to input sub Id.
      */
     public TetheringConfiguration generateTetheringConfiguration(Context ctx, SharedLog log,
-            int subId) {
-        return new TetheringConfiguration(ctx, log, subId);
+            int subId, @Nullable TestTetheringConfigurationParcel testConfig) {
+        return new TetheringConfiguration(ctx, log, subId, testConfig);
     }
 
     /**

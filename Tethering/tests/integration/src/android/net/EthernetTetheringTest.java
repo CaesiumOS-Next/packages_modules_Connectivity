@@ -852,4 +852,14 @@ public class EthernetTetheringTest extends EthernetTetheringTestBase {
                 REMOTE_NAT64_ADDR /* downloadSrcIp */, clatIp6 /* downloadDstIp */,
                 tester, true /* isClat */);
     }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testDunTether() throws Exception {
+        // Only check if DUN network can be selected as upstream because DUN test network doesn't
+        // have route.
+        // TODO: test packet translation once DUN test network has route.
+        final TetheringTester tester = initTetheringTester(toList(TEST_IP4_ADDR),
+                toList(TEST_IP4_DNS), true /* isDun */);
+    }
 }
