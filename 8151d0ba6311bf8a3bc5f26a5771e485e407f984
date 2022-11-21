@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d0e1955_61320381",
+        "filename": "tests/unit/AndroidManifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-21T08:09:30Z",
+      "side": 1,
+      "message": "Can you add a comment to explain why this is necessary ? e.g. explain that this is necessary for UiDevice.getLauncherPackageName (I think ?)",
+      "revId": "8151d0ba6311bf8a3bc5f26a5771e485e407f984",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dca71329_2b206f08",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkNotificationManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-21T08:09:30Z",
+      "side": 1,
+      "message": "Maybe also add a comment here that this requires the test manifest to have a \u003cqueries\u003e tag for the launcher intent. This way if we remove this code, we can remember to remove the entry in the manifest.",
+      "revId": "8151d0ba6311bf8a3bc5f26a5771e485e407f984",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
