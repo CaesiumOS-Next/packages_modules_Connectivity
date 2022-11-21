@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "102b3ef5_eac7c501",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-21T09:07:05Z",
+      "side": 1,
+      "message": "1. I did not find what library should be included if I want to annotate this @InlineMe\n2. Discuss with Jean earlier today, we can ignore this.\n3. It looks like the lint error disappeared in the lastest patch.",
+      "parentUuid": "1ce35a92_de6836f7",
+      "range": {
+        "startLine": 204,
+        "startChar": 58,
+        "endLine": 204,
+        "endChar": 65
+      },
+      "revId": "def55fc3ecf56853583d0894139eb54cb98dea80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4834f29f_6b697021",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-11-17T13:27:45Z",
       "side": 1,
       "message": "❶ Couldn\u0027t you do this right now ?\n❷ Why do we want to do this ? I can\u0027t think of a case where you\u0027d want to move from maxTargetSdk \u003d R 🠊 maxTargetSdk \u003d U.",
+      "range": {
+        "startLine": 216,
+        "startChar": 13,
+        "endLine": 216,
+        "endChar": 61
+      },
+      "revId": "def55fc3ecf56853583d0894139eb54cb98dea80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f10e0341_f12b2f9d",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-21T09:07:05Z",
+      "side": 1,
+      "message": "Done, this might be a mistake. This API was already marked as R.",
+      "parentUuid": "4834f29f_6b697021",
       "range": {
         "startLine": 216,
         "startChar": 13,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f3f28fc_e8abbb5a",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-21T09:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d512a7c_489128a2",
+      "range": {
+        "startLine": 230,
+        "startChar": 23,
+        "endLine": 230,
+        "endChar": 61
+      },
+      "revId": "def55fc3ecf56853583d0894139eb54cb98dea80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1968477_f5835976",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-11-17T13:27:45Z",
       "side": 1,
       "message": "T ?",
+      "range": {
+        "startLine": 311,
+        "startChar": 59,
+        "endLine": 311,
+        "endChar": 60
+      },
+      "revId": "def55fc3ecf56853583d0894139eb54cb98dea80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "996c79e4_cecfa498",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-21T09:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1968477_f5835976",
       "range": {
         "startLine": 311,
         "startChar": 59,
