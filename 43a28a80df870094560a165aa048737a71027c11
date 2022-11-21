@@ -16,6 +16,46 @@
       "message": "Jean, please help to review the patch that fix the ConnectivityDiagnosticManager CTS test failure.\n\nThe patch was prepared early this year. But due to the build failure ( aosp/master commit will auto-merge to sc branch, while this patch depends on CarrierPrivilegesCallback which is TM+ only). It was not able to integrate.\n\nNow the TH prebuilt passes (indicating aosp/master \u003d\u003e sc-mainline-proc is not any more for this module). We are able to integrate the CL now which not only make the test case more simpler but robust as well.\n\nThanks!",
       "revId": "43a28a80df870094560a165aa048737a71027c11",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e2f096a_712fdac7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-21T07:31:16Z",
+      "side": 1,
+      "message": "I think this LGTM but I\u0027d like to take a last look after it\u0027s rebased on ToT",
+      "revId": "43a28a80df870094560a165aa048737a71027c11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09ce655c_2a661f3c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-21T07:31:16Z",
+      "side": 1,
+      "message": "This code has now changed on master and I think you may want to rebase ; considering gerrit doesn\u0027t find a conflict I think the rebasing would be trivial, but it would help reviewing the change on top of the current code.",
+      "range": {
+        "startLine": 245,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 50
+      },
+      "revId": "43a28a80df870094560a165aa048737a71027c11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
