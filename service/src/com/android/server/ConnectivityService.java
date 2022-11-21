@@ -248,6 +248,7 @@ import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.internal.util.MessageUtils;
+import com.android.metrics.MetricsController;
 import com.android.modules.utils.BasicShellCommandHandler;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
@@ -846,6 +847,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private long mLastWakeLockAcquireTimestamp = 0;
 
     private final IpConnectivityLog mMetricsLog;
+    private final MetricsController mMetricsController;
 
     @GuardedBy("mBandwidthRequests")
     private final SparseArray<Integer> mBandwidthRequests = new SparseArray<>(10);
@@ -1453,6 +1455,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         mNetd = netd;
         mBpfNetMaps = mDeps.getBpfNetMaps(mContext, netd);
+        mMetricsController = new MetricsController(mContext);
         mHandlerThread = mDeps.makeHandlerThread();
         mPermissionMonitor =
                 new PermissionMonitor(mContext, mNetd, mBpfNetMaps, mHandlerThread);
