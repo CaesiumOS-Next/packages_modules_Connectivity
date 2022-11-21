@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83f89fa2_d32db632",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-11-21T14:38:00Z",
+      "side": 1,
+      "message": "Maciej can you take a look as well?",
+      "revId": "e47ce974b014418163547b3355e2552368f19d67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce270381_a3702260",
+        "filename": "bpf_progs/bpf_shared.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-11-21T14:38:00Z",
+      "side": 1,
+      "message": "Nit: The configuration map is an array so it probably doesn\u0027t have as much overhead as a hash (in fact it should have almost zero). Maybe we can just remove it.",
+      "range": {
+        "startLine": 80,
+        "startChar": 66,
+        "endLine": 80,
+        "endChar": 69
+      },
+      "revId": "e47ce974b014418163547b3355e2552368f19d67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b8fe57a_50b72084",
+        "filename": "bpf_progs/bpf_shared.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-11-21T14:38:00Z",
+      "side": 1,
+      "message": "FWIW it looks like on 5.15+ this no longer uses memlock but instead uses memory cgroup memory accounting:\n\nhttps://lore.kernel.org/bpf/20201201215900.3569844-1-guro@fb.com/\n\n@maze@google.com we might want to bear that in mind in the future.",
+      "range": {
+        "startLine": 92,
+        "startChar": 33,
+        "endLine": 92,
+        "endChar": 47
+      },
+      "revId": "e47ce974b014418163547b3355e2552368f19d67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
