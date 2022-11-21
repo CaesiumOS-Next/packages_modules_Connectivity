@@ -77,18 +77,18 @@ typedef struct {
 //      cost = roundup_pow_of_two(max_entries) * 16 + elem_size * max_entries +
 //              elem_size * number_of_CPU
 // And the cost of each map currently used is(assume the device have 8 CPUs):
+// configuration_map:   key:  4 bytes, value:  4 bytes, cost:     592 bytes    =     1Kbytes
 // cookie_tag_map:      key:  8 bytes, value:  8 bytes, cost:  822592 bytes    =   823Kbytes
-// uid_counter_set_map: key:  4 bytes, value:  1 bytes, cost:  145216 bytes    =   145Kbytes
+// uid_counterset_map:  key:  4 bytes, value:  1 bytes, cost:  289984 bytes    =   290Kbytes
 // app_uid_stats_map:   key:  4 bytes, value: 32 bytes, cost: 1062784 bytes    =  1063Kbytes
-// uid_stats_map:       key: 16 bytes, value: 32 bytes, cost: 1142848 bytes    =  1143Kbytes
-// tag_stats_map:       key: 16 bytes, value: 32 bytes, cost: 1142848 bytes    =  1143Kbytes
-// iface_index_name_map:key:  4 bytes, value: 16 bytes, cost:   80896 bytes    =    81Kbytes
+// stats_map_A:         key: 16 bytes, value: 32 bytes, cost:  571776 bytes    =   572Kbytes
+// stats_map_B:         key: 16 bytes, value: 32 bytes, cost:  571776 bytes    =   572Kbytes
 // iface_stats_map:     key:  4 bytes, value: 32 bytes, cost:   97024 bytes    =    97Kbytes
-// dozable_uid_map:     key:  4 bytes, value:  1 bytes, cost:  145216 bytes    =   145Kbytes
-// standby_uid_map:     key:  4 bytes, value:  1 bytes, cost:  145216 bytes    =   145Kbytes
-// powersave_uid_map:   key:  4 bytes, value:  1 bytes, cost:  145216 bytes    =   145Kbytes
-// total:                                                                         4930Kbytes
-// It takes maximum 4.9MB kernel memory space if all maps are full, which requires any devices
+// uid_owner_map:       key:  4 bytes, value:  8 bytes, cost:  289984 bytes    =   290Kbytes
+// uid_permission_map:  key:  4 bytes, value:  1 bytes, cost:  289984 bytes    =   290Kbytes
+// iface_index_name_map:key:  4 bytes, value: 16 bytes, cost:   80896 bytes    =    81Kbytes
+// total:                                                                         4079Kbytes
+// It takes maximum 4.1MB kernel memory space if all maps are full, which requires any devices
 // running this module to have a memlock rlimit to be larger then 5MB. In the old qtaguid module,
 // we don't have a total limit for data entries but only have limitation of tags each uid can have.
 // (default is 1024 in kernel);
