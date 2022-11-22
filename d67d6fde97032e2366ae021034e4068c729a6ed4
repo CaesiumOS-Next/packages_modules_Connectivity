@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "16f6deec_bf3e5081",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 2514,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-22T08:03:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a17d394_2b480e1f",
+      "range": {
+        "startLine": 2514,
+        "startChar": 4,
+        "endLine": 2514,
+        "endChar": 39
+      },
+      "revId": "d67d6fde97032e2366ae021034e4068c729a6ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09852d9f_2d74105e",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-11-21T06:49:52Z",
       "side": 1,
       "message": "IIUC you don\u0027t need to synchronize l.2930~l.2937?",
+      "revId": "d67d6fde97032e2366ae021034e4068c729a6ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2076c50_99d8619b",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 2930,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-22T08:03:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09852d9f_2d74105e",
       "revId": "d67d6fde97032e2366ae021034e4068c729a6ed4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -81,6 +123,48 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b2666fb_3d921c2d",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 898,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-22T08:03:14Z",
+      "side": 1,
+      "message": "It\u0027s at l.2554.",
+      "parentUuid": "dc9cdc60_64cd491a",
+      "revId": "d67d6fde97032e2366ae021034e4068c729a6ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51c3aabe_f09dd537",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 898,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-22T08:03:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1cdf4275_3e389de7",
+      "range": {
+        "startLine": 898,
+        "startChar": 21,
+        "endLine": 898,
+        "endChar": 39
+      },
+      "revId": "d67d6fde97032e2366ae021034e4068c729a6ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61a2c8ff_55e51cbd",
@@ -104,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "854ac7e9_38a7985f",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 904,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-22T08:03:14Z",
+      "side": 1,
+      "message": "group() doesn\u0027t return an array and it looks like it still needs to find() before use group().",
+      "parentUuid": "61a2c8ff_55e51cbd",
+      "range": {
+        "startLine": 902,
+        "startChar": 8,
+        "endLine": 904,
+        "endChar": 9
+      },
+      "revId": "d67d6fde97032e2366ae021034e4068c729a6ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c41a7175_54b0af5c",
@@ -117,6 +225,30 @@
       "writtenOn": "2022-11-21T06:49:52Z",
       "side": 1,
       "message": "Maybe refactor thus.",
+      "range": {
+        "startLine": 913,
+        "startChar": 8,
+        "endLine": 921,
+        "endChar": 37
+      },
+      "revId": "d67d6fde97032e2366ae021034e4068c729a6ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3594754e_225c48b4",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-22T08:03:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c41a7175_54b0af5c",
       "range": {
         "startLine": 913,
         "startChar": 8,
