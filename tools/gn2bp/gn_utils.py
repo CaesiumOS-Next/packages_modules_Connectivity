@@ -39,6 +39,9 @@ ODR_VIOLATION_IGNORE_TARGETS = {
 ARCH_REGEX = r'(android_x86_64|android_x86|android_arm|android_arm64|host)'
 DEX_REGEX = '.*__dex__%s$' % ARCH_REGEX
 COMPILE_JAVA_REGEX = '.*__compile_java__%s$' % ARCH_REGEX
+PARSE_ONCE_FOR_ALL_ARCH = (
+    "//components/cronet/android:interface_api_version",
+)
 def repo_root():
   """Returns an absolute path to the repository root."""
   return os.path.join(
@@ -263,7 +266,6 @@ class GnParser(object):
     # Run this every time as parse_gn_desc can be called at any time.
     for target in self.all_targets.values():
       target.finalize()
-
     return self.all_targets[label_without_toolchain(gn_target_name)]
 
   def parse_gn_desc(self, gn_desc, gn_target_name):
@@ -283,14 +285,15 @@ class GnParser(object):
     # genrule's do not allow to overload cmd per target OS / arch.  Create a
     # separate action for every architecture.
     # Cover both action and action_foreach
-    if type_.startswith('action'):
+    original_target_name = target_name
+    if type_.startswith('action') and not target_name in PARSE_ONCE_FOR_ALL_ARCH:
       target_name += '__' + arch
 
     target = self.all_targets.get(target_name)
     if target is None:
       target = GnParser.Target(target_name, type_)
       self.all_targets[target_name] = target
-
+      self.all_targets[original_target_name] = target
     if arch not in target.arch:
       target.arch[arch] = GnParser.Target.Arch()
     else:

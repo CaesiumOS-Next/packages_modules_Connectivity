@@ -1169,7 +1169,10 @@ def create_java_module(blueprint, gn):
   bp_module_name = module_prefix + 'java'
   module = Module('java_library', bp_module_name, '//gn:java')
   module.srcs.update([gn_utils.label_to_path(source) for source in gn.java_sources])
+  module.srcs.add(":cronet_aml_components_cronet_android_interface_api_version")
+  module.min_sdk_version = "system_current"
   blueprint.add_module(module)
+
 
 def update_jni_registration_module(module, gn):
   # TODO: deny list is in the arg of jni_registration_generator.py. Should not be hardcoded

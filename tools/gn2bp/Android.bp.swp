@@ -4816,6 +4816,31 @@ cc_defaults {
     },
 }
 
+// GN: //components/cronet/android:interface_api_version
+genrule {
+    name: "cronet_aml_components_cronet_android_interface_api_version",
+    cmd: "$(location build/util/version.py) -f " +
+         "$(location chrome/VERSION) " +
+         "-f " +
+         "$(location build/util/LASTCHANGE) " +
+         "-e " +
+         "API_LEVEL='20' " +
+         " " +
+         "-o " +
+         "$(out) " +
+         "$(location components/cronet/android/api/src/org/chromium/net/ApiVersion.template)",
+    out: [
+        "components/cronet/android/templates/org/chromium/net/ApiVersion.java",
+    ],
+    tool_files: [
+        "build/util/LASTCHANGE",
+        "build/util/android_chrome_version.py",
+        "build/util/version.py",
+        "chrome/VERSION",
+        "components/cronet/android/api/src/org/chromium/net/ApiVersion.template",
+    ],
+}
+
 // GN: //components/cronet:cronet_buildflags__android_x86
 genrule {
     name: "cronet_aml_components_cronet_cronet_buildflags__android_x86",
@@ -5674,6 +5699,7 @@ cc_defaults {
 java_library {
     name: "cronet_aml_java",
     srcs: [
+        ":cronet_aml_components_cronet_android_interface_api_version",
         "base/android/java/src/org/chromium/base/ActivityState.java",
         "base/android/java/src/org/chromium/base/ApiCompatibilityUtils.java",
         "base/android/java/src/org/chromium/base/ApkAssets.java",
@@ -5949,6 +5975,7 @@ java_library {
         "net/android/java/src/org/chromium/net/X509Util.java",
         "url/android/java/src/org/chromium/url/IDNStringUtil.java",
     ],
+    min_sdk_version: "system_current",
 }
 
 // GN: //net/base/registry_controlled_domains:registry_controlled_domains__android_x86
