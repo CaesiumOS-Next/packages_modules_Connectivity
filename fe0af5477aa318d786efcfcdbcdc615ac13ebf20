@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce0ab01d_1eac2704",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1746945
+      },
+      "writtenOn": "2022-11-22T08:37:33Z",
+      "side": 1,
+      "message": "Lorenzo said the same thing at bugreport, and I left a comment.\n\nWhen the session sent FIN(when app was forced killed), the app\u0027s uid no more doze rule matched.\nSo it could get the FIN-ACk and closed session. not retried as you concern.\nI think it\u0027s the same even if it\u0027s not when the app is forced to be killed.\nWhen tcp_close() is called, the process\u0027s state will not be in doze mode anymore.\nIsn\u0027t it?\n\nAnd, of cource can filter when just doze rule matched.\nBut additional codes are needed for that to catch TCP flags.\nSo I changed skip_owner_match() functions already has it.",
+      "parentUuid": "63f4a99b_00ef3ddf",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 58
+      },
+      "revId": "fe0af5477aa318d786efcfcdbcdc615ac13ebf20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "308ed973_5b89ce97",
