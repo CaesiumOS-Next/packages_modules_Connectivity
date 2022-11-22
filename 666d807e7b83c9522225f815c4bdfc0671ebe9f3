@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1784c03e_df9875c0",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceSocket.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-22T08:10:51Z",
+      "side": 1,
+      "message": "Maybe use an interface like IMdnsSocket, otherwise if someone adds methods to MdnsSocket, they may forget to override them here",
+      "range": {
+        "startLine": 38,
+        "startChar": 41,
+        "endLine": 38,
+        "endChar": 51
+      },
+      "revId": "666d807e7b83c9522225f815c4bdfc0671ebe9f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd6dca71_f486d1b1",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-22T08:10:51Z",
+      "side": 1,
+      "message": "It would be good to have an interface like:\n\n\n    // Null network is \"all applicable\"\n    // Call onSocketCreated immediately for already created sockets that match\n    SocketManager.requestSocket(@Nullable Network network, @NonNull SocketManagerCallback cb);\n    SocketManager.unrequestSocket(@NonNull SocketManagerCallback cb);\n\n    interface SocketManagerCallback {\n      void onSocketCreated(@NonNull Network network, MdnsInterfaceSocket socket, List\u003cLinkAddress\u003e addresses);\n      void onInterfaceDestroyed(@NonNull Network network);\n      void onAddressesChanged(@NonNull Network network, List\u003cLinkAddress\u003e addresses);\n    }",
+      "revId": "666d807e7b83c9522225f815c4bdfc0671ebe9f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c44aee1d_6d732469",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-22T08:10:51Z",
+      "side": 1,
+      "message": "If this is used for getting sockets both for discovery and for advertising, it would be better if startDiscovery is implemented in another class, using the callbacks of this class (so when onSocketCreated is called, the calling class would create the MdnsSocketClient using the provided MdnsInterfaceSocket and startDiscovery).\n\nOtherwise you\u0027d need to track here if the socket request is for discovery or not, and only start discovery in that case, that would be a strange design.",
+      "revId": "666d807e7b83c9522225f815c4bdfc0671ebe9f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
