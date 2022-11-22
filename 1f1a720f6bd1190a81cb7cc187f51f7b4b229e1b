@@ -22,6 +22,30 @@
       },
       "revId": "1f1a720f6bd1190a81cb7cc187f51f7b4b229e1b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "445ff662_d99bbc92",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2022-11-22T12:30:53Z",
+      "side": 1,
+      "message": "Yes, it doesn\u0027t trigger mobile network reconnection. How can I trigger the mobile network reconnection in CTS? I tried the following code but it doesn\u0027t trigger the reconnection.\n\n```\n    private Network reconnectCell() throws InterruptedException {\n        if (!mCtsNetUtils.cellConnectAttempted()) {\n            mCtsNetUtils.connectToCell();\n        }\n        mCtsNetUtils.disconnectFromCell();\n        return mCtsNetUtils.connectToCell();\n    }\n```",
+      "parentUuid": "fa8fdbc3_46f87f2e",
+      "range": {
+        "startLine": 113,
+        "startChar": 8,
+        "endLine": 115,
+        "endChar": 9
+      },
+      "revId": "1f1a720f6bd1190a81cb7cc187f51f7b4b229e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
