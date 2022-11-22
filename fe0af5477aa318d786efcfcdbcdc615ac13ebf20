@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63f4a99b_00ef3ddf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-11-22T08:08:54Z",
+      "side": 1,
+      "message": "I agree with you in principle.\n\nThe problem is if we allow sending out a FIN, but don\u0027t allow the inbound ACK (current state), then we\u0027ll retransmit the FIN (a number of times) trying to get it ACKed...\n\nThat will cause modem wakeups...\n\nWe\u0027ll need to do something smarter.\nTrying to figure out what is possible depending on kernel version.\n\nThis involves looking at skb-\u003esk-\u003estate (on newer kernels) and/or allowing pure acks...",
+      "parentUuid": "3a48fafa_25ad0177",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 58
+      },
+      "revId": "fe0af5477aa318d786efcfcdbcdc615ac13ebf20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "308ed973_5b89ce97",
