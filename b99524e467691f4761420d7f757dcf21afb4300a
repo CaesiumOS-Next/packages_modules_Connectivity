@@ -142,6 +142,24 @@
       "parentUuid": "a008b130_6d0d141d",
       "revId": "b99524e467691f4761420d7f757dcf21afb4300a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "976930c1_5aeb816e",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1077006
+      },
+      "writtenOn": "2022-11-22T04:46:30Z",
+      "side": 0,
+      "message": "How about we land this change, then maybe investigate the ServiceLost callback as follow-up work? I hope this change alone is sufficient to stabilize tests in our noisy lab; currently it\u0027s so flaky that it cannot pass in 10 retries, and is blocking CTS qualification for our devices.\n\nAlso @reminv@google.com would you mind reviewing my backport to P/R CTS branches aosp/2306341 aosp/2306105?",
+      "parentUuid": "2e5c384f_12858593",
+      "revId": "b99524e467691f4761420d7f757dcf21afb4300a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
