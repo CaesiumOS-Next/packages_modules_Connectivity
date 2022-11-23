@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "42091030_e4d9fa0f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-11-23T03:24:06Z",
+      "side": 1,
+      "message": "+1 to update the commit message, the current message doesn\u0027t really say why you need to update the connectivity Android.bp ?\nAfter reading the discuss in aosp/2305843, I realize that framework-configinfrastructure (DeviceConfig.java) is going to be a bootclasspath jar in U+ and because it will not be part of the base module_current SDK so we have to add an explicit dependency.",
+      "parentUuid": "aea78708_58ad083b",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 50
+      },
+      "revId": "08c64c11db30497d77f9cfecf47388690b439cc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "b745e6f4_dd5d34f8",
@@ -37,6 +61,23 @@
       "writtenOn": "2022-11-23T03:06:15Z",
       "side": 1,
       "message": "LGTM but leave it to Mark to confirm no other concern in tethering module part.",
+      "revId": "08c64c11db30497d77f9cfecf47388690b439cc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea566661_cc476d88",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-11-23T03:24:06Z",
+      "side": 1,
+      "message": "LGTM assume commit message updated",
       "revId": "08c64c11db30497d77f9cfecf47388690b439cc2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
