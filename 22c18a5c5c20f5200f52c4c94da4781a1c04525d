@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b250e52c_863e42a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2022-11-23T18:30:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a79c01e_bee5876e",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 51
+      },
+      "revId": "22c18a5c5c20f5200f52c4c94da4781a1c04525d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc1c4dcb_402fac81",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96f2d47c_c1f0d8eb",
+        "filename": "Cronet/TEST_MAPPING",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2022-11-23T18:30:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fc1c4dcb_402fac81",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 3
+      },
+      "revId": "22c18a5c5c20f5200f52c4c94da4781a1c04525d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2d66e36_dfb10618",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-11-23T17:03:53Z",
       "side": 1,
       "message": "It looks like this change is a partial file move / change. When moving files, I strongly recommend always putting the move / rename in one CL and subsequent changes in a follow up. This makes the diff much easier to understand.\nWhen committing changes in small CLs, every change should compile and pass tests on its own. I think moving a file is a valid exception to that rule -- I would often put the move and related follow-up in the same topic, so TreeHugger validates the changes together.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 11
+      },
+      "revId": "22c18a5c5c20f5200f52c4c94da4781a1c04525d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a362bab_723b5216",
+        "filename": "Cronet/tests/cts/AndroidManifest.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2022-11-23T18:30:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2d66e36_dfb10618",
       "range": {
         "startLine": 1,
         "startChar": 0,

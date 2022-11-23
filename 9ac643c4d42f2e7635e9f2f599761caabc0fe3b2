@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c826b6c_b186e068",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2022-11-23T18:30:15Z",
+      "side": 1,
+      "message": "Ready for review. Follow-up cl\u0027s coming right up.",
+      "revId": "9ac643c4d42f2e7635e9f2f599761caabc0fe3b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
