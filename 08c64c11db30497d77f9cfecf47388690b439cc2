@@ -80,6 +80,29 @@
       "message": "LGTM assume commit message updated",
       "revId": "08c64c11db30497d77f9cfecf47388690b439cc2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a11f4494_e3921d5b",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-11-23T03:29:00Z",
+      "side": 1,
+      "message": "Could you move \"framework-configinfrastructure\" to TetheringExternalLibs l.37 instead ?",
+      "range": {
+        "startLine": 75,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 41
+      },
+      "revId": "08c64c11db30497d77f9cfecf47388690b439cc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
