@@ -245,6 +245,10 @@ public class IpServer extends StateMachine {
     private final boolean mUsingLegacyDhcp;
     private final boolean mUsingBpfOffload;
     private final int mP2pLeasesSubnetPrefixLength;
+    // This field only valid for TETHERING_USB and TETHERING_NCM.
+    // TODO: Change this from boolean to int for extension.
+    private final boolean mIsNcm;
+
 
     private final Dependencies mDeps;
 
@@ -293,7 +297,7 @@ public class IpServer extends StateMachine {
             String ifaceName, Looper looper, int interfaceType, SharedLog log,
             INetd netd, @NonNull BpfCoordinator coordinator, Callback callback,
             TetheringConfiguration config, PrivateAddressCoordinator addressCoordinator,
-            TetheringMetrics tetheringMetrics, Dependencies deps) {
+            TetheringMetrics tetheringMetrics, boolean isNcm, Dependencies deps) {
         super(ifaceName, looper);
         mLog = log.forSubComponent(ifaceName);
         mNetd = netd;
@@ -312,6 +316,7 @@ public class IpServer extends StateMachine {
         resetLinkProperties();
         mLastError = TetheringManager.TETHER_ERROR_NO_ERROR;
         mServingMode = STATE_AVAILABLE;
+        mIsNcm = isNcm;
 
         mIpNeighborMonitor = mDeps.getIpNeighborMonitor(getHandler(), mLog,
                 new MyNeighborEventConsumer());
@@ -368,6 +373,14 @@ public class IpServer extends StateMachine {
     /** The address which IpServer is using. */
     public LinkAddress getAddress() {
         return mIpv4Address;
+    }
+
+    /**
+     * Inidicate whether tracking USB NCM function. This only be true when mInterfaceType
+     * is TETHEIRNG_USB or TETHERING_NCM.
+     */
+    public boolean isNcm() {
+        return mIsNcm;
     }
 
     /**

@@ -189,16 +189,16 @@ public class Tethering {
         public final IpServer ipServer;
         public int lastState;
         public int lastError;
-        // This field only valid for TETHERING_USB and TETHERING_NCM.
-        // TODO: Change this from boolean to int for extension.
-        public final boolean isNcm;
 
-        TetherState(IpServer ipServer, boolean isNcm) {
+        TetherState(IpServer ipServer) {
             this.ipServer = ipServer;
             // Assume all state machines start out available and with no errors.
             lastState = IpServer.STATE_AVAILABLE;
             lastError = TETHER_ERROR_NO_ERROR;
-            this.isNcm = isNcm;
+        }
+
+        int lastError() {
+            return ipServer.lastError();
         }
 
         public boolean isCurrentlyServing() {
@@ -1576,7 +1576,7 @@ public class Tethering {
             final int type = state.ipServer.interfaceType();
             if (type != TETHERING_USB && type != TETHERING_NCM) continue;
 
-            if (state.isNcm == forNcmFunction) {
+            if (state.ipServer.isNcm() == forNcmFunction) {
                 ensureIpServerStopped(state.ipServer.interfaceName());
             }
         }
@@ -2820,7 +2820,7 @@ public class Tethering {
         final TetherState tetherState = new TetherState(
                 new IpServer(iface, mLooper, interfaceType, mLog, mNetd, mBpfCoordinator,
                              makeControlCallback(), mConfig, mPrivateAddressCoordinator,
-                             mTetheringMetrics, mDeps.getIpServerDependencies()), isNcm);
+                             mTetheringMetrics, isNcm, mDeps.getIpServerDependencies()));
         mTetherStates.put(iface, tetherState);
         tetherState.ipServer.start();
     }
