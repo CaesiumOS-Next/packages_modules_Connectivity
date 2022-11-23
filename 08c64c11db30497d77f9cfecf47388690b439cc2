@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "980dd8ff_56ee5841",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1944185
+      },
+      "writtenOn": "2022-11-23T11:43:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42091030_e4d9fa0f",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 50
+      },
+      "revId": "08c64c11db30497d77f9cfecf47388690b439cc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b745e6f4_dd5d34f8",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -95,6 +119,30 @@
       "writtenOn": "2022-11-23T03:29:00Z",
       "side": 1,
       "message": "Could you move \"framework-configinfrastructure\" to TetheringExternalLibs l.37 instead ?",
+      "range": {
+        "startLine": 75,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 41
+      },
+      "revId": "08c64c11db30497d77f9cfecf47388690b439cc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89ed4f06_822c5cd8",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1944185
+      },
+      "writtenOn": "2022-11-23T11:43:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a11f4494_e3921d5b",
       "range": {
         "startLine": 75,
         "startChar": 8,
