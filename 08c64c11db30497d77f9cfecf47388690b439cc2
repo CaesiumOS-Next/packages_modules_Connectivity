@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aea78708_58ad083b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-11-23T03:06:15Z",
+      "side": 1,
+      "message": "Could you add the same description as aosp/2305843 here to explain why the commit is needed?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 50
+      },
+      "revId": "08c64c11db30497d77f9cfecf47388690b439cc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b745e6f4_dd5d34f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-11-23T03:06:15Z",
+      "side": 1,
+      "message": "LGTM but leave it to Mark to confirm no other concern in tethering module part.",
+      "revId": "08c64c11db30497d77f9cfecf47388690b439cc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
