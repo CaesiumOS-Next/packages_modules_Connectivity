@@ -185,33 +185,6 @@ public class Tethering {
     // Keep in sync with NETID_UNSET in system/netd/include/netid_client.h
     private static final int NETID_UNSET = 0;
 
-    private static class TetherState {
-        public final IpServer ipServer;
-        public int lastState;
-        public int lastError;
-
-        TetherState(IpServer ipServer) {
-            this.ipServer = ipServer;
-            // Assume all state machines start out available and with no errors.
-            lastState = IpServer.STATE_AVAILABLE;
-            lastError = TETHER_ERROR_NO_ERROR;
-        }
-
-        int lastError() {
-            return ipServer.lastError();
-        }
-
-        public boolean isCurrentlyServing() {
-            switch (lastState) {
-                case IpServer.STATE_TETHERED:
-                case IpServer.STATE_LOCAL_ONLY:
-                    return true;
-                default:
-                    return false;
-            }
-        }
-    }
-
     /**
      * Cookie added when registering {@link android.net.TetheringManager.TetheringEventCallback}.
      */
@@ -233,7 +206,7 @@ public class Tethering {
             new SparseArray<>();
 
     private final Context mContext;
-    private final ArrayMap<String, TetherState> mTetherStates;
+    private final ArrayMap<String, IpServer> mAllIpServers;
     private final BroadcastReceiver mStateReceiver;
     private final Looper mLooper;
     private final TetherMainSM mTetherMainSM;
@@ -302,7 +275,7 @@ public class Tethering {
         // list and handle them as soon as onServiceConnected is called.
         mPendingPanRequests = new ArrayList<>();
 
-        mTetherStates = new ArrayMap<>();
+        mAllIpServers = new ArrayMap<>();
         mConnectedClientsTracker = new ConnectedClientsTracker();
 
         mTetherMainSM = new TetherMainSM("TetherMain", mLooper, deps);
@@ -988,14 +961,14 @@ public class Tethering {
 
     private int tether(String iface, int requestedState) {
         if (DBG) Log.d(TAG, "Tethering " + iface);
-        TetherState tetherState = mTetherStates.get(iface);
-        if (tetherState == null) {
+        final IpServer ipServer = mAllIpServers.get(iface);
+        if (ipServer == null) {
             Log.e(TAG, "Tried to Tether an unknown iface: " + iface + ", ignoring");
             return TETHER_ERROR_UNKNOWN_IFACE;
         }
         // Ignore the error status of the interface.  If the interface is available,
         // the errors are referring to past tethering attempts anyway.
-        if (tetherState.lastState != IpServer.STATE_AVAILABLE) {
+        if (ipServer.servingMode() != IpServer.STATE_AVAILABLE) {
             Log.e(TAG, "Tried to Tether an unavailable iface: " + iface + ", ignoring");
             return TETHER_ERROR_UNAVAIL_IFACE;
         }
@@ -1003,13 +976,12 @@ public class Tethering {
         // processed, this will be a no-op and it will not return an error.
         //
         // This code cannot race with untether() because they both run on the handler thread.
-        final int type = tetherState.ipServer.interfaceType();
+        final int type = ipServer.interfaceType();
         final TetheringRequestParcel request = mActiveTetheringRequests.get(type, null);
         if (request != null) {
             mActiveTetheringRequests.delete(type);
         }
-        tetherState.ipServer.sendMessage(IpServer.CMD_TETHER_REQUESTED, requestedState, 0,
-                request);
+        ipServer.sendMessage(IpServer.CMD_TETHER_REQUESTED, requestedState, 0, request);
         return TETHER_ERROR_NO_ERROR;
     }
 
@@ -1024,17 +996,27 @@ public class Tethering {
 
     int untether(String iface) {
         if (DBG) Log.d(TAG, "Untethering " + iface);
-        TetherState tetherState = mTetherStates.get(iface);
-        if (tetherState == null) {
+        final IpServer ipServer = mAllIpServers.get(iface);
+        if (ipServer == null) {
             Log.e(TAG, "Tried to Untether an unknown iface :" + iface + ", ignoring");
             return TETHER_ERROR_UNKNOWN_IFACE;
         }
-        if (!tetherState.isCurrentlyServing()) {
+        if (!isCurretnlyServing(ipServer.servingMode())) {
             Log.e(TAG, "Tried to untether an inactive iface :" + iface + ", ignoring");
             return TETHER_ERROR_UNAVAIL_IFACE;
         }
-        tetherState.ipServer.sendMessage(IpServer.CMD_TETHER_UNREQUESTED);
+        ipServer.sendMessage(IpServer.CMD_TETHER_UNREQUESTED);
         return TETHER_ERROR_NO_ERROR;
+    }
+
+    private boolean isCurrentlyServing(int state) {
+        switch (state) {
+            case IpServer.STATE_TETHERED:
+            case IpServer.STATE_LOCAL_ONLY:
+                return true;
+            default:
+                return false;
+        }
     }
 
     void untetherAll() {
@@ -1047,13 +1029,13 @@ public class Tethering {
 
     @VisibleForTesting
     int getLastErrorForTest(String iface) {
-        TetherState tetherState = mTetherStates.get(iface);
-        if (tetherState == null) {
+        final IpServer ipServer = mAllIpServers.get(iface);
+        if (ipServer == null) {
             Log.e(TAG, "Tried to getLastErrorForTest on an unknown iface :" + iface
                     + ", ignoring");
             return TETHER_ERROR_UNKNOWN_IFACE;
         }
-        return tetherState.lastError;
+        return ipServer.lastError();
     }
 
     boolean isTetherProvisioningRequired() {
@@ -1097,19 +1079,19 @@ public class Tethering {
         final TetheringConfiguration cfg = mConfig;
 
         int downstreamTypesMask = DOWNSTREAM_NONE;
-        for (int i = 0; i < mTetherStates.size(); i++) {
-            final TetherState tetherState = mTetherStates.valueAt(i);
-            final int type = tetherState.ipServer.interfaceType();
-            final String iface = mTetherStates.keyAt(i);
+        for (int i = 0; i < mAllIpServers.size(); i++) {
+            final IpServer ipServer = mAllIpServers.valueAt(i);
+            final int type = ipServer.interfaceType();
+            final String iface = mAllIpServers.keyAt(i);
             final TetheringInterface tetheringIface = new TetheringInterface(type, iface);
-            if (tetherState.lastError != TETHER_ERROR_NO_ERROR) {
+            if (ipServer.lastError() != TETHER_ERROR_NO_ERROR) {
                 errored.add(tetheringIface);
-                lastErrors.add(tetherState.lastError);
-            } else if (tetherState.lastState == IpServer.STATE_AVAILABLE) {
+                lastErrors.add(ipServer.lastError());
+            } else if (ipServer.servingMode() == IpServer.STATE_AVAILABLE) {
                 available.add(tetheringIface);
-            } else if (tetherState.lastState == IpServer.STATE_LOCAL_ONLY) {
+            } else if (ipServer.servingMode() == IpServer.STATE_LOCAL_ONLY) {
                 localOnly.add(tetheringIface);
-            } else if (tetherState.lastState == IpServer.STATE_TETHERED) {
+            } else if (ipServer.servingMode() == IpServer.STATE_TETHERED) {
                 switch (type) {
                     case TETHERING_USB:
                     case TETHERING_WIFI:
@@ -1273,8 +1255,8 @@ public class Tethering {
         }
 
         private void maybeStopUsbProvisioning() {
-            for (int i = 0; i < mTetherStates.size(); i++) {
-                final int type = mTetherStates.valueAt(i).ipServer.interfaceType();
+            for (int i = 0; i < mAllIpServers.size(); i++) {
+                final int type = mAllIpServers.valueAt(i).interfaceType();
                 if (type == TETHERING_USB || type == TETHERING_NCM) {
                     mEntitlementMgr.stopProvisioningIfNeeded(type);
                 }
@@ -1441,8 +1423,8 @@ public class Tethering {
     }
 
     private void disableWifiIpServingCommon(int tetheringType, String ifname) {
-        if (!TextUtils.isEmpty(ifname) && mTetherStates.containsKey(ifname)) {
-            mTetherStates.get(ifname).ipServer.unwanted();
+        if (!TextUtils.isEmpty(ifname) && mAllIpServers.containsKey(ifname)) {
+            mAllIpServers.get(ifname).unwanted();
             return;
         }
 
@@ -1453,11 +1435,11 @@ public class Tethering {
 
         // Attempt to guess the interface name before T. Pure AOSP code should never enter here
         // because WIFI_AP_STATE_CHANGED intent always include ifname and it should be tracked
-        // by mTetherStates. In case OEMs have some modification in wifi side which pass null
+        // by mAllIpServers. In case OEMs have some modification in wifi side which pass null
         // or empty ifname. Before T, tethering allow to disable the first wifi ipServer if
         // given ifname don't match any tracking ipServer.
-        for (int i = 0; i < mTetherStates.size(); i++) {
-            final IpServer ipServer = mTetherStates.valueAt(i).ipServer;
+        for (int i = 0; i < mAllIpServers.size(); i++) {
+            final IpServer ipServer = mAllIpServers.valueAt(i);
             if (ipServer.interfaceType() == tetheringType) {
                 ipServer.unwanted();
                 return;
@@ -1571,13 +1553,13 @@ public class Tethering {
     }
 
     private void disableUsbIpServing(boolean forNcmFunction) {
-        for (int i = 0; i < mTetherStates.size(); i++) {
-            final TetherState state = mTetherStates.valueAt(i);
-            final int type = state.ipServer.interfaceType();
+        for (int i = 0; i < mAllIpServers.size(); i++) {
+            final IpServer ipServer = mAllIpServers.valueAt(i);
+            final int type = ipServer.interfaceType();
             if (type != TETHERING_USB && type != TETHERING_NCM) continue;
 
-            if (state.ipServer.isNcm() == forNcmFunction) {
-                ensureIpServerStopped(state.ipServer.interfaceName());
+            if (ipServer.isNcm() == forNcmFunction) {
+                ensureIpServerStopped(ipServer.interfaceName());
             }
         }
     }
@@ -1628,10 +1610,10 @@ public class Tethering {
     // TODO review API - figure out how to delete these entirely.
     String[] getTetheredIfaces() {
         ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < mTetherStates.size(); i++) {
-            TetherState tetherState = mTetherStates.valueAt(i);
-            if (tetherState.lastState == IpServer.STATE_TETHERED) {
-                list.add(mTetherStates.keyAt(i));
+        for (int i = 0; i < mAllIpServers.size(); i++) {
+            final IpServer ipServer = mAllIpServers.valueAt(i);
+            if (ipServer.servingMode() == IpServer.STATE_TETHERED) {
+                list.add(mAllIpServers.keyAt(i));
             }
         }
         return list.toArray(new String[list.size()]);
@@ -1639,10 +1621,10 @@ public class Tethering {
 
     String[] getTetherableIfacesForTest() {
         ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < mTetherStates.size(); i++) {
-            TetherState tetherState = mTetherStates.valueAt(i);
-            if (tetherState.lastState == IpServer.STATE_AVAILABLE) {
-                list.add(mTetherStates.keyAt(i));
+        for (int i = 0; i < mAllIpServers.size(); i++) {
+            final IpServer ipServer = mAllIpServers.valueAt(i);
+            if (ipServer.servingMode() == IpServer.STATE_AVAILABLE) {
+                list.add(mAllIpServers.keyAt(i));
             }
         }
         return list.toArray(new String[list.size()]);
@@ -1698,15 +1680,15 @@ public class Tethering {
 
         // This list is a little subtle.  It contains all the interfaces that currently are
         // requesting tethering, regardless of whether these interfaces are still members of
-        // mTetherStates.  This allows us to maintain the following predicates:
+        // mAllIpServers.  This allows us to maintain the following predicates:
         //
-        // 1) mTetherStates contains the set of all currently existing, tetherable, link state up
+        // 1) mAllIpServers contains the set of all currently existing, tetherable, link state up
         //    interfaces.
         // 2) mNotifyList contains all state machines that may have outstanding tethering state
         //    that needs to be torn down.
         // 3) Use mNotifyList for predictable ordering order for ConnectedClientsTracker.
         //
-        // Because we excise interfaces immediately from mTetherStates, we must maintain mNotifyList
+        // Because we excise interfaces immediately from mAllIpServers, we must maintain mNotifyList
         // so that the garbage collector does not clean up the state machine before it has a chance
         // to tear itself down.
         private final ArrayList<IpServer> mNotifyList;
@@ -2608,12 +2590,12 @@ public class Tethering {
 
         pw.println("Tether state:");
         pw.increaseIndent();
-        for (int i = 0; i < mTetherStates.size(); i++) {
-            final String iface = mTetherStates.keyAt(i);
-            final TetherState tetherState = mTetherStates.valueAt(i);
+        for (int i = 0; i < mAllIpServers.size(); i++) {
+            final String iface = mAllIpServers.keyAt(i);
+            final IpServer ipServer = mAllIpServers.valueAt(i);
             pw.print(iface + " - ");
 
-            switch (tetherState.lastState) {
+            switch (ipServer.servingMode()) {
                 case IpServer.STATE_UNAVAILABLE:
                     pw.print("UnavailableState");
                     break;
@@ -2630,7 +2612,7 @@ public class Tethering {
                     pw.print("UnknownState");
                     break;
             }
-            pw.println(" - lastError = " + tetherState.lastError);
+            pw.println(" - lastError = " + ipServer.lastError());
         }
         pw.println("Upstream wanted: " + upstreamWanted());
         pw.println("Current upstream interface(s): " + mCurrentUpstreamIfaceSet);
@@ -2728,13 +2710,6 @@ public class Tethering {
     // TODO: Move into TetherMainSM.
     private void notifyInterfaceStateChange(IpServer who, int state, int error) {
         final String iface = who.interfaceName();
-        final TetherState tetherState = mTetherStates.get(iface);
-        if (tetherState != null && tetherState.ipServer.equals(who)) {
-            tetherState.lastState = state;
-            tetherState.lastError = error;
-        } else {
-            if (DBG) Log.d(TAG, "got notification from stale iface " + iface);
-        }
 
         mLog.log(String.format("OBSERVED iface=%s state=%s error=%s", iface, state, error));
 
@@ -2764,11 +2739,8 @@ public class Tethering {
 
     private void notifyLinkPropertiesChanged(IpServer who, LinkProperties newLp) {
         final String iface = who.interfaceName();
-        final int state;
-        final TetherState tetherState = mTetherStates.get(iface);
-        if (tetherState != null && tetherState.ipServer.equals(who)) {
-            state = tetherState.lastState;
-        } else {
+        final int state = who.servingMode();
+        if (!mAllIpServers.contains(iface)) {
             mLog.log("got notification from stale iface " + iface);
             return;
         }
@@ -2811,27 +2783,26 @@ public class Tethering {
 
     private void ensureIpServerStarted(final String iface, int interfaceType, boolean isNcm) {
         // If we have already started a TISM for this interface, skip.
-        if (mTetherStates.containsKey(iface)) {
+        if (mAllIpServers.containsKey(iface)) {
             mLog.log("active iface (" + iface + ") reported as added, ignoring");
             return;
         }
 
         mLog.i("adding IpServer for: " + iface);
-        final TetherState tetherState = new TetherState(
-                new IpServer(iface, mLooper, interfaceType, mLog, mNetd, mBpfCoordinator,
-                             makeControlCallback(), mConfig, mPrivateAddressCoordinator,
-                             mTetheringMetrics, isNcm, mDeps.getIpServerDependencies()));
-        mTetherStates.put(iface, tetherState);
-        tetherState.ipServer.start();
+        final IpServer ipServer = new IpServer(iface, mLooper, interfaceType, mLog, mNetd,
+                mBpfCoordinator, makeControlCallback(), mConfig, mPrivateAddressCoordinator,
+                mTetheringMetrics, isNcm, mDeps.getIpServerDependencies());
+        mAllIpServers.put(iface, ipServer);
+        ipServer.start();
     }
 
     private void ensureIpServerStopped(final String iface) {
-        final TetherState tetherState = mTetherStates.get(iface);
-        if (tetherState == null) return;
+        final IpServer ipServer = mAllIpServers.get(iface);
+        if (ipServer == null) return;
 
-        tetherState.ipServer.stop();
+        ipServer.stop();
         mLog.i("removing IpServer for: " + iface);
-        mTetherStates.remove(iface);
+        mAllIpServers.remove(iface);
     }
 
     private static String[] copy(String[] strarray) {
