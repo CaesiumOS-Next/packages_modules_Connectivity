@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,13 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.chromium.net.test;
+package android.cronet.cts;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import android.content.Context;
+import android.cronet.cts.util.TestUrlRequestCallback;
+import android.cronet.cts.util.TestUrlRequestCallback.ResponseStep;
 import android.net.ConnectivityManager;
 
 import androidx.annotation.NonNull;
@@ -29,8 +31,6 @@ import androidx.test.runner.AndroidJUnit4;
 import org.chromium.net.CronetEngine;
 import org.chromium.net.UrlRequest;
 import org.chromium.net.UrlResponseInfo;
-import org.chromium.net.test.util.TestUrlRequestCallback;
-import org.chromium.net.test.util.TestUrlRequestCallback.ResponseStep;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -76,15 +76,15 @@ public class CronetUrlRequestTest {
         assertHasTestableNetworks();
         String url = HTTPS_PREFIX + getRandomDomain();
         TestUrlRequestCallback callback = new TestUrlRequestCallback();
-        UrlRequest.Builder builder = mCronetEngine.newUrlRequestBuilder(url, callback,
-                callback.getExecutor());
+        UrlRequest.Builder builder =
+                mCronetEngine.newUrlRequestBuilder(url, callback, callback.getExecutor());
         builder.build().start();
 
         callback.expectCallback(ResponseStep.ON_SUCCEEDED);
 
         UrlResponseInfo info = callback.mResponseInfo;
-        assertEquals("Unexpected http status code from " + url + ".", 200,
-                info.getHttpStatusCode());
+        assertEquals(
+                "Unexpected http status code from " + url + ".", 200, info.getHttpStatusCode());
         assertGreaterThan(
                 "Received byte from " + url + " is 0.", (int) info.getReceivedByteCount(), 0);
     }
