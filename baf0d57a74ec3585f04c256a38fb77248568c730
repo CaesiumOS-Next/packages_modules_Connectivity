@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d562b037_e17d6593",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-23T02:53:51Z",
+      "side": 1,
+      "message": "Doing this conditionally doesn\u0027t seem like the right solution. It does seem to work here, but I don\u0027t think it will pass the test of time. Plus, I would like to keep gn_utils as generic as possible (though I understand that this isn\u0027t always possible) and put Soong specific hacks into gen_android_bp.\n\nSource sets are interesting as they almost always behave like a static library, except when they don\u0027t (https://gn.googlesource.com/gn/+/master/docs/reference.md#func_source_set). Looking into this more, it seems that Soong has an exact equivalent in cc_object. cc_object runs the compiler without running the linker, which is (I think) exactly what source_set does. Maybe let\u0027s try to use that instead?",
+      "range": {
+        "startLine": 350,
+        "startChar": 0,
+        "endLine": 353,
+        "endChar": 38
+      },
+      "revId": "baf0d57a74ec3585f04c256a38fb77248568c730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
