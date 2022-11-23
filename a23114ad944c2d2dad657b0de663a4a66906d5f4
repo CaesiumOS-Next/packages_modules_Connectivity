@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76dd863d_a9c45f8e",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-23T03:12:11Z",
+      "side": 1,
+      "message": "nit: this line is too long. I think we should just add a helper function is_java_source().",
+      "range": {
+        "startLine": 403,
+        "startChar": 23,
+        "endLine": 403,
+        "endChar": 104
+      },
+      "revId": "a23114ad944c2d2dad657b0de663a4a66906d5f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
