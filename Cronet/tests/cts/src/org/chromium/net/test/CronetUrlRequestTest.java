@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -76,15 +76,15 @@ public class CronetUrlRequestTest {
         assertHasTestableNetworks();
         String url = HTTPS_PREFIX + getRandomDomain();
         TestUrlRequestCallback callback = new TestUrlRequestCallback();
-        UrlRequest.Builder builder = mCronetEngine.newUrlRequestBuilder(url, callback,
-                callback.getExecutor());
+        UrlRequest.Builder builder =
+                mCronetEngine.newUrlRequestBuilder(url, callback, callback.getExecutor());
         builder.build().start();
 
         callback.expectCallback(ResponseStep.ON_SUCCEEDED);
 
         UrlResponseInfo info = callback.mResponseInfo;
-        assertEquals("Unexpected http status code from " + url + ".", 200,
-                info.getHttpStatusCode());
+        assertEquals(
+                "Unexpected http status code from " + url + ".", 200, info.getHttpStatusCode());
         assertGreaterThan(
                 "Received byte from " + url + " is 0.", (int) info.getReceivedByteCount(), 0);
     }
