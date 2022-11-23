@@ -22,6 +22,29 @@
       },
       "revId": "baf0d57a74ec3585f04c256a38fb77248568c730",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7cf0415_6f732575",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-23T18:28:53Z",
+      "side": 1,
+      "message": "Does this do anything? Shouldn\u0027t every source_set with -frtti have been converted to a static_library?",
+      "range": {
+        "startLine": 363,
+        "startChar": 44,
+        "endLine": 366,
+        "endChar": 48
+      },
+      "revId": "baf0d57a74ec3585f04c256a38fb77248568c730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
