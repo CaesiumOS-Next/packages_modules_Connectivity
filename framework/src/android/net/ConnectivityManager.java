@@ -89,6 +89,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -5699,6 +5700,31 @@ public class ConnectivityManager {
             mService.setOemNetworkPreference(preference, listenerInternal);
         } catch (RemoteException e) {
             Log.e(TAG, "setOemNetworkPreference() failed for preference: " + preference.toString());
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * Sets the specified UIDs to only use the VPN.
+     *
+     * Calling this will overwrite the existing network preference, and the specified UIDs won't get
+     * any system default network when VPN is disconnected.
+     *
+     * @param uids The uid ranges which will treat VPN as the only preferred network.
+     * @hide
+     */
+    @SystemApi
+    public void setVpnNetworkPreference(@NonNull Set<Range<Integer>> uids) {
+        Objects.requireNonNull(uids);
+        // Convert to UidRange since Range class is not parcelable.
+        final UidRange[] rangesArray = new UidRange[uids.size()];
+        int index = 0;
+        for (Range<Integer> range : uids) {
+            rangesArray[index++] = new UidRange(range.getLower(), range.getUpper());
+        }
+        try {
+            mService.setVpnNetworkPreference(rangesArray);
+        } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
     }

@@ -737,6 +737,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static final int EVENT_INITIAL_EVALUATION_TIMEOUT = 57;
 
     /**
+     * Event to set VPN as preferred network for specific apps.
+     * obj = UidRange[]
+     */
+    private static final int EVENT_SET_VPN_NETWORK_PREFERENCE = 58;
+
+    /**
      * Argument for {@link #EVENT_PROVISIONING_NOTIFICATION} to indicate that the notification
      * should be shown.
      */
@@ -5495,6 +5501,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     break;
                 case EVENT_INGRESS_RATE_LIMIT_CHANGED:
                     handleIngressRateLimitChanged();
+                    break;
+                case EVENT_SET_VPN_NETWORK_PREFERENCE:
+                    handleSetVpnNetworkPreference((UidRange[]) msg.obj);
                     break;
             }
         }
@@ -11080,6 +11089,39 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         mHandler.sendMessage(mHandler.obtainMessage(EVENT_SET_OEM_NETWORK_PREFERENCE,
                 new Pair<>(preference, listener)));
+    }
+
+    @Override
+    public void setVpnNetworkPreference(UidRange[] ranges) {
+        mHandler.sendMessage(mHandler.obtainMessage(EVENT_SET_VPN_NETWORK_PREFERENCE, ranges));
+    }
+
+    private void handleSetVpnNetworkPreference(UidRange[] ranges) {
+        removeDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_VPN);
+        addPerAppDefaultNetworkRequests(createNrisForVpnNetworkPreference(ranges));
+        // Finally, rematch.
+        rematchAllNetworksAndRequests();
+    }
+
+    private ArraySet<NetworkRequestInfo> createNrisForVpnNetworkPreference(
+            @NonNull UidRange[] ranges) {
+        final ArraySet<NetworkRequestInfo> nris = new ArraySet<>();
+        // Do not add NetworkRequestInfo of VPN into mDefaultNetworkRequests. This is also used when
+        // IKEv2VpnRunner is cleaned.
+        if (ranges.length == 0) {
+            return nris;
+        }
+
+        final List<NetworkRequest> requests = new ArrayList<>();
+        // Request VPN only, so other networks won't be the fallback options when VPN is not
+        // connected temporarily.
+        // TODO: Do we want to remove NET_CAPABILITY_NOT_VPN for this request?
+        requests.add(createDefaultInternetRequestForTransport(
+                TRANSPORT_VPN, NetworkRequest.Type.REQUEST));
+        final Set<UidRange> uidRanges = new ArraySet(ranges);
+        setNetworkRequestUids(requests, uidRanges);
+        nris.add(new NetworkRequestInfo(Process.myUid(), requests, PREFERENCE_ORDER_VPN));
+        return nris;
     }
 
     /**
