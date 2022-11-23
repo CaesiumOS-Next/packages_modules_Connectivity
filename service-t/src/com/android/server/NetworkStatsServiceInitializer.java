@@ -35,7 +35,12 @@ public final class NetworkStatsServiceInitializer extends SystemService {
         super(context);
         // Load JNI libraries used by NetworkStatsService and its dependencies
         System.loadLibrary("service-connectivity");
-        mStatsService = maybeCreateNetworkStatsService(context);
+        try {
+            mStatsService = maybeCreateNetworkStatsService(context);
+        } catch (IllegalStateException e) {
+            Log.w(TAG, "problem creating network stats service: " + e);
+        }
+
     }
 
     @Override
