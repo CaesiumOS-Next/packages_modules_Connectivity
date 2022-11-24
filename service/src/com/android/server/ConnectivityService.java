@@ -2616,7 +2616,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
             newNc.setAdministratorUids(new int[0]);
         }
         if (!checkAnyPermissionOf(mContext,
-                callerPid, callerUid, android.Manifest.permission.NETWORK_FACTORY)) {
+                callerPid, callerUid, android.Manifest.permission.NETWORK_FACTORY)
+                && newNc.getOwnerUid() != callerUid) {
             newNc.setAllowedUids(new ArraySet<>());
             newNc.setSubscriptionIds(Collections.emptySet());
         }
