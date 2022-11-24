@@ -209,7 +209,9 @@ public class CarrierPrivilegeAuthenticator {
     public boolean hasCarrierPrivilegeForNetworkCapabilities(int callingUid,
             @NonNull NetworkCapabilities networkCapabilities) {
         if (callingUid == Process.INVALID_UID) return false;
-        if (!networkCapabilities.hasSingleTransport(TRANSPORT_CELLULAR)) return false;
+        if (!networkCapabilities.hasSingleTransportBesidesTest(TRANSPORT_CELLULAR)) {
+            return false;
+        }
         final int subId = getSubIdFromNetworkSpecifier(networkCapabilities.getNetworkSpecifier());
         if (SubscriptionManager.INVALID_SUBSCRIPTION_ID == subId) return false;
         return callingUid == getCarrierServiceUidForSubId(subId);
