@@ -46,6 +46,14 @@
                  android:usesCleartextTraffic="true">
         <uses-library android:name="android.test.runner" />
         <uses-library android:name="org.apache.http.legacy" android:required="false" />
+
+        <service android:name="android.net.cts.DummyCarrierConfigService"
+                android:permission="android.permission.BIND_CARRIER_SERVICES"
+                android:exported="true">
+            <intent-filter>
+              <action android:name="android.service.carrier.CarrierService"/>
+            </intent-filter>
+        </service>
     </application>
 
     <instrumentation android:name="androidx.test.runner.AndroidJUnitRunner"
@@ -54,4 +62,3 @@
     </instrumentation>
 
 </manifest>
-
