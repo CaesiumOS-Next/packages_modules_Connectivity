@@ -22,6 +22,30 @@
       },
       "revId": "a23114ad944c2d2dad657b0de663a4a66906d5f4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cf61d6c_7c963a4d",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-11-24T12:30:01Z",
+      "side": 1,
+      "message": "https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2317453",
+      "parentUuid": "76dd863d_a9c45f8e",
+      "range": {
+        "startLine": 403,
+        "startChar": 23,
+        "endLine": 403,
+        "endChar": 104
+      },
+      "revId": "a23114ad944c2d2dad657b0de663a4a66906d5f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
