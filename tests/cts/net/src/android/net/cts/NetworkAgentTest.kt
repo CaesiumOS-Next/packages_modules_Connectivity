@@ -15,9 +15,12 @@
  */
 package android.net.cts
 
+import android.Manifest.permission.MODIFY_PHONE_STATE
 import android.Manifest.permission.NETWORK_SETTINGS
+import android.Manifest.permission.READ_PRIVILEGED_PHONE_STATE
 import android.app.Instrumentation
 import android.content.Context
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.EthernetNetworkSpecifier
 import android.net.INetworkAgent
@@ -44,7 +47,9 @@ import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VPN
 import android.net.NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED
 import android.net.NetworkCapabilities.NET_CAPABILITY_TRUSTED
 import android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED
+import android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH
 import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
+import android.net.NetworkCapabilities.TRANSPORT_ETHERNET
 import android.net.NetworkCapabilities.TRANSPORT_TEST
 import android.net.NetworkCapabilities.TRANSPORT_VPN
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
@@ -53,6 +58,7 @@ import android.net.NetworkProvider
 import android.net.NetworkReleasedException
 import android.net.NetworkRequest
 import android.net.NetworkScore
+import android.net.NetworkSpecifier
 import android.net.QosCallback
 import android.net.QosCallback.QosCallbackRegistrationException
 import android.net.QosCallbackException
@@ -61,6 +67,7 @@ import android.net.QosSessionAttributes
 import android.net.QosSocketInfo
 import android.net.RouteInfo
 import android.net.SocketKeepalive
+import android.net.TelephonyNetworkSpecifier
 import android.net.TestNetworkInterface
 import android.net.TestNetworkManager
 import android.net.Uri
@@ -70,20 +77,29 @@ import android.net.cts.NetworkAgentTest.TestableQosCallback.CallbackEntry.OnErro
 import android.net.cts.NetworkAgentTest.TestableQosCallback.CallbackEntry.OnQosSessionAvailable
 import android.net.cts.NetworkAgentTest.TestableQosCallback.CallbackEntry.OnQosSessionLost
 import android.os.Build
+import android.os.ConditionVariable
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.Message
+import android.os.PersistableBundle
 import android.os.Process
 import android.os.SystemClock
 import android.platform.test.annotations.AppModeFull
 import android.system.OsConstants.IPPROTO_TCP
 import android.system.OsConstants.IPPROTO_UDP
+import android.telephony.CarrierConfigManager
+import android.telephony.SubscriptionManager
 import android.telephony.TelephonyManager
+import android.telephony.TelephonyManager.CarrierPrivilegesCallback
 import android.telephony.data.EpsBearerQosSessionAttributes
+import android.util.ArraySet
 import android.util.DebugUtils.valueToString
+import android.util.Log
 import androidx.test.InstrumentationRegistry
+import com.android.compatibility.common.util.SystemUtil.runShellCommand
 import com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity
 import com.android.compatibility.common.util.ThrowingSupplier
+import com.android.compatibility.common.util.UiccUtil
 import com.android.modules.utils.build.SdkLevel
 import com.android.net.module.util.ArrayTrackRecord
 import com.android.testutils.CompatUtil
@@ -112,23 +128,8 @@ import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnUnregisterQosC
 import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnValidationStatus
 import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.assertThrows
-import java.io.Closeable
-import java.io.IOException
-import java.net.DatagramSocket
-import java.net.InetAddress
-import java.net.InetSocketAddress
-import java.net.Socket
-import java.time.Duration
-import java.util.Arrays
-import java.util.UUID
-import java.util.concurrent.Executors
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertFalse
-import kotlin.test.assertNotNull
-import kotlin.test.assertNull
-import kotlin.test.assertTrue
-import kotlin.test.fail
+import com.android.testutils.runAsShell
+import com.android.testutils.tryTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -140,7 +141,26 @@ import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.timeout
 import org.mockito.Mockito.verify
+import java.io.Closeable
+import java.io.IOException
+import java.net.DatagramSocket
+import java.net.InetAddress
+import java.net.InetSocketAddress
+import java.net.Socket
+import java.security.MessageDigest
+import java.time.Duration
+import java.util.Arrays
+import java.util.UUID
+import java.util.concurrent.Executors
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
+import kotlin.test.fail
 
+private const val TAG = "NetworkAgentTest"
 // This test doesn't really have a constraint on how fast the methods should return. If it's
 // going to fail, it will simply wait forever, so setting a high timeout lowers the flake ratio
 // without affecting the run time of successful runs. Thus, set a very high timeout.
@@ -163,6 +183,8 @@ private fun Message(what: Int, arg1: Int, arg2: Int, obj: Any?) = Message.obtain
     it.arg2 = arg2
     it.obj = obj
 }
+private val defaultSubId = SubscriptionManager.getDefaultSubscriptionId()
+private val defaultSlotIndex = SubscriptionManager.getSlotIndex(defaultSubId)
 
 // On T and below, the native network is only created when the agent connects.
 // Starting in U, the native network was to be created as soon as the agent is registered,
@@ -261,17 +283,18 @@ class NetworkAgentTest {
         callbacksToCleanUp.add(callback)
     }
 
-    private fun makeTestNetworkRequest(specifier: String? = null): NetworkRequest {
-        return NetworkRequest.Builder()
-                .clearCapabilities()
-                .addTransportType(TRANSPORT_TEST)
-                .also {
-                    if (specifier != null) {
-                        it.setNetworkSpecifier(CompatUtil.makeEthernetNetworkSpecifier(specifier))
-                    }
-                }
-                .build()
-    }
+    private fun String?.asEthSpecifier(): NetworkSpecifier? =
+            if (null == this) null else CompatUtil.makeEthernetNetworkSpecifier(this)
+    private fun makeTestNetworkRequest(specifier: NetworkSpecifier? = null) =
+            NetworkRequest.Builder().run {
+                clearCapabilities()
+                addTransportType(TRANSPORT_TEST)
+                if (specifier != null) setNetworkSpecifier(specifier)
+                build()
+            }
+
+    private fun makeTestNetworkRequest(specifier: String?) =
+            makeTestNetworkRequest(specifier.asEthSpecifier())
 
     private fun makeTestNetworkCapabilities(
         specifier: String? = null,
@@ -322,7 +345,7 @@ class NetworkAgentTest {
     ): Pair<TestableNetworkAgent, TestableNetworkCallback> {
         val callback = TestableNetworkCallback()
         // Ensure this NetworkAgent is never unneeded by filing a request with its specifier.
-        requestNetwork(makeTestNetworkRequest(specifier = specifier), callback)
+        requestNetwork(makeTestNetworkRequest(specifier), callback)
         val nc = makeTestNetworkCapabilities(specifier, transports)
         val agent = createNetworkAgent(context, initialConfig = initialConfig, initialNc = nc)
         agent.setTeardownDelayMillis(0)
@@ -542,6 +565,194 @@ class NetworkAgentTest {
     private fun ncWithAllowedUids(vararg uids: Int) = NetworkCapabilities.Builder()
                 .addTransportType(TRANSPORT_TEST)
                 .setAllowedUids(uids.toSet()).build()
+
+    /**
+     * Get the single element from this ArraySet, or fail() if doesn't contain exactly 1 element.
+     */
+    fun <T> ArraySet<T>.getSingleElement(): T {
+        if (size != 1) fail("Expected exactly one element, contained $size")
+        return iterator().next()
+    }
+
+    private fun doTestAllowedUids(transport: Int, expectUidsPresent: Boolean) {
+        // TODO : use some other uid ; the test is not useful if the service package has
+        // carrier privilege.
+        val TESTUID = Process.myUid()
+        val callback = TestableNetworkCallback(DEFAULT_TIMEOUT_MS)
+        val specifier = when (transport) {
+            TRANSPORT_ETHERNET -> EthernetNetworkSpecifier("testInterface")
+            TRANSPORT_CELLULAR -> TelephonyNetworkSpecifier(defaultSubId)
+            else -> null
+        }
+        val agent = createNetworkAgent(initialNc = NetworkCapabilities.Builder().run {
+            addTransportType(TRANSPORT_TEST)
+            addTransportType(transport)
+            addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
+            addCapability(NET_CAPABILITY_NOT_SUSPENDED)
+            removeCapability(NET_CAPABILITY_NOT_RESTRICTED)
+            setNetworkSpecifier(specifier)
+            setAllowedUids(setOf(TESTUID))
+            setOwnerUid(Process.myUid())
+            setAdministratorUids(intArrayOf(Process.myUid()))
+            build()
+        })
+        runWithShellPermissionIdentity {
+            agent.register()
+        }
+        agent.markConnected()
+
+        registerNetworkCallback(makeTestNetworkRequest(specifier), callback)
+        callback.expect<Available>(agent.network!!)
+        callback.expect<CapabilitiesChanged>(agent.network!!) {
+            if (expectUidsPresent) {
+                it.caps.allowedUidsNoCopy.getSingleElement() == TESTUID
+            } else {
+                it.caps.allowedUidsNoCopy.isEmpty()
+            }
+        }
+        agent.unregister()
+        // callback will be unregistered in tearDown()
+    }
+
+    private fun setHoldCarrierPrivilege(hold: Boolean) {
+        fun getCertHash(): String {
+            val pkgInfo = realContext.packageManager.getPackageInfo(realContext.opPackageName,
+                    PackageManager.GET_SIGNATURES)
+            val digest = MessageDigest.getInstance("SHA-256")
+            val certHash = digest.digest(pkgInfo.signatures[0].toByteArray())
+            return UiccUtil.bytesToHexString(certHash)!!
+        }
+
+        val tm = realContext.getSystemService(TelephonyManager::class.java)
+        val ccm = realContext.getSystemService(CarrierConfigManager::class.java)
+
+        val cv = ConditionVariable()
+        val cpb = object : CarrierPrivilegesCallback {
+            var hasPrivilege = false
+            override fun onCarrierPrivilegesChanged(p: MutableSet<String>, uids: MutableSet<Int>) {
+                hasPrivilege = uids.contains(Process.myUid())
+                cv.open()
+            }
+        }
+        tryTest {
+            runAsShell(READ_PRIVILEGED_PHONE_STATE) {
+                tm.registerCarrierPrivilegesCallback(defaultSlotIndex, { it.run() }, cpb)
+            }
+            // Wait for the callback to be registered
+            assertTrue(cv.block(DEFAULT_TIMEOUT_MS), "Can't register CarrierPrivilegesCallback")
+            if (cpb.hasPrivilege == hold) {
+                if (hold) {
+                    Log.w(TAG, "Package ${realContext.opPackageName} already is privileged")
+                } else {
+                    Log.w(TAG, "Package ${realContext.opPackageName} already isn't privileged")
+                }
+                return@tryTest
+            }
+            cv.close()
+            runAsShell(MODIFY_PHONE_STATE) {
+                val carrierConfigs = if (hold) {
+                    PersistableBundle().also {
+                        it.putStringArray(CarrierConfigManager.KEY_CARRIER_CERTIFICATE_STRING_ARRAY,
+                                arrayOf(getCertHash()))
+                    }
+                } else {
+                    null
+                }
+                ccm.overrideConfig(defaultSubId, carrierConfigs)
+            }
+            assertTrue(cv.block(DEFAULT_TIMEOUT_MS), "Can't change carrier privilege")
+        } cleanup {
+            runAsShell(READ_PRIVILEGED_PHONE_STATE) {
+                tm.unregisterCarrierPrivilegesCallback(cpb)
+            }
+        }
+    }
+
+    private fun acquireCarrierPrivilege() = setHoldCarrierPrivilege(true)
+    private fun dropCarrierPrivilege() = setHoldCarrierPrivilege(false)
+
+    private fun setCarrierServicePackageOverride(pkg: String?) {
+        val tm = realContext.getSystemService(TelephonyManager::class.java)
+
+        val cv = ConditionVariable()
+        val cpb = object : CarrierPrivilegesCallback {
+            var pkgName: String? = null
+            override fun onCarrierPrivilegesChanged(p: MutableSet<String>, u: MutableSet<Int>) {}
+            override fun onCarrierServiceChanged(pkgName: String?, uid: Int) {
+                this.pkgName = pkgName
+                cv.open()
+            }
+        }
+        tryTest {
+            runAsShell(READ_PRIVILEGED_PHONE_STATE) {
+                tm.registerCarrierPrivilegesCallback(defaultSlotIndex, { it.run() }, cpb)
+            }
+            // Wait for the callback to be registered
+            assertTrue(cv.block(DEFAULT_TIMEOUT_MS), "Can't register CarrierPrivilegesCallback")
+            if (cpb.pkgName == pkg) {
+                Log.w(TAG, "Carrier service package was already $pkg")
+                return@tryTest
+            }
+            cv.close()
+            runAsShell(MODIFY_PHONE_STATE) {
+                if (null == pkg) {
+                    // There is a bug is clear-carrier-service-package-override where not adding
+                    // the -s argument will use the wrong slot index : b/299604822
+                    runShellCommand("cmd phone clear-carrier-service-package-override" +
+                            " -s $defaultSlotIndex")
+                } else {
+                    // -s could set the subId, but this test works with the default subId.
+                    runShellCommand("cmd phone set-carrier-service-package-override $pkg")
+                }
+            }
+            assertTrue(cv.block(DEFAULT_TIMEOUT_MS), "Can't modify carrier service package")
+        } cleanup {
+            runAsShell(READ_PRIVILEGED_PHONE_STATE) {
+                tm.unregisterCarrierPrivilegesCallback(cpb)
+            }
+        }
+    }
+
+    @Test
+    fun testAllowedUids() {
+        // TODO : use some other package ; the test is not useful if the service package has
+        // carrier privilege.
+        val SERVICE_PACKAGE = realContext.opPackageName
+
+        val tm = realContext.getSystemService(TelephonyManager::class.java)
+        tryTest {
+            // This process is not the carrier service UID, so allowedUids should be ignored in all
+            // the following cases.
+            doTestAllowedUids(TRANSPORT_CELLULAR, expectUidsPresent = false)
+            doTestAllowedUids(TRANSPORT_WIFI, expectUidsPresent = false)
+            doTestAllowedUids(TRANSPORT_BLUETOOTH, expectUidsPresent = false)
+
+            // Acquiring carrier privilege is necessary to override the carrier service package.
+            acquireCarrierPrivilege()
+            setCarrierServicePackageOverride(SERVICE_PACKAGE)
+            val actualServicePackage: String = runAsShell(READ_PRIVILEGED_PHONE_STATE) {
+                tm.getCarrierServicePackageNameForLogicalSlot(defaultSlotIndex)
+            }
+            assertEquals(SERVICE_PACKAGE, actualServicePackage)
+            // Needed to give time for ConnectivityService to get and process the callbacks.
+            // TODO : remove this when race conditions in CarrierPrivilegeAuthenticator are gone
+            Thread.sleep(1_000)
+            // Cell is allowed to set UIDs, but not WIFI/BLUETOOTH or agents with multiple
+            // transports. ETHERNET is allowed iff the device has feature AUTOMOTIVE.
+            doTestAllowedUids(TRANSPORT_CELLULAR, expectUidsPresent = true)
+            doTestAllowedUids(TRANSPORT_WIFI, expectUidsPresent = false)
+            doTestAllowedUids(TRANSPORT_BLUETOOTH, expectUidsPresent = false)
+            doTestAllowedUids(TRANSPORT_CELLULAR or TRANSPORT_WIFI, expectUidsPresent = false)
+            doTestAllowedUids(TRANSPORT_ETHERNET,
+                    realContext.packageManager.hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE))
+        } cleanupStep {
+            // It seems that calling clear-carrier-service-package-override doesn't correctly fire
+            // the callback
+            setCarrierServicePackageOverride(null)
+        } cleanup {
+            dropCarrierPrivilege()
+        }
+    }
 
     @Test
     fun testRejectedUpdates() {
