@@ -62,6 +62,7 @@ import static android.net.INetworkMonitor.NETWORK_VALIDATION_RESULT_PARTIAL;
 import static android.net.INetworkMonitor.NETWORK_VALIDATION_RESULT_SKIPPED;
 import static android.net.INetworkMonitor.NETWORK_VALIDATION_RESULT_VALID;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_FOREGROUND;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
@@ -7721,6 +7722,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
             updateTcpBufferSizes(newLp.getTcpBufferSizes());
         }
 
+        // Test DUN networks are not allowed to have routes
+        if (networkAgent.networkCapabilities.hasTransport(TRANSPORT_TEST)
+                && networkAgent.networkCapabilities.hasCapability(NET_CAPABILITY_DUN)) {
+            for (RouteInfo route : new ArrayList<>(newLp.getRoutes())) {
+                newLp.removeRoute(route);
+            }
+        }
         updateRoutes(newLp, oldLp, netId);
         updateDnses(newLp, oldLp, netId);
         // Make sure LinkProperties represents the latest private DNS status.

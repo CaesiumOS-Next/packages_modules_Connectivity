@@ -16402,6 +16402,49 @@ public class ConnectivityServiceTest {
         assertNotEquals(sanitized, unsanitized);
     }
 
+    @Test @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testDunOnTestNetwork() throws Exception {
+        mServiceContext.setPermission(MANAGE_TEST_NETWORKS, PERMISSION_GRANTED);
+        final NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                .removeCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                .addCapability(NET_CAPABILITY_DUN)
+                .addCapability(NET_CAPABILITY_NOT_SUSPENDED)
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .addTransportType(TRANSPORT_TEST)
+                .addTransportType(TRANSPORT_CELLULAR)
+                .build();
+        final LinkProperties lp = new LinkProperties();
+        lp.addLinkAddress(new LinkAddress(InetAddresses.parseNumericAddress("192.0.2.123"), 24));
+        lp.addRoute(new RouteInfo(
+                new IpPrefix(InetAddresses.parseNumericAddress("192.0.2.0"), 24),
+                InetAddresses.parseNumericAddress("192.0.2.1") /* gateway */,
+                null /* iface */,
+                RouteInfo.RTN_UNICAST));
+
+        final TestNetworkCallback cb = new TestNetworkCallback();
+        mCm.requestNetwork(new NetworkRequest.Builder()
+                .addTransportType(TRANSPORT_TEST)
+                .addTransportType(TRANSPORT_CELLULAR)
+                .addCapability(NET_CAPABILITY_DUN)
+                .build(), cb);
+        mCellAgent = new TestNetworkAgentWrapper(TRANSPORT_TEST | TRANSPORT_CELLULAR, lp, nc);
+        mCellAgent.connect(true);
+
+        cb.expect(CallbackEntry.AVAILABLE, mCellAgent);
+        final NetworkCapabilities expectedCaps = new NetworkCapabilities.Builder(nc)
+                .removeCapability(NET_CAPABILITY_INTERNET)
+                .addCapability(NET_CAPABILITY_FOREGROUND)
+                .build();
+        cb.expect(CallbackEntry.NETWORK_CAPS_UPDATED, TEST_CALLBACK_TIMEOUT_MS,
+                entry -> expectedCaps.equals(entry.getCaps()));
+
+        // TRANSPORT_TEST DUN networks can be registered but cannot have routes
+        final LinkProperties expectedLps = new LinkProperties(lp);
+        expectedLps.removeRoute(lp.getRoutes().get(0));
+        cb.expect(CallbackEntry.LINK_PROPERTIES_CHANGED, TEST_CALLBACK_TIMEOUT_MS,
+                entry -> expectedLps.equals(entry.getLp()));
+    }
+
     /**
      * Validate request counts are counted accurately on setProfileNetworkPreference on set/replace.
      */

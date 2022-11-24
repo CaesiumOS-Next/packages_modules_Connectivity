@@ -17,6 +17,7 @@
 package android.net;
 
 import static com.android.internal.annotations.VisibleForTesting.Visibility.PRIVATE;
+import static com.android.modules.utils.build.SdkLevel.isAtLeastU;
 import static com.android.net.module.util.BitUtils.appendStringRepresentationOfBitMaskToStringBuilder;
 import static com.android.net.module.util.BitUtils.describeDifferences;
 
@@ -702,16 +703,29 @@ public final class NetworkCapabilities implements Parcelable {
      * it must never contain capabilities that are generally useful to the system, such as
      * INTERNET, IMS, SUPL, etc.
      */
-    private static final long TEST_NETWORKS_ALLOWED_CAPABILITIES =
-            BitUtils.packBitList(
-            NET_CAPABILITY_NOT_METERED,
-            NET_CAPABILITY_TEMPORARILY_NOT_METERED,
-            NET_CAPABILITY_NOT_RESTRICTED,
-            NET_CAPABILITY_NOT_VPN,
-            NET_CAPABILITY_NOT_ROAMING,
-            NET_CAPABILITY_NOT_CONGESTED,
-            NET_CAPABILITY_NOT_SUSPENDED,
-            NET_CAPABILITY_NOT_VCN_MANAGED);
+    private static long getTestNetworksAllowedCapabilities() {
+        long ret = BitUtils.packBitList(
+                NET_CAPABILITY_NOT_METERED,
+                NET_CAPABILITY_TEMPORARILY_NOT_METERED,
+                NET_CAPABILITY_NOT_RESTRICTED,
+                NET_CAPABILITY_NOT_VPN,
+                NET_CAPABILITY_NOT_ROAMING,
+                NET_CAPABILITY_NOT_CONGESTED,
+                NET_CAPABILITY_NOT_SUSPENDED,
+                NET_CAPABILITY_NOT_VCN_MANAGED);
+
+        // Only allow TRUSTED and DUN On U+, as CTS tests for T would fail if they were allowed.
+        // TODO: backport CTS fixes and use the same behavior before U
+        if (isAtLeastU()) {
+            ret |= BitUtils.packBitList(
+                    NET_CAPABILITY_TRUSTED,
+                    // Test DUN networks can be created to test how they are handled by tethering
+                    // but cannot have routes. See code handling test DUN networks in
+                    // ConnectivityService.
+                    NET_CAPABILITY_DUN);
+        }
+        return ret;
+    }
 
     /**
      * Adds the given capability to this {@code NetworkCapability} instance.
@@ -1073,7 +1087,7 @@ public final class NetworkCapabilities implements Parcelable {
             // If the test network is restricted, then it may declare any transport.
             mTransportTypes = (originalTransportTypes | (1 << TRANSPORT_TEST));
         }
-        mNetworkCapabilities = originalCapabilities & TEST_NETWORKS_ALLOWED_CAPABILITIES;
+        mNetworkCapabilities = originalCapabilities & getTestNetworksAllowedCapabilities();
         mNetworkSpecifier = originalSpecifier;
         mSignalStrength = originalSignalStrength;
         mTransportInfo = originalTransportInfo;
