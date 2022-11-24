@@ -150,10 +150,13 @@ public class BatteryStatsManagerTest{
         Log.d(TAG, "Generate traffic on cellular network.");
         generateNetworkTraffic(cellNetwork, url);
 
-        // The mobile battery stats are updated when a network stops being the default network.
-        // ConnectivityService will call BatteryStatsManager.reportMobileRadioPowerState when
-        // removing data activity tracking.
-        mCtsNetUtils.ensureWifiConnected();
+        // There's rate limit to update mobile battery so if ConnectivityService calls
+        // BatteryStatsManager.reportMobileRadioPowerState when default network changed,
+        // the mobile stats might not be updated. But if the mobile update due to other
+        // reasons (plug/unplug, battery level change, etc) will be unaffected. Thus here
+        // changes the battery level to have batterystats to update mobile stats.
+        executeShellCommand("cmd battery set level 53");
+        executeShellCommand("dumpsys batterystats --write");
 
         // Check cellular battery stats are updated.
         runAsShell(UPDATE_DEVICE_STATS,
