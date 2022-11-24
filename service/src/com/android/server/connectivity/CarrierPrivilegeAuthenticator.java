@@ -36,6 +36,8 @@ import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.modules.utils.HandlerExecutor;
@@ -155,6 +157,16 @@ public class CarrierPrivilegeAuthenticator extends BroadcastReceiver {
                                 // with the onSubscriptionsChangedListener and broadcasts.
                                 updateCarrierServiceUid();
                             }
+
+                            @Override
+                            public void onCarrierServiceChanged(
+                                    @Nullable final String carrierServicePackageName,
+                                    final int carrierServiceUid) {
+                                // Re-trigger the synchronous check (which is also very cheap due
+                                // to caching in CarrierPrivilegesTracker). This allows consistency
+                                // with the onSubscriptionsChangedListener and broadcasts.
+                                updateCarrierServiceUid();
+                            }
                         };
                 addCarrierPrivilegesListener(i, executor, carrierPrivilegesListener);
                 mCarrierPrivilegesChangedListeners.add(carrierPrivilegesListener);
@@ -224,7 +236,9 @@ public class CarrierPrivilegeAuthenticator extends BroadcastReceiver {
     public boolean hasCarrierPrivilegeForNetworkCapabilities(int callingUid,
             @NonNull NetworkCapabilities networkCapabilities) {
         if (callingUid == Process.INVALID_UID) return false;
-        if (!networkCapabilities.hasSingleTransport(TRANSPORT_CELLULAR)) return false;
+        if (!networkCapabilities.hasSingleTransportBesideTest(TRANSPORT_CELLULAR)) {
+            return false;
+        }
         final int subId = getSubIdFromNetworkSpecifier(networkCapabilities.getNetworkSpecifier());
         if (SubscriptionManager.INVALID_SUBSCRIPTION_ID == subId) return false;
         return callingUid == getCarrierServiceUidForSubId(subId);
