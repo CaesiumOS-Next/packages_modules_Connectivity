@@ -17253,6 +17253,7 @@ public class ConnectivityServiceTest {
         mCm.requestNetwork(new NetworkRequest.Builder()
                         .clearCapabilities()
                         .addTransportType(TRANSPORT_TEST)
+                        .addTransportType(TRANSPORT_CELLULAR)
                         .build(),
                 cb);
 
