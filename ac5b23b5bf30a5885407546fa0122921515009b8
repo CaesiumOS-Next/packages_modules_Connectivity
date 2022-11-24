@@ -16,6 +16,24 @@
       "message": "I think this code is needed for the case:\nAll the targets in module A depends on module B which have different generated_headers based on targets.\n\nI\u0027m wondering if it\u0027s better to optimize(finalize) at bp module not at the gn target.",
       "revId": "ac5b23b5bf30a5885407546fa0122921515009b8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16fe21fb_8dc485c7",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1150,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-11-24T11:18:40Z",
+      "side": 1,
+      "message": "With target, do you mean a build target? or arch-specific building?\n\nI think we\u0027re just reimplementing the `finalize` again on the bp-level by doing those kind of arch-specific for loops again. Might be worth looking into that",
+      "parentUuid": "afc19295_74aaba6a",
+      "revId": "ac5b23b5bf30a5885407546fa0122921515009b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
