@@ -45,6 +45,30 @@
       },
       "revId": "baf0d57a74ec3585f04c256a38fb77248568c730",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f80b8b4_ee84f728",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-11-24T11:26:02Z",
+      "side": 1,
+      "message": "We\u0027ve looked into this and now every source_set is converted into a cc_object.",
+      "parentUuid": "e7cf0415_6f732575",
+      "range": {
+        "startLine": 363,
+        "startChar": 44,
+        "endLine": 366,
+        "endChar": 48
+      },
+      "revId": "baf0d57a74ec3585f04c256a38fb77248568c730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
