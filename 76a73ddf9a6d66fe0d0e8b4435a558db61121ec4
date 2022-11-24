@@ -16,6 +16,23 @@
       "message": "CP of aosp/2295345 with minor conflict resolution",
       "revId": "76a73ddf9a6d66fe0d0e8b4435a558db61121ec4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a42f6ae_bbebff64",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-24T09:15:23Z",
+      "side": 1,
+      "message": "LGTM but Lorenzo needs to +1 for owners",
+      "revId": "76a73ddf9a6d66fe0d0e8b4435a558db61121ec4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
