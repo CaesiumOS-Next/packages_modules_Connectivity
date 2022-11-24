@@ -1553,19 +1553,19 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
         // On a non-restricted network, access UIDs make no sense
         if (nc.hasCapability(NET_CAPABILITY_NOT_RESTRICTED)) return false;
 
-        // If this network has TRANSPORT_TEST, then the caller can do whatever they want to
-        // access UIDs
-        if (nc.hasTransport(TRANSPORT_TEST)) return true;
+        // If this network has TRANSPORT_TEST and nothing else, then the caller can do whatever
+        // they want to access UIDs
+        if (nc.hasSingleTransport(TRANSPORT_TEST)) return true;
 
         // Factories that make ethernet networks can allow UIDs for automotive devices.
-        if (nc.hasSingleTransport(TRANSPORT_ETHERNET) && hasAutomotiveFeature) {
+        if (nc.hasSingleTransportBesidesTest(TRANSPORT_ETHERNET) && hasAutomotiveFeature) {
             return true;
         }
 
         // Factories that make cell networks can allow the UID for the carrier service package.
         // This can only work in T where there is support for CarrierPrivilegeAuthenticator
         if (null != carrierPrivilegeAuthenticator
-                && nc.hasSingleTransport(TRANSPORT_CELLULAR)
+                && nc.hasSingleTransportBesidesTest(TRANSPORT_CELLULAR)
                 && (1 == nc.getAllowedUidsNoCopy().size())
                 && (carrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkCapabilities(
                         nc.getAllowedUidsNoCopy().valueAt(0), nc))) {
