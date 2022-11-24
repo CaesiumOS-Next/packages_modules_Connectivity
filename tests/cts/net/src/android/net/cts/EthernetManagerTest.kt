@@ -913,7 +913,13 @@ class EthernetManagerTest {
     fun testUpdateConfiguration_forAllowedUids() {
         // Configure a restricted network.
         val iface = createInterface()
+        // Only for this test, remove TRANSPORT_ETHERNET because setAllowedUids is very sensitive
+        // privacy-wise, and only networks that have ONLY TRANSPORT_TEST are allowed to manipulate
+        // the allowed UIDs however they want. Having TRANSPORT_ETHERNET on the network would
+        // require the device has feature AUTOMOTIVE.
+        // See NetworkAgentInfo#areAllowedUidsAcceptableFromNetworkAgent
         val request = NetworkRequest.Builder(ETH_REQUEST.copyWithEthernetSpecifier(iface.name))
+                .removeTransportType(TRANSPORT_ETHERNET)
                 .removeCapability(NET_CAPABILITY_NOT_RESTRICTED).build()
         updateConfiguration(iface, capabilities = request.networkCapabilities)
                 .expectResult(iface.name)
