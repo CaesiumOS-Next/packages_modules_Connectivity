@@ -34,6 +34,24 @@
       "parentUuid": "afc19295_74aaba6a",
       "revId": "ac5b23b5bf30a5885407546fa0122921515009b8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d015d64_9e84db6c",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1150,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-11-24T12:11:20Z",
+      "side": 1,
+      "message": "\u003e I\u0027m wondering if it\u0027s better to optimize(finalize) at bp module not at the gn target.\n\nI mean removing finalize in gn_utils (\"https://source.corp.google.com/aosp-master/packages/modules/Connectivity/tools/gn2bp/gn_utils.py;l\u003d186\") and finilize at the end of `create_modules_from_target`.\nI haven\u0027t tried so maybe doesn\u0027t change much.",
+      "parentUuid": "16fe21fb_8dc485c7",
+      "revId": "ac5b23b5bf30a5885407546fa0122921515009b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
