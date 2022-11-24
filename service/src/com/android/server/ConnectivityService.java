@@ -2671,7 +2671,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
             newNc.setAdministratorUids(new int[0]);
         }
         if (!checkAnyPermissionOf(mContext,
-                callerPid, callerUid, android.Manifest.permission.NETWORK_FACTORY)) {
+                callerPid, callerUid, android.Manifest.permission.NETWORK_FACTORY)
+                && newNc.getOwnerUid() != callerUid
+                && Process.SYSTEM_UID != callerUid) {
             newNc.setAllowedUids(new ArraySet<>());
             newNc.setSubscriptionIds(Collections.emptySet());
         }
@@ -3943,6 +3945,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         pw.println();
         dumpBpfProgramStatus(pw);
+
+        if (null != mCarrierPrivilegeAuthenticator) {
+            pw.println();
+            mCarrierPrivilegeAuthenticator.dump(pw);
+        }
 
         pw.println();
 
