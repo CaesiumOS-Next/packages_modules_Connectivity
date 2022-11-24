@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b9868b1_553b1ed1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-24T07:40:32Z",
+      "side": 1,
+      "message": "Updated test tethering config may be replaced by default config in some cases \n(probably happens in the future).\n\nIf dun setting is changed somehow in the test, default config will replace \"mConfig\" which is updated by setTetheringConfigurationForTest() at L.516.\n\nL.516 pass null config to to generate a default config (https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2183780/7/Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java#173). Then, \"mConfig\" which is updated by setTetheringConfigurationForTest(), if any, is replaced by default config at L.520.",
+      "range": {
+        "startLine": 530,
+        "startChar": 12,
+        "endLine": 530,
+        "endChar": 50
+      },
+      "revId": "7e6828c01a76be509b39c3098bc3e7855d66fd69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
