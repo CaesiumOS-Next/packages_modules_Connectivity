@@ -18,6 +18,7 @@ package android.net.cts
 import android.Manifest.permission.NETWORK_SETTINGS
 import android.app.Instrumentation
 import android.content.Context
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.EthernetNetworkSpecifier
 import android.net.INetworkAgent
@@ -29,9 +30,9 @@ import android.net.LinkProperties
 import android.net.NattKeepalivePacketData
 import android.net.Network
 import android.net.NetworkAgent
-import android.net.NetworkAgentConfig
 import android.net.NetworkAgent.INVALID_NETWORK
 import android.net.NetworkAgent.VALID_NETWORK
+import android.net.NetworkAgentConfig
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
 import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_CONGESTED
@@ -44,23 +45,27 @@ import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VPN
 import android.net.NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED
 import android.net.NetworkCapabilities.NET_CAPABILITY_TRUSTED
 import android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED
+import android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH
 import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
+import android.net.NetworkCapabilities.TRANSPORT_ETHERNET
 import android.net.NetworkCapabilities.TRANSPORT_TEST
-import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkCapabilities.TRANSPORT_VPN
+import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkInfo
 import android.net.NetworkProvider
 import android.net.NetworkReleasedException
 import android.net.NetworkRequest
 import android.net.NetworkScore
-import android.net.RouteInfo
+import android.net.NetworkSpecifier
 import android.net.QosCallback
-import android.net.QosCallbackException
 import android.net.QosCallback.QosCallbackRegistrationException
+import android.net.QosCallbackException
 import android.net.QosSession
 import android.net.QosSessionAttributes
 import android.net.QosSocketInfo
+import android.net.RouteInfo
 import android.net.SocketKeepalive
+import android.net.TelephonyNetworkSpecifier
 import android.net.Uri
 import android.net.VpnManager
 import android.net.VpnTransportInfo
@@ -68,15 +73,22 @@ import android.net.cts.NetworkAgentTest.TestableQosCallback.CallbackEntry.OnErro
 import android.net.cts.NetworkAgentTest.TestableQosCallback.CallbackEntry.OnQosSessionAvailable
 import android.net.cts.NetworkAgentTest.TestableQosCallback.CallbackEntry.OnQosSessionLost
 import android.os.Build
+import android.os.ConditionVariable
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.Message
+import android.os.PersistableBundle
 import android.os.SystemClock
 import android.platform.test.annotations.AppModeFull
 import android.system.OsConstants.IPPROTO_TCP
 import android.system.OsConstants.IPPROTO_UDP
+import android.telephony.CarrierConfigManager
+import android.telephony.SubscriptionManager
 import android.telephony.TelephonyManager
+import android.telephony.TelephonyManager.CarrierPrivilegesCallback
+import android.telephony.TelephonyRegistryManager
 import android.telephony.data.EpsBearerQosSessionAttributes
+import android.util.ArraySet
 import android.util.DebugUtils.valueToString
 import androidx.test.InstrumentationRegistry
 import com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity
@@ -89,6 +101,7 @@ import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.RecorderCallback.CallbackEntry.Available
 import com.android.testutils.RecorderCallback.CallbackEntry.BlockedStatus
+import com.android.testutils.RecorderCallback.CallbackEntry.CapabilitiesChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.Losing
 import com.android.testutils.RecorderCallback.CallbackEntry.Lost
@@ -108,6 +121,7 @@ import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnUnregisterQosC
 import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnValidationStatus
 import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.assertThrows
+import com.android.testutils.tryTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -247,17 +261,18 @@ class NetworkAgentTest {
         callbacksToCleanUp.add(callback)
     }
 
-    private fun makeTestNetworkRequest(specifier: String? = null): NetworkRequest {
-        return NetworkRequest.Builder()
-                .clearCapabilities()
-                .addTransportType(TRANSPORT_TEST)
-                .also {
-                    if (specifier != null) {
-                        it.setNetworkSpecifier(CompatUtil.makeEthernetNetworkSpecifier(specifier))
-                    }
-                }
-                .build()
-    }
+    private fun String?.asEthSpecifier() : NetworkSpecifier? =
+            if (null == this) null else CompatUtil.makeEthernetNetworkSpecifier(this)
+    private fun makeTestNetworkRequest(specifier: NetworkSpecifier? = null) =
+            NetworkRequest.Builder().run {
+                clearCapabilities()
+                addTransportType(TRANSPORT_TEST)
+                if (specifier != null) setNetworkSpecifier(specifier)
+                build()
+            }
+
+    private fun makeTestNetworkRequest(specifier: String?) =
+            makeTestNetworkRequest(specifier.asEthSpecifier())
 
     private fun makeTestNetworkCapabilities(
         specifier: String? = null,
@@ -308,7 +323,7 @@ class NetworkAgentTest {
     ): Pair<TestableNetworkAgent, TestableNetworkCallback> {
         val callback = TestableNetworkCallback()
         // Ensure this NetworkAgent is never unneeded by filing a request with its specifier.
-        requestNetwork(makeTestNetworkRequest(specifier = specifier), callback)
+        requestNetwork(makeTestNetworkRequest(specifier), callback)
         val nc = makeTestNetworkCapabilities(specifier, transports)
         val agent = createNetworkAgent(context, initialConfig = initialConfig, initialNc = nc)
         agent.setTeardownDelayMillis(0)
@@ -518,6 +533,122 @@ class NetworkAgentTest {
     private fun ncWithAllowedUids(vararg uids: Int) = NetworkCapabilities.Builder()
                 .addTransportType(TRANSPORT_TEST)
                 .setAllowedUids(uids.toSet()).build()
+
+    /**
+     * Get the single element from this ArraySet, or fail() if doesn't contain exactly 1 element.
+     */
+    fun <T> ArraySet<T>.getSingleElement(): T {
+        if (size != 1) fail("Expected exactly one element, contained ${size}")
+        return iterator().next()
+    }
+
+    private fun doTestAllowedUids(transport: Int, expectUidsPresent: Boolean) {
+        val TESTUID = 200
+        val callback = TestableNetworkCallback(DEFAULT_TIMEOUT_MS)
+        val specifier = when(transport) {
+            TRANSPORT_ETHERNET -> EthernetNetworkSpecifier("testInterface")
+            TRANSPORT_CELLULAR -> TelephonyNetworkSpecifier(0 /* subId */)
+            else -> null
+        }
+        val agent = createNetworkAgent(initialNc = NetworkCapabilities.Builder().run {
+            addTransportType(TRANSPORT_TEST)
+            addTransportType(transport)
+            addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
+            addCapability(NET_CAPABILITY_NOT_SUSPENDED)
+            removeCapability(NET_CAPABILITY_NOT_RESTRICTED)
+            setNetworkSpecifier(specifier)
+            setAllowedUids(setOf(TESTUID))
+            build()
+        })
+        runWithShellPermissionIdentity {
+            agent.register()
+        }
+        agent.markConnected()
+
+        registerNetworkCallback(makeTestNetworkRequest(specifier), callback)
+        android.util.Log.e("\u001B[31mJJJJ\u001B[0m", "1")
+        callback.expect<Available>(agent.network!!)
+        android.util.Log.e("\u001B[31mJJJJ\u001B[0m", "2")
+        callback.expect<CapabilitiesChanged>(agent.network!!) {
+            android.util.Log.e("\u001B[31mJJJJ\u001B[0m", "" + it.caps.allowedUidsNoCopy)
+            if (expectUidsPresent) {
+                it.caps.allowedUidsNoCopy.getSingleElement() == TESTUID
+            } else {
+                it.caps.allowedUidsNoCopy.isEmpty()
+            }
+        }
+        agent.unregister()
+        // callback will be unregistered in tearDown()
+    }
+
+    @Test
+    fun testAllowedUids() {
+        val defaultSubId = SubscriptionManager.getDefaultSubscriptionId()
+        val ccm = realContext.getSystemService(CarrierConfigManager::class.java)
+        val trm = realContext.getSystemService(TelephonyRegistryManager::class.java)
+        val tm = realContext.getSystemService(TelephonyManager::class.java)
+        tryTest {
+            // This process is not the carrier service UID, so allowedUids should be ignored in all
+            // the following cases.
+            doTestAllowedUids(TRANSPORT_CELLULAR, expectUidsPresent = false)
+            doTestAllowedUids(TRANSPORT_WIFI, expectUidsPresent = false)
+            doTestAllowedUids(TRANSPORT_BLUETOOTH, expectUidsPresent = false)
+
+            val cv = ConditionVariable()
+            val cpb = object : CarrierPrivilegesCallback {
+                override fun onCarrierPrivilegesChanged(privilegedPackageNames: Set<String>, privilegedUids: Set<Int>) {
+                    android.util.Log.e("\u001B[31mYAY\u001B[0m", "cpc ${privilegedPackageNames} ${privilegedUids}")
+                    cv.open()
+                }
+
+                override fun onCarrierServiceChanged(carrierServicePackageName: String?,
+                        carrierServiceUid: Int) {
+                    android.util.Log.e("\u001B[31mYAY\u001B[0m", "csc ${carrierServicePackageName} ${carrierServiceUid}")
+                    cv.open()
+                }
+            }
+            runWithShellPermissionIdentity {
+                tm.registerCarrierPrivilegesCallback(0 /* logical slot index */, { it.run() }, cpb)
+            }
+            runWithShellPermissionIdentity {
+//            trm.notifyCarrierPrivilegesChanged(0 /* logical slot index */,
+//                    setOf(realContext.packageName), setOf(Process.myUid()))
+//            trm.notifyCarrierServiceChanged(0 /* logical slot index */,
+//                    realContext.packageName, Process.myUid())
+                val carrierConfig = /* "61ED377E85D386A8DFEE6B864BD85B0BFAA5AF81" */ "CE871F1CA7E0:${realContext.packageName}" // */
+                tm.setCarrierTestOverride(
+                        "123456" /* mccmnc */,
+                        "imsi",
+                        "iccid",
+                        "gid1",
+                        "gid2",
+                        "plmn",
+                        "spn",
+                        carrierConfig /* carrierPrivilegeRules */,
+                        "apn")
+                ccm.overrideConfig(defaultSubId,
+                        PersistableBundle().apply {
+                            putStringArray(CarrierConfigManager.KEY_CARRIER_CERTIFICATE_STRING_ARRAY, arrayOf(carrierConfig))
+                            putString(CarrierConfigManager.KEY_CARRIER_NETWORK_SERVICE_WWAN_PACKAGE_OVERRIDE_STRING, realContext.packageName)
+                        },
+                        false /* persistent */)
+            }
+            Thread.sleep(5_000)
+//        cv.block(30_000)
+            // Cell is allowed to set UIDs, but not WIFI/BLUETOOTH or agents with multiple
+            // transports. ETHERNET is allowed iff the device has feature AUTOMOTIVE.
+            doTestAllowedUids(TRANSPORT_CELLULAR, expectUidsPresent = true)
+            doTestAllowedUids(TRANSPORT_WIFI, expectUidsPresent = false)
+            doTestAllowedUids(TRANSPORT_BLUETOOTH, expectUidsPresent = false)
+            doTestAllowedUids(TRANSPORT_CELLULAR or TRANSPORT_WIFI, expectUidsPresent = false)
+            doTestAllowedUids(TRANSPORT_ETHERNET,
+                    realContext.packageManager.hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE))
+        } cleanup {
+            runWithShellPermissionIdentity {
+                ccm.overrideConfig(defaultSubId, null)
+            }
+        }
+    }
 
     @Test
     fun testRejectedUpdates() {
