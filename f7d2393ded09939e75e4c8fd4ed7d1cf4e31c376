@@ -22,6 +22,30 @@
       },
       "revId": "f7d2393ded09939e75e4c8fd4ed7d1cf4e31c376",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "963f4f08_2f111ce9",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-11-24T10:47:03Z",
+      "side": 1,
+      "message": "__be16 is purely a type annotation that helps with code readability (ie. it documents intent).\n\nIn practice it is simply a u16 / uint16 (ie. unsigned short).\nie. the compiler doesn\u0027t do anything special (unfortunately...)\n\nSo storing x0403 into it will - again byte swap - because of little endianness of our cpu.  So ultimately on the wire it ends up being 03 04.\n\nNote that here ip_id is a variable and effectively endianness less,\nthe real write is when we store ip_id into struct iphdr ip.id in line 155 below.",
+      "parentUuid": "07ec17ed_7f13bfed",
+      "range": {
+        "startLine": 116,
+        "startChar": 36,
+        "endLine": 116,
+        "endChar": 42
+      },
+      "revId": "f7d2393ded09939e75e4c8fd4ed7d1cf4e31c376",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
