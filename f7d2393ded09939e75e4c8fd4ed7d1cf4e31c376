@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07ec17ed_7f13bfed",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-11-24T09:34:41Z",
+      "side": 1,
+      "message": "Is this correct? Let\u0027s say that IPv6 ID in byte order is:\n\n01 02 03 04\n\nIn host order, that\u0027s 04030201. Right-shifting 16 bits results in 0403. Will the store into the __be16 automatically take care of ensuring we have 03 04 on the wire?",
+      "range": {
+        "startLine": 116,
+        "startChar": 36,
+        "endLine": 116,
+        "endChar": 42
+      },
+      "revId": "f7d2393ded09939e75e4c8fd4ed7d1cf4e31c376",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
