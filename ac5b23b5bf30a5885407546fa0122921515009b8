@@ -52,6 +52,24 @@
       "parentUuid": "16fe21fb_8dc485c7",
       "revId": "ac5b23b5bf30a5885407546fa0122921515009b8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6897bc88_a84ae577",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1150,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-11-24T12:21:08Z",
+      "side": 1,
+      "message": "I\u0027m not really sure that I\u0027m following here but I don\u0027t think this would have a positive outcome since finalize works on the gn target level. So we have to finalize the gn-target before creating a bp-module to know what are the arch-specifics.",
+      "parentUuid": "5d015d64_9e84db6c",
+      "revId": "ac5b23b5bf30a5885407546fa0122921515009b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
