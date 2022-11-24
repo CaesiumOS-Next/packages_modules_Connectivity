@@ -43,6 +43,10 @@ java_defaults {
         "src/**/*.kt",
         ":ike-aes-xcbc",
     ],
+    exclude_srcs: [
+        "src/**/Hostside*.java",
+        "src/**/Hostside*.kt",
+    ],
     jarjar_rules: "jarjar-rules-shared.txt",
     static_libs: [
         "bouncycastle-unbundled",
@@ -83,6 +87,9 @@ android_test {
         "cts",
         "general-tests",
     ],
+    data: [
+        ":CtsCarrierServicePackage",
+    ]
 }
 
 java_defaults {
@@ -150,4 +157,21 @@ android_test {
     target_sdk_version: "30",
     package_name: "android.net.cts.maxtargetsdk30",  // CTS package names must be unique.
     instrumentation_target_package: "android.net.cts.maxtargetsdk30",
+}
+
+android_test_helper_app {
+    name: "CtsCarrierServicePackage",
+    defaults: ["cts_defaults"],
+    package_name: "android.net.cts.carrierservicepackage",
+    manifest: "carrierservicepackage/AndroidManifest.xml",
+    srcs: ["carrierservicepackage/src/**/*.java"],
+    libs: [
+        "junit",
+    ],
+    // Tag this module as a cts test artifact
+    test_suites: [
+        "cts",
+        "general-tests",
+        "mts-tethering",
+    ],
 }
