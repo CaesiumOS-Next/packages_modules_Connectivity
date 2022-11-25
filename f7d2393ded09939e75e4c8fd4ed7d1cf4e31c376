@@ -46,6 +46,30 @@
       },
       "revId": "f7d2393ded09939e75e4c8fd4ed7d1cf4e31c376",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6871d7b_895778ee",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-11-25T03:04:31Z",
+      "side": 1,
+      "message": "Ah, I see. The right shift results in a value of 0x0403 (1027), which is stored in memory (and written on to the wire) as 0x0304.",
+      "parentUuid": "963f4f08_2f111ce9",
+      "range": {
+        "startLine": 116,
+        "startChar": 36,
+        "endLine": 116,
+        "endChar": 42
+      },
+      "revId": "f7d2393ded09939e75e4c8fd4ed7d1cf4e31c376",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
