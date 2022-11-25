@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5cec4b9e_4fd48275",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceSocket.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:35:58Z",
+      "side": 1,
+      "message": "Document the threading model of each public method; right now I think it isn\u0027t actually safe.\n\nFor example joinGroup is public and could be called on any thread. But it uses/modifies mJoinedIpv4 and mJoinedIpv6 which are not thread-safe.",
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1287d81a_c6a8688f",
         "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceSocket.java",
         "patchSetId": 3
