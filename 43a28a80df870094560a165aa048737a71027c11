@@ -80,6 +80,30 @@
       },
       "revId": "43a28a80df870094560a165aa048737a71027c11",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07b027de_f0351d03",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-25T04:30:24Z",
+      "side": 1,
+      "message": "I just meant it was difficult to review based on an old code base – I was only asking that you push the \"rebase\" button. I\u0027ve done it now, so I can now look at the code more confidently\n\nAs I was explaining in b/259506077 I reintroduced the sleep as an emergency fix because l.295 (in the old code) started to fail for lack of time for permissions to propagate. The point of this fix is supposed to remove the sleep isn\u0027t it ? I don\u0027t see how it\u0027s unrelated to this refactoring – we\u0027re *waiting* for the privileges to propagate, so now why would we need to sleep ? Isn\u0027t that exactly what the comment says, that this test should be using the callbacks ?",
+      "parentUuid": "a401b2ea_aa0e1d93",
+      "range": {
+        "startLine": 245,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 50
+      },
+      "revId": "43a28a80df870094560a165aa048737a71027c11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

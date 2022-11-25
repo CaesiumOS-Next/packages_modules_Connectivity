@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fec8d8f_4ce686ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-25T04:30:24Z",
+      "side": 1,
+      "message": "I am super confused by this change – I don\u0027t understand\n• How it\u0027s supposed to fix the issue\n• How it\u0027s supposed to address the TODO\n• How it doesn\u0027t make the test flaky again",
+      "revId": "9d18f5b2bb9e48beed2059cc5815fd06a99dc90d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf81c27e_e016d7fa",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-25T04:30:24Z",
+      "side": 1,
+      "message": "Why is this necessary now but wasn\u0027t necessary before ?\n\nISTM this is removing coverage – these tests are running on S and before and I think they must continue doing so. Does that mean we can\u0027t actually fix this test ?",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 219,
+        "endChar": 85
+      },
+      "revId": "9d18f5b2bb9e48beed2059cc5815fd06a99dc90d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
