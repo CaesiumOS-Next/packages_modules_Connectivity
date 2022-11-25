@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d445b28_0f7047b1",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:41:41Z",
+      "side": 1,
+      "message": "This should only be done if the socket has joined v4 or v6",
+      "revId": "1b9ea8692fcbcd866cf628b92edb985999d4c25d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96a1c93b_be930e6c",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:41:41Z",
+      "side": 1,
+      "message": "This won\u0027t be called if the previous method threw IOException, but v6 send shouldn\u0027t be affected by v4 send",
+      "revId": "1b9ea8692fcbcd866cf628b92edb985999d4c25d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9a70755_a3ca7299",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:41:41Z",
+      "side": 1,
+      "message": "This test effectively does discovery on all networks (no network specified in MdnsDiscoveryManager), so I think it should test for that.\n\nYou should have another test for per-network discovery",
+      "revId": "1b9ea8692fcbcd866cf628b92edb985999d4c25d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff1ddf9b_a6d54551",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:41:41Z",
+      "side": 1,
+      "message": "Same as previous commits; this is a @hide method, maybe use a mock instead",
+      "revId": "1b9ea8692fcbcd866cf628b92edb985999d4c25d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
