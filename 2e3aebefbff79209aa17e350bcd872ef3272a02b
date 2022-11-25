@@ -18,6 +18,41 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71b97f31_a4220f22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-11-25T08:46:28Z",
+      "side": 1,
+      "message": "This could potentially maybe also fix the problem with addUpstreamNameToLookupTable() Lorenzo mentioned...\n\nsince statistics would never be collected on the v4- interface.\n\nAnyway the change I\u0027m thinking about is something like:\n\npackages/modules/Connectivity/bpf_progs/bpf_tethering.h\n\ntypedef struct {\n    uint32_t oif;             // The output interface to redirect to\n    struct ethhdr macHeader;  // includes dst/src mac and ethertype (zeroed iff rawip egress)\n    uint16_t pmtu;            // Maximum L3 output path/route mtu\n    struct in6_addr src46;    // source \u0026                 (always IPv4 mapped for downstream)\n    struct in6_addr dst46;    // destination IP addresses (may be IPv4 mapped or IPv6 for upstream)\n    __be16 srcPort;           // source \u0026\n    __be16 dstPort;           // destination tcp/udp/... ports\n    uint64_t last_used;       // Kernel updates on each use with bpf_ktime_get_boot_ns()\n    uint32_t account_if;      // Data limit / statistics interface  \u003c-- new\n} Tether4Value;\nSTRUCT_SIZE(Tether4Value, 4 + 14 + 2 + 16 + 16 + 2 + 2 + 8 + 4);  // 68 -- sad!\n\npackages/modules/Connectivity/bpf_progs/offload.c\n\nand then twice over (for both directions):\n\n    uint32_t stat_and_limit_k \u003d downstream ? skb-\u003eifindex : v-\u003eoif;\n\nbecomes:\n\n    uint32_t upstream_if \u003d downstream ? skb-\u003eifindex : v-\u003eoif;\n    bool clat \u003d upstream_if !\u003d v-\u003eaccount_if;\n    uint32_t stat_and_limit_k \u003d v-\u003eaccount_if;\n\nif (clat) bytes +\u003d packets * 20;\n\n(though this is of course just a very rough sketch)",
+      "parentUuid": "aef74003_ce46cb64",
+      "revId": "2e3aebefbff79209aa17e350bcd872ef3272a02b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44f6561b_702a068d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-11-25T08:46:28Z",
+      "side": 1,
+      "message": "This would be easier if we had already merged the maps/programs into one.\nMaybe we do need to that first after all?",
+      "revId": "2e3aebefbff79209aa17e350bcd872ef3272a02b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4464f1b8_12230ac1",
