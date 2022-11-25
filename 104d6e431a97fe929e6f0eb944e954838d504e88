@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f8f43da_9a846139",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-11-25T11:14:09Z",
+      "side": 1,
+      "message": "I hope we won\u0027t come back to revert this CL :D",
+      "revId": "104d6e431a97fe929e6f0eb944e954838d504e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
