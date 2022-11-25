@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aef74003_ce46cb64",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-11-25T08:13:46Z",
+      "side": 1,
+      "message": "It looks like this probably doesn\u0027t handle data limits and statistics correctly, due to trying to account the v4 clat+tether offloaded traffic against the v4- clat interface, instead of against the upstream cellular interface.\n\nI think we will need to teach the bpf program that it needs to do accounting against a different interface than the interface it redirects too.\n\nAdditionally it may need to account for the extra 20/28 byte clat overhead.\n\nLikely one (or more) of the existing bpf_tethering.h ipv4 maps needs to be extended with an extra interface index.\n\nie. perhaps Tether4Value {\n    uint32_t oif;             // The output interface to redirect to\n}\nneeds to gain a field:\n    uint32_t account_upstream_if;  // The output interface to redirect to\n\nAnd then if oif !\u003d account_upstream_if then you know 20/28 byte correction needs to happen.",
+      "revId": "2e3aebefbff79209aa17e350bcd872ef3272a02b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4464f1b8_12230ac1",
