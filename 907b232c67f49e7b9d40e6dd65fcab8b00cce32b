@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9d41256_41472033",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T06:52:14Z",
+      "side": 1,
+      "message": "Maybe detail: because most APIs for apps to use the network are based on Network objects",
+      "range": {
+        "startLine": 12,
+        "startChar": 46,
+        "endLine": 12,
+        "endChar": 47
+      },
+      "revId": "907b232c67f49e7b9d40e6dd65fcab8b00cce32b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1332607_88257e75",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T06:52:14Z",
+      "side": 1,
+      "message": "Can this change for a given response ? If not can it be final ?\n\nAnd NonNull ? I guess you\u0027d need to rebase this change on top of the one that gets the network, but it would be better NonNull",
+      "range": {
+        "startLine": 40,
+        "startChar": 11,
+        "endLine": 40,
+        "endChar": 12
+      },
+      "revId": "907b232c67f49e7b9d40e6dd65fcab8b00cce32b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33d702ac_44556243",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T06:52:14Z",
+      "side": 1,
+      "message": "Should this be possible ? Ideally we shouldn\u0027t be discovering when the Network is unknown ? Having the Network NonNull would make the code easier to work with.",
+      "range": {
+        "startLine": 99,
+        "startChar": 33,
+        "endLine": 99,
+        "endChar": 56
+      },
+      "revId": "907b232c67f49e7b9d40e6dd65fcab8b00cce32b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3734adf2_e715ec6d",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T06:52:14Z",
+      "side": 1,
+      "message": "Is this necessary considering it was already set just after constructing the response ?",
+      "revId": "907b232c67f49e7b9d40e6dd65fcab8b00cce32b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "496ae40a_015fbd3a",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T06:52:14Z",
+      "side": 1,
+      "message": "Similarly, can this be @NonNull ? For discovered services the network should be known.",
+      "revId": "907b232c67f49e7b9d40e6dd65fcab8b00cce32b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70da7e31_d6b032bd",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsResponseDecoderTests.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T06:52:14Z",
+      "side": 1,
+      "message": "This won\u0027t build upstream because this constructor is @hide API.\n\nMaybe use a mock(Network.class) instead ?",
+      "revId": "907b232c67f49e7b9d40e6dd65fcab8b00cce32b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01e2e43e_603af082",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T06:52:14Z",
+      "side": 1,
+      "message": "This should probably be Objects.equals, to avoid requiring that the instance is exactly the same one\n\nAlthough if you\u0027re using a mock Network it will probably be the same",
+      "range": {
+        "startLine": 594,
+        "startChar": 45,
+        "endLine": 594,
+        "endChar": 47
+      },
+      "revId": "907b232c67f49e7b9d40e6dd65fcab8b00cce32b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
