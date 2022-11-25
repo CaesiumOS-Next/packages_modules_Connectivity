@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3bfb563_70235c9d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T07:53:31Z",
+      "side": 1,
+      "message": "Typo: rematch",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 7
+      },
+      "revId": "8d50faa5593dfbdd918331ded764102ed7eef7b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3cd7d90_52c2b4db",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T07:53:31Z",
+      "side": 1,
+      "message": "Typo: discovery",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 12
+      },
+      "revId": "8d50faa5593dfbdd918331ded764102ed7eef7b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "403d0c5f_bbe9bcee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T07:53:31Z",
+      "side": 1,
+      "message": "appended. That would cause service type mismatches.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 7
+      },
+      "revId": "8d50faa5593dfbdd918331ded764102ed7eef7b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb0923d1_703e967d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T07:53:31Z",
+      "side": 1,
+      "message": "Typo: rematch",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 7
+      },
+      "revId": "8d50faa5593dfbdd918331ded764102ed7eef7b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9db6e482_9f05d03e",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T07:53:31Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is correct: \"myservice.com.\" and \"myservice.com.local.\" are two different names. If I query for \"myservice.com.\", I shouldn\u0027t get replies for \"myservice.com.local.\" ?\n\nmdnsresponder automatically resolves on the local domain, appending .local to the queries: https://cs.android.com/android/platform/superproject/+/master:external/mdnsresponder/mDNSShared/uds_daemon.c;drc\u003dde64a4cb1f9e07b0b4b006394d7bd8663d8a7efa;l\u003d4080 (automatic browsing domain). But MdnsDiscoveryManager just sends requests for the serviceType \"as-is\". It seems that every request to MdnsDiscoveryManager should have .local appended ? Then responses would match I think ?",
+      "revId": "8d50faa5593dfbdd918331ded764102ed7eef7b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abb51bb7_3fff2067",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T07:53:31Z",
+      "side": 1,
+      "message": "T has Arrays.equals(Object[], int, int, Object[], int, int)\n\nhttps://developer.android.com/reference/java/util/Arrays#equals(java.lang.Object[],%20int,%20int,%20java.lang.Object[],%20int,%20int)",
+      "revId": "8d50faa5593dfbdd918331ded764102ed7eef7b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
