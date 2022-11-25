@@ -25,6 +25,7 @@ java_library {
         "androidx.test.rules",
         "androidx.core_core",
         "junit",
+        "cronet-tests-utils"
     ],
     libs: [
         "android.test.runner",
