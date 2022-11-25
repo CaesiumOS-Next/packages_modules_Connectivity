@@ -1,0 +1,169 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22348d4a_25d914b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T07:10:28Z",
+      "side": 1,
+      "message": "Maybe give an example: the problem is that the value could either be an empty string (\"key\u003d\"), or there can be no value (\"key\"), as per rfc6763 6.4 \"If there is no \u0027\u003d\u0027 in a DNS-SD TXT record string, then it is a boolean attribute, simply identified as being present, with no value.\"",
+      "range": {
+        "startLine": 10,
+        "startChar": 50,
+        "endLine": 10,
+        "endChar": 51
+      },
+      "revId": "31404bc8c1aec33e2b79dc14ad4d01c3ca902fdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bc31388_9c8eb861",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T07:10:28Z",
+      "side": 1,
+      "message": "Note I had this patched in my commit already (aosp/2239481)",
+      "revId": "31404bc8c1aec33e2b79dc14ad4d01c3ca902fdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac4d7d1d_0a418444",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T07:10:28Z",
+      "side": 1,
+      "message": "Per the rfc6763 6.4, \"Case is ignored when interpreting a key\", so the previous code looks correct (ignoring case, or converting all to lowercase, when storing keys). The original casing is still available in the TextEntry in the map values, although I\u0027m not sure whether it should be used.",
+      "revId": "31404bc8c1aec33e2b79dc14ad4d01c3ca902fdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6f39afb_ba9eef29",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T07:10:28Z",
+      "side": 1,
+      "message": "In which case does this actually happen ? This would NPE before this patch.",
+      "revId": "31404bc8c1aec33e2b79dc14ad4d01c3ca902fdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd8cfaf8_493c69fd",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T07:10:28Z",
+      "side": 1,
+      "message": "Actually I think the current code is correct here; for \"key\u003d\", the key should be \"key\" and the value an empty String.\n\nFor \"key\", the key should bve \"key\" and there should be no value (null value). That\u0027s on line 393 in the baseline version.",
+      "range": {
+        "startLine": 403,
+        "startChar": 39,
+        "endLine": 403,
+        "endChar": 43
+      },
+      "revId": "31404bc8c1aec33e2b79dc14ad4d01c3ca902fdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "412753b9_56d478e1",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T07:10:28Z",
+      "side": 1,
+      "message": "I don\u0027t think you need this: createByteArray handles null arrays I think",
+      "revId": "31404bc8c1aec33e2b79dc14ad4d01c3ca902fdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3aff3b2b_4e1f8dca",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T07:10:28Z",
+      "side": 1,
+      "message": "A key with no value should be just \"key\", not \"key\u003d\"\n\nSame in toString",
+      "revId": "31404bc8c1aec33e2b79dc14ad4d01c3ca902fdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d348130_1e4ae280",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceInfoTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T07:10:28Z",
+      "side": 1,
+      "message": "Also have a test for no value (\"key\", not \"key\u003d\")",
+      "revId": "31404bc8c1aec33e2b79dc14ad4d01c3ca902fdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23283f23_307fa8e7",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceInfoTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T07:10:28Z",
+      "side": 1,
+      "message": "This should be an empty string I think",
+      "revId": "31404bc8c1aec33e2b79dc14ad4d01c3ca902fdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
