@@ -114,6 +114,7 @@ import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
 
 import android.annotation.NonNull;
+import android.annotation.Nullable;
 import android.app.Instrumentation;
 import android.app.PendingIntent;
 import android.app.UiAutomation;
@@ -2677,6 +2678,7 @@ public class ConnectivityManagerTest {
         // Cannot use @IgnoreUpTo(Build.VERSION_CODES.R) because this test also requires API 31
         // shims, and @IgnoreUpTo does not check that.
         assumeTrue(TestUtils.shouldTestSApis());
+        assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
 
         final TestNetworkTracker tnt = callWithShellPermissionIdentity(
                 () -> initTestNetwork(mContext, TEST_LINKADDR, NETWORK_CALLBACK_TIMEOUT_MS));
@@ -2684,6 +2686,9 @@ public class ConnectivityManagerTest {
         final TestableNetworkCallback systemDefaultCallback = new TestableNetworkCallback();
 
         final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
+        // This test assumes that wifi will be system default, so wait for it to validate
+        ensureValidatedNetwork(
+                new NetworkRequest.Builder().addTransportType(TRANSPORT_WIFI).build(), wifiNetwork);
 
         testAndCleanup(() -> {
             setOemNetworkPreferenceForMyPackage(
@@ -2784,17 +2789,17 @@ public class ConnectivityManagerTest {
         // This may also apply to wifi in principle, but in practice methods that mock validation
         // URL all disconnect wifi forcefully anyway, so don't wait for wifi to validate.
         if (mPackageManager.hasSystemFeature(FEATURE_TELEPHONY)) {
-            ensureValidatedNetwork(makeCellNetworkRequest());
+            ensureValidatedNetwork(makeCellNetworkRequest(), null);
         }
     }
 
-    private void ensureValidatedNetwork(NetworkRequest request) {
+    private void ensureValidatedNetwork(NetworkRequest request, @Nullable Network specificNetwork) {
         final TestableNetworkCallback cb = new TestableNetworkCallback();
         mCm.registerNetworkCallback(request, cb);
         cb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED,
                 NETWORK_CALLBACK_TIMEOUT_MS,
-                entry -> ((CallbackEntry.CapabilitiesChanged) entry).getCaps()
-                        .hasCapability(NET_CAPABILITY_VALIDATED));
+                entry -> entry.getCaps().hasCapability(NET_CAPABILITY_VALIDATED)
+                        && (specificNetwork == null || specificNetwork.equals(entry.getNetwork())));
         mCm.unregisterNetworkCallback(cb);
     }
 
