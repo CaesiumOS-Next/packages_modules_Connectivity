@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4464f1b8_12230ac1",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1393,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-11-25T08:06:24Z",
+      "side": 1,
+      "message": "This looks like it could be incorrect. AFAICT addUpstreamNameToLookupTable will ignore duplicate interface names and elements in that map are never deleted. But clatd interface names such as v4-wlan0 will have a different interface index every time clat is started.\n\nSo it looks like this code will only work the first time? Or am I missing something?\n\nWould it be correct to make addUpstreamNameToLookupTable *replace* the mapping every time a v4-xxx interface is added? Or does that information need to remain even after the interface gets deleted?",
+      "range": {
+        "startLine": 1393,
+        "startChar": 44,
+        "endLine": 1393,
+        "endChar": 72
+      },
+      "revId": "2e3aebefbff79209aa17e350bcd872ef3272a02b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7784a3bc_a4e647d4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-11-25T08:06:24Z",
+      "side": 1,
+      "message": "Xlat464 -\u003e 464xlat",
+      "range": {
+        "startLine": 864,
+        "startChar": 22,
+        "endLine": 864,
+        "endChar": 29
+      },
+      "revId": "2e3aebefbff79209aa17e350bcd872ef3272a02b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
