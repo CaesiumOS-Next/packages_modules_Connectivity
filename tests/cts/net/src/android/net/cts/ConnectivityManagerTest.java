@@ -2706,6 +2706,7 @@ public class ConnectivityManagerTest {
         // Cannot use @IgnoreUpTo(Build.VERSION_CODES.R) because this test also requires API 31
         // shims, and @IgnoreUpTo does not check that.
         assumeTrue(TestUtils.shouldTestSApis());
+        assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
 
         final TestNetworkTracker tnt = callWithShellPermissionIdentity(
                 () -> initTestNetwork(mContext, TEST_LINKADDR, NETWORK_CALLBACK_TIMEOUT_MS));
@@ -2713,6 +2714,8 @@ public class ConnectivityManagerTest {
         final TestableNetworkCallback systemDefaultCallback = new TestableNetworkCallback();
 
         final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
+        // This test assumes that wifi will be system default, so wait for it to become default
+        ensureDefaultNetwork(wifiNetwork);
 
         testAndCleanup(() -> {
             setOemNetworkPreferenceForMyPackage(
@@ -2815,6 +2818,14 @@ public class ConnectivityManagerTest {
         if (mPackageManager.hasSystemFeature(FEATURE_TELEPHONY)) {
             ensureValidatedNetwork(makeCellNetworkRequest());
         }
+    }
+
+    private void ensureDefaultNetwork(@NonNull Network network) {
+        final TestableNetworkCallback cb = new TestableNetworkCallback();
+        mCm.registerDefaultNetworkCallback(cb);
+        cb.eventuallyExpect(CallbackEntry.AVAILABLE, NETWORK_CALLBACK_TIMEOUT_MS,
+                available -> network.equals(available.getNetwork()));
+        mCm.unregisterNetworkCallback(cb);
     }
 
     private void ensureValidatedNetwork(NetworkRequest request) {
