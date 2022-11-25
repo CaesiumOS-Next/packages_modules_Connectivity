@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d993fc72_3d571b80",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceBrowserListener.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T06:29:17Z",
+      "side": 1,
+      "message": "Also add more details on what this means compared to onServiceFound and onServiceUpdated",
+      "revId": "92713c7935839f595792f30ff2e2e7b3156373c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d09929a5_aaf7a1d5",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T06:29:17Z",
+      "side": 1,
+      "message": "I find it a bit strange as an API to send both onServiceUpdated and onServiceResolved when the service is resolved; I would say onServiceUpdated should only be sent after the first complete/resolved event (which would also match current behavior). See suggestion below.",
+      "revId": "92713c7935839f595792f30ff2e2e7b3156373c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89bae4e8_1029edad",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T06:29:17Z",
+      "side": 1,
+      "message": "Sorry I suggested this originally, but actually this would cause onServiceResolved to be sent multiple times, every time there is an update of the service.\n\nProbably it should be:\n\n    if (newServiceFound)\n        onServiceFound\n\n    if (isComplete() \u0026\u0026 (previousResponse \u003d\u003d null || !previousResponse.isComplete()))\n        onServiceResolved\n    else if (previousResponse !\u003d null \u0026\u0026 previousResponse.isComplete())\n        onServiceUpdated",
+      "revId": "92713c7935839f595792f30ff2e2e7b3156373c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8eda9f55_ba48aa8c",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T06:29:17Z",
+      "side": 1,
+      "message": "Also there should be a test to verify what happens if you first have an incomplete response, which then becomes complete, and then is updated one or two times, and then is gone (cover the whole flow).\n\nIt would also be useful to use Mockito.inOrder for this, to make sure the callbacks arrive in the expected order.",
+      "revId": "92713c7935839f595792f30ff2e2e7b3156373c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
