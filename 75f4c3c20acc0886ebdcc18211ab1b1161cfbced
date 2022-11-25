@@ -1,0 +1,455 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1287d81a_c6a8688f",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceSocket.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:32:41Z",
+      "side": 1,
+      "message": "That\u0027s very outdated; I think this comment dates back to a very old migration. Maybe don\u0027t need to mention jMDNS, the spec is enough",
+      "range": {
+        "startLine": 50,
+        "startChar": 34,
+        "endLine": 50,
+        "endChar": 81
+      },
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05c56ee4_a947d0f1",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceSocket.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:32:41Z",
+      "side": 1,
+      "message": "I think this applies to outgoing packets, but the socket will still receive packets from all interfaces.\n\nYou\u0027d need to use something like:\n\n    final ParcelFileDescriptor pfd \u003d \n    ParcelFileDescriptor.fromDatagramSocket(mSocket);\n    try (final ParcelFileDescriptor pfd \u003d \n    ParcelFileDescriptor.fromDatagramSocket(mSocket)) {\n        android.net.util.SocketUtils.bindSocketToInterface(fd, iface.getName());\n    } catch (ErrnoException e) {\n        throw new IOException(\"Error setting socket options\", e);\n    }\n    \nto only receive packets from the given interface",
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b819bc8_73cdee06",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceSocket.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:32:41Z",
+      "side": 1,
+      "message": "This may be called for v6 too; maybe just say \"the address may...\"",
+      "range": {
+        "startLine": 86,
+        "startChar": 19,
+        "endLine": 86,
+        "endChar": 23
+      },
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d7860ac_4fa9bc93",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceSocket.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:32:41Z",
+      "side": 1,
+      "message": "This is actually \"has joined IPv6 only\", which may not match what the network is (especially if the joined groups were not refreshed after addresses changed).",
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a70cf87_dbd9749f",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSearchOptions.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:32:41Z",
+      "side": 1,
+      "message": "Mark @Nullable and document what null means (all possible interfaces ?)",
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa74ec6c_65a652a0",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSearchOptions.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:32:41Z",
+      "side": 1,
+      "message": "Also document nullability and what it means",
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb64abc9_30d29d31",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocket.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:32:41Z",
+      "side": 1,
+      "message": "(shouldn\u0027t be needed if you use an interface)",
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f586062e_896f2f69",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:32:41Z",
+      "side": 1,
+      "message": "Can this be @NonNull ? We shouldn\u0027t discover if the network / interface is unknown",
+      "range": {
+        "startLine": 115,
+        "startChar": 13,
+        "endLine": 115,
+        "endChar": 21
+      },
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfb85762_8eaa365e",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:32:41Z",
+      "side": 1,
+      "message": "Mark @VisibleForTesting instead",
+      "range": {
+        "startLine": 547,
+        "startChar": 50,
+        "endLine": 547,
+        "endChar": 63
+      },
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "027086aa_7a388007",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:32:41Z",
+      "side": 1,
+      "message": "You\u0027re changing this significantly in aosp/2278026, can you merge it with this commit ? Otherwise reviewing this commit isn\u0027t very useful",
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c045f391_2a5590d4",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:32:41Z",
+      "side": 1,
+      "message": "It would be good to have one consistent tag to log everything in mDNS. Maybe add a TODO, or define some shared constant for DBG somewhere ?",
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b80c8ac_1b2d8419",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:32:41Z",
+      "side": 1,
+      "message": "Nit: add @NonNull to all of these",
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d408292f_c6fea7d5",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:32:41Z",
+      "side": 1,
+      "message": "For mutable maps and mutable members, specify the threading model (mostly, only modify them on a given thread ? See below)",
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7ffae3c_9f6a3cc5",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:32:41Z",
+      "side": 1,
+      "message": "This doesn\u0027t get unregistered on stop ?\n\nI think you\u0027ll need to store the callbacks to unregister them, so you won\u0027t need mMonitoringMulticastNetworks",
+      "range": {
+        "startLine": 116,
+        "startChar": 90,
+        "endLine": 116,
+        "endChar": 98
+      },
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d50287e_ddaec919",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:32:41Z",
+      "side": 1,
+      "message": "This would run on the Connectivity thread; this class should probably use a specific handler (careful about threading; the existing mdns code used various locks so it may use a variety of threads. Using a specific handler thread can help with that.)",
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4b3e8ef_7790b290",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:32:41Z",
+      "side": 1,
+      "message": "Also onTetheredInterfacesChanged I think ? We should also do discovery on non-local tethered interfaces",
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93f1ee49_9f708d66",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:32:41Z",
+      "side": 1,
+      "message": "This would run the callbacks on a random Binder thread. So you have a synchronization problem between handleLocalOnlyInterfacesChanged and onLinkPropertiesChanged / onLost; they both modify the internal maps but on different threads.",
+      "range": {
+        "startLine": 125,
+        "startChar": 56,
+        "endLine": 125,
+        "endChar": 68
+      },
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41450caa_b84a6a03",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:32:41Z",
+      "side": 1,
+      "message": "This is a public method that can be called on any thread, so reading/modifying this member here is not safe.\n\nEither document which thread it should be called on (and ideally enforce it), or have some synchronization for this member.\n\nYou could just force the caller to call this method on a provided looper (and throw if called with Thread.getCurrentThread() !\u003d mLooper.getThread())",
+      "range": {
+        "startLine": 127,
+        "startChar": 8,
+        "endLine": 127,
+        "endChar": 36
+      },
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a84f0e9_f1c878bd",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:32:41Z",
+      "side": 1,
+      "message": "Nit: static",
+      "range": {
+        "startLine": 141,
+        "startChar": 11,
+        "endLine": 141,
+        "endChar": 12
+      },
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46ac2bcf_6889add0",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:32:41Z",
+      "side": 1,
+      "message": "Nit: maybeCreateSocketClient ? Since it\u0027s a noop if it\u0027s already created",
+      "range": {
+        "startLine": 154,
+        "startChar": 17,
+        "endLine": 154,
+        "endChar": 35
+      },
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f70ac081_dca126e8",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:32:41Z",
+      "side": 1,
+      "message": "Simplify with:\n\n    if (client !\u003d null) return;",
+      "range": {
+        "startLine": 158,
+        "startChar": 8,
+        "endLine": 158,
+        "endChar": 10
+      },
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39843aee_ee9821c0",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:32:41Z",
+      "side": 1,
+      "message": "Instead of creating a MdnsSocketClient here, could you just create the MdnsInterfaceSocket, and have the user of MdnsSocketManager create the MdnsSocketClient themselves using the callback that they receive ?",
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30ae9e13_42ca047a",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MulticastNetworkInterfaceProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T08:32:41Z",
+      "side": 1,
+      "message": "Unused in this patch ?",
+      "revId": "75f4c3c20acc0886ebdcc18211ab1b1161cfbced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
