@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7e1db6a_414ee67b",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T06:09:12Z",
+      "side": 1,
+      "message": "I\u0027m not sure onServiceUpdated should be sent before resolve is done: clients should not be expecting events for changes in record values before the values are actually available (resolved).\n\nSo maybe keep sending onServiceUpdated only when the record is complete ? It would also avoid changing the behavior for existing clients if this is merged upstream",
+      "revId": "bd43b1f5124741c34bbf6fb784bc01dda36df6d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2eb15fbf_28f52d0c",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-25T06:09:12Z",
+      "side": 1,
+      "message": "This could be null right ?",
+      "range": {
+        "startLine": 425,
+        "startChar": 33,
+        "endLine": 425,
+        "endChar": 49
+      },
+      "revId": "bd43b1f5124741c34bbf6fb784bc01dda36df6d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
