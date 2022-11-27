@@ -20,10 +20,6 @@ package {
 java_defaults {
     name: "TetheringIntegrationTestsDefaults",
     defaults: ["framework-connectivity-test-defaults"],
-    srcs: [
-        "src/**/*.java",
-        "src/**/*.kt",
-    ],
     min_sdk_version: "30",
     static_libs: [
         "NetworkStackApiStableLib",
@@ -47,13 +43,43 @@ java_defaults {
     ],
 }
 
+java_defaults {
+    name: "TetheringIntegrationTestsLibDefaults",
+    defaults: ["TetheringIntegrationTestsDefaults"],
+    srcs: [
+        "src/**/*.java",
+    ],
+}
+
+java_defaults {
+    name: "TetheringIntegrationTestsBaseLibDefaults",
+    defaults: ["TetheringIntegrationTestsDefaults"],
+    srcs: [
+        "base/**/*.java",
+    ],
+}
+
+android_library {
+    name: "TetheringIntegrationTestsBaseLib",
+    target_sdk_version: "current",
+    platform_apis: true,
+    defaults: ["TetheringIntegrationTestsBaseLibDefaults"],
+    visibility: [
+        "//packages/modules/Connectivity/tests/cts/tethering",
+        "//packages/modules/Connectivity/Tethering/tests/mts",
+    ]
+}
+
 // Library including tethering integration tests targeting the latest stable SDK.
 // Use with NetworkStackJarJarRules.
 android_library {
     name: "TetheringIntegrationTestsLatestSdkLib",
     target_sdk_version: "33",
     platform_apis: true,
-    defaults: ["TetheringIntegrationTestsDefaults"],
+    defaults: ["TetheringIntegrationTestsLibDefaults"],
+    static_libs: [
+        "TetheringIntegrationTestsBaseLib",
+    ],
     visibility: [
         "//packages/modules/Connectivity/tests/cts/tethering",
         "//packages/modules/Connectivity/tests:__subpackages__",
@@ -67,19 +93,26 @@ android_library {
     name: "TetheringIntegrationTestsLib",
     target_sdk_version: "current",
     platform_apis: true,
-    defaults: ["TetheringIntegrationTestsDefaults"],
+    defaults: ["TetheringIntegrationTestsLibDefaults"],
+    static_libs: [
+        "TetheringIntegrationTestsBaseLib",
+    ],
     visibility: [
         "//packages/modules/Connectivity/tests/cts/tethering",
         "//packages/modules/Connectivity/Tethering/tests/mts",
     ]
 }
 
+// TODO: remove because TetheringIntegrationTests has been covered by ConnectivityCoverageTests.
 android_test {
     name: "TetheringIntegrationTests",
     platform_apis: true,
-    defaults: ["TetheringIntegrationTestsDefaults"],
+    defaults: ["TetheringIntegrationTestsLibDefaults"],
     test_suites: [
         "device-tests",
+    ],
+    static_libs: [
+        "TetheringIntegrationTestsBaseLib",
     ],
     compile_multilib: "both",
     jarjar_rules: ":NetworkStackJarJarRules",
