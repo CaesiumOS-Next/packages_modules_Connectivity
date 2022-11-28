@@ -1704,6 +1704,126 @@ cc_library_static {
     },
 }
 
+// GN: //base:base_android_java_enums_srcjar
+cc_genrule {
+    name: "cronet_aml_base_base_android_java_enums_srcjar",
+    cmd: " " +
+         "if [[ $$CC_ARCH == 'x86_64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/base/base_android_java_enums_srcjar.srcjar " +
+         "../../base/android/application_status_listener.h " +
+         "../../base/android/child_process_binding_types.h " +
+         "../../base/android/library_loader/library_loader_hooks.h " +
+         "../../base/android/linker/modern_linker_jni.h " +
+         "../../base/android/task_scheduler/task_runner_android.h " +
+         "../../base/memory/memory_pressure_listener.h " +
+         "../../base/metrics/histogram_base.h " +
+         "../../base/task/task_traits.h " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'x86' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/base/base_android_java_enums_srcjar.srcjar " +
+         "../../base/android/application_status_listener.h " +
+         "../../base/android/child_process_binding_types.h " +
+         "../../base/android/library_loader/library_loader_hooks.h " +
+         "../../base/android/linker/modern_linker_jni.h " +
+         "../../base/android/task_scheduler/task_runner_android.h " +
+         "../../base/memory/memory_pressure_listener.h " +
+         "../../base/metrics/histogram_base.h " +
+         "../../base/task/task_traits.h " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'arm64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/base/base_android_java_enums_srcjar.srcjar " +
+         "../../base/android/application_status_listener.h " +
+         "../../base/android/child_process_binding_types.h " +
+         "../../base/android/library_loader/library_loader_hooks.h " +
+         "../../base/android/linker/modern_linker_jni.h " +
+         "../../base/android/task_scheduler/task_runner_android.h " +
+         "../../base/memory/memory_pressure_listener.h " +
+         "../../base/metrics/histogram_base.h " +
+         "../../base/task/task_traits.h " +
+         "\n " +
+         "fi",
+    out: [
+        "base/base_android_java_enums_srcjar.srcjar",
+    ],
+    tool_files: [
+        "base/android/application_status_listener.h",
+        "base/android/child_process_binding_types.h",
+        "base/android/library_loader/library_loader_hooks.h",
+        "base/android/linker/modern_linker_jni.h",
+        "base/android/task_scheduler/task_runner_android.h",
+        "base/memory/memory_pressure_listener.h",
+        "base/metrics/histogram_base.h",
+        "base/task/task_traits.h",
+        "build/android/gyp/java_cpp_enum.py",
+    ],
+}
+
+// GN: //base:base_java_aidl
+cc_genrule {
+    name: "cronet_aml_base_base_java_aidl",
+    cmd: " " +
+         "if [[ $$CC_ARCH == 'x86_64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/aidl.py) --aidl-path " +
+         "../../third_party/android_sdk/public/build-tools/33.0.0/aidl " +
+         "--imports " +
+         "[\"../../third_party/android_sdk/public/platforms/android-33/framework.aidl\"] " +
+         "--srcjar " +
+         "gen/base/base_java_aidl.srcjar " +
+         "--depfile " +
+         "gen/base/base_java_aidl.d " +
+         "--includes " +
+         "[\"../../base/android/java/src\"] " +
+         "../../base/android/java/src/org/chromium/base/process_launcher/IChildProcessService.aidl " +
+         "../../base/android/java/src/org/chromium/base/process_launcher/IParentProcess.aidl " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'x86' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/aidl.py) --aidl-path " +
+         "../../third_party/android_sdk/public/build-tools/33.0.0/aidl " +
+         "--imports " +
+         "[\"../../third_party/android_sdk/public/platforms/android-33/framework.aidl\"] " +
+         "--srcjar " +
+         "gen/base/base_java_aidl.srcjar " +
+         "--depfile " +
+         "gen/base/base_java_aidl.d " +
+         "--includes " +
+         "[\"../../base/android/java/src\"] " +
+         "../../base/android/java/src/org/chromium/base/process_launcher/IChildProcessService.aidl " +
+         "../../base/android/java/src/org/chromium/base/process_launcher/IParentProcess.aidl " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'arm64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/aidl.py) --aidl-path " +
+         "../../third_party/android_sdk/public/build-tools/33.0.0/aidl " +
+         "--imports " +
+         "[\"../../third_party/android_sdk/public/platforms/android-33/framework.aidl\"] " +
+         "--srcjar " +
+         "gen/base/base_java_aidl.srcjar " +
+         "--depfile " +
+         "gen/base/base_java_aidl.d " +
+         "--includes " +
+         "[\"../../base/android/java/src\"] " +
+         "../../base/android/java/src/org/chromium/base/process_launcher/IChildProcessService.aidl " +
+         "../../base/android/java/src/org/chromium/base/process_launcher/IParentProcess.aidl " +
+         "\n " +
+         "fi",
+    out: [
+        "base/base_java_aidl.srcjar",
+    ],
+    tool_files: [
+        "base/android/java/src/org/chromium/base/process_launcher/IChildProcessService.aidl",
+        "base/android/java/src/org/chromium/base/process_launcher/IParentProcess.aidl",
+        "build/android/gyp/aidl.py",
+    ],
+}
+
 // GN: //base:base_jni_headers
 cc_genrule {
     name: "cronet_aml_base_base_jni_headers",
@@ -2917,6 +3037,96 @@ cc_genrule {
     ],
 }
 
+// GN: //base:java_features_srcjar
+cc_genrule {
+    name: "cronet_aml_base_java_features_srcjar",
+    srcs: [
+        "base/android/base_features.cc",
+        "base/features.cc",
+        "base/task/task_features.cc",
+    ],
+    cmd: " " +
+         "if [[ $$CC_ARCH == 'x86_64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_features.py) --srcjar " +
+         "gen/base/java_features_srcjar.srcjar " +
+         "--template " +
+         "../../base/android/java/src/org/chromium/base/BaseFeatures.java.tmpl " +
+         "../../base/android/base_features.cc " +
+         "../../base/features.cc " +
+         "../../base/task/task_features.cc " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'x86' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_features.py) --srcjar " +
+         "gen/base/java_features_srcjar.srcjar " +
+         "--template " +
+         "../../base/android/java/src/org/chromium/base/BaseFeatures.java.tmpl " +
+         "../../base/android/base_features.cc " +
+         "../../base/features.cc " +
+         "../../base/task/task_features.cc " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'arm64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_features.py) --srcjar " +
+         "gen/base/java_features_srcjar.srcjar " +
+         "--template " +
+         "../../base/android/java/src/org/chromium/base/BaseFeatures.java.tmpl " +
+         "../../base/android/base_features.cc " +
+         "../../base/features.cc " +
+         "../../base/task/task_features.cc " +
+         "\n " +
+         "fi",
+    out: [
+        "base/java_features_srcjar.srcjar",
+    ],
+    tool_files: [
+        "base/android/java/src/org/chromium/base/BaseFeatures.java.tmpl",
+        "build/android/gyp/java_cpp_features.py",
+    ],
+}
+
+// GN: //base:java_switches_srcjar
+cc_genrule {
+    name: "cronet_aml_base_java_switches_srcjar",
+    srcs: [
+        "base/base_switches.cc",
+    ],
+    cmd: " " +
+         "if [[ $$CC_ARCH == 'x86_64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_strings.py) --srcjar " +
+         "gen/base/java_switches_srcjar.srcjar " +
+         "--template " +
+         "../../base/android/java/src/org/chromium/base/BaseSwitches.java.tmpl " +
+         "../../base/base_switches.cc " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'x86' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_strings.py) --srcjar " +
+         "gen/base/java_switches_srcjar.srcjar " +
+         "--template " +
+         "../../base/android/java/src/org/chromium/base/BaseSwitches.java.tmpl " +
+         "../../base/base_switches.cc " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'arm64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_strings.py) --srcjar " +
+         "gen/base/java_switches_srcjar.srcjar " +
+         "--template " +
+         "../../base/android/java/src/org/chromium/base/BaseSwitches.java.tmpl " +
+         "../../base/base_switches.cc " +
+         "\n " +
+         "fi",
+    out: [
+        "base/java_switches_srcjar.srcjar",
+    ],
+    tool_files: [
+        "base/android/java/src/org/chromium/base/BaseSwitches.java.tmpl",
+        "build/android/gyp/java_cpp_strings.py",
+    ],
+}
+
 // GN: //base:logging_buildflags
 cc_genrule {
     name: "cronet_aml_base_logging_buildflags",
@@ -3836,6 +4046,104 @@ cc_genrule {
     ],
     tool_files: [
         "build/write_buildflag_header.py",
+    ],
+}
+
+// GN: //build/android:build_config_gen
+cc_genrule {
+    name: "cronet_aml_build_android_build_config_gen",
+    cmd: " " +
+         "if [[ $$CC_ARCH == 'x86_64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/gcc_preprocess.py) --include-dirs " +
+         "[\"../../\", \"gen\"] " +
+         "--output " +
+         "gen/build/android/build_config_gen.srcjar " +
+         "--define " +
+         "_ENABLE_ASSERTS " +
+         "../../build/android/java/templates/BuildConfig.template " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'x86' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/gcc_preprocess.py) --include-dirs " +
+         "[\"../../\", \"gen\"] " +
+         "--output " +
+         "gen/build/android/build_config_gen.srcjar " +
+         "--define " +
+         "_ENABLE_ASSERTS " +
+         "../../build/android/java/templates/BuildConfig.template " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'arm' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/gcc_preprocess.py) --include-dirs " +
+         "[\"../../\", \"gen\"] " +
+         "--output " +
+         "gen/build/android/build_config_gen.srcjar " +
+         "--define " +
+         "_ENABLE_ASSERTS " +
+         "../../build/android/java/templates/BuildConfig.template " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'arm64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/gcc_preprocess.py) --include-dirs " +
+         "[\"../../\", \"gen\"] " +
+         "--output " +
+         "gen/build/android/build_config_gen.srcjar " +
+         "--define " +
+         "_ENABLE_ASSERTS " +
+         "../../build/android/java/templates/BuildConfig.template " +
+         "\n " +
+         "fi",
+    out: [
+        "build/android/build_config_gen.srcjar",
+    ],
+    tool_files: [
+        "build/android/gyp/gcc_preprocess.py",
+        "build/android/java/templates/BuildConfig.template",
+    ],
+}
+
+// GN: //build/android:native_libraries_gen
+cc_genrule {
+    name: "cronet_aml_build_android_native_libraries_gen",
+    cmd: " " +
+         "if [[ $$CC_ARCH == 'x86_64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/write_native_libraries_java.py) --output " +
+         "gen/build/android/native_libraries_gen.srcjar " +
+         "--cpu-family " +
+         "CPU_FAMILY_X86 " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'x86' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/write_native_libraries_java.py) --output " +
+         "gen/build/android/native_libraries_gen.srcjar " +
+         "--cpu-family " +
+         "CPU_FAMILY_X86 " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'arm' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/write_native_libraries_java.py) --output " +
+         "gen/build/android/native_libraries_gen.srcjar " +
+         "--cpu-family " +
+         "CPU_FAMILY_ARM " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'arm64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/write_native_libraries_java.py) --output " +
+         "gen/build/android/native_libraries_gen.srcjar " +
+         "--cpu-family " +
+         "CPU_FAMILY_ARM " +
+         "\n " +
+         "fi",
+    out: [
+        "build/android/native_libraries_gen.srcjar",
+    ],
+    tool_files: [
+        "build/android/gyp/util/__init__.py",
+        "build/android/gyp/util/build_utils.py",
+        "build/android/gyp/write_native_libraries_java.py",
+        "build/gn_helpers.py",
     ],
 }
 
@@ -5279,6 +5587,386 @@ cc_object {
             ],
         },
     },
+}
+
+// GN: //components/cronet/android:http_cache_type_java
+cc_genrule {
+    name: "cronet_aml_components_cronet_android_http_cache_type_java",
+    cmd: " " +
+         "if [[ $$CC_ARCH == 'x86_64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/components/cronet/android/http_cache_type_java.srcjar " +
+         "../../components/cronet/url_request_context_config.h " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'x86' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/components/cronet/android/http_cache_type_java.srcjar " +
+         "../../components/cronet/url_request_context_config.h " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'arm64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/components/cronet/android/http_cache_type_java.srcjar " +
+         "../../components/cronet/url_request_context_config.h " +
+         "\n " +
+         "fi",
+    out: [
+        "components/cronet/android/http_cache_type_java.srcjar",
+    ],
+    tool_files: [
+        "build/android/gyp/java_cpp_enum.py",
+        "components/cronet/url_request_context_config.h",
+    ],
+}
+
+// GN: //components/cronet/android:implementation_api_version
+cc_genrule {
+    name: "cronet_aml_components_cronet_android_implementation_api_version",
+    cmd: " " +
+         "if [[ $$CC_ARCH == 'x86_64' ]]\n " +
+         "then\n " +
+         "$(location build/util/version.py) -f " +
+         "$(location chrome/VERSION) " +
+         "-f " +
+         "$(location build/util/LASTCHANGE) " +
+         "-e " +
+         "API_LEVEL='20' " +
+         " " +
+         "-o " +
+         "$(out) " +
+         "$(location components/cronet/android/java/src/org/chromium/net/impl/ImplVersion.template) " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'x86' ]]\n " +
+         "then\n " +
+         "$(location build/util/version.py) -f " +
+         "$(location chrome/VERSION) " +
+         "-f " +
+         "$(location build/util/LASTCHANGE) " +
+         "-e " +
+         "API_LEVEL='20' " +
+         " " +
+         "-o " +
+         "$(out) " +
+         "$(location components/cronet/android/java/src/org/chromium/net/impl/ImplVersion.template) " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'arm64' ]]\n " +
+         "then\n " +
+         "$(location build/util/version.py) -f " +
+         "$(location chrome/VERSION) " +
+         "-f " +
+         "$(location build/util/LASTCHANGE) " +
+         "-e " +
+         "API_LEVEL='20' " +
+         " " +
+         "-o " +
+         "$(out) " +
+         "$(location components/cronet/android/java/src/org/chromium/net/impl/ImplVersion.template) " +
+         "\n " +
+         "fi",
+    out: [
+        "components/cronet/android/templates/org/chromium/net/impl/ImplVersion.java",
+    ],
+    tool_files: [
+        "build/util/LASTCHANGE",
+        "build/util/android_chrome_version.py",
+        "build/util/version.py",
+        "chrome/VERSION",
+        "components/cronet/android/java/src/org/chromium/net/impl/ImplVersion.template",
+    ],
+}
+
+// GN: //components/cronet/android:integrated_mode_state
+cc_genrule {
+    name: "cronet_aml_components_cronet_android_integrated_mode_state",
+    cmd: " " +
+         "if [[ $$CC_ARCH == 'x86_64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/gcc_preprocess.py) --include-dirs " +
+         "[\"../../\", \"gen\"] " +
+         "--output " +
+         "gen/components/cronet/android/integrated_mode_state.srcjar " +
+         "../../components/cronet/android/java/src/org/chromium/net/impl/IntegratedModeState.template " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'x86' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/gcc_preprocess.py) --include-dirs " +
+         "[\"../../\", \"gen\"] " +
+         "--output " +
+         "gen/components/cronet/android/integrated_mode_state.srcjar " +
+         "../../components/cronet/android/java/src/org/chromium/net/impl/IntegratedModeState.template " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'arm64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/gcc_preprocess.py) --include-dirs " +
+         "[\"../../\", \"gen\"] " +
+         "--output " +
+         "gen/components/cronet/android/integrated_mode_state.srcjar " +
+         "../../components/cronet/android/java/src/org/chromium/net/impl/IntegratedModeState.template " +
+         "\n " +
+         "fi",
+    out: [
+        "components/cronet/android/integrated_mode_state.srcjar",
+    ],
+    tool_files: [
+        "build/android/gyp/gcc_preprocess.py",
+        "components/cronet/android/java/src/org/chromium/net/impl/IntegratedModeState.template",
+    ],
+}
+
+// GN: //components/cronet/android:interface_api_version
+cc_genrule {
+    name: "cronet_aml_components_cronet_android_interface_api_version",
+    cmd: " " +
+         "if [[ $$CC_ARCH == 'x86_64' ]]\n " +
+         "then\n " +
+         "$(location build/util/version.py) -f " +
+         "$(location chrome/VERSION) " +
+         "-f " +
+         "$(location build/util/LASTCHANGE) " +
+         "-e " +
+         "API_LEVEL='20' " +
+         " " +
+         "-o " +
+         "$(out) " +
+         "$(location components/cronet/android/api/src/org/chromium/net/ApiVersion.template) " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'x86' ]]\n " +
+         "then\n " +
+         "$(location build/util/version.py) -f " +
+         "$(location chrome/VERSION) " +
+         "-f " +
+         "$(location build/util/LASTCHANGE) " +
+         "-e " +
+         "API_LEVEL='20' " +
+         " " +
+         "-o " +
+         "$(out) " +
+         "$(location components/cronet/android/api/src/org/chromium/net/ApiVersion.template) " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'arm64' ]]\n " +
+         "then\n " +
+         "$(location build/util/version.py) -f " +
+         "$(location chrome/VERSION) " +
+         "-f " +
+         "$(location build/util/LASTCHANGE) " +
+         "-e " +
+         "API_LEVEL='20' " +
+         " " +
+         "-o " +
+         "$(out) " +
+         "$(location components/cronet/android/api/src/org/chromium/net/ApiVersion.template) " +
+         "\n " +
+         "fi",
+    out: [
+        "components/cronet/android/templates/org/chromium/net/ApiVersion.java",
+    ],
+    tool_files: [
+        "build/util/LASTCHANGE",
+        "build/util/android_chrome_version.py",
+        "build/util/version.py",
+        "chrome/VERSION",
+        "components/cronet/android/api/src/org/chromium/net/ApiVersion.template",
+    ],
+}
+
+// GN: //components/cronet/android:load_states_list
+cc_genrule {
+    name: "cronet_aml_components_cronet_android_load_states_list",
+    cmd: " " +
+         "if [[ $$CC_ARCH == 'x86_64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/gcc_preprocess.py) --include-dirs " +
+         "[\"../../\", \"gen\"] " +
+         "--output " +
+         "gen/components/cronet/android/load_states_list.srcjar " +
+         "../../components/cronet/android/java/src/org/chromium/net/impl/LoadState.template " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'x86' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/gcc_preprocess.py) --include-dirs " +
+         "[\"../../\", \"gen\"] " +
+         "--output " +
+         "gen/components/cronet/android/load_states_list.srcjar " +
+         "../../components/cronet/android/java/src/org/chromium/net/impl/LoadState.template " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'arm64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/gcc_preprocess.py) --include-dirs " +
+         "[\"../../\", \"gen\"] " +
+         "--output " +
+         "gen/components/cronet/android/load_states_list.srcjar " +
+         "../../components/cronet/android/java/src/org/chromium/net/impl/LoadState.template " +
+         "\n " +
+         "fi",
+    out: [
+        "components/cronet/android/load_states_list.srcjar",
+    ],
+    tool_files: [
+        "build/android/gyp/gcc_preprocess.py",
+        "components/cronet/android/java/src/org/chromium/net/impl/LoadState.template",
+    ],
+}
+
+// GN: //components/cronet/android:net_idempotency_java
+cc_genrule {
+    name: "cronet_aml_components_cronet_android_net_idempotency_java",
+    cmd: " " +
+         "if [[ $$CC_ARCH == 'x86_64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/components/cronet/android/net_idempotency_java.srcjar " +
+         "../../net/base/idempotency.h " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'x86' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/components/cronet/android/net_idempotency_java.srcjar " +
+         "../../net/base/idempotency.h " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'arm64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/components/cronet/android/net_idempotency_java.srcjar " +
+         "../../net/base/idempotency.h " +
+         "\n " +
+         "fi",
+    out: [
+        "components/cronet/android/net_idempotency_java.srcjar",
+    ],
+    tool_files: [
+        "build/android/gyp/java_cpp_enum.py",
+        "net/base/idempotency.h",
+    ],
+}
+
+// GN: //components/cronet/android:net_request_priority_java
+cc_genrule {
+    name: "cronet_aml_components_cronet_android_net_request_priority_java",
+    cmd: " " +
+         "if [[ $$CC_ARCH == 'x86_64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/components/cronet/android/net_request_priority_java.srcjar " +
+         "../../net/base/request_priority.h " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'x86' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/components/cronet/android/net_request_priority_java.srcjar " +
+         "../../net/base/request_priority.h " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'arm64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/components/cronet/android/net_request_priority_java.srcjar " +
+         "../../net/base/request_priority.h " +
+         "\n " +
+         "fi",
+    out: [
+        "components/cronet/android/net_request_priority_java.srcjar",
+    ],
+    tool_files: [
+        "build/android/gyp/java_cpp_enum.py",
+        "net/base/request_priority.h",
+    ],
+}
+
+// GN: //components/cronet/android:network_quality_observation_source_java
+cc_genrule {
+    name: "cronet_aml_components_cronet_android_network_quality_observation_source_java",
+    cmd: " " +
+         "if [[ $$CC_ARCH == 'x86_64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/components/cronet/android/network_quality_observation_source_java.srcjar " +
+         "../../net/nqe/network_quality_observation_source.h " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'x86' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/components/cronet/android/network_quality_observation_source_java.srcjar " +
+         "../../net/nqe/network_quality_observation_source.h " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'arm64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/components/cronet/android/network_quality_observation_source_java.srcjar " +
+         "../../net/nqe/network_quality_observation_source.h " +
+         "\n " +
+         "fi",
+    out: [
+        "components/cronet/android/network_quality_observation_source_java.srcjar",
+    ],
+    tool_files: [
+        "build/android/gyp/java_cpp_enum.py",
+        "net/nqe/network_quality_observation_source.h",
+    ],
+}
+
+// GN: //components/cronet/android:rtt_throughput_values_java
+cc_genrule {
+    name: "cronet_aml_components_cronet_android_rtt_throughput_values_java",
+    cmd: " " +
+         "if [[ $$CC_ARCH == 'x86_64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/components/cronet/android/rtt_throughput_values_java.srcjar " +
+         "../../net/nqe/network_quality.h " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'x86' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/components/cronet/android/rtt_throughput_values_java.srcjar " +
+         "../../net/nqe/network_quality.h " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'arm64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/components/cronet/android/rtt_throughput_values_java.srcjar " +
+         "../../net/nqe/network_quality.h " +
+         "\n " +
+         "fi",
+    out: [
+        "components/cronet/android/rtt_throughput_values_java.srcjar",
+    ],
+    tool_files: [
+        "build/android/gyp/java_cpp_enum.py",
+        "net/nqe/network_quality.h",
+    ],
+}
+
+// GN: //components/cronet/android:url_request_error_java
+cc_genrule {
+    name: "cronet_aml_components_cronet_android_url_request_error_java",
+    cmd: " " +
+         "if [[ $$CC_ARCH == 'x86_64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/components/cronet/android/url_request_error_java.srcjar " +
+         "../../components/cronet/android/url_request_error.h " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'x86' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/components/cronet/android/url_request_error_java.srcjar " +
+         "../../components/cronet/android/url_request_error.h " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'arm64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/components/cronet/android/url_request_error_java.srcjar " +
+         "../../components/cronet/android/url_request_error.h " +
+         "\n " +
+         "fi",
+    out: [
+        "components/cronet/android/url_request_error_java.srcjar",
+    ],
+    tool_files: [
+        "build/android/gyp/java_cpp_enum.py",
+        "components/cronet/android/url_request_error.h",
+    ],
 }
 
 // GN: //components/cronet:cronet_buildflags
@@ -6743,6 +7431,98 @@ java_library {
     ],
 }
 
+// GN: //net/android:net_android_java_enums_srcjar
+cc_genrule {
+    name: "cronet_aml_net_android_net_android_java_enums_srcjar",
+    srcs: [
+        "net/android/network_change_notifier_android.cc",
+        "net/android/traffic_stats.cc",
+        "net/socket/socket_tag.cc",
+    ],
+    cmd: " " +
+         "if [[ $$CC_ARCH == 'x86_64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/net/android/net_android_java_enums_srcjar.srcjar " +
+         "../../net/base/network_change_notifier.h " +
+         "../../net/socket/socket_tag.cc " +
+         "../../net/android/cert_verify_result_android.h " +
+         "../../net/android/keystore.h " +
+         "../../net/android/network_change_notifier_android.cc " +
+         "../../net/android/traffic_stats.cc " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'x86' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/net/android/net_android_java_enums_srcjar.srcjar " +
+         "../../net/base/network_change_notifier.h " +
+         "../../net/socket/socket_tag.cc " +
+         "../../net/android/cert_verify_result_android.h " +
+         "../../net/android/keystore.h " +
+         "../../net/android/network_change_notifier_android.cc " +
+         "../../net/android/traffic_stats.cc " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'arm64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/net/android/net_android_java_enums_srcjar.srcjar " +
+         "../../net/base/network_change_notifier.h " +
+         "../../net/socket/socket_tag.cc " +
+         "../../net/android/cert_verify_result_android.h " +
+         "../../net/android/keystore.h " +
+         "../../net/android/network_change_notifier_android.cc " +
+         "../../net/android/traffic_stats.cc " +
+         "\n " +
+         "fi",
+    out: [
+        "net/android/net_android_java_enums_srcjar.srcjar",
+    ],
+    tool_files: [
+        "build/android/gyp/java_cpp_enum.py",
+        "net/android/cert_verify_result_android.h",
+        "net/android/keystore.h",
+        "net/base/network_change_notifier.h",
+    ],
+}
+
+// GN: //net/android:net_errors_java
+cc_genrule {
+    name: "cronet_aml_net_android_net_errors_java",
+    cmd: " " +
+         "if [[ $$CC_ARCH == 'x86_64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/gcc_preprocess.py) --include-dirs " +
+         "[\"../../\", \"gen\"] " +
+         "--output " +
+         "gen/net/android/net_errors_java.srcjar " +
+         "../../net/android/java/NetError.template " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'x86' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/gcc_preprocess.py) --include-dirs " +
+         "[\"../../\", \"gen\"] " +
+         "--output " +
+         "gen/net/android/net_errors_java.srcjar " +
+         "../../net/android/java/NetError.template " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'arm64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/gcc_preprocess.py) --include-dirs " +
+         "[\"../../\", \"gen\"] " +
+         "--output " +
+         "gen/net/android/net_errors_java.srcjar " +
+         "../../net/android/java/NetError.template " +
+         "\n " +
+         "fi",
+    out: [
+        "net/android/net_errors_java.srcjar",
+    ],
+    tool_files: [
+        "build/android/gyp/gcc_preprocess.py",
+        "net/android/java/NetError.template",
+    ],
+}
+
 // GN: //net/base/registry_controlled_domains:registry_controlled_domains
 cc_genrule {
     name: "cronet_aml_net_base_registry_controlled_domains_registry_controlled_domains",
@@ -7693,6 +8473,38 @@ cc_object {
             ],
         },
     },
+}
+
+// GN: //net:effective_connection_type_java
+cc_genrule {
+    name: "cronet_aml_net_effective_connection_type_java",
+    cmd: " " +
+         "if [[ $$CC_ARCH == 'x86_64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/net/effective_connection_type_java.srcjar " +
+         "../../net/nqe/effective_connection_type.h " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'x86' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/net/effective_connection_type_java.srcjar " +
+         "../../net/nqe/effective_connection_type.h " +
+         "\n " +
+         "elif [[ $$CC_ARCH == 'arm64' ]]\n " +
+         "then\n " +
+         "$(location build/android/gyp/java_cpp_enum.py) --srcjar " +
+         "gen/net/effective_connection_type_java.srcjar " +
+         "../../net/nqe/effective_connection_type.h " +
+         "\n " +
+         "fi",
+    out: [
+        "net/effective_connection_type_java.srcjar",
+    ],
+    tool_files: [
+        "build/android/gyp/java_cpp_enum.py",
+        "net/nqe/effective_connection_type.h",
+    ],
 }
 
 // GN: //net/http:transport_security_state_generated_files
