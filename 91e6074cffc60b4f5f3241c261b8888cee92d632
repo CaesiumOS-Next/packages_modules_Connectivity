@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "598c2fb9_06a180a5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2689,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-28T03:40:20Z",
+      "side": 1,
+      "message": "If what you need to do is wait for wifi to be default, waiting for validation is not the correct signal at all. You need to registerDefaultNetworkCallback and wait for onAvailable(Network.equals(wifiNetwork)).",
+      "range": {
+        "startLine": 2689,
+        "startChar": 39,
+        "endLine": 2689,
+        "endChar": 61
+      },
+      "revId": "91e6074cffc60b4f5f3241c261b8888cee92d632",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
