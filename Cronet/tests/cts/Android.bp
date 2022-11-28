@@ -35,6 +35,13 @@ java_library {
     ],
 }
 
+java_library {
+    name: "CronetApiTestUtilityLib",
+    srcs: ["testutil/src/**/*.java"],
+    static_libs: [ "junit" ],
+    libs: [ "framework-cronet" ],
+}
+
 android_test {
     name: "CronetApiTest",
     sdk_version: "test_current",
