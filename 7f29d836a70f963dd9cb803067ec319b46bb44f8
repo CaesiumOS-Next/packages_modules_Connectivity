@@ -74,6 +74,230 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "38d62ceb_8e7dbc39",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-28T22:20:25Z",
+      "side": 1,
+      "message": "archs_allowed (falsely) indicates that it holds a boolean. allowed_archs would be a better name for this.",
+      "range": {
+        "startLine": 401,
+        "startChar": 46,
+        "endLine": 401,
+        "endChar": 59
+      },
+      "revId": "7f29d836a70f963dd9cb803067ec319b46bb44f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ae7c7fd_ec60e295",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-28T22:20:25Z",
+      "side": 1,
+      "message": "\"source_module\"",
+      "range": {
+        "startLine": 401,
+        "startChar": 34,
+        "endLine": 401,
+        "endChar": 44
+      },
+      "revId": "7f29d836a70f963dd9cb803067ec319b46bb44f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "094e6ad8_b670f2d1",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-28T22:20:25Z",
+      "side": 1,
+      "message": "Suggest renaming this to \"target_key\" (or potentially just \"key\", as it could serve as both the source \u0026 target key) to better describe the direction of the merge. Parent / child describes a relationship that is not necessarily directional.",
+      "range": {
+        "startLine": 401,
+        "startChar": 22,
+        "endLine": 401,
+        "endChar": 32
+      },
+      "revId": "7f29d836a70f963dd9cb803067ec319b46bb44f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e09c9b5_96a67f0d",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-28T22:20:25Z",
+      "side": 1,
+      "message": "nit: maybe rename this to merge_attribute().\n\nI would also add a one-liner describing what this does.",
+      "range": {
+        "startLine": 401,
+        "startChar": 6,
+        "endLine": 401,
+        "endChar": 15
+      },
+      "revId": "7f29d836a70f963dd9cb803067ec319b46bb44f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b8fc19a_58b424ff",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-28T22:20:25Z",
+      "side": 1,
+      "message": "\"source_key\"",
+      "range": {
+        "startLine": 401,
+        "startChar": 61,
+        "endLine": 401,
+        "endChar": 70
+      },
+      "revId": "7f29d836a70f963dd9cb803067ec319b46bb44f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8739ffee_083e6e2e",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-28T22:20:25Z",
+      "side": 1,
+      "message": "nit: could just be:\n```\nfor arch_name in dep_module.target.keys():\n```",
+      "range": {
+        "startLine": 405,
+        "startChar": 3,
+        "endLine": 405,
+        "endChar": 52
+      },
+      "revId": "7f29d836a70f963dd9cb803067ec319b46bb44f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1992e531_e246a3b3",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-28T22:20:25Z",
+      "side": 1,
+      "message": "I am wondering if we need the source_set_deps or if we could just run this line for all dep_module types. Not sure, something to try I guess.",
+      "range": {
+        "startLine": 967,
+        "startChar": 6,
+        "endLine": 967,
+        "endChar": 75
+      },
+      "revId": "7f29d836a70f963dd9cb803067ec319b46bb44f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60b08997_bf982e0d",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 968,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-28T22:20:25Z",
+      "side": 1,
+      "message": "FWIW, previously we did not support multiple levels of source_sets. Is this something that is actually used? The code here makes me think the answer is yes. Do you know what we\u0027ve been missing? (If it\u0027s not required to support this case, we could skip past the deps like we do for modules that are not compiled (line 960))",
+      "range": {
+        "startLine": 968,
+        "startChar": 6,
+        "endLine": 968,
+        "endChar": 36
+      },
+      "revId": "7f29d836a70f963dd9cb803067ec319b46bb44f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bddb363_c2dbbb63",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-28T22:20:25Z",
+      "side": 1,
+      "message": "could we just skip past cc_objects without source altogether?\n\nsomething like\n```\nelif target.type \u003d\u003d \u0027source_set\u0027:\n    if not target.has_sources():\n      return None\n    module \u003d Module(\u0027cc_object\u0027, bp_module_name, gn_target_name)\n```\n\notherwise, the empty target is still created, it\u0027s just not reached, right?",
+      "range": {
+        "startLine": 969,
+        "startChar": 0,
+        "endLine": 972,
+        "endChar": 48
+      },
+      "revId": "7f29d836a70f963dd9cb803067ec319b46bb44f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f07b498_1c6c0b51",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 973,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-28T22:20:25Z",
+      "side": 1,
+      "message": "Is the export actually needed if source_set_deps are bubbled up?",
+      "revId": "7f29d836a70f963dd9cb803067ec319b46bb44f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "54ad4a32_61c66bca",
         "filename": "tools/gn2bp/gn_utils.py",
         "patchSetId": 7
