@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e9584fd_1fbc968d",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-11-28T22:17:25Z",
+      "side": 1,
+      "message": "For completeness, would suggest verifying mNewDestinationAddress as well",
+      "range": {
+        "startLine": 670,
+        "startChar": 19,
+        "endLine": 670,
+        "endChar": 44
+      },
+      "revId": "17a5c04b1b05f0061958f46d550c735f4a21e901",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
