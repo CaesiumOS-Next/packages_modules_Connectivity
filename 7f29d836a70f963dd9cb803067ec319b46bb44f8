@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "917fdfb5_4083e696",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-11-28T17:29:19Z",
+      "side": 1,
+      "message": "https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2318819",
+      "parentUuid": "456f7fd0_6de71dd8",
+      "range": {
+        "startLine": 399,
+        "startChar": 33,
+        "endLine": 399,
+        "endChar": 94
+      },
+      "revId": "7f29d836a70f963dd9cb803067ec319b46bb44f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54ad4a32_61c66bca",
