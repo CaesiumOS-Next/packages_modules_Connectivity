@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12a771b0_02ac8576",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsPacketRepeater.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-28T03:35:54Z",
+      "side": 1,
+      "message": "I used that because I\u0027d prefer to have all the advertisement code log with the same Log.isLoggable condition; but added a local member that just uses MdnsAdvertiser.DBG explicitly.",
+      "parentUuid": "ed13d962_74c26837",
+      "range": {
+        "startLine": 113,
+        "startChar": 16,
+        "endLine": 113,
+        "endChar": 34
+      },
+      "revId": "6dc7dadbb030dfdedeb819d65857b696f0843dc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa9e50e9_5f3cda4e",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-11-22T14:25:02Z",
       "side": 1,
       "message": "Call `mCb.onSent()` to notify the package was sent?",
+      "range": {
+        "startLine": 123,
+        "startChar": 12,
+        "endLine": 123,
+        "endChar": 13
+      },
+      "revId": "6dc7dadbb030dfdedeb819d65857b696f0843dc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "378bd5e8_cd6778ae",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsPacketRepeater.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-28T03:35:54Z",
+      "side": 1,
+      "message": "Done\n\nAlso added test in MdnsAnnouncerTest",
+      "parentUuid": "aa9e50e9_5f3cda4e",
       "range": {
         "startLine": 123,
         "startChar": 12,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00723739_cfa1f074",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsPacketRepeater.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-28T03:35:54Z",
+      "side": 1,
+      "message": "As discussed in last meeting this shouldn\u0027t happen as this method is run in the looper thread; added a comment",
+      "parentUuid": "9de0ab1a_2f50257c",
+      "range": {
+        "startLine": 163,
+        "startChar": 12,
+        "endLine": 163,
+        "endChar": 36
+      },
+      "revId": "6dc7dadbb030dfdedeb819d65857b696f0843dc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e2d2e28_85b98a38",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-11-22T14:25:02Z",
       "side": 1,
       "message": "mDns",
+      "range": {
+        "startLine": 28,
+        "startChar": 32,
+        "endLine": 28,
+        "endChar": 36
+      },
+      "revId": "6dc7dadbb030dfdedeb819d65857b696f0843dc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "352180bc_c87b5610",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsReplySender.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-28T03:35:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e2d2e28_85b98a38",
       "range": {
         "startLine": 28,
         "startChar": 32,
