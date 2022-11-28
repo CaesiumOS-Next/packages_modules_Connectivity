@@ -22,6 +22,7 @@ java_library {
     name: "CronetApiCommonTests",
     srcs: ["src/**/*.java"],
     static_libs: [
+        "CronetApiTestUtilityLib",
         "androidx.test.rules",
         "androidx.core_core",
         "junit",
@@ -33,6 +34,13 @@ java_library {
         "androidx.annotation_annotation",
         "framework-cronet",
     ],
+}
+
+java_library {
+    name: "CronetApiTestUtilityLib",
+    srcs: ["testutil/src/**/*.java"],
+    static_libs: [ "junit" ],
+    libs: [ "framework-cronet" ],
 }
 
 android_test {
