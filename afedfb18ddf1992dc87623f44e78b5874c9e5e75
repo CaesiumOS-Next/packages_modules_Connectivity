@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a5c4134_b07cff36",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-28T22:39:36Z",
+      "side": 0,
+      "message": "this is *technically* still correct though",
+      "range": {
+        "startLine": 393,
+        "startChar": 17,
+        "endLine": 393,
+        "endChar": 43
+      },
+      "revId": "afedfb18ddf1992dc87623f44e78b5874c9e5e75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

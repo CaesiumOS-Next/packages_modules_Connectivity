@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25822ebf_10f111cd",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-28T22:39:36Z",
+      "side": 1,
+      "message": "I know what you mean, but this is not technically correct. 😊",
+      "range": {
+        "startLine": 918,
+        "startChar": 6,
+        "endLine": 918,
+        "endChar": 28
+      },
+      "revId": "1de6cb10d3e64ce22ae70e6d3de348db94173c8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5a87918_b6c4750e",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-28T22:39:36Z",
+      "side": 1,
+      "message": "Could we set these for all target types now? (cc_object and cc_genrule should both support these, right?). Otherwise, I would put these lines right after line 862.",
+      "range": {
+        "startLine": 920,
+        "startChar": 0,
+        "endLine": 921,
+        "endChar": 55
+      },
+      "revId": "1de6cb10d3e64ce22ae70e6d3de348db94173c8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f941790_04ddb0af",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-28T22:39:36Z",
+      "side": 1,
+      "message": "add genrule and cc_genrule (back) to is_compiled() and this won\u0027t change. Same for line 979.",
+      "range": {
+        "startLine": 923,
+        "startChar": 0,
+        "endLine": 923,
+        "endChar": 54
+      },
+      "revId": "1de6cb10d3e64ce22ae70e6d3de348db94173c8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83b52b07_9a4bba38",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-28T22:39:36Z",
+      "side": 1,
+      "message": "I remember this being here at some point, do you know why it was removed?",
+      "range": {
+        "startLine": 945,
+        "startChar": 0,
+        "endLine": 947,
+        "endChar": 62
+      },
+      "revId": "1de6cb10d3e64ce22ae70e6d3de348db94173c8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
