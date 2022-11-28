@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32ad9005_781fa8c4",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1245797
+      },
+      "writtenOn": "2022-11-28T22:46:41Z",
+      "side": 1,
+      "message": "`executeShellCommand(\"dumpsys batterystats\");` should be sufficient to reliably trigger a full sync of data.",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 60
+      },
+      "revId": "50a59eb021e4abd041dac566d4accd4959ea5a1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
