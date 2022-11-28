@@ -36,9 +36,8 @@ ODR_VIOLATION_IGNORE_TARGETS = {
     '//test/cts:perfetto_cts_deps',
     '//:perfetto_integrationtests',
 }
-ARCH_REGEX = r'(android_x86_64|android_x86|android_arm|android_arm64|host)'
-DEX_REGEX = '.*__dex__%s$' % ARCH_REGEX
-COMPILE_JAVA_REGEX = '.*__compile_java__%s$' % ARCH_REGEX
+DEX_REGEX = '.*__dex$'
+COMPILE_JAVA_REGEX = '.*__compile_java$'
 def repo_root():
   """Returns an absolute path to the repository root."""
   return os.path.join(
@@ -106,6 +105,8 @@ class GnParser(object):
         self.deps = set()
         self.transitive_static_libs_deps = set()
         self.source_set_deps = set()
+        self.args = []
+        self.response_file_contents = None
 
 
     def __init__(self, name, type):
@@ -135,7 +136,6 @@ class GnParser(object):
       self.outputs = set()
       self.script = None
       self.args = []
-      self.response_file_contents = None
 
       # These variables are propagated up when encountering a dependency
       # on a source_set target.
@@ -202,6 +202,10 @@ class GnParser(object):
       self.include_dirs = set.intersection(*[arch.include_dirs for arch in self.arch.values()])
       self.deps.update(set.intersection(*[arch.deps for arch in self.arch.values()]))
       self.source_set_deps.update(set.intersection(*[arch.source_set_deps for arch in self.arch.values()]))
+
+      # Target contains the union of all args in the format of
+      # [(arch_1, list_of_args_1), (arch_2, list_of_args_2), ..]
+      self.args = [(arch_name, arch.args) for arch_name, arch in self.arch.items()]
 
       # Deduplicate arch-dependent properties
       for arch in self.arch.keys():
@@ -278,13 +282,6 @@ class GnParser(object):
     type_ = desc['type']
     arch = self._get_arch(desc['toolchain'])
 
-    # Action modules can differ depending on the target architecture, yet
-    # genrule's do not allow to overload cmd per target OS / arch.  Create a
-    # separate action for every architecture.
-    # Cover both action and action_foreach
-    if type_.startswith('action'):
-      target_name += '__' + arch
-
     target = self.all_targets.get(target_name)
     if target is None:
       target = GnParser.Target(target_name, type_)
@@ -323,8 +320,8 @@ class GnParser(object):
       outs = [re.sub('^//out/.+?/gen/', '', x) for x in desc['outputs']]
       target.outputs.update(outs)
       target.script = desc['script']
-      target.args = desc['args']
-      target.response_file_contents = self._get_response_file_contents(desc)
+      target.arch[arch].args = desc['args']
+      target.arch[arch].response_file_contents = self._get_response_file_contents(desc)
     elif target.type == 'copy':
       # TODO: copy rules are not currently implemented.
       self.actions[gn_target_name] = target
