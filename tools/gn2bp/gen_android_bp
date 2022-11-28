@@ -399,9 +399,6 @@ class Module(object):
     return self.type == "cc_genrule"
 
   def has_input_files(self):
-    for target in self.target.values():
-      if len(target.srcs) > 0:
-        return True
     return len(self.srcs) > 0 or any([len(target.srcs) > 0 for target in self.target.values()])
 
   def merge_key(self, parent_key, dep_module, archs_allowed, child_key = None):
