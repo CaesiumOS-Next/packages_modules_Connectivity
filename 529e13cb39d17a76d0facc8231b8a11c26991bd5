@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36dd0891_378f64e5",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsPacketRepeater.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-28T14:39:26Z",
+      "side": 1,
+      "message": "If `nextIndex \u003e\u003d request.getNumSends()` and `mCb !\u003d null`, why not call `mCb.onFinished(request)` immediately?",
+      "range": {
+        "startLine": 133,
+        "startChar": 16,
+        "endLine": 133,
+        "endChar": 90
+      },
+      "revId": "529e13cb39d17a76d0facc8231b8a11c26991bd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
