@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5615496b_f692baca",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1272,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-11-28T02:21:26Z",
+      "side": 1,
+      "message": "Why don\u0027t you just verify the nc and lp inside the extra of the intent?",
+      "range": {
+        "startLine": 1272,
+        "startChar": 12,
+        "endLine": 1272,
+        "endChar": 13
+      },
+      "revId": "a91f40671c7f2092c9fdb270cb7690f62d3b16aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94493e0d_b61f22a8",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1279,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-11-28T02:21:26Z",
+      "side": 1,
+      "message": "VpnManager.CATEGORY_EVENT_IKE_ERROR.equals(category)",
+      "range": {
+        "startLine": 1279,
+        "startChar": 16,
+        "endLine": 1279,
+        "endChar": 63
+      },
+      "revId": "a91f40671c7f2092c9fdb270cb7690f62d3b16aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
