@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "758e1d50_0387a601",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-11-28T02:47:31Z",
+      "side": 1,
+      "message": "Isn\u0027t it duplicated with above 3 lines?",
+      "range": {
+        "startLine": 399,
+        "startChar": 33,
+        "endLine": 399,
+        "endChar": 94
+      },
+      "revId": "7f29d836a70f963dd9cb803067ec319b46bb44f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54ad4a32_61c66bca",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-11-28T02:47:31Z",
+      "side": 1,
+      "message": "Can we remove this?",
+      "range": {
+        "startLine": 402,
+        "startChar": 0,
+        "endLine": 403,
+        "endChar": 66
+      },
+      "revId": "7f29d836a70f963dd9cb803067ec319b46bb44f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
