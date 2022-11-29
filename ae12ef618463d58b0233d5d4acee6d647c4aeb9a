@@ -22,6 +22,30 @@
       },
       "revId": "ae12ef618463d58b0233d5d4acee6d647c4aeb9a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fb2309e_db26f3d7",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-29T13:38:51Z",
+      "side": 1,
+      "message": "I discussed this with Jean last week.\nCurrently there are no U apps in the world, so developer can still use T sdk to develop their apps. When they receive U update, they would notice that the APIs are marked maxTargetSdk as T and they should replace the deprecated API with the alternatives.\nIf mark this as U, it means that the API is still available for U and it\u0027s deprecated at V.",
+      "parentUuid": "73d16670_8e621676",
+      "range": {
+        "startLine": 230,
+        "startChar": 40,
+        "endLine": 230,
+        "endChar": 68
+      },
+      "revId": "ae12ef618463d58b0233d5d4acee6d647c4aeb9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
