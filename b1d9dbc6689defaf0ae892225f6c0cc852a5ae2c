@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "401e77d2_e6840014",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-11-29T07:53:24Z",
+      "side": 1,
+      "message": "private ?",
+      "range": {
+        "startLine": 109,
+        "startChar": 4,
+        "endLine": 109,
+        "endChar": 13
+      },
+      "revId": "b1d9dbc6689defaf0ae892225f6c0cc852a5ae2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b01aa1ac_3df2aac8",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-11-29T07:53:24Z",
+      "side": 1,
+      "message": "make this private ?",
+      "range": {
+        "startLine": 110,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 13
+      },
+      "revId": "b1d9dbc6689defaf0ae892225f6c0cc852a5ae2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebc7d36c_0d325dd9",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-11-29T07:53:24Z",
+      "side": 1,
+      "message": "These doesn\u0027t use in EthernetTetheringTestBase, move them out of this file ?",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 93
+      },
+      "revId": "b1d9dbc6689defaf0ae892225f6c0cc852a5ae2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43843791_16d9b618",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-11-29T07:53:24Z",
+      "side": 1,
+      "message": "Probably make those protected static variable be public ?",
+      "range": {
+        "startLine": 119,
+        "startChar": 4,
+        "endLine": 119,
+        "endChar": 13
+      },
+      "revId": "b1d9dbc6689defaf0ae892225f6c0cc852a5ae2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99ab069f_f8a8eff0",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-11-29T07:53:24Z",
+      "side": 1,
+      "message": "private ?",
+      "range": {
+        "startLine": 149,
+        "startChar": 4,
+        "endLine": 149,
+        "endChar": 13
+      },
+      "revId": "b1d9dbc6689defaf0ae892225f6c0cc852a5ae2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8a40897_0e642207",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-11-29T07:53:24Z",
+      "side": 1,
+      "message": "I think these non-static protected variable hurt the readability that it define in here but could be change in multiple files.\n\nI prefer move all non-static protected variable back to EtherentTetheringTest.",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 63
+      },
+      "revId": "b1d9dbc6689defaf0ae892225f6c0cc852a5ae2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30b11a1d_ea9539b4",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-11-29T07:53:24Z",
+      "side": 1,
+      "message": "I think move setUp/tearDown to base class lose the readability. Probably move them back to EthernetTetheringTest ?\n\nYou can have some comment functions instead, e.g.:\n\npublic Handler createHandlerThread() {\n    mHandlerThread \u003d new HandlerThread(getClass().getSimpleName());\n    mHandlerThread.start();\n    return new Handler(mHandlerThread.getLooper());\n}\n\npublic boolean assumeTetheringSupported {\n    mRunTests \u003d runAsShell(NETWORK_SETTINGS, TETHER_PRIVILEGED, () -\u003e\n            mTm.isTetheringSupported());\n    assumeTrue(mRunTests);\n    \n    return mRunTests;\n}",
+      "range": {
+        "startLine": 178,
+        "startChar": 4,
+        "endLine": 178,
+        "endChar": 42
+      },
+      "revId": "b1d9dbc6689defaf0ae892225f6c0cc852a5ae2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
