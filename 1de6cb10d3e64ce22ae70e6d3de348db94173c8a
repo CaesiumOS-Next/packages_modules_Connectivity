@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ed1dd08_4c8e7227",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-11-29T14:05:13Z",
+      "side": 1,
+      "message": "Okay. added it back to the not_compiled.",
+      "parentUuid": "25822ebf_10f111cd",
+      "range": {
+        "startLine": 918,
+        "startChar": 6,
+        "endLine": 918,
+        "endChar": 28
+      },
+      "revId": "1de6cb10d3e64ce22ae70e6d3de348db94173c8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5a87918_b6c4750e",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db42319d_62d7ec09",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-11-29T14:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5a87918_b6c4750e",
+      "range": {
+        "startLine": 920,
+        "startChar": 0,
+        "endLine": 921,
+        "endChar": 55
+      },
+      "revId": "1de6cb10d3e64ce22ae70e6d3de348db94173c8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f941790_04ddb0af",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-11-28T22:39:36Z",
       "side": 1,
       "message": "add genrule and cc_genrule (back) to is_compiled() and this won\u0027t change. Same for line 979.",
+      "range": {
+        "startLine": 923,
+        "startChar": 0,
+        "endLine": 923,
+        "endChar": 54
+      },
+      "revId": "1de6cb10d3e64ce22ae70e6d3de348db94173c8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd2c2140_704a9a4f",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-11-29T14:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f941790_04ddb0af",
       "range": {
         "startLine": 923,
         "startChar": 0,
