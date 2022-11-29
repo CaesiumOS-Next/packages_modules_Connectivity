@@ -89,6 +89,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -1423,6 +1424,47 @@ public class ConnectivityManager {
         }
         try {
             mService.setRequireVpnForUids(requireVpn, rangesArray);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * An overloading method of setRequireVpnForUids(boolean, Collection<Range<Integer>>).
+     *
+     * Calling this method with false for isVpnPreference will call
+     * setRequireVpnForUids(boolean, Collection<Range<Integer>>) directly.
+     *
+     * Calling this method with true for isVpnPreference will call setVpnNetworkPreference() to
+     * overwrite the existing network preference, and the specified UIDs won't get any system
+     * default network when VPN is disconnected.
+     *
+     * @param requireVpn whether the specified UID ranges must use a VPN.
+     * @param isVpnPreference A boolean to indicate that the VPN network preference feature is
+     *                        enabled or not.
+     * @param uids The uid ranges which will treat VPN as the only preferred network.
+     * @hide
+     */
+    @RequiresPermission(anyOf = {
+            NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK,
+            android.Manifest.permission.NETWORK_STACK,
+            android.Manifest.permission.NETWORK_SETTINGS})
+    @SystemApi(client = MODULE_LIBRARIES)
+    public void setRequireVpnForUids(boolean requireVpn, boolean isVpnPreference,
+            @NonNull Set<Range<Integer>> uids) {
+        Objects.requireNonNull(uids);
+        if (!isVpnPreference) {
+            setRequireVpnForUids(requireVpn, uids);
+            return;
+        }
+        // Convert to UidRange since Range class is not parcelable.
+        final UidRange[] rangesArray = new UidRange[uids.size()];
+        int index = 0;
+        for (Range<Integer> range : uids) {
+            rangesArray[index++] = new UidRange(range.getLower(), range.getUpper());
+        }
+        try {
+            mService.setVpnNetworkPreference(rangesArray);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
