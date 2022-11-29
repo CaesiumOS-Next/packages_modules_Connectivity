@@ -317,8 +317,10 @@ public class Tethering {
                         return mConfig;
                     }
                 });
-        mUpstreamNetworkMonitor = mDeps.getUpstreamNetworkMonitor(mContext, mTetherMainSM, mLog,
-                TetherMainSM.EVENT_UPSTREAM_CALLBACK);
+        mUpstreamNetworkMonitor = mDeps.getUpstreamNetworkMonitor(mContext, mHandler, mLog,
+                (which, obj) -> {
+                    mTetherMainSM.sendMessage(TetherMainSM.EVENT_UPSTREAM_CALLBACK, which, 0, obj);
+                });
         mForwardedDownstreams = new HashSet<>();
 
         IntentFilter filter = new IntentFilter();
@@ -2835,5 +2837,10 @@ public class Tethering {
                 listener.onResult(TETHER_ERROR_NO_ERROR);
             } catch (RemoteException e) { }
         });
+    }
+
+    @VisibleForTesting
+    public TetherMainSM getTetherMainSMForTesting() {
+        return mTetherMainSM;
     }
 }
