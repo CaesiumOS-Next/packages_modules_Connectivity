@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73d16670_8e621676",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-29T03:05:49Z",
+      "side": 1,
+      "message": "Just want to double confirm, when we want to deprecate API like this, and we already pass T release timeframe, is it ok to maxTargetSdk \u003d T here?\nI thought we need to maxTargetSdk \u003d U here and announce it in the next release, so when people receive U update, they will know it is the last version support this, and will have 1 year buffer time to change it.\nAm I missing something?\n+jchalard@ to input.",
+      "range": {
+        "startLine": 230,
+        "startChar": 40,
+        "endLine": 230,
+        "endChar": 68
+      },
+      "revId": "ae12ef618463d58b0233d5d4acee6d647c4aeb9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
