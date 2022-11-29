@@ -262,6 +262,10 @@ import com.android.net.module.util.PerUidCounter;
 import com.android.net.module.util.PermissionUtils;
 import com.android.net.module.util.TcUtils;
 import com.android.net.module.util.netlink.InetDiagMessage;
+import com.android.networkstack.apishim.BroadcastOptionsShimImpl;
+import com.android.networkstack.apishim.ConstantsShim;
+import com.android.networkstack.apishim.common.BroadcastOptionsShim;
+import com.android.networkstack.apishim.common.UnsupportedApiLevelException;
 import com.android.server.connectivity.AutodestructReference;
 import com.android.server.connectivity.CarrierPrivilegeAuthenticator;
 import com.android.server.connectivity.ClatCoordinator;
@@ -368,6 +372,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static final String LINGER_DELAY_PROPERTY = "persist.netmon.linger";
     private static final int DEFAULT_LINGER_DELAY_MS = 30_000;
     private static final int DEFAULT_NASCENT_DELAY_MS = 5_000;
+
+    // Delimiter used when creating the broadcast delivery group for sending
+    // CONNECTIVITY_ACTION broadcast.
+    private static final char DELIVERY_GROUP_KEY_DELIMITER = ';';
 
     // The maximum value for the blocking validation result, in milliseconds.
     public static final int MAX_VALIDATION_IGNORE_AFTER_ROAM_TIME_MS = 10000;
@@ -3004,6 +3012,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         ConnectivityManager.EXTRA_NETWORK_INFO);
                 final BroadcastOptions opts = BroadcastOptions.makeBasic();
                 opts.setMaxManifestReceiverApiLevel(Build.VERSION_CODES.M);
+                applyMostRecentPolicyForConnectivityAction(opts, ni);
                 options = opts.toBundle();
                 intent.addFlags(Intent.FLAG_RECEIVER_VISIBLE_TO_INSTANT_APPS);
             }
@@ -3013,6 +3022,28 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 Binder.restoreCallingIdentity(ident);
             }
         }
+    }
+
+    private void applyMostRecentPolicyForConnectivityAction(BroadcastOptions options,
+            NetworkInfo info) {
+        if (SdkLevel.isAtLeastU()) {
+            final BroadcastOptionsShim optsShim = BroadcastOptionsShimImpl.newInstance(options);
+            try {
+                optsShim.setDeliveryGroupPolicy(ConstantsShim.DELIVERY_GROUP_POLICY_MOST_RECENT);
+                optsShim.setDeliveryGroupMatchingKey(ConnectivityManager.CONNECTIVITY_ACTION,
+                        createDeliveryGroupKeyForConnectivityAction(info));
+            } catch (UnsupportedApiLevelException e) {
+                Log.wtf(TAG, "Using unsupported API" + e);
+            }
+        }
+    }
+
+    private String createDeliveryGroupKeyForConnectivityAction(NetworkInfo info) {
+        final StringBuilder sb = new StringBuilder();
+        sb.append(info.getType()).append(DELIVERY_GROUP_KEY_DELIMITER);
+        sb.append(info.getSubtype()).append(DELIVERY_GROUP_KEY_DELIMITER);
+        sb.append(info.getExtraInfo());
+        return sb.toString();
     }
 
     /**
