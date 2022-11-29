@@ -91,6 +91,30 @@
       },
       "revId": "1de6cb10d3e64ce22ae70e6d3de348db94173c8a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87c231b1_574f363e",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-11-29T12:39:26Z",
+      "side": 1,
+      "message": "It made sense to have this when we didn\u0027t have arch-specific genrules. Because all of the genrules were added to `generated_headers` then copied to `export_generated_headers`. But with the arch-specific genrule, the non-arch-specific `generated_headers` is almost always empty.\n\nBut after removing the `arch-specific` genrules and having just a single genrule include everything. We went back to how we were.",
+      "parentUuid": "83b52b07_9a4bba38",
+      "range": {
+        "startLine": 945,
+        "startChar": 0,
+        "endLine": 947,
+        "endChar": 62
+      },
+      "revId": "1de6cb10d3e64ce22ae70e6d3de348db94173c8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
