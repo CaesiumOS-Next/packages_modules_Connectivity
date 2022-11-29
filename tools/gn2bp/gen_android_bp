@@ -641,98 +641,99 @@ def create_action_foreach_modules(blueprint, target):
   target.args = new_args
   return create_action_module(blueprint, target)
 
-def _reformat_args(module, target):
+def _reformat_args(args, script):
   # Convert ['--param=value'] to ['--param', 'value'] for consistency.
   # TODO: we may want to only do this for python scripts arguments. If argparse
   # is used, this transformation is safe.
-  target.args = [str for it in target.args for str in it.split('=')]
+  args = [str for it in args for str in it.split('=')]
 
-  if target.script == "//build/write_buildflag_header.py":
+  if script == "//build/write_buildflag_header.py":
     # write_buildflag_header.py writes result to args.genDir/args.output
     # So, override args.genDir by '.' so that args.output=$(out) works
-    for i, val in enumerate(target.args):
+    for i, val in enumerate(args):
       if val == '--gen-dir':
-        target.args[i + 1] = '.'
+        args[i + 1] = '.'
       elif val == '--output':
-        target.args[i + 1] = '$(out)'
+        args[i + 1] = '$(out)'
 
-  elif target.script == '//build/write_build_date_header.py':
-    target.args[0] = '$(out)'
+  elif script == '//build/write_build_date_header.py':
+    args[0] = '$(out)'
 
-  elif target.script == '//base/android/jni_generator/jni_generator.py':
+  elif script == '//base/android/jni_generator/jni_generator.py':
     needs_javap = False
-    for i, val in enumerate(target.args):
+    for i, val in enumerate(args):
       if val == '--output_dir':
         # replace --output_dir gen/jni_headers/... with --output_dir $(genDir)/...
-        target.args[i + 1] = re.sub('^gen/jni_headers', '$(genDir)', target.args[i + 1])
+        args[i + 1] = re.sub('^gen/jni_headers', '$(genDir)', args[i + 1])
       elif val == '--input_file':
         # --input_file supports both .class specifiers or source files as arguments.
         # Only source files need to be wrapped inside a $(location <label>) tag.
-        if re.match('.*\.class$', target.args[i + 1]):
+        if re.match('.*\.class$', args[i + 1]):
           continue
         # replace --input_file ../../... with --input_file $(location ...)
         # TODO: put inside function
-        filename = re.sub('^\.\./\.\./', '', target.args[i + 1])
-        target.args[i + 1] = '$(location %s)' % filename
-      elif val == '--includes' and 'jni_generator_helper' in target.args[i + 1]:
+        filename = re.sub('^\.\./\.\./', '', args[i + 1])
+        args[i + 1] = '$(location %s)' % filename
+      elif val == '--includes' and 'jni_generator_helper' in args[i + 1]:
         # delete all leading ../
-        target.args[i + 1] = re.sub('^(\.\./)+', '', target.args[i + 1])
+        args[i + 1] = re.sub('^(\.\./)+', '', args[i + 1])
       elif val == '--prev_output_dir':
         # this is not needed for aosp builds.
-        target.args[i] = ''
-        target.args[i + 1] = ''
+        args[i] = ''
+        args[i + 1] = ''
       elif val == '--jar_file':
         # delete leading ../../ and add path to javap
-        filename = re.sub('^\.\./\.\./', '', target.args[i + 1])
-        target.args[i + 1] = '$(location %s)' % filename
+        filename = re.sub('^\.\./\.\./', '', args[i + 1])
+        args[i + 1] = '$(location %s)' % filename
         needs_javap = True
 
     if needs_javap:
-      target.args.append('--javap')
-      target.args.append('$$(find out/.path -name javap)')
+      args.append('--javap')
+      args.append('$$(find out/.path -name javap)')
     # fix target.output directory to match #include statements.
     target.outputs = [re.sub('^jni_headers/', '', out) for out in target.outputs]
 
-  elif target.script == '//base/android/jni_generator/jni_registration_generator.py':
+  elif script == '//base/android/jni_generator/jni_registration_generator.py':
     # jni_registration_generator.py pulls in some config dependencies that we
     # do not handle. Remove them.
     # TODO: find a better way to do this.
     target.deps.clear()
 
     target.inputs = [file for file in target.inputs if not file.startswith('//out/')]
-    for i, val in enumerate(target.args):
+    for i, val in enumerate(args):
       if val in ['--depfile', '--srcjar-path', '--header-path']:
-        target.args[i + 1] = re.sub('^gen', '$(genDir)', target.args[i + 1])
+        args[i + 1] = re.sub('^gen', '$(genDir)', args[i + 1])
       if val == '--sources-files':
-        target.args[i + 1] = '$(genDir)/java.sources'
+        args[i + 1] = '$(genDir)/java.sources'
       elif val == '--sources-exclusions':
         # update_jni_registration_module removes them from the srcs of the module
         # It might be better to remove sources by '--sources-exclusions'
-        target.args[i] = ''
-        target.args[i + 1] = ''
-  elif target.script == "//net/tools/dafsa/make_dafsa.py":
+        args[i] = ''
+        args[i + 1] = ''
+  elif script == "//net/tools/dafsa/make_dafsa.py":
     # This script generates .cc files but source (registry_controlled_domain.cc) in the target that
     # depends on this target includes .cc file this script generates.
     module.genrule_headers.add(module.name)
-  elif target.script == "//build/util/version.py":
+  elif script == "//build/util/version.py":
     # android_chrome_version.py is not specified in anywhere but version.py imports this file
     module.tool_files.add('build/util/android_chrome_version.py')
-    for i, val in enumerate(target.args):
+    for i, val in enumerate(args):
       if val.startswith('../../'):
         filename = re.sub('^\.\./\.\./', '', val)
-        target.args[i] = '$(location %s)' % filename
+        args[i] = '$(location %s)' % filename
       elif val == '-e':
         # arg for -e EVAL option should be passed in -e PATCH_HI=int(PATCH)//256 format.
-        target.args[i + 1] = '%s=\'%s\'' % (target.args[i + 1], target.args[i + 2])
-        target.args[i + 2] = ''
+        args[i + 1] = '%s=\'%s\'' % (args[i + 1], args[i + 2])
+        args[i + 2] = ''
       elif val == '-o':
-        target.args[i + 1] = '$(out)'
+        args[i + 1] = '$(out)'
 
 def create_action_module(blueprint, target):
   bp_module_name = label_to_module_name(target.name)
   module = Module('cc_genrule', bp_module_name, target.name)
 
-  _reformat_args(module, target)
+  _reformat_args(target.args, target.script)
+
   script = gn_utils.label_to_path(target.script)
   module.tool_files.add(script)
 
