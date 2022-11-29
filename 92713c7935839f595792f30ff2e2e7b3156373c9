@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd3f22d3_416c39d3",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceBrowserListener.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-29T15:35:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d993fc72_3d571b80",
+      "revId": "92713c7935839f595792f30ff2e2e7b3156373c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d09929a5_aaf7a1d5",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-11-25T06:29:17Z",
       "side": 1,
       "message": "I find it a bit strange as an API to send both onServiceUpdated and onServiceResolved when the service is resolved; I would say onServiceUpdated should only be sent after the first complete/resolved event (which would also match current behavior). See suggestion below.",
+      "revId": "92713c7935839f595792f30ff2e2e7b3156373c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8311cb9_c4d15a69",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-29T15:35:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d09929a5_aaf7a1d5",
       "revId": "92713c7935839f595792f30ff2e2e7b3156373c9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31bc976c_90ea278f",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-29T15:35:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89bae4e8_1029edad",
+      "revId": "92713c7935839f595792f30ff2e2e7b3156373c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8eda9f55_ba48aa8c",
@@ -65,6 +119,24 @@
       "writtenOn": "2022-11-25T06:29:17Z",
       "side": 1,
       "message": "Also there should be a test to verify what happens if you first have an incomplete response, which then becomes complete, and then is updated one or two times, and then is gone (cover the whole flow).\n\nIt would also be useful to use Mockito.inOrder for this, to make sure the callbacks arrive in the expected order.",
+      "revId": "92713c7935839f595792f30ff2e2e7b3156373c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb86592b_2949a8ee",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-29T15:35:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8eda9f55_ba48aa8c",
       "revId": "92713c7935839f595792f30ff2e2e7b3156373c9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
