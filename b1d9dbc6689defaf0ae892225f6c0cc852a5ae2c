@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59428226_1b5e96e2",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-29T15:17:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "401e77d2_e6840014",
+      "range": {
+        "startLine": 109,
+        "startChar": 4,
+        "endLine": 109,
+        "endChar": 13
+      },
+      "revId": "b1d9dbc6689defaf0ae892225f6c0cc852a5ae2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b01aa1ac_3df2aac8",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5990b007_e9561fb2",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-29T15:17:30Z",
+      "side": 1,
+      "message": "No. It is used in EthernetTetheringTest\n\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2319210/1/Tethering/tests/integration/src/android/net/EthernetTetheringTest.java#b531",
+      "parentUuid": "b01aa1ac_3df2aac8",
+      "range": {
+        "startLine": 110,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 13
+      },
+      "revId": "b1d9dbc6689defaf0ae892225f6c0cc852a5ae2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ebc7d36c_0d325dd9",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-11-29T07:53:24Z",
       "side": 1,
       "message": "These doesn\u0027t use in EthernetTetheringTestBase, move them out of this file ?",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 93
+      },
+      "revId": "b1d9dbc6689defaf0ae892225f6c0cc852a5ae2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e3a0391_4b9fdccf",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-29T15:17:30Z",
+      "side": 1,
+      "message": "keep as it because they will be shared between CTS and MTS since aosp/2319212",
+      "parentUuid": "ebc7d36c_0d325dd9",
       "range": {
         "startLine": 112,
         "startChar": 0,
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "656b7fe6_17adbb4f",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-29T15:17:30Z",
+      "side": 1,
+      "message": "could we keep them as protected because only child class will access?\n\nex:\nVpnTestBase and ActivityManagerTestBase keep static variable as private or protected\nhttps://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/tests/unit/java/com/android/server/VpnTestBase.java;l\u003d40\n```\nprotected static final String TEST_VPN_PKG \u003d \"com.testvpn.vpn\";\n```\nhttps://cs.android.com/android/platform/superproject/+/master:cts/tests/framework/base/windowmanager/util/src/android/server/wm/ActivityManagerTestBase.java;l\u003d229?\n```\nprotected static final int INVALID_DEVICE_ROTATION \u003d -1;\n```",
+      "parentUuid": "43843791_16d9b618",
+      "range": {
+        "startLine": 119,
+        "startChar": 4,
+        "endLine": 119,
+        "endChar": 13
+      },
+      "revId": "b1d9dbc6689defaf0ae892225f6c0cc852a5ae2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99ab069f_f8a8eff0",
         "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTestBase.java",
         "patchSetId": 1
@@ -106,6 +202,30 @@
       "writtenOn": "2022-11-29T07:53:24Z",
       "side": 1,
       "message": "private ?",
+      "range": {
+        "startLine": 149,
+        "startChar": 4,
+        "endLine": 149,
+        "endChar": 13
+      },
+      "revId": "b1d9dbc6689defaf0ae892225f6c0cc852a5ae2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "256f9dd4_69047a3b",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-29T15:17:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99ab069f_f8a8eff0",
       "range": {
         "startLine": 149,
         "startChar": 4,
@@ -141,6 +261,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "71a20af2_b8e0391f",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-29T15:17:30Z",
+      "side": 1,
+      "message": "aosp/2320031 demos move all non-static protected variable back to EtherentTetheringTest. It causes that common function needs to pass more parameters.\n\nex:\nbefore: 2 parameters\n```\nprotected TetheringTester initTetheringTester(\nList\u003cLinkAddress\u003e upstreamAddresses, \nList\u003cInetAddress\u003e upstreamDnses) \n```\nafter: 10 parameters - aosp/2320031 \n```\nprotected TetheringTester initTetheringTester(f\ninal EthernetManager mEm, \nHandler mHandler, \nTapPacketReader mUpstreamReader, \nTapPacketReader mDownstreamReader, \nTestNetworkTracker mUpstreamTracker, \nTestNetworkInterface mDownstreamIface, \nfinal Context mContext, \nfinal TetheringManager mTm, \nList\u003cLinkAddress\u003e upstreamAddresses, \nList\u003cInetAddress\u003e upstreamDnses)\n```\n\nOr we can keep these non-static protected variables in base class as ActivityManagerTestBase. The child class CrossAppDragAndDropTests uses parenet class\u0027s variable. I think that it is trade off to reduce pass the parameters and share the parameter between parent class and child class.\n\nhttps://cs.android.com/android/platform/superproject/+/master:cts/tests/framework/base/windowmanager/util/src/android/server/wm/ActivityManagerTestBase.java;l\u003d260\n```\npublic abstract class ActivityManagerTestBase {\n..\n    protected final DisplayManager mDm \u003d mContext.getSystemService(DisplayManager.class);\n\n    protected boolean supportsMultiWindow() {\n        Display defaultDisplay \u003d mDm.getDisplay(DEFAULT_DISPLAY);\n..\n    }\n```\n\nhttps://cs.android.com/android/platform/superproject/+/master:cts/tests/framework/base/windowmanager/src/android/server/wm/CrossAppDragAndDropTests.java;l\u003d171\n```\npublic class CrossAppDragAndDropTests extends ActivityManagerTestBase {\n..\n    private Point getDisplaySize() throws Exception {\n.. \n        mDm.getDisplay(Display.DEFAULT_DISPLAY).getRealSize(displaySize);\n..\n    }\n```\n\nhow do you think? thank you\n\nhere are child classes of ActivityManagerTestBase\nhttps://cs.android.com/search?q\u003d%22extends%20ActivityManagerTestBase%20%22\u0026sq\u003d",
+      "parentUuid": "e8a40897_0e642207",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 63
+      },
+      "revId": "b1d9dbc6689defaf0ae892225f6c0cc852a5ae2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "30b11a1d_ea9539b4",
         "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTestBase.java",
         "patchSetId": 1
@@ -152,6 +296,30 @@
       "writtenOn": "2022-11-29T07:53:24Z",
       "side": 1,
       "message": "I think move setUp/tearDown to base class lose the readability. Probably move them back to EthernetTetheringTest ?\n\nYou can have some comment functions instead, e.g.:\n\npublic Handler createHandlerThread() {\n    mHandlerThread \u003d new HandlerThread(getClass().getSimpleName());\n    mHandlerThread.start();\n    return new Handler(mHandlerThread.getLooper());\n}\n\npublic boolean assumeTetheringSupported {\n    mRunTests \u003d runAsShell(NETWORK_SETTINGS, TETHER_PRIVILEGED, () -\u003e\n            mTm.isTetheringSupported());\n    assumeTrue(mRunTests);\n    \n    return mRunTests;\n}",
+      "range": {
+        "startLine": 178,
+        "startChar": 4,
+        "endLine": 178,
+        "endChar": 42
+      },
+      "revId": "b1d9dbc6689defaf0ae892225f6c0cc852a5ae2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74bf6189_f5f20af8",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-29T15:17:30Z",
+      "side": 1,
+      "message": "This depends on previous decision if we move all non static parameters to EthernetTetheringTest\n\nOr we can do as ActivityManagerTestBase which share common setUp() to child class. Child class can call super.setUp() and do other specific parts.\n\nhttps://cs.android.com/android/platform/superproject/+/master:cts/tests/framework/base/windowmanager/util/src/android/server/wm/ActivityManagerTestBase.java;l\u003d620\n```\npublic abstract class ActivityManagerTestBase {\n..\n    @Before\n    public void setUp() throws Exception {\n..\n    }\n```\n\nhttps://cs.android.com/android/platform/superproject/+/master:cts/tests/framework/base/windowmanager/src/android/server/wm/CrossAppDragAndDropTests.java;l\u003d122\n```\npublic class CrossAppDragAndDropTests extends ActivityManagerTestBase {\n..\n    @Before\n    @Override\n    public void setUp() throws Exception {\n        super.setUp();\n        assumeTrue(supportsSplitScreenMultiWindow() || supportsFreeform());\n..\n        cleanupState();\n```\n\nwhich one you preferred? thank you",
+      "parentUuid": "30b11a1d_ea9539b4",
       "range": {
         "startLine": 178,
         "startChar": 4,
