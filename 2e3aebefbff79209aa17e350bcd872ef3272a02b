@@ -53,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a279ba84_6226f5ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-29T03:05:55Z",
+      "side": 1,
+      "message": "add TODO to b/258637850#comment4 and limit clat offload temporally for U+ device until the data limits and statistics are fixed. \n\nThanks for your advice. Currently, we are blocked by \"separate EthernetTetheringTest into MTS and CTS\" (aosp/2319212, aosp/2319211, aosp/2319210). So we can\u0027t modify BPF map now. Or we will break the released CTS.",
+      "parentUuid": "44f6561b_702a068d",
+      "revId": "2e3aebefbff79209aa17e350bcd872ef3272a02b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4464f1b8_12230ac1",
@@ -76,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa596ead_cdecd48d",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1393,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-29T03:05:55Z",
+      "side": 1,
+      "message": "This code won\u0027t only work the first time because the map (mInterfaceNames in addUpstreamNameToLookupTable) is using the interface index (not interface name) to be a key and clat interface index:name mapping is increasing every time clat is started with an increasing interface index.\nEx:\n```\nmInterfaceNames:\n   {47\u003dwlan0, 52\u003dv4-wlan0, 55\u003dv4-wlan0, 57\u003dv4-wlan0, 59\u003dv4-wlan0, 61\u003dv4-wlan0}\n```\n\nNote that addUpstreamNameToLookupTable ignores duplicate interface index but name.\nSource:\nhttps://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java;l\u003d712\n```\n        // The same interface index to name mapping may be added by different IpServer objects or\n        // re-added by reconnection on the same upstream interface. Ignore the duplicate one.\n        final String iface \u003d mInterfaceNames.get(upstreamIfindex);\n        if (iface \u003d\u003d null) {\n            mInterfaceNames.put(upstreamIfindex, upstreamIface);\n        } else if (!TextUtils.equals(iface, upstreamIface)) {\n            Log.wtf(TAG, \"The upstream interface name \" + upstreamIface\n                    + \" is different from the existing interface name \"\n                    + iface + \" for index \" + upstreamIfindex);\n        }\n```\nThe reason that addUpstreamNameToLookupTable doesn\u0027t modify the interface map is because the neighbor(IPv6) event and conntrack (IPv4) event may come after interface information deletion. That will cause the last tether stats can\u0027t be updated because the interface index can\u0027t map to name after interface information deletion.\n\nIn order to remove interface information, needs to do two things:\n1. clean all existing rules, if any, on the losing interface.\n2. guarantee any incoming neighbor(IPv6) and event conntrack (IPv4) event won\u0027t build a rule with losing interface.\n\nThe ipv4 part has done in BpfCoordinator#updateUpstreamNetworkState but ipv6 part is not. Currently, only removing clat interface (v4 only) information mapping is safe. For remaining interface (may be IPv6 only, dual stack), just keep as it . Probably it is okay for now because the interface index is mostly not changed and this design starts since S until now. Once we can implement the IPv6 part cleanup, we can remove any interface information but clat interface only",
+      "parentUuid": "4464f1b8_12230ac1",
+      "range": {
+        "startLine": 1393,
+        "startChar": 44,
+        "endLine": 1393,
+        "endChar": 72
+      },
+      "revId": "2e3aebefbff79209aa17e350bcd872ef3272a02b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7784a3bc_a4e647d4",
@@ -89,6 +131,30 @@
       "writtenOn": "2022-11-25T08:06:24Z",
       "side": 1,
       "message": "Xlat464 -\u003e 464xlat",
+      "range": {
+        "startLine": 864,
+        "startChar": 22,
+        "endLine": 864,
+        "endChar": 29
+      },
+      "revId": "2e3aebefbff79209aa17e350bcd872ef3272a02b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fa55e47_e8f33e29",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-29T03:05:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7784a3bc_a4e647d4",
       "range": {
         "startLine": 864,
         "startChar": 22,
