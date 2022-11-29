@@ -16,6 +16,24 @@
       "message": "Directory choice reason: I decided to put it inside cts/testutil/src because I\u0027m going to add a tests for the utility classes in cts/testutil/test. And I don\u0027t want these tests to run as part of cts.",
       "revId": "19fc5bdd0867658ff7514bce6f4f47a09c560b37",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebac6a64_8f208b08",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-29T00:07:35Z",
+      "side": 1,
+      "message": "FWIW, I am okay with putting utility classes in a separate directory (though I would have put them in the existing directory), but let\u0027s not add tests for test code. Tests cover production code and vice versa; a bug in test code should usually cause a test failure.",
+      "parentUuid": "1f00f4d9_6f34427c",
+      "revId": "19fc5bdd0867658ff7514bce6f4f47a09c560b37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
