@@ -45,6 +45,29 @@
       },
       "revId": "13274cfb80ea4e1f27533f654bd6a8446e7fbd40",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dceea1a6_39a38c6d",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsProberTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-29T08:27:19Z",
+      "side": 1,
+      "message": "Maybe add test to verify stop probing.",
+      "range": {
+        "startLine": 103,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 5
+      },
+      "revId": "13274cfb80ea4e1f27533f654bd6a8446e7fbd40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
