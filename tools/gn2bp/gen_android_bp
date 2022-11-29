@@ -712,6 +712,14 @@ def _reformat_args(args, script):
         args[i + 2] = ''
       elif val == '-o':
         args[i + 1] = '$(out)'
+  elif script == "//build/android/gyp/java_cpp_enum.py":
+    for i, val in enumerate(args):
+      if val.startswith('../../'):
+        filename = re.sub('^\.\./\.\./', '', val)
+        args[i] = '$(location %s)' % filename
+      elif val.endswith('--srcjar'):
+        args[i+1] = '$(out)'
+
   # escape " and \$ in args.
   # once all actions are properly implemented, this may not be necessary anymore.
   # TODO: is this the right place to do this?
@@ -1118,7 +1126,7 @@ def create_java_module(blueprint, gn):
   module = Module('java_library', bp_module_name, '//gn:java')
   module.srcs.update([gn_utils.label_to_path(source) for source in gn.java_sources])
   for dep in gn.java_actions:
-    create_modules_from_target(blueprint, gn, dep)
+    action_module = create_modules_from_target(blueprint, gn, dep)
   blueprint.add_module(module)
 
 def update_jni_registration_module(module, gn):
