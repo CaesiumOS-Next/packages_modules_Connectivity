@@ -22,6 +22,30 @@
       },
       "revId": "8354780ba08ba97a90672458cc5b4baa5ffe74c3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e94aa1a_ba6b5d10",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-11-29T16:31:49Z",
+      "side": 1,
+      "message": "There we go. I managed to divide the commit into 5 smaller CLs. not all of them are guaranteed to build. But the end-result will build fine. I also added a topic 😊 Thanks for mentioning that. I had no idea what a topic is.",
+      "parentUuid": "a168f3b4_24d7a2dd",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 63
+      },
+      "revId": "8354780ba08ba97a90672458cc5b4baa5ffe74c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
