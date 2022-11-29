@@ -22,6 +22,30 @@
       },
       "revId": "529e13cb39d17a76d0facc8231b8a11c26991bd5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ed51ffe_164ffb27",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsPacketRepeater.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-29T02:54:55Z",
+      "side": 1,
+      "message": "I look at the rfc6762#section-8.1 then realize why `rfc6762#section-8.1` can\u0027t call immediately.",
+      "parentUuid": "36dd0891_378f64e5",
+      "range": {
+        "startLine": 133,
+        "startChar": 16,
+        "endLine": 133,
+        "endChar": 90
+      },
+      "revId": "529e13cb39d17a76d0facc8231b8a11c26991bd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
