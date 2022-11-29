@@ -182,7 +182,6 @@ import androidx.annotation.NonNull;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
-import com.android.internal.util.StateMachine;
 import com.android.internal.util.test.BroadcastInterceptingContext;
 import com.android.internal.util.test.FakeSettingsProvider;
 import com.android.net.module.util.CollectionUtils;
@@ -300,6 +299,7 @@ public class TetheringTest {
     private MockContentResolver mContentResolver;
     private BroadcastReceiver mBroadcastReceiver;
     private Tethering mTethering;
+    private Tethering.TetherMainSM mTetherMainSM;
     private PhoneStateListener mPhoneStateListener;
     private InterfaceConfigurationParcel mInterfaceConfiguration;
     private TetheringConfiguration mConfig;
@@ -420,7 +420,6 @@ public class TetheringTest {
     }
 
     public class MockTetheringDependencies extends TetheringDependencies {
-        StateMachine mUpstreamNetworkMonitorSM;
         ArrayList<IpServer> mIpv6CoordinatorNotifyList;
 
         @Override
@@ -444,12 +443,11 @@ public class TetheringTest {
         }
 
         @Override
-        public UpstreamNetworkMonitor getUpstreamNetworkMonitor(Context ctx,
-                StateMachine target, SharedLog log, int what) {
+        public UpstreamNetworkMonitor getUpstreamNetworkMonitor(Context ctx, Handler h,
+                SharedLog log, UpstreamNetworkMonitor.Callback callback) {
             // Use a real object instead of a mock so that some tests can use a real UNM and some
             // can use a mock.
-            mUpstreamNetworkMonitorSM = target;
-            mUpstreamNetworkMonitor = spy(super.getUpstreamNetworkMonitor(ctx, target, log, what));
+            mUpstreamNetworkMonitor = spy(super.getUpstreamNetworkMonitor(ctx, h, log, callback));
             return mUpstreamNetworkMonitor;
         }
 
@@ -664,6 +662,7 @@ public class TetheringTest {
         mCm = spy(new TestConnectivityManager(mServiceContext, mock(IConnectivityManager.class)));
 
         mTethering = makeTethering();
+        mTetherMainSM = mTethering.getTetherMainSMForTesting();
         verify(mStatsManager, times(1)).registerNetworkStatsProvider(anyString(), any());
         verify(mNetd).registerUnsolicitedEventListener(any());
         verifyDefaultNetworkRequestFiled();
@@ -1145,7 +1144,7 @@ public class TetheringTest {
         initTetheringUpstream(upstreamState);
 
         // Upstream LinkProperties changed: UpstreamNetworkMonitor sends EVENT_ON_LINKPROPERTIES.
-        mTetheringDependencies.mUpstreamNetworkMonitorSM.sendMessage(
+        mTetherMainSM.sendMessage(
                 Tethering.TetherMainSM.EVENT_UPSTREAM_CALLBACK,
                 UpstreamNetworkMonitor.EVENT_ON_LINKPROPERTIES,
                 0,
@@ -2303,11 +2302,9 @@ public class TetheringTest {
 
     @Test
     public void testUpstreamNetworkChanged() {
-        final Tethering.TetherMainSM stateMachine = (Tethering.TetherMainSM)
-                mTetheringDependencies.mUpstreamNetworkMonitorSM;
         final UpstreamNetworkState upstreamState = buildMobileIPv4UpstreamState();
         initTetheringUpstream(upstreamState);
-        stateMachine.chooseUpstreamType(true);
+        mTetherMainSM.chooseUpstreamType(true);
 
         verify(mUpstreamNetworkMonitor, times(1)).setCurrentUpstream(eq(upstreamState.network));
         verify(mNotificationUpdater, times(1)).onUpstreamCapabilitiesChanged(any());
@@ -2315,13 +2312,11 @@ public class TetheringTest {
 
     @Test
     public void testUpstreamCapabilitiesChanged() {
-        final Tethering.TetherMainSM stateMachine = (Tethering.TetherMainSM)
-                mTetheringDependencies.mUpstreamNetworkMonitorSM;
         final UpstreamNetworkState upstreamState = buildMobileIPv4UpstreamState();
         initTetheringUpstream(upstreamState);
-        stateMachine.chooseUpstreamType(true);
+        mTetherMainSM.chooseUpstreamType(true);
 
-        stateMachine.handleUpstreamNetworkMonitorCallback(EVENT_ON_CAPABILITIES, upstreamState);
+        mTetherMainSM.handleUpstreamNetworkMonitorCallback(EVENT_ON_CAPABILITIES, upstreamState);
         // Should have two onUpstreamCapabilitiesChanged().
         // One is called by reportUpstreamChanged(). One is called by EVENT_ON_CAPABILITIES.
         verify(mNotificationUpdater, times(2)).onUpstreamCapabilitiesChanged(any());
@@ -2332,7 +2327,7 @@ public class TetheringTest {
         final UpstreamNetworkState upstreamState2 = new UpstreamNetworkState(
                 upstreamState.linkProperties, upstreamState.networkCapabilities,
                 new Network(WIFI_NETID));
-        stateMachine.handleUpstreamNetworkMonitorCallback(EVENT_ON_CAPABILITIES, upstreamState2);
+        mTetherMainSM.handleUpstreamNetworkMonitorCallback(EVENT_ON_CAPABILITIES, upstreamState2);
         verify(mNotificationUpdater, never()).onUpstreamCapabilitiesChanged(any());
     }
 
@@ -2431,7 +2426,7 @@ public class TetheringTest {
             final String iface, final int transportType) {
         final UpstreamNetworkState upstream = buildV4UpstreamState(ipv4Address, network, iface,
                 transportType);
-        mTetheringDependencies.mUpstreamNetworkMonitorSM.sendMessage(
+        mTetherMainSM.sendMessage(
                 Tethering.TetherMainSM.EVENT_UPSTREAM_CALLBACK,
                 UpstreamNetworkMonitor.EVENT_ON_LINKPROPERTIES,
                 0,
