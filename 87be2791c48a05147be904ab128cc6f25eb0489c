@@ -52,6 +52,24 @@
       "parentUuid": "20e557b9_f3dbc0ad",
       "revId": "87be2791c48a05147be904ab128cc6f25eb0489c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f50a0f34_40a7165b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1133258
+      },
+      "writtenOn": "2022-11-29T23:58:55Z",
+      "side": 1,
+      "message": "Hi Lorenzo, please check the perf data before/after the code change:\nhttps://pprof.corp.google.com/?id\u003dbacc5c0362ad7773a203db1ba3913f95\u0026path\u003d1n3ky181mgb7o80ioljdk0e10yhw1c6iv240b3wtvc04ns4dk0adoq8w167dcv40syz2600pouuww0pouuww0mm88og103kebk0plnruf1o5hxso0e1nits\u0026metric\u003dcpu-cycles\u0026pivot\u003dWifiConfigStore.serializeData\nhttps://pprof.corp.google.com/?id\u003ded924e350135886afb7b381d9ca13755\u0026path\u003d1n3ky181mgb7o80ioljdk0ioljdk0e10yhw0e10yhw1c6iv240b3wtvc04ns4dk0adoq8w167dcv40syz2600f9n7qy0pouuww06k03hg1mjlxq800dizpe14rufx40e1nits\u0026pivot\u003dWifiConfigStore.serializeData\nWe can see in the original pprof diagram, MacAddress.toString uses 593,838,369 CPU cycles. With this CL in 2nd diagram, MacAddress.toString uses 169,026,169 CPU cycles.\nSo the new code is \u003c 1/3 of the CPU cycles than before.",
+      "parentUuid": "fe71502c_2bc0be11",
+      "revId": "87be2791c48a05147be904ab128cc6f25eb0489c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
