@@ -646,7 +646,6 @@ def _reformat_args(args, script):
   # TODO: we may want to only do this for python scripts arguments. If argparse
   # is used, this transformation is safe.
   args = [str for it in args for str in it.split('=')]
-
   if script == "//build/write_buildflag_header.py":
     # write_buildflag_header.py writes result to args.genDir/args.output
     # So, override args.genDir by '.' so that args.output=$(out) works
@@ -655,10 +654,8 @@ def _reformat_args(args, script):
         args[i + 1] = '.'
       elif val == '--output':
         args[i + 1] = '$(out)'
-
   elif script == '//build/write_build_date_header.py':
     args[0] = '$(out)'
-
   elif script == '//base/android/jni_generator/jni_generator.py':
     needs_javap = False
     for i, val in enumerate(args):
@@ -690,16 +687,7 @@ def _reformat_args(args, script):
     if needs_javap:
       args.append('--javap')
       args.append('$$(find out/.path -name javap)')
-    # fix target.output directory to match #include statements.
-    target.outputs = [re.sub('^jni_headers/', '', out) for out in target.outputs]
-
   elif script == '//base/android/jni_generator/jni_registration_generator.py':
-    # jni_registration_generator.py pulls in some config dependencies that we
-    # do not handle. Remove them.
-    # TODO: find a better way to do this.
-    target.deps.clear()
-
-    target.inputs = [file for file in target.inputs if not file.startswith('//out/')]
     for i, val in enumerate(args):
       if val in ['--depfile', '--srcjar-path', '--header-path']:
         args[i + 1] = re.sub('^gen', '$(genDir)', args[i + 1])
@@ -710,13 +698,7 @@ def _reformat_args(args, script):
         # It might be better to remove sources by '--sources-exclusions'
         args[i] = ''
         args[i + 1] = ''
-  elif script == "//net/tools/dafsa/make_dafsa.py":
-    # This script generates .cc files but source (registry_controlled_domain.cc) in the target that
-    # depends on this target includes .cc file this script generates.
-    module.genrule_headers.add(module.name)
   elif script == "//build/util/version.py":
-    # android_chrome_version.py is not specified in anywhere but version.py imports this file
-    module.tool_files.add('build/util/android_chrome_version.py')
     for i, val in enumerate(args):
       if val.startswith('../../'):
         filename = re.sub('^\.\./\.\./', '', val)
@@ -728,12 +710,33 @@ def _reformat_args(args, script):
       elif val == '-o':
         args[i + 1] = '$(out)'
 
+def _tweak_per_script(module, target):
+  if target.script == '//base/android/jni_generator/jni_generator.py':
+    # fix target.output directory to match #include statements.
+    target.outputs = [re.sub('^jni_headers/', '', out) for out in target.outputs]
+    # android_jar.classes should be part of the tools as it list implicit classes
+    # for the script to generate JNI headers.
+    module.tool_files.add("base/android/jni_generator/android_jar.classes")
+  elif target.script == '//base/android/jni_generator/jni_registration_generator.py':
+    # jni_registration_generator.py pulls in some config dependencies that we
+    # do not handle. Remove them.
+    # TODO: find a better way to do this.
+    target.deps.clear()
+    target.inputs = [file for file in target.inputs if not file.startswith('//out/')]
+  elif target.script == "//net/tools/dafsa/make_dafsa.py":
+    # This script generates .cc files but source (registry_controlled_domain.cc) in the target that
+    # depends on this target includes .cc file this script generates.
+    module.genrule_headers.add(module.name)
+  elif target.script == "//build/util/version.py":
+    # android_chrome_version.py is not specified in anywhere but version.py imports this file
+    module.tool_files.add('build/util/android_chrome_version.py')
+
 def create_action_module(blueprint, target):
   bp_module_name = label_to_module_name(target.name)
   module = Module('cc_genrule', bp_module_name, target.name)
 
   _reformat_args(target.args, target.script)
-
+  _tweak_per_script(module, target)
   script = gn_utils.label_to_path(target.script)
   module.tool_files.add(script)
 
