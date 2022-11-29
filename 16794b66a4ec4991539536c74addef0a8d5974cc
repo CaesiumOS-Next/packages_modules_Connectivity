@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c955f2f_a0525a76",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsProber.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-29T07:51:16Z",
+      "side": 1,
+      "message": "mDns",
+      "range": {
+        "startLine": 32,
+        "startChar": 9,
+        "endLine": 32,
+        "endChar": 13
+      },
+      "revId": "16794b66a4ec4991539536c74addef0a8d5974cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
