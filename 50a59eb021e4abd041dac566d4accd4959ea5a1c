@@ -22,6 +22,30 @@
       },
       "revId": "50a59eb021e4abd041dac566d4accd4959ea5a1c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5372b82d_420b4e4a",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-29T13:25:10Z",
+      "side": 1,
+      "message": "Thanks for the suggestion.",
+      "parentUuid": "32ad9005_781fa8c4",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 60
+      },
+      "revId": "50a59eb021e4abd041dac566d4accd4959ea5a1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
