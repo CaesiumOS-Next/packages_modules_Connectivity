@@ -30,7 +30,6 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
-import com.android.internal.util.StateMachine;
 import com.android.net.module.util.SharedLog;
 import com.android.networkstack.apishim.BluetoothPanShimImpl;
 import com.android.networkstack.apishim.common.BluetoothPanShim;
@@ -76,9 +75,9 @@ public abstract class TetheringDependencies {
     /**
      * Get a reference to the UpstreamNetworkMonitor to be used by tethering.
      */
-    public UpstreamNetworkMonitor getUpstreamNetworkMonitor(Context ctx, StateMachine target,
-            SharedLog log, int what) {
-        return new UpstreamNetworkMonitor(ctx, target, log, what);
+    public UpstreamNetworkMonitor getUpstreamNetworkMonitor(Context ctx, Handler h,
+            SharedLog log, UpstreamNetworkMonitor.Callback callback) {
+        return new UpstreamNetworkMonitor(ctx, h, log, callback);
     }
 
     /**
