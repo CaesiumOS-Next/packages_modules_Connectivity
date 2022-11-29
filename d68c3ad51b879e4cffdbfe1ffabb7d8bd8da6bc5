@@ -50,6 +50,24 @@
       "message": "nits: Having comment or placing in different line might be helpful.\nI first thought this line also generates intersection.",
       "revId": "d68c3ad51b879e4cffdbfe1ffabb7d8bd8da6bc5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35d41755_d3654ef1",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-11-29T02:55:10Z",
+      "side": 1,
+      "message": "I was not sure if we need this.\nCan we write like following? as we do for other arch specific fields.\n```\nfor arch_name in target.arch.keys():\n  _create_cmd(target.arch[arch_name].args, target.script, target.arch[arch_name].response_file_contents)\n```",
+      "parentUuid": "902cb1b9_be7b30e3",
+      "revId": "d68c3ad51b879e4cffdbfe1ffabb7d8bd8da6bc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
