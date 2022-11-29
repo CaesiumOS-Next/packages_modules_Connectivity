@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be733741_f4667ffe",
+        "filename": "Cronet/tests/cts/testutil/src/org/chromium/net/test/TestUrlRequestCallback.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-29T00:24:46Z",
+      "side": 1,
+      "message": "```\nassertTrue(\"String [\" + actual + \"] doesn\u0027t contain substring [\" + expected + \"]\",\n        actual.contains(expected));\n```",
+      "range": {
+        "startLine": 141,
+        "startChar": 8,
+        "endLine": 144,
+        "endChar": 9
+      },
+      "revId": "781fec20b6af8db2f1fea6b5ac0540a4e6354e1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8567bb39_403bf5d7",
+        "filename": "Cronet/tests/cts/testutil/src/org/chromium/net/test/TestUrlRequestCallback.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-29T00:24:46Z",
+      "side": 1,
+      "message": "Note: This is not part of the upstream version. The raw copy should have lived in its own CL (without applying changes).",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 146,
+        "endChar": 0
+      },
+      "revId": "781fec20b6af8db2f1fea6b5ac0540a4e6354e1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
