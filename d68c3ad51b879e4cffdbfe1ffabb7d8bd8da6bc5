@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6caff26e_6e7c5944",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-11-29T12:43:19Z",
+      "side": 1,
+      "message": "Yes. The host will be almost always a x86_64 or x86.",
+      "parentUuid": "4d5ec938_e212b1e3",
+      "revId": "d68c3ad51b879e4cffdbfe1ffabb7d8bd8da6bc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7e947486_f3bce0b5",
         "filename": "tools/gn2bp/gen_android_bp",
         "patchSetId": 1
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "I was not sure if we need this.\nCan we write like following? as we do for other arch specific fields.\n```\nfor arch_name in target.arch.keys():\n  _create_cmd(target.arch[arch_name].args, target.script, target.arch[arch_name].response_file_contents)\n```",
       "parentUuid": "902cb1b9_be7b30e3",
+      "revId": "d68c3ad51b879e4cffdbfe1ffabb7d8bd8da6bc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "777809cd_588873be",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-11-29T12:43:19Z",
+      "side": 1,
+      "message": "Can you please elaborate more on your second comment? I think we have `_create_cmd` in the gen_android_bp file. So why would it be moved to the gn_utils.py",
+      "parentUuid": "35d41755_d3654ef1",
       "revId": "d68c3ad51b879e4cffdbfe1ffabb7d8bd8da6bc5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
