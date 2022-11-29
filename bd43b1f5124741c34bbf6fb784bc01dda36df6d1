@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5c5ad00_1e320bb6",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-29T05:31:49Z",
+      "side": 1,
+      "message": "Make sense. Updated.",
+      "parentUuid": "d7e1db6a_414ee67b",
+      "revId": "bd43b1f5124741c34bbf6fb784bc01dda36df6d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2eb15fbf_28f52d0c",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-11-25T06:09:12Z",
       "side": 1,
       "message": "This could be null right ?",
+      "range": {
+        "startLine": 425,
+        "startChar": 33,
+        "endLine": 425,
+        "endChar": 49
+      },
+      "revId": "bd43b1f5124741c34bbf6fb784bc01dda36df6d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2748b3bc_fd5b8cd4",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-29T05:31:49Z",
+      "side": 1,
+      "message": "Yes, you are right. Add check here.",
+      "parentUuid": "2eb15fbf_28f52d0c",
       "range": {
         "startLine": 425,
         "startChar": 33,
