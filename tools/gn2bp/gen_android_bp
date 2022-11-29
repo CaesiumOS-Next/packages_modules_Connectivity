@@ -709,6 +709,19 @@ def _reformat_args(args, script):
         args[i + 2] = ''
       elif val == '-o':
         args[i + 1] = '$(out)'
+  # escape " and \$ in args.
+  # once all actions are properly implemented, this may not be necessary anymore.
+  # TODO: is this the right place to do this?
+  args = [arg.replace('"', r'\"') for arg in args]
+  args = [arg.replace(r'\$', r'\\$') for arg in args]
+  # Handle passing parameters via response file by piping them into the script
+  # and reading them from /dev/stdin.
+  response_file = '{{response_file_name}}'
+  use_response_file = response_file in args
+  if use_response_file:
+    # Replace {{response_file_contents}} with /dev/stdin
+    args = ['/dev/stdin' if it == response_file else it for it in args]
+  return args
 
 def _tweak_per_script(module, target):
   if target.script == '//base/android/jni_generator/jni_generator.py':
@@ -739,20 +752,6 @@ def create_action_module(blueprint, target):
   _tweak_per_script(module, target)
   script = gn_utils.label_to_path(target.script)
   module.tool_files.add(script)
-
-  # Handle passing parameters via response file by piping them into the script
-  # and reading them from /dev/stdin.
-  response_file = '{{response_file_name}}'
-  use_response_file = response_file in target.args
-  if use_response_file:
-    # Replace {{response_file_contents}} with /dev/stdin
-    target.args = ['/dev/stdin' if it == response_file else it for it in target.args]
-
-  # escape " and \$ in target.args.
-  # once all actions are properly implemented, this may not be necessary anymore.
-  # TODO: is this the right place to do this?
-  target.args = [arg.replace('"', r'\"') for arg in target.args]
-  target.args = [arg.replace(r'\$', r'\\$') for arg in target.args]
 
   # put all args on a new line for better diffs.
   NEWLINE = ' " +\n         "'
