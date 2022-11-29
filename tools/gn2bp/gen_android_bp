@@ -641,10 +641,7 @@ def create_action_foreach_modules(blueprint, target):
   target.args = new_args
   return create_action_module(blueprint, target)
 
-def create_action_module(blueprint, target):
-  bp_module_name = label_to_module_name(target.name)
-  module = Module('cc_genrule', bp_module_name, target.name)
-
+def _reformat_args(module, target):
   # Convert ['--param=value'] to ['--param', 'value'] for consistency.
   # TODO: we may want to only do this for python scripts arguments. If argparse
   # is used, this transformation is safe.
@@ -731,6 +728,11 @@ def create_action_module(blueprint, target):
       elif val == '-o':
         target.args[i + 1] = '$(out)'
 
+def create_action_module(blueprint, target):
+  bp_module_name = label_to_module_name(target.name)
+  module = Module('cc_genrule', bp_module_name, target.name)
+
+  _reformat_args(module, target)
   script = gn_utils.label_to_path(target.script)
   module.tool_files.add(script)
 
