@@ -33,6 +33,52 @@
       "message": "I cant seem to add Dan yet and he\u0027s OOO too. prohr@google.com, let me know if you have enough context to LGTM. Otherwise I\u0027ll work on other things while I wait for Dan.",
       "revId": "670fa136fd52d5f2d9e865e206c554fac6b46558",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bac33da_6a28fccd",
+        "filename": "Cronet/tests/cts/src/org/chromium/net/test/util/TestUrlRequestCallback.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-29T15:58:06Z",
+      "side": 1,
+      "message": "assertTrue(blockForDone())",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 257,
+        "endChar": 13
+      },
+      "revId": "670fa136fd52d5f2d9e865e206c554fac6b46558",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39458e72_f5fcdc5b",
+        "filename": "Cronet/tests/cts/src/org/chromium/net/test/util/TestUrlRequestCallback.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-29T15:58:06Z",
+      "side": 1,
+      "message": "nit: move definition ahead of its use to aid readability.",
+      "range": {
+        "startLine": 451,
+        "startChar": 1,
+        "endLine": 460,
+        "endChar": 5
+      },
+      "revId": "670fa136fd52d5f2d9e865e206c554fac6b46558",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
