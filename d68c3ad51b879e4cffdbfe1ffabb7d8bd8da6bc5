@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d5ec938_e212b1e3",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-11-29T02:51:10Z",
+      "side": 1,
+      "message": "When the genrule is built for host target, will that be treated as `x86_64`?",
+      "revId": "d68c3ad51b879e4cffdbfe1ffabb7d8bd8da6bc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e947486_f3bce0b5",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-11-29T02:51:10Z",
+      "side": 1,
+      "message": "We can remove `if CC_ARCH` if all the arch have the same cmd as future improvement.",
+      "revId": "d68c3ad51b879e4cffdbfe1ffabb7d8bd8da6bc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "902cb1b9_be7b30e3",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-11-29T02:51:10Z",
+      "side": 1,
+      "message": "nits: Having comment or placing in different line might be helpful.\nI first thought this line also generates intersection.",
+      "revId": "d68c3ad51b879e4cffdbfe1ffabb7d8bd8da6bc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
