@@ -260,9 +260,10 @@ public class UpstreamNetworkMonitor {
                     .addTransportType(TRANSPORT_CELLULAR).build();
         }
 
-        // The existing default network and DUN callbacks will be notified.
-        // Therefore, to avoid duplicate notifications, we only register a no-op.
-        mMobileNetworkCallback = new UpstreamNetworkCallback(CALLBACK_MOBILE_REQUEST);
+        // The existing default network and DUN callbacks will be notified by
+        // LISTEN_ALL network callback. Therefore, to avoid duplicate notifications,
+        // we only register a no-op.
+        mMobileNetworkCallback = new NetworkCallback();
 
         // The following use of the legacy type system cannot be removed until
         // upstream selection no longer finds networks by legacy type.
