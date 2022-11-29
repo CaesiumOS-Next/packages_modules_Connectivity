@@ -16,6 +16,24 @@
       "message": "Then this is not necessary in assignInetRecord right ?\n\nCan you also ask coppock@ why this was only done on the address records previously, in cl/438054594 ? In theory other records like the SRV record could also have a different value (different hostname) depending on the interface",
       "revId": "361e1ce9a28f912cce50f5923254fa318cdf9693",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "467823e6_ad5ebed0",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-29T03:52:14Z",
+      "side": 1,
+      "message": "Yes. Will reach out to coppock@ for the question.",
+      "parentUuid": "cb312afb_3136fdd0",
+      "revId": "361e1ce9a28f912cce50f5923254fa318cdf9693",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
