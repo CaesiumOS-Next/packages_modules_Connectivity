@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6e844a0_11f91fab",
+        "filename": "tests/unit/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-30T00:03:06Z",
+      "side": 1,
+      "message": "Some tests like ConnectivityServiceTest are run as part of both FrameworksNetTests and ConnectivityCoverageTests (for code coverage calculations for the Connectivity/Tethering mainline module). Mainline code coverage should not use \"platform\" certificate, as the code should be runnable on different devices, potentially various OEMs.\n\nSo ConnectivityServiceTest can\u0027t rely on the \"platform\" certificate. Instead the usage of the permissions should be mocked in the unit tests.\n\nConnectivityCoverageTests seems to be passing in presubmit, so you probably don\u0027t need this actually",
+      "revId": "5ff99c67a544c2b3afb1a9f85179d02a3cf76b83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f63f00c_63e4dd02",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5012,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-11-30T00:03:06Z",
+      "side": 1,
+      "message": "Could this be set in setUp ? It\u0027s unclear here why all location privileges should be denied for just this test (also in some other places where it was added here).\n\nIIUC this change is being done to fix permissions that were considered \"granted\" before for the whole test, but are not anymore due to an external change; this feels like a general setUp should fix it, to setup such permissions the same as they were before.",
+      "revId": "5ff99c67a544c2b3afb1a9f85179d02a3cf76b83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
