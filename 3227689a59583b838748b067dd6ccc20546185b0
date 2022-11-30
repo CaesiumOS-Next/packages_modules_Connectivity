@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "37958625_49888041",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-11-30T12:41:30Z",
+      "side": 1,
+      "message": "You may have already considered other ways.\nBut alternative cleanups I considered were\n\nIdea1.\nMake sanitizer **only for args** that provide api which help to modify args.\nAnd call them from `create_action_module`.\nSomething like follows\n\n```\nClass ActionArgsSanitizer():\n  def __init__(self, args):\n....\n\n\ndef create_action_module(blueprint, target):\n  args_sanitizer \u003d ActionArgsSanitizer(target.args)\n\n if target.script \u003d\u003d “some script”:\n      args_sanitizer.set_arg_value(\u0027--gen-dir\u0027, \u0027.\u0027)\n      args_sanitizer.set_arg_value(\u0027--output\u0027, \u0027$(out)\u0027)\n      module.genrule_headers.add(module.name)\n elif target.script \u003d\u003d \u0027another script\u0027\n ....\n \ntarget.args \u003d args_sanitizer.get_args()\n\n```\n\nIdea2.\nHave BaseActionSanitizer with helper functions and default attributes modifications.\nAnd have ScriptSpecificActionSanitizer which extends BaseActionSanitizer and implement script specific modifications by override.\nSomething like follows\n```\n\nclass BaseActionSanitizer():\n  # helper methods\n  def _has_arg(self, arg):\n  def _has_arg_value(self, arg):\n  def _get_arg_value(self, arg):\n\n  #default implementation for attribute modifications\n  def get_args():\n  def get_output():\n\n\nclass JniRegistrationGeneratorSanitizer(BaseActionSanitizer):\n  def get_args():\n     # override get_args with script specific implementation\n```\n\nI think idea2 would be complex for the current code and I’m not sure if it worth to do.\n\nBut I\u0027m feeling idea1 might be good since modifying args is the most messy parts and other attribute modification is pretty small.",
+      "parentUuid": "8eecc2b5_bf9c2b7c",
+      "revId": "3227689a59583b838748b067dd6ccc20546185b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f99cf50f_8c11a55a",
         "filename": "tools/gn2bp/gen_android_bp",
         "patchSetId": 2
