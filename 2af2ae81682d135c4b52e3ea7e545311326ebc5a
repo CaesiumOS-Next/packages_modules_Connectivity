@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84e91eb8_d6ccc2f3",
+        "filename": "framework/src/android/net/TestNetworkInterface.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-11-30T04:26:41Z",
+      "side": 1,
+      "message": "Given that this is a test class, it might be better to say that if the MTU can\u0027t be measured, the object simply isn\u0027t constructed. But since this is just a test class it doesn\u0027t matter too much.",
+      "range": {
+        "startLine": 118,
+        "startChar": 28,
+        "endLine": 118,
+        "endChar": 1
+      },
+      "revId": "2af2ae81682d135c4b52e3ea7e545311326ebc5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
