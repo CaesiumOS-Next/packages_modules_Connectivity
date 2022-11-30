@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "711791ce_5872e525",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-11-30T17:05:05Z",
+      "side": 1,
+      "message": "It needs javadoc syntax either {@link foo.bar.Baz#bat} or {@code foo.bar.Baz bat \u003d new foo.bar.Baz(); bat.doSomething();} in the description of alternative. So I add \"There is no alternative for {@code NetworkTemplate.normalize}.\" back to the description to see if this makes TH happy.",
+      "parentUuid": "13d067d7_57e1db8a",
+      "revId": "ae12ef618463d58b0233d5d4acee6d647c4aeb9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "73d16670_8e621676",
