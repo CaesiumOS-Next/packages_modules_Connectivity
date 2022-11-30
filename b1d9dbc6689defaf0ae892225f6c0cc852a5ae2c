@@ -189,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "123f4a24_1964907c",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-30T15:13:08Z",
+      "side": 1,
+      "message": "Per talked, keep as protected",
+      "parentUuid": "656b7fe6_17adbb4f",
+      "range": {
+        "startLine": 119,
+        "startChar": 4,
+        "endLine": 119,
+        "endChar": 13
+      },
+      "revId": "b1d9dbc6689defaf0ae892225f6c0cc852a5ae2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99ab069f_f8a8eff0",
@@ -283,6 +307,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db39854a_1895ff62",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-30T15:13:08Z",
+      "side": 1,
+      "message": "Per talked, decouple the tests which access class member variables directly in aosp/2319857. Then, these non-static protected variables can be private",
+      "parentUuid": "71a20af2_b8e0391f",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 63
+      },
+      "revId": "b1d9dbc6689defaf0ae892225f6c0cc852a5ae2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30b11a1d_ea9539b4",
@@ -320,6 +368,30 @@
       "side": 1,
       "message": "This depends on previous decision if we move all non static parameters to EthernetTetheringTest\n\nOr we can do as ActivityManagerTestBase which share common setUp() to child class. Child class can call super.setUp() and do other specific parts.\n\nhttps://cs.android.com/android/platform/superproject/+/master:cts/tests/framework/base/windowmanager/util/src/android/server/wm/ActivityManagerTestBase.java;l\u003d620\n```\npublic abstract class ActivityManagerTestBase {\n..\n    @Before\n    public void setUp() throws Exception {\n..\n    }\n```\n\nhttps://cs.android.com/android/platform/superproject/+/master:cts/tests/framework/base/windowmanager/src/android/server/wm/CrossAppDragAndDropTests.java;l\u003d122\n```\npublic class CrossAppDragAndDropTests extends ActivityManagerTestBase {\n..\n    @Before\n    @Override\n    public void setUp() throws Exception {\n        super.setUp();\n        assumeTrue(supportsSplitScreenMultiWindow() || supportsFreeform());\n..\n        cleanupState();\n```\n\nwhich one you preferred? thank you",
       "parentUuid": "30b11a1d_ea9539b4",
+      "range": {
+        "startLine": 178,
+        "startChar": 4,
+        "endLine": 178,
+        "endChar": 42
+      },
+      "revId": "b1d9dbc6689defaf0ae892225f6c0cc852a5ae2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c35fa5b_d7fc26f0",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-11-30T15:13:08Z",
+      "side": 1,
+      "message": "Per talked, implement common setup/teardown in base class. leave specific setup/teardown in child class as ActivityManagerTestBase/CrossAppDragAndDropTests",
+      "parentUuid": "74bf6189_f5f20af8",
       "range": {
         "startLine": 178,
         "startChar": 4,
