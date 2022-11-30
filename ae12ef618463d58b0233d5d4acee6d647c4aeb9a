@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "13d067d7_57e1db8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-30T06:06:19Z",
+      "side": 1,
+      "message": "You might want to make TH happy",
+      "revId": "ae12ef618463d58b0233d5d4acee6d647c4aeb9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "73d16670_8e621676",
         "filename": "framework-t/src/android/net/NetworkTemplate.java",
         "patchSetId": 13
@@ -62,6 +79,30 @@
       "side": 1,
       "message": "No, usually you mark it as max\u003dlatest. You are right that there is some nuance in how used this is and how difficult the migration is : if there are many apps with many installs relying on this very actively and migration is difficult, then you may want to give them more time to migrate by saying max\u003dlatest+1 or even +2.\n\nBut generally : these apps are using this method through reflection and they already know they are doing something bad that may stop working at any update.\n\nSo there is nothing wrong with breaking them when they start targetting U, especially seeing how replacing this is absolutely trivial for them. The workflow for developers here is, they upgrade their targetSDK to U, and then their reflection call crashes. They look at the stack trace, they look at this comment, and they see there is a public alterntive to just use `NetworkTemplate.Builder(MATCH_WIFI).build()` and they replace that code. It takes them a total of 5 minutes, on something they already knew when they wrote it that they were doing something bad.\n\nI don\u0027t think you need to feel bad about that :)",
       "parentUuid": "5fb2309e_db26f3d7",
+      "range": {
+        "startLine": 230,
+        "startChar": 40,
+        "endLine": 230,
+        "endChar": 68
+      },
+      "revId": "ae12ef618463d58b0233d5d4acee6d647c4aeb9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1054c311_4b9bd8a9",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-30T06:06:19Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "dbdb8ad6_a7034749",
       "range": {
         "startLine": 230,
         "startChar": 40,
