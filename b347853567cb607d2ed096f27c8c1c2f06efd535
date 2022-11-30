@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e11fa0a_ac847428",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1432,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-30T01:59:29Z",
+      "side": 1,
+      "message": "Suggestion of wording :\n\n    /**\n     * Adds or removes a requirement for given UID ranges to use the VPN.\n     *\n     * Call this method to inform the system that the UIDs in the specified range\n     * are subject to a VPN.\n     * Each of the UID ranges specified by this method is added and removed as is, and no processing\n     * is performed on the ranges to de-duplicate, merge, split, or intersect them. In order to\n     * remove a previously-added range, the exact range must be removed as is.\n     * Therefore, this method must be called in pairs with identical UID ranges and |enabled|\n     * false when disabling a previously enabled VPN requirement.\n     * \u003cp\u003e\n     * If |lockdown| is {@code true}, then the specified UIDs are blocked from doing any networking\n     * when the VPN is not connected. If |lockdown| is false, then the specified UIDs do\n     * not have a default network when the VPN is not connected, but they may access a\n     * network that they specify explicitly (assuming they otherwise have permission to use\n     * that network).\n     * \u003cp\u003e\n     * Applications holding the {@link android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS}\n     * permission can always use other networks by specifiying them explicitly.\n     * Sockets protected by a method such as {@link VpnService#protect(DatagramSocket)}. are exempt.\n     * \u003cp\u003e\n     * The changes are applied asynchronously and may not have been applied by the time the method\n     * returns. Apps will be notified about any changes that apply to them via\n     * {@link NetworkCallback#onBlockedStatusChanged} callbacks called after the changes take\n     * effect.\n     * \u003cp\u003e\n     * This method should be called only by the VPN code.\n     *\n     * @param ...\n     * @hide\n     */",
+      "range": {
+        "startLine": 1432,
+        "startChar": 5,
+        "endLine": 1432,
+        "endChar": 7
+      },
+      "revId": "b347853567cb607d2ed096f27c8c1c2f06efd535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39abac61_9d37d1dc",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1433,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-30T01:59:29Z",
+      "side": 1,
+      "message": "\"overload\" is the noun\n\nHowever, this is not very informative. I think you want to say here what this *does*.",
+      "revId": "b347853567cb607d2ed096f27c8c1c2f06efd535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5111b52a_cb8dfa76",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1442,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-30T01:59:29Z",
+      "side": 1,
+      "message": "`enabled` sounds much easier to understand, seeing how you pass true to enable the ranges and false to disable them.",
+      "range": {
+        "startLine": 1442,
+        "startChar": 14,
+        "endLine": 1442,
+        "endChar": 24
+      },
+      "revId": "b347853567cb607d2ed096f27c8c1c2f06efd535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55736b7c_422d924c",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1443,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-30T01:59:29Z",
+      "side": 1,
+      "message": "`lockdown` and reverse the logic.\n\nIf `lockdown` is true, then the specified UIDs are blocked from doing any networking when the VPN is not connected.\nIf `lockdown` is false, then the specified UIDs do not have a default network when the VPN is not connected, but they may access a network that they specify explicitly (assuming they otherwise have permission to use that network).",
+      "range": {
+        "startLine": 1443,
+        "startChar": 14,
+        "endLine": 1443,
+        "endChar": 29
+      },
+      "revId": "b347853567cb607d2ed096f27c8c1c2f06efd535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a870f64_caa92dc8",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1447,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-30T01:59:29Z",
+      "side": 1,
+      "message": "Then you need to make the same notes as the old documentation about how callers need to call this with enabled true/false in pairs with the exact same uid ranges",
+      "range": {
+        "startLine": 1447,
+        "startChar": 5,
+        "endLine": 1447,
+        "endChar": 6
+      },
+      "revId": "b347853567cb607d2ed096f27c8c1c2f06efd535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af428e35_e9d10b0a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 11105,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-30T01:59:29Z",
+      "side": 1,
+      "message": "You should validate the ranges here (at least, they must not overlap, maybe you want to enforce that they are in increasing order or something)",
+      "range": {
+        "startLine": 11105,
+        "startChar": 51,
+        "endLine": 11105,
+        "endChar": 57
+      },
+      "revId": "b347853567cb607d2ed096f27c8c1c2f06efd535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
