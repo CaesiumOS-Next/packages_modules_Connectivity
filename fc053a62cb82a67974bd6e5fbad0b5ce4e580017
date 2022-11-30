@@ -22,6 +22,30 @@
       },
       "revId": "fc053a62cb82a67974bd6e5fbad0b5ce4e580017",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5118b741_57127d05",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-30T05:27:03Z",
+      "side": 1,
+      "message": "Okay, so I think I see where you are going with this. I agree that create_action_module is incredibly bloated and hard to work with. I actually think this would really benefit from some OO. How about we create a ActionSanitizer class that has a bunch of helper functions (so common operations become much more readable), and cleanly encapsulates the these tasks?\n\n(Thanks by the way for splitting up your changes into multiple CLs. *So* much easier to review now! 😊)",
+      "parentUuid": "f4a2ac63_6774cff2",
+      "range": {
+        "startLine": 713,
+        "startChar": 0,
+        "endLine": 732,
+        "endChar": 65
+      },
+      "revId": "fc053a62cb82a67974bd6e5fbad0b5ce4e580017",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
