@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "548bcb44_8926f73e",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-30T20:03:33Z",
+      "side": 1,
+      "message": "nit: I felt doing this inline was easy enough, so I didn\u0027t add a function. The assert is probably not necessary, as self.target.args[position] won\u0027t silently fail if position is out of bounds.\n\nComparing:\n```\nself._set_arg_positional_value(0, \u0027$(out)\u0027)\nself.target.args[0] \u003d \u0027$(out)\u0027\n```\nthe second version is even shorter to write 😊 (though we could rename it _set_arg_at which is shorter and more readable).",
+      "range": {
+        "startLine": 661,
+        "startChar": 0,
+        "endLine": 663,
+        "endChar": 38
+      },
+      "revId": "9ab1793ea7b4200b53105a2ca34963f60fcadc49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
