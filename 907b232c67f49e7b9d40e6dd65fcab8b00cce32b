@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "faf8ae2f_b44d6cfc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-30T02:18:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9d41256_41472033",
+      "range": {
+        "startLine": 12,
+        "startChar": 46,
+        "endLine": 12,
+        "endChar": 47
+      },
+      "revId": "907b232c67f49e7b9d40e6dd65fcab8b00cce32b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1332607_88257e75",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-11-25T06:52:14Z",
       "side": 1,
       "message": "Can this change for a given response ? If not can it be final ?\n\nAnd NonNull ? I guess you\u0027d need to rebase this change on top of the one that gets the network, but it would be better NonNull",
+      "range": {
+        "startLine": 40,
+        "startChar": 11,
+        "endLine": 40,
+        "endChar": 12
+      },
+      "revId": "907b232c67f49e7b9d40e6dd65fcab8b00cce32b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8415ab24_e2ea17b3",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-30T02:18:12Z",
+      "side": 1,
+      "message": "I think we can just set the network in constructor. But it\u0027s @Nullable in this change because we haven\u0027t created a socket per network.",
+      "parentUuid": "e1332607_88257e75",
       "range": {
         "startLine": 40,
         "startChar": 11,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8266fae_e55398e2",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-30T02:18:12Z",
+      "side": 1,
+      "message": "It\u0027s @Nullable in this change because we haven\u0027t created a socket per network. Will update it to @NonNull in later change.",
+      "parentUuid": "33d702ac_44556243",
+      "range": {
+        "startLine": 99,
+        "startChar": 33,
+        "endLine": 99,
+        "endChar": 56
+      },
+      "revId": "907b232c67f49e7b9d40e6dd65fcab8b00cce32b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3734adf2_e715ec6d",
@@ -83,6 +155,24 @@
       "writtenOn": "2022-11-25T06:52:14Z",
       "side": 1,
       "message": "Is this necessary considering it was already set just after constructing the response ?",
+      "revId": "907b232c67f49e7b9d40e6dd65fcab8b00cce32b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32e64452_3b0e906c",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsResponseDecoder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-30T02:18:12Z",
+      "side": 1,
+      "message": "Yes, removed.",
+      "parentUuid": "3734adf2_e715ec6d",
       "revId": "907b232c67f49e7b9d40e6dd65fcab8b00cce32b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -104,6 +194,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8a2eb9e_689d5a64",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-30T02:18:12Z",
+      "side": 1,
+      "message": "We have some legacy contructor which can only assign network to null. This can be @NonNull until we remove those legacy methods.",
+      "parentUuid": "496ae40a_015fbd3a",
+      "revId": "907b232c67f49e7b9d40e6dd65fcab8b00cce32b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70da7e31_d6b032bd",
@@ -121,6 +229,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cea59d40_223923f8",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsResponseDecoderTests.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-30T02:18:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70da7e31_d6b032bd",
+      "revId": "907b232c67f49e7b9d40e6dd65fcab8b00cce32b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01e2e43e_603af082",
@@ -134,6 +260,30 @@
       "writtenOn": "2022-11-25T06:52:14Z",
       "side": 1,
       "message": "This should probably be Objects.equals, to avoid requiring that the instance is exactly the same one\n\nAlthough if you\u0027re using a mock Network it will probably be the same",
+      "range": {
+        "startLine": 594,
+        "startChar": 45,
+        "endLine": 594,
+        "endChar": 47
+      },
+      "revId": "907b232c67f49e7b9d40e6dd65fcab8b00cce32b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a162a46b_f0514ab9",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-11-30T02:18:12Z",
+      "side": 1,
+      "message": "Oops, this should be `info.getNetwork().equals(network)`. Updated.",
+      "parentUuid": "01e2e43e_603af082",
       "range": {
         "startLine": 594,
         "startChar": 45,
