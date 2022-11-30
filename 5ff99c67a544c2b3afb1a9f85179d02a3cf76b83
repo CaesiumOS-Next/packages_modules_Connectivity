@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "135a208c_e5688e42",
+        "filename": "tests/unit/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2022-11-30T10:21:30Z",
+      "side": 1,
+      "message": "Ack, I agree. I moved the change to the internal gerrit (see ag/20579179). Thanks.",
+      "parentUuid": "b6e844a0_11f91fab",
+      "revId": "5ff99c67a544c2b3afb1a9f85179d02a3cf76b83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6f63f00c_63e4dd02",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 2
