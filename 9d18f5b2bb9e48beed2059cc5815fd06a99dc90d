@@ -111,6 +111,30 @@
       },
       "revId": "9d18f5b2bb9e48beed2059cc5815fd06a99dc90d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0c00cfb_d515b2f4",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2022-11-30T18:44:48Z",
+      "side": 1,
+      "message": "Unfortunately, the CTS tests are part of the mainline module, which means that we have to carry S- test capability forward in the T+ branch. Gotta love it. OTOH, if we _ever_ want to be able to move the code forward, then at some point, the S- code will have to be replaced, so I don\u0027t know about the now-vs-later or if we just always test to the lowest common denominator forever.",
+      "parentUuid": "cab74d0b_e53f4221",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 219,
+        "endChar": 85
+      },
+      "revId": "9d18f5b2bb9e48beed2059cc5815fd06a99dc90d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
