@@ -16,6 +16,24 @@
       "message": "Jean, thanks for patient review! I re-wrote the commit message to make the CL more clear. \n\nPlease note that this CL has been rebased on the TOT, although it looks like it is based on old source (I removed some of the recent change (e.g. waitForBroadcastIdle which is redundant now).\n\nIn history, the test cases has a Thread#sleep call due to reason detailed described in https://b.corp.google.com/issues/157949581#comment1. To simply, I call it two-phases waiting:\n- Phase1: Wait for carrier privileges\n- Phase2: (after carrier privileges) wait for admin UIDs update (and others which is NOT the focus of the this CL)\n\nThis CL only focuses on Phase1. By replacing carrier config change broadcast receiver with a carrier privileges callback, we have deterministic signal to know carrier privileges has been updated.\n\n- Because carrier privileges change has deterministic signal, the carrier privileges assertion has moved before sleep.\n- Because no need to depend on BroadcastReceiver, method waitForBroadcastIdle is redundant and removed.\n- Because Phase2 waiting is still there, the Thread#sleep is kept as is (bring back the TODO to improve it with b/157949581).\n\nPlease let me know if this explains your questions. If needed, we can chat online or talk in a meeting. Thanks!",
       "revId": "9f9d4c126018b153e111a1a5d3cb994fb649d09b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70c65b1d_d588a928",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-30T07:36:53Z",
+      "side": 1,
+      "message": "Okay I see.\n\nThen I\u0027m afraid I see little advantage to this change. It\u0027s a good change of course – it simplifies the code, and it might make the test faster in some cases – but the existing waitForBroadcastIdle already achieves the same result of waiting for the carrier privilege to be set.\n\nMy original ask was that you address the TODO, so we can remove the sleep and the associated flakiness. Can we do that instead ?",
+      "parentUuid": "b15baf06_497b120f",
+      "revId": "9f9d4c126018b153e111a1a5d3cb994fb649d09b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

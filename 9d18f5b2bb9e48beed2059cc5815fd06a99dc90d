@@ -63,6 +63,30 @@
       },
       "revId": "9d18f5b2bb9e48beed2059cc5815fd06a99dc90d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec6697fd_32659435",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-11-30T07:36:53Z",
+      "side": 1,
+      "message": "But then we lose test coverage on S- ; I don\u0027t think we can afford that. We do need to make sure this keeps working when the module is installed on an S device.",
+      "parentUuid": "583b0206_1578c5c0",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 219,
+        "endChar": 85
+      },
+      "revId": "9d18f5b2bb9e48beed2059cc5815fd06a99dc90d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
