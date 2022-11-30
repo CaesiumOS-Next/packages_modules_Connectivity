@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77ef6c72_af1748e9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-11-30T06:10:41Z",
+      "side": 1,
+      "message": "Is it better if it is corret?\n\nhas the same meaning with empty set, and it is not...",
+      "range": {
+        "startLine": 9,
+        "startChar": 57,
+        "endLine": 9,
+        "endChar": 59
+      },
+      "revId": "3f506561abddbea388fe17178b93cb35746ad0e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
