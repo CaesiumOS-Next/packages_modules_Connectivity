@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "157d9f6e_c9737e54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-11-30T13:00:29Z",
+      "side": 1,
+      "message": "I would disagree that idea2 would be complex. Looking at the current state of the scripts. Almost all the script requires some very common clean up like the following\n\n1- Replacing `../../`\u0027 then doing a location tag. [I think this will apply to every script.\n2- Replacing the value of [-o, --output] with `$(out)`.\n3- Replacing `^gen` with `$(genDir)`\n\n\nIf we are going all the way doing the OO path. I\u0027d most likely say that we can have a ActionArgsSanitizer factory that would instantiate the class depending on the script you\u0027ve given. If no script has been found that match then you get the BaseActionSanitizer.",
+      "parentUuid": "37958625_49888041",
+      "revId": "3227689a59583b838748b067dd6ccc20546185b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f99cf50f_8c11a55a",
         "filename": "tools/gn2bp/gen_android_bp",
         "patchSetId": 2
