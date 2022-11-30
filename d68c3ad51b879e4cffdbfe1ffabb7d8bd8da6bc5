@@ -104,6 +104,24 @@
       "parentUuid": "35d41755_d3654ef1",
       "revId": "d68c3ad51b879e4cffdbfe1ffabb7d8bd8da6bc5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88ebd202_5b9c141c",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-11-30T03:09:54Z",
+      "side": 1,
+      "message": "In gen_android_bp\nThis CL iterate arch specific args as follows\n```\nfor (arch_name, args) in target.args:\n```\n\nBut I thought we can do follows as we iterate other target specific data.\n```\nfor arch_name, arch in target.arch.items():\n  # args \u003d arch.args\n```\n\nSo I\u0027m just wondering if there is a reason to do this packing only for args.",
+      "parentUuid": "777809cd_588873be",
+      "revId": "d68c3ad51b879e4cffdbfe1ffabb7d8bd8da6bc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
