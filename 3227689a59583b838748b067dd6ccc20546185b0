@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f99cf50f_8c11a55a",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-11-30T08:37:52Z",
+      "side": 1,
+      "message": "nits:\nI don\u0027t think filename in the caller is modified. \nSo, need to return the filename?",
+      "revId": "3227689a59583b838748b067dd6ccc20546185b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
