@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fef814fe_fd636312",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-30T05:24:35Z",
+      "side": 1,
+      "message": "are you saying we can\u0027t distinguish target from host when using cc_genrule? If that\u0027s the case, that sounds very limiting. Maybe we should talk to Colin again about making the genrule cmd target specific.",
+      "parentUuid": "6caff26e_6e7c5944",
+      "revId": "d68c3ad51b879e4cffdbfe1ffabb7d8bd8da6bc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7e947486_f3bce0b5",
         "filename": "tools/gn2bp/gen_android_bp",
         "patchSetId": 1
