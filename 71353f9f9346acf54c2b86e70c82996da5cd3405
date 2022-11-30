@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec13e63b_13dac572",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-30T19:56:44Z",
+      "side": 1,
+      "message": "nit: use snake_case for function names \"get_action_sanitizer(target)\"",
+      "range": {
+        "startLine": 621,
+        "startChar": 4,
+        "endLine": 621,
+        "endChar": 16
+      },
+      "revId": "71353f9f9346acf54c2b86e70c82996da5cd3405",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3625791_801a9e4e",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-30T19:56:44Z",
+      "side": 1,
+      "message": "Or just throw an exception so we know it\u0027s not implemented.",
+      "revId": "71353f9f9346acf54c2b86e70c82996da5cd3405",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
