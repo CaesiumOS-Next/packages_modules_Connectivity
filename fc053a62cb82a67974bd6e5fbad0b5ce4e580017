@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4a2ac63_6774cff2",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-30T01:37:14Z",
+      "side": 1,
+      "message": "I am not sure this is an improvement? Now script-specific hacks live in multiple locations for no apparent reason.",
+      "range": {
+        "startLine": 713,
+        "startChar": 0,
+        "endLine": 732,
+        "endChar": 65
+      },
+      "revId": "fc053a62cb82a67974bd6e5fbad0b5ce4e580017",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
