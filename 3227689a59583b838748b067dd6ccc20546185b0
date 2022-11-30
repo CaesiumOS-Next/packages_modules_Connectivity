@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8eecc2b5_bf9c2b7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-11-30T09:18:52Z",
+      "side": 1,
+      "message": "Clean up in this chain looks great!\nSo far, what we are doing for each script is similar, modifying the value of some option, removing some options.\nI’m not sure what kind of modification will be needed for remaining scripts but I imagine that does not so much different from what we did.\nSo, this clean up looks reasonable to me and I’m fine to merge them.\nI +1 to wait @aymanm@google.com review\n\nHow we will handle script specific modifications for other attributes (e.g. outputs, deps, inputs, genrule_headers)?\nWill ActionSanitizer provide api for them as well (e.g. get_outputs, get_inputs)?\nI felt I don\u0027t want to have `if script \u003d\u003d script_name` for the same script in multiple places.\nBut we already have this for a couple of scripts and maybe better than current code.",
+      "revId": "3227689a59583b838748b067dd6ccc20546185b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f99cf50f_8c11a55a",
