@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aae4624e_93b5ead5",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-11-30T01:31:20Z",
+      "side": 1,
+      "message": "FWIW, passing module and target was actually fine here. I think we\u0027ll end up doing that again anyways as we add more / different scripts over time.",
+      "range": {
+        "startLine": 735,
+        "startChar": 17,
+        "endLine": 735,
+        "endChar": 43
+      },
+      "revId": "38ad754c402e0fda279676c53ab68cb21844978f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
