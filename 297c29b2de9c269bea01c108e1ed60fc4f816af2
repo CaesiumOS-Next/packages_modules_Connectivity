@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf75853d_b00e9b77",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-01T13:12:22Z",
+      "side": 1,
+      "message": "I think this also could run in the BaseActionSanitizer after the script-specific tweaks has been done.",
+      "range": {
+        "startLine": 777,
+        "startChar": 4,
+        "endLine": 778,
+        "endChar": 37
+      },
+      "revId": "297c29b2de9c269bea01c108e1ed60fc4f816af2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
