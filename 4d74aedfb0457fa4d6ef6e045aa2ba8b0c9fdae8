@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c3d61b8_f0a42f11",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-12-01T02:16:25Z",
+      "side": 1,
+      "message": "nits: \nI thought having `def _update_value_arg(self, arg, value, fail_if_absent\u003dTrue)` and calling `self._update_value_arg(\u0027--output_dir\u0027, self._sanitize_dir, fail_if_absent\u003dFalse)` might be more explicit and can avoid unintended ignore.",
+      "revId": "4d74aedfb0457fa4d6ef6e045aa2ba8b0c9fdae8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
