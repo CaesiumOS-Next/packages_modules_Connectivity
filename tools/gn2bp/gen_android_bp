@@ -645,6 +645,14 @@ class BaseActionSanitizer():
     indices = self._get_arg_indices(arg)
     return all([self.target.args[i + 1].startswith('--') for i in indices])
 
+  def _update_list_arg(self, arg, func, throw_if_absent = True):
+    if self._should_fail_silently(arg, throw_if_absent):
+      return
+    assert(self._is_list_arg(arg))
+    indices = self._get_arg_indices(arg)
+    for index in indices:
+      self._set_arg_at(index + 1, func(self.target.args[index + 1]))
+
   # Whether an arg value pair appears exactly once
   def _is_value_arg(self, arg):
     if operator.countOf(self.target.args, arg) != 1:
