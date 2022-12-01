@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1290c11_f541d8ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-01T06:25:01Z",
+      "side": 1,
+      "message": "LGTM, only nits.",
+      "revId": "4fe3eaef04187bd5bbc9c14fe612a9aed6ae8750",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04b7e6fb_2cb5a7d2",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-01T06:25:01Z",
+      "side": 1,
+      "message": "final TapPacketReader",
+      "range": {
+        "startLine": 298,
+        "startChar": 42,
+        "endLine": 298,
+        "endChar": 57
+      },
+      "revId": "4fe3eaef04187bd5bbc9c14fe612a9aed6ae8750",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8b54c39_9ca0ae55",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-01T06:25:01Z",
+      "side": 1,
+      "message": "final TestNetworkInterface",
+      "range": {
+        "startLine": 306,
+        "startChar": 41,
+        "endLine": 306,
+        "endChar": 61
+      },
+      "revId": "4fe3eaef04187bd5bbc9c14fe612a9aed6ae8750",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43e6f3da_23080760",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-01T06:25:01Z",
+      "side": 1,
+      "message": "final MyTetheringEventCallback",
+      "range": {
+        "startLine": 314,
+        "startChar": 55,
+        "endLine": 314,
+        "endChar": 79
+      },
+      "revId": "4fe3eaef04187bd5bbc9c14fe612a9aed6ae8750",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
