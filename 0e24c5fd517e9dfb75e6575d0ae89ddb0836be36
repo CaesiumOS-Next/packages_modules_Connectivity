@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6456f02d_c91f8ed2",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-12-01T02:40:35Z",
+      "side": 1,
+      "message": "nits: `_sanitize_filepath` or `_sanitize_dirpath` looks more clear to me.",
+      "range": {
+        "startLine": 683,
+        "startChar": 6,
+        "endLine": 683,
+        "endChar": 19
+      },
+      "revId": "0e24c5fd517e9dfb75e6575d0ae89ddb0836be36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
