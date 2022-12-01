@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8929b5e7_e148f354",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-01T10:59:36Z",
+      "side": 1,
+      "message": "I think you meant\n\n`list args could have **more** than one arg value pair`",
+      "range": {
+        "startLine": 634,
+        "startChar": 56,
+        "endLine": 634,
+        "endChar": 96
+      },
+      "revId": "923688c8fa0964e16f9c009a3ad5687ed1f2c4c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7da77f4_9c221a57",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-01T10:59:36Z",
+      "side": 1,
+      "message": "I think this could be rewritten to\n\n`This is because list and value args are identical when the list args has only one (arg, value) pair`",
+      "range": {
+        "startLine": 635,
+        "startChar": 4,
+        "endLine": 636,
+        "endChar": 22
+      },
+      "revId": "923688c8fa0964e16f9c009a3ad5687ed1f2c4c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
