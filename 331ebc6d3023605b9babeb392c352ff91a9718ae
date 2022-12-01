@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c3a8d2e_f6795cd8",
+        "filename": "Cronet/tests/cts/src/org/chromium/net/test/CronetApiTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-01T03:24:56Z",
+      "side": 1,
+      "message": "nit: As much as I like having explicit error messages, in this case it almost makes the code harder to read. Maybe getRandomDomain() should log the domain and we don\u0027t need to print an explicit error message here?",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 94
+      },
+      "revId": "331ebc6d3023605b9babeb392c352ff91a9718ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
