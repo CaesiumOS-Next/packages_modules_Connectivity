@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d4f5acb_51e09bbd",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-01T03:42:31Z",
+      "side": 1,
+      "message": "Done. Check the wifi feature now.",
+      "parentUuid": "c3a8f480_41d0823c",
+      "range": {
+        "startLine": 667,
+        "startChar": 16,
+        "endLine": 667,
+        "endChar": 55
+      },
+      "revId": "25e9636f8f9e908e09808fd745cf59ac35608772",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55da2941_4b47fb4b",
@@ -58,6 +82,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4875b7c1_7ea6ca37",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-01T03:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12f9d0d5_bba11159",
+      "revId": "25e9636f8f9e908e09808fd745cf59ac35608772",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e48d01f6_329dff12",
@@ -71,6 +113,24 @@
       "writtenOn": "2022-11-09T07:59:51Z",
       "side": 1,
       "message": "It would be good to verify that none of these are created when the flag is off, when added",
+      "revId": "25e9636f8f9e908e09808fd745cf59ac35608772",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54708921_8780f27c",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-01T03:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e48d01f6_329dff12",
       "revId": "25e9636f8f9e908e09808fd745cf59ac35608772",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
