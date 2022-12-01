@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "381a10f3_23b4a595",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-01T13:16:43Z",
+      "side": 1,
+      "message": "Nit: I\u0027d prefer just having it silently fail with a return value of whether an element was deleted or not.",
+      "range": {
+        "startLine": 650,
+        "startChar": 40,
+        "endLine": 650,
+        "endChar": 62
+      },
+      "revId": "c363b41d85838904f57437b9e7f30ae838b7c132",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
