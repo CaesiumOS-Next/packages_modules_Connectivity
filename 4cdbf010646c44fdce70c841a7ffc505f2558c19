@@ -34,6 +34,24 @@
       "parentUuid": "2deff0ee_8f2c58e7",
       "revId": "4cdbf010646c44fdce70c841a7ffc505f2558c19",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74f4bec6_4c930b03",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1245797
+      },
+      "writtenOn": "2022-12-01T22:02:00Z",
+      "side": 1,
+      "message": "No, reportMobileRadioPowerState will no longer reliably result in a CellularBatteryStats update (by design). In scenarios where reportMobileRadioPowerState was being called frequently (every 10 seconds), the battery drain from the Modem HAL calls was too high.\n\nIt\u0027s worth noting that getCellularBatteryStats has no guarantee of data freshness, even prior to the rate limit on triggers from reportMobileRadioPowerState. Depending on what the CellularBatteryStats is being used for, we may want to add something like a timestamp to indicate the recency of the data.",
+      "parentUuid": "f260e901_397307d3",
+      "revId": "4cdbf010646c44fdce70c841a7ffc505f2558c19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
