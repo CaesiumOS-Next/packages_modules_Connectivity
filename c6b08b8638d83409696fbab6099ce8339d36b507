@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a494099a_4fb5accc",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-01T13:08:43Z",
+      "side": 1,
+      "message": "This could be extracted to the BaseActionSanitizer along with the replacing of \u0027--output\u0027",
+      "range": {
+        "startLine": 763,
+        "startChar": 4,
+        "endLine": 763,
+        "endChar": 39
+      },
+      "revId": "c6b08b8638d83409696fbab6099ce8339d36b507",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
