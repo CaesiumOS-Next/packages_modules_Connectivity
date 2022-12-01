@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7039c985_8f18c244",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-01T06:46:39Z",
+      "side": 1,
+      "message": "fix this error prone ?",
+      "range": {
+        "startLine": 103,
+        "startChar": 12,
+        "endLine": 103,
+        "endChar": 35
+      },
+      "revId": "6d6c2214f07d51474e0de293e7ad9f0c40100a84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
