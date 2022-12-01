@@ -16,6 +16,24 @@
       "message": "It seems arg and self.target.args is swapped.\nhttps://docs.python.org/3/library/operator.html#operator.countOf\n```\noperator.countOf(a, b)\nReturn the number of occurrences of b in a\n```",
       "revId": "3a2c3ddc42ef57c1676c0eb4a5010f77178f2c98",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fffeaff9_1865c4aa",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-01T23:26:30Z",
+      "side": 1,
+      "message": "wow, what a terrible API, thanks!",
+      "parentUuid": "45af942c_4f5320f6",
+      "revId": "3a2c3ddc42ef57c1676c0eb4a5010f77178f2c98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
