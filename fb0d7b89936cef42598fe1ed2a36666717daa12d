@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bea47a1f_cc746766",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceInfoTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-01T08:23:52Z",
+      "side": 1,
+      "message": "Maybe rename to \"_noValue\" instead of \"_valueisEmpty\", otherwise it\u0027s the same name as your new \"textEntry_fromString_valueIsEmpty\" test, even though it\u0027s not the same behavior being tested\n\n(same for textEntry_fromBytesWithoutAssignPunc_valueisEmpty)",
+      "range": {
+        "startLine": 253,
+        "startChar": 16,
+        "endLine": 253,
+        "endChar": 66
+      },
+      "revId": "fb0d7b89936cef42598fe1ed2a36666717daa12d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
