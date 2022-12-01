@@ -1,0 +1,152 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "843583dc_e1b2ba7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-01T08:12:30Z",
+      "side": 1,
+      "message": "LGTM with a rebase to make the @Nullable @NonNull",
+      "revId": "af1d63cfec6b1fdba2c077bd6f897c5e20ad29df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "260b14ba_61a18e9c",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-01T08:12:30Z",
+      "side": 1,
+      "message": "Can you rebase this on top of \"Add MdnsInterfaceSocket and MdnsSocketProvider\", and make it @NonNull ?\n\nOtherwise you\u0027d have to modify all these annotations later",
+      "revId": "af1d63cfec6b1fdba2c077bd6f897c5e20ad29df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "971f6cab_2d32d3fb",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-01T08:12:30Z",
+      "side": 1,
+      "message": "Nit: keep local style, so \"network\" instead of \"mNetwork\"",
+      "revId": "af1d63cfec6b1fdba2c077bd6f897c5e20ad29df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0afe1f55_1c9a2138",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-01T08:12:30Z",
+      "side": 1,
+      "message": "(ideally NonNull)",
+      "revId": "af1d63cfec6b1fdba2c077bd6f897c5e20ad29df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5c09d93_02fe33e3",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-01T08:12:30Z",
+      "side": 1,
+      "message": "Also can this be NonNull after rebase ?",
+      "revId": "af1d63cfec6b1fdba2c077bd6f897c5e20ad29df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0b15008_ef520f7c",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsResponseTests.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-01T08:12:30Z",
+      "side": 1,
+      "message": "Nit: assertNull",
+      "range": {
+        "startLine": 244,
+        "startChar": 8,
+        "endLine": 244,
+        "endChar": 20
+      },
+      "revId": "af1d63cfec6b1fdba2c077bd6f897c5e20ad29df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "978e64b1_c3a12b7a",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceInfoTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-01T08:12:30Z",
+      "side": 1,
+      "message": "Nit: assertNull",
+      "range": {
+        "startLine": 170,
+        "startChar": 8,
+        "endLine": 170,
+        "endChar": 20
+      },
+      "revId": "af1d63cfec6b1fdba2c077bd6f897c5e20ad29df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4d2351f_3cb3efd1",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceInfoTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-01T08:12:30Z",
+      "side": 1,
+      "message": "Would it work if you prepare it with:\n\n    doCallRealMethod().when(mockNetwork).writeToParcel(any(), anyInt())\n    \n?",
+      "revId": "af1d63cfec6b1fdba2c077bd6f897c5e20ad29df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
