@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3ed0918_2581f9bd",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-01T22:01:22Z",
+      "side": 1,
+      "message": "nit: it may be clearer to do this inline",
+      "range": {
+        "startLine": 731,
+        "startChar": 6,
+        "endLine": 731,
+        "endChar": 35
+      },
+      "revId": "4d551d733ce558081c1b4402c6c3e3c6acab3684",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
