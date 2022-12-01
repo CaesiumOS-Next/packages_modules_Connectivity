@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7be3837d_b60052dd",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceBrowserListener.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-01T07:28:13Z",
+      "side": 1,
+      "message": "As mentioned in the previous commit, maybe keep using onServiceFound for this, and add onServiceNameDiscovered instead",
+      "revId": "c242c582eaae4f7803d9537ca82c681b4be11f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b2fa7e5_64de51b4",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-01T07:28:13Z",
+      "side": 1,
+      "message": "Nit: We may want to change this in the future, so it\u0027s probably more future-proof to say: !before \u0026\u0026 after (also clearer in the code, no need for a comment)",
+      "revId": "c242c582eaae4f7803d9537ca82c681b4be11f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e10e9418_4b8bbe95",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-01T07:28:13Z",
+      "side": 1,
+      "message": "Having state that changes depending on whether you call createResponse is hard to follow (createResponse doesn\u0027t look like it has side-effects, but it creates mPointerRecord).\n\nDo you really need to store this in a member ? Could you just have a createPointerRecord method ?",
+      "revId": "c242c582eaae4f7803d9537ca82c681b4be11f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db4956dc_0d78fd0c",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-01T07:28:13Z",
+      "side": 1,
+      "message": "onServiceRemoved",
+      "range": {
+        "startLine": 854,
+        "startChar": 18,
+        "endLine": 854,
+        "endChar": 34
+      },
+      "revId": "c242c582eaae4f7803d9537ca82c681b4be11f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c6c547b_56c1619a",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-01T07:28:13Z",
+      "side": 1,
+      "message": "That was preexisting, but spy is discouraged, and here it\u0027s very weird mocking that is done both via mocks and real methods.\n\nIt looks like you\u0027re getting rid of most of the mocks, except isGoodbye. Maybe you could remove the mocking for isGoodbye if you keep the ttl non-zero, looking at its implementation ?\n\nThen you can remove spy()",
+      "revId": "c242c582eaae4f7803d9537ca82c681b4be11f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2db99d0b_101c50d1",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-01T07:28:13Z",
+      "side": 1,
+      "message": "Refactor to use InetAddresses.parseNumericAddress, and instanceof Inet6Address; the current method looks hacky or at least unusual for networking code",
+      "revId": "c242c582eaae4f7803d9537ca82c681b4be11f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
