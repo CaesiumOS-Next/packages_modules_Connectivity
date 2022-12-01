@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d07866f_9248a001",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-01T10:49:21Z",
+      "side": 1,
+      "message": "There is another which is in the following format\n\nscript value1 value2\n\nBasically, you can run a script by providing values without an argument. I\u0027ve noticed this when I was trying to write a simple parser for the args and noticed that there could never be a general parser due to those type of flags.",
+      "range": {
+        "startLine": 629,
+        "startChar": 1,
+        "endLine": 632,
+        "endChar": 43
+      },
+      "revId": "2cad933ab65a5078b0c15768d66d00e80e4dd823",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
