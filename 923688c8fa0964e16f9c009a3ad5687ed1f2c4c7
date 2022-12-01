@@ -45,6 +45,29 @@
       },
       "revId": "923688c8fa0964e16f9c009a3ad5687ed1f2c4c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c330773d_9974124e",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-01T16:45:27Z",
+      "side": 1,
+      "message": "could this not just be:\n```\n  def _is_list_arg(self, arg):\n    return operator.countOf(arg, self.target.args) \u003e 1 or self._is_value_arg(arg)\n    \n```",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 648,
+        "endChar": 100
+      },
+      "revId": "923688c8fa0964e16f9c009a3ad5687ed1f2c4c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
