@@ -39,6 +39,30 @@
       },
       "revId": "aa74565dc2eb504c09ca6807001748cf8e4e2915",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be2a8a93_24881913",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 5150,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-01T01:32:26Z",
+      "side": 1,
+      "message": "Binder.withCleanCallingIdentity is hidden API. I added one in BinderUtils",
+      "parentUuid": "1626472a_0322fc4e",
+      "range": {
+        "startLine": 5150,
+        "startChar": 38,
+        "endLine": 5150,
+        "endChar": 58
+      },
+      "revId": "aa74565dc2eb504c09ca6807001748cf8e4e2915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
