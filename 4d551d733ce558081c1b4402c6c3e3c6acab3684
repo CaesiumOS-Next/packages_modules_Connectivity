@@ -22,6 +22,30 @@
       },
       "revId": "4d551d733ce558081c1b4402c6c3e3c6acab3684",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35cdd8e5_d1765619",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-01T22:02:46Z",
+      "side": 1,
+      "message": "oh, I guess then it would have to be a lambda, which isn\u0027t necessarily very readable either.",
+      "parentUuid": "d3ed0918_2581f9bd",
+      "range": {
+        "startLine": 731,
+        "startChar": 6,
+        "endLine": 731,
+        "endChar": 35
+      },
+      "revId": "4d551d733ce558081c1b4402c6c3e3c6acab3684",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
