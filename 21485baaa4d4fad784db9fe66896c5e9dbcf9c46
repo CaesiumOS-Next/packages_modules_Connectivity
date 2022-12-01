@@ -22,6 +22,30 @@
       },
       "revId": "21485baaa4d4fad784db9fe66896c5e9dbcf9c46",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "179c1161_cf480328",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-01T15:18:29Z",
+      "side": 1,
+      "message": "It seems that there is no universal method that can be run on any script. It will just introduce more edge cases on the long run. Forget this",
+      "parentUuid": "38ff0bce_805da234",
+      "range": {
+        "startLine": 767,
+        "startChar": 4,
+        "endLine": 769,
+        "endChar": 39
+      },
+      "revId": "21485baaa4d4fad784db9fe66896c5e9dbcf9c46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
