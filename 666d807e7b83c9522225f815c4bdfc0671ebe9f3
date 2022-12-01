@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbcaf0ba_258f84f7",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceSocket.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-01T03:06:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1784c03e_df9875c0",
+      "range": {
+        "startLine": 38,
+        "startChar": 41,
+        "endLine": 38,
+        "endChar": 51
+      },
+      "revId": "666d807e7b83c9522225f815c4bdfc0671ebe9f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd6dca71_f486d1b1",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9abcd63_7ead8618",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-01T03:06:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd6dca71_f486d1b1",
+      "revId": "666d807e7b83c9522225f815c4bdfc0671ebe9f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c44aee1d_6d732469",
@@ -54,6 +96,24 @@
       "writtenOn": "2022-11-22T08:10:51Z",
       "side": 1,
       "message": "If this is used for getting sockets both for discovery and for advertising, it would be better if startDiscovery is implemented in another class, using the callbacks of this class (so when onSocketCreated is called, the calling class would create the MdnsSocketClient using the provided MdnsInterfaceSocket and startDiscovery).\n\nOtherwise you\u0027d need to track here if the socket request is for discovery or not, and only start discovery in that case, that would be a strange design.",
+      "revId": "666d807e7b83c9522225f815c4bdfc0671ebe9f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7140e0e1_c5bab144",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-01T03:06:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c44aee1d_6d732469",
       "revId": "666d807e7b83c9522225f815c4bdfc0671ebe9f3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
