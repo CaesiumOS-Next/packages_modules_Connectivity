@@ -16,6 +16,24 @@
       "message": "I think one of the original objectives of this test was to ensure that the call to reportMobileRadioPowerState works; but it won\u0027t be called anymore here.\n\nIs there some other reliable way to test that stats are updated as expected when it is called ?",
       "revId": "4cdbf010646c44fdce70c841a7ffc505f2558c19",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f260e901_397307d3",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-01T06:52:11Z",
+      "side": 1,
+      "message": "I think we verify this by changing default network because we know if CS calls reportMobileRadioPowerState that will trigger battery to update modem stats.\n\nAbout the purpose of the test, I think we want to verify reportNetworkInterfaceForTransports() is called and it will have battery to update the interfaces. In the original design, battery needs to pass the interfaces to query stats. However, in current design(aosp/1948496), battery uses NetworkStatsManager.getMobileUidStats() and NetworkStatsManager.getWifiUidStats() to query stats and they don\u0027t need to pass interfaces anymore. The interface lists are maintained in NetworkStatsService itself. That is, the interface lists maintained by battery should have no usage today.\n\nNSS maintains [mAllMobileIfacesSinceBoot and  mAllWifiIfacesSinceBoot.](\nhttps://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/service-t/src/com/android/server/net/NetworkStatsService.java;l\u003d367?q\u003dNetworkStatsService.java\u0026sq\u003dpackage:aosp-master%20file:.)",
+      "parentUuid": "2deff0ee_8f2c58e7",
+      "revId": "4cdbf010646c44fdce70c841a7ffc505f2558c19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
