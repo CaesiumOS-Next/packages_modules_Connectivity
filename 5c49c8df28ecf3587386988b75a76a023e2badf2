@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "278bf7ea_5d768ac9",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-01T07:08:09Z",
+      "side": 1,
+      "message": "Changing the behavior of onServiceFound will make it more complicated to merge upstream. Maybe keep the same behavior, but add onServiceNameDiscovered for example ?",
+      "revId": "5c49c8df28ecf3587386988b75a76a023e2badf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef1e8437_53245b6d",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-01T07:08:09Z",
+      "side": 1,
+      "message": "Nit: else if",
+      "range": {
+        "startLine": 245,
+        "startChar": 14,
+        "endLine": 246,
+        "endChar": 18
+      },
+      "revId": "5c49c8df28ecf3587386988b75a76a023e2badf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83c2d453_1d39b1f6",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-01T07:08:09Z",
+      "side": 1,
+      "message": "As noted in a parent commit, it\u0027s not clear which record should be used here.\n\nThe previous behavior is: \"onServiceRemoved is called if onServiceFound was called, except for Goodbye where it\u0027s called in any case\". The previous behavior on Goodbye is probably a bug.\n\nThe intention is probably to have onServiceRemoved mirror onServiceFound (where the record is complete). But we actually need to know when a service goes away, even if it was not complete.\n\nSo I\u0027m thinking we need a separate callback for this too ? Maybe onServiceNameLost ?\n\nThen you\u0027d only call onServiceRemoved when the service was complete, and call onServiceNameLost in any case (similar to onServiceNameDiscovered vs. onServiceFound).\n\nFor onServiceNameLost the TTL would be the one of the last PTR record I think, as that is the one that is necessary to have any name.",
+      "revId": "5c49c8df28ecf3587386988b75a76a023e2badf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
