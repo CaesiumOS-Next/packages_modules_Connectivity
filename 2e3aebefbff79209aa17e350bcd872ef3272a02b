@@ -71,6 +71,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33d9d57f_ca1b5454",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-01T07:19:08Z",
+      "side": 1,
+      "message": "thanks for your comment. add a todo to b/258637850#comment4. currently, blocked by aosp/2319212 for moving bpf test to mts and disable bpf test in cts. temporarily limit clat tether offlaod on U+ device until we fix the data limits and statistics",
+      "parentUuid": "71b97f31_a4220f22",
+      "revId": "2e3aebefbff79209aa17e350bcd872ef3272a02b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4464f1b8_12230ac1",
