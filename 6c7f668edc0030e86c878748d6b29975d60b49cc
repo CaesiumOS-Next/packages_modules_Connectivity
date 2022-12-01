@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79b89d42_b7983ec6",
+        "filename": "service-t/src/com/android/server/NetworkStatsServiceInitializer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-01T03:56:40Z",
+      "side": 1,
+      "message": "This expects a @NonNull service:\n\n     protected final void publishBinderService(@NonNull String name, @NonNull IBinder service, boolean allowIsolated)\n     \nBut mStatsService would be null here.\n\nThis change would also cause Context.getSystemService(NetworkStatsManager.class) to be null for all apps, which they will likely not expect and will crash.\n\nThe system cannot work without a started NetworkStatsService, so just ignoring the exception and leaving it null will just result in crashes later.",
+      "revId": "6c7f668edc0030e86c878748d6b29975d60b49cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
