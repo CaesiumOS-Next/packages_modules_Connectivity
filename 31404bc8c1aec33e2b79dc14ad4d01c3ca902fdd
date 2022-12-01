@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "43d2e853_6c5c9129",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-01T08:14:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22348d4a_25d914b7",
+      "range": {
+        "startLine": 10,
+        "startChar": 50,
+        "endLine": 10,
+        "endChar": 51
+      },
+      "revId": "31404bc8c1aec33e2b79dc14ad4d01c3ca902fdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "0bc31388_9c8eb861",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -37,6 +61,24 @@
       "writtenOn": "2022-11-25T07:10:28Z",
       "side": 1,
       "message": "Note I had this patched in my commit already (aosp/2239481)",
+      "revId": "31404bc8c1aec33e2b79dc14ad4d01c3ca902fdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a78e879_3225cbe8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-01T08:14:13Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "0bc31388_9c8eb861",
       "revId": "31404bc8c1aec33e2b79dc14ad4d01c3ca902fdd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -75,6 +117,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c2cd74e_11486cf8",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-01T08:14:13Z",
+      "side": 1,
+      "message": "This doesn\u0027t actually happen. Just notice this method may need have null check. But you are right, maybe having NPE is more correct and let us aware the problem. Removed.",
+      "parentUuid": "f6f39afb_ba9eef29",
+      "revId": "31404bc8c1aec33e2b79dc14ad4d01c3ca902fdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd8cfaf8_493c69fd",
@@ -88,6 +148,30 @@
       "writtenOn": "2022-11-25T07:10:28Z",
       "side": 1,
       "message": "Actually I think the current code is correct here; for \"key\u003d\", the key should be \"key\" and the value an empty String.\n\nFor \"key\", the key should bve \"key\" and there should be no value (null value). That\u0027s on line 393 in the baseline version.",
+      "range": {
+        "startLine": 403,
+        "startChar": 39,
+        "endLine": 403,
+        "endChar": 43
+      },
+      "revId": "31404bc8c1aec33e2b79dc14ad4d01c3ca902fdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d30a7b5_654e3957",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-01T08:14:13Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cd8cfaf8_493c69fd",
       "range": {
         "startLine": 403,
         "startChar": 39,
@@ -115,6 +199,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2fa53f0_764bbc85",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-01T08:14:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "412753b9_56d478e1",
+      "revId": "31404bc8c1aec33e2b79dc14ad4d01c3ca902fdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3aff3b2b_4e1f8dca",
@@ -128,6 +230,24 @@
       "writtenOn": "2022-11-25T07:10:28Z",
       "side": 1,
       "message": "A key with no value should be just \"key\", not \"key\u003d\"\n\nSame in toString",
+      "revId": "31404bc8c1aec33e2b79dc14ad4d01c3ca902fdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "292f6f07_5986f492",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-01T08:14:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3aff3b2b_4e1f8dca",
       "revId": "31404bc8c1aec33e2b79dc14ad4d01c3ca902fdd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -149,6 +269,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56891a34_1e5d748d",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceInfoTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-01T08:14:13Z",
+      "side": 1,
+      "message": "`textEntry_fromStringWithoutAssignPunc_valueisEmpty` and `textEntry_fromBytesWithoutAssignPunc_valueisEmpty` has tested that already.",
+      "parentUuid": "1d348130_1e4ae280",
+      "revId": "31404bc8c1aec33e2b79dc14ad4d01c3ca902fdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23283f23_307fa8e7",
@@ -162,6 +300,24 @@
       "writtenOn": "2022-11-25T07:10:28Z",
       "side": 1,
       "message": "This should be an empty string I think",
+      "revId": "31404bc8c1aec33e2b79dc14ad4d01c3ca902fdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee49c830_0ad2d7e2",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceInfoTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-01T08:14:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23283f23_307fa8e7",
       "revId": "31404bc8c1aec33e2b79dc14ad4d01c3ca902fdd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
