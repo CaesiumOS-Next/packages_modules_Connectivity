@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38ff0bce_805da234",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-01T13:10:29Z",
+      "side": 1,
+      "message": "This could also be extracted to the super().get_args() where it could run after the script-specific argument tweaks have been done. As this is also common in different scripts.",
+      "range": {
+        "startLine": 767,
+        "startChar": 4,
+        "endLine": 769,
+        "endChar": 39
+      },
+      "revId": "21485baaa4d4fad784db9fe66896c5e9dbcf9c46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
