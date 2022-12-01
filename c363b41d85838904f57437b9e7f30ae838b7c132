@@ -22,6 +22,30 @@
       },
       "revId": "c363b41d85838904f57437b9e7f30ae838b7c132",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6536291a_a9558038",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-01T16:49:48Z",
+      "side": 1,
+      "message": "That would then require you to check the return value. We could think about changing the default to False, but the \"don\u0027t ignore errors unless you explicitly specify\" route.",
+      "parentUuid": "381a10f3_23b4a595",
+      "range": {
+        "startLine": 650,
+        "startChar": 40,
+        "endLine": 650,
+        "endChar": 62
+      },
+      "revId": "c363b41d85838904f57437b9e7f30ae838b7c132",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
