@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7b9c384_35ee1436",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-01T03:08:27Z",
+      "side": 1,
+      "message": "How do we make sure the pattern doesn\u0027t match other sessions e.g. Top usage users in the future?",
+      "range": {
+        "startLine": 892,
+        "startChar": 8,
+        "endLine": 892,
+        "endChar": 92
+      },
+      "revId": "d440d9a096e3908eb053bc9a2c9336d4925d52b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29e28d0f_f9042728",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-01T03:08:27Z",
+      "side": 1,
+      "message": "I don\u0027t really see how this variable is necessary.\nMaybe getDump inside the function and name it assertDump or assertDumpContent?",
+      "range": {
+        "startLine": 906,
+        "startChar": 21,
+        "endLine": 906,
+        "endChar": 26
+      },
+      "revId": "d440d9a096e3908eb053bc9a2c9336d4925d52b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
