@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdfd846d_fd54f689",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-01T09:03:33Z",
+      "side": 1,
+      "message": "LGTM once nits are fixed. Invite Remi to review if any missing. Thank you",
+      "revId": "19e854547f939dfe9b50f6df3a450a25fa0aca81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cf5e606_7bcd585a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2853,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-01T09:03:33Z",
+      "side": 1,
+      "message": "nit: remove \"public\" and have suffix \u0027ForTesting\u0027 or \"ForTest\" as L.1051\nTo avoid misusing this function in production code.\n\nex:\nhttps://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/Tethering.java;l\u003d1042\n```\n    @VisibleForTesting\n    int getLastErrorForTest(String iface) {\n```",
+      "range": {
+        "startLine": 2853,
+        "startChar": 4,
+        "endLine": 2853,
+        "endChar": 43
+      },
+      "revId": "19e854547f939dfe9b50f6df3a450a25fa0aca81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49db8e76_0349bb08",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-01T09:03:33Z",
+      "side": 1,
+      "message": "nit: remove or rewritten this sentence",
+      "range": {
+        "startLine": 511,
+        "startChar": 37,
+        "endLine": 511,
+        "endChar": 40
+      },
+      "revId": "19e854547f939dfe9b50f6df3a450a25fa0aca81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a7c45b9_3d3d55ef",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/UpstreamNetworkMonitorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-01T09:03:33Z",
+      "side": 1,
+      "message": "remove?\n\nsince L.117 removed param \"what\" in UpstreamNetworkMonitor\n```\n- mUNM \u003d new UpstreamNetworkMonitor(mContext, mSM, mLog, EVENT_UNM_UPDATE);\n+ mUNM \u003d new UpstreamNetworkMonitor(mContext, new Handler(mLooper.getLooper()), mLog,\n+        mCallback);\n```",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 50
+      },
+      "revId": "19e854547f939dfe9b50f6df3a450a25fa0aca81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
