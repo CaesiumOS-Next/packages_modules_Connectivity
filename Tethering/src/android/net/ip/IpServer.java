@@ -378,6 +378,12 @@ public class IpServer extends StateMachine {
         return Collections.unmodifiableList(mDhcpLeases);
     }
 
+    /** Enable this IpServer. IpServer state machine will be tethered or localHotspot state. */
+    public int enable(final int requestedState, final TetheringRequestParcel request) {
+        sendMessage(CMD_TETHER_REQUESTED, requestedState, 0, request);
+        return TetheringManager.TETHER_ERROR_NO_ERROR;
+    }
+
     /** Stop this IpServer. After this is called this IpServer should not be used any more. */
     public void stop() {
         sendMessage(CMD_INTERFACE_DOWN);
@@ -387,8 +393,9 @@ public class IpServer extends StateMachine {
      * Tethering is canceled. IpServer state machine will be available and wait for
      * next tethering request.
      */
-    public void unwanted() {
+    public int unwanted() {
         sendMessage(CMD_TETHER_UNREQUESTED);
+        return TetheringManager.TETHER_ERROR_NO_ERROR;
     }
 
     /** Internals. */

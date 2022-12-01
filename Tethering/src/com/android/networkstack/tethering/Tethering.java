@@ -1010,9 +1010,7 @@ public class Tethering {
         if (request != null) {
             mActiveTetheringRequests.delete(type);
         }
-        tetherState.ipServer.sendMessage(IpServer.CMD_TETHER_REQUESTED, requestedState, 0,
-                request);
-        return TETHER_ERROR_NO_ERROR;
+        return tetherState.ipServer.enable(requestedState, request);
     }
 
     void untether(String iface, final IIntResultListener listener) {
@@ -1035,8 +1033,7 @@ public class Tethering {
             Log.e(TAG, "Tried to untether an inactive iface :" + iface + ", ignoring");
             return TETHER_ERROR_UNAVAIL_IFACE;
         }
-        tetherState.ipServer.sendMessage(IpServer.CMD_TETHER_UNREQUESTED);
-        return TETHER_ERROR_NO_ERROR;
+        return tetherState.ipServer.unwanted();
     }
 
     void untetherAll() {
