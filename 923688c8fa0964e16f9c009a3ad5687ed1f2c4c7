@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da76804e_a449cafb",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-12-02T10:02:21Z",
+      "side": 1,
+      "message": "I meant list args possibly has only one arg value pair, which is same to the value arg.\nBut this was duplicated with the following comments.\nI have updated the comment in aosp/2325314",
+      "parentUuid": "8929b5e7_e148f354",
+      "range": {
+        "startLine": 634,
+        "startChar": 56,
+        "endLine": 634,
+        "endChar": 96
+      },
+      "revId": "923688c8fa0964e16f9c009a3ad5687ed1f2c4c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7da77f4_9c221a57",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-01T10:59:36Z",
       "side": 1,
       "message": "I think this could be rewritten to\n\n`This is because list and value args are identical when the list args has only one (arg, value) pair`",
+      "range": {
+        "startLine": 635,
+        "startChar": 4,
+        "endLine": 636,
+        "endChar": 22
+      },
+      "revId": "923688c8fa0964e16f9c009a3ad5687ed1f2c4c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9a9b7e9_4675156b",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-12-02T10:02:21Z",
+      "side": 1,
+      "message": "Updated the comment in aosp/2325314",
+      "parentUuid": "c7da77f4_9c221a57",
       "range": {
         "startLine": 635,
         "startChar": 4,
@@ -84,6 +132,30 @@
       "side": 1,
       "message": "Maybe it\u0027s fine to ignore following case but this doesn\u0027t work for the following args.\n```\n--arg0 val0 --arg0 val1 --arg0 --flag0\n```\n\nInstead of updating `_is_list_arg` I can update `_is_value_arg` to following\nThis might explains the relation of value_args and list_args better.\n```\n  def _is_value_arg(self, arg):\n    if operator.countOf(self.target.args, arg) \u003d\u003d 1 and self._is_list_arg(arg)\n```",
       "parentUuid": "c330773d_9974124e",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 648,
+        "endChar": 100
+      },
+      "revId": "923688c8fa0964e16f9c009a3ad5687ed1f2c4c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a264ab3_ebf3ef36",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-12-02T10:02:21Z",
+      "side": 1,
+      "message": "Updated `_is_value_arg` in aosp/2325313",
+      "parentUuid": "209798bf_a2416f4a",
       "range": {
         "startLine": 645,
         "startChar": 0,
