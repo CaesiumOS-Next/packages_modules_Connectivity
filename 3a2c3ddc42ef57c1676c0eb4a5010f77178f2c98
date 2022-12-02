@@ -34,6 +34,24 @@
       "parentUuid": "45af942c_4f5320f6",
       "revId": "3a2c3ddc42ef57c1676c0eb4a5010f77178f2c98",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ce4654d_afac4f33",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-12-02T01:52:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fffeaff9_1865c4aa",
+      "revId": "3a2c3ddc42ef57c1676c0eb4a5010f77178f2c98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
