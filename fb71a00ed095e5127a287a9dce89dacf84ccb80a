@@ -218,6 +218,24 @@
       "parentUuid": "4b84ab2b_2895cd12",
       "revId": "fb71a00ed095e5127a287a9dce89dacf84ccb80a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7da58680_968e164b",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2875,
+      "author": {
+        "id": 1133258
+      },
+      "writtenOn": "2022-12-02T17:05:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20411601_945f0898",
+      "revId": "fb71a00ed095e5127a287a9dce89dacf84ccb80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
