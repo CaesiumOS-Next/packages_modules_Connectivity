@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4b41ff8_7806c8f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-02T16:50:11Z",
+      "side": 1,
+      "message": "I see why this is needed, but preferably, we should never actually change the target and get rid of this again once that is fixed.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 0
+      },
+      "revId": "cdb45eafe91fa3df3b983e806ca5e714c0d33c7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
