@@ -8585,7 +8585,7 @@ cc_genrule {
     cmd: "$(location build/util/version.py) -f " +
          "$(location chrome/VERSION) " +
          "-e " +
-         "VERSION_FULL='\"%s.%s.%s.%s\" % (MAJOR,MINOR,BUILD,PATCH)' " +
+         "VERSION_FULL=\"%s.%s.%s.%s\" % (MAJOR,MINOR,BUILD,PATCH) " +
          "-o " +
          "$(out) " +
          "$(location components/cronet/version.h.in)",
@@ -8610,7 +8610,7 @@ cc_genrule {
     cmd: "$(location build/util/version.py) -f " +
          "$(location chrome/VERSION) " +
          "-e " +
-         "VERSION_FULL='\"%s.%s.%s.%s\" % (MAJOR,MINOR,BUILD,PATCH)' " +
+         "VERSION_FULL=\"%s.%s.%s.%s\" % (MAJOR,MINOR,BUILD,PATCH) " +
          "-o " +
          "$(out) " +
          "$(location components/cronet/version.h.in)",
@@ -8635,7 +8635,7 @@ cc_genrule {
     cmd: "$(location build/util/version.py) -f " +
          "$(location chrome/VERSION) " +
          "-e " +
-         "VERSION_FULL='\"%s.%s.%s.%s\" % (MAJOR,MINOR,BUILD,PATCH)' " +
+         "VERSION_FULL=\"%s.%s.%s.%s\" % (MAJOR,MINOR,BUILD,PATCH) " +
          "-o " +
          "$(out) " +
          "$(location components/cronet/version.h.in)",
@@ -8660,7 +8660,7 @@ cc_genrule {
     cmd: "$(location build/util/version.py) -f " +
          "$(location chrome/VERSION) " +
          "-e " +
-         "VERSION_FULL='\"%s.%s.%s.%s\" % (MAJOR,MINOR,BUILD,PATCH)' " +
+         "VERSION_FULL=\"%s.%s.%s.%s\" % (MAJOR,MINOR,BUILD,PATCH) " +
          "-o " +
          "$(out) " +
          "$(location components/cronet/version.h.in)",
