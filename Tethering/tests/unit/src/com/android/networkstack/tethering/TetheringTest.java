@@ -1337,6 +1337,48 @@ public class TetheringTest {
         verifyDisableTryCellWhenTetheringStop(inOrder);
     }
 
+    // Expected upstream in every test cases.
+    //
+    // +-------------+------+-----------+-----+----------+
+    // | Test Case # | WIFI | Cellular  | Dun | Upstream |
+    // +-------------+------+-----------+-----+----------+
+    // |      -      |      |           |     |  (none)  | --+
+    // +-------------+------+-----------+-----+----------+   |
+    // |      -      |      |     V     |     |  (none)  |   |
+    // +-------------+------+-----------+-----+----------+   +-- chooseDunUpstreamTestCommon
+    // |      -      |  V   |     O     |     |   WIFI   |   |
+    // +-------------+------+-----------+-----+----------+   |
+    // |      -      |  O   |     V     |  O  |   DUN    | --+
+    // +-------------+------+-----------+-----+----------+
+    // |             |  O   |     V     |     |  (none)  | --+
+    // |      1      +------+-----------+-----+----------+   |
+    // |             |  O   |     V     |  O  |   DUN    |   |
+    // +-------------+------+-----------+-----+----------+   |
+    // |      2      |  V   |     O     |     |   WIFI   |   |
+    // +-------------+------+-----------+-----+----------+   |
+    // |      3      |  V   |           |     |   WIFI   |   |
+    // +-------------+------+-----------+-----+----------+   |
+    // |      4      |      |           |  O  |   DUN    |   |
+    // +-------------+------+-----------+-----+----------+   +-- verifyChooseDunUpstreamBy
+    // |      5      |      |     V     |  O  |   DUN    |   |   AutomaticMode
+    // +-------------+------+-----------+-----+----------+   |
+    // |      6      |      |           |  O  |   DUN    |   |
+    // +-------------+------+-----------+-----+----------+   |
+    // |      7      |  V   |           |     |   WIFI   |   |
+    // +-------------+------+-----------+-----+----------+   |
+    // |             |  O   |     V     |     |  (none)  |   |
+    // |      8      +------+-----------+-----+----------+   |
+    // |             |  O   |     V     |  O  |   DUN    |   |
+    // +-------------+------+-----------+-----+----------+   |
+    // |             |  O   |     V     |     |  (none)  |   |
+    // |      9      +------+-----------+-----+----------+   |
+    // |             |  O   |     V     |  O  |   DUN    |   |
+    // +-------------+------+-----------+-----+----------+ --+
+    //
+    // Annotation:
+    // 1. "V" means the given network is connected and it is default network.
+    // 2. "O" means the given network is connected and it is not default network.
+    //
     private void verifyChooseDunUpstreamByAutomaticMode(boolean configAutomatic) throws Exception {
         // Enable automatic upstream selection.
         TestNetworkAgent mobile = new TestNetworkAgent(mCm, buildMobileDualStackUpstreamState());
@@ -1345,20 +1387,91 @@ public class TetheringTest {
         InOrder inOrder = inOrder(mCm, mUpstreamNetworkMonitor);
         chooseDunUpstreamTestCommon(configAutomatic, inOrder, mobile, wifi, dun);
 
-        // When default network switch to mobile and wifi is connected (may have low signal),
+        // [1] When default network switch to mobile and wifi is connected (may have low signal),
         // automatic mode would request dun again and choose it as upstream.
         mCm.makeDefaultNetwork(mobile, CALLBACKS_FIRST);
         mLooper.dispatchAll();
         inOrder.verify(mUpstreamNetworkMonitor).setTryCell(true);
         ArgumentCaptor<NetworkCallback> captor = ArgumentCaptor.forClass(NetworkCallback.class);
-        inOrder.verify(mCm).requestNetwork(any(), eq(0), eq(TYPE_MOBILE_DUN), any(), any());
+        inOrder.verify(mCm).requestNetwork(any(), eq(0), eq(TYPE_MOBILE_DUN), any(),
+                captor.capture());
+        final NetworkCallback dunNetworkCallback1 = captor.getValue();
         inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(null);
         final Runnable doDispatchAll = () -> mLooper.dispatchAll();
         dun.fakeConnect(CALLBACKS_FIRST, doDispatchAll);
         mLooper.dispatchAll();
         inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(dun.networkId);
 
-        // Lose and regain upstream again.
+        // [2] When default network switch to wifi and mobile is still connected,
+        // unregister dun request and choose wifi as upstream.
+        mCm.makeDefaultNetwork(wifi, CALLBACKS_FIRST);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor).setTryCell(false);
+        inOrder.verify(mCm).unregisterNetworkCallback(eq(dunNetworkCallback1));
+        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(wifi.networkId);
+        dun.fakeDisconnect(BROADCAST_FIRST, doDispatchAll);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor, never()).setCurrentUpstream(any());
+
+        // [3] When mobile is disconnected, keep wifi as upstream.
+        mobile.fakeDisconnect(CALLBACKS_FIRST, doDispatchAll);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor, never()).setCurrentUpstream(any());
+
+        // [4] When wifi is disconnected, automatic mode would request dun again and choose it
+        // as upstream.
+        mCm.makeDefaultNetwork(null, CALLBACKS_FIRST, doDispatchAll);
+        wifi.fakeDisconnect(CALLBACKS_FIRST, doDispatchAll);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor).setTryCell(true);
+        inOrder.verify(mCm).requestNetwork(any(), eq(0), eq(TYPE_MOBILE_DUN), any(),
+                captor.capture());
+        final NetworkCallback dunNetworkCallback2 = captor.getValue();
+        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(null);
+        dun.fakeConnect(CALLBACKS_FIRST, doDispatchAll);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(dun.networkId);
+
+        // [5] When mobile is connected and default network switch to mobile, keep dun as upstream.
+        mobile.fakeConnect();
+        mCm.makeDefaultNetwork(mobile, CALLBACKS_FIRST);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor, never()).setCurrentUpstream(any());
+
+        // [6] When mobile is disconnected, keep dun as upstream.
+        mCm.makeDefaultNetwork(null, CALLBACKS_FIRST, doDispatchAll);
+        mobile.fakeDisconnect(CALLBACKS_FIRST, doDispatchAll);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor, never()).setCurrentUpstream(any());
+
+        // [7] When wifi is connected and default network switch to wifi, unregister dun request
+        // and choose wifi as upstream.
+        wifi.fakeConnect();
+        mCm.makeDefaultNetwork(wifi, CALLBACKS_FIRST);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor).setTryCell(false);
+        inOrder.verify(mCm).unregisterNetworkCallback(eq(dunNetworkCallback2));
+        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(wifi.networkId);
+        dun.fakeDisconnect(BROADCAST_FIRST, doDispatchAll);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor, never()).setCurrentUpstream(any());
+
+        // [8] When mobile and mobile are connected and default network switch to mobile
+        // (may have low signal), automatic mode would request dun again and choose it as
+        // upstream.
+        mobile.fakeConnect();
+        mCm.makeDefaultNetwork(mobile, CALLBACKS_FIRST);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor).setTryCell(true);
+        inOrder.verify(mCm).requestNetwork(any(), eq(0), eq(TYPE_MOBILE_DUN), any(),
+                captor.capture());
+        final NetworkCallback dunNetworkCallback3 = captor.getValue();
+        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(null);
+        dun.fakeConnect(CALLBACKS_FIRST, doDispatchAll);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(dun.networkId);
+
+        // [9] Lose and regain upstream again.
         dun.fakeDisconnect(CALLBACKS_FIRST, doDispatchAll);
         mLooper.dispatchAll();
         inOrder.verify(mUpstreamNetworkMonitor).setTryCell(true);
