@@ -200,6 +200,24 @@
       "message": "Thanks for looking at this !\n\nIt seems to be a general problem with \"svc wifi disable\", where we expect that getNetworkId would be -1 after it returns, but it actually takes some time. So current usage of \"svc wifi disable\" is likely to not actually do what we expect.\n\nConsidering that, I think it would be useful to have a common method, instead of repeating the poll in 2 places here. Maybe mCtsNetUtils.disableWifi(), which would run the command and then poll ?\n\nThen you can replace current usages of the runShellCommand; there\u0027s the 2 in this file, but also one in CtsTetheringUtils that should probably be replaced too",
       "revId": "fb71a00ed095e5127a287a9dce89dacf84ccb80a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20411601_945f0898",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2875,
+      "author": {
+        "id": 1133258
+      },
+      "writtenOn": "2022-12-02T04:21:42Z",
+      "side": 1,
+      "message": "Thanks Remi for reviewing!\nI\u0027ve added helper function CtsNetUtils.disableWifi() so the 2 in this file call the helper function. \nIn CtsTetheringUtils I\u0027ve also added the polling after disabling wifi.",
+      "parentUuid": "4b84ab2b_2895cd12",
+      "revId": "fb71a00ed095e5127a287a9dce89dacf84ccb80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
