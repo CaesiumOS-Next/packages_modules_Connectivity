@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a00bf9f1_6142c0c1",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-02T12:01:30Z",
+      "side": 1,
+      "message": "I can see that this only depends on the target\u0027s output. So might be better to move it to the Target Class?\n\nIt\u0027s only useful here if it\u0027s going to be used after sanitization of outputs. But I doubt you would want to use it like that.",
+      "range": {
+        "startLine": 734,
+        "startChar": 2,
+        "endLine": 736,
+        "endChar": 16
+      },
+      "revId": "7db7583ba19c62dc5a906ab684446192e10ba6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
