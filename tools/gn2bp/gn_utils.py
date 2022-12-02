@@ -54,6 +54,14 @@ DEX_REGEX = '.*__dex__%s$' % ARCH_REGEX
 COMPILE_JAVA_REGEX = '.*__compile_java__%s$' % ARCH_REGEX
 RESPONSE_FILE = '{{response_file_name}}'
 
+
+# Android equivalents for third-party libraries that the upstream project
+# depends on.
+BUILTIN_DEPS = {
+    '//net/tools/root_store_tool:root_store_tool':
+      lambda x: None,
+}
+
 def repo_root():
   """Returns an absolute path to the repository root."""
   return os.path.join(

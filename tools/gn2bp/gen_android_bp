@@ -23,7 +23,8 @@
 # The tool is then given a list of GN labels for which to generate Android.bp
 # build rules. The dependencies for the GN labels are squashed to the generated
 # Android.bp target, except for actions which get their own genrule. Some
-# libraries are also mapped to their Android equivalents -- see |builtin_deps|.
+# libraries are also mapped to their Android equivalents -- see |BUILTIN_DEPS|
+# in gn_utils.py.
 
 import argparse
 import collections
@@ -137,13 +138,6 @@ additional_args = {
             'cronet_aml_crypto_crypto',
         }),
     ],
-}
-
-# Android equivalents for third-party libraries that the upstream project
-# depends on.
-builtin_deps = {
-    '//net/tools/root_store_tool:root_store_tool':
-        lambda x: None,
 }
 
 # Name of tethering apex module
@@ -1126,8 +1120,8 @@ def create_modules_from_target(blueprint, gn, gn_target_name):
   for dep_name in all_deps:
     # |builtin_deps| override GN deps with Android-specific ones. See the
     # config in the top of this file.
-    if dep_name in builtin_deps:
-      builtin_deps[dep_name](module)
+    if dep_name in gn_utils.BUILTIN_DEPS:
+      gn_utils.BUILTIN_DEPS[dep_name](module)
       continue
 
     dep_module = create_modules_from_target(blueprint, gn, dep_name)
