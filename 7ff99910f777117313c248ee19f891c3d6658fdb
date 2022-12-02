@@ -22,6 +22,30 @@
       },
       "revId": "7ff99910f777117313c248ee19f891c3d6658fdb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abf2abc9_4a50749b",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1007,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-02T13:37:37Z",
+      "side": 1,
+      "message": "I think we can remove all of this and directly called create_action_module from `create_java_module`.",
+      "parentUuid": "d9572c1d_b6f92fa2",
+      "range": {
+        "startLine": 1007,
+        "startChar": 8,
+        "endLine": 1007,
+        "endChar": 76
+      },
+      "revId": "7ff99910f777117313c248ee19f891c3d6658fdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
