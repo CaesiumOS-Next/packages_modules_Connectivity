@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f20a4d43_a7a6d40f",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-02T00:01:30Z",
+      "side": 1,
+      "message": "I wonder if we can change:\n```\n# Convert [\u0027--param\u003dvalue\u0027] to [\u0027--param\u0027, \u0027value\u0027] for consistency.\nself.target.args \u003d [str for it in self.target.args for str in it.split(\u0027\u003d\u0027)]\n```\n\nto only split(\u0027\u003d\u0027) if it.startswith(\u0027-\u0027).",
+      "range": {
+        "startLine": 772,
+        "startChar": 0,
+        "endLine": 778,
+        "endChar": 35
+      },
+      "revId": "0f368574c016c7b85840142d950e8032a3704b41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
