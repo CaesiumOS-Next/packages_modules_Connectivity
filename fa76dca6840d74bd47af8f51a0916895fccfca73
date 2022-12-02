@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db8e9555_b3ac6f35",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-02T18:41:35Z",
+      "side": 1,
+      "message": "there are create_* methods that add multiple modules to the blueprint (the proto modules), so I see why we would want to call it in all the create_* methods. That being said, it shouldn\u0027t be called in both create_* and create_modules_from_target.",
+      "range": {
+        "startLine": 11,
+        "startChar": 1,
+        "endLine": 11,
+        "endChar": 69
+      },
+      "revId": "fa76dca6840d74bd47af8f51a0916895fccfca73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
