@@ -22,6 +22,30 @@
       },
       "revId": "7db7583ba19c62dc5a906ab684446192e10ba6f0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d86a0c6a_62cdd685",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-02T16:42:16Z",
+      "side": 1,
+      "message": "I think it makes sense here as it\u0027s very specific to GN actions (and we probably want the ability to override it per script). Though, how about returning an enum and calling it get_generated_type(), as I think there is a genrule that generates sources that are used for another genrule. Though this might also be overkill.",
+      "parentUuid": "a00bf9f1_6142c0c1",
+      "range": {
+        "startLine": 734,
+        "startChar": 2,
+        "endLine": 736,
+        "endChar": 16
+      },
+      "revId": "7db7583ba19c62dc5a906ab684446192e10ba6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
