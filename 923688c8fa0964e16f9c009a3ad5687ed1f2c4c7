@@ -68,6 +68,30 @@
       },
       "revId": "923688c8fa0964e16f9c009a3ad5687ed1f2c4c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "209798bf_a2416f4a",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-12-02T03:33:50Z",
+      "side": 1,
+      "message": "Maybe it\u0027s fine to ignore following case but this doesn\u0027t work for the following args.\n```\n--arg0 val0 --arg0 val1 --arg0 --flag0\n```\n\nInstead of updating `_is_list_arg` I can update `_is_value_arg` to following\nThis might explains the relation of value_args and list_args better.\n```\n  def _is_value_arg(self, arg):\n    if operator.countOf(self.target.args, arg) \u003d\u003d 1 and self._is_list_arg(arg)\n```",
+      "parentUuid": "c330773d_9974124e",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 648,
+        "endChar": 100
+      },
+      "revId": "923688c8fa0964e16f9c009a3ad5687ed1f2c4c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
