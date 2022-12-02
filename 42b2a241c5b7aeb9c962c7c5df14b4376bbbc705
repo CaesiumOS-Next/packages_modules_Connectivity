@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07df7b5b_587a667e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1133258
+      },
+      "writtenOn": "2022-12-02T17:05:56Z",
+      "side": 1,
+      "message": "Hi Remi, would you please look into the new PS again? Thanks!",
+      "revId": "42b2a241c5b7aeb9c962c7c5df14b4376bbbc705",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
