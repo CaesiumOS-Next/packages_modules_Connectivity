@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64b07e25_97e33d8b",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1208,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-02T03:38:24Z",
+      "side": 1,
+      "message": "Oh that\u0027s an interesting case... I wonder -- could you call create_action_module directly for gn.java_actions. Without going through create_modules_from_target? gn.java_actions should already be a flattened list of actions.",
+      "range": {
+        "startLine": 1203,
+        "startChar": 4,
+        "endLine": 1208,
+        "endChar": 38
+      },
+      "revId": "c1a0d619fc0d50239cd06afa1a963cf848e13636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
