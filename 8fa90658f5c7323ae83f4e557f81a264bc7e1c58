@@ -22,6 +22,30 @@
       },
       "revId": "8fa90658f5c7323ae83f4e557f81a264bc7e1c58",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5780ac3e_dbfc5c97",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-02T13:34:24Z",
+      "side": 1,
+      "message": "Lambdas are just harder to read in python 😞. But I\u0027m open to suggestions.",
+      "parentUuid": "d3d4f8de_a4efee81",
+      "range": {
+        "startLine": 700,
+        "startChar": 4,
+        "endLine": 700,
+        "endChar": 32
+      },
+      "revId": "8fa90658f5c7323ae83f4e557f81a264bc7e1c58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
