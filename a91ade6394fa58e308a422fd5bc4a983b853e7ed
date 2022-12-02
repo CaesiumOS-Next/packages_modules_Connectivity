@@ -22,6 +22,29 @@
       },
       "revId": "a91ade6394fa58e308a422fd5bc4a983b853e7ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a7fa2f4_e9324fb0",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-02T16:45:06Z",
+      "side": 1,
+      "message": "I wouldn\u0027t try to generalize this but effectively making it a \"purely virtual\" (if such a concept only existed in python 😞 I guess it kind of does if you raise an error inside the base function.) get_genrule_type() that every sanitizer overrides.",
+      "range": {
+        "startLine": 735,
+        "startChar": 0,
+        "endLine": 736,
+        "endChar": 77
+      },
+      "revId": "a91ade6394fa58e308a422fd5bc4a983b853e7ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
