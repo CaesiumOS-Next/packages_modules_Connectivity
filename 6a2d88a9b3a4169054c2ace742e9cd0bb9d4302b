@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c654422_ff87d514",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-02T03:24:20Z",
+      "side": 1,
+      "message": "Maybe it would be better to explicitly allowlist scripts, rather than denylist?",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 1
+      },
+      "revId": "6a2d88a9b3a4169054c2ace742e9cd0bb9d4302b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2168476_7ec77279",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-02T03:24:20Z",
+      "side": 1,
+      "message": "couldn\u0027t we \"mark\" java actions by virtue of them being dependencies of a java target? As in, we could add a is_java_target flag to Target and populate it as we parse the tree. java actions would be actions that have is_java_target set to True.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 0
+      },
+      "revId": "6a2d88a9b3a4169054c2ace742e9cd0bb9d4302b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e28253d8_e9a68ab4",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-02T03:24:20Z",
+      "side": 1,
+      "message": "with cc_genrules fixed, we won\u0027t need this hack anymore, right? 😊",
+      "range": {
+        "startLine": 307,
+        "startChar": 33,
+        "endLine": 309,
+        "endChar": 47
+      },
+      "revId": "6a2d88a9b3a4169054c2ace742e9cd0bb9d4302b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7934e96a_cfdf1b7e",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-02T03:24:20Z",
+      "side": 1,
+      "message": "I guess I don\u0027t really understand this. I thought banned scripts should just be ignored?",
+      "range": {
+        "startLine": 343,
+        "startChar": 4,
+        "endLine": 343,
+        "endChar": 87
+      },
+      "revId": "6a2d88a9b3a4169054c2ace742e9cd0bb9d4302b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
