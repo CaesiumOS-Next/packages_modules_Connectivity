@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34aeb159_f936e92d",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-02T18:39:08Z",
+      "side": 1,
+      "message": "nit: maybe RESPONSE_FILE_TAG",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 13
+      },
+      "revId": "a0e37c105f65f5c08ab65f038aeb55663050b05e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
