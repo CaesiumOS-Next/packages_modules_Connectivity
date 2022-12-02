@@ -22,6 +22,30 @@
       },
       "revId": "0f368574c016c7b85840142d950e8032a3704b41",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd467ec6_99309348",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-12-02T09:58:25Z",
+      "side": 1,
+      "message": "This works and this is much better, thanks!\naosp/2325316",
+      "parentUuid": "f20a4d43_a7a6d40f",
+      "range": {
+        "startLine": 772,
+        "startChar": 0,
+        "endLine": 778,
+        "endChar": 35
+      },
+      "revId": "0f368574c016c7b85840142d950e8032a3704b41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
