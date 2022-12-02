@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e166dbf_60f4e314",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-02T04:28:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92c6e1f9_9215f60c",
+      "range": {
+        "startLine": 10,
+        "startChar": 3,
+        "endLine": 10,
+        "endChar": 5
+      },
+      "revId": "19e854547f939dfe9b50f6df3a450a25fa0aca81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd3e6c2a_51f00124",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-01T14:34:55Z",
       "side": 1,
       "message": "easier",
+      "range": {
+        "startLine": 11,
+        "startChar": 3,
+        "endLine": 11,
+        "endChar": 12
+      },
+      "revId": "19e854547f939dfe9b50f6df3a450a25fa0aca81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3aa7ee05_6325fa64",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-02T04:28:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd3e6c2a_51f00124",
       "range": {
         "startLine": 11,
         "startChar": 3,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a63979be_22c82a5f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2853,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-02T04:28:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cf5e606_7bcd585a",
+      "range": {
+        "startLine": 2853,
+        "startChar": 4,
+        "endLine": 2853,
+        "endChar": 43
+      },
+      "revId": "19e854547f939dfe9b50f6df3a450a25fa0aca81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49db8e76_0349bb08",
@@ -110,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d561c11_7ba3d6f6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-02T04:28:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49db8e76_0349bb08",
+      "range": {
+        "startLine": 511,
+        "startChar": 37,
+        "endLine": 511,
+        "endChar": 40
+      },
+      "revId": "19e854547f939dfe9b50f6df3a450a25fa0aca81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a7c45b9_3d3d55ef",
@@ -123,6 +219,30 @@
       "writtenOn": "2022-12-01T09:03:33Z",
       "side": 1,
       "message": "remove?\n\nsince L.117 removed param \"what\" in UpstreamNetworkMonitor\n```\n- mUNM \u003d new UpstreamNetworkMonitor(mContext, mSM, mLog, EVENT_UNM_UPDATE);\n+ mUNM \u003d new UpstreamNetworkMonitor(mContext, new Handler(mLooper.getLooper()), mLog,\n+        mCallback);\n```",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 50
+      },
+      "revId": "19e854547f939dfe9b50f6df3a450a25fa0aca81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "543c91af_864c9445",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/UpstreamNetworkMonitorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-02T04:28:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a7c45b9_3d3d55ef",
       "range": {
         "startLine": 81,
         "startChar": 4,
