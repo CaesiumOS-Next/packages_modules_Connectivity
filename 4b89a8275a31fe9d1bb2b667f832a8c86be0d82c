@@ -16,6 +16,24 @@
       "message": "did this not change the Android.bp.swp?",
       "revId": "4b89a8275a31fe9d1bb2b667f832a8c86be0d82c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "647cb9c0_ac428dd8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-02T18:49:27Z",
+      "side": 1,
+      "message": "I would have expected cronet_jni_registration to be added back",
+      "parentUuid": "e15be276_f02a1a3a",
+      "revId": "4b89a8275a31fe9d1bb2b667f832a8c86be0d82c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
