@@ -725,6 +725,9 @@ class BaseActionSanitizer():
   def get_args(self):
     return self.target.args
 
+  def get_outputs(self):
+    return self.target.outputs
+
 class WriteBuildDateHeaderSanitizer(BaseActionSanitizer):
   def get_args(self):
     self._set_arg_at(0, '$(out)')
