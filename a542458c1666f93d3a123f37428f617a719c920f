@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f027728_c310a39c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-02T06:25:49Z",
+      "side": 1,
+      "message": "LGTM, only nits can be ignored. fyi.",
+      "revId": "a542458c1666f93d3a123f37428f617a719c920f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e91a09b_93abc70e",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-02T06:25:49Z",
+      "side": 1,
+      "message": "nit: start, requested, or just keep as it?",
+      "range": {
+        "startLine": 382,
+        "startChar": 16,
+        "endLine": 382,
+        "endChar": 22
+      },
+      "revId": "a542458c1666f93d3a123f37428f617a719c920f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "224b3f2c_b783d7cc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 995,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-02T06:25:49Z",
+      "side": 1,
+      "message": "nit: do we need to mention CMD_TETHER_REQUESTED in IpServer#enable()? once the command is wrapped by IpServer#enable(), reader may not aware where sends CMD_TETHER_REQUESTED. \n\nNot a strong option.",
+      "range": {
+        "startLine": 995,
+        "startChar": 22,
+        "endLine": 995,
+        "endChar": 42
+      },
+      "revId": "a542458c1666f93d3a123f37428f617a719c920f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
