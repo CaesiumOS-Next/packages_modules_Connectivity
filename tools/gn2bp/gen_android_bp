@@ -794,6 +794,10 @@ class VersionSanitizer(BaseActionSanitizer):
     self._update_value_arg('-e', lambda arg: arg.replace('"', r'\"'))
     return super().get_args()
 
+class MakeDafsaSanitizer(BaseActionSanitizer):
+  def is_header_generated(self):
+    return super().is_header_generated()
+
 def get_action_sanitizer(target):
   if target.script == "//build/write_buildflag_header.py":
     return WriteBuildFlagHeaderSanitizer(target)
@@ -805,6 +809,8 @@ def get_action_sanitizer(target):
     return JniRegistrationGeneratorSanitizer(target)
   elif target.script == "//build/util/version.py":
     return VersionSanitizer(target)
+  elif target.script == "//net/tools/dafsa/make_dafsa.py":
+    return MakeDafsaSanitizer(target)
   else:
     # TODO: throw exception here once all script hacks have been converted.
     return BaseActionSanitizer(target)
