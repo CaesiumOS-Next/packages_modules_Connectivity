@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f16b9b0_b2a9524f",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-02T01:33:33Z",
+      "side": 1,
+      "message": "\u003e Also note this slightly changes behavior, where we don\u0027t send goodbye when the service was found before anymore (looking at the code, it seems if the only packet you see is a goodbye, you\u0027d send onServiceRemoved even though it was never added).\n\u003e \n\u003e (I see you\u0027re covering that in the tests)\n\nI think that behavior is not correct, so I change the behavior here.",
+      "parentUuid": "52967109_c9bcfaf9",
+      "revId": "039d8111e0cdbb8e2910b7c1fb26da9f1f5aff6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f469b8a0_41b4355b",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-12-01T06:50:15Z",
       "side": 1,
       "message": "This is not consistent with the behavior in onGoodbyeReceived, which would send a goodbye also when the service was not complete.\n\nLooking at the parsing code we can have responses with just a PTR record, but there should be at least a PTR record.\n\nSo I\u0027m not sure the expiration should be based on the SRV record; maybe it should be based on the PTR record. Or on the SRV record if present, otherwise the PTR record ? This needs to be tested (what does mdnsresponder do today ?)\n\nIn any case, that should be addressed in a separate change",
+      "revId": "039d8111e0cdbb8e2910b7c1fb26da9f1f5aff6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cb6d4e0_977952fb",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-02T01:33:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f469b8a0_41b4355b",
       "revId": "039d8111e0cdbb8e2910b7c1fb26da9f1f5aff6b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
