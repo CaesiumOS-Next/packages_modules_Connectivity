@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "980b127d_d7088d55",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-02T12:03:08Z",
+      "side": 1,
+      "message": "ditto: Unless it\u0027s used after the sanitization of the target\u0027s output. I\u0027d move it to Target Class.",
+      "range": {
+        "startLine": 735,
+        "startChar": 2,
+        "endLine": 736,
+        "endChar": 77
+      },
+      "revId": "a91ade6394fa58e308a422fd5bc4a983b853e7ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
