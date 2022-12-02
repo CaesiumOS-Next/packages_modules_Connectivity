@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8f11c210_cfa91e53",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-02T11:30:46Z",
+      "side": 1,
+      "message": "This is a preference but I have an argument that going with a denylist is much better. \n\nThe reason that a denylist is better here because the number of automatically generated `actions` are limited and probably wont change in the future otherwise it might break the build. But someone could come anyday and add a new script to a `java_action` which will break our build on the long-run.",
+      "parentUuid": "7c654422_ff87d514",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 1
+      },
+      "revId": "6a2d88a9b3a4169054c2ace742e9cd0bb9d4302b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d2168476_7ec77279",
         "filename": "tools/gn2bp/gn_utils.py",
         "patchSetId": 6
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-02T03:24:20Z",
       "side": 1,
       "message": "couldn\u0027t we \"mark\" java actions by virtue of them being dependencies of a java target? As in, we could add a is_java_target flag to Target and populate it as we parse the tree. java actions would be actions that have is_java_target set to True.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 0
+      },
+      "revId": "6a2d88a9b3a4169054c2ace742e9cd0bb9d4302b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faa4e9f6_ffcac6c7",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-02T11:30:46Z",
+      "side": 1,
+      "message": "That would be true if the dependency graph looked like this\n\n`Java Target -\u003e Java Action`\n\nBut unfortunately that is not the case. It looks something like this\n\n//components/cronet:cronet_package -\u003e //components/cronet/android:cronet_package_android -\u003e //components/cronet/android:repackage_native -\u003e //components/cronet/android:repackage_native_java -\u003e //components/cronet/android:repackage_native_java__dex -\u003e //components/cronet/android:repackage_native_java__process_device -\u003e //components/cronet/android:repackage_native_impl -\u003e //components/cronet/android:cronet_impl_native_base_java -\u003e //components/cronet/android:cronet_impl_common_base_java -\u003e //components/cronet/android:cronet_impl_common_base_java__dex -\u003e //components/cronet/android:cronet_impl_common_base_java__process_device -\u003e //components/cronet/android:cronet_impl_common_base_java__compile_java -\u003e //components/cronet/android:cronet_impl_common_base_java__header -\u003e //components/cronet/android:http_cache_type_java)\n\nThis is a real example. So as you can see according to `_is_java_target`, only `cronet_impl_native_base_java` will be labeled as a `java_group`. While the `_dex` is considered a valid `java_action` as it\u0027s an action dependency of a `java_group`. \n\nSo I\u0027m basically marking [`__dex`, `__process_device`, `__compile_java`, `__header`] as `java_group` then anything that is a dependency of a `java_group` is now considered a valid `java_action`.",
+      "parentUuid": "d2168476_7ec77279",
       "range": {
         "startLine": 88,
         "startChar": 0,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b18b1c7e_78433e34",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-02T11:30:46Z",
+      "side": 1,
+      "message": "Yes. This is no longer needed and shall be removed.",
+      "parentUuid": "e28253d8_e9a68ab4",
+      "range": {
+        "startLine": 307,
+        "startChar": 33,
+        "endLine": 309,
+        "endChar": 47
+      },
+      "revId": "6a2d88a9b3a4169054c2ace742e9cd0bb9d4302b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7934e96a_cfdf1b7e",
         "filename": "tools/gn2bp/gn_utils.py",
         "patchSetId": 6
@@ -83,6 +155,30 @@
       "writtenOn": "2022-12-02T03:24:20Z",
       "side": 1,
       "message": "I guess I don\u0027t really understand this. I thought banned scripts should just be ignored?",
+      "range": {
+        "startLine": 343,
+        "startChar": 4,
+        "endLine": 343,
+        "endChar": 87
+      },
+      "revId": "6a2d88a9b3a4169054c2ace742e9cd0bb9d4302b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d201b58_f7b1b866",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-02T11:30:46Z",
+      "side": 1,
+      "message": "The motivation behind this is that the `real` java_actions are deep below a chain of `actions` that are automatically created by GN. So what I did here is mark every target with `java_group` if it\u0027s one of the following\n\n1- it is a real java target with java sources.\n2- it\u0027s an action with a banned script.\n\nAny action reachable from a `java_group` is a real action because the automatically generated actions are marked `java_group`.\n\nLook at my comment on the dependency chain of java action as it provides more context.",
+      "parentUuid": "7934e96a_cfdf1b7e",
       "range": {
         "startLine": 343,
         "startChar": 4,
