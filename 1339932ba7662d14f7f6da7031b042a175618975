@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e12c85c3_affc50fd",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-02T11:53:37Z",
+      "side": 1,
+      "message": "Nit: This is a personal preference so feel free to push back on me here.\n\nI\u0027d prefer if this was part of the normalization. Previously we had the following lines\n```target.args \u003d [arg.replace(\u0027\"\u0027, r\u0027\\\"\u0027) for arg in target.args]\n  target.args \u003d [arg.replace(r\u0027\\$\u0027, r\u0027\\\\$\u0027) for arg in target.args]```\n\nI think those might be universal to every genrule as it\u0027s just common character escaping. I doubt that we need the escaping of \\$ but we need the escaping of `\"`. I\u0027d pull this up the baseSanitizer in the normalize_args method.",
+      "range": {
+        "startLine": 779,
+        "startChar": 33,
+        "endLine": 779,
+        "endChar": 68
+      },
+      "revId": "1339932ba7662d14f7f6da7031b042a175618975",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
