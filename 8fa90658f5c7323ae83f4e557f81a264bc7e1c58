@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3d4f8de_a4efee81",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-02T03:31:34Z",
+      "side": 1,
+      "message": "I am starting to wonder if we shouldn\u0027t just go with lamdas for the list args / all args functions. This isn\u0027t suuuper generic, though I agree with moving this to the base class.",
+      "range": {
+        "startLine": 700,
+        "startChar": 4,
+        "endLine": 700,
+        "endChar": 32
+      },
+      "revId": "8fa90658f5c7323ae83f4e557f81a264bc7e1c58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
