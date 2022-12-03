@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db0ccd65_6ff884de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2022-12-03T21:01:20Z",
+      "side": 1,
+      "message": "Could add \u0027Merged-In: Icb28d2db6f25bd12ba00f56e5d6e56fa108bdcbd\u0027 after this line so that automerger don\u0027t try merging into branches which already contain the change.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 2
+      },
+      "revId": "8b979397a6d0ef5482c1b3347d9a141ef57ebd89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
