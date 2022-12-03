@@ -26,6 +26,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5c7f7024_e6d08e3a",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-03T06:08:54Z",
+      "side": 1,
+      "message": "This should be +, one or more occurrences.",
+      "range": {
+        "startLine": 892,
+        "startChar": 89,
+        "endLine": 892,
+        "endChar": 90
+      },
+      "revId": "d440d9a096e3908eb053bc9a2c9336d4925d52b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3abed6c_596ca89b",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-03T06:08:54Z",
+      "side": 1,
+      "message": "Unused.",
+      "range": {
+        "startLine": 893,
+        "startChar": 22,
+        "endLine": 893,
+        "endChar": 33
+      },
+      "revId": "d440d9a096e3908eb053bc9a2c9336d4925d52b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "29e28d0f_f9042728",
         "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
         "patchSetId": 14
