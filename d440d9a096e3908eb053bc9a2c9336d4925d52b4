@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "318d7331_21df03e8",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-03T06:18:09Z",
+      "side": 1,
+      "message": "Try to set limit of the matcher\u0027s region. The idea is find the title of `\"Top openSession callers:\"` to get the start index and currently this section is at bottom of the dump so the end of the region is `dump.length() - 1`. If there\u0027s any new section is added after this section, then the end index can be the start index of the title of the next section.\n\nPlease see if this works for you.",
+      "parentUuid": "b7b9c384_35ee1436",
+      "range": {
+        "startLine": 892,
+        "startChar": 8,
+        "endLine": 892,
+        "endChar": 92
+      },
+      "revId": "d440d9a096e3908eb053bc9a2c9336d4925d52b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e021c61_367f335b",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-03T06:18:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c7f7024_e6d08e3a",
+      "range": {
+        "startLine": 892,
+        "startChar": 89,
+        "endLine": 892,
+        "endChar": 90
+      },
+      "revId": "d440d9a096e3908eb053bc9a2c9336d4925d52b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3abed6c_596ca89b",
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0883c814_b5f16db5",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-03T06:18:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3abed6c_596ca89b",
+      "range": {
+        "startLine": 893,
+        "startChar": 22,
+        "endLine": 893,
+        "endChar": 33
+      },
+      "revId": "d440d9a096e3908eb053bc9a2c9336d4925d52b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29e28d0f_f9042728",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-12-01T03:08:27Z",
       "side": 1,
       "message": "I don\u0027t really see how this variable is necessary.\nMaybe getDump inside the function and name it assertDump or assertDumpContent?",
+      "range": {
+        "startLine": 906,
+        "startChar": 21,
+        "endLine": 906,
+        "endChar": 26
+      },
+      "revId": "d440d9a096e3908eb053bc9a2c9336d4925d52b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "391408e5_9355d00a",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-03T06:18:09Z",
+      "side": 1,
+      "message": "This is needed in the new patch. And done for rename the function.",
+      "parentUuid": "29e28d0f_f9042728",
       "range": {
         "startLine": 906,
         "startChar": 21,
