@@ -224,6 +224,8 @@ public class IpServer extends StateMachine {
     public static final int CMD_NEW_PREFIX_REQUEST          = BASE_IPSERVER + 12;
     // request from PrivateAddressCoordinator to restart tethering.
     public static final int CMD_NOTIFY_PREFIX_CONFLICT      = BASE_IPSERVER + 13;
+    // Update from DHCP server for creating/starting fail.
+    public static final int CMD_START_DHCPSERVER_ERROR      = BASE_IPSERVER + 14;
 
     private final State mInitialState;
     private final State mLocalHotspotState;
@@ -448,7 +450,7 @@ public class IpServer extends StateMachine {
 
                 if (statusCode != STATUS_SUCCESS) {
                     mLog.e("Error obtaining DHCP server: " + statusCode);
-                    handleError();
+                    sendMessage(CMD_START_DHCPSERVER_ERROR);
                     return;
                 }
 
@@ -459,7 +461,7 @@ public class IpServer extends StateMachine {
                         public void callback(int startStatusCode) {
                             if (startStatusCode != STATUS_SUCCESS) {
                                 mLog.e("Error starting DHCP server: " + startStatusCode);
-                                handleError();
+                                sendMessage(CMD_START_DHCPSERVER_ERROR);
                             }
                         }
                     }, new DhcpEventCallback());
@@ -467,11 +469,6 @@ public class IpServer extends StateMachine {
                     throw new IllegalStateException(e);
                 }
             });
-        }
-
-        private void handleError() {
-            mLastError = TetheringManager.TETHER_ERROR_DHCPSERVER_ERROR;
-            transitionTo(mInitialState);
         }
     }
 
@@ -1233,6 +1230,10 @@ public class IpServer extends StateMachine {
                 case CMD_STOP_TETHERING_ERROR:
                 case CMD_SET_DNS_FORWARDERS_ERROR:
                     mLastError = TetheringManager.TETHER_ERROR_INTERNAL_ERROR;
+                    transitionTo(mInitialState);
+                    break;
+                case CMD_START_DHCPSERVER_ERROR:
+                    mLastError = TetheringManager.TETHER_ERROR_DHCPSERVER_ERROR;
                     transitionTo(mInitialState);
                     break;
                 case CMD_NEW_PREFIX_REQUEST:

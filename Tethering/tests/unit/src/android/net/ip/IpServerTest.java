@@ -24,6 +24,7 @@ import static android.net.TetheringManager.TETHERING_NCM;
 import static android.net.TetheringManager.TETHERING_USB;
 import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
+import static android.net.TetheringManager.TETHER_ERROR_DHCPSERVER_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_ENABLE_FORWARDING_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_TETHER_IFACE_ERROR;
@@ -1595,7 +1596,9 @@ public class IpServerTest {
         inOrder.verify(mCallback).updateInterfaceState(
                 mIpServer, STATE_TETHERED, TETHER_ERROR_NO_ERROR);
         inOrder.verify(mCallback).updateLinkProperties(eq(mIpServer), any(LinkProperties.class));
-        // FIXME: IpServer should transition back to initial state.
+        inOrder.verify(mCallback).updateInterfaceState(
+                mIpServer, STATE_AVAILABLE, TETHER_ERROR_DHCPSERVER_ERROR);
+        inOrder.verify(mCallback).updateLinkProperties(eq(mIpServer), any(LinkProperties.class));
         verifyNoMoreInteractions(mCallback);
     }
 
@@ -1619,7 +1622,9 @@ public class IpServerTest {
         inOrder.verify(mCallback).updateInterfaceState(
                 mIpServer, STATE_TETHERED, TETHER_ERROR_NO_ERROR);
         inOrder.verify(mCallback).updateLinkProperties(eq(mIpServer), any(LinkProperties.class));
-        // FIXME: IpServer should transition back to initial state.
+        inOrder.verify(mCallback).updateInterfaceState(
+                mIpServer, STATE_AVAILABLE, TETHER_ERROR_DHCPSERVER_ERROR);
+        inOrder.verify(mCallback).updateLinkProperties(eq(mIpServer), any(LinkProperties.class));
         verifyNoMoreInteractions(mCallback);
     }
 }
