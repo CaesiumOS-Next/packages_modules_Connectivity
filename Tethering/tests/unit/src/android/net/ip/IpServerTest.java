@@ -24,10 +24,12 @@ import static android.net.TetheringManager.TETHERING_NCM;
 import static android.net.TetheringManager.TETHERING_USB;
 import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
+import static android.net.TetheringManager.TETHER_ERROR_DHCPSERVER_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_ENABLE_FORWARDING_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_TETHER_IFACE_ERROR;
 import static android.net.dhcp.IDhcpServer.STATUS_SUCCESS;
+import static android.net.dhcp.IDhcpServer.STATUS_UNKNOWN_ERROR;
 import static android.net.ip.IpServer.STATE_AVAILABLE;
 import static android.net.ip.IpServer.STATE_LOCAL_ONLY;
 import static android.net.ip.IpServer.STATE_TETHERED;
@@ -70,6 +72,7 @@ import static org.mockito.Mockito.when;
 
 import android.app.usage.NetworkStatsManager;
 import android.net.INetd;
+import android.net.INetworkStackStatusCallback;
 import android.net.InetAddresses;
 import android.net.InterfaceConfigurationParcel;
 import android.net.IpPrefix;
@@ -276,12 +279,12 @@ public class IpServerTest {
     }
 
     @SuppressWarnings("DoNotCall") // Ignore warning for synchronous to call to Thread.run()
-    private void setUpDhcpServer() throws Exception {
+    private void setUpDhcpServer(final int statusCode) throws Exception {
         doAnswer(inv -> {
             final IDhcpServerCallbacks cb = inv.getArgument(2);
             new Thread(() -> {
                 try {
-                    cb.onDhcpServerCreated(STATUS_SUCCESS, mDhcpServer);
+                    cb.onDhcpServerCreated(statusCode, mDhcpServer);
                 } catch (RemoteException e) {
                     fail(e.getMessage());
                 }
@@ -372,7 +375,7 @@ public class IpServerTest {
                 };
         mBpfCoordinator = spy(new BpfCoordinator(mBpfDeps));
 
-        setUpDhcpServer();
+        setUpDhcpServer(STATUS_SUCCESS);
     }
 
     @Test
@@ -1580,5 +1583,48 @@ public class IpServerTest {
         recvDelNeigh(myIfindex, neighB, NUD_STALE, macB);
         verify(mBpfCoordinator).tetherOffloadClientRemove(mIpServer, new ClientInfo(myIfindex,
                 TEST_IFACE_PARAMS.macAddr, (Inet4Address) neighB, macNull));
+    }
+
+    @Test
+    public void testCreateDhcpServerFail() throws Exception {
+        setUpDhcpServer(STATUS_UNKNOWN_ERROR);
+        initStateMachine(TETHERING_USB);
+
+        dispatchCommand(IpServer.CMD_TETHER_REQUESTED, STATE_TETHERED);
+        verify(mDhcpServer, never()).startWithCallbacks(any(), any());
+        InOrder inOrder = inOrder(mCallback);
+        inOrder.verify(mCallback).updateInterfaceState(
+                mIpServer, STATE_TETHERED, TETHER_ERROR_NO_ERROR);
+        inOrder.verify(mCallback).updateLinkProperties(eq(mIpServer), any(LinkProperties.class));
+        inOrder.verify(mCallback).updateInterfaceState(
+                mIpServer, STATE_AVAILABLE, TETHER_ERROR_DHCPSERVER_ERROR);
+        inOrder.verify(mCallback).updateLinkProperties(eq(mIpServer), any(LinkProperties.class));
+        verifyNoMoreInteractions(mCallback);
+    }
+
+    @Test
+    public void testStartDhcpServerFail() throws Exception {
+        doAnswer(inv -> {
+            final INetworkStackStatusCallback cb = inv.getArgument(0);
+            try {
+                cb.onStatusAvailable(STATUS_UNKNOWN_ERROR);
+            } catch (RemoteException e) {
+                fail(e.getMessage());
+            }
+            return null;
+        }).when(mDhcpServer).startWithCallbacks(any(), any());
+
+        initStateMachine(TETHERING_USB);
+
+        dispatchCommand(IpServer.CMD_TETHER_REQUESTED, STATE_TETHERED);
+        verify(mDhcpServer).startWithCallbacks(any(), any());
+        InOrder inOrder = inOrder(mCallback);
+        inOrder.verify(mCallback).updateInterfaceState(
+                mIpServer, STATE_TETHERED, TETHER_ERROR_NO_ERROR);
+        inOrder.verify(mCallback).updateLinkProperties(eq(mIpServer), any(LinkProperties.class));
+        inOrder.verify(mCallback).updateInterfaceState(
+                mIpServer, STATE_AVAILABLE, TETHER_ERROR_DHCPSERVER_ERROR);
+        inOrder.verify(mCallback).updateLinkProperties(eq(mIpServer), any(LinkProperties.class));
+        verifyNoMoreInteractions(mCallback);
     }
 }
