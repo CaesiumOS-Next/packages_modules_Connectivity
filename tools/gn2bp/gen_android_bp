@@ -994,6 +994,9 @@ def _get_cflags(cflags, defines):
   cflags = {flag for flag in cflags if flag in cflag_allowlist}
   # Consider proper allowlist or denylist if needed
   cflags |= set("-D%s" % define.replace("\"", "\\\"") for define in defines)
+  # This is defined for all target modules as per
+  # https://cs.android.com/android/platform/superproject/+/master:build/soong/cc/config/global.go;l=29;bpv=0;bpt=1
+  cflags -= {"-DANDROID"}
   return cflags
 
 def set_module_flags(module, cflags, defines):
