@@ -737,6 +737,25 @@ class BaseActionSanitizer():
       cmd = 'echo \'%s\' |%s%s' % (response_file_contents, NEWLINE, cmd)
     return cmd
 
+  def _get_arch_condition(self, arch):
+    if arch == "android_x86_64":
+      return "( $$CC_ARCH == 'x86_64' && $$CC_OS == 'android' )"
+    elif arch == "android_x86":
+      return "( $$CC_ARCH == 'x86' && $$CC_OS == 'android' )"
+    elif arch == "android_arm":
+      return "( $$CC_ARCH == 'arm' && $$CC_OS == 'android' )"
+    elif arch == "android_arm64":
+      return "( $$CC_ARCH == 'arm64' && $$CC_OS == 'android' )"
+    elif arch == "host":
+      return "$$CC_OS != 'android'"
+    else:
+      raise Error('Unknown architecture type %s' % arch)
+
+  def _get_concatenated_condition(self, archs):
+    return "[[ " + \
+           " || ".join([self._get_arch_condition(arch) for arch in archs]) + \
+           " ]]"
+
   def get_outputs(self):
     return self.target.outputs
 
