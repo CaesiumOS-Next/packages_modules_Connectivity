@@ -566,4 +566,66 @@ class SynStateMachineTest {
         mInOrder.verify(mState6).syncEnter()
         noMoreInteractions()
     }
+
+    inner class TestErrorProne(
+        val testEnter: Boolean = false,
+        val testExit: Boolean = false,
+        val testProcessMsg: Boolean = false
+    ) : SyncState() {
+        override fun syncEnter(): Int {
+            if (testEnter) mSM.processMessage(MSG_1, ARG_1, ARG_2, OBJ)
+            return SUCCESSFUL
+        }
+
+        override fun syncExit(): Int {
+            if (testExit) mSM.processMessage(MSG_1, ARG_1, ARG_2, OBJ)
+            return SUCCESSFUL
+        }
+
+        override fun processSyncMessage(what: Int, arg1: Int, arg2: Int, obj: Any): Int {
+            if (testProcessMsg) mSM.processMessage(MSG_1, ARG_1, ARG_2, OBJ)
+
+            return SUCCESSFUL
+        }
+    }
+
+    @Test
+    fun testThrowIfProcessMsgInStateProcessMsg() {
+        val testError = TestErrorProne(false /* testEnter */, false /* testExit */,
+                true /* testProcessMsg*/)
+        mSM.addState(testError)
+        mSM.setInitialState(testError)
+        mSM.start()
+
+        try {
+            processMessage(MSG_1, SUCCESSFUL)
+            fail("Don't support recursive processMessage")
+        } catch (e: IllegalStateException) { }
+    }
+
+    @Test
+    fun testThrowIfProcessMsgInStateEnter() {
+        val testError = TestErrorProne(true /* testEnter */)
+        mSM.addState(testError)
+        mSM.setInitialState(testError)
+
+        try {
+            mSM.start()
+            fail("Don't support processMessage in State#enter()")
+        } catch (e: IllegalStateException) { }
+    }
+
+    @Test
+    fun testThrowIfProcessMsgInStateExit() {
+        val testError = TestErrorProne(false /* testEnter */, true /* testExit */)
+        mSM.addState(testError)
+        mSM.addState(mState1)
+        mSM.setInitialState(testError)
+        mSM.start()
+
+        try {
+            processMessage(MSG_1, mState1, SUCCESSFUL)
+            fail("Don't support processMessage in State#exit()")
+        } catch (e: IllegalStateException) { }
+    }
 }
