@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "752b2faf_5d53378e",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-05T11:49:53Z",
+      "side": 1,
+      "message": "Nit: This might be universial.",
+      "range": {
+        "startLine": 815,
+        "startChar": 4,
+        "endLine": 815,
+        "endChar": 95
+      },
+      "revId": "07027f6e8572c3c528f429dcfcc069a39d3495ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
