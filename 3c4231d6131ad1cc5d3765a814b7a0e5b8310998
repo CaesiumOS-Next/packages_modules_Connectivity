@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c20ee7ad_b6def3b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-05T07:45:33Z",
+      "side": 1,
+      "message": "LGTM as flaky test fix",
+      "revId": "3c4231d6131ad1cc5d3765a814b7a0e5b8310998",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
