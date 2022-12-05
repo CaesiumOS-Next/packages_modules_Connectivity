@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "078af261_ee27bbfa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-05T11:51:33Z",
+      "side": 1,
+      "message": "I ran into this issue few days ago when implementing the cc_genrule. Thanks for fixing it, I fixed it locally but forgot to upload it.",
+      "revId": "047831e03abbd571c4d21a9dc908e41e65e488c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
