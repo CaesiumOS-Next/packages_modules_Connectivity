@@ -38,8 +38,8 @@ public class SyncStateMachine {
      */
     public static final int SUCCESSFUL = 0;
     /**
-     * Indicate someting wrong happen during the state transtions. If error happened in the mid-way
-     * of state transtions, it would continuous transtions to destination state and this value
+     * Indicate someting wrong happen during the state transitions. If error happened in the mid-way
+     * of state transitions, it would continuous transitions to destination state and this value
      * would be eventually return by {@link SyncStateMachine#processMessage}. Then the caller could
      * decide how to handle the error.
      *
@@ -47,8 +47,6 @@ public class SyncStateMachine {
      * {@link SyncState#syncExit}.
      */
     public static final int ERROR = 1;
-    /** The message is not processed. Return value for {@link SyncStateMachine#processMessage} */
-    public static final int MSG_UNHANDLED = 2;
     private static final int DEFAULT_CAPACITY = 1;
 
     private final String mName;
@@ -70,15 +68,15 @@ public class SyncStateMachine {
 
     private SyncState mCurrentState;
     private SyncState mDestState;
-
+    private boolean mIsInProcess;
 
     /**
-     * The extened state class which provide syncEnter/syncExit/processSyncMessage methods for
+     * The extened state class which provide syncEnter/syncExit/processMessage methods for
      * returning the result.
      */
     public static class SyncState extends State {
         /** Called when the message is processed by this state. */
-        public boolean processSyncMessage(final int what, final int arg1, final int arg2,
+        public boolean processMessage(final int what, final int arg1, final int arg2,
                 final Object obj) {
             return false /* message not processed. */;
         }
@@ -111,7 +109,9 @@ public class SyncStateMachine {
         mInitialState = initialState;
         addState(initialState);
         mInitialState.syncEnter();
+        mStateInfo.get(initialState).active = true;
         mCurrentState = initialState;
+        mDestState = null;
     }
 
     /** Add a new state to the state machine. */
@@ -150,16 +150,31 @@ public class SyncStateMachine {
     }
 
     /**
-     * Process the message synchronously. If the message is not processed, state transition
-     * would not be performed and return MSG_UNHANDLED. If current state already be destState,
-     * just return SUCCESSFUL without perform state transition. Besides, this should not a
-     * called inside SyncState.
+     * Process the message synchronously. State transitions would be performed after processing
+     * message. If current state already be destState, just return SUCCESSFUL without perform
+     * state transition. Besides, this should not a called inside SyncState.
      */
     public final int processMessage(int what, int arg1, int arg2, Object obj) {
         ensureCorrectThread();
+        ensureNotInProcess();
 
-        return MSG_UNHANDLED;
+        mIsInProcess = true;
+        try {
+            StateInfo curStateInfo = mStateInfo.get(mCurrentState);
+            while (curStateInfo != null) {
+                if (curStateInfo.state.processMessage(what, arg1, arg2, obj)) {
+                    if (mDbg) Log.d(mName, "processMsg(" + what + ") at " + curStateInfo.state);
+                    break;
+                }
+                curStateInfo = curStateInfo.parentStateInfo;
+            }
+
+            return performTransitions();
+        } finally {
+            mIsInProcess = false;
+        }
     }
+
     /**
      * Transition to destination state. Upon returning from processMessage the current state
      * would be transition to given destination state.
@@ -170,10 +185,15 @@ public class SyncStateMachine {
      * @param destState will be the state that process the next message.
      */
     public final void transitionTo(final SyncState destState) {
+        if (mDbg) Log.d(mName, "transitionTo " + destState);
         ensureCorrectThread();
         ensureValidState(destState);
 
-        mDestState = destState;
+        if (mDestState == null) {
+            mDestState = destState;
+        } else {
+            throw new IllegalStateException("Destination already be specified");
+        }
     }
 
     private int performTransitions() {
@@ -182,13 +202,13 @@ public class SyncStateMachine {
         // 3. Invoke state enter list from common ancestor state to destState by going
         // through mEnterStateStack.
         // 4. State tranistions would be interrupted if any of state exit/enter fail.
-        final StateInfo commonStateInfo = setupEnterStackOfInactiveState();
+        if (mDestState == null) return SUCCESSFUL;
+
         try {
+            final StateInfo commonStateInfo = setupEnterStackOfInactiveState();
             final boolean invokeExitError = invokeExitMethods(commonStateInfo);
             return (invokeEnterMethods() && invokeExitError) ? ERROR : SUCCESSFUL;
         } finally {
-            if (mCurrentState != mDestState) Log.wtf(mName, "Transition to unexpected state");
-
             mEnterStateStack.clear();
             mDestState = null;
         }
@@ -244,10 +264,6 @@ public class SyncStateMachine {
         return hasError;
     }
 
-    private void ensureTransitionNotInProgress() {
-        if (mDestState != null) throw new IllegalStateException("Destination already be specified");
-    }
-
     private void ensureCorrectThread() {
         if (!mMyThread.equals(Thread.currentThread())) {
             throw new IllegalStateException("Called from wrong thread");
@@ -256,5 +272,9 @@ public class SyncStateMachine {
 
     private void ensureValidState(final SyncState state) {
         if (!mStateInfo.containsKey(state)) throw new IllegalStateException("Invalid state");
+    }
+
+    private void ensureNotInProcess() {
+        if (mIsInProcess) throw new IllegalStateException("Previous message is still in process");
     }
 }
