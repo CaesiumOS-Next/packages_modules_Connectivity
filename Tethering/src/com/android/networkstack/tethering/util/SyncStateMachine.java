@@ -16,7 +16,11 @@
 
 package com.android.networkstack.tethering.util;
 
+import android.util.Log;
+
 import com.android.internal.util.State;
+
+import java.util.HashMap;
 
 /**
  * An implementation of a state machine, meant to be called synchronously.
@@ -49,6 +53,18 @@ public class SyncStateMachine {
     private final Thread mMyThread;
     private final boolean mDbg;
     private final SyncState mInitialState;
+    private final HashMap<SyncState, StateInfo> mStateInfo = new HashMap<SyncState, StateInfo>();
+
+    /**
+     * Information about a state.
+     * Used to maintain the hierarchy.
+     */
+    private static class StateInfo {
+        public SyncState state;
+        public StateInfo parentStateInfo;
+        /** True when the state has been entered and on the stack */
+        public boolean active;
+    }
 
     private SyncState mCurrentState;
     private SyncState mDestState;
@@ -109,7 +125,26 @@ public class SyncStateMachine {
      * @param parent the parent of state
      */
     public final void addState(final SyncState state, final SyncState parent) {
+        if (mDbg) Log.d(mName, "addState(" + state + ", " + parent + ")");
         ensureCorrectThread();
+
+        final StateInfo parentStateInfo;
+        if (parent != null) {
+            // The parent must be added before child state.
+            ensureValidState(parent);
+            parentStateInfo = mStateInfo.get(parent);
+        } else {
+            parentStateInfo = null;
+        }
+
+        if (!mStateInfo.containsKey(state)) {
+            final StateInfo stateInfo = new StateInfo();
+            stateInfo.state = state;
+            stateInfo.parentStateInfo = parentStateInfo;
+            mStateInfo.put(state, stateInfo);
+        } else {
+            throw new IllegalStateException("State already exist");
+        }
     }
 
     /**
@@ -134,6 +169,7 @@ public class SyncStateMachine {
      */
     public final void transitionTo(final SyncState destState) {
         ensureCorrectThread();
+        ensureValidState(destState);
 
         mDestState = destState;
     }
@@ -146,5 +182,9 @@ public class SyncStateMachine {
         if (!mMyThread.equals(Thread.currentThread())) {
             throw new IllegalStateException("Called from wrong thread");
         }
+    }
+
+    private void ensureValidState(final SyncState state) {
+        if (!mStateInfo.containsKey(state)) throw new IllegalStateException("Invalid state");
     }
 }
