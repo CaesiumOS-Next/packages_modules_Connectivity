@@ -617,16 +617,16 @@ class BaseActionSanitizer():
   def __init__(self, target):
     # Just to be on the safe side, create a deep-copy.
     self.target = copy.deepcopy(target)
-    self.target.args = self._normalize_args()
+    self._combine_args()
 
   def get_name(self):
     return label_to_module_name(self.target.name)
 
-  def _normalize_args(self):
+  def _normalize_args(self, args):
     # Convert ['--param=value'] to ['--param', 'value'] for consistency.
     # Escape quotations.
     normalized_args = []
-    for arg in self.target.args:
+    for arg in args:
       arg = arg.replace('"', r'\"')
       if arg.startswith('-'):
         normalized_args.extend(arg.split('='))
@@ -757,10 +757,14 @@ class BaseActionSanitizer():
     tool_files.add(gn_utils.label_to_path(self.target.script))
     return tool_files
 
+  def _combine_args(self):
+    # This will combine identical args with different architecture into a single one
+    # to save on lines in the Android.bp file.
+    pass
+
   def _sanitize_args(self):
     # Handle passing parameters via response file by piping them into the script
     # and reading them from /dev/stdin.
-
     self.use_response_file = gn_utils.RESPONSE_FILE in self.target.args
     if self.use_response_file:
       # Replace {{response_file_contents}} with /dev/stdin
