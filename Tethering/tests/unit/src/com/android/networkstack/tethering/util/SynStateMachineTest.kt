@@ -31,9 +31,13 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.inOrder
 import org.mockito.Mockito.spy
+import org.mockito.Mockito.verifyNoMoreInteractions
 
+private const val MSG_RESET = 0
 private const val MSG_1 = 1
 private const val MSG_2 = 2
+private const val MSG_3 = 3
+private const val MSG_4 = 4
 private const val ARG_1 = 100
 private const val ARG_2 = 200
 private val OBJ = Object()
@@ -48,10 +52,15 @@ class SynStateMachineTest {
         SyncStateMachine("TestSyncStateMachine", Looper.myLooper(), true /* debug */)
     }
     private val mInOrder by lazy {
-        inOrder(mState1, mState2)
+        inOrder(mState1, mState2, mState3, mState4, mResetInEnter, mResetInEnter2, mResetInEnter3)
     }
     private val mState1 = spy(TestState(MSG_1))
     private val mState2 = spy(TestState(MSG_2))
+    private val mState3 = spy(TestState(MSG_3))
+    private val mState4 = spy(TestState(MSG_4))
+    private val mResetInEnter = spy(TestState(MSG_RESET, true /* failInEnter */))
+    private val mResetInEnter2 = spy(TestState(MSG_RESET, true /* failInEnter */))
+    private val mResetInEnter3 = spy(TestState(MSG_RESET, true /* failInEnter */))
 
     class TestState(
         val expected: Int,
@@ -80,6 +89,11 @@ class SynStateMachineTest {
 
     private fun processMessage(what: Int, result: Int) {
         assertEquals(result, mSM.processMessage(what, ARG_1, ARG_2, OBJ))
+    }
+
+    private fun noMoreInteractions() {
+        verifyNoMoreInteractions(mState1, mState2, mState3, mState4, mResetInEnter, mResetInEnter2,
+            mResetInEnter3)
     }
 
     @Test
@@ -131,5 +145,92 @@ class SynStateMachineTest {
             mSM.addState(mState2, mState1)
             fail("Don't allow add parent state after start()")
         } catch (e: IllegalStateException) { }
+    }
+
+    @Test
+    fun testInitialFromRootState() {
+        // mState1 -> initial
+        //    |
+        // mState2
+        //    |
+        // mState3
+        mSM.addState(mState1)
+        mSM.addState(mState2, mState1)
+        mSM.addState(mState3, mState2)
+        mSM.setInitialState(mState1)
+
+        mSM.start()
+        mInOrder.verify(mState1).syncEnter()
+        noMoreInteractions()
+    }
+
+    @Test
+    fun testInitialFromLeaveState() {
+        // mState1            mState4
+        //    |
+        // mState2
+        //    |
+        // mState3 -> initial
+        mSM.addState(mState1)
+        mSM.addState(mState2, mState1)
+        mSM.addState(mState3, mState2)
+        mSM.addState(mState4)
+        mSM.setInitialState(mState3)
+
+        mSM.start()
+        mInOrder.verify(mState1).syncEnter()
+        mInOrder.verify(mState2).syncEnter()
+        mInOrder.verify(mState3).syncEnter()
+        noMoreInteractions()
+    }
+
+    @Test
+    fun testResetStateInParentOfInitialState() {
+        // mState1
+        //   |
+        // mResetInEnter
+        //   |
+        // mState2
+        //   |
+        // mState3 -> initial
+        mSM.addState(mState1)
+        mSM.addState(mResetInEnter, mState1)
+        mSM.addState(mState2, mResetInEnter)
+        mSM.addState(mState3, mState2)
+        mSM.setInitialState(mState3)
+        mSM.start()
+
+        mInOrder.verify(mState1).syncEnter()
+        mInOrder.verify(mResetInEnter).syncEnter()
+        mInOrder.verify(mState2).syncEnter()
+        mInOrder.verify(mState3).syncEnter()
+        noMoreInteractions()
+    }
+
+    @Test
+    fun testMultiResetStateInStateEnter() {
+        // mState1
+        //   |
+        // mResetInEnter
+        //   |
+        // mResetInEnter2
+        //   |
+        // mResetInEnter3
+        //   |
+        // mState2 -> initial
+        mSM.addState(mState1)
+        mSM.addState(mResetInEnter, mState1)
+        mSM.addState(mResetInEnter2, mResetInEnter)
+        mSM.addState(mResetInEnter3, mResetInEnter2)
+        mSM.addState(mState2, mResetInEnter3)
+        mSM.setInitialState(mState2)
+        mSM.start()
+
+        mInOrder.verify(mState1).syncEnter()
+        mInOrder.verify(mResetInEnter).syncEnter()
+        mInOrder.verify(mResetInEnter2).syncEnter()
+        mInOrder.verify(mResetInEnter3).syncEnter()
+        mInOrder.verify(mState2).syncEnter()
+        noMoreInteractions()
     }
 }
