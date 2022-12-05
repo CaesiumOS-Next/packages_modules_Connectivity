@@ -20,6 +20,7 @@ import android.util.Log;
 
 import com.android.internal.util.State;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -34,6 +35,7 @@ public class SyncStateMachine {
     private final Thread mMyThread;
     private final boolean mDbg;
     private final int mDefaultResult;
+    private final HashMap<State, StateInfo> mStateInfo = new HashMap<State, StateInfo>();
 
     private volatile boolean mStarted = false;
 
@@ -90,6 +92,20 @@ public class SyncStateMachine {
         ensureCorrectOrNotStartedThread();
 
         if (mStarted) throw new IllegalStateException("State only can be added before started");
+        if (!mStateInfo.isEmpty()) throw new IllegalStateException("States are already configured");
+
+        for (final StateInfo info : stateInfos) {
+            if (mStateInfo.containsKey(info.state)) {
+                throw new IllegalStateException("duplicated state is not allowed");
+            }
+
+            mStateInfo.put(info.state, info);
+        }
+
+        // Check whether all of parent states indicated from StateInfo are added.
+        for (final StateInfo info : stateInfos) {
+            if (info.parent != null) ensureValidState(info.parent);
+        }
     }
 
     /**
@@ -97,6 +113,7 @@ public class SyncStateMachine {
      */
     public final void start(final State initialState) {
         ensureCorrectThread();
+        ensureValidState(initialState);
 
         mCurrentState = initialState;
         mDestState = null;
@@ -127,6 +144,7 @@ public class SyncStateMachine {
     public final void transitionTo(final State destState) {
         if (mDbg) Log.d(mName, "transitionTo " + destState);
         ensureCorrectThread();
+        ensureValidState(destState);
 
         mDestState = destState;
     }
@@ -141,5 +159,9 @@ public class SyncStateMachine {
         if (!mMyThread.isAlive()) return;
 
         ensureCorrectThread();
+    }
+
+    private void ensureValidState(final State state) {
+        if (!mStateInfo.containsKey(state)) throw new IllegalStateException("Invalid state");
     }
 }
