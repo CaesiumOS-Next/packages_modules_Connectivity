@@ -16,6 +16,7 @@
 
 package com.android.networkstack.tethering.util;
 
+import android.util.ArrayMap;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ import androidx.annotation.Nullable;
 import com.android.internal.util.State;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * An implementation of a state machine, meant to be called synchronously.
@@ -36,6 +38,15 @@ public class SyncStateMachine {
     @NonNull private final String mName;
     @NonNull private final Thread mMyThread;
     private final boolean mDbg;
+    // com.android.internal.util.State doesn't implement equals() or hashcode(), the key of this
+    // map must be the exact State instance. An instance of a state can't have multiple parent
+    // states, but it's fine to have multiple instances of the same state as long as they have
+    // different parents.
+    // Not supported:            Supported:
+    //   State1    State2          State1             State2
+    //         \   /                 |                  |
+    //       State3@instance1      State3@instance1   State3@instance2
+    private final ArrayMap<State, StateInfo> mStateInfo = new ArrayMap<>();
 
     // mCurrentState is the current state. mDestState is the target state that mCurrentState will
     // transition to. The value of mDestState can be changed when a state processes a message and
@@ -92,9 +103,9 @@ public class SyncStateMachine {
     }
 
     /**
-     * Add all of states to the state machine. Different StateInfos which have same state but have
-     * different parents are not allowed. A state can not have multiple parent states.
-     * This can only be called once either from mMyThread or before mMyThread started.
+     * Add all of states to the state machine. Different StateInfos which have same state instance
+     * are not alled. In other words, a state can not have multiple parent states. #addAllStates
+     * can only be called once either from mMyThread or before mMyThread started.
      */
     public final void addAllStates(@NonNull final List<StateInfo> stateInfos) {
         ensureCorrectOrNotStartedThread();
@@ -102,13 +113,35 @@ public class SyncStateMachine {
         if (mCurrentState != null) {
             throw new IllegalStateException("State only can be added before started");
         }
+
+        if (!stateInfos.isEmpty()) throw new IllegalStateException("Empty state is not allowed");
+
+        if (!mStateInfo.isEmpty()) throw new IllegalStateException("States are already configured");
+
+        for (final StateInfo info : stateInfos) {
+            Objects.requireNonNull(info.state);
+            if (mStateInfo.containsKey(info.state)) {
+                throw new IllegalStateException("duplicated state is not allowed");
+            }
+
+            mStateInfo.put(info.state, info);
+        }
+
+        // Check whether all of parent states indicated from StateInfo are added.
+        for (final StateInfo info : stateInfos) {
+            if (info.parent != null) ensureExistingState(info.parent);
+        }
     }
 
     /**
      * Start the state machine. The initial state can't be child state.
+     *
+     * @param initialState the first state of this machine. The state must be exact state object
+     * setting up by {@link #addAllStates}, not a copy of it.
      */
     public final void start(@NonNull final State initialState) {
         ensureCorrectThread();
+        ensureExistingState(initialState);
 
         mCurrentState = initialState;
         mDestState = initialState;
@@ -128,11 +161,13 @@ public class SyncStateMachine {
      * This function can NOT be called inside the State enter and exit function. The transition
      * target is always defined and can never be changed mid-way of state transition.
      *
-     * @param destState will be the state to transition to.
+     * @param destState will be the state to transition to. The state must be the same instance set
+     * up by {@link #addAllStates}, not a copy of it.
      */
     public final void transitionTo(@NonNull final State destState) {
         if (mDbg) Log.d(mName, "transitionTo " + destState);
         ensureCorrectThread();
+        ensureExistingState(destState);
 
         if (mDestState != mCurrentState) {
             mDestState = destState;
@@ -151,5 +186,9 @@ public class SyncStateMachine {
         if (!mMyThread.isAlive()) return;
 
         ensureCorrectThread();
+    }
+
+    private void ensureExistingState(@NonNull final State state) {
+        if (!mStateInfo.containsKey(state)) throw new IllegalStateException("Invalid state");
     }
 }
