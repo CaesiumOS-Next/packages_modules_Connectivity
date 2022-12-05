@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46a6f43c_a41c05d0",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 914,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-05T12:59:41Z",
+      "side": 1,
+      "message": "This seems identical to JavaEnums. Maybe you can inherit `JavaEnums` instead of `BaseActionSanitizer`? This would be useful as the logic is completely identical but still provide some insight that those are 2 different scripts?",
+      "range": {
+        "startLine": 910,
+        "startChar": 0,
+        "endLine": 914,
+        "endChar": 28
+      },
+      "revId": "3f7ab3147e193fb3cb7dad7ebc8f60530e1582c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
