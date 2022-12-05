@@ -727,7 +727,7 @@ class BaseActionSanitizer():
   def _update_all_args(self, func):
     self.target.args = [func(arg) for arg in self.target.args]
 
-  def get_cmd(self):
+  def _get_base_cmd(self):
     arg_string = NEWLINE.join(self.target.args)
     cmd = '$(location %s) %s' % (
     gn_utils.label_to_path(self.target.script), arg_string)
@@ -839,9 +839,9 @@ class JniRegistrationGeneratorSanitizer(BaseActionSanitizer):
     self._delete_value_arg('--sources-exclusions')
     super()._sanitize_args()
 
-  def get_cmd(self):
+  def _get_base_cmd(self):
     # jni_registration_generator.py doesn't work with python2
-    cmd = "python3 " + super().get_cmd()
+    cmd = "python3 " + super()._get_base_cmd()
     # Path in the original sources file does not work in genrule.
     # So creating sources file in cmd based on the srcs of this target.
     # Adding ../$(current_dir)/ to the head because jni_registration_generator.py uses the files
