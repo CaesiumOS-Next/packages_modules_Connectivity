@@ -10585,14 +10585,26 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 android.Manifest.permission.MANAGE_TEST_NETWORKS,
                 android.Manifest.permission.NETWORK_STACK);
         final NetworkCapabilities nc = getNetworkCapabilitiesInternal(network);
-        if (!nc.hasTransport(TRANSPORT_TEST)) {
-            throw new SecurityException("Data Stall simulation is only possible for test networks");
-        }
+        // if (!nc.hasTransport(TRANSPORT_TEST)) {
+        //     throw new SecurityException("Data Stall simulation is only possible for test
+        // networks");
+        // }
 
+        android.util.Log.i("TEST", "mDeps.getCallingUid() " + mDeps.getCallingUid());
         final NetworkAgentInfo nai = getNetworkAgentInfoForNetwork(network);
-        if (nai == null || nai.creatorUid != mDeps.getCallingUid()) {
-            throw new SecurityException("Data Stall simulation is only possible for network "
-                + "creators");
+
+        android.util.Log.i("TEST", "nai " + nai);
+        android.util.Log.i("TEST", "nai.getCapsNoCopy() " + nai.getCapsNoCopy());
+        android.util.Log.i("TEST", "nc " + nc);
+        if (nai == null
+                || (nai.creatorUid != mDeps.getCallingUid()
+                        && Arrays.binarySearch(
+                                        nai.getCapsNoCopy().getAdministratorUids(),
+                                        mDeps.getCallingUid())
+                                < 0)) {
+            throw new SecurityException(
+                    "Data Stall simulation is only possible for network "
+                            + "creators or administrators");
         }
 
         // Instead of passing the data stall directly to the ConnectivityDiagnostics handler, treat
