@@ -22,6 +22,30 @@
       },
       "revId": "cdb45eafe91fa3df3b983e806ca5e714c0d33c7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06502341_9923a0ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-12-05T02:12:52Z",
+      "side": 1,
+      "message": "You mean we should never change the deep copied target?\nI thought as far as sanitization modifies class member variable, it makes sense to split sanitization API and getter APIs.",
+      "parentUuid": "b4b41ff8_7806c8f1",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 0
+      },
+      "revId": "cdb45eafe91fa3df3b983e806ca5e714c0d33c7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
