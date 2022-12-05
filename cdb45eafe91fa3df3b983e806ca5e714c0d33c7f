@@ -46,6 +46,30 @@
       },
       "revId": "cdb45eafe91fa3df3b983e806ca5e714c0d33c7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58f83b0c_76b95851",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-05T10:54:53Z",
+      "side": 1,
+      "message": "The target was being modified until I pushed my last few CLs on Friday. So right now we don\u0027t need a deep-copy of the target as we only modify the copied args. However, I\u0027m having conflicted opinions about this due to the following reasons\n\n1-When `sanitize` is called. You expect the target passed in as an argument to be changed but that isn\u0027t the case.\n2-It makes more sense to call some method that does all of the preprocessing on the `target` provided then you can start calling the `getters`. I don\u0027t think it make sense to call the `getters` after creating an object.\n\nIf I were to choose a design. I\u0027d just go for the one where we call `sanitize` as it\u0027s more intuitive that you call a `method` then you can start calling the `getters`.\n\nBut this is just a personal preference that I can\u0027t support at the moment with any data.",
+      "parentUuid": "06502341_9923a0ed",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 0
+      },
+      "revId": "cdb45eafe91fa3df3b983e806ca5e714c0d33c7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
