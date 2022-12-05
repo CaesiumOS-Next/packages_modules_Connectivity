@@ -617,7 +617,7 @@ class BaseActionSanitizer():
   def __init__(self, target):
     # Just to be on the safe side, create a deep-copy.
     self.target = copy.deepcopy(target)
-    self._combine_args()
+    self.normalized_args = {}
 
   def get_name(self):
     return label_to_module_name(self.target.name)
@@ -771,13 +771,18 @@ class BaseActionSanitizer():
     return arch_args
 
   def _sanitize_args(self):
-    # Handle passing parameters via response file by piping them into the script
-    # and reading them from /dev/stdin.
-    self.use_response_file = gn_utils.RESPONSE_FILE in self.target.args
-    if self.use_response_file:
-      # Replace {{response_file_contents}} with /dev/stdin
-      self.target.args = ['/dev/stdin' if it == gn_utils.RESPONSE_FILE else it
-                          for it in self.target.args]
+    args_dict = self._combine_args()
+    self.use_response_file = {}
+    for (arg, content), archs in args_dict.items():
+      normalized_arg = self._normalize_args(arg)
+      # Handle passing parameters via response file by piping them into the script
+      # and reading them from /dev/stdin.
+      self.use_response_file[archs] = gn_utils.RESPONSE_FILE in normalized_arg
+      if self.use_response_file[archs]:
+        # Replace {{response_file_contents}} with /dev/stdin
+        normalized_arg = ['/dev/stdin' if it == gn_utils.RESPONSE_FILE else it
+                            for it in normalized_arg]
+      self.normalized_args[(normalized_arg, content)] = archs
 
   def _sanitize_outputs(self):
     pass
