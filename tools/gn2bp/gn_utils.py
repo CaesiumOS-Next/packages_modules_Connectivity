@@ -390,6 +390,11 @@ class GnParser(object):
 
     # Recurse in dependencies.
     for gn_dep_name in desc.get('deps', []):
+      if label_without_toolchain(gn_dep_name) in BUILTIN_DEPS:
+        # Skip builtin dependencies as they already exist in AOSP.
+        # We have to halt the search because groups data is bubbled up
+        # the tree and we don't want that.
+        continue
       dep = self.parse_gn_desc(gn_desc, gn_dep_name)
       if dep.type == 'proto_library':
         target.proto_deps.add(dep.name)
