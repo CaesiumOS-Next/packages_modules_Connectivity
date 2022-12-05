@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51bf79f2_85a73466",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-05T02:56:58Z",
+      "side": 1,
+      "message": "It seems to me these are unlikely be able to reused in near future.\nHence it seems to me hide these detail in the asserting function is a better choice.\nIf so, maybe just name it assertTopSessionCallers and put the detail there.",
+      "range": {
+        "startLine": 892,
+        "startChar": 8,
+        "endLine": 893,
+        "endChar": 92
+      },
+      "revId": "7f2c3510bfc41c7ff44099d404417e0dae0bfac2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65390485_7db5158b",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 2536,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-05T02:56:58Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 2536,
+        "startChar": 67,
+        "endLine": 2536,
+        "endChar": 85
+      },
+      "revId": "7f2c3510bfc41c7ff44099d404417e0dae0bfac2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5625550_ea561555",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 2546,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-05T02:56:58Z",
+      "side": 1,
+      "message": "What about \n\nTop openSession callers:\n{uid\u003d1000,package\u003daa.a}\n{uid\u003d1001,package\u003daa.a}\n{uid\u003d1002,package\u003daa.a}\n\nTop usage producers:\n{uid\u003d1000,package\u003daa.a}\n{uid\u003d1001,package\u003daa.a}\n{uid\u003d1002,package\u003daa.a}\n\nIt is likely your count will be 2 instead of 1 and failing the assertion?",
+      "range": {
+        "startLine": 2544,
+        "startChar": 8,
+        "endLine": 2546,
+        "endChar": 9
+      },
+      "revId": "7f2c3510bfc41c7ff44099d404417e0dae0bfac2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
