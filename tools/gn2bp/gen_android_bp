@@ -760,7 +760,15 @@ class BaseActionSanitizer():
   def _combine_args(self):
     # This will combine identical args with different architecture into a single one
     # to save on lines in the Android.bp file.
-    pass
+
+    # arg -> [arch_1, arch_2,... ]
+    arch_args = {}
+    for (arch, arg) in self.target.args:
+      key = (arg, self.target.arch[arch].response_file_contents)
+      if key not in arch_args:
+        arch_args[key] = []
+      arch_args[key].append(arch)
+    return arch_args
 
   def _sanitize_args(self):
     # Handle passing parameters via response file by piping them into the script
