@@ -756,6 +756,26 @@ class BaseActionSanitizer():
            " || ".join([self._get_arch_condition(arch) for arch in archs]) + \
            " ]]"
 
+  def get_cmd(self):
+    cmd = ""
+    for (index, (arg, archs)) in enumerate(self.normalized_args):
+      # All of the archs share the same response_file_contents. So we just
+      # need to use any one of them.
+      # NOTE: Combining of args happen during the creation
+      response_content = self.target.arch[archs[0]].response_file_contents
+      cmd = NEWLINE.join([
+          cmd,
+          '%s [[ %s ]]\\n' % (
+              "if" if index == 0 else "elif", self._get_concatenated_condition(archs)),
+          "then\\n",
+          self._get_base_cmd(arg, response_content),
+          "\\n"
+      ])
+    cmd = NEWLINE.join([
+        cmd,
+        "fi"
+    ])
+    return cmd
   def get_outputs(self):
     return self.target.outputs
 
