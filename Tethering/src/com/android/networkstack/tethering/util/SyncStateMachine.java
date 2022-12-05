@@ -20,6 +20,7 @@ import android.util.Log;
 
 import com.android.internal.util.State;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -33,6 +34,14 @@ public class SyncStateMachine {
     private final String mName;
     private final Thread mMyThread;
     private final boolean mDbg;
+    // com.android.internal.util.State doesn't implement equals() or hashcode(), the key of this
+    // HashMap usually be exact State object. Although the state can't have multiple parent states,
+    // but copied states are allowed.
+    // Not supported:       Supported:
+    //   State1    State2       State1   State2
+    //         \   /               |        |
+    //        State3             State3   State3(copied)
+    private final HashMap<State, StateInfo> mStateInfo = new HashMap<State, StateInfo>();
 
     private boolean mStarted = false;
 
@@ -98,13 +107,31 @@ public class SyncStateMachine {
         ensureCorrectOrNotStartedThread();
 
         if (mStarted) throw new IllegalStateException("State only can be added before started");
+        if (!mStateInfo.isEmpty()) throw new IllegalStateException("States are already configured");
+
+        for (final StateInfo info : stateInfos) {
+            if (mStateInfo.containsKey(info.state)) {
+                throw new IllegalStateException("duplicated state is not allowed");
+            }
+
+            mStateInfo.put(info.state, info);
+        }
+
+        // Check whether all of parent states indicated from StateInfo are added.
+        for (final StateInfo info : stateInfos) {
+            if (info.parent != null) ensureValidState(info.parent);
+        }
     }
 
     /**
      * Start the state machine. The initial state can't be child state.
+     *
+     * @param initialState the first state of this machine. The state must be exact state object
+     * setting up by {@link #addAllStates}, not a copy of it.
      */
     public final void start(final State initialState) {
         ensureCorrectThread();
+        ensureValidState(initialState);
 
         mCurrentState = initialState;
         mDestState = null;
@@ -125,11 +152,13 @@ public class SyncStateMachine {
      * This function can NOT be called inside the State enter and exit function. The transition
      * target is always defined and never be changed in the mid-way of state transition.
      *
-     * @param destState will be the state that process the next message.
+     * @param destState will be the state that process the next message. The state must be exact
+     * state object setting up by {@link #addAllStates}, not a copy of it.
      */
     public final void transitionTo(final State destState) {
         if (mDbg) Log.d(mName, "transitionTo " + destState);
         ensureCorrectThread();
+        ensureValidState(destState);
 
         if (mDestState == null) {
             mDestState = destState;
@@ -148,5 +177,9 @@ public class SyncStateMachine {
         if (!mMyThread.isAlive()) return;
 
         ensureCorrectThread();
+    }
+
+    private void ensureValidState(final State state) {
+        if (!mStateInfo.containsKey(state)) throw new IllegalStateException("Invalid state");
     }
 }
