@@ -52,6 +52,24 @@
       "parentUuid": "f260e901_397307d3",
       "revId": "4cdbf010646c44fdce70c841a7ffc505f2558c19",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acdd8cbc_89ad3803",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-05T14:44:59Z",
+      "side": 1,
+      "message": "Keep connecting to wifi in the test and add \"dumpsys batterystats\" to trigger a full sync of data.",
+      "parentUuid": "74f4bec6_4c930b03",
+      "revId": "4cdbf010646c44fdce70c841a7ffc505f2558c19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
