@@ -134,6 +134,8 @@ class GnParser(object):
         self.deps = set()
         self.transitive_static_libs_deps = set()
         self.source_set_deps = set()
+        self.args = []
+        self.response_file_contents = None
 
 
     def __init__(self, name, type):
@@ -233,6 +235,11 @@ class GnParser(object):
       self.include_dirs = set.intersection(*[arch.include_dirs for arch in self.arch.values()])
       self.deps.update(set.intersection(*[arch.deps for arch in self.arch.values()]))
       self.source_set_deps.update(set.intersection(*[arch.source_set_deps for arch in self.arch.values()]))
+
+      # Target contains the union of all args in the format of
+      # [(arch_1, list_of_args_1), (arch_2, list_of_args_2), ..]
+      self.args = [(arch_name, arch.args) for arch_name, arch in self.arch.items()]
+
 
       # Deduplicate arch-dependent properties
       for arch in self.arch.keys():
@@ -365,8 +372,8 @@ class GnParser(object):
       outs = [re.sub('^//out/.+?/gen/', '', x) for x in desc['outputs']]
       target.outputs.update(outs)
       target.script = desc['script']
-      target.args = desc['args']
-      target.response_file_contents = self._get_response_file_contents(desc)
+      target.arch[arch].args = desc['args']
+      target.arch[arch].response_file_contents = self._get_response_file_contents(desc)
     elif target.type == 'copy':
       # TODO: copy rules are not currently implemented.
       self.actions[gn_target_name] = target
