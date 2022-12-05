@@ -29,7 +29,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.inOrder
 import org.mockito.Mockito.spy
+import org.mockito.Mockito.verifyNoMoreInteractions
 
+private const val MSG_RESET = 0
 private const val MSG_1 = 1
 private const val MSG_2 = 2
 private const val MSG_3 = 3
@@ -63,6 +65,10 @@ class SynStateMachineTest {
         }
     }
 
+    private fun verifyNoMoreInteractions() {
+        verifyNoMoreInteractions(mState1, mState2, mState3)
+    }
+
     @Test
     fun testAddState() {
         val sm = SyncStateMachine("TestSyncStateMachine", mState1, true /* debug */)
@@ -83,5 +89,16 @@ class SynStateMachineTest {
             sm.addState(mState1, mState3)
             fail("Can add duplicated state")
         } catch (e: IllegalStateException) { }
+    }
+
+    @Test
+    fun testInitialState() {
+        // mState1
+        //    |
+        // mState2
+        val sm = SyncStateMachine("TestSyncStateMachine", mState1, true /* debug */)
+        sm.addState(mState2, mState1)
+        mInOrder.verify(mState1).syncEnter()
+        verifyNoMoreInteractions()
     }
 }

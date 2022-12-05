@@ -20,6 +20,7 @@ import android.util.Log;
 
 import com.android.internal.util.State;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -48,6 +49,7 @@ public class SyncStateMachine {
     public static final int ERROR = 1;
     /** The message is not processed. Return value for {@link SyncStateMachine#processMessage} */
     public static final int MSG_UNHANDLED = 2;
+    private static final int DEFAULT_CAPACITY = 1;
 
     private final String mName;
     private final Thread mMyThread;
@@ -108,7 +110,7 @@ public class SyncStateMachine {
 
         mInitialState = initialState;
         addState(initialState);
-        mInitialState.enter();
+        mInitialState.syncEnter();
         mCurrentState = initialState;
     }
 
@@ -172,6 +174,74 @@ public class SyncStateMachine {
         ensureValidState(destState);
 
         mDestState = destState;
+    }
+
+    private int performTransitions() {
+        // 1. Determine the common ancestor state of current/destination states
+        // 2. Invoke state exit list from current state to common acestor state.
+        // 3. Invoke state enter list from common ancestor state to destState by going
+        // through mEnterStateStack.
+        // 4. State tranistions would be interrupted if any of state exit/enter fail.
+        final StateInfo commonStateInfo = setupEnterStackOfInactiveState();
+        try {
+            final boolean invokeExitError = invokeExitMethods(commonStateInfo);
+            return (invokeEnterMethods() && invokeExitError) ? ERROR : SUCCESSFUL;
+        } finally {
+            if (mCurrentState != mDestState) Log.wtf(mName, "Transition to unexpected state");
+
+            mEnterStateStack.clear();
+            mDestState = null;
+        }
+    }
+
+    // Instead of creating a new ArrayList every time the machine performs a transition, having a
+    // cache stack temporary storing the states which will be entered.
+    private final ArrayList<StateInfo> mEnterStateStack = new ArrayList<>(DEFAULT_CAPACITY);
+    private StateInfo setupEnterStackOfInactiveState() {
+        // Search up the parent list of the destination state for an active
+        // state.
+        StateInfo curStateInfo = mStateInfo.get(mDestState);
+        while ((curStateInfo != null) && !curStateInfo.active) {
+            mEnterStateStack.add(curStateInfo);
+            curStateInfo = curStateInfo.parentStateInfo;
+        }
+
+        // common ancestor state of current state and destination state. Current state or
+        // destination state could be common ancestor if they are in the same parent list.
+        return curStateInfo;
+    }
+
+    private static boolean isError(final int state) {
+        return state == ERROR;
+    }
+
+    // Call the exit method from current state to common ancestor state.
+    private boolean invokeExitMethods(final StateInfo commonStateInfo) {
+        boolean hasError = false;
+        StateInfo stateInfo = mStateInfo.get(mCurrentState);
+        while (stateInfo != null && stateInfo != commonStateInfo) {
+            if (mDbg) Log.d(mName, stateInfo.state + " exit()");
+            hasError = isError(stateInfo.state.syncExit()) & hasError;
+            stateInfo.active = false;
+            stateInfo = stateInfo.parentStateInfo;
+        }
+
+        mCurrentState = stateInfo != null ? stateInfo.state : null;
+        return hasError;
+    }
+
+    // Call the enter method from common ancestor state to destination state.
+    private boolean invokeEnterMethods() {
+        boolean hasError = false;
+        while (!mEnterStateStack.isEmpty()) {
+            final StateInfo stateInfo = mEnterStateStack.remove(mEnterStateStack.size() - 1);
+            if (mDbg) Log.d(mName, stateInfo.state + " enter()");
+            hasError = isError(stateInfo.state.syncEnter()) & hasError;
+            stateInfo.active = true;
+            mCurrentState = stateInfo.state;
+        }
+
+        return hasError;
     }
 
     private void ensureTransitionNotInProgress() {
