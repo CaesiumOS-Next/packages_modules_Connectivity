@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d729aab_76c04d87",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsAnnouncer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-05T05:48:38Z",
+      "side": 1,
+      "message": "public?",
+      "range": {
+        "startLine": 81,
+        "startChar": 3,
+        "endLine": 81,
+        "endChar": 4
+      },
+      "revId": "c36376b6edd9a29cdef0f39d8374e011311d4818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a01418f1_96ed92b1",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAnnouncerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-05T05:48:38Z",
+      "side": 1,
+      "message": "Could you have a comment to explain why announcedRecords includes these records?",
+      "revId": "c36376b6edd9a29cdef0f39d8374e011311d4818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b38a4e5b_b68a8b68",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAnnouncerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-05T05:48:38Z",
+      "side": 1,
+      "message": "Question: why do not have MdnsInetAddressRecord for v6AddrRev2?",
+      "range": {
+        "startLine": 138,
+        "startChar": 32,
+        "endLine": 138,
+        "endChar": 33
+      },
+      "revId": "c36376b6edd9a29cdef0f39d8374e011311d4818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f23faa41_fdde2ed0",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAnnouncerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-05T05:48:38Z",
+      "side": 1,
+      "message": "Ditto. Maybe have a comment to explain for these records.",
+      "range": {
+        "startLine": 139,
+        "startChar": 12,
+        "endLine": 139,
+        "endChar": 29
+      },
+      "revId": "c36376b6edd9a29cdef0f39d8374e011311d4818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7c02ab8_9eaa14e4",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAnnouncerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-05T05:48:38Z",
+      "side": 1,
+      "message": "I think all send out packets are same. Can\u0027t you capture all packets but only verify the first one?",
+      "range": {
+        "startLine": 174,
+        "startChar": 48,
+        "endLine": 174,
+        "endChar": 76
+      },
+      "revId": "c36376b6edd9a29cdef0f39d8374e011311d4818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e872b5b_42b8778a",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAnnouncerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-05T05:48:38Z",
+      "side": 1,
+      "message": "Can we rename this method to `getReverseAddressName` and let IPv4 can also use this to do the reverse?",
+      "range": {
+        "startLine": 192,
+        "startChar": 12,
+        "endLine": 192,
+        "endChar": 35
+      },
+      "revId": "c36376b6edd9a29cdef0f39d8374e011311d4818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
