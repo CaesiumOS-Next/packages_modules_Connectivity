@@ -20,6 +20,7 @@ import android.util.Log;
 
 import com.android.internal.util.State;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -34,6 +35,7 @@ public class SyncStateMachine {
     private final Thread mMyThread;
     private final boolean mDbg;
     private final int mDefaultResult;
+    private final HashMap<SyncState, StateInfo> mStateInfo = new HashMap<SyncState, StateInfo>();
 
     private volatile boolean mStarted = false;
 
@@ -129,6 +131,14 @@ public class SyncStateMachine {
      */
     public final void addStateInfos(final List<StateInfo> stateInfos) {
         if (mStarted) throw new IllegalStateException("State only can be added before started");
+
+        for (final StateInfo info : stateInfos) {
+            if (!mStateInfo.containsKey(info.mState)) {
+                throw new IllegalStateException("duplicated state is not allowed");
+            }
+
+            mStateInfo.put(info.mState, info);
+        }
     }
 
     /**
@@ -136,6 +146,7 @@ public class SyncStateMachine {
      */
     public final void start(final SyncState initialState) {
         ensureCorrectThread();
+        ensureValidState(initialState);
 
         mCurrentState = initialState;
         mDestState = null;
@@ -166,6 +177,7 @@ public class SyncStateMachine {
     public final void transitionTo(final SyncState destState) {
         if (mDbg) Log.d(mName, "transitionTo " + destState);
         ensureCorrectThread();
+        ensureValidState(destState);
 
         mDestState = destState;
     }
@@ -174,5 +186,9 @@ public class SyncStateMachine {
         if (!mMyThread.equals(Thread.currentThread())) {
             throw new IllegalStateException("Called from wrong thread");
         }
+    }
+
+    private void ensureValidState(final SyncState state) {
+        if (!mStateInfo.containsKey(state)) throw new IllegalStateException("Invalid state");
     }
 }
