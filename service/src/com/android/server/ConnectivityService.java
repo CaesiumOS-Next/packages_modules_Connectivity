@@ -10644,16 +10644,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
         enforceAnyPermissionOf(mContext,
                 android.Manifest.permission.MANAGE_TEST_NETWORKS,
                 android.Manifest.permission.NETWORK_STACK);
-        final NetworkCapabilities nc = getNetworkCapabilitiesInternal(network);
-        if (!nc.hasTransport(TRANSPORT_TEST)) {
-            throw new SecurityException("Data Stall simulation is only possible for test networks");
-        }
-
-        final NetworkAgentInfo nai = getNetworkAgentInfoForNetwork(network);
-        if (nai == null || nai.creatorUid != mDeps.getCallingUid()) {
-            throw new SecurityException("Data Stall simulation is only possible for network "
-                + "creators");
-        }
 
         // Instead of passing the data stall directly to the ConnectivityDiagnostics handler, treat
         // this as a Data Stall received directly from NetworkMonitor. This requires wrapping the
