@@ -59,7 +59,7 @@ public class SyncStateMachine {
     private SyncState mInitialState;
     private SyncState mCurrentState;
     private boolean mStarted;
-
+    private boolean mIsInProcess;
 
     /**
      * The extened state class which provide syncEnter/syncExit/processSyncMessage methods for
@@ -176,8 +176,41 @@ public class SyncStateMachine {
         ensureCurrentThread();
         ensureStarted();
         ensureValidState(destState);
+        ensureNotInProcess();
 
-        return SUCCESSFUL;
+        mIsInProcess = true;
+        try {
+            final int result = processMsg(what, arg1, arg2, obj);
+
+            return doTransitions(targetState(result, destState), result);
+        } finally {
+            if (mCurrentState == null) Log.wtf(mName, "current state is null");
+
+            mIsInProcess = false;
+        }
+    }
+
+    private SyncState targetState(final int condition, final SyncState destState) {
+        switch(condition) {
+            case SUCCESSFUL: return destState;
+            case FAILED: return mInitialState;
+            default: return mCurrentState;
+        }
+    }
+
+    // Process the message. If the current state doesn't handle it, call the states parent and so
+    // on.
+    private int processMsg(final int what, final int arg1, final int arg2, final Object obj) {
+        StateInfo curStateInfo = mStateInfo.get(mCurrentState);
+        while (curStateInfo != null) {
+            final int result = curStateInfo.state.processSyncMessage(what, arg1, arg2, obj);
+            if (mDbg) Log.d(mName, "processMsg(" + what + ") at " + curStateInfo.state);
+            if (result != UNHANDLED) return result;
+
+            curStateInfo = curStateInfo.parentStateInfo;
+        }
+
+        return UNHANDLED;
     }
 
     /** Whether the given result is fail. */
@@ -283,5 +316,9 @@ public class SyncStateMachine {
 
     private void ensureValidState(final SyncState state) {
         if (!mStateInfo.containsKey(state)) throw new IllegalStateException("Invalid state");
+    }
+
+    private void ensureNotInProcess() {
+        if (mIsInProcess) throw new IllegalStateException("Previous message is still in process");
     }
 }

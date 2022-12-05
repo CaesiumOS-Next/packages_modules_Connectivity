@@ -29,6 +29,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.fail
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers.eq
 import org.mockito.Mockito.inOrder
 import org.mockito.Mockito.spy
 import org.mockito.Mockito.verifyNoMoreInteractions
@@ -38,6 +39,8 @@ private const val MSG_1 = 1
 private const val MSG_2 = 2
 private const val MSG_3 = 3
 private const val MSG_4 = 4
+private const val MSG_5 = 5
+private const val MSG_6 = 6
 private const val ARG_1 = 100
 private const val ARG_2 = 200
 private val OBJ = Object()
@@ -52,15 +55,26 @@ class SynStateMachineTest {
         SyncStateMachine("TestSyncStateMachine", Looper.myLooper(), true /* debug */)
     }
     private val mInOrder by lazy {
-        inOrder(mState1, mState2, mState3, mState4, mResetInEnter, mResetInEnter2, mResetInEnter3)
+        inOrder(mState1, mState2, mState3, mState4, mState5, mState6, mResetInEnter, mResetInEnter2,
+                mResetInEnter3, mResetInExit, mResetInExit2, mResetInExit3, mResetInProcessMsg)
     }
     private val mState1 = spy(TestState(MSG_1))
     private val mState2 = spy(TestState(MSG_2))
     private val mState3 = spy(TestState(MSG_3))
     private val mState4 = spy(TestState(MSG_4))
+    private val mState5 = spy(TestState(MSG_5))
+    private val mState6 = spy(TestState(MSG_6))
     private val mResetInEnter = spy(TestState(MSG_RESET, true /* failInEnter */))
     private val mResetInEnter2 = spy(TestState(MSG_RESET, true /* failInEnter */))
     private val mResetInEnter3 = spy(TestState(MSG_RESET, true /* failInEnter */))
+    private val mResetInExit = spy(TestState(MSG_RESET, false /* failInEnter */,
+            true /* failInExit */))
+    private val mResetInExit2 = spy(TestState(MSG_RESET, false /* failInEnter */,
+            true /* failInExit */))
+    private val mResetInExit3 = spy(TestState(MSG_RESET, false /* failInEnter */,
+            true /* failInExit */))
+    private val mResetInProcessMsg = spy(TestState(MSG_RESET, false /* failInEnter */,
+            false /* failInExit */, true /* failInProcessMsg */))
 
     class TestState(
         val expected: Int,
@@ -92,8 +106,13 @@ class SynStateMachineTest {
     }
 
     private fun noMoreInteractions() {
-        verifyNoMoreInteractions(mState1, mState2, mState3, mState4, mResetInEnter, mResetInEnter2,
-            mResetInEnter3)
+        verifyNoMoreInteractions(mState1, mState2, mState3, mState4, mState5, mState6,
+                mResetInEnter, mResetInEnter2, mResetInEnter3, mResetInExit, mResetInExit2,
+                mResetInExit3, mResetInProcessMsg)
+    }
+
+    private fun verifyMessage(what: Int, state: SyncState) {
+        mInOrder.verify(state).processSyncMessage(eq(what), eq(ARG_1), eq(ARG_2), eq(OBJ))
     }
 
     @Test
@@ -162,6 +181,47 @@ class SynStateMachineTest {
         mSM.start()
         mInOrder.verify(mState1).syncEnter()
         noMoreInteractions()
+
+        // mState1 process MSG_1 and transition to mState2.
+        // mState1 -> current
+        //    |
+        // mState2 -> dest
+        //    |
+        // mState3
+        processMessage(MSG_1, mState2, SUCCESSFUL)
+        verifyMessage(MSG_1, mState1)
+        mInOrder.verify(mState2).syncEnter()
+        noMoreInteractions()
+
+        processMessage(MSG_1, mState2, SUCCESSFUL)
+        verifyMessage(MSG_1, mState2)
+        verifyMessage(MSG_1, mState1)
+        noMoreInteractions()
+
+        // mState2 process MSG_2 and transition to mState3.
+        // mState1
+        //    |
+        // mState2 -> current
+        //    |
+        // mState3 -> dest
+        processMessage(MSG_2, mState3, SUCCESSFUL)
+        verifyMessage(MSG_2, mState2)
+        mInOrder.verify(mState3).syncEnter()
+        noMoreInteractions()
+
+        // mState3's parent mState2 process MSG_2 and transition to mState1.
+        // mState1 -> dest
+        //    |
+        // mState2
+        //    |
+        // mState3 -> current
+        processMessage(MSG_2, mState1, SUCCESSFUL)
+        verifyMessage(MSG_2, mState3)
+        verifyMessage(MSG_2, mState2)
+        mInOrder.verify(mState3).syncExit()
+        mInOrder.verify(mState2).syncExit()
+        // Since mState1 is the ancestor of mState3, no mState1.syncExit() and mState1.syncEnter().
+        noMoreInteractions()
     }
 
     @Test
@@ -178,6 +238,48 @@ class SynStateMachineTest {
         mSM.setInitialState(mState3)
 
         mSM.start()
+        mInOrder.verify(mState1).syncEnter()
+        mInOrder.verify(mState2).syncEnter()
+        mInOrder.verify(mState3).syncEnter()
+        noMoreInteractions()
+
+        // mState1            mState4
+        //    |
+        // mState2 -> dest
+        //    |
+        // mState3 -> current
+        processMessage(MSG_3, mState2, SUCCESSFUL)
+        verifyMessage(MSG_3, mState3)
+        mInOrder.verify(mState3).syncExit()
+        noMoreInteractions()
+
+        // mState1            mState4 -> dest
+        //    |
+        // mState2 -> current
+        //    |
+        // mState3
+        processMessage(MSG_2, mState4, SUCCESSFUL)
+        verifyMessage(MSG_2, mState2)
+        mInOrder.verify(mState2).syncExit()
+        mInOrder.verify(mState1).syncExit()
+        mInOrder.verify(mState4).syncEnter()
+        noMoreInteractions()
+
+        processMessage(MSG_1, UNHANDLED)
+        verifyMessage(MSG_1, mState4)
+        noMoreInteractions()
+        processMessage(MSG_4, mState4, SUCCESSFUL)
+        verifyMessage(MSG_4, mState4)
+        noMoreInteractions()
+
+        // mState1            mState4 -> current
+        //    |
+        // mState2
+        //    |
+        // mState3 -> dest
+        processMessage(MSG_4, mState3, SUCCESSFUL)
+        verifyMessage(MSG_4, mState4)
+        mInOrder.verify(mState4).syncExit()
         mInOrder.verify(mState1).syncEnter()
         mInOrder.verify(mState2).syncEnter()
         mInOrder.verify(mState3).syncEnter()
@@ -231,6 +333,237 @@ class SynStateMachineTest {
         mInOrder.verify(mResetInEnter2).syncEnter()
         mInOrder.verify(mResetInEnter3).syncEnter()
         mInOrder.verify(mState2).syncEnter()
+        noMoreInteractions()
+    }
+
+    @Test
+    fun testMultiResetInStateEnterExit() {
+        //           mState2            mState1 <- initial
+        //         /        \
+        // mResetInExit    mState4
+        //   |
+        // mResetInExit2
+        //   |
+        // mResetInEnter
+        //   |
+        // mState3
+        mSM.addState(mState1)
+        mSM.addState(mState2)
+        mSM.addState(mResetInExit, mState2)
+        mSM.addState(mResetInExit2, mResetInExit)
+        mSM.addState(mResetInEnter, mResetInExit2)
+        mSM.addState(mState3, mResetInEnter)
+        mSM.addState(mState4, mState2)
+        mSM.setInitialState(mState1)
+        mSM.start()
+        mInOrder.verify(mState1).syncEnter()
+        noMoreInteractions()
+
+        processMessage(MSG_1, mState3, FAILED)
+        verifyMessage(MSG_1, mState1)
+        mInOrder.verify(mState1).syncExit()
+        mInOrder.verify(mState2).syncEnter()
+        mInOrder.verify(mResetInExit).syncEnter()
+        mInOrder.verify(mResetInExit2).syncEnter()
+        mInOrder.verify(mResetInEnter).syncEnter()
+        mInOrder.verify(mResetInEnter).syncExit()
+        mInOrder.verify(mResetInExit2).syncExit()
+        mInOrder.verify(mResetInExit).syncExit()
+        mInOrder.verify(mState2).syncExit()
+        mInOrder.verify(mState1).syncEnter()
+        noMoreInteractions()
+    }
+
+    @Test
+    fun testMultiResetInStateExitProcessMsg() {
+        //      mState2            mState1 <- initial
+        //    /        \
+        // mState3    mResetInExit
+        //             |
+        //            mResetInExit2
+        //             |
+        //            mResetInProcessMsg
+        //             |
+        //            mState4
+        mSM.addState(mState1)
+        mSM.addState(mState2)
+        mSM.addState(mState3, mState2)
+        mSM.addState(mResetInExit, mState2)
+        mSM.addState(mResetInExit2, mResetInExit)
+        mSM.addState(mResetInProcessMsg, mResetInExit2)
+        mSM.addState(mState4, mResetInProcessMsg)
+        mSM.setInitialState(mState1)
+        mSM.start()
+        mInOrder.verify(mState1).syncEnter()
+        noMoreInteractions()
+
+        processMessage(MSG_1, mState4, SUCCESSFUL)
+        verifyMessage(MSG_1, mState1)
+        mInOrder.verify(mState1).syncExit()
+        mInOrder.verify(mState2).syncEnter()
+        mInOrder.verify(mResetInExit).syncEnter()
+        mInOrder.verify(mResetInExit2).syncEnter()
+        mInOrder.verify(mResetInProcessMsg).syncEnter()
+        mInOrder.verify(mState4).syncEnter()
+        noMoreInteractions()
+
+        processMessage(MSG_RESET, FAILED)
+        verifyMessage(MSG_RESET, mState4)
+        verifyMessage(MSG_RESET, mResetInProcessMsg)
+        mInOrder.verify(mState4).syncExit()
+        mInOrder.verify(mResetInProcessMsg).syncExit()
+        mInOrder.verify(mResetInExit2).syncExit()
+        mInOrder.verify(mResetInExit).syncExit()
+        mInOrder.verify(mState2).syncExit()
+        mInOrder.verify(mState1).syncEnter()
+        noMoreInteractions()
+    }
+
+    @Test
+    fun testResetState() {
+        //                mState1       mState2 -> initial
+        //            /      |       \
+        // mResetInEnter mResetInExit mResetInProcessMsg
+        //      |                         |
+        //   mState3                    mState4
+        mSM.addState(mState1)
+            mSM.addState(mResetInEnter, mState1)
+                mSM.addState(mState3, mResetInEnter)
+            mSM.addState(mResetInExit, mState1)
+            mSM.addState(mResetInProcessMsg, mState1)
+                mSM.addState(mState4, mResetInProcessMsg)
+        mSM.addState(mState2)
+
+        mSM.setInitialState(mState2)
+        mSM.start()
+        mInOrder.verify(mState2).syncEnter()
+        noMoreInteractions()
+
+        processMessage(MSG_2, mState3, FAILED)
+        verifyMessage(MSG_2, mState2)
+        mInOrder.verify(mState2).syncExit()
+        mInOrder.verify(mState1).syncEnter()
+        mInOrder.verify(mResetInEnter).syncEnter()
+        mInOrder.verify(mResetInEnter).syncExit()
+        mInOrder.verify(mState1).syncExit()
+        mInOrder.verify(mState2).syncEnter()
+        noMoreInteractions()
+
+        processMessage(MSG_2, mResetInExit, SUCCESSFUL)
+        verifyMessage(MSG_2, mState2)
+        mInOrder.verify(mState2).syncExit()
+        mInOrder.verify(mState1).syncEnter()
+        mInOrder.verify(mResetInExit).syncEnter()
+        noMoreInteractions()
+        processMessage(MSG_1, mState4, FAILED)
+        verifyMessage(MSG_1, mResetInExit)
+        verifyMessage(MSG_1, mState1)
+        mInOrder.verify(mResetInExit).syncExit()
+        mInOrder.verify(mState1).syncExit()
+        mInOrder.verify(mState2).syncEnter()
+        noMoreInteractions()
+
+        processMessage(MSG_2, mState4, SUCCESSFUL)
+        verifyMessage(MSG_2, mState2)
+        mInOrder.verify(mState2).syncExit()
+        mInOrder.verify(mState1).syncEnter()
+        mInOrder.verify(mResetInProcessMsg).syncEnter()
+        mInOrder.verify(mState4).syncEnter()
+        noMoreInteractions()
+        processMessage(MSG_RESET, FAILED)
+        verifyMessage(MSG_RESET, mState4)
+        verifyMessage(MSG_RESET, mResetInProcessMsg)
+        mInOrder.verify(mState4).syncExit()
+        mInOrder.verify(mResetInProcessMsg).syncExit()
+        mInOrder.verify(mState1).syncExit()
+        mInOrder.verify(mState2).syncEnter()
+        noMoreInteractions()
+    }
+
+    @Test
+    fun testProcessMessageWithStateTransition() {
+        // mState1 <-initial, mState2
+        mSM.addState(mState1)
+        mSM.addState(mState2)
+
+        mSM.setInitialState(mState1)
+
+        mSM.start()
+        mInOrder.verify(mState1).syncEnter()
+        noMoreInteractions()
+
+        // mState1 process MSG_1
+        processMessage(MSG_1, SUCCESSFUL)
+        verifyMessage(MSG_1, mState1)
+        noMoreInteractions()
+
+        // mState1 don't process MSG_2
+        processMessage(MSG_2, UNHANDLED)
+        verifyMessage(MSG_2, mState1)
+        noMoreInteractions()
+
+        // mState1 doesn't process MSG_2, no state transition.
+        processMessage(MSG_2, mState2, UNHANDLED)
+        verifyMessage(MSG_2, mState1)
+        noMoreInteractions()
+
+        // mState1 process MSG_1 and the state transition to mState2
+        processMessage(MSG_1, mState2, SUCCESSFUL)
+        verifyMessage(MSG_1, mState1)
+        mInOrder.verify(mState1).syncExit()
+        mInOrder.verify(mState2).syncEnter()
+        noMoreInteractions()
+
+        // If set destState to mState2 (current state), no state transition.
+        processMessage(MSG_2, mState2, SUCCESSFUL)
+        verifyMessage(MSG_2, mState2)
+        noMoreInteractions()
+    }
+
+    @Test
+    fun testMultipleStateTrees() {
+        //    mState1 -> initial  mState4
+        //    /     \             /     \
+        // mState2 mState3     mState5 mState6
+        mSM.addState(mState1)
+        mSM.addState(mState2, mState1)
+        mSM.addState(mState3, mState1)
+        mSM.addState(mState4)
+        mSM.addState(mState5, mState4)
+        mSM.addState(mState6, mState4)
+        mSM.setInitialState(mState1)
+
+        mSM.start()
+        mInOrder.verify(mState1).syncEnter()
+        noMoreInteractions()
+
+        //    mState1 -> current     mState4
+        //    /     \                /     \
+        // mState2 mState3 -> dest mState5 mState6
+        processMessage(MSG_1, mState3, SUCCESSFUL)
+        verifyMessage(MSG_1, mState1)
+        mInOrder.verify(mState3).syncEnter()
+        noMoreInteractions()
+
+        //           mState1                     mState4
+        //           /     \                     /     \
+        // dest <- mState2 mState3 -> current mState5 mState6
+        processMessage(MSG_1, mState2, SUCCESSFUL)
+        verifyMessage(MSG_1, mState3)
+        verifyMessage(MSG_1, mState1)
+        mInOrder.verify(mState3).syncExit()
+        mInOrder.verify(mState2).syncEnter()
+        noMoreInteractions()
+
+        //               mState1          mState4
+        //               /     \          /     \
+        // current <- mState2 mState3 mState5 mState6 -> dest
+        processMessage(MSG_2, mState6, SUCCESSFUL)
+        verifyMessage(MSG_2, mState2)
+        mInOrder.verify(mState2).syncExit()
+        mInOrder.verify(mState1).syncExit()
+        mInOrder.verify(mState4).syncEnter()
+        mInOrder.verify(mState6).syncEnter()
         noMoreInteractions()
     }
 }
