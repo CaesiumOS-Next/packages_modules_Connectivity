@@ -37,11 +37,13 @@ public class SyncStateMachine {
     public static final int UNHANDLED = 1;
     /** ProcessMessage fail and the state would be reset to initial state. */
     public static final int FAILED = 2;
+    private static final int DEFAULT_CAPACITY = 1;
 
     private final String mName;
     private final boolean mDbg;
     private final Looper mLooper;
     private final HashMap<SyncState, StateInfo> mStateInfo = new HashMap<SyncState, StateInfo>();
+    private final ArrayList<StateInfo> mEnterStateStack = new ArrayList<>(DEFAULT_CAPACITY);
 
     /**
      * Information about a state.
@@ -191,6 +193,80 @@ public class SyncStateMachine {
         ensureNotStarted();
 
         mStarted = true;
+        doTransitions(mInitialState, UNHANDLED);
+    }
+
+    private int doTransitions(SyncState target, final int defaultResult) {
+        boolean hasFailed = isFailed(defaultResult);
+        int result = defaultResult;
+        while (mCurrentState != target) {
+            result = transitionTo(target);
+            if (mDbg) Log.d(mName, "transitionTo(" + target + "), now: " + mCurrentState);
+
+            if (isFailed(result)) {
+                target = mInitialState;
+                hasFailed = true;
+            }
+        }
+
+        return hasFailed ? FAILED : result;
+    }
+
+    private int transitionTo(SyncState destState) {
+        // 1. Determine the common ancestor state of current/destination states
+        // 2. Invoke state exit list from current state to common acestor state.
+        // 3. Invoke state enter list from common ancestor state to destState by going
+        // through mEnterStateStack.
+        // 4. State tranistions would be interrupted if any of state exit/enter fail.
+        final StateInfo commonStateInfo = setupEnterStackOfInactiveState(destState);
+        try {
+            return invokeEnterMethods(invokeExitMethods(commonStateInfo));
+        } finally {
+            mEnterStateStack.clear();
+        }
+    }
+
+    private StateInfo setupEnterStackOfInactiveState(final SyncState destState) {
+        // Search up the parent list of the destination state for an active
+        // state.
+        StateInfo curStateInfo = mStateInfo.get(destState);
+        while ((curStateInfo != null) && !curStateInfo.active) {
+            mEnterStateStack.add(curStateInfo);
+            curStateInfo = curStateInfo.parentStateInfo;
+        }
+
+        // common ancestor state of current state and destination state. Current state or
+        // destination state could be common ancestor if they are in the same parent list.
+        return curStateInfo;
+    }
+
+    // Call the exit method from current state to common ancestor state.
+    private int invokeExitMethods(final StateInfo commonStateInfo) {
+        int result = UNHANDLED;
+        StateInfo stateInfo = mStateInfo.get(mCurrentState);
+        while (stateInfo != null && stateInfo != commonStateInfo && !isFailed(result)) {
+            if (mDbg) Log.d(mName, stateInfo.state + " exit()");
+            result = stateInfo.state.syncExit();
+            stateInfo.active = false;
+            stateInfo = stateInfo.parentStateInfo;
+        }
+
+        mCurrentState = stateInfo != null ? stateInfo.state : null;
+        return result;
+    }
+
+    // Call the enter method from common ancestor state to destination state.
+    private int invokeEnterMethods(final int invokeExitResult) {
+        int result = invokeExitResult;
+        while (!mEnterStateStack.isEmpty() && !isFailed(result)) {
+            final StateInfo stateInfo = mEnterStateStack.remove(mEnterStateStack.size() - 1);
+            if (mDbg) Log.d(mName, stateInfo.state + " enter()");
+            result = stateInfo.state.syncEnter();
+            stateInfo.active = true;
+            mCurrentState = stateInfo.state;
+        }
+
+        return result;
     }
 
     private void ensureCurrentThread() {
