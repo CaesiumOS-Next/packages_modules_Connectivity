@@ -18,8 +18,11 @@ package com.android.networkstack.tethering.util;
 
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 
 import com.android.internal.util.State;
+
+import java.util.HashMap;
 
 /**
  * A synchronous state machine which should always be called with the same thread.
@@ -37,9 +40,22 @@ public class SyncStateMachine {
     private final String mName;
     private final boolean mDbg;
     private final Looper mLooper;
+    private final HashMap<SyncState, StateInfo> mStateInfo = new HashMap<SyncState, StateInfo>();
+
+    /**
+     * Information about a state.
+     * Used to maintain the hierarchy.
+     */
+    private class StateInfo {
+        public SyncState state;
+        public StateInfo parentStateInfo;
+        /** True when the state has been entered and on the stack */
+        public boolean active;
+    }
 
     private SyncState mInitialState;
     private SyncState mCurrentState;
+    private boolean mStarted;
 
 
     /**
@@ -107,10 +123,33 @@ public class SyncStateMachine {
      * @param parent the parent of state
      */
     public final void addState(final SyncState state, final SyncState parent) {
+        if (mDbg) Log.d(mName, "addState(" + state + ", " + parent + ")");
+        ensureNotStarted();
+
+        final StateInfo parentStateInfo;
+        if (parent != null) {
+            // The parent must be added before child state.
+            ensureValidState(parent);
+            parentStateInfo = mStateInfo.get(parent);
+        } else {
+            parentStateInfo = null;
+        }
+
+        if (!mStateInfo.containsKey(state)) {
+            final StateInfo stateInfo = new StateInfo();
+            stateInfo.state = state;
+            stateInfo.parentStateInfo = parentStateInfo;
+            mStateInfo.put(state, stateInfo);
+        } else {
+            throw new IllegalStateException("State already exist");
+        }
     }
 
     /** Set initial state. */
     public final void setInitialState(final SyncState initialState) {
+        ensureNotStarted();
+        ensureValidState(initialState);
+
         mInitialState = initialState;
     }
 
@@ -129,7 +168,11 @@ public class SyncStateMachine {
      */
     public final int processMessage(final int what, final int arg1, final int arg2,
             final Object obj, final SyncState destState) {
+        if (mDbg) Log.d(mName, "processMessage(" + what + ", " + destState + ")");
+
         ensureCurrentThread();
+        ensureStarted();
+        ensureValidState(destState);
 
         return SUCCESSFUL;
     }
@@ -142,9 +185,26 @@ public class SyncStateMachine {
     /** Start state machine. */
     public final void start() {
         ensureCurrentThread();
+        // Make sure initial state already be set.
+        ensureValidState(mInitialState);
+        ensureNotStarted();
+
+        mStarted = true;
     }
 
     private void ensureCurrentThread() {
         if (!mLooper.isCurrentThread()) throw new IllegalStateException("Called from wrong thread");
+    }
+
+    private void ensureNotStarted() {
+        if (mStarted) throw new IllegalStateException("State machine already started");
+    }
+
+    private void ensureStarted() {
+        if (!mStarted) throw new IllegalStateException("State machine doesn't started yet");
+    }
+
+    private void ensureValidState(final SyncState state) {
+        if (!mStateInfo.containsKey(state)) throw new IllegalStateException("Invalid state");
     }
 }
