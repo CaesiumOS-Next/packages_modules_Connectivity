@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af6e7b22_9c4dacc6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-05T09:24:24Z",
+      "side": 1,
+      "message": "Looks like the test doesn\u0027t call this any more? If so, remove the @VisibleForTesting.",
+      "range": {
+        "startLine": 326,
+        "startChar": 4,
+        "endLine": 326,
+        "endChar": 22
+      },
+      "revId": "2ca1a799240088b5699bbc345b73bc0c98ae121f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a142afd_f8d3ec5f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-05T09:24:24Z",
+      "side": 1,
+      "message": "Can this be private? If so, please make it private.",
+      "range": {
+        "startLine": 327,
+        "startChar": 4,
+        "endLine": 327,
+        "endChar": 8
+      },
+      "revId": "2ca1a799240088b5699bbc345b73bc0c98ae121f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63a215ea_ec5c058f",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/ConntrackSocketTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-05T09:24:24Z",
+      "side": 1,
+      "message": "Nit: just from reading the caller, it\u0027s not super clear that this method thows if the connection is not found. Renaming the function to something more readable would be useful.\n\nAs for the exact name: generally, in tests methods that check for some condition to be true are called assertXyz. But that\u0027s because they typically throw an assertion if the condition is not true.\n\nMaybe call this checkConnectionFound or ensureConnectionExists or findConnectionOrThrow?",
+      "range": {
+        "startLine": 87,
+        "startChar": 9,
+        "endLine": 87,
+        "endChar": 26
+      },
+      "revId": "2ca1a799240088b5699bbc345b73bc0c98ae121f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84496002_fba54e79",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/ConntrackSocketTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-05T09:24:24Z",
+      "side": 1,
+      "message": "Nit: do you need this extra set of parentheses?",
+      "range": {
+        "startLine": 108,
+        "startChar": 43,
+        "endLine": 108,
+        "endChar": 44
+      },
+      "revId": "2ca1a799240088b5699bbc345b73bc0c98ae121f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b15e52b_67e514c3",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/ConntrackSocketTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-05T09:24:24Z",
+      "side": 1,
+      "message": "Nit: for readability would rename this method to something that makes it clear what it is checking, such as checkConnectionFound or ensureConnectionExists or findConnectionOrThrow.",
+      "range": {
+        "startLine": 141,
+        "startChar": 12,
+        "endLine": 141,
+        "endChar": 29
+      },
+      "revId": "2ca1a799240088b5699bbc345b73bc0c98ae121f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46fac690_029e01c7",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/ConntrackSocketTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-05T09:24:24Z",
+      "side": 1,
+      "message": "I think you could simplify this as\n\n    } catch (ErrnoException e) {\n        if (e.errno \u003d\u003d EAGAIN) {\n            fail(\"Did not find socket \" + localAddress + \"-\u003e\" + remoteAddress + \" in dump\");\n        } else {\n            throw e;\n        }\n    }",
+      "range": {
+        "startLine": 143,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 0
+      },
+      "revId": "2ca1a799240088b5699bbc345b73bc0c98ae121f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
