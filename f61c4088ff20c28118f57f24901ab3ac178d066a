@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfe81742_6c01debe",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-06T10:29:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a02f2e8_9c5f92d8",
+      "revId": "f61c4088ff20c28118f57f24901ab3ac178d066a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a845cca_f781fd4b",
@@ -48,6 +66,24 @@
       "writtenOn": "2022-12-06T06:06:35Z",
       "side": 1,
       "message": "Also here, onServiceNameRemoved should probably be called after onServiceRemoved",
+      "revId": "f61c4088ff20c28118f57f24901ab3ac178d066a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "967afd39_3f4d0362",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-06T10:29:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a845cca_f781fd4b",
       "revId": "f61c4088ff20c28118f57f24901ab3ac178d066a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -69,6 +105,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eeb384a9_1c9ba956",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-06T10:29:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b1e8951_eb3ba90a",
+      "revId": "f61c4088ff20c28118f57f24901ab3ac178d066a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61054230_68825081",
@@ -86,6 +140,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "103f8f04_9abcd563",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-06T10:29:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61054230_68825081",
+      "revId": "f61c4088ff20c28118f57f24901ab3ac178d066a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb9e1e62_ff9aec29",
@@ -99,6 +171,24 @@
       "writtenOn": "2022-12-06T06:06:35Z",
       "side": 1,
       "message": "Question: is it hard to migrate this to createResponse instead of a mock ?",
+      "revId": "f61c4088ff20c28118f57f24901ab3ac178d066a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9148ed76_18f550d2",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 966,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-06T10:29:52Z",
+      "side": 1,
+      "message": "As talked in the meeting, it\u0027s hard to control remainingTTL but getRemainingTTL() is used in many tests. So for those tests, having a mock response is simpler to mock and test.",
+      "parentUuid": "fb9e1e62_ff9aec29",
       "revId": "f61c4088ff20c28118f57f24901ab3ac178d066a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
