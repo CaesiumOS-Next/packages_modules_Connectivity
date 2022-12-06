@@ -90,9 +90,7 @@ import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkInfo;
 import android.net.TetherStatesParcel;
-import android.net.TetheredClient;
 import android.net.TetheringCallbackStartedParcel;
-import android.net.TetheringConfigurationParcel;
 import android.net.TetheringInterface;
 import android.net.TetheringManager.TetheringRequest;
 import android.net.TetheringRequestParcel;
@@ -108,7 +106,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.os.ResultReceiver;
 import android.os.ServiceSpecificException;
@@ -223,8 +220,7 @@ public class Tethering {
     }
 
     private final SharedLog mLog = new SharedLog(TAG);
-    private final RemoteCallbackList<ITetheringEventCallback> mTetheringEventCallbacks =
-            new RemoteCallbackList<>();
+    private final EventCallbacksTracker mCallbacksTracker;
     // Currently active tethering requests per tethering type. Only one of each type can be
     // requested at a time. After a tethering type is requested, the map keeps tethering parameters
     // to be used after the interface comes up asynchronously.
@@ -301,6 +297,7 @@ public class Tethering {
         // list and handle them as soon as onServiceConnected is called.
         mPendingPanRequests = new ArrayList<>();
 
+        mCallbacksTracker = new EventCallbacksTracker();
         mTetherStates = new ArrayMap<>();
         mConnectedClientsTracker = new ConnectedClientsTracker();
 
@@ -532,7 +529,7 @@ public class Tethering {
         mConfig = mDeps.generateTetheringConfiguration(mContext, mLog, mActiveDataSubId);
         mUpstreamNetworkMonitor.setUpstreamConfig(mConfig.chooseUpstreamAutomatically,
                 mConfig.isDunRequired);
-        reportConfigurationChanged(mConfig.toStableParcelable());
+        mCallbacksTracker.reportConfigurationChanged(mConfig.toStableParcelable());
 
         updateSupportedDownstreams(mConfig);
     }
@@ -1114,7 +1111,7 @@ public class Tethering {
 
         mTetherStatesParcel = buildTetherStatesParcel(available, localOnly, tethered, errored,
                 lastErrors);
-        reportTetherStateChanged(mTetherStatesParcel);
+        mCallbacksTracker.reportTetherStateChanged(mTetherStatesParcel);
 
         mContext.sendStickyBroadcastAsUser(buildStateChangeIntent(available, localOnly, tethered,
                 errored), UserHandle.ALL);
@@ -1845,7 +1842,7 @@ public class Tethering {
             if (mTetherUpstream != newUpstream) {
                 mTetherUpstream = newUpstream;
                 mUpstreamNetworkMonitor.setCurrentUpstream(mTetherUpstream);
-                reportUpstreamChanged(mTetherUpstream);
+                mCallbacksTracker.reportUpstreamChanged(mTetherUpstream);
                 // Need to notify capabilities change after upstream network changed because new
                 // network's capabilities should be checked every time.
                 mNotificationUpdater.onUpstreamCapabilitiesChanged(
@@ -2071,7 +2068,7 @@ public class Tethering {
                 handleNewUpstreamNetworkState(null);
                 if (mTetherUpstream != null) {
                     mTetherUpstream = null;
-                    reportUpstreamChanged(null);
+                    mCallbacksTracker.reportUpstreamChanged(null);
                     mNotificationUpdater.onUpstreamCapabilitiesChanged(null);
                 }
                 mBpfCoordinator.stopPolling();
@@ -2340,7 +2337,7 @@ public class Tethering {
                 if (newStatus == mOffloadStatus) return;
 
                 mOffloadStatus = newStatus;
-                reportOffloadStatusChanged(mOffloadStatus);
+                mCallbacksTracker.reportOffloadStatusChanged(mOffloadStatus);
             }
         }
     }
@@ -2367,7 +2364,7 @@ public class Tethering {
                         || hasCallingPermission(PERMISSION_MAINLINE_NETWORK_STACK)
                         || hasCallingPermission(NETWORK_STACK);
         mHandler.post(() -> {
-            mTetheringEventCallbacks.register(callback, new CallbackCookie(hasListPermission));
+            mCallbacksTracker.add(callback, hasListPermission);
             final TetheringCallbackStartedParcel parcel = new TetheringCallbackStartedParcel();
             parcel.supportedTypes = mSupportedTypeBitmap;
             parcel.upstreamNetwork = mTetherUpstream;
@@ -2403,104 +2400,7 @@ public class Tethering {
 
     /** Unregister tethering event callback */
     void unregisterTetheringEventCallback(ITetheringEventCallback callback) {
-        mHandler.post(() -> {
-            mTetheringEventCallbacks.unregister(callback);
-        });
-    }
-
-    private void reportTetheringSupportedChange(final long supportedBitmap) {
-        final int length = mTetheringEventCallbacks.beginBroadcast();
-        try {
-            for (int i = 0; i < length; i++) {
-                try {
-                    mTetheringEventCallbacks.getBroadcastItem(i).onSupportedTetheringTypes(
-                            supportedBitmap);
-                } catch (RemoteException e) {
-                    // Not really very much to do here.
-                }
-            }
-        } finally {
-            mTetheringEventCallbacks.finishBroadcast();
-        }
-    }
-
-    private void reportUpstreamChanged(final Network network) {
-        final int length = mTetheringEventCallbacks.beginBroadcast();
-        try {
-            for (int i = 0; i < length; i++) {
-                try {
-                    mTetheringEventCallbacks.getBroadcastItem(i).onUpstreamChanged(network);
-                } catch (RemoteException e) {
-                    // Not really very much to do here.
-                }
-            }
-        } finally {
-            mTetheringEventCallbacks.finishBroadcast();
-        }
-    }
-
-    private void reportConfigurationChanged(TetheringConfigurationParcel config) {
-        final int length = mTetheringEventCallbacks.beginBroadcast();
-        try {
-            for (int i = 0; i < length; i++) {
-                try {
-                    mTetheringEventCallbacks.getBroadcastItem(i).onConfigurationChanged(config);
-                    // TODO(b/148139325): send tetheringSupported on configuration change
-                } catch (RemoteException e) {
-                    // Not really very much to do here.
-                }
-            }
-        } finally {
-            mTetheringEventCallbacks.finishBroadcast();
-        }
-    }
-
-    private void reportTetherStateChanged(TetherStatesParcel states) {
-        final int length = mTetheringEventCallbacks.beginBroadcast();
-        try {
-            for (int i = 0; i < length; i++) {
-                try {
-                    mTetheringEventCallbacks.getBroadcastItem(i).onTetherStatesChanged(states);
-                } catch (RemoteException e) {
-                    // Not really very much to do here.
-                }
-            }
-        } finally {
-            mTetheringEventCallbacks.finishBroadcast();
-        }
-    }
-
-    private void reportTetherClientsChanged(List<TetheredClient> clients) {
-        final int length = mTetheringEventCallbacks.beginBroadcast();
-        try {
-            for (int i = 0; i < length; i++) {
-                try {
-                    final CallbackCookie cookie =
-                            (CallbackCookie) mTetheringEventCallbacks.getBroadcastCookie(i);
-                    if (!cookie.hasListClientsPermission) continue;
-                    mTetheringEventCallbacks.getBroadcastItem(i).onTetherClientsChanged(clients);
-                } catch (RemoteException e) {
-                    // Not really very much to do here.
-                }
-            }
-        } finally {
-            mTetheringEventCallbacks.finishBroadcast();
-        }
-    }
-
-    private void reportOffloadStatusChanged(final int status) {
-        final int length = mTetheringEventCallbacks.beginBroadcast();
-        try {
-            for (int i = 0; i < length; i++) {
-                try {
-                    mTetheringEventCallbacks.getBroadcastItem(i).onOffloadStatusChanged(status);
-                } catch (RemoteException e) {
-                    // Not really very much to do here.
-                }
-            }
-        } finally {
-            mTetheringEventCallbacks.finishBroadcast();
-        }
+        mHandler.post(() -> mCallbacksTracker.remove(callback));
     }
 
     private void updateSupportedDownstreams(final TetheringConfiguration config) {
@@ -2513,7 +2413,7 @@ public class Tethering {
         }
 
         if (preSupportedBitmap != mSupportedTypeBitmap) {
-            reportTetheringSupportedChange(mSupportedTypeBitmap);
+            mCallbacksTracker.reportTetheringSupportedChange(mSupportedTypeBitmap);
         }
     }
 
@@ -2581,8 +2481,7 @@ public class Tethering {
         pw.println("Tethering:");
         pw.increaseIndent();
 
-        pw.println("Callbacks registered: "
-                + mTetheringEventCallbacks.getRegisteredCallbackCount());
+        pw.println("Callbacks registered: " + mCallbacksTracker.getCallbackCount());
 
         pw.println("Configuration:");
         pw.increaseIndent();
@@ -2686,7 +2585,8 @@ public class Tethering {
     private void updateConnectedClients(final List<WifiClient> wifiClients) {
         if (mConnectedClientsTracker.updateConnectedClients(mTetherMainSM.getAllDownstreams(),
                 wifiClients)) {
-            reportTetherClientsChanged(mConnectedClientsTracker.getLastTetheredClients());
+            mCallbacksTracker.reportTetherClientsChanged(
+                    mConnectedClientsTracker.getLastTetheredClients());
         }
     }
 
