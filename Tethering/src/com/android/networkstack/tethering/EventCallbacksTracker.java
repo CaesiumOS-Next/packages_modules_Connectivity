@@ -1,0 +1,159 @@
+/*
+ * Copyright (C) 2022 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.android.networkstack.tethering;
+
+import android.net.ITetheringEventCallback;
+import android.net.Network;
+import android.net.TetherStatesParcel;
+import android.net.TetheredClient;
+import android.net.TetheringConfigurationParcel;
+import android.os.RemoteCallbackList;
+import android.os.RemoteException;
+
+import java.util.List;
+
+/** A class that tracking registered tethering event callbacks. */
+public class EventCallbacksTracker {
+    private final RemoteCallbackList<ITetheringEventCallback> mTetheringEventCallbacks =
+            new RemoteCallbackList<>();
+
+    /**
+     * Cookie added when registering {@link android.net.TetheringManager.TetheringEventCallback}.
+     */
+    private static class CallbackCookie {
+        public final boolean hasListClientsPermission;
+
+        private CallbackCookie(boolean hasListClientsPermission) {
+            this.hasListClientsPermission = hasListClientsPermission;
+        }
+    }
+
+    /** Add tethering event callback. */
+    public void add(final ITetheringEventCallback callback, final boolean hasListPermission) {
+        mTetheringEventCallbacks.register(callback, new CallbackCookie(hasListPermission));
+    }
+
+    /** Remove tethering event callback. */
+    public void remove(final ITetheringEventCallback callback) {
+        mTetheringEventCallbacks.unregister(callback);
+    }
+
+    /** Notify tethering supported change. */
+    public void reportTetheringSupportedChange(final long supportedBitmap) {
+        final int length = mTetheringEventCallbacks.beginBroadcast();
+        try {
+            for (int i = 0; i < length; i++) {
+                try {
+                    mTetheringEventCallbacks.getBroadcastItem(i).onSupportedTetheringTypes(
+                            supportedBitmap);
+                } catch (RemoteException e) {
+                    // Not really very much to do here.
+                }
+            }
+        } finally {
+            mTetheringEventCallbacks.finishBroadcast();
+        }
+    }
+
+    /** Notify tethering upstream change. */
+    public void reportUpstreamChanged(final Network network) {
+        final int length = mTetheringEventCallbacks.beginBroadcast();
+        try {
+            for (int i = 0; i < length; i++) {
+                try {
+                    mTetheringEventCallbacks.getBroadcastItem(i).onUpstreamChanged(network);
+                } catch (RemoteException e) {
+                    // Not really very much to do here.
+                }
+            }
+        } finally {
+            mTetheringEventCallbacks.finishBroadcast();
+        }
+    }
+
+    /** Notify tethering configuration change. */
+    public void reportConfigurationChanged(TetheringConfigurationParcel config) {
+        final int length = mTetheringEventCallbacks.beginBroadcast();
+        try {
+            for (int i = 0; i < length; i++) {
+                try {
+                    mTetheringEventCallbacks.getBroadcastItem(i).onConfigurationChanged(config);
+                } catch (RemoteException e) {
+                    // Not really very much to do here.
+                }
+            }
+        } finally {
+            mTetheringEventCallbacks.finishBroadcast();
+        }
+    }
+
+    /** Notify tethering state change. */
+    public void reportTetherStateChanged(TetherStatesParcel states) {
+        final int length = mTetheringEventCallbacks.beginBroadcast();
+        try {
+            for (int i = 0; i < length; i++) {
+                try {
+                    mTetheringEventCallbacks.getBroadcastItem(i).onTetherStatesChanged(states);
+                } catch (RemoteException e) {
+                    // Not really very much to do here.
+                }
+            }
+        } finally {
+            mTetheringEventCallbacks.finishBroadcast();
+        }
+    }
+
+    /** Notify connected clients change. */
+    public void reportTetherClientsChanged(List<TetheredClient> clients) {
+        final int length = mTetheringEventCallbacks.beginBroadcast();
+        try {
+            for (int i = 0; i < length; i++) {
+                try {
+                    final CallbackCookie cookie =
+                            (CallbackCookie) mTetheringEventCallbacks.getBroadcastCookie(i);
+                    if (!cookie.hasListClientsPermission) continue;
+                    mTetheringEventCallbacks.getBroadcastItem(i).onTetherClientsChanged(clients);
+                } catch (RemoteException e) {
+                    // Not really very much to do here.
+                }
+            }
+        } finally {
+            mTetheringEventCallbacks.finishBroadcast();
+        }
+    }
+
+    /** Notify hardware offload status change. */
+    public void reportOffloadStatusChanged(final int status) {
+        final int length = mTetheringEventCallbacks.beginBroadcast();
+        try {
+            for (int i = 0; i < length; i++) {
+                try {
+                    mTetheringEventCallbacks.getBroadcastItem(i).onOffloadStatusChanged(status);
+                } catch (RemoteException e) {
+                    // Not really very much to do here.
+                }
+            }
+        } finally {
+            mTetheringEventCallbacks.finishBroadcast();
+        }
+    }
+
+    /** Get the number of registered callbacks. */
+    public int getCallbackCount() {
+        return mTetheringEventCallbacks.getRegisteredCallbackCount();
+    }
+}
