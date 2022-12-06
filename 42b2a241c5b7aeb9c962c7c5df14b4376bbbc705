@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be95bedc_e9b85a36",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1133258
+      },
+      "writtenOn": "2022-12-06T08:51:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9930db1_543affd2",
+      "revId": "42b2a241c5b7aeb9c962c7c5df14b4376bbbc705",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "31cddc41_a2c13fb4",
@@ -48,6 +66,30 @@
       "writtenOn": "2022-12-06T03:25:38Z",
       "side": 1,
       "message": "Nit: ideally use a constant (there\u0027s CONNECTIVITY_CHANGE_TIMEOUT_SECS in this file, although it\u0027s a bit large, but that would work)",
+      "range": {
+        "startLine": 280,
+        "startChar": 16,
+        "endLine": 280,
+        "endChar": 22
+      },
+      "revId": "42b2a241c5b7aeb9c962c7c5df14b4376bbbc705",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f70b3f5b_c5f14c11",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1133258
+      },
+      "writtenOn": "2022-12-06T08:51:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31cddc41_a2c13fb4",
       "range": {
         "startLine": 280,
         "startChar": 16,
@@ -75,6 +117,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2577c28_24b60f16",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1133258
+      },
+      "writtenOn": "2022-12-06T08:51:38Z",
+      "side": 1,
+      "message": "Right, shouldn\u0027t touch here. restored to current version.",
+      "parentUuid": "25e839cb_ffb41f46",
+      "revId": "42b2a241c5b7aeb9c962c7c5df14b4376bbbc705",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fccc4006_66f1a933",
@@ -88,6 +148,24 @@
       "writtenOn": "2022-12-06T03:25:38Z",
       "side": 1,
       "message": "This should probably reuse the util you added:\n\n    new CtsNetUtils(ctx).disableWifi()",
+      "revId": "42b2a241c5b7aeb9c962c7c5df14b4376bbbc705",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "561d0830_eaffb945",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1133258
+      },
+      "writtenOn": "2022-12-06T08:51:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fccc4006_66f1a933",
       "revId": "42b2a241c5b7aeb9c962c7c5df14b4376bbbc705",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
