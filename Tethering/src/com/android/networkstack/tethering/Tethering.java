@@ -1926,6 +1926,10 @@ public class Tethering {
             mIPv6TetheringCoordinator.updateUpstreamNetworkState(ns);
             mOffload.updateUpstreamNetworkState(ns);
             mBpfCoordinator.updateUpstreamNetworkState(ns);
+            // Update duplicated capabilities is fine because NotificationUpdater would just ignore
+            // it if no changed.
+            mNotificationUpdater.onUpstreamCapabilitiesChanged(
+                    ns != null ? ns.networkCapabilities : null);
         }
 
         private void handleInterfaceServingStateActive(int mode, IpServer who) {
@@ -2025,9 +2029,6 @@ public class Tethering {
 
             switch (arg1) {
                 case UpstreamNetworkMonitor.EVENT_ON_CAPABILITIES:
-                    if (ns.network.equals(mTetherUpstream)) {
-                        mNotificationUpdater.onUpstreamCapabilitiesChanged(ns.networkCapabilities);
-                    }
                     handleNewUpstreamNetworkState(ns);
                     break;
                 case UpstreamNetworkMonitor.EVENT_ON_LINKPROPERTIES:
@@ -2082,7 +2083,6 @@ public class Tethering {
                 if (mTetherUpstream != null) {
                     mTetherUpstream = null;
                     reportUpstreamChanged(null);
-                    mNotificationUpdater.onUpstreamCapabilitiesChanged(null);
                 }
                 mBpfCoordinator.stopPolling();
             }
