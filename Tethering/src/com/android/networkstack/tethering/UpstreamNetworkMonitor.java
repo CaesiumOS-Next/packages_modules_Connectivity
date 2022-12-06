@@ -133,8 +133,6 @@ public class UpstreamNetworkMonitor {
     private boolean mIsDefaultCellularUpstream;
     // The current system default network (not really used yet).
     private Network mDefaultInternetNetwork;
-    // The current upstream network used for tethering.
-    private Network mTetheringUpstreamNetwork;
     private boolean mPreferTestNetworks;
 
     public UpstreamNetworkMonitor(Context ctx, StateMachine tgt, SharedLog log, int what) {
@@ -191,7 +189,6 @@ public class UpstreamNetworkMonitor {
         releaseCallback(mListenAllCallback);
         mListenAllCallback = null;
 
-        mTetheringUpstreamNetwork = null;
         mNetworkMap.clear();
     }
 
@@ -342,11 +339,6 @@ public class UpstreamNetworkMonitor {
         return findFirstDunNetwork(mNetworkMap.values());
     }
 
-    /** Tell UpstreamNetworkMonitor which network is the current upstream of tethering. */
-    public void setCurrentUpstream(Network upstream) {
-        mTetheringUpstreamNetwork = upstream;
-    }
-
     /** Return local prefixes. */
     public Set<IpPrefix> getLocalPrefixes() {
         return (Set<IpPrefix>) mLocalPrefixes.clone();
@@ -428,8 +420,6 @@ public class UpstreamNetworkMonitor {
         // pertaining to spurious onLost() notifications.
         //
         // TODO: simplify this, probably if favor of code that:
-        //     - selects a new upstream if mTetheringUpstreamNetwork has
-        //       been lost (by any callback)
         //     - deletes the entry from the map only when the LISTEN_ALL
         //       callback gets notified.
 

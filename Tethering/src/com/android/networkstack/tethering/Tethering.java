@@ -1854,7 +1854,6 @@ public class Tethering {
             final Network newUpstream = (ns != null) ? ns.network : null;
             if (mTetherUpstream != newUpstream) {
                 mTetherUpstream = newUpstream;
-                mUpstreamNetworkMonitor.setCurrentUpstream(mTetherUpstream);
                 reportUpstreamChanged(mTetherUpstream);
                 // Need to notify capabilities change after upstream network changed because new
                 // network's capabilities should be checked every time.
