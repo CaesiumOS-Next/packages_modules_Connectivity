@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38d8fbd7_589996ff",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1103,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-06T15:37:27Z",
+      "side": 1,
+      "message": "Maybe remove this ? It would be confuse if both Ignore and IngoreUpTo available.",
+      "range": {
+        "startLine": 1103,
+        "startChar": 4,
+        "endLine": 1103,
+        "endChar": 38
+      },
+      "revId": "c8f1fb62a3857c676aa3d910434ee0fefb20a929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
