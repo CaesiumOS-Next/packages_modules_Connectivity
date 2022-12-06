@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38b929fd_a4330c00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-12-06T03:36:53Z",
+      "side": 1,
+      "message": "This CL looks great, I was not aware that some modules had unused host target.\nPlease address the comment on the parent CL.",
+      "revId": "8933299ab14817db51cbdbbe916a9af88d499889",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
