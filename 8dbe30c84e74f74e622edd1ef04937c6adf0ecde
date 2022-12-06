@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8568883e_74b2d8ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-06T07:36:17Z",
+      "side": 1,
+      "message": "Identical to aosp/2308847 merged into master.",
+      "revId": "8dbe30c84e74f74e622edd1ef04937c6adf0ecde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
