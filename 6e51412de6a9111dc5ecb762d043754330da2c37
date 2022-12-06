@@ -22,6 +22,30 @@
       },
       "revId": "6e51412de6a9111dc5ecb762d043754330da2c37",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd22b1aa_b686c676",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1270,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-12-06T02:03:24Z",
+      "side": 1,
+      "message": "This filter removes .aidl files for `jni_registration_module` since I don\u0027t think .aidl files should be the input for `jni_registration_generator.py`. \n`cronet_aml_java` doesn\u0027t have this filter so Android.bp.swp have diff for `cronet_aml_java`.",
+      "parentUuid": "7ebeceab_0b93decd",
+      "range": {
+        "startLine": 1269,
+        "startChar": 22,
+        "endLine": 1270,
+        "endChar": 77
+      },
+      "revId": "6e51412de6a9111dc5ecb762d043754330da2c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
