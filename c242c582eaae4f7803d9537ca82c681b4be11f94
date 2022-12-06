@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "048714da_d1dc0d9b",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceBrowserListener.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-06T02:47:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7be3837d_b60052dd",
+      "revId": "c242c582eaae4f7803d9537ca82c681b4be11f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b2fa7e5_64de51b4",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "296a742a_111bd7c5",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-06T02:47:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5b2fa7e5_64de51b4",
+      "revId": "c242c582eaae4f7803d9537ca82c681b4be11f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e10e9418_4b8bbe95",
@@ -48,6 +84,24 @@
       "writtenOn": "2022-12-01T07:28:13Z",
       "side": 1,
       "message": "Having state that changes depending on whether you call createResponse is hard to follow (createResponse doesn\u0027t look like it has side-effects, but it creates mPointerRecord).\n\nDo you really need to store this in a member ? Could you just have a createPointerRecord method ?",
+      "revId": "c242c582eaae4f7803d9537ca82c681b4be11f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d43852c_247702b2",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-06T02:47:58Z",
+      "side": 1,
+      "message": "Try to create real MdnsPointerRecord object and it doesn\u0027t need to store it now.",
+      "parentUuid": "e10e9418_4b8bbe95",
       "revId": "c242c582eaae4f7803d9537ca82c681b4be11f94",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -75,6 +129,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0917c66_9ca29897",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-06T02:47:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db4956dc_0d78fd0c",
+      "range": {
+        "startLine": 854,
+        "startChar": 18,
+        "endLine": 854,
+        "endChar": 34
+      },
+      "revId": "c242c582eaae4f7803d9537ca82c681b4be11f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c6c547b_56c1619a",
@@ -92,6 +170,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65ef0210_2fc7de47",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-06T02:47:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c6c547b_56c1619a",
+      "revId": "c242c582eaae4f7803d9537ca82c681b4be11f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2db99d0b_101c50d1",
@@ -105,6 +201,24 @@
       "writtenOn": "2022-12-01T07:28:13Z",
       "side": 1,
       "message": "Refactor to use InetAddresses.parseNumericAddress, and instanceof Inet6Address; the current method looks hacky or at least unusual for networking code",
+      "revId": "c242c582eaae4f7803d9537ca82c681b4be11f94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b9552d0_8256d110",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-06T02:47:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2db99d0b_101c50d1",
       "revId": "c242c582eaae4f7803d9537ca82c681b4be11f94",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
