@@ -22,6 +22,30 @@
       },
       "revId": "3f7ab3147e193fb3cb7dad7ebc8f60530e1582c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1be768f_9bd8255f",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 914,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-12-06T02:25:53Z",
+      "side": 1,
+      "message": "I personally felt it\u0027s not great to give some relation between them just because current args sanitization is the same.\nOur sanitization for `java_cpp_strings.py` and `java_cpp_enum.py` are the same but they are different scripts.\nAlso, args they accept are different.\n```\n$ ./java_cpp_enum.py --help\nUsage: java_cpp_enum.py [options] [output_dir] input_file(s)...\n\nOptions:\n  -h, --help       show this help message and exit\n  --srcjar\u003dSRCJAR  When specified, a .srcjar at the given path is created\n                   instead of individual .java files.\n\n$ ./java_cpp_strings.py --help\nusage: java_cpp_strings.py [-h] --srcjar SRCJAR --template TEMPLATE INPUTFILE [INPUTFILE ...]\n\npositional arguments:\n  INPUTFILE            Input file(s)\n\noptions:\n  -h, --help           show this help message and exit\n  --srcjar SRCJAR      The path at which to generate the .srcjar file\n  --template TEMPLATE  The template file with which to generate the Java class. Must have \"{NATIVE_STRINGS}\" somewhere in the template.\n```",
+      "parentUuid": "46a6f43c_a41c05d0",
+      "range": {
+        "startLine": 910,
+        "startChar": 0,
+        "endLine": 914,
+        "endChar": 28
+      },
+      "revId": "3f7ab3147e193fb3cb7dad7ebc8f60530e1582c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
