@@ -243,3 +243,21 @@ java_genrule {
         "//packages/modules/Connectivity/service",
     ],
 }
+
+java_api_contribution {
+    name: "framework-connectivity-module-lib-stubs",
+    api_surface: "module-lib",
+    api_file: "api/module-lib-current.txt",
+    visibility: [
+        "//build/orchestrator/apis",
+    ],
+}
+
+java_api_contribution {
+    name: "framework-connectivity-public-stubs",
+    api_surface: "public",
+    api_file: "api/current.txt",
+    visibility: [
+        "//build/orchestrator/apis",
+    ],
+}
