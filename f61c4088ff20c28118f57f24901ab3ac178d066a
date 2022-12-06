@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b52d6b00_eec1d964",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-06T06:06:35Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed",
+      "revId": "f61c4088ff20c28118f57f24901ab3ac178d066a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a02f2e8_9c5f92d8",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-06T06:06:35Z",
+      "side": 1,
+      "message": "Nit: maybe call this after onServiceRemoved (because a service would first become incomplete when it loses some records, then completely lost). Similarly onServiceFound is called after onServiceNameDiscovered since the service can become complete after being found.",
+      "revId": "f61c4088ff20c28118f57f24901ab3ac178d066a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a845cca_f781fd4b",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-06T06:06:35Z",
+      "side": 1,
+      "message": "Also here, onServiceNameRemoved should probably be called after onServiceRemoved",
+      "revId": "f61c4088ff20c28118f57f24901ab3ac178d066a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b1e8951_eb3ba90a",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-06T06:06:35Z",
+      "side": 1,
+      "message": "It\u0027s a bit confusing to have the key/value of the map as arguments, especially since in this case the key isn\u0027t actually used.\n\nHow about having a Map as argument ? Then you can call it with Collections.emptyMap() or Collections.singletonMap(key, value). This also allows making sure there\u0027s no extra unwanted key.",
+      "revId": "f61c4088ff20c28118f57f24901ab3ac178d066a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61054230_68825081",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-06T06:06:35Z",
+      "side": 1,
+      "message": "Nit: use a reserved prefix that doesn\u0027t correspond to actual addresses (something in 2001:DB8::/32 as per RFC3849).\n\nSimilarly 192.0.2.0/24 for IPv4 (rfc5737)",
+      "revId": "f61c4088ff20c28118f57f24901ab3ac178d066a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb9e1e62_ff9aec29",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 966,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-06T06:06:35Z",
+      "side": 1,
+      "message": "Question: is it hard to migrate this to createResponse instead of a mock ?",
+      "revId": "f61c4088ff20c28118f57f24901ab3ac178d066a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
