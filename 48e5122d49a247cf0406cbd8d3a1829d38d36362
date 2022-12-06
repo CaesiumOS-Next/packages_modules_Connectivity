@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8df5517_a48d7322",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-12-06T03:01:26Z",
+      "side": 1,
+      "message": "nits:",
+      "revId": "48e5122d49a247cf0406cbd8d3a1829d38d36362",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
