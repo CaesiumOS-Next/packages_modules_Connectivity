@@ -16,6 +16,29 @@
       "message": "Please take a look the comment, not sure if anything is missed.",
       "revId": "9a217ba9bfc7d8bc4c58a740de06eb2edf6103b1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b771f91_2e832f22",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-06T07:46:06Z",
+      "side": 1,
+      "message": "If mMatchSubscriberIds is empty, the function will return false instead of true.\nIt seems the behavior is changed.\nIs it better to remove l.649~l.651 and check empty case here?",
+      "range": {
+        "startLine": 612,
+        "startChar": 40,
+        "endLine": 612,
+        "endChar": 59
+      },
+      "revId": "9a217ba9bfc7d8bc4c58a740de06eb2edf6103b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
