@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f0eab85_097305a6",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1272,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-06T15:48:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5615496b_f692baca",
+      "range": {
+        "startLine": 1272,
+        "startChar": 12,
+        "endLine": 1272,
+        "endChar": 13
+      },
+      "revId": "a91f40671c7f2092c9fdb270cb7690f62d3b16aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94493e0d_b61f22a8",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "abf024f7_f1b6a1f0",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1279,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-06T15:48:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94493e0d_b61f22a8",
+      "range": {
+        "startLine": 1279,
+        "startChar": 16,
+        "endLine": 1279,
+        "endChar": 63
+      },
+      "revId": "a91f40671c7f2092c9fdb270cb7690f62d3b16aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91ad6f91_4d906292",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-11-29T02:33:18Z",
       "side": 1,
       "message": "Per synced, this would be better to put in other commits because this refactor does not seems quite relate to this change. It will be clearer.",
+      "range": {
+        "startLine": 1539,
+        "startChar": 8,
+        "endLine": 1550,
+        "endChar": 9
+      },
+      "revId": "a91f40671c7f2092c9fdb270cb7690f62d3b16aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90d64d43_6b32191e",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1550,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-06T15:48:23Z",
+      "side": 1,
+      "message": "Done.\nPlease review aosp/2330434.",
+      "parentUuid": "91ad6f91_4d906292",
       "range": {
         "startLine": 1539,
         "startChar": 8,
