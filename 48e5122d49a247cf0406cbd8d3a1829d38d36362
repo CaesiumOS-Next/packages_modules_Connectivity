@@ -16,6 +16,24 @@
       "message": "nits:",
       "revId": "48e5122d49a247cf0406cbd8d3a1829d38d36362",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32a86bdb_06efb21b",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-12-06T03:16:06Z",
+      "side": 1,
+      "message": "Not for this CL\nI wonder if it would be useful to have define_allowlist or define_denylist.",
+      "parentUuid": "e8df5517_a48d7322",
+      "revId": "48e5122d49a247cf0406cbd8d3a1829d38d36362",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
