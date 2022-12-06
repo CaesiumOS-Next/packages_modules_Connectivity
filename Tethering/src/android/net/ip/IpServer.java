@@ -579,7 +579,7 @@ public class IpServer extends StateMachine {
                             // Not much more we can do here
                         }
                         mDhcpLeases.clear();
-                        getHandler().post(mCallback::dhcpLeasesChanged);
+                        mCallback.dhcpLeasesChanged();
                     }
                 });
                 mDhcpServer = null;
