@@ -426,7 +426,9 @@ static inline __always_inline int do_forward4_bottom(struct __sk_buff* skb,
     // If we don't find any offload information then simply let the core stack handle it...
     if (!v) return TC_ACT_PIPE;
 
-    uint32_t stat_and_limit_k = downstream ? skb->ifindex : v->oif;
+    uint32_t up_if = downstream ? skb->ifindex : v->oif;
+    uint32_t stat_and_limit_k = v->account_if;
+    bool clat = (up_if != stat_and_limit_k);
 
     TetherStatsValue* stat_v = bpf_tether_stats_map_lookup_elem(&stat_and_limit_k);
 
@@ -457,6 +459,16 @@ static inline __always_inline int do_forward4_bottom(struct __sk_buff* skb,
         packets = (payload + mss - 1) / mss;
         bytes = tcp_overhead * packets + payload;
     }
+
+    // For clat case, we're forwarding to/from 'iface-v4' but accounting against ipv6-only 'iface'
+    // (ie. without the '-v4' suffix).  The extra overhead is thus sizeof(ipv6 header) minus
+    // sizeof(ipv4 header), ie. 20 bytes.  We *must* do so: otherwise data limits won't work.
+    //
+    // This code path does not currently ever handle ipv4 fragments or ipv4 packets with options,
+    // see below in do_forward4().  IPv4 NAT rewrites src/dst ports, which are not present in all
+    // but the first fragment and thus *requires* fragment reassembly - which *cannot* (ever?)
+    // be done in bpf (as it changes the number of packets and requires buffering).
+    if (clat) bytes += packets * 20;
 
     // Are we past the limit?  If so, then abort...
     // Note: will not overflow since u64 is 936 years even at 5Gbps.
