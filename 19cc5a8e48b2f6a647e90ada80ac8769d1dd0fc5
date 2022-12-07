@@ -22,6 +22,30 @@
       },
       "revId": "19cc5a8e48b2f6a647e90ada80ac8769d1dd0fc5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76e26806_56f45aa5",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-07T03:24:04Z",
+      "side": 0,
+      "message": "Because matchSubscriberIds can be empty if match rule is MATCH_MOBILE.",
+      "parentUuid": "48b62dbb_303ad3da",
+      "range": {
+        "startLine": 294,
+        "startChar": 17,
+        "endLine": 294,
+        "endChar": 29
+      },
+      "revId": "19cc5a8e48b2f6a647e90ada80ac8769d1dd0fc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
