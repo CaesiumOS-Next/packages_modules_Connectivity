@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25e98c50_5eb312f5",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-07T15:31:56Z",
+      "side": 1,
+      "message": "note that ip frags are already not handled, so 20 is actually always correct",
+      "range": {
+        "startLine": 606,
+        "startChar": 0,
+        "endLine": 606,
+        "endChar": 58
+      },
+      "revId": "6da19295219c875a5b7c779a400651cd92e58651",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
