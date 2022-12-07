@@ -68,6 +68,23 @@
       "parentUuid": "c3a96ef2_8f95a0ea",
       "revId": "8dbe30c84e74f74e622edd1ef04937c6adf0ecde",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9505929f_9b2b6b7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-07T00:27:25Z",
+      "side": 1,
+      "message": "Verified to pass on an android13 device at least.",
+      "revId": "8dbe30c84e74f74e622edd1ef04937c6adf0ecde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
