@@ -884,6 +884,101 @@ public class BpfCoordinatorTest {
         verifyNeverTetherOffloadGetStats();
     }
 
+
+    // This is a short term solution test for 464xlat translation header overhead. It simply
+    // duplicates testGetForwardedStats and apply one 464xlat interface to test.
+    // Once long term solution (fix in BPF), this test can be simply removed directly.
+    // TODO: remove once the IP header overhead of 464xlat translation has been fixed in BPF.
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testGetForwardedStatsWith464XlatUpstream() throws Exception {
+        setupFunctioningNetdInterface();
+
+        final BpfCoordinator coordinator = makeBpfCoordinator();
+        coordinator.startPolling();
+
+        coordinator.addUpstreamNameToLookupTable(UPSTREAM_XLAT_IFINDEX, UPSTREAM_XLAT_IFACE);
+        coordinator.addUpstreamNameToLookupTable(UPSTREAM_IFINDEX2, UPSTREAM_IFACE2);
+
+        // [1] Both interface stats are changed.
+        // Expect that 464xlat interface stats has addedd 20 bytes per packets to stats which reads
+        // from BPF map.
+        updateStatsEntriesAndWaitForUpdate(new TetherStatsParcel[] {
+                buildTestTetherStatsParcel(UPSTREAM_XLAT_IFINDEX, 1000, 100, 2000, 200),
+                buildTestTetherStatsParcel(UPSTREAM_IFINDEX2, 3000, 300, 4000, 400)});
+
+        final NetworkStats expectedIfaceStats = new NetworkStats(0L, 2)
+                .addEntry(buildTestEntry(STATS_PER_IFACE, UPSTREAM_XLAT_IFACE,
+                        3800 /* 1000 rxbytes + 100 rxpkts * 28 bytes IP header overhead */, 100,
+                        6000 /* 2000 txbytes + 200 txpkts * 20 bytes IP header overhead */, 200))
+                .addEntry(buildTestEntry(STATS_PER_IFACE, UPSTREAM_IFACE2, 3000, 300, 4000, 400));
+
+        // Force pushing stats update to verify that only diff of stats is reported.
+        final NetworkStats expectedUidStats = new NetworkStats(0L, 2)
+                .addEntry(buildTestEntry(STATS_PER_UID, UPSTREAM_XLAT_IFACE,
+                        3800 /* 1000 rxbytes + 100 rxpkts * 28 bytes header overhead */, 100,
+                        6000 /* 2000 txbytes + 200 txpkts * 20 bytes header overhead */, 200))
+                .addEntry(buildTestEntry(STATS_PER_UID, UPSTREAM_IFACE2, 3000, 300, 4000, 400));
+
+        mTetherStatsProvider.pushTetherStats();
+        mTetherStatsProviderCb.expectNotifyStatsUpdated(expectedIfaceStats, expectedUidStats);
+
+        // [2] Only first interface stats is changed.
+        // The tether stats of first interface is accumulated and the tether stats of second
+        // interface is the same.
+        updateStatsEntriesAndWaitForUpdate(new TetherStatsParcel[] {
+                buildTestTetherStatsParcel(UPSTREAM_XLAT_IFINDEX, 1010, 120, 2030, 240),
+                buildTestTetherStatsParcel(UPSTREAM_IFINDEX2, 3000, 300, 4000, 400)});
+
+        final NetworkStats expectedIfaceStatsDiff = new NetworkStats(0L, 2)
+                .addEntry(buildTestEntry(STATS_PER_IFACE, UPSTREAM_XLAT_IFACE,
+                        570 /* 10 rxbytes + 20 rxpkts * 28 bytes IP header overhead */, 20,
+                        830 /* 30 txbytes + 40 txpkts * 20 bytes IP header overhead */, 40))
+                .addEntry(buildTestEntry(STATS_PER_IFACE, UPSTREAM_IFACE2, 0, 0, 0, 0));
+
+        final NetworkStats expectedUidStatsDiff = new NetworkStats(0L, 2)
+                .addEntry(buildTestEntry(STATS_PER_UID, UPSTREAM_XLAT_IFACE,
+                        570 /* 10 rxbytes + 20 rxpkts * 28 bytes header overhead */, 20,
+                        830 /* 30 rxbytes + 40 txpkts * 20 bytes header overhead */, 40))
+                .addEntry(buildTestEntry(STATS_PER_UID, UPSTREAM_IFACE2, 0, 0, 0, 0));
+
+        // Force pushing stats update to verify that only diff of stats is reported.
+        mTetherStatsProvider.pushTetherStats();
+        mTetherStatsProviderCb.expectNotifyStatsUpdated(expectedIfaceStatsDiff,
+                expectedUidStatsDiff);
+
+        // [3] Only second interface stats is changed.
+        // The tether stats of second interface is accumulated and the tether stats of first
+        // interface is the same.
+        updateStatsEntriesAndWaitForUpdate(new TetherStatsParcel[] {
+                buildTestTetherStatsParcel(UPSTREAM_XLAT_IFINDEX, 1010, 120, 2030, 240),
+                buildTestTetherStatsParcel(UPSTREAM_IFINDEX2, 3010, 320, 4030, 440)});
+
+        final NetworkStats expectedIfaceStatsDiff2 = new NetworkStats(0L, 2)
+                .addEntry(buildTestEntry(STATS_PER_IFACE, UPSTREAM_XLAT_IFACE, 0, 0, 0, 0))
+                .addEntry(buildTestEntry(STATS_PER_IFACE, UPSTREAM_IFACE2, 10, 20, 30, 40));
+
+        final NetworkStats expectedUidStatsDiff2 = new NetworkStats(0L, 2)
+                .addEntry(buildTestEntry(STATS_PER_UID, UPSTREAM_XLAT_IFACE, 0, 0, 0, 0))
+                .addEntry(buildTestEntry(STATS_PER_UID, UPSTREAM_IFACE2, 10, 20, 30, 40));
+
+        // Force pushing stats update to verify that only diff of stats is reported.
+        mTetherStatsProvider.pushTetherStats();
+        mTetherStatsProviderCb.expectNotifyStatsUpdated(expectedIfaceStatsDiff2,
+                expectedUidStatsDiff2);
+
+        // [4] Stop coordinator.
+        // Shutdown the coordinator and clear the invocation history, especially the
+        // tetherOffloadGetStats() calls.
+        coordinator.stopPolling();
+        clearStatsInvocations();
+
+        // Verify the polling update thread stopped.
+        mTestLooper.moveTimeForward(DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS);
+        waitForIdle();
+        verifyNeverTetherOffloadGetStats();
+    }
+
     @Test
     public void testOnSetAlert() throws Exception {
         setupFunctioningNetdInterface();
@@ -1161,6 +1256,93 @@ public class BpfCoordinatorTest {
                 new NetworkStats(0L, 2)
                 .addEntry(buildTestEntry(STATS_PER_UID, ethIface, 10, 20, 30, 40))
                 .addEntry(buildTestEntry(STATS_PER_UID, mobileIface, 50, 60, 70, 80)));
+    }
+
+    // This is a short term solution test for 464xlat translation header overhead. It simply
+    // duplicates testTetherOffloadRuleUpdateAndClear and apply one 464xlat interface to test.
+    // Once long term solution (fix in BPF), this test can be simply removed directly.
+    // TODO: remove once the IP header overhead of 464xlat translation has been fixed in BPF.
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testTetherOffloadRuleUpdateAndClearWith464XlatUpstream() throws Exception {
+        setupFunctioningNetdInterface();
+
+        final BpfCoordinator coordinator = makeBpfCoordinator();
+
+        coordinator.addUpstreamNameToLookupTable(UPSTREAM_XLAT_IFINDEX, UPSTREAM_XLAT_IFACE);
+        coordinator.addUpstreamNameToLookupTable(UPSTREAM_IFINDEX2, UPSTREAM_IFACE2);
+
+        final InOrder inOrder = inOrder(mNetd, mBpfDownstream6Map, mBpfUpstream6Map, mBpfLimitMap,
+                mBpfStatsMap);
+
+        // Before the rule test, here are the additional actions while the rules are changed.
+        // - After adding the first rule on a given upstream, the coordinator adds a data limit.
+        //   If the service has never applied the data limit, set an unlimited quota as default.
+        // - After removing the last rule on a given upstream, the coordinator gets the last stats.
+        //   Then, it clears the stats and the limit entry from BPF maps.
+        // See tetherOffloadRule{Add, Remove, Clear, Clean}.
+
+        // [1] Adding rules on the upstream cellular.
+        // Note that the default data limit is applied after the first rule is added.
+        final Ipv6ForwardingRule mobileRuleA = buildTestForwardingRule(
+                UPSTREAM_XLAT_IFINDEX, NEIGH_A, MAC_A);
+        final Ipv6ForwardingRule mobileRuleB = buildTestForwardingRule(
+                UPSTREAM_XLAT_IFINDEX, NEIGH_B, MAC_B);
+
+        coordinator.tetherOffloadRuleAdd(mIpServer, mobileRuleA);
+        verifyTetherOffloadRuleAdd(inOrder, mobileRuleA);
+        verifyTetherOffloadSetInterfaceQuota(inOrder, UPSTREAM_XLAT_IFINDEX, QUOTA_UNLIMITED,
+                true /* isInit */);
+        verifyStartUpstreamIpv6Forwarding(inOrder, DOWNSTREAM_IFINDEX, DOWNSTREAM_MAC,
+                UPSTREAM_XLAT_IFINDEX);
+        coordinator.tetherOffloadRuleAdd(mIpServer, mobileRuleB);
+        verifyTetherOffloadRuleAdd(inOrder, mobileRuleB);
+
+        // [2] Update the existing rules from cellular to wifi.
+        final Ipv6ForwardingRule wifiRuleA = buildTestForwardingRule(
+                UPSTREAM_IFINDEX2, NEIGH_A, MAC_A);
+        final Ipv6ForwardingRule wifiRuleB = buildTestForwardingRule(
+                UPSTREAM_IFINDEX2, NEIGH_B, MAC_B);
+        updateStatsEntryForTetherOffloadGetAndClearStats(
+                buildTestTetherStatsParcel(UPSTREAM_XLAT_IFINDEX, 10, 20, 30, 40));
+
+        // Update the existing rules for upstream changes. The rules are removed and re-added one
+        // by one for updating upstream interface index by #tetherOffloadRuleUpdate.
+        coordinator.tetherOffloadRuleUpdate(mIpServer, UPSTREAM_IFINDEX2);
+        verifyTetherOffloadRuleRemove(inOrder, mobileRuleA);
+        verifyTetherOffloadRuleRemove(inOrder, mobileRuleB);
+        verifyStopUpstreamIpv6Forwarding(inOrder, DOWNSTREAM_IFINDEX, DOWNSTREAM_MAC);
+        verifyTetherOffloadGetAndClearStats(inOrder, UPSTREAM_XLAT_IFINDEX);
+        verifyTetherOffloadRuleAdd(inOrder, wifiRuleA);
+        verifyTetherOffloadSetInterfaceQuota(inOrder, UPSTREAM_IFINDEX2, QUOTA_UNLIMITED,
+                true /* isInit */);
+        verifyStartUpstreamIpv6Forwarding(inOrder, DOWNSTREAM_IFINDEX, DOWNSTREAM_MAC,
+                UPSTREAM_IFINDEX2);
+        verifyTetherOffloadRuleAdd(inOrder, wifiRuleB);
+
+        // [3] Clear all rules for a given IpServer.
+        updateStatsEntryForTetherOffloadGetAndClearStats(
+                buildTestTetherStatsParcel(UPSTREAM_IFINDEX2, 50, 60, 70, 80));
+        coordinator.tetherOffloadRuleClear(mIpServer);
+        verifyTetherOffloadRuleRemove(inOrder, wifiRuleA);
+        verifyTetherOffloadRuleRemove(inOrder, wifiRuleB);
+        verifyStopUpstreamIpv6Forwarding(inOrder, DOWNSTREAM_IFINDEX, DOWNSTREAM_MAC);
+        verifyTetherOffloadGetAndClearStats(inOrder, UPSTREAM_IFINDEX2);
+
+        // [4] Force pushing stats update to verify that the last diff of stats is reported on all
+        // upstreams.
+        mTetherStatsProvider.pushTetherStats();
+        mTetherStatsProviderCb.expectNotifyStatsUpdated(
+                new NetworkStats(0L, 2)
+                .addEntry(buildTestEntry(STATS_PER_IFACE, UPSTREAM_XLAT_IFACE,
+                        570 /* 10 rxbytes + 20 rxpkts * 28 bytes IP header overhead */, 20,
+                        830 /* 30 rxbytes + 40 rxpkts * 20 bytes IP header overhead */, 40))
+                .addEntry(buildTestEntry(STATS_PER_IFACE, UPSTREAM_IFACE2, 50, 60, 70, 80)),
+                new NetworkStats(0L, 2)
+                .addEntry(buildTestEntry(STATS_PER_UID, UPSTREAM_XLAT_IFACE,
+                        570 /* 10 rxbytes + 20 rxpkts * 28 bytes IP header overhead */, 20,
+                        830 /* 30 rxbytes + 40 rxpkts * 20 bytes IP header overhead */, 40))
+                .addEntry(buildTestEntry(STATS_PER_UID, UPSTREAM_IFACE2, 50, 60, 70, 80)));
     }
 
     private void checkBpfDisabled() throws Exception {
