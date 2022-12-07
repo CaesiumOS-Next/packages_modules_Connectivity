@@ -3115,8 +3115,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return;
         }
         if (oldLp != null && newLp.isIdenticalMtu(oldLp)) {
-            if (VDBG) log("identical MTU - not setting");
-            return;
+            if (iface == null) {
+                if (VDBG) log("identical MTU - not setting");
+                return;
+            }
+            if (iface.equals(oldLp.getInterfaceName())) {
+                if (VDBG) log("identical MTU and iface - not setting");
+                return;
+            }
         }
         if (!LinkProperties.isValidMtu(mtu, newLp.hasGlobalIpv6Address())) {
             if (mtu != 0) loge("Unexpected mtu value: " + mtu + ", " + iface);
