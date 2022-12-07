@@ -16,6 +16,8 @@
 
 package com.android.networkstack.tethering;
 
+import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_STOPPED;
+
 import android.net.ITetheringEventCallback;
 import android.net.Network;
 import android.net.TetherStatesParcel;
@@ -32,6 +34,8 @@ public class EventCallbacksTracker {
     private final RemoteCallbackList<ITetheringEventCallback> mTetheringEventCallbacks =
             new RemoteCallbackList<>();
     private final TetherStatesParcel mTetherStatesParcel;
+
+    private volatile int mOffloadStatus = TETHER_HARDWARE_OFFLOAD_STOPPED;
 
     public EventCallbacksTracker() {
         mTetherStatesParcel = emptyTetherStatesParcel();
@@ -173,8 +177,15 @@ public class EventCallbacksTracker {
         }
     }
 
+    /** Get current offload status. */
+    public int getOffloadStatus() {
+        return mOffloadStatus;
+    }
+
     /** Notify hardware offload status change. */
-    public void reportOffloadStatusChanged(final int status) {
+    public void updateOffloadStatusChanged(final int status) {
+        mOffloadStatus = status;
+
         final int length = mTetheringEventCallbacks.beginBroadcast();
         try {
             for (int i = 0; i < length; i++) {

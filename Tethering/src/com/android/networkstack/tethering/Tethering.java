@@ -263,7 +263,6 @@ public class Tethering {
     private Network mTetherUpstream;
     private boolean mDataSaverEnabled = false;
     private String mWifiP2pTetherInterface = null;
-    private int mOffloadStatus = TETHER_HARDWARE_OFFLOAD_STOPPED;
 
     private EthernetManager.TetheredInterfaceRequest mEthernetIfaceRequest;
     private TetheredInterfaceRequestShim mBluetoothIfaceRequest;
@@ -2311,10 +2310,9 @@ public class Tethering {
             }
 
             private void updateOffloadStatus(final int newStatus) {
-                if (newStatus == mOffloadStatus) return;
+                if (newStatus == mCallbacksTracker.getOffloadStatus()) return;
 
-                mOffloadStatus = newStatus;
-                mCallbacksTracker.reportOffloadStatusChanged(mOffloadStatus);
+                mCallbacksTracker.updateOffloadStatusChanged(newStatus);
             }
         }
     }
@@ -2350,7 +2348,7 @@ public class Tethering {
             parcel.tetheredClients = hasListPermission
                     ? mConnectedClientsTracker.getLastTetheredClients()
                     : Collections.emptyList();
-            parcel.offloadStatus = mOffloadStatus;
+            parcel.offloadStatus = mCallbacksTracker.getOffloadStatus();
             try {
                 callback.onCallbackStarted(parcel);
             } catch (RemoteException e) {

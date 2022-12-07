@@ -122,11 +122,12 @@ public class EventCallbacksTrackerTest {
         // callback2 doesn't have list permission.
         verifyNoMoreInteractions(callback1, callback2)
 
-        callbacksTracker.reportOffloadStatusChanged(TETHER_HARDWARE_OFFLOAD_STARTED)
+        callbacksTracker.updateOffloadStatusChanged(TETHER_HARDWARE_OFFLOAD_STARTED)
         if (verifyCallback1) getVerifier(callback1).onOffloadStatusChanged(
                 TETHER_HARDWARE_OFFLOAD_STARTED)
         if (verifyCallback2) getVerifier(callback2).onOffloadStatusChanged(
                 TETHER_HARDWARE_OFFLOAD_STARTED)
+        assertEquals(TETHER_HARDWARE_OFFLOAD_STARTED, callbacksTracker.getOffloadStatus())
         verifyNoMoreInteractions(callback1, callback2)
     }
 
