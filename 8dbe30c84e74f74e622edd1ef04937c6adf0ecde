@@ -50,6 +50,24 @@
       "message": "CL needs CR+2 vote from test owner",
       "revId": "8dbe30c84e74f74e622edd1ef04937c6adf0ecde",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7dff5262_d01ae9cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1222074
+      },
+      "writtenOn": "2022-12-07T00:23:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c3a96ef2_8f95a0ea",
+      "revId": "8dbe30c84e74f74e622edd1ef04937c6adf0ecde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
