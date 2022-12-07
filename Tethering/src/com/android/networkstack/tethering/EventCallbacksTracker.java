@@ -27,13 +27,17 @@ import android.net.TetheringInterface;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import java.util.Collections;
 import java.util.List;
 
 /** A class that tracking registered tethering event callbacks. */
 public class EventCallbacksTracker {
     private final RemoteCallbackList<ITetheringEventCallback> mTetheringEventCallbacks =
             new RemoteCallbackList<>();
-    private final TetherStatesParcel mTetherStatesParcel;
+    @NonNull private final TetherStatesParcel mTetherStatesParcel;
 
     private volatile int mOffloadStatus = TETHER_HARDWARE_OFFLOAD_STOPPED;
     // AIDL doesn't support Set<Integer>. Maintain a int bitmap here. When the bitmap is passed to
@@ -41,7 +45,8 @@ public class EventCallbacksTracker {
     // mSupportedTypeBitmap should always be updated inside tethering internal thread but it may be
     // read from binder thread which called TetheringService directly.
     private volatile long mSupportedTypeBitmap;
-    private Network mTetherUpstream;
+    @Nullable private Network mTetherUpstream;
+    @NonNull private List<TetheredClient> mTetheredClients = Collections.emptyList();
 
     public EventCallbacksTracker() {
         mTetherStatesParcel = emptyTetherStatesParcel();
@@ -178,8 +183,15 @@ public class EventCallbacksTracker {
         return mTetherStatesParcel;
     }
 
+    /** Get connected clinets. */
+    public List<TetheredClient> getTetheredClients() {
+        return mTetheredClients;
+    }
+
     /** Notify connected clients change. */
-    public void reportTetherClientsChanged(List<TetheredClient> clients) {
+    public void updateTetherClientsChanged(List<TetheredClient> clients) {
+        mTetheredClients = clients;
+
         final int length = mTetheringEventCallbacks.beginBroadcast();
         try {
             for (int i = 0; i < length; i++) {
