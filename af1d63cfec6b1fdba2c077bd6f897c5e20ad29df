@@ -142,6 +142,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "16384696_d85e979e",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-07T02:05:38Z",
+      "side": 1,
+      "message": "As I mentioned in patchset5, we still have some legacy contructors which can only assign null network object. So I think we can\u0027t say this is @NonNull.",
+      "parentUuid": "b5c09d93_02fe33e3",
+      "revId": "af1d63cfec6b1fdba2c077bd6f897c5e20ad29df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e0b15008_ef520f7c",
         "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsResponseTests.java",
         "patchSetId": 6
