@@ -28,11 +28,13 @@ import androidx.test.filters.SmallTest
 import androidx.test.runner.AndroidJUnit4
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentCaptor
+import org.mockito.Mockito.any
 import org.mockito.Mockito.doReturn
+import org.mockito.Mockito.inOrder
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.never
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 
 @RunWith(AndroidJUnit4::class)
 @SmallTest
@@ -43,6 +45,8 @@ class ConnectedClientsTrackerTest {
     private val servers = listOf(server1, server2)
 
     private val clock = TestClock(1324L)
+    private val callbacksTracker = mock(EventCallbacksTracker::class.java)
+    private val callbacksVerifier = inOrder(callbacksTracker)
 
     private val client1Addr = MacAddress.fromString("01:23:45:67:89:0A")
     private val client1 = TetheredClient(client1Addr, listOf(
@@ -73,52 +77,50 @@ class ConnectedClientsTrackerTest {
         doReturn(emptyList<TetheredClient>()).`when`(server1).allLeases
         doReturn(emptyList<TetheredClient>()).`when`(server2).allLeases
 
-        val tracker = ConnectedClientsTracker(clock)
-        assertFalse(tracker.updateConnectedClients(servers, null))
+        val tracker = ConnectedClientsTracker(clock, servers, callbacksTracker)
+        tracker.updateConnectedClients(null)
+        callbacksVerifier.verify(callbacksTracker, never()).updateTetherClientsChanged(any())
 
         // Obtain a lease for client 1
         doReturn(listOf(client1)).`when`(server1).allLeases
-        assertSameClients(listOf(client1), assertNewClients(tracker, servers, listOf(wifiClient1)))
+        assertNewClients(tracker, listOf(wifiClient1), listOf(client1))
 
         // Client 2 L2-connected, no lease yet
         val client2WithoutAddr = TetheredClient(client2Addr, emptyList(), TETHERING_WIFI)
-        assertSameClients(listOf(client1, client2WithoutAddr),
-                assertNewClients(tracker, servers, listOf(wifiClient1, wifiClient2)))
+        assertNewClients(tracker, listOf(wifiClient1, wifiClient2),
+                listOf(client1, client2WithoutAddr))
 
         // Client 2 lease obtained
         doReturn(listOf(client1, client2)).`when`(server1).allLeases
-        assertSameClients(listOf(client1, client2), assertNewClients(tracker, servers, null))
+        assertNewClients(tracker, null, listOf(client1, client2))
 
         // Client 3 lease obtained
         doReturn(listOf(client3)).`when`(server2).allLeases
-        assertSameClients(listOf(client1, client2, client3),
-                assertNewClients(tracker, servers, null))
+        assertNewClients(tracker, null, listOf(client1, client2, client3))
 
         // Client 2 L2-disconnected
-        assertSameClients(listOf(client1, client3),
-                assertNewClients(tracker, servers, listOf(wifiClient1)))
+        assertNewClients(tracker, listOf(wifiClient1), listOf(client1, client3))
 
         // Client 1 L2-disconnected
-        assertSameClients(listOf(client3), assertNewClients(tracker, servers, emptyList()))
+        assertNewClients(tracker, emptyList(), listOf(client3))
 
         // Client 1 comes back
-        assertSameClients(listOf(client1, client3),
-                assertNewClients(tracker, servers, listOf(wifiClient1)))
+        assertNewClients(tracker, listOf(wifiClient1), listOf(client1, client3))
 
         // Leases lost, client 1 still L2-connected
         doReturn(emptyList<TetheredClient>()).`when`(server1).allLeases
         doReturn(emptyList<TetheredClient>()).`when`(server2).allLeases
-        assertSameClients(listOf(TetheredClient(client1Addr, emptyList(), TETHERING_WIFI)),
-                assertNewClients(tracker, servers, null))
+        assertNewClients(tracker, null,
+                listOf(TetheredClient(client1Addr, emptyList(), TETHERING_WIFI)))
     }
 
     @Test
     fun testUpdateConnectedClients_LeaseExpiration() {
-        val tracker = ConnectedClientsTracker(clock)
+        val tracker = ConnectedClientsTracker(clock, servers, callbacksTracker)
         doReturn(listOf(client1, client2)).`when`(server1).allLeases
         doReturn(listOf(client3)).`when`(server2).allLeases
-        assertSameClients(listOf(client1, client2, client3), assertNewClients(
-                tracker, servers, listOf(wifiClient1, wifiClient2)))
+        assertNewClients(tracker, listOf(wifiClient1, wifiClient2),
+                listOf(client1, client2, client3))
 
         clock.time += 20
         // Client 3 has no remaining lease: removed
@@ -131,16 +133,19 @@ class ConnectedClientsTrackerTest {
                         // Only the "t + 30" address is left, the "t + 10" address expired
                         listOf(client2Exp30AddrInfo),
                         TETHERING_WIFI))
-        assertSameClients(expectedClients, assertNewClients(tracker, servers, null))
+        assertNewClients(tracker, null, expectedClients)
     }
 
     private fun assertNewClients(
         tracker: ConnectedClientsTracker,
-        ipServers: Iterable<IpServer>,
-        wifiClients: List<WifiClient>?
-    ): List<TetheredClient> {
-        assertTrue(tracker.updateConnectedClients(ipServers, wifiClients))
-        return tracker.lastTetheredClients
+        wifiClients: List<WifiClient>?,
+        expectedClients: List<TetheredClient>
+    ) {
+        tracker.updateConnectedClients(wifiClients)
+
+        val captor = ArgumentCaptor.forClass(List::class.java as Class<List<TetheredClient>>)
+        callbacksVerifier.verify(callbacksTracker).updateTetherClientsChanged(captor.capture())
+        assertSameClients(expectedClients, captor.getValue())
     }
 
     private fun assertSameClients(expected: List<TetheredClient>, actual: List<TetheredClient>) {

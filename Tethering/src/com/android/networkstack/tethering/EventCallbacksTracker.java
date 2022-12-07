@@ -179,7 +179,7 @@ public class EventCallbacksTracker {
     }
 
     /** Notify connected clients change. */
-    public void reportTetherClientsChanged(List<TetheredClient> clients) {
+    public void updateTetherClientsChanged(List<TetheredClient> clients) {
         final int length = mTetheringEventCallbacks.beginBroadcast();
         try {
             for (int i = 0; i < length; i++) {

@@ -45,6 +45,8 @@ import java.util.Set;
  */
 public class ConnectedClientsTracker {
     private final Clock mClock;
+    private final List<IpServer> mActiveIpServers;
+    private final EventCallbacksTracker mCallbacksTracker;
 
     @NonNull
     private List<WifiClient> mLastWifiClients = Collections.emptyList();
@@ -58,26 +60,27 @@ public class ConnectedClientsTracker {
         }
     }
 
-    public ConnectedClientsTracker() {
-        this(new Clock());
+    public ConnectedClientsTracker(final List<IpServer> ipServers,
+            final EventCallbacksTracker tracker) {
+        this(new Clock(), ipServers, tracker);
     }
 
     @VisibleForTesting
-    ConnectedClientsTracker(Clock clock) {
+    ConnectedClientsTracker(Clock clock, final List<IpServer> ipServers,
+            final EventCallbacksTracker tracker) {
         mClock = clock;
+        mActiveIpServers = ipServers;
+        mCallbacksTracker = tracker;
     }
 
     /**
      * Update the tracker with new connected clients.
      *
      * <p>The new list can be obtained through {@link #getLastTetheredClients()}.
-     * @param ipServers The IpServers used to assign addresses to clients.
      * @param wifiClients The list of L2-connected WiFi clients. Null for no change since last
      *                    update.
-     * @return True if the list of clients changed since the last calculation.
      */
-    public boolean updateConnectedClients(
-            Iterable<IpServer> ipServers, @Nullable List<WifiClient> wifiClients) {
+    public void updateConnectedClients(@Nullable List<WifiClient> wifiClients) {
         final long now = mClock.elapsedRealtime();
 
         if (wifiClients != null) {
@@ -87,7 +90,7 @@ public class ConnectedClientsTracker {
 
         // Build the list of non-expired leases from all IpServers, grouped by mac address
         final Map<MacAddress, TetheredClient> clientsMap = new HashMap<>();
-        for (IpServer server : ipServers) {
+        for (IpServer server : mActiveIpServers) {
             for (TetheredClient client : server.getAllLeases()) {
                 if (client.getTetheringType() == TETHERING_WIFI
                         && !wifiClientMacs.contains(client.getMacAddress())) {
@@ -114,7 +117,10 @@ public class ConnectedClientsTracker {
         final boolean clientsChanged = clients.size() != mLastTetheredClients.size()
                 || !clients.containsAll(mLastTetheredClients);
         mLastTetheredClients = Collections.unmodifiableList(new ArrayList<>(clients));
-        return clientsChanged;
+
+        if (clientsChanged) {
+            mCallbacksTracker.updateTetherClientsChanged(mLastTetheredClients);
+        }
     }
 
     private static void addLease(Map<MacAddress, TetheredClient> clientsMap, TetheredClient lease) {

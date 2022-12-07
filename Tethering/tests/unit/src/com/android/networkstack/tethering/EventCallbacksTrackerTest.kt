@@ -119,7 +119,7 @@ public class EventCallbacksTrackerTest {
         if (verifyCallback2) verifyStatesChanged(getVerifier(callback2))
         verifyNoMoreInteractions(callback1, callback2)
 
-        callbacksTracker.reportTetherClientsChanged(clients)
+        callbacksTracker.updateTetherClientsChanged(clients)
         if (verifyCallback1) getVerifier(callback1).onTetherClientsChanged(clients)
         // callback2 doesn't have list permission.
         verifyNoMoreInteractions(callback1, callback2)
