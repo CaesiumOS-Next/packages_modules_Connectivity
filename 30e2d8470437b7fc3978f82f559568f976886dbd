@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c81218b5_8d56fb83",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceSocket.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-07T15:24:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bca73ec_37004183",
+      "range": {
+        "startLine": 61,
+        "startChar": 12,
+        "endLine": 61,
+        "endChar": 40
+      },
+      "revId": "30e2d8470437b7fc3978f82f559568f976886dbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72f303ed_dc66cc4e",
@@ -81,6 +105,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e261121_cedc0413",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceSocket.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-07T15:24:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a0289e5_d6d0a96e",
+      "range": {
+        "startLine": 101,
+        "startChar": 9,
+        "endLine": 101,
+        "endChar": 10
+      },
+      "revId": "30e2d8470437b7fc3978f82f559568f976886dbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c29e5213_1d5dc36e",
@@ -94,6 +142,24 @@
       "writtenOn": "2022-12-01T09:51:22Z",
       "side": 1,
       "message": "Also we should monitor the addresses of the tethered interfaces. Mark confirmed that the IPv6 addresses in particular will change depending on the upstream\n\nI think you could use NetlinkMonitor for this, see what I have in ConnectivityMonitorWithConnectivityManager.java in aosp/2239481 (it\u0027s a quick draft). But maybe add that in a separate change.",
+      "revId": "30e2d8470437b7fc3978f82f559568f976886dbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "419c005d_5488419c",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-07T15:24:42Z",
+      "side": 1,
+      "message": "I add the NetlinkMonitor but I\u0027m not sure what kind of NetlinkMessage that I should handle it. So leave a TODO here and will implement it later.",
+      "parentUuid": "c29e5213_1d5dc36e",
       "revId": "30e2d8470437b7fc3978f82f559568f976886dbd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -115,6 +181,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3eb4e5c9_377758dc",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-07T15:24:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c65482d_f0fc5c24",
+      "revId": "30e2d8470437b7fc3978f82f559568f976886dbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c72f9c64_9cdeefbe",
@@ -128,6 +212,24 @@
       "writtenOn": "2022-12-01T09:51:22Z",
       "side": 1,
       "message": "Why not discover on VPNs too ? I think it\u0027s sometimes used as a feature actually, as the VPN lets you discover remote devices as if they were on a local network, and connect to them. Some people use that to access their NAS (although arguably you\u0027d be better off connecting to it directly over a secure connection and often get much better performance, but that\u0027s another question).\n\nSo maybe NetworkRequest.Builder().clearCapabilities() ?",
+      "revId": "30e2d8470437b7fc3978f82f559568f976886dbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69ed2b62_e054ae54",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-07T15:24:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c72f9c64_9cdeefbe",
       "revId": "30e2d8470437b7fc3978f82f559568f976886dbd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -149,6 +251,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46b82607_a27858d8",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-07T15:24:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf5d0b12_2837e2c2",
+      "revId": "30e2d8470437b7fc3978f82f559568f976886dbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95e004b1_d2b30cad",
@@ -162,6 +282,24 @@
       "writtenOn": "2022-12-01T09:51:22Z",
       "side": 1,
       "message": "I\u0027d suggest calling leaveGroup here, so clients don\u0027t have to do it, and you can guarantee it\u0027s always done on the handler thread this way",
+      "revId": "30e2d8470437b7fc3978f82f559568f976886dbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e815883_686baf46",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-07T15:24:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95e004b1_d2b30cad",
       "revId": "30e2d8470437b7fc3978f82f559568f976886dbd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -183,6 +321,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ead52a8_8bd89b8d",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-07T15:24:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a60fd1a9_1371f98f",
+      "revId": "30e2d8470437b7fc3978f82f559568f976886dbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85c54e5b_0549df7c",
@@ -196,6 +352,30 @@
       "writtenOn": "2022-12-01T09:51:22Z",
       "side": 1,
       "message": "It\u0027s generally not good to mix network callbacks and synchronous calls; see the doc on onLinkPropertiesChanged: https://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/framework/src/android/net/ConnectivityManager.java;drc\u003d31ee1c112110cde07bdfec1de2c5fc62697db462;l\u003d3938\n\nSo the initial addresses and the notifyAddressesChanged callback could have out-of-sync values.\n\nTo avoid that I think you need to keep a map of the last addresses from the last LinkPropertiesChanged callback",
+      "range": {
+        "startLine": 286,
+        "startChar": 55,
+        "endLine": 286,
+        "endChar": 72
+      },
+      "revId": "30e2d8470437b7fc3978f82f559568f976886dbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0899a090_ddf61ed4",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-07T15:24:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85c54e5b_0549df7c",
       "range": {
         "startLine": 286,
         "startChar": 55,
@@ -229,6 +409,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c55c4e11_71ab9546",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-07T15:24:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "21e288cb_51fbac28",
+      "range": {
+        "startLine": 293,
+        "startChar": 65,
+        "endLine": 293,
+        "endChar": 98
+      },
+      "revId": "30e2d8470437b7fc3978f82f559568f976886dbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4610580e_5318bde2",
@@ -246,6 +450,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a25f06a7_fe052791",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-07T15:24:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4610580e_5318bde2",
+      "revId": "30e2d8470437b7fc3978f82f559568f976886dbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "911bbc63_1d72005d",
@@ -259,6 +481,24 @@
       "writtenOn": "2022-12-01T09:51:22Z",
       "side": 1,
       "message": "I think the socket should be destroyed too ?",
+      "revId": "30e2d8470437b7fc3978f82f559568f976886dbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80ffb4cc_0a39a441",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-07T15:24:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "911bbc63_1d72005d",
       "revId": "30e2d8470437b7fc3978f82f559568f976886dbd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
