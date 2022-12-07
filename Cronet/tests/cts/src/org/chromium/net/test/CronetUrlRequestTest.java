@@ -28,8 +28,10 @@ import androidx.test.runner.AndroidJUnit4;
 
 import org.chromium.net.CronetEngine;
 import org.chromium.net.UrlRequest;
+import org.chromium.net.UrlRequest.Status;
 import org.chromium.net.UrlResponseInfo;
 import org.chromium.net.test.util.CronetCtsTestServer;
+import org.chromium.net.test.util.TestStatusListener;
 import org.chromium.net.test.util.TestUrlRequestCallback;
 import org.chromium.net.test.util.TestUrlRequestCallback.ResponseStep;
 import org.junit.After;
@@ -88,5 +90,20 @@ public class CronetUrlRequestTest {
                 "Unexpected http status code from " + url + ".", 200, info.getHttpStatusCode());
         assertGreaterThan(
                 "Received byte from " + url + " is 0.", (int) info.getReceivedByteCount(), 0);
+    }
+
+    @Test
+    public void testUrlRequestStatus_Invalid() throws Exception {
+        TestUrlRequestCallback callback = new TestUrlRequestCallback();
+        UrlRequest request =
+                mCronetEngine
+                        .newUrlRequestBuilder(
+                                mTestServer.getSuccessUrl(), callback, callback.getExecutor())
+                        .build();
+        // Calling before request is started should give Status.INVALID,
+        // since the native adapter is not created.
+        TestStatusListener statusListener = new TestStatusListener();
+        request.getStatus(statusListener);
+        statusListener.expectStatus(Status.INVALID);
     }
 }

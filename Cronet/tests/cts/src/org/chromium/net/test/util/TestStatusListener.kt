@@ -18,7 +18,6 @@ package org.chromium.net.test.util
 
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.TimeUnit
-import org.chromium.net.UrlRequest.Status
 import org.chromium.net.UrlRequest.StatusListener
 import org.junit.Assert.assertSame
 
@@ -34,7 +33,7 @@ class TestStatusListener : StatusListener() {
     }
 
     /** Fails if the expected status is not the returned status */
-    fun expectStatus(expected: Status) {
+    fun expectStatus(expected: Int) {
         assertSame(expected, mStatus.get(TIMEOUT_MS, TimeUnit.MILLISECONDS))
     }
 }
