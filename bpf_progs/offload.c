@@ -209,7 +209,9 @@ static inline __always_inline int do_forward6(struct __sk_buff* skb, const bool 
     // If we don't find any offload information then simply let the core stack handle it...
     if (!v) return TC_ACT_PIPE;
 
-    uint32_t stat_and_limit_k = downstream ? skb->ifindex : v->oif;
+    uint32_t stat_and_limit_k = v->account_if;
+    uint32_t up_if = downstream ? skb->ifindex : v->oif;
+    bool clat = (up_if == v->account_if);
 
     TetherStatsValue* stat_v = bpf_tether_stats_map_lookup_elem(&stat_and_limit_k);
 
@@ -240,6 +242,7 @@ static inline __always_inline int do_forward6(struct __sk_buff* skb, const bool 
         packets = (payload + mss - 1) / mss;
         bytes = tcp_overhead * packets + payload;
     }
+    if (clat) bytes += packets * 20;
 
     // Are we past the limit?  If so, then abort...
     // Note: will not overflow since u64 is 936 years even at 5Gbps.
@@ -426,7 +429,9 @@ static inline __always_inline int do_forward4_bottom(struct __sk_buff* skb,
     // If we don't find any offload information then simply let the core stack handle it...
     if (!v) return TC_ACT_PIPE;
 
-    uint32_t stat_and_limit_k = downstream ? skb->ifindex : v->oif;
+    uint32_t stat_and_limit_k = v->account_if;
+    uint32_t up_if = downstream ? skb->ifindex : v->oif;
+    bool clat = (up_if == v->account_if);
 
     TetherStatsValue* stat_v = bpf_tether_stats_map_lookup_elem(&stat_and_limit_k);
 
@@ -457,6 +462,7 @@ static inline __always_inline int do_forward4_bottom(struct __sk_buff* skb,
         packets = (payload + mss - 1) / mss;
         bytes = tcp_overhead * packets + payload;
     }
+    if (clat) bytes += packets * 20;
 
     // Are we past the limit?  If so, then abort...
     // Note: will not overflow since u64 is 936 years even at 5Gbps.
