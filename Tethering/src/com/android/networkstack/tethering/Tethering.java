@@ -288,9 +288,7 @@ public class Tethering {
         // list and handle them as soon as onServiceConnected is called.
         mPendingPanRequests = new ArrayList<>();
 
-        mCallbacksTracker = new EventCallbacksTracker();
         mTetherStates = new ArrayMap<>();
-        mConnectedClientsTracker = new ConnectedClientsTracker();
 
         mTetherMainSM = new TetherMainSM("TetherMain", mLooper, deps);
         mTetherMainSM.start();
@@ -307,6 +305,9 @@ public class Tethering {
         mUpstreamNetworkMonitor = mDeps.getUpstreamNetworkMonitor(mContext, mTetherMainSM, mLog,
                 TetherMainSM.EVENT_UPSTREAM_CALLBACK);
         mForwardedDownstreams = new HashSet<>();
+        mCallbacksTracker = new EventCallbacksTracker();
+        mConnectedClientsTracker = new ConnectedClientsTracker(mTetherMainSM.getAllDownstreams(),
+                mCallbacksTracker);
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(ACTION_CARRIER_CONFIG_CHANGED);
@@ -572,7 +573,7 @@ public class Tethering {
         // interface.
         @Override
         public void onConnectedClientsChanged(final List<WifiClient> clients) {
-            updateConnectedClients(clients);
+            mConnectedClientsTracker.updateConnectedClients(clients);
         }
     }
 
@@ -1923,7 +1924,7 @@ public class Tethering {
             mIPv6TetheringCoordinator.removeActiveDownstream(who);
             mOffload.excludeDownstreamInterface(who.interfaceName());
             mForwardedDownstreams.remove(who);
-            updateConnectedClients(null /* wifiClients */);
+            mConnectedClientsTracker.updateConnectedClients(null /* wifiClients */);
 
             // If this is a Wi-Fi interface, tell WifiManager of any errors
             // or the inactive serving state.
@@ -2534,14 +2535,6 @@ public class Tethering {
         if (e != null) throw e;
     }
 
-    private void updateConnectedClients(final List<WifiClient> wifiClients) {
-        if (mConnectedClientsTracker.updateConnectedClients(mTetherMainSM.getAllDownstreams(),
-                wifiClients)) {
-            mCallbacksTracker.reportTetherClientsChanged(
-                    mConnectedClientsTracker.getLastTetheredClients());
-        }
-    }
-
     private IpServer.Callback makeControlCallback() {
         return new IpServer.Callback() {
             @Override
@@ -2556,7 +2549,7 @@ public class Tethering {
 
             @Override
             public void dhcpLeasesChanged() {
-                updateConnectedClients(null /* wifiClients */);
+                mConnectedClientsTracker.updateConnectedClients(null /* wifiClients */);
             }
 
             @Override
