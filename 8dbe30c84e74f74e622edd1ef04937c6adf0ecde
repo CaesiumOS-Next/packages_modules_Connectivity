@@ -33,6 +33,23 @@
       "message": "Temporarily removing +2 so we can test this CL before it autosubmits.",
       "revId": "8dbe30c84e74f74e622edd1ef04937c6adf0ecde",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8768e00c_f741aadd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1222074
+      },
+      "writtenOn": "2022-12-07T00:18:48Z",
+      "side": 1,
+      "message": "CL needs CR+2 vote from test owner",
+      "revId": "8dbe30c84e74f74e622edd1ef04937c6adf0ecde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
