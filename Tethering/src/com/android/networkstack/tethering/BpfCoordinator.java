@@ -117,6 +117,19 @@ public class BpfCoordinator {
 
     private static final String TAG = BpfCoordinator.class.getSimpleName();
     private static final int DUMP_TIMEOUT_MS = 10_000;
+    // BPF CLAT offload supports that ipv6 fragment to ipv4 translation. That implies that the
+    // 6 to 4 translation may have 8 bytes fragment header overhead. We can't distinguish the
+    // fragment packet here. Assume the maximum possible overhead to avoid hurting user's mobile
+    // data plan. If the IPv6 packet doesn't have the fragment, the stats will overcalculate 8
+    // bytes. This needs to be fixed in BPF since we are blocking to change BPF map format by CTS.
+    // See packages/modules/Connectivity/bpf_progs/clatd.c.
+    // TODO: fix the IP header overhead of 464xlat translation in BPF once CTS for T has removed
+    // BPF test.
+    // 40 bytes IPv6 header - 20 bytes IPv4 header + 8 bytes IPv6 fragment header (optional).
+    private static final int MAX_XLAT64_OVERHEAD_BYTES = 28;
+    // The fragment packet is not supported in 4 to 6 translation.
+    // 40 bytes IPv6 header - 20 bytes IPv4 header.
+    private static final int XLAT46_OVERHEAD_BYTES = 20;
     private static final MacAddress NULL_MAC_ADDRESS = MacAddress.fromString(
             "00:00:00:00:00:00");
     private static final String TETHER_DOWNSTREAM4_MAP_PATH = makeMapPath(DOWNSTREAM, 4);
@@ -1980,7 +1993,7 @@ public class BpfCoordinator {
         tetherStatsList.put(upstreamIfindex, statsValue);
 
         // Update the last stats delta and delete the local cache for a given upstream.
-        updateQuotaAndStatsFromSnapshot(tetherStatsList);
+        updateQuotaAndStatsFromSnapshot(maybeFix464XlatTetherOffloadStats(tetherStatsList));
         mStats.remove(upstreamIfindex);
     }
 
@@ -2121,6 +2134,35 @@ public class BpfCoordinator {
         // TODO: Count the used limit quota for notifying data limit reached.
     }
 
+    // TODO: fix the IP header overhead of 464xlat translation in BPF once CTS for T has removed
+    // BPF test.
+    private SparseArray<TetherStatsValue> maybeFix464XlatTetherOffloadStats(
+            final SparseArray<TetherStatsValue> curTetherStatsList) {
+        if (!supportClatOffload) return curTetherStatsList;
+
+        final SparseArray<TetherStatsValue> newTetherStatsList =
+                new SparseArray<TetherStatsValue>();
+        for (int i = 0; i < curTetherStatsList.size(); i++) {
+            final Integer ifIndex = curTetherStatsList.keyAt(i);
+            final TetherStatsValue tetherStats = curTetherStatsList.valueAt(i);
+            final String iface = mInterfaceNames.get(ifIndex);
+            if (iface != null && is464XlatInterface(iface)) {
+                // Add the IP header overhead of 464xlat translation per packet.
+                final TetherStatsValue fixedTetherStats = new TetherStatsValue(
+                        tetherStats.rxPackets,
+                        tetherStats.rxBytes + tetherStats.rxPackets * MAX_XLAT64_OVERHEAD_BYTES,
+                        tetherStats.rxErrors,
+                        tetherStats.txPackets,
+                        tetherStats.txBytes + tetherStats.txPackets * XLAT46_OVERHEAD_BYTES,
+                        tetherStats.txErrors);
+                newTetherStatsList.put(ifIndex, fixedTetherStats);
+                continue;
+            }
+            newTetherStatsList.put(ifIndex, tetherStats);
+        }
+        return newTetherStatsList;
+    }
+
     private void updateForwardedStats() {
         final SparseArray<TetherStatsValue> tetherStatsList =
                 mBpfCoordinatorShim.tetherOffloadGetStats();
@@ -2130,7 +2172,7 @@ public class BpfCoordinator {
             return;
         }
 
-        updateQuotaAndStatsFromSnapshot(tetherStatsList);
+        updateQuotaAndStatsFromSnapshot(maybeFix464XlatTetherOffloadStats(tetherStatsList));
     }
 
     @VisibleForTesting
