@@ -89,7 +89,6 @@ import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkInfo;
-import android.net.TetherStatesParcel;
 import android.net.TetheringCallbackStartedParcel;
 import android.net.TetheringInterface;
 import android.net.TetheringManager.TetheringRequest;
@@ -262,7 +261,6 @@ public class Tethering {
     // True iff. WiFi tethering should be started when soft AP is ready.
     private boolean mWifiTetherRequested;
     private Network mTetherUpstream;
-    private TetherStatesParcel mTetherStatesParcel;
     private boolean mDataSaverEnabled = false;
     private String mWifiP2pTetherInterface = null;
     private int mOffloadStatus = TETHER_HARDWARE_OFFLOAD_STOPPED;
@@ -1109,9 +1107,8 @@ public class Tethering {
             }
         }
 
-        mTetherStatesParcel = buildTetherStatesParcel(available, localOnly, tethered, errored,
+        mCallbacksTracker.updateTetherStateChanged(available, localOnly, tethered, errored,
                 lastErrors);
-        mCallbacksTracker.reportTetherStateChanged(mTetherStatesParcel);
 
         mContext.sendStickyBroadcastAsUser(buildStateChangeIntent(available, localOnly, tethered,
                 errored), UserHandle.ALL);
@@ -1125,26 +1122,6 @@ public class Tethering {
         }
 
         mNotificationUpdater.onDownstreamChanged(downstreamTypesMask);
-    }
-
-    private TetherStatesParcel buildTetherStatesParcel(
-            final ArrayList<TetheringInterface> available,
-            final ArrayList<TetheringInterface> localOnly,
-            final ArrayList<TetheringInterface> tethered,
-            final ArrayList<TetheringInterface> errored,
-            final ArrayList<Integer> lastErrors) {
-        final TetherStatesParcel parcel = new TetherStatesParcel();
-
-        parcel.availableList = available.toArray(new TetheringInterface[0]);
-        parcel.tetheredList = tethered.toArray(new TetheringInterface[0]);
-        parcel.localOnlyList = localOnly.toArray(new TetheringInterface[0]);
-        parcel.erroredIfaceList = errored.toArray(new TetheringInterface[0]);
-        parcel.lastErrorList = new int[lastErrors.size()];
-        for (int i = 0; i < lastErrors.size(); i++) {
-            parcel.lastErrorList[i] = lastErrors.get(i);
-        }
-
-        return parcel;
     }
 
     private Intent buildStateChangeIntent(final ArrayList<TetheringInterface> available,
@@ -2369,8 +2346,7 @@ public class Tethering {
             parcel.supportedTypes = mSupportedTypeBitmap;
             parcel.upstreamNetwork = mTetherUpstream;
             parcel.config = mConfig.toStableParcelable();
-            parcel.states =
-                    mTetherStatesParcel != null ? mTetherStatesParcel : emptyTetherStatesParcel();
+            parcel.states = mCallbacksTracker.getTetherStatesParcel();
             parcel.tetheredClients = hasListPermission
                     ? mConnectedClientsTracker.getLastTetheredClients()
                     : Collections.emptyList();
@@ -2381,17 +2357,6 @@ public class Tethering {
                 // Not really very much to do here.
             }
         });
-    }
-
-    private TetherStatesParcel emptyTetherStatesParcel() {
-        final TetherStatesParcel parcel = new TetherStatesParcel();
-        parcel.availableList = new TetheringInterface[0];
-        parcel.tetheredList = new TetheringInterface[0];
-        parcel.localOnlyList = new TetheringInterface[0];
-        parcel.erroredIfaceList = new TetheringInterface[0];
-        parcel.lastErrorList = new int[0];
-
-        return parcel;
     }
 
     private boolean hasCallingPermission(@NonNull String permission) {

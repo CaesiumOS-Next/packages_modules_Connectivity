@@ -21,6 +21,7 @@ import android.net.Network;
 import android.net.TetherStatesParcel;
 import android.net.TetheredClient;
 import android.net.TetheringConfigurationParcel;
+import android.net.TetheringInterface;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 
@@ -30,6 +31,22 @@ import java.util.List;
 public class EventCallbacksTracker {
     private final RemoteCallbackList<ITetheringEventCallback> mTetheringEventCallbacks =
             new RemoteCallbackList<>();
+    private final TetherStatesParcel mTetherStatesParcel;
+
+    public EventCallbacksTracker() {
+        mTetherStatesParcel = emptyTetherStatesParcel();
+    }
+
+    private TetherStatesParcel emptyTetherStatesParcel() {
+        final TetherStatesParcel parcel = new TetherStatesParcel();
+        parcel.availableList = new TetheringInterface[0];
+        parcel.tetheredList = new TetheringInterface[0];
+        parcel.localOnlyList = new TetheringInterface[0];
+        parcel.erroredIfaceList = new TetheringInterface[0];
+        parcel.lastErrorList = new int[0];
+
+        return parcel;
+    }
 
     /**
      * Cookie added when registering {@link android.net.TetheringManager.TetheringEventCallback}.
@@ -102,12 +119,27 @@ public class EventCallbacksTracker {
     }
 
     /** Notify tethering state change. */
-    public void reportTetherStateChanged(TetherStatesParcel states) {
+    public void updateTetherStateChanged(
+            final List<TetheringInterface> available,
+            final List<TetheringInterface> localOnly,
+            final List<TetheringInterface> tethered,
+            final List<TetheringInterface> errored,
+            final List<Integer> lastErrors) {
+        mTetherStatesParcel.availableList = available.toArray(new TetheringInterface[0]);
+        mTetherStatesParcel.tetheredList = tethered.toArray(new TetheringInterface[0]);
+        mTetherStatesParcel.localOnlyList = localOnly.toArray(new TetheringInterface[0]);
+        mTetherStatesParcel.erroredIfaceList = errored.toArray(new TetheringInterface[0]);
+        mTetherStatesParcel.lastErrorList = new int[lastErrors.size()];
+        for (int i = 0; i < lastErrors.size(); i++) {
+            mTetherStatesParcel.lastErrorList[i] = lastErrors.get(i);
+        }
+
         final int length = mTetheringEventCallbacks.beginBroadcast();
         try {
             for (int i = 0; i < length; i++) {
                 try {
-                    mTetheringEventCallbacks.getBroadcastItem(i).onTetherStatesChanged(states);
+                    mTetheringEventCallbacks.getBroadcastItem(i).onTetherStatesChanged(
+                            mTetherStatesParcel);
                 } catch (RemoteException e) {
                     // Not really very much to do here.
                 }
@@ -115,6 +147,11 @@ public class EventCallbacksTracker {
         } finally {
             mTetheringEventCallbacks.finishBroadcast();
         }
+    }
+
+    /** Get mTetherStatesParcel object. */
+    public TetherStatesParcel getTetherStatesParcel() {
+        return mTetherStatesParcel;
     }
 
     /** Notify connected clients change. */

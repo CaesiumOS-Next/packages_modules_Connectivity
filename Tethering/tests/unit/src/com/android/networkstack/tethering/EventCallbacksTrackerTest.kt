@@ -20,16 +20,20 @@ import android.net.Network
 import android.net.TetherStatesParcel
 import android.net.TetheredClient
 import android.net.TetheringConfigurationParcel
+import android.net.TetheringInterface
+import android.net.TetheringManager.TETHER_ERROR_INTERNAL_ERROR
 import android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_STARTED
 import android.os.IBinder
 
 import androidx.test.filters.SmallTest
 import androidx.test.ext.junit.runners.AndroidJUnit4
 
+import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentCaptor
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.inOrder
 import org.mockito.Mockito.mock
@@ -49,10 +53,15 @@ public class EventCallbacksTrackerTest {
     val binder2 = mock(IBinder::class.java)
     val callbacksTracker = EventCallbacksTracker()
     val network = Network(1)
-    val states = TetherStatesParcel()
     val clients = ArrayList<TetheredClient>()
     val config = TetheringConfigurationParcel()
     val supportedBitMap = 8L
+    val available = arrayOf(mock(TetheringInterface::class.java),
+            mock(TetheringInterface::class.java))
+    val localOnly = arrayOf<TetheringInterface>()
+    val tethered = arrayOf(mock(TetheringInterface::class.java))
+    val errored = arrayOf(mock(TetheringInterface::class.java))
+    val lastError = intArrayOf(TETHER_ERROR_INTERNAL_ERROR)
 
     @Before
     fun setUp() {
@@ -64,6 +73,26 @@ public class EventCallbacksTrackerTest {
         if (callback == callback1) return inOrder1.verify(callback1, times(num))
 
         return inOrder2.verify(callback2, times(num))
+    }
+
+    fun toIntList(array: IntArray): List<Int> {
+        return array.toList()
+    }
+
+    fun <T> toList(array: Array<T>): List<T> {
+        return array.toList()
+    }
+
+    fun verifyStatesChanged(callback: ITetheringEventCallback) {
+        val captor = ArgumentCaptor.forClass(TetherStatesParcel::class.java)
+        callback.onTetherStatesChanged(captor.capture())
+
+        val parcel = captor.getValue()
+        assertArrayEquals(available, parcel.availableList)
+        assertArrayEquals(localOnly, parcel.localOnlyList)
+        assertArrayEquals(tethered, parcel.tetheredList)
+        assertArrayEquals(errored, parcel.erroredIfaceList)
+        assertArrayEquals(lastError, parcel.lastErrorList)
     }
 
     fun verifyCallbacks(verifyCallback1: Boolean = false, verifyCallback2: Boolean = false) {
@@ -82,9 +111,10 @@ public class EventCallbacksTrackerTest {
         if (verifyCallback2) getVerifier(callback2).onConfigurationChanged(config)
         verifyNoMoreInteractions(callback1, callback2)
 
-        callbacksTracker.reportTetherStateChanged(states)
-        if (verifyCallback1) getVerifier(callback1).onTetherStatesChanged(states)
-        if (verifyCallback2) getVerifier(callback2).onTetherStatesChanged(states)
+        callbacksTracker.updateTetherStateChanged(toList(available), toList(localOnly),
+                toList(tethered), toList(errored), toIntList(lastError))
+        if (verifyCallback1) verifyStatesChanged(getVerifier(callback1))
+        if (verifyCallback2) verifyStatesChanged(getVerifier(callback2))
         verifyNoMoreInteractions(callback1, callback2)
 
         callbacksTracker.reportTetherClientsChanged(clients)
