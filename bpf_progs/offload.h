@@ -160,7 +160,17 @@ typedef struct {
     __be16 srcPort;           // source &
     __be16 dstPort;           // destination tcp/udp/... ports
     uint64_t last_used;       // Kernel updates on each use with bpf_ktime_get_boot_ns()
+    uint32_t account_if;      // Account data limit against this interface.
+                              // Four cases:                               account_if
+                              //   v4 downstream:     cell    -> usb  ==>  Tether4Key.iif
+                              //   v6only downstream: v4-cell -> usb  ==>  ifindex('cell')
+                              //   v4     upstream:   usb -> cell     ==>  Tether4Value.oif
+                              //   v6only upstream:   usb -> v4-cell  ==>  ifindex('cell')
+                              // ie. this is *always* the ifindex of the 'cell' upstream interface.
+                              // (Note: 'cell' here means 'upstream interface' could be cell or wifi
+                              //  and 'usb' means 'downstream interface' could be wifi|rndis|ncm)
+    uint32_t pad;             // required because of u64 last_used field
 } Tether4Value;
-STRUCT_SIZE(Tether4Value, 4 + 14 + 2 + 16 + 16 + 2 + 2 + 8);  // 64
+STRUCT_SIZE(Tether4Value, 4 + 14 + 2 + 16 + 16 + 2 + 2 + 8 + 4 + 4);  // 72
 
 #undef STRUCT_SIZE
