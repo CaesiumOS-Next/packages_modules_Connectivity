@@ -52,6 +52,8 @@ public final class VpnTransportInfo implements TransportInfo, Parcelable {
 
     private final boolean mBypassable;
 
+    private final boolean mLongLivedTcpConnectionsExpensive;
+
     // TODO: Refer to Build.VERSION_CODES when it's available in every branch.
     private static final int UPSIDE_DOWN_CAKE = 34;
 
@@ -70,11 +72,12 @@ public final class VpnTransportInfo implements TransportInfo, Parcelable {
     @SystemApi(client = MODULE_LIBRARIES)
     public VpnTransportInfo makeCopy(@RedactionType long redactions) {
         return new VpnTransportInfo(mType,
-            ((redactions & REDACT_FOR_NETWORK_SETTINGS) != 0) ? null : mSessionId, mBypassable);
+            ((redactions & REDACT_FOR_NETWORK_SETTINGS) != 0) ? null : mSessionId,
+            mBypassable, mLongLivedTcpConnectionsExpensive);
     }
 
     /**
-     * @deprecated please use {@link VpnTransportInfo(int,String,boolean)} instead.
+     * @deprecated please use {@link VpnTransportInfo(int,String,boolean,boolean)}.
      * @hide
      */
     @Deprecated
@@ -87,13 +90,18 @@ public final class VpnTransportInfo implements TransportInfo, Parcelable {
         // available anyway, so this should be harmless. False is a better choice than true here
         // regardless because it is the default value for both VpnManager and VpnService if the app
         // does not do anything about it.
-        this(type, sessionId, false /* bypassable */);
+        this(type, sessionId, false /* bypassable */, false /* longLivedTcpConnectionsExpensive */);
     }
 
-    public VpnTransportInfo(int type, @Nullable String sessionId, boolean bypassable) {
+    /**
+     * Construct a new VpnTransportInfo object.
+     */
+    public VpnTransportInfo(int type, @Nullable String sessionId, boolean bypassable,
+            boolean longLivedTcpConnectionsExpensive) {
         this.mType = type;
         this.mSessionId = sessionId;
         this.mBypassable = bypassable;
+        this.mLongLivedTcpConnectionsExpensive = longLivedTcpConnectionsExpensive;
     }
 
     /**
@@ -109,6 +117,13 @@ public final class VpnTransportInfo implements TransportInfo, Parcelable {
         }
 
         return mBypassable;
+    }
+
+    /**
+     * Returns whether long-lived TCP connections are expensive in the VPN network.
+     */
+    public boolean areLongLivedTcpConnectionsExpensive() {
+        return mLongLivedTcpConnectionsExpensive;
     }
 
     /**
@@ -134,18 +149,21 @@ public final class VpnTransportInfo implements TransportInfo, Parcelable {
 
         VpnTransportInfo that = (VpnTransportInfo) o;
         return (this.mType == that.mType) && TextUtils.equals(this.mSessionId, that.mSessionId)
-                && (this.mBypassable == that.mBypassable);
+                && (this.mBypassable == that.mBypassable)
+                && (this.mLongLivedTcpConnectionsExpensive
+                == that.mLongLivedTcpConnectionsExpensive);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mType, mSessionId, mBypassable);
+        return Objects.hash(mType, mSessionId, mBypassable, mLongLivedTcpConnectionsExpensive);
     }
 
     @Override
     public String toString() {
-        return String.format("VpnTransportInfo{type=%d, sessionId=%s, bypassable=%b}",
-                mType, mSessionId, mBypassable);
+        return String.format("VpnTransportInfo{type=%d, sessionId=%s, bypassable=%b "
+                        + "longLivedTcpConnectionsExpensive=%b}",
+                mType, mSessionId, mBypassable, mLongLivedTcpConnectionsExpensive);
     }
 
     @Override
@@ -158,12 +176,14 @@ public final class VpnTransportInfo implements TransportInfo, Parcelable {
         dest.writeInt(mType);
         dest.writeString(mSessionId);
         dest.writeBoolean(mBypassable);
+        dest.writeBoolean(mLongLivedTcpConnectionsExpensive);
     }
 
     public static final @NonNull Creator<VpnTransportInfo> CREATOR =
             new Creator<VpnTransportInfo>() {
         public VpnTransportInfo createFromParcel(Parcel in) {
-            return new VpnTransportInfo(in.readInt(), in.readString(), in.readBoolean());
+            return new VpnTransportInfo(
+                    in.readInt(), in.readString(), in.readBoolean(), in.readBoolean());
         }
         public VpnTransportInfo[] newArray(int size) {
             return new VpnTransportInfo[size];
