@@ -41,6 +41,7 @@ public class EventCallbacksTracker {
     // mSupportedTypeBitmap should always be updated inside tethering internal thread but it may be
     // read from binder thread which called TetheringService directly.
     private volatile long mSupportedTypeBitmap;
+    private Network mTetherUpstream;
 
     public EventCallbacksTracker() {
         mTetherStatesParcel = emptyTetherStatesParcel();
@@ -102,8 +103,15 @@ public class EventCallbacksTracker {
         }
     }
 
+    /** Get tethering upstream network. */
+    public Network getTetherUpstream() {
+        return mTetherUpstream;
+    }
+
     /** Notify tethering upstream change. */
-    public void reportUpstreamChanged(final Network network) {
+    public void updateUpstreamChanged(final Network network) {
+        mTetherUpstream = network;
+
         final int length = mTetheringEventCallbacks.beginBroadcast();
         try {
             for (int i = 0; i < length; i++) {

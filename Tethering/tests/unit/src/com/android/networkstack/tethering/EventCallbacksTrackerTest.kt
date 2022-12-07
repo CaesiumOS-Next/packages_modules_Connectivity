@@ -102,9 +102,10 @@ public class EventCallbacksTrackerTest {
         assertEquals(supportedBitMap, callbacksTracker.getSupportedTypeBitmap())
         verifyNoMoreInteractions(callback1, callback2)
 
-        callbacksTracker.reportUpstreamChanged(network)
+        callbacksTracker.updateUpstreamChanged(network)
         if (verifyCallback1) getVerifier(callback1).onUpstreamChanged(network)
         if (verifyCallback2) getVerifier(callback2).onUpstreamChanged(network)
+        assertEquals(network, callbacksTracker.getTetherUpstream())
         verifyNoMoreInteractions(callback1, callback2)
 
         callbacksTracker.reportConfigurationChanged(config)

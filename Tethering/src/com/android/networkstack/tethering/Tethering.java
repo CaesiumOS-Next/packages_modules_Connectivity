@@ -260,7 +260,6 @@ public class Tethering {
     private boolean mNcmEnabled;         // track the NCM function enabled state
     // True iff. WiFi tethering should be started when soft AP is ready.
     private boolean mWifiTetherRequested;
-    private Network mTetherUpstream;
     private boolean mDataSaverEnabled = false;
     private String mWifiP2pTetherInterface = null;
 
@@ -1810,10 +1809,9 @@ public class Tethering {
 
             setUpstreamNetwork(ns);
             final Network newUpstream = (ns != null) ? ns.network : null;
-            if (mTetherUpstream != newUpstream) {
-                mTetherUpstream = newUpstream;
-                mUpstreamNetworkMonitor.setCurrentUpstream(mTetherUpstream);
-                mCallbacksTracker.reportUpstreamChanged(mTetherUpstream);
+            if (mCallbacksTracker.getTetherUpstream() != newUpstream) {
+                mUpstreamNetworkMonitor.setCurrentUpstream(newUpstream);
+                mCallbacksTracker.updateUpstreamChanged(newUpstream);
                 // Need to notify capabilities change after upstream network changed because new
                 // network's capabilities should be checked every time.
                 mNotificationUpdater.onUpstreamCapabilitiesChanged(
@@ -1983,7 +1981,7 @@ public class Tethering {
 
             switch (arg1) {
                 case UpstreamNetworkMonitor.EVENT_ON_CAPABILITIES:
-                    if (ns.network.equals(mTetherUpstream)) {
+                    if (ns.network.equals(mCallbacksTracker.getTetherUpstream())) {
                         mNotificationUpdater.onUpstreamCapabilitiesChanged(ns.networkCapabilities);
                     }
                     handleNewUpstreamNetworkState(ns);
@@ -2037,9 +2035,8 @@ public class Tethering {
                 mUpstreamNetworkMonitor.stop();
                 notifyDownstreamsOfNewUpstreamIface(null);
                 handleNewUpstreamNetworkState(null);
-                if (mTetherUpstream != null) {
-                    mTetherUpstream = null;
-                    mCallbacksTracker.reportUpstreamChanged(null);
+                if (mCallbacksTracker.getTetherUpstream() != null) {
+                    mCallbacksTracker.updateUpstreamChanged(null);
                     mNotificationUpdater.onUpstreamCapabilitiesChanged(null);
                 }
                 mBpfCoordinator.stopPolling();
@@ -2337,7 +2334,7 @@ public class Tethering {
             mCallbacksTracker.add(callback, hasListPermission);
             final TetheringCallbackStartedParcel parcel = new TetheringCallbackStartedParcel();
             parcel.supportedTypes = mCallbacksTracker.getSupportedTypeBitmap();
-            parcel.upstreamNetwork = mTetherUpstream;
+            parcel.upstreamNetwork = mCallbacksTracker.getTetherUpstream();
             parcel.config = mConfig.toStableParcelable();
             parcel.states = mCallbacksTracker.getTetherStatesParcel();
             parcel.tetheredClients = hasListPermission
