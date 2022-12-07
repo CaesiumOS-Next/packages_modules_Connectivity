@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10889ab6_2056ecb6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-07T09:35:19Z",
+      "side": 1,
+      "message": "LGTM assuming comment is addressed",
+      "revId": "88163a19ad48cf3d802ea87dfa5ac7a46236b6d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b19ea23f_264f55e6",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1490,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-07T09:35:19Z",
+      "side": 1,
+      "message": "go/avoidwe",
+      "range": {
+        "startLine": 1490,
+        "startChar": 76,
+        "endLine": 1490,
+        "endChar": 78
+      },
+      "revId": "88163a19ad48cf3d802ea87dfa5ac7a46236b6d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
