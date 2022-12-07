@@ -160,7 +160,9 @@ typedef struct {
     __be16 srcPort;           // source &
     __be16 dstPort;           // destination tcp/udp/... ports
     uint64_t last_used;       // Kernel updates on each use with bpf_ktime_get_boot_ns()
+    uint32_t account_if;      // Account data limit against this interface
+    uint32_t pad;             // required because of u64 field
 } Tether4Value;
-STRUCT_SIZE(Tether4Value, 4 + 14 + 2 + 16 + 16 + 2 + 2 + 8);  // 64
+STRUCT_SIZE(Tether4Value, 4 + 14 + 2 + 16 + 16 + 2 + 2 + 8 + 4 + 4);  // 72
 
 #undef STRUCT_SIZE
