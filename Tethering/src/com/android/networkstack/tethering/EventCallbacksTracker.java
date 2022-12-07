@@ -36,6 +36,11 @@ public class EventCallbacksTracker {
     private final TetherStatesParcel mTetherStatesParcel;
 
     private volatile int mOffloadStatus = TETHER_HARDWARE_OFFLOAD_STOPPED;
+    // AIDL doesn't support Set<Integer>. Maintain a int bitmap here. When the bitmap is passed to
+    // TetheringManager, TetheringManager would convert it to a set of Integer types.
+    // mSupportedTypeBitmap should always be updated inside tethering internal thread but it may be
+    // read from binder thread which called TetheringService directly.
+    private volatile long mSupportedTypeBitmap;
 
     public EventCallbacksTracker() {
         mTetherStatesParcel = emptyTetherStatesParcel();
@@ -73,8 +78,15 @@ public class EventCallbacksTracker {
         mTetheringEventCallbacks.unregister(callback);
     }
 
+    /** Get supported downstream type bitmap. */
+    public long getSupportedTypeBitmap() {
+        return mSupportedTypeBitmap;
+    }
+
     /** Notify tethering supported change. */
-    public void reportTetheringSupportedChange(final long supportedBitmap) {
+    public void updateTetheringSupportedChange(final long supportedBitmap) {
+        mSupportedTypeBitmap = supportedBitmap;
+
         final int length = mTetheringEventCallbacks.beginBroadcast();
         try {
             for (int i = 0; i < length; i++) {

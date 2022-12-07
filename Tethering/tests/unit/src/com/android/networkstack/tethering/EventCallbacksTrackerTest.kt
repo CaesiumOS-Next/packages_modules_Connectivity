@@ -96,9 +96,10 @@ public class EventCallbacksTrackerTest {
     }
 
     fun verifyCallbacks(verifyCallback1: Boolean = false, verifyCallback2: Boolean = false) {
-        callbacksTracker.reportTetheringSupportedChange(supportedBitMap)
+        callbacksTracker.updateTetheringSupportedChange(supportedBitMap)
         if (verifyCallback1) getVerifier(callback1).onSupportedTetheringTypes(supportedBitMap)
         if (verifyCallback2) getVerifier(callback2).onSupportedTetheringTypes(supportedBitMap)
+        assertEquals(supportedBitMap, callbacksTracker.getSupportedTypeBitmap())
         verifyNoMoreInteractions(callback1, callback2)
 
         callbacksTracker.reportUpstreamChanged(network)

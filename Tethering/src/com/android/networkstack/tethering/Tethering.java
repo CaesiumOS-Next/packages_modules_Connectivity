@@ -274,11 +274,6 @@ public class Tethering {
     private BluetoothPan mBluetoothPan;
     private PanServiceListener mBluetoothPanListener;
     private ArrayList<Pair<Boolean, IIntResultListener>> mPendingPanRequests;
-    // AIDL doesn't support Set<Integer>. Maintain a int bitmap here. When the bitmap is passed to
-    // TetheringManager, TetheringManager would convert it to a set of Integer types.
-    // mSupportedTypeBitmap should always be updated inside tethering internal thread but it may be
-    // read from binder thread which called TetheringService directly.
-    private volatile long mSupportedTypeBitmap;
 
     public Tethering(TetheringDependencies deps) {
         mLog.mark("Tethering.constructed");
@@ -2341,7 +2336,7 @@ public class Tethering {
         mHandler.post(() -> {
             mCallbacksTracker.add(callback, hasListPermission);
             final TetheringCallbackStartedParcel parcel = new TetheringCallbackStartedParcel();
-            parcel.supportedTypes = mSupportedTypeBitmap;
+            parcel.supportedTypes = mCallbacksTracker.getSupportedTypeBitmap();
             parcel.upstreamNetwork = mTetherUpstream;
             parcel.config = mConfig.toStableParcelable();
             parcel.states = mCallbacksTracker.getTetherStatesParcel();
@@ -2367,16 +2362,13 @@ public class Tethering {
     }
 
     private void updateSupportedDownstreams(final TetheringConfiguration config) {
-        final long preSupportedBitmap = mSupportedTypeBitmap;
-
-        if (!isTetheringAllowed() || mEntitlementMgr.isProvisioningNeededButUnavailable()) {
-            mSupportedTypeBitmap = 0;
-        } else {
-            mSupportedTypeBitmap = makeSupportedDownstreams(config);
+        long newBitmap = 0;
+        if (isTetheringAllowed() && !mEntitlementMgr.isProvisioningNeededButUnavailable()) {
+            newBitmap = makeSupportedDownstreams(config);
         }
 
-        if (preSupportedBitmap != mSupportedTypeBitmap) {
-            mCallbacksTracker.reportTetheringSupportedChange(mSupportedTypeBitmap);
+        if (newBitmap != mCallbacksTracker.getSupportedTypeBitmap()) {
+            mCallbacksTracker.updateTetheringSupportedChange(newBitmap);
         }
     }
 
@@ -2415,7 +2407,7 @@ public class Tethering {
     }
 
     boolean isTetheringSupported() {
-        return mSupportedTypeBitmap > 0;
+        return mCallbacksTracker.getSupportedTypeBitmap() > 0;
     }
 
     private void dumpBpf(IndentingPrintWriter pw) {
