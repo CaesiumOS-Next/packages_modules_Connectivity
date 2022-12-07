@@ -52,6 +52,17 @@ public final class VpnTransportInfo implements TransportInfo, Parcelable {
 
     private final boolean mBypassable;
 
+    /** The keepalive timeout for the underlying network of the VPN in second. */
+    private final int mKeepaliveTimeout;
+
+    /**
+     * The timeout threshold that expects long-lived TCP connection should be excluded from the
+     * VPN network.
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int EXCLUDE_LONGLIVED_TCP_THRESHOLD_SEC = 60;
+
     // TODO: Refer to Build.VERSION_CODES when it's available in every branch.
     private static final int UPSIDE_DOWN_CAKE = 34;
 
@@ -70,11 +81,13 @@ public final class VpnTransportInfo implements TransportInfo, Parcelable {
     @SystemApi(client = MODULE_LIBRARIES)
     public VpnTransportInfo makeCopy(@RedactionType long redactions) {
         return new VpnTransportInfo(mType,
-            ((redactions & REDACT_FOR_NETWORK_SETTINGS) != 0) ? null : mSessionId, mBypassable);
+            ((redactions & REDACT_FOR_NETWORK_SETTINGS) != 0) ? null : mSessionId,
+            mBypassable, mKeepaliveTimeout);
     }
 
     /**
-     * @deprecated please use {@link VpnTransportInfo(int,String,boolean)} instead.
+     * @deprecated please use {@link VpnTransportInfo(int,String,boolean)} or
+     * {@link VpnTransportInfo(int,String,boolean,int)} instead.
      * @hide
      */
     @Deprecated
@@ -87,13 +100,21 @@ public final class VpnTransportInfo implements TransportInfo, Parcelable {
         // available anyway, so this should be harmless. False is a better choice than true here
         // regardless because it is the default value for both VpnManager and VpnService if the app
         // does not do anything about it.
-        this(type, sessionId, false /* bypassable */);
+        this(type, sessionId, false /* bypassable */, EXCLUDE_LONGLIVED_TCP_THRESHOLD_SEC);
     }
 
     public VpnTransportInfo(int type, @Nullable String sessionId, boolean bypassable) {
+        this(type, sessionId, bypassable, EXCLUDE_LONGLIVED_TCP_THRESHOLD_SEC);
+    }
+    /**
+     * Intent to be used for setting keepalive value.
+     */
+    public VpnTransportInfo(int type, @Nullable String sessionId, boolean bypassable,
+            int keepalive) {
         this.mType = type;
         this.mSessionId = sessionId;
         this.mBypassable = bypassable;
+        this.mKeepaliveTimeout = keepalive;
     }
 
     /**
@@ -109,6 +130,21 @@ public final class VpnTransportInfo implements TransportInfo, Parcelable {
         }
 
         return mBypassable;
+    }
+
+    /**
+     * Returns whether long-lived TCP connection should be excluded from this VPN.
+     *
+     * This method is not supported in SDK below U, and will throw
+     * @code UnsupportedOperationException} if called.
+     */
+    @RequiresApi(UPSIDE_DOWN_CAKE)
+    public boolean shouldLongLivedTcpExcluded() {
+        if (!SdkLevel.isAtLeastU()) {
+            throw new UnsupportedOperationException("Not supported before U");
+        }
+
+        return mKeepaliveTimeout < EXCLUDE_LONGLIVED_TCP_THRESHOLD_SEC;
     }
 
     /**
@@ -134,18 +170,19 @@ public final class VpnTransportInfo implements TransportInfo, Parcelable {
 
         VpnTransportInfo that = (VpnTransportInfo) o;
         return (this.mType == that.mType) && TextUtils.equals(this.mSessionId, that.mSessionId)
-                && (this.mBypassable == that.mBypassable);
+                && (this.mBypassable == that.mBypassable)
+                && (this.mKeepaliveTimeout == that.mKeepaliveTimeout);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mType, mSessionId, mBypassable);
+        return Objects.hash(mType, mSessionId, mBypassable, mKeepaliveTimeout);
     }
 
     @Override
     public String toString() {
-        return String.format("VpnTransportInfo{type=%d, sessionId=%s, bypassable=%b}",
-                mType, mSessionId, mBypassable);
+        return String.format("VpnTransportInfo{type=%d, sessionId=%s, bypassable=%b keepalive=%d}",
+                mType, mSessionId, mBypassable, mKeepaliveTimeout);
     }
 
     @Override
@@ -158,12 +195,14 @@ public final class VpnTransportInfo implements TransportInfo, Parcelable {
         dest.writeInt(mType);
         dest.writeString(mSessionId);
         dest.writeBoolean(mBypassable);
+        dest.writeInt(mKeepaliveTimeout);
     }
 
     public static final @NonNull Creator<VpnTransportInfo> CREATOR =
             new Creator<VpnTransportInfo>() {
         public VpnTransportInfo createFromParcel(Parcel in) {
-            return new VpnTransportInfo(in.readInt(), in.readString(), in.readBoolean());
+            return new VpnTransportInfo(
+                    in.readInt(), in.readString(), in.readBoolean(), in.readInt());
         }
         public VpnTransportInfo[] newArray(int size) {
             return new VpnTransportInfo[size];

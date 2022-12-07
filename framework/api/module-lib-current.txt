@@ -231,6 +231,7 @@ package android.net {
     ctor @Deprecated public VpnTransportInfo(int, @Nullable String);
     method @Nullable public String getSessionId();
     method @NonNull public android.net.VpnTransportInfo makeCopy(long);
+    field public static final int EXCLUDE_LONGLIVED_TCP_THRESHOLD_SEC = 60; // 0x3c
   }
 
 }

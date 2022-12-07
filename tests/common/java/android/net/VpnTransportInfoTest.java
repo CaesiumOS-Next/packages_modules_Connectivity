@@ -18,6 +18,7 @@ package android.net;
 
 import static android.net.NetworkCapabilities.REDACT_FOR_NETWORK_SETTINGS;
 import static android.net.NetworkCapabilities.REDACT_NONE;
+import static android.net.VpnTransportInfo.EXCLUDE_LONGLIVED_TCP_THRESHOLD_SEC;
 
 import static com.android.testutils.MiscAsserts.assertThrows;
 import static com.android.testutils.ParcelUtils.assertParcelingIsLossless;
@@ -55,6 +56,10 @@ public class VpnTransportInfoTest {
         final VpnTransportInfo v2 =
                 new VpnTransportInfo(VpnManager.TYPE_VPN_PLATFORM, "12345", true);
         assertParcelingIsLossless(v2);
+
+        final VpnTransportInfo v3 =
+                new VpnTransportInfo(VpnManager.TYPE_VPN_PLATFORM, "12345", true, 10);
+        assertParcelingIsLossless(v3);
     }
 
     @Test
@@ -67,7 +72,8 @@ public class VpnTransportInfoTest {
         final VpnTransportInfo v14 = new VpnTransportInfo(VpnManager.TYPE_VPN_LEGACY, session1);
         final VpnTransportInfo v15 = new VpnTransportInfo(VpnManager.TYPE_VPN_OEM, session1);
         final VpnTransportInfo v16 = new VpnTransportInfo(VpnManager.TYPE_VPN_OEM, session1, true);
-        final VpnTransportInfo v17 = new VpnTransportInfo(VpnManager.TYPE_VPN_OEM, session1, true);
+        final VpnTransportInfo v17 = new VpnTransportInfo(
+                VpnManager.TYPE_VPN_OEM, session1, true, EXCLUDE_LONGLIVED_TCP_THRESHOLD_SEC);
         final VpnTransportInfo v21 = new VpnTransportInfo(VpnManager.TYPE_VPN_LEGACY, session2);
 
         final VpnTransportInfo v31 = v11.makeCopy(REDACT_FOR_NETWORK_SETTINGS);
@@ -106,5 +112,24 @@ public class VpnTransportInfoTest {
         final VpnTransportInfo v2 =
                 new VpnTransportInfo(VpnManager.TYPE_VPN_PLATFORM, "12345", true);
         assertTrue(v2.getBypassable());
+    }
+
+    @DevSdkIgnoreRule.IgnoreAfter(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    public void testShouldLongLivedTcpExcluded_beforeU() {
+        final VpnTransportInfo v = new VpnTransportInfo(VpnManager.TYPE_VPN_PLATFORM, "12345");
+        assertThrows(UnsupportedOperationException.class, () -> v.shouldLongLivedTcpExcluded());
+    }
+
+    @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    @Test
+    public void testShouldLongLivedTcpExcluded_afterU() {
+        final VpnTransportInfo v = new VpnTransportInfo(VpnManager.TYPE_VPN_PLATFORM, "12345");
+        assertFalse(v.shouldLongLivedTcpExcluded());
+
+        final VpnTransportInfo v2 = new VpnTransportInfo(
+                VpnManager.TYPE_VPN_PLATFORM, "12345", true,
+                EXCLUDE_LONGLIVED_TCP_THRESHOLD_SEC - 1);
+        assertTrue(v2.shouldLongLivedTcpExcluded());
     }
 }
