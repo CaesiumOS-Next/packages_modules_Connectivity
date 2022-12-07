@@ -16,6 +16,23 @@
       "message": "Identical to aosp/2308847 merged into master.",
       "revId": "8dbe30c84e74f74e622edd1ef04937c6adf0ecde",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3a96ef2_8f95a0ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-07T00:16:26Z",
+      "side": 1,
+      "message": "Temporarily removing +2 so we can test this CL before it autosubmits.",
+      "revId": "8dbe30c84e74f74e622edd1ef04937c6adf0ecde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
