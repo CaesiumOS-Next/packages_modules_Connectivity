@@ -47,13 +47,38 @@ public final class NattSocketKeepalive extends SocketKeepalive {
         mResourceId = resourceId;
     }
 
+    /**
+     * Request that keepalive be started with the given {@code intervalSec}.
+     * See {@link SocketKeepalive}.
+     *
+     * Set {@param automaticOnOffKeepalives} to {@code true} to allow the system to disable sending
+     * keepalive packets when there are no TCP connections over the VPN to save battery, and
+     * and restart sending them as soon as any TCP connection is opened over the VPN network.
+     * This works only when {@link #mNetwork} is the underlying network of the VPN network.
+     * That is, this will not affect other non-VPN NATT keepalive sockets.
+     *
+     * The socket fd will not be closed when keepalive is temporarily disabled because of
+     * {@param automaticOnOffKeepalives} to maintain the original fd alive until the keepalive is
+     * stopped by the owner, or no VPN network available in the device since the keepalive should
+     * also be renewed.
+     *
+     * @param intervalSec The target interval in seconds between keepalive packet transmissions.
+     *                    The interval should be between 10 seconds and 3600 seconds. Otherwise,
+     *                    it will result in a callback with {@link #ERROR_INVALID_INTERVAL}.
+     * @param automaticOnOffKeepalives A boolean indicating whether the keepalive will be
+     *                                 automatically disabled when there are no TCP connections
+     *                                 open over the VPN to save battery, and re-enabled if any TCP
+     *                                 connection opened over the VPN network.
+     *                                 {@code false} will always send the keepalives.
+     * @hide
+     */
     @Override
-    protected void startImpl(int intervalSec) {
+    protected void startImpl(int intervalSec, boolean automaticOnOffKeepalives) {
         mExecutor.execute(() -> {
             try {
                 mService.startNattKeepaliveWithFd(mNetwork, mPfd, mResourceId,
-                        intervalSec, mCallback,
-                        mSource.getHostAddress(), mDestination.getHostAddress());
+                        intervalSec, mCallback, mSource.getHostAddress(),
+                        mDestination.getHostAddress(), automaticOnOffKeepalives);
             } catch (RemoteException e) {
                 Log.e(TAG, "Error starting socket keepalive: ", e);
                 throw e.rethrowFromSystemServer();

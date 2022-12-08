@@ -483,6 +483,18 @@ public abstract class NetworkAgent {
      */
     public static final int EVENT_UNREGISTER_AFTER_REPLACEMENT = BASE + 29;
 
+    /**
+     * Sent by KeepaliveTracker periodically (when relevant) to trigger polling TCP socket status.
+     * NATT keepalives have an automatic mode where the system only sends keepalive packets when
+     * TCP sockets are open over a VPN. The system will check periodically for presence of
+     * such open sockets, and this message is what triggers the re-evaluation.
+     *
+     * arg1 = hardware slot number of the keepalive
+     * obj = {@link Network} that the keepalive is started on.
+     * @hide
+     */
+    public static final int CMD_POLL_TCP_SOCKETS = BASE + 30;
+
     private static NetworkInfo getLegacyNetworkInfo(final NetworkAgentConfig config) {
         final NetworkInfo ni = new NetworkInfo(config.legacyType, config.legacySubType,
                 config.legacyTypeName, config.legacySubTypeName);
