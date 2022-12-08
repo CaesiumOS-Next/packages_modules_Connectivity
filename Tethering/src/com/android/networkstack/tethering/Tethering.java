@@ -1848,6 +1848,7 @@ public class Tethering {
                 mUpstreamNetworkMonitor.setCurrentUpstream(mTetherUpstream);
                 reportUpstreamChanged(ns);
             }
+            mTetheringMetrics.maybeUpdateUpstreamType(ns);
         }
 
         protected void setUpstreamNetwork(UpstreamNetworkState ns) {
