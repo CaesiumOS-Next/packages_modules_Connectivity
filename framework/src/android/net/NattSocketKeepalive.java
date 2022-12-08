@@ -48,12 +48,12 @@ public final class NattSocketKeepalive extends SocketKeepalive {
     }
 
     @Override
-    protected void startImpl(int intervalSec) {
+    protected void startImpl(int intervalSec, boolean dynamicKeepaliveMode) {
         mExecutor.execute(() -> {
             try {
                 mService.startNattKeepaliveWithFd(mNetwork, mPfd, mResourceId,
-                        intervalSec, mCallback,
-                        mSource.getHostAddress(), mDestination.getHostAddress());
+                        intervalSec, mCallback, mSource.getHostAddress(),
+                        mDestination.getHostAddress(), dynamicKeepaliveMode);
             } catch (RemoteException e) {
                 Log.e(TAG, "Error starting socket keepalive: ", e);
                 throw e.rethrowFromSystemServer();

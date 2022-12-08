@@ -5465,6 +5465,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     mKeepaliveTracker.handleStartKeepalive(msg);
                     break;
                 }
+                case NetworkAgent.CMD_POLL_TCP_SOCKETS: {
+                    final Network network = (Network) msg.obj;
+                    final int slot = msg.arg1;
+                    // TODO: determine what to do when more than one VPN
+                    final NetworkAgentInfo vpnNai = getVpnForUid(getCallingUid());
+                    final int vpnNetId = (vpnNai != null) ? vpnNai.network().netId : -1;
+                    mKeepaliveTracker.handleMonitorTcpConnections(network, slot, vpnNetId);
+                    break;
+                }
                 // Sent by KeepaliveTracker to process an app request on the state machine thread.
                 case NetworkAgent.CMD_STOP_SOCKET_KEEPALIVE: {
                     NetworkAgentInfo nai = getNetworkAgentInfoForNetwork((Network) msg.obj);
@@ -9630,20 +9639,21 @@ public class ConnectivityService extends IConnectivityManager.Stub
         enforceKeepalivePermission();
         mKeepaliveTracker.startNattKeepalive(
                 getNetworkAgentInfoForNetwork(network), null /* fd */,
-                intervalSeconds, cb,
-                srcAddr, srcPort, dstAddr, NattSocketKeepalive.NATT_PORT);
+                intervalSeconds, cb, srcAddr, srcPort, dstAddr, NattSocketKeepalive.NATT_PORT,
+                // Unable to configure the value with deprecated API.
+                false /* dynamicKeepaliveMode*/);
     }
 
     @Override
     public void startNattKeepaliveWithFd(Network network, ParcelFileDescriptor pfd, int resourceId,
             int intervalSeconds, ISocketKeepaliveCallback cb, String srcAddr,
-            String dstAddr) {
+            String dstAddr, boolean dynamicKeepaliveMode) {
         try {
             final FileDescriptor fd = pfd.getFileDescriptor();
             mKeepaliveTracker.startNattKeepalive(
                     getNetworkAgentInfoForNetwork(network), fd, resourceId,
                     intervalSeconds, cb,
-                    srcAddr, dstAddr, NattSocketKeepalive.NATT_PORT);
+                    srcAddr, dstAddr, NattSocketKeepalive.NATT_PORT, dynamicKeepaliveMode);
         } finally {
             // FileDescriptors coming from AIDL calls must be manually closed to prevent leaks.
             // startNattKeepalive calls Os.dup(fd) before returning, so we can close immediately.
