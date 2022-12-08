@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ca18321_489d5112",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-08T00:57:27Z",
+      "side": 1,
+      "message": "You could add a to verify the case you want to solve. e.g. interface is updated and check mtu is updated to netd",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 4
+      },
+      "revId": "8688ab8c57f2be3831cef69f2bc3cd4716ea8ca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ed45a97c_be3070e5",
