@@ -60,16 +60,13 @@ public class Tether4Value extends Struct {
     @Field(order = 9, type = Type.U63)
     public final long lastUsed;
 
-    @Field(order = 10, type = Type.S32)
+    @Field(order = 10, type = Type.S32, padding = 4)
     public final int accountIf;
-
-    @Field(order = 11, type = Type.S32)
-    public final int pad;
 
     public Tether4Value(final int oif, @NonNull final MacAddress ethDstMac,
             @NonNull final MacAddress ethSrcMac, final int ethProto, final int pmtu,
             final byte[] src46, final byte[] dst46, final int srcPort,
-            final int dstPort, final long lastUsed) {
+            final int dstPort, final long lastUsed, final int accountIf) {
         Objects.requireNonNull(ethDstMac);
         Objects.requireNonNull(ethSrcMac);
 
@@ -83,8 +80,7 @@ public class Tether4Value extends Struct {
         this.srcPort = srcPort;
         this.dstPort = dstPort;
         this.lastUsed = lastUsed;
-        this.accountIf = 0;
-        this.pad = 0;
+        this.accountIf = accountIf;
     }
 
     @Override
