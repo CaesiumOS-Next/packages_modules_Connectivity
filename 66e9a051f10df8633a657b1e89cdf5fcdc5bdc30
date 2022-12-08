@@ -541,6 +541,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b8a408b_11596510",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-08T15:17:04Z",
+      "side": 1,
+      "message": "This was removed in previous patch.",
+      "parentUuid": "a1244bc6_052705c7",
+      "range": {
+        "startLine": 856,
+        "startChar": 34,
+        "endLine": 856,
+        "endChar": 43
+      },
+      "revId": "66e9a051f10df8633a657b1e89cdf5fcdc5bdc30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84879031_b7764c6c",
@@ -578,6 +602,30 @@
       "side": 1,
       "message": "Removed. I added this probably because I was misunderstood.",
       "parentUuid": "84879031_b7764c6c",
+      "range": {
+        "startLine": 863,
+        "startChar": 16,
+        "endLine": 864,
+        "endChar": 67
+      },
+      "revId": "66e9a051f10df8633a657b1e89cdf5fcdc5bdc30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9a96398_e87ddd69",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-08T15:17:04Z",
+      "side": 1,
+      "message": "Removed. I think I confused the empty array with an array contains a null object.",
+      "parentUuid": "b4ae2190_97da7acf",
       "range": {
         "startLine": 863,
         "startChar": 16,
