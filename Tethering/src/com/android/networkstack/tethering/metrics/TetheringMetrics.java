@@ -16,6 +16,13 @@
 
 package com.android.networkstack.tethering.metrics;
 
+import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
+import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
+import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
+import static android.net.NetworkCapabilities.TRANSPORT_LOWPAN;
+import static android.net.NetworkCapabilities.TRANSPORT_VPN;
+import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
+import static android.net.NetworkCapabilities.TRANSPORT_WIFI_AWARE;
 import static android.net.TetheringManager.TETHERING_BLUETOOTH;
 import static android.net.TetheringManager.TETHERING_ETHERNET;
 import static android.net.TetheringManager.TETHERING_NCM;
@@ -39,6 +46,7 @@ import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_IFACE;
 import static android.net.TetheringManager.TETHER_ERROR_UNSUPPORTED;
 import static android.net.TetheringManager.TETHER_ERROR_UNTETHER_IFACE_ERROR;
 
+import android.net.NetworkCapabilities;
 import android.stats.connectivity.DownstreamType;
 import android.stats.connectivity.ErrorCode;
 import android.stats.connectivity.UpstreamType;
@@ -48,6 +56,11 @@ import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
+
+import com.android.networkstack.tethering.UpstreamNetworkState;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Collection of utilities for tethering metrics.
@@ -66,18 +79,45 @@ public class TetheringMetrics {
     private static final String SYSTEMUI_PKG_NAME = "com.android.systemui";
     private static final String GMS_PKG_NAME = "com.google.android.gms";
     private final SparseArray<NetworkTetheringReported.Builder> mBuilderMap = new SparseArray<>();
+    private final SparseArray<Long> mDownstreamStartTime = new SparseArray<Long>();
+    private final ArrayList<RecordUpstreamEvent> mUpstreamEventList = new ArrayList<>();
+    private UpstreamType mCurrentUpstream = null;
+    private Long mCurrentUpStreamStartTime = 0L;
+
+
+    /** Return current system time in milliseconds. */
+    public long timeNow() {
+        return System.currentTimeMillis();
+    }
+
+    /**
+     * To record each upstream type and its start time and stop time.
+     * @hide
+     */
+    private static class RecordUpstreamEvent {
+        public final long mStartTime;
+        public final long mStopTime;
+        public final UpstreamType mUpstreamType;
+
+        RecordUpstreamEvent(final long startTime, final long stopTime,
+                final UpstreamType upstream) {
+            mStartTime = startTime;
+            mStopTime = stopTime;
+            mUpstreamType = upstream;
+        }
+    }
 
     /** Update Tethering stats about caller's package name and downstream type. */
     public void createBuilder(final int downstreamType, final String callerPkg) {
-        NetworkTetheringReported.Builder statsBuilder =
-                    NetworkTetheringReported.newBuilder();
-        statsBuilder.setDownstreamType(downstreamTypeToEnum(downstreamType))
-                    .setUserType(userTypeToEnum(callerPkg))
-                    .setUpstreamType(UpstreamType.UT_UNKNOWN)
-                    .setErrorCode(ErrorCode.EC_NO_ERROR)
-                    .setUpstreamEvents(UpstreamEvents.newBuilder())
-                    .setDurationMillis(0);
+        NetworkTetheringReported.Builder statsBuilder = NetworkTetheringReported.newBuilder()
+                .setDownstreamType(downstreamTypeToEnum(downstreamType))
+                .setUserType(userTypeToEnum(callerPkg))
+                .setUpstreamType(UpstreamType.UT_UNKNOWN)
+                .setErrorCode(ErrorCode.EC_NO_ERROR)
+                .setUpstreamEvents(UpstreamEvents.newBuilder())
+                .setDurationMillis(0);
         mBuilderMap.put(downstreamType, statsBuilder);
+        mDownstreamStartTime.put(downstreamType, timeNow());
     }
 
     /** Update error code of given downstreamType. */
@@ -90,40 +130,119 @@ public class TetheringMetrics {
         statsBuilder.setErrorCode(errorCodeToEnum(errCode));
     }
 
-    /** Remove Tethering stats.
-     *  If Tethering stats is ready to write then write it before removing.
+    /**
+     *  Update each upstream type and duration in the ArrayList when every time |mCurrentUpstream|
+     *  updates.
+     */
+    public void maybeUpdateUpstreamType(final UpstreamNetworkState nc) {
+        UpstreamType upstream = transportTypeToUpstreamTypeEnum(nc);
+        if (upstream.equals(mCurrentUpstream)) return;
+
+        final long newTime = timeNow();
+        if (mCurrentUpStreamStartTime != 0L) {
+            mUpstreamEventList.add(new RecordUpstreamEvent(mCurrentUpStreamStartTime, newTime,
+                    mCurrentUpstream));
+        }
+        mCurrentUpstream = upstream;
+        mCurrentUpStreamStartTime = newTime;
+    }
+
+
+    private long getStartTime(long first, long second) {
+        return first > second ? first : second;
+    }
+
+    /**
+     *  A wrap that updates upstream events.
+     */
+    private void updateUpstreamEvents(final UpstreamEvents.Builder upstreamEventsBuilder,
+            final long start, final long stop, final UpstreamType upstream) {
+        final UpstreamEvent.Builder upstreamEventBuilder = UpstreamEvent.newBuilder()
+                .setUpstreamType(upstream == null ? UpstreamType.UT_NO_NETWORK : upstream)
+                .setDurationMillis(stop - start);
+        upstreamEventsBuilder.addUpstreamEvent(upstreamEventBuilder);
+    }
+
+    /**
+     * Update the latest upstream event and sort out relevant upstream events into
+     * |statsBuilder|.
+     */
+    private void updateStatsBuilderToWrite(final NetworkTetheringReported.Builder statsBuilder,
+                    final long downstreamStartTime) {
+        UpstreamEvents.Builder upstreamEventsBuilder = UpstreamEvents.newBuilder();
+        for (RecordUpstreamEvent event : mUpstreamEventList) {
+            if (downstreamStartTime > event.mStopTime) continue;
+
+            final long startTime = getStartTime(downstreamStartTime, event.mStartTime);
+            updateUpstreamEvents(upstreamEventsBuilder, startTime, event.mStopTime,
+                    event.mUpstreamType);
+        }
+
+        final long startTime = getStartTime(downstreamStartTime, mCurrentUpStreamStartTime);
+        final long stopTime = timeNow();
+        updateUpstreamEvents(upstreamEventsBuilder, startTime, stopTime, mCurrentUpstream);
+        statsBuilder.setUpstreamEvents(upstreamEventsBuilder);
+        statsBuilder.setDurationMillis(stopTime - downstreamStartTime);
+    }
+
+    /**
+     *  Remove Tethering stats. If Tethering stats is ready to write then write it before
+     *  removing.
      */
     public void sendReport(final int downstreamType) {
-        final NetworkTetheringReported.Builder statsBuilder =
-                mBuilderMap.get(downstreamType);
+        final NetworkTetheringReported.Builder statsBuilder = mBuilderMap.get(downstreamType);
         if (statsBuilder == null) {
             Log.e(TAG, "Given downstreamType does not exist, this is a bug!");
             return;
         }
+
+        updateStatsBuilderToWrite(statsBuilder, mDownstreamStartTime.get(downstreamType));
         write(statsBuilder.build());
+
         mBuilderMap.remove(downstreamType);
+        mDownstreamStartTime.remove(downstreamType);
     }
 
     /** Collect Tethering stats and write metrics data to statsd pipeline. */
     @VisibleForTesting
     public void write(@NonNull final NetworkTetheringReported reported) {
-        TetheringStatsLog.write(TetheringStatsLog.NETWORK_TETHERING_REPORTED,
+        final byte[] upstreamEvents = reported.getUpstreamEvents().toByteArray();
+
+        TetheringStatsLog.write(
+                TetheringStatsLog.NETWORK_TETHERING_REPORTED,
                 reported.getErrorCode().getNumber(),
                 reported.getDownstreamType().getNumber(),
                 reported.getUpstreamType().getNumber(),
                 reported.getUserType().getNumber(),
-                null, 0);
+                upstreamEvents,
+                reported.getDurationMillis());
         if (DBG) {
-            Log.d(TAG, "Write errorCode: " + reported.getErrorCode().getNumber()
-                    + ", downstreamType: " + reported.getDownstreamType().getNumber()
-                    + ", upstreamType: " + reported.getUpstreamType().getNumber()
-                    + ", userType: " + reported.getUserType().getNumber());
+            Log.d(
+                    TAG,
+                    "Write errorCode: "
+                    + reported.getErrorCode().getNumber()
+                    + ", downstreamType: "
+                    + reported.getDownstreamType().getNumber()
+                    + ", upstreamType: "
+                    + reported.getUpstreamType().getNumber()
+                    + ", userType: "
+                    + reported.getUserType().getNumber()
+                    + ", upstreamTypes: "
+                    + Arrays.toString(upstreamEvents)
+                    + ", durationMillis: "
+                    + reported.getDurationMillis());
         }
     }
 
-    /** Map {@link TetheringType} to {@link DownstreamType} */
+    /** Clean-up upstream revelant variables when turn off Tethering. */
+    public void cleanup() {
+        mUpstreamEventList.clear();
+        mCurrentUpstream = null;
+        mCurrentUpStreamStartTime = 0L;
+    }
+
     private DownstreamType downstreamTypeToEnum(final int ifaceType) {
-        switch(ifaceType) {
+        switch (ifaceType) {
             case TETHERING_WIFI:
                 return DownstreamType.DS_TETHERING_WIFI;
             case TETHERING_WIFI_P2P:
@@ -141,9 +260,8 @@ public class TetheringMetrics {
         }
     }
 
-    /** Map {@link StartTetheringError} to {@link ErrorCode} */
     private ErrorCode errorCodeToEnum(final int lastError) {
-        switch(lastError) {
+        switch (lastError) {
             case TETHER_ERROR_NO_ERROR:
                 return ErrorCode.EC_NO_ERROR;
             case TETHER_ERROR_UNKNOWN_IFACE:
@@ -181,7 +299,6 @@ public class TetheringMetrics {
         }
     }
 
-    /** Map callerPkg to {@link UserType} */
     private UserType userTypeToEnum(final String callerPkg) {
         if (callerPkg.equals(SETTINGS_PKG_NAME)) {
             return UserType.USER_SETTINGS;
@@ -192,5 +309,41 @@ public class TetheringMetrics {
         } else {
             return UserType.USER_UNKNOWN;
         }
+    }
+
+    private UpstreamType transportTypeToUpstreamTypeEnum(final UpstreamNetworkState ns) {
+        final NetworkCapabilities nc = (ns != null) ? ns.networkCapabilities : null;
+        if (nc == null) return UpstreamType.UT_NO_NETWORK;
+
+        final int typeCount = nc.getTransportTypes().length;
+
+        boolean hasCellular = nc.hasTransport(TRANSPORT_CELLULAR);
+        boolean hasWifi = nc.hasTransport(TRANSPORT_WIFI);
+        boolean hasBT = nc.hasTransport(TRANSPORT_BLUETOOTH);
+        boolean hasEthernet = nc.hasTransport(TRANSPORT_ETHERNET);
+        boolean hasVpn = nc.hasTransport(TRANSPORT_VPN);
+        boolean hasWifiAware = nc.hasTransport(TRANSPORT_WIFI_AWARE);
+        boolean hasLopan = nc.hasTransport(TRANSPORT_LOWPAN);
+
+        if (typeCount == 3 && hasCellular && hasWifi && hasVpn) {
+            return UpstreamType.UT_WIFI_CELLULAR_VPN;
+        }
+
+        if (typeCount == 2 && hasVpn) {
+            if (hasCellular) return UpstreamType.UT_CELLULAR_VPN;
+            if (hasWifi) return UpstreamType.UT_WIFI_VPN;
+            if (hasBT) return UpstreamType.UT_BLUETOOTH_VPN;
+            if (hasEthernet) return UpstreamType.UT_ETHERNET_VPN;
+        }
+
+        if (typeCount == 1) {
+            if (hasCellular) return UpstreamType.UT_CELLULAR;
+            if (hasWifi) return UpstreamType.UT_WIFI;
+            if (hasBT) return UpstreamType.UT_BLUETOOTH;
+            if (hasEthernet) return UpstreamType.UT_ETHERNET;
+            if (hasWifiAware) return UpstreamType.UT_WIFI_AWARE;
+            if (hasLopan) return UpstreamType.UT_LOWPAN;
+        }
+        return UpstreamType.UT_UNKNOWN;
     }
 }
