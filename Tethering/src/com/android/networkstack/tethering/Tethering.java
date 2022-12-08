@@ -26,6 +26,13 @@ import static android.hardware.usb.UsbManager.USB_FUNCTION_RNDIS;
 import static android.net.ConnectivityManager.ACTION_RESTRICT_BACKGROUND_CHANGED;
 import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 import static android.net.ConnectivityManager.EXTRA_NETWORK_INFO;
+import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
+import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
+import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
+import static android.net.NetworkCapabilities.TRANSPORT_LOWPAN;
+import static android.net.NetworkCapabilities.TRANSPORT_VPN;
+import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
+import static android.net.NetworkCapabilities.TRANSPORT_WIFI_AWARE;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.net.TetheringManager.ACTION_TETHER_STATE_CHANGED;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
@@ -116,6 +123,7 @@ import android.os.ServiceSpecificException;
 import android.os.UserHandle;
 import android.os.UserManager;
 import android.provider.Settings;
+import android.stats.connectivity.UpstreamType;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -1848,6 +1856,7 @@ public class Tethering {
                 mUpstreamNetworkMonitor.setCurrentUpstream(mTetherUpstream);
                 reportUpstreamChanged(ns);
             }
+            mTetheringMetrics.maybeUpdateUpstreamType(getCurrentTransportType(ns));
         }
 
         protected void setUpstreamNetwork(UpstreamNetworkState ns) {
@@ -2539,6 +2548,42 @@ public class Tethering {
         if (isEthernetSupported()) types |= (1 << TETHERING_ETHERNET);
 
         return types;
+    }
+
+    private UpstreamType getCurrentTransportType(final UpstreamNetworkState ns) {
+        final NetworkCapabilities nc = (ns != null) ? ns.networkCapabilities : null;
+        if (nc == null) return UpstreamType.UT_NO_NETWORK;
+
+        final int typeCount = nc.getTransportTypes().length;
+
+        boolean hasCellular = nc.hasTransport(TRANSPORT_CELLULAR);
+        boolean hasWifi = nc.hasTransport(TRANSPORT_WIFI);
+        boolean hasBT = nc.hasTransport(TRANSPORT_BLUETOOTH);
+        boolean hasEthernet = nc.hasTransport(TRANSPORT_ETHERNET);
+        boolean hasVpn = nc.hasTransport(TRANSPORT_VPN);
+        boolean hasWifiAware = nc.hasTransport(TRANSPORT_WIFI_AWARE);
+        boolean hasLopan = nc.hasTransport(TRANSPORT_LOWPAN);
+
+        if (typeCount == 3 && hasCellular && hasWifi && hasVpn) {
+            return UpstreamType.UT_WIFI_CELLULAR_VPN;
+        }
+
+        if (typeCount == 2 && hasVpn) {
+            if (hasCellular) return UpstreamType.UT_WIFI_CELLULAR_VPN;
+            if (hasWifi) return UpstreamType.UT_WIFI_VPN;
+            if (hasBT) return UpstreamType.UT_BLUETOOTH_VPN;
+            if (hasEthernet) return UpstreamType.UT_ETHERNET_VPN;
+        }
+
+        if (typeCount == 1) {
+            if (hasCellular) return UpstreamType.UT_CELLULAR;
+            if (hasWifi) return UpstreamType.UT_WIFI;
+            if (hasBT) return UpstreamType.UT_BLUETOOTH;
+            if (hasEthernet) return UpstreamType.UT_ETHERNET;
+            if (hasWifiAware) return UpstreamType.UT_WIFI_AWARE;
+            if (hasLopan) return UpstreamType.UT_LOWPAN;
+        }
+        return UpstreamType.UT_UNKNOWN;
     }
 
     // if ro.tether.denied = true we default to no tethering
