@@ -285,6 +285,24 @@
       "parentUuid": "e4d2351f_3cb3efd1",
       "revId": "af1d63cfec6b1fdba2c077bd6f897c5e20ad29df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ec8840f_0d914156",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceInfoTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-08T10:04:08Z",
+      "side": 1,
+      "message": "Hmm no that\u0027s not what the latest patchset does; it depends on the internal implementation of Network.writeToParcel, which we may want to change at some point.\n\nWas there a problem with the doCallRealMethod solution, still using a mock network ?",
+      "parentUuid": "6c6dd83b_47c9bcd1",
+      "revId": "af1d63cfec6b1fdba2c077bd6f897c5e20ad29df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

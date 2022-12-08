@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c09ec40_293fa602",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-08T10:04:08Z",
+      "side": 1,
+      "message": "Basically LGTM, but @NonNull should be @Nullable if we don\u0027t have a good guarantee that it\u0027s actually @NonNull",
+      "revId": "192269648e65e4b272fec7955ccffaf1d3680fac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4623f86_ce6cfe26",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/ConnectivityMonitorWithConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-08T10:04:08Z",
+      "side": 1,
+      "message": "Nit: call it lastAvailableNetwork, or reset to null if the current network is received in onLost ?\n\nUsing lastAvailableNetwork may be more compatible with the current design, which (probably wrongfully) assumes that nothing changes between onAvailable and getting the network info",
+      "range": {
+        "startLine": 40,
+        "startChar": 20,
+        "endLine": 40,
+        "endChar": 36
+      },
+      "revId": "192269648e65e4b272fec7955ccffaf1d3680fac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ed9d4e5_f802a20b",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/ConnectivityMonitorWithConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-08T10:04:08Z",
+      "side": 1,
+      "message": "This is nullable too, because onAvailable may not have been called (there\u0027s also some interfaces that don\u0027t have any Network)\n\nSo MulticastNetworkInterfaceProvider.getAvailableNetwork -\u003e MdnsSocket.getNetwork -\u003e MdnsSocketClient.processResponsePacket -\u003e MdnsResponseDecoder.decode -\u003e MdnsResponse should all be nullable unfortunately.\n\nIdeally we\u0027d set all to NonNull, but if there\u0027s no strong guarantee that it\u0027s true, I think it\u0027s still better to keep it nullable.",
+      "revId": "192269648e65e4b272fec7955ccffaf1d3680fac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
