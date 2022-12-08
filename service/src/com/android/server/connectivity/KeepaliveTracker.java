@@ -704,7 +704,9 @@ public class KeepaliveTracker {
             @NonNull ISocketKeepaliveCallback cb,
             @NonNull String srcAddrString,
             @NonNull String dstAddrString,
-            int dstPort) {
+            int dstPort,
+            boolean dynamicKeepaliveMode) {
+        // TODO: Dynamically enable/disable keepalive if dynamicKeepaliveMode is true.
         // Ensure that the socket is created by IpSecService.
         if (!isNattKeepaliveSocketValid(fd, resourceId)) {
             notifyErrorCallback(cb, ERROR_INVALID_SOCKET);

@@ -9621,13 +9621,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
     @Override
     public void startNattKeepaliveWithFd(Network network, ParcelFileDescriptor pfd, int resourceId,
             int intervalSeconds, ISocketKeepaliveCallback cb, String srcAddr,
-            String dstAddr) {
+            String dstAddr, boolean dynamicKeepaliveMode) {
         try {
             final FileDescriptor fd = pfd.getFileDescriptor();
             mKeepaliveTracker.startNattKeepalive(
                     getNetworkAgentInfoForNetwork(network), fd, resourceId,
                     intervalSeconds, cb,
-                    srcAddr, dstAddr, NattSocketKeepalive.NATT_PORT);
+                    srcAddr, dstAddr, NattSocketKeepalive.NATT_PORT, dynamicKeepaliveMode);
         } finally {
             // FileDescriptors coming from AIDL calls must be manually closed to prevent leaks.
             // startNattKeepalive calls Os.dup(fd) before returning, so we can close immediately.
