@@ -1848,6 +1848,7 @@ public class Tethering {
                 mUpstreamNetworkMonitor.setCurrentUpstream(mTetherUpstream);
                 reportUpstreamChanged(ns);
             }
+            mTetheringMetrics.maybeUpdateUpstreamType(ns);
         }
 
         protected void setUpstreamNetwork(UpstreamNetworkState ns) {
@@ -2071,6 +2072,9 @@ public class Tethering {
                     reportUpstreamChanged(null);
                 }
                 mBpfCoordinator.stopPolling();
+                if (mTetheringMetrics != null) {
+                    mTetheringMetrics.cleanup();
+                }
             }
 
             private boolean updateUpstreamWanted() {
