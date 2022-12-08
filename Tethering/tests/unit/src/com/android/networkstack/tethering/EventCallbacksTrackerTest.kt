@@ -19,10 +19,12 @@ import android.net.ITetheringEventCallback
 import android.net.Network
 import android.net.TetherStatesParcel
 import android.net.TetheredClient
+import android.net.TetheringCallbackStartedParcel
 import android.net.TetheringConfigurationParcel
 import android.net.TetheringInterface
 import android.net.TetheringManager.TETHER_ERROR_INTERNAL_ERROR
 import android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_STARTED
+import android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_STOPPED
 import android.os.IBinder
 
 import androidx.test.filters.SmallTest
@@ -40,8 +42,6 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verifyNoMoreInteractions
 
-import java.util.ArrayList
-
 @RunWith(AndroidJUnit4::class)
 @SmallTest
 public class EventCallbacksTrackerTest {
@@ -52,21 +52,48 @@ public class EventCallbacksTrackerTest {
     val binder1 = mock(IBinder::class.java)
     val binder2 = mock(IBinder::class.java)
     val callbacksTracker = EventCallbacksTracker()
-    val network = Network(1)
-    val clients = ArrayList<TetheredClient>()
-    val config = TetheringConfigurationParcel()
-    val supportedBitMap = 8L
-    val available = arrayOf(mock(TetheringInterface::class.java),
-            mock(TetheringInterface::class.java))
-    val localOnly = arrayOf<TetheringInterface>()
-    val tethered = arrayOf(mock(TetheringInterface::class.java))
-    val errored = arrayOf(mock(TetheringInterface::class.java))
-    val lastError = intArrayOf(TETHER_ERROR_INTERNAL_ERROR)
+    var network: Network? = null
+    var clients: List<TetheredClient> = emptyList()
+    var config = TetheringConfigurationParcel()
+    var supportedBitMap = 0L
+    var offloadStatus = TETHER_HARDWARE_OFFLOAD_STOPPED
+    var available = arrayOf<TetheringInterface>()
+    var localOnly = arrayOf<TetheringInterface>()
+    var tethered = arrayOf<TetheringInterface>()
+    var errored = arrayOf<TetheringInterface>()
+    var lastError = IntArray(0)
+
+    fun eventsSetup(
+        newNetwork: Network = Network(1),
+        newClients: List<TetheredClient> = listOf(mock(TetheredClient::class.java)),
+        newConfig: TetheringConfigurationParcel = TetheringConfigurationParcel(),
+        newSupportedBitMap: Long = 8L,
+        newOffloadStatus: Int = TETHER_HARDWARE_OFFLOAD_STARTED,
+        newAvailable: Array<TetheringInterface> = arrayOf(
+                mock(TetheringInterface::class.java), mock(TetheringInterface::class.java)),
+        newLocalOnly: Array<TetheringInterface> = arrayOf<TetheringInterface>(),
+        newTethered: Array<TetheringInterface> = arrayOf(mock(TetheringInterface::class.java)),
+        newErrored: Array<TetheringInterface> = arrayOf(mock(TetheringInterface::class.java)),
+        newLastError: IntArray = intArrayOf(TETHER_ERROR_INTERNAL_ERROR)
+    ) {
+        network = newNetwork
+        clients = newClients
+        config = newConfig
+        supportedBitMap = newSupportedBitMap
+        offloadStatus = newOffloadStatus
+        available = newAvailable
+        localOnly = newLocalOnly
+        tethered = newTethered
+        errored = newErrored
+        lastError = newLastError
+    }
 
     @Before
     fun setUp() {
         doReturn(binder1).`when`(callback1).asBinder()
         doReturn(binder2).`when`(callback2).asBinder()
+        // Update initial configuration, tethering would update configuration from constructor.
+        callbacksTracker.updateConfigurationChanged(config)
     }
 
     fun getVerifier(callback: ITetheringEventCallback, num: Int = 1): ITetheringEventCallback {
@@ -108,7 +135,7 @@ public class EventCallbacksTrackerTest {
         assertEquals(network, callbacksTracker.getTetherUpstream())
         verifyNoMoreInteractions(callback1, callback2)
 
-        callbacksTracker.reportConfigurationChanged(config)
+        callbacksTracker.updateConfigurationChanged(config)
         if (verifyCallback1) getVerifier(callback1).onConfigurationChanged(config)
         if (verifyCallback2) getVerifier(callback2).onConfigurationChanged(config)
         verifyNoMoreInteractions(callback1, callback2)
@@ -124,18 +151,36 @@ public class EventCallbacksTrackerTest {
         // callback2 doesn't have list permission.
         verifyNoMoreInteractions(callback1, callback2)
 
-        callbacksTracker.updateOffloadStatusChanged(TETHER_HARDWARE_OFFLOAD_STARTED)
-        if (verifyCallback1) getVerifier(callback1).onOffloadStatusChanged(
-                TETHER_HARDWARE_OFFLOAD_STARTED)
-        if (verifyCallback2) getVerifier(callback2).onOffloadStatusChanged(
-                TETHER_HARDWARE_OFFLOAD_STARTED)
-        assertEquals(TETHER_HARDWARE_OFFLOAD_STARTED, callbacksTracker.getOffloadStatus())
+        callbacksTracker.updateOffloadStatusChanged(offloadStatus)
+        if (verifyCallback1) getVerifier(callback1).onOffloadStatusChanged(offloadStatus)
+        if (verifyCallback2) getVerifier(callback2).onOffloadStatusChanged(offloadStatus)
+        assertEquals(offloadStatus, callbacksTracker.getOffloadStatus())
         verifyNoMoreInteractions(callback1, callback2)
     }
 
     fun addCallback(callback: ITetheringEventCallback, hasListPermission: Boolean) {
         callbacksTracker.add(callback, hasListPermission)
         getVerifier(callback, 2).asBinder()
+        val captor = ArgumentCaptor.forClass(TetheringCallbackStartedParcel::class.java)
+
+        // Verify callback last result for new added callback.
+        getVerifier(callback).onCallbackStarted(captor.capture())
+        val result = captor.getValue()
+        assertEquals(supportedBitMap, result.supportedTypes)
+        assertEquals(network, result.upstreamNetwork)
+        assertEquals(config, result.config)
+        if (hasListPermission) {
+            assertEquals(clients, result.tetheredClients)
+        } else {
+            assertEquals(emptyList<TetheredClient>(), result.tetheredClients)
+        }
+        assertEquals(offloadStatus, result.offloadStatus)
+        assertArrayEquals(available, result.states.availableList)
+        assertArrayEquals(localOnly, result.states.localOnlyList)
+        assertArrayEquals(tethered, result.states.tetheredList)
+        assertArrayEquals(errored, result.states.erroredIfaceList)
+        assertArrayEquals(lastError, result.states.lastErrorList)
+
         verifyNoMoreInteractions(callback)
     }
 
@@ -154,6 +199,7 @@ public class EventCallbacksTrackerTest {
     @Test
     fun testCallback() {
         addCallback(callback1, true /* hasListPermission*/)
+        eventsSetup()
         assertEquals(1, callbacksTracker.getCallbackCount())
         verifyCallbacks(true)
 
@@ -169,6 +215,7 @@ public class EventCallbacksTrackerTest {
         verifyCallbacks(true)
 
         addCallback(callback2, false /* hasListPermission*/)
+        eventsSetup()
         assertEquals(2, callbacksTracker.getCallbackCount())
         verifyCallbacks(true, true)
 
