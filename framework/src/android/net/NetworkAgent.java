@@ -483,6 +483,14 @@ public abstract class NetworkAgent {
      */
     public static final int EVENT_UNREGISTER_AFTER_REPLACEMENT = BASE + 29;
 
+    /**
+     * Sent by KeepaliveTracker to poll TCP socket status.
+     * arg1 = hardware slot number of the keepalive
+     * obj = {@link Network}
+     * @hide
+     */
+    public static final int CMD_POLL_TCP_SOCKETS = BASE + 30;
+
     private static NetworkInfo getLegacyNetworkInfo(final NetworkAgentConfig config) {
         final NetworkInfo ni = new NetworkInfo(config.legacyType, config.legacySubType,
                 config.legacyTypeName, config.legacySubTypeName);
