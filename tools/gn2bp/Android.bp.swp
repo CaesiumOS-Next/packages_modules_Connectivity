@@ -9557,7 +9557,6 @@ java_library {
         ":cronet_aml_base_java_switches_srcjar",
         ":cronet_aml_build_android_build_config_gen",
         ":cronet_aml_build_android_native_libraries_gen",
-        ":cronet_aml_components_cronet_android_cronet_jni_registration__java",
         ":cronet_aml_components_cronet_android_http_cache_type_java",
         ":cronet_aml_components_cronet_android_implementation_api_version",
         ":cronet_aml_components_cronet_android_integrated_mode_state",
@@ -9854,6 +9853,11 @@ java_library {
         "androidx.collection_collection",
         "androidx.core_core",
         "jsr305",
+        "framework-connectivity.stubs.module_lib",
+        "framework-connectivity-t.stubs.module_lib",
+        "framework-tethering.stubs.module_lib",
+        "framework-wifi.stubs.module_lib",
+        "framework-mediaprovider.stubs.module_lib",
     ],
     aidl: {
         include_dirs: [
@@ -9866,6 +9870,9 @@ java_library {
     plugins: [
         "cronet_aml_java_jni_annotation_preprocessor",
     ],
+    sdk_version: "module_current",
+    apex_available: ["com.android.tethering"],
+    //min_sdk_version: "29",
 }
 
 // GN: //base/android/jni_generator:jni_processor

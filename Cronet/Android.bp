@@ -92,9 +92,10 @@ java_sdk_library {
     ],
     static_libs: [
         "androidx.core_core-nodeps",
-        "cronet_impl_common_java",
-        "cronet_impl_native_java",
-        "cronet_impl_platform_java",
+        "cronet_aml_java",
+        //"cronet_impl_common_java",
+        //"cronet_impl_native_java",
+        //"cronet_impl_platform_java",
     ],
     apex_available: ["com.android.tethering"],
     jarjar_rules: "jarjar-rules.txt",
