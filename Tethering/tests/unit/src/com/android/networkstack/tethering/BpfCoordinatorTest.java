@@ -101,6 +101,7 @@ import androidx.test.runner.AndroidJUnit4;
 
 import com.android.dx.mockito.inline.extended.ExtendedMockito;
 import com.android.internal.util.IndentingPrintWriter;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.IBpfMap;
 import com.android.net.module.util.InterfaceParams;
@@ -162,12 +163,14 @@ public class BpfCoordinatorTest {
     private static final int UPSTREAM_IFINDEX = 1001;
     private static final int UPSTREAM_XLAT_IFINDEX = 1002;
     private static final int UPSTREAM_IFINDEX2 = 1003;
+    private static final int UPSTREAM_XLAT_IFINDEX2 = 1004;
     private static final int DOWNSTREAM_IFINDEX = 2001;
     private static final int DOWNSTREAM_IFINDEX2 = 2002;
 
     private static final String UPSTREAM_IFACE = "rmnet0";
     private static final String UPSTREAM_XLAT_IFACE = "v4-rmnet0";
     private static final String UPSTREAM_IFACE2 = "wlan0";
+    private static final String UPSTREAM_XLAT_IFACE2 = "v4-wlan0";
 
     private static final MacAddress DOWNSTREAM_MAC = MacAddress.fromString("12:34:56:78:90:ab");
     private static final MacAddress DOWNSTREAM_MAC2 = MacAddress.fromString("ab:90:78:56:34:12");
@@ -201,16 +204,21 @@ public class BpfCoordinatorTest {
     private static final short PRIVATE_PORT = (short) 62449;
     private static final short PRIVATE_PORT2 = (short) 62450;
 
+    // MTU delta = 40 bytes IPv6 header - 20 bytes IPv4 header + 8 bytes fragment header.
+    // See external/android-clat/clatd.c
+    private static final short MTU_DELTA = (short) 28;
+    private static final short XLAT_MTU = (short) (NetworkStackConstants.ETHER_MTU - MTU_DELTA);
+
     private static final InterfaceParams UPSTREAM_IFACE_PARAMS = new InterfaceParams(
             UPSTREAM_IFACE, UPSTREAM_IFINDEX, null /* macAddr, rawip */,
             NetworkStackConstants.ETHER_MTU);
     private static final InterfaceParams UPSTREAM_XLAT_IFACE_PARAMS = new InterfaceParams(
-            UPSTREAM_XLAT_IFACE, UPSTREAM_XLAT_IFINDEX, null /* macAddr, rawip */,
-            NetworkStackConstants.ETHER_MTU - 28
-            /* mtu delta from external/android-clat/clatd.c */);
+            UPSTREAM_XLAT_IFACE, UPSTREAM_XLAT_IFINDEX, null /* macAddr, rawip */, XLAT_MTU);
     private static final InterfaceParams UPSTREAM_IFACE_PARAMS2 = new InterfaceParams(
             UPSTREAM_IFACE2, UPSTREAM_IFINDEX2, MacAddress.fromString("44:55:66:00:00:0c"),
             NetworkStackConstants.ETHER_MTU);
+    private static final InterfaceParams UPSTREAM_XLAT_IFACE_PARAMS2 = new InterfaceParams(
+            UPSTREAM_XLAT_IFACE2, UPSTREAM_XLAT_IFINDEX2, null /* macAddr, rawip */, XLAT_MTU);
 
     private static final Map<Integer, UpstreamInformation> UPSTREAM_INFORMATIONS = Map.of(
             UPSTREAM_IFINDEX, new UpstreamInformation(UPSTREAM_IFACE_PARAMS,
@@ -222,6 +230,9 @@ public class BpfCoordinatorTest {
             DOWNSTREAM_MAC, PRIVATE_ADDR, MAC_A);
     private static final ClientInfo CLIENT_INFO_B = new ClientInfo(DOWNSTREAM_IFINDEX2,
             DOWNSTREAM_MAC2, PRIVATE_ADDR2, MAC_B);
+
+    // TODO: support clat interface offload on S, T device.
+    private static final boolean CLAT_OFFLOAD_ENABLED = SdkLevel.isAtLeastU();
 
     private static class UpstreamInformation {
         public final InterfaceParams interfaceParams;
@@ -272,11 +283,24 @@ public class BpfCoordinatorTest {
             private int mSrcPort = REMOTE_PORT;
             private int mDstPort = PUBLIC_PORT;
 
+            public Builder setIif(int iif) {
+                if (iif < 0) {
+                    fail("Not support interface index " + iif);
+                }
+                mIif = iif;
+                return this;
+            }
+
             public Builder setProto(int proto) {
                 if (proto != IPPROTO_TCP && proto != IPPROTO_UDP) {
                     fail("Not support protocol " + proto);
                 }
                 mL4proto = (short) proto;
+                return this;
+            }
+
+            public Builder setDst4(Inet4Address dst4) {
+                mDst4 = dst4.getAddress();
                 return this;
             }
 
@@ -298,6 +322,20 @@ public class BpfCoordinatorTest {
             private int mSrcPort = PUBLIC_PORT;
             private int mDstPort = REMOTE_PORT;
             private long mLastUsed = 0;
+            private int mAccountIf = CLAT_OFFLOAD_ENABLED ? UPSTREAM_IFINDEX : 0 /* unused */;
+
+            public Builder setOif(int oif) {
+                if (oif < 0) {
+                    fail("Not support interface index " + oif);
+                }
+                mOif = oif;
+                return this;
+            }
+
+            public Builder setSrc46(Inet4Address src46) {
+                mSrc46 = toIpv4MappedAddressBytes(src46);
+                return this;
+            }
 
             public Builder setPmtu(short pmtu) {
                 mPmtu = pmtu;
@@ -306,7 +344,7 @@ public class BpfCoordinatorTest {
 
             public Tether4Value build() {
                 return new Tether4Value(mOif, mEthDstMac, mEthSrcMac, mEthProto, mPmtu,
-                        mSrc46, mDst46, mSrcPort, mDstPort, mLastUsed);
+                        mSrc46, mDst46, mSrcPort, mDstPort, mLastUsed, mAccountIf);
             }
         }
     }
@@ -323,6 +361,7 @@ public class BpfCoordinatorTest {
             private int mSrcPort = REMOTE_PORT;
             private int mDstPort = PRIVATE_PORT;
             private long mLastUsed = 0;
+            private int mAccountIf = CLAT_OFFLOAD_ENABLED ? UPSTREAM_IFINDEX : 0 /* unused */;
 
             public Builder setPmtu(short pmtu) {
                 mPmtu = pmtu;
@@ -331,7 +370,7 @@ public class BpfCoordinatorTest {
 
             public Tether4Value build() {
                 return new Tether4Value(mOif, mEthDstMac, mEthSrcMac, mEthProto, mPmtu,
-                        mSrc46, mDst46, mSrcPort, mDstPort, mLastUsed);
+                        mSrc46, mDst46, mSrcPort, mDstPort, mLastUsed, mAccountIf);
             }
         }
     }
@@ -360,6 +399,11 @@ public class BpfCoordinatorTest {
                     fail("Not support protocol " + proto);
                 }
                 mProto = (short) proto;
+                return this;
+            }
+
+            public Builder setPublicAddr(Inet4Address publicAddr) {
+                mPublicAddr = publicAddr;
                 return this;
             }
 
@@ -1543,7 +1587,7 @@ public class BpfCoordinatorTest {
         // interface index.
         doReturn(upstreamInfo.interfaceParams).when(mDeps).getInterfaceParams(
                 upstreamInfo.interfaceParams.name);
-        coordinator.addUpstreamNameToLookupTable(upstreamInfo.interfaceParams.index,
+        coordinator.addUpstreamNameToLookupTable(UPSTREAM_IFINDEX,
                 upstreamInfo.interfaceParams.name);
 
         final LinkProperties lp = new LinkProperties();
@@ -1661,6 +1705,174 @@ public class BpfCoordinatorTest {
         inOrder.verify(mBpfDownstream4Map).deleteEntry(eq(expectedDownstream4KeyTcp));
         verifyTetherOffloadGetAndClearStats(inOrder, UPSTREAM_IFINDEX);
         inOrder.verifyNoMoreInteractions();
+    }
+
+    private void verifySetDataLimitOnRule4Change464Xlat(final boolean clatOffloadEnabled)
+            throws Exception {
+        final BpfCoordinator coordinator = makeBpfCoordinator();
+
+        // Clear all invocations from the initialization.
+        // This is only used for |clatOffloadEnabled| is false because these maps
+        // are not accessed in the follows. In this case, InOrder.verifyNoMoreInteractions
+        // will catches expected interaction xyzMap.clear from the initialization
+        // #makeBpfCoordinator. This will break the test. #clearInvocations is not necessary for
+        // |clatOffloadEnabled| is true because there are other testing map interactions which
+        // is used to check no interaction after that.
+        if (!clatOffloadEnabled) {
+            clearInvocations(mNetd, mBpfUpstream4Map, mBpfDownstream4Map, mBpfLimitMap,
+                    mBpfStatsMap);
+        }
+
+        // Don't use #initBpfCoordinatorForRule4 to call #setUpstreamInformationTo for
+        // initializing upstream information because this test have to initial the
+        // clat interface and the clat relied on interface in different way.
+
+        // Update 464xlat upstream interface.
+        // Note that #addUpstreamNameToLookupTable is not called for the interface UPSTREAM_IFINDEX
+        // because IpServer may not update upstream interface mapping for the IPv6 tethering not
+        // supported interface. Ex: Wifi. In that case, only clat interface upstream interface
+        // mapping is updated by IpServer.
+        coordinator.addUpstreamNameToLookupTable(UPSTREAM_XLAT_IFINDEX, UPSTREAM_XLAT_IFACE);
+        doReturn(UPSTREAM_IFACE_PARAMS).when(mDeps).getInterfaceParams(UPSTREAM_IFACE);
+        doReturn(UPSTREAM_XLAT_IFACE_PARAMS).when(mDeps).getInterfaceParams(UPSTREAM_XLAT_IFACE);
+        doReturn((int) XLAT_MTU).when(mDeps).getNetworkInterfaceMtu(UPSTREAM_XLAT_IFACE);
+
+        final UpstreamNetworkState mobile464xlatUpstreamState = new UpstreamNetworkState(
+                buildUpstreamLinkProperties(UPSTREAM_IFACE,
+                        false /* IPv4 */, true /* IPv6 */, true /* 464xlat */),
+                new NetworkCapabilities().addTransportType(TRANSPORT_CELLULAR),
+                new Network(TEST_NET_ID));
+        coordinator.updateUpstreamNetworkState(mobile464xlatUpstreamState);
+
+        // Update downstream and client information.
+        addDownstreamAndClientInformationTo(coordinator, DOWNSTREAM_IFINDEX);
+
+        // Applying a data limit to the current upstream does not take any immediate action.
+        // The data limit could be only set on an upstream which has rules.
+        final long limit = 12345;
+        final InOrder inOrder = inOrder(mNetd, mBpfUpstream4Map, mBpfDownstream4Map, mBpfLimitMap,
+                mBpfStatsMap);
+        mTetherStatsProvider.onSetLimit(UPSTREAM_IFACE, limit);
+        waitForIdle();
+        verifyNeverTetherOffloadSetInterfaceQuota(inOrder);
+
+        final Tether4Key expectedUpstream4KeyTcp = new TestUpstream4Key.Builder()
+                .setProto(IPPROTO_TCP)
+                .build();
+        final Tether4Key expectedDownstream4KeyTcp = new TestDownstream4Key.Builder()
+                .setIif(UPSTREAM_XLAT_IFINDEX)
+                .setDst4(XLAT_LOCAL_IPV4ADDR)
+                .setProto(IPPROTO_TCP)
+                .build();
+        final Tether4Value expectedUpstream4ValueTcp = new TestUpstream4Value.Builder()
+                .setOif(UPSTREAM_XLAT_IFINDEX)
+                .setSrc46(XLAT_LOCAL_IPV4ADDR)
+                .setPmtu(XLAT_MTU)
+                .build();
+        final Tether4Value expectedDownstream4ValueTcp = new TestDownstream4Value.Builder()
+                .setPmtu(XLAT_MTU)
+                .build();
+
+        final Tether4Key expectedUpstream4KeyUdp = new TestUpstream4Key.Builder()
+                .setProto(IPPROTO_UDP)
+                .build();
+        final Tether4Key expectedDownstream4KeyUdp = new TestDownstream4Key.Builder()
+                .setIif(UPSTREAM_XLAT_IFINDEX)
+                .setDst4(XLAT_LOCAL_IPV4ADDR)
+                .setProto(IPPROTO_UDP)
+                .build();
+        final Tether4Value expectedUpstream4ValueUdp = new TestUpstream4Value.Builder()
+                .setOif(UPSTREAM_XLAT_IFINDEX)
+                .setSrc46(XLAT_LOCAL_IPV4ADDR)
+                .setPmtu(XLAT_MTU)
+                .build();
+        final Tether4Value expectedDownstream4ValueUdp = new TestDownstream4Value.Builder()
+                .setPmtu(XLAT_MTU)
+                .build();
+
+        // [1] Adding the first rule on current upstream.
+        // - Clat offload enabled: Sends the quota.
+        // - Clat offload disabled: Do nothing.
+        mConsumer.accept(new TestConntrackEvent.Builder()
+                .setMsgType(IPCTNL_MSG_CT_NEW)
+                .setProto(IPPROTO_TCP)
+                .setPublicAddr(XLAT_LOCAL_IPV4ADDR)
+                .build());
+        if (clatOffloadEnabled) {
+            verifyTetherOffloadSetInterfaceQuota(inOrder, UPSTREAM_IFINDEX, limit,
+                    true /* isInit */);
+            inOrder.verify(mBpfUpstream4Map)
+                    .insertEntry(eq(expectedUpstream4KeyTcp), eq(expectedUpstream4ValueTcp));
+            inOrder.verify(mBpfDownstream4Map)
+                    .insertEntry(eq(expectedDownstream4KeyTcp), eq(expectedDownstream4ValueTcp));
+        }
+        inOrder.verifyNoMoreInteractions();
+
+        // [2] Adding the second rule on current upstream.
+        // - Clat offload enabled: Doesn't send the quota.
+        // - Clat offload disabled: Do nothing.
+        mConsumer.accept(new TestConntrackEvent.Builder()
+                .setMsgType(IPCTNL_MSG_CT_NEW)
+                .setProto(IPPROTO_UDP)
+                .setPublicAddr(XLAT_LOCAL_IPV4ADDR)
+                .build());
+        if (clatOffloadEnabled) {
+            verifyNeverTetherOffloadSetInterfaceQuota(inOrder);
+            inOrder.verify(mBpfUpstream4Map)
+                    .insertEntry(eq(expectedUpstream4KeyUdp), eq(expectedUpstream4ValueUdp));
+            inOrder.verify(mBpfDownstream4Map)
+                    .insertEntry(eq(expectedDownstream4KeyUdp), eq(expectedDownstream4ValueUdp));
+        }
+        inOrder.verifyNoMoreInteractions();
+
+        // [3] Removing the second rule on current upstream.
+        // - Clat offload enabled: Doesn't send the quota.
+        // - Clat offload disabled: Do nothing.
+        mConsumer.accept(new TestConntrackEvent.Builder()
+                .setMsgType(IPCTNL_MSG_CT_DELETE)
+                .setProto(IPPROTO_UDP)
+                .setPublicAddr(XLAT_LOCAL_IPV4ADDR)
+                .build());
+        if (clatOffloadEnabled) {
+            verifyNeverTetherOffloadSetInterfaceQuota(inOrder);
+            inOrder.verify(mBpfUpstream4Map).deleteEntry(eq(expectedUpstream4KeyUdp));
+            inOrder.verify(mBpfDownstream4Map).deleteEntry(eq(expectedDownstream4KeyUdp));
+        }
+        inOrder.verifyNoMoreInteractions();
+
+        // [4] Removing the last rule on current upstream.
+        // - Clat offload enabled: Sends the cleanup stuff.
+        // - Clat offload disabled: Do nothing.
+        if (clatOffloadEnabled) {
+            // Used while cleanup the rules. The latest states will be reported for a given
+            // upstream.
+            updateStatsEntryForTetherOffloadGetAndClearStats(
+                    buildTestTetherStatsParcel(UPSTREAM_IFINDEX, 0, 0, 0, 0));
+        }
+        mConsumer.accept(new TestConntrackEvent.Builder()
+                .setMsgType(IPCTNL_MSG_CT_DELETE)
+                .setProto(IPPROTO_TCP)
+                .setPublicAddr(XLAT_LOCAL_IPV4ADDR)
+                .build());
+        if (clatOffloadEnabled) {
+            inOrder.verify(mBpfUpstream4Map).deleteEntry(eq(expectedUpstream4KeyTcp));
+            inOrder.verify(mBpfDownstream4Map).deleteEntry(eq(expectedDownstream4KeyTcp));
+            verifyTetherOffloadGetAndClearStats(inOrder, UPSTREAM_IFINDEX);
+        }
+        inOrder.verifyNoMoreInteractions();
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    @IgnoreAfter(Build.VERSION_CODES.TIRAMISU)
+    public void testSetDataLimitOnRule4Change464XlatOnSAndT() throws Exception {
+        verifySetDataLimitOnRule4Change464Xlat(false /* clatOffloadEnabled */);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testSetDataLimitOnRule4Change464XlatAfterT() throws Exception {
+        verifySetDataLimitOnRule4Change464Xlat(true /* clatOffloadEnabled */);
     }
 
     @Test
@@ -1927,21 +2139,24 @@ public class BpfCoordinatorTest {
 
     @NonNull
     private static Tether4Value makeUpstream4Value(final short publicPort) {
+        // "accountIf" is used for clat offload which is supported on U+ devices.
         return new Tether4Value(UPSTREAM_IFINDEX,
                 MacAddress.ALL_ZEROS_ADDRESS /* ethDstMac (rawip) */,
                 MacAddress.ALL_ZEROS_ADDRESS /* ethSrcMac (rawip) */, ETH_P_IP,
                 NetworkStackConstants.ETHER_MTU, toIpv4MappedAddressBytes(PUBLIC_ADDR),
                 toIpv4MappedAddressBytes(REMOTE_ADDR), publicPort, REMOTE_PORT,
-                0 /* lastUsed */);
+                0 /* lastUsed */, CLAT_OFFLOAD_ENABLED ? UPSTREAM_IFINDEX : 0 /* accountIf */);
     }
 
     @NonNull
     private static Tether4Value makeDownstream4Value(final int downstreamIfindex,
             @NonNull final MacAddress clientMac, @NonNull final MacAddress downstreamMac,
             @NonNull final Inet4Address privateAddr, final short privatePort) {
+        // "accountIf" is used for clat offload which is supported on U+ devices.
         return new Tether4Value(downstreamIfindex, clientMac, downstreamMac,
                 ETH_P_IP, NetworkStackConstants.ETHER_MTU, toIpv4MappedAddressBytes(REMOTE_ADDR),
-                toIpv4MappedAddressBytes(privateAddr), REMOTE_PORT, privatePort, 0 /* lastUsed */);
+                toIpv4MappedAddressBytes(privateAddr), REMOTE_PORT, privatePort, 0 /* lastUsed */,
+                CLAT_OFFLOAD_ENABLED ? UPSTREAM_IFINDEX : 0 /* accountIf */);
     }
 
     @NonNull
@@ -2349,8 +2564,8 @@ public class BpfCoordinatorTest {
         assertEquals(0, interfaceNames.size());
 
         // Verify the following are added or removed after upstream changes.
-        // - BpfCoordinator#mIpv4UpstreamIndices (for building IPv4 offload rules)
-        // - BpfCoordinator#mInterfaceNames (for updating limit)
+        // - BpfCoordinator#mIpv4UpstreamIndices for building IPv4 offload rules.
+        // - BpfCoordinator#mInterfaceNames for updating limit.
         //
         // Test case:
         // - Clat offload is supported on U+ devices.
@@ -2432,7 +2647,7 @@ public class BpfCoordinatorTest {
         assertEquals(1, interfaceNames.size());
         assertTrue(interfaceNames.contains(UPSTREAM_IFINDEX));
 
-        // [5] verify xlat interface
+        // [5] Verify mobile with xlat interface
         // Expect that xlat interface information isn't added to mapping on S and T devices.
         // Expect that xlat interface information is added to mapping on U+ devices.
         doReturn(UPSTREAM_XLAT_IFACE_PARAMS).when(mDeps).getInterfaceParams(
@@ -2456,13 +2671,13 @@ public class BpfCoordinatorTest {
             assertTrue(interfaceNames.contains(UPSTREAM_XLAT_IFINDEX));
         } else {
             // Need to add a valid IPv4 upstream to verify that xlat interface doesn't support.
-            // Mobile IPv4 only
+            // The upstream address mapping should be removed while xlat interface is updated.
             coordinator.updateUpstreamNetworkState(mobileIPv4UpstreamState);
             verifyIpv4Upstream(ipv4UpstreamIndices, interfaceNames);
 
             // Mobile IPv6 and xlat
             // IpServer doesn't add xlat interface mapping via #addUpstreamNameToLookupTable on
-            // S and T devices.
+            // S and T devices. So #addUpstreamNameToLookupTable is not called here.
             coordinator.updateUpstreamNetworkState(mobile464xlatUpstreamState);
             // Upstream IPv4 address mapping is removed because xlat interface is not supported.
             assertTrue(ipv4UpstreamIndices.isEmpty());
@@ -2506,5 +2721,62 @@ public class BpfCoordinatorTest {
     @IgnoreAfter(Build.VERSION_CODES.TIRAMISU)
     public void testUpdateUpstreamNetworkStateOnSOrT() throws Exception {
         verifyUpdateUpstreamNetworkState(false /* clatOffloadEnabled */);
+    }
+
+    private void verifyUpdateUpstreamNetworkState_ipv6AndXlatWifi(
+            final boolean clatOffloadEnabled) throws Exception {
+        final BpfCoordinator coordinator = makeBpfCoordinator();
+        final HashMap<Inet4Address, Integer> ipv4UpstreamIndices =
+                coordinator.getIpv4UpstreamIndicesForTesting();
+        assertTrue(ipv4UpstreamIndices.isEmpty());
+        final SparseArray<String> interfaceNames =
+                coordinator.getInterfaceNamesForTesting();
+        assertEquals(0, interfaceNames.size());
+
+        // Wifi IPv6 + xlat is specific case because wifi doesn't support IPv6 tethering but
+        // its clat interface does.
+        if (clatOffloadEnabled) {
+            // IpServer doesn't add clat interface mapping.
+            // See TetheredState#processMessage CMD_TETHER_CONNECTION_CHANGED in IpServer.java
+            coordinator.addUpstreamNameToLookupTable(UPSTREAM_XLAT_IFINDEX2, UPSTREAM_XLAT_IFACE2);
+        }
+        doReturn(UPSTREAM_IFACE_PARAMS2).when(mDeps).getInterfaceParams(UPSTREAM_IFACE2);
+        doReturn(UPSTREAM_XLAT_IFACE_PARAMS2).when(mDeps).getInterfaceParams(
+                UPSTREAM_XLAT_IFACE2);
+        final UpstreamNetworkState wifi464xlatUpstreamState = new UpstreamNetworkState(
+                buildUpstreamLinkProperties(UPSTREAM_IFACE2,
+                        false /* IPv4 */, true /* IPv6 */, true /* 464xlat */),
+                new NetworkCapabilities().addTransportType(TRANSPORT_WIFI),
+                new Network(TEST_NET_ID2));
+        coordinator.updateUpstreamNetworkState(wifi464xlatUpstreamState);
+        if (clatOffloadEnabled) {
+            // Expect that xlat interface information is added to mapping on U+ devices.
+            assertEquals(1, ipv4UpstreamIndices.size());
+            Integer upstreamIndex = ipv4UpstreamIndices.get(XLAT_LOCAL_IPV4ADDR);
+            assertNotNull(upstreamIndex);
+            assertEquals(UPSTREAM_XLAT_IFINDEX2, (int) upstreamIndex);
+            assertEquals(2, interfaceNames.size());
+            // Added by #updateUpstreamNetworkState for clat interface because IpServer doesn't add
+            // IPv6 wifi interface mapping which doesn't support tethering.
+            assertTrue(interfaceNames.contains(UPSTREAM_IFINDEX2));
+            assertTrue(interfaceNames.contains(UPSTREAM_XLAT_IFINDEX2));
+        } else {
+            // Expect that xlat interface information isn't added to mapping on S and T devices.
+            assertTrue(ipv4UpstreamIndices.isEmpty());
+            assertEquals(0, interfaceNames.size());
+        }
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testUpdateUpstreamNetworkState_ipv6AndXlatWifiAfterT() throws Exception {
+        verifyUpdateUpstreamNetworkState_ipv6AndXlatWifi(true /* clatOffloadEnabled */);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    @IgnoreAfter(Build.VERSION_CODES.TIRAMISU)
+    public void testUpdateUpstreamNetworkState_ipv6AndXlatWifiOnSOrT() throws Exception {
+        verifyUpdateUpstreamNetworkState_ipv6AndXlatWifi(false /* clatOffloadEnabled */);
     }
 }
