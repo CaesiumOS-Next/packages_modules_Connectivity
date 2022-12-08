@@ -16,6 +16,8 @@
 
 package android.net;
 
+import static android.annotation.SystemApi.Client.PRIVILEGED_APPS;
+
 import android.annotation.IntDef;
 import android.annotation.IntRange;
 import android.annotation.NonNull;
@@ -55,6 +57,12 @@ public abstract class SocketKeepalive implements AutoCloseable {
     /** @hide */
     protected static final String TAG = "SocketKeepalive";
 
+    /**
+     * Temporary disabled. This should only be internally as it indicates the keepalive is temporary
+     * disabled due to dynamic keepalive mode.
+     * @hide
+     */
+    public static final int TEMP_DISABLED = 1;
     /**
      * Success. It indicates there is no error.
      * @hide
@@ -308,11 +316,34 @@ public abstract class SocketKeepalive implements AutoCloseable {
      */
     public final void start(@IntRange(from = MIN_INTERVAL_SEC, to = MAX_INTERVAL_SEC)
             int intervalSec) {
-        startImpl(intervalSec);
+        startImpl(intervalSec, false /* dynamicKeepaliveMode */);
+    }
+
+    /**
+     * Request that keepalive be started with the given {@code intervalSec}.
+     * See {@link SocketKeepalive}. If the remote binder dies, or the binder call throws an
+     * exception when invoking start or stop of the {@link SocketKeepalive}, a
+     * {@link RemoteException} will be thrown into the {@code executor}. This is typically not
+     * important to catch because the remote party is the system, so if it is not in shape to
+     * communicate through binder the system is probably going down anyway. If the caller cares
+     * regardless, it can use a custom {@link Executor} to catch the {@link RemoteException}.
+     *
+     * @param intervalSec The target interval in seconds between keepalive packet transmissions.
+     *                    The interval should be between 10 seconds and 3600 seconds, otherwise
+     *                    {@link #ERROR_INVALID_INTERVAL} will be returned.
+     * @param dynamicKeepaliveMode A boolean indicating if the keepalive will be dynamically enabled
+     *                             or disabled based on whether there are any TCP sockets alive on
+     *                             the network.
+     * @hide
+     */
+    @SystemApi(client = PRIVILEGED_APPS)
+    public final void start(@IntRange(from = MIN_INTERVAL_SEC, to = MAX_INTERVAL_SEC)
+            int intervalSec, boolean dynamicKeepaliveMode) {
+        startImpl(intervalSec, dynamicKeepaliveMode);
     }
 
     /** @hide */
-    protected abstract void startImpl(int intervalSec);
+    protected abstract void startImpl(int intervalSec, boolean dynamicKeepaliveMode);
 
     /**
      * Requests that keepalive be stopped. The application must wait for {@link Callback#onStopped}
