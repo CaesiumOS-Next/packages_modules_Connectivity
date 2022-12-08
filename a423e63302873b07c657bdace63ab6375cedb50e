@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e60c8c4e_9082a670",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3122,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2022-12-08T11:23:42Z",
+      "side": 1,
+      "message": "The only difference here would be if iface is null and oldLp is not, we would log errors below: `loge(\"Setting MTU size with null iface.\");`. \nBefore this CL, those logs would have been avoided when MTU was identical. \nArguably, maybe those error logs should be happening?\n\nNote: I think vpn sends link properties with null ifaces as a normal behaviour. Maybe it shouldn\u0027t?",
+      "parentUuid": "c6d3b7f9_f67c1401",
+      "range": {
+        "startLine": 3118,
+        "startChar": 0,
+        "endLine": 3122,
+        "endChar": 57
+      },
+      "revId": "a423e63302873b07c657bdace63ab6375cedb50e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eff11040_90ab78d8",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 3
@@ -129,6 +153,30 @@
       "writtenOn": "2022-12-08T10:11:45Z",
       "side": 1,
       "message": "Is this the only testcase that fails with the current code? If so, I would suggest *also* merging this before you merge the fix, but with a tweak to make it pass before the fix. Something like:\n\n    // TODO(b/246398088): the MTU should be set on the new interface.\n    verify(mMockNetd, never()).interfaceSetMtu(eq(ifaceName2), anyInt());\n\nThen when you upload the fix CL, by looking at the diff in ConnectivityServiceTest.java we\u0027ll see exactly which tests continue to pass as is and which ones need to be changed.",
+      "range": {
+        "startLine": 17120,
+        "startChar": 8,
+        "endLine": 17120,
+        "endChar": 14
+      },
+      "revId": "a423e63302873b07c657bdace63ab6375cedb50e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0063a14_be484302",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 17120,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2022-12-08T11:23:42Z",
+      "side": 1,
+      "message": "Sounds good, I\u0027ll do that.",
+      "parentUuid": "9422b207_d0d34ad3",
       "range": {
         "startLine": 17120,
         "startChar": 8,
