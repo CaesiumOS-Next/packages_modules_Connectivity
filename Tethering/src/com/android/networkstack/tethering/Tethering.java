@@ -89,7 +89,6 @@ import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkInfo;
-import android.net.TetheringCallbackStartedParcel;
 import android.net.TetheringInterface;
 import android.net.TetheringManager.TetheringRequest;
 import android.net.TetheringRequestParcel;
@@ -148,7 +147,6 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -521,7 +519,7 @@ public class Tethering {
         mConfig = mDeps.generateTetheringConfiguration(mContext, mLog, mActiveDataSubId);
         mUpstreamNetworkMonitor.setUpstreamConfig(mConfig.chooseUpstreamAutomatically,
                 mConfig.isDunRequired);
-        mCallbacksTracker.reportConfigurationChanged(mConfig.toStableParcelable());
+        mCallbacksTracker.updateConfigurationChanged(mConfig.toStableParcelable());
 
         updateSupportedDownstreams(mConfig);
     }
@@ -2331,23 +2329,7 @@ public class Tethering {
                 hasCallingPermission(NETWORK_SETTINGS)
                         || hasCallingPermission(PERMISSION_MAINLINE_NETWORK_STACK)
                         || hasCallingPermission(NETWORK_STACK);
-        mHandler.post(() -> {
-            mCallbacksTracker.add(callback, hasListPermission);
-            final TetheringCallbackStartedParcel parcel = new TetheringCallbackStartedParcel();
-            parcel.supportedTypes = mCallbacksTracker.getSupportedTypeBitmap();
-            parcel.upstreamNetwork = mCallbacksTracker.getTetherUpstream();
-            parcel.config = mConfig.toStableParcelable();
-            parcel.states = mCallbacksTracker.getTetherStatesParcel();
-            parcel.tetheredClients = hasListPermission
-                    ? mConnectedClientsTracker.getLastTetheredClients()
-                    : Collections.emptyList();
-            parcel.offloadStatus = mCallbacksTracker.getOffloadStatus();
-            try {
-                callback.onCallbackStarted(parcel);
-            } catch (RemoteException e) {
-                // Not really very much to do here.
-            }
-        });
+        mHandler.post(() -> mCallbacksTracker.add(callback, hasListPermission));
     }
 
     private boolean hasCallingPermission(@NonNull String permission) {

@@ -22,11 +22,13 @@ import android.net.ITetheringEventCallback;
 import android.net.Network;
 import android.net.TetherStatesParcel;
 import android.net.TetheredClient;
+import android.net.TetheringCallbackStartedParcel;
 import android.net.TetheringConfigurationParcel;
 import android.net.TetheringInterface;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 
+import java.util.Collections;
 import java.util.List;
 
 /** A class that tracking registered tethering event callbacks. */
@@ -42,6 +44,8 @@ public class EventCallbacksTracker {
     // read from binder thread which called TetheringService directly.
     private volatile long mSupportedTypeBitmap;
     private Network mTetherUpstream;
+    private TetheringConfigurationParcel mConfigParcel;
+    private List<TetheredClient> mTetheredClients = Collections.emptyList();
 
     public EventCallbacksTracker() {
         mTetherStatesParcel = emptyTetherStatesParcel();
@@ -72,6 +76,19 @@ public class EventCallbacksTracker {
     /** Add tethering event callback. */
     public void add(final ITetheringEventCallback callback, final boolean hasListPermission) {
         mTetheringEventCallbacks.register(callback, new CallbackCookie(hasListPermission));
+
+        final TetheringCallbackStartedParcel parcel = new TetheringCallbackStartedParcel();
+        parcel.supportedTypes = mSupportedTypeBitmap;
+        parcel.upstreamNetwork = mTetherUpstream;
+        parcel.config = mConfigParcel;
+        parcel.states = mTetherStatesParcel;
+        parcel.tetheredClients = hasListPermission ? mTetheredClients : Collections.emptyList();
+        parcel.offloadStatus = mOffloadStatus;
+        try {
+            callback.onCallbackStarted(parcel);
+        } catch (RemoteException e) {
+            // Not really very much to do here.
+        }
     }
 
     /** Remove tethering event callback. */
@@ -127,7 +144,9 @@ public class EventCallbacksTracker {
     }
 
     /** Notify tethering configuration change. */
-    public void reportConfigurationChanged(TetheringConfigurationParcel config) {
+    public void updateConfigurationChanged(TetheringConfigurationParcel config) {
+        mConfigParcel = config;
+
         final int length = mTetheringEventCallbacks.beginBroadcast();
         try {
             for (int i = 0; i < length; i++) {
@@ -180,6 +199,8 @@ public class EventCallbacksTracker {
 
     /** Notify connected clients change. */
     public void updateTetherClientsChanged(List<TetheredClient> clients) {
+        mTetheredClients = clients;
+
         final int length = mTetheringEventCallbacks.beginBroadcast();
         try {
             for (int i = 0; i < length; i++) {
