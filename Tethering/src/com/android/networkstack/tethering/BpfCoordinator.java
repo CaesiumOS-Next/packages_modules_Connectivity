@@ -51,6 +51,7 @@ import android.system.OsConstants;
 import android.text.TextUtils;
 import android.util.ArraySet;
 import android.util.Log;
+import android.util.Pair;
 import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
@@ -268,6 +269,9 @@ public class BpfCoordinator {
     // Tracks the last IPv4 upstream index. Support single upstream only.
     // TODO: Support multi-upstream interfaces.
     private int mLastIPv4UpstreamIfindex = 0;
+
+    // Tracks the upstream interface index and its 464xlat upstream interface index if any.
+    private Pair<Integer, Integer> mUpstreamIfindexAndXlatIfindexPair = null;
 
     // Runnable that used by scheduling next polling of stats.
     private final Runnable mScheduledPollingStats = () -> {
@@ -921,6 +925,7 @@ public class BpfCoordinator {
         // If either upstream or its stacked xlat interface has ipv4 address, get address for
         // building upstream interface index mapping.
         String upstreamIfaceName = null;
+        String clatIface = null;
         Collection<InetAddress> upstreamAddresses = null;
         if (ns != null && ns.linkProperties != null) {
             final String ifaceName = ns.linkProperties.getInterfaceName();
@@ -942,7 +947,7 @@ public class BpfCoordinator {
                 // which can't be used for getting 464xlat address here.
                 // TODO: support clat interface offload on S, T device once the clat offload data
                 // usage overhead is fixed.
-                final String clatIface = get464XlatIfaceName(ns.linkProperties);
+                clatIface = get464XlatIfaceName(ns.linkProperties);
                 if (clatIface != null) {
                     upstreamIfaceName = clatIface;
                     // Get all addresses which includes base interface and stacked interface.
@@ -1006,7 +1011,21 @@ public class BpfCoordinator {
         // after the upstream is lost do not incorrectly add rules pointing at the upstream.
         if (upstreamIndex == 0) {
             mIpv4UpstreamIndices.clear();
+            mUpstreamIfindexAndXlatIfindexPair = null;
             return;
+        }
+
+        // 464xlat upstream interface needs to record its original interface index for setting
+        // data limit and accounting data usage on IPv6 upstream interface.
+        if (clatIface != null) {
+            // non-null |clatIface| means that ns.linkProperties is non-null because it is where
+            // |clatIface| parses from.
+            final String ifaceName = ns.linkProperties.getInterfaceName();
+            final InterfaceParams params = mDeps.getInterfaceParams(ifaceName);
+            if (params != null) {
+                mUpstreamIfindexAndXlatIfindexPair = new Pair<>(
+                        params.index /* original iface */, upstreamIndex /* 464xlat iface */);
+            }
         }
 
         // Map IPv4 address to the upstream index. Non-zero upstreamIndex means that we found a
@@ -1736,6 +1755,14 @@ public class BpfCoordinator {
         return addr6;
     }
 
+    private int getAccountedInterface(int upstreamIndex) {
+        if (mUpstreamIfindexAndXlatIfindexPair == null) return upstreamIndex;
+        if (mUpstreamIfindexAndXlatIfindexPair.second != upstreamIndex) {
+            return upstreamIndex;
+        }
+        return mUpstreamIfindexAndXlatIfindexPair.first;
+    }
+
     // TODO: parse CTA_PROTOINFO of conntrack event in ConntrackMonitor. For TCP, only add rules
     // while TCP status is established.
     @VisibleForTesting
@@ -1815,24 +1842,24 @@ public class BpfCoordinator {
 
         @NonNull
         private Tether4Value makeTetherUpstream4Value(@NonNull ConntrackEvent e,
-                int upstreamIndex) {
+                int upstreamIndex, int accountIndex) {
             return new Tether4Value(upstreamIndex,
                     NULL_MAC_ADDRESS /* ethDstMac (rawip) */,
                     NULL_MAC_ADDRESS /* ethSrcMac (rawip) */, ETH_P_IP,
                     NetworkStackConstants.ETHER_MTU, toIpv4MappedAddressBytes(e.tupleReply.dstIp),
                     toIpv4MappedAddressBytes(e.tupleReply.srcIp), e.tupleReply.dstPort,
-                    e.tupleReply.srcPort, 0 /* lastUsed, filled by bpf prog only */);
+                    e.tupleReply.srcPort, 0 /* lastUsed, filled by bpf prog only */, accountIndex);
         }
 
         @NonNull
         private Tether4Value makeTetherDownstream4Value(@NonNull ConntrackEvent e,
-                @NonNull ClientInfo c, int upstreamIndex) {
+                @NonNull ClientInfo c, int upstreamIndex, int accountIndex) {
             return new Tether4Value(c.downstreamIfindex,
                     c.clientMac, c.downstreamMac, ETH_P_IP, NetworkStackConstants.ETHER_MTU,
                     toIpv4MappedAddressBytes(e.tupleOrig.dstIp),
                     toIpv4MappedAddressBytes(e.tupleOrig.srcIp),
                     e.tupleOrig.dstPort, e.tupleOrig.srcPort,
-                    0 /* lastUsed, filled by bpf prog only */);
+                    0 /* lastUsed, filled by bpf prog only */, accountIndex);
         }
 
         private boolean allowOffload(ConntrackEvent e) {
@@ -1877,9 +1904,11 @@ public class BpfCoordinator {
                 return;
             }
 
-            final Tether4Value upstream4Value = makeTetherUpstream4Value(e, upstreamIndex);
+            final int accountIndex = getAccountedInterface(upstreamIndex);
+            final Tether4Value upstream4Value = makeTetherUpstream4Value(e, upstreamIndex,
+                    accountIndex);
             final Tether4Value downstream4Value = makeTetherDownstream4Value(e, tetherClient,
-                    upstreamIndex);
+                    upstreamIndex, accountIndex);
 
             maybeAddDevMap(upstreamIndex, tetherClient.downstreamIfindex);
             maybeSetLimit(upstreamIndex);
@@ -1952,12 +1981,13 @@ public class BpfCoordinator {
             return;
         }
 
+        final int accountedIfindex = getAccountedInterface(upstreamIfindex);
         // If failed to set a data limit, probably should not use this upstream, because
         // the upstream may not want to blow through the data limit that was told to apply.
         // TODO: Perhaps stop the coordinator.
-        boolean success = updateDataLimit(upstreamIfindex);
+        boolean success = updateDataLimit(accountedIfindex);
         if (!success) {
-            mLog.e("Setting data limit for " + getIfName(upstreamIfindex) + " failed.");
+            mLog.e("Setting data limit for " + getIfName(accountedIfindex) + " failed.");
         }
     }
 
@@ -1969,19 +1999,20 @@ public class BpfCoordinator {
             return;
         }
 
+        final int accountedIfindex = getAccountedInterface(upstreamIfindex);
         final TetherStatsValue statsValue =
-                mBpfCoordinatorShim.tetherOffloadGetAndClearStats(upstreamIfindex);
+                mBpfCoordinatorShim.tetherOffloadGetAndClearStats(accountedIfindex);
         if (statsValue == null) {
-            Log.wtf(TAG, "Fail to cleanup tether stats for upstream index " + upstreamIfindex);
+            Log.wtf(TAG, "Fail to cleanup tether stats for upstream index " + accountedIfindex);
             return;
         }
 
         SparseArray<TetherStatsValue> tetherStatsList = new SparseArray<TetherStatsValue>();
-        tetherStatsList.put(upstreamIfindex, statsValue);
+        tetherStatsList.put(accountedIfindex, statsValue);
 
         // Update the last stats delta and delete the local cache for a given upstream.
         updateQuotaAndStatsFromSnapshot(tetherStatsList);
-        mStats.remove(upstreamIfindex);
+        mStats.remove(accountedIfindex);
     }
 
     // TODO: Rename to isAnyIpv6RuleOnUpstream and define an isAnyRuleOnUpstream method that called

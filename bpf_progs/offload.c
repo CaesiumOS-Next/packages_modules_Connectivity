@@ -427,8 +427,7 @@ static inline __always_inline int do_forward4_bottom(struct __sk_buff* skb,
     if (!v) return TC_ACT_PIPE;
 
     uint32_t up_if = downstream ? skb->ifindex : v->oif;
-    // TODO: '?: up_if' should not be needed with proper population in Java
-    uint32_t stat_and_limit_k = v->account_if ?: up_if;
+    uint32_t stat_and_limit_k = v->account_if;
     bool clat = (up_if != stat_and_limit_k);
 
     TetherStatsValue* stat_v = bpf_tether_stats_map_lookup_elem(&stat_and_limit_k);
