@@ -31,8 +31,9 @@ java_library {
         "android.test.base",
         "android.test.mock",
         "androidx.annotation_annotation",
-        "framework-cronet",
+        //"framework-cronet",
     ],
+    //uses_libs: ["framework-cronet"],
 }
 
 android_test {
