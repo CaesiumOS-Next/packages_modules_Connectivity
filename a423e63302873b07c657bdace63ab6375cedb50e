@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6d3b7f9_f67c1401",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3122,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-08T10:11:45Z",
+      "side": 1,
+      "message": "Could you avoid the null check and simplify this code using something like this?\n\n    if (oldLp !\u003d null \u0026\u0026 newLp.isIdenticalMtu(oldLp) \u0026\u0026\n            TextUtils.equals(oldLp.getInterfaceName(), iface)) {\n        if (VDBG) log(\"identical MTU and iface - not setting\");\n    }",
+      "range": {
+        "startLine": 3118,
+        "startChar": 0,
+        "endLine": 3122,
+        "endChar": 57
+      },
+      "revId": "a423e63302873b07c657bdace63ab6375cedb50e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eff11040_90ab78d8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 17039,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-08T10:11:45Z",
+      "side": 1,
+      "message": "Does this test pass with current code, before your CL? If so, let\u0027s upload and merge it in its own CL first. Same for all the other test cases that pass.",
+      "range": {
+        "startLine": 17039,
+        "startChar": 16,
+        "endLine": 17039,
+        "endChar": 53
+      },
+      "revId": "a423e63302873b07c657bdace63ab6375cedb50e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a76e2b71_5b3f5cf0",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 17081,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-08T10:11:45Z",
+      "side": 1,
+      "message": "anyInt() ?",
+      "range": {
+        "startLine": 17081,
+        "startChar": 68,
+        "endLine": 17081,
+        "endChar": 75
+      },
+      "revId": "a423e63302873b07c657bdace63ab6375cedb50e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dcc5a22_d16b082a",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 17086,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-08T10:11:45Z",
+      "side": 1,
+      "message": "If you really want to use 1327 everywhere, might want to add a TEST_MTU constant for it at the top of the file. But you could also use different values to mix things up.",
+      "range": {
+        "startLine": 17086,
+        "startChar": 24,
+        "endLine": 17086,
+        "endChar": 28
+      },
+      "revId": "a423e63302873b07c657bdace63ab6375cedb50e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92010411_3573e392",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 17100,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-08T10:11:45Z",
+      "side": 1,
+      "message": "anyInt() ?",
+      "range": {
+        "startLine": 17100,
+        "startChar": 58,
+        "endLine": 17100,
+        "endChar": 65
+      },
+      "revId": "a423e63302873b07c657bdace63ab6375cedb50e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9422b207_d0d34ad3",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 17120,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-08T10:11:45Z",
+      "side": 1,
+      "message": "Is this the only testcase that fails with the current code? If so, I would suggest *also* merging this before you merge the fix, but with a tweak to make it pass before the fix. Something like:\n\n    // TODO(b/246398088): the MTU should be set on the new interface.\n    verify(mMockNetd, never()).interfaceSetMtu(eq(ifaceName2), anyInt());\n\nThen when you upload the fix CL, by looking at the diff in ConnectivityServiceTest.java we\u0027ll see exactly which tests continue to pass as is and which ones need to be changed.",
+      "range": {
+        "startLine": 17120,
+        "startChar": 8,
+        "endLine": 17120,
+        "endChar": 14
+      },
+      "revId": "a423e63302873b07c657bdace63ab6375cedb50e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
