@@ -126,6 +126,9 @@ public class CtsEthernetTetheringTest extends EthernetTetheringTestBase {
     // Per TX UDP packet size: ethhdr (14) + iphdr (20) + udphdr (8) + payload (2) = 44 bytes.
     private static final int TX_UDP_PACKET_SIZE = 44;
     private static final int TX_UDP_PACKET_COUNT = 123;
+    // 40 bytes IPv6 header - 20 bytes IPv4 header. 8 bytes IPv6 fragment header is ignored.
+    // See do_forward4_bottom() in  packages/modules/Connectivity/bpf_progs/offload.c
+    private static final int XLAT_PACKET_SIZE_DELTA = 20;
 
     private static final short DNS_PORT = 53;
 
@@ -1072,5 +1075,108 @@ public class CtsEthernetTetheringTest extends EthernetTetheringTestBase {
                 tethered.ipv4Addr /* uploadSrcIp */, REMOTE_IP4_ADDR /* uploadDstIp */,
                 REMOTE_NAT64_ADDR /* downloadSrcIp */, clatIp6 /* downloadDstIp */,
                 tester, true /* isClat */);
+    }
+
+    // TODO: move to MtsEthernetTetheringTest
+    private void runClatOffloadTest() throws Exception {
+        // CLAT only starts on IPv6 only network.
+        final TetheringTester tester = initTetheringTester(toList(TEST_IP6_ADDR),
+                toList(TEST_IP6_DNS));
+        final TetheredDevice tethered = tester.createTetheredDevice(TEST_MAC, true /* hasIpv6 */);
+
+        // Get CLAT IPv6 address.
+        final Inet6Address clatIp6 = getClatIpv6Address(tester, tethered);
+
+        // Send an IPv4 UDP packet in original direction.
+        // IPv4 packet -- CLAT translation --> IPv6 packet
+        sendUploadPacketUdp(tethered.macAddr, tethered.routerMacAddr, tethered.ipv4Addr,
+                REMOTE_IP4_ADDR, tester, true /* is4To6 */);
+
+        // Send an IPv6 UDP packet in reply direction.
+        // IPv6 packet -- CLAT translation --> IPv4 packet
+        sendDownloadPacketUdp(REMOTE_NAT64_ADDR, clatIp6, tester, true /* is6To4 */);
+
+        // Send an IPv4 UDP packet in original direction.
+        // IPv4 packet -- CLAT translation --> IPv6 packet
+        // The BPF coordinator only offloads the ASSURED conntrack entry. The "request + reply"
+        // packets can make status IPS_SEEN_REPLY to be set. Need one more packet to make
+        // conntrack status IPS_ASSURED_BIT to be set. Note the third packet needs to delay
+        // 2 seconds because kernel monitors a UDP connection which still alive after 2 seconds
+        // and apply ASSURED flag.
+        // See kernel upstream commit b7b1d02fc43925a4d569ec221715db2dfa1ce4f5 and
+        // nf_conntrack_udp_packet in net/netfilter/nf_conntrack_proto_udp.c
+        Thread.sleep(UDP_STREAM_TS_MS);
+        sendUploadPacketUdp(tethered.macAddr, tethered.routerMacAddr, tethered.ipv4Addr,
+                REMOTE_IP4_ADDR, tester, true /* is4To6 */);
+
+        // Give a slack time for handling conntrack event in user space.
+        Thread.sleep(UDP_STREAM_SLACK_MS);
+
+        // Send packets on original direction.
+        for (int i = 0; i < TX_UDP_PACKET_COUNT; i++) {
+            sendUploadPacketUdp(tethered.macAddr, tethered.routerMacAddr, tethered.ipv4Addr,
+                    REMOTE_IP4_ADDR, tester, true /* is4To6 */);
+        }
+
+        // Send packets on reply direction.
+        for (int i = 0; i < RX_UDP_PACKET_COUNT; i++) {
+            sendDownloadPacketUdp(REMOTE_NAT64_ADDR, clatIp6, tester, true /* is6To4 */);
+        }
+
+        // [1] Verify IPv4 upstream rule map.
+        final HashMap<Tether4Key, Tether4Value> upstreamMap = pollRawMapFromDump(
+                Tether4Key.class, Tether4Value.class, DUMPSYS_RAWMAP_ARG_UPSTREAM4);
+        assertNotNull(upstreamMap);
+        assertEquals(1, upstreamMap.size());
+
+        final Map.Entry<Tether4Key, Tether4Value> rule =
+                upstreamMap.entrySet().iterator().next();
+
+        final Tether4Key upstream4Key = rule.getKey();
+        assertEquals(IPPROTO_UDP, upstream4Key.l4proto);
+        assertTrue(Arrays.equals(tethered.ipv4Addr.getAddress(), upstream4Key.src4));
+        assertEquals(LOCAL_PORT, upstream4Key.srcPort);
+        assertTrue(Arrays.equals(REMOTE_IP4_ADDR.getAddress(), upstream4Key.dst4));
+        assertEquals(REMOTE_PORT, upstream4Key.dstPort);
+
+        final Tether4Value upstream4Value = rule.getValue();
+        // TODO: verify the |src46| field in Tether4Key. It requires to get CLAT interface IPv4
+        // address which we don't have such an information right now.
+        assertEquals(LOCAL_PORT, upstream4Value.srcPort);
+        assertTrue(Arrays.equals(REMOTE_IP4_ADDR.getAddress(),
+                InetAddress.getByAddress(upstream4Value.dst46).getAddress()));
+        assertEquals(REMOTE_PORT, upstream4Value.dstPort);
+
+        // [2] Verify stats map.
+        final HashMap<TetherStatsKey, TetherStatsValue> statsMap = pollRawMapFromDump(
+                TetherStatsKey.class, TetherStatsValue.class, DUMPSYS_RAWMAP_ARG_STATS);
+        assertNotNull(statsMap);
+        assertEquals(1, statsMap.size());
+
+        final Map.Entry<TetherStatsKey, TetherStatsValue> stats =
+                statsMap.entrySet().iterator().next();
+
+        final TetherStatsValue statsValue = stats.getValue();
+        // TODO: verify the upstream index in TetherStatsKey.
+        assertEquals(RX_UDP_PACKET_COUNT, statsValue.rxPackets);
+        assertEquals(RX_UDP_PACKET_COUNT * (RX_UDP_PACKET_SIZE + XLAT_PACKET_SIZE_DELTA),
+                statsValue.rxBytes);
+        assertEquals(0, statsValue.rxErrors);
+        assertEquals(TX_UDP_PACKET_COUNT, statsValue.txPackets);
+        assertEquals(TX_UDP_PACKET_COUNT * (TX_UDP_PACKET_SIZE + XLAT_PACKET_SIZE_DELTA),
+                statsValue.txBytes);
+        assertEquals(0, statsValue.txErrors);
+    }
+
+    // TODO: move to MtsEthernetTetheringTest
+    // TODO: support R device. See b/234727688.
+    // TODO: support S, T device once the clat offload data usage overhead is fixed.
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testTetherBpfOffloadClatUdp() throws Exception {
+        assumeTrue("Tethering config disabled BPF offload", isTetherConfigBpfOffloadEnabled());
+        assumeKernelSupportBpfOffloadUdpV4();
+
+        runClatOffloadTest();
     }
 }
