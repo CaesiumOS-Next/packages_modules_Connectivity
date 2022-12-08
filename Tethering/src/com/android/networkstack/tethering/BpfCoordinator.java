@@ -122,8 +122,10 @@ public class BpfCoordinator {
     private static final int DUMP_TIMEOUT_MS = 10_000;
     private static final MacAddress NULL_MAC_ADDRESS = MacAddress.fromString(
             "00:00:00:00:00:00");
-    private static final UpstreamInfo EMPTY_UPSTREAM = new UpstreamInfo("" /* ifName */,
-            0 /* ifIndex */, 0 /* mtu */);
+    private static final String EMPTY_IFACENAME = "";
+    private static final UpstreamInfo EMPTY_UPSTREAM = new UpstreamInfo(
+            EMPTY_IFACENAME /* ifName */, 0 /* ifIndex */, 0 /* mtu */,
+            EMPTY_IFACENAME /* underlyingIfName */, 0 /* underlyingIfIndex */);
     private static final String TETHER_DOWNSTREAM4_MAP_PATH = makeMapPath(DOWNSTREAM, 4);
     private static final String TETHER_UPSTREAM4_MAP_PATH = makeMapPath(UPSTREAM, 4);
     private static final String TETHER_DOWNSTREAM6_FS_PATH = makeMapPath(DOWNSTREAM, 6);
@@ -934,12 +936,16 @@ public class BpfCoordinator {
         if (ns == null || ns.linkProperties == null) return EMPTY_UPSTREAM;
 
         String upstreamIfaceName = null;
+        String underlyingIfaceName = null;
         int upstreamIndex = 0;
+        int underlyingIfaceIndex = 0;
         int mtu = INVALID_MTU;
 
         final String ifaceName = ns.linkProperties.getInterfaceName();
         if (ns.linkProperties.hasIpv4Address()) {
             upstreamIfaceName = ifaceName;
+            underlyingIfaceName = EMPTY_IFACENAME;
+            underlyingIfaceIndex = 0;
         } else if (clatOffloadEnabled && ns.linkProperties.getNat64Prefix() != null) {
             // 464xlat only starts with NAT64 prefix and 464xlat interface should have IPv4
             // addresses. Use 464xlat interface name and address to build the upstream
@@ -953,7 +959,14 @@ public class BpfCoordinator {
             // TODO: support clat interface offload on S and T devices.
             final String clatIface = get464XlatIfaceName(ns.linkProperties);
             if (clatIface != null) {
-                upstreamIfaceName = clatIface;
+                final InterfaceParams params = mDeps.getInterfaceParams(ifaceName);
+                if (params != null) {
+                    // 464xlat upstream interface needs to record its base interface index for
+                    // setting data limit and accounting data usage on its IPv6 upstream interface.
+                    upstreamIfaceName = clatIface;
+                    underlyingIfaceName = params.name;
+                    underlyingIfaceIndex = params.index;
+                }
             }
         }
 
@@ -970,7 +983,8 @@ public class BpfCoordinator {
         mtu = getMtu(upstreamIfaceName, ns.linkProperties);
         upstreamIndex = upstreamParams.index;
 
-        return new UpstreamInfo(upstreamIfaceName, upstreamIndex, mtu);
+        return new UpstreamInfo(upstreamIfaceName, upstreamIndex, mtu, underlyingIfaceName,
+                underlyingIfaceIndex);
     }
 
     @Nullable
@@ -1025,9 +1039,9 @@ public class BpfCoordinator {
 
             // Remove the upstream interface name mapping while v4-only clat interface is lost.
             // Needed because clat interface index is generated every time clat started. The
-            // clat interface mapping may increase by time in IPv6-only environment which needs
-            // clat. Note the #removeUpstreamNameFromLookupTable must be called when no rule on
-            // the given upstream index. Or the data limit cleanup will be broken.
+            // clat interface mapping may increase by time in IPv6-only environment which is
+            // using clat. Note the #removeUpstreamNameFromLookupTable must be called when no rule
+            // on the given upstream index. Or the data limit cleanup will be broken.
             // See #updateDataLimit.
             // TODO: consider cleaning any losing interface index stubs (ex: IPv6 only or dual
             // stack). Before cleaning the forwarding rule stubs, need to remove existing rules
@@ -1053,7 +1067,23 @@ public class BpfCoordinator {
             return;
         }
 
-        final Collection<InetAddress> addresses = is464XlatInterface(currUpstreamInfo.ifName)
+        // Needed for IPv6-only upstream which doesn't support IPv6 tethering. Ex: Wifi.
+        // In this case, IpServer has never triggered updateUpstreamIPv6LinkProperties() to
+        // update IPv6-only interface index mapping and update IPv4 clat interface only.
+        // It causes the data limit can't update accounted IPv6-only interface quota while
+        // using clat because of a lack of underlying interface information. For IPv6 + clat
+        // upstream (ex: cellular) which both support tethering, this adding mapping may be
+        // redundant because IpServer also adds the underlying interface mapping. But
+        // it is okay, #addUpstreamNameToLookupTable ignores duplicated mapping adding.
+        // Note that don't need to check |clatOffloadEnabled| here to limit clat upstream on S
+        // and T devices because #getUpstreamInfoV4 has checked while getting |currUpstreamInfo|.
+        final boolean isClat = is464XlatInterface(currUpstreamInfo.ifName);
+        if (isClat) {
+            addUpstreamNameToLookupTable(currUpstreamInfo.underlyingIfIndex,
+                    currUpstreamInfo.underlyingIfName);
+        }
+
+        final Collection<InetAddress> addresses = isClat
                 // Get all addresses which includes base interface and stacked interface.
                 // The IPv4 address, if any, must belongs to stacked interface because
                 // clat upstream interface implies that the base interface has no IPv4 address.
@@ -1415,10 +1445,11 @@ public class BpfCoordinator {
 
         final String ageStr = (value.lastUsed == 0) ? "-"
                 : String.format("%dms", (now - value.lastUsed) / 1_000_000);
-        return String.format("%s [%s] %d(%s) %s:%d -> %d(%s) %s:%d -> %s:%d [%s] %d %s",
+        return String.format("%s [%s] %d(%s) %s:%d -> %d(%s) %s:%d -> %s:%d [%s] %d %d(%s) %s",
                 l4protoToString(key.l4proto), key.dstMac, key.iif, getIfName(key.iif),
                 src4, key.srcPort, value.oif, getIfName(value.oif),
-                public4, publicPort, dst4, value.dstPort, value.ethDstMac, value.pmtu, ageStr);
+                public4, publicPort, dst4, value.dstPort, value.ethDstMac, value.pmtu,
+                value.accountIf, getIfName(value.accountIf), ageStr);
     }
 
     private void dumpIpv4ForwardingRuleMap(long now, boolean downstream,
@@ -1440,13 +1471,13 @@ public class BpfCoordinator {
         try (IBpfMap<Tether4Key, Tether4Value> upstreamMap = mDeps.getBpfUpstream4Map();
                 IBpfMap<Tether4Key, Tether4Value> downstreamMap = mDeps.getBpfDownstream4Map()) {
             pw.println("IPv4 Upstream: proto [inDstMac] iif(iface) src -> nat -> "
-                    + "dst [outDstMac] pmtu age");
+                    + "dst [outDstMac] pmtu accountIf(iface) age");
             pw.increaseIndent();
             dumpIpv4ForwardingRuleMap(now, UPSTREAM, upstreamMap, pw);
             pw.decreaseIndent();
 
             pw.println("IPv4 Downstream: proto [inDstMac] iif(iface) src -> nat -> "
-                    + "dst [outDstMac] pmtu age");
+                    + "dst [outDstMac] pmtu accountIf(iface) age");
             pw.increaseIndent();
             dumpIpv4ForwardingRuleMap(now, DOWNSTREAM, downstreamMap, pw);
             pw.decreaseIndent();
@@ -1699,25 +1730,32 @@ public class BpfCoordinator {
 
     /** Upstream information class. */
     private static final class UpstreamInfo {
-        // TODO: add clat interface information
         public final String ifName;
         public final int ifIndex;
         public final int mtu;
 
-        private UpstreamInfo(@NonNull final String ifName, final int ifIndex, final int mtu) {
+        public final String underlyingIfName;
+        public final int underlyingIfIndex;
+
+        private UpstreamInfo(@NonNull final String ifName, final int ifIndex, final int mtu,
+                @NonNull final String underlyingIfName, final int underlyingIfIndex) {
             this.ifName = ifName;
             this.ifIndex = ifIndex;
             this.mtu = mtu;
+            this.underlyingIfName = underlyingIfName;
+            this.underlyingIfIndex = underlyingIfIndex;
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(ifName, ifIndex, mtu);
+            return Objects.hash(ifName, ifIndex, mtu, underlyingIfName, underlyingIfIndex);
         }
 
         @Override
         public String toString() {
-            return String.format("ifName: %s, ifIndex: %d, mtu: %d", ifName, ifIndex, mtu);
+            return String.format("ifName: %s, ifIndex: %d, mtu: %d, underlyingIfName: %s, "
+                    + "underlyingIfIndex: %d", ifName, ifIndex, mtu, underlyingIfName,
+                    underlyingIfIndex);
         }
     }
 
@@ -1813,6 +1851,18 @@ public class BpfCoordinator {
         return addr6;
     }
 
+    // If a given upstream interface index is clat interface, return its base upstream v6
+    // interface index. Otherwise, return the given interface itself.
+    private int getAccountIfIndex(int upstreamIndex) {
+        // Clat interface. Account data limit on its base upstream v6 interface index.
+        if (mIpv4UpstreamInfo.ifIndex == upstreamIndex
+                && mIpv4UpstreamInfo.underlyingIfIndex != 0) {
+            return mIpv4UpstreamInfo.underlyingIfIndex;
+        }
+        // Non-clat interface. Account data limit on |upstreamIndex| itself.
+        return upstreamIndex;
+    }
+
     // TODO: parse CTA_PROTOINFO of conntrack event in ConntrackMonitor. For TCP, only add rules
     // while TCP status is established.
     @VisibleForTesting
@@ -1842,15 +1892,15 @@ public class BpfCoordinator {
         // |      |ream  |ream  |udp   |      |      |      |      |
         // +------+------+------+------+------+------+------+------+
         //
-        // +------+---------------------------------------------------------------------+
-        // |      |      TetherUpstream4Value                                           |
-        // +------+------+------+------+------+------+------+------+------+------+------+
-        // |field |oif   |ethDst|ethSrc|ethPro|pmtu  |src46 |dst46 |srcPor|dstPor|lastUs|
-        // |      |      |mac   |mac   |to    |      |      |      |t     |t     |ed    |
-        // +------+------+------+------+------+------+------+------+------+------+------+
-        // |value |upstre|--    |--    |ETH_P_|1500  |upstre|server|upstre|server|--    |
-        // |      |am    |      |      |IP    |      |am    |      |am    |      |      |
-        // +------+------+------+------+------+------+------+------+------+------+------+
+        // +------+----------------------------------------------------------------------------+
+        // |      |      TetherUpstream4Value                                                  |
+        // +------+------+------+------+------+------+------+------+------+------+-------------+
+        // |field |oif   |ethDst|ethSrc|ethPro|pmtu  |src46 |dst46 |srcPor|dstPor|lastUs|accoun|
+        // |      |      |mac   |mac   |to    |      |      |      |t     |t     |ed    |t_if  |
+        // +------+------+------+------+------+------+------+------+------+------+------+------+
+        // |value |upstre|--    |--    |ETH_P_|1500  |upstre|server|upstre|server|--    |(note)|
+        // |      |am    |      |      |IP    |      |am    |      |am    |      |      |      |
+        // +------+------+------+------+------+------+------+------+------+------+------+------+
         //
         // downstream4 key and value:
         //
@@ -1864,16 +1914,24 @@ public class BpfCoordinator {
         // |      |am    |      |udp   |      |am    |      |am    |
         // +------+------+------+------+------+------+------+------+
         //
-        // +------+---------------------------------------------------------------------+
-        // |      |      TetherDownstream4Value                                         |
-        // +------+------+------+------+------+------+------+------+------+------+------+
-        // |field |oif   |ethDst|ethSrc|ethPro|pmtu  |src46 |dst46 |srcPor|dstPor|lastUs|
-        // |      |      |mac   |mac   |to    |      |      |      |t     |t     |ed    |
-        // +------+------+------+------+------+------+------+------+------+------+------+
-        // |value |downst|client|downst|ETH_P_|1500  |server|client|server|client|--    |
-        // |      |ream  |      |ream  |IP    |      |      |      |      |      |      |
-        // +------+------+------+------+------+------+------+------+------+------+------+
+        // +------+----------------------------------------------------------------------------+
+        // |      |      TetherDownstream4Value                                                |
+        // +------+------+------+------+------+------+------+------+------+------+-------------+
+        // |field |oif   |ethDst|ethSrc|ethPro|pmtu  |src46 |dst46 |srcPor|dstPor|lastUs|accoun|
+        // |      |      |mac   |mac   |to    |      |      |      |t     |t     |ed    |t_if  |
+        // +------+------+------+------+------+------+------+------+------+------+------+------+
+        // |value |downst|client|downst|ETH_P_|1500  |server|client|server|client|--    |(note)|
+        // |      |ream  |      |ream  |IP    |      |      |      |      |      |      |      |
+        // +------+------+------+------+------+------+------+------+------+------+------+------+
         //
+        // Note:
+        // "account_if" is the data limit againsted interface. It depends on that if upstream
+        // has stacked clat interface. If upstream (v6 only upstream) has clat interface,
+        // "account_if" needs to be assigned the original v6 upstream interface index. If upstream
+        // interface has no clat interface (v4 only or dual stack upstream), assgin upstream
+        // interface index. Clat tether offload is supported on U+ devices. Only publish account_if
+        // on U device. Otherwise, assign 0 to account_if.
+        // TODO: support clat interface offload on S and T devices.
         @NonNull
         private Tether4Key makeTetherUpstream4Key(
                 @NonNull ConntrackEvent e, @NonNull ClientInfo c) {
@@ -1893,23 +1951,28 @@ public class BpfCoordinator {
         @NonNull
         private Tether4Value makeTetherUpstream4Value(@NonNull ConntrackEvent e,
                 @NonNull UpstreamInfo upstreamInfo) {
+            final int accountIfIndex = clatOffloadEnabled
+                    ? getAccountIfIndex(upstreamInfo.ifIndex) : 0 /* unused */;
             return new Tether4Value(upstreamInfo.ifIndex,
                     NULL_MAC_ADDRESS /* ethDstMac (rawip) */,
                     NULL_MAC_ADDRESS /* ethSrcMac (rawip) */, ETH_P_IP,
                     upstreamInfo.mtu, toIpv4MappedAddressBytes(e.tupleReply.dstIp),
                     toIpv4MappedAddressBytes(e.tupleReply.srcIp), e.tupleReply.dstPort,
-                    e.tupleReply.srcPort, 0 /* lastUsed, filled by bpf prog only */);
+                    e.tupleReply.srcPort, 0 /* lastUsed, filled by bpf prog only */,
+                    accountIfIndex);
         }
 
         @NonNull
         private Tether4Value makeTetherDownstream4Value(@NonNull ConntrackEvent e,
                 @NonNull ClientInfo c, @NonNull UpstreamInfo upstreamInfo) {
+            final int accountIfIndex = clatOffloadEnabled
+                    ? getAccountIfIndex(upstreamInfo.ifIndex) : 0 /* unused */;
             return new Tether4Value(c.downstreamIfindex,
                     c.clientMac, c.downstreamMac, ETH_P_IP, upstreamInfo.mtu,
                     toIpv4MappedAddressBytes(e.tupleOrig.dstIp),
                     toIpv4MappedAddressBytes(e.tupleOrig.srcIp),
                     e.tupleOrig.dstPort, e.tupleOrig.srcPort,
-                    0 /* lastUsed, filled by bpf prog only */);
+                    0 /* lastUsed, filled by bpf prog only */, accountIfIndex);
         }
 
         private boolean allowOffload(ConntrackEvent e) {
@@ -2032,12 +2095,18 @@ public class BpfCoordinator {
             return;
         }
 
+        // Clat tether offload is supported on U+ devices only. For U devices, need to check the
+        // accounting interface. If upstream is a clat interface, the data limit should account
+        // on its base interface.
+        // TODO: support clat interface offload on S and T devices.
+        final int accountIfIndex = clatOffloadEnabled ? getAccountIfIndex(upstreamIfindex)
+                : upstreamIfindex;
         // If failed to set a data limit, probably should not use this upstream, because
         // the upstream may not want to blow through the data limit that was told to apply.
         // TODO: Perhaps stop the coordinator.
-        boolean success = updateDataLimit(upstreamIfindex);
+        boolean success = updateDataLimit(accountIfIndex);
         if (!success) {
-            mLog.e("Setting data limit for " + getIfName(upstreamIfindex) + " failed.");
+            mLog.e("Setting data limit for " + getIfName(accountIfIndex) + " failed.");
         }
     }
 
@@ -2049,19 +2118,23 @@ public class BpfCoordinator {
             return;
         }
 
+        // Check the accounting interface on U+ devices. See #maybeSetLimit for the reason.
+        // TODO: support clat interface offload on S and T devices.
+        final int accountIfIndex = clatOffloadEnabled ? getAccountIfIndex(upstreamIfindex)
+                : upstreamIfindex;
         final TetherStatsValue statsValue =
-                mBpfCoordinatorShim.tetherOffloadGetAndClearStats(upstreamIfindex);
+                mBpfCoordinatorShim.tetherOffloadGetAndClearStats(accountIfIndex);
         if (statsValue == null) {
-            Log.wtf(TAG, "Fail to cleanup tether stats for upstream index " + upstreamIfindex);
+            Log.wtf(TAG, "Fail to cleanup tether stats for upstream index " + accountIfIndex);
             return;
         }
 
         SparseArray<TetherStatsValue> tetherStatsList = new SparseArray<TetherStatsValue>();
-        tetherStatsList.put(upstreamIfindex, statsValue);
+        tetherStatsList.put(accountIfIndex, statsValue);
 
         // Update the last stats delta and delete the local cache for a given upstream.
         updateQuotaAndStatsFromSnapshot(tetherStatsList);
-        mStats.remove(upstreamIfindex);
+        mStats.remove(accountIfIndex);
     }
 
     // TODO: Rename to isAnyIpv6RuleOnUpstream and define an isAnyRuleOnUpstream method that called
