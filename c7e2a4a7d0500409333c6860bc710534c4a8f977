@@ -114,6 +114,30 @@
       },
       "revId": "c7e2a4a7d0500409333c6860bc710534c4a8f977",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12b632b2_4172d0ec",
+        "filename": "Cronet/tests/cts/src/org/chromium/net/test/util/CronetCtsTestServer.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-09T20:01:39Z",
+      "side": 1,
+      "message": "(That note only applies if it is called from java, of course)",
+      "parentUuid": "b2aca15a_51dcd300",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 5
+      },
+      "revId": "c7e2a4a7d0500409333c6860bc710534c4a8f977",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
