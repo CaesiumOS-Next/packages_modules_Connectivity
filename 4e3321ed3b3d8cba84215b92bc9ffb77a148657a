@@ -33,6 +33,24 @@
       "message": "If this program only takes care of tethering, then shouldn\u0027t it have tethering in the name? So maybe rename to something like tetheroffload.[ch] or tethering.[ch]?",
       "revId": "4e3321ed3b3d8cba84215b92bc9ffb77a148657a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b533b621_4629f14c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-09T22:18:19Z",
+      "side": 1,
+      "message": "We talked about this in person.  The summary is:\n\nperhaps we should rename this, but...\n\nWe agreed that the .c and .h should have the same prefix, the .c determines the .o which then determines the prefix of the names of the bpf maps and programs, which then ships to S+\n\nSo a change to rename \u0027offload.c\u0027 would require fixing up the names of all the programs and maps in C++/Java - this is of course doable.  Though it is less immediately clear if it is safe (unfortunately S doesn\u0027t do a good job of actually fully restricting non-mainline access to the programs and maps due to lack of enforcement of kernel bpf fs genfscon actually working).  As such, such a change would require much more careful testing (unlike this one, which is basically a build output no-op).\n\nThat still isn\u0027t necessarily a reason not to do it...\n\nHowever, the main reason this was named \u0027offload\u0027 and not tetheroffload was because we initially thought there\u0027d be more stuff in here.\n\nWe\u0027re currently trying to enable clat + tethering bpf offload.  The long term goal here is to do both in a single program, at which point we\u0027ll presumably end up with both clat and tethering code in the same .o ???  But how (and if) we\u0027ll accomplish this exactly is still very much in the air.\n\nThis is of course all vastly complicated by offload.o being S+ while clatd.o is T+, though technically (I think...) we do have ways to make it work...\n\nIt probably makes sense to avoid spurious renames of the .o until we actually know what needs to be in which file - and that\u0027s something I simply don\u0027t know yet, as we\u0027re still trying to fixup various other precursor problems.\n\nAs such we\u0027ll submit this rename to offload.h, and possibly in the future we\u0027ll rename offload.[ch] to tethering.[ch] or tetheroffload.[ch] or whatever makes more sense.\n\n[note: we also expect to have xdp tether offload in here at some point as well...]",
+      "parentUuid": "d45b4544_cca1c1a3",
+      "revId": "4e3321ed3b3d8cba84215b92bc9ffb77a148657a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
