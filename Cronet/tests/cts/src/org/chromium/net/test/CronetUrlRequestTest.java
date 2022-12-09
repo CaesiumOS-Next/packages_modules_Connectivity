@@ -32,6 +32,7 @@ import org.chromium.net.UrlRequest.Status;
 import org.chromium.net.UrlResponseInfo;
 import org.chromium.net.test.util.CronetCtsTestServer;
 import org.chromium.net.test.util.TestStatusListener;
+import org.chromium.net.test.util.TestUploadDataProvider;
 import org.chromium.net.test.util.TestUrlRequestCallback;
 import org.chromium.net.test.util.TestUrlRequestCallback.ResponseStep;
 import org.junit.After;
@@ -105,5 +106,24 @@ public class CronetUrlRequestTest {
         TestStatusListener statusListener = new TestStatusListener();
         request.getStatus(statusListener);
         statusListener.expectStatus(Status.INVALID);
+    }
+
+    @Test
+    public void testUrlRequestPost_EchoRequestBody() throws Exception {
+        TestUrlRequestCallback callback = new TestUrlRequestCallback();
+        UrlRequest.Builder builder = mCronetEngine.newUrlRequestBuilder(
+                mTestServer.getEchoBodyUrl(), callback, callback.getExecutor());
+
+        TestUploadDataProvider dataProvider = new TestUploadDataProvider(
+                TestUploadDataProvider.SuccessCallbackMode.SYNC, callback.getExecutor());
+        dataProvider.addRead("test".getBytes());
+        builder.setUploadDataProvider(dataProvider, callback.getExecutor());
+        builder.addHeader("Content-Type", "text/html");
+        builder.build().start();
+        callback.expectCallback(ResponseStep.ON_SUCCEEDED);
+
+        assertEquals(200, callback.mResponseInfo.getHttpStatusCode());
+        assertEquals("test", callback.mResponseAsString);
+        dataProvider.assertClosed();
     }
 }
