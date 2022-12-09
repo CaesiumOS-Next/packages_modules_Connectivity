@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "311a9faf_3ab2ad15",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T07:08:39Z",
+      "side": 1,
+      "message": "I find the threading model confusing. This code reads like it is not required to be called on the same thread as the machine will run, but it mutates members so that would run into large threading/mutability issues. If it must be called on the same thread it should check that. If it can be called on a different thread, it doesn\u0027t work (processMessage() will not always see updates to mStateInfo), and ensureNotStarted() doesn\u0027t actually work (you can call start() on one thread and addState() on another later, and the latter will see mStarted\u003dfalse because that CPU\u0027s cache hasn\u0027t been updated yet)\n\n(The best way to solve this is to adopt my suggestion on the previous patch and change the interface to pass the list of states to the constructor)",
+      "revId": "9d83fefd96a99bc82848aa7737ee077411e50bd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbabbdce_38050573",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SynStateMachineTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T07:08:39Z",
+      "side": 1,
+      "message": "Calling this in a test is really dangerous and should only be done as a last resort (because it prepares a looper in the *current* thread, which is not a looper thread, so a lot of assumptions in platform code will be wrong). But this is a new test, so you really shouldn\u0027t be doing this. You could use a TestLooper instead.\n\nHowever if you follow my comment on the previous patch to just use Thread instead, then this problem will solve itself",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 55
+      },
+      "revId": "9d83fefd96a99bc82848aa7737ee077411e50bd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7e82da0_757ef686",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SynStateMachineTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T07:08:39Z",
+      "side": 1,
+      "message": "Why lazy ? You could just initialize this after mState1 and mState2.",
+      "range": {
+        "startLine": 50,
+        "startChar": 28,
+        "endLine": 50,
+        "endChar": 32
+      },
+      "revId": "9d83fefd96a99bc82848aa7737ee077411e50bd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4cf60a8_68f19df3",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SynStateMachineTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T07:08:39Z",
+      "side": 1,
+      "message": "Possible alternative, might be more readable :\n\n   ...obj: Any) \u003d when {\n     failInProcessMsg -\u003e FAILED\n     what \u003d\u003d expected -\u003e SUCCESSFUL\n     else -\u003e UNHANDLED\n   }\n\n(as you wish)",
+      "range": {
+        "startLine": 70,
+        "startChar": 88,
+        "endLine": 70,
+        "endChar": 89
+      },
+      "revId": "9d83fefd96a99bc82848aa7737ee077411e50bd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "508c1d00_9c291f44",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SynStateMachineTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T07:08:39Z",
+      "side": 1,
+      "message": "This asserts ; it\u0027s fine having a helper method but it should follow the regular conventions :\n• Expected result should be the first argument\n• Method should be called assert*, e.g. assertProcessMessageReturns(result, what, destState)",
+      "range": {
+        "startLine": 77,
+        "startChar": 16,
+        "endLine": 77,
+        "endChar": 30
+      },
+      "revId": "9d83fefd96a99bc82848aa7737ee077411e50bd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
