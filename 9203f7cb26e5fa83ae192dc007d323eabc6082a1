@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "903ed1bb_dbfceed6",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1343,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-12-09T12:45:55Z",
+      "side": 1,
+      "message": "nodeps doesn\u0027t contain AndroidManifest.xml\nhttps://source.corp.google.com/aosp-master/prebuilts/sdk/current/androidx/Android.bp;l\u003d2138?q\u003dandroidx.core_core-nodeps\u0026ss\u003dpiper%2FGoogle%2Faosp-master\n\nBut I don\u0027t know why soong complain to this.\n\n@prohr@google.com\nI think this is the same issue you solved in this CL.\nDo you remember why soong complain if the AndroidManifest.xml is contained?\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Cronet/+/2237227/comment/5ee2cc3a_ae68e08e/\n\nError message I saw with `androidx.core_core` is following.\n```\nerror: packages/modules/Connectivity/Cronet/tests/cts/Android.bp:21:1: module \"CronetApiCommonTests\" variant \"android_common\": nested class loader context shouldn\u0027t have conditional part:  --host-context-for-sdk 30 PCL[out/soong/.intermediates/frameworks/base/test-base/android.test.base/android_common/aligned/android.test.base.jar] --target-context-for-sdk 30 PCL[/system/framework/android.test.base.jar] --host-context-for-sdk 29 PCL[out/soong/.intermediates/system/libhidl/transport/manager/1.0/android.hidl.manager-V1.0-java/android_common/aligned/android.hidl.manager-V1.0-java.jar]#PCL[out/soong/.intermediates/system/libhidl/transport/base/1.0/android.hidl.base-V1.0-java/android_common/aligned/android.hidl.base-V1.0-java.jar] --target-context-for-sdk 29 PCL[/system/framework/android.hidl.manager-V1.0-java.jar]#PCL[/system/framework/android.hidl.base-V1.0-java.jar] --host-context-for-sdk 28 PCL[out/soong/.intermediates/external/apache-http/org.apache.http.legacy/android_common/aligned/org.apache.http.legacy.jar] --target-context-for-sdk 28 PCL[/system/framework/org.apache.http.legacy.jar]\n```",
+      "parentUuid": "71712212_22bb58d1",
+      "range": {
+        "startLine": 1343,
+        "startChar": 4,
+        "endLine": 1343,
+        "endChar": 32
+      },
+      "revId": "9203f7cb26e5fa83ae192dc007d323eabc6082a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ebd70d5f_07b88bde",
         "filename": "tools/gn2bp/gen_android_bp",
         "patchSetId": 1
