@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "114d965b_c0c25e26",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:46:30Z",
+      "side": 1,
+      "message": "One last thing about the Network mocking but otherwise LGTM",
+      "revId": "2bcf01d6192c9b00efc508ed8cbe13077b8f173d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a81f3c23_691c62cf",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:46:30Z",
+      "side": 1,
+      "message": "Nit: This and interfaceIndex getters don\u0027t need to be synchronized anymore, since they\u0027re final members so getting them is thread-safe",
+      "range": {
+        "startLine": 226,
+        "startChar": 11,
+        "endLine": 226,
+        "endChar": 23
+      },
+      "revId": "2bcf01d6192c9b00efc508ed8cbe13077b8f173d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
