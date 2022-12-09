@@ -357,6 +357,24 @@
       "parentUuid": "2d8bc666_c616eebe",
       "revId": "af1d63cfec6b1fdba2c077bd6f897c5e20ad29df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bed56c68_4963f2de",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceInfoTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-09T06:44:09Z",
+      "side": 1,
+      "message": "I see. Thanks for your reminder.",
+      "parentUuid": "33c276f6_133cecd6",
+      "revId": "af1d63cfec6b1fdba2c077bd6f897c5e20ad29df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
