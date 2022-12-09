@@ -46,6 +46,30 @@
       },
       "revId": "19cc5a8e48b2f6a647e90ada80ac8769d1dd0fc5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca4eb984_8fb1663e",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-09T06:51:22Z",
+      "side": 0,
+      "message": "IIUC this is behavior change.\nMaybe move it to other CL since it does not related to this CL and give it some tests?",
+      "parentUuid": "76e26806_56f45aa5",
+      "range": {
+        "startLine": 294,
+        "startChar": 17,
+        "endLine": 294,
+        "endChar": 29
+      },
+      "revId": "19cc5a8e48b2f6a647e90ada80ac8769d1dd0fc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

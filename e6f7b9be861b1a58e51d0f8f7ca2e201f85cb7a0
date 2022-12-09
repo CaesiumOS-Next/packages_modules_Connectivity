@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "878a785a_ee6f1caa",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-09T06:51:22Z",
+      "side": 1,
+      "message": "Maybe\nreturn CollectionUtils.isEmpty(mMatchSubscriberIds)) || CollectionUtils.contains(mMatchSubscriberIds, subscriberId);",
+      "range": {
+        "startLine": 612,
+        "startChar": 8,
+        "endLine": 614,
+        "endChar": 75
+      },
+      "revId": "e6f7b9be861b1a58e51d0f8f7ca2e201f85cb7a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
