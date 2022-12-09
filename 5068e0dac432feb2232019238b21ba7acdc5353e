@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30d82d19_4ccfcafa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-09T06:42:47Z",
+      "side": 1,
+      "message": "Maybe describe what did you do in this CL to make this safe?",
+      "range": {
+        "startLine": 13,
+        "startChar": 16,
+        "endLine": 13,
+        "endChar": 62
+      },
+      "revId": "5068e0dac432feb2232019238b21ba7acdc5353e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccac1021_8561b285",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-09T06:42:47Z",
+      "side": 1,
+      "message": "IIUC this is not the only reason make this safe.\nIf we still use it internally it can never be safe, right?\nWhat is the behavior change to adapt this change?\nWhat are the callers need this? Why are they not impacted?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 15
+      },
+      "revId": "5068e0dac432feb2232019238b21ba7acdc5353e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bff62c3_b37c2eec",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-09T06:42:47Z",
+      "side": 1,
+      "message": "IIUC this is not needed anymore, maybe remove this line?",
+      "range": {
+        "startLine": 411,
+        "startChar": 4,
+        "endLine": 411,
+        "endChar": 24
+      },
+      "revId": "5068e0dac432feb2232019238b21ba7acdc5353e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6423076b_e73277e5",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-09T06:42:47Z",
+      "side": 1,
+      "message": "(maxTargetSdk \u003d Build.VERSION_CODES.TIRAMISU,\n            publicAlternatives \u003d \"...\") ?",
+      "range": {
+        "startLine": 424,
+        "startChar": 5,
+        "endLine": 424,
+        "endChar": 24
+      },
+      "revId": "5068e0dac432feb2232019238b21ba7acdc5353e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e747b2cd_40bfe57b",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-09T06:42:47Z",
+      "side": 1,
+      "message": "IIUC we cannot make TYPE_WIMAX template anymore.\nnot for this CL, if so maybe remove it if safe?",
+      "range": {
+        "startLine": 590,
+        "startChar": 27,
+        "endLine": 590,
+        "endChar": 37
+      },
+      "revId": "5068e0dac432feb2232019238b21ba7acdc5353e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9204048_75d7c169",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-09T06:42:47Z",
+      "side": 1,
+      "message": "Maybe simplify this?",
+      "range": {
+        "startLine": 594,
+        "startChar": 12,
+        "endLine": 599,
+        "endChar": 54
+      },
+      "revId": "5068e0dac432feb2232019238b21ba7acdc5353e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2731a21_efd84bc9",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-09T06:42:47Z",
+      "side": 1,
+      "message": "Can it be mMatchWifiNetworkKeys.isEmpty()?",
+      "range": {
+        "startLine": 612,
+        "startChar": 23,
+        "endLine": 612,
+        "endChar": 70
+      },
+      "revId": "5068e0dac432feb2232019238b21ba7acdc5353e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
