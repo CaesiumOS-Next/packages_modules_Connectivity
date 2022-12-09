@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6981db8d_21fbf7ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-09T02:22:23Z",
+      "side": 1,
+      "message": "The change in packages/modules/Connectivity would be automerged into tm-mainline-prod. The dependencies change in frameworks/base seems don\u0027t setup automerge from aosp to tm-mainline-prod. Thus, you probably need to chery-pick the change to tm-mainline-prod first.\n\nSince we are in different time-zone, just give you +2 to unblock you, but please make sure you don\u0027t break tm-mainine-prod.",
+      "revId": "bc4e514ea1aa8a3dc7c064620be944e8a7b57781",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
