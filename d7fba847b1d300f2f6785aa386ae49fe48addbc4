@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d20b7d6f_230fcbb8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T07:27:52Z",
+      "side": 1,
+      "message": "I know you\u0027re lifting this from the existing StateMachine implementation, but as you\u0027re writing something new here this really really should not be a member. It\u0027s used as a local and it should be passed to the methods that need it.\n\nIf you believe you can\u0027t afford creating a new ArrayList every time the machine performs a transition, it\u0027s fine to have a cache, but then it should be commented explicitly as such, declared immediately before the methods using it, and put in a local first thing (in place of the would-be allocation) and still passed as an argument to the methods using it.",
+      "range": {
+        "startLine": 46,
+        "startChar": 39,
+        "endLine": 46,
+        "endChar": 55
+      },
+      "revId": "d7fba847b1d300f2f6785aa386ae49fe48addbc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3aa122f_3eb577d8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T07:27:52Z",
+      "side": 1,
+      "message": "This looks hard to understand ; could you not just have the caller call invokeEnterMethods if invokeExitMethods didn\u0027t fail ?\n\nCase in point : if any of the exit methods fail, your current code will try to enter the stack anyway without exiting. Example :\n\n    SyncMachine\n    └ A\n      └ B\n        └ C\n    └ D\n      └ E\n\nSuppose you are in C and try to transition to E. Desired sequence :\n• C.exit\n• B.exit\n• A.exit\n• D.enter\n• E.enter\n\nNow suppose B.exit returns FAILURE, your code will not execute A.exit but it will still execute D.enter (and if D.enter succeeds, E.enter). I think this is unexpected.",
+      "range": {
+        "startLine": 259,
+        "startChar": 45,
+        "endLine": 259,
+        "endChar": 61
+      },
+      "revId": "d7fba847b1d300f2f6785aa386ae49fe48addbc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "743adb02_889a1e45",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SynStateMachineTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T07:27:52Z",
+      "side": 1,
+      "message": "failInEnter \u003d true",
+      "range": {
+        "startLine": 61,
+        "startChar": 57,
+        "endLine": 61,
+        "endChar": 79
+      },
+      "revId": "d7fba847b1d300f2f6785aa386ae49fe48addbc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "777c1bce_a80ebc71",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SynStateMachineTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T07:27:52Z",
+      "side": 1,
+      "message": "verifyNoMoreInteractions or assertNoMoreInteractions",
+      "range": {
+        "startLine": 94,
+        "startChar": 16,
+        "endLine": 94,
+        "endChar": 34
+      },
+      "revId": "d7fba847b1d300f2f6785aa386ae49fe48addbc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f781ee4_1b3b097f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SynStateMachineTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T07:27:52Z",
+      "side": 1,
+      "message": "How is this test different from the previous test ? It looks exactly the same to me, except it has one more depth level",
+      "revId": "d7fba847b1d300f2f6785aa386ae49fe48addbc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9620961_39bca72d",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SynStateMachineTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T07:27:52Z",
+      "side": 1,
+      "message": "Same question",
+      "range": {
+        "startLine": 211,
+        "startChar": 8,
+        "endLine": 211,
+        "endChar": 39
+      },
+      "revId": "d7fba847b1d300f2f6785aa386ae49fe48addbc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
