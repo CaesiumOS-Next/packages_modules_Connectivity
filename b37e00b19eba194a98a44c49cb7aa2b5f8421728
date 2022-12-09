@@ -72,6 +72,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "86711530_f7939481",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T07:20:31Z",
+      "side": 1,
+      "message": "Does this make sense as a return value of enter() or exit() ? If not, should you maybe separate the return values for enter/exit and processMessage ?\n\nAlso, I am now looking at the followup patches but I\u0027m wondering what it means for enter() or exit() to fail. If you need failure modes for these (which StateMachine doesn\u0027t have), then I think you must document clearly here what are the semantics, how SyncStateMachine behaves when one of these fail, and what the caller is supposed to do.",
+      "range": {
+        "startLine": 33,
+        "startChar": 28,
+        "endLine": 33,
+        "endChar": 37
+      },
+      "revId": "b37e00b19eba194a98a44c49cb7aa2b5f8421728",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ca735609_b4710e09",
         "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
         "patchSetId": 3
