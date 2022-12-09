@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae836288_fce9be18",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsProber.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T09:28:23Z",
+      "side": 1,
+      "message": "No because this only looked at the \"i\" first records, so not including the current one.\n\nBut since this is to know if a name is already added, it\u0027s much simpler to just look at \"questions\". Simplified the code.",
+      "parentUuid": "5ce23227_654a7fbe",
+      "range": {
+        "startLine": 102,
+        "startChar": 16,
+        "endLine": 102,
+        "endChar": 65
+      },
+      "revId": "13274cfb80ea4e1f27533f654bd6a8446e7fbd40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9bfa6a5d_8e37effa",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-11-29T07:51:16Z",
       "side": 1,
       "message": "Why do you change here? Is current design incorrect?",
+      "range": {
+        "startLine": 70,
+        "startChar": 19,
+        "endLine": 70,
+        "endChar": 36
+      },
+      "revId": "13274cfb80ea4e1f27533f654bd6a8446e7fbd40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74cf8d86_ad2a6258",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsReplySender.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T09:28:23Z",
+      "side": 1,
+      "message": "Yes, a question doesn\u0027t have TTL or data, so this was incorrect. Added a comment.\n\nThis was caught by the MdnsProberTest.",
+      "parentUuid": "9bfa6a5d_8e37effa",
       "range": {
         "startLine": 70,
         "startChar": 19,
