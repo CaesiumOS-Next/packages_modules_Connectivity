@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d7825d9_a7218a4d",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-09T01:54:03Z",
+      "side": 1,
+      "message": "can be `return CollectionUtils.isEmpty(mMatchWifiNetworkKeys);`",
+      "range": {
+        "startLine": 612,
+        "startChar": 0,
+        "endLine": 615,
+        "endChar": 29
+      },
+      "revId": "b3adcdd9d828793d521c2957c7fd1127381bf3f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
