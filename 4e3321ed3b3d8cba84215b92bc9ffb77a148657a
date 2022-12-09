@@ -16,6 +16,23 @@
       "message": "Lorenzo, thoughts?  We could also do \u0027bpf_offload.h\u0027 and \u0027bpf_netd.h\u0027 \u0027bpf_clatd.h\u0027 instead of \u0027offload.h\u0027 \u0027netd.h\u0027 \u0027clatd.h\u0027.",
       "revId": "4e3321ed3b3d8cba84215b92bc9ffb77a148657a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d45b4544_cca1c1a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-09T08:52:15Z",
+      "side": 1,
+      "message": "If this program only takes care of tethering, then shouldn\u0027t it have tethering in the name? So maybe rename to something like tetheroffload.[ch] or tethering.[ch]?",
+      "revId": "4e3321ed3b3d8cba84215b92bc9ffb77a148657a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
