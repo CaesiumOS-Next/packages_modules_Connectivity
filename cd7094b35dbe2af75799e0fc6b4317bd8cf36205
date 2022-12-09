@@ -187,6 +187,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1860d6c6_d32ee09c",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1455,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T05:42:02Z",
+      "side": 1,
+      "message": "Even if it\u0027s true (I\u0027m not convinced it is), then it\u0027s only true in the `lockdown \u003d true` case, not if lockdown is false.",
+      "parentUuid": "9c515d2d_ae6dc537",
+      "range": {
+        "startLine": 1453,
+        "startChar": 16,
+        "endLine": 1455,
+        "endChar": 14
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e963cdf5_309d5357",
         "filename": "framework/src/android/net/ConnectivityManager.java",
         "patchSetId": 4
@@ -203,6 +227,29 @@
         "startChar": 23,
         "endLine": 1461,
         "endChar": 33
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1031ebc7_0852ad08",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1487,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T05:42:02Z",
+      "side": 1,
+      "message": "Do we need to also do this if `lockdown` is true ? It seems we might be telling apps that they have a default (but maybe blocked ?) network, but we should address this at the same time.",
+      "range": {
+        "startLine": 1487,
+        "startChar": 25,
+        "endLine": 1487,
+        "endChar": 48
       },
       "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
