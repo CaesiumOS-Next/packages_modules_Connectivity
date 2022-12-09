@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71712212_22bb58d1",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1343,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-09T10:58:00Z",
+      "side": 1,
+      "message": "What is the difference between the old version and the `nodeps`?",
+      "range": {
+        "startLine": 1343,
+        "startChar": 4,
+        "endLine": 1343,
+        "endChar": 32
+      },
+      "revId": "9203f7cb26e5fa83ae192dc007d323eabc6082a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebd70d5f_07b88bde",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1345,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-09T10:58:00Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 1345,
+        "startChar": 4,
+        "endLine": 1345,
+        "endChar": 57
+      },
+      "revId": "9203f7cb26e5fa83ae192dc007d323eabc6082a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
