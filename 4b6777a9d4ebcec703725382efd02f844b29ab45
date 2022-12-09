@@ -1,0 +1,541 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47a5093c_a9d85abc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "Lots of small comments but generally looks good I think",
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe78ff8a_49e43432",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceSocket.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "Nit: I think send, receive, close, getInterfaceIndex are actually OK on any thread. Maybe say \"unless specified otherwise\", and mention in the javadoc of these methods that they don\u0027t need to be called on the looper thread ? This will likely be used.",
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4f37a6f_75d17438",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "Also cleanup mActiveNetworksLinkProperties",
+      "range": {
+        "startLine": 91,
+        "startChar": 12,
+        "endLine": 91,
+        "endChar": 13
+      },
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb1db94e_553ccc77",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "If you need to mock this, this means the test probably does not call some methods on the right thread, so they may become flaky because members are accessed on different threads.\n\nMaybe you can leverage Handler.post and HandlerUtils.waitForIdle to make sure the test calls methods on the right thread ?",
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e530bdd4_1c3d65a6",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "should be static as per errorprone",
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41ecef7c_a277fcfa",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "You can probably ask xiaom@ for details on how to do that later",
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3df04e89_c9c7bc15",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "Nit: @Nullable Network targetNetwork, @NonNull Network currentNetwork",
+      "range": {
+        "startLine": 208,
+        "startChar": 44,
+        "endLine": 208,
+        "endChar": 89
+      },
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a68f716_98740582",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "Note the ArrayMap.values doc mentions: \"this is a fairly inefficient way to access the array contents, it requires generating a number of temporary objects and allocates additional state information associated with the container that will remain for the life of the container.\"\n\nDoing a manual loop with:\n\n    for (int i \u003d 0; i \u003c map.size(); i++) {\n        final Network requestNetwork \u003d map.valueAt(i);\n        ...\n    }\n\nwould avoid that (also used in hasAllNetworksRequest, and other keySet usages)",
+      "range": {
+        "startLine": 213,
+        "startChar": 70,
+        "endLine": 213,
+        "endChar": 78
+      },
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c97c155b_007c10ef",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "This actually takes the addresses from a different source, which may be racy. Maybe pass the addresses as argument instead of using NetworkInterface.getInterfaceAddress ? (for now you could still pass NetworkInterface.getInterfaceAddress as argument for the tethering downstreams)",
+      "range": {
+        "startLine": 243,
+        "startChar": 40,
+        "endLine": 243,
+        "endChar": 42
+      },
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50289aa9_5408dcd7",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "Nit: since this is only for tethered interfaces, suggest createLPForTetheredInterface so it\u0027s clearer what this method is for (creating LP for others wouldn\u0027t really make sense since they already have LinkProperties)",
+      "range": {
+        "startLine": 249,
+        "startChar": 34,
+        "endLine": 249,
+        "endChar": 54
+      },
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08ed82f8_ffe7a689",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "There is also a use-case where a socket is necessary for a specific tethered interface, when an app calls resolveService with a NsdServiceInfo that has mNetwork \u003d\u003d null but mInterfaceIndex set.\n\nSo I think you\u0027ll need another method for requestTetheredInterfaceSocket(String ifName, SocketCallback).\n\nMaybe you could add it in a separate CL though.",
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16ad19a0_42762200",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "Maybe also use lp.getLinkAddresses() here, but put the TODO in createLPForInterface",
+      "range": {
+        "startLine": 297,
+        "startChar": 62,
+        "endLine": 297,
+        "endChar": 88
+      },
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa4971eb_7c19b9ce",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "Where would this happen ? It\u0027s probably clearer to have null checks instead",
+      "range": {
+        "startLine": 306,
+        "startChar": 17,
+        "endLine": 306,
+        "endChar": 37
+      },
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d159007_d96de826",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": ", e);\n    \nto keep the stacktrace",
+      "range": {
+        "startLine": 307,
+        "startChar": 79,
+        "endLine": 307,
+        "endChar": 80
+      },
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b161ba2_b8c4232e",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "Simplify with:\n\n    socketInfo \u003d network.netId \u003d\u003d INetd.LOCAL_NET_ID\n        ? mTetherInterfaceSockets.remove(interfaceName)\n        : mNetworkSockets.remove(network)",
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f52c06ec_09bcf8f7",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "Suggest moving this to some socketInfo.destroy() or socketInfo.close() method (will be useful in unrequestSocket, see below)",
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f614d49c_1d25cdb5",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "You could probably get a ConcurrentModificationException here, since you\u0027re removing entries while iterating.\n\nMaybe you could do something like:\n\n    for (int i \u003d mNetworkSockets.size() - 1; i \u003e\u003d 0; i--) {\n        if (matchRequestedNetwork(mNetworkSockets.keyAt(i)) continue;\n        mNetworkSockets.removeAt(i).destroy();\n    }\n\nYou shouldn\u0027t need to call any callback, since any removed socket means that the only matching request was the one that just got unregistered.",
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9509799d_f35eca24",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "Same problem with ConcurrentModificationException here, I think",
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70e0472a_4aaf5169",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "Also add NonNull to the other arguments",
+      "range": {
+        "startLine": 440,
+        "startChar": 38,
+        "endLine": 440,
+        "endChar": 45
+      },
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1a2827e_cdebda3f",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "Nit: since there isn\u0027t really a reason to keep this low, maybe increase to make sure there\u0027s no flake ? Like 2000 or 10000 ?",
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "069173c8_acec9496",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "Nit: suggest using a reserved address for documentation (like 192.0.2.0/24, rfc5737). Also the link address would most commonly have a larger prefix like /24.",
+      "range": {
+        "startLine": 69,
+        "startChar": 67,
+        "endLine": 69,
+        "endChar": 80
+      },
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd7a40dd_3612538d",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "Nit: /64 would be more common/realistic",
+      "range": {
+        "startLine": 71,
+        "startChar": 69,
+        "endLine": 71,
+        "endChar": 72
+      },
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7897a2f_63de0619",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "For example here you could avoid mocking getCurrentThread by doing something like:\n\n    mHandler \u003d new Handler(thread.getLooper());\n    mHandler.post(mSocketProvider::startMonitoringSockets);\n    HandlerUtils.waitForIdle(mHandler);\n\nMost of the assertions in the test are async, so you shouldn\u0027t need to manually wait for the handler in most cases anyway",
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2a446c6_95c3534e",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "As commented on other CL this depends on the internal implementation of Network parceling, which could change. If a Network with a given netId is necessary, either create a mock Network and mock getNetId(), or if there\u0027s no better solution I\u0027d rather use the hidden Network(int) constructor.",
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "349ccac0_d64d9611",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "Nit: assertEquals",
+      "range": {
+        "startLine": 173,
+        "startChar": 12,
+        "endLine": 173,
+        "endChar": 22
+      },
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13b5b6f7_152e305e",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "Note these should be posted to the handler thread too",
+      "range": {
+        "startLine": 208,
+        "startChar": 25,
+        "endLine": 208,
+        "endChar": 48
+      },
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e97b979_d653a7a6",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-09T04:27:53Z",
+      "side": 1,
+      "message": "Also testCallback1.expectNoCallback ? Users of the provider may expect that nothing gets called after they unregister.",
+      "revId": "4b6777a9d4ebcec703725382efd02f844b29ab45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
