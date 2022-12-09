@@ -269,6 +269,30 @@
       },
       "revId": "b347853567cb607d2ed096f27c8c1c2f06efd535",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd1bbe8b_2668dd72",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 11105,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T05:38:22Z",
+      "side": 1,
+      "message": "No. This code is in the mainline module, while Vpn.java is OEM code. Since these are owned by different parties, this code should also check.",
+      "parentUuid": "0eaa0ae3_baf23046",
+      "range": {
+        "startLine": 11105,
+        "startChar": 51,
+        "endLine": 11105,
+        "endChar": 57
+      },
+      "revId": "b347853567cb607d2ed096f27c8c1c2f06efd535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

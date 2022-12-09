@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9b0ac94_f3981191",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T05:38:22Z",
+      "side": 1,
+      "message": "There isn\u0027t really such a thing as \"the preference network\". Suggested wording :\n\nCreate a new API to make a set of UIDs use only VPN by default.",
+      "range": {
+        "startLine": 7,
+        "startChar": 31,
+        "endLine": 7,
+        "endChar": 53
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d63e4978_b7f6c6b1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T05:38:22Z",
+      "side": 1,
+      "message": "through an",
+      "range": {
+        "startLine": 13,
+        "startChar": 19,
+        "endLine": 13,
+        "endChar": 25
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58437ee9_6e73731c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T05:38:22Z",
+      "side": 1,
+      "message": "specific",
+      "range": {
+        "startLine": 15,
+        "startChar": 22,
+        "endLine": 15,
+        "endChar": 30
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "792d7144_f44f672f",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T05:38:22Z",
+      "side": 1,
+      "message": "I don\u0027t think this should be available to apps with NETWORK_SETTINGS.",
+      "range": {
+        "startLine": 33,
+        "startChar": 139,
+        "endLine": 33,
+        "endChar": 185
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd3d0321_220f8c58",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T05:38:22Z",
+      "side": 1,
+      "message": "I don\u0027t think this should be available to apps with NETWORK_SETTINGS.",
+      "range": {
+        "startLine": 33,
+        "startChar": 139,
+        "endLine": 33,
+        "endChar": 185
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95dd295e_2f096949",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1400,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T05:38:22Z",
+      "side": 1,
+      "message": "I don\u0027t think this explanation belongs here – this is explaining the meaning of an argument of another method. You should probably just say something like\n\n    This is equivalent to calling {@link #setRequireVpnForUids(boolean, boolean, Collection)} with true as the |lockdown| argument.\n\nOr explain what this does, considering that lockdown is always true :\n\n    The specified UIDs are blocked from doing any networking when the VPN is not connected. Also {@see #setRequireVpnForUids(boolean, boolean, Collection)}",
+      "range": {
+        "startLine": 1394,
+        "startChar": 68,
+        "endLine": 1400,
+        "endChar": 17
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85c99823_829c1b27",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1446,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T05:38:22Z",
+      "side": 1,
+      "message": "I don\u0027t think we should have these semantics – arguments should not have a different meaning just because other arguments have different values. We should have the same requirements on UIDs regardless of the values of the booleans, and require that the caller pass the same ranges when they disable the preference.",
+      "range": {
+        "startLine": 1444,
+        "startChar": 22,
+        "endLine": 1446,
+        "endChar": 10
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c515d2d_ae6dc537",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1455,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T05:38:22Z",
+      "side": 1,
+      "message": "Is this actually true ? Do you have tests to make sure it is true ?",
+      "range": {
+        "startLine": 1453,
+        "startChar": 16,
+        "endLine": 1455,
+        "endChar": 14
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e963cdf5_309d5357",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1461,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T05:38:22Z",
+      "side": 1,
+      "message": "If true, the specified UIDs are blocked from doing any networking when the VPN is not connected. If false, the specified UIDs can use other networks when the VPN is not connected, if they specify them explicitly and hold sufficient permission.",
+      "range": {
+        "startLine": 1460,
+        "startChar": 23,
+        "endLine": 1461,
+        "endChar": 33
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a84a9cde_3144b2c7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1623,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T05:38:22Z",
+      "side": 1,
+      "message": "Should we call NC.Builder#withoutDefaultCapabilities for this ? After all if the VPN decides it doesn\u0027t provide INTERNET we should still match it.\n\nAlternatively, you may want to have a separate method createVpnRequestForTransport.",
+      "range": {
+        "startLine": 1623,
+        "startChar": 51,
+        "endLine": 1623,
+        "endChar": 67
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac17e92b_c3cf2c60",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 11111,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T05:38:22Z",
+      "side": 1,
+      "message": "Can you please add some logs in this function to help with debugging later ?",
+      "range": {
+        "startLine": 11111,
+        "startChar": 66,
+        "endLine": 11111,
+        "endChar": 67
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abac9aaf_83ac0469",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 11122,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T05:38:22Z",
+      "side": 1,
+      "message": "I do not understand the meaning of this comment. What does this apply to ?",
+      "range": {
+        "startLine": 11121,
+        "startChar": 0,
+        "endLine": 11122,
+        "endChar": 39
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
