@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e28348cc_617cb192",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-09T02:35:41Z",
+      "side": 1,
+      "message": "ACK.",
+      "parentUuid": "1c09ec40_293fa602",
+      "revId": "192269648e65e4b272fec7955ccffaf1d3680fac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4623f86_ce6cfe26",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0b3c688_38cb0a1a",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/ConnectivityMonitorWithConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-09T02:35:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4623f86_ce6cfe26",
+      "range": {
+        "startLine": 40,
+        "startChar": 20,
+        "endLine": 40,
+        "endChar": 36
+      },
+      "revId": "192269648e65e4b272fec7955ccffaf1d3680fac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ed9d4e5_f802a20b",
@@ -54,6 +96,24 @@
       "writtenOn": "2022-12-08T10:04:08Z",
       "side": 1,
       "message": "This is nullable too, because onAvailable may not have been called (there\u0027s also some interfaces that don\u0027t have any Network)\n\nSo MulticastNetworkInterfaceProvider.getAvailableNetwork -\u003e MdnsSocket.getNetwork -\u003e MdnsSocketClient.processResponsePacket -\u003e MdnsResponseDecoder.decode -\u003e MdnsResponse should all be nullable unfortunately.\n\nIdeally we\u0027d set all to NonNull, but if there\u0027s no strong guarantee that it\u0027s true, I think it\u0027s still better to keep it nullable.",
+      "revId": "192269648e65e4b272fec7955ccffaf1d3680fac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce1709b8_abec7e99",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/ConnectivityMonitorWithConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-09T02:35:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7ed9d4e5_f802a20b",
       "revId": "192269648e65e4b272fec7955ccffaf1d3680fac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

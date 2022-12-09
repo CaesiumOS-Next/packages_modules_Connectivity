@@ -303,6 +303,24 @@
       "parentUuid": "6c6dd83b_47c9bcd1",
       "revId": "af1d63cfec6b1fdba2c077bd6f897c5e20ad29df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d8bc666_c616eebe",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceInfoTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-09T02:35:41Z",
+      "side": 1,
+      "message": "Sorry, I forgot to respond to this. The problem is on `createFromParcel()` not `writeToParcel()`, so it\u0027s not working unfortunately. But I can\u0027t not find a way to mock for unparceling. Thus, The only way to avoid using @hide API is the public `CREATOR`.",
+      "parentUuid": "9ec8840f_0d914156",
+      "revId": "af1d63cfec6b1fdba2c077bd6f897c5e20ad29df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
