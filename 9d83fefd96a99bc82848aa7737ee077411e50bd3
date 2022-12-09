@@ -66,6 +66,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5659551e_2e55ab95",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SynStateMachineTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-09T07:09:32Z",
+      "side": 1,
+      "message": "Why are these spies ? It doesn\u0027t seem necessary.",
+      "range": {
+        "startLine": 53,
+        "startChar": 26,
+        "endLine": 53,
+        "endChar": 29
+      },
+      "revId": "9d83fefd96a99bc82848aa7737ee077411e50bd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c4cf60a8_68f19df3",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SynStateMachineTest.kt",
         "patchSetId": 3
