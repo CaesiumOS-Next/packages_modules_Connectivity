@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dfa7021_a8c092af",
+        "filename": "Cronet/tests/cts/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-09T18:21:40Z",
+      "side": 1,
+      "message": "nit: when there are multiple values, we usually put them on separate lines:\n```\nsrcs: [\n    \"src/**/*.java\",\n    \"src/**/*.kt\",\n],\n```",
+      "range": {
+        "startLine": 23,
+        "startChar": 11,
+        "endLine": 23,
+        "endChar": 41
+      },
+      "revId": "c7e2a4a7d0500409333c6860bc710534c4a8f977",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6575b23b_74945b8e",
+        "filename": "Cronet/tests/cts/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-09T18:21:40Z",
+      "side": 1,
+      "message": "nit: keep these in alphabetical order",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 24
+      },
+      "revId": "c7e2a4a7d0500409333c6860bc710534c4a8f977",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dcc5f85_4b2abfff",
+        "filename": "Cronet/tests/cts/AndroidManifest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-09T18:21:40Z",
+      "side": 1,
+      "message": "nit: is this line break necessary?",
+      "range": {
+        "startLine": 26,
+        "startChar": 11,
+        "endLine": 27,
+        "endChar": 17
+      },
+      "revId": "c7e2a4a7d0500409333c6860bc710534c4a8f977",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bd79d89_1b901477",
+        "filename": "Cronet/tests/cts/res/xml/network_security_config.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-09T18:21:40Z",
+      "side": 1,
+      "message": "What about ::1 -- in general, we prefer using v6 over v4 in tests.",
+      "range": {
+        "startLine": 21,
+        "startChar": 8,
+        "endLine": 23,
+        "endChar": 57
+      },
+      "revId": "c7e2a4a7d0500409333c6860bc710534c4a8f977",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2aca15a_51dcd300",
+        "filename": "Cronet/tests/cts/src/org/chromium/net/test/util/CronetCtsTestServer.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-09T18:21:40Z",
+      "side": 1,
+      "message": "Yay, Kotlin! 😊\n\nI think using a property would be better suited for this kind of operation:\n```\nval successUrl get() \u003d getAssetUrl(\"html/hello_world.html\")\n```\n\nNote that this will not change the API surface of this class, you will still call testServer.getSuccessUrl().",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 5
+      },
+      "revId": "c7e2a4a7d0500409333c6860bc710534c4a8f977",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
