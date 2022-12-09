@@ -59,6 +59,7 @@ android_test {
         "ctstestrunner-axt",
         "ctstestserver",
         "junit",
+        "kotlin-test",
         "hamcrest-library",
     ],
     libs: [

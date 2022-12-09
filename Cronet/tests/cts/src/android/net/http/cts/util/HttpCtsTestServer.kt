@@ -18,9 +18,34 @@ package android.net.http.cts.util
 
 import android.content.Context
 import android.webkit.cts.CtsTestServer
+import java.net.URI
+import kotlin.test.assertIs
+import org.apache.http.HttpEntityEnclosingRequest
+import org.apache.http.HttpRequest
+import org.apache.http.HttpResponse
+import org.apache.http.HttpStatus
+import org.apache.http.HttpVersion
+import org.apache.http.message.BasicHttpResponse
+
+private const val ECHO_BODY_PATH = "/echo_body"
 
 /** Extends CtsTestServer to handle POST requests and other test specific requests */
 class HttpCtsTestServer(context: Context) : CtsTestServer(context) {
 
+    val echoBodyUrl: String = baseUri + ECHO_BODY_PATH
     val successUrl: String = getAssetUrl("html/hello_world.html")
+
+    override fun onPost(req: HttpRequest): HttpResponse? {
+        val path = URI.create(req.requestLine.uri).path
+        var response: HttpResponse? = null
+
+        if (path.startsWith(ECHO_BODY_PATH)) {
+            response = BasicHttpResponse(HttpVersion.HTTP_1_0, HttpStatus.SC_OK, null)
+            assertIs<HttpEntityEnclosingRequest>(req)
+            response.entity = req.entity
+            response.addHeader("Content-Length", req.entity.contentLength.toString())
+        }
+
+        return response
+    }
 }
