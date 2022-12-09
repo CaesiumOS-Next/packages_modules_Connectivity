@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06463d3b_5f967587",
+        "filename": "Cronet/tests/cts/src/org/chromium/net/test/util/CronetCtsTestServer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-09T20:42:32Z",
+      "side": 1,
+      "message": "By the way -- who maintains this class? It seems that large parts of the code it uses are deprecated.",
+      "range": {
+        "startLine": 28,
+        "startChar": 46,
+        "endLine": 28,
+        "endChar": 59
+      },
+      "revId": "7012af5c16e5f0319cf4c638d8abede85329d1bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbb80313_9935e2e2",
+        "filename": "Cronet/tests/cts/src/org/chromium/net/test/util/CronetCtsTestServer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-09T20:42:32Z",
+      "side": 1,
+      "message": "This can also be a top-level constant",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 5
+      },
+      "revId": "7012af5c16e5f0319cf4c638d8abede85329d1bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09a4874b_b463623f",
+        "filename": "Cronet/tests/cts/src/org/chromium/net/test/util/CronetCtsTestServer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-09T20:42:32Z",
+      "side": 1,
+      "message": "Specifying the type isn\u0027t necessary and path makes it pretty obvious that this is probably a String.",
+      "range": {
+        "startLine": 35,
+        "startChar": 16,
+        "endLine": 35,
+        "endChar": 24
+      },
+      "revId": "7012af5c16e5f0319cf4c638d8abede85329d1bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6107e8fc_710e1078",
+        "filename": "Cronet/tests/cts/src/org/chromium/net/test/util/CronetCtsTestServer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-09T20:42:32Z",
+      "side": 1,
+      "message": "nit: maybe response is better? res makes me think of result / result code.",
+      "range": {
+        "startLine": 36,
+        "startChar": 12,
+        "endLine": 36,
+        "endChar": 15
+      },
+      "revId": "7012af5c16e5f0319cf4c638d8abede85329d1bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec66fba0_ba8636b6",
+        "filename": "Cronet/tests/cts/src/org/chromium/net/test/util/CronetCtsTestServer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-09T20:42:32Z",
+      "side": 1,
+      "message": "Specifying the type here is not necessary.",
+      "range": {
+        "startLine": 40,
+        "startChar": 19,
+        "endLine": 40,
+        "endChar": 47
+      },
+      "revId": "7012af5c16e5f0319cf4c638d8abede85329d1bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81d65b8d_42033303",
+        "filename": "Cronet/tests/cts/src/org/chromium/net/test/util/CronetCtsTestServer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-09T20:42:32Z",
+      "side": 1,
+      "message": "nit: Maybe this should be `assertIs\u003cHttpEntityEnclosingRequest\u003e(request)`, then request can be used directly as HttpEntityEnclosingRequest type without a need to cast explicitly (see smart casts in Kotlin).",
+      "range": {
+        "startLine": 40,
+        "startChar": 12,
+        "endLine": 40,
+        "endChar": 87
+      },
+      "revId": "7012af5c16e5f0319cf4c638d8abede85329d1bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8980be17_71a1d5f5",
+        "filename": "Cronet/tests/cts/src/org/chromium/net/test/util/CronetCtsTestServer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-09T20:42:32Z",
+      "side": 1,
+      "message": "And this can also be a property.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 5
+      },
+      "revId": "7012af5c16e5f0319cf4c638d8abede85329d1bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
