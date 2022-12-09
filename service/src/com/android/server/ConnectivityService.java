@@ -737,6 +737,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static final int EVENT_INITIAL_EVALUATION_TIMEOUT = 57;
 
     /**
+     * Event to set VPN as preferred network for specific apps.
+     * obj = UidRange[]
+     */
+    private static final int EVENT_SET_VPN_NETWORK_PREFERENCE = 58;
+
+    /**
      * Argument for {@link #EVENT_PROVISIONING_NOTIFICATION} to indicate that the notification
      * should be shown.
      */
@@ -1614,6 +1620,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final NetworkCapabilities netCap = new NetworkCapabilities();
         netCap.addCapability(NET_CAPABILITY_INTERNET);
         netCap.addCapability(NET_CAPABILITY_NOT_VCN_MANAGED);
+        if (transportType == TRANSPORT_VPN) netCap.removeCapability(NET_CAPABILITY_NOT_VPN);
         netCap.setRequestorUidAndPackageName(Process.myUid(), mContext.getPackageName());
         if (transportType > TYPE_NONE) {
             netCap.addTransportType(transportType);
@@ -5495,6 +5502,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     break;
                 case EVENT_INGRESS_RATE_LIMIT_CHANGED:
                     handleIngressRateLimitChanged();
+                    break;
+                case EVENT_SET_VPN_NETWORK_PREFERENCE:
+                    handleSetVpnNetworkPreference((UidRange[]) msg.obj);
                     break;
             }
         }
@@ -11080,6 +11090,49 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         mHandler.sendMessage(mHandler.obtainMessage(EVENT_SET_OEM_NETWORK_PREFERENCE,
                 new Pair<>(preference, listener)));
+    }
+
+    /**
+     * Sets the specified UIDs to get/receive the VPN as the only default network.
+     *
+     * Calling this will overwrite the existing network preference, and the specified UIDs won't get
+     * any system default network when VPN is disconnected.
+     *
+     * @param ranges The uid ranges which will treat VPN as the only preferred network. Clear the
+     *               setting if the value is empty.
+     * @hide
+     */
+    @Override
+    public void setVpnNetworkPreference(UidRange[] ranges) {
+        enforceNetworkStackOrSettingsPermission();
+        mHandler.sendMessage(mHandler.obtainMessage(EVENT_SET_VPN_NETWORK_PREFERENCE, ranges));
+    }
+
+    private void handleSetVpnNetworkPreference(UidRange[] ranges) {
+        removeDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_VPN);
+        addPerAppDefaultNetworkRequests(createNrisForVpnNetworkPreference(ranges));
+        // Finally, rematch.
+        rematchAllNetworksAndRequests();
+    }
+
+    private ArraySet<NetworkRequestInfo> createNrisForVpnNetworkPreference(
+            @NonNull UidRange[] ranges) {
+        final ArraySet<NetworkRequestInfo> nris = new ArraySet<>();
+        // Do not add NetworkRequestInfo of VPN into mDefaultNetworkRequests. This is also used when
+        // IKEv2VpnRunner is destroyed.
+        if (ranges.length == 0) {
+            return nris;
+        }
+
+        final List<NetworkRequest> requests = new ArrayList<>();
+        // Request VPN only, so other networks won't be the fallback options when VPN is not
+        // connected temporarily.
+        requests.add(createDefaultInternetRequestForTransport(
+                TRANSPORT_VPN, NetworkRequest.Type.REQUEST));
+        final Set<UidRange> uidRanges = new ArraySet(ranges);
+        setNetworkRequestUids(requests, uidRanges);
+        nris.add(new NetworkRequestInfo(Process.myUid(), requests, PREFERENCE_ORDER_VPN));
+        return nris;
     }
 
     /**

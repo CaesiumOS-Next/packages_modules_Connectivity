@@ -1381,16 +1381,28 @@ public class ConnectivityManager {
     /**
      * Adds or removes a requirement for given UID ranges to use the VPN.
      *
-     * If set to {@code true}, informs the system that the UIDs in the specified ranges must not
-     * have any connectivity except if a VPN is connected and applies to the UIDs, or if the UIDs
-     * otherwise have permission to bypass the VPN (e.g., because they have the
-     * {@link android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS} permission, or when
-     * using a socket protected by a method such as {@link VpnService#protect(DatagramSocket)}. If
-     * set to {@code false}, a previously-added restriction is removed.
+     * Call this method to inform the system that the UIDs in the specified range are subject to a
+     * VPN.
      * <p>
      * Each of the UID ranges specified by this method is added and removed as is, and no processing
      * is performed on the ranges to de-duplicate, merge, split, or intersect them. In order to
      * remove a previously-added range, the exact range must be removed as is.
+     * Therefore, this method must be called in pairs with identical UID ranges and |enabled|
+     * false when disabling a previously enabled VPN requirement.
+     * <p>
+     * A version of this method which takes one more boolean |lockdown| is
+     * {@link #setRequireVpnForUids(boolean, boolean, Collection)}. If |lockdown| is {@code true},
+     * then the specified UIDs are blocked from doing any networking when the VPN is not connected.
+     * If |lockdown| is false, then the specified UIDs do not have a default network when the VPN is
+     * not connected, but they may access a network that they specify explicitly (assuming they
+     * otherwise have permission to use that network). For the case of |lockdown| is false, the
+     * callers can simply pass an empty ranges to clear the setting. So |enabled| is not used for
+     * this case.
+     * <p>
+     * Applications holding the
+     * {@link android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS}
+     * permission can always use other networks by specifying them explicitly.
+     * Sockets protected by a method such as {@link VpnService#protect(DatagramSocket)} are exempt.
      * <p>
      * The changes are applied asynchronously and may not have been applied by the time the method
      * returns. Apps will be notified about any changes that apply to them via
@@ -1399,8 +1411,8 @@ public class ConnectivityManager {
      * <p>
      * This method should be called only by the VPN code.
      *
+     * @param enabled whether the specified UID ranges must use a VPN
      * @param ranges the UID ranges to restrict
-     * @param requireVpn whether the specified UID ranges must use a VPN
      *
      * @hide
      */
@@ -1409,20 +1421,71 @@ public class ConnectivityManager {
             android.Manifest.permission.NETWORK_STACK,
             android.Manifest.permission.NETWORK_SETTINGS})
     @SystemApi(client = MODULE_LIBRARIES)
-    public void setRequireVpnForUids(boolean requireVpn,
+    public void setRequireVpnForUids(boolean enabled, @NonNull Collection<Range<Integer>> ranges) {
+        setRequireVpnForUids(enabled, true /* lockdown */, ranges);
+    }
+
+    /**
+     * Adds or removes a requirement for given UID ranges to use the VPN.
+     *
+     * Call this method to inform the system that the UIDs in the specified range are subject to a
+     * VPN.
+     * <p>
+     * Each of the UID ranges specified by this method is added and removed as is, and no processing
+     * is performed on the ranges to de-duplicate, merge, split, or intersect them. In order to
+     * remove a previously-added range, the exact range must be removed as is.
+     * Therefore, this method must be called in pairs with identical UID ranges and |enabled|
+     * false when disabling a previously enabled VPN requirement.
+     * <p>
+     * If |lockdown| is {@code true}, then the specified UIDs are blocked from doing any networking
+     * when the VPN is not connected. If |lockdown| is false, then the specified UIDs do
+     * not have a default network when the VPN is not connected, but they may access a
+     * network that they specify explicitly (assuming they otherwise have permission to use
+     * that network). For the case of |lockdown| is false, the callers can simply pass an empty
+     * ranges to clear the setting. So |enabled| is not used for this case.
+     * <p>
+     * Applications holding the
+     * {@link android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS}
+     * permission can always use other networks by specifying them explicitly.
+     * Sockets protected by a method such as {@link VpnService#protect(DatagramSocket)} are exempt.
+     * <p>
+     * The changes are applied asynchronously and may not have been applied by the time the method
+     * returns. Apps will be notified about any changes that apply to them via
+     * {@link NetworkCallback#onBlockedStatusChanged} callbacks called after the changes take
+     * effect.
+     * <p>
+     * This method should be called only by the VPN code.
+     *
+     * @param enabled whether the specified UID ranges must use a VPN.
+     * @param lockdown A boolean to indicate that the network is only working when the VPN is
+     *                 connected.
+     * @param ranges The uid ranges to restrict.
+     * @hide
+     */
+    @RequiresPermission(anyOf = {
+            NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK,
+            android.Manifest.permission.NETWORK_STACK,
+            android.Manifest.permission.NETWORK_SETTINGS})
+    @SystemApi(client = MODULE_LIBRARIES)
+    public void setRequireVpnForUids(boolean enabled, boolean lockdown,
             @NonNull Collection<Range<Integer>> ranges) {
         Objects.requireNonNull(ranges);
         // The Range class is not parcelable. Convert to UidRange, which is what is used internally.
         // This method is not necessarily expected to be used outside the system server, so
         // parceling may not be necessary, but it could be used out-of-process, e.g., by the network
         // stack process, or by tests.
-        UidRange[] rangesArray = new UidRange[ranges.size()];
+        final UidRange[] rangesArray = new UidRange[ranges.size()];
         int index = 0;
         for (Range<Integer> range : ranges) {
             rangesArray[index++] = new UidRange(range.getLower(), range.getUpper());
         }
+
         try {
-            mService.setRequireVpnForUids(requireVpn, rangesArray);
+            if (lockdown) {
+                mService.setRequireVpnForUids(enabled, rangesArray);
+            } else {
+                mService.setVpnNetworkPreference(rangesArray);
+            }
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
