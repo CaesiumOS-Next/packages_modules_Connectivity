@@ -326,7 +326,7 @@ TEST_F(BpfNetworkStatsHelperTest, TestGetStatsWithSkippedIface) {
             .txPackets = TEST_PACKET1,
             .txBytes = TEST_BYTES1,
     };
-    populateFakeStats(0, 0, 0, OVERFLOW_COUNTERSET, value1, mFakeStatsMap);
+    populateFakeStats(0, 0, 0, 2 /*OVERFLOW_COUNTERSET*/, value1, mFakeStatsMap);
     populateFakeStats(TEST_UID1, 0, IFACE_INDEX1, TEST_COUNTERSET0, value1, mFakeStatsMap);
     populateFakeStats(TEST_UID1, 0, IFACE_INDEX2, TEST_COUNTERSET0, value1, mFakeStatsMap);
     populateFakeStats(TEST_UID1, 0, IFACE_INDEX1, TEST_COUNTERSET1, value1, mFakeStatsMap);
