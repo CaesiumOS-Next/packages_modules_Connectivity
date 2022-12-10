@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52d4c325_d0f88277",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-10T12:29:10Z",
+      "side": 1,
+      "message": "side note: I think the .java code is in\n\npackages/modules/Connectivity/framework-t/src/android/net/NetworkStats.java\n\nand I think the relevant constants are SET_ - in particular SET_DEFAULT \u003d 0 and SET_FOREGROUND \u003d 1, but I don\u0027t see any 2...\n\n\nthe relevant bpf code is of course in netd.c and does:\n\nStatsKey key \u003d {.uid \u003d uid, .tag \u003d tag, .counterSet \u003d 0, .ifaceIndex \u003d skb-\u003eifindex};\n\nuint8_t* counterSet \u003d bpf_uid_counterset_map_lookup_elem(\u0026uid);\nif (counterSet) key.counterSet \u003d (uint32_t)*counterSet;\n\nso only \u00270\u0027 (default) is special, all other values coming from the uid counterset map\n\nI think this means \u0027OVERFLOW_COUNTERSET\u0027 is likely some qtaguid leftover??",
+      "revId": "d569d4e75213bdba03868b7ca89c36953d5d3320",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
