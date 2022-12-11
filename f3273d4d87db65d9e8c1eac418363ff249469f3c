@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31d3eef3_fa48da10",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EventCallbacksTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-11T15:49:38Z",
+      "side": 1,
+      "message": "nit: @Nullable",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 11
+      },
+      "revId": "f3273d4d87db65d9e8c1eac418363ff249469f3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f537763_ee35a0af",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EventCallbacksTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-11T15:49:38Z",
+      "side": 1,
+      "message": "nit: @Nullable",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 10
+      },
+      "revId": "f3273d4d87db65d9e8c1eac418363ff249469f3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d82d4640_be2ab6e0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EventCallbacksTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-11T15:49:38Z",
+      "side": 1,
+      "message": "nit: @Nullable",
+      "range": {
+        "startLine": 112,
+        "startChar": 38,
+        "endLine": 112,
+        "endChar": 43
+      },
+      "revId": "f3273d4d87db65d9e8c1eac418363ff249469f3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
