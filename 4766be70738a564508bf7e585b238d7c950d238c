@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8eb8827_a743346e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1851,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-11T16:00:22Z",
+      "side": 1,
+      "message": "may I know why chooseUpstreamType() needs to update upstream caps? chooseUpstreamType() naming sounds that only choose upstream but monitor upstream.",
+      "range": {
+        "startLine": 1851,
+        "startChar": 37,
+        "endLine": 1851,
+        "endChar": 66
+      },
+      "revId": "4766be70738a564508bf7e585b238d7c950d238c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40d16dde_f55afbdb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2075,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-11T16:00:22Z",
+      "side": 1,
+      "message": "this looks like new code flow. may I know why adds this line? Since reportUpstreamChanged has reported null upstream. Is caps of upstream still used in anywhere?",
+      "range": {
+        "startLine": 2075,
+        "startChar": 41,
+        "endLine": 2075,
+        "endChar": 70
+      },
+      "revId": "4766be70738a564508bf7e585b238d7c950d238c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
