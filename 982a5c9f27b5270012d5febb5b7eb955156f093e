@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78dcf0bd_1c29cfef",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EventCallbacksTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-11T15:36:31Z",
+      "side": 1,
+      "message": "nit: is this only used once in ctor? if yes, maybe move into ctor. not a strong opinion\n\ntethering needs this function because it is called when mTetherStatesParcel has been never updated.\n```\nparcel.states \u003d mTetherStatesParcel !\u003d null ? mTetherStatesParcel : emptyTetherStatesParcel();\n```",
+      "range": {
+        "startLine": 40,
+        "startChar": 31,
+        "endLine": 40,
+        "endChar": 54
+      },
+      "revId": "982a5c9f27b5270012d5febb5b7eb955156f093e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
