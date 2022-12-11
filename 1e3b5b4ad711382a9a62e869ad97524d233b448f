@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6f6053c_916674c0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EventCallbacksTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-11T16:54:48Z",
+      "side": 1,
+      "message": "nit: do we need to add a similar warning in L.87? caller may only read the public function comment.",
+      "range": {
+        "startLine": 41,
+        "startChar": 45,
+        "endLine": 41,
+        "endChar": 85
+      },
+      "revId": "1e3b5b4ad711382a9a62e869ad97524d233b448f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
