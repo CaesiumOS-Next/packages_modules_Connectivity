@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9c85336_be2f6521",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-12T05:30:54Z",
+      "side": 1,
+      "message": "privileged",
+      "range": {
+        "startLine": 10,
+        "startChar": 9,
+        "endLine": 10,
+        "endChar": 19
+      },
+      "revId": "c1500c1aab9d8d305614d09d39fcdd7dae7a8ba0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d6bab7c_716118ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-12T05:30:54Z",
+      "side": 1,
+      "message": "combined",
+      "range": {
+        "startLine": 13,
+        "startChar": 28,
+        "endLine": 13,
+        "endChar": 37
+      },
+      "revId": "c1500c1aab9d8d305614d09d39fcdd7dae7a8ba0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05c53d40_602b308d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-12T05:30:54Z",
+      "side": 1,
+      "message": "a VPN",
+      "range": {
+        "startLine": 14,
+        "startChar": 45,
+        "endLine": 14,
+        "endChar": 48
+      },
+      "revId": "c1500c1aab9d8d305614d09d39fcdd7dae7a8ba0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "109320c6_eeb69048",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-12T05:30:54Z",
+      "side": 1,
+      "message": "seconds",
+      "range": {
+        "startLine": 55,
+        "startChar": 71,
+        "endLine": 55,
+        "endChar": 77
+      },
+      "revId": "c1500c1aab9d8d305614d09d39fcdd7dae7a8ba0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de83bfe6_102e6c65",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-12T05:30:54Z",
+      "side": 1,
+      "message": "interval",
+      "range": {
+        "startLine": 55,
+        "startChar": 22,
+        "endLine": 55,
+        "endChar": 29
+      },
+      "revId": "c1500c1aab9d8d305614d09d39fcdd7dae7a8ba0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e13aa66_ea15a1ee",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-12T05:30:54Z",
+      "side": 1,
+      "message": "mKeepaliveIntervalSeconds",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 40
+      },
+      "revId": "c1500c1aab9d8d305614d09d39fcdd7dae7a8ba0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e071f003_c0b187f1",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-12T05:30:54Z",
+      "side": 1,
+      "message": "The threshold of the keepalive interval for requesting long-lived TCP connections be excluded from the VPN.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 19
+      },
+      "revId": "c1500c1aab9d8d305614d09d39fcdd7dae7a8ba0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11d54b49_969b14e5",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-12T05:30:54Z",
+      "side": 1,
+      "message": "I don\u0027t think we want this to be API ? Let\u0027s keep it hidden",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 41
+      },
+      "revId": "c1500c1aab9d8d305614d09d39fcdd7dae7a8ba0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72a68774_211d8309",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-12T05:30:54Z",
+      "side": 1,
+      "message": "We just introduced this one right ? We can still remove it",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 5
+      },
+      "revId": "c1500c1aab9d8d305614d09d39fcdd7dae7a8ba0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4f23e5e_13b534c5",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-12T05:30:54Z",
+      "side": 1,
+      "message": "Javadoc should always be formatted like :\n\n    /**\n     * One-line description of what this DOES\n     *\n     * Detailed description...\n     */\n\nSo here you should have something like\n\n    /**\n     * Construct a new VpnTransportInfo object.\n     *\n     * This is intended to be used for setting the keepalive value\n     */",
+      "range": {
+        "startLine": 111,
+        "startChar": 5,
+        "endLine": 111,
+        "endChar": 6
+      },
+      "revId": "c1500c1aab9d8d305614d09d39fcdd7dae7a8ba0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4838315f_02279f62",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-12T05:30:54Z",
+      "side": 1,
+      "message": "I don\u0027t think this should be an int, because that means the decision can only ever be a simple threshold (or we have to pass more context to this object). Besides, the TransportInfo objects are normally pretty dumb and just bags of data, so I don\u0027t think this object should embark the logic.\n\nInstead let\u0027s just make it a boolean and let the caller decide if the tcp connections should be excluded.",
+      "range": {
+        "startLine": 114,
+        "startChar": 16,
+        "endLine": 114,
+        "endChar": 25
+      },
+      "revId": "c1500c1aab9d8d305614d09d39fcdd7dae7a8ba0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29cd194f_3ed0c9be",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-12T05:30:54Z",
+      "side": 1,
+      "message": "{",
+      "range": {
+        "startLine": 140,
+        "startChar": 7,
+        "endLine": 140,
+        "endChar": 8
+      },
+      "revId": "c1500c1aab9d8d305614d09d39fcdd7dae7a8ba0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1396039_3c086bd7",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-12T05:30:54Z",
+      "side": 1,
+      "message": "Do we care if somebody uses reflection to call this before U ? I don\u0027t really see a problem with that\n\nI think you can afford to not special-case U, and always use the same logic (including in U)",
+      "range": {
+        "startLine": 139,
+        "startChar": 7,
+        "endLine": 140,
+        "endChar": 54
+      },
+      "revId": "c1500c1aab9d8d305614d09d39fcdd7dae7a8ba0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24481bbc_2125a549",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-12T05:30:54Z",
+      "side": 1,
+      "message": "areLongLivedTcpConnectionsExpensive",
+      "range": {
+        "startLine": 143,
+        "startChar": 19,
+        "endLine": 143,
+        "endChar": 45
+      },
+      "revId": "c1500c1aab9d8d305614d09d39fcdd7dae7a8ba0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
