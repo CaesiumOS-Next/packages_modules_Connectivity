@@ -95,6 +95,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9b17273e_83a04a17",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 10504,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-12T08:24:41Z",
+      "side": 1,
+      "message": "We don\u0027t send a broadcast for a pac proxy that isn\u0027t resolve yet.\nRefer to ProxyTracker.shouldSendBroadcast().",
+      "parentUuid": "67f7e3c9_f67572ee",
+      "range": {
+        "startLine": 10504,
+        "startChar": 8,
+        "endLine": 10504,
+        "endChar": 29
+      },
+      "revId": "fb9996881ae7327f1fd38c0f23b3c8c67205a0ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a522a102_f7a33853",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 8
@@ -106,6 +130,30 @@
       "writtenOn": "2022-11-10T07:48:08Z",
       "side": 1,
       "message": "Here we should have another broadcast to explain that there is no longer a default proxy",
+      "range": {
+        "startLine": 10507,
+        "startChar": 21,
+        "endLine": 10507,
+        "endChar": 22
+      },
+      "revId": "fb9996881ae7327f1fd38c0f23b3c8c67205a0ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cc11d10_52ba9cdc",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 10507,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-12T08:24:41Z",
+      "side": 1,
+      "message": "Here we should expect broadcast with an null proxyInfo\nIf no, may have bug here.",
+      "parentUuid": "a522a102_f7a33853",
       "range": {
         "startLine": 10507,
         "startChar": 21,
