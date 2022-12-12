@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1308dd1_c6aeb638",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-12T07:11:11Z",
+      "side": 1,
+      "message": "Fixed the partial comments.\nNeed to,\n- Fix the merge conflic.\n- Add a uid ranges overlap check.\n- Fix the problem of uid ranges will be removed by other users.",
+      "revId": "cd597581d6f9f83a4bb9deaa3bcd7214eb7cb003",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

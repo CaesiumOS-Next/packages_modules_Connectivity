@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb003607_93476d67",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-12T07:11:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9b0ac94_f3981191",
+      "range": {
+        "startLine": 7,
+        "startChar": 31,
+        "endLine": 7,
+        "endChar": 53
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d63e4978_b7f6c6b1",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7c40b9e_1ed62512",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-12T07:11:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d63e4978_b7f6c6b1",
+      "range": {
+        "startLine": 13,
+        "startChar": 19,
+        "endLine": 13,
+        "endChar": 25
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58437ee9_6e73731c",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-12-09T05:38:22Z",
       "side": 1,
       "message": "specific",
+      "range": {
+        "startLine": 15,
+        "startChar": 22,
+        "endLine": 15,
+        "endChar": 30
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18def4d8_629b61b4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-12T07:11:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58437ee9_6e73731c",
       "range": {
         "startLine": 15,
         "startChar": 22,
@@ -116,6 +188,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ada9564_0d77b149",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-12T07:11:11Z",
+      "side": 1,
+      "message": "Per offline discussion, I\u0027ll remove it.",
+      "parentUuid": "792d7144_f44f672f",
+      "range": {
+        "startLine": 33,
+        "startChar": 139,
+        "endLine": 33,
+        "endChar": 185
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32333791_65d07f14",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-12T07:11:11Z",
+      "side": 1,
+      "message": "Ditto.",
+      "parentUuid": "cd3d0321_220f8c58",
+      "range": {
+        "startLine": 33,
+        "startChar": 139,
+        "endLine": 33,
+        "endChar": 185
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95dd295e_2f096949",
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9b738f9_98f56af2",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1400,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-12T07:11:11Z",
+      "side": 1,
+      "message": "Thanks for your suggestion, I added both of them.",
+      "parentUuid": "95dd295e_2f096949",
+      "range": {
+        "startLine": 1394,
+        "startChar": 68,
+        "endLine": 1400,
+        "endChar": 17
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85c99823_829c1b27",
@@ -152,6 +296,30 @@
       "writtenOn": "2022-12-09T05:38:22Z",
       "side": 1,
       "message": "I don\u0027t think we should have these semantics – arguments should not have a different meaning just because other arguments have different values. We should have the same requirements on UIDs regardless of the values of the booleans, and require that the caller pass the same ranges when they disable the preference.",
+      "range": {
+        "startLine": 1444,
+        "startChar": 22,
+        "endLine": 1446,
+        "endChar": 10
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19e84cdb_7ed6411a",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1446,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-12T07:11:11Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "85c99823_829c1b27",
       "range": {
         "startLine": 1444,
         "startChar": 22,
@@ -209,6 +377,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3fa2018_5bd1aca4",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1455,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-12T07:11:11Z",
+      "side": 1,
+      "message": "Yes, you\u0027re right. The onBlockedStatusChanged() callback is called only when lockdown is true.\nFor the case of lockdown is false, the onLost() callback will be called when the UID ranges are set.\n\nUpdated the comment.",
+      "parentUuid": "1860d6c6_d32ee09c",
+      "range": {
+        "startLine": 1453,
+        "startChar": 16,
+        "endLine": 1455,
+        "endChar": 14
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e963cdf5_309d5357",
@@ -222,6 +414,30 @@
       "writtenOn": "2022-12-09T05:38:22Z",
       "side": 1,
       "message": "If true, the specified UIDs are blocked from doing any networking when the VPN is not connected. If false, the specified UIDs can use other networks when the VPN is not connected, if they specify them explicitly and hold sufficient permission.",
+      "range": {
+        "startLine": 1460,
+        "startChar": 23,
+        "endLine": 1461,
+        "endChar": 33
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0244a0d_3feab14f",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1461,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-12T07:11:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e963cdf5_309d5357",
       "range": {
         "startLine": 1460,
         "startChar": 23,
@@ -255,6 +471,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c46b452_d9b16c0c",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1487,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-12T07:11:11Z",
+      "side": 1,
+      "message": "In fact, setVpnNetworkPreference will always be called when the IKEv2VpnRunner is launched.\nSo if the VPN(e.g. VpnManager app, Settings VPN) will launch IKEv2VpnRunner, setVpnNetworkPreference will be called.",
+      "parentUuid": "1031ebc7_0852ad08",
+      "range": {
+        "startLine": 1487,
+        "startChar": 25,
+        "endLine": 1487,
+        "endChar": 48
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a84a9cde_3144b2c7",
@@ -268,6 +508,30 @@
       "writtenOn": "2022-12-09T05:38:22Z",
       "side": 1,
       "message": "Should we call NC.Builder#withoutDefaultCapabilities for this ? After all if the VPN decides it doesn\u0027t provide INTERNET we should still match it.\n\nAlternatively, you may want to have a separate method createVpnRequestForTransport.",
+      "range": {
+        "startLine": 1623,
+        "startChar": 51,
+        "endLine": 1623,
+        "endChar": 67
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b315c4ec_9ebbc3cf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1623,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-12T07:11:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a84a9cde_3144b2c7",
       "range": {
         "startLine": 1623,
         "startChar": 51,
@@ -301,6 +565,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d18ee61b_eaa765db",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 11111,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-12T07:11:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac17e92b_c3cf2c60",
+      "range": {
+        "startLine": 11111,
+        "startChar": 66,
+        "endLine": 11111,
+        "endChar": 67
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "abac9aaf_83ac0469",
@@ -314,6 +602,30 @@
       "writtenOn": "2022-12-09T05:38:22Z",
       "side": 1,
       "message": "I do not understand the meaning of this comment. What does this apply to ?",
+      "range": {
+        "startLine": 11121,
+        "startChar": 0,
+        "endLine": 11122,
+        "endChar": 39
+      },
+      "revId": "cd7094b35dbe2af75799e0fc6b4317bd8cf36205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ade8018f_7ff84eeb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 11122,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-12T07:11:11Z",
+      "side": 1,
+      "message": "The idea is that if the length of ranges is 0, which means we want to remove the uid ranges rule instead of adding it.\n\nAnd if we add NetworkRequestInfo into mDefaultNetworkRequests, which means we want to enable multi-layer request.\nSo there is no need to add additional NetworkRequestInfo into mDefaultNetworkRequests if we want to disable multi-layer request.",
+      "parentUuid": "abac9aaf_83ac0469",
       "range": {
         "startLine": 11121,
         "startChar": 0,
