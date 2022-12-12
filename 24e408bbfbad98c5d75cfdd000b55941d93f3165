@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55e1c9a3_59a69e80",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-12T08:16:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9507d5d_5d67a1a1",
+      "range": {
+        "startLine": 15,
+        "startChar": 10,
+        "endLine": 15,
+        "endChar": 31
+      },
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7aaf8719_6317d258",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-12T07:47:49Z",
       "side": 1,
       "message": "Typo: FrameworksNetTests",
+      "range": {
+        "startLine": 19,
+        "startChar": 12,
+        "endLine": 19,
+        "endChar": 29
+      },
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fff2712_8af0c0a7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-12T08:16:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7aaf8719_6317d258",
       "range": {
         "startLine": 19,
         "startChar": 12,
