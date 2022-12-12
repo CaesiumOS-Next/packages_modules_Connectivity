@@ -16,6 +16,52 @@
       "message": "Fixed the partial comments.\nNeed to,\n- Fix the merge conflic.\n- Add a uid ranges overlap check.\n- Fix the problem of uid ranges will be removed by other users.",
       "revId": "cd597581d6f9f83a4bb9deaa3bcd7214eb7cb003",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57da51fb_9bfd73da",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1451,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-12T07:47:49Z",
+      "side": 1,
+      "message": "the apps listening to changes to their default network through CM#registerDefaultNetworkCallback will observe a call to {onLost} when the UID ranges are set",
+      "range": {
+        "startLine": 1450,
+        "startChar": 53,
+        "endLine": 1451,
+        "endChar": 75
+      },
+      "revId": "cd597581d6f9f83a4bb9deaa3bcd7214eb7cb003",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8be1fdc_ecda815c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1633,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-12T07:47:49Z",
+      "side": 1,
+      "message": "Forgot to remove",
+      "range": {
+        "startLine": 1633,
+        "startChar": 8,
+        "endLine": 1633,
+        "endChar": 92
+      },
+      "revId": "cd597581d6f9f83a4bb9deaa3bcd7214eb7cb003",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
