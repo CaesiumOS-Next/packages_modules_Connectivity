@@ -4417,13 +4417,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 config = new NativeNetworkConfig(nai.network.getNetId(), NativeNetworkType.VIRTUAL,
                         INetd.PERMISSION_NONE,
                         !nai.networkAgentConfig.allowBypass /* secure */,
-                        getVpnType(nai), nai.networkAgentConfig.excludeLocalRouteVpn);
+                        getVpnType(nai), nai.networkAgentConfig.excludeLocalRouteVpn,
+                        false /* local */);
             } else {
                 config = new NativeNetworkConfig(nai.network.getNetId(), NativeNetworkType.PHYSICAL,
                         getNetworkPermission(nai.networkCapabilities),
                         false /* secure */,
                         VpnManager.TYPE_VPN_NONE,
-                        false /* excludeLocalRoutes */);
+                        false /* excludeLocalRoutes */,
+                        false /* local */);
             }
             mNetd.networkCreate(config);
             mDnsResolver.createNetworkCache(nai.network.getNetId());
