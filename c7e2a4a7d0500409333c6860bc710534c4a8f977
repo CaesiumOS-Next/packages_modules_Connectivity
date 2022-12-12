@@ -258,6 +258,30 @@
       },
       "revId": "c7e2a4a7d0500409333c6860bc710534c4a8f977",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2893fe14_a183788a",
+        "filename": "Cronet/tests/cts/src/org/chromium/net/test/util/CronetCtsTestServer.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-12T15:41:12Z",
+      "side": 1,
+      "message": "I am actually surprised that this works, since getAssetUrl returns `String?`. Another to do this would be to add an explicit null check `getAssetUrl(\"..\")!!` or provide a default value `getAssetUrl(\"..\") ?: \"\"`.",
+      "parentUuid": "f955d93c_57c6984e",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 5
+      },
+      "revId": "c7e2a4a7d0500409333c6860bc710534c4a8f977",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
