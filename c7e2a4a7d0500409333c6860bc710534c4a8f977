@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e246d39_1ffcf5c1",
+        "filename": "Cronet/tests/cts/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2022-12-12T13:12:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dfa7021_a8c092af",
+      "range": {
+        "startLine": 23,
+        "startChar": 11,
+        "endLine": 23,
+        "endChar": 41
+      },
+      "revId": "c7e2a4a7d0500409333c6860bc710534c4a8f977",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6575b23b_74945b8e",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-09T18:21:40Z",
       "side": 1,
       "message": "nit: keep these in alphabetical order",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 24
+      },
+      "revId": "c7e2a4a7d0500409333c6860bc710534c4a8f977",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca1b6c74_89dbddd6",
+        "filename": "Cronet/tests/cts/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2022-12-12T13:12:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6575b23b_74945b8e",
       "range": {
         "startLine": 28,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "776c42e3_39bf8e00",
+        "filename": "Cronet/tests/cts/AndroidManifest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2022-12-12T13:12:16Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "1dcc5f85_4b2abfff",
+      "range": {
+        "startLine": 26,
+        "startChar": 11,
+        "endLine": 27,
+        "endChar": 17
+      },
+      "revId": "c7e2a4a7d0500409333c6860bc710534c4a8f977",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1bd79d89_1b901477",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-12-09T18:21:40Z",
       "side": 1,
       "message": "What about ::1 -- in general, we prefer using v6 over v4 in tests.",
+      "range": {
+        "startLine": 21,
+        "startChar": 8,
+        "endLine": 23,
+        "endChar": 57
+      },
+      "revId": "c7e2a4a7d0500409333c6860bc710534c4a8f977",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd4a0389_6327d50b",
+        "filename": "Cronet/tests/cts/res/xml/network_security_config.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2022-12-12T13:12:16Z",
+      "side": 1,
+      "message": "The testServer specifically uses \"localhost\" so I don\u0027t think we need to worry about the ipv6.\n\nhttps://cs.android.com/android/platform/superproject/+/master:cts/libs/testserver/src/android/webkit/cts/CtsTestServer.java;l\u003d254",
+      "parentUuid": "1bd79d89_1b901477",
       "range": {
         "startLine": 21,
         "startChar": 8,
@@ -130,6 +226,30 @@
       "side": 1,
       "message": "(That note only applies if it is called from java, of course)",
       "parentUuid": "b2aca15a_51dcd300",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 5
+      },
+      "revId": "c7e2a4a7d0500409333c6860bc710534c4a8f977",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f955d93c_57c6984e",
+        "filename": "Cronet/tests/cts/src/org/chromium/net/test/util/CronetCtsTestServer.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2022-12-12T13:12:16Z",
+      "side": 1,
+      "message": "Fixed. I had to explicitly add the return type here to avoid \"unchecked nullability issues\"",
+      "parentUuid": "12b632b2_4172d0ec",
       "range": {
         "startLine": 25,
         "startChar": 4,
