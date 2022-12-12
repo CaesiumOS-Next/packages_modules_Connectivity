@@ -220,14 +220,18 @@ public class TestUrlRequestCallback extends UrlRequest.Callback {
     }
 
     /**
-     * Waits for a terminal callback to complete execution before failing if the callback
-     * is not the expected one
+     * Waits for a terminal callback to complete execution before failing if the callback is not the
+     * expected one
      *
      * @param expectedStep the expected callback step
      */
     public void expectCallback(ResponseStep expectedStep) {
         if (isTerminalCallback(expectedStep)) {
             assertTrue("Did not receive terminal callback before timeout", blockForDone());
+        }
+
+        if (expectedStep != ResponseStep.ON_FAILED) {
+            assertNull(mError);
         }
         assertSame(expectedStep, mResponseStep);
     }
