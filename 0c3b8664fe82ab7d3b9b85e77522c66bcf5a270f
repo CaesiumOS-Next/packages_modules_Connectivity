@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "70998390_1b87e387",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-12T06:09:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05335ceb_b97f0e53",
+      "revId": "0c3b8664fe82ab7d3b9b85e77522c66bcf5a270f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d63502ce_5af1cd43",
@@ -114,6 +132,30 @@
       "side": 1,
       "message": "I move it out of the section that holds mStatsLock, please see if this works for you.",
       "parentUuid": "54eedb14_5ae1410f",
+      "range": {
+        "startLine": 2694,
+        "startChar": 26,
+        "endLine": 2694,
+        "endChar": 47
+      },
+      "revId": "0c3b8664fe82ab7d3b9b85e77522c66bcf5a270f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e9eef95_6b7cd8c8",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2694,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-12T06:09:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20d036a3_67dce562",
       "range": {
         "startLine": 2694,
         "startChar": 26,

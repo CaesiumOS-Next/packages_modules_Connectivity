@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe0a937c_ad9f4c89",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-12T06:09:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e3e62aa_e2a608be",
+      "range": {
+        "startLine": 892,
+        "startChar": 8,
+        "endLine": 893,
+        "endChar": 92
+      },
+      "revId": "7f2c3510bfc41c7ff44099d404417e0dae0bfac2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65390485_7db5158b",
@@ -180,6 +204,30 @@
       "side": 1,
       "message": "Reopen since the newest patchset doesn\u0027t solve the problem.\nIIUC you need to filter out the section first. Then make an uid list out of it.",
       "parentUuid": "bda9fd96_b7df809f",
+      "range": {
+        "startLine": 2544,
+        "startChar": 8,
+        "endLine": 2546,
+        "endChar": 9
+      },
+      "revId": "7f2c3510bfc41c7ff44099d404417e0dae0bfac2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "036c2eeb_b0dd6b92",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 2546,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-12T06:09:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b8c59d5_b3409ce5",
       "range": {
         "startLine": 2544,
         "startChar": 8,
