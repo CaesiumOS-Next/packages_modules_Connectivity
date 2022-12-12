@@ -1,0 +1,272 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9507d5d_5d67a1a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-12T07:47:49Z",
+      "side": 1,
+      "message": "Typo: connected/disconnected",
+      "range": {
+        "startLine": 15,
+        "startChar": 10,
+        "endLine": 15,
+        "endChar": 31
+      },
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7aaf8719_6317d258",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-12T07:47:49Z",
+      "side": 1,
+      "message": "Typo: FrameworksNetTests",
+      "range": {
+        "startLine": 19,
+        "startChar": 12,
+        "endLine": 19,
+        "endChar": 29
+      },
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc017eda_1b26fcae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-12T07:47:49Z",
+      "side": 1,
+      "message": "LGTM with some comments to address (here or in a followup)",
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "823235d8_1c38e5b7",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceSocket.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-12T07:47:49Z",
+      "side": 1,
+      "message": "Nit: static (also below)",
+      "range": {
+        "startLine": 86,
+        "startChar": 11,
+        "endLine": 86,
+        "endChar": 12
+      },
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d577c687_658b306a",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceSocket.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-12T07:47:49Z",
+      "side": 1,
+      "message": "Nit: @Nullable / @NonNull on the arguments of each method would be better",
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7467e519_9a354da2",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceSocket.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-12T07:47:49Z",
+      "side": 1,
+      "message": "Actually https://tldp.org/HOWTO/Multicast-HOWTO-6.html 6.5 suggests that dropping the memberships isn\u0027t actually necessary before closing",
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e50071c_96dfe560",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocket.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-12T07:47:49Z",
+      "side": 1,
+      "message": "Nit: this could/should be package-private I think ? (or just public), since MdnsInterfaceSocket doesn\u0027t extend MdnsSocket",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 13
+      },
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbef5157_ba696e64",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-12T07:47:49Z",
+      "side": 1,
+      "message": "(Nit: also @NonNull / @Nullable on each method would be nice)",
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a544dbe_57635c2b",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-12T07:47:49Z",
+      "side": 1,
+      "message": "Nit: this causes mAddresses to be initialized with size 10 (DEFAULT_CAPACITY), then filled with addresses (possibly resized, although most of the time there\u0027s around 3~5 addresses I guess). You could use mAddresses \u003d new ArrayList\u003c\u003e(addresses) instead to save a bit on size.",
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67ef02af_814e5b8b",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-12T07:47:49Z",
+      "side": 1,
+      "message": "Nit: I didn\u0027t know there\u0027s a containsValue method with a specialized implementation in ArrayMap, but considering that this method could just be:\n\n    return hasAllNetworksRequest()\n        || mCallbacksToRequestedNetworks.containsValue(network);",
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e64a580a_0d95641a",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-12T07:47:49Z",
+      "side": 1,
+      "message": "If the socket loses its v6 address, then gets it back a while later, I think it wouldn\u0027t join in this case (mJoinedIPv6 already true) ? I think this could cause problems.\n\nMaybe file a bug or prepare another change for that (just to make sure not to forget, if not done here)",
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d63df889_217f7a76",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-12T07:47:49Z",
+      "side": 1,
+      "message": "Nit: CollectionUtils.map(LinkAddress::new) may just do that",
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43a8812d_3d3009d8",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-12T07:47:49Z",
+      "side": 1,
+      "message": "Nit: ArrayMap.removeAt is quite complicated and can do allocations for each call, to shrink the size of the underlying arrays.\n\nHere it would be more efficient and still simple to just iterate on the map, and call ArrayMap.clear() at the end.\n\nThis won\u0027t make any difference since there shouldn\u0027t be more than 1-2 tethered interfaces, but just as a good practice...",
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdf5bf87_ec4a32f4",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-12T07:47:49Z",
+      "side": 1,
+      "message": "Now that the test uses waitForIdle, do you still need to poll with a timeout ? Would the events not be delivered already when this is called ?",
+      "range": {
+        "startLine": 167,
+        "startChar": 52,
+        "endLine": 167,
+        "endChar": 67
+      },
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
