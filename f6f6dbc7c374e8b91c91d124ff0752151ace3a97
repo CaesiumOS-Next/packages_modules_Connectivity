@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "949327e1_e4fd3642",
+        "filename": "framework-t/src/android/net/IpSecManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-12-12T19:57:57Z",
+      "side": 1,
+      "message": "that have started migration",
+      "range": {
+        "startLine": 835,
+        "startChar": 36,
+        "endLine": 835,
+        "endChar": 39
+      },
+      "revId": "f6f6dbc7c374e8b91c91d124ff0752151ace3a97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0a94868_fbf05b88",
+        "filename": "framework-t/src/android/net/IpSecManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-12-12T19:57:57Z",
+      "side": 1,
+      "message": "Multiple \"to\" words.\n\nSuggest \"that have started migration (see ...) to addresses matching this IpSecTunnelInterface\"",
+      "range": {
+        "startLine": 836,
+        "startChar": 40,
+        "endLine": 836,
+        "endChar": 42
+      },
+      "revId": "f6f6dbc7c374e8b91c91d124ff0752151ace3a97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a7bf023_0a3e8b9c",
+        "filename": "framework-t/src/android/net/IpSecManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1014,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-12-12T19:57:57Z",
+      "side": 1,
+      "message": "Address updates will not be committed,",
+      "range": {
+        "startLine": 1014,
+        "startChar": 62,
+        "endLine": 1014,
+        "endChar": 92
+      },
+      "revId": "f6f6dbc7c374e8b91c91d124ff0752151ace3a97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
