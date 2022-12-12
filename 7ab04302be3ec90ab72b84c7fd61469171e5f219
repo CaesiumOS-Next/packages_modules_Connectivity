@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5473b331_9b2b16fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-12T14:54:38Z",
+      "side": 1,
+      "message": "Thanks for your commit. I have tested with aosp/2335545, aosp/2174904. It works to me. So I set these commits as a topic\n\nSince the aosp/2327500 (disable bpf test on cts) has merged, I am checking with CTS release team when the CTS will include the CTS fix. Then, we can make sure clat tether offload won\u0027t break the CTS since new account_if added to bpf TetherValue.",
+      "revId": "7ab04302be3ec90ab72b84c7fd61469171e5f219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbeed766_927dd9db",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-12T14:54:38Z",
+      "side": 1,
+      "message": "v4-iface",
+      "range": {
+        "startLine": 463,
+        "startChar": 48,
+        "endLine": 463,
+        "endChar": 56
+      },
+      "revId": "7ab04302be3ec90ab72b84c7fd61469171e5f219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d773eb51_25c6724f",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-12T14:54:38Z",
+      "side": 1,
+      "message": "\u0027v4-\u0027 prefix",
+      "range": {
+        "startLine": 464,
+        "startChar": 24,
+        "endLine": 464,
+        "endChar": 36
+      },
+      "revId": "7ab04302be3ec90ab72b84c7fd61469171e5f219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
