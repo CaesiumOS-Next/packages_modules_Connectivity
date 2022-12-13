@@ -44,7 +44,8 @@ public final class NetworkScore implements Parcelable {
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(value = {
             KEEP_CONNECTED_NONE,
-            KEEP_CONNECTED_FOR_HANDOVER
+            KEEP_CONNECTED_FOR_HANDOVER,
+            KEEP_CONNECTED_DOWNSTREAM_NETWORK
     })
     public @interface KeepConnectedReason { }
 
@@ -57,6 +58,11 @@ public final class NetworkScore implements Parcelable {
      * is being considered for handover.
      */
     public static final int KEEP_CONNECTED_FOR_HANDOVER = 1;
+    /**
+     * Keep this network connected even if there is no outstanding request for it, because
+     * it is a downstream network.
+     */
+    public static final int KEEP_CONNECTED_DOWNSTREAM_NETWORK = 2;
 
     // Agent-managed policies
     // This network should lose to a wifi that has ever been validated
