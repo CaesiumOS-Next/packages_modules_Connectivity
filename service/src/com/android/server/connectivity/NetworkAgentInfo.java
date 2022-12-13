@@ -17,6 +17,7 @@
 package com.android.server.connectivity;
 
 import static android.net.ConnectivityDiagnosticsManager.ConnectivityReport;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
@@ -425,17 +426,38 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
     private final boolean mHasAutomotiveFeature;
 
     /**
+     * Enforces that a proposed update to the NCs of this NAI satisfies structural constraints.
+     *
+     * Some changes to NetworkCapabilities are structurally not supported by the stack, and
+     * NetworkAgents are absolutely never allowed to try and do them. When one of these is
+     * violated, this method throws, which will cause a restart of the system server ; this is
+     * meant to guarantee that no implementor ever tries to do this.
+     */
+    private void enforceNcStructuralConstraints(@NonNull final NetworkCapabilities proposedNc) {
+        if (networkCapabilities.hasCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                != proposedNc.hasCapability(NET_CAPABILITY_LOCAL_NETWORK)) {
+            throw new IllegalArgumentException("Network agents must not try to change the "
+                    + "NET_CAPABILITY_LOCAL_NETWORK capability. The culprit agent that must be "
+                    + "fixed is " + toString());
+        }
+    }
+
+    /**
      * Sets the capabilities sent by the agent for later retrieval.
      *
-     * This method does not sanitize the capabilities ; instead, use
-     * {@link #getDeclaredCapabilitiesSanitized} to retrieve a sanitized
-     * copy of the capabilities as they were passed here.
+     * This method will validate the capabilities for structural constraints and possibly crash
+     * the system server if they are violated. See {@link #enforceNcStructuralConstraints}.
+     *
+     * This method does not sanitize the capabilities before storing them ; instead, use
+     * {@link #getDeclaredCapabilitiesSanitized} to retrieve a sanitized copy of the capabilities
+     * as they were passed here.
      *
      * This method makes a defensive copy to avoid issues where the passed object is later mutated.
      *
      * @param caps the caps sent by the agent
      */
     public void setDeclaredCapabilities(@NonNull final NetworkCapabilities caps) {
+        enforceNcStructuralConstraints(caps);
         mDeclaredCapabilitiesUnsanitized = new NetworkCapabilities(caps);
     }
 

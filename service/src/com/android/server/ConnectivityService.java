@@ -65,6 +65,7 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_FOREGROUND;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_CONGESTED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_METERED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED;
@@ -112,7 +113,10 @@ import android.app.AppOpsManager;
 import android.app.BroadcastOptions;
 import android.app.PendingIntent;
 import android.app.admin.DevicePolicyManager;
+import android.app.compat.CompatChanges;
 import android.app.usage.NetworkStatsManager;
+import android.compat.annotation.ChangeId;
+import android.compat.annotation.EnabledAfter;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -333,6 +337,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static final boolean VDBG = Log.isLoggable(TAG, Log.VERBOSE);
 
     private static final boolean LOGD_BLOCKED_NETWORKINFO = true;
+
+    /**
+     * NetworkCallbacks about local network agents are only sent on apps with this change.
+     *
+     * The change is enabled by default starting in U.
+     */
+    @ChangeId
+    @EnabledAfter(targetSdkVersion = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    @VisibleForTesting
+    public static final long LOCAL_AGENTS_SUPPORT = 64955351;
 
     /**
      * Default URL to use for {@link #getCaptivePortalServerUrl()}. This should not be changed
@@ -1216,6 +1230,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return Binder.getCallingUid();
         }
 
+        public boolean isAtLeastT() {
+            return SdkLevel.isAtLeastT();
+        }
+
+        public boolean isAtLeastU() {
+            return SdkLevel.isAtLeastU();
+        }
+
         /**
          * Get system properties to use in ConnectivityService.
          */
@@ -1320,7 +1342,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         @Nullable
         public CarrierPrivilegeAuthenticator makeCarrierPrivilegeAuthenticator(
                 @NonNull final Context context, @NonNull final TelephonyManager tm) {
-            if (SdkLevel.isAtLeastT()) {
+            if (isAtLeastT()) {
                 return new CarrierPrivilegeAuthenticator(context, tm);
             } else {
                 return null;
@@ -1333,6 +1355,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
         public boolean isFeatureEnabled(Context context, String name, boolean defaultEnabled) {
             return DeviceConfigUtils.isFeatureEnabled(context, NAMESPACE_CONNECTIVITY, name,
                     TETHERING_MODULE_NAME, defaultEnabled);
+        }
+
+        /**
+         * @see CompatChanges#isChangeEnabled(long, int)
+         */
+        public boolean isChangeEnabled(final long changeId, final int uid) {
+            return CompatChanges.isChangeEnabled(changeId, uid);
         }
 
         /**
@@ -1577,7 +1606,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // Even if it could, running on S would at least require mocking out the BPF map,
             // otherwise the unit tests will fail on pre-T devices where the seccomp filter blocks
             // the bpf syscall. http://aosp/1907693
-            if (SdkLevel.isAtLeastT()) {
+            if (mDeps.isAtLeastT()) {
                 mDscpPolicyTracker = new DscpPolicyTracker();
             }
         } catch (ErrnoException e) {
@@ -3076,7 +3105,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         // On T+ devices, register callback for statsd to pull NETWORK_BPF_MAP_INFO atom
-        if (SdkLevel.isAtLeastT()) {
+        if (mDeps.isAtLeastT()) {
             mBpfNetMaps.setPullAtomCallback(mContext);
         }
         // Wait PermissionMonitor to finish the permission update. Then MultipathPolicyTracker won't
@@ -4266,7 +4295,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     @VisibleForTesting
     boolean shouldIgnoreValidationFailureAfterRoam(NetworkAgentInfo nai) {
         // T+ devices should use unregisterAfterReplacement.
-        if (SdkLevel.isAtLeastT()) return false;
+        if (mDeps.isAtLeastT()) return false;
 
         // If the network never roamed, return false. The check below is not sufficient if time
         // since boot is less than blockTimeOut, though that's extremely unlikely to happen.
@@ -4402,7 +4431,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // for an unnecessarily long time.
             destroyNativeNetwork(nai);
         }
-        if (!nai.isCreated() && !SdkLevel.isAtLeastT()) {
+        if (!nai.isCreated() && !mDeps.isAtLeastT()) {
             // Backwards compatibility: send onNetworkDestroyed even if network was never created.
             // This can never run if the code above runs because shouldDestroyNativeNetwork is
             // false if the network was never created.
@@ -4426,7 +4455,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         !nai.networkAgentConfig.allowBypass /* secure */,
                         getVpnType(nai), nai.networkAgentConfig.excludeLocalRouteVpn);
             } else {
-                config = new NativeNetworkConfig(nai.network.getNetId(), NativeNetworkType.PHYSICAL,
+                final boolean local =
+                        nai.networkCapabilities.hasCapability(NET_CAPABILITY_LOCAL_NETWORK);
+                if (local && !mDeps.isAtLeastU()) {
+                    // Before U, netd doesn't support PHYSICAL_LOCAL networks. This code is
+                    // supposed to be never called, but if it is, do not create a network.
+                    loge("Local networks are not supported before Android U.");
+                    return false;
+                }
+                config = new NativeNetworkConfig(nai.network.getNetId(),
+                        local ? NativeNetworkType.PHYSICAL_LOCAL : NativeNetworkType.PHYSICAL,
                         getNetworkPermission(nai.networkCapabilities),
                         false /* secure */,
                         VpnManager.TYPE_VPN_NONE,
@@ -4486,7 +4524,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private void checkNrisConsistency(final NetworkRequestInfo nri) {
-        if (SdkLevel.isAtLeastT()) {
+        if (mDeps.isAtLeastT()) {
             for (final NetworkRequestInfo n : mNetworkRequests.values()) {
                 if (n.mBinder != null && n.mBinder == nri.mBinder) {
                     // Temporary help to debug b/194394697 ; TODO : remove this function when the
@@ -6017,7 +6055,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     + Arrays.toString(ranges) + "): netd command failed: " + e);
         }
 
-        if (SdkLevel.isAtLeastT()) {
+        if (mDeps.isAtLeastT()) {
             mPermissionMonitor.updateVpnLockdownUidRanges(requireVpn, ranges);
         }
 
@@ -8153,7 +8191,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // On T and above, allow rules are needed for all VPNs. Allow rule with null iface is a
         // wildcard to allow apps to receive packets on all interfaces. This is required to accept
         // incoming traffic in Lockdown mode by overriding the Lockdown blocking rule.
-        return SdkLevel.isAtLeastT() && nai.isVPN() && lp != null && lp.getInterfaceName() != null;
+        return mDeps.isAtLeastT() && nai.isVPN() && lp != null && lp.getInterfaceName() != null;
     }
 
     private static UidRangeParcel[] toUidRangeStableParcels(final @NonNull Set<UidRange> ranges) {
@@ -8399,14 +8437,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
         try {
             if (DBG) log("Sending " + pendingIntent);
             final BroadcastOptions options = BroadcastOptions.makeBasic();
-            if (SdkLevel.isAtLeastT()) {
+            if (mDeps.isAtLeastT()) {
                 // Explicitly disallow the receiver from starting activities, to prevent apps from
                 // utilizing the PendingIntent as a backdoor to do this.
                 options.setPendingIntentBackgroundActivityLaunchAllowed(false);
             }
             pendingIntent.send(mContext, 0, intent, this /* onFinished */, null /* Handler */,
                     null /* requiredPermission */,
-                    SdkLevel.isAtLeastT() ? options.toBundle() : null);
+                    mDeps.isAtLeastT() ? options.toBundle() : null);
         } catch (PendingIntent.CanceledException e) {
             if (DBG) log(pendingIntent + " was not sent, it had been canceled.");
             mPendingIntentWakeLock.release();
@@ -8435,6 +8473,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // Default request has no msgr. Also prevents callbacks from being invoked for
             // NetworkRequestInfos registered with ConnectivityDiagnostics requests. Those callbacks
             // are Type.LISTEN, but should not have NetworkCallbacks invoked.
+            return;
+        }
+        if (null != networkAgent
+                && networkAgent.networkCapabilities.hasCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                && !mDeps.isChangeEnabled(LOCAL_AGENTS_SUPPORT, nri.mAsUid)) {
+            // Apps without LOCAL_AGENTS_SUPPORT (by default, U+) should not see callbacks about
+            // local agents.
             return;
         }
         Bundle bundle = new Bundle();
@@ -9326,7 +9371,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // in the absence of a satisfactory, scalable solution which follows an easy/standard
             // process to check the interface version, just use an SDK check. NetworkStack will
             // always be new enough when running on T+.
-            if (SdkLevel.isAtLeastT()) {
+            if (mDeps.isAtLeastT()) {
                 networkAgent.networkMonitor().notifyNetworkConnected(params);
             } else {
                 networkAgent.networkMonitor().notifyNetworkConnected(params.linkProperties,
@@ -10771,7 +10816,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (um.isManagedProfile(profile.getIdentifier())) {
             return true;
         }
-        if (SdkLevel.isAtLeastT() && dpm.getDeviceOwner() != null) return true;
+        if (mDeps.isAtLeastT() && dpm.getDeviceOwner() != null) return true;
         return false;
     }
 
@@ -11047,7 +11092,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private boolean canNetworkBeRateLimited(@NonNull final NetworkAgentInfo networkAgent) {
         // Rate-limiting cannot run correctly before T because the BPF program is not loaded.
-        if (!SdkLevel.isAtLeastT()) return false;
+        if (!mDeps.isAtLeastT()) return false;
 
         final NetworkCapabilities agentCaps = networkAgent.networkCapabilities;
         // Only test networks (they cannot hold NET_CAPABILITY_INTERNET) and networks that provide

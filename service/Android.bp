@@ -145,6 +145,7 @@ java_library {
         ":statslog-connectivity-java-gen",
     ],
     libs: [
+        "app-compat-annotations",
         "framework-annotations-lib",
         "framework-configinfrastructure",
         "framework-connectivity-pre-jarjar",
@@ -290,6 +291,11 @@ java_library {
     name: "service-connectivity",
     defaults: ["service-connectivity-defaults"],
     installable: true,
+}
+
+platform_compat_config {
+    name: "service-connectivity-compat-config",
+    src: ":service-connectivity",
 }
 
 java_library_static {
