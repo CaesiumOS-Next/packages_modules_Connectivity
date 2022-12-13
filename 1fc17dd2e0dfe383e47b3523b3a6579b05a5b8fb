@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c542c035_379f863f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-13T09:48:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c038b64f_b61727eb",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 15
+      },
+      "revId": "1fc17dd2e0dfe383e47b3523b3a6579b05a5b8fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3fc9adef_7159833b",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-09T07:25:54Z",
       "side": 1,
       "message": "Maybe add comment for these to describe why we are doing this?",
+      "range": {
+        "startLine": 1006,
+        "startChar": 8,
+        "endLine": 1011,
+        "endChar": 62
+      },
+      "revId": "1fc17dd2e0dfe383e47b3523b3a6579b05a5b8fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69f65c70_7b2c1af6",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1011,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-13T09:48:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fc9adef_7159833b",
       "range": {
         "startLine": 1006,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a7c7a91_25af2853",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1022,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-13T09:48:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a2a25a9_9daf1039",
+      "range": {
+        "startLine": 1022,
+        "startChar": 47,
+        "endLine": 1022,
+        "endChar": 84
+      },
+      "revId": "1fc17dd2e0dfe383e47b3523b3a6579b05a5b8fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b918da2_ab62a9e4",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee420705_8e189f09",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1180,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-13T09:48:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b918da2_ab62a9e4",
+      "range": {
+        "startLine": 1180,
+        "startChar": 39,
+        "endLine": 1180,
+        "endChar": 40
+      },
+      "revId": "1fc17dd2e0dfe383e47b3523b3a6579b05a5b8fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6319881b_2228e4e0",
@@ -106,6 +202,30 @@
       "writtenOn": "2022-12-09T07:25:54Z",
       "side": 1,
       "message": "1. Does this safe? Are these numbers becoming zeros or ?\n\n2. Do we need to change frameworks/base/services/core/java/com/android/server/EventLogTags.logtags as well?",
+      "range": {
+        "startLine": 2409,
+        "startChar": 8,
+        "endLine": 2410,
+        "endChar": 65
+      },
+      "revId": "1fc17dd2e0dfe383e47b3523b3a6579b05a5b8fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "774f3367_8e4839a8",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2410,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-13T09:48:14Z",
+      "side": 1,
+      "message": "There\u0027s a CL aosp/2183581 for event log.",
+      "parentUuid": "6319881b_2228e4e0",
       "range": {
         "startLine": 2409,
         "startChar": 8,

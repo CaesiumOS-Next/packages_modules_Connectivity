@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdda78a2_77085fe2",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1007,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-13T09:48:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd1198fc_5a0fbdcd",
+      "range": {
+        "startLine": 1007,
+        "startChar": 64,
+        "endLine": 1007,
+        "endChar": 96
+      },
+      "revId": "2c3bc49f9cccb826e6ad67d5c536e7fadca86005",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba39013f_f56b025e",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-10-28T03:45:21Z",
       "side": 1,
       "message": "building a legacy recorder for Dev is not needed.\nSince the case we want to deal is to maintain the backward compatibility where we calls readPlatformCollection with DEV but OEM use the side effect to do something they shouldn\u0027t do. But legacy recorder does not use readPlatformCollection so building the recorder seems meaningless to me.",
+      "range": {
+        "startLine": 1022,
+        "startChar": 15,
+        "endLine": 1023,
+        "endChar": 49
+      },
+      "revId": "2c3bc49f9cccb826e6ad67d5c536e7fadca86005",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4ac1b88_7649a217",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1023,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-13T09:48:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba39013f_f56b025e",
       "range": {
         "startLine": 1022,
         "startChar": 15,
