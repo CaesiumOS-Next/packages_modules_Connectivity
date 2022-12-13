@@ -94,6 +94,30 @@
       },
       "revId": "86bbc59f0468b702aee0a115ceda182be9bc9cf7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bce520c_bbbd89ef",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-13T03:00:44Z",
+      "side": 1,
+      "message": "You still removed the blank lines. When rendered in HTML the carriage returns will still be deleted.\nIn fact you should probably replace my blank lines with \u003cp\u003e",
+      "parentUuid": "ac995cbb_835bdf7d",
+      "range": {
+        "startLine": 123,
+        "startChar": 82,
+        "endLine": 123,
+        "endChar": 83
+      },
+      "revId": "86bbc59f0468b702aee0a115ceda182be9bc9cf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
