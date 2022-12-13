@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1201c9b_d7ba61b2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-12-13T01:20:46Z",
+      "side": 1,
+      "message": "exposed API",
+      "range": {
+        "startLine": 12,
+        "startChar": 15,
+        "endLine": 12,
+        "endChar": 26
+      },
+      "revId": "e72cfa9834fdcc2362a81516fec7d38f0acd69df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eeed8fd1_1500df24",
+        "filename": "framework-t/src/android/net/IpSecManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-12-13T01:20:46Z",
+      "side": 1,
+      "message": "Nit: Transform; we don\u0027t expose the concept of the SA to users.",
+      "range": {
+        "startLine": 827,
+        "startChar": 60,
+        "endLine": 827,
+        "endChar": 62
+      },
+      "revId": "e72cfa9834fdcc2362a81516fec7d38f0acd69df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
