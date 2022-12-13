@@ -153,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7444a86f_6ce58ce1",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceSocket.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-13T07:28:37Z",
+      "side": 1,
+      "message": "Done in aosp/2278027.",
+      "parentUuid": "823235d8_1c38e5b7",
+      "range": {
+        "startLine": 86,
+        "startChar": 11,
+        "endLine": 86,
+        "endChar": 12
+      },
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d577c687_658b306a",
@@ -170,6 +194,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed5f4718_c498d274",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceSocket.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-13T07:28:37Z",
+      "side": 1,
+      "message": "Done in aosp/2278027",
+      "parentUuid": "d577c687_658b306a",
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7467e519_9a354da2",
@@ -183,6 +225,24 @@
       "writtenOn": "2022-12-12T07:47:49Z",
       "side": 1,
       "message": "Actually https://tldp.org/HOWTO/Multicast-HOWTO-6.html 6.5 suggests that dropping the memberships isn\u0027t actually necessary before closing",
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee26ec02_4466711f",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceSocket.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-13T07:28:37Z",
+      "side": 1,
+      "message": "Ack. Removed in aosp/2278027",
+      "parentUuid": "7467e519_9a354da2",
       "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -210,6 +270,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85b93282_d88f5cb5",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocket.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-13T07:28:37Z",
+      "side": 1,
+      "message": "Make them public.",
+      "parentUuid": "4e50071c_96dfe560",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 13
+      },
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fbef5157_ba696e64",
@@ -223,6 +307,24 @@
       "writtenOn": "2022-12-12T07:47:49Z",
       "side": 1,
       "message": "(Nit: also @NonNull / @Nullable on each method would be nice)",
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae50074c_7b95a6e5",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-13T07:28:37Z",
+      "side": 1,
+      "message": "Done in aosp/2278027",
+      "parentUuid": "fbef5157_ba696e64",
       "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -244,6 +346,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd1df529_d5021506",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-13T07:28:37Z",
+      "side": 1,
+      "message": "Done in aosp/2278027",
+      "parentUuid": "0a544dbe_57635c2b",
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67ef02af_814e5b8b",
@@ -257,6 +377,24 @@
       "writtenOn": "2022-12-12T07:47:49Z",
       "side": 1,
       "message": "Nit: I didn\u0027t know there\u0027s a containsValue method with a specialized implementation in ArrayMap, but considering that this method could just be:\n\n    return hasAllNetworksRequest()\n        || mCallbacksToRequestedNetworks.containsValue(network);",
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a280f478_0dbe069d",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-13T07:28:37Z",
+      "side": 1,
+      "message": "Good point. Updated in aosp/2278027",
+      "parentUuid": "67ef02af_814e5b8b",
       "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -295,6 +433,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7bd6834_7109bd08",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-13T07:28:37Z",
+      "side": 1,
+      "message": "Done in aosp/2278027",
+      "parentUuid": "d63df889_217f7a76",
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43a8812d_3d3009d8",
@@ -312,6 +468,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e173618e_e339540c",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-13T07:28:37Z",
+      "side": 1,
+      "message": "Ack. Done in aosp/2278027",
+      "parentUuid": "43a8812d_3d3009d8",
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cdf5bf87_ec4a32f4",
@@ -325,6 +499,30 @@
       "writtenOn": "2022-12-12T07:47:49Z",
       "side": 1,
       "message": "Now that the test uses waitForIdle, do you still need to poll with a timeout ? Would the events not be delivered already when this is called ?",
+      "range": {
+        "startLine": 167,
+        "startChar": 52,
+        "endLine": 167,
+        "endChar": 67
+      },
+      "revId": "24e408bbfbad98c5d75cfdd000b55941d93f3165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ed0070a_3b984bae",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketProviderTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-13T07:28:37Z",
+      "side": 1,
+      "message": "Yes, we don\u0027t need to poll with a timeout now. Removed in aosp/2278027",
+      "parentUuid": "cdf5bf87_ec4a32f4",
       "range": {
         "startLine": 167,
         "startChar": 52,
