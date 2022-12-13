@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "befd4f32_b685f3f5",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-13T02:13:35Z",
+      "side": 1,
+      "message": "Maybe you could elaborate a little bit.\n\n  *\n  * If there are long-lived TCP connections over the VPN, over some networks the\n  * VPN needs to regularly send packets to keep the network alive to keep these\n  * connections working, which wakes up the device radio. On some networks, this \n  * can become extremely expensive in terms of battery. The system knows to send\n  * these keepalive packets only when necessary, i.e. when there are long-lived\n  * TCP connections opened over the VPN, meaning on these networks establishing\n  * a long-lived TCP connection will have a very noticeable impact on battery\n  * life.\n  *\n  * VPNs can be bypassable or not. When the VPN is not bypassable, the user has\n  * expressed explicit intent to have no connection outside of the VPN, so even\n  * privileged apps with permission to bypass non-bypassable VPNs should not do\n  * so. {@see getBypassable}.\n  * For bypassable VPNs however, the user expects apps choose reasonable tradeoffs\n  * about whether they use the VPN.\n  *\n  * Components that establish long-lived, encrypted TCP connections are encouraged\n  * to look up this value to decide whether to open their connection over a VPN\n  * or to bypass it. While VPNs do not typically provide privacy or security\n  * benefits to encrypted connections, the user generally still expects the\n  * connections to choose to use the VPN by default, but also do not expect this\n  * comes at the price of drastically reduced battery life. This method provides\n  * a hint about whether the battery cost of opening such a connection is high.\n  */",
+      "range": {
+        "startLine": 123,
+        "startChar": 82,
+        "endLine": 123,
+        "endChar": 83
+      },
+      "revId": "86bbc59f0468b702aee0a115ceda182be9bc9cf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
