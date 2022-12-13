@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6af6f28_4f1d0dae",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsNsecRecord.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-13T14:22:52Z",
+      "side": 1,
+      "message": "Question: Why the reading data doesn\u0027t need to change accoordingly?",
+      "range": {
+        "startLine": 101,
+        "startChar": 8,
+        "endLine": 101,
+        "endChar": 40
+      },
+      "revId": "7f9a8c9928a0c0a385505f0c4366b59120adbae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
