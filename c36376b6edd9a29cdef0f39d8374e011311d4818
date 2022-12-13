@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1961079e_a4fe3f88",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsAnnouncer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-13T09:32:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d729aab_76c04d87",
+      "range": {
+        "startLine": 81,
+        "startChar": 3,
+        "endLine": 81,
+        "endChar": 4
+      },
+      "revId": "c36376b6edd9a29cdef0f39d8374e011311d4818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a01418f1_96ed92b1",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f5c084c_acc4d72b",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAnnouncerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-13T09:32:31Z",
+      "side": 1,
+      "message": "Added a comment to explain this replicates what I observed from mdnsresponder.\n\nAlso updated to actually be closer to what mdnsresponder does when adding a service (with service records)",
+      "parentUuid": "a01418f1_96ed92b1",
+      "revId": "c36376b6edd9a29cdef0f39d8374e011311d4818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b38a4e5b_b68a8b68",
@@ -54,6 +96,30 @@
       "writtenOn": "2022-12-05T05:48:38Z",
       "side": 1,
       "message": "Question: why do not have MdnsInetAddressRecord for v6AddrRev2?",
+      "range": {
+        "startLine": 138,
+        "startChar": 32,
+        "endLine": 138,
+        "endChar": 33
+      },
+      "revId": "c36376b6edd9a29cdef0f39d8374e011311d4818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "944c41f3_90025bea",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAnnouncerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-13T09:32:31Z",
+      "side": 1,
+      "message": "Good catch, added",
+      "parentUuid": "b38a4e5b_b68a8b68",
       "range": {
         "startLine": 138,
         "startChar": 32,
@@ -87,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "602b89ad_629cafbe",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAnnouncerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-13T09:32:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f23faa41_fdde2ed0",
+      "range": {
+        "startLine": 139,
+        "startChar": 12,
+        "endLine": 139,
+        "endChar": 29
+      },
+      "revId": "c36376b6edd9a29cdef0f39d8374e011311d4818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7c02ab8_9eaa14e4",
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "105b8a88_aaf411be",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAnnouncerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-13T09:32:31Z",
+      "side": 1,
+      "message": "Done (actually verifying all packets while I\u0027m at it), looks clearer, thanks",
+      "parentUuid": "b7c02ab8_9eaa14e4",
+      "range": {
+        "startLine": 174,
+        "startChar": 48,
+        "endLine": 174,
+        "endChar": 76
+      },
+      "revId": "c36376b6edd9a29cdef0f39d8374e011311d4818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e872b5b_42b8778a",
@@ -123,6 +237,30 @@
       "writtenOn": "2022-12-05T05:48:38Z",
       "side": 1,
       "message": "Can we rename this method to `getReverseAddressName` and let IPv4 can also use this to do the reverse?",
+      "range": {
+        "startLine": 192,
+        "startChar": 12,
+        "endLine": 192,
+        "endChar": 35
+      },
+      "revId": "c36376b6edd9a29cdef0f39d8374e011311d4818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1ab829b_c46c4c1e",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAnnouncerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-13T09:32:31Z",
+      "side": 1,
+      "message": "I don\u0027t think there\u0027s a good way to do that, IPv4 uses 4 bytes in decimal format (123.0.2.192.in-addr.arpa), while IPv6 uses hexadecimal digits (4 bits each) separated by dots (1.0.0.[...].8.B.D.1.0.0.2.ip6.arpa). So the implementations would be very different, IPv4 should probably be a separate method.\n\nBut for IPv4 it\u0027s actually simpler/more readable to just write \"arrayOf(\"123\", \"0\", \"2\", \"192\", \"in-addr\", \"arpa\")\", so I think a method isn\u0027t really needed",
+      "parentUuid": "4e872b5b_42b8778a",
       "range": {
         "startLine": 192,
         "startChar": 12,
