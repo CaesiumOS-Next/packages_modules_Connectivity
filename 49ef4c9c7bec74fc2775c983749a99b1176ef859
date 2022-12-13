@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "983f1fe3_2ccb0ed4",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-13T06:30:47Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 941,
+        "startChar": 38,
+        "endLine": 941,
+        "endChar": 43
+      },
+      "revId": "49ef4c9c7bec74fc2775c983749a99b1176ef859",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

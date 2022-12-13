@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2be77258_ac3a8b00",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-13T06:30:47Z",
+      "side": 1,
+      "message": "Not sure if this would cause flaky.\nIf the code run less than 1 msec IIUC this will fail.\nShould we put a sleep(1) in real world and document it carefully?\nThe documentation might need to include:\n1. The test depends on real world time instead of time in the test (incrementCurrentTime)\n2. The concern of flaky",
+      "range": {
+        "startLine": 942,
+        "startChar": 8,
+        "endLine": 942,
+        "endChar": 25
+      },
+      "revId": "45cb021a00672532da3e60e4dffbb8584afabb26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
