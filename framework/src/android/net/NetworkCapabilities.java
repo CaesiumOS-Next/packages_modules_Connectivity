@@ -376,6 +376,7 @@ public final class NetworkCapabilities implements Parcelable {
             NET_CAPABILITY_MMTEL,
             NET_CAPABILITY_PRIORITIZE_LATENCY,
             NET_CAPABILITY_PRIORITIZE_BANDWIDTH,
+            NET_CAPABILITY_LOCAL_NETWORK,
     })
     public @interface NetCapability { }
 
@@ -629,8 +630,13 @@ public final class NetworkCapabilities implements Parcelable {
      */
     public static final int NET_CAPABILITY_PRIORITIZE_BANDWIDTH = 35;
 
+    /**
+     * This is a local network, e.g. a tethering downstream or a P2P direct network.
+     */
+    public static final int NET_CAPABILITY_LOCAL_NETWORK = 36;
+
     private static final int MIN_NET_CAPABILITY = NET_CAPABILITY_MMS;
-    private static final int MAX_NET_CAPABILITY = NET_CAPABILITY_PRIORITIZE_BANDWIDTH;
+    private static final int MAX_NET_CAPABILITY = NET_CAPABILITY_LOCAL_NETWORK;
 
     private static final int ALL_VALID_CAPABILITIES;
     static {
