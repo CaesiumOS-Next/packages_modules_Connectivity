@@ -25,6 +25,7 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_EIMS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_FOREGROUND;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_MMS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_METERED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED;
@@ -61,6 +62,7 @@ import static android.os.Process.INVALID_UID;
 import static com.android.modules.utils.build.SdkLevel.isAtLeastR;
 import static com.android.modules.utils.build.SdkLevel.isAtLeastS;
 import static com.android.modules.utils.build.SdkLevel.isAtLeastT;
+import static com.android.modules.utils.build.SdkLevel.isAtLeastU;
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 import static com.android.testutils.MiscAsserts.assertEmpty;
 import static com.android.testutils.MiscAsserts.assertThrows;
@@ -364,6 +366,9 @@ public class NetworkCapabilitiesTest {
             .addCapability(NET_CAPABILITY_INTERNET)
             .addCapability(NET_CAPABILITY_EIMS)
             .addCapability(NET_CAPABILITY_NOT_METERED);
+        if (isAtLeastU()) {
+            netCap.addCapability(NET_CAPABILITY_LOCAL_NETWORK);
+        }
         if (isAtLeastS()) {
             final ArraySet<Integer> allowedUids = new ArraySet<>();
             allowedUids.add(4);
