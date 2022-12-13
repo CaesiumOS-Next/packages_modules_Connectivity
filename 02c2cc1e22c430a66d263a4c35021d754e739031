@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bee88ac_85439fa0",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsProberTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-13T09:31:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcb9e7dd_51e5b245",
+      "range": {
+        "startLine": 86,
+        "startChar": 8,
+        "endLine": 86,
+        "endChar": 72
+      },
+      "revId": "02c2cc1e22c430a66d263a4c35021d754e739031",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5fff1fe6_24c79973",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb14b810_64177cd3",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsProberTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-13T09:31:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fff1fe6_24c79973",
+      "range": {
+        "startLine": 109,
+        "startChar": 41,
+        "endLine": 109,
+        "endChar": 88
+      },
+      "revId": "02c2cc1e22c430a66d263a4c35021d754e739031",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1412dcb0_2e473f59",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-12-12T15:55:18Z",
       "side": 1,
       "message": "Nit: I think this might be flaky because we can\u0027t ensure the stop() is finished in 50ms. How about use the CompletableFuture\u003cBoolean\u003e to get the returning value of stop() and have time out 200ms? It can also verify the sending is stopped indeed if the value is true.",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 38
+      },
+      "revId": "02c2cc1e22c430a66d263a4c35021d754e739031",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9112e01b_19294fe1",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsProberTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-13T09:31:50Z",
+      "side": 1,
+      "message": "Done - I actually changed the probe delay to the short timeout, and sleeping for 2*probe delay, because to verify that probing really stopped the test needs to sleep for more than the probe delay.",
+      "parentUuid": "1412dcb0_2e473f59",
       "range": {
         "startLine": 174,
         "startChar": 0,
