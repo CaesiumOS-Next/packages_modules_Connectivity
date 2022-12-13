@@ -398,8 +398,10 @@ class GnParser(object):
         target.proto_paths.update(dep.proto_paths)
         target.transitive_proto_deps.update(dep.transitive_proto_deps)
       elif dep.type == 'source_set':
+        # flatten source_set deps
         target.arch[arch].source_set_deps.add(dep.name)
         target.arch[arch].source_set_deps.update(dep.arch[arch].source_set_deps)
+        target.arch[arch].deps.update(target.arch[arch].source_set_deps)
       elif dep.type == 'group':
         target.update(dep, arch)  # Bubble up groups's cflags/ldflags etc.
       elif dep.type in ['action', 'action_foreach', 'copy']:
