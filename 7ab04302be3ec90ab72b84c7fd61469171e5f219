@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ed0d07a_24265fb0",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-13T10:11:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbeed766_927dd9db",
+      "range": {
+        "startLine": 463,
+        "startChar": 48,
+        "endLine": 463,
+        "endChar": 56
+      },
+      "revId": "7ab04302be3ec90ab72b84c7fd61469171e5f219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d773eb51_25c6724f",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-12-12T14:54:38Z",
       "side": 1,
       "message": "\u0027v4-\u0027 prefix",
+      "range": {
+        "startLine": 464,
+        "startChar": 24,
+        "endLine": 464,
+        "endChar": 36
+      },
+      "revId": "7ab04302be3ec90ab72b84c7fd61469171e5f219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afef85ac_0f19de89",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-13T10:11:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d773eb51_25c6724f",
       "range": {
         "startLine": 464,
         "startChar": 24,
