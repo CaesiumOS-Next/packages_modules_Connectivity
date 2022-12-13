@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecb88db1_3f02e9d4",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-13T10:17:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe791964_5216365c",
+      "range": {
+        "startLine": 123,
+        "startChar": 64,
+        "endLine": 123,
+        "endChar": 70
+      },
+      "revId": "1b1960e847e5909ba80592b98d1b70fa27c76c79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "739a06c5_01bf36ac",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-13T10:05:05Z",
       "side": 1,
       "message": "Please address the errorprone warning. I wrote this from memory but apparently it was incorrect",
+      "range": {
+        "startLine": 137,
+        "startChar": 12,
+        "endLine": 137,
+        "endChar": 16
+      },
+      "revId": "1b1960e847e5909ba80592b98d1b70fa27c76c79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb7271b4_cdfa25f5",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-13T10:17:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "739a06c5_01bf36ac",
       "range": {
         "startLine": 137,
         "startChar": 12,
