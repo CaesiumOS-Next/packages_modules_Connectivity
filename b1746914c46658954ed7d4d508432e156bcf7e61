@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2df69506_0299fc21",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-13T06:21:11Z",
+      "side": 1,
+      "message": "LGTM with nit that can be ignored.\nJean might want to take a look.",
+      "revId": "b1746914c46658954ed7d4d508432e156bcf7e61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "380daf8c_4d89a623",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 2932,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-13T06:21:11Z",
+      "side": 1,
+      "message": "nit: Maybe add comment to describe how we sort. No need for respin",
+      "revId": "b1746914c46658954ed7d4d508432e156bcf7e61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a3ee6bd_64a64025",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 2530,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-13T06:21:11Z",
+      "side": 1,
+      "message": "uidRegExp?",
+      "range": {
+        "startLine": 2530,
+        "startChar": 21,
+        "endLine": 2530,
+        "endChar": 31
+      },
+      "revId": "b1746914c46658954ed7d4d508432e156bcf7e61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5767e856_dc047485",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 2532,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-13T06:21:11Z",
+      "side": 1,
+      "message": "Maybe inline this to l.2534",
+      "range": {
+        "startLine": 2532,
+        "startChar": 21,
+        "endLine": 2532,
+        "endChar": 28
+      },
+      "revId": "b1746914c46658954ed7d4d508432e156bcf7e61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
