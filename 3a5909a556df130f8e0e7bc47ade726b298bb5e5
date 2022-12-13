@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1151d373_c14d9c4a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-13T04:15:49Z",
+      "side": 1,
+      "message": "unnecessary",
+      "range": {
+        "startLine": 13,
+        "startChar": 28,
+        "endLine": 13,
+        "endChar": 38
+      },
+      "revId": "3a5909a556df130f8e0e7bc47ade726b298bb5e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dff66962_8a53e500",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-13T04:15:49Z",
+      "side": 1,
+      "message": "This patch is adding API but no implementation. I can\u0027t give you API-review in the absence of an implementation.",
+      "revId": "3a5909a556df130f8e0e7bc47ade726b298bb5e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
