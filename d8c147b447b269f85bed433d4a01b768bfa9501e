@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffd6d079_58abb3a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-13T06:53:22Z",
+      "side": 1,
+      "message": "c",
+      "revId": "d8c147b447b269f85bed433d4a01b768bfa9501e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3408e8ea_d855f085",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2421,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-13T06:53:22Z",
+      "side": 1,
+      "message": "I\u0027m not sure it\u0027s safe to assume cell will be default when there\u0027s no wifi support; we have other tests that assume that wifi becomes default, but assuming the cell is, would be a new requirement I think.\n\nMaybe just expect wifi to be default when connected ?",
+      "revId": "d8c147b447b269f85bed433d4a01b768bfa9501e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
