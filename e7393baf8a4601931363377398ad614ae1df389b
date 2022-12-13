@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa03eaa4_3dc24962",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsProberTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-13T10:00:12Z",
+      "side": 1,
+      "message": "Add @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)? This test should be running on T+ devices.",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 20
+      },
+      "revId": "e7393baf8a4601931363377398ad614ae1df389b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
