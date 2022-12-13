@@ -46,6 +46,30 @@
       },
       "revId": "86bbc59f0468b702aee0a115ceda182be9bc9cf7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0666fa57_4c6b87f4",
+        "filename": "framework/src/android/net/VpnTransportInfo.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-13T02:32:58Z",
+      "side": 1,
+      "message": "Can you please not remove the vertical spacing ? It\u0027s essential for understanding.",
+      "parentUuid": "07901ccb_e125302d",
+      "range": {
+        "startLine": 123,
+        "startChar": 82,
+        "endLine": 123,
+        "endChar": 83
+      },
+      "revId": "86bbc59f0468b702aee0a115ceda182be9bc9cf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
