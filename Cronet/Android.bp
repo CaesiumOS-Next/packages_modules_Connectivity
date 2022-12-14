@@ -82,7 +82,7 @@ genrule {
 }
 
 java_sdk_library {
-    name: "framework-cronet",
+    name: "framework-nethttp",
     defaults: ["framework-module-defaults"],
     srcs: [
         ":cronet_api-src",

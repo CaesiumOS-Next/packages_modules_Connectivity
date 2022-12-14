@@ -19,7 +19,7 @@ package {
 }
 
 android_test {
-    name: "CtsCronetTestCases",
+    name: "CtsNetHttpTestCases",
     compile_multilib: "both", // Include both the 32 and 64 bit versions
     defaults: ["cts_defaults"],
     sdk_version: "test_current",
@@ -35,7 +35,7 @@ android_test {
         "android.test.base",
         "android.test.mock",
         "androidx.annotation_annotation",
-        "framework-cronet",
+        "framework-nethttp",
     ],
 
     // Tag this as a cts test artifact
