@@ -28,6 +28,8 @@ import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_UNSUPPORTED;
 import static android.net.dhcp.IDhcpServer.STATUS_UNKNOWN_ERROR;
 
+import static com.android.modules.utils.build.SdkLevel.isAtLeastT;
+
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
@@ -55,6 +57,7 @@ import androidx.annotation.Nullable;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.networkstack.apishim.SettingsShimImpl;
 import com.android.networkstack.apishim.common.SettingsShim;
+import com.android.networkstack.tethering.wear.CompanionDeviceManagerProxy;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -78,6 +81,19 @@ public class TetheringService extends Service {
         mConnector = new TetheringConnector(makeTethering(deps), TetheringService.this);
 
         mSettingsShim = SettingsShimImpl.newInstance();
+
+        try {
+            // TODO(igorc): Remove this test code.
+            if (isAtLeastT()) {
+                final CompanionDeviceManagerProxy cdmp =
+                        new CompanionDeviceManagerProxy(getApplicationContext());
+                Log.i(TAG, "CDM Associations: " + cdmp.getAllAssociations());
+            } else {
+                Log.i(TAG, "CDM not available");
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "CDM error trying companion manager code", e);
+        }
     }
 
     /**
