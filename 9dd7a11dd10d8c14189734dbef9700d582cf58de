@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86265546_1e247587",
+        "filename": "Cronet/tests/cts/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2022-12-14T15:16:10Z",
+      "side": 1,
+      "message": "Yeah, it provides the CtsTestRunListener that does some setup/cleanup things. cc tests/core/runner-axt/src/com/android/cts/runner/CtsTestRunListener.java.",
+      "parentUuid": "c57da543_4dc15170",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 26
+      },
+      "revId": "9dd7a11dd10d8c14189734dbef9700d582cf58de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d14d8cf_e53b3e16",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-14T09:03:10Z",
       "side": 1,
       "message": "Perhaps not for this CL, but given that the API package name will likely be android.net.http, should this be android.net.http.cts?",
+      "range": {
+        "startLine": 21,
+        "startChar": 19,
+        "endLine": 21,
+        "endChar": 37
+      },
+      "revId": "9dd7a11dd10d8c14189734dbef9700d582cf58de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eab88ef3_d11c62d6",
+        "filename": "Cronet/tests/cts/AndroidManifest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2022-12-14T15:16:10Z",
+      "side": 1,
+      "message": "Will do in a followup cl. This cl basically copies things over from //cts/tests/test.",
+      "parentUuid": "8d14d8cf_e53b3e16",
       "range": {
         "startLine": 21,
         "startChar": 19,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35841c0e_5b74b00e",
+        "filename": "Cronet/tests/cts/AndroidManifest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2022-12-14T15:16:10Z",
+      "side": 1,
+      "message": "See aosp/2355302",
+      "parentUuid": "f668f96b_e24f6e89",
+      "range": {
+        "startLine": 33,
+        "startChar": 31,
+        "endLine": 33,
+        "endChar": 49
+      },
+      "revId": "9dd7a11dd10d8c14189734dbef9700d582cf58de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6a28bfd_1f3fdc71",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-12-14T09:03:10Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 34,
+        "startChar": 33,
+        "endLine": 34,
+        "endChar": 50
+      },
+      "revId": "9dd7a11dd10d8c14189734dbef9700d582cf58de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69e906ba_d80de357",
+        "filename": "Cronet/tests/cts/AndroidManifest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2022-12-14T15:16:10Z",
+      "side": 1,
+      "message": "aosp/2355302",
+      "parentUuid": "e6a28bfd_1f3fdc71",
       "range": {
         "startLine": 34,
         "startChar": 33,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95aa95ca_5cec79d0",
+        "filename": "Cronet/tests/cts/AndroidTest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2022-12-14T15:16:10Z",
+      "side": 1,
+      "message": "Re: https://g3doc.corp.google.com/company/teams/opensource/copyright.md#the-year, I dont think I should change the year.",
+      "parentUuid": "f987c065_4adc7ae0",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 22
+      },
+      "revId": "9dd7a11dd10d8c14189734dbef9700d582cf58de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23ab437a_1d8126fd",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-12-14T09:03:10Z",
       "side": 1,
       "message": "Isn\u0027t it? The Android.bp file has compile_multilib: \"both\", so we have both 32-bit and 64-bit tests.",
+      "range": {
+        "startLine": 21,
+        "startChar": 69,
+        "endLine": 21,
+        "endChar": 82
+      },
+      "revId": "9dd7a11dd10d8c14189734dbef9700d582cf58de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5932f982_cf8110b9",
+        "filename": "Cronet/tests/cts/AndroidTest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2022-12-14T15:16:10Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "23ab437a_1d8126fd",
       "range": {
         "startLine": 21,
         "startChar": 69,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6265208_e051e9a9",
+        "filename": "Cronet/tests/cts/AndroidTest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2022-12-14T15:16:10Z",
+      "side": 1,
+      "message": "See followup cl: aosp/2355302",
+      "parentUuid": "1b317b05_d82f131e",
+      "range": {
+        "startLine": 25,
+        "startChar": 45,
+        "endLine": 25,
+        "endChar": 63
+      },
+      "revId": "9dd7a11dd10d8c14189734dbef9700d582cf58de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4784f79f_49aecad9",
@@ -185,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8df1dd6_ea0aecfc",
+        "filename": "Cronet/tests/cts/AndroidTest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2022-12-14T15:16:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4784f79f_49aecad9",
+      "range": {
+        "startLine": 28,
+        "startChar": 38,
+        "endLine": 28,
+        "endChar": 56
+      },
+      "revId": "9dd7a11dd10d8c14189734dbef9700d582cf58de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96f20b1b_0f023730",
@@ -198,6 +390,30 @@
       "writtenOn": "2022-12-14T09:03:10Z",
       "side": 1,
       "message": "Generally we use:\n\nfile:platform/packages/modules/Connectivity:master:/OWNERS_core_networking\n\nis there a reason we can\u0027t do that here?",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 1
+      },
+      "revId": "9dd7a11dd10d8c14189734dbef9700d582cf58de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd49379c_475f2717",
+        "filename": "Cronet/tests/cts/OWNERS",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2022-12-14T15:16:10Z",
+      "side": 1,
+      "message": "We can but I noticed that we have a different group of owners for xts OWNERS_core_networking_xts which has majorly you and satk@. I need prohr@ to be able to approve my cls and I\u0027m writing most of the tests in this directory.",
+      "parentUuid": "96f20b1b_0f023730",
       "range": {
         "startLine": 4,
         "startChar": 0,
