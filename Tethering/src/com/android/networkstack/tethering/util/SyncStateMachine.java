@@ -16,10 +16,12 @@
 
 package com.android.networkstack.tethering.util;
 
+import android.os.Message;
 import android.util.Log;
 
 import com.android.internal.util.State;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,12 +47,14 @@ public class SyncStateMachine {
     //         \   /               |        |
     //        State3             State3   State3(copied)
     private final HashMap<State, StateInfo> mStateInfo = new HashMap<State, StateInfo>();
+    private final ArrayDeque<Message> mMsgQueue = new ArrayDeque<Message>();
 
     private boolean mStarted = false;
 
     // mCurrentState and mDestState must only be touched on mMyThread.
     private State mCurrentState;
     private State mDestState;
+    private boolean mIsInProcess;
 
     /**
      * A information class about a state and its parent. Used to maintain the state hierarchy.
@@ -154,11 +158,45 @@ public class SyncStateMachine {
     private void processMessage(int what, int arg1, int arg2, Object obj, boolean fromInternal) {
         ensureCorrectThread();
 
+        if (mIsInProcess) throw new IllegalStateException("Previous message is still in process");
+
+        mIsInProcess = true;
         if (fromInternal && what == CMD_START) {
             transitionTo((State) obj); // transition to initial state.
+            performTransitions();
+        } else {
+            sendSelfMessage(what, arg1, arg2, obj);
         }
 
-        performTransitions();
+        while (!mMsgQueue.isEmpty()) {
+            processMsg(mMsgQueue.poll());
+            performTransitions();
+        }
+        mIsInProcess = false;
+    }
+
+    private void processMsg(final Message msg) {
+        StateInfo curStateInfo = mStateInfo.get(mCurrentState);
+        while (curStateInfo != null) {
+            if (curStateInfo.state.processMessage(msg)) {
+                if (mDbg) Log.d(mName, "processMsg(" + msg.what + ") at " + curStateInfo.state);
+                break;
+            }
+            curStateInfo = mStateInfo.get(curStateInfo.parent);
+        }
+    }
+
+    /**
+     * Send self message during the mid-way of processMessage. This only be used inside State. The
+     * typical use case is some thing wrong happen during state transition, sending an error message
+     * which would be handled after finishing current state transitions.
+     */
+    public final void sendSelfMessage(int what, int arg1, int arg2, Object obj) {
+        if (!mIsInProcess) {
+            throw new IllegalStateException("sendSelfMessage can only be called inside State");
+        }
+
+        mMsgQueue.add(Message.obtain(null, what, arg1, arg2, obj));
     }
 
     /**
