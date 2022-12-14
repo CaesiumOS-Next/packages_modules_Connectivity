@@ -72,6 +72,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "178f57c6_8974f5e0",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-14T13:21:16Z",
+      "side": 1,
+      "message": "I\u0027m not sure if we can remove this or not. NetworkTemplate was moved into mainline module so basically this API is not visiblie to any callers that are out of module.\n\nIf @UnsupportedAppUsage can be remove because the apps cannot use the API anymore, then the other API such like getSubscriberId() also can remove the UnsupportedAppUsage annotation?",
+      "parentUuid": "0bff62c3_b37c2eec",
+      "range": {
+        "startLine": 411,
+        "startChar": 4,
+        "endLine": 411,
+        "endChar": 24
+      },
+      "revId": "5068e0dac432feb2232019238b21ba7acdc5353e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6423076b_e73277e5",
         "filename": "framework-t/src/android/net/NetworkTemplate.java",
         "patchSetId": 16
@@ -83,6 +107,30 @@
       "writtenOn": "2022-12-09T06:42:47Z",
       "side": 1,
       "message": "(maxTargetSdk \u003d Build.VERSION_CODES.TIRAMISU,\n            publicAlternatives \u003d \"...\") ?",
+      "range": {
+        "startLine": 424,
+        "startChar": 5,
+        "endLine": 424,
+        "endChar": 24
+      },
+      "revId": "5068e0dac432feb2232019238b21ba7acdc5353e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b06b8c0d_4b2ca701",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-14T13:21:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6423076b_e73277e5",
       "range": {
         "startLine": 424,
         "startChar": 5,
@@ -139,6 +187,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5840bf3_43551beb",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-14T13:21:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9204048_75d7c169",
+      "range": {
+        "startLine": 594,
+        "startChar": 12,
+        "endLine": 599,
+        "endChar": 54
+      },
+      "revId": "5068e0dac432feb2232019238b21ba7acdc5353e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a2731a21_efd84bc9",
@@ -152,6 +224,30 @@
       "writtenOn": "2022-12-09T06:42:47Z",
       "side": 1,
       "message": "Can it be mMatchWifiNetworkKeys.isEmpty()?",
+      "range": {
+        "startLine": 612,
+        "startChar": 23,
+        "endLine": 612,
+        "endChar": 70
+      },
+      "revId": "5068e0dac432feb2232019238b21ba7acdc5353e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3e12154_e78c690f",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-14T13:21:16Z",
+      "side": 1,
+      "message": "No, it\u0027s `String[]`.",
+      "parentUuid": "a2731a21_efd84bc9",
       "range": {
         "startLine": 612,
         "startChar": 23,
