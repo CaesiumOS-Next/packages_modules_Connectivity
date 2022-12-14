@@ -120,6 +120,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "adcc605c_5c01263f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3122,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2022-12-14T11:15:29Z",
+      "side": 1,
+      "message": "Done. Yes, only logging messages are different. I changed the `loge` to instead use `VDBG`.",
+      "parentUuid": "56725352_4cde0e16",
+      "range": {
+        "startLine": 3118,
+        "startChar": 0,
+        "endLine": 3122,
+        "endChar": 57
+      },
+      "revId": "a423e63302873b07c657bdace63ab6375cedb50e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eff11040_90ab78d8",
