@@ -20,6 +20,7 @@ import android.util.Log;
 
 import com.android.internal.util.State;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -31,6 +32,7 @@ import java.util.List;
  * All methods of this class must be called on only one thread.
  */
 public class SyncStateMachine {
+    private static final int DEFAULT_CAPACITY = 1;
     private final String mName;
     private final Thread mMyThread;
     private final boolean mDbg;
@@ -148,6 +150,13 @@ public class SyncStateMachine {
         ensureCorrectThread();
         ensureValidState(initialState);
 
+        final StateInfo stateInfo = mStateInfo.get(initialState);
+        if (stateInfo.mParent != null) {
+            throw new IllegalStateException("Initial state can't be child state");
+        }
+        stateInfo.mActive = true;
+
+        initialState.enter(mDefaultResult);
         mCurrentState = initialState;
         mDestState = null;
         mStarted = true;
@@ -179,7 +188,74 @@ public class SyncStateMachine {
         ensureCorrectThread();
         ensureValidState(destState);
 
-        mDestState = destState;
+        if (mDestState == null) {
+            mDestState = destState;
+        } else {
+            throw new IllegalStateException("Destination already be specified");
+        }
+    }
+
+    private int performTransitions() {
+        // 1. Determine the common ancestor state of current/destination states
+        // 2. Invoke state exit list from current state to common acestor state.
+        // 3. Invoke state enter list from common ancestor state to destState by going
+        // through mEnterStateStack.
+        if (mDestState == null) return mDefaultResult;
+
+        final StateInfo commonStateInfo = setupEnterStackOfInactiveState();
+        try {
+            final int lastResult = invokeExitMethods(commonStateInfo);
+            return invokeEnterMethods(lastResult);
+        } finally {
+            mEnterStateStack.clear();
+            mDestState = null;
+        }
+    }
+
+    // Instead of creating a new ArrayList every time the machine performs a transition, having a
+    // cache stack temporary storing the states which will be entered.
+    private final ArrayList<StateInfo> mEnterStateStack = new ArrayList<>(DEFAULT_CAPACITY);
+    private StateInfo setupEnterStackOfInactiveState() {
+        // Search up the parent list of the destination state for an active
+        // state.
+        StateInfo curStateInfo = mStateInfo.get(mDestState);
+        while ((curStateInfo != null) && !curStateInfo.mActive) {
+            mEnterStateStack.add(curStateInfo);
+            curStateInfo = mStateInfo.get(curStateInfo.mParent);
+        }
+
+        // common ancestor state of current state and destination state. Current state or
+        // destination state could be common ancestor if they are in the same parent list.
+        return curStateInfo;
+    }
+
+    // Call the exit method from current state to common ancestor state.
+    private int invokeExitMethods(final StateInfo commonStateInfo) {
+        int lastResult = mDefaultResult;
+        StateInfo stateInfo = mStateInfo.get(mCurrentState);
+        while (stateInfo != null && stateInfo != commonStateInfo) {
+            if (mDbg) Log.d(mName, stateInfo.mState + " exit()");
+            lastResult = stateInfo.mState.exit(lastResult);
+            stateInfo.mActive = false;
+            stateInfo = mStateInfo.get(stateInfo.mParent);
+        }
+
+        mCurrentState = stateInfo != null ? stateInfo.mState : null;
+        return lastResult;
+    }
+
+    // Call the enter method from common ancestor state to destination state.
+    private int invokeEnterMethods(int defaultResult) {
+        int lastResult = defaultResult;
+        while (!mEnterStateStack.isEmpty()) {
+            final StateInfo stateInfo = mEnterStateStack.remove(mEnterStateStack.size() - 1);
+            if (mDbg) Log.d(mName, stateInfo.mState + " enter()");
+            lastResult = stateInfo.mState.enter(lastResult);
+            stateInfo.mActive = true;
+            mCurrentState = stateInfo.mState;
+        }
+
+        return lastResult;
     }
 
     private void ensureCorrectThread() {
