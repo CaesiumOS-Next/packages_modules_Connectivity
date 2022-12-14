@@ -84,6 +84,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ed62b13a_90266041",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStatsTest.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-14T12:02:30Z",
+      "side": 1,
+      "message": "Fixed.\n\nx86 libnetworkstats_test\n------------------------\nlibnetworkstats_test (11 Tests)\n[1/11] BpfNetworkStatsHelperTest#TestIterateMapWithDeletion: PASSED (0ms)\n[2/11] BpfNetworkStatsHelperTest#TestBpfIterateMap: PASSED (0ms)\n[3/11] BpfNetworkStatsHelperTest#TestUidStatsNoTraffic: PASSED (0ms)\n[4/11] BpfNetworkStatsHelperTest#TestGetUidStatsTotal: PASSED (0ms)\n[5/11] BpfNetworkStatsHelperTest#TestGetIfaceStatsInternal: PASSED (0ms)\n[6/11] BpfNetworkStatsHelperTest#TestGetStatsDetail: PASSED (0ms)\n[7/11] BpfNetworkStatsHelperTest#TestGetStatsWithSkippedIface: PASSED (0ms)\n[8/11] BpfNetworkStatsHelperTest#TestUnknownIfaceError: PASSED (0ms)\n[9/11] BpfNetworkStatsHelperTest#TestGetIfaceStatsDetail: PASSED (0ms)\n[10/11] BpfNetworkStatsHelperTest#TestGetStatsSortedAndGrouped: PASSED (0ms)\n[11/11] BpfNetworkStatsHelperTest#TestGetStatsSortAndOverflow: PASSED (0ms)\n\nSummary (Test executed with 1 devices.)\n-------\nx86 libnetworkstats_test: Passed: 11, Failed: 0, Ignored: 0, Assumption Failed: 0,",
+      "parentUuid": "441b45e1_7733f5cd",
+      "range": {
+        "startLine": 329,
+        "startChar": 31,
+        "endLine": 329,
+        "endChar": 56
+      },
+      "revId": "d569d4e75213bdba03868b7ca89c36953d5d3320",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "dae02bb0_88af39ff",
         "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStatsTest.cpp",
         "patchSetId": 3
