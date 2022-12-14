@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbd0ed80_86818994",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-14T07:58:41Z",
+      "side": 1,
+      "message": "The suggestion on previous patch doesn\u0027t work. And I want to  allow creating SyncStateMachine on different thread as the machine will run, #addState is allowed by different thread either. Actually SyncStateMachine\u0027s construtor and #addState would only be used in StateMachineShim\u0027s constructor.\n\nTo ensure the thread safety, all the variable which could touch by different thread is final. Non-final variable only be accessed from machine thread.",
+      "parentUuid": "311a9faf_3ab2ad15",
+      "revId": "9d83fefd96a99bc82848aa7737ee077411e50bd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bbabbdce_38050573",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-12-09T07:08:39Z",
       "side": 1,
       "message": "Calling this in a test is really dangerous and should only be done as a last resort (because it prepares a looper in the *current* thread, which is not a looper thread, so a lot of assumptions in platform code will be wrong). But this is a new test, so you really shouldn\u0027t be doing this. You could use a TestLooper instead.\n\nHowever if you follow my comment on the previous patch to just use Thread instead, then this problem will solve itself",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 55
+      },
+      "revId": "9d83fefd96a99bc82848aa7737ee077411e50bd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36c0f5de_9100a237",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SynStateMachineTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-14T07:58:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bbabbdce_38050573",
       "range": {
         "startLine": 47,
         "startChar": 0,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12651c7d_96bb7a07",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SynStateMachineTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-14T07:58:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f7e82da0_757ef686",
+      "range": {
+        "startLine": 50,
+        "startChar": 28,
+        "endLine": 50,
+        "endChar": 32
+      },
+      "revId": "9d83fefd96a99bc82848aa7737ee077411e50bd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5659551e_2e55ab95",
@@ -77,6 +143,30 @@
       "writtenOn": "2022-12-09T07:09:32Z",
       "side": 1,
       "message": "Why are these spies ? It doesn\u0027t seem necessary.",
+      "range": {
+        "startLine": 53,
+        "startChar": 26,
+        "endLine": 53,
+        "endChar": 29
+      },
+      "revId": "9d83fefd96a99bc82848aa7737ee077411e50bd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02143021_a82b2d9d",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SynStateMachineTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-14T07:58:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5659551e_2e55ab95",
       "range": {
         "startLine": 53,
         "startChar": 26,
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbffd58a_f003f1d5",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SynStateMachineTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-14T07:58:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c4cf60a8_68f19df3",
+      "range": {
+        "startLine": 70,
+        "startChar": 88,
+        "endLine": 70,
+        "endChar": 89
+      },
+      "revId": "9d83fefd96a99bc82848aa7737ee077411e50bd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "508c1d00_9c291f44",
@@ -123,6 +237,30 @@
       "writtenOn": "2022-12-09T07:08:39Z",
       "side": 1,
       "message": "This asserts ; it\u0027s fine having a helper method but it should follow the regular conventions :\n• Expected result should be the first argument\n• Method should be called assert*, e.g. assertProcessMessageReturns(result, what, destState)",
+      "range": {
+        "startLine": 77,
+        "startChar": 16,
+        "endLine": 77,
+        "endChar": 30
+      },
+      "revId": "9d83fefd96a99bc82848aa7737ee077411e50bd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27fa7a37_6c4488f0",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SynStateMachineTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-14T07:58:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "508c1d00_9c291f44",
       "range": {
         "startLine": 77,
         "startChar": 16,
