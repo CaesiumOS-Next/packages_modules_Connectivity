@@ -17002,6 +17002,23 @@ public class ConnectivityServiceTest {
     }
 
     @Test
+    public void testSortAndValidateUidRange() throws Exception {
+        final UidRange uid1 = new UidRange(100, 110);
+        final UidRange uid2 = new UidRange(109, 120);
+        final UidRange uid3 = new UidRange(120, 130);
+        final UidRange[] unsortedRanges = new UidRange[] {uid3, uid1};
+        final UidRange[] overlappedRanges1 = new UidRange[] {uid1, uid2};
+        final UidRange[] overlappedRanges2 = new UidRange[] {uid2, uid3};
+        final UidRange[] sortedRanges = mService.sortAndValidateUidRange(unsortedRanges);
+        assertEquals(uid1, sortedRanges[0]);
+        assertEquals(uid3, sortedRanges[1]);
+        assertThrows(IllegalArgumentException.class,
+                () -> mService.sortAndValidateUidRange(overlappedRanges1));
+        assertThrows(IllegalArgumentException.class,
+                () -> mService.sortAndValidateUidRange(overlappedRanges2));
+    }
+
+    @Test
     public void testIgnoreValidationAfterRoamDisabled() throws Exception {
         doTestIgnoreValidationAfterRoam(-1, false /* enabled */);
     }

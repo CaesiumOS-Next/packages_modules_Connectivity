@@ -744,6 +744,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static final int EVENT_USER_DOES_NOT_WANT = 58;
 
     /**
+     * Event to set VPN as preferred network for specific apps.
+     * obj = UidRange[]
+     */
+    private static final int EVENT_SET_VPN_NETWORK_PREFERENCE = 59;
+
+    /**
      * Argument for {@link #EVENT_PROVISIONING_NOTIFICATION} to indicate that the notification
      * should be shown.
      */
@@ -1614,6 +1620,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private NetworkRequest createDefaultRequest() {
         return createDefaultInternetRequestForTransport(
                 TYPE_NONE, NetworkRequest.Type.REQUEST);
+    }
+
+    private NetworkRequest createVpnRequest() {
+        final NetworkCapabilities netCap = new NetworkCapabilities.Builder()
+                .withoutDefaultCapabilities()
+                .addTransportType(TRANSPORT_VPN)
+                .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
+                .build();
+        netCap.setRequestorUidAndPackageName(Process.myUid(), mContext.getPackageName());
+        return createNetworkRequest(NetworkRequest.Type.REQUEST, netCap);
     }
 
     private NetworkRequest createDefaultInternetRequestForTransport(
@@ -5523,6 +5539,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     if (nai == null) break;
                     nai.onPreventAutomaticReconnect();
                     nai.disconnect();
+                    break;
+                case EVENT_SET_VPN_NETWORK_PREFERENCE:
+                    handleSetVpnNetworkPreference(toBool(msg.arg1), (UidRange[]) msg.obj);
                     break;
             }
         }
@@ -11106,6 +11125,75 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 new Pair<>(preference, listener)));
     }
 
+    class SortUidRange implements Comparator<UidRange> {
+        @Override
+        public int compare(UidRange range1, UidRange range2) {
+            return range1.start - range2.start;
+        }
+    }
+
+    @VisibleForTesting
+    protected UidRange[] sortAndValidateUidRange(UidRange[] ranges) {
+        final ArrayList uidRanges = new ArrayList(Arrays.asList(ranges));
+        Collections.sort(uidRanges, new SortUidRange());
+        // Check the uid ranges are not overlapped with each other.
+        for (int i = 0; i + 1 < uidRanges.size(); i++) {
+            if (((UidRange) uidRanges.get(i + 1)).start <= ((UidRange) uidRanges.get(i)).stop) {
+                throw new IllegalArgumentException("The uid ranges are overlapped!");
+            }
+        }
+        return (UidRange[]) uidRanges.toArray(new UidRange[0]);
+    }
+
+    /**
+     * Sets the specified UIDs to get/receive the VPN as the only default network.
+     *
+     * Calling this will overwrite the existing network preference, and the specified UIDs won't get
+     * any system default network when VPN is disconnected.
+     *
+     * @param ranges The uid ranges which will treat VPN as the only preferred network. Clear the
+     *               setting if the value is empty.
+     * @hide
+     */
+    @Override
+    public void setVpnNetworkPreference(boolean enabled, UidRange[] ranges) {
+        enforceNetworkStackPermission(mContext);
+        mHandler.sendMessage(mHandler.obtainMessage(EVENT_SET_VPN_NETWORK_PREFERENCE,
+                encodeBool(enabled), 0 /* arg2 */, sortAndValidateUidRange(ranges)));
+    }
+
+    private void handleSetVpnNetworkPreference(boolean enabled, UidRange[] ranges) {
+        Log.d(TAG, "handleSetVpnNetworkPreference: " + (enabled ? "Add " : "Remove ")
+                + "UIDs: " + Arrays.toString(ranges));
+        if (!enabled) {
+            removeDefaultNetworkRequestsForVpnPreference(PREFERENCE_ORDER_VPN,
+                    new ArraySet<UidRange>(Arrays.asList(ranges)));
+        }
+        addPerAppDefaultNetworkRequests(enabled ? createNrisForVpnNetworkPreference(ranges)
+                : new ArraySet<NetworkRequestInfo>());
+        // Finally, rematch.
+        rematchAllNetworksAndRequests();
+    }
+
+    private ArraySet<NetworkRequestInfo> createNrisForVpnNetworkPreference(
+            @NonNull UidRange[] ranges) {
+        final ArraySet<NetworkRequestInfo> nris = new ArraySet<>();
+        // Do not add NetworkRequestInfo of VPN into mDefaultNetworkRequests. This is also used when
+        // IKEv2VpnRunner is destroyed.
+        if (ranges.length == 0) {
+            return nris;
+        }
+
+        final List<NetworkRequest> requests = new ArrayList<>();
+        // Request VPN only, so other networks won't be the fallback options when VPN is not
+        // connected temporarily.
+        requests.add(createVpnRequest());
+        final Set<UidRange> uidRanges = new ArraySet(ranges);
+        setNetworkRequestUids(requests, uidRanges);
+        nris.add(new NetworkRequestInfo(Process.myUid(), requests, PREFERENCE_ORDER_VPN));
+        return nris;
+    }
+
     /**
      * Check the validity of an OEM network preference to be used for testing purposes.
      * @param preference the preference to validate
@@ -11164,12 +11252,30 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
-    private void removeDefaultNetworkRequestsForPreference(final int preferenceOrder) {
+    private Set<NetworkRequestInfo> getNetworkRequestsToRemove(int preferenceOrder) {
         // Skip the requests which are set by other network preference. Because the uid range rules
         // should stay in netd.
         final Set<NetworkRequestInfo> requests = new ArraySet<>(mDefaultNetworkRequests);
         requests.removeIf(request -> request.mPreferenceOrder != preferenceOrder);
-        handleRemoveNetworkRequests(requests);
+        return requests;
+    }
+
+    private void removeDefaultNetworkRequestsForPreference(final int preferenceOrder) {
+        handleRemoveNetworkRequests(getNetworkRequestsToRemove(preferenceOrder));
+    }
+
+    private void removeDefaultNetworkRequestsForVpnPreference(final int preferenceOrder,
+            @NonNull ArraySet<UidRange> ranges) {
+        final Set<NetworkRequestInfo> requests = getNetworkRequestsToRemove(preferenceOrder);
+        final Set<NetworkRequestInfo> toBeRemoved = new ArraySet<>();
+        for (NetworkRequestInfo nri : requests) {
+            // To prevent removing the request which is requested by other users, only remove the
+            // request which has the same uid ranges as the given one.
+            if (ranges.equals(nri.getUids())) {
+                toBeRemoved.add(nri);
+            }
+        }
+        handleRemoveNetworkRequests(toBeRemoved);
     }
 
     private void addPerAppDefaultNetworkRequests(@NonNull final Set<NetworkRequestInfo> nris) {
