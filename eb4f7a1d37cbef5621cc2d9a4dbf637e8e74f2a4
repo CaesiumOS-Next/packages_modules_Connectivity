@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c52ac20_147c352c",
+        "filename": "framework/src/android/net/IConnectivityManager.aidl",
+        "patchSetId": 8
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-14T07:20:56Z",
+      "side": 1,
+      "message": "Per discussion : let\u0027s make this a String containing the session ID of the VPN. Then the VPN can update the ranges by calling this with the new set of ranges, and it can remove the preference by calling it with null (or an empty array)",
+      "range": {
+        "startLine": 251,
+        "startChar": 33,
+        "endLine": 251,
+        "endChar": 48
+      },
+      "revId": "eb4f7a1d37cbef5621cc2d9a4dbf637e8e74f2a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04a09c10_b6aaddd5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 11136,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-14T07:20:56Z",
+      "side": 1,
+      "message": "This should move to UidRangeUtils",
+      "range": {
+        "startLine": 11136,
+        "startChar": 25,
+        "endLine": 11136,
+        "endChar": 48
+      },
+      "revId": "eb4f7a1d37cbef5621cc2d9a4dbf637e8e74f2a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f478152d_4de8e2cf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 11138,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-14T07:20:56Z",
+      "side": 1,
+      "message": "You could have written this with an anonymous class too, or even a method ref, e.g. :\n\n    private static int compare(UidRange r1, UidRange r2) { ... }\n\n    Collections.sort(uidRanges, UidRangeUtils::compare);\n\nOnly if you find it easier to read/write",
+      "range": {
+        "startLine": 11138,
+        "startChar": 36,
+        "endLine": 11138,
+        "endChar": 54
+      },
+      "revId": "eb4f7a1d37cbef5621cc2d9a4dbf637e8e74f2a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ce562b3_bfba8ba7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 11142,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-14T07:20:56Z",
+      "side": 1,
+      "message": "overlap",
+      "range": {
+        "startLine": 11142,
+        "startChar": 67,
+        "endLine": 11142,
+        "endChar": 82
+      },
+      "revId": "eb4f7a1d37cbef5621cc2d9a4dbf637e8e74f2a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0984ebc_64b9f5cf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 11162,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-14T07:20:56Z",
+      "side": 1,
+      "message": "Let\u0027s sort and validate the ranges in two separate steps\n\n    sortedRanges \u003d sortRangesByStartUid\n    if (sortedRangesContainOverlap(sortedRanges)) throw IllegalArgumentException",
+      "range": {
+        "startLine": 11162,
+        "startChar": 51,
+        "endLine": 11162,
+        "endChar": 74
+      },
+      "revId": "eb4f7a1d37cbef5621cc2d9a4dbf637e8e74f2a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17d17624_3bf4e4be",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 11171,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-14T07:20:56Z",
+      "side": 1,
+      "message": "Per discussion we should implement b/262482087 which would solve issues.",
+      "range": {
+        "startLine": 11168,
+        "startChar": 8,
+        "endLine": 11171,
+        "endChar": 9
+      },
+      "revId": "eb4f7a1d37cbef5621cc2d9a4dbf637e8e74f2a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
