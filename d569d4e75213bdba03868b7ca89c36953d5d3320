@@ -56,6 +56,30 @@
       },
       "revId": "d569d4e75213bdba03868b7ca89c36953d5d3320",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "441b45e1_7733f5cd",
+        "filename": "service-t/native/libs/libnetworkstats/BpfNetworkStatsTest.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-14T09:12:31Z",
+      "side": 1,
+      "message": "I think this value is actually never used at all...\n\nThis is because the 3rd argument (ifindex) is \u00270\u0027 and it never shows up in mFakeIfaceIndexNameMap (populated in lines 321/322 above).\n\nAs a result this fake stat is always skipped during parsing...\n\nI don\u0027t see any parsing logic that would do anything with countersets besides comparing them for equality.\n\nWe could presumably replace this 2 with TEST_COUNTERSET1 with no loss of test coverage.",
+      "parentUuid": "26571e37_7e873a5f",
+      "range": {
+        "startLine": 329,
+        "startChar": 31,
+        "endLine": 329,
+        "endChar": 56
+      },
+      "revId": "d569d4e75213bdba03868b7ca89c36953d5d3320",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
