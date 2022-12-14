@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33e425a5_142f6b29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-14T09:26:50Z",
+      "side": 1,
+      "message": "LGTM only has some small nits.",
+      "revId": "6ad727af4a22edfca493e7d98cd0d75d974f4de9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12ad8d69_f8b5e968",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsAnnouncer.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-14T09:26:50Z",
+      "side": 1,
+      "message": "Nit: This comment is not necessary because you have javadoca for this class above.",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 64
+      },
+      "revId": "6ad727af4a22edfca493e7d98cd0d75d974f4de9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eb143ef_60693cf0",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAnnouncerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-14T09:26:50Z",
+      "side": 1,
+      "message": "Nit: v6Addr1Rev should be more correct.",
+      "range": {
+        "startLine": 157,
+        "startChar": 12,
+        "endLine": 157,
+        "endChar": 22
+      },
+      "revId": "6ad727af4a22edfca493e7d98cd0d75d974f4de9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd2653af_c167ecfe",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAnnouncerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-14T09:26:50Z",
+      "side": 1,
+      "message": "Nit: 120000L",
+      "range": {
+        "startLine": 165,
+        "startChar": 24,
+        "endLine": 165,
+        "endChar": 30
+      },
+      "revId": "6ad727af4a22edfca493e7d98cd0d75d974f4de9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
