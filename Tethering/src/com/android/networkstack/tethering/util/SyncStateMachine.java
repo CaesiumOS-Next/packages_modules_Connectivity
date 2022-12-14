@@ -16,6 +16,7 @@
 
 package com.android.networkstack.tethering.util;
 
+import android.os.Message;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,7 @@ import androidx.annotation.Nullable;
 
 import com.android.internal.util.State;
 
+import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -48,12 +50,16 @@ public class SyncStateMachine {
     //         \   /               |        |
     //        State3             State3   State3(copied)
     private final HashMap<State, StateInfo> mStateInfo = new HashMap<State, StateInfo>();
+    // This member can only ever be touched on mMyThread.
+    private final ArrayDeque<Message> mMsgQueue = new ArrayDeque<Message>();
 
     private boolean mStarted = false;
 
     // mCurrentState and mDestState must only be touched on mMyThread.
     private State mCurrentState;
     private State mDestState;
+    // MIN_VALUE means not currently processing any message.
+    private int mCurrentlyProcessing = Integer.MIN_VALUE;
 
     /**
      * A information class about a state and its parent. Used to maintain the state hierarchy.
@@ -160,11 +166,57 @@ public class SyncStateMachine {
     private void processMessage(int what, int arg1, int arg2, Object obj, boolean internal) {
         ensureCorrectThread();
 
-        if (internal && what == CMD_START) {
-            transitionTo((State) obj); // transition to initial state.
+        if (mCurrentlyProcessing != Integer.MIN_VALUE) {
+            throw new IllegalStateException("Message(" + mCurrentlyProcessing
+                    + ") is still in process");
         }
 
-        performTransitions();
+        mCurrentlyProcessing = what;
+        if (internal && what == CMD_START) {
+            transitionTo((State) obj); // transition to initial state.
+            performTransitions();
+        } else {
+            sendSelfMessage(what, arg1, arg2, obj);
+        }
+
+        while (!mMsgQueue.isEmpty()) {
+            final Message msg = mMsgQueue.poll();
+            processMsg(mStateInfo.get(mCurrentState), msg);
+            msg.recycle();
+
+            performTransitions();
+        }
+        mCurrentlyProcessing = Integer.MIN_VALUE;
+    }
+
+    private void processMsg(final StateInfo si, final Message msg) {
+        // Ideally this should compare with IState.HANDLED, but it is not public field so just
+        // checking whether the return value is true (IState.HANDLED = true).
+        if (si.state.processMessage(msg)) {
+            if (mDbg) Log.d(mName, "processMsg(" + msg.what + ") at " + si.state);
+            return;
+        }
+
+        if (null != si.parent) {
+            processMsg(mStateInfo.get(si.parent), msg);
+        } else {
+            if (mDbg) Log.d(mName, "Message(" + msg.what + ") is not handled");
+        }
+    }
+
+    /**
+     * Send self message during processMessage.
+     *
+     * Must only be used inside State. The typical use
+     * case is something wrong happens during state transition, sending an error message which
+     * would be handled after finishing current state transitions.
+     */
+    public final void sendSelfMessage(int what, int arg1, int arg2, Object obj) {
+        if (mCurrentlyProcessing == Integer.MIN_VALUE) {
+            throw new IllegalStateException("sendSelfMessage can only be called inside State");
+        }
+
+        mMsgQueue.add(Message.obtain(null, what, arg1, arg2, obj));
     }
 
     /**
