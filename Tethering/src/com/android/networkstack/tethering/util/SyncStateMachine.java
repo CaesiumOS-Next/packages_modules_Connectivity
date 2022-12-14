@@ -51,6 +51,7 @@ public class SyncStateMachine {
 
     private SyncState mCurrentState;
     private SyncState mDestState;
+    private boolean mIsInProcess;
 
     /**
      * The extened state class which provide enter/exit/processMessage methods for
@@ -155,7 +156,23 @@ public class SyncStateMachine {
     public final int processMessage(int what, int arg1, int arg2, Object obj) {
         ensureCorrectThread();
 
-        return mDefaultResult;
+        if (mIsInProcess) throw new IllegalStateException("Previous message is still in process");
+
+        mIsInProcess = true;
+        try {
+            StateInfo curStateInfo = mStateInfo.get(mCurrentState);
+            while (curStateInfo != null) {
+                if (curStateInfo.state.processMessage(what, arg1, arg2, obj)) {
+                    if (mDbg) Log.d(mName, "processMsg(" + what + ") at " + curStateInfo.state);
+                    break;
+                }
+                curStateInfo = curStateInfo.parentStateInfo;
+            }
+
+            return performTransitions();
+        } finally {
+            mIsInProcess = false;
+        }
     }
 
     /**
