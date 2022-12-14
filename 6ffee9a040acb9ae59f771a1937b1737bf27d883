@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f18fff23_745bd046",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-14T02:30:40Z",
+      "side": 1,
+      "message": "I actually don\u0027t think this will do what I want it too. Let me see if I can fix it.",
+      "range": {
+        "startLine": 404,
+        "startChar": 0,
+        "endLine": 404,
+        "endChar": 72
+      },
+      "revId": "6ffee9a040acb9ae59f771a1937b1737bf27d883",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
