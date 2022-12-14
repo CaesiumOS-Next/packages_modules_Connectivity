@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "177a6a55_bcedd922",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-14T07:59:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d20b7d6f_230fcbb8",
+      "range": {
+        "startLine": 46,
+        "startChar": 39,
+        "endLine": 46,
+        "endChar": 55
+      },
+      "revId": "d7fba847b1d300f2f6785aa386ae49fe48addbc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f3aa122f_3eb577d8",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-09T07:27:52Z",
       "side": 1,
       "message": "This looks hard to understand ; could you not just have the caller call invokeEnterMethods if invokeExitMethods didn\u0027t fail ?\n\nCase in point : if any of the exit methods fail, your current code will try to enter the stack anyway without exiting. Example :\n\n    SyncMachine\n    └ A\n      └ B\n        └ C\n    └ D\n      └ E\n\nSuppose you are in C and try to transition to E. Desired sequence :\n• C.exit\n• B.exit\n• A.exit\n• D.enter\n• E.enter\n\nNow suppose B.exit returns FAILURE, your code will not execute A.exit but it will still execute D.enter (and if D.enter succeeds, E.enter). I think this is unexpected.",
+      "range": {
+        "startLine": 259,
+        "startChar": 45,
+        "endLine": 259,
+        "endChar": 61
+      },
+      "revId": "d7fba847b1d300f2f6785aa386ae49fe48addbc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23ef48fc_c79f1572",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-14T07:59:07Z",
+      "side": 1,
+      "message": "The while loop at l.261 have a isFailed(result) protection:\n  while (!mEnterStateStack.isEmpty() \u0026\u0026 !isFailed(result))\nIt ensure if invokeEnterMethods fail, invokeEnterMethods would just be no-op. But yes, I can just let invokeEnterMethods don\u0027t be called if exit fail.",
+      "parentUuid": "f3aa122f_3eb577d8",
       "range": {
         "startLine": 259,
         "startChar": 45,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f0388d4_a7f3db19",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SynStateMachineTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-14T07:59:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "743adb02_889a1e45",
+      "range": {
+        "startLine": 61,
+        "startChar": 57,
+        "endLine": 61,
+        "endChar": 79
+      },
+      "revId": "d7fba847b1d300f2f6785aa386ae49fe48addbc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "777c1bce_a80ebc71",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-12-09T07:27:52Z",
       "side": 1,
       "message": "verifyNoMoreInteractions or assertNoMoreInteractions",
+      "range": {
+        "startLine": 94,
+        "startChar": 16,
+        "endLine": 94,
+        "endChar": 34
+      },
+      "revId": "d7fba847b1d300f2f6785aa386ae49fe48addbc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96f13541_642c50b2",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SynStateMachineTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-14T07:59:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "777c1bce_a80ebc71",
       "range": {
         "startLine": 94,
         "startChar": 16,
@@ -110,6 +206,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38a4e2ac_71e28431",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SynStateMachineTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-14T07:59:07Z",
+      "side": 1,
+      "message": "The initial state is not the same. In previous start, the initial state is root state. And initial state is leave state for this test.\n\nAlso in this test state mResetInEnter means state#enter would always return fail. This test verify whether state could end up with expected state if one of middle state return fail.",
+      "parentUuid": "1f781ee4_1b3b097f",
+      "revId": "d7fba847b1d300f2f6785aa386ae49fe48addbc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9620961_39bca72d",
@@ -123,6 +237,30 @@
       "writtenOn": "2022-12-09T07:27:52Z",
       "side": 1,
       "message": "Same question",
+      "range": {
+        "startLine": 211,
+        "startChar": 8,
+        "endLine": 211,
+        "endChar": 39
+      },
+      "revId": "d7fba847b1d300f2f6785aa386ae49fe48addbc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5daad519_43a09e24",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/util/SynStateMachineTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-14T07:59:07Z",
+      "side": 1,
+      "message": "This test case test transition to expected state while multiple middle states return fail.",
+      "parentUuid": "b9620961_39bca72d",
       "range": {
         "startLine": 211,
         "startChar": 8,
