@@ -16,6 +16,7 @@
 
 package com.android.networkstack.tethering.util;
 
+import android.os.Message;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,7 @@ import androidx.annotation.Nullable;
 
 import com.android.internal.util.State;
 
+import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -49,12 +51,18 @@ public class SyncStateMachine {
     //         \   /                 |                  |
     //       State3@instance1      State3@instance1   State3@instance2
     private final HashMap<State, StateInfo> mStateInfo = new HashMap<State, StateInfo>();
+    // This member can only ever be touched on mMyThread.
+    private final ArrayDeque<Message> mSelfMsgQueue = new ArrayDeque<Message>();
 
     private boolean mStarted = false;
 
     // mCurrentState and mDestState must only be touched on mMyThread.
     private State mCurrentState;
     private State mDestState;
+    // MIN_VALUE means not currently processing any message.
+    private int mCurrentlyProcessing = Integer.MIN_VALUE;
+    // Indicates if state transitions are in progress.
+    private boolean mTransitionInProgress = false;
 
     /**
      * A information class about a state and its parent. Used to maintain the state hierarchy.
@@ -147,6 +155,8 @@ public class SyncStateMachine {
         }
         transitionTo(initialState);
         performTransitions();
+        // If calling sendSelfMessage inside initialState#enter(), mSelfMsgQueue must be processed.
+        maybeProcessSelfMessageQueue();
         mStarted = true;
     }
 
@@ -156,7 +166,59 @@ public class SyncStateMachine {
     public final void processMessage(int what, int arg1, int arg2, Object obj) {
         ensureCorrectThread();
 
+        if (mCurrentlyProcessing != Integer.MIN_VALUE) {
+            throw new IllegalStateException("Message(" + mCurrentlyProcessing
+                    + ") is still in process");
+        }
+
+        mCurrentlyProcessing = what;
+        processMsgAndPerformTransition(Message.obtain(null, what, arg1, arg2, obj));
+        maybeProcessSelfMessageQueue();
+
+        mCurrentlyProcessing = Integer.MIN_VALUE;
+    }
+
+    private void maybeProcessSelfMessageQueue() {
+        while (!mSelfMsgQueue.isEmpty()) {
+            processMsgAndPerformTransition(mSelfMsgQueue.poll());
+        }
+    }
+
+    private void processMsgAndPerformTransition(final Message msg) {
+        processMsg(mStateInfo.get(mCurrentState), msg);
+        msg.recycle();
+
         performTransitions();
+    }
+
+    private void processMsg(final StateInfo si, final Message msg) {
+        // Ideally this should compare with IState.HANDLED, but it is not public field so just
+        // checking whether the return value is true (IState.HANDLED = true).
+        if (si.state.processMessage(msg)) {
+            if (mDbg) Log.d(mName, "processMsg(" + msg.what + ") at " + si.state);
+            return;
+        }
+
+        if (null != si.parent) {
+            processMsg(mStateInfo.get(si.parent), msg);
+        } else {
+            if (mDbg) Log.d(mName, "Message(" + msg.what + ") is not handled");
+        }
+    }
+
+    /**
+     * Send self message during processMessage.
+     *
+     * Must only be used inside State. The typical use
+     * case is something wrong happens during state transition, sending an error message which
+     * would be handled after finishing current state transitions.
+     */
+    public final void sendSelfMessage(int what, int arg1, int arg2, Object obj) {
+        if (!mTransitionInProgress) {
+            throw new IllegalStateException("sendSelfMessage can only be called inside State");
+        }
+
+        mSelfMsgQueue.add(Message.obtain(null, what, arg1, arg2, obj));
     }
 
     /**
@@ -187,6 +249,7 @@ public class SyncStateMachine {
         // 3. Invoke state enter list from common ancestor state to destState by going
         // through mEnterStateStack.
         if (mDestState == null) return;
+        mTransitionInProgress = true;
 
         final StateInfo commonAncestor = getLastActiveAncestor(mStateInfo.get(mDestState));
 
@@ -194,6 +257,7 @@ public class SyncStateMachine {
         executeEnterMethods(commonAncestor, mStateInfo.get(mDestState));
         mCurrentState = mDestState;
         mDestState = null;
+        mTransitionInProgress = false;
     }
 
     private StateInfo getLastActiveAncestor(final StateInfo start) {
