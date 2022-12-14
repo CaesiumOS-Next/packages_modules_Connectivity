@@ -17072,4 +17072,18 @@ public class ConnectivityServiceTest {
             verify(mTetheringManager).getTetherableWifiRegexs();
         });
     }
+
+    @Test
+    public void testSortAndValidateUidRange() throws Exception {
+        final UidRange uid1 = new UidRange(100, 110);
+        final UidRange uid2 = new UidRange(110, 120);
+        final UidRange uid3 = new UidRange(121, 130);
+        final UidRange[] unsortedRanges = new UidRange[] {uid3, uid1};
+        final UidRange[] overlappedRanges = new UidRange[] {uid1, uid2};
+        final UidRange[] sortedRanges = mService.sortAndValidateUidRange(unsortedRanges);
+        assertEquals(uid1, sortedRanges[0]);
+        assertEquals(uid3, sortedRanges[1]);
+        assertThrows(IllegalArgumentException.class,
+                () -> mService.sortAndValidateUidRange(overlappedRanges));
+    }
 }
