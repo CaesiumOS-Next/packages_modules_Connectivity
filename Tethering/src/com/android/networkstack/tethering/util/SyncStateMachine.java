@@ -143,8 +143,12 @@ public class SyncStateMachine {
         ensureCorrectThread();
         ensureExistingState(initialState);
 
-        mCurrentState = initialState;
+        final StateInfo stateInfo = mStateInfo.get(initialState);
+        if (stateInfo.parent != null) {
+            throw new IllegalStateException("Initial state can't be a child state");
+        }
         mDestState = initialState;
+        performTransitions();
     }
 
     /**
@@ -152,6 +156,8 @@ public class SyncStateMachine {
      */
     public final void processMessage(int what, int arg1, int arg2, @Nullable Object obj) {
         ensureCorrectThread();
+
+        performTransitions();
     }
 
     /**
@@ -174,6 +180,47 @@ public class SyncStateMachine {
         } else {
             throw new IllegalStateException("Destination already specified");
         }
+    }
+
+    private void performTransitions() {
+        // 1. Determine the common ancestor state of current/destination states
+        // 2. Invoke state exit list from current state to common ancestor state.
+        // 3. Invoke state enter list from common ancestor state to destState by going
+        // through mEnterStateStack.
+        if (mDestState == mCurrentState) return;
+
+        final StateInfo commonAncestor = getLastActiveAncestor(mStateInfo.get(mDestState));
+
+        executeExitMethods(commonAncestor, mStateInfo.get(mCurrentState));
+        executeEnterMethods(commonAncestor, mStateInfo.get(mDestState));
+        mCurrentState = mDestState;
+    }
+
+    // Null is the root of all states.
+    private StateInfo getLastActiveAncestor(@Nullable final StateInfo start) {
+        if (null == start || start.mActive) return start;
+
+        return getLastActiveAncestor(mStateInfo.get(start.parent));
+    }
+
+    // Call the exit method from current state to common ancestor state.
+    private void executeExitMethods(@Nullable StateInfo end, @Nullable StateInfo start) {
+        if (end == start) return;
+
+        if (mDbg) Log.d(mName, start.state + " exit()");
+        start.state.exit();
+        start.mActive = false;
+        executeExitMethods(end, mStateInfo.get(start.parent));
+    }
+
+    // Call the enter method from common ancestor state to destination state.
+    private void executeEnterMethods(@Nullable StateInfo end, @Nullable StateInfo dest) {
+        if (dest == end) return;
+
+        executeEnterMethods(end, mStateInfo.get(dest.parent));
+        if (mDbg) Log.d(mName, dest.state + " enter()");
+        dest.state.enter();
+        dest.mActive = true;
     }
 
     private void ensureCorrectThread() {
