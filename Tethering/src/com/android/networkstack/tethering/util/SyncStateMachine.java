@@ -16,6 +16,7 @@
 
 package com.android.networkstack.tethering.util;
 
+import android.os.Message;
 import android.util.ArrayMap;
 import android.util.Log;
 
@@ -24,6 +25,7 @@ import androidx.annotation.Nullable;
 
 import com.android.internal.util.State;
 
+import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,6 +57,12 @@ public class SyncStateMachine {
     // mDestState only be null before state machine starts and must only be touched on mMyThread.
     @Nullable private State mCurrentState;
     @Nullable private State mDestState;
+    private final ArrayDeque<Message> mSelfMsgQueue = new ArrayDeque<Message>();
+
+    // MIN_VALUE means not currently processing any message.
+    private int mCurrentlyProcessing = Integer.MIN_VALUE;
+    // Indicates if whether automaton could send self message.
+    private boolean mSelfMsgAllowed = false;
 
     /**
      * A information class about a state and its parent. Used to maintain the state hierarchy.
@@ -149,6 +157,8 @@ public class SyncStateMachine {
         }
         mDestState = initialState;
         performTransitions();
+        // If calling sendSelfMessage inside initialState#enter(), mSelfMsgQueue must be processed.
+        maybeProcessSelfMessageQueue();
     }
 
     /**
@@ -157,7 +167,62 @@ public class SyncStateMachine {
     public final void processMessage(int what, int arg1, int arg2, @Nullable Object obj) {
         ensureCorrectThread();
 
+        if (mCurrentlyProcessing != Integer.MIN_VALUE) {
+            throw new IllegalStateException("Message(" + mCurrentlyProcessing
+                    + ") is still being processed");
+        }
+
+        mCurrentlyProcessing = what;
+        processMsgAndPerformTransition(Message.obtain(null, what, arg1, arg2, obj));
+        maybeProcessSelfMessageQueue();
+
+        mCurrentlyProcessing = Integer.MIN_VALUE;
+    }
+
+    private void maybeProcessSelfMessageQueue() {
+        while (!mSelfMsgQueue.isEmpty()) {
+            processMsgAndPerformTransition(mSelfMsgQueue.poll());
+        }
+    }
+
+    private void processMsgAndPerformTransition(@NonNull final Message msg) {
+        processMsgInternal(mStateInfo.get(mCurrentState), msg);
+        msg.recycle();
+
         performTransitions();
+    }
+
+    private void processMsgInternal(@NonNull final StateInfo si, @NonNull final Message msg) {
+        mSelfMsgAllowed = true;
+
+        // Ideally this should compare with IState.HANDLED, but it is not public field so just
+        // checking whether the return value is true (IState.HANDLED = true).
+        if (si.state.processMessage(msg)) {
+            if (mDbg) Log.d(mName, "State " + si.state + " processed message " + msg.what);
+            return;
+        }
+
+        if (null != si.parent) {
+            processMsgInternal(mStateInfo.get(si.parent), msg);
+        } else {
+            if (mDbg) Log.d(mName, "Message " + msg.what + " was not handled");
+        }
+        mSelfMsgAllowed = false;
+    }
+
+    /**
+     * Send self message during state transition.
+     *
+     * Must only be used inside State processMessage, enter or exist. The typical use case is
+     * something wrong happens during state transition, sending an error message which would be
+     * handled after finishing current state transitions.
+     */
+    public final void sendSelfMessage(int what, int arg1, int arg2, Object obj) {
+        if (!mSelfMsgAllowed) {
+            throw new IllegalStateException("sendSelfMessage can only be called inside State");
+        }
+
+        mSelfMsgQueue.add(Message.obtain(null, what, arg1, arg2, obj));
     }
 
     /**
@@ -189,11 +254,13 @@ public class SyncStateMachine {
         // through mEnterStateStack.
         if (mDestState == mCurrentState) return;
 
+        mSelfMsgAllowed = true;
         final StateInfo commonAncestor = getLastActiveAncestor(mStateInfo.get(mDestState));
 
         executeExitMethods(commonAncestor, mStateInfo.get(mCurrentState));
         executeEnterMethods(commonAncestor, mStateInfo.get(mDestState));
         mCurrentState = mDestState;
+        mSelfMsgAllowed = false;
     }
 
     // Null is the root of all states.
