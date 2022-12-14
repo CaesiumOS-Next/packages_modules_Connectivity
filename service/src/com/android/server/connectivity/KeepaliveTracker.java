@@ -33,15 +33,27 @@ import static android.net.SocketKeepalive.MAX_INTERVAL_SEC;
 import static android.net.SocketKeepalive.MIN_INTERVAL_SEC;
 import static android.net.SocketKeepalive.NO_KEEPALIVE;
 import static android.net.SocketKeepalive.SUCCESS;
+import static android.system.OsConstants.AF_INET;
+import static android.system.OsConstants.AF_INET6;
+import static android.system.OsConstants.SOL_SOCKET;
+import static android.system.OsConstants.SO_SNDTIMEO;
+
+import static com.android.net.module.util.netlink.NetlinkConstants.NLMSG_DONE;
+import static com.android.net.module.util.netlink.NetlinkConstants.SOCKDIAG_MSG_HEADER_SIZE;
+import static com.android.net.module.util.netlink.NetlinkConstants.SOCK_DIAG_BY_FAMILY;
+import static com.android.net.module.util.netlink.NetlinkUtils.IO_TIMEOUT_MS;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.ConnectivityResources;
+import android.net.INetd;
 import android.net.ISocketKeepaliveCallback;
 import android.net.InetAddresses;
 import android.net.InvalidPacketException;
 import android.net.KeepalivePacketData;
+import android.net.MarkMaskParcel;
 import android.net.NattKeepalivePacketData;
 import android.net.NetworkAgent;
 import android.net.SocketKeepalive.InvalidSocketException;
@@ -55,18 +67,29 @@ import android.os.Process;
 import android.os.RemoteException;
 import android.system.ErrnoException;
 import android.system.Os;
+import android.system.StructTimeval;
 import android.util.Log;
 import android.util.Pair;
+import android.util.SparseArray;
 
 import com.android.connectivity.resources.R;
+import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.net.module.util.HexDump;
 import com.android.net.module.util.IpUtils;
+import com.android.net.module.util.SocketUtils;
+import com.android.net.module.util.netlink.InetDiagMessage;
+import com.android.net.module.util.netlink.NetlinkUtils;
+import com.android.net.module.util.netlink.StructNlAttr;
 
 import java.io.FileDescriptor;
+import java.io.InterruptedIOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
+import java.net.SocketException;
+import java.nio.BufferUnderflowException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -84,6 +107,7 @@ public class KeepaliveTracker {
     private static final boolean DBG = false;
 
     public static final String PERMISSION = android.Manifest.permission.PACKET_KEEPALIVE_OFFLOAD;
+    private static final int[] ADDRESS_FAMILIES = new int[] {AF_INET6, AF_INET};
 
     /** Keeps track of keepalive requests. */
     private final HashMap <NetworkAgentInfo, HashMap<Integer, KeepaliveInfo>> mKeepalives =
@@ -107,17 +131,37 @@ public class KeepaliveTracker {
     // Allowed unprivileged keepalive slots per uid. Caller's permission will be enforced if
     // the number of remaining keepalive slots is less than or equal to the threshold.
     private final int mAllowedUnprivilegedSlotsForUid;
+    /**
+     * The {@Code inetDiagReqV2} messages for different IP family.
+     *
+     *   Key: Ip family type.
+     * Value: Bytes array represent the {@Code inetDiagReqV2}.
+     *
+     * The access should be called in a single thread but is not restricted to which thread.
+     * Otherwise, the message will be created more than once time.
+     * It's expected to be access in the connectivity service handler thread.
+     */
+    private final SparseArray<byte[]> mSockDiagMsg = new SparseArray<>();
+    private final Dependencies mDependencies;
+    private final INetd mNetd;
 
     public KeepaliveTracker(Context context, Handler handler) {
+        this(context, handler, new Dependencies(context));
+    }
+
+    @VisibleForTesting
+    public KeepaliveTracker(Context context, Handler handler, Dependencies dependencies) {
         mConnectivityServiceHandler = handler;
         mTcpController = new TcpKeepaliveController(handler);
         mContext = context;
-        mSupportedKeepalives = KeepaliveUtils.getSupportedKeepalives(mContext);
+        mDependencies = dependencies;
+        mSupportedKeepalives = mDependencies.getSupportedKeepalives();
+        mNetd = mDependencies.getNetd();
 
-        final ConnectivityResources res = new ConnectivityResources(mContext);
-        mReservedPrivilegedSlots = res.get().getInteger(
+        final Resources res = mDependencies.newConnectivityResources();
+        mReservedPrivilegedSlots = res.getInteger(
                 R.integer.config_reservedPrivilegedKeepaliveSlots);
-        mAllowedUnprivilegedSlotsForUid = res.get().getInteger(
+        mAllowedUnprivilegedSlotsForUid = res.getInteger(
                 R.integer.config_allowedUnprivilegedKeepalivePerUid);
     }
 
@@ -739,6 +783,9 @@ public class KeepaliveTracker {
         return true;
     }
 
+    /**
+     * Dump KeepaliveTracker state.
+     */
     public void dump(IndentingPrintWriter pw) {
         pw.println("Supported Socket keepalives: " + Arrays.toString(mSupportedKeepalives));
         pw.println("Reserved Privileged keepalives: " + mReservedPrivilegedSlots);
@@ -755,5 +802,191 @@ public class KeepaliveTracker {
             pw.decreaseIndent();
         }
         pw.decreaseIndent();
+    }
+
+    /**
+     * Dependencies class for testing.
+     */
+    @VisibleForTesting
+    public static class Dependencies {
+        private final Context mContext;
+
+        public Dependencies(final Context context) {
+            mContext = context;
+        }
+
+        /**
+         * Create a netlink socket connected to the kernel
+         *
+         * @return fd the fileDescriptor of the socket.
+         */
+        public FileDescriptor makeSocketConnectedToNetlink()
+                throws ErrnoException, SocketException {
+            final FileDescriptor fd = NetlinkUtils.createNetLinkInetDiagSocket();
+            NetlinkUtils.connectSocketToNetlink(fd);
+            Os.setsockoptTimeval(fd, SOL_SOCKET, SO_SNDTIMEO,
+                    StructTimeval.fromMillis(IO_TIMEOUT_MS));
+            return fd;
+        }
+
+        /**
+         * Send composed message request to kernel.
+         * @param fd see {@code FileDescriptor}
+         * @param msg the byte array representing the request message to write to kernel.
+         */
+        public void sendRequestToKernel(@NonNull final FileDescriptor fd, @NonNull final byte[] msg)
+                throws ErrnoException, InterruptedIOException {
+            Os.write(fd, msg, 0 /* byteOffset */, msg.length);
+        }
+
+        /**
+         * Get an INetd connector.
+         */
+        public INetd getNetd() {
+            return INetd.Stub.asInterface(
+                    (IBinder) mContext.getSystemService(Context.NETD_SERVICE));
+        }
+
+        /**
+         * Receive the response message from kernel via given {@code FileDescriptor}.
+         * The usage should follow the {@code #sendRequestToKernel} call with the same
+         * FileDescriptor.
+         *
+         * The overall response may be large but the individual messages should not be
+         * excessively large(8-16kB) because trying to get the kernel to return
+         * everything in one big buffer is inefficient as it forces the kernel to allocate
+         * large chunks of linearly physically contiguous memory. The usage should iterate the
+         * call of this method until the end of the overall message.
+         *
+         * The default receiving buffer size should be proceeded soon.
+         * {@link NetlinkUtils#IO_TIMEOUT_MS} should be quite enough for a single message.
+         */
+        public ByteBuffer recvSockDiagResponse(@NonNull final FileDescriptor fd)
+                throws ErrnoException, InterruptedIOException {
+            return NetlinkUtils.recvMessage(
+                    fd, NetlinkUtils.DEFAULT_RECV_BUFSIZE, NetlinkUtils.IO_TIMEOUT_MS);
+        }
+
+        /**
+         * Read supported keepalive count for each transport type from overlay resource.
+         */
+        public int[] getSupportedKeepalives() {
+            return KeepaliveUtils.getSupportedKeepalives(mContext);
+        }
+
+        /**
+         * Construct a new Resource from a new ConnectivityResources.
+         */
+        public Resources newConnectivityResources() {
+            final ConnectivityResources resources = new ConnectivityResources(mContext);
+            return resources.get();
+        }
+    }
+
+    @VisibleForTesting
+    boolean isAnyTcpSocketConnected(int netId) {
+        FileDescriptor fd = null;
+
+        try {
+            fd = mDependencies.makeSocketConnectedToNetlink();
+
+            // Get network mask
+            final MarkMaskParcel parcel = mNetd.getFwmarkForNetwork(netId);
+            final int networkMark = (parcel != null) ? parcel.mark : NetlinkUtils.UNKNOWN_MARK;
+            final int networkMask = (parcel != null) ? parcel.mask : NetlinkUtils.NULL_MASK;
+
+            // Send request for each IP family
+            for (final int family : ADDRESS_FAMILIES) {
+                if (isAnyTcpSocketConnectedForFamily(fd, family, networkMark, networkMask)) {
+                    return true;
+                }
+            }
+        } catch (ErrnoException | SocketException | InterruptedIOException | RemoteException e) {
+            Log.e(TAG, "Fail to get socket info via netlink.", e);
+        } finally {
+            SocketUtils.closeSocketQuietly(fd);
+        }
+
+        return false;
+    }
+
+    private boolean isAnyTcpSocketConnectedForFamily(FileDescriptor fd, int family, int networkMark,
+            int networkMask) throws ErrnoException, InterruptedIOException {
+        // Build SocketDiag messages and cache it.
+        if (mSockDiagMsg.get(family) == null) {
+            mSockDiagMsg.put(family, InetDiagMessage.buildInetDiagReqForAliveTcpSockets(family));
+        }
+        mDependencies.sendRequestToKernel(fd, mSockDiagMsg.get(family));
+
+        // Iteration limitation as a protection to avoid possible infinite loops.
+        // DEFAULT_RECV_BUFSIZE could read more than 20 sockets per time. Max iteration
+        // should be enough to go through reasonable TCP sockets in the device.
+        final int maxIteration = 100;
+        int parsingIteration = 0;
+        while (parsingIteration < maxIteration) {
+            final ByteBuffer bytes = mDependencies.recvSockDiagResponse(fd);
+
+            try {
+                while (NetlinkUtils.enoughBytesRemainForValidNlMsg(bytes)) {
+                    final int startPos = bytes.position();
+
+                    final int nlmsgLen = bytes.getInt();
+                    final int nlmsgType = bytes.getShort();
+                    if (isEndOfMessageOrError(nlmsgType)) return false;
+                    // TODO: Parse InetDiagMessage to get uid and dst address information to filter
+                    //  socket via NetlinkMessage.parse.
+
+                    // Skip the header to move to data part.
+                    bytes.position(startPos + SOCKDIAG_MSG_HEADER_SIZE);
+
+                    if (isTargetTcpSocket(bytes, nlmsgLen, networkMark, networkMask)) {
+                        return true;
+                    }
+                }
+            } catch (BufferUnderflowException e) {
+                // The exception happens in random place in either header position or any data
+                // position. Partial bytes from the middle of the byte buffer may not be enough to
+                // clarify, so print out the content before the error to possibly prevent printing
+                // the whole 8K buffer.
+                final int exceptionPos = bytes.position();
+                final StringBuilder hex = new StringBuilder();
+                for (int i = 0; i < exceptionPos; i++) {
+                    final byte b = bytes.get(i);
+                    hex.append(String.format("%02X", b & 0xff));
+                }
+                Log.e(TAG, "Unexpected socket info parsing: " + hex.toString(), e);
+            }
+
+            parsingIteration++;
+        }
+        return false;
+    }
+
+    private boolean isEndOfMessageOrError(int nlmsgType) {
+        return nlmsgType == NLMSG_DONE || nlmsgType != SOCK_DIAG_BY_FAMILY;
+    }
+
+    private boolean isTargetTcpSocket(@NonNull ByteBuffer bytes, int nlmsgLen, int networkMark,
+            int networkMask) {
+        final int mark = readSocketDataAndReturnMark(bytes, nlmsgLen);
+        return (mark & networkMask) == networkMark;
+    }
+
+    private int readSocketDataAndReturnMark(@NonNull ByteBuffer bytes, int nlmsgLen) {
+        final int nextMsgOffset = bytes.position() + nlmsgLen - SOCKDIAG_MSG_HEADER_SIZE;
+
+        try {
+            // Get socket mark
+            while (bytes.position() < nextMsgOffset) {
+                final StructNlAttr nlattr = StructNlAttr.parse(bytes);
+                if (nlattr != null && nlattr.nla_type == NetlinkUtils.INET_DIAG_MARK) {
+                    return nlattr.getValueAsInteger();
+                }
+            }
+        } finally {
+            // Go through all data part
+            bytes.position(nextMsgOffset);
+        }
+        return NetlinkUtils.INIT_MARK_VALUE;
     }
 }
