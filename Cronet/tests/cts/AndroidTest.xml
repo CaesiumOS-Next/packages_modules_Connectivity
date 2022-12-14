@@ -14,7 +14,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<configuration description="Config for CTS Cronet test cases">
+<configuration description="Config for CTS Net Http test cases">
     <option name="test-suite-tag" value="cts" />
     <option name="config-descriptor:metadata" key="component" value="networking" />
     <option name="config-descriptor:metadata" key="parameter" value="instant_app" />
@@ -22,10 +22,10 @@
     <option name="config-descriptor:metadata" key="parameter" value="secondary_user" />
     <target_preparer class="com.android.tradefed.targetprep.suite.SuiteApkInstaller">
         <option name="cleanup-apks" value="true" />
-        <option name="test-file-name" value="CtsCronetTestCases.apk" />
+        <option name="test-file-name" value="CtsNetHttpTestCases.apk" />
     </target_preparer>
     <test class="com.android.tradefed.testtype.AndroidJUnitTest" >
-        <option name="package" value="android.cronet.cts" />
+        <option name="package" value="android.net.http.cts" />
         <option name="runtime-hint" value="10s" />
     </test>
 
