@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4b8661d_b20e5391",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-14T07:56:35Z",
+      "side": 1,
+      "message": "Ideally we\u0027d go one step further and have ProfileNetworkPreference implement a\n\n  fun toNri() : NetworkRequestInfo\n\n...and make createNrisFromProfileNetworkPreferences generic ; this could be done in a followup.",
+      "revId": "e85fbe95234c09a7d1032307c130ee6953ce94f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
