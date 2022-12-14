@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "62135e39_443163b9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3122,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-14T06:36:10Z",
+      "side": 1,
+      "message": "Are you sure VPNs send null interfaces? I think production code (as opposed to test code) should never be announcing null interfaces. Some of our tests do though I think.\n\nAs for the logging - this log is disabled by default so I wouldn\u0027t particularly optimize for it. I think it\u0027s better to unindent and simplify the code.\n\nIf you really want to log the case where the interface is null, maybe you can do that in its own log line? Something like:\n\n    if (iface \u003d\u003d null \u0026\u0026 mtu !\u003d 0) {\n        if (DBG) log(\"setting MTU with null interface: \" + nai);\n        return;\n    }",
+      "parentUuid": "e60c8c4e_9082a670",
+      "range": {
+        "startLine": 3118,
+        "startChar": 0,
+        "endLine": 3122,
+        "endChar": 57
+      },
+      "revId": "a423e63302873b07c657bdace63ab6375cedb50e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eff11040_90ab78d8",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 3
