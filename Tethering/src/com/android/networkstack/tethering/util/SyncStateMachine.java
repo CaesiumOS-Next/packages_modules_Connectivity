@@ -44,6 +44,7 @@ public class SyncStateMachine {
     // mCurrentState and mDestState must only be touched on mMyThread.
     private SyncState mCurrentState;
     private SyncState mDestState;
+    private boolean mIsInProcess;
 
     /**
      * A information class about a state and its parent. Used to maintain the state hierarchy.
@@ -174,7 +175,23 @@ public class SyncStateMachine {
     public final int processMessage(int what, int arg1, int arg2, Object obj) {
         ensureCorrectThread();
 
-        return mDefaultResult;
+        if (mIsInProcess) throw new IllegalStateException("Previous message is still in process");
+
+        mIsInProcess = true;
+        try {
+            StateInfo curStateInfo = mStateInfo.get(mCurrentState);
+            while (curStateInfo != null) {
+                if (curStateInfo.state.processMessage(what, arg1, arg2, obj)) {
+                    if (mDbg) Log.d(mName, "processMsg(" + what + ") at " + curStateInfo.state);
+                    break;
+                }
+                curStateInfo = mStateInfo.get(curStateInfo.parent);
+            }
+
+            return performTransitions();
+        } finally {
+            mIsInProcess = false;
+        }
     }
 
     /**
