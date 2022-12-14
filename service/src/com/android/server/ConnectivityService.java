@@ -281,7 +281,7 @@ import com.android.server.connectivity.NetworkNotificationManager.NotificationTy
 import com.android.server.connectivity.NetworkOffer;
 import com.android.server.connectivity.NetworkRanker;
 import com.android.server.connectivity.PermissionMonitor;
-import com.android.server.connectivity.ProfileNetworkPreferenceList;
+import com.android.server.connectivity.ProfileNetworkPreferenceInfo;
 import com.android.server.connectivity.ProxyTracker;
 import com.android.server.connectivity.QosCallbackTracker;
 import com.android.server.connectivity.UidRangeUtils;
@@ -3410,11 +3410,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private void dumpNetworkPreferences(IndentingPrintWriter pw) {
-        if (!mProfileNetworkPreferences.isEmpty()) {
-            pw.println("Profile preferences:");
-            pw.increaseIndent();
-            pw.println(mProfileNetworkPreferences.preferences);
-            pw.decreaseIndent();
+        try {
+            if (!mProfileNetworkPreferences.isEmpty()) {
+                pw.println("Profile preferences:");
+                pw.increaseIndent();
+                pw.println(mProfileNetworkPreferences);
+                pw.decreaseIndent();
+            }
+        } catch (ConcurrentModificationException e) {
+            pw.println("Profile preferences modified during dump()");
         }
         if (!mOemNetworkPreferences.isEmpty()) {
             pw.println("OEM preferences:");
@@ -5498,10 +5502,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     break;
                 }
                 case EVENT_SET_PROFILE_NETWORK_PREFERENCE: {
-                    final Pair<List<ProfileNetworkPreferenceList.Preference>,
-                            IOnCompleteListener> arg =
-                            (Pair<List<ProfileNetworkPreferenceList.Preference>,
-                                    IOnCompleteListener>) msg.obj;
+                    final Pair<List<ProfileNetworkPreferenceInfo>, IOnCompleteListener> arg =
+                            (Pair<List<ProfileNetworkPreferenceInfo>, IOnCompleteListener>) msg.obj;
                     handleSetProfileNetworkPreference(arg.first, arg.second);
                     break;
                 }
@@ -6142,7 +6144,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private void onUserRemoved(@NonNull final UserHandle user) {
         // If there was a network preference for this user, remove it.
         handleSetProfileNetworkPreference(
-                List.of(new ProfileNetworkPreferenceList.Preference(user, null, true)),
+                List.of(new ProfileNetworkPreferenceInfo(user, null, true)),
                 null /* listener */);
         if (mOemNetworkPreferences.getNetworkPreferences().size() > 0) {
             handleSetOemNetworkPreference(mOemNetworkPreferences, null);
@@ -7109,11 +7111,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
     @NonNull
     private OemNetworkPreferences mOemNetworkPreferences =
             new OemNetworkPreferences.Builder().build();
-    // Current per-profile network preferences. This object follows the same threading rules as
-    // the OEM network preferences above.
+    // Current per-profile network preferences. This object must only be accessed on the
+    // handler thread.
     @NonNull
-    private ProfileNetworkPreferenceList mProfileNetworkPreferences =
-            new ProfileNetworkPreferenceList();
+    private final ArrayList<ProfileNetworkPreferenceInfo> mProfileNetworkPreferences =
+            new ArrayList<>();
 
     // A set of UIDs that should use mobile data preferentially if available. This object follows
     // the same threading rules as the OEM network preferences above.
@@ -10816,7 +10818,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     + "or the device owner must be set. ");
         }
 
-        final List<ProfileNetworkPreferenceList.Preference> preferenceList = new ArrayList<>();
+        final List<ProfileNetworkPreferenceInfo> preferenceList = new ArrayList<>();
         boolean hasDefaultPreference = false;
         for (final ProfileNetworkPreference preference : preferences) {
             final NetworkCapabilities nc;
@@ -10863,8 +10865,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     throw new IllegalArgumentException(
                             "Invalid preference in setProfileNetworkPreferences");
             }
-            preferenceList.add(new ProfileNetworkPreferenceList.Preference(
-                    profile, nc, allowFallback));
+            preferenceList.add(new ProfileNetworkPreferenceInfo(profile, nc, allowFallback));
             if (hasDefaultPreference && preferenceList.size() > 1) {
                 throw new IllegalArgumentException(
                         "Default profile preference should not be set along with other preference");
@@ -10913,9 +10914,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private ArraySet<NetworkRequestInfo> createNrisFromProfileNetworkPreferences(
-            @NonNull final ProfileNetworkPreferenceList prefs) {
+            @NonNull final Collection<ProfileNetworkPreferenceInfo> prefs) {
         final ArraySet<NetworkRequestInfo> result = new ArraySet<>();
-        for (final ProfileNetworkPreferenceList.Preference pref : prefs.preferences) {
+        for (final ProfileNetworkPreferenceInfo pref : prefs) {
             // The NRI for a user should contain the request for capabilities.
             // If fallback to default network is needed then NRI should include
             // the request for the default network. Create an image of it to
@@ -10945,12 +10946,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
      *
      */
     private boolean isRangeAlreadyInPreferenceList(
-            @NonNull List<ProfileNetworkPreferenceList.Preference> preferenceList,
+            @NonNull List<ProfileNetworkPreferenceInfo> preferenceList,
             @NonNull Set<UidRange> uidRangeSet) {
         if (uidRangeSet.size() == 0 || preferenceList.size() == 0) {
             return false;
         }
-        for (ProfileNetworkPreferenceList.Preference pref : preferenceList) {
+        for (ProfileNetworkPreferenceInfo pref : preferenceList) {
             if (UidRangeUtils.doesRangeSetOverlap(
                     UidRange.fromIntRanges(pref.capabilities.getUids()), uidRangeSet)) {
                 return true;
@@ -10960,19 +10961,22 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private void handleSetProfileNetworkPreference(
-            @NonNull final List<ProfileNetworkPreferenceList.Preference> preferenceList,
+            @NonNull final List<ProfileNetworkPreferenceInfo> preferenceList,
             @Nullable final IOnCompleteListener listener) {
         /*
          * handleSetProfileNetworkPreference is always called for single user.
          * preferenceList only contains preferences for different uids within the same user
          * (enforced by getUidListToBeAppliedForNetworkPreference).
          * Clear all the existing preferences for the user before applying new preferences.
-         *
          */
-        mProfileNetworkPreferences = mProfileNetworkPreferences.withoutUser(
-                preferenceList.get(0).user);
-        for (final ProfileNetworkPreferenceList.Preference preference : preferenceList) {
-            mProfileNetworkPreferences = mProfileNetworkPreferences.plus(preference);
+        final UserHandle user = preferenceList.get(0).user;
+        mProfileNetworkPreferences.removeIf(it -> it.user.equals(user));
+        for (final ProfileNetworkPreferenceInfo preference : preferenceList) {
+            // Null capabilities mean the default behavior, for which there is no need for a
+            // preference at all.
+            if (null != preference.capabilities) {
+                mProfileNetworkPreferences.add(preference);
+            }
         }
 
         removeDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_PROFILE);
