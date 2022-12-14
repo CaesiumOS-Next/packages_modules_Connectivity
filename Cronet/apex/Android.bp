@@ -54,6 +54,6 @@ apex {
 
 apex_key {
     name: "com.android.cronet.key",
-    public_key: "com.android.cronet.avbpubkey",
-    private_key: "com.android.cronet.pem",
+    public_key: "com.android.net.http.avbpubkey",
+    private_key: "com.android.net.http.pem",
 }

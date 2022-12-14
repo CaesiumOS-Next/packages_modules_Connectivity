@@ -15,7 +15,7 @@
  * limitations under the License.
  -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.android.cronet">
+  package="com.android.net.http">
   <!-- APEX does not have classes.dex -->
   <application android:hasCode="false" />
   <uses-sdk

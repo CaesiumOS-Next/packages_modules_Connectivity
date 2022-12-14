@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package android.cronet.cts;
+package android.net.http.cts;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import android.content.Context;
-import android.cronet.cts.util.TestUrlRequestCallback;
-import android.cronet.cts.util.TestUrlRequestCallback.ResponseStep;
 import android.net.ConnectivityManager;
+import android.net.http.cts.util.TestUrlRequestCallback;
+import android.net.http.cts.util.TestUrlRequestCallback.ResponseStep;
 
 import androidx.annotation.NonNull;
 import androidx.test.platform.app.InstrumentationRegistry;
