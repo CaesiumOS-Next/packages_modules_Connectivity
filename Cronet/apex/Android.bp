@@ -16,44 +16,44 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
-// CronetApexDefaults uses apex_defaults cronet_apex_defaults specifies. cronet_apex_defaults
-// could be "CronetApexDefaultsEnabled" or "CronetApexDefaultsDisabled" depending on the branch.
-cronet_apex_defaults = "CronetApexDefaultsEnabled"
+// NetHttpApexDefaults uses apex_defaults nethttp_apex_defaults specifies. nethttp_apex_defaults
+// could be "NetHttpApexDefaultsEnabled" or "NetHttpApexDefaultsDisabled" depending on the branch.
+nethttp_apex_defaults = "NetHttpApexDefaultsEnabled"
 // This is a placeholder comment to avoid merge conflicts
-// as cronet_apex_defaults may have different values
+// as nethttp_apex_defaults may have different values
 // depending on the branch
 
 apex_defaults {
-    name: "CronetApexDefaults",
-    defaults: [cronet_apex_defaults],
+    name: "NetHttpApexDefaults",
+    defaults: [nethttp_apex_defaults],
 }
 
 apex_defaults {
-    name: "CronetApexDefaultsEnabled",
+    name: "NetHttpApexDefaultsEnabled",
     jni_libs: ["libcronet.107.0.5284.2"],
-    java_libs: ["framework-cronet"],
+    java_libs: ["framework-nethttp"],
     arch: {
         riscv64: {
-            // TODO: remove this when there is a riscv64 libcronet
-            exclude_jni_libs: ["libcronet.107.0.5284.2"],
+            // TODO: remove this when there is a riscv64 libnethttp
+            exclude_jni_libs: ["libnethttp.107.0.5284.2"],
         },
     },
 }
 
 apex_defaults {
-    name: "CronetApexDefaultsDisabled",
+    name: "NetHttpApexDefaultsDisabled",
 }
 
-// TODO: Remove cronet apex after com.android.cronet is removed from PRODUCT_PACKAGES
+// TODO: Remove nethttp apex after com.android.nethttp is removed from PRODUCT_PACKAGES
 apex {
-    name: "com.android.cronet",
-    key: "com.android.cronet.key",
+    name: "com.android.net.http",
+    key: "com.android.net.http.key",
     updatable: false,
     manifest: "manifest.json",
 }
 
 apex_key {
-    name: "com.android.cronet.key",
-    public_key: "com.android.cronet.avbpubkey",
-    private_key: "com.android.cronet.pem",
+    name: "com.android.net.http.key",
+    public_key: "com.android.net.http.avbpubkey",
+    private_key: "com.android.net.http.pem",
 }
