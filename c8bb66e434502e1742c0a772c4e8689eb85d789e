@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6ee7a74_e3418ae1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-14T03:07:23Z",
+      "side": 1,
+      "message": "LGTM assuming the comment will be fixed.\nJean might want to take a look.",
+      "revId": "c8bb66e434502e1742c0a772c4e8689eb85d789e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca62436a_d58e7871",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1007,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-14T03:07:23Z",
+      "side": 1,
+      "message": "Not true since we don\u0027t really use their data.\nMaybe:\nStill create a legacy dev recorder locally but the service doesn\u0027t really use it.\nThis is for backward compatibility where the OEMs might call readPlatformCollection, perform proprietary operations and relying on the side-effects to complete the follow-up import process.",
+      "range": {
+        "startLine": 1007,
+        "startChar": 42,
+        "endLine": 1007,
+        "endChar": 82
+      },
+      "revId": "c8bb66e434502e1742c0a772c4e8689eb85d789e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
