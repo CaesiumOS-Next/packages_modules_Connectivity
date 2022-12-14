@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "56725352_4cde0e16",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3122,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-14T10:20:44Z",
+      "side": 1,
+      "message": "Ouch. Yes, I see. It does that when it has no tunnel interface but wants to remain connected. Once Lucas\u0027s changes are in to allow the default network to remain null while the VPN is connected, I think we can just have the VPN disconnect its agent completely instead of setting a null interface. But until that happens, I suppose we\u0027ll need to support it.\n\nThat said - does the code I suggest behave identically to the current code other than what messages it logs? If so, I think we should prefer code simplification/readability over keeping the logging the same as it was before - especially since VDBG is by default false unless the user runs an adb command to set it to true.",
+      "parentUuid": "c3a780c0_df9f614d",
+      "range": {
+        "startLine": 3118,
+        "startChar": 0,
+        "endLine": 3122,
+        "endChar": 57
+      },
+      "revId": "a423e63302873b07c657bdace63ab6375cedb50e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eff11040_90ab78d8",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 3
