@@ -146,6 +146,7 @@ import com.android.networkstack.tethering.util.InterfaceSet;
 import com.android.networkstack.tethering.util.PrefixUtils;
 import com.android.networkstack.tethering.util.TetheringUtils;
 import com.android.networkstack.tethering.util.VersionedBroadcastListener;
+import com.android.networkstack.tethering.wear.CompanionDeviceManagerProxy;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -394,6 +395,19 @@ public class Tethering {
                 });
 
         startStateMachineUpdaters();
+
+        try {
+            // TODO(igorc): Remove this test code.
+            if (SdkLevel.isAtLeastT()) {
+                final CompanionDeviceManagerProxy cdmp =
+                        new CompanionDeviceManagerProxy(mContext);
+                Log.i(TAG, "CDM Associations: " + cdmp.getAllAssociations());
+            } else {
+                Log.i(TAG, "CDM not available");
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "CDM error trying companion manager code", e);
+        }
     }
 
     private class SettingsObserver extends ContentObserver {
