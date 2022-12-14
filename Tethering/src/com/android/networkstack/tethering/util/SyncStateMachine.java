@@ -20,6 +20,7 @@ import android.util.Log;
 
 import com.android.internal.util.State;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -31,6 +32,8 @@ import java.util.List;
  * All methods of this class must be called on only one thread.
  */
 public class SyncStateMachine {
+    private static final int DEFAULT_CAPACITY = 1;
+    private static final int CMD_START = 0;
     private final String mName;
     private final Thread mMyThread;
     private final boolean mDbg;
@@ -133,8 +136,11 @@ public class SyncStateMachine {
         ensureCorrectThread();
         ensureValidState(initialState);
 
-        mCurrentState = initialState;
-        mDestState = null;
+        final StateInfo stateInfo = mStateInfo.get(initialState);
+        if (stateInfo.parent != null) {
+            throw new IllegalStateException("Initial state can't be child state");
+        }
+        processMessage(CMD_START, 0, 0, initialState, true /* fromInternal */);
         mStarted = true;
     }
 
@@ -142,7 +148,17 @@ public class SyncStateMachine {
      * Process the message synchronously then perform state transition.
      */
     public final void processMessage(int what, int arg1, int arg2, Object obj) {
+        processMessage(what, arg1, arg2, obj, false /* fromIntenral */);
+    }
+
+    private void processMessage(int what, int arg1, int arg2, Object obj, boolean fromInternal) {
         ensureCorrectThread();
+
+        if (fromInternal && what == CMD_START) {
+            transitionTo((State) obj); // transition to initial state.
+        }
+
+        performTransitions();
     }
 
     /**
@@ -164,6 +180,60 @@ public class SyncStateMachine {
             mDestState = destState;
         } else {
             throw new IllegalStateException("Destination already be specified");
+        }
+    }
+
+    private void performTransitions() {
+        // 1. Determine the common ancestor state of current/destination states
+        // 2. Invoke state exit list from current state to common acestor state.
+        // 3. Invoke state enter list from common ancestor state to destState by going
+        // through mEnterStateStack.
+        if (mDestState == null) return;
+
+        invokeExitMethods(setupEnterStackOfInactiveState());
+        invokeEnterMethods();
+        mEnterStateStack.clear();
+        mDestState = null;
+    }
+
+    // Instead of creating a new ArrayList every time the machine performs a transition, having a
+    // cache stack temporary storing the states which will be entered.
+    private final ArrayList<StateInfo> mEnterStateStack = new ArrayList<>(DEFAULT_CAPACITY);
+    private StateInfo setupEnterStackOfInactiveState() {
+        // Search up the parent list of the destination state for an active
+        // state.
+        StateInfo curStateInfo = mStateInfo.get(mDestState);
+        while ((curStateInfo != null) && !curStateInfo.mActive) {
+            mEnterStateStack.add(curStateInfo);
+            curStateInfo = mStateInfo.get(curStateInfo.parent);
+        }
+
+        // common ancestor state of current state and destination state. Current state or
+        // destination state could be common ancestor if they are in the same parent list.
+        return curStateInfo;
+    }
+
+    // Call the exit method from current state to common ancestor state.
+    private void invokeExitMethods(final StateInfo commonStateInfo) {
+        StateInfo stateInfo = mStateInfo.get(mCurrentState);
+        while (stateInfo != null && stateInfo != commonStateInfo) {
+            if (mDbg) Log.d(mName, stateInfo.state + " exit()");
+            stateInfo.state.exit();
+            stateInfo.mActive = false;
+            stateInfo = mStateInfo.get(stateInfo.parent);
+        }
+
+        mCurrentState = stateInfo != null ? stateInfo.state : null;
+    }
+
+    // Call the enter method from common ancestor state to destination state.
+    private void invokeEnterMethods() {
+        while (!mEnterStateStack.isEmpty()) {
+            final StateInfo stateInfo = mEnterStateStack.remove(mEnterStateStack.size() - 1);
+            if (mDbg) Log.d(mName, stateInfo.state + " enter()");
+            mCurrentState = stateInfo.state;
+            stateInfo.state.enter();
+            stateInfo.mActive = true;
         }
     }
 
