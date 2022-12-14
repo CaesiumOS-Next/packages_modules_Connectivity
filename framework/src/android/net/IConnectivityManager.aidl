@@ -247,4 +247,6 @@ interface IConnectivityManager
     boolean getFirewallChainEnabled(int chain);
 
     void replaceFirewallChain(int chain, in int[] uids);
+
+    void setVpnNetworkPreference(boolean enabled, in UidRange[] ranges);
 }
