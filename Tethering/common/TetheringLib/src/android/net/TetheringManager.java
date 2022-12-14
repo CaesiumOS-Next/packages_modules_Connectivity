@@ -243,6 +243,16 @@ public class TetheringManager {
     public static final int TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION = 14;
     public static final int TETHER_ERROR_NO_ACCESS_TETHERING_PERMISSION = 15;
     public static final int TETHER_ERROR_UNKNOWN_TYPE = 16;
+    /** @hide */
+    public static final int TETHER_ERROR_IP_FORWARDING_ENABLE_ERROR = 17;
+    /** @hide */
+    public static final int TETHER_ERROR_IP_FORWARDING_DISABLE_ERROR = 18;
+    /** @hide */
+    public static final int TETHER_ERROR_START_TETHERING_ERROR = 19;
+    /** @hide */
+    public static final int TETHER_ERROR_STOP_TETHERING_ERROR = 20;
+    /** @hide */
+    public static final int TETHER_ERROR_SET_DNS_FORWARDERS_ERROR = 21;
 
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
