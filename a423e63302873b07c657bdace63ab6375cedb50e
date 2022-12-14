@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c3a780c0_df9f614d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3122,
+      "author": {
+        "id": 1966927
+      },
+      "writtenOn": "2022-12-14T08:46:30Z",
+      "side": 1,
+      "message": "Yes, I believe after switching to an underlying network with no internet, the VPN IKE session is lost and it sends LPs with null interfaces, expecting the initial interface to go down. Is it a bug then? (see https://cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/connectivity/Vpn.java;l\u003d3701?q\u003dVpn.java)\n\nIs the `loge` below (line 3140) disabled by default or do you mean the `if (VDBG)` is disabled by default? \n\nThere is already a log line for the case where the interface is null (line 3140).\nBefore this CL, the log line will be skipped when the MTU is identical. Simplifying the code does not maintain that behaviour. Do you think it should not maintain that behaviour? Do you think I should change the `loge` to your suggestion instead?",
+      "parentUuid": "62135e39_443163b9",
+      "range": {
+        "startLine": 3118,
+        "startChar": 0,
+        "endLine": 3122,
+        "endChar": 57
+      },
+      "revId": "a423e63302873b07c657bdace63ab6375cedb50e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eff11040_90ab78d8",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 3
