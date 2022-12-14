@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25a54b64_25562e7e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-14T09:29:03Z",
+      "side": 1,
+      "message": "Can you please describe the threading model for these two members ? (I think you want to say they must only be touched on mMyThread)",
+      "range": {
+        "startLine": 37,
+        "startChar": 22,
+        "endLine": 37,
+        "endChar": 32
+      },
+      "revId": "3db102934daae2257a9b4f68fd7f4804e12c10f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddded69c_aa9b0bc4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-14T09:29:03Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 40,
+        "startChar": 11,
+        "endLine": 40,
+        "endChar": 18
+      },
+      "revId": "3db102934daae2257a9b4f68fd7f4804e12c10f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "855e3e38_3db1dd7f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-14T09:29:03Z",
+      "side": 1,
+      "message": "provides",
+      "range": {
+        "startLine": 40,
+        "startChar": 37,
+        "endLine": 40,
+        "endChar": 44
+      },
+      "revId": "3db102934daae2257a9b4f68fd7f4804e12c10f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24e8110b_b306bfc2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-14T09:29:03Z",
+      "side": 1,
+      "message": "I don\u0027t understand what this really means. A method is always meant to return its result, so what are you trying to say here ?",
+      "range": {
+        "startLine": 41,
+        "startChar": 7,
+        "endLine": 41,
+        "endChar": 28
+      },
+      "revId": "3db102934daae2257a9b4f68fd7f4804e12c10f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f039aa3_148f385c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-14T09:29:03Z",
+      "side": 1,
+      "message": "this ?\n\n\"a state\" doesn\u0027t tell you which, it sounds like this is called when any state is entered",
+      "range": {
+        "startLine": 51,
+        "startChar": 23,
+        "endLine": 51,
+        "endChar": 24
+      },
+      "revId": "3db102934daae2257a9b4f68fd7f4804e12c10f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbbb33af_31412dfd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-14T09:29:03Z",
+      "side": 1,
+      "message": "This is very ad-hoc ; my suggestion would be to remove it. The original StateMachine doesn\u0027t have this, and it\u0027s unclear how it\u0027s supposed to be used.\n\nIf you really think this is a good design, I believe at the very least you need much more extensive documentation to explain how this is meant to be used, including examples.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 45
+      },
+      "revId": "3db102934daae2257a9b4f68fd7f4804e12c10f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f7cdbdd_45406ebf",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-14T09:29:03Z",
+      "side": 1,
+      "message": "Then how are you supposed to do it ?",
+      "range": {
+        "startLine": 89,
+        "startChar": 45,
+        "endLine": 90,
+        "endChar": 32
+      },
+      "revId": "3db102934daae2257a9b4f68fd7f4804e12c10f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "198088d3_e8231fe0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-14T09:29:03Z",
+      "side": 1,
+      "message": "We discussed how we should not adopt this scheme. We explored four different options to make this work, but I think this implements none of them.",
+      "range": {
+        "startLine": 95,
+        "startChar": 22,
+        "endLine": 95,
+        "endChar": 30
+      },
+      "revId": "3db102934daae2257a9b4f68fd7f4804e12c10f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edebb0d5_f6f82493",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-14T09:29:03Z",
+      "side": 1,
+      "message": "I\u0027m not sure what you mean by `would` here. Do you mean `will` ? If so, who will perform the thread transitions ? Is it the responsibility of the caller ?",
+      "range": {
+        "startLine": 110,
+        "startChar": 60,
+        "endLine": 110,
+        "endChar": 65
+      },
+      "revId": "3db102934daae2257a9b4f68fd7f4804e12c10f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40728e4c_1449e4ef",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-14T09:29:03Z",
+      "side": 1,
+      "message": "This is outdated\n\nAlso the doc should describe what this method returns.",
+      "range": {
+        "startLine": 111,
+        "startChar": 16,
+        "endLine": 113,
+        "endChar": 7
+      },
+      "revId": "3db102934daae2257a9b4f68fd7f4804e12c10f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
