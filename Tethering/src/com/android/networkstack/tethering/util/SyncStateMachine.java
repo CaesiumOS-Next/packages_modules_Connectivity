@@ -18,10 +18,14 @@ package com.android.networkstack.tethering.util;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.android.internal.util.State;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * An implementation of a state machine, meant to be called synchronously.
@@ -31,6 +35,8 @@ import java.util.List;
  * All methods of this class must be called on only one thread.
  */
 public class SyncStateMachine {
+    private static final int DEFAULT_CAPACITY = 1;
+    private static final int CMD_START = 0;
     private final String mName;
     private final Thread mMyThread;
     private final boolean mDbg;
@@ -111,6 +117,7 @@ public class SyncStateMachine {
         if (!mStateInfo.isEmpty()) throw new IllegalStateException("States are already configured");
 
         for (final StateInfo info : stateInfos) {
+            Objects.requireNonNull(info.state);
             if (mStateInfo.containsKey(info.state)) {
                 throw new IllegalStateException("duplicated state is not allowed");
             }
@@ -134,8 +141,12 @@ public class SyncStateMachine {
         ensureCorrectThread();
         ensureValidState(initialState);
 
-        mCurrentState = initialState;
-        mDestState = null;
+        final StateInfo stateInfo = mStateInfo.get(initialState);
+        if (stateInfo.parent != null) {
+            throw new IllegalStateException("Initial state can't be a child state");
+        }
+        transitionTo(initialState);
+        performTransitions();
         mStarted = true;
     }
 
@@ -144,6 +155,8 @@ public class SyncStateMachine {
      */
     public final void processMessage(int what, int arg1, int arg2, Object obj) {
         ensureCorrectThread();
+
+        performTransitions();
     }
 
     /**
@@ -166,6 +179,47 @@ public class SyncStateMachine {
         } else {
             throw new IllegalStateException("Destination already specified");
         }
+    }
+
+    private void performTransitions() {
+        // 1. Determine the common ancestor state of current/destination states
+        // 2. Invoke state exit list from current state to common acestor state.
+        // 3. Invoke state enter list from common ancestor state to destState by going
+        // through mEnterStateStack.
+        if (mDestState == null) return;
+
+        final StateInfo commonAncestor = getLastActiveAncestor(mStateInfo.get(mDestState));
+
+        executeExitMethods(commonAncestor, mStateInfo.get(mCurrentState));
+        executeEnterMethods(commonAncestor, mStateInfo.get(mDestState));
+        mCurrentState = mDestState;
+        mDestState = null;
+    }
+
+    private StateInfo getLastActiveAncestor(final StateInfo start) {
+        if (null == start || start.mActive) return start;
+
+        return getLastActiveAncestor(mStateInfo.get(start.parent));
+    }
+
+    // Call the exit method from current state to common ancestor state.
+    private void executeExitMethods(@Nullable StateInfo end, @NonNull StateInfo start) {
+        if (end == start) return;
+
+        if (mDbg) Log.d(mName, start.state + " exit()");
+        start.state.exit();
+        start.mActive = false;
+        executeExitMethods(end, mStateInfo.get(start.parent));
+    }
+
+    // Call the enter method from common ancestor state to destination state.
+    private void executeEnterMethods(@Nullable StateInfo end, @NonNull StateInfo dest) {
+        if (dest == end) return;
+
+        executeEnterMethods(end, mStateInfo.get(dest.parent));
+        if (mDbg) Log.d(mName, dest.state + " enter()");
+        dest.state.enter();
+        dest.mActive = true;
     }
 
     private void ensureCorrectThread() {
