@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56d0b6c4_c8eb6cd5",
+        "filename": "service/src/com/android/server/connectivity/NetworkPreferenceList.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-15T05:36:13Z",
+      "side": 1,
+      "message": "Guidance on this is a bit conflicting, so I renamed it to mPreferences, made it private, made the object iterable and implement a reasonable toString.\n\nThanks, this made the code nicer to use 😊",
+      "parentUuid": "34f3a37f_3f5aae29",
+      "range": {
+        "startLine": 46,
+        "startChar": 34,
+        "endLine": 46,
+        "endChar": 45
+      },
+      "revId": "96d573b622a48428ef94268783c1672df1602292",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43600814_7cf80d04",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-15T02:53:27Z",
       "side": 1,
       "message": "This is a generic class now, do you want to rephrase the comment?",
+      "range": {
+        "startLine": 59,
+        "startChar": 7,
+        "endLine": 60,
+        "endChar": 48
+      },
+      "revId": "96d573b622a48428ef94268783c1672df1602292",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e5f6529_d96d9e34",
+        "filename": "service/src/com/android/server/connectivity/NetworkPreferenceList.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-15T05:36:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43600814_7cf80d04",
       "range": {
         "startLine": 59,
         "startChar": 7,
