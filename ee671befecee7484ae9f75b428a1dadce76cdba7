@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c72f7e1_dbed8a46",
+        "filename": "service/src/com/android/server/connectivity/NetworkPreferenceList.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-15T05:07:21Z",
+      "side": 1,
+      "message": "2022?",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "ee671befecee7484ae9f75b428a1dadce76cdba7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0fd5184_beb27201",
+        "filename": "service/src/com/android/server/connectivity/ProfileNetworkPreferenceInfo.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-15T05:07:21Z",
+      "side": 1,
+      "message": "2022?",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "ee671befecee7484ae9f75b428a1dadce76cdba7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
