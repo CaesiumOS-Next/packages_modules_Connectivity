@@ -402,4 +402,25 @@ public class UidRangeUtilsTest {
         expected.add(uids20_24);
         assertEquals(expected, UidRangeUtils.convertArrayToUidRange(input));
     }
+
+    @Test
+    public void testSortRangesByStartUid() throws Exception {
+        final UidRange uid1 = new UidRange(100, 110);
+        final UidRange uid2 = new UidRange(120, 130);
+        final UidRange[] unsortedRanges = new UidRange[] {uid2, uid1};
+        final UidRange[] sortedRanges = UidRangeUtils.sortRangesByStartUid(unsortedRanges);
+        assertEquals(uid1, sortedRanges[0]);
+        assertEquals(uid2, sortedRanges[1]);
+    }
+
+    @Test
+    public void testSortedRangesContainOverlap() throws Exception {
+        final UidRange uid1 = new UidRange(100, 110);
+        final UidRange uid2 = new UidRange(109, 120);
+        final UidRange uid3 = new UidRange(120, 130);
+        final UidRange[] overlappedRanges1 = new UidRange[] {uid1, uid2};
+        final UidRange[] overlappedRanges2 = new UidRange[] {uid2, uid3};
+        assertTrue(UidRangeUtils.sortedRangesContainOverlap(overlappedRanges1));
+        assertTrue(UidRangeUtils.sortedRangesContainOverlap(overlappedRanges2));
+    }
 }
