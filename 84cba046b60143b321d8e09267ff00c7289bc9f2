@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e325a55_14afcec6",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsPacketWriter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-15T01:58:54Z",
+      "side": 1,
+      "message": "Good point, but I\u0027d rather rename the other method in that case (since it\u0027s private so a more complicated name isn\u0027t as visible). Changed it to `writePartialLabelsNoCompression`.",
+      "parentUuid": "e70a6427_d148f204",
+      "range": {
+        "startLine": 227,
+        "startChar": 17,
+        "endLine": 227,
+        "endChar": 41
+      },
+      "revId": "84cba046b60143b321d8e09267ff00c7289bc9f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2845d75_9009150b",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-14T08:36:53Z",
       "side": 1,
       "message": "Add @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)? This test should be running on T+ devices.",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 26
+      },
+      "revId": "84cba046b60143b321d8e09267ff00c7289bc9f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a243b3a3_099265e0",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsPacketWriterTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-15T01:58:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2845d75_9009150b",
       "range": {
         "startLine": 27,
         "startChar": 6,
