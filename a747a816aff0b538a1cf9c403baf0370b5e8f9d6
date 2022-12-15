@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13d74652_9ea9c8cb",
+        "filename": "service/src/com/android/server/connectivity/NetworkPreferenceList.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-15T05:42:16Z",
+      "side": 1,
+      "message": "this should be \"the\", right?",
+      "range": {
+        "startLine": 64,
+        "startChar": 10,
+        "endLine": 64,
+        "endChar": 12
+      },
+      "revId": "a747a816aff0b538a1cf9c403baf0370b5e8f9d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
