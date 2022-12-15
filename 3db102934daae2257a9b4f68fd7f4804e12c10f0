@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38abe099_d904bf2b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-15T05:59:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25a54b64_25562e7e",
+      "range": {
+        "startLine": 37,
+        "startChar": 22,
+        "endLine": 37,
+        "endChar": 32
+      },
+      "revId": "3db102934daae2257a9b4f68fd7f4804e12c10f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ddded69c_aa9b0bc4",
@@ -70,6 +94,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f4ed45e_f3a8b762",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-15T05:59:54Z",
+      "side": 1,
+      "message": "Removed the confusing word. What I want to mentioned is this class extend \"State\" class.",
+      "parentUuid": "ddded69c_aa9b0bc4",
+      "range": {
+        "startLine": 40,
+        "startChar": 11,
+        "endLine": 40,
+        "endChar": 18
+      },
+      "revId": "3db102934daae2257a9b4f68fd7f4804e12c10f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "780d7e08_0f3d9dde",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-15T05:59:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "855e3e38_3db1dd7f",
+      "range": {
+        "startLine": 40,
+        "startChar": 37,
+        "endLine": 40,
+        "endChar": 44
+      },
+      "revId": "3db102934daae2257a9b4f68fd7f4804e12c10f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24e8110b_b306bfc2",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-12-14T09:29:03Z",
       "side": 1,
       "message": "I don\u0027t understand what this really means. A method is always meant to return its result, so what are you trying to say here ?",
+      "range": {
+        "startLine": 41,
+        "startChar": 7,
+        "endLine": 41,
+        "endChar": 28
+      },
+      "revId": "3db102934daae2257a9b4f68fd7f4804e12c10f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b80bb330_20220f64",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-15T05:59:54Z",
+      "side": 1,
+      "message": "Originally I try to point out that there is return value when enter or exit this state. Now I add more comment in enter/exit function, so just remove these words to avoid confusing.",
+      "parentUuid": "24e8110b_b306bfc2",
       "range": {
         "startLine": 41,
         "startChar": 7,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dea8e8f_c82c2c53",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-15T05:59:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f039aa3_148f385c",
+      "range": {
+        "startLine": 51,
+        "startChar": 23,
+        "endLine": 51,
+        "endChar": 24
+      },
+      "revId": "3db102934daae2257a9b4f68fd7f4804e12c10f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fbbb33af_31412dfd",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-12-14T09:29:03Z",
       "side": 1,
       "message": "This is very ad-hoc ; my suggestion would be to remove it. The original StateMachine doesn\u0027t have this, and it\u0027s unclear how it\u0027s supposed to be used.\n\nIf you really think this is a good design, I believe at the very least you need much more extensive documentation to explain how this is meant to be used, including examples.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 45
+      },
+      "revId": "3db102934daae2257a9b4f68fd7f4804e12c10f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c174e52e_6eba630c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-15T05:59:54Z",
+      "side": 1,
+      "message": "Update the doc. This is useful if state machine have multiple hierarchy. A -\u003e B -\u003e C. If A is transitioning to C but something wrong happen in B, B can tell its error to C. There is different between StateMachine and SyncStateMachine that SyncStateMachine doesn\u0027t allow changing the target state in the mid way of state transitions but StateMachine can. Thus, StateMachine can just change the target state to error state if error happen in the mid-way.\n\nFor StateMachine, state B can call transitionTo(E) in its enter(). If A calling transitionTo(C), the result would be A -\u003e B -\u003e C -\u003e B -\u003e A -\u003e D -\u003e E.\n  A -\u003e B -\u003e C\n  D -\u003e E\nBut SyncStateMachine will just be A -\u003e B -\u003e C because B won\u0027t allow to call transitionTo in its enter(). Instead B can pass the errorCode to C, then C could decide whether to call transitionTo(E).\n\nAllow changing the target in the mid-way make state transition be very complicated, especially when multiple states all try to change target in the mid-way",
+      "parentUuid": "fbbb33af_31412dfd",
       "range": {
         "startLine": 53,
         "startChar": 0,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c666535_3faae6cd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-15T05:59:54Z",
+      "side": 1,
+      "message": "Change the doc. I mean the state can only have one parent. Multiple parent states for one child is not supported.\n\nA   B\n \\ /\n  C",
+      "parentUuid": "7f7cdbdd_45406ebf",
+      "range": {
+        "startLine": 89,
+        "startChar": 45,
+        "endLine": 90,
+        "endChar": 32
+      },
+      "revId": "3db102934daae2257a9b4f68fd7f4804e12c10f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "198088d3_e8231fe0",
@@ -175,6 +343,30 @@
       "writtenOn": "2022-12-14T09:29:03Z",
       "side": 1,
       "message": "We discussed how we should not adopt this scheme. We explored four different options to make this work, but I think this implements none of them.",
+      "range": {
+        "startLine": 95,
+        "startChar": 22,
+        "endLine": 95,
+        "endChar": 30
+      },
+      "revId": "3db102934daae2257a9b4f68fd7f4804e12c10f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c98e800_c1821f96",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-15T05:59:54Z",
+      "side": 1,
+      "message": "Per talked offload, changing a list of states and only allow to be called once before started.",
+      "parentUuid": "198088d3_e8231fe0",
       "range": {
         "startLine": 95,
         "startChar": 22,
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a84460d_534169b9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-15T05:59:54Z",
+      "side": 1,
+      "message": "state transitions would be perform inside this function. Change the doc to \"Process the message synchronously then perform state transition\"",
+      "parentUuid": "edebb0d5_f6f82493",
+      "range": {
+        "startLine": 110,
+        "startChar": 60,
+        "endLine": 110,
+        "endChar": 65
+      },
+      "revId": "3db102934daae2257a9b4f68fd7f4804e12c10f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40728e4c_1449e4ef",
@@ -221,6 +437,30 @@
       "writtenOn": "2022-12-14T09:29:03Z",
       "side": 1,
       "message": "This is outdated\n\nAlso the doc should describe what this method returns.",
+      "range": {
+        "startLine": 111,
+        "startChar": 16,
+        "endLine": 113,
+        "endChar": 7
+      },
+      "revId": "3db102934daae2257a9b4f68fd7f4804e12c10f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1ee854f_c2143932",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-15T05:59:54Z",
+      "side": 1,
+      "message": "updated.",
+      "parentUuid": "40728e4c_1449e4ef",
       "range": {
         "startLine": 111,
         "startChar": 16,
