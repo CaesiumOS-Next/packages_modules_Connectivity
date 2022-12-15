@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d77aa019_f13ab980",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-15T04:50:24Z",
+      "side": 1,
+      "message": "Not finished but sending a batch of comments now",
+      "revId": "fa4fcc860322ef0aa64d2da862ea9d6ef7a84374",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dde1f36a_4a1c49c7",
+        "filename": "service/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-15T04:50:24Z",
+      "side": 1,
+      "message": "We already have framework-annotations-lib. Can you please use `com.android.internal.annotations.VisibleForTesting` which we already use, instead of introducing this new dependency ?",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 41
+      },
+      "revId": "fa4fcc860322ef0aa64d2da862ea9d6ef7a84374",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "769cda4c_dc56a8b3",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-15T04:50:24Z",
+      "side": 1,
+      "message": "Can you please address the ErrorProne warning ? Also below",
+      "range": {
+        "startLine": 138,
+        "startChar": 42,
+        "endLine": 138,
+        "endChar": 46
+      },
+      "revId": "fa4fcc860322ef0aa64d2da862ea9d6ef7a84374",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de6eebae_834a5abf",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-15T04:50:24Z",
+      "side": 1,
+      "message": "Won\u0027t this fit on one line ?",
+      "range": {
+        "startLine": 166,
+        "startChar": 84,
+        "endLine": 166,
+        "endChar": 85
+      },
+      "revId": "fa4fcc860322ef0aa64d2da862ea9d6ef7a84374",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db3762cc_226e195e",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-15T04:50:24Z",
+      "side": 1,
+      "message": "Nit : \"connectToKernel\" doesn\u0027t sound like a function that would return an fd. I know this is the same name we used for TcpSocketTracker but I kind of regret it ; what would you think of `fdConnectedToNetlink` or similar ?",
+      "range": {
+        "startLine": 826,
+        "startChar": 30,
+        "endLine": 826,
+        "endChar": 45
+      },
+      "revId": "fa4fcc860322ef0aa64d2da862ea9d6ef7a84374",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0f7293a_2e9d8656",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-15T04:50:24Z",
+      "side": 1,
+      "message": "representing",
+      "range": {
+        "startLine": 836,
+        "startChar": 37,
+        "endLine": 836,
+        "endChar": 46
+      },
+      "revId": "fa4fcc860322ef0aa64d2da862ea9d6ef7a84374",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6afc8ee9_6244d977",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-15T04:50:24Z",
+      "side": 1,
+      "message": "See my comment on the other patch",
+      "range": {
+        "startLine": 840,
+        "startChar": 24,
+        "endLine": 840,
+        "endChar": 30
+      },
+      "revId": "fa4fcc860322ef0aa64d2da862ea9d6ef7a84374",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01d18474_05b3d496",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-15T04:50:24Z",
+      "side": 1,
+      "message": "`newConnectivityResources`, to distinguish from the local package resources",
+      "range": {
+        "startLine": 872,
+        "startChar": 25,
+        "endLine": 872,
+        "endChar": 37
+      },
+      "revId": "fa4fcc860322ef0aa64d2da862ea9d6ef7a84374",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "726e4c14_9053b3cc",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-15T04:50:24Z",
+      "side": 1,
+      "message": "`doesAnyTcpSocketExist` or `isAnyTcpSocketCreated` or something similar.\n\n(\"is exist\" is not correct English, and \"existed\" wouldn\u0027t work here because it\u0027s accomplished ; you could use \"extant\" but that word is obscure, \"existing\" works grammatically but looks weird)",
+      "range": {
+        "startLine": 879,
+        "startChar": 12,
+        "endLine": 879,
+        "endChar": 14
+      },
+      "revId": "fa4fcc860322ef0aa64d2da862ea9d6ef7a84374",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "915cbba6_c4d9185a",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 897,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-15T04:50:24Z",
+      "side": 1,
+      "message": "Do you want to count iterations as a security measure to avoid possible infinite loops ? E.g. don\u0027t parse more than 100 messages, or whatever is appropriate as a limit",
+      "range": {
+        "startLine": 897,
+        "startChar": 25,
+        "endLine": 897,
+        "endChar": 52
+      },
+      "revId": "fa4fcc860322ef0aa64d2da862ea9d6ef7a84374",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dae446bf_dfd9d8b7",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-15T04:50:24Z",
+      "side": 1,
+      "message": "Please document the return value and ideally rename the function so it\u0027s apparent from the function name what this will return.",
+      "range": {
+        "startLine": 908,
+        "startChar": 12,
+        "endLine": 908,
+        "endChar": 19
+      },
+      "revId": "fa4fcc860322ef0aa64d2da862ea9d6ef7a84374",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
