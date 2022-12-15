@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ede784e4_9c7016e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-15T09:08:24Z",
+      "side": 1,
+      "message": "Upload new patch to fix TH failure.",
+      "revId": "ff10faa7c705f4268bfbd44f085b0ebe189f7c3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
