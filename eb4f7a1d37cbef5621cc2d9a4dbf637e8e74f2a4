@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4aef293_b06e9647",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 11136,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-15T02:53:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04a09c10_b6aaddd5",
+      "range": {
+        "startLine": 11136,
+        "startChar": 25,
+        "endLine": 11136,
+        "endChar": 48
+      },
+      "revId": "eb4f7a1d37cbef5621cc2d9a4dbf637e8e74f2a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f478152d_4de8e2cf",
@@ -60,6 +84,30 @@
       "writtenOn": "2022-12-14T07:20:56Z",
       "side": 1,
       "message": "You could have written this with an anonymous class too, or even a method ref, e.g. :\n\n    private static int compare(UidRange r1, UidRange r2) { ... }\n\n    Collections.sort(uidRanges, UidRangeUtils::compare);\n\nOnly if you find it easier to read/write",
+      "range": {
+        "startLine": 11138,
+        "startChar": 36,
+        "endLine": 11138,
+        "endChar": 54
+      },
+      "revId": "eb4f7a1d37cbef5621cc2d9a4dbf637e8e74f2a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0749aaa_c49a8d07",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 11138,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-15T02:53:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f478152d_4de8e2cf",
       "range": {
         "startLine": 11138,
         "startChar": 36,
@@ -93,6 +141,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a3d21f6_242efef1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 11142,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-15T02:53:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ce562b3_bfba8ba7",
+      "range": {
+        "startLine": 11142,
+        "startChar": 67,
+        "endLine": 11142,
+        "endChar": 82
+      },
+      "revId": "eb4f7a1d37cbef5621cc2d9a4dbf637e8e74f2a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0984ebc_64b9f5cf",
@@ -106,6 +178,30 @@
       "writtenOn": "2022-12-14T07:20:56Z",
       "side": 1,
       "message": "Let\u0027s sort and validate the ranges in two separate steps\n\n    sortedRanges \u003d sortRangesByStartUid\n    if (sortedRangesContainOverlap(sortedRanges)) throw IllegalArgumentException",
+      "range": {
+        "startLine": 11162,
+        "startChar": 51,
+        "endLine": 11162,
+        "endChar": 74
+      },
+      "revId": "eb4f7a1d37cbef5621cc2d9a4dbf637e8e74f2a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4df9464_f99a7428",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 11162,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-15T02:53:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0984ebc_64b9f5cf",
       "range": {
         "startLine": 11162,
         "startChar": 51,
