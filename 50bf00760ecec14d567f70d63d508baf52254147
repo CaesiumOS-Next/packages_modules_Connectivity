@@ -60,6 +60,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8580a639_b5076500",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Oops, it\u0027s wrong logic here. It should be `!sendPacketToIpv4AndIpv6(requestSender, MdnsConstants.MDNS_PORT)` like `supportMultipleSocketsDiscovery \u003d false` case. In single socket case, `sendPacketTo()` would throw IOException and return null if sending packet failed. Then the emulator port won\u0027t be sent. We should do the same desing for multiple sockets case. So returns null if sending packet to IPv4 and IPv6 are both failed.\n\nBut as you said, it doesn\u0027t matter the result is \"half worked\" or \"fully worked\". So just not doing the check here maybe.",
+      "parentUuid": "08e0f2ff_ae9c1d1d",
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6395e77_87b06650",
         "filename": "service/mdns/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
         "patchSetId": 8
@@ -71,6 +89,30 @@
       "writtenOn": "2022-12-14T06:57:44Z",
       "side": 1,
       "message": ", e to keep the stacktrace; or if this is going to happen in normal cases, at least \"+ e.getMessage()\" (but then it should be Log.i or lower)",
+      "range": {
+        "startLine": 180,
+        "startChar": 50,
+        "endLine": 180,
+        "endChar": 52
+      },
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b029f089_466e9b2c",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6395e77_87b06650",
       "range": {
         "startLine": 180,
         "startChar": 50,
@@ -123,6 +165,48 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fd2fe782_a066cfc1",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "\u003e Would this log an error every time on a v4-only network ? Could you avoid that by checking whether the socket has v4/v6 ?\n\nNo, I check the hasJoinedV4/hasJoinedV6 on MdnsSocketManager. So the v4 / v6 packet won\u0027t be sent on the v6-only / v4-only network.",
+      "parentUuid": "82cc4be5_9a4fecf6",
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5050155a_de272762",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ff62fc3_c33cdbb9",
+      "range": {
+        "startLine": 188,
+        "startChar": 48,
+        "endLine": 188,
+        "endChar": 49
+      },
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a971675_c6e08429",
         "filename": "service/mdns/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
         "patchSetId": 8
@@ -134,6 +218,24 @@
       "writtenOn": "2022-12-14T06:57:44Z",
       "side": 1,
       "message": "I\u0027d suggest making the method void, if it \"half worked\" (for example with v6 but not v4) it\u0027s not very useful information anyway",
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0238db9c_e4b6fe2c",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a971675_c6e08429",
       "revId": "50bf00760ecec14d567f70d63d508baf52254147",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -151,6 +253,42 @@
       "writtenOn": "2022-12-14T06:57:44Z",
       "side": 1,
       "message": "See suggestion in MdnsSocketClient to change the MdnsSocketController interface; you shouldn\u0027t need this flag here afterwards, as all socket clients would have a consistent interface.",
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca1f2b3b_ac310331",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "But registerListener/unregisterListener still have a difference to start/stop discovery. So this flag is necessary probably.",
+      "parentUuid": "deeecd94_e12c7a8a",
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "795f2c32_18ec5dfd",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "deeecd94_e12c7a8a",
       "revId": "50bf00760ecec14d567f70d63d508baf52254147",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -191,6 +329,54 @@
       "writtenOn": "2022-12-14T06:57:44Z",
       "side": 1,
       "message": "MulticastPacketReader needs the socket to be nonblocking (see FdEventsReader#createFd).\n\nFor reference I\u0027m doing it with:\n\n    final int flags \u003d Os.fcntlInt(fd, OsConstants.F_GETFL, 0);\n    Os.fcntlInt(fd, OsConstants.F_SETFL, flags | OsConstants.SOCK_NONBLOCK);\n    \nIn the MdnsInterfaceAdvertiser constructor in aosp/2239481",
+      "range": {
+        "startLine": 72,
+        "startChar": 28,
+        "endLine": 72,
+        "endChar": 49
+      },
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fc22d85_92bab949",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceSocket.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f58f5a0a_37c1f28d",
+      "range": {
+        "startLine": 72,
+        "startChar": 78,
+        "endLine": 72,
+        "endChar": 81
+      },
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bb58104_319f6658",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceSocket.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9dd33d0_6224b5bd",
       "range": {
         "startLine": 72,
         "startChar": 28,
@@ -248,6 +434,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df8becc0_e1ced728",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsInterfaceSocket.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e0b16a4_20ff0f1f",
+      "range": {
+        "startLine": 144,
+        "startChar": 16,
+        "endLine": 144,
+        "endChar": 19
+      },
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "202666ab_7d44f9f9",
@@ -271,6 +481,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbe28f17_c4de6150",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketClient.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "202666ab_7d44f9f9",
+      "range": {
+        "startLine": 128,
+        "startChar": 44,
+        "endLine": 129,
+        "endChar": 37
+      },
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff7027d5_63140cf1",
@@ -284,6 +518,30 @@
       "writtenOn": "2022-12-14T06:57:44Z",
       "side": 1,
       "message": "This is called a Controller, but it\u0027s implemented by a Client and a Manager; so they all have the same role but use 3 different names. There should be consistent naming, it\u0027s hard to navigate all these classes.\n\nMaybe just call this \"SocketClient\" or \"IMdnsSocketClient\" or \"MdnsSocketClientBase\", and rename \"MdnsSocketManager\" to \"MdnsPerNetworkSocketClient\" or \"MdnsMultinetworkSocketClient\" ? So it\u0027s clear they\u0027re all different implementations of \"socket clients\"",
+      "range": {
+        "startLine": 31,
+        "startChar": 17,
+        "endLine": 31,
+        "endChar": 37
+      },
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1497b229_b6422fed",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff7027d5_63140cf1",
       "range": {
         "startLine": 31,
         "startChar": 17,
@@ -319,6 +577,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d65b7125_30bd5bd4",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Yes, it\u0027s necessary. Because the MdnsSocketClient need to delivery responses to MdnsDiscoveryManager but MdnsDiscoveryManager is created with MdnsSocketClient. So the setCallback is the way for MdnsDiscoveryManager to receive responses. The callback is set here.\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2215165/8/service-t/src/com/android/server/NsdService.java#685",
+      "parentUuid": "c1355b6a_42eb2714",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 50
+      },
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e0c5c2cc_af705cfb",
         "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
         "patchSetId": 8
@@ -330,6 +612,24 @@
       "writtenOn": "2022-12-14T06:57:44Z",
       "side": 1,
       "message": "Unused ?",
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "904bf285_69c82e98",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "e0c5c2cc_af705cfb",
       "revId": "50bf00760ecec14d567f70d63d508baf52254147",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -351,6 +651,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9da6e2b_93e9f261",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4549ffa_7d9e8bbf",
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8785632_ec369f4f",
@@ -368,6 +686,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "147ff917_57189769",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e8785632_ec369f4f",
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "324dcd5c_2ca0e5f5",
@@ -381,6 +717,30 @@
       "writtenOn": "2022-12-15T07:50:28Z",
       "side": 1,
       "message": "This needs to be in the handler thread since the map is updated from there.\n\nCan you add checks for the current thread on all public methods ?",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 64
+      },
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5f48ea7_6d16cc3b",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "324dcd5c_2ca0e5f5",
       "range": {
         "startLine": 140,
         "startChar": 0,
@@ -410,6 +770,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eb8be691_4463caff",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "sendMulticastPacket/sendUnicastPacket is calling from non-looper thread, so I can\u0027t add handler thread check here. Instead, I post the `sendMdnsPacket(packet)` to the handler to ensure they are running on looper thread.",
+      "parentUuid": "298b2178_43c6781b",
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "96b83cc9_d31ba070",
         "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
         "patchSetId": 8
@@ -421,6 +799,24 @@
       "writtenOn": "2022-12-14T06:57:44Z",
       "side": 1,
       "message": "This seems a bit arbitrary, maybe add a comment that this matches what MdnsSocketClient uses.\nYou could also note that mdnsresponder mDNSEmbeddedAPI.h uses 8940 for Ethernet jumbo frames (which I think is a bit too much memory), but rightfully notes that 1440 should generally be enough because of standard Ethernet (so anything \u003e 1440 is probably OK).\n\nWe can ask maze@ if he\u0027s aware of any use-case where anyone might be using using Ethernet jumbo frames in an environment that could use mDNS.",
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca104fa5_dce373ee",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "96b83cc9_d31ba070",
       "revId": "50bf00760ecec14d567f70d63d508baf52254147",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -444,6 +840,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ee976cc9_8a226194",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Yes, I found a problem on MdnsSocketManager. If no `onInterfaceDestroyed` callback, the destroyed socket won\u0027t be remove from `mActiveNetworkSockets`.",
+      "parentUuid": "aa7183af_c989d896",
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "57b5ae7f_4aeda9b9",
         "filename": "service/mdns/com/android/server/connectivity/mdns/MulticastPacketReader.java",
         "patchSetId": 8
@@ -455,6 +869,30 @@
       "writtenOn": "2022-12-14T06:57:44Z",
       "side": 1,
       "message": "final",
+      "range": {
+        "startLine": 36,
+        "startChar": 11,
+        "endLine": 36,
+        "endChar": 12
+      },
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ead2c43b_3f2b03b8",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MulticastPacketReader.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57b5ae7f_4aeda9b9",
       "range": {
         "startLine": 36,
         "startChar": 11,
@@ -488,6 +926,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68c319bc_57239e6a",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MulticastPacketReader.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Ack. Removed.",
+      "parentUuid": "131cbb5b_f5817c5a",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 60
+      },
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d648a42f_0c626479",
@@ -501,6 +963,30 @@
       "writtenOn": "2022-12-14T06:57:44Z",
       "side": 1,
       "message": "Typo: packet",
+      "range": {
+        "startLine": 99,
+        "startChar": 15,
+        "endLine": 99,
+        "endChar": 22
+      },
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bde92c72_44d5eb82",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MulticastPacketReader.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d648a42f_0c626479",
       "range": {
         "startLine": 99,
         "startChar": 15,
@@ -528,6 +1014,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "009ec788_cab77724",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MulticastPacketReader.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa3e8587_52168f2a",
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df64247e_dd712ec2",
@@ -541,6 +1045,30 @@
       "writtenOn": "2022-12-14T06:57:44Z",
       "side": 1,
       "message": "Can this be a generic mock for the interface ? To make it clear the test is not specific to any of the 2 implementations",
+      "range": {
+        "startLine": 50,
+        "startChar": 18,
+        "endLine": 50,
+        "endChar": 35
+      },
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3256dca2_0d1a6f6f",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "df64247e_dd712ec2",
       "range": {
         "startLine": 50,
         "startChar": 18,
@@ -574,6 +1102,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78378064_173b7918",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ddef866_9b5e0a20",
+      "range": {
+        "startLine": 961,
+        "startChar": 69,
+        "endLine": 961,
+        "endChar": 70
+      },
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "491a33f1_9e30aa97",
@@ -587,6 +1139,24 @@
       "writtenOn": "2022-12-14T06:57:44Z",
       "side": 1,
       "message": "Nit: it\u0027s generally not great to have static final mocks, because they have internal state (they record calls and have mocked methods), so tests can fail because of what happened in an earlier test.\n\nMaybe just \"@Mock private Network mNetwork\" as the other members ?\n\nSimilarly the buffer could be initialized in setUp() like mSocketManager (its contents would be carried over from one test to another otherwise)",
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47a27602_1aa621f9",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "491a33f1_9e30aa97",
       "revId": "50bf00760ecec14d567f70d63d508baf52254147",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -614,6 +1184,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e65f2a74_f4b1adeb",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "504a8afa_c2d80f32",
+      "range": {
+        "startLine": 99,
+        "startChar": 21,
+        "endLine": 99,
+        "endChar": 26
+      },
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2eef2ddf_5fbaddd9",
@@ -627,6 +1221,30 @@
       "writtenOn": "2022-12-14T06:57:44Z",
       "side": 1,
       "message": "Nit: it would be good to verify that the response is parsed as expected\n\nYou can probably use a simpler packet for that. It looks like the current one is a reply from a Google Home Max",
+      "range": {
+        "startLine": 129,
+        "startChar": 26,
+        "endLine": 129,
+        "endChar": 44
+      },
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d40090a5_264026d0",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsSocketManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T08:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2eef2ddf_5fbaddd9",
       "range": {
         "startLine": 129,
         "startChar": 26,
