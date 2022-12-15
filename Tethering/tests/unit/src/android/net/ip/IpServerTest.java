@@ -205,6 +205,7 @@ public class IpServerTest {
     @Captor private ArgumentCaptor<DhcpServingParamsParcel> mDhcpParamsCaptor;
 
     private final TestLooper mLooper = new TestLooper();
+    private final Handler mHandler = new Handler(mLooper.getLooper());
     private final ArgumentCaptor<LinkProperties> mLinkPropertiesCaptor =
             ArgumentCaptor.forClass(LinkProperties.class);
     private IpServer mIpServer;
@@ -242,7 +243,7 @@ public class IpServerTest {
         when(mTetherConfig.useLegacyDhcpServer()).thenReturn(usingLegacyDhcp);
         when(mTetherConfig.getP2pLeasesSubnetPrefixLength()).thenReturn(P2P_SUBNET_PREFIX_LENGTH);
         mIpServer = new IpServer(
-                IFACE_NAME, mLooper.getLooper(), interfaceType, mSharedLog, mNetd, mBpfCoordinator,
+                IFACE_NAME, mHandler, interfaceType, mSharedLog, mNetd, mBpfCoordinator,
                 mCallback, mTetherConfig, mAddressCoordinator, mTetheringMetrics, mDependencies);
         mIpServer.start();
         mNeighborEventConsumer = neighborCaptor.getValue();
@@ -301,7 +302,7 @@ public class IpServerTest {
         mBpfDeps = new BpfCoordinator.Dependencies() {
                     @NonNull
                     public Handler getHandler() {
-                        return new Handler(mLooper.getLooper());
+                        return mHandler;
                     }
 
                     @NonNull
@@ -379,7 +380,7 @@ public class IpServerTest {
     public void startsOutAvailable() {
         when(mDependencies.getIpNeighborMonitor(any(), any(), any()))
                 .thenReturn(mIpNeighborMonitor);
-        mIpServer = new IpServer(IFACE_NAME, mLooper.getLooper(), TETHERING_BLUETOOTH, mSharedLog,
+        mIpServer = new IpServer(IFACE_NAME, mHandler, TETHERING_BLUETOOTH, mSharedLog,
                 mNetd, mBpfCoordinator, mCallback, mTetherConfig, mAddressCoordinator,
                 mTetheringMetrics, mDependencies);
         mIpServer.start();

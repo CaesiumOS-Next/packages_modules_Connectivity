@@ -16,6 +16,7 @@
 
 package com.android.networkstack.tethering.util;
 
+import android.os.Message;
 import android.util.Log;
 
 import com.android.internal.util.State;
@@ -69,6 +70,11 @@ public class SyncStateMachine {
 
     /** The state class which provides enter/exit/processMessage methods. */
     public static class SyncState extends State {
+        @Override
+        public boolean processMessage(Message message) {
+            return processMessage(message.what, message.arg1, message.arg2, message.obj);
+        }
+
         /** Called when the message is processed by this state. */
         public boolean processMessage(final int what, final int arg1, final int arg2,
                 final Object obj) {
