@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c6343a6_370d3f1a",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1381,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-15T07:25:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "640ec402_0bd00b37",
+      "range": {
+        "startLine": 1381,
+        "startChar": 11,
+        "endLine": 1381,
+        "endChar": 12
+      },
+      "revId": "9b7480a181e29bd582bd6e2256067b25303ca77f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ea2e26f_1bd0ab0c",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-15T04:09:06Z",
       "side": 1,
       "message": "Curious : why NOT_VCN_MANAGED ? I guess if we ever have a VPN that\u0027s VCN-managed we won\u0027t want to use it by default, so it\u0027s good I think.\n\nBut more importantly, why not NOT_RESTRICTED ? I don\u0027t think we\u0027ll have restricted VPNs any time soon, but if we do I think we should not select them as the default network for these UIDs. Remember, making the network the default for these UIDs will give the UIDs permission to access the network even if they don\u0027t have USE_RESTRICTED_NETWORK.",
+      "range": {
+        "startLine": 1631,
+        "startChar": 31,
+        "endLine": 1631,
+        "endChar": 61
+      },
+      "revId": "9b7480a181e29bd582bd6e2256067b25303ca77f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f63aca76_8e6934b8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1631,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-15T07:25:45Z",
+      "side": 1,
+      "message": "Updated it per offline discussion.",
+      "parentUuid": "5ea2e26f_1bd0ab0c",
       "range": {
         "startLine": 1631,
         "startChar": 31,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aadf9c85_4c0ecd53",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 7138,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-15T07:25:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "229447a5_fa5d9c3e",
+      "range": {
+        "startLine": 7138,
+        "startChar": 12,
+        "endLine": 7138,
+        "endChar": 33
+      },
+      "revId": "9b7480a181e29bd582bd6e2256067b25303ca77f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7890d3db_1a43c62f",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-12-15T04:09:06Z",
       "side": 1,
       "message": "for this session",
+      "range": {
+        "startLine": 11133,
+        "startChar": 66,
+        "endLine": 11133,
+        "endChar": 67
+      },
+      "revId": "9b7480a181e29bd582bd6e2256067b25303ca77f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddd0bec8_be2b68d3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 11133,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-15T07:25:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7890d3db_1a43c62f",
       "range": {
         "startLine": 11133,
         "startChar": 66,
@@ -139,6 +235,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55e1b184_6c6204e6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 11134,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-15T07:25:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71707316_2385fb3b",
+      "range": {
+        "startLine": 11134,
+        "startChar": 11,
+        "endLine": 11134,
+        "endChar": 17
+      },
+      "revId": "9b7480a181e29bd582bd6e2256067b25303ca77f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85f5248b_e0d6e64e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 11134,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-15T07:25:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f197410_985493cb",
+      "range": {
+        "startLine": 11134,
+        "startChar": 34,
+        "endLine": 11134,
+        "endChar": 58
+      },
+      "revId": "9b7480a181e29bd582bd6e2256067b25303ca77f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ac0568b_f16bff78",
@@ -185,6 +329,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "820d44da_b9b808ae",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 11138,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-15T07:25:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ac0568b_f16bff78",
+      "range": {
+        "startLine": 11138,
+        "startChar": 21,
+        "endLine": 11138,
+        "endChar": 28
+      },
+      "revId": "9b7480a181e29bd582bd6e2256067b25303ca77f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6701b59a_312cc2fd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 11138,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-15T07:25:45Z",
+      "side": 1,
+      "message": "\u003e maybe clarify by replacing \"is empty\" with \"if the array is empty\"\n\nDone.\n\n\u003e Also mention that null is not allowed, and use Objects.requireNonNull on |ranges|\n\nWe have used `Objects.requireNonNull` to check `ranges` in `ConnectivityManager#setVpnDefaultForUids()`, do we still want to check it again?",
+      "parentUuid": "f4bf4fd1_ffaa0640",
+      "range": {
+        "startLine": 11138,
+        "startChar": 42,
+        "endLine": 11138,
+        "endChar": 47
+      },
+      "revId": "9b7480a181e29bd582bd6e2256067b25303ca77f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72badc9b_04089f2a",
@@ -198,6 +390,30 @@
       "writtenOn": "2022-12-15T04:09:06Z",
       "side": 1,
       "message": "Generally exclamation marks are for casual speech and as such are never really appropriate for an error message – at least not one that is returned to somebody else. Suggested wording :\n\n    setVpnNetworkPreference: Passed UID ranges overlap",
+      "range": {
+        "startLine": 11146,
+        "startChar": 70,
+        "endLine": 11146,
+        "endChar": 71
+      },
+      "revId": "9b7480a181e29bd582bd6e2256067b25303ca77f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fe44fce_3d55e45c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 11146,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-15T07:25:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72badc9b_04089f2a",
       "range": {
         "startLine": 11146,
         "startChar": 70,
@@ -231,6 +447,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e6e8df8_9883fe64",
+        "filename": "service/src/com/android/server/connectivity/UidRangeUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-15T07:25:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8313409_5ea12ac8",
+      "range": {
+        "startLine": 213,
+        "startChar": 30,
+        "endLine": 213,
+        "endChar": 50
+      },
+      "revId": "9b7480a181e29bd582bd6e2256067b25303ca77f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de404a31_0ec5336b",
@@ -244,6 +484,30 @@
       "writtenOn": "2022-12-15T04:09:06Z",
       "side": 1,
       "message": "Maybe getUidRanges ? This is a NetworkPreference and it doesn\u0027t really have key-value semantics. It has a key, but the payload is the entire object.\n\nMaybe it\u0027s easier to understand if I say that if we need to add a member to this object later, then the name `getValue` becomes very misleading.",
+      "range": {
+        "startLine": 53,
+        "startChar": 30,
+        "endLine": 53,
+        "endChar": 38
+      },
+      "revId": "9b7480a181e29bd582bd6e2256067b25303ca77f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a1dfdeb_991a4f20",
+        "filename": "service/src/com/android/server/connectivity/VpnNetworkPreferenceInfo.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-15T07:25:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de404a31_0ec5336b",
       "range": {
         "startLine": 53,
         "startChar": 30,
