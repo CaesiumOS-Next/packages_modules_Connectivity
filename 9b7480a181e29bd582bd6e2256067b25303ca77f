@@ -379,6 +379,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f026b03a_fc874d27",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 11138,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-15T08:40:54Z",
+      "side": 1,
+      "message": "Absolutely require to check it again. ConnectivityManager is running remotel. When called by VPN this is the system server, but if you hit the AIDL directly it comes from an app.",
+      "parentUuid": "6701b59a_312cc2fd",
+      "range": {
+        "startLine": 11138,
+        "startChar": 42,
+        "endLine": 11138,
+        "endChar": 47
+      },
+      "revId": "9b7480a181e29bd582bd6e2256067b25303ca77f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "72badc9b_04089f2a",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 12

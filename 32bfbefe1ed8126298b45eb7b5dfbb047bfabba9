@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6460fbb7_e3b01f99",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-15T08:40:54Z",
+      "side": 1,
+      "message": "I think the production code is fine now. We need unit tests and CTS.",
+      "revId": "32bfbefe1ed8126298b45eb7b5dfbb047bfabba9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e5dc6d8_8968adb2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 11141,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-15T08:40:54Z",
+      "side": 1,
+      "message": "\", and\" ?",
+      "range": {
+        "startLine": 11141,
+        "startChar": 88,
+        "endLine": 11141,
+        "endChar": 93
+      },
+      "revId": "32bfbefe1ed8126298b45eb7b5dfbb047bfabba9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b392638_c1d480b0",
+        "filename": "service/src/com/android/server/connectivity/UidRangeUtils.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-15T08:40:54Z",
+      "side": 1,
+      "message": "Add :\n\n    If it\u0027s not, the behavior is undefined.",
+      "range": {
+        "startLine": 207,
+        "startChar": 83,
+        "endLine": 207,
+        "endChar": 84
+      },
+      "revId": "32bfbefe1ed8126298b45eb7b5dfbb047bfabba9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ceec2de1_ba7ac1d8",
+        "filename": "service/src/com/android/server/connectivity/VpnNetworkPreferenceInfo.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-15T08:40:54Z",
+      "side": 1,
+      "message": "Ah sorry, I should have thought of that.\n\nThe object returned here is mutable. I think it might be overkill to make a defensive copy, but you should probably call the method `getUidRangesNoCopy()`.",
+      "range": {
+        "startLine": 53,
+        "startChar": 30,
+        "endLine": 53,
+        "endChar": 42
+      },
+      "revId": "32bfbefe1ed8126298b45eb7b5dfbb047bfabba9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "070941b7_c7b3831b",
+        "filename": "tests/unit/java/com/android/server/connectivity/UidRangeUtilsTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-15T08:40:54Z",
+      "side": 1,
+      "message": "Do you want to test also that no overlap correctly returns false ?",
+      "range": {
+        "startLine": 424,
+        "startChar": 8,
+        "endLine": 424,
+        "endChar": 18
+      },
+      "revId": "32bfbefe1ed8126298b45eb7b5dfbb047bfabba9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
