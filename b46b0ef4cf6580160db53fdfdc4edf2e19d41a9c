@@ -16,6 +16,23 @@
       "message": "Hi Patrick, you can review. It just adds the test server but doesn\u0027t use it so it won\u0027t break anything.",
       "revId": "b46b0ef4cf6580160db53fdfdc4edf2e19d41a9c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c948adb_45d89189",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2022-12-15T10:32:18Z",
+      "side": 1,
+      "message": "The actual fix is pending on aosp/2314940",
+      "revId": "b46b0ef4cf6580160db53fdfdc4edf2e19d41a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
