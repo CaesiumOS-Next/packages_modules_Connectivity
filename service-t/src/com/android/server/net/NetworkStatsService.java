@@ -2094,8 +2094,14 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                     mDefaultNetworks, snapshot.getNetwork());
             final int ratType = combineSubtypeEnabled ? NetworkTemplate.NETWORK_TYPE_ALL
                     : getRatTypeForStateSnapshot(snapshot);
-            final NetworkIdentity ident = NetworkIdentity.buildNetworkIdentity(mContext, snapshot,
-                    isDefault, ratType);
+            final NetworkIdentity.Builder identBuilder = new NetworkIdentity.Builder();
+            identBuilder.setNetworkStateSnapshot(snapshot)
+                    .setDefaultNetwork(isDefault);
+            if (snapshot.getLegacyType() == ConnectivityManager.TYPE_MOBILE
+                    && ratType != NetworkTemplate.NETWORK_TYPE_ALL) {
+                identBuilder.setRatType(ratType);
+            }
+            final NetworkIdentity ident = identBuilder.build();
 
             // Traffic occurring on the base interface is always counted for
             // both total usage and UID details.

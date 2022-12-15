@@ -28,7 +28,6 @@ import android.annotation.Nullable;
 import android.annotation.SuppressLint;
 import android.annotation.SystemApi;
 import android.app.usage.NetworkStatsManager;
-import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.service.NetworkIdentityProto;
 import android.telephony.TelephonyManager;
@@ -270,34 +269,6 @@ public class NetworkIdentity {
     /** Get the SubId of this instance. */
     public int getSubId() {
         return mSubId;
-    }
-
-    /**
-     * Assemble a {@link NetworkIdentity} from the passed arguments.
-     *
-     * This methods builds an identity based on the capabilities of the network in the
-     * snapshot and other passed arguments. The identity is used as a key to record data usage.
-     *
-     * @param snapshot the snapshot of network state. See {@link NetworkStateSnapshot}.
-     * @param defaultNetwork whether the network is a default network.
-     * @param ratType the Radio Access Technology(RAT) type of the network. Or
-     *                {@link TelephonyManager#NETWORK_TYPE_UNKNOWN} if not applicable.
-     *                See {@code TelephonyManager.NETWORK_TYPE_*}.
-     * @hide
-     * @deprecated See {@link NetworkIdentity.Builder}.
-     */
-    // TODO: Remove this after all callers are migrated to use new Api.
-    @Deprecated
-    @NonNull
-    public static NetworkIdentity buildNetworkIdentity(Context context,
-            @NonNull NetworkStateSnapshot snapshot, boolean defaultNetwork, int ratType) {
-        final NetworkIdentity.Builder builder = new NetworkIdentity.Builder()
-                .setNetworkStateSnapshot(snapshot).setDefaultNetwork(defaultNetwork)
-                .setSubId(snapshot.getSubId());
-        if (snapshot.getLegacyType() == TYPE_MOBILE && ratType != NETWORK_TYPE_ALL) {
-            builder.setRatType(ratType);
-        }
-        return builder.build();
     }
 
     /**

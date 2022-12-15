@@ -16,7 +16,6 @@
 
 package android.net
 
-import android.content.Context
 import android.net.ConnectivityManager.TYPE_MOBILE
 import android.os.Build
 import android.telephony.TelephonyManager
@@ -32,7 +31,6 @@ private const val TEST_IMSI1 = "testimsi1"
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
 @RunWith(DevSdkIgnoreRunner::class)
 class NetworkIdentitySetTest {
-    private val mockContext = mock(Context::class.java)
 
     private fun buildMobileNetworkStateSnapshot(
         caps: NetworkCapabilities,
@@ -42,12 +40,27 @@ class NetworkIdentitySetTest {
                 LinkProperties(), subscriberId, TYPE_MOBILE)
     }
 
+    private fun buildNetworkIdentity(
+        snapshot: NetworkStateSnapshot,
+        isDefaultNetwork: Boolean,
+        ratType: Int
+    ): NetworkIdentity {
+        val builder = NetworkIdentity.Builder()
+            builder.setNetworkStateSnapshot(snapshot)
+                   .setDefaultNetwork(isDefaultNetwork)
+                   .setSubId(snapshot.subId)
+        if (snapshot.legacyType == TYPE_MOBILE && ratType != NetworkTemplate.NETWORK_TYPE_ALL) {
+            builder.setRatType(ratType)
+        }
+        return builder.build()
+    }
+
     @Test
     fun testCompare() {
-        val ident1 = NetworkIdentity.buildNetworkIdentity(mockContext,
+        val ident1 = buildNetworkIdentity(
             buildMobileNetworkStateSnapshot(NetworkCapabilities(), TEST_IMSI1),
             false /* defaultNetwork */, TelephonyManager.NETWORK_TYPE_UMTS)
-        val ident2 = NetworkIdentity.buildNetworkIdentity(mockContext,
+        val ident2 = buildNetworkIdentity(
             buildMobileNetworkStateSnapshot(NetworkCapabilities(), TEST_IMSI1),
             true /* defaultNetwork */, TelephonyManager.NETWORK_TYPE_UMTS)
 
