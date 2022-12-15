@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1a4cc17_8d659543",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2022-12-15T21:22:18Z",
+      "side": 1,
+      "message": "Not sure the extent to go with the renaming. Should I just stick to renaming the package and android_test and leave the apex for now?",
+      "revId": "8b9e5aa082bdaa96dd8fe3b7cb65c3648b02d12e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
