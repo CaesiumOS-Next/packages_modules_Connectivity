@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34f3a37f_3f5aae29",
+        "filename": "service/src/com/android/server/connectivity/NetworkPreferenceList.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-15T02:53:27Z",
+      "side": 1,
+      "message": "What about renaming it to mPreferences? I think it\u0027s more easy to know it\u0027s a member var of this class instead of a local var in the method.",
+      "range": {
+        "startLine": 46,
+        "startChar": 34,
+        "endLine": 46,
+        "endChar": 45
+      },
+      "revId": "96d573b622a48428ef94268783c1672df1602292",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43600814_7cf80d04",
+        "filename": "service/src/com/android/server/connectivity/NetworkPreferenceList.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-15T02:53:27Z",
+      "side": 1,
+      "message": "This is a generic class now, do you want to rephrase the comment?",
+      "range": {
+        "startLine": 59,
+        "startChar": 7,
+        "endLine": 60,
+        "endChar": 48
+      },
+      "revId": "96d573b622a48428ef94268783c1672df1602292",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
