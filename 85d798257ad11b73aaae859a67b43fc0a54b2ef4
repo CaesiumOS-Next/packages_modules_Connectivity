@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f073204_3592ec75",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-15T22:15:13Z",
+      "side": 1,
+      "message": "TH failure is in tm-mainline-prod, but it is a fake failure, since this CL by itself is only adding an (as yet) unused file.\n\nThe reason TH in tm-mainline-prod fails is due to automerger being stuck and it testing incorrect combinations of patches.",
+      "revId": "85d798257ad11b73aaae859a67b43fc0a54b2ef4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
