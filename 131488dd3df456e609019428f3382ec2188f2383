@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9483cb23_77bc944e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6021,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-12-15T12:21:50Z",
+      "side": 1,
+      "message": "IIUC handleSetOemNetworkPreference doesn’t depend on restricted permissions update.\nAlthough the OEM networks are normally restricted, what gives those apps (PANS) to use networks is not the SYSTEM permission. It\u0027s a special case in netd where apps always have permission to access a network. So it doesn\u0027t matter whether those apps have or don\u0027t have the permission. Essentially, any order of `handleSetOemNetworkPreference` and `restricted permissions update` is fine.",
+      "parentUuid": "1905e588_cb463cd5",
+      "range": {
+        "startLine": 6021,
+        "startChar": 12,
+        "endLine": 6021,
+        "endChar": 41
+      },
+      "revId": "131488dd3df456e609019428f3382ec2188f2383",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52755640_0bce76d3",
