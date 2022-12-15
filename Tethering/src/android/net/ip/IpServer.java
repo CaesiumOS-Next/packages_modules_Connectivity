@@ -105,7 +105,7 @@ public class IpServer extends StateMachineShim {
     public static final int STATE_AVAILABLE   = 1;
     public static final int STATE_TETHERED    = 2;
     public static final int STATE_LOCAL_ONLY  = 3;
-    private static final int STATE_NONE       = 4;
+    private static final int STATE_NO_CHANGE  = 4;
 
     /** Get string name of |state|.*/
     public static String getStateString(int state) {
@@ -233,11 +233,11 @@ public class IpServer extends StateMachineShim {
     // request from PrivateAddressCoordinator to restart tethering.
     public static final int CMD_NOTIFY_PREFIX_CONFLICT      = BASE_IPSERVER + 13;
 
-    private final SyncState mInitialState;
-    private final SyncState mLocalHotspotState;
-    private final SyncState mTetheredState;
-    private final SyncState mUnavailableState;
-    private final SyncState mWaitingForRestartState;
+    private final IpServerState mInitialState;
+    private final IpServerState mLocalHotspotState;
+    private final IpServerState mTetheredState;
+    private final IpServerState mUnavailableState;
+    private final IpServerState mWaitingForRestartState;
 
     private final SharedLog mLog;
     private final INetd mNetd;
@@ -302,7 +302,16 @@ public class IpServer extends StateMachineShim {
             INetd netd, @NonNull BpfCoordinator coordinator, Callback callback,
             TetheringConfiguration config, PrivateAddressCoordinator addressCoordinator,
             TetheringMetrics tetheringMetrics, Dependencies deps) {
-        super(ifaceName, STATE_NONE, handler);
+        this(false /* testMode */, ifaceName, handler, interfaceType, log, netd, coordinator,
+                callback, config, addressCoordinator, tetheringMetrics, deps);
+    }
+
+    public IpServer(
+            boolean testMode, String ifaceName, Handler handler, int interfaceType,
+            SharedLog log, INetd netd, @NonNull BpfCoordinator coordinator, Callback callback,
+            TetheringConfiguration config, PrivateAddressCoordinator addressCoordinator,
+            TetheringMetrics tetheringMetrics, Dependencies deps) {
+        super(ifaceName, STATE_NO_CHANGE, handler, testMode);
         mLog = log.forSubComponent(ifaceName);
         mNetd = netd;
         mBpfCoordinator = coordinator;
@@ -319,7 +328,7 @@ public class IpServer extends StateMachineShim {
         mTetheringMetrics = tetheringMetrics;
         resetLinkProperties();
         mLastError = TETHER_ERROR_NO_ERROR;
-        mServingMode = STATE_NONE;
+        mServingMode = STATE_NO_CHANGE;
 
         mIpNeighborMonitor = mDeps.getIpNeighborMonitor(getHandler(), mLog,
                 new MyNeighborEventConsumer());
@@ -338,12 +347,21 @@ public class IpServer extends StateMachineShim {
         mUnavailableState = new UnavailableState();
         mWaitingForRestartState = new WaitingForRestartState();
         final ArrayList allStates = new ArrayList<StateInfo>();
-        allStates.add(new StateInfo(mInitialState));
-        allStates.add(new StateInfo(mLocalHotspotState));
-        allStates.add(new StateInfo(mTetheredState));
-        allStates.add(new StateInfo(mWaitingForRestartState, mTetheredState));
-        allStates.add(new StateInfo(mUnavailableState));
+        allStates.add(getStateInfo(mInitialState, null));
+        allStates.add(getStateInfo(mLocalHotspotState, null));
+        allStates.add(getStateInfo(mTetheredState, null));
+        allStates.add(getStateInfo(mWaitingForRestartState, mTetheredState));
+        allStates.add(getStateInfo(mUnavailableState, null));
         addAllStates(allStates);
+    }
+
+    // Make sure child state and parent state use same serving mode.
+    private StateInfo getStateInfo(final IpServerState child, final IpServerState parent) {
+        if (parent != null && parent.mState != child.mState) {
+            throw new IllegalStateException("Child and parent state must use same serving mode");
+        }
+
+        return new StateInfo(child, parent);
     }
 
     /** Start IpServer state machine. */
@@ -1107,11 +1125,11 @@ public class IpServer extends StateMachineShim {
         }
     }
 
-    private void maybeSendInterfaceState(int newInterfaceState) {
-        if (mServingMode == newInterfaceState) return;
+    private void maybeSendInterfaceState(int newIfaceState) {
+        if (newIfaceState == STATE_NO_CHANGE || mServingMode == newIfaceState) return;
 
-        mServingMode = newInterfaceState;
-        mCallback.updateInterfaceState(this, newInterfaceState, mLastError);
+        mServingMode = newIfaceState;
+        mCallback.updateInterfaceState(this, newIfaceState, mLastError);
         sendLinkProperties();
     }
 
@@ -1145,6 +1163,14 @@ public class IpServer extends StateMachineShim {
             mState = state;
         }
 
+        // Used for sychronous state machine
+        @Override
+        public int enter(final int lastResult) {
+            onEnter();
+            return mState;
+        }
+
+        // Used for asychronous state machine
         @Override
         public void enter() {
             onEnter();
@@ -1156,6 +1182,31 @@ public class IpServer extends StateMachineShim {
         }
 
         protected void onEnter() { }
+
+        @Override
+        public int exit(final int lastResult) {
+            exit();
+            return lastResult;
+        }
+    }
+
+    @Override
+    protected void handleProcessMessageResult(final int lastResult) {
+        // Send interface state change callback after complete state transitions to avoid
+        // MainTetherSM send synchronous message to IpServer after receiving callback while IpServer
+        // state transition is still in progress. Since child state always have same servingMode as
+        // its parent state, so that multiple servingMode change during state transition never
+        // happen.
+        maybeSendInterfaceState(lastResult);
+
+        // Unrequest IpServer if error happen while IpServer is active.
+        if (mLastError != TETHER_ERROR_NO_ERROR && isActiveState(lastResult)) {
+            unwanted();
+        }
+    }
+
+    private boolean isActiveState(final int servingMode) {
+        return servingMode == STATE_TETHERED || servingMode == STATE_LOCAL_ONLY;
     }
 
     class InitialState extends IpServerState {
@@ -1303,16 +1354,6 @@ public class IpServer extends StateMachineShim {
         }
 
         @Override
-        public void onEnter() {
-            super.onEnter();
-            if (mLastError != TETHER_ERROR_NO_ERROR) {
-                transitionTo(mInitialState);
-            }
-
-            if (DBG) Log.d(TAG, "Local hotspot " + mIfaceName);
-        }
-
-        @Override
         public boolean processMessage(final int what, final int arg1, final int arg2,
                 final Object obj) {
             if (super.processMessage(what, arg1, arg2, obj)) return true;
@@ -1340,16 +1381,6 @@ public class IpServer extends StateMachineShim {
     class TetheredState extends BaseServingState {
         TetheredState() {
             super(STATE_TETHERED);
-        }
-
-        @Override
-        public void onEnter() {
-            super.onEnter();
-            if (mLastError != TETHER_ERROR_NO_ERROR) {
-                transitionTo(mInitialState);
-            }
-
-            if (DBG) Log.d(TAG, "Tethered " + mIfaceName);
         }
 
         @Override

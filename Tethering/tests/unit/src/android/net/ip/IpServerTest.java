@@ -242,7 +242,7 @@ public class IpServerTest {
         when(mTetherConfig.isBpfOffloadEnabled()).thenReturn(usingBpfOffload);
         when(mTetherConfig.useLegacyDhcpServer()).thenReturn(usingLegacyDhcp);
         when(mTetherConfig.getP2pLeasesSubnetPrefixLength()).thenReturn(P2P_SUBNET_PREFIX_LENGTH);
-        mIpServer = new IpServer(
+        mIpServer = new IpServer(true /* testMode */,
                 IFACE_NAME, mHandler, interfaceType, mSharedLog, mNetd, mBpfCoordinator,
                 mCallback, mTetherConfig, mAddressCoordinator, mTetheringMetrics, mDependencies);
         mIpServer.start();
@@ -380,8 +380,8 @@ public class IpServerTest {
     public void startsOutAvailable() {
         when(mDependencies.getIpNeighborMonitor(any(), any(), any()))
                 .thenReturn(mIpNeighborMonitor);
-        mIpServer = new IpServer(IFACE_NAME, mHandler, TETHERING_BLUETOOTH, mSharedLog,
-                mNetd, mBpfCoordinator, mCallback, mTetherConfig, mAddressCoordinator,
+        mIpServer = new IpServer(true /* testMode */, IFACE_NAME, mHandler, TETHERING_BLUETOOTH,
+                mSharedLog, mNetd, mBpfCoordinator, mCallback, mTetherConfig, mAddressCoordinator,
                 mTetheringMetrics, mDependencies);
         mIpServer.start();
         mLooper.dispatchAll();
@@ -614,6 +614,7 @@ public class IpServerTest {
     @Test
     public void canUnrequestTetheringWithUpstream() throws Exception {
         initTetheredStateMachine(TETHERING_BLUETOOTH, UPSTREAM_IFACE);
+        verifyNoMoreInteractions(mNetd, mCallback, mAddressCoordinator, mBpfCoordinator);
 
         dispatchCommand(IpServer.CMD_TETHER_UNREQUESTED);
         InOrder inOrder = inOrder(mNetd, mCallback, mAddressCoordinator, mBpfCoordinator);

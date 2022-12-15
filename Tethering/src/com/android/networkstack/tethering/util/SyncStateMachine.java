@@ -34,11 +34,13 @@ import java.util.List;
  */
 public class SyncStateMachine {
     private static final int DEFAULT_CAPACITY = 1;
+    private static final int CMD_START = 0;
     private final String mName;
     private final Thread mMyThread;
-    private final boolean mDbg;
+    private final boolean mTest;
     private final int mDefaultResult;
     private final HashMap<SyncState, StateInfo> mStateInfo = new HashMap<SyncState, StateInfo>();
+    private final Object mInternalSignature = new Object();
 
     private volatile boolean mStarted = false;
 
@@ -124,14 +126,14 @@ public class SyncStateMachine {
     }
 
     public SyncStateMachine(final String name, final Thread thread, final int defaultResult,
-            final boolean dbg) {
+            final boolean test) {
         mMyThread = thread;
+        mTest = test;
         // Machine can either be setup from machine thread or before machine thread started.
         ensureCorrectOrNotStartedThread();
 
         mName = name;
         mDefaultResult = defaultResult;
-        mDbg = dbg;
     }
 
     /**
@@ -170,11 +172,8 @@ public class SyncStateMachine {
         if (stateInfo.parent != null) {
             throw new IllegalStateException("Initial state can't be child state");
         }
-        stateInfo.mActive = true;
-
-        initialState.enter(mDefaultResult);
-        mCurrentState = initialState;
-        mDestState = null;
+        transitionTo(initialState);
+        processMessage(CMD_START, 0, 0, mInternalSignature);
         mStarted = true;
     }
 
@@ -184,25 +183,31 @@ public class SyncStateMachine {
      * @return the result of state transitions. If there is no state transition, the return value
      * would be mDefaultResult.
      */
-    public final int processMessage(int what, int arg1, int arg2, Object obj) {
+    public int processMessage(int what, int arg1, int arg2, Object obj) {
         ensureCorrectThread();
 
         if (mIsInProcess) throw new IllegalStateException("Previous message is still in process");
 
         mIsInProcess = true;
         try {
-            StateInfo curStateInfo = mStateInfo.get(mCurrentState);
-            while (curStateInfo != null) {
-                if (curStateInfo.state.processMessage(what, arg1, arg2, obj)) {
-                    if (mDbg) Log.d(mName, "processMsg(" + what + ") at " + curStateInfo.state);
-                    break;
-                }
-                curStateInfo = mStateInfo.get(curStateInfo.parent);
+            if (what != CMD_START || obj != mInternalSignature) {
+                processMsg(what, arg1, arg2, obj);
             }
 
             return performTransitions();
         } finally {
             mIsInProcess = false;
+        }
+    }
+
+    private void processMsg(int what, int arg1, int arg2, Object obj) {
+        StateInfo curStateInfo = mStateInfo.get(mCurrentState);
+        while (curStateInfo != null) {
+            if (curStateInfo.state.processMessage(what, arg1, arg2, obj)) {
+                if (mTest) Log.d(mName, "processMsg(" + what + ") at " + curStateInfo.state);
+                break;
+            }
+            curStateInfo = mStateInfo.get(curStateInfo.parent);
         }
     }
 
@@ -216,7 +221,7 @@ public class SyncStateMachine {
      * @param destState will be the state that process the next message.
      */
     public final void transitionTo(final SyncState destState) {
-        if (mDbg) Log.d(mName, "transitionTo " + destState);
+        if (mTest) Log.d(mName, "transitionTo " + destState);
         ensureCorrectThread();
         ensureValidState(destState);
 
@@ -266,7 +271,7 @@ public class SyncStateMachine {
         int lastResult = mDefaultResult;
         StateInfo stateInfo = mStateInfo.get(mCurrentState);
         while (stateInfo != null && stateInfo != commonStateInfo) {
-            if (mDbg) Log.d(mName, stateInfo.state + " exit()");
+            if (mTest) Log.d(mName, stateInfo.state + " exit()");
             lastResult = stateInfo.state.exit(lastResult);
             stateInfo.mActive = false;
             stateInfo = mStateInfo.get(stateInfo.parent);
@@ -281,7 +286,7 @@ public class SyncStateMachine {
         int lastResult = defaultResult;
         while (!mEnterStateStack.isEmpty()) {
             final StateInfo stateInfo = mEnterStateStack.remove(mEnterStateStack.size() - 1);
-            if (mDbg) Log.d(mName, stateInfo.state + " enter()");
+            if (mTest) Log.d(mName, stateInfo.state + " enter()");
             lastResult = stateInfo.state.enter(lastResult);
             stateInfo.mActive = true;
             mCurrentState = stateInfo.state;
@@ -291,6 +296,8 @@ public class SyncStateMachine {
     }
 
     private void ensureCorrectThread() {
+        if (mTest) return; // allow different thread for testing.
+
         if (!mMyThread.equals(Thread.currentThread())) {
             throw new IllegalStateException("Called from wrong thread");
         }

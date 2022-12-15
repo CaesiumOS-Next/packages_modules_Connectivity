@@ -18,7 +18,6 @@ package com.android.networkstack.tethering.util;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
 
 import com.android.internal.util.StateMachine;
 import com.android.networkstack.tethering.util.SyncStateMachine.StateInfo;
@@ -35,11 +34,21 @@ public class StateMachineShim {
     private final SyncStateMachine mSyncSM;
     private final Handler mHandler;
 
-    public StateMachineShim(final String name, final int defaultResult, final Handler handler) {
+    public StateMachineShim(final String name, final int defaultResult, final Handler handler,
+            final boolean testMode) {
         if (USE_SYNC_SM) {
             mAsyncSM = null;
             mHandler = handler;
-            mSyncSM = new SyncStateMachine(name, handler.getLooper().getThread(), defaultResult);
+            mSyncSM = new SyncStateMachine(name, handler.getLooper().getThread(), defaultResult,
+                    testMode /* testMode */) {
+                @Override
+                public int processMessage(final int what, final int arg1, final int arg2,
+                        final Object obj) {
+                    handleProcessMessageResult(super.processMessage(what, arg1, arg2, obj));
+
+                    return defaultResult; // The return value will not be handled.
+                }
+            };
         } else {
             mAsyncSM = new AsyncStateMachine(name, handler.getLooper());
             mSyncSM = null;
@@ -107,16 +116,14 @@ public class StateMachineShim {
      */
     public void sendMessage(int what, int arg1, int arg2, Object obj) {
         if (USE_SYNC_SM) {
-            processMessageForSyncSM(what, arg1, arg2, obj);
+            mSyncSM.processMessage(what, arg1, arg2, obj);
         } else {
             mAsyncSM.sendMessage(what, arg1, arg2, obj);
         }
     }
 
     // The user of SyncSM could override this function to handle the result of processMessage.
-    protected int processMessageForSyncSM(int what, int arg1, int arg2, Object obj) {
-        return mSyncSM.processMessage(what, arg1, arg2, obj);
-    }
+    protected void handleProcessMessageResult(final int lastResult) { }
 
     /** Send message after delayMillis millisecond. */
     public void sendMessageDelayed(final int what, final long delayMillis) {
