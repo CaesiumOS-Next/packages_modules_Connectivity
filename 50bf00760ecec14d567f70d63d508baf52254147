@@ -370,6 +370,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "324dcd5c_2ca0e5f5",
+        "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-15T07:50:28Z",
+      "side": 1,
+      "message": "This needs to be in the handler thread since the map is updated from there.\n\nCan you add checks for the current thread on all public methods ?",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 64
+      },
+      "revId": "50bf00760ecec14d567f70d63d508baf52254147",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "298b2178_43c6781b",
         "filename": "service/mdns/com/android/server/connectivity/mdns/MdnsSocketManager.java",
         "patchSetId": 8
