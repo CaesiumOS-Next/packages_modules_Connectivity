@@ -1107,7 +1107,9 @@ public class IpServer extends StateMachineShim {
         }
     }
 
-    private void sendInterfaceState(int newInterfaceState) {
+    private void maybeSendInterfaceState(int newInterfaceState) {
+        if (mServingMode == newInterfaceState) return;
+
         mServingMode = newInterfaceState;
         mCallback.updateInterfaceState(this, newInterfaceState, mLastError);
         sendLinkProperties();
@@ -1136,10 +1138,29 @@ public class IpServer extends StateMachineShim {
         mStaticIpv4ClientAddr = request.staticClientAddress;
     }
 
-    class InitialState extends SyncState {
+    class IpServerState extends SyncState {
+        private final int mState;
+
+        IpServerState(final int state) {
+            mState = state;
+        }
+
         @Override
         public void enter() {
-            sendInterfaceState(STATE_AVAILABLE);
+            onEnter();
+            if (mLastError != TetheringManager.TETHER_ERROR_NO_ERROR) {
+                transitionTo(mInitialState);
+            }
+
+            maybeSendInterfaceState(mState);
+        }
+
+        protected void onEnter() { }
+    }
+
+    class InitialState extends IpServerState {
+        InitialState() {
+            super(STATE_AVAILABLE);
         }
 
         @Override
@@ -1180,9 +1201,13 @@ public class IpServer extends StateMachineShim {
         mBpfCoordinator.stopMonitoring(this);
     }
 
-    class BaseServingState extends SyncState {
+    class BaseServingState extends IpServerState {
+        BaseServingState(final int state) {
+            super(state);
+        }
+
         @Override
-        public void enter() {
+        public void onEnter() {
             startConntrackMonitoring();
 
             if (!startIPv4()) {
@@ -1273,15 +1298,18 @@ public class IpServer extends StateMachineShim {
     // and forwarding and NAT rules should be handled by a coordinating
     // functional element outside of IpServer.
     class LocalHotspotState extends BaseServingState {
+        LocalHotspotState() {
+            super(STATE_LOCAL_ONLY);
+        }
+
         @Override
-        public void enter() {
-            super.enter();
+        public void onEnter() {
+            super.onEnter();
             if (mLastError != TETHER_ERROR_NO_ERROR) {
                 transitionTo(mInitialState);
             }
 
             if (DBG) Log.d(TAG, "Local hotspot " + mIfaceName);
-            sendInterfaceState(STATE_LOCAL_ONLY);
         }
 
         @Override
@@ -1304,21 +1332,24 @@ public class IpServer extends StateMachineShim {
         }
     }
 
-    // Handling errors in BaseServingState.enter() by transitioning is
+    // Handling errors in BaseServingState.onEnter() by transitioning is
     // problematic because transitioning during a multi-state jump yields
     // a Log.wtf(). Ultimately, there should be only one ServingState,
     // and forwarding and NAT rules should be handled by a coordinating
     // functional element outside of IpServer.
     class TetheredState extends BaseServingState {
+        TetheredState() {
+            super(STATE_TETHERED);
+        }
+
         @Override
-        public void enter() {
-            super.enter();
+        public void onEnter() {
+            super.onEnter();
             if (mLastError != TETHER_ERROR_NO_ERROR) {
                 transitionTo(mInitialState);
             }
 
             if (DBG) Log.d(TAG, "Tethered " + mIfaceName);
-            sendInterfaceState(STATE_TETHERED);
         }
 
         @Override
@@ -1467,16 +1498,23 @@ public class IpServer extends StateMachineShim {
      * tethering requests.  The state machine itself will hang around until
      * the garbage collector finds it.
      */
-    class UnavailableState extends SyncState {
+    class UnavailableState extends IpServerState {
+        UnavailableState() {
+            super(STATE_UNAVAILABLE);
+        }
+
         @Override
-        public void enter() {
+        public void onEnter() {
             mIpNeighborMonitor.stop();
             mLastError = TETHER_ERROR_NO_ERROR;
-            sendInterfaceState(STATE_UNAVAILABLE);
         }
     }
 
-    class WaitingForRestartState extends SyncState {
+    class WaitingForRestartState extends IpServerState {
+        WaitingForRestartState() {
+            super(STATE_TETHERED /* child state of tethered */);
+        }
+
         @Override
         public boolean processMessage(final int what, final int arg1, final int arg2,
                 final Object obj) {
