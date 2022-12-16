@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0f4821b_fc8c37a3",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1151,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-16T16:50:22Z",
+      "side": 1,
+      "message": "This could be a part of the baseActionSanitizer? A helper method that merge_cmds. You could basically add `baseCCActionSanitizer` that inherits from the `baseActionSanitizer`. This class would have a different implementation of `get_cmd()` where it will always return the merged commands of `super.get_cmd()`.\n\nThen have all of the `cc_genrule` inherit from the `baseCCActionSanitizer`. This would guarantee that we continue down the OO path.\n\nA simple example of what I think would be better.\n\n```\nclass baseCCActionSanitizer(baseActionSanitizer):\n      def get_cmd():\n          return merge_cmd(super.get_cmd())\n```",
+      "range": {
+        "startLine": 1131,
+        "startChar": 0,
+        "endLine": 1151,
+        "endChar": 33
+      },
+      "revId": "7888faf0f9940e75b821d632b57cda80fed11b54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
