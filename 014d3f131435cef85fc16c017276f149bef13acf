@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac07857e_e9b624e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-16T09:18:22Z",
+      "side": 1,
+      "message": "IIUC the problem is that p/m/Connectivity/OWNERS which uses OWNERS_core_networking has special treatment for \"per-file **IpSec*\", but this doesn\u0027t apply in /cts as it has \"set noparent\".\n\nMy owners in here is only \"For cherry-picks of CLs that are already merged in aosp/master, or flaky test fixes\" (see OWNERS_core_networking_xts); so even though I\u0027ve got owners in p/m/Connectivity I don\u0027t really for p/m/Connectivity/tests/cts.\n\nOver to Lorenzo to approve.",
+      "revId": "014d3f131435cef85fc16c017276f149bef13acf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bba2c13c_0af94dae",
+        "filename": "tests/cts/OWNERS",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-16T09:18:22Z",
+      "side": 1,
+      "message": "Should this be:\n\n    per-file **IpSec* \u003d file:platform/frameworks/base:master:/services/core/java/com/android/server/vcn/OWNERS\n    \nto match owners in packages/modules/Connectivity/OWNERS ?",
+      "revId": "014d3f131435cef85fc16c017276f149bef13acf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
