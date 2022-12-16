@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99f454e1_4b17b3ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-16T16:39:16Z",
+      "side": 1,
+      "message": "Could you write why this is needed? Like what is the thought process when you were uploading this CL as this would provide me with more context while reviewing.",
+      "revId": "1c450903ea4ec12e7ff176ecaa158426efa5e528",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18235601_726a7e62",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-16T16:39:16Z",
+      "side": 1,
+      "message": "`self.target.response_file_contents if self.target.response_file_contents else arch.response_file_contents`\n\nLonger? Yes, but more readable\ngo/pystyle#conditional-expressions-definition\n\nThe same goes for `script` and `args",
+      "range": {
+        "startLine": 741,
+        "startChar": 8,
+        "endLine": 741,
+        "endChar": 73
+      },
+      "revId": "1c450903ea4ec12e7ff176ecaa158426efa5e528",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
