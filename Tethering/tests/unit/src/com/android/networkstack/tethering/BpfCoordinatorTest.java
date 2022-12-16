@@ -109,7 +109,7 @@ import com.android.net.module.util.ip.ConntrackMonitor;
 import com.android.net.module.util.ip.ConntrackMonitor.ConntrackEventConsumer;
 import com.android.net.module.util.netlink.ConntrackMessage;
 import com.android.net.module.util.netlink.NetlinkConstants;
-import com.android.net.module.util.netlink.NetlinkSocket;
+import com.android.net.module.util.netlink.NetlinkUtils;
 import com.android.networkstack.tethering.BpfCoordinator.BpfConntrackEventConsumer;
 import com.android.networkstack.tethering.BpfCoordinator.ClientInfo;
 import com.android.networkstack.tethering.BpfCoordinator.Ipv6ForwardingRule;
@@ -1724,9 +1724,9 @@ public class BpfCoordinatorTest {
             final byte[] expectedNetlinkUdp = ConntrackMessage.newIPv4TimeoutUpdateRequest(
                     IPPROTO_UDP, PRIVATE_ADDR, (int) PRIVATE_PORT, REMOTE_ADDR,
                     (int) REMOTE_PORT, NF_CONNTRACK_UDP_TIMEOUT_STREAM);
-            ExtendedMockito.verify(() -> NetlinkSocket.sendOneShotKernelMessage(
+            ExtendedMockito.verify(() -> NetlinkUtils.sendOneShotKernelMessage(
                     eq(NETLINK_NETFILTER), eq(expectedNetlinkTcp)));
-            ExtendedMockito.verify(() -> NetlinkSocket.sendOneShotKernelMessage(
+            ExtendedMockito.verify(() -> NetlinkUtils.sendOneShotKernelMessage(
                     eq(NETLINK_NETFILTER), eq(expectedNetlinkUdp)));
             ExtendedMockito.verifyNoMoreInteractions(staticMockMarker(NetlinkSocket.class));
             ExtendedMockito.clearInvocations(staticMockMarker(NetlinkSocket.class));
