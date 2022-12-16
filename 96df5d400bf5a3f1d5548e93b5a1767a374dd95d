@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ef2c2eb_a6718e18",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-16T16:12:45Z",
+      "side": 1,
+      "message": "Ditto, put into a set then check the size.",
+      "range": {
+        "startLine": 225,
+        "startChar": 6,
+        "endLine": 227,
+        "endChar": 81
+      },
+      "revId": "96df5d400bf5a3f1d5548e93b5a1767a374dd95d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
