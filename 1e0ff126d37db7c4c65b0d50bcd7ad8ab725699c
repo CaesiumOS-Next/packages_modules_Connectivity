@@ -22,6 +22,30 @@
       },
       "revId": "1e0ff126d37db7c4c65b0d50bcd7ad8ab725699c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e16c87b0_5739878a",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-16T22:16:11Z",
+      "side": 1,
+      "message": "I don\u0027t think it necessarily makes the code shorter if you then have to get the value from the set, but it does make it more readable, so +1 to this suggestion.",
+      "parentUuid": "e4257541_3ac84c08",
+      "range": {
+        "startLine": 217,
+        "startChar": 6,
+        "endLine": 219,
+        "endChar": 81
+      },
+      "revId": "1e0ff126d37db7c4c65b0d50bcd7ad8ab725699c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
