@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4257541_3ac84c08",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-16T16:11:46Z",
+      "side": 1,
+      "message": "This can be all compressed into\n\n`len(set([getattr(arch, key) for arch in self.arch.values()])) \u003d\u003d 1`\n\nJust putting all of the values into a set then checking the size of the set.",
+      "range": {
+        "startLine": 217,
+        "startChar": 6,
+        "endLine": 219,
+        "endChar": 81
+      },
+      "revId": "1e0ff126d37db7c4c65b0d50bcd7ad8ab725699c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
