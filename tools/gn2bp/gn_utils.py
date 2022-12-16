@@ -221,12 +221,22 @@ class GnParser(object):
         for arch in self.arch.values():
           getattr(arch, key).clear()
 
+    def _finalize_str_attribute(self, key):
+      val = getattr(list(self.arch.values())[0], key)
+      # Only when all the arch has the same non empty str, move the value to the common
+      if val and all([val == getattr(arch, key) for arch in self.arch.values()]):
+        setattr(self, key, val)
+        for arch in self.arch.values():
+          setattr(arch, key, '')
+
     def _finalize_attribute(self, key):
       val = getattr(self, key)
       if isinstance(val, set):
         self._finalize_set_attribute(key)
       elif isinstance(val, list):
         self._finalize_list_attribute(key)
+      elif isinstance(val, str):
+        self._finalize_str_attribute(key)
       else:
         raise TypeError(f'Unsupported type: {type(val)}')
 
