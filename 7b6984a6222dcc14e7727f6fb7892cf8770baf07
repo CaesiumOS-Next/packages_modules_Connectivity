@@ -22,6 +22,30 @@
       },
       "revId": "7b6984a6222dcc14e7727f6fb7892cf8770baf07",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf005d02_29397506",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-16T22:55:54Z",
+      "side": 1,
+      "message": "cc_genrule does inherit from target interface, which AFAIU allows us to set different srcs for each architecture. That being said: GN inputs (though functionally equivalent in actions) are mostly used to specify tool_files, which aren\u0027t supported in the target interface. Neither are outputs, though I think an action / genrule using different tool_files or generating different outputs depending on architecture sounds broken to begin with... Which begs the question:\nIs this really worth the effort and what sort of problems will we run into in the future?\n\n---\n\nI guess in a perfect world, we would have something better to abstract BP modules then the Module class. Currently, there is often an assumption that a single GN target maps to a single Soong target. Everytime we break this assumption (genrules, protobuf modules, etc.) we run into issues.\nModules should be wrapped in some class which has specific implementations on how inputs and outputs are handled, so we can start grouping them together (I think that alone would solve many of our issues). That being said, I am starting to think we may be better off designing this thing from the ground up (eventually... after the IC window) and taking a ~month to implement it.",
+      "parentUuid": "697b6207_a77ed277",
+      "range": {
+        "startLine": 122,
+        "startChar": 8,
+        "endLine": 124,
+        "endChar": 28
+      },
+      "revId": "7b6984a6222dcc14e7727f6fb7892cf8770baf07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
