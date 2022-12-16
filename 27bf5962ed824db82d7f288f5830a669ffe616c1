@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "410ad851_0269d5ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-16T16:05:19Z",
+      "side": 1,
+      "message": "Could you elaborate on \u0027Why do we need this?\u0027",
+      "revId": "27bf5962ed824db82d7f288f5830a669ffe616c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
