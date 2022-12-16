@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c29c4ebd_b1327f65",
+        "filename": "framework/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-12-16T09:32:43Z",
+      "side": 1,
+      "message": "FYI filed b/262838777 for this. I\u0027m OOO starting next week so will followup later.",
+      "revId": "c5e6b7d8cc629ba6f4c2e008c497ab25d14529d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
