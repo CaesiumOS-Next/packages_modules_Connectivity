@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e922624e_a893d4da",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-16T16:59:08Z",
+      "side": 1,
+      "message": "Those don\u0027t need to be arch-specific.",
+      "range": {
+        "startLine": 382,
+        "startChar": 6,
+        "endLine": 383,
+        "endChar": 63
+      },
+      "revId": "d5944adacd94568d75ba70ac42a47e64e091b0a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c653a0cd_66c52af9",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-16T16:59:08Z",
+      "side": 1,
+      "message": "I\u0027d argue that this too don\u0027t need to be arg-specific. I don\u0027t think we have a use-case for that.",
+      "range": {
+        "startLine": 385,
+        "startChar": 6,
+        "endLine": 385,
+        "endChar": 44
+      },
+      "revId": "d5944adacd94568d75ba70ac42a47e64e091b0a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bc3d9e1_e08a88e6",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-16T16:59:08Z",
+      "side": 1,
+      "message": "Don\u0027t need to be arch-specific.",
+      "range": {
+        "startLine": 386,
+        "startChar": 6,
+        "endLine": 386,
+        "endChar": 47
+      },
+      "revId": "d5944adacd94568d75ba70ac42a47e64e091b0a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
