@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e440c5f_99fa6a07",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-16T16:54:47Z",
+      "side": 1,
+      "message": "I don\u0027t think those would be different between archs? I think this could be solved in the gen_utils where you only make `args` and `response_file_content` arch-specific.\n\nMy point is that I don\u0027t think that `out`, `genrule_headers`, `srcs` and `tool_files` will ever be arch-specific. Specially `srcs`, `tool_files` and `genrule_headers`. I don\u0027t really care if a genrule uses more than it needs. `out` might be a problem but I hardly think that there\u0027s a genrule which have different `out` depending on arch.\n\nSo I think you could go back go `gn_utils` and generate only a single Target instead of `__arch` and you wouldn\u0027t need to merge them here.",
+      "range": {
+        "startLine": 1159,
+        "startChar": 1,
+        "endLine": 1167,
+        "endChar": 22
+      },
+      "revId": "b58fa696f173e4d75f0153d586db25169c2f953f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
