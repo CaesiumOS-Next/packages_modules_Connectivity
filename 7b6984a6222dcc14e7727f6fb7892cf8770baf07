@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "697b6207_a77ed277",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-16T16:15:01Z",
+      "side": 1,
+      "message": "We can\u0027t support different inputs/outputs for different arch. Because the end-goal is to create a single `cc_genrule`. And that `cc_genrule` would have all of the inputs/output for different architectures but arch-specific args/response_file_contents.\n\nThe same goes for the script. We\u0027re doing all of this to remove multiple `genrules` for a single action.",
+      "range": {
+        "startLine": 122,
+        "startChar": 8,
+        "endLine": 124,
+        "endChar": 28
+      },
+      "revId": "7b6984a6222dcc14e7727f6fb7892cf8770baf07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
