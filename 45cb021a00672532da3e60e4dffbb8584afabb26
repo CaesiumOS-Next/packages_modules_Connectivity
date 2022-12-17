@@ -22,6 +22,30 @@
       },
       "revId": "45cb021a00672532da3e60e4dffbb8584afabb26",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fce74114_9a89b3b0",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-17T11:14:41Z",
+      "side": 1,
+      "message": "Yeah, that likely causes flaky.\nUpload new patch to put elapsedRealtime to dependencies so that it can use the currentTime in the test.",
+      "parentUuid": "2be77258_ac3a8b00",
+      "range": {
+        "startLine": 942,
+        "startChar": 8,
+        "endLine": 942,
+        "endChar": 25
+      },
+      "revId": "45cb021a00672532da3e60e4dffbb8584afabb26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
