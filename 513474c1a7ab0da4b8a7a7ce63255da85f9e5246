@@ -16,6 +16,23 @@
       "message": "This should theoretically be safe to submit now that https://googleplex-android-review.git.corp.google.com/c/platform/system/netd/+/20759872 has made it into tm-mainline-prod.  However, the tm-mainline-prod automerger being 8 days behind means it will likely fail to build there with \u0027missing clatd.h\u0027 errors anyway.  If that happens, I\u0027ll override and submit, as that will clear up as soon as the automerger is fixed (which is also the point in time when this change will be able to hit tm-mainline-prod)...",
       "revId": "513474c1a7ab0da4b8a7a7ce63255da85f9e5246",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7e20e58_1e4b7807",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-18T23:20:25Z",
+      "side": 1,
+      "message": "so far we\u0027re getting the \u0027expected\u0027 failure in tm-mainline-prod.\n\npackages/modules/Connectivity/bpf_progs/clatd.c:38:10: fatal error: \u0027bpf_shared.h\u0027 file not found\n#include \"bpf_shared.h\"\n         ^~~~~~~~~~~~~~\n1 error generated.",
+      "revId": "513474c1a7ab0da4b8a7a7ce63255da85f9e5246",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
