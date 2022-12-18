@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca4208a3_35919aea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-18T22:39:12Z",
+      "side": 1,
+      "message": "This should theoretically be safe to submit now that https://googleplex-android-review.git.corp.google.com/c/platform/system/netd/+/20759872 has made it into tm-mainline-prod.  However, the tm-mainline-prod automerger being 8 days behind means it will likely fail to build there with \u0027missing clatd.h\u0027 errors anyway.  If that happens, I\u0027ll override and submit, as that will clear up as soon as the automerger is fixed (which is also the point in time when this change will be able to hit tm-mainline-prod)...",
+      "revId": "513474c1a7ab0da4b8a7a7ce63255da85f9e5246",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
