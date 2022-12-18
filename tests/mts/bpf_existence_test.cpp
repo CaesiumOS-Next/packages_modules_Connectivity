@@ -27,6 +27,12 @@
 
 #include <gtest/gtest.h>
 
+// For branches that do not yet have __ANDROID_API_U__ defined, like module
+// release branches.
+#ifndef __ANDROID_API_U__
+#define __ANDROID_API_U__ 34
+#endif
+
 using std::find;
 using std::set;
 using std::string;
@@ -45,7 +51,7 @@ using android::modules::sdklevel::IsAtLeastT;
 class BpfExistenceTest : public ::testing::Test {
 };
 
-// Part of Android R platform, but mainlined in S
+// Part of Android R platform (for 4.9+), but mainlined in S
 static const set<string> PLATFORM_ONLY_IN_R = {
     PLATFORM "map_offload_tether_ingress_map",
     PLATFORM "map_offload_tether_limit_map",
@@ -133,12 +139,12 @@ void addAll(set<string>* a, const set<string>& b) {
 }
 
 #define DO_EXPECT(B, V) do { \
-    if (B) addAll(expected, (V)); else addAll(unexpected, (V)); \
+    if (B) addAll(mustExist, (V)); else addAll(mustNotExist, (V)); \
 } while (0)
 
-void getFileLists(set<string>* expected, set<string>* unexpected) {
-    unexpected->clear();
-    expected->clear();
+void checkFiles() {
+    set<string> mustExist;
+    set<string> mustNotExist;
 
     // We do not actually check the platform P/Q (netd) and Q (clatd) things
     // and only verify the mainline module relevant R+ offload maps & progs.
@@ -147,24 +153,23 @@ void getFileLists(set<string>* expected, set<string>* unexpected) {
     // and not to test the platform itself, which may have been modified by vendor or oems,
     // so we should only test for the removal of stuff that was mainline'd,
     // and for the presence of mainline stuff.
-    DO_EXPECT(IsAtLeastR() && !IsAtLeastS(), PLATFORM_ONLY_IN_R);
 
+    // R can potentially run on pre-4.9 kernel and thus non-eBPF capable devices.
+    DO_EXPECT(IsAtLeastR() && !IsAtLeastS() && isAtLeastKernelVersion(4, 9, 0), PLATFORM_ONLY_IN_R);
+
+    // S requires Linux Kernel 4.9+ and thus requires eBPF support.
     DO_EXPECT(IsAtLeastS(), MAINLINE_FOR_S_PLUS);
     DO_EXPECT(IsAtLeastS() && isAtLeastKernelVersion(5, 10, 0), MAINLINE_FOR_S_5_10_PLUS);
 
     // Nothing added or removed in SCv2.
 
+    // T *still* only requires Linux Kernel 4.9+.
     DO_EXPECT(IsAtLeastT(), MAINLINE_FOR_T_PLUS);
     DO_EXPECT(IsAtLeastT() && isAtLeastKernelVersion(4, 14, 0), MAINLINE_FOR_T_4_14_PLUS);
     DO_EXPECT(IsAtLeastT() && isAtLeastKernelVersion(5, 4, 0), MAINLINE_FOR_T_5_4_PLUS);
     DO_EXPECT(IsAtLeastT() && isAtLeastKernelVersion(5, 15, 0), MAINLINE_FOR_T_5_15_PLUS);
-}
 
-void checkFiles() {
-    set<string> mustExist;
-    set<string> mustNotExist;
-
-    getFileLists(&mustExist, &mustNotExist);
+    // U requires Linux Kernel 4.14+, but nothing added or removed in U.
 
     for (const auto& file : mustExist) {
         EXPECT_EQ(0, access(file.c_str(), R_OK)) << file << " does not exist";
@@ -180,12 +185,10 @@ void checkFiles() {
 }
 
 TEST_F(BpfExistenceTest, TestPrograms) {
-    SKIP_IF_BPF_NOT_SUPPORTED;
-
     // Pre-flight check to ensure test has been updated.
     uint64_t buildVersionSdk = android_get_device_api_level();
     ASSERT_NE(0, buildVersionSdk) << "Unable to determine device SDK version";
-    if (buildVersionSdk > __ANDROID_API_T__ && buildVersionSdk != __ANDROID_API_FUTURE__) {
+    if (buildVersionSdk > __ANDROID_API_U__ && buildVersionSdk != __ANDROID_API_FUTURE__) {
             FAIL() << "Unknown OS version " << buildVersionSdk << ", please update this test";
     }
 
