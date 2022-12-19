@@ -60,10 +60,13 @@ public class Tether4Value extends Struct {
     @Field(order = 9, type = Type.U63)
     public final long lastUsed;
 
+    @Field(order = 10, type = Type.S32, padding = 4)
+    public final int accountIf;
+
     public Tether4Value(final int oif, @NonNull final MacAddress ethDstMac,
             @NonNull final MacAddress ethSrcMac, final int ethProto, final int pmtu,
             final byte[] src46, final byte[] dst46, final int srcPort,
-            final int dstPort, final long lastUsed) {
+            final int dstPort, final long lastUsed, final int accountIf) {
         Objects.requireNonNull(ethDstMac);
         Objects.requireNonNull(ethSrcMac);
 
@@ -77,6 +80,7 @@ public class Tether4Value extends Struct {
         this.srcPort = srcPort;
         this.dstPort = dstPort;
         this.lastUsed = lastUsed;
+        this.accountIf = accountIf;
     }
 
     @Override
@@ -85,11 +89,11 @@ public class Tether4Value extends Struct {
             return String.format(
                     "oif: %d, ethDstMac: %s, ethSrcMac: %s, ethProto: %d, pmtu: %d, "
                             + "src46: %s, dst46: %s, srcPort: %d, dstPort: %d, "
-                            + "lastUsed: %d",
+                            + "lastUsed: %d, accountIf: %d",
                     oif, ethDstMac, ethSrcMac, ethProto, pmtu,
                     InetAddress.getByAddress(src46), InetAddress.getByAddress(dst46),
                     Short.toUnsignedInt((short) srcPort), Short.toUnsignedInt((short) dstPort),
-                    lastUsed);
+                    lastUsed, accountIf);
         } catch (UnknownHostException | IllegalArgumentException e) {
             return "Invalid IP address" + e;
         }
