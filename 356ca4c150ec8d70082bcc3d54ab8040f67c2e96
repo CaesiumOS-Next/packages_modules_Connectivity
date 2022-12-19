@@ -16,6 +16,23 @@
       "message": "error: no matching member function for call to \u0027merge\u0027 [clang-diagnostic-error]\n    DO_EXPECT(IsAtLeastR() \u0026\u0026 !IsAtLeastS() \u0026\u0026 isAtLeastKernelVersion(4, 9, 0), PLATFORM_ONLY_IN_R);\n    ^\n/mnt/disks/build-disk/src/googleplex-android/master/packages/modules/Connectivity/tests/mts/bpf_existence_test.cpp:129:58: note: expanded from macro \u0027DO_EXPECT\u0027\n#define DO_EXPECT(B, V) ((B) ? mustExist : mustNotExist).merge(V)\n                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~\nexternal/libcxx/include/set:719:10: note: candidate template ignored: deduced type \u0027set\u003c...\u003e\u0027 of 1st parameter does not match adjusted type \u0027const set\u003c...\u003e\u0027 of argument [with _Compare2 \u003d std::less\u003cstd::basic_string\u003cchar\u003e\u003e]\n    void merge(set\u003ckey_type, _Compare2, allocator_type\u003e\u0026 __source)\n         ^\nexternal/libcxx/include/set:727:10: note: candidate template ignored: deduced type \u0027set\u003c...\u003e\u0027 of 1st parameter does not match adjusted type \u0027const set\u003c...\u003e\u0027 of argument [with _Compare2 \u003d std::less\u003cstd::basic_string\u003cchar\u003e\u003e]\n    void merge(set\u003ckey_type, _Compare2, allocator_type\u003e\u0026\u0026 __source)\n         ^\nexternal/libcxx/include/set:735:10: note: candidate template ignored: could not match \u0027multiset\u0027 against \u0027set\u0027\n    void merge(multiset\u003ckey_type, _Compare2, allocator_type\u003e\u0026 __source)\n         ^\nexternal/libcxx/include/set:743:10: note: candidate template ignored: could not match \u0027multiset\u0027 against \u0027set\u0027\n    void merge(multiset\u003ckey_type, _Compare2, allocator_type\u003e\u0026\u0026 __source)\n         ^",
       "revId": "356ca4c150ec8d70082bcc3d54ab8040f67c2e96",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbcf79fb_c2c840fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-19T19:50:33Z",
+      "side": 1,
+      "message": "https://en.cppreference.com/w/cpp/container/set/merge\n\nAttempts to extract (\"splice\") each element in source and insert it into *this using the comparison object of *this\n\n--\n\nAnd it looks like that means it modifies (empties out) the set we\u0027re adding,\nand as such isn\u0027t really desirable to use...",
+      "revId": "356ca4c150ec8d70082bcc3d54ab8040f67c2e96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
