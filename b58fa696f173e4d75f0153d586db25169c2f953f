@@ -46,6 +46,30 @@
       },
       "revId": "b58fa696f173e4d75f0153d586db25169c2f953f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "926bb234_c9cbf8b4",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-19T13:13:38Z",
+      "side": 1,
+      "message": "I see. This makes sense\n\nCould this go inside the BaseActionSanitizer as a private helper method for the `get_cmd`? Look at my comment on the previous CL [https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2361730/5/tools/gn2bp/gen_android_bp#1151].",
+      "parentUuid": "8ec938cb_6cfbf800",
+      "range": {
+        "startLine": 1159,
+        "startChar": 1,
+        "endLine": 1167,
+        "endChar": 22
+      },
+      "revId": "b58fa696f173e4d75f0153d586db25169c2f953f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
