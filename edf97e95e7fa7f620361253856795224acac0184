@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc37b051_4faed45f",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-19T14:59:37Z",
+      "side": 1,
+      "message": "Update to makeSocketConnectedToNetlink",
+      "parentUuid": "934636ee_072d6d6f",
+      "range": {
+        "startLine": 827,
+        "startChar": 30,
+        "endLine": 827,
+        "endChar": 52
+      },
+      "revId": "edf97e95e7fa7f620361253856795224acac0184",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d6f153a_bd14fa23",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-19T09:07:19Z",
       "side": 1,
       "message": "I think this contract is a little bit confusing. This points to a poor organization of the code into functions. You have extracted an inner loop that parses one packet which may be multiple messages, and need to stop when find an open socket or reach the end of the message, but the decision about the end of the message is pushed up to the caller.\n\nI would suggest something more like\n\n    boolean isAnySocketConnected(netId) {\n      for (family) {\n        if (isAnyTcpSocketConnectedForFamily(fd, family, networkMark, networkMask)) return true;\n      }\n      return false\n    }\n\n    boolean isAnyTcpSocketConnectedForFamily(fd, family, mark, mask) {\n      sendPollingRequest\n      while (maxIteration \u003c 100) {\n        msg \u003d recvMessage\n        do {\n          header \u003d Hdr.parse\n          if (DONE) return false;\n          if (isTargetTcpSocket) return true;\n        } while (enoughBytesRemain(msg))\n      }\n      return false;\n    }\n\nWDYT ?\n\n\nIf you insist on the current code organization, at least I\u0027d point out that this method can\u0027t really tell that no TCP socket is connected, only that this message didn\u0027t contain one AND contained a message end. Assuming you adopt my intdef suggestion you could word it like this\n\n    @return true if a connected socket was found\n            false if no socket was found and there is no more data to read\n            null if no socket was found and there is more data to read\n\nOr you could make an intdef with OPEN_SOCKET_FOUND, END_OF_DATA and REMAINING_DATA which might be clearer than True False and null. (you might even say that these constants actually are True False and null, but use the more readable names)",
+      "range": {
+        "startLine": 919,
+        "startChar": 58,
+        "endLine": 919,
+        "endChar": 86
+      },
+      "revId": "edf97e95e7fa7f620361253856795224acac0184",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8a75e34_a151d0fc",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-19T14:59:37Z",
+      "side": 1,
+      "message": "updated. See if it\u0027s aligned with your comment.",
+      "parentUuid": "2d6f153a_bd14fa23",
       "range": {
         "startLine": 919,
         "startChar": 58,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dce9ebf9_b370ea09",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-19T14:59:37Z",
+      "side": 1,
+      "message": "Add comment to explain it.",
+      "parentUuid": "8d02d427_01b1016f",
+      "range": {
+        "startLine": 929,
+        "startChar": 20,
+        "endLine": 929,
+        "endChar": 36
+      },
+      "revId": "edf97e95e7fa7f620361253856795224acac0184",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e824661d_2ba6303d",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-12-19T09:07:19Z",
       "side": 1,
       "message": "What can throw this ? Normally you *never* catch IAE because IAE is normally only called for programming errors.",
+      "range": {
+        "startLine": 946,
+        "startChar": 17,
+        "endLine": 946,
+        "endChar": 41
+      },
+      "revId": "edf97e95e7fa7f620361253856795224acac0184",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c3ec31e_0118ebe1",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-19T14:59:37Z",
+      "side": 1,
+      "message": "We do not need to catch this here. This was thrown if we need to parse TCP info but it\u0027s not done here. Removed",
+      "parentUuid": "e824661d_2ba6303d",
       "range": {
         "startLine": 946,
         "startChar": 17,
@@ -139,6 +235,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6849da45_3b5ca4ba",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-19T14:59:37Z",
+      "side": 1,
+      "message": "rename to readSocketDataAndReturnMark",
+      "parentUuid": "c1a1bea2_d14498cd",
+      "range": {
+        "startLine": 963,
+        "startChar": 16,
+        "endLine": 963,
+        "endChar": 45
+      },
+      "revId": "edf97e95e7fa7f620361253856795224acac0184",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85c7fc9c_2823295f",
@@ -162,6 +282,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26f597e4_ad945a10",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 973,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-19T14:59:37Z",
+      "side": 1,
+      "message": "Yes, thanks for catching this. I missed the last position() call.",
+      "parentUuid": "85c7fc9c_2823295f",
+      "range": {
+        "startLine": 973,
+        "startChar": 16,
+        "endLine": 973,
+        "endChar": 21
+      },
+      "revId": "edf97e95e7fa7f620361253856795224acac0184",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "457446cf_5212ae97",
@@ -175,6 +319,30 @@
       "writtenOn": "2022-12-19T09:07:19Z",
       "side": 1,
       "message": "`SUPPORTED_SLOTS`, since there are 2 :)\n\nOr, `SUPPORTED_SLOT_COUNT` for a neutral way of saying it.",
+      "range": {
+        "startLine": 57,
+        "startChar": 29,
+        "endLine": 57,
+        "endChar": 43
+      },
+      "revId": "edf97e95e7fa7f620361253856795224acac0184",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e88c394_94cfdfd4",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-19T14:59:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "457446cf_5212ae97",
       "range": {
         "startLine": 57,
         "startChar": 29,
