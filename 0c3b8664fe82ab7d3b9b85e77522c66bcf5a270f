@@ -166,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cc90ebd_19d81884",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2694,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-19T07:13:36Z",
+      "side": 1,
+      "message": "I sympathize with the thought but I think we probably don\u0027t want to do this here.\n• This existed already, so the new code isn\u0027t worse than the old one ; if the new code has lock inversion, the old one had it too.\n• I don\u0027t think FirstLock and SecondLock are very clear. In particular it\u0027s super unclear when considered in isolation, and most lock inversion cases happen when a method with lock 2 calls a method that takes lock 1, so it\u0027s not obvious.\n  - Importantly, it\u0027s not clear whether it\u0027s fine to take lock 2 without lock 1. In this case it is, and if you always take mStatsLock before mOpenSessionCallsLock you increase contention considerably.\n• One solution to this problem is to build a new class that checks for lock inversion. It\u0027s very heavy-handed and relatively expensive to write, and considering we haven\u0027t had problems with this I think it\u0027s overkill.\n• One thing we can do is to add comments on the locks. It\u0027s very thin protection but it\u0027s better than nothing.\n\nNote that moving this code out of the mStatsLock critical section is the right thing in principle, but unfortunately this is the impl of dumpsys networkstats, which everyone loves to parse. If you change the format you\u0027ll very likely break somebody, so I don\u0027t think we can afford to change the ordering/format here, unless you\u0027re willing to deal with the fallout.\n\nTherefore I would favor keeping the locks as they are, in the place they are, add comments to the locks to say in what order to take them if you\u0027re going to ever take both, and claim that it\u0027s not worse than before.",
+      "parentUuid": "5e9eef95_6b7cd8c8",
+      "range": {
+        "startLine": 2694,
+        "startChar": 26,
+        "endLine": 2694,
+        "endChar": 47
+      },
+      "revId": "0c3b8664fe82ab7d3b9b85e77522c66bcf5a270f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0eb27f61_2861e022",
