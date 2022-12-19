@@ -46,6 +46,30 @@
       },
       "revId": "7b6984a6222dcc14e7727f6fb7892cf8770baf07",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4abfbac_c2bfe14f",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-12-19T08:48:51Z",
+      "side": 1,
+      "message": "I thought it’s better to make the script fail if the desc.json contains unsupported/unexpected arch difference instead of silently ignore.\nSo that we can realize the issue early and fix the script or fix the upstream.\n\nTarget can have different values for input/output technically.\nI do agree that currently we don’t want to support actions which will be converted to the module which have different values for some attributes (e.g. tool_files, outputs)\n`merge_modules` fails in above cases. (aosp/2361731) so we can be always sure desc.json desn’t contain unexpected arch difference.\n \nThis validation can be done in gn_utils but I think gn_utils doesn\u0027t need to reject this case as far as it’s a valid gn target and gn_utils doesn\u0027t need to know much about our conversion logic from .gn to .bp.\nAlso, some sanitizer could change inputs/outputs, so I made `inputs/outputs/script` arch attributes and added validation at merge process in gen_android_bp.\n\n-----------------------------------------------------------------------------------------------------\nCurrently, Target has the Arch specific attributes and common attributes and gn_utils optimize/finalize them before passing target to the gen_android_bp\n\nBut I’m feeling this makes the gen_android_bp complicated.\nFor example,\ngen_android_bp does similar dependency processing for target and arch.\nAlso gen_android_bp needs to dig into the arch even when it processing the target (e.g. `merge_attribute`)\n\nWhat I’m thinking is\ngn_utils will populate complete Target for each architecture, gen_android_bp convert each target to the module(s) after that gen_android_bp can merge modules if possible.\n\nMerging process would raise Error if there is unexpected/unsupported arch differences so that we are sure we are not ignoring unexpected arch differences.",
+      "parentUuid": "bf005d02_29397506",
+      "range": {
+        "startLine": 122,
+        "startChar": 8,
+        "endLine": 124,
+        "endChar": 28
+      },
+      "revId": "7b6984a6222dcc14e7727f6fb7892cf8770baf07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
