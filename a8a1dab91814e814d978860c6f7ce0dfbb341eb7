@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ae9ce0a_0eb136b1",
+        "filename": "Cronet/tests/cts/OWNERS",
+        "patchSetId": 9
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-19T16:16:46Z",
+      "side": 1,
+      "message": "Let\u0027s figure out proper ownership of these tests down the road.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 78
+      },
+      "revId": "a8a1dab91814e814d978860c6f7ce0dfbb341eb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
