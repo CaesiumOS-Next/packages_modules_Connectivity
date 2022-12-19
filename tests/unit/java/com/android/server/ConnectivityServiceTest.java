@@ -64,6 +64,7 @@ import static android.net.ConnectivityManager.FIREWALL_RULE_DEFAULT;
 import static android.net.ConnectivityManager.FIREWALL_RULE_DENY;
 import static android.net.ConnectivityManager.PROFILE_NETWORK_PREFERENCE_DEFAULT;
 import static android.net.ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE;
+import static android.net.ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE_BLOCKING;
 import static android.net.ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE_NO_FALLBACK;
 import static android.net.ConnectivityManager.TYPE_ETHERNET;
 import static android.net.ConnectivityManager.TYPE_MOBILE;
@@ -298,6 +299,7 @@ import android.net.Uri;
 import android.net.VpnManager;
 import android.net.VpnTransportInfo;
 import android.net.metrics.IpConnectivityLog;
+import android.net.netd.aidl.AllowedNetworksForUidsParcel;
 import android.net.netd.aidl.NativeUidRangeConfig;
 import android.net.networkstack.NetworkStackClientBase;
 import android.net.resolv.aidl.Nat64PrefixEventParcel;
@@ -15752,6 +15754,85 @@ public class ConnectivityServiceTest {
                 PREFERENCE_ORDER_PROFILE));
     }
 
+    @Test
+    public void testProfileNetworkPreferenceBlocking_changePreference() throws Exception {
+        final InOrder inOrder = inOrder(mMockNetd);
+        final UserHandle testHandle = setupEnterpriseNetwork();
+
+        // Start with 1 default network and 1 enterprise network, the default network should
+        // not be in the allowed list in any case since it does not have enterprise capabilities.
+        mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        mCellNetworkAgent.connect(true);
+        final TestNetworkAgentWrapper enterpriseAgent = makeEnterpriseNetworkAgent();
+        enterpriseAgent.connect(true);
+
+        final TestOnCompleteListener listener = new TestOnCompleteListener();
+        mCm.setProfileNetworkPreference(testHandle, PROFILE_NETWORK_PREFERENCE_ENTERPRISE_BLOCKING,
+                r -> r.run(), listener);
+        listener.expectOnComplete();
+
+        // Verify Netd is called since the enterprise network is already connected.
+        final Set<UidRange> uidRanges = Collections.singleton(
+                UidRange.createForUser(UserHandle.of(TEST_WORK_PROFILE_USER_ID)));
+        final UidRangeParcel[] uidRangesParcel = toUidRangeStableParcels(uidRanges);
+        final AllowedNetworksForUidsParcel enterpriseParcel = new AllowedNetworksForUidsParcel(
+                uidRangesParcel,
+                new int[]{enterpriseAgent.getNetwork().netId});
+        inOrder.verify(mMockNetd).setAllowedNetworks(enterpriseParcel);
+
+        // Verify unset when preference changes.
+        mCm.setProfileNetworkPreference(testHandle, PROFILE_NETWORK_PREFERENCE_ENTERPRISE,
+                r -> r.run(), listener);
+        listener.expectOnComplete();
+        final AllowedNetworksForUidsParcel allAllowedParcel = new AllowedNetworksForUidsParcel(
+                uidRangesParcel, null);
+        inOrder.verify(mMockNetd).setAllowedNetworks(allAllowedParcel);
+
+        enterpriseAgent.disconnect();
+        inOrder.verifyNoMoreInteractions();
+    }
+
+    @Test
+    public void testProfileNetworkPreferenceBlocking_networkChanges() throws Exception {
+        final InOrder inOrder = inOrder(mMockNetd);
+        final UserHandle testHandle = setupEnterpriseNetwork();
+        final TestOnCompleteListener listener = new TestOnCompleteListener();
+        mCm.setProfileNetworkPreference(testHandle, PROFILE_NETWORK_PREFERENCE_ENTERPRISE_BLOCKING,
+                r -> r.run(), listener);
+        listener.expectOnComplete();
+
+        // Verify netd is called with empty set to disallow any network.
+        final Set<UidRange> uidRanges = Collections.singleton(
+                UidRange.createForUser(UserHandle.of(TEST_WORK_PROFILE_USER_ID)));
+        final UidRangeParcel[] uidRangesParcel = toUidRangeStableParcels(uidRanges);
+        final AllowedNetworksForUidsParcel allDisallowedParcel = new AllowedNetworksForUidsParcel(
+                uidRangesParcel, new int[0]);
+        inOrder.verify(mMockNetd).setAllowedNetworks(allDisallowedParcel);
+
+        final TestNetworkAgentWrapper enterpriseAgent = makeEnterpriseNetworkAgent();
+        enterpriseAgent.connect(true);
+        final AllowedNetworksForUidsParcel enterpriseParcel = new AllowedNetworksForUidsParcel(
+                uidRangesParcel,
+                new int[]{enterpriseAgent.getNetwork().netId});
+        inOrder.verify(mMockNetd).networkAddUidRangesParcel(new NativeUidRangeConfig(
+                enterpriseAgent.getNetwork().netId,
+                uidRangesParcel,
+                PREFERENCE_ORDER_PROFILE));
+        inOrder.verify(mMockNetd).setAllowedNetworks(enterpriseParcel);
+
+        // Verify setAllowedNetworks is not called since default network connection does not
+        // affect the list.
+        mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        mCellNetworkAgent.connect(true);
+        inOrder.verify(mMockNetd).networkAddUidRangesParcel(new NativeUidRangeConfig(
+                mCellNetworkAgent.getNetwork().getNetId(),
+                uidRangesParcel,
+                PREFERENCE_ORDER_PROFILE));
+
+        enterpriseAgent.disconnect();
+        inOrder.verify(mMockNetd).setAllowedNetworks(allDisallowedParcel);
+    }
+
     /**
      * Make sure wrong preferences for per-profile default networking are rejected.
      */
@@ -15762,7 +15843,7 @@ public class ConnectivityServiceTest {
         ProfileNetworkPreference.Builder profileNetworkPreferenceBuilder =
                 new ProfileNetworkPreference.Builder();
         profileNetworkPreferenceBuilder.setPreference(
-                PROFILE_NETWORK_PREFERENCE_ENTERPRISE_NO_FALLBACK + 1);
+                PROFILE_NETWORK_PREFERENCE_ENTERPRISE_BLOCKING + 1);
         profileNetworkPreferenceBuilder.setPreferenceEnterpriseId(NET_ENTERPRISE_ID_1);
         assertThrows("Should not be able to set an illegal preference",
                 IllegalArgumentException.class,

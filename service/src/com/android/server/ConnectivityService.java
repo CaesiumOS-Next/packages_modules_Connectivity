@@ -196,6 +196,7 @@ import android.net.VpnManager;
 import android.net.VpnTransportInfo;
 import android.net.metrics.IpConnectivityLog;
 import android.net.metrics.NetworkEvent;
+import android.net.netd.aidl.AllowedNetworksForUidsParcel;
 import android.net.netd.aidl.NativeUidRangeConfig;
 import android.net.networkstack.ModuleNetworkStackClient;
 import android.net.networkstack.NetworkStackClientBase;
@@ -4347,6 +4348,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mNetworkForNetId.remove(nai.network.getNetId());
         }
         propagateUnderlyingNetworkCapabilities(nai.network);
+        // Update allowed network lists in netd. This might be called after removing nai from the
+        // list.
+        if (nai.networkCapabilities.hasCapability(NET_CAPABILITY_ENTERPRISE)) {
+            updateProfileAllowedNetworks();
+        }
         // Remove all previously satisfied requests.
         for (int i = 0; i < nai.numNetworkRequests(); i++) {
             final NetworkRequest request = nai.requestAt(i);
@@ -4776,11 +4782,25 @@ public class ConnectivityService extends IConnectivityManager.Stub
                             satisfier.network.getNetId(),
                             toUidRangeStableParcels(nri.getUids()),
                             nri.getPreferenceOrderForNetd()));
+
+                    // When removing the request, the service doesn't know whether the
+                    // request is for ENTERPRISE_BLOCKING or not. Thus, clear the list
+                    // that set to netd for all enterprise cases.
+                    // TODO: only call netd command when the nri is for blocking default.
+                    if (nri.mRequests.get(0).hasCapability(NET_CAPABILITY_ENTERPRISE)) {
+                        try {
+                            mNetd.setAllowedNetworks(new AllowedNetworksForUidsParcel(
+                                    toUidRangeStableParcels(nri.getUids()), null));
+                        } catch (RemoteException e) {
+                            loge("Exception setting network preference default network", e);
+                        }
+                    }
                 } catch (RemoteException e) {
                     loge("Exception setting network preference default network", e);
                 }
             }
         }
+
         nri.mPerUidCounter.decrementCount(nri.mUid);
         mNetworkRequestInfoLogs.log("RELEASE " + nri);
         checkNrisConsistency(nri);
@@ -6149,7 +6169,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private void onUserRemoved(@NonNull final UserHandle user) {
         // If there was a network preference for this user, remove it.
         handleSetProfileNetworkPreference(
-                List.of(new ProfileNetworkPreferenceInfo(user, null, true)),
+                List.of(new ProfileNetworkPreferenceInfo(user, null, true,
+                        false /* blockingDefault */)),
                 null /* listener */);
         if (mOemNetworkPreferences.getNetworkPreferences().size() > 0) {
             handleSetOemNetworkPreference(mOemNetworkPreferences, null);
@@ -8660,6 +8681,52 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    @Nullable
+    private int [] getEnterpriseAllowNetworksForBlockingPreference(
+            @NonNull ProfileNetworkPreferenceInfo pref) {
+        int [] enterpriseIds = pref.capabilities.getEnterpriseIds();
+        final ArrayList<Integer> allowedNetworks = new ArrayList<>();
+
+        for (final NetworkAgentInfo nai : mNetworkAgentInfos) {
+            if (!nai.networkCapabilities.hasCapability(NET_CAPABILITY_ENTERPRISE)) {
+                continue;
+            }
+            for (int enterpriseId : enterpriseIds) {
+                if (nai.networkCapabilities.hasEnterpriseId(enterpriseId)) {
+                    allowedNetworks.add(nai.network.netId);
+                    break;
+                }
+            }
+        }
+        return CollectionUtils.toIntArray(allowedNetworks);
+    }
+
+    private void updateProfileAllowedNetworksForBlockingPreference(
+            @NonNull ProfileNetworkPreferenceInfo pref) {
+        if (!pref.blockingDefault) {
+            throw new IllegalArgumentException("Must be ENTERPRISE_BLOCKING preference");
+        }
+
+        final int[] allowedNetworks = getEnterpriseAllowNetworksForBlockingPreference(pref);
+        final Set<UidRange> uidRanges = pref.capabilities.getUidRanges();
+        final UidRangeParcel[] ranges = toUidRangeStableParcels(uidRanges);
+
+        try {
+            mNetd.setAllowedNetworks(new AllowedNetworksForUidsParcel(ranges, allowedNetworks));
+        } catch (ServiceSpecificException e) {
+            // Has the interface disappeared since the network was built?
+        } catch (RemoteException e) {
+            // Netd died. This usually causes a runtime restart anyway.
+        }
+    }
+
+    private void updateProfileAllowedNetworks() {
+        for (final ProfileNetworkPreferenceInfo preference : mProfileNetworkPreferences) {
+            if (!preference.blockingDefault) continue;
+            updateProfileAllowedNetworksForBlockingPreference(preference);
+        }
+    }
+
     private void makeDefaultNetwork(@Nullable final NetworkAgentInfo newDefaultNetwork) {
         try {
             if (null != newDefaultNetwork) {
@@ -9292,6 +9359,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             networkAgent.setCreated();
             networkAgent.onNetworkCreated();
             updateAllowedUids(networkAgent, null, networkAgent.networkCapabilities);
+
+            if (networkAgent.networkCapabilities.hasCapability(NET_CAPABILITY_ENTERPRISE)) {
+                updateProfileAllowedNetworks();
+            }
         }
 
         if (!networkAgent.everConnected() && state == NetworkInfo.State.CONNECTED) {
@@ -10828,6 +10899,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         for (final ProfileNetworkPreference preference : preferences) {
             final NetworkCapabilities nc;
             boolean allowFallback = true;
+            boolean blockingDefault = false;
             switch (preference.getPreference()) {
                 case ConnectivityManager.PROFILE_NETWORK_PREFERENCE_DEFAULT:
                     nc = null;
@@ -10839,6 +10911,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     break;
                 case ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE_NO_FALLBACK:
                     allowFallback = false;
+                    // continue to process the enterprise preference.
+                case ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE_BLOCKING:
+                    blockingDefault = true;
                     // continue to process the enterprise preference.
                 case ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE:
                     // This code is needed even though there is a check later on,
@@ -10870,7 +10945,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     throw new IllegalArgumentException(
                             "Invalid preference in setProfileNetworkPreferences");
             }
-            preferenceList.add(new ProfileNetworkPreferenceInfo(profile, nc, allowFallback));
+            preferenceList.add(
+                    new ProfileNetworkPreferenceInfo(profile, nc, allowFallback, blockingDefault));
             if (hasDefaultPreference && preferenceList.size() > 1) {
                 throw new IllegalArgumentException(
                         "Default profile preference should not be set along with other preference");
@@ -10983,6 +11059,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         removeDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_PROFILE);
         addPerAppDefaultNetworkRequests(
                 createNrisFromProfileNetworkPreferences(mProfileNetworkPreferences));
+        updateProfileAllowedNetworks();
 
         // Finally, rematch.
         rematchAllNetworksAndRequests();
