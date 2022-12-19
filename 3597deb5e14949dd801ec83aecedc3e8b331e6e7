@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "100f3bf1_fe859184",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2722,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-19T07:31:17Z",
+      "side": 0,
+      "message": "If anyone depends on this to be present you\u0027ll break them ; maybe you want to keep this line. `dumpLocked` also will always print stuff, so you might need to print this :\n\n        if (fullHistory) {\n            pw.println(\"Complete history:\");\n        } else {\n            pw.println(\"History since boot:\");\n        }",
+      "range": {
+        "startLine": 2722,
+        "startChar": 12,
+        "endLine": 2722,
+        "endChar": 37
+      },
+      "revId": "3597deb5e14949dd801ec83aecedc3e8b331e6e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
