@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8033790c_c5264de8",
+        "filename": "framework-t/src/android/net/IpSecManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 996,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-19T15:13:55Z",
+      "side": 1,
+      "message": "The documentation should explain why this method only begins the process and does not complete it as well. Why would the caller want to wait between starting migration and completing it, and how long should they wait?\n\nWhat effects does starting the migration have? Presumably starting the migration does do something, otherwise this method wouldn\u0027t exist...",
+      "range": {
+        "startLine": 996,
+        "startChar": 45,
+        "endLine": 996,
+        "endChar": 46
+      },
+      "revId": "ed0f43a95e03c97db1fa3b96831f79116b4a6e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a68112e_e337e080",
+        "filename": "framework-t/src/android/net/IpSecManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1010,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-19T15:13:55Z",
+      "side": 1,
+      "message": "Is there a reason this TODO cannot be addressed in this CL? If so, you can list the reason here. TODO(b/169169973): Require FEATURE_IPSEC_MIGRATE when...?",
+      "range": {
+        "startLine": 1010,
+        "startChar": 7,
+        "endLine": 1010,
+        "endChar": 24
+      },
+      "revId": "ed0f43a95e03c97db1fa3b96831f79116b4a6e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cd14627_8d41e91f",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-19T15:13:55Z",
+      "side": 1,
+      "message": "Is it an error if mNnewSourceAddress is already non-null? In that case, should the method throw IllegalStateException, or log?",
+      "range": {
+        "startLine": 651,
+        "startChar": 30,
+        "endLine": 651,
+        "endChar": 48
+      },
+      "revId": "ed0f43a95e03c97db1fa3b96831f79116b4a6e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "449bea21_9d2772b0",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1781,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-19T15:13:55Z",
+      "side": 1,
+      "message": "What happens if the apply method is never called? Will something break, or do things keep working as is? If this is called and the apply method is not called, is it OK to call this method again? If not, how does the caller cancel the migration?",
+      "range": {
+        "startLine": 1781,
+        "startChar": 83,
+        "endLine": 1781,
+        "endChar": 84
+      },
+      "revId": "ed0f43a95e03c97db1fa3b96831f79116b4a6e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a969d04_ee5af17a",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1861,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-19T15:13:55Z",
+      "side": 1,
+      "message": ", and mark the migration as finished.",
+      "range": {
+        "startLine": 1861,
+        "startChar": 95,
+        "endLine": 1861,
+        "endChar": 96
+      },
+      "revId": "ed0f43a95e03c97db1fa3b96831f79116b4a6e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "768df5f5_d1ccfaa0",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1861,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-19T15:13:55Z",
+      "side": 1,
+      "message": "If the transform is migrating",
+      "range": {
+        "startLine": 1861,
+        "startChar": 10,
+        "endLine": 1861,
+        "endChar": 19
+      },
+      "revId": "ed0f43a95e03c97db1fa3b96831f79116b4a6e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20187f60_86297831",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1946,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-19T15:13:55Z",
+      "side": 1,
+      "message": "The linter complains that:\n\n[GuardedBy] Access should be guarded by enclosing instance \u0027com.android.server.IpSecService\u0027 of \u0027transformInfo\u0027, which is not accessible in this scope; instead found: \u0027this\u0027\n\ndo you know why?\n\nSuperficially, it looks like it might be incorrect - AFAICT applyTunnelModeTransform is a method of IpSecService, so the synchronized modifier on the method is equivalent to synchronized (IpSecService.this).\n\nNot sure if the linter was complaining about an earlier patchset perhaps? The error is on the wrong line. Does it happen locally if you try to reproduce with \"m RUN_ERROR_PRONE\u003dtrue service-connectivity-pre-jarjar\"?",
+      "range": {
+        "startLine": 1946,
+        "startChar": 16,
+        "endLine": 1946,
+        "endChar": 43
+      },
+      "revId": "ed0f43a95e03c97db1fa3b96831f79116b4a6e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cecb04c3_72225b8c",
+        "filename": "tests/unit/java/android/net/IpSecTransformTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-19T15:13:55Z",
+      "side": 1,
+      "message": "Dummy is not an inclusive term, TEST or FAKE would be better.",
+      "range": {
+        "startLine": 54,
+        "startChar": 29,
+        "endLine": 54,
+        "endChar": 34
+      },
+      "revId": "ed0f43a95e03c97db1fa3b96831f79116b4a6e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "588e3b57_4f81bbc6",
+        "filename": "tests/unit/java/android/net/IpSecTransformTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-19T15:13:55Z",
+      "side": 1,
+      "message": "Are these methods needed? I would expect them to be necessary if the test calls Context#getSystemService(IpSecManager.class) or Context#getSystemService(IPSEC_SERVICE), but the test doesn\u0027t seem to do that. If they\u0027re not necessary, either delete them or explain why they are being kept even though they are not useful.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 21
+      },
+      "revId": "ed0f43a95e03c97db1fa3b96831f79116b4a6e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
