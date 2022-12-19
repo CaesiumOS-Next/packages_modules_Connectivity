@@ -22,6 +22,30 @@
       },
       "revId": "b58fa696f173e4d75f0153d586db25169c2f953f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ec938cb_6cfbf800",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-12-19T07:07:26Z",
+      "side": 1,
+      "message": "I do agree these modules should not have the different values for `out`, `genrule_headers`, `srcs`, `tool_files` between archs.\n\nIf this function assumes the modules passed as args must have the same value for these attributes between archs, I think it’s useful to validate this assumption and raise Error or assert.\nThis will allow us to realize the issue/bug early and also prevent this function is misused.",
+      "parentUuid": "1e440c5f_99fa6a07",
+      "range": {
+        "startLine": 1159,
+        "startChar": 1,
+        "endLine": 1167,
+        "endChar": 22
+      },
+      "revId": "b58fa696f173e4d75f0153d586db25169c2f953f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
