@@ -126,11 +126,7 @@ static const set<string> MAINLINE_FOR_T_5_15_PLUS = {
     SHARED "prog_dscpPolicy_schedcls_set_dscp_ether",
 };
 
-static void addAll(set<string>& a, const set<string>& b) {
-    a.insert(b.begin(), b.end());
-}
-
-#define DO_EXPECT(B, V) addAll((B) ? mustExist : mustNotExist, (V))
+#define DO_EXPECT(B, V) ((B) ? mustExist : mustNotExist).merge(V)
 
 TEST_F(BpfExistenceTest, TestPrograms) {
     // Only unconfined root is guaranteed to be able to access everything in /sys/fs/bpf.
