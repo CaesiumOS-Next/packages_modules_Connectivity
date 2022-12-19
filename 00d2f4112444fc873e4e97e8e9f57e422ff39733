@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58f716f0_e88cd6b3",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1680,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-19T08:06:51Z",
+      "side": 1,
+      "message": "If you go to `TestableNetworkCallback.kt` and find the `expectAvailableCallbacks` method that you\u0027re using, it already has default values for the booleans so if you add `@JvmOverloads` to that method you won\u0027t need this helper.\n\nSame with `eventuallyExpect` in l.1688.",
+      "range": {
+        "startLine": 1680,
+        "startChar": 17,
+        "endLine": 1680,
+        "endChar": 33
+      },
+      "revId": "00d2f4112444fc873e4e97e8e9f57e422ff39733",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f88866d3_aa41ed4d",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1689,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-19T08:06:51Z",
+      "side": 1,
+      "message": "You don\u0027t need this because you already said `CallbackEntry.LOST`",
+      "range": {
+        "startLine": 1689,
+        "startChar": 16,
+        "endLine": 1689,
+        "endChar": 52
+      },
+      "revId": "00d2f4112444fc873e4e97e8e9f57e422ff39733",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb7da875_31f8a09b",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1704,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-19T08:06:51Z",
+      "side": 1,
+      "message": "As with other patch",
+      "range": {
+        "startLine": 1704,
+        "startChar": 55,
+        "endLine": 1704,
+        "endChar": 68
+      },
+      "revId": "00d2f4112444fc873e4e97e8e9f57e422ff39733",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbce7bff_28fbce99",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1734,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-19T08:06:51Z",
+      "side": 1,
+      "message": "Shouldn\u0027t you stop the VPN if it started, and call `mCM.setVpnDefaultForUids(session, new ArraySet\u003c\u003e())` in case there was an exception after you executed l.1716 ?\n\nAlternatively you can do both of these in `tearDown()`.",
+      "range": {
+        "startLine": 1734,
+        "startChar": 14,
+        "endLine": 1734,
+        "endChar": 15
+      },
+      "revId": "00d2f4112444fc873e4e97e8e9f57e422ff39733",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
