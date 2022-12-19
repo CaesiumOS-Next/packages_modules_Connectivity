@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09884c11_86352982",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-19T08:06:43Z",
+      "side": 1,
+      "message": "Considering you have another test that tests everything this does and more, maybe you no longer need this ?\n\nYou need to keep the checks for exceptions, and then just write a comment about where your actual test is (so somebody could find it when they look at this code).",
+      "revId": "4275ecacb331766f1e8279b77314546d57735989",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "613e2660_a508ce25",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2484,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-19T08:06:43Z",
+      "side": 1,
+      "message": "Please don\u0027t do this on the main thread of the test. The main thread of the test is not a looper thread ; you can\u0027t do this cogently. It\u0027s not going to work as maintainers expect because the looper is not running.\n\nIf you need a looper, make a TestLooper.",
+      "range": {
+        "startLine": 2484,
+        "startChar": 48,
+        "endLine": 2484,
+        "endChar": 72
+      },
+      "revId": "4275ecacb331766f1e8279b77314546d57735989",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c354062f_3c1a8ea4",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2489,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-19T08:06:43Z",
+      "side": 1,
+      "message": "This is not really useful in two respects\n\n• The test doesn\u0027t ensure it\u0027s connected to some form of network, so `defaultNetwork` may just be null, and then you\u0027ll never get onAvailable and the test will not pass. You need to call `ensureWifiConnected` or something similar\n• This test tests that the default network is the default network. It\u0027s not too useful. It would be much better if you knew what kind of network to expect, and you can compare that both to the return value of `getActiveNetwork` and the callback.",
+      "range": {
+        "startLine": 2489,
+        "startChar": 25,
+        "endLine": 2489,
+        "endChar": 73
+      },
+      "revId": "4275ecacb331766f1e8279b77314546d57735989",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb4a4768_8d60ebb5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2494,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-19T08:06:43Z",
+      "side": 1,
+      "message": "Here you also want to check that `getActiveNetwork` returns null (after the callback, otherwise you have a race)",
+      "range": {
+        "startLine": 2494,
+        "startChar": 69,
+        "endLine": 2494,
+        "endChar": 70
+      },
+      "revId": "4275ecacb331766f1e8279b77314546d57735989",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d48a889_91b6cbae",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2497,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-19T08:06:43Z",
+      "side": 1,
+      "message": "Same here, want to check that `getActiveNetwork` returns whatever network you made default at the top.",
+      "range": {
+        "startLine": 2497,
+        "startChar": 74,
+        "endLine": 2497,
+        "endChar": 75
+      },
+      "revId": "4275ecacb331766f1e8279b77314546d57735989",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
