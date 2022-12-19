@@ -70,6 +70,30 @@
       },
       "revId": "7b6984a6222dcc14e7727f6fb7892cf8770baf07",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c464c20_f5214d9f",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-19T13:07:57Z",
+      "side": 1,
+      "message": "`I thought it’s better to make the script fail if the desc.json contains unsupported/unexpected arch difference instead of silently ignore.\nSo that we can realize the issue early and fix the script or fix the upstream.`\n\nI like this part because it helped us figure out that even the java_genrule has some differences in the arg depending on the architecture so this is fine.\n\n`Target can have different values for input/output technically.`\nThis is true but kinda sound like a broken target to me. I personally think that each target input/outputs should be the same regardless of the arch and only the arguments shall change. However, that only happens in a perfect world.\n\n\nI\u0027ll agree with Patrick here that this needs to be redesigned from the bottom-up. But you\u0027ve addressed my concerns here. So I\u0027ll go ahead and merge this until we have a better solution.",
+      "parentUuid": "b4abfbac_c2bfe14f",
+      "range": {
+        "startLine": 122,
+        "startChar": 8,
+        "endLine": 124,
+        "endChar": 28
+      },
+      "revId": "7b6984a6222dcc14e7727f6fb7892cf8770baf07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
