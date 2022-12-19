@@ -49,6 +49,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
 
+import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.app.Activity;
 import android.app.DownloadManager;
@@ -97,6 +98,7 @@ import android.system.StructPollfd;
 import android.telephony.TelephonyManager;
 import android.test.MoreAsserts;
 import android.text.TextUtils;
+import android.util.ArraySet;
 import android.util.Log;
 import android.util.Range;
 
@@ -108,6 +110,7 @@ import com.android.net.module.util.PacketBuilder;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.RecorderCallback;
+import com.android.testutils.RecorderCallback.CallbackEntry;
 import com.android.testutils.TestableNetworkCallback;
 
 import org.junit.After;
@@ -136,6 +139,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -841,6 +845,13 @@ public class VpnTest {
                 entry -> (Objects.equals(expectUnderlyingNetworks,
                         ((RecorderCallback.CallbackEntry.CapabilitiesChanged) entry)
                                 .getCaps().getUnderlyingNetworks())));
+    }
+
+    private void expectVpnNetwork(TestableNetworkCallback callback) {
+        callback.eventuallyExpect(RecorderCallback.CallbackEntry.NETWORK_CAPS_UPDATED,
+                NETWORK_CALLBACK_TIMEOUT_MS,
+                entry -> (((RecorderCallback.CallbackEntry.CapabilitiesChanged) entry)
+                                .getCaps().hasTransport(TRANSPORT_VPN)));
     }
 
     @Test @IgnoreUpTo(SC_V2) // TODO: Use to Build.VERSION_CODES.SC_V2 when available
@@ -1663,6 +1674,63 @@ public class VpnTest {
                 runWithShellPermissionIdentity(() -> {
                     mCM.setRequireVpnForUids(false /* requireVpn */, lockdownRange);
                 }, NETWORK_SETTINGS);
+            });
+    }
+
+    private void waitForAvailable(@NonNull final TestableNetworkCallback cb,
+            @NonNull final Network expectedNetwork) {
+        cb.expectAvailableCallbacks(expectedNetwork, false /* suspended */,
+                null /* validated */,
+                false /* blocked */, NETWORK_CALLBACK_TIMEOUT_MS);
+    }
+
+    private void waitForLost(@NonNull final TestableNetworkCallback cb) {
+        cb.eventuallyExpect(CallbackEntry.LOST, NETWORK_CALLBACK_TIMEOUT_MS,
+                c -> c instanceof CallbackEntry.Lost);
+    }
+
+    @Test
+    public void testSetVpnDefaultForUids() throws Exception {
+        assumeTrue(supportedHardware());
+        assumeTrue(SdkLevel.isAtLeastU());
+        final TestableNetworkCallback myUidCallback = new TestableNetworkCallback();
+        testAndCleanup(() -> {
+            final Network defaultNetwork = mCM.getActiveNetwork();
+            final ArrayList<Network> underlyingNetworks = new ArrayList<>();
+            underlyingNetworks.add(defaultNetwork);
+            assertNotNull("There must be a default network", defaultNetwork);
+
+            final int myUid = Process.myUid();
+            final Handler handler = new Handler(Looper.getMainLooper());
+
+            mCM.registerDefaultNetworkCallback(myUidCallback, handler);
+
+            waitForAvailable(myUidCallback, defaultNetwork);
+
+            final Range<Integer> myUidRange = new Range<>(myUid, myUid);
+            final String session = UUID.randomUUID().toString();
+
+            // Acquire the NETWORK_SETTINGS permission for calling
+            // ConnectivityManager#setVpnDefaultForUids().
+            runWithShellPermissionIdentity(() -> {
+                mCM.setVpnDefaultForUids(session, List.of(myUidRange));
+            }, NETWORK_SETTINGS);
+
+            waitForLost(myUidCallback);
+
+            startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"} /* addresses */,
+                    new String[] {"0.0.0.0/0", "::/0"} /* routes */,
+                    "" /* allowedApplications */, "" /* disallowedApplications */,
+                    null /* proxyInfo */, underlyingNetworks, false /* isAlwaysMetered */);
+
+            expectVpnNetwork(myUidCallback);
+
+            runWithShellPermissionIdentity(() -> {
+                mCM.setVpnDefaultForUids(session, new ArraySet<>());
+            }, NETWORK_SETTINGS);
+            waitForAvailable(myUidCallback, defaultNetwork);
+        }, () -> {
+                mCM.unregisterNetworkCallback(myUidCallback);
             });
     }
 
