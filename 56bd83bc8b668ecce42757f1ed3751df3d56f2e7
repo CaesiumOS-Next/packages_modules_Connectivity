@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4d8b819_219beb37",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-19T11:38:57Z",
+      "side": 1,
+      "message": "But let\u0027s give Lorenzo an opportunity to comment if he wants to.",
+      "revId": "56bd83bc8b668ecce42757f1ed3751df3d56f2e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
