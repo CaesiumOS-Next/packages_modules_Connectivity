@@ -22,6 +22,30 @@
       },
       "revId": "7888faf0f9940e75b821d632b57cda80fed11b54",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d93078de_08d3de24",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1151,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-19T13:16:22Z",
+      "side": 1,
+      "message": "Scratch that. From the next CLs I can see that my comment would just make it more complex.",
+      "parentUuid": "c0f4821b_fc8c37a3",
+      "range": {
+        "startLine": 1131,
+        "startChar": 0,
+        "endLine": 1151,
+        "endChar": 33
+      },
+      "revId": "7888faf0f9940e75b821d632b57cda80fed11b54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
