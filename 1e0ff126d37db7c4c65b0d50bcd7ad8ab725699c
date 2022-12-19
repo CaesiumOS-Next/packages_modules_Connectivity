@@ -46,6 +46,30 @@
       },
       "revId": "1e0ff126d37db7c4c65b0d50bcd7ad8ab725699c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cedcf0e_0cbaec10",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-12-19T02:05:14Z",
+      "side": 1,
+      "message": "I don\u0027t think we can add list to the set.\n```\n\u003e\u003e\u003e args1 \u003d [\u0027--out\u0027, \u0027path\u0027]\n\u003e\u003e\u003e args2 \u003d [\u0027--out\u0027, \u0027path\u0027]\n\u003e\u003e\u003e set([args1, args2])\nTraceback (most recent call last):\n  File \"\u003cstdin\u003e\", line 1, in \u003cmodule\u003e\nTypeError: unhashable type: \u0027list\u0027\n```",
+      "parentUuid": "e16c87b0_5739878a",
+      "range": {
+        "startLine": 217,
+        "startChar": 6,
+        "endLine": 219,
+        "endChar": 81
+      },
+      "revId": "1e0ff126d37db7c4c65b0d50bcd7ad8ab725699c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
