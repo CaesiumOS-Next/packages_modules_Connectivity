@@ -22,6 +22,30 @@
       },
       "revId": "3b67343ddbc34bb38703dd904404b105ec776fde",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a32e073a_38f3af76",
+        "filename": "tests/native/connectivity_native_test/bpf_base_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-19T18:48:04Z",
+      "side": 1,
+      "message": "Kind of.  This file has been freshly moved out of //system/netd and is not yet built as part of any p/m/C Android.bp configured target...\n\nIt\u0027s probably still broken even after this.\n\nIt\u0027s here (and on my TODO list) to not lose track of the tests we should find equivalents for or add back somewhere.",
+      "parentUuid": "90d35c4d_f8c61932",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 17
+      },
+      "revId": "3b67343ddbc34bb38703dd904404b105ec776fde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
