@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "041b48e8_3acbcdd4",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-19T07:41:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fe373b2_fe2d0095",
+      "range": {
+        "startLine": 823,
+        "startChar": 11,
+        "endLine": 823,
+        "endChar": 48
+      },
+      "revId": "c3239f0ba6d9847934e246ef8e2353748290006f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0837008_ecfdc950",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-12-19T05:36:21Z",
       "side": 1,
       "message": "Let\u0027s rename this too",
+      "range": {
+        "startLine": 828,
+        "startChar": 30,
+        "endLine": 828,
+        "endChar": 45
+      },
+      "revId": "c3239f0ba6d9847934e246ef8e2353748290006f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a30009de_89b7a06e",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-19T07:41:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0837008_ecfdc950",
       "range": {
         "startLine": 828,
         "startChar": 30,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "752c9f55_07653437",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-19T07:41:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09dd8365_78621f7b",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 20
+      },
+      "revId": "c3239f0ba6d9847934e246ef8e2353748290006f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0777f23_b0c0ad3d",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-12-19T05:36:21Z",
       "side": 1,
       "message": "If `getInteger` isn\u0027t called then you don\u0027t need to mock ; if it\u0027s used, then you should be able to be more specific on what\u0027s here.\n\nIf for some reason that\u0027s not a good idea at least please justify why it\u0027s a good idea to return 1 for everything (in particular, why 1 and not something else).",
+      "range": {
+        "startLine": 174,
+        "startChar": 48,
+        "endLine": 174,
+        "endChar": 56
+      },
+      "revId": "c3239f0ba6d9847934e246ef8e2353748290006f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "725afdb2_77aca656",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-19T07:41:56Z",
+      "side": 1,
+      "message": "Updated to mock resource differently",
+      "parentUuid": "a0777f23_b0c0ad3d",
       "range": {
         "startLine": 174,
         "startChar": 48,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d650eec7_60d80aec",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-19T07:41:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81a55d27_b466de7d",
+      "range": {
+        "startLine": 197,
+        "startChar": 52,
+        "endLine": 197,
+        "endChar": 57
+      },
+      "revId": "c3239f0ba6d9847934e246ef8e2353748290006f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22fe3849_0ee3434c",
@@ -156,6 +276,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1d2a697_04fbc1f3",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-19T07:41:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22fe3849_0ee3434c",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 82
+      },
+      "revId": "c3239f0ba6d9847934e246ef8e2353748290006f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4698d92_48684c9e",
@@ -169,6 +313,30 @@
       "writtenOn": "2022-12-19T05:36:21Z",
       "side": 1,
       "message": "Existing",
+      "range": {
+        "startLine": 205,
+        "startChar": 46,
+        "endLine": 205,
+        "endChar": 51
+      },
+      "revId": "c3239f0ba6d9847934e246ef8e2353748290006f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb2d786a_2eacd98c",
+        "filename": "tests/unit/java/com/android/server/connectivity/KeepaliveTrackerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-19T07:41:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4698d92_48684c9e",
       "range": {
         "startLine": 205,
         "startChar": 46,
