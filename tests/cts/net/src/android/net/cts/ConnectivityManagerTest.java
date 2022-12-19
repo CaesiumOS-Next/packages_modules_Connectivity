@@ -233,6 +233,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
@@ -2467,6 +2468,34 @@ public class ConnectivityManagerTest {
         // shims, and @IgnoreUpTo does not check that.
         assumeTrue(TestUtils.shouldTestSApis());
         runWithShellPermissionIdentity(() -> doTestBlockedStatusCallback(), NETWORK_SETTINGS);
+    }
+
+    @Test
+    public void testSetVpnDefaultForUids() {
+        assumeTrue(TestUtils.shouldTestUApis());
+        final String session = UUID.randomUUID().toString();
+        assertThrows(NullPointerException.class, () -> mCm.setVpnDefaultForUids(session, null));
+        assertThrows(SecurityException.class,
+                () -> mCm.setVpnDefaultForUids(session, new ArraySet<>()));
+        runWithShellPermissionIdentity(() -> {
+            final TestNetworkCallback myUidCallback = new TestNetworkCallback();
+
+            final int myUid = Process.myUid();
+            final Handler handler = new Handler(Looper.getMainLooper());
+
+            registerDefaultNetworkCallback(myUidCallback, handler);
+
+            final Network defaultNetwork = mCm.getActiveNetwork();
+            assertEquals(defaultNetwork, myUidCallback.waitForAvailable());
+
+            final Range<Integer> myUidRange = new Range<>(myUid, myUid);
+            mCm.setVpnDefaultForUids(session, List.of(myUidRange));
+
+            assertEquals(defaultNetwork, myUidCallback.waitForLost());
+
+            mCm.setVpnDefaultForUids(session, new ArraySet<>());
+            assertEquals(defaultNetwork, myUidCallback.waitForAvailable());
+        }, NETWORK_SETTINGS);
     }
 
     private void doTestLegacyLockdownEnabled() throws Exception {
