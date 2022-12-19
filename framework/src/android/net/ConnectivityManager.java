@@ -1232,7 +1232,7 @@ public class ConnectivityManager {
     }
 
     /**
-     * Preference for {@link ProfileNetworkPreference#setPreference(int)}.
+     * Preference for {@link ProfileNetworkPreference.Builder#setPreference(int)}.
      * See {@link #setProfileNetworkPreferences(UserHandle, List, Executor, Runnable)}
      * Specify that the traffic for this user should by follow the default rules.
      * @hide
@@ -1241,7 +1241,7 @@ public class ConnectivityManager {
     public static final int PROFILE_NETWORK_PREFERENCE_DEFAULT = 0;
 
     /**
-     * Preference for {@link ProfileNetworkPreference#setPreference(int)}.
+     * Preference for {@link ProfileNetworkPreference.Builder#setPreference(int)}.
      * See {@link #setProfileNetworkPreferences(UserHandle, List, Executor, Runnable)}
      * Specify that the traffic for this user should by default go on a network with
      * {@link NetworkCapabilities#NET_CAPABILITY_ENTERPRISE}, and on the system default network
@@ -1252,15 +1252,26 @@ public class ConnectivityManager {
     public static final int PROFILE_NETWORK_PREFERENCE_ENTERPRISE = 1;
 
     /**
-     * Preference for {@link ProfileNetworkPreference#setPreference(int)}.
+     * Preference for {@link ProfileNetworkPreference.Builder#setPreference(int)}.
      * See {@link #setProfileNetworkPreferences(UserHandle, List, Executor, Runnable)}
      * Specify that the traffic for this user should by default go on a network with
      * {@link NetworkCapabilities#NET_CAPABILITY_ENTERPRISE} and if no such network is available
-     * should not go on the system default network
+     * should not go on the system default network.
      * @hide
      */
     @SystemApi(client = MODULE_LIBRARIES)
     public static final int PROFILE_NETWORK_PREFERENCE_ENTERPRISE_NO_FALLBACK = 2;
+
+    /**
+     * Preference for {@link ProfileNetworkPreference.Builder#setPreference(int)}.
+     * See {@link #setProfileNetworkPreferences(UserHandle, List, Executor, Runnable)}
+     * Specify that the traffic for this user should by default go on a network with
+     * {@link NetworkCapabilities#NET_CAPABILITY_ENTERPRISE} and should not be able to
+     * use system default network.
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int PROFILE_NETWORK_PREFERENCE_ENTERPRISE_BLOCKING_DEFAULT = 3;
 
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
