@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bf83cda_87f00ca9",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-12-19T02:31:38Z",
+      "side": 1,
+      "message": "I agree for the str.\nI have merged this function to `_finalize_non_set_attribute` and some attributes could be non hashable. So I kept this implementation.",
+      "parentUuid": "3ef2c2eb_a6718e18",
+      "range": {
+        "startLine": 225,
+        "startChar": 6,
+        "endLine": 227,
+        "endChar": 81
+      },
+      "revId": "96df5d400bf5a3f1d5548e93b5a1767a374dd95d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "325e9ccf_0445233c",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-16T22:17:50Z",
       "side": 1,
       "message": "if you used setattr(arch, key, None) you could reuse _finalize_list_attribute for strings.",
+      "range": {
+        "startLine": 230,
+        "startChar": 10,
+        "endLine": 230,
+        "endChar": 32
+      },
+      "revId": "96df5d400bf5a3f1d5548e93b5a1767a374dd95d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cde675a6_04867837",
+        "filename": "tools/gn2bp/gn_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2022-12-19T02:31:38Z",
+      "side": 1,
+      "message": "This finalizing process should be the same for non set attributes, I have merged to `_finalize_non_set_attribute`.\nWe can add initial/reset value to the arg if required.",
+      "parentUuid": "325e9ccf_0445233c",
       "range": {
         "startLine": 230,
         "startChar": 10,
