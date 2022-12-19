@@ -16,6 +16,23 @@
       "message": "Still happy with this but still needs tests",
       "revId": "3ba7cc25c0d0a5cac84e9e59e8efa22d643008fa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2acbb659_2e630988",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-19T08:07:26Z",
+      "side": 1,
+      "message": "Tests are in a followup and under review – but already reasonable.",
+      "revId": "3ba7cc25c0d0a5cac84e9e59e8efa22d643008fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
