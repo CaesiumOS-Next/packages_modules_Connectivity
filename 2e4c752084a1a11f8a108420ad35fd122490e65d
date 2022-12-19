@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88132782_dc73b3b3",
+        "filename": "tests/mts/bpf_existence_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-19T19:05:20Z",
+      "side": 1,
+      "message": "C++17 has support for std::set::merge(), so there is no need for a function anymore.",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 1
+      },
+      "revId": "2e4c752084a1a11f8a108420ad35fd122490e65d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
