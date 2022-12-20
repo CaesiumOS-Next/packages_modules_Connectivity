@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac987e97_b8b5827e",
+        "filename": "Cronet/AndroidManifest.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-20T16:25:45Z",
+      "side": 1,
+      "message": "I wonder if the manifest file is even needed here. I guess we\u0027ll leave that up to Motomu who is working on b/241431733.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 11
+      },
+      "revId": "1469f59d0401cd44e7ca3a33b6d8c69047646ad8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

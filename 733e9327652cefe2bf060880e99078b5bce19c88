@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "523210c3_e992ece6",
+        "filename": "Cronet/TEST_MAPPING",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-20T16:25:45Z",
+      "side": 0,
+      "message": "I personally prefer this name. CtsNetHttpTestCases is harder to read and less descriptive.",
+      "range": {
+        "startLine": 4,
+        "startChar": 15,
+        "endLine": 4,
+        "endChar": 33
+      },
+      "revId": "733e9327652cefe2bf060880e99078b5bce19c88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
