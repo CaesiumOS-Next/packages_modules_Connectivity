@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2805b003_02cafaed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-20T16:52:39Z",
+      "side": 1,
+      "message": "Both TH failures are on tm-mainline-prod in java land and thus unrelated to this C++ change.",
+      "revId": "70d30ec49d41dcc24135018353559502cf1edbfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
