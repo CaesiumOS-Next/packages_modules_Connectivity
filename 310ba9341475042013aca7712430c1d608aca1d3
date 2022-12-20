@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "87dc05a6_a7784bf1",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-20T06:33:14Z",
+      "side": 1,
+      "message": "Add null check first.",
+      "parentUuid": "3d0081b1_5ebcdee5",
+      "range": {
+        "startLine": 987,
+        "startChar": 16,
+        "endLine": 987,
+        "endChar": 22
+      },
+      "revId": "310ba9341475042013aca7712430c1d608aca1d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8c827c93_7d445278",
         "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
         "patchSetId": 10
