@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ceebb596_b1dd267e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-20T04:13:12Z",
+      "side": 1,
+      "message": "Happy with this when the comments are addressed",
+      "revId": "aec8d61742ecfbd0c9305e596382edf55218d743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05b84471_edac9006",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-20T04:13:12Z",
+      "side": 1,
+      "message": "You should not need this cast. Refer to the definition of eventuallyExpect :\n\n    fun \u003cT : CallbackEntry\u003e eventuallyExpect(\n        type: KClass\u003cT\u003e,\n        timeoutMs: Long \u003d defaultTimeoutMs,\n        predicate: (cb: T) -\u003e Boolean \u003d { true }\n    )\n\n`type` is a `KClass\u003cT\u003e`, and you\u0027re passing `NETWORK_CAPS_UPDATED` which is a `KClass\u003cCapabilitiesChanged\u003e`. The compiler should therefore infer that `T` is a `CapabilitiesChanged`. Now, in the predicate, the argument is a `T` which means `entry` is already a `CapabilitiesChanged`. You should therefore not need the cast : the compiler should let you call `entry.getCaps()` without it.\n\n\n(the same applies to l.845, if you feel like fixing it at the same time)",
+      "range": {
+        "startLine": 852,
+        "startChar": 27,
+        "endLine": 852,
+        "endChar": 79
+      },
+      "revId": "aec8d61742ecfbd0c9305e596382edf55218d743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35c919fa_2533bd6f",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1688,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-20T04:13:12Z",
+      "side": 1,
+      "message": "assertNotNull ?",
+      "range": {
+        "startLine": 1688,
+        "startChar": 8,
+        "endLine": 1688,
+        "endChar": 18
+      },
+      "revId": "aec8d61742ecfbd0c9305e596382edf55218d743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9753c2ba_3ecbd06c",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1690,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-20T04:13:12Z",
+      "side": 1,
+      "message": "You don\u0027t need this because you know `wifiNetwork` is non-null and you assertEquals immediately on the next line",
+      "range": {
+        "startLine": 1690,
+        "startChar": 8,
+        "endLine": 1690,
+        "endChar": 21
+      },
+      "revId": "aec8d61742ecfbd0c9305e596382edf55218d743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a26a2634_424007e0",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1713,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-20T04:13:12Z",
+      "side": 1,
+      "message": "List.of(defaultNetwork) ?",
+      "range": {
+        "startLine": 1712,
+        "startChar": 58,
+        "endLine": 1713,
+        "endChar": 51
+      },
+      "revId": "aec8d61742ecfbd0c9305e596382edf55218d743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e5d71bd_b37e1a1d",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1721,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-20T04:13:12Z",
+      "side": 1,
+      "message": "Suggest running this in a separate cleanup block. Also, after you stop the VPN you should expect LOST on the callback.",
+      "range": {
+        "startLine": 1721,
+        "startChar": 16,
+        "endLine": 1721,
+        "endChar": 23
+      },
+      "revId": "aec8d61742ecfbd0c9305e596382edf55218d743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
