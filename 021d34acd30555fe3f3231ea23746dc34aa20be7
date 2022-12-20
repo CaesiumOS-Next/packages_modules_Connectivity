@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48aea3b8_bb91b1c5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5995,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-12-20T22:43:07Z",
+      "side": 1,
+      "message": "Is this the correct method to call on Permission Monitor?",
+      "range": {
+        "startLine": 5995,
+        "startChar": 31,
+        "endLine": 5995,
+        "endChar": 62
+      },
+      "revId": "021d34acd30555fe3f3231ea23746dc34aa20be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e21417d_49390fbe",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 8092,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-12-20T22:43:07Z",
+      "side": 1,
+      "message": "Should the added booleans only be included for a specified SdkLevel and above?",
+      "range": {
+        "startLine": 8092,
+        "startChar": 27,
+        "endLine": 8092,
+        "endChar": 69
+      },
+      "revId": "021d34acd30555fe3f3231ea23746dc34aa20be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4717c505_4d3b9887",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9415,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-12-20T22:43:07Z",
+      "side": 1,
+      "message": "Since this gets called for onAvailable, if this approach is taken (which seems to be correct since onBlocked gets called for other criteria here), unit tests in ConnectivityService (19 currently) and most likely ConnectivityManager CTS tests will need to be updated in cases where restricted networks are created depending on what onAvailable... helper method is used to validate against.\n\nThe changes themselves should be fairly small (simple IF statement for SDK level using the existing helper or a different helper) but something to be aware of.",
+      "range": {
+        "startLine": 9415,
+        "startChar": 69,
+        "endLine": 9415,
+        "endChar": 82
+      },
+      "revId": "021d34acd30555fe3f3231ea23746dc34aa20be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8116c038_15d72a93",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9427,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-12-20T22:43:07Z",
+      "side": 1,
+      "message": "Is this the correct SDK level or should U be targeted?",
+      "range": {
+        "startLine": 9427,
+        "startChar": 12,
+        "endLine": 9427,
+        "endChar": 33
+      },
+      "revId": "021d34acd30555fe3f3231ea23746dc34aa20be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4609d4ab_02c26ed8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9473,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-12-20T22:43:07Z",
+      "side": 1,
+      "message": "I\u0027m curious what the thoughts are on this. Specifically, for the per-app default functionality (5G slicing, PANS), they would also populate the allowedUids field on the network capabilities object. If that works, then the existing callbacks should also work.\n\nAlternatively, the new helper method isUidPerAppRestricted could be updated to account for per-app defaults.\n\nEither of the above (or something else?) should work, curious what thoughts are on either approach?",
+      "range": {
+        "startLine": 9473,
+        "startChar": 32,
+        "endLine": 9473,
+        "endChar": 93
+      },
+      "revId": "021d34acd30555fe3f3231ea23746dc34aa20be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
