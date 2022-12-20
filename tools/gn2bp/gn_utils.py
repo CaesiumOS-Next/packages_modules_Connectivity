@@ -222,6 +222,7 @@ class GnParser(object):
     def _finalize_non_set_attribute(self, key):
       # Only when all the arch has the same non empty value, move the value to the target common
       val = getattr(list(self.arch.values())[0], key)
+      # Set can not be used to check if all the values are the same since value can be unhashable
       if val and all([val == getattr(arch, key) for arch in self.arch.values()]):
         setattr(self, key, copy.deepcopy(val))
         for arch in self.arch.values():
