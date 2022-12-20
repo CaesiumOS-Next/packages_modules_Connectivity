@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab7dbd5c_28df037c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-20T04:02:54Z",
+      "side": 1,
+      "message": "Happy with this, over to lorenzo@",
+      "revId": "225a24a4e176a36c9aa73f79c31b350de814b896",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57426e92_78f9dd5c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2480,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-20T04:02:54Z",
+      "side": 1,
+      "message": "complete",
+      "range": {
+        "startLine": 2480,
+        "startChar": 27,
+        "endLine": 2480,
+        "endChar": 36
+      },
+      "revId": "225a24a4e176a36c9aa73f79c31b350de814b896",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
