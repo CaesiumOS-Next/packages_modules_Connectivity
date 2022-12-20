@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5335c3ed_4f61560e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1033608
+      },
+      "writtenOn": "2022-12-20T06:32:19Z",
+      "side": 1,
+      "message": "Mark, also, there\u0027s an earlier CL for your reference: https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2353462",
+      "revId": "a4fc702f7ec46e5430612815458e6ad5e83d9bbb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ea028bb_6182a2cf",
