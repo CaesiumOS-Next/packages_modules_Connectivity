@@ -48,6 +48,7 @@ import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_MASK;
 import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_USER_RESTRICTED;
 import static android.net.ConnectivityManager.BLOCKED_REASON_BATTERY_SAVER;
 import static android.net.ConnectivityManager.BLOCKED_REASON_NONE;
+import static android.net.ConnectivityManager.BLOCKED_REASON_PER_APP_RESTRICTED_NETWORK;
 import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 import static android.net.ConnectivityManager.EXTRA_NETWORK_INFO;
 import static android.net.ConnectivityManager.EXTRA_NETWORK_TYPE;
@@ -15885,7 +15886,7 @@ public class ConnectivityServiceTest {
                 ConnectivityService.PREFERENCE_ORDER_IRRELEVANT_BECAUSE_NOT_DEFAULT;
         mServiceContext.setPermission(NETWORK_FACTORY, PERMISSION_GRANTED);
         mServiceContext.setPermission(MANAGE_TEST_NETWORKS, PERMISSION_GRANTED);
-        final TestNetworkCallback cb = new TestNetworkCallback();
+        final DetailedBlockedStatusCallback cb = new DetailedBlockedStatusCallback();
         mCm.requestNetwork(new NetworkRequest.Builder()
                         .clearCapabilities()
                         .addTransportType(TRANSPORT_TEST)
@@ -15902,7 +15903,12 @@ public class ConnectivityServiceTest {
         final TestNetworkAgentWrapper agent = new TestNetworkAgentWrapper(TRANSPORT_TEST,
                 new LinkProperties(), nc);
         agent.connect(true);
-        cb.expectAvailableThenValidatedCallbacks(agent);
+        if (SdkLevel.isAtLeastT()) {
+            cb.expectAvailableThenValidatedCallbacks(agent.getNetwork(),
+                    BLOCKED_REASON_PER_APP_RESTRICTED_NETWORK, TEST_CALLBACK_TIMEOUT_MS);
+        } else {
+            cb.expectAvailableThenValidatedCallbacks(agent);
+        }
 
         final InOrder inOrder = inOrder(mMockNetd);
         final NativeUidRangeConfig uids200Parcel = new NativeUidRangeConfig(
@@ -15959,11 +15965,24 @@ public class ConnectivityServiceTest {
             inOrder.verify(mMockNetd, times(1)).networkRemoveUidRangesParcel(uids300400Parcel);
         }
 
+        // Set the UID to the test process in order to validate onBlockedStatus callbacks.
+        uids.clear();
+        uids.add(Process.myUid());
+        nc.setAllowedUids(uids);
+        agent.setNetworkCapabilities(nc, true /* sendToConnectivityService */);
+        if (SdkLevel.isAtLeastT()) {
+            cb.expectCapabilitiesThat(agent, caps -> caps.getAllowedUids().equals(uids));
+            cb.expectBlockedStatusCallback(agent, BLOCKED_REASON_NONE);
+        } else {
+            cb.assertNoCallback();
+        }
+
         uids.clear();
         nc.setAllowedUids(uids);
         agent.setNetworkCapabilities(nc, true /* sendToConnectivityService */);
         if (SdkLevel.isAtLeastT()) {
             cb.expectCapabilitiesThat(agent, caps -> caps.getAllowedUids().isEmpty());
+            cb.expectBlockedStatusCallback(agent, BLOCKED_REASON_PER_APP_RESTRICTED_NETWORK);
             inOrder.verify(mMockNetd, times(1)).networkRemoveUidRangesParcel(uids600Parcel);
         } else {
             cb.assertNoCallback();
