@@ -70,6 +70,30 @@
       },
       "revId": "733e9327652cefe2bf060880e99078b5bce19c88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "befc11be_6829ca93",
+        "filename": "Cronet/TEST_MAPPING",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2022-12-20T21:28:51Z",
+      "side": 0,
+      "message": "I\u0027ve changed this back since the scope of this cl is just package name rename as you mentioned.\n\nFWIW, per go/cronet-in-mainline-api\u0027s TL;DR, references to Cronet eg CronetEngine will be renamed to HttpEngine, so this may need to be revisited in the future.",
+      "parentUuid": "c1678b8f_45a66f96",
+      "range": {
+        "startLine": 4,
+        "startChar": 15,
+        "endLine": 4,
+        "endChar": 33
+      },
+      "revId": "733e9327652cefe2bf060880e99078b5bce19c88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
