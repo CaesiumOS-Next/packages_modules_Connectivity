@@ -16,6 +16,23 @@
       "message": "LGTM, over to lorenzo@",
       "revId": "220332b9c5412d65f7416bd45214cc5a963c85db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "418f087d_a3f23648",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-12-20T08:31:21Z",
+      "side": 1,
+      "message": "This test doesn\u0027t seem very useful. Given that we have more comprehensive tests elsewhere, it seems better to add this test coverage to those tests. But I don\u0027t think it\u0027s harmful, so LGTM.",
+      "revId": "220332b9c5412d65f7416bd45214cc5a963c85db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
