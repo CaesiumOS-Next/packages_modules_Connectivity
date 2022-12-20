@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d0081b1_5ebcdee5",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-20T03:58:21Z",
+      "side": 1,
+      "message": "This might NPE I think ? Maybe it would mean a bug in the kernel ?",
+      "range": {
+        "startLine": 987,
+        "startChar": 16,
+        "endLine": 987,
+        "endChar": 22
+      },
+      "revId": "310ba9341475042013aca7712430c1d608aca1d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c827c93_7d445278",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-20T03:58:21Z",
+      "side": 1,
+      "message": "Optional : It *might* be clearer to remove the local |mark| and do something like\n\n    try {\n      while () {\n        if () {\n          return nlattr.getValueAsInt();\n        }\n      }\n    } finally {\n      bytes.position()\n    }\n\nNot too sure about that ; only do this if you think it\u0027s actually clearer.",
+      "range": {
+        "startLine": 993,
+        "startChar": 15,
+        "endLine": 993,
+        "endChar": 19
+      },
+      "revId": "310ba9341475042013aca7712430c1d608aca1d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

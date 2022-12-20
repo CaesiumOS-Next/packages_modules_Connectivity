@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7e60fa63_49b18e7e",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-20T03:58:21Z",
+      "side": 1,
+      "message": "Not really ; you still have the confusing return values because you still have the weird separation where the caller takes the decision to interrupt the loop but the callee tells it to.\n\nEssentially I think parseAndCheckTcpSockets should be inlined. I understand that makes a longer function, but you\u0027ll get rid of half the body of isAnyTcpSocketConnectedForFamily, and you could cut out inner functions to make it shorter, e.g.\n\n    private isEndOfMessageOrError(StructNlMsgHdr hdr) {\n      // The ByteBuffer is expected to be parsed sequentially. Malformed message may break\n      // the parsing assumption. Consider it as no socket info and no more data.\n      return hdr \u003d\u003d null || hdr.nlmsg_type \u003d\u003d DONE || hdr.nlmsg_type !\u003d FAMILY;\n    }\n\nWhich lets you write\n\n    final StructNlMsgHdr nlmsghdr \u003d StructNlMsgHdr.parse(bytes);\n    if (isEndOfMessageOrError(nlmsghdr)) return false;\n\nYou can probably also simplify the catch(BufferUnderflow), and there might be more opportunities to shorten it. That means the body of this function will stay reasonably short I think, even if you can\u0027t really avoid the double loop.",
+      "parentUuid": "d8a75e34_a151d0fc",
+      "range": {
+        "startLine": 919,
+        "startChar": 58,
+        "endLine": 919,
+        "endChar": 86
+      },
+      "revId": "edf97e95e7fa7f620361253856795224acac0184",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8d02d427_01b1016f",
         "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
         "patchSetId": 8
