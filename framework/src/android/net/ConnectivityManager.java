@@ -886,6 +886,15 @@ public class ConnectivityManager {
     public static final int BLOCKED_REASON_LOW_POWER_STANDBY = 1 << 5;
 
     /**
+     * Flag to indicate that an app is does not have access access on a per-app basis to a
+     * restricted network.
+     *
+     * @hide
+     */
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    public static final int BLOCKED_REASON_PER_APP_RESTRICTED_NETWORK = 1 << 6;
+
+    /**
      * Flag to indicate that an app is subject to Data saver restrictions that would
      * result in its metered network access being blocked.
      *
