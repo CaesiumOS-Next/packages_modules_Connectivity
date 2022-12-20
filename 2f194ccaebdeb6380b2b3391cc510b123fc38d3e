@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "21186e5f_87732b10",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4464,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-20T11:43:47Z",
+      "side": 1,
+      "message": "Not sure I understand the question correctly, but :\n• Agents with LOCAL_NETWORK will be created by the tethering code when SDK level is U+. This will be in a followup change.\n• The reason to have this check here is that the module runs on S and T, but as of T netd doesn\u0027t support local agents (it doesn\u0027t even support the API to make them). OEM code however could use this capability, so we need to make sure trying to do this on T- doesn\u0027t do anything.",
+      "parentUuid": "e6bdcb00_468f2614",
+      "range": {
+        "startLine": 4461,
+        "startChar": 19,
+        "endLine": 4464,
+        "endChar": 33
+      },
+      "revId": "2f194ccaebdeb6380b2b3391cc510b123fc38d3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "95a4c263_d3ea8fb7",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-18T11:21:53Z",
       "side": 1,
       "message": "Stupid question: where is the code that will actually put NET_CAPABILITY_LOCAL_NETWORK into the capabilities?",
+      "range": {
+        "startLine": 8479,
+        "startChar": 19,
+        "endLine": 8479,
+        "endChar": 95
+      },
+      "revId": "2f194ccaebdeb6380b2b3391cc510b123fc38d3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9e2350d_e393db2a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8479,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-20T11:43:47Z",
+      "side": 1,
+      "message": "It will live in IpServer.java.",
+      "parentUuid": "95a4c263_d3ea8fb7",
       "range": {
         "startLine": 8479,
         "startChar": 19,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "851bce0e_2045a025",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-20T11:43:47Z",
+      "side": 1,
+      "message": "I think it\u0027s unlikely we\u0027ll have a 3rd style, but I thought it would be easier to understand if we had named constants. Compare :\n\n    connect(true, true, true, true)\n    connect(true, true, true, WAIT_FOR_CALLBACK)\n\nI think the latter is more readable.\n\nI could make it a boolean and say that WAIT_FOR_CALLBACK\u003dtrue and WAIT_FOR_IDLE\u003dfalse, but considering booleans are 32bits too, I think the current code is more capable with no real drawback.\n\nIf you feel strongly about this I\u0027m happy to change it.",
+      "parentUuid": "ee497c15_0f7bad1c",
+      "range": {
+        "startLine": 1084,
+        "startChar": 18,
+        "endLine": 1084,
+        "endChar": 27
+      },
+      "revId": "2f194ccaebdeb6380b2b3391cc510b123fc38d3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2041b9d9_3929526c",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-12-18T11:21:53Z",
       "side": 1,
       "message": "Stupid question: This is only renaming, right?",
+      "range": {
+        "startLine": 1090,
+        "startChar": 24,
+        "endLine": 1090,
+        "endChar": 51
+      },
+      "revId": "2f194ccaebdeb6380b2b3391cc510b123fc38d3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9eedf835_76c1cb6d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-20T11:43:47Z",
+      "side": 1,
+      "message": "Yes. \"isStrictMode\" is very hard to understand. Really this should go in another patch but I couldn\u0027t be bothered \u003c.\u003c\n\nI separated this into a preliminary patch, which is cleaner.",
+      "parentUuid": "2041b9d9_3929526c",
       "range": {
         "startLine": 1090,
         "startChar": 24,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1278561b_64ff7be0",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1122,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-20T11:43:47Z",
+      "side": 1,
+      "message": "I agree but I think this patch is big enough ; I can take that as a cleanup.",
+      "parentUuid": "c7aa0e56_52be13d2",
+      "range": {
+        "startLine": 1118,
+        "startChar": 12,
+        "endLine": 1122,
+        "endChar": 13
+      },
+      "revId": "2f194ccaebdeb6380b2b3391cc510b123fc38d3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f623b806_2c4e7e37",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-12-18T11:21:53Z",
       "side": 1,
       "message": "nit: Maybe also comment this.",
+      "range": {
+        "startLine": 1155,
+        "startChar": 20,
+        "endLine": 1155,
+        "endChar": 25
+      },
+      "revId": "2f194ccaebdeb6380b2b3391cc510b123fc38d3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a798d87_d3fbb4cb",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1155,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-20T11:43:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f623b806_2c4e7e37",
       "range": {
         "startLine": 1155,
         "startChar": 20,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0ebe0ca_5cd12a7f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2044,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-20T11:43:47Z",
+      "side": 1,
+      "message": "Disagree that this should not be for this patch 😊\n\nImplemented in HandlerUtils.kt and added a test for it.\naosp/2361493 and aosp/2365108",
+      "parentUuid": "ba6c7d08_4099e68a",
+      "range": {
+        "startLine": 2044,
+        "startChar": 21,
+        "endLine": 2044,
+        "endChar": 43
+      },
+      "revId": "2f194ccaebdeb6380b2b3391cc510b123fc38d3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c18ef28_15a5765d",
@@ -185,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26a1023c_2436cb2d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 12561,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-20T11:43:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c18ef28_15a5765d",
+      "range": {
+        "startLine": 12559,
+        "startChar": 6,
+        "endLine": 12561,
+        "endChar": 48
+      },
+      "revId": "2f194ccaebdeb6380b2b3391cc510b123fc38d3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f841b2ec_114c295a",
@@ -198,6 +390,30 @@
       "writtenOn": "2022-12-18T11:21:53Z",
       "side": 1,
       "message": "name changed?",
+      "range": {
+        "startLine": 12576,
+        "startChar": 25,
+        "endLine": 12576,
+        "endChar": 37
+      },
+      "revId": "2f194ccaebdeb6380b2b3391cc510b123fc38d3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "797ab0dd_855c3ecc",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 12576,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-20T11:43:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f841b2ec_114c295a",
       "range": {
         "startLine": 12576,
         "startChar": 25,
