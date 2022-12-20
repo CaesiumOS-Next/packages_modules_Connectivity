@@ -22,6 +22,30 @@
       },
       "revId": "733e9327652cefe2bf060880e99078b5bce19c88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "591e84b3_fa908b5f",
+        "filename": "Cronet/TEST_MAPPING",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1976566
+      },
+      "writtenOn": "2022-12-20T16:45:05Z",
+      "side": 0,
+      "message": "The naming convention for cts is \"Cts\u003cModuleName\u003eTestCases\" and from this[1], the module name should be the second part of the package name. Since we are renaming to android.net.http, our cts should be named CtsNetTestCases(this is taken) hence the CtsNetHttpTestCases.\n\nThese names are visible to our partners too, so it \"sortof\" contradicts the renaming from Cronet* to Http*.\n\n[1]https://source.android.com/docs/compatibility/cts/development#test-naming-and-location",
+      "parentUuid": "523210c3_e992ece6",
+      "range": {
+        "startLine": 4,
+        "startChar": 15,
+        "endLine": 4,
+        "endChar": 33
+      },
+      "revId": "733e9327652cefe2bf060880e99078b5bce19c88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
