@@ -2458,6 +2458,16 @@ public final class NetworkCapabilities implements Parcelable {
     }
 
     /**
+     * Check if this {@code NetworkCapability} instance is restricted.
+     *
+     * @return {@code true} if {@code NET_CAPABILITY_NOT_RESTRICTED} is not set on this instance.
+     * @hide
+     */
+    public boolean isRestricted() {
+        return !hasCapability(NET_CAPABILITY_NOT_RESTRICTED);
+    }
+
+    /**
      * Check if private dns is broken.
      *
      * @return {@code true} if private DNS is broken on this network.
