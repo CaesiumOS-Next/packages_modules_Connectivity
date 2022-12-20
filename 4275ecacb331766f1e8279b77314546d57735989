@@ -75,6 +75,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02f53a78_e0e2bf92",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2484,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-20T03:00:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "613e2660_a508ce25",
+      "range": {
+        "startLine": 2484,
+        "startChar": 48,
+        "endLine": 2484,
+        "endChar": 72
+      },
+      "revId": "4275ecacb331766f1e8279b77314546d57735989",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c354062f_3c1a8ea4",
@@ -88,6 +112,30 @@
       "writtenOn": "2022-12-19T08:06:43Z",
       "side": 1,
       "message": "This is not really useful in two respects\n\n• The test doesn\u0027t ensure it\u0027s connected to some form of network, so `defaultNetwork` may just be null, and then you\u0027ll never get onAvailable and the test will not pass. You need to call `ensureWifiConnected` or something similar\n• This test tests that the default network is the default network. It\u0027s not too useful. It would be much better if you knew what kind of network to expect, and you can compare that both to the return value of `getActiveNetwork` and the callback.",
+      "range": {
+        "startLine": 2489,
+        "startChar": 25,
+        "endLine": 2489,
+        "endChar": 73
+      },
+      "revId": "4275ecacb331766f1e8279b77314546d57735989",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ad094c9_750272e7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2489,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-20T03:00:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c354062f_3c1a8ea4",
       "range": {
         "startLine": 2489,
         "startChar": 25,
@@ -121,6 +169,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aab61bd3_3b393eb2",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2494,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-20T03:00:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cb4a4768_8d60ebb5",
+      "range": {
+        "startLine": 2494,
+        "startChar": 69,
+        "endLine": 2494,
+        "endChar": 70
+      },
+      "revId": "4275ecacb331766f1e8279b77314546d57735989",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d48a889_91b6cbae",
@@ -134,6 +206,30 @@
       "writtenOn": "2022-12-19T08:06:43Z",
       "side": 1,
       "message": "Same here, want to check that `getActiveNetwork` returns whatever network you made default at the top.",
+      "range": {
+        "startLine": 2497,
+        "startChar": 74,
+        "endLine": 2497,
+        "endChar": 75
+      },
+      "revId": "4275ecacb331766f1e8279b77314546d57735989",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1d42d17_93b90e48",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2497,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-20T03:00:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2d48a889_91b6cbae",
       "range": {
         "startLine": 2497,
         "startChar": 74,
