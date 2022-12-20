@@ -178,6 +178,7 @@ java_defaults {
     ],
     jarjar_rules: "jarjar-rules.txt",
     optimize: {
+        shrink_resources: true,
         proguard_flags_files: ["proguard.flags"],
     },
     lint: { strict_updatability_linting: true },
