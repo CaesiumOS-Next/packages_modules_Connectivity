@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5c90029_80d72546",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-20T14:49:19Z",
+      "side": 1,
+      "message": "patchset 7 had TH+2 and p8 is only trivial changes since.\n\nAdditionally the failure on p8 attempt 1 is:\n\nThere are untracked SELinux denials on boot:\ngo/how-to-track-an-selinux-denial\n12-20 11:06:23.410   259   259 I auditd  : avc:  denied  { find } for pid\u003d1929 uid\u003d10202 name\u003dvendor.google.google_battery.IGoogleBattery/default scontext\u003du:r:platform_app:s0:c512,c768 tcontext\u003du:object_r:default_android_service:s0 tclass\u003dservice_manager permissive\u003d0\n\nwhich is clearly unrelated.",
+      "revId": "04252031522382efb7bb56566898a69ea25739da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
