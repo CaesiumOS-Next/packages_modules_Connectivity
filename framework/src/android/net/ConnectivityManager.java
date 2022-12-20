@@ -910,6 +910,14 @@ public class ConnectivityManager {
     public static final int BLOCKED_REASON_APP_BACKGROUND = 1 << 6;
 
     /**
+     * Flag to indicate that an app does not have access to a network because it is restricted.
+     *
+     * @hide
+     */
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    public static final int BLOCKED_REASON_RESTRICTED_NETWORK = 1 << 7;
+
+    /**
      * Flag to indicate that an app is subject to Data saver restrictions that would
      * result in its metered network access being blocked.
      *

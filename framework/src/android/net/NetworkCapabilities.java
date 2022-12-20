@@ -29,9 +29,6 @@ import android.annotation.SuppressLint;
 import android.annotation.SystemApi;
 import android.compat.annotation.UnsupportedAppUsage;
 import android.net.ConnectivityManager.NetworkCallback;
-// Can't be imported because aconfig tooling doesn't exist on udc-mainline-prod yet
-// See inner class Flags which mimics this for the time being
-// import android.net.flags.Flags;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -54,6 +51,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.StringJoiner;
+
+// Can't be imported because aconfig tooling doesn't exist on udc-mainline-prod yet
+// See inner class Flags which mimics this for the time being
+// import android.net.flags.Flags;
 
 /**
  * Representation of the capabilities of an active network.
@@ -2633,6 +2634,16 @@ public final class NetworkCapabilities implements Parcelable {
      */
     public boolean isMetered() {
         return !hasCapability(NET_CAPABILITY_NOT_METERED);
+    }
+
+    /**
+     * Check if this {@code NetworkCapability} instance is restricted.
+     *
+     * @return {@code true} if {@code NET_CAPABILITY_NOT_RESTRICTED} is not set on this instance.
+     * @hide
+     */
+    public boolean isRestricted() {
+        return !hasCapability(NET_CAPABILITY_NOT_RESTRICTED);
     }
 
     /**
