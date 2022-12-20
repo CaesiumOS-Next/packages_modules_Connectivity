@@ -143,6 +143,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a279a4c_f69d8218",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-20T08:58:20Z",
+      "side": 1,
+      "message": "I think the new code is a lot easier to understand.",
+      "parentUuid": "29331cd8_007d8ddd",
+      "range": {
+        "startLine": 919,
+        "startChar": 58,
+        "endLine": 919,
+        "endChar": 86
+      },
+      "revId": "edf97e95e7fa7f620361253856795224acac0184",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d02d427_01b1016f",
