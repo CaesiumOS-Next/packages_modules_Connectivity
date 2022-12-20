@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1151bb0f_f362d8ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-20T11:42:31Z",
+      "side": 1,
+      "message": "This is failing TH build only on tm-mainline-prod, but is fine elsewhere.\n\nThe tm-mainline-prod automerger has been stuck for over 10 days now.\n\nI\u0027ve also seen it fail to build java code in tm-mainline-prod on C++ test changes.\n\nI think that means fixing tm-mainline-prod to merge p/m/C correctly is going to be a bigger effort...",
+      "revId": "2de5957a88d8c006bbe08c6b66faf191508b1b61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
