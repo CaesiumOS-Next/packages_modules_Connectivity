@@ -34,6 +34,7 @@ import static android.net.ConnectivityDiagnosticsManager.DataStallReport.KEY_TCP
 import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_MASK;
 import static android.net.ConnectivityManager.BLOCKED_REASON_LOCKDOWN_VPN;
 import static android.net.ConnectivityManager.BLOCKED_REASON_NONE;
+import static android.net.ConnectivityManager.BLOCKED_REASON_RESTRICTED_NETWORK;
 import static android.net.ConnectivityManager.CALLBACK_IP_CHANGED;
 import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 import static android.net.ConnectivityManager.FIREWALL_RULE_ALLOW;
@@ -97,12 +98,14 @@ import static android.os.Process.VPN_UID;
 import static android.system.OsConstants.ETH_P_ALL;
 import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
+
 import static com.android.net.module.util.NetworkMonitorUtils.isPrivateDnsValidationRequired;
 import static com.android.net.module.util.PermissionUtils.checkAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermission;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermissionOr;
 import static com.android.server.ConnectivityStatsLog.CONNECTIVITY_STATE_SAMPLE;
+
 import static java.util.Map.Entry;
 
 import android.Manifest;
@@ -6626,6 +6629,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return false;
     }
 
+    private boolean isUidRestrictedFromUsingNetwork(int uid, NetworkCapabilities nc) {
+        if (!nc.isRestricted() || nc.isUidWithAccess(uid)) {
+            return false;
+        }
+        // hasRestrictedNetworksPermission can only be called on the handler thread
+        ensureRunningOnConnectivityServiceThread();
+        return !mPermissionMonitor.hasRestrictedNetworksPermission(uid);
+    }
+
     @Override
     public void setRequireVpnForUids(boolean requireVpn, UidRange[] ranges) {
         enforceNetworkStackOrSettingsPermission();
@@ -6660,8 +6672,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         for (final NetworkAgentInfo nai : mNetworkAgentInfos) {
-            final boolean curMetered = nai.networkCapabilities.isMetered();
-            maybeNotifyNetworkBlocked(nai, curMetered, curMetered,
+            maybeNotifyNetworkBlocked(nai, nai.networkCapabilities, nai.networkCapabilities,
                     mVpnBlockedUidRanges, newVpnBlockedUidRanges);
         }
 
@@ -8807,12 +8818,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
         updateNetworkInfoForRoamingAndSuspended(nai, prevNc, newNc);
 
-        final boolean oldMetered = prevNc.isMetered();
-        final boolean newMetered = newNc.isMetered();
-        final boolean meteredChanged = oldMetered != newMetered;
+        final boolean meteredChanged = prevNc.isMetered() != newNc.isMetered();
+        final boolean restrictedChanged = prevNc.isRestricted() != newNc.isRestricted();
+        final boolean allowedUidsChanged =
+                !prevNc.getAllowedUidsNoCopy().equals(newNc.getAllowedUidsNoCopy());
 
-        if (meteredChanged) {
-            maybeNotifyNetworkBlocked(nai, oldMetered, newMetered,
+        if (meteredChanged || restrictedChanged || allowedUidsChanged) {
+            maybeNotifyNetworkBlocked(nai, prevNc, newNc,
                     mVpnBlockedUidRanges, mVpnBlockedUidRanges);
         }
 
@@ -10265,8 +10277,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final int blockedReasons = mUidBlockedReasons.get(nri.mAsUid, BLOCKED_REASON_NONE);
         final boolean metered = nai.networkCapabilities.isMetered();
         final boolean vpnBlocked = isUidBlockedByVpn(nri.mAsUid, mVpnBlockedUidRanges);
+        final boolean uidRestricted =
+                isUidRestrictedFromUsingNetwork(nri.mAsUid, nai.networkCapabilities);
         callCallbackForRequest(nri, nai, ConnectivityManager.CALLBACK_AVAILABLE,
-                getBlockedState(blockedReasons, metered, vpnBlocked));
+                mixInBlockedState(blockedReasons, metered, vpnBlocked, uidRestricted));
     }
 
     // Notify the requests on this NAI that the network is now lingered.
@@ -10275,8 +10289,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
         notifyNetworkCallbacks(nai, ConnectivityManager.CALLBACK_LOSING, lingerTime);
     }
 
-    private static int getBlockedState(int reasons, boolean metered, boolean vpnBlocked) {
+    private static int mixInBlockedState(int reasons, boolean metered, boolean vpnBlocked,
+            boolean uidRestricted) {
         if (!metered) reasons &= ~BLOCKED_METERED_REASON_MASK;
+        if (SdkLevel.isAtLeastU()) {
+            reasons = uidRestricted
+                    ? reasons | BLOCKED_REASON_RESTRICTED_NETWORK
+                    : reasons & ~BLOCKED_REASON_RESTRICTED_NETWORK;
+        }
         return vpnBlocked
                 ? reasons | BLOCKED_REASON_LOCKDOWN_VPN
                 : reasons & ~BLOCKED_REASON_LOCKDOWN_VPN;
@@ -10297,18 +10317,20 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * any given nai, all requests need to be considered according to the uid who filed it.
      *
      * @param nai The target NetworkAgentInfo.
-     * @param oldMetered True if the previous network capabilities were metered.
-     * @param newMetered True if the current network capabilities are metered.
+     * @param oldCaps The previous network capabilities.
+     * @param newCaps The current network capabilities.
      * @param oldBlockedUidRanges list of UID ranges previously blocked by lockdown VPN.
      * @param newBlockedUidRanges list of UID ranges blocked by lockdown VPN.
      */
-    private void maybeNotifyNetworkBlocked(NetworkAgentInfo nai, boolean oldMetered,
-            boolean newMetered, List<UidRange> oldBlockedUidRanges,
+    private void maybeNotifyNetworkBlocked(NetworkAgentInfo nai, NetworkCapabilities oldCaps,
+            NetworkCapabilities newCaps, List<UidRange> oldBlockedUidRanges,
             List<UidRange> newBlockedUidRanges) {
+        final boolean oldMetered = oldCaps.isMetered();
+        final boolean newMetered = newCaps.isMetered();
 
         for (int i = 0; i < nai.numNetworkRequests(); i++) {
-            NetworkRequest nr = nai.requestAt(i);
-            NetworkRequestInfo nri = mNetworkRequests.get(nr);
+            final NetworkRequest nr = nai.requestAt(i);
+            final NetworkRequestInfo nri = mNetworkRequests.get(nr);
 
             final int blockedReasons = mUidBlockedReasons.get(nri.mAsUid, BLOCKED_REASON_NONE);
             final boolean oldVpnBlocked = isUidBlockedByVpn(nri.mAsUid, oldBlockedUidRanges);
@@ -10316,8 +10338,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     ? isUidBlockedByVpn(nri.mAsUid, newBlockedUidRanges)
                     : oldVpnBlocked;
 
-            final int oldBlockedState = getBlockedState(blockedReasons, oldMetered, oldVpnBlocked);
-            final int newBlockedState = getBlockedState(blockedReasons, newMetered, newVpnBlocked);
+            //TODO b/262008413: Integrate per-app default networks by populating allowedUids.
+            final boolean oldUidRestricted = isUidRestrictedFromUsingNetwork(nri.mAsUid, oldCaps);
+            final boolean newUidRestricted = isUidRestrictedFromUsingNetwork(nri.mAsUid, newCaps);
+
+            final int oldBlockedState =
+                    mixInBlockedState(blockedReasons, oldMetered, oldVpnBlocked, oldUidRestricted);
+            final int newBlockedState =
+                    mixInBlockedState(blockedReasons, newMetered, newVpnBlocked, newUidRestricted);
             if (oldBlockedState != newBlockedState) {
                 callCallbackForRequest(nri, nai, ConnectivityManager.CALLBACK_BLK_CHANGED,
                         newBlockedState);
@@ -10334,10 +10362,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
         for (final NetworkAgentInfo nai : mNetworkAgentInfos) {
             final boolean metered = nai.networkCapabilities.isMetered();
             final boolean vpnBlocked = isUidBlockedByVpn(uid, mVpnBlockedUidRanges);
+            final boolean uidRestricted =
+                    isUidRestrictedFromUsingNetwork(uid, nai.networkCapabilities);
 
-            final int oldBlockedState = getBlockedState(
-                    mUidBlockedReasons.get(uid, BLOCKED_REASON_NONE), metered, vpnBlocked);
-            final int newBlockedState = getBlockedState(blockedReasons, metered, vpnBlocked);
+            final int oldBlockedState = mixInBlockedState(
+                    mUidBlockedReasons.get(uid, BLOCKED_REASON_NONE),
+                    metered, vpnBlocked, uidRestricted);
+            final int newBlockedState =
+                    mixInBlockedState(blockedReasons, metered, vpnBlocked, uidRestricted);
             if (oldBlockedState == newBlockedState) {
                 continue;
             }
