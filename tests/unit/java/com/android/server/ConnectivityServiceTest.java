@@ -3316,6 +3316,34 @@ public class ConnectivityServiceTest {
         public CallbackEntry.Losing expectLosing(final HasNetwork n) {
             return expectLosing(n, getDefaultTimeoutMs());
         }
+
+        void expectAvailableCallbacksValidatedMaybeBlocked(final HasNetwork n) {
+            if (mDeps.isAtLeastU()) {
+                expectAvailableCallbacksValidatedAndBlocked(n);
+            } else {
+                expectAvailableCallbacksValidated(n);
+            }
+        }
+
+        void expectAvailableCallbacksUnvalidatedMaybeBlocked(final HasNetwork n) {
+            if (mDeps.isAtLeastU()) {
+                expectAvailableCallbacksUnvalidatedAndBlocked(n);
+            } else {
+                expectAvailableCallbacksUnvalidated(n);
+            }
+        }
+
+        void expectAvailableMaybeBlockedThenValidatedCallbacks(final HasNetwork n) {
+            if (mDeps.isAtLeastU()) {
+                expectAvailableCallbacks(
+                        n.getNetwork(),
+                        false /* suspended */, false /* validated */, true /* blocked */,
+                        TEST_CALLBACK_TIMEOUT_MS);
+                expectCaps(n.getNetwork(), cb -> cb.hasCapability(NET_CAPABILITY_VALIDATED));
+            } else {
+                expectAvailableThenValidatedCallbacks(n);
+            }
+        }
     }
 
     // Can't be part of TestNetworkCallback because "cannot be declared static; static methods can
@@ -14650,7 +14678,7 @@ public class ConnectivityServiceTest {
                 mEthernetAgent.getNetwork());
 
         // At this point with a restricted network used, the available callback should trigger.
-        defaultNetworkCallback.expectAvailableThenValidatedCallbacks(mEthernetAgent);
+        defaultNetworkCallback.expectAvailableMaybeBlockedThenValidatedCallbacks(mEthernetAgent);
         assertEquals(defaultNetworkCallback.getLastAvailableNetwork(), mEthernetAgent.getNetwork());
         otherUidDefaultCallback.assertNoCallback();
 
@@ -14694,7 +14722,7 @@ public class ConnectivityServiceTest {
                 mEthernetAgent.getNetwork());
 
         // At this point with a restricted network used, the available callback should trigger
-        defaultNetworkCallback.expectAvailableThenValidatedCallbacks(mEthernetAgent);
+        defaultNetworkCallback.expectAvailableMaybeBlockedThenValidatedCallbacks(mEthernetAgent);
         assertEquals(defaultNetworkCallback.getLastAvailableNetwork(), mEthernetAgent.getNetwork());
         otherUidDefaultCallback.assertNoCallback();
 
@@ -14743,7 +14771,7 @@ public class ConnectivityServiceTest {
         assertDefaultNetworkCapabilities(userId /* no networks */);
 
         // The other UID does have access, and gets a callback.
-        otherUidDefaultCallback.expectAvailableThenValidatedCallbacks(mEthernetAgent);
+        otherUidDefaultCallback.expectAvailableMaybeBlockedThenValidatedCallbacks(mEthernetAgent);
 
         // Bring up unrestricted cellular. This should now satisfy the default network.
         setOemNetworkPreferenceAgentConnected(TRANSPORT_CELLULAR, true);
@@ -16055,7 +16083,7 @@ public class ConnectivityServiceTest {
             }
         }
 
-        profileDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(workAgent);
+        profileDefaultNetworkCallback.expectAvailableCallbacksUnvalidatedMaybeBlocked(workAgent);
         if (disAllowProfileDefaultNetworkCallback != null) {
             disAllowProfileDefaultNetworkCallback.assertNoCallback();
         }
@@ -16173,7 +16201,7 @@ public class ConnectivityServiceTest {
                 makeEnterpriseNetworkAgent(profileNetworkPreference.getPreferenceEnterpriseId());
         workAgent2.connect(false);
 
-        profileDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(workAgent2);
+        profileDefaultNetworkCallback.expectAvailableCallbacksUnvalidatedMaybeBlocked(workAgent2);
         if (disAllowProfileDefaultNetworkCallback != null) {
             assertNoCallbacks(disAllowProfileDefaultNetworkCallback);
         }
@@ -16599,8 +16627,8 @@ public class ConnectivityServiceTest {
                 PREFERENCE_ORDER_PROFILE));
 
         assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback);
-        appCb1.expectAvailableCallbacksValidated(workAgent1);
-        appCb2.expectAvailableCallbacksValidated(workAgent2);
+        appCb1.expectAvailableCallbacksValidatedMaybeBlocked(workAgent1);
+        appCb2.expectAvailableCallbacksValidatedMaybeBlocked(workAgent2);
 
         // Set preferences for testHandle to map testWorkProfileAppUid3 to
         // to NET_ENTERPRISE_ID_1.
@@ -16628,7 +16656,7 @@ public class ConnectivityServiceTest {
                 PREFERENCE_ORDER_PROFILE));
 
         assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback);
-        appCb3.expectAvailableCallbacksValidated(workAgent1);
+        appCb3.expectAvailableCallbacksValidatedMaybeBlocked(workAgent1);
         appCb2.expectAvailableCallbacksValidated(mCellAgent);
         appCb1.expectAvailableCallbacksValidated(mCellAgent);
 
@@ -16811,11 +16839,11 @@ public class ConnectivityServiceTest {
                 PREFERENCE_ORDER_PROFILE));
 
         assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback);
-        appCb1.expectAvailableCallbacksValidated(workAgent1);
-        appCb2.expectAvailableCallbacksValidated(workAgent2);
-        appCb3.expectAvailableCallbacksValidated(workAgent3);
-        appCb4.expectAvailableCallbacksValidated(workAgent4);
-        appCb5.expectAvailableCallbacksValidated(workAgent5);
+        appCb1.expectAvailableCallbacksValidatedMaybeBlocked(workAgent1);
+        appCb2.expectAvailableCallbacksValidatedMaybeBlocked(workAgent2);
+        appCb3.expectAvailableCallbacksValidatedMaybeBlocked(workAgent3);
+        appCb4.expectAvailableCallbacksValidatedMaybeBlocked(workAgent4);
+        appCb5.expectAvailableCallbacksValidatedMaybeBlocked(workAgent5);
 
         workAgent1.disconnect();
         workAgent2.disconnect();
@@ -16917,7 +16945,7 @@ public class ConnectivityServiceTest {
 
         mSystemDefaultNetworkCallback.expectAvailableCallbacksValidated(mCellAgent);
         mDefaultNetworkCallback.expectAvailableCallbacksValidated(mCellAgent);
-        mProfileDefaultNetworkCallback.expectAvailableCallbacksValidated(workAgent);
+        mProfileDefaultNetworkCallback.expectAvailableCallbacksValidatedMaybeBlocked(workAgent);
 
         mCm.setProfileNetworkPreference(testHandle, PROFILE_NETWORK_PREFERENCE_DEFAULT,
                 r -> r.run(), listener);
@@ -16973,7 +17001,7 @@ public class ConnectivityServiceTest {
         inOrder.verify(mMockNetd).networkAddUidRangesParcel(new NativeUidRangeConfig(
                 workAgent.getNetwork().netId, uidRangeFor(testHandle2), PREFERENCE_ORDER_PROFILE));
 
-        mProfileDefaultNetworkCallback.expectAvailableCallbacksValidated(workAgent);
+        mProfileDefaultNetworkCallback.expectAvailableCallbacksValidatedMaybeBlocked(workAgent);
         assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback,
                 app4Cb);
 
@@ -16983,7 +17011,7 @@ public class ConnectivityServiceTest {
         inOrder.verify(mMockNetd).networkAddUidRangesParcel(new NativeUidRangeConfig(
                 workAgent.getNetwork().netId, uidRangeFor(testHandle4), PREFERENCE_ORDER_PROFILE));
 
-        app4Cb.expectAvailableCallbacksValidated(workAgent);
+        app4Cb.expectAvailableCallbacksValidatedMaybeBlocked(workAgent);
         assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback,
                 mProfileDefaultNetworkCallback);
 
@@ -17571,7 +17599,7 @@ public class ConnectivityServiceTest {
         final TestNetworkAgentWrapper agent = new TestNetworkAgentWrapper(TRANSPORT_TEST,
                 new LinkProperties(), nc);
         agent.connect(true);
-        cb.expectAvailableThenValidatedCallbacks(agent);
+        cb.expectAvailableMaybeBlockedThenValidatedCallbacks(agent);
 
         final InOrder inOrder = inOrder(mMockNetd);
         final NativeUidRangeConfig uids200Parcel = new NativeUidRangeConfig(
@@ -17628,10 +17656,28 @@ public class ConnectivityServiceTest {
             inOrder.verify(mMockNetd, times(1)).networkRemoveUidRangesParcel(uids300400Parcel);
         }
 
+        // Set the UID to the test process in order to validate onBlockedStatus callbacks.
+        uids.clear();
+        uids.add(Process.myUid());
+        nc.setAllowedUids(uids);
+        agent.setNetworkCapabilities(nc, true /* sendToConnectivityService */);
+        if (mDeps.isAtLeastU()) {
+            cb.expectCaps(agent, c -> c.getAllowedUids().equals(uids));
+            cb.expect(BLOCKED_STATUS, agent, c -> !c.getBlocked());
+        } else if (mDeps.isAtLeastT()) {
+            cb.expectCaps(agent, c -> c.getAllowedUids().equals(uids));
+        } else {
+            cb.assertNoCallback();
+        }
+
         uids.clear();
         nc.setAllowedUids(uids);
         agent.setNetworkCapabilities(nc, true /* sendToConnectivityService */);
-        if (mDeps.isAtLeastT()) {
+        if (mDeps.isAtLeastU()) {
+            cb.expectCaps(agent, c -> c.getAllowedUids().isEmpty());
+            cb.expect(BLOCKED_STATUS, agent, c -> c.getBlocked());
+            inOrder.verify(mMockNetd, times(1)).networkRemoveUidRangesParcel(uids600Parcel);
+        } else if (mDeps.isAtLeastT()) {
             cb.expectCaps(agent, c -> c.getAllowedUids().isEmpty());
             inOrder.verify(mMockNetd, times(1)).networkRemoveUidRangesParcel(uids600Parcel);
         } else {
@@ -17679,7 +17725,7 @@ public class ConnectivityServiceTest {
                 .removeCapability(NET_CAPABILITY_NOT_RESTRICTED)
                 .build(), cb);
         mEthernetAgent.connect(true);
-        cb.expectAvailableThenValidatedCallbacks(mEthernetAgent);
+        cb.expectAvailableMaybeBlockedThenValidatedCallbacks(mEthernetAgent);
 
         // Cell gets to set the service UID as access UID
         ncb.setAllowedUids(serviceUidSet);
@@ -17734,7 +17780,7 @@ public class ConnectivityServiceTest {
                 .removeCapability(NET_CAPABILITY_NOT_RESTRICTED)
                 .build(), cb);
         mCellAgent.connect(true);
-        cb.expectAvailableThenValidatedCallbacks(mCellAgent);
+        cb.expectAvailableMaybeBlockedThenValidatedCallbacks(mCellAgent);
         ncb.setAllowedUids(serviceUidSet);
         mCellAgent.setNetworkCapabilities(ncb.build(), true /* sendToCS */);
         if (mDeps.isAtLeastT()) {
@@ -17777,7 +17823,7 @@ public class ConnectivityServiceTest {
         final TestNetworkAgentWrapper bluetoothAgent = new TestNetworkAgentWrapper(
                 TRANSPORT_BLUETOOTH, new LinkProperties(), ncb.build());
         bluetoothAgent.connect(true);
-        cb.expectAvailableThenValidatedCallbacks(bluetoothAgent);
+        cb.expectAvailableMaybeBlockedThenValidatedCallbacks(bluetoothAgent);
         ncb.setAllowedUids(serviceUidSet);
         bluetoothAgent.setNetworkCapabilities(ncb.build(), true /* sendToCS */);
         cb.assertNoCallback(TEST_CALLBACK_TIMEOUT_MS);
@@ -18291,7 +18337,7 @@ public class ConnectivityServiceTest {
                 r -> r.run(), listener);
         listener.expectOnComplete();
         assertNoCallbacks(mDefaultNetworkCallback, mTestPackageDefaultNetworkCallback);
-        mProfileDefaultNetworkCallback.expectAvailableCallbacksValidated(workAgent);
+        mProfileDefaultNetworkCallback.expectAvailableCallbacksValidatedMaybeBlocked(workAgent);
         assertEquals(workAgent.getNetwork(), mCm.getActiveNetworkForUid(TEST_WORK_PROFILE_APP_UID));
         assertEquals(mCellAgent.getNetwork(), mCm.getActiveNetworkForUid(TEST_PACKAGE_UID));
 
@@ -18331,7 +18377,7 @@ public class ConnectivityServiceTest {
                 new OemNetworkPreferences.Builder().build(), oemPrefListener);
         oemPrefListener.expectOnComplete();
         assertNoCallbacks(mDefaultNetworkCallback, mTestPackageDefaultNetworkCallback);
-        mProfileDefaultNetworkCallback.expectAvailableCallbacksValidated(workAgent);
+        mProfileDefaultNetworkCallback.expectAvailableCallbacksValidatedMaybeBlocked(workAgent);
         assertEquals(workAgent.getNetwork(), mCm.getActiveNetworkForUid(TEST_WORK_PROFILE_APP_UID));
         assertEquals(mCellAgent.getNetwork(), mCm.getActiveNetworkForUid(TEST_PACKAGE_UID));
 
