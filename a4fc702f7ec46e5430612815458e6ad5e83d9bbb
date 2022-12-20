@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ea028bb_6182a2cf",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-20T06:03:04Z",
+      "side": 1,
+      "message": "This seems redundant ? isWearTEtheringEnabled already make sure the feature don\u0027t enabled before T.\n\n    private boolean shouldEnableWearTethering(Context context) {\n        return SdkLevel.isAtLeastT()\n            \u0026\u0026 isTetheringFeatureEnabled(context, TETHER_ENABLE_WEAR_TETHERING);\n    }",
+      "range": {
+        "startLine": 398,
+        "startChar": 12,
+        "endLine": 398,
+        "endChar": 33
+      },
+      "revId": "a4fc702f7ec46e5430612815458e6ad5e83d9bbb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
