@@ -206,6 +206,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b6884c1_324211a6",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1713,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-20T08:09:56Z",
+      "side": 1,
+      "message": "Ack, unfortunately you do need an ArrayList.\n\n(As you\u0027ve seen, `List.of()` doesn\u0027t build an ArrayList but a different type which is immutable)",
+      "parentUuid": "53d00deb_8b3cfd06",
+      "range": {
+        "startLine": 1712,
+        "startChar": 58,
+        "endLine": 1713,
+        "endChar": 51
+      },
+      "revId": "aec8d61742ecfbd0c9305e596382edf55218d743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e5d71bd_b37e1a1d",
