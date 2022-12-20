@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2977b704_a01d8ced",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-20T08:03:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05b84471_edac9006",
+      "range": {
+        "startLine": 852,
+        "startChar": 27,
+        "endLine": 852,
+        "endChar": 79
+      },
+      "revId": "aec8d61742ecfbd0c9305e596382edf55218d743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35c919fa_2533bd6f",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-12-20T04:13:12Z",
       "side": 1,
       "message": "assertNotNull ?",
+      "range": {
+        "startLine": 1688,
+        "startChar": 8,
+        "endLine": 1688,
+        "endChar": 18
+      },
+      "revId": "aec8d61742ecfbd0c9305e596382edf55218d743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b184baf_a7d3df28",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1688,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-20T08:03:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35c919fa_2533bd6f",
       "range": {
         "startLine": 1688,
         "startChar": 8,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9901b27c_400521db",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1690,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-20T08:03:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9753c2ba_3ecbd06c",
+      "range": {
+        "startLine": 1690,
+        "startChar": 8,
+        "endLine": 1690,
+        "endChar": 21
+      },
+      "revId": "aec8d61742ecfbd0c9305e596382edf55218d743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a26a2634_424007e0",
@@ -110,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53d00deb_8b3cfd06",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1713,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-20T08:03:43Z",
+      "side": 1,
+      "message": "Well, the type is different, and even though I cast it to ArrayList, I\u0027ll get a run time error: `java.lang.ClassCastException: java.util.ImmutableCollections$List12 cannot be cast to java.util.ArrayList`\n\nSo I\u0027d like to keep this.",
+      "parentUuid": "a26a2634_424007e0",
+      "range": {
+        "startLine": 1712,
+        "startChar": 58,
+        "endLine": 1713,
+        "endChar": 51
+      },
+      "revId": "aec8d61742ecfbd0c9305e596382edf55218d743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e5d71bd_b37e1a1d",
@@ -123,6 +219,30 @@
       "writtenOn": "2022-12-20T04:13:12Z",
       "side": 1,
       "message": "Suggest running this in a separate cleanup block. Also, after you stop the VPN you should expect LOST on the callback.",
+      "range": {
+        "startLine": 1721,
+        "startChar": 16,
+        "endLine": 1721,
+        "endChar": 23
+      },
+      "revId": "aec8d61742ecfbd0c9305e596382edf55218d743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50824175_2794eef8",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1721,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-12-20T08:03:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e5d71bd_b37e1a1d",
       "range": {
         "startLine": 1721,
         "startChar": 16,
