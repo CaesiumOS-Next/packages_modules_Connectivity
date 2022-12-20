@@ -46,6 +46,30 @@
       },
       "revId": "733e9327652cefe2bf060880e99078b5bce19c88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1678b8f_45a66f96",
+        "filename": "Cronet/TEST_MAPPING",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-12-20T19:27:57Z",
+      "side": 0,
+      "message": "This is a pretty [loose convention](https://g3doc.corp.google.com/wireless/android/partner/compatibility/g3doc/dev/write-a-test/device-side-test.md?cl\u003dhead#naming-and-location). Strictly speaking, this would have to be named CtsNetTestCases (which already exists).\n\nThat being said, we are just changing the package name of cronet from org.chromium.net to android.net.http. This should not really affect how it is referred to (i.e. Cronet itself is not being renamed).",
+      "parentUuid": "591e84b3_fa908b5f",
+      "range": {
+        "startLine": 4,
+        "startChar": 15,
+        "endLine": 4,
+        "endChar": 33
+      },
+      "revId": "733e9327652cefe2bf060880e99078b5bce19c88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
