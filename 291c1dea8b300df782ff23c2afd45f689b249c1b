@@ -117,6 +117,30 @@
       },
       "revId": "291c1dea8b300df782ff23c2afd45f689b249c1b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "780e1097_5af4e7eb",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1461,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-21T15:08:44Z",
+      "side": 1,
+      "message": "Done\n\nseparate into:\n- verifyChooseDunUpstreamByAutomaticMode (original)\n- verifyChooseDunUpstreamByAutomaticMode_DefaultNetworkWifi (new)\n- verifyChooseDunUpstreamByAutomaticMode_LoseDefaultNetworkWifi (new)\n- verifyChooseDunUpstreamByAutomaticMode_DefaultNetworkCell (new)\n- verifyChooseDunUpstreamByAutomaticMode_LoseAndRegainDun (new)\n- verifyChooseDunUpstreamByAutomaticMode_SwitchDefaultFromWifiToCell",
+      "parentUuid": "a056e439_ecba265c",
+      "range": {
+        "startLine": 1453,
+        "startChar": 0,
+        "endLine": 1461,
+        "endChar": 82
+      },
+      "revId": "291c1dea8b300df782ff23c2afd45f689b249c1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
