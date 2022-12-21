@@ -35,7 +35,6 @@ import static android.net.ip.IpServer.STATE_LOCAL_ONLY;
 import static android.net.ip.IpServer.STATE_TETHERED;
 import static android.net.ip.IpServer.STATE_UNAVAILABLE;
 import static android.system.OsConstants.ETH_P_IPV6;
-
 import static com.android.modules.utils.build.SdkLevel.isAtLeastT;
 import static com.android.net.module.util.Inet4AddressUtils.intToInet4AddressHTH;
 import static com.android.net.module.util.netlink.NetlinkConstants.RTM_DELNEIGH;
@@ -43,7 +42,6 @@ import static com.android.net.module.util.netlink.NetlinkConstants.RTM_NEWNEIGH;
 import static com.android.net.module.util.netlink.StructNdMsg.NUD_FAILED;
 import static com.android.net.module.util.netlink.StructNdMsg.NUD_REACHABLE;
 import static com.android.net.module.util.netlink.StructNdMsg.NUD_STALE;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -208,6 +206,7 @@ public class IpServerTest {
     @Captor private ArgumentCaptor<DhcpServingParamsParcel> mDhcpParamsCaptor;
 
     private final TestLooper mLooper = new TestLooper();
+    private final Handler mHandler = new Handler(mLooper.getLooper());
     private final ArgumentCaptor<LinkProperties> mLinkPropertiesCaptor =
             ArgumentCaptor.forClass(LinkProperties.class);
     private IpServer mIpServer;
@@ -247,8 +246,9 @@ public class IpServerTest {
         // Recreate mBpfCoordinator again here because mTetherConfig has changed
         mBpfCoordinator = spy(new BpfCoordinator(mBpfDeps));
         mIpServer = new IpServer(
-                IFACE_NAME, mLooper.getLooper(), interfaceType, mSharedLog, mNetd, mBpfCoordinator,
-                mCallback, mTetherConfig, mAddressCoordinator, mTetheringMetrics, mDependencies);
+                IFACE_NAME, mLooper.getLooper(), mHandler, interfaceType, mSharedLog, mNetd,
+                mBpfCoordinator, mCallback, mTetherConfig, mAddressCoordinator, mTetheringMetrics,
+                mDependencies);
         mIpServer.start();
         mNeighborEventConsumer = neighborCaptor.getValue();
 
@@ -306,7 +306,7 @@ public class IpServerTest {
         mBpfDeps = new BpfCoordinator.Dependencies() {
                     @NonNull
                     public Handler getHandler() {
-                        return new Handler(mLooper.getLooper());
+                        return mHandler;
                     }
 
                     @NonNull
@@ -384,8 +384,8 @@ public class IpServerTest {
     public void startsOutAvailable() {
         when(mDependencies.getIpNeighborMonitor(any(), any(), any()))
                 .thenReturn(mIpNeighborMonitor);
-        mIpServer = new IpServer(IFACE_NAME, mLooper.getLooper(), TETHERING_BLUETOOTH, mSharedLog,
-                mNetd, mBpfCoordinator, mCallback, mTetherConfig, mAddressCoordinator,
+        mIpServer = new IpServer(IFACE_NAME, mLooper.getLooper(), mHandler, TETHERING_BLUETOOTH,
+                mSharedLog, mNetd, mBpfCoordinator, mCallback, mTetherConfig, mAddressCoordinator,
                 mTetheringMetrics, mDependencies);
         mIpServer.start();
         mLooper.dispatchAll();
