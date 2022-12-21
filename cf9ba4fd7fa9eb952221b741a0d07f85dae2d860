@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9e1cb03_143dc0f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-21T03:04:19Z",
+      "side": 1,
+      "message": "I\u0027m not sure if someone else might have opinion about the renaming.\nMaybe chiachangwang@ but he is OOO now.",
+      "revId": "cf9ba4fd7fa9eb952221b741a0d07f85dae2d860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "517490d3_b1b0ca2c",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1068,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-21T03:04:19Z",
+      "side": 1,
+      "message": "nit: missing javadoc, but it is kind of self-explanation. so feel free to ignore.",
+      "range": {
+        "startLine": 1068,
+        "startChar": 9,
+        "endLine": 1068,
+        "endChar": 11
+      },
+      "revId": "cf9ba4fd7fa9eb952221b741a0d07f85dae2d860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
