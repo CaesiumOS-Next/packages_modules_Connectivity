@@ -330,6 +330,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "902566e6_25d90aa8",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1946,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-12-21T20:09:51Z",
+      "side": 1,
+      "message": "Tried `m RUN_ERROR_PRONE\u003dtrue com.android.tethering` and pasted outputs related to IpSecService in https://paste.googleplex.com/4642104088199168\n\nIt still complains [GuardedBy] issue in this change like `transformInfo.getNewSourceAddress()`, and also in the existing code (e.g. `c.setNetwork(tunnelInterfaceInfo.getUnderlyingNetwork())`). I think the linter just don\u0027t understand that how synchronizing IpSecService works.",
+      "parentUuid": "e001f609_ef0fa27e",
+      "range": {
+        "startLine": 1946,
+        "startChar": 16,
+        "endLine": 1946,
+        "endChar": 43
+      },
+      "revId": "ed0f43a95e03c97db1fa3b96831f79116b4a6e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cecb04c3_72225b8c",
