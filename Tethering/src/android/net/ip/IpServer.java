@@ -1098,7 +1098,11 @@ public class IpServer extends StateMachineShim {
             startServingInterface();
 
             if (mLastError != TETHER_ERROR_NO_ERROR) {
-                sendMessage(CMD_SERVICE_FAILED_TO_START, mLastError);
+                if (USE_SYNC_SM) {
+                    sendSelfMessageToSyncSM(CMD_SERVICE_FAILED_TO_START, mLastError);
+                } else {
+                    sendMessage(CMD_SERVICE_FAILED_TO_START, mLastError);
+                }
             }
 
             if (DBG) Log.d(TAG, getStateString(mDesiredInterfaceState) + " serve " + mIfaceName);
