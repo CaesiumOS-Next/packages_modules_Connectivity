@@ -2717,6 +2717,8 @@ public class Tethering {
         }
     }
 
+    // When using synchronous state machine, post IpServer callback to message queue to avoid
+    // infinite loop of processMessage between IpServer and TetherMainSM.
     private IpServer.Callback makeControlCallback() {
         return new IpServer.Callback() {
             @Override
@@ -2736,7 +2738,11 @@ public class Tethering {
 
             @Override
             public void requestEnableTethering(int tetheringType, boolean enabled) {
-                enableTetheringInternal(tetheringType, enabled, null);
+                if (USE_SYNC_SM) {
+                    mHandler.post(() -> enableTetheringInternal(tetheringType, enabled, null));
+                } else {
+                    enableTetheringInternal(tetheringType, enabled, null);
+                }
             }
         };
     }
