@@ -233,6 +233,7 @@ public class IpServer extends StateMachineShim {
     public static final int CMD_NEW_PREFIX_REQUEST          = BASE_IPSERVER + 12;
     // request from PrivateAddressCoordinator to restart tethering.
     public static final int CMD_NOTIFY_PREFIX_CONFLICT      = BASE_IPSERVER + 13;
+    public static final int CMD_BASE_SERVING_ERROR          = BASE_IPSERVER + 15;
 
     private final State mInitialState;
     private final State mLocalHotspotState;
@@ -1095,9 +1096,7 @@ public class IpServer extends StateMachineShim {
 
             startServingInterface();
 
-            if (mLastError != TETHER_ERROR_NO_ERROR) {
-                transitionTo(mInitialState);
-            }
+            if (mLastError != TETHER_ERROR_NO_ERROR) handleBaseServingError();
 
             if (DBG) Log.d(TAG, getStateString(mDesiredInterfaceState) + " serve " + mIfaceName);
             sendInterfaceState(mDesiredInterfaceState);
@@ -1178,6 +1177,9 @@ public class IpServer extends StateMachineShim {
                     mLastError = TETHER_ERROR_INTERNAL_ERROR;
                     transitionTo(mInitialState);
                     break;
+                case CMD_BASE_SERVING_ERROR:
+                    transitionTo(mInitialState);
+                    break;
                 case CMD_NEW_PREFIX_REQUEST:
                     handleNewPrefixRequest((IpPrefix) message.obj);
                     break;
@@ -1252,6 +1254,15 @@ public class IpServer extends StateMachineShim {
                 mLog.e("Error updating DHCP serving params", e);
             }
         }
+    }
+
+    private void handleBaseServingError() {
+        if (USE_SYNC_SM) {
+            sendSelfMessageToSyncSM(CMD_BASE_SERVING_ERROR, null);
+            return;
+        }
+
+        transitionTo(mInitialState);
     }
 
     // Handling errors in BaseServingState.enter() by transitioning is
