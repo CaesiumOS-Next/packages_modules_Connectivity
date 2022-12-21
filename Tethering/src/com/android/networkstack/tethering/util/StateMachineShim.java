@@ -112,6 +112,13 @@ public class StateMachineShim {
         }
     }
 
+    /** This is only for SyncSM. */
+    public void sendSelfMessage(int what, int arg1, int arg2, Object obj) {
+        if (USE_SYNC_SM) {
+            mSyncSM.sendSelfMessage(what, arg1, arg2, obj);
+        }
+    }
+
     /** Send message after delayMillis millisecond. */
     public void sendMessageDelayed(final int what, final long delayMillis) {
         if (USE_SYNC_SM) {

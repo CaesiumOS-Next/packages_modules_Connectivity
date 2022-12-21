@@ -65,6 +65,7 @@ import static android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID;
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_FORCE_USB_FUNCTIONS;
 import static com.android.networkstack.tethering.TetheringNotificationUpdater.DOWNSTREAM_NONE;
 import static com.android.networkstack.tethering.UpstreamNetworkMonitor.isCellular;
+import static com.android.networkstack.tethering.util.StateMachineShim.USE_SYNC_SM;
 import static com.android.networkstack.tethering.util.TetheringMessageBase.BASE_MAIN_SM;
 
 import android.app.usage.NetworkStatsManager;
@@ -2710,7 +2711,11 @@ public class Tethering {
 
             @Override
             public void requestEnableTethering(int tetheringType, boolean enabled) {
-                enableTetheringInternal(tetheringType, enabled, null);
+                if (!USE_SYNC_SM) enableTetheringInternal(tetheringType, enabled, null);
+
+                mHandler.postAtFrontOfQueue(() -> {
+                    enableTetheringInternal(tetheringType, enabled, null);
+                });
             }
         };
     }
