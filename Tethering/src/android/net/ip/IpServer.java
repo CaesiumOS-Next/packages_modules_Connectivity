@@ -31,6 +31,7 @@ import static android.net.util.NetworkConstants.asByte;
 import static android.system.OsConstants.RT_SCOPE_UNIVERSE;
 
 import static com.android.net.module.util.Inet4AddressUtils.intToInet4AddressHTH;
+import static com.android.networkstack.tethering.TetheringConfiguration.USE_SYNC_SM;
 import static com.android.networkstack.tethering.UpstreamNetworkState.isVcnInterface;
 import static com.android.networkstack.tethering.util.PrefixUtils.asIpPrefix;
 import static com.android.networkstack.tethering.util.TetheringMessageBase.BASE_IPSERVER;
@@ -231,6 +232,7 @@ public class IpServer extends StateMachineShim {
     public static final int CMD_NEW_PREFIX_REQUEST          = BASE_IPSERVER + 12;
     // request from PrivateAddressCoordinator to restart tethering.
     public static final int CMD_NOTIFY_PREFIX_CONFLICT      = BASE_IPSERVER + 13;
+    public static final int CMD_BASE_SERVING_ERROR          = BASE_IPSERVER + 15;
 
     private final State mInitialState;
     private final State mLocalHotspotState;
@@ -302,7 +304,7 @@ public class IpServer extends StateMachineShim {
             INetd netd, @NonNull BpfCoordinator coordinator, Callback callback,
             TetheringConfiguration config, PrivateAddressCoordinator addressCoordinator,
             TetheringMetrics tetheringMetrics, Dependencies deps) {
-        super(ifaceName, handler.getLooper(), TetheringConfiguration.USE_SYNC_SM);
+        super(ifaceName, handler.getLooper(), USE_SYNC_SM);
         mHandler = handler;
         mLog = log.forSubComponent(ifaceName);
         mNetd = netd;
@@ -1255,6 +1257,9 @@ public class IpServer extends StateMachineShim {
                     mLastError = TETHER_ERROR_INTERNAL_ERROR;
                     transitionTo(mInitialState);
                     break;
+                case CMD_BASE_SERVING_ERROR:
+                    transitionTo(mInitialState);
+                    break;
                 case CMD_NEW_PREFIX_REQUEST:
                     handleNewPrefixRequest((IpPrefix) message.obj);
                     break;
@@ -1270,6 +1275,15 @@ public class IpServer extends StateMachineShim {
         }
     }
 
+    private void handleBaseServingError() {
+        if (USE_SYNC_SM) {
+            sendSelfMessage(CMD_BASE_SERVING_ERROR, 0, 0, null);
+            return;
+        }
+
+        transitionTo(mInitialState);
+    }
+
     // Handling errors in BaseServingState.enter() by transitioning is
     // problematic because transitioning during a multi-state jump yields
     // a Log.wtf(). Ultimately, there should be only one ServingState,
@@ -1279,9 +1293,7 @@ public class IpServer extends StateMachineShim {
         @Override
         public void enter() {
             super.enter();
-            if (mLastError != TETHER_ERROR_NO_ERROR) {
-                transitionTo(mInitialState);
-            }
+            if (mLastError != TETHER_ERROR_NO_ERROR) handleBaseServingError();
 
             if (DBG) Log.d(TAG, "Local hotspot " + mIfaceName);
             sendInterfaceState(STATE_LOCAL_ONLY);
@@ -1315,9 +1327,7 @@ public class IpServer extends StateMachineShim {
         @Override
         public void enter() {
             super.enter();
-            if (mLastError != TETHER_ERROR_NO_ERROR) {
-                transitionTo(mInitialState);
-            }
+            if (mLastError != TETHER_ERROR_NO_ERROR) handleBaseServingError();
 
             if (DBG) Log.d(TAG, "Tethered " + mIfaceName);
             sendInterfaceState(STATE_TETHERED);

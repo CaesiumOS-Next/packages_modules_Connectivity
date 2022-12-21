@@ -63,6 +63,7 @@ import static android.telephony.CarrierConfigManager.ACTION_CARRIER_CONFIG_CHANG
 import static android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID;
 
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_FORCE_USB_FUNCTIONS;
+import static com.android.networkstack.tethering.TetheringConfiguration.USE_SYNC_SM;
 import static com.android.networkstack.tethering.TetheringNotificationUpdater.DOWNSTREAM_NONE;
 import static com.android.networkstack.tethering.UpstreamNetworkMonitor.isCellular;
 import static com.android.networkstack.tethering.util.TetheringMessageBase.BASE_MAIN_SM;
@@ -2715,6 +2716,8 @@ public class Tethering {
         }
     }
 
+    // When using synchronous state machine, post IpServer callback to message queue to avoid
+    // infinite loop of processMessage between IpServer and TetherMainSM.
     private IpServer.Callback makeControlCallback() {
         return new IpServer.Callback() {
             @Override
@@ -2734,7 +2737,11 @@ public class Tethering {
 
             @Override
             public void requestEnableTethering(int tetheringType, boolean enabled) {
-                enableTetheringInternal(tetheringType, enabled, null);
+                if (USE_SYNC_SM) {
+                    mHandler.post(() -> enableTetheringInternal(tetheringType, enabled, null));
+                } else {
+                    enableTetheringInternal(tetheringType, enabled, null);
+                }
             }
         };
     }
