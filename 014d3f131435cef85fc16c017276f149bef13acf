@@ -51,6 +51,24 @@
       "message": "Should this be:\n\n    per-file **IpSec* \u003d file:platform/frameworks/base:master:/services/core/java/com/android/server/vcn/OWNERS\n    \nto match owners in packages/modules/Connectivity/OWNERS ?",
       "revId": "014d3f131435cef85fc16c017276f149bef13acf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d0bf3ae_4d7f2fea",
+        "filename": "tests/cts/OWNERS",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-12-21T02:27:03Z",
+      "side": 1,
+      "message": "We are trying to be more restricted for CTS ownership",
+      "parentUuid": "bba2c13c_0af94dae",
+      "revId": "014d3f131435cef85fc16c017276f149bef13acf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
