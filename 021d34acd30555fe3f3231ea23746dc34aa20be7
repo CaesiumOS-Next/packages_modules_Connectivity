@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8df7c29d_90527f76",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5993,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-21T06:55:52Z",
+      "side": 1,
+      "message": "redundant.",
+      "range": {
+        "startLine": 5993,
+        "startChar": 49,
+        "endLine": 5993,
+        "endChar": 56
+      },
+      "revId": "021d34acd30555fe3f3231ea23746dc34aa20be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "48aea3b8_bb91b1c5",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 1
@@ -26,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "139f3294_80cd9a9e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5995,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-21T06:55:52Z",
+      "side": 1,
+      "message": "It seems to me this method checks whether the uid has permission to access restricted network,\nwhile getAllowedUids checks if the uid can access the restricted network without the permission. I think that is somehow different, but it seems to me use getAllowedUids here is more correct.\n\nBut we\u0027ll need Jean\u0027s comment. Jean would have more context about this.",
+      "parentUuid": "48aea3b8_bb91b1c5",
+      "range": {
+        "startLine": 5995,
+        "startChar": 31,
+        "endLine": 5995,
+        "endChar": 62
+      },
+      "revId": "021d34acd30555fe3f3231ea23746dc34aa20be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1e21417d_49390fbe",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 1
@@ -37,6 +84,30 @@
       "writtenOn": "2022-12-20T22:43:07Z",
       "side": 1,
       "message": "Should the added booleans only be included for a specified SdkLevel and above?",
+      "range": {
+        "startLine": 8092,
+        "startChar": 27,
+        "endLine": 8092,
+        "endChar": 69
+      },
+      "revId": "021d34acd30555fe3f3231ea23746dc34aa20be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd4719ca_f26402a5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 8092,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-21T06:55:52Z",
+      "side": 1,
+      "message": "No I think, because both NC and CS are in the module. You will only have problem if calling something across the module boundary.",
+      "parentUuid": "1e21417d_49390fbe",
       "range": {
         "startLine": 8092,
         "startChar": 27,
@@ -95,6 +166,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4e8e1586_1a1a92cf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9427,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-21T06:55:52Z",
+      "side": 1,
+      "message": "It seems we might want to targeting U.\nBut I\u0027m not sure this is needed.\nWould our solution compatible with current Apps?\nIt seems to me the only change is that we\u0027ll have onBlockedStatusChange for restricted network change, which we didn\u0027t have before.\nIf so, maybe we don\u0027t need to check SDK level?",
+      "parentUuid": "8116c038_15d72a93",
+      "range": {
+        "startLine": 9427,
+        "startChar": 12,
+        "endLine": 9427,
+        "endChar": 33
+      },
+      "revId": "021d34acd30555fe3f3231ea23746dc34aa20be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4609d4ab_02c26ed8",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 1
@@ -111,6 +206,53 @@
         "startChar": 32,
         "endLine": 9473,
         "endChar": 93
+      },
+      "revId": "021d34acd30555fe3f3231ea23746dc34aa20be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44b15d7f_77d517c6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9473,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-21T06:55:52Z",
+      "side": 1,
+      "message": "It seems to me getAllowedUids is more correct thing to use here, see the other comment.\nBut maybe I\u0027m wrong.",
+      "parentUuid": "4609d4ab_02c26ed8",
+      "range": {
+        "startLine": 9473,
+        "startChar": 32,
+        "endLine": 9473,
+        "endChar": 93
+      },
+      "revId": "021d34acd30555fe3f3231ea23746dc34aa20be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e52bb682_e060fe6f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9476,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-21T06:55:52Z",
+      "side": 1,
+      "message": "Stupid question: What does this mean? Why can\u0027t we just isUidPerAppRestricted(nri.mAsUid, newCaps)?",
+      "range": {
+        "startLine": 9476,
+        "startChar": 20,
+        "endLine": 9476,
+        "endChar": 80
       },
       "revId": "021d34acd30555fe3f3231ea23746dc34aa20be7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
