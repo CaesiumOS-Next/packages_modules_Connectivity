@@ -123,6 +123,13 @@ public class StateMachineShim {
         mAsyncSM.sendMessageDelayed(what, delayMillis);
     }
 
+    /** This is only for SyncSM. */
+    public void sendSelfMessage(int what, int arg1, int arg2, Object obj) {
+        if (mUseSyncSM) {
+            mSyncSM.sendSelfMessage(what, arg1, arg2, obj);
+        }
+    }
+
     /**
      * An alias StateMahchine class with public construtor.
      *

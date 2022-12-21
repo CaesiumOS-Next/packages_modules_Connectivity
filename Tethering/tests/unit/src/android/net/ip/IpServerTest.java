@@ -204,8 +204,8 @@ public class IpServerTest {
 
     @Captor private ArgumentCaptor<DhcpServingParamsParcel> mDhcpParamsCaptor;
 
-    private final TestLooper mLooper = new TestLooper();
-    private final Handler mHandler = new Handler(mLooper.getLooper());
+    private TestLooper mLooper;
+    private Handler mHandler;
     private final ArgumentCaptor<LinkProperties> mLinkPropertiesCaptor =
             ArgumentCaptor.forClass(LinkProperties.class);
     private IpServer mIpServer;
@@ -299,6 +299,13 @@ public class IpServerTest {
         when(mTetherConfig.isBpfOffloadEnabled()).thenReturn(DEFAULT_USING_BPF_OFFLOAD);
         when(mTetherConfig.useLegacyDhcpServer()).thenReturn(false /* default value */);
 
+        setUpDhcpServer();
+    }
+
+    // In order to interact with syncSM from the test, looper must be created in test thread.
+    private void initOnCorrectThread() throws Exception {
+        mLooper = new TestLooper();
+        mHandler = new Handler(mLooper.getLooper());
         mBpfDeps = new BpfCoordinator.Dependencies() {
                     @NonNull
                     public Handler getHandler() {
@@ -372,12 +379,11 @@ public class IpServerTest {
                     }
                 };
         mBpfCoordinator = spy(new BpfCoordinator(mBpfDeps));
-
-        setUpDhcpServer();
     }
 
     @Test
-    public void startsOutAvailable() {
+    public void startsOutAvailable() throws Exception {
+        initOnCorrectThread();
         when(mDependencies.getIpNeighborMonitor(any(), any(), any()))
                 .thenReturn(mIpNeighborMonitor);
         mIpServer = new IpServer(IFACE_NAME, mHandler, TETHERING_BLUETOOTH, mSharedLog,
@@ -393,6 +399,7 @@ public class IpServerTest {
 
     @Test
     public void shouldDoNothingUntilRequested() throws Exception {
+        initOnCorrectThread();
         initStateMachine(TETHERING_BLUETOOTH);
         final int [] noOp_commands = {
             IpServer.CMD_TETHER_UNREQUESTED,
@@ -413,6 +420,7 @@ public class IpServerTest {
 
     @Test
     public void handlesImmediateInterfaceDown() throws Exception {
+        initOnCorrectThread();
         initStateMachine(TETHERING_BLUETOOTH);
 
         dispatchCommand(IpServer.CMD_INTERFACE_DOWN);
@@ -424,6 +432,7 @@ public class IpServerTest {
 
     @Test
     public void canBeTetheredAsBluetooth() throws Exception {
+        initOnCorrectThread();
         initStateMachine(TETHERING_BLUETOOTH);
 
         dispatchCommand(IpServer.CMD_TETHER_REQUESTED, STATE_TETHERED);
@@ -447,6 +456,7 @@ public class IpServerTest {
 
     @Test
     public void canUnrequestTethering() throws Exception {
+        initOnCorrectThread();
         initTetheredStateMachine(TETHERING_BLUETOOTH, null);
 
         dispatchCommand(IpServer.CMD_TETHER_UNREQUESTED);
@@ -474,6 +484,7 @@ public class IpServerTest {
 
     @Test
     public void canBeTetheredAsUsb() throws Exception {
+        initOnCorrectThread();
         initStateMachine(TETHERING_USB);
 
         dispatchCommand(IpServer.CMD_TETHER_REQUESTED, STATE_TETHERED);
@@ -495,6 +506,7 @@ public class IpServerTest {
 
     @Test
     public void canBeTetheredAsWifiP2p() throws Exception {
+        initOnCorrectThread();
         initStateMachine(TETHERING_WIFI_P2P);
 
         dispatchCommand(IpServer.CMD_TETHER_REQUESTED, STATE_LOCAL_ONLY);
@@ -516,6 +528,7 @@ public class IpServerTest {
 
     @Test
     public void handlesFirstUpstreamChange() throws Exception {
+        initOnCorrectThread();
         initTetheredStateMachine(TETHERING_BLUETOOTH, null);
 
         // Telling the state machine about its upstream interface triggers
@@ -535,6 +548,7 @@ public class IpServerTest {
 
     @Test
     public void handlesChangingUpstream() throws Exception {
+        initOnCorrectThread();
         initTetheredStateMachine(TETHERING_BLUETOOTH, UPSTREAM_IFACE);
 
         dispatchTetherConnectionChanged(UPSTREAM_IFACE2);
@@ -557,6 +571,7 @@ public class IpServerTest {
 
     @Test
     public void handlesChangingUpstreamNatFailure() throws Exception {
+        initOnCorrectThread();
         initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE);
 
         doThrow(RemoteException.class).when(mNetd).tetherAddForward(IFACE_NAME, UPSTREAM_IFACE2);
@@ -584,6 +599,7 @@ public class IpServerTest {
 
     @Test
     public void handlesChangingUpstreamInterfaceForwardingFailure() throws Exception {
+        initOnCorrectThread();
         initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE);
 
         doThrow(RemoteException.class).when(mNetd).ipfwdAddInterfaceForward(
@@ -613,6 +629,7 @@ public class IpServerTest {
 
     @Test
     public void canUnrequestTetheringWithUpstream() throws Exception {
+        initOnCorrectThread();
         initTetheredStateMachine(TETHERING_BLUETOOTH, UPSTREAM_IFACE);
 
         dispatchCommand(IpServer.CMD_TETHER_UNREQUESTED);
@@ -638,6 +655,7 @@ public class IpServerTest {
 
     @Test
     public void interfaceDownLeadsToUnavailable() throws Exception {
+        initOnCorrectThread();
         for (boolean shouldThrow : new boolean[]{true, false}) {
             initTetheredStateMachine(TETHERING_USB, null);
 
@@ -660,6 +678,7 @@ public class IpServerTest {
 
     @Test
     public void usbShouldBeTornDownOnTetherError() throws Exception {
+        initOnCorrectThread();
         initStateMachine(TETHERING_USB);
 
         doThrow(RemoteException.class).when(mNetd).tetherInterfaceAdd(IFACE_NAME);
@@ -683,6 +702,7 @@ public class IpServerTest {
 
     @Test
     public void shouldTearDownUsbOnUpstreamError() throws Exception {
+        initOnCorrectThread();
         initTetheredStateMachine(TETHERING_USB, null);
 
         doThrow(RemoteException.class).when(mNetd).tetherAddForward(anyString(), anyString());
@@ -704,6 +724,7 @@ public class IpServerTest {
 
     @Test
     public void ignoresDuplicateUpstreamNotifications() throws Exception {
+        initOnCorrectThread();
         initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE);
 
         verifyNoMoreInteractions(mNetd, mCallback);
@@ -716,6 +737,7 @@ public class IpServerTest {
 
     @Test
     public void startsDhcpServer() throws Exception {
+        initOnCorrectThread();
         initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE);
         dispatchTetherConnectionChanged(UPSTREAM_IFACE);
 
@@ -724,6 +746,7 @@ public class IpServerTest {
 
     @Test
     public void startsDhcpServerOnBluetooth() throws Exception {
+        initOnCorrectThread();
         initTetheredStateMachine(TETHERING_BLUETOOTH, UPSTREAM_IFACE);
         dispatchTetherConnectionChanged(UPSTREAM_IFACE);
 
@@ -736,6 +759,7 @@ public class IpServerTest {
 
     @Test
     public void startsDhcpServerOnWifiP2p() throws Exception {
+        initOnCorrectThread();
         initTetheredStateMachine(TETHERING_WIFI_P2P, UPSTREAM_IFACE);
         dispatchTetherConnectionChanged(UPSTREAM_IFACE);
 
@@ -744,6 +768,7 @@ public class IpServerTest {
 
     @Test
     public void startsDhcpServerOnNcm() throws Exception {
+        initOnCorrectThread();
         initStateMachine(TETHERING_NCM);
         dispatchCommand(IpServer.CMD_TETHER_REQUESTED, STATE_LOCAL_ONLY);
         dispatchTetherConnectionChanged(UPSTREAM_IFACE);
@@ -753,6 +778,7 @@ public class IpServerTest {
 
     @Test
     public void testOnNewPrefixRequest() throws Exception {
+        initOnCorrectThread();
         initStateMachine(TETHERING_NCM);
         dispatchCommand(IpServer.CMD_TETHER_REQUESTED, STATE_LOCAL_ONLY);
 
@@ -804,6 +830,7 @@ public class IpServerTest {
 
     @Test
     public void doesNotStartDhcpServerIfDisabled() throws Exception {
+        initOnCorrectThread();
         initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE, true /* usingLegacyDhcp */,
                 DEFAULT_USING_BPF_OFFLOAD);
         dispatchTetherConnectionChanged(UPSTREAM_IFACE);
@@ -1031,6 +1058,7 @@ public class IpServerTest {
 
     @Test
     public void addRemoveipv6ForwardingRules() throws Exception {
+        initOnCorrectThread();
         initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE, false /* usingLegacyDhcp */,
                 DEFAULT_USING_BPF_OFFLOAD);
 
@@ -1196,6 +1224,7 @@ public class IpServerTest {
 
     @Test
     public void enableDisableUsingBpfOffload() throws Exception {
+        initOnCorrectThread();
         final int myIfindex = TEST_IFACE_PARAMS.index;
         final InetAddress neigh = InetAddresses.parseNumericAddress("2001:db8::1");
         final MacAddress macA = MacAddress.fromString("00:00:00:00:00:0a");
@@ -1251,6 +1280,7 @@ public class IpServerTest {
 
     @Test
     public void doesNotStartIpNeighborMonitorIfBpfOffloadDisabled() throws Exception {
+        initOnCorrectThread();
         initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE, false /* usingLegacyDhcp */,
                 false /* usingBpfOffload */);
 
@@ -1271,6 +1301,7 @@ public class IpServerTest {
 
     @Test
     public void testAdjustTtlValue() throws Exception {
+        initOnCorrectThread();
         final ArgumentCaptor<RaParams> raParamsCaptor =
                 ArgumentCaptor.forClass(RaParams.class);
         initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE);
@@ -1303,6 +1334,7 @@ public class IpServerTest {
 
     @Test
     public void testStopObsoleteDhcpServer() throws Exception {
+        initOnCorrectThread();
         final ArgumentCaptor<DhcpServerCallbacks> cbCaptor =
                 ArgumentCaptor.forClass(DhcpServerCallbacks.class);
         doNothing().when(mDependencies).makeDhcpServer(any(), mDhcpParamsCaptor.capture(),
@@ -1440,6 +1472,7 @@ public class IpServerTest {
 
     @Test @IgnoreUpTo(Build.VERSION_CODES.R)
     public void dadProxyUpdates() throws Exception {
+        initOnCorrectThread();
         InOrder inOrder = inOrder(mDadProxy);
         initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE);
         inOrder.verify(mDadProxy).setUpstreamIface(UPSTREAM_IFACE_PARAMS);
@@ -1505,15 +1538,18 @@ public class IpServerTest {
     }
     @Test @IgnoreAfter(Build.VERSION_CODES.R)
     public void testDadProxyUpdates_DisabledUpToR() throws Exception {
+        initOnCorrectThread();
         checkDadProxyEnabled(false);
     }
     @Test @IgnoreUpTo(Build.VERSION_CODES.R)
     public void testDadProxyUpdates_EnabledAfterR() throws Exception {
+        initOnCorrectThread();
         checkDadProxyEnabled(true);
     }
 
     @Test
     public void testSkipVirtualNetworkInBpf() throws Exception {
+        initOnCorrectThread();
         initTetheredStateMachine(TETHERING_BLUETOOTH, null);
         final LinkProperties v6Only = new LinkProperties();
         v6Only.setInterfaceName(IPSEC_IFACE);
@@ -1534,6 +1570,7 @@ public class IpServerTest {
     // TODO: move to BpfCoordinatorTest once IpNeighborMonitor is migrated to BpfCoordinator.
     @Test
     public void addRemoveTetherClient() throws Exception {
+        initOnCorrectThread();
         initTetheredStateMachine(TETHERING_WIFI, UPSTREAM_IFACE, false /* usingLegacyDhcp */,
                 DEFAULT_USING_BPF_OFFLOAD);
 
