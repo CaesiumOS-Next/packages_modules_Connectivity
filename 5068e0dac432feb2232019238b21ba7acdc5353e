@@ -144,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "90665948_686f8ab8",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-21T07:27:46Z",
+      "side": 1,
+      "message": "This is not @hide so it should be visible out side of the module, right?",
+      "parentUuid": "178f57c6_8974f5e0",
+      "range": {
+        "startLine": 411,
+        "startChar": 4,
+        "endLine": 411,
+        "endChar": 24
+      },
+      "revId": "5068e0dac432feb2232019238b21ba7acdc5353e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6423076b_e73277e5",
         "filename": "framework-t/src/android/net/NetworkTemplate.java",
         "patchSetId": 16
