@@ -300,7 +300,7 @@ public class TetheringTest {
     // Like so many Android system APIs, these cannot be mocked because it is marked final.
     // We have to use the real versions.
     private final PersistableBundle mCarrierConfig = new PersistableBundle();
-    private final TestLooper mLooper = new TestLooper();
+    private TestLooper mLooper;
 
     private Vector<Intent> mIntents;
     private BroadcastInterceptingContext mServiceContext;
@@ -672,7 +672,14 @@ public class TetheringTest {
 
         mCm = spy(new TestConnectivityManager(mServiceContext, mock(IConnectivityManager.class)));
 
-        mTethering = makeTethering();
+        when(mPackageManager.hasSystemFeature(PackageManager.FEATURE_WIFI)).thenReturn(true);
+        when(mPackageManager.hasSystemFeature(PackageManager.FEATURE_WIFI_DIRECT)).thenReturn(true);
+    }
+
+    // In order to interact with syncSM from the test, tethering must be created in test thread.
+    private void initTetheringOnTestThread() throws Exception {
+        mLooper = new TestLooper();
+        mTethering = new Tethering(mTetheringDependencies);
         verify(mStatsManager, times(1)).registerNetworkStatsProvider(anyString(), any());
         verify(mNetd).registerUnsolicitedEventListener(any());
         verifyDefaultNetworkRequestFiled();
@@ -696,9 +703,6 @@ public class TetheringTest {
                     localOnlyCallbackCaptor.capture());
             mLocalOnlyHotspotCallback = localOnlyCallbackCaptor.getValue();
         }
-
-        when(mPackageManager.hasSystemFeature(PackageManager.FEATURE_WIFI)).thenReturn(true);
-        when(mPackageManager.hasSystemFeature(PackageManager.FEATURE_WIFI_DIRECT)).thenReturn(true);
     }
 
     private void setTetheringSupported(final boolean supported) {
@@ -728,10 +732,6 @@ public class TetheringTest {
     private void initTetheringUpstream(UpstreamNetworkState upstreamState) {
         doReturn(upstreamState).when(mUpstreamNetworkMonitor).getCurrentPreferredUpstream();
         doReturn(upstreamState).when(mUpstreamNetworkMonitor).selectPreferredUpstreamType(any());
-    }
-
-    private Tethering makeTethering() {
-        return new Tethering(mTetheringDependencies);
     }
 
     private TetheringRequestParcel createTetheringRequestParcel(final int type) {
@@ -877,6 +877,7 @@ public class TetheringTest {
 
     public void failingLocalOnlyHotspotLegacyApBroadcast(
             boolean emulateInterfaceStatusChanged) throws Exception {
+        initTetheringOnTestThread();
         // Emulate externally-visible WifiManager effects, causing the
         // per-interface state machine to start up, and telling us that
         // hotspot mode is to be started.
@@ -928,6 +929,7 @@ public class TetheringTest {
 
     @Test
     public void testUsbConfiguredBroadcastStartsTethering() throws Exception {
+        initTetheringOnTestThread();
         UpstreamNetworkState upstreamState = buildMobileIPv4UpstreamState();
         initTetheringUpstream(upstreamState);
         prepareUsbTethering();
@@ -1004,6 +1006,7 @@ public class TetheringTest {
 
     public void workingLocalOnlyHotspotEnrichedApBroadcast(
             boolean emulateInterfaceStatusChanged) throws Exception {
+        initTetheringOnTestThread();
         // Emulate externally-visible WifiManager effects, causing the
         // per-interface state machine to start up, and telling us that
         // hotspot mode is to be started.
@@ -1067,6 +1070,7 @@ public class TetheringTest {
 
     @Test
     public void workingMobileUsbTethering_IPv4() throws Exception {
+        initTetheringOnTestThread();
         UpstreamNetworkState upstreamState = buildMobileIPv4UpstreamState();
         runUsbTethering(upstreamState);
 
@@ -1081,7 +1085,8 @@ public class TetheringTest {
     }
 
     @Test
-    public void workingMobileUsbTethering_IPv4LegacyDhcp() {
+    public void workingMobileUsbTethering_IPv4LegacyDhcp() throws Exception {
+        initTetheringOnTestThread();
         when(mResources.getBoolean(R.bool.config_tether_enable_legacy_dhcp_server)).thenReturn(
                 true);
         sendConfigurationChanged();
@@ -1094,6 +1099,7 @@ public class TetheringTest {
 
     @Test
     public void workingMobileUsbTethering_IPv6() throws Exception {
+        initTetheringOnTestThread();
         UpstreamNetworkState upstreamState = buildMobileIPv6UpstreamState();
         runUsbTethering(upstreamState);
 
@@ -1109,6 +1115,7 @@ public class TetheringTest {
 
     @Test
     public void workingMobileUsbTethering_DualStack() throws Exception {
+        initTetheringOnTestThread();
         UpstreamNetworkState upstreamState = buildMobileDualStackUpstreamState();
         runUsbTethering(upstreamState);
 
@@ -1126,6 +1133,7 @@ public class TetheringTest {
 
     @Test
     public void workingMobileUsbTethering_MultipleUpstreams() throws Exception {
+        initTetheringOnTestThread();
         UpstreamNetworkState upstreamState = buildMobile464xlatUpstreamState();
         runUsbTethering(upstreamState);
 
@@ -1145,6 +1153,7 @@ public class TetheringTest {
 
     @Test
     public void workingMobileUsbTethering_v6Then464xlat() throws Exception {
+        initTetheringOnTestThread();
         when(mResources.getInteger(R.integer.config_tether_usb_functions)).thenReturn(
                 TetheringConfiguration.TETHER_USB_NCM_FUNCTION);
         when(mResources.getStringArray(R.array.config_tether_usb_regexs))
@@ -1186,6 +1195,7 @@ public class TetheringTest {
 
     @Test
     public void configTetherUpstreamAutomaticIgnoresConfigTetherUpstreamTypes() throws Exception {
+        initTetheringOnTestThread();
         when(mResources.getBoolean(R.bool.config_tether_upstream_automatic)).thenReturn(true);
         sendConfigurationChanged();
 
@@ -1234,6 +1244,7 @@ public class TetheringTest {
     }
 
     private void verifyAutomaticUpstreamSelection(boolean configAutomatic) throws Exception {
+        initTetheringOnTestThread();
         TestNetworkAgent mobile = new TestNetworkAgent(mCm, buildMobileDualStackUpstreamState());
         TestNetworkAgent wifi = new TestNetworkAgent(mCm, buildWifiUpstreamState());
         InOrder inOrder = inOrder(mCm, mUpstreamNetworkMonitor);
@@ -1333,6 +1344,7 @@ public class TetheringTest {
     @Test
     @IgnoreAfter(Build.VERSION_CODES.TIRAMISU)
     public void testLegacyUpstreamSelection() throws Exception {
+        initTetheringOnTestThread();
         TestNetworkAgent mobile = new TestNetworkAgent(mCm, buildMobileDualStackUpstreamState());
         TestNetworkAgent wifi = new TestNetworkAgent(mCm, buildWifiUpstreamState());
         InOrder inOrder = inOrder(mCm, mUpstreamNetworkMonitor);
@@ -1483,6 +1495,7 @@ public class TetheringTest {
     // +-------+-------+-------+-------+-------+
     //
     private void verifyChooseDunUpstreamByAutomaticMode(boolean configAutomatic) throws Exception {
+        initTetheringOnTestThread();
         // Enable automatic upstream selection.
         TestNetworkAgent mobile = new TestNetworkAgent(mCm, buildMobileDualStackUpstreamState());
         TestNetworkAgent wifi = new TestNetworkAgent(mCm, buildWifiUpstreamState());
@@ -1543,6 +1556,7 @@ public class TetheringTest {
     //
     @Test
     public void testChooseDunUpstreamByAutomaticMode_defaultNetworkWifi() throws Exception {
+        initTetheringOnTestThread();
         TestNetworkAgent mobile = new TestNetworkAgent(mCm, buildMobileDualStackUpstreamState());
         TestNetworkAgent wifi = new TestNetworkAgent(mCm, buildWifiUpstreamState());
         TestNetworkAgent dun = new TestNetworkAgent(mCm, buildDunUpstreamState());
@@ -1594,6 +1608,7 @@ public class TetheringTest {
     //
     @Test
     public void testChooseDunUpstreamByAutomaticMode_loseDefaultNetworkWifi() throws Exception {
+        initTetheringOnTestThread();
         TestNetworkAgent wifi = new TestNetworkAgent(mCm, buildWifiUpstreamState());
         TestNetworkAgent dun = new TestNetworkAgent(mCm, buildDunUpstreamState());
         final InOrder inOrder = inOrder(mCm, mUpstreamNetworkMonitor);
@@ -1635,6 +1650,7 @@ public class TetheringTest {
     //
     @Test
     public void testChooseDunUpstreamByAutomaticMode_defaultNetworkCell() throws Exception {
+        initTetheringOnTestThread();
         TestNetworkAgent mobile = new TestNetworkAgent(mCm, buildMobileDualStackUpstreamState());
         TestNetworkAgent dun = new TestNetworkAgent(mCm, buildDunUpstreamState());
         final InOrder inOrder = inOrder(mCm, mUpstreamNetworkMonitor);
@@ -1679,6 +1695,7 @@ public class TetheringTest {
     //
     @Test
     public void testChooseDunUpstreamByAutomaticMode_loseAndRegainDun() throws Exception {
+        initTetheringOnTestThread();
         TestNetworkAgent dun = new TestNetworkAgent(mCm, buildDunUpstreamState());
         final InOrder inOrder = inOrder(mCm, mUpstreamNetworkMonitor);
         setupDunUpstreamTest(true /* configAutomatic */, inOrder);
@@ -1720,6 +1737,7 @@ public class TetheringTest {
     @Test
     public void testChooseDunUpstreamByAutomaticMode_switchDefaultFromWifiToCell()
             throws Exception {
+        initTetheringOnTestThread();
         TestNetworkAgent mobile = new TestNetworkAgent(mCm, buildMobileDualStackUpstreamState());
         TestNetworkAgent wifi = new TestNetworkAgent(mCm, buildWifiUpstreamState());
         TestNetworkAgent dun = new TestNetworkAgent(mCm, buildDunUpstreamState());
@@ -1757,6 +1775,7 @@ public class TetheringTest {
     @Test
     @IgnoreAfter(Build.VERSION_CODES.TIRAMISU)
     public void testChooseDunUpstreamByLegacyMode() throws Exception {
+        initTetheringOnTestThread();
         // Enable Legacy upstream selection.
         TestNetworkAgent mobile = new TestNetworkAgent(mCm, buildMobileDualStackUpstreamState());
         TestNetworkAgent wifi = new TestNetworkAgent(mCm, buildWifiUpstreamState());
@@ -1849,6 +1868,7 @@ public class TetheringTest {
 
     @Test
     public void workingNcmTethering() throws Exception {
+        initTetheringOnTestThread();
         runNcmTethering();
 
         verify(mDhcpServer, timeout(DHCPSERVER_START_TIMEOUT_MS).times(1)).startWithCallbacks(
@@ -1856,7 +1876,8 @@ public class TetheringTest {
     }
 
     @Test
-    public void workingNcmTethering_LegacyDhcp() {
+    public void workingNcmTethering_LegacyDhcp() throws Exception {
+        initTetheringOnTestThread();
         when(mResources.getBoolean(R.bool.config_tether_enable_legacy_dhcp_server)).thenReturn(
                 true);
         sendConfigurationChanged();
@@ -1878,6 +1899,7 @@ public class TetheringTest {
     // TODO: Test with and without interfaceStatusChanged().
     @Test
     public void failingWifiTetheringLegacyApBroadcast() throws Exception {
+        initTetheringOnTestThread();
         when(mWifiManager.startTetheredHotspot(any(SoftApConfiguration.class))).thenReturn(true);
 
         // Emulate pressing the WiFi tethering button.
@@ -1906,6 +1928,7 @@ public class TetheringTest {
     // TODO: Test with and without interfaceStatusChanged().
     @Test
     public void workingWifiTetheringEnrichedApBroadcast() throws Exception {
+        initTetheringOnTestThread();
         when(mWifiManager.startTetheredHotspot(any(SoftApConfiguration.class))).thenReturn(true);
 
         // Emulate pressing the WiFi tethering button.
@@ -1954,6 +1977,7 @@ public class TetheringTest {
     // TODO: Test with and without interfaceStatusChanged().
     @Test
     public void failureEnablingIpForwarding() throws Exception {
+        initTetheringOnTestThread();
         when(mWifiManager.startTetheredHotspot(any(SoftApConfiguration.class))).thenReturn(true);
         doThrow(new RemoteException()).when(mNetd).ipfwdEnableForwarding(TETHERING_NAME);
 
@@ -2101,7 +2125,8 @@ public class TetheringTest {
     }
 
     @Test
-    public void testUntetherUsbWhenRestrictionIsOn() {
+    public void testUntetherUsbWhenRestrictionIsOn() throws Exception {
+        initTetheringOnTestThread();
         // Start usb tethering and check that usb interface is tethered.
         final UpstreamNetworkState upstreamState = buildMobileIPv4UpstreamState();
         runUsbTethering(upstreamState);
@@ -2278,6 +2303,7 @@ public class TetheringTest {
 
     @Test
     public void testRegisterTetheringEventCallback() throws Exception {
+        initTetheringOnTestThread();
         TestTetheringEventCallback callback = new TestTetheringEventCallback();
         TestTetheringEventCallback callback2 = new TestTetheringEventCallback();
         final TetheringInterface wifiIface = new TetheringInterface(
@@ -2342,6 +2368,7 @@ public class TetheringTest {
 
     @Test
     public void testReportFailCallbackIfOffloadNotSupported() throws Exception {
+        initTetheringOnTestThread();
         final UpstreamNetworkState upstreamState = buildMobileDualStackUpstreamState();
         TestTetheringEventCallback callback = new TestTetheringEventCallback();
         mTethering.registerTetheringEventCallback(callback);
@@ -2381,6 +2408,7 @@ public class TetheringTest {
 
     @Test
     public void testMultiSimAware() throws Exception {
+        initTetheringOnTestThread();
         final TetheringConfiguration initailConfig = mTethering.getTetheringConfiguration();
         assertEquals(INVALID_SUBSCRIPTION_ID, initailConfig.activeDataSubId);
 
@@ -2393,6 +2421,7 @@ public class TetheringTest {
 
     @Test
     public void testNoDuplicatedEthernetRequest() throws Exception {
+        initTetheringOnTestThread();
         final TetheredInterfaceRequest mockRequest = mock(TetheredInterfaceRequest.class);
         when(mEm.requestTetheredInterface(any(), any())).thenReturn(mockRequest);
         mTethering.startTethering(createTetheringRequestParcel(TETHERING_ETHERNET), TEST_CALLER_PKG,
@@ -2413,6 +2442,7 @@ public class TetheringTest {
 
     private void workingWifiP2pGroupOwner(
             boolean emulateInterfaceStatusChanged) throws Exception {
+        initTetheringOnTestThread();
         if (emulateInterfaceStatusChanged) {
             mTethering.interfaceStatusChanged(TEST_P2P_IFNAME, true);
         }
@@ -2452,6 +2482,7 @@ public class TetheringTest {
 
     private void workingWifiP2pGroupClient(
             boolean emulateInterfaceStatusChanged) throws Exception {
+        initTetheringOnTestThread();
         if (emulateInterfaceStatusChanged) {
             mTethering.interfaceStatusChanged(TEST_P2P_IFNAME, true);
         }
@@ -2492,6 +2523,7 @@ public class TetheringTest {
 
     private void workingWifiP2pGroupOwnerLegacyMode(
             boolean emulateInterfaceStatusChanged) throws Exception {
+        initTetheringOnTestThread();
         // change to legacy mode and update tethering information by chaning SIM
         when(mResources.getStringArray(R.array.config_tether_wifi_p2p_regexs))
                 .thenReturn(new String[]{});
@@ -2541,7 +2573,8 @@ public class TetheringTest {
     }
 
     @Test
-    public void testDataSaverChanged() {
+    public void testDataSaverChanged() throws Exception {
+        initTetheringOnTestThread();
         // Start Tethering.
         final UpstreamNetworkState upstreamState = buildMobileIPv4UpstreamState();
         runUsbTethering(upstreamState);
@@ -2596,6 +2629,7 @@ public class TetheringTest {
 
     @Test
     public void testMultipleStartTethering() throws Exception {
+        initTetheringOnTestThread();
         final LinkAddress serverLinkAddr = new LinkAddress("192.168.20.1/24");
         final LinkAddress clientLinkAddr = new LinkAddress("192.168.20.42/24");
         final String serverAddr = "192.168.20.1";
@@ -2639,6 +2673,7 @@ public class TetheringTest {
 
     @Test
     public void testRequestStaticIp() throws Exception {
+        initTetheringOnTestThread();
         when(mResources.getInteger(R.integer.config_tether_usb_functions)).thenReturn(
                 TetheringConfiguration.TETHER_USB_NCM_FUNCTION);
         when(mResources.getStringArray(R.array.config_tether_usb_regexs))
@@ -2668,7 +2703,8 @@ public class TetheringTest {
     }
 
     @Test
-    public void testUpstreamNetworkChanged() {
+    public void testUpstreamNetworkChanged() throws Exception {
+        initTetheringOnTestThread();
         final Tethering.TetherMainSM stateMachine = (Tethering.TetherMainSM)
                 mTetheringDependencies.mUpstreamNetworkMonitorSM;
         final InOrder inOrder = inOrder(mNotificationUpdater);
@@ -2710,7 +2746,8 @@ public class TetheringTest {
     }
 
     @Test
-    public void testUpstreamCapabilitiesChanged() {
+    public void testUpstreamCapabilitiesChanged() throws Exception {
+        initTetheringOnTestThread();
         final Tethering.TetherMainSM stateMachine = (Tethering.TetherMainSM)
                 mTetheringDependencies.mUpstreamNetworkMonitorSM;
         final InOrder inOrder = inOrder(mNotificationUpdater);
@@ -2745,6 +2782,7 @@ public class TetheringTest {
 
     @Test
     public void testUpstreamCapabilitiesChanged_startStopTethering() throws Exception {
+        initTetheringOnTestThread();
         final TestNetworkAgent wifi = new TestNetworkAgent(mCm, buildWifiUpstreamState());
 
         // Start USB tethering with no current upstream.
@@ -2766,6 +2804,7 @@ public class TetheringTest {
 
     @Test
     public void testDumpTetheringLog() throws Exception {
+        initTetheringOnTestThread();
         final FileDescriptor mockFd = mock(FileDescriptor.class);
         final PrintWriter mockPw = mock(PrintWriter.class);
         runUsbTethering(null);
@@ -2779,6 +2818,7 @@ public class TetheringTest {
 
     @Test
     public void testExemptFromEntitlementCheck() throws Exception {
+        initTetheringOnTestThread();
         setupForRequiredProvisioning();
         final TetheringRequestParcel wifiNotExemptRequest =
                 createTetheringRequestParcel(TETHERING_WIFI, null, null, false,
@@ -2869,6 +2909,7 @@ public class TetheringTest {
 
     @Test
     public void testHandleIpConflict() throws Exception {
+        initTetheringOnTestThread();
         final Network wifiNetwork = new Network(200);
         final Network[] allNetworks = { wifiNetwork };
         doReturn(allNetworks).when(mCm).getAllNetworks();
@@ -2894,6 +2935,7 @@ public class TetheringTest {
 
     @Test
     public void testNoAddressAvailable() throws Exception {
+        initTetheringOnTestThread();
         final Network wifiNetwork = new Network(200);
         final Network btNetwork = new Network(201);
         final Network mobileNetwork = new Network(202);
@@ -2955,6 +2997,7 @@ public class TetheringTest {
 
     @Test
     public void testProvisioningNeededButUnavailable() throws Exception {
+        initTetheringOnTestThread();
         assertTrue(mTethering.isTetheringSupported());
         verify(mPackageManager, never()).getPackageInfo(PROVISIONING_APP_NAME[0], GET_ACTIVITIES);
 
@@ -2972,6 +3015,7 @@ public class TetheringTest {
 
     @Test
     public void testUpdateConnectedClients() throws Exception {
+        initTetheringOnTestThread();
         TestTetheringEventCallback callback = new TestTetheringEventCallback();
         runAsShell(NETWORK_SETTINGS, () -> {
             mTethering.registerTetheringEventCallback(callback);
@@ -3021,6 +3065,7 @@ public class TetheringTest {
     @Test
     @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testUpdateConnectedClientsForLocalOnlyHotspot() throws Exception {
+        initTetheringOnTestThread();
         TestTetheringEventCallback callback = new TestTetheringEventCallback();
         runAsShell(NETWORK_SETTINGS, () -> {
             mTethering.registerTetheringEventCallback(callback);
@@ -3053,6 +3098,7 @@ public class TetheringTest {
     @Test
     @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testConnectedClientsForSapAndLohsConcurrency() throws Exception {
+        initTetheringOnTestThread();
         TestTetheringEventCallback callback = new TestTetheringEventCallback();
         runAsShell(NETWORK_SETTINGS, () -> {
             mTethering.registerTetheringEventCallback(callback);
@@ -3178,6 +3224,7 @@ public class TetheringTest {
 
     @Test
     public void testBluetoothTethering() throws Exception {
+        initTetheringOnTestThread();
         // Switch to @IgnoreUpTo(Build.VERSION_CODES.S_V2) when it is available for AOSP.
         assumeTrue(isAtLeastT());
 
@@ -3214,6 +3261,7 @@ public class TetheringTest {
 
     @Test
     public void testBluetoothTetheringBeforeT() throws Exception {
+        initTetheringOnTestThread();
         // Switch to @IgnoreAfter(Build.VERSION_CODES.S_V2) when it is available for AOSP.
         assumeFalse(isAtLeastT());
 
@@ -3261,6 +3309,7 @@ public class TetheringTest {
 
     @Test
     public void testBluetoothServiceDisconnects() throws Exception {
+        initTetheringOnTestThread();
         final ResultListener result = new ResultListener(TETHER_ERROR_NO_ERROR);
         mockBluetoothSettings(true /* bluetoothOn */, true /* tetheringOn */);
         mTethering.startTethering(createTetheringRequestParcel(TETHERING_BLUETOOTH),
@@ -3415,6 +3464,7 @@ public class TetheringTest {
 
     @Test
     public void testUsbFunctionConfigurationChange() throws Exception {
+        initTetheringOnTestThread();
         // Run TETHERING_NCM.
         runNcmTethering();
         verify(mDhcpServer, timeout(DHCPSERVER_START_TIMEOUT_MS).times(1)).startWithCallbacks(
@@ -3473,6 +3523,7 @@ public class TetheringTest {
 
     @Test
     public void testTetheringSupported() throws Exception {
+        initTetheringOnTestThread();
         final ArraySet<Integer> expectedTypes = getAllSupportedTetheringTypes();
         // Check tethering is supported after initialization.
         TestTetheringEventCallback callback = new TestTetheringEventCallback();
@@ -3545,6 +3596,7 @@ public class TetheringTest {
 
     @Test
     public void testIpv4AddressForSapAndLohsConcurrency() throws Exception {
+        initTetheringOnTestThread();
         mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
         sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
 
