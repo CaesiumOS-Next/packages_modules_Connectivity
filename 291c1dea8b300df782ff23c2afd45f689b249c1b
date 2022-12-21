@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f289693_e5ec7250",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1381,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-21T04:07:12Z",
+      "side": 1,
+      "message": "Step 10 and Step 1 seems be the same ?",
+      "range": {
+        "startLine": 1379,
+        "startChar": 0,
+        "endLine": 1381,
+        "endChar": 48
+      },
+      "revId": "291c1dea8b300df782ff23c2afd45f689b249c1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e298caeb_f7d90bd8",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1461,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-21T04:07:12Z",
+      "side": 1,
+      "message": "These are duplicated with step 10.",
+      "range": {
+        "startLine": 1453,
+        "startChar": 0,
+        "endLine": 1461,
+        "endChar": 82
+      },
+      "revId": "291c1dea8b300df782ff23c2afd45f689b249c1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
