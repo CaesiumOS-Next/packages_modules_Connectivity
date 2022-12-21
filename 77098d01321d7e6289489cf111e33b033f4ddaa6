@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e2dd7938_fe9a477b",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-21T04:14:45Z",
+      "side": 1,
+      "message": "Constructing the message does not require permission. I think it does no matter where the KeepaliveTracker is created.\n\nThe exception should be caught in isAnyTcpSocketConnected(). Also, I expect the design should never be run in the KeepaliveTracker created by DataNetwork.\n\nI move the message construction into isAnyTcpSocketConnectedForFamily to create it when it\u0027s really needed to reduce the memory usage for those conditions that does not need it.",
+      "parentUuid": "9ed7d0c2_758b02ea",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 97
+      },
+      "revId": "77098d01321d7e6289489cf111e33b033f4ddaa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de8d1269_d2f2ff83",
         "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
         "patchSetId": 11
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-20T08:58:20Z",
       "side": 1,
       "message": "Note that this may be really memory-intensive. All you need here is the type of message ; you may want to replace parsing all this and creating all these objects with a simple call to bytes.getLong() and masking, or bytes.position(4) and bytes.getShort().\n\nIt\u0027s fine to just write a TODO for now, or if you do it now explain why we do that instead of calling `parse`",
+      "range": {
+        "startLine": 922,
+        "startChar": 0,
+        "endLine": 922,
+        "endChar": 80
+      },
+      "revId": "77098d01321d7e6289489cf111e33b033f4ddaa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4ab8868_7a68fa19",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 922,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-21T04:14:45Z",
+      "side": 1,
+      "message": "Updated to get necessary type and length",
+      "parentUuid": "de8d1269_d2f2ff83",
       "range": {
         "startLine": 922,
         "startChar": 0,
@@ -60,6 +108,30 @@
       "writtenOn": "2022-12-20T08:58:20Z",
       "side": 1,
       "message": "IIUC you need this because there would be an InetDiag msg header which is not consumed by `StructNlMsgHeader.parse()`. If that\u0027s true, maybe you want to add a comment to that effect here.",
+      "range": {
+        "startLine": 928,
+        "startChar": 28,
+        "endLine": 928,
+        "endChar": 34
+      },
+      "revId": "77098d01321d7e6289489cf111e33b033f4ddaa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea3b843d_fb047341",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-21T04:14:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa0ab69c_d4524fdf",
       "range": {
         "startLine": 928,
         "startChar": 28,
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eaa49bba_52d4b08c",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-21T04:14:45Z",
+      "side": 1,
+      "message": "We need to get type and len, then read the value. We need most of the member inside StructNlAttr. I think parsing it separately does not reduce too much memory usage, so I keep it as it is. Please let me know if you still have concern about this.",
+      "parentUuid": "6de2c109_cfeb2e91",
+      "range": {
+        "startLine": 965,
+        "startChar": 57,
+        "endLine": 965,
+        "endChar": 62
+      },
+      "revId": "77098d01321d7e6289489cf111e33b033f4ddaa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "013b78c4_72924b2b",
         "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
         "patchSetId": 11
@@ -106,6 +202,30 @@
       "writtenOn": "2022-12-20T08:58:20Z",
       "side": 1,
       "message": "Why not return immediately ? Then you can remove the confusing mutable local.",
+      "range": {
+        "startLine": 968,
+        "startChar": 20,
+        "endLine": 968,
+        "endChar": 25
+      },
+      "revId": "77098d01321d7e6289489cf111e33b033f4ddaa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84a75f03_bee50179",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 968,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-21T04:14:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "013b78c4_72924b2b",
       "range": {
         "startLine": 968,
         "startChar": 20,
