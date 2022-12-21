@@ -68,6 +68,10 @@ class StateMachineShimTest {
         verify(syncSM).processMessage(what, arg1, arg2, obj)
         verifyNoMoreInteractions(syncSM)
 
+        shimUsingSyncSM.sendSelfMessage(what, arg1, arg2, obj)
+        verify(syncSM).sendSelfMessage(what, arg1, arg2, obj)
+        verifyNoMoreInteractions(syncSM)
+
         shimUsingSyncSM.sendMessageDelayedForAsyncSM(what, 1000 /* delayMillis */)
         verifyNoMoreInteractions(syncSM)
     }
@@ -108,6 +112,9 @@ class StateMachineShimTest {
         val arg2 = 12
         shimUsingAsyncSM.sendMessage(what, arg1, arg2, obj)
         verify(asyncSM).sendMessage(what, arg1, arg2, obj)
+        verifyNoMoreInteractions(asyncSM)
+
+        shimUsingAsyncSM.sendSelfMessage(what, arg1, arg2, obj)
         verifyNoMoreInteractions(asyncSM)
 
         shimUsingAsyncSM.sendMessageDelayedForAsyncSM(what, 1000 /* delayMillis */)
