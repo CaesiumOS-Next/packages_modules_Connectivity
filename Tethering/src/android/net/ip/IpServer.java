@@ -31,6 +31,7 @@ import static android.net.util.NetworkConstants.asByte;
 import static android.system.OsConstants.RT_SCOPE_UNIVERSE;
 
 import static com.android.net.module.util.Inet4AddressUtils.intToInet4AddressHTH;
+import static com.android.networkstack.tethering.TetheringConfiguration.USE_SYNC_SM;
 import static com.android.networkstack.tethering.UpstreamNetworkState.isVcnInterface;
 import static com.android.networkstack.tethering.util.PrefixUtils.asIpPrefix;
 import static com.android.networkstack.tethering.util.TetheringMessageBase.BASE_IPSERVER;
@@ -231,6 +232,8 @@ public class IpServer extends StateMachineShim {
     public static final int CMD_NEW_PREFIX_REQUEST          = BASE_IPSERVER + 12;
     // request from PrivateAddressCoordinator to restart tethering.
     public static final int CMD_NOTIFY_PREFIX_CONFLICT      = BASE_IPSERVER + 13;
+    public static final int CMD_IFACE_CFG_ERROR             = BASE_IPSERVER + 15;
+    public static final int CMD_TETHER_IFACE_ERROR          = BASE_IPSERVER + 16;
 
     private final State mInitialState;
     private final State mLocalHotspotState;
@@ -302,7 +305,7 @@ public class IpServer extends StateMachineShim {
             INetd netd, @NonNull BpfCoordinator coordinator, Callback callback,
             TetheringConfiguration config, PrivateAddressCoordinator addressCoordinator,
             TetheringMetrics tetheringMetrics, Dependencies deps) {
-        super(ifaceName, handler.getLooper(), TetheringConfiguration.USE_SYNC_SM);
+        super(ifaceName, handler.getLooper(), USE_SYNC_SM);
         mHandler = handler;
         mLog = log.forSubComponent(ifaceName);
         mNetd = netd;
@@ -1190,7 +1193,7 @@ public class IpServer extends StateMachineShim {
             startConntrackMonitoring();
 
             if (!startIPv4()) {
-                mLastError = TETHER_ERROR_IFACE_CFG_ERROR;
+                handleError(TETHER_ERROR_IFACE_CFG_ERROR);
                 return;
             }
 
@@ -1198,7 +1201,7 @@ public class IpServer extends StateMachineShim {
                 NetdUtils.tetherInterface(mNetd, mIfaceName, asIpPrefix(mIpv4Address));
             } catch (RemoteException | ServiceSpecificException | IllegalStateException e) {
                 mLog.e("Error Tethering", e);
-                mLastError = TETHER_ERROR_TETHER_IFACE_ERROR;
+                handleError(TETHER_ERROR_TETHER_IFACE_ERROR);
                 return;
             }
 
@@ -1206,6 +1209,22 @@ public class IpServer extends StateMachineShim {
                 mLog.e("Failed to startIPv6");
                 // TODO: Make this a fatal error once Bluetooth IPv6 is sorted.
                 return;
+            }
+        }
+
+        private void handleError(final int error) {
+            if (!USE_SYNC_SM) {
+                mLastError = error;
+                return;
+            }
+
+            switch (error) {
+                case TETHER_ERROR_IFACE_CFG_ERROR:
+                    sendSelfMessage(CMD_IFACE_CFG_ERROR, 0, 0, null);
+                    break;
+                case TETHER_ERROR_TETHER_IFACE_ERROR:
+                    sendSelfMessage(CMD_TETHER_IFACE_ERROR, 0, 0, null);
+                    break;
             }
         }
 
@@ -1255,6 +1274,14 @@ public class IpServer extends StateMachineShim {
                     mLastError = TETHER_ERROR_INTERNAL_ERROR;
                     transitionTo(mInitialState);
                     break;
+                case CMD_IFACE_CFG_ERROR:
+                    mLastError = TETHER_ERROR_IFACE_CFG_ERROR;
+                    transitionTo(mInitialState);
+                    break;
+                case CMD_TETHER_IFACE_ERROR:
+                    mLastError = TETHER_ERROR_TETHER_IFACE_ERROR;
+                    transitionTo(mInitialState);
+                    break;
                 case CMD_NEW_PREFIX_REQUEST:
                     handleNewPrefixRequest((IpPrefix) message.obj);
                     break;
@@ -1279,7 +1306,7 @@ public class IpServer extends StateMachineShim {
         @Override
         public void enter() {
             super.enter();
-            if (mLastError != TETHER_ERROR_NO_ERROR) {
+            if (!USE_SYNC_SM && mLastError != TETHER_ERROR_NO_ERROR) {
                 transitionTo(mInitialState);
             }
 
@@ -1315,7 +1342,7 @@ public class IpServer extends StateMachineShim {
         @Override
         public void enter() {
             super.enter();
-            if (mLastError != TETHER_ERROR_NO_ERROR) {
+            if (!USE_SYNC_SM && mLastError != TETHER_ERROR_NO_ERROR) {
                 transitionTo(mInitialState);
             }
 
