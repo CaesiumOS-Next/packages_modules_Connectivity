@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3de2140_def0380e",
+        "filename": "framework-t/src/android/net/IpSecManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 996,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-12-21T02:11:37Z",
+      "side": 1,
+      "message": "Updated the document.",
+      "parentUuid": "8033790c_c5264de8",
+      "range": {
+        "startLine": 996,
+        "startChar": 45,
+        "endLine": 996,
+        "endChar": 46
+      },
+      "revId": "ed0f43a95e03c97db1fa3b96831f79116b4a6e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a68112e_e337e080",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-19T15:13:55Z",
       "side": 1,
       "message": "Is there a reason this TODO cannot be addressed in this CL? If so, you can list the reason here. TODO(b/169169973): Require FEATURE_IPSEC_MIGRATE when...?",
+      "range": {
+        "startLine": 1010,
+        "startChar": 7,
+        "endLine": 1010,
+        "endChar": 24
+      },
+      "revId": "ed0f43a95e03c97db1fa3b96831f79116b4a6e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f662a07_fd795241",
+        "filename": "framework-t/src/android/net/IpSecManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1010,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-12-21T02:11:37Z",
+      "side": 1,
+      "message": "I was hoping to make the review easier where this CL can focus on the logic of migration and the followup CL handles the feature flag. Especially the IPsec code needs to redefine the feature flag constant instead of using the flag defined in the platform because of mainline. Thus I did not expect the changes to require the feature flag to be very straightfoward before I talked to Remi.",
+      "parentUuid": "4a68112e_e337e080",
       "range": {
         "startLine": 1010,
         "startChar": 7,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b8fd47f_7cb4f996",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-12-21T02:11:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1cd14627_8d41e91f",
+      "range": {
+        "startLine": 651,
+        "startChar": 30,
+        "endLine": 651,
+        "endChar": 48
+      },
+      "revId": "ed0f43a95e03c97db1fa3b96831f79116b4a6e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "449bea21_9d2772b0",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-12-19T15:13:55Z",
       "side": 1,
       "message": "What happens if the apply method is never called? Will something break, or do things keep working as is? If this is called and the apply method is not called, is it OK to call this method again? If not, how does the caller cancel the migration?",
+      "range": {
+        "startLine": 1781,
+        "startChar": 83,
+        "endLine": 1781,
+        "endChar": 84
+      },
+      "revId": "ed0f43a95e03c97db1fa3b96831f79116b4a6e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4646b156_1f09a2db",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1781,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-12-21T02:11:37Z",
+      "side": 1,
+      "message": "Updated the doc for the API and copied to here.",
+      "parentUuid": "449bea21_9d2772b0",
       "range": {
         "startLine": 1781,
         "startChar": 83,
@@ -139,6 +235,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8dc41df_8176d8b1",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1861,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-12-21T02:11:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a969d04_ee5af17a",
+      "range": {
+        "startLine": 1861,
+        "startChar": 95,
+        "endLine": 1861,
+        "endChar": 96
+      },
+      "revId": "ed0f43a95e03c97db1fa3b96831f79116b4a6e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab67eb82_c04438e8",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1861,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-12-21T02:11:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "768df5f5_d1ccfaa0",
+      "range": {
+        "startLine": 1861,
+        "startChar": 10,
+        "endLine": 1861,
+        "endChar": 19
+      },
+      "revId": "ed0f43a95e03c97db1fa3b96831f79116b4a6e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "20187f60_86297831",
@@ -152,6 +296,30 @@
       "writtenOn": "2022-12-19T15:13:55Z",
       "side": 1,
       "message": "The linter complains that:\n\n[GuardedBy] Access should be guarded by enclosing instance \u0027com.android.server.IpSecService\u0027 of \u0027transformInfo\u0027, which is not accessible in this scope; instead found: \u0027this\u0027\n\ndo you know why?\n\nSuperficially, it looks like it might be incorrect - AFAICT applyTunnelModeTransform is a method of IpSecService, so the synchronized modifier on the method is equivalent to synchronized (IpSecService.this).\n\nNot sure if the linter was complaining about an earlier patchset perhaps? The error is on the wrong line. Does it happen locally if you try to reproduce with \"m RUN_ERROR_PRONE\u003dtrue service-connectivity-pre-jarjar\"?",
+      "range": {
+        "startLine": 1946,
+        "startChar": 16,
+        "endLine": 1946,
+        "endChar": 43
+      },
+      "revId": "ed0f43a95e03c97db1fa3b96831f79116b4a6e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e001f609_ef0fa27e",
+        "filename": "service-t/src/com/android/server/IpSecService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1946,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-12-21T02:11:37Z",
+      "side": 1,
+      "message": "I filed a b/254136442 to the engprod. Basically they say the tool does not quite understand how IpSecService works. Doing `m RUN_ERROR_PRONE\u003dtrue service-connectivity-pre-jarjar` failed and it complained it cannot find the target. I guess it is because the `visibility` is only set to test folders and service-t. I will try `m RUN_ERROR_PRONE\u003dtrue com.android.tethering` tomorrow.",
+      "parentUuid": "20187f60_86297831",
       "range": {
         "startLine": 1946,
         "startChar": 16,
@@ -185,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "231dc250_7b3153ec",
+        "filename": "tests/unit/java/android/net/IpSecTransformTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-12-21T02:11:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cecb04c3_72225b8c",
+      "range": {
+        "startLine": 54,
+        "startChar": 29,
+        "endLine": 54,
+        "endChar": 34
+      },
+      "revId": "ed0f43a95e03c97db1fa3b96831f79116b4a6e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "588e3b57_4f81bbc6",
@@ -198,6 +390,30 @@
       "writtenOn": "2022-12-19T15:13:55Z",
       "side": 1,
       "message": "Are these methods needed? I would expect them to be necessary if the test calls Context#getSystemService(IpSecManager.class) or Context#getSystemService(IPSEC_SERVICE), but the test doesn\u0027t seem to do that. If they\u0027re not necessary, either delete them or explain why they are being kept even though they are not useful.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 21
+      },
+      "revId": "ed0f43a95e03c97db1fa3b96831f79116b4a6e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e3c8939_7ed45947",
+        "filename": "tests/unit/java/android/net/IpSecTransformTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-12-21T02:11:37Z",
+      "side": 1,
+      "message": "IpSecTransform does need to call getSystemService to get an IpSecManager. Added some comments. https://osscs.corp.google.com/android/platform/superproject/+/master:packages/modules/Connectivity/framework-t/src/android/net/IpSecTransform.java;l\u003d93?q\u003dipsectransform",
+      "parentUuid": "588e3b57_4f81bbc6",
       "range": {
         "startLine": 73,
         "startChar": 0,
