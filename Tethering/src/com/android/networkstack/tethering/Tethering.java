@@ -2725,6 +2725,8 @@ public class Tethering {
         }
     }
 
+    // When using synchronous state machine, post IpServer callback to message queue to avoid
+    // infinite loop of processMessage between IpServer and TetherMainSM.
     private IpServer.Callback makeControlCallback() {
         return new IpServer.Callback() {
             @Override
