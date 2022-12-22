@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "381198ad_d5c4193d",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1475,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-22T07:16:44Z",
+      "side": 1,
+      "message": "I think I would build some helper functin then there are many codes we could just reuse and would much clear to read.\n\n    private NetworkCallback verifyWifiUpstream(final NetworkCallback currentDunCallack) {\n        inOrder.verify(mUpstreamNetworkMonitor).setTryCell(false);\n        if (currentDunCallack !\u003d null) {\n            inOrder.verify(mCm).unregisterNetworkCallback(eq(currentDunCallack));\n        }\n        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(wifi.networkId);\n        mLooper.dispatchAll();\n        inOrder.verify(mUpstreamNetworkMonitor, never()).setCurrentUpstream(any());\n        \n        return null\n    }\n    \n    private NetworkCallback verifyDunUpstream() {\n        inOrder.verify(mUpstreamNetworkMonitor).setTryCell(true);\n        ArgumentCaptor\u003cNetworkCallback\u003e captor \u003d ArgumentCaptor.forClass(NetworkCallback.class);\n        inOrder.verify(mCm).requestNetwork(any(), eq(0), eq(TYPE_MOBILE_DUN), any(),\n                captor.capture());\n        final NetworkCallback dunNetworkCallback \u003d captor.getValue();\n        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(null);\n        final Runnable doDispatchAll \u003d () -\u003e mLooper.dispatchAll();\n        dun.fakeConnect(CALLBACKS_FIRST, doDispatchAll);\n        mLooper.dispatchAll();\n        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(dun.networkId);\n        \n        return dunNetworkCallback;\n    }\n    \n    verifyChooseDunUpstreamByAutomaticMode_DefaultNetworkWifi() {\n        NetworkCallback currentDunCallack \u003d setupDunUpstreamTest(true, inOrder);\n        // When wifi connected, unregister dun request and choose wifi as upstream.\n        wifi.fakeConnect();\n        mCm.makeDefaultNetwork(wifi, CALLBACKS_FIRST);\n        mLooper.dispatchAll();        \n        verifyWifiUpstream(currentDunCallack);\n        \n        // When default network switch to mobile and wifi is connected (may have low signal),\n        // automatic mode would request dun again and choose it as upstream.        \n        currentDunCallack \u003d verifyDunUpstream();\n        \n        // [3] When default network switch to wifi and mobile is still connected,\n        // unregister dun request and choose wifi as upstream.\n        mCm.makeDefaultNetwork(wifi, CALLBACKS_FIRST);\n        mLooper.dispatchAll();\n        verifyWifiUpstream(currentDunCallack);\n        ....\n    }",
+      "range": {
+        "startLine": 1475,
+        "startChar": 17,
+        "endLine": 1475,
+        "endChar": 74
+      },
+      "revId": "1542a63711baace529b1a2ff2776c08d762c45cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f95e28e0_68242494",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1556,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-22T07:16:44Z",
+      "side": 1,
+      "message": "If you take above suggetion, you can just replace this as verifyWifiUpstream(currentDunCallack);",
+      "range": {
+        "startLine": 1552,
+        "startChar": 0,
+        "endLine": 1556,
+        "endChar": 83
+      },
+      "revId": "1542a63711baace529b1a2ff2776c08d762c45cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eae63b4e_217ca20e",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1568,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-22T07:16:44Z",
+      "side": 1,
+      "message": "Remove this ?",
+      "range": {
+        "startLine": 1568,
+        "startChar": 30,
+        "endLine": 1568,
+        "endChar": 49
+      },
+      "revId": "1542a63711baace529b1a2ff2776c08d762c45cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "054589d6_9b0481c5",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1572,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-22T07:16:44Z",
+      "side": 1,
+      "message": "If you take above suggestion, you can replace this as verifyDunUpstream.",
+      "range": {
+        "startLine": 1560,
+        "startChar": 0,
+        "endLine": 1572,
+        "endChar": 82
+      },
+      "revId": "1542a63711baace529b1a2ff2776c08d762c45cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07d657ba_64ef7ab2",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1798,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-22T07:16:44Z",
+      "side": 1,
+      "message": "I don\u0027t think this find of tests useful after U. Because no matter configAutomatic set to true or false, the result always be automatic mode. We just need to one test to make sure this behavior. Don\u0027t need to test this configuration in all tests.",
+      "range": {
+        "startLine": 1764,
+        "startChar": 0,
+        "endLine": 1798,
+        "endChar": 5
+      },
+      "revId": "1542a63711baace529b1a2ff2776c08d762c45cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
