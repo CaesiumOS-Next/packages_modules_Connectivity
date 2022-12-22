@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dc3959c_0257f0f1",
+        "filename": "tests/common/java/android/net/netstats/NetworkTemplateTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-22T05:14:11Z",
+      "side": 1,
+      "message": "nit : in l.106 you added the comment for `/* wifiNetworkKey */` but not here",
+      "range": {
+        "startLine": 127,
+        "startChar": 80,
+        "endLine": 127,
+        "endChar": 81
+      },
+      "revId": "949645f65dfd4fb69903c2db3dc540c4fb8e6ed7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
