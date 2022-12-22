@@ -133,7 +133,6 @@ cc_genrule {
 cc_library_static {
     name: "cronet_aml_base_allocator_partition_allocator_partition_alloc",
     srcs: [
-        ":cronet_aml_third_party_android_ndk_cpu_features",
         "base/allocator/partition_allocator/address_pool_manager.cc",
         "base/allocator/partition_allocator/address_pool_manager_bitmap.cc",
         "base/allocator/partition_allocator/address_space_randomization.cc",
@@ -187,6 +186,9 @@ cc_library_static {
         "base/allocator/partition_allocator/tagging.cc",
         "base/allocator/partition_allocator/thread_cache.cc",
     ],
+    static_libs: [
+        "cpufeatures",
+    ],
     generated_headers: [
         "cronet_aml_base_allocator_partition_allocator_chromecast_buildflags",
         "cronet_aml_base_allocator_partition_allocator_chromeos_buildflags",
@@ -226,7 +228,6 @@ cc_library_static {
         "buildtools/third_party/libc++/",
         "buildtools/third_party/libc++/trunk/include",
         "buildtools/third_party/libc++abi/trunk/include",
-        "third_party/android_ndk/sources/android/cpufeatures/",
     ],
     cpp_std: "c++17",
     target: {
@@ -397,7 +398,6 @@ cc_library_static {
         ":cronet_aml_third_party_abseil_cpp_absl_time_time",
         ":cronet_aml_third_party_abseil_cpp_absl_types_bad_optional_access",
         ":cronet_aml_third_party_abseil_cpp_absl_types_bad_variant_access",
-        ":cronet_aml_third_party_android_ndk_cpu_features",
         ":cronet_aml_third_party_ashmem_ashmem",
         "base/allocator/allocator_check.cc",
         "base/allocator/allocator_extension.cc",
@@ -838,6 +838,7 @@ cc_library_static {
         "liblog",
     ],
     static_libs: [
+        "cpufeatures",
         "cronet_aml_base_allocator_partition_allocator_partition_alloc",
         "cronet_aml_base_base_static",
         "cronet_aml_base_third_party_double_conversion_double_conversion",
@@ -930,7 +931,6 @@ cc_library_static {
         "buildtools/third_party/libc++/trunk/include",
         "buildtools/third_party/libc++abi/trunk/include",
         "third_party/abseil-cpp/",
-        "third_party/android_ndk/sources/android/cpufeatures/",
         "third_party/boringssl/src/include/",
         "third_party/icu/source/common/",
         "third_party/icu/source/i18n/",
@@ -2396,6 +2396,7 @@ cc_library_shared {
         "libz",
     ],
     static_libs: [
+        "cpufeatures",
         "cronet_aml_base_allocator_partition_allocator_partition_alloc",
         "cronet_aml_base_base",
         "cronet_aml_base_base_static",
@@ -12375,50 +12376,6 @@ cc_object {
         "buildtools/third_party/libc++/trunk/include",
         "buildtools/third_party/libc++abi/trunk/include",
         "third_party/abseil-cpp/",
-    ],
-    cpp_std: "c++17",
-    target: {
-        android_x86: {
-            cflags: [
-                "-msse3",
-            ],
-        },
-        android_x86_64: {
-            cflags: [
-                "-msse3",
-            ],
-        },
-    },
-}
-
-// GN: //third_party/android_ndk:cpu_features
-cc_object {
-    name: "cronet_aml_third_party_android_ndk_cpu_features",
-    srcs: [
-        "third_party/android_ndk/sources/android/cpufeatures/cpu-features.c",
-    ],
-    defaults: [
-        "cronet_aml_defaults",
-    ],
-    cflags: [
-        "-DANDROID",
-        "-DANDROID_NDK_VERSION_ROLL=r23_1",
-        "-DCR_CLANG_REVISION=\"llvmorg-16-init-6578-g0d30e92f-2\"",
-        "-DCR_LIBCXX_REVISION=64d36e572d3f9719c5d75011a718f33f11126851",
-        "-DDCHECK_ALWAYS_ON=1",
-        "-DDYNAMIC_ANNOTATIONS_ENABLED=1",
-        "-DHAVE_SYS_UIO_H",
-        "-D_DEBUG",
-        "-D_GNU_SOURCE",
-        "-D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS",
-        "-D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS",
-    ],
-    local_include_dirs: [
-        "./",
-        "buildtools/third_party/libc++/",
-        "buildtools/third_party/libc++/trunk/include",
-        "buildtools/third_party/libc++abi/trunk/include",
-        "third_party/android_ndk/sources/android/cpufeatures/",
     ],
     cpp_std: "c++17",
     target: {

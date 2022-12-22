@@ -93,6 +93,7 @@ static_library_allowlist = [
 
 # Include directories that will be removed from all targets.
 local_include_dirs_denylist = [
+    'third_party/android_ndk/sources/android/cpufeatures/',
     'third_party/zlib/',
 ]
 
@@ -135,6 +136,15 @@ additional_args = {
         ('linker_scripts', {
             'base/android/library_loader/anchor_functions.lds',
         }),
+        ('static_libs', {
+            # TODO: fix static_libs propagation for builtin_modules. One
+            # problem with static_libs propagation is that it is handled by
+            # gn_utils.py. This works fine if the original target is a static
+            # lib that is replaced by a static lib builtin_module. However, if
+            # the original target is not a static_lib, it will not be
+            # propagated up the tree.
+            'cpufeatures',
+        }),
     ],
     'cronet_aml_net_net': [
         ('export_static_lib_headers', {
@@ -150,6 +160,12 @@ def enable_brotli(module, arch):
     module.static_libs.add('libbrotli')
   else:
     module.arch[arch].static_libs.add('libbrotli')
+
+def enable_cpufeatures(module, arch):
+  if arch is None:
+    module.static_libs.add('cpufeatures')
+  else:
+    module.arch[arch].static_libs.add('cpufeatures')
 
 def enable_modp_b64(module, arch):
   # Requires crrev/c/4112845
@@ -176,6 +192,8 @@ builtin_deps = {
         lambda m, a: None, # disable libunwind
     '//net/tools/root_store_tool:root_store_tool':
         lambda m, a: None,
+    '//third_party/android_ndk:cpu_features':
+        enable_cpufeatures,
     '//third_party/zlib:zlib':
         enable_zlib,
 }
