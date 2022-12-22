@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1ae13ab_0ce2bdb9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-22T19:42:57Z",
+      "side": 1,
+      "message": "This is to get rid of the dependency on android_sdk. I\u0027m not merging this but looks great to me [Won\u0027t merge till your other CL gets merged.]",
+      "revId": "7d2cdf44bc047572de97ac2265ed44d4e20d7318",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
