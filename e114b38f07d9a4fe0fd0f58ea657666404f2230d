@@ -16,6 +16,23 @@
       "message": "There are three failed tests and all of them failed due to existing bugs:\n\nTwo tests on tm-mainline-prod failed due to b/262007794 which blocks dependency CLs merging from mirror-aosp-master to tm-mainline-prod.\n- mainline_modules_x86_64-userdebug on git_tm-mainline-prod\n- test_suites_x86_64 on git_tm-mainline-prod\n\nBoot test failed due to b/262894088\n- apct/device_boot_health_check_extra on oriole_hwasan-userdebug on git_master",
       "revId": "e114b38f07d9a4fe0fd0f58ea657666404f2230d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a6fef1b_fa7e1890",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-12-22T02:53:39Z",
+      "side": 1,
+      "message": "The method `applyTunnelModeTransform` that calls into `transformInfo.isMigrating()` already has the `synchronized modifier` and there will be only one `IpSecService` instance in the function code and it will be initialized by `SystemServer`.",
+      "revId": "e114b38f07d9a4fe0fd0f58ea657666404f2230d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
