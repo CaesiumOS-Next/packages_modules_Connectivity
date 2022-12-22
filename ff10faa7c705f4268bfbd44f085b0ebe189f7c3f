@@ -16,6 +16,121 @@
       "message": "Upload new patch to fix TH failure.",
       "revId": "ff10faa7c705f4268bfbd44f085b0ebe189f7c3f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a160fe0_23f544e2",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-22T05:08:47Z",
+      "side": 1,
+      "message": "Optional : since matchSubscriberIds is non-null, you could say length \u003d\u003d 0. That would let future maintainers be sure it can\u0027t be null here.",
+      "range": {
+        "startLine": 291,
+        "startChar": 20,
+        "endLine": 291,
+        "endChar": 63
+      },
+      "revId": "ff10faa7c705f4268bfbd44f085b0ebe189f7c3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f494854_2fefb853",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-22T05:08:47Z",
+      "side": 1,
+      "message": "Nit : maybe you want to be a little bit more explicit in the error thrown, e.g.\n\n    if (CollectionUtils.isEmpty(matchSubscriberIds)) {\n      throw new IAE(\"checkValidMatchSubscriberIds with empty list of ids for rule \" + getMatchRule());\n    } else if (CollectionUtils.contains(matchSubscriberIds, null)) {\n      throw new IAE(\"checkValidMatchSubscriberIds list of ids may not contain null for rule \" + getMatchRule());\n    }",
+      "range": {
+        "startLine": 293,
+        "startChar": 56,
+        "endLine": 294,
+        "endChar": 47
+      },
+      "revId": "ff10faa7c705f4268bfbd44f085b0ebe189f7c3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "174a85f9_1ee455a7",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-22T05:08:47Z",
+      "side": 1,
+      "message": "It used to be possible to pass an empty list of matchSubscriberIds to this function, and you\u0027d still get MATCH_RULE_EXACT. In fact, you had one such caller in the tests that you\u0027ve changed in this patch.\n\nHow do you know there wasn\u0027t any caller relying on this ?\n\nOne way to guarantee there isn\u0027t would be to remove this constructor completely and require that all callers use the other one ; is that a realistic option ?",
+      "range": {
+        "startLine": 314,
+        "startChar": 0,
+        "endLine": 315,
+        "endChar": 36
+      },
+      "revId": "ff10faa7c705f4268bfbd44f085b0ebe189f7c3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10f6d719_b3d99fa4",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-22T05:08:47Z",
+      "side": 1,
+      "message": "...or if mMatchSubscriberIds is empty",
+      "range": {
+        "startLine": 608,
+        "startChar": 27,
+        "endLine": 608,
+        "endChar": 28
+      },
+      "revId": "ff10faa7c705f4268bfbd44f085b0ebe189f7c3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d500beed_4aeea21c",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-22T05:08:47Z",
+      "side": 1,
+      "message": "Same comment here, you could say .length \u003d\u003d 0",
+      "range": {
+        "startLine": 613,
+        "startChar": 16,
+        "endLine": 613,
+        "endChar": 60
+      },
+      "revId": "ff10faa7c705f4268bfbd44f085b0ebe189f7c3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
