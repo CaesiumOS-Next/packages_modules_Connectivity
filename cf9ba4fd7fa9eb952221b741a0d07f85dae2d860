@@ -39,6 +39,30 @@
       },
       "revId": "cf9ba4fd7fa9eb952221b741a0d07f85dae2d860",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecf9804d_6bf61a91",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1068,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-22T07:47:08Z",
+      "side": 1,
+      "message": "Done. This helped me notice I could do clearer. In particular, the boolean argument to setNetworkValid and setNetworkInvalid mean something different, so I changed the name for Invalid.",
+      "parentUuid": "517490d3_b1b0ca2c",
+      "range": {
+        "startLine": 1068,
+        "startChar": 9,
+        "endLine": 1068,
+        "endChar": 11
+      },
+      "revId": "cf9ba4fd7fa9eb952221b741a0d07f85dae2d860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
