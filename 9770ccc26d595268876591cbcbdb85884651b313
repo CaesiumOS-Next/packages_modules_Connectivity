@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1533d629_d0a09228",
+        "filename": "framework-t/src/android/net/IpSecManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-12-22T19:53:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b663f51_d086b5af",
+      "range": {
+        "startLine": 84,
+        "startChar": 4,
+        "endLine": 84,
+        "endChar": 41
+      },
+      "revId": "9770ccc26d595268876591cbcbdb85884651b313",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2eaaded9_357e257a",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "086d3645_114d62fd",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-12-22T19:53:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2eaaded9_357e257a",
+      "range": {
+        "startLine": 699,
+        "startChar": 54,
+        "endLine": 699,
+        "endChar": 62
+      },
+      "revId": "9770ccc26d595268876591cbcbdb85884651b313",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5084c730_520f3638",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-12-14T06:55:11Z",
       "side": 1,
       "message": "Is the if condition supposed to check if something is IPv6?\n\nOr can the second check below just be in this if block altogether?",
+      "range": {
+        "startLine": 717,
+        "startChar": 27,
+        "endLine": 717,
+        "endChar": 47
+      },
+      "revId": "9770ccc26d595268876591cbcbdb85884651b313",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ea53677_c142bf89",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-12-22T19:53:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5084c730_520f3638",
       "range": {
         "startLine": 717,
         "startChar": 27,
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9a63c4c9_444afafe",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-12-22T19:53:17Z",
+      "side": 1,
+      "message": "Since this return value will not be used, I\u0027m worried that if we pass it out from the `testRunnable.run`, this test will be confusing and be hard to maintain. So I followed other TestRunnableFactory to return 0",
+      "parentUuid": "172146bd_adf5389a",
+      "range": {
+        "startLine": 732,
+        "startChar": 26,
+        "endLine": 732,
+        "endChar": 28
+      },
+      "revId": "9770ccc26d595268876591cbcbdb85884651b313",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "75b071bc_9387af10",
         "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
         "patchSetId": 12
@@ -106,6 +202,30 @@
       "writtenOn": "2022-12-14T06:55:11Z",
       "side": 1,
       "message": "/* isOutputTest */",
+      "range": {
+        "startLine": 832,
+        "startChar": 75,
+        "endLine": 832,
+        "endChar": 76
+      },
+      "revId": "9770ccc26d595268876591cbcbdb85884651b313",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97cb4454_41779f1e",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-12-22T19:53:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75b071bc_9387af10",
       "range": {
         "startLine": 832,
         "startChar": 75,
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2856df81_6d670ca3",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1068,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-12-22T19:53:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1e7dfbb_3fc10f97",
+      "range": {
+        "startLine": 1068,
+        "startChar": 71,
+        "endLine": 1068,
+        "endChar": 75
+      },
+      "revId": "9770ccc26d595268876591cbcbdb85884651b313",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "493c1bef_8b59bbbf",
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "159759ae_6ca3b91c",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-12-22T19:53:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "493c1bef_8b59bbbf",
+      "range": {
+        "startLine": 1167,
+        "startChar": 39,
+        "endLine": 1167,
+        "endChar": 48
+      },
+      "revId": "9770ccc26d595268876591cbcbdb85884651b313",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd7cb5a7_992dd871",
@@ -175,6 +343,30 @@
       "writtenOn": "2022-12-14T06:55:11Z",
       "side": 1,
       "message": "Can this be \"\u003e\u003d Build.VERSION_CODES.UDC\" or equivalent?",
+      "range": {
+        "startLine": 1182,
+        "startChar": 29,
+        "endLine": 1182,
+        "endChar": 59
+      },
+      "revId": "9770ccc26d595268876591cbcbdb85884651b313",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6698843_9b3959c5",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1182,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-12-22T19:53:17Z",
+      "side": 1,
+      "message": "tm-mainlnie-prod does not have UDC yet",
+      "parentUuid": "cd7cb5a7_992dd871",
       "range": {
         "startLine": 1182,
         "startChar": 29,
