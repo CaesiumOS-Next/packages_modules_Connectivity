@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb9eda9e_1fd640f9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5993,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-12-22T00:31:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8df7c29d_90527f76",
+      "range": {
+        "startLine": 5993,
+        "startChar": 49,
+        "endLine": 5993,
+        "endChar": 56
+      },
+      "revId": "021d34acd30555fe3f3231ea23746dc34aa20be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48aea3b8_bb91b1c5",
@@ -248,6 +272,30 @@
       "writtenOn": "2022-12-21T06:55:52Z",
       "side": 1,
       "message": "Stupid question: What does this mean? Why can\u0027t we just isUidPerAppRestricted(nri.mAsUid, newCaps)?",
+      "range": {
+        "startLine": 9476,
+        "startChar": 20,
+        "endLine": 9476,
+        "endChar": 80
+      },
+      "revId": "021d34acd30555fe3f3231ea23746dc34aa20be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3012ecdc_b993baf0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9476,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-12-22T00:31:04Z",
+      "side": 1,
+      "message": "What you suggest is actually correct vs what is in this patchset. Namely due to the  isUidPerAppRestricted helper which also checks the restrictedness of the network which the current IF statement didn\u0027t check. Beyond that, just calling isUidPerAppRestricted vs the current IF statement is arguably more readable. I\u0027ve updated to what you suggested.",
+      "parentUuid": "e52bb682_e060fe6f",
       "range": {
         "startLine": 9476,
         "startChar": 20,
