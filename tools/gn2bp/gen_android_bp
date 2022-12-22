@@ -93,6 +93,7 @@ static_library_allowlist = [
 
 # Include directories that will be removed from all targets.
 local_include_dirs_denylist = [
+    'third_party/android_ndk/sources/android/cpufeatures/',
     'third_party/zlib/',
 ]
 
@@ -151,6 +152,12 @@ def enable_brotli(module, arch):
   else:
     module.arch[arch].static_libs.add('libbrotli')
 
+def enable_cpufeatures(module, arch):
+  if arch is None:
+    module.static_libs.add('cpufeatures')
+  else:
+    module.arch[arch].static_libs.add('cpufeatures')
+
 def enable_modp_b64(module, arch):
   # Requires crrev/c/4112845
   # Requires aosp/2359455
@@ -176,6 +183,8 @@ builtin_deps = {
         lambda m, a: None, # disable libunwind
     '//net/tools/root_store_tool:root_store_tool':
         lambda m, a: None,
+    '//third_party/android_ndk:cpu_features':
+        enable_cpufeatures,
     '//third_party/zlib:zlib':
         enable_zlib,
 }
