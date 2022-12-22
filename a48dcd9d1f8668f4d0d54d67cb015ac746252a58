@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "963a69c2_b061a354",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-12-22T02:33:55Z",
+      "side": 1,
+      "message": "There are three failed tests and all of them failed due to existing bugs:\n\nTwo tests on tm-mainline-prod failed due to b/262007794 which blocks dependency CLs merging from mirror-aosp-master to tm-mainline-prod.\n- mainline_modules_x86_64-userdebug on git_tm-mainline-prod\n- test_suites_x86_64 on git_tm-mainline-prod\n\nBoot test failed due to b/262894088\n- apct/device_boot_health_check_extra on oriole_hwasan-userdebug on git_master",
+      "revId": "a48dcd9d1f8668f4d0d54d67cb015ac746252a58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
