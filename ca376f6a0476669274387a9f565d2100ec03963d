@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6fd0e001_bd9d6aae",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1088,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-22T07:56:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7afce47a_008ed958",
+      "range": {
+        "startLine": 1088,
+        "startChar": 45,
+        "endLine": 1088,
+        "endChar": 55
+      },
+      "revId": "ca376f6a0476669274387a9f565d2100ec03963d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "bb0ebd8d_5dade17f",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 3
@@ -54,6 +78,30 @@
       "writtenOn": "2022-12-21T06:07:18Z",
       "side": 1,
       "message": "nit: Not for this CL but not sure whether we might have similar things in CS but we didn\u0027t notice it before. Might want to take some time to review CSTest.\nJust an idea, no action needed.",
+      "range": {
+        "startLine": 2048,
+        "startChar": 15,
+        "endLine": 2048,
+        "endChar": 88
+      },
+      "revId": "ca376f6a0476669274387a9f565d2100ec03963d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bac6c239_cfeaf8e4",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2048,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-22T07:56:02Z",
+      "side": 1,
+      "message": "I don\u0027t think we have \"similar\" things in CS.\n\nWe may have some stuff that depends on the SDK we\u0027re running on. CS hasn\u0027t been mainline for a very long time ; before mainline, we\u0027d only have to test for the latest SDK. So we don\u0027t have many of these, and if we do we may have chosen a different strategy where we check each code path on the respective relevant builds (e.g. test that the T codepath works when running on T, test that the U codepath works when running on U).\n\nAs for sending different stuff to apps targetting different SDKs, I think this is the first instance in CS.",
+      "parentUuid": "bb0ebd8d_5dade17f",
       "range": {
         "startLine": 2048,
         "startChar": 15,
@@ -77,6 +125,24 @@
       "writtenOn": "2022-12-21T06:07:18Z",
       "side": 1,
       "message": "nit: one empty line between functions?",
+      "revId": "ca376f6a0476669274387a9f565d2100ec03963d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13b21f51_7415abdd",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 12552,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-22T07:56:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20558f59_bd6be4a3",
       "revId": "ca376f6a0476669274387a9f565d2100ec03963d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
