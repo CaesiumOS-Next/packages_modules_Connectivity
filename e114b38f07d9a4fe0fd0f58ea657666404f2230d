@@ -33,6 +33,24 @@
       "message": "The method `applyTunnelModeTransform` that calls into `transformInfo.isMigrating()` already has the `synchronized modifier` and there will be only one `IpSecService` instance in the function code and it will be initialized by `SystemServer`.",
       "revId": "e114b38f07d9a4fe0fd0f58ea657666404f2230d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48d5f466_18dcbafe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-12-22T19:14:41Z",
+      "side": 1,
+      "message": "To clarify, as discussed in b/254136442, the linter gives \"GuardedBy\" warnings because it does not understand that the `transformInfo` got from `mUserResourceTracker` is one that was created by this instance of `IpSecService`. However, in fact, everything stored in `mUserResourceTracker` is created by one `IpSecService` instance and can only be accessed by that instance.",
+      "parentUuid": "1a6fef1b_fa7e1890",
+      "revId": "e114b38f07d9a4fe0fd0f58ea657666404f2230d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
