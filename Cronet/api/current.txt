@@ -81,12 +81,12 @@ package org.chromium.net {
     method public abstract void rewind(org.chromium.net.UploadDataSink) throws java.io.IOException;
   }
 
-  public final class UploadDataProviders {
-    method public static org.chromium.net.UploadDataProvider create(java.io.File);
-    method public static org.chromium.net.UploadDataProvider create(android.os.ParcelFileDescriptor);
-    method public static org.chromium.net.UploadDataProvider create(java.nio.ByteBuffer);
-    method public static org.chromium.net.UploadDataProvider create(byte[], int, int);
-    method public static org.chromium.net.UploadDataProvider create(byte[]);
+  @Deprecated public final class UploadDataProviders {
+    method @Deprecated public static org.chromium.net.UploadDataProvider create(java.io.File);
+    method @Deprecated public static org.chromium.net.UploadDataProvider create(android.os.ParcelFileDescriptor);
+    method @Deprecated public static org.chromium.net.UploadDataProvider create(java.nio.ByteBuffer);
+    method @Deprecated public static org.chromium.net.UploadDataProvider create(byte[], int, int);
+    method @Deprecated public static org.chromium.net.UploadDataProvider create(byte[]);
   }
 
   public abstract class UploadDataSink {
@@ -169,6 +169,96 @@ package org.chromium.net {
     method public abstract String getUrl();
     method public abstract java.util.List<java.lang.String> getUrlChain();
     method public abstract boolean wasCached();
+  }
+
+}
+
+package org.chromium.net.apihelpers {
+
+  public abstract class ByteArrayCronetCallback extends org.chromium.net.apihelpers.InMemoryTransformCronetCallback<byte[]> {
+    ctor public ByteArrayCronetCallback();
+    method public org.chromium.net.apihelpers.ByteArrayCronetCallback addCompletionListener(org.chromium.net.apihelpers.CronetRequestCompletionListener<? super byte[]>);
+    method protected final byte[] transformBodyBytes(org.chromium.net.UrlResponseInfo, byte[]);
+  }
+
+  public interface CronetRequestCompletionListener<T> {
+    method public void onCanceled(@Nullable org.chromium.net.UrlResponseInfo);
+    method public void onFailed(@Nullable org.chromium.net.UrlResponseInfo, org.chromium.net.CronetException);
+    method public void onSucceeded(org.chromium.net.UrlResponseInfo, T);
+  }
+
+  public class CronetResponse<T> {
+    method @Nullable public T getResponseBody();
+    method public org.chromium.net.UrlResponseInfo getUrlResponseInfo();
+  }
+
+  public abstract class ImplicitFlowControlCallback extends org.chromium.net.UrlRequest.Callback {
+    ctor public ImplicitFlowControlCallback();
+    method protected abstract void onBodyChunkRead(org.chromium.net.UrlResponseInfo, java.nio.ByteBuffer) throws java.lang.Exception;
+    method protected abstract void onCanceled(@Nullable org.chromium.net.UrlResponseInfo);
+    method public final void onCanceled(org.chromium.net.UrlRequest, org.chromium.net.UrlResponseInfo);
+    method protected abstract void onFailed(@Nullable org.chromium.net.UrlResponseInfo, org.chromium.net.CronetException);
+    method public final void onFailed(org.chromium.net.UrlRequest, org.chromium.net.UrlResponseInfo, org.chromium.net.CronetException);
+    method public final void onReadCompleted(org.chromium.net.UrlRequest, org.chromium.net.UrlResponseInfo, java.nio.ByteBuffer) throws java.lang.Exception;
+    method public final void onRedirectReceived(org.chromium.net.UrlRequest, org.chromium.net.UrlResponseInfo, String) throws java.lang.Exception;
+    method protected abstract void onResponseStarted(org.chromium.net.UrlResponseInfo) throws java.lang.Exception;
+    method public final void onResponseStarted(org.chromium.net.UrlRequest, org.chromium.net.UrlResponseInfo) throws java.lang.Exception;
+    method protected abstract void onSucceeded(org.chromium.net.UrlResponseInfo);
+    method public final void onSucceeded(org.chromium.net.UrlRequest, org.chromium.net.UrlResponseInfo);
+    method protected abstract boolean shouldFollowRedirect(org.chromium.net.UrlResponseInfo, String) throws java.lang.Exception;
+  }
+
+  public abstract class InMemoryTransformCronetCallback<T> extends org.chromium.net.apihelpers.ImplicitFlowControlCallback {
+    ctor public InMemoryTransformCronetCallback();
+    method public org.chromium.net.apihelpers.ImplicitFlowControlCallback addCompletionListener(org.chromium.net.apihelpers.CronetRequestCompletionListener<? super T>);
+    method protected final void onBodyChunkRead(org.chromium.net.UrlResponseInfo, java.nio.ByteBuffer) throws java.lang.Exception;
+    method protected final void onCanceled(@Nullable org.chromium.net.UrlResponseInfo);
+    method protected final void onFailed(@Nullable org.chromium.net.UrlResponseInfo, org.chromium.net.CronetException);
+    method protected final void onResponseStarted(org.chromium.net.UrlResponseInfo);
+    method protected final void onSucceeded(org.chromium.net.UrlResponseInfo);
+    method protected abstract T transformBodyBytes(org.chromium.net.UrlResponseInfo, byte[]);
+  }
+
+  public abstract class JsonCronetCallback extends org.chromium.net.apihelpers.InMemoryTransformCronetCallback<org.json.JSONObject> {
+    ctor public JsonCronetCallback();
+    method public org.chromium.net.apihelpers.JsonCronetCallback addCompletionListener(org.chromium.net.apihelpers.CronetRequestCompletionListener<? super org.json.JSONObject>);
+    method protected org.json.JSONObject transformBodyBytes(org.chromium.net.UrlResponseInfo, byte[]);
+  }
+
+  public interface RedirectHandler {
+    method public boolean shouldFollowRedirect(org.chromium.net.UrlResponseInfo, String) throws java.lang.Exception;
+  }
+
+  public class RedirectHandlers {
+    method public static org.chromium.net.apihelpers.RedirectHandler alwaysFollow();
+    method public static org.chromium.net.apihelpers.RedirectHandler neverFollow();
+  }
+
+  public abstract class StringCronetCallback extends org.chromium.net.apihelpers.InMemoryTransformCronetCallback<java.lang.String> {
+    method public org.chromium.net.apihelpers.StringCronetCallback addCompletionListener(org.chromium.net.apihelpers.CronetRequestCompletionListener<? super java.lang.String>);
+    method protected String transformBodyBytes(org.chromium.net.UrlResponseInfo, byte[]);
+  }
+
+  public final class UploadDataProviders {
+    method public static org.chromium.net.UploadDataProvider create(java.io.File);
+    method public static org.chromium.net.UploadDataProvider create(android.os.ParcelFileDescriptor);
+    method public static org.chromium.net.UploadDataProvider create(java.nio.ByteBuffer);
+    method public static org.chromium.net.UploadDataProvider create(byte[], int, int);
+    method public static org.chromium.net.UploadDataProvider create(byte[]);
+  }
+
+  public class UrlRequestCallbacks {
+    method public static org.chromium.net.apihelpers.ByteArrayCronetCallback forByteArrayBody(org.chromium.net.apihelpers.RedirectHandler, org.chromium.net.apihelpers.CronetRequestCompletionListener<byte[]>);
+    method public static org.chromium.net.apihelpers.UrlRequestCallbacks.CallbackAndResponseFuturePair<byte[],org.chromium.net.apihelpers.ByteArrayCronetCallback> forByteArrayBody(org.chromium.net.apihelpers.RedirectHandler);
+    method public static org.chromium.net.apihelpers.JsonCronetCallback forJsonBody(org.chromium.net.apihelpers.RedirectHandler, org.chromium.net.apihelpers.CronetRequestCompletionListener<org.json.JSONObject>);
+    method public static org.chromium.net.apihelpers.UrlRequestCallbacks.CallbackAndResponseFuturePair<org.json.JSONObject,org.chromium.net.apihelpers.JsonCronetCallback> forJsonBody(org.chromium.net.apihelpers.RedirectHandler);
+    method public static org.chromium.net.apihelpers.StringCronetCallback forStringBody(org.chromium.net.apihelpers.RedirectHandler, org.chromium.net.apihelpers.CronetRequestCompletionListener<java.lang.String>);
+    method public static org.chromium.net.apihelpers.UrlRequestCallbacks.CallbackAndResponseFuturePair<java.lang.String,org.chromium.net.apihelpers.StringCronetCallback> forStringBody(org.chromium.net.apihelpers.RedirectHandler);
+  }
+
+  public static class UrlRequestCallbacks.CallbackAndResponseFuturePair<ResponseBodyT, CallbackT extends org.chromium.net.apihelpers.InMemoryTransformCronetCallback<ResponseBodyT>> {
+    method public CallbackT getCallback();
+    method public java.util.concurrent.Future<org.chromium.net.apihelpers.CronetResponse<ResponseBodyT>> getFuture();
   }
 
 }
