@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6ca2905_5e3a28e3",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1074,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-23T04:52:34Z",
+      "side": 1,
+      "message": "Because that code continues with\n\n    setProbesStatus(probesSucceeded, probesSucceeded);\n\nObserve how that bitmask is passed to both `probesCompleted` and `probesSucceeded`. So if this value is true in `setNetworkValid()`, then the probe is considered to have been sent and to have succeeded. That makes sense because it\u0027s `setNetworkValid()`, so of course the probe has succeeded.\n\nConversely in `setNetworkInvalid`, it decides whether the probe has been sent. Because that method never declares the private DNS probes to have succeeded, it ends up meaning the probe has been sent but failed. `setNetworkInvalid` has no way to say that the private DNS probe has been sent, succeeded, but something else failed afterwards. The reason we don\u0027t have a way to say that is because it was never necessary so far. This patch is only a rename and should not change that existing behavior ; in fact, if we ever need to add a way to tell that the network is invalid but for some other reason, this rename will make it much easier to understand.",
+      "parentUuid": "2cff7afd_41cf272b",
+      "range": {
+        "startLine": 1073,
+        "startChar": 38,
+        "endLine": 1074,
+        "endChar": 47
+      },
+      "revId": "d8ba034066d9904433b4cdcb0ade4236f27ab8cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a13e581a_d4021e4e",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-23T02:20:27Z",
       "side": 1,
       "message": "OK this is old but new to me.\nStupid question: Why are we doing this?\nMaybe add a comment? no strong opinion.",
+      "range": {
+        "startLine": 1117,
+        "startChar": 16,
+        "endLine": 1118,
+        "endChar": 13
+      },
+      "revId": "d8ba034066d9904433b4cdcb0ade4236f27ab8cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49e6077f_fc934ce0",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-23T04:52:34Z",
+      "side": 1,
+      "message": "I do not know the reason we\u0027re doing this. This code even predates my joining the team by a long time.\n\nI did add comments in the javadoc of this method explaining this behavior. But I couldn\u0027t comment on the reason we do this, because I do not know it.\n\nDo you think I really need to figure out the reason for this rename so I can add a comment here to explain the reason ? I would propose it\u0027s out of scope for this patch.",
+      "parentUuid": "a13e581a_d4021e4e",
       "range": {
         "startLine": 1117,
         "startChar": 16,
