@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd038de6_0da145c6",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1517,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-23T09:12:40Z",
+      "side": 1,
+      "message": "testChooseDunUpstreamByAutomaticMode_defaultNetworkWifi ?",
+      "range": {
+        "startLine": 1517,
+        "startChar": 17,
+        "endLine": 1517,
+        "endChar": 74
+      },
+      "revId": "b1eaf6bce2feb1a7fa72e0943cd60f62731df9df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1d33712_aa05a5a0",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1567,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-23T09:12:40Z",
+      "side": 1,
+      "message": "testChooseDunUpstreamByAutomaticMode_loseDefaultNetworkWifi ?",
+      "range": {
+        "startLine": 1567,
+        "startChar": 17,
+        "endLine": 1567,
+        "endChar": 78
+      },
+      "revId": "b1eaf6bce2feb1a7fa72e0943cd60f62731df9df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dccbbade_377eb97a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1607,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-23T09:12:40Z",
+      "side": 1,
+      "message": "Just testChooseDunUpstreamByAutomaticMode_defaultNetworkCell",
+      "range": {
+        "startLine": 1607,
+        "startChar": 17,
+        "endLine": 1607,
+        "endChar": 74
+      },
+      "revId": "b1eaf6bce2feb1a7fa72e0943cd60f62731df9df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3cc0722_b4dc40e9",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1651,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-23T09:12:40Z",
+      "side": 1,
+      "message": "Just testChooseDunUpstreamByAutomaticMode_loseAndRegainDun",
+      "range": {
+        "startLine": 1651,
+        "startChar": 17,
+        "endLine": 1651,
+        "endChar": 72
+      },
+      "revId": "b1eaf6bce2feb1a7fa72e0943cd60f62731df9df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54da5ae9_0cb69d58",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1691,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-23T09:12:40Z",
+      "side": 1,
+      "message": "Just tetChooseDunUpstreamByAutomaticMode_switchDefaultFromWifiToCell ?",
+      "range": {
+        "startLine": 1691,
+        "startChar": 17,
+        "endLine": 1691,
+        "endChar": 83
+      },
+      "revId": "b1eaf6bce2feb1a7fa72e0943cd60f62731df9df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cc8a715_c6026b33",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1761,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-23T09:12:40Z",
+      "side": 1,
+      "message": "Since configAutomatic always be true, just replace verifyXXX with testXXX ?",
+      "range": {
+        "startLine": 1730,
+        "startChar": 0,
+        "endLine": 1761,
+        "endChar": 0
+      },
+      "revId": "b1eaf6bce2feb1a7fa72e0943cd60f62731df9df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
