@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "891b56fa_115e67b9",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1074,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-23T06:08:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e6ca2905_5e3a28e3",
+      "range": {
+        "startLine": 1073,
+        "startChar": 38,
+        "endLine": 1074,
+        "endChar": 47
+      },
+      "revId": "d8ba034066d9904433b4cdcb0ade4236f27ab8cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a13e581a_d4021e4e",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "I do not know the reason we\u0027re doing this. This code even predates my joining the team by a long time.\n\nI did add comments in the javadoc of this method explaining this behavior. But I couldn\u0027t comment on the reason we do this, because I do not know it.\n\nDo you think I really need to figure out the reason for this rename so I can add a comment here to explain the reason ? I would propose it\u0027s out of scope for this patch.",
       "parentUuid": "a13e581a_d4021e4e",
+      "range": {
+        "startLine": 1117,
+        "startChar": 16,
+        "endLine": 1118,
+        "endChar": 13
+      },
+      "revId": "d8ba034066d9904433b4cdcb0ade4236f27ab8cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6dd6e2d_25ac7e0f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-23T06:08:27Z",
+      "side": 1,
+      "message": "Ack, let\u0027s leave it as is.",
+      "parentUuid": "49e6077f_fc934ce0",
       "range": {
         "startLine": 1117,
         "startChar": 16,
