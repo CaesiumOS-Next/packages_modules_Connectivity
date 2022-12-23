@@ -72,20 +72,11 @@ cc_prebuilt_library_shared {
     min_sdk_version: "29",
 }
 
-genrule {
-    name: "cronet_api-src",
-    srcs: ["prebuilt/cronet_api-src.jar"],
-    cmd: "cp $(in) $(out)",
-    out: [
-        "cronet_api-src.srcjar",
-    ],
-}
-
 java_sdk_library {
     name: "framework-cronet",
     defaults: ["framework-module-defaults"],
     srcs: [
-        ":cronet_api-src",
+        ":cronet_aml_api_sources",
     ],
     libs: [
         "androidx.annotation_annotation",
