@@ -166,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6047b7e7_1cbf6597",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-23T17:49:58Z",
+      "side": 1,
+      "message": "Ah, yes, that\u0027s not `@hide` so it can be removed.",
+      "parentUuid": "90665948_686f8ab8",
+      "range": {
+        "startLine": 411,
+        "startChar": 4,
+        "endLine": 411,
+        "endChar": 24
+      },
+      "revId": "5068e0dac432feb2232019238b21ba7acdc5353e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6423076b_e73277e5",

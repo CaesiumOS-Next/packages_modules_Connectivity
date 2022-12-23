@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d443d876_12a6f345",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-23T17:49:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "897e10be_bb0acf3c",
+      "range": {
+        "startLine": 274,
+        "startChar": 58,
+        "endLine": 274,
+        "endChar": 59
+      },
+      "revId": "969637ceacc7c90013eab5aa44ce59ab7bbe9a36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d2d54a78_e2c70c5a",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-12-21T07:27:46Z",
       "side": 1,
       "message": "It seems to me we should not encourage callers to get \"a\" subscriberId.\nInstead, we should encourage them to support multiple IMSIs.\nIf so, maybe just Callers should use {@code getSubscriberIds} instead?",
+      "range": {
+        "startLine": 425,
+        "startChar": 34,
+        "endLine": 426,
+        "endChar": 24
+      },
+      "revId": "969637ceacc7c90013eab5aa44ce59ab7bbe9a36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4d4e0eb_9d35cbe9",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-23T17:49:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2d54a78_e2c70c5a",
       "range": {
         "startLine": 425,
         "startChar": 34,
