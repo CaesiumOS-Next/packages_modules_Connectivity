@@ -64,6 +64,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "022c6225_1c5913f5",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-23T17:48:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f494854_2fefb853",
+      "range": {
+        "startLine": 293,
+        "startChar": 56,
+        "endLine": 294,
+        "endChar": 47
+      },
+      "revId": "ff10faa7c705f4268bfbd44f085b0ebe189f7c3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "174a85f9_1ee455a7",
@@ -87,6 +111,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b56af548_7b923a18",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-23T17:48:03Z",
+      "side": 1,
+      "message": "There\u0027s no @UnsupportedAppUsage annotation for this API so this should not be used by 3rd party apps, right? Also, this class is already in mainline module so external user cannot use this API so I think all callers can be found in our source.\n\nI think currently the only caller is NetworkTemplate.normalize() and I think the backward compatibillity issue of normalize() should be fixed first(See b/217805241) and then replace the constructor with Builder. So, what we could do here is have normalize() use the other one and remove this one.",
+      "parentUuid": "174a85f9_1ee455a7",
+      "range": {
+        "startLine": 314,
+        "startChar": 0,
+        "endLine": 315,
+        "endChar": 36
+      },
+      "revId": "ff10faa7c705f4268bfbd44f085b0ebe189f7c3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10f6d719_b3d99fa4",
@@ -100,6 +148,30 @@
       "writtenOn": "2022-12-22T05:08:47Z",
       "side": 1,
       "message": "...or if mMatchSubscriberIds is empty",
+      "range": {
+        "startLine": 608,
+        "startChar": 27,
+        "endLine": 608,
+        "endChar": 28
+      },
+      "revId": "ff10faa7c705f4268bfbd44f085b0ebe189f7c3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e99e1b0_0ea53e4b",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-23T17:48:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10f6d719_b3d99fa4",
       "range": {
         "startLine": 608,
         "startChar": 27,
