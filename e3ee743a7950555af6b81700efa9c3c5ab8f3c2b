@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f2a196f_d826decd",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-23T10:50:32Z",
+      "side": 1,
+      "message": "You\u0027re no longer calling this",
+      "range": {
+        "startLine": 916,
+        "startChar": 23,
+        "endLine": 916,
+        "endChar": 46
+      },
+      "revId": "e3ee743a7950555af6b81700efa9c3c5ab8f3c2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ace4c1bb_f098347f",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-23T10:50:32Z",
+      "side": 1,
+      "message": "This is typically 8k, is there any sense in printing all of this to the log ?\n\nAlso, the contents of a wtf is sent to Google on some devices for diagnosis purposes and I\u0027m not sure there isn\u0027t any information in there that could be used to identify the user, so I don\u0027t think we should send this.",
+      "range": {
+        "startLine": 925,
+        "startChar": 61,
+        "endLine": 925,
+        "endChar": 74
+      },
+      "revId": "e3ee743a7950555af6b81700efa9c3c5ab8f3c2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69142da6_b9d151b7",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-23T10:50:32Z",
+      "side": 1,
+      "message": "It\u0027s not the remaining data size is it ? It\u0027s the offset at which the next message starts. \"remaining\" is the number of bytes to the end of the buffer but this is counted from the start",
+      "range": {
+        "startLine": 944,
+        "startChar": 18,
+        "endLine": 944,
+        "endChar": 35
+      },
+      "revId": "e3ee743a7950555af6b81700efa9c3c5ab8f3c2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

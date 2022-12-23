@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fb20f70d_7716d30f",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-23T10:50:32Z",
+      "side": 1,
+      "message": "This has nothing to do with permissions, but with threading ; when I say \"might not see the contents\", I mean you might have a case where that thread will see the array empty. It\u0027s a bug.\n\nYour new version will work and indeed will reduce memory usage when this is not needed, but it will also increase churn and power consumption for these cases where it is needed ; maybe you can have the best of these two worlds by only creating the value when you need it, but caching it.",
+      "parentUuid": "e2dd7938_fe9a477b",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 97
+      },
+      "revId": "77098d01321d7e6289489cf111e33b033f4ddaa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de8d1269_d2f2ff83",
         "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
         "patchSetId": 11
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "We need to get type and len, then read the value. We need most of the member inside StructNlAttr. I think parsing it separately does not reduce too much memory usage, so I keep it as it is. Please let me know if you still have concern about this.",
       "parentUuid": "6de2c109_cfeb2e91",
+      "range": {
+        "startLine": 965,
+        "startChar": 57,
+        "endLine": 965,
+        "endChar": 62
+      },
+      "revId": "77098d01321d7e6289489cf111e33b033f4ddaa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa9fda42_17611ac4",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-23T10:50:32Z",
+      "side": 1,
+      "message": "I think it will cause a lot of churn ; consider b/207538583. It\u0027s not just the attributes – it\u0027s more the fact that you will need to allocate a StructNlAttr object on the heap for each attr in the message, and there will be a lot, and it\u0027s done often. This object is thrown away immediately, so the GC will have a lot of work to do. If you only had primitive local vars, they would all be on the stack and cause no allocation at all.\nA generational GC will be relatively good at handling this kind of thing, but no matter how good the GC is, you can\u0027t beat code that doesn\u0027t allocate :)\n\nThat being said, we can keep the current code for simplicity and replace it later if it turns out it is using too much memory.",
+      "parentUuid": "eaa49bba_52d4b08c",
       "range": {
         "startLine": 965,
         "startChar": 57,
