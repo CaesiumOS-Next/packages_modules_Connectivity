@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad361a21_d4ea10a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2022-12-23T14:44:00Z",
+      "side": 1,
+      "message": "Could this be reverted? I don\u0027t think we should revert an upstream commit just to make cronet work in AOSP. I fully believe that this is our responsibility to clean the bp files by deleting the generated GEN_JNI and regenerating another one at the end of the building stage.\n\nThe skipping flag was removed because it is not used in all of chromium. And when I tried to revert the CL, Sam [From chrome infra] mentioned that there\u0027s better way to do this.",
+      "revId": "8d393193c1deead816c1b268e312fbb5d18af8dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
