@@ -191,6 +191,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fece06c6_6c720663",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 2530,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-23T07:16:31Z",
+      "side": 1,
+      "message": "I\u0027m not 100% sure the UID regexp is correct, because I think it\u0027s technically possible to have UIDs under 1000 (OEM native daemons for example). But I\u0027m not certain.\n\nIs there any problem with just using `\\d+` ? Because that\u0027s also much easier to read 😊",
+      "parentUuid": "ecab6771_bf25b33f",
+      "range": {
+        "startLine": 2530,
+        "startChar": 34,
+        "endLine": 2530,
+        "endChar": 46
+      },
+      "revId": "906fab09a110788169576e89e38f58e3e4d0b47f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a4420a36_e5130ca7",
         "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
         "patchSetId": 21

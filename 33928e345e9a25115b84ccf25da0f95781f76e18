@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74480d4f_02210b18",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 2581,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-23T07:16:31Z",
+      "side": 1,
+      "message": "You could have just said `return mKey.toString() + \"\u003d\" + mCount`. But it doesn\u0027t matter (it would be compiled into exactly what you wrote).",
+      "range": {
+        "startLine": 2581,
+        "startChar": 19,
+        "endLine": 2581,
+        "endChar": 21
+      },
+      "revId": "33928e345e9a25115b84ccf25da0f95781f76e18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "002e25df_611674fb",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 2962,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-23T07:16:31Z",
+      "side": 1,
+      "message": "You could probably do simpler than this, e.g.\n\n    int remaining \u003d DUMP_STATS_SESSION_COUNT\n    for (final DumpedSession s : recordSet) {\n      pw.println(s);\n      if (--remaining \u003c\u003d 0) break;\n    }",
+      "range": {
+        "startLine": 2958,
+        "startChar": 0,
+        "endLine": 2962,
+        "endChar": 9
+      },
+      "revId": "33928e345e9a25115b84ccf25da0f95781f76e18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c70e8040_b8681a3c",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 2963,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-23T07:16:31Z",
+      "side": 1,
+      "message": "In fact I wonder if you couldn\u0027t do even simpler than this whole thing.\n\n    final ArrayList\u003cMap.Entry\u003cOpenSessionKey, Integer\u003e\u003e list \u003d new ArrayList\u003c\u003e(mOpenSessionCallsPerCaller.entrySet());\n    // Sort by count descending\n    list.sort((a, b) -\u003e Integer.compare(b.getValue(), a.getValue()));\n    int remaining \u003d DUMP_STATS_SESSION_COUNT;\n    for (final Map.Entry\u003cOpenSessionKey, Integer\u003e s : list) {\n        pw.println(s);\n        if (--remaining \u003c\u003d 0) break;\n    }\n\nWould this work ?",
+      "range": {
+        "startLine": 2963,
+        "startChar": 4,
+        "endLine": 2963,
+        "endChar": 5
+      },
+      "revId": "33928e345e9a25115b84ccf25da0f95781f76e18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3724719a_71d13b0b",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 2531,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-23T07:16:31Z",
+      "side": 1,
+      "message": "This is likely fine, but you can probably do a little bit less correct for a lot more simple, with something like `(\\w+\\.?)+`\n\n(drawback is this will allow package names starting with digit or underscore, and package names finishing with a dot. Is that important ?)\n\nEither way is fine, but I think it would help in any case if you commented this regexp a little bit. Not everyone is very good at reading regexps.",
+      "range": {
+        "startLine": 2531,
+        "startChar": 38,
+        "endLine": 2531,
+        "endChar": 89
+      },
+      "revId": "33928e345e9a25115b84ccf25da0f95781f76e18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
