@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cff7afd_41cf272b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1074,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-23T02:20:27Z",
+      "side": 1,
+      "message": "Why? It seems to me this is more like indicating whether the private dns probe has succeeded.\nBecause in setNetworkValid(), we have:\n\nif (isStrictMode) {\n    probesSucceeded |\u003d NETWORK_VALIDATION_PROBE_PRIVDNS;\n}",
+      "range": {
+        "startLine": 1073,
+        "startChar": 38,
+        "endLine": 1074,
+        "endChar": 47
+      },
+      "revId": "d8ba034066d9904433b4cdcb0ade4236f27ab8cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a13e581a_d4021e4e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-23T02:20:27Z",
+      "side": 1,
+      "message": "OK this is old but new to me.\nStupid question: Why are we doing this?\nMaybe add a comment? no strong opinion.",
+      "range": {
+        "startLine": 1117,
+        "startChar": 16,
+        "endLine": 1118,
+        "endChar": 13
+      },
+      "revId": "d8ba034066d9904433b4cdcb0ade4236f27ab8cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
