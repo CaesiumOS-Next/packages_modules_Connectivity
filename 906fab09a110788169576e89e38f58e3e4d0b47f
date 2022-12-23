@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bee7a6b0_c3f0667d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-23T03:20:50Z",
+      "side": 1,
+      "message": "Done, add more description.",
+      "parentUuid": "37255972_c3470f8a",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 62
+      },
+      "revId": "906fab09a110788169576e89e38f58e3e4d0b47f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4f8b68e_8b18812a",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54e2e80e_c58e5f0e",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 2770,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-23T03:20:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4f8b68e_8b18812a",
+      "range": {
+        "startLine": 2766,
+        "startChar": 0,
+        "endLine": 2770,
+        "endChar": 28
+      },
+      "revId": "906fab09a110788169576e89e38f58e3e4d0b47f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1027fc53_e78825da",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-12-19T04:15:56Z",
       "side": 1,
       "message": "This looks complex and inefficient. Suggest one of the following approaches instead :\n\n❶ Make a custom class\n\n    private static class DumpedSession implements Comparable\u003cDumpedSession\u003e {\n      final OpenSessionKey key;\n      final int count;\n      private int compare(@NonNull final DumpedSession other) {\n          return Integer.compare(other.count, count);\n    }\n\nThen use a TreeSet. It will be sorted automatically.\n\n❷ Use entrySet()\nIf I\u0027m reading the code correctly this loop is exactly equivalent to :\n\n    new ArrayList\u003c...\u003e list \u003d new ArrayList\u003c\u003e(mOpenSessionCallsPerCaller.entrySet());",
+      "range": {
+        "startLine": 2921,
+        "startChar": 0,
+        "endLine": 2930,
+        "endChar": 9
+      },
+      "revId": "906fab09a110788169576e89e38f58e3e4d0b47f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a50931d_0c73f547",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 2930,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-23T03:20:50Z",
+      "side": 1,
+      "message": "The entrySet defined in ArrayMap does not support toArray() so ❷ is not working.\n\nUse a custom class for this. Please take a look.",
+      "parentUuid": "1027fc53_e78825da",
       "range": {
         "startLine": 2921,
         "startChar": 0,
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ecab6771_bf25b33f",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 2530,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-23T03:20:50Z",
+      "side": 1,
+      "message": "The regexps for the package name is a suggestion from stackoverflow. And the regexps for the uid is also not copied from somewhere, it\u0027s just I think the uid should match this pattern so actually I\u0027m not sure if it\u0027s really correct.",
+      "parentUuid": "83944bf0_737a319b",
+      "range": {
+        "startLine": 2530,
+        "startChar": 34,
+        "endLine": 2530,
+        "endChar": 46
+      },
+      "revId": "906fab09a110788169576e89e38f58e3e4d0b47f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a4420a36_e5130ca7",
         "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
         "patchSetId": 21
@@ -106,6 +202,30 @@
       "writtenOn": "2022-12-19T04:15:56Z",
       "side": 1,
       "message": "This looks brittle – it corresponds to the number of indents of the printwriter. How about just saying \\\\s+, to guarantee it\u0027s been indented but not mandating by how much ?",
+      "range": {
+        "startLine": 2532,
+        "startChar": 64,
+        "endLine": 2532,
+        "endChar": 65
+      },
+      "revId": "906fab09a110788169576e89e38f58e3e4d0b47f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "daaef26f_0f5543d4",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 2532,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-23T03:20:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4420a36_e5130ca7",
       "range": {
         "startLine": 2532,
         "startChar": 64,
@@ -129,6 +249,30 @@
       "writtenOn": "2022-12-19T04:15:56Z",
       "side": 1,
       "message": "s/that //",
+      "range": {
+        "startLine": 2546,
+        "startChar": 18,
+        "endLine": 2546,
+        "endChar": 22
+      },
+      "revId": "906fab09a110788169576e89e38f58e3e4d0b47f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1d7bed9_1bf0812a",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 2546,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-23T03:20:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8520a7ba_b69d7f39",
       "range": {
         "startLine": 2546,
         "startChar": 18,

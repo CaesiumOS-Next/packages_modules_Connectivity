@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d835ee7_b85bb375",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 2932,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-23T03:20:50Z",
+      "side": 1,
+      "message": "The original code was removed.",
+      "parentUuid": "380daf8c_4d89a623",
+      "revId": "b1746914c46658954ed7d4d508432e156bcf7e61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a3ee6bd_64a64025",
