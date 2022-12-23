@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0734ae6d_47b8d97f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1517,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-23T09:55:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd038de6_0da145c6",
+      "range": {
+        "startLine": 1517,
+        "startChar": 17,
+        "endLine": 1517,
+        "endChar": 74
+      },
+      "revId": "b1eaf6bce2feb1a7fa72e0943cd60f62731df9df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1d33712_aa05a5a0",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-23T09:12:40Z",
       "side": 1,
       "message": "testChooseDunUpstreamByAutomaticMode_loseDefaultNetworkWifi ?",
+      "range": {
+        "startLine": 1567,
+        "startChar": 17,
+        "endLine": 1567,
+        "endChar": 78
+      },
+      "revId": "b1eaf6bce2feb1a7fa72e0943cd60f62731df9df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a406ad90_44d8a366",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1567,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-23T09:55:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1d33712_aa05a5a0",
       "range": {
         "startLine": 1567,
         "startChar": 17,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "926a8c02_264f3ed1",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1607,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-23T09:55:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dccbbade_377eb97a",
+      "range": {
+        "startLine": 1607,
+        "startChar": 17,
+        "endLine": 1607,
+        "endChar": 74
+      },
+      "revId": "b1eaf6bce2feb1a7fa72e0943cd60f62731df9df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3cc0722_b4dc40e9",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-12-23T09:12:40Z",
       "side": 1,
       "message": "Just testChooseDunUpstreamByAutomaticMode_loseAndRegainDun",
+      "range": {
+        "startLine": 1651,
+        "startChar": 17,
+        "endLine": 1651,
+        "endChar": 72
+      },
+      "revId": "b1eaf6bce2feb1a7fa72e0943cd60f62731df9df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0436c458_b842abdd",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1651,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-23T09:55:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3cc0722_b4dc40e9",
       "range": {
         "startLine": 1651,
         "startChar": 17,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94e34a09_c8725ea3",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1691,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-23T09:55:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54da5ae9_0cb69d58",
+      "range": {
+        "startLine": 1691,
+        "startChar": 17,
+        "endLine": 1691,
+        "endChar": 83
+      },
+      "revId": "b1eaf6bce2feb1a7fa72e0943cd60f62731df9df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9cc8a715_c6026b33",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-12-23T09:12:40Z",
       "side": 1,
       "message": "Since configAutomatic always be true, just replace verifyXXX with testXXX ?",
+      "range": {
+        "startLine": 1730,
+        "startChar": 0,
+        "endLine": 1761,
+        "endChar": 0
+      },
+      "revId": "b1eaf6bce2feb1a7fa72e0943cd60f62731df9df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cc65e7d_08d6cd08",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1761,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-23T09:55:15Z",
+      "side": 1,
+      "message": "done. also move the content of verifyXXX to testXXX because verifyXXX doesn\u0027t share with any test now, thanks",
+      "parentUuid": "9cc8a715_c6026b33",
       "range": {
         "startLine": 1730,
         "startChar": 0,
