@@ -213,6 +213,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdc9ad90_2d3225c2",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 2530,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-25T23:14:57Z",
+      "side": 1,
+      "message": "Done.\nOriginally I think the UID should be at least 4 digits but if it\u0027s possible to have UIDs under 1000 then `\\d+` is fine.",
+      "parentUuid": "fece06c6_6c720663",
+      "range": {
+        "startLine": 2530,
+        "startChar": 34,
+        "endLine": 2530,
+        "endChar": 46
+      },
+      "revId": "906fab09a110788169576e89e38f58e3e4d0b47f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4420a36_e5130ca7",

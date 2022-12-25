@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d150d990_4a76ab5c",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 2962,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-25T23:14:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "002e25df_611674fb",
+      "range": {
+        "startLine": 2958,
+        "startChar": 0,
+        "endLine": 2962,
+        "endChar": 9
+      },
+      "revId": "33928e345e9a25115b84ccf25da0f95781f76e18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c70e8040_b8681a3c",
@@ -70,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2df9e199_7e69ac76",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 2963,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-25T23:14:57Z",
+      "side": 1,
+      "message": "It wouldn\u0027t work because the [entrySet](https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/util/ArrayMap.java;l\u003d1088?q\u003dArrayMap.java\u0026sq\u003dpackage:aosp-master%20file:.) used in ArrayMap is defined in [MapCollections\u003cK, V\u003e](https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/util/MapCollections.java;drc\u003defeafcdd1cf6a3c1995f7a2b057fc8e405d286fc;l\u003d169) and it does not support [toArray()](https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/util/MapCollections.java;l\u003d244;drc\u003defeafcdd1cf6a3c1995f7a2b057fc8e405d286fc). Thus, it will throw exception while initializing the [ArrayList](https://cs.android.com/android/platform/superproject/+/master:libcore/ojluni/src/main/java/java/util/ArrayList.java;l\u003d186?q\u003darrayList\u0026sq\u003dpackage:aosp-master%20file:.)",
+      "parentUuid": "c70e8040_b8681a3c",
+      "range": {
+        "startLine": 2963,
+        "startChar": 4,
+        "endLine": 2963,
+        "endChar": 5
+      },
+      "revId": "33928e345e9a25115b84ccf25da0f95781f76e18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3724719a_71d13b0b",
@@ -83,6 +131,30 @@
       "writtenOn": "2022-12-23T07:16:31Z",
       "side": 1,
       "message": "This is likely fine, but you can probably do a little bit less correct for a lot more simple, with something like `(\\w+\\.?)+`\n\n(drawback is this will allow package names starting with digit or underscore, and package names finishing with a dot. Is that important ?)\n\nEither way is fine, but I think it would help in any case if you commented this regexp a little bit. Not everyone is very good at reading regexps.",
+      "range": {
+        "startLine": 2531,
+        "startChar": 38,
+        "endLine": 2531,
+        "endChar": 89
+      },
+      "revId": "33928e345e9a25115b84ccf25da0f95781f76e18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23df3d58_653175e0",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 2531,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-25T23:14:57Z",
+      "side": 1,
+      "message": "Done. Add comments.",
+      "parentUuid": "3724719a_71d13b0b",
       "range": {
         "startLine": 2531,
         "startChar": 38,
