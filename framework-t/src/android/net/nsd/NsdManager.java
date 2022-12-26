@@ -230,7 +230,6 @@ public final class NsdManager {
 
     /** @hide */
     public static final int DAEMON_CLEANUP                          = 18;
-
     /** @hide */
     public static final int DAEMON_STARTUP                          = 19;
 
@@ -241,6 +240,13 @@ public final class NsdManager {
     public static final int REGISTER_CLIENT                         = 21;
     /** @hide */
     public static final int UNREGISTER_CLIENT                       = 22;
+
+    /** @hide */
+    public static final int STOP_RESOLUTION                         = 23;
+    /** @hide */
+    public static final int STOP_RESOLUTION_FAILED                  = 24;
+    /** @hide */
+    public static final int STOP_RESOLUTION_SUCCEEDED               = 25;
 
     /** Dns based service discovery protocol */
     public static final int PROTOCOL_DNS_SD = 0x0001;
@@ -267,6 +273,8 @@ public final class NsdManager {
         EVENT_NAMES.put(DAEMON_CLEANUP, "DAEMON_CLEANUP");
         EVENT_NAMES.put(DAEMON_STARTUP, "DAEMON_STARTUP");
         EVENT_NAMES.put(MDNS_SERVICE_EVENT, "MDNS_SERVICE_EVENT");
+        EVENT_NAMES.put(STOP_RESOLUTION_FAILED, "STOP_RESOLUTION_FAILED");
+        EVENT_NAMES.put(STOP_RESOLUTION_SUCCEEDED, "STOP_RESOLUTION_SUCCEEDED");
     }
 
     /** @hide */
@@ -592,6 +600,16 @@ public final class NsdManager {
         public void onResolveServiceSucceeded(int listenerKey, NsdServiceInfo info) {
             sendInfo(RESOLVE_SERVICE_SUCCEEDED, listenerKey, info);
         }
+
+        @Override
+        public void onStopResolutionFailed(int listenerKey, int error) {
+            sendError(STOP_RESOLUTION_FAILED, listenerKey, error);
+        }
+
+        @Override
+        public void onStopResolutionSucceeded(int listenerKey) {
+            sendNoArg(STOP_RESOLUTION_SUCCEEDED, listenerKey);
+        }
     }
 
     /**
@@ -649,6 +667,13 @@ public final class NsdManager {
         public void onResolveFailed(NsdServiceInfo serviceInfo, int errorCode);
 
         public void onServiceResolved(NsdServiceInfo serviceInfo);
+
+        /*** Notify the resolution is stopped */
+        default void onResolveStopped(@NonNull NsdServiceInfo serviceInfo) { }
+
+        /*** Notify the stop resolution is failed */
+        default void onStopResolutionFailed(@NonNull NsdServiceInfo serviceInfo,
+                int errorCode) { }
     }
 
     @VisibleForTesting
@@ -740,6 +765,16 @@ public final class NsdManager {
                     removeListener(key);
                     executor.execute(() -> ((ResolveListener) listener).onServiceResolved(
                             (NsdServiceInfo) obj));
+                    break;
+                case STOP_RESOLUTION_FAILED:
+                    removeListener(key);
+                    executor.execute(() -> ((ResolveListener) listener).onStopResolutionFailed(
+                            ns, errorCode));
+                    break;
+                case STOP_RESOLUTION_SUCCEEDED:
+                    removeListener(key);
+                    executor.execute(() -> ((ResolveListener) listener).onResolveStopped(
+                            ns));
                     break;
                 default:
                     Log.d(TAG, "Ignored " + message);
@@ -1071,6 +1106,26 @@ public final class NsdManager {
         int key = putListener(listener, executor, serviceInfo);
         try {
             mService.resolveService(key, serviceInfo);
+        } catch (RemoteException e) {
+            e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * Stop service resolution initiated with {@link #resolveService}.  A successful
+     * stop is notified to with a call to {@link ResolveListener#onResolveStopped}.
+     *
+     * <p> Upon failure to stop service discovery, application is notified through
+     * {@link ResolveListener#onStopResolutionFailed} .
+     *
+     * @param listener This should be a listener object that was passed to {@link #resolveService}.
+     *                 It identifies the resolution that should be stopped and notifies of a
+     *                 successful or unsuccessful stop.
+     */
+    public void stopServiceResolution(@NonNull ResolveListener listener) {
+        int id = getListenerKey(listener);
+        try {
+            mService.stopResolution(id);
         } catch (RemoteException e) {
             e.rethrowFromSystemServer();
         }
