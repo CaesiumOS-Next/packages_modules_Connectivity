@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63175433_4a2a5679",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-12-26T17:22:41Z",
+      "side": 1,
+      "message": "LGTM for the networkCreate with a NativeNetworkType.PHYSICAL_LOCAL config.",
+      "revId": "b81c1831167bbb72f10785c148d0f5790a474961",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
