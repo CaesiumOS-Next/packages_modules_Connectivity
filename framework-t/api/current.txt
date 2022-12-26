@@ -195,6 +195,7 @@ package android.net.nsd {
     method public void resolveService(android.net.nsd.NsdServiceInfo, android.net.nsd.NsdManager.ResolveListener);
     method public void resolveService(@NonNull android.net.nsd.NsdServiceInfo, @NonNull java.util.concurrent.Executor, @NonNull android.net.nsd.NsdManager.ResolveListener);
     method public void stopServiceDiscovery(android.net.nsd.NsdManager.DiscoveryListener);
+    method public void stopServiceResolution(@NonNull android.net.nsd.NsdManager.ResolveListener);
     method public void unregisterService(android.net.nsd.NsdManager.RegistrationListener);
     field public static final String ACTION_NSD_STATE_CHANGED = "android.net.nsd.STATE_CHANGED";
     field public static final String EXTRA_NSD_STATE = "nsd_state";
@@ -224,7 +225,9 @@ package android.net.nsd {
 
   public static interface NsdManager.ResolveListener {
     method public void onResolveFailed(android.net.nsd.NsdServiceInfo, int);
+    method public default void onResolveStopped(@NonNull android.net.nsd.NsdServiceInfo);
     method public void onServiceResolved(android.net.nsd.NsdServiceInfo);
+    method public default void onStopResolutionFailed(@NonNull android.net.nsd.NsdServiceInfo, int);
   }
 
   public final class NsdServiceInfo implements android.os.Parcelable {
