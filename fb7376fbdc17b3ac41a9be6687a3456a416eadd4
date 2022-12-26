@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5192ff8_107135d4",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-26T04:24:16Z",
+      "side": 0,
+      "message": "Do you want to still have a test for the replacement ? IIUC now TYPE_MOBILE with an empty list behaves like MOBILE_WILDCARD used to work, so maybe you want to keep a test for this case.",
+      "range": {
+        "startLine": 550,
+        "startChar": 8,
+        "endLine": 550,
+        "endChar": 28
+      },
+      "revId": "fb7376fbdc17b3ac41a9be6687a3456a416eadd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
