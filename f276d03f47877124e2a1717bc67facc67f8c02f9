@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43585b0a_c5e72d3b",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-27T07:04:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b71beb51_2c70fda0",
+      "range": {
+        "startLine": 296,
+        "startChar": 31,
+        "endLine": 296,
+        "endChar": 32
+      },
+      "revId": "f276d03f47877124e2a1717bc67facc67f8c02f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "820e3448_bb13a5cf",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-26T04:15:33Z",
       "side": 1,
       "message": "If I\u0027m following this correctly I think this is a change in behavior ?\n\nBefore : if you pass a template with an empty `matchWifiNetworkKey`, you\u0027d get null and match rule SUBSCRIBER_ID_MATCH_RULE_EXACT. So that would never match any subscriber ID.\n\nAfter : if you pass an template with an empty `matchWifiNetworkKey`, you\u0027ll get an empty array of rules which will match any subscriber ID.",
+      "range": {
+        "startLine": 788,
+        "startChar": 30,
+        "endLine": 788,
+        "endChar": 43
+      },
+      "revId": "f276d03f47877124e2a1717bc67facc67f8c02f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f05c572_6dae55a5",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-27T07:04:27Z",
+      "side": 1,
+      "message": "Before: if it\u0027s empty, then it passes null to `NetworkTemplate(int, String, String[], String)` and then the constructor will generate an empty array if it\u0027s null (left side, l.326). So eventaully this gets a template with empty mMatchWifiNetworkKeys array and match rule SUBSCRIBER_ID_MATCH_RULE_EXACT.\n\nAfter: if `matchWifiNetworkKeys` is empty then it passes an empty array for `mMatchWifiNetworkKeys`. It matches any wifiNetworkKey but not any subscriberId. Also, l.778 (right side) checks the tempate contains subscriber id so the returned template should contain an non-null mMatchSubscriberIds which means the template only returns true if an identity contains the same subscriber id as the template.",
+      "parentUuid": "820e3448_bb13a5cf",
       "range": {
         "startLine": 788,
         "startChar": 30,
