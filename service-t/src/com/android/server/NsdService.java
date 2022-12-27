@@ -59,6 +59,7 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Network Service Discovery Service handles remote service discovery operation requests by
@@ -228,6 +229,20 @@ public class NsdService extends INsdManager.Stub {
                                     clientId, NsdManager.FAILURE_INTERNAL_ERROR);
                         }
                         break;
+                    case NsdManager.SUBSCRIBE_SERVICE:
+                        cInfo = getClientInfoForReply(msg);
+                        if (cInfo != null) {
+                            cInfo.onSubscribeServiceFailed(
+                                    clientId, NsdManager.FAILURE_INTERNAL_ERROR);
+                        }
+                        break;
+                    case NsdManager.STOP_SUBSCRIPTION:
+                        cInfo = getClientInfoForReply(msg);
+                        if (cInfo != null) {
+                            cInfo.onStopSubscriptionFailed(
+                                    clientId, NsdManager.FAILURE_INTERNAL_ERROR);
+                        }
+                        break;
                     case NsdManager.DAEMON_CLEANUP:
                         maybeStopDaemon();
                         break;
@@ -289,6 +304,11 @@ public class NsdService extends INsdManager.Stub {
                 clientInfo.mClientRequests.delete(clientId);
                 mIdToClientInfoMap.remove(globalId);
                 maybeScheduleStop();
+            }
+
+            private void clearSubscriptionInfo(ClientInfo clientInfo) {
+                clientInfo.mSubscribedService = null;
+                clientInfo.mSubscriptionClientId = 0;
             }
 
             @Override
@@ -464,6 +484,63 @@ public class NsdService extends INsdManager.Stub {
                         }
                         clientInfo.mResolvedService = null;
                         break;
+                    case NsdManager.SUBSCRIBE_SERVICE:
+                        if (DBG) Log.d(TAG, "Subscribe service");
+                        args = (ListenerArgs) msg.obj;
+                        clientInfo = mClients.get(args.connector);
+                        // If the binder death notification for a INsdManagerCallback was received
+                        // before any calls are received by NsdService, the clientInfo would be
+                        // cleared and cause NPE. Add a null check here to prevent this corner case.
+                        if (clientInfo == null) {
+                            Log.e(TAG, "Unknown connector in subscription");
+                            break;
+                        }
+
+                        if (clientInfo.mSubscribedService != null) {
+                            clientInfo.onSubscribeServiceFailed(
+                                    clientId, NsdManager.FAILURE_ALREADY_ACTIVE);
+                            break;
+                        }
+
+                        maybeStartDaemon();
+                        id = getUniqueId();
+                        if (resolveService(id, args.serviceInfo)) {
+                            clientInfo.mSubscribedService = new NsdServiceInfo();
+                            clientInfo.mSubscriptionClientId = clientId;
+                            storeRequestMap(clientId, id, clientInfo, msg.what);
+                        } else {
+                            clientInfo.onSubscribeServiceFailed(
+                                    clientId, NsdManager.FAILURE_INTERNAL_ERROR);
+                        }
+                        break;
+                    case NsdManager.STOP_SUBSCRIPTION:
+                        if (DBG) Log.d(TAG, "Stop service subscription");
+                        args = (ListenerArgs) msg.obj;
+                        clientInfo = mClients.get(args.connector);
+                        // If the binder death notification for a INsdManagerCallback was received
+                        // before any calls are received by NsdService, the clientInfo would be
+                        // cleared and cause NPE. Add a null check here to prevent this corner case.
+                        if (clientInfo == null) {
+                            Log.e(TAG, "Unknown connector in stop subscription");
+                            break;
+                        }
+
+                        try {
+                            id = clientInfo.mClientIds.get(clientId);
+                        } catch (NullPointerException e) {
+                            clientInfo.onStopSubscriptionFailed(
+                                    clientId, NsdManager.FAILURE_INTERNAL_ERROR);
+                            break;
+                        }
+                        removeRequestMap(clientId, id, clientInfo);
+                        if (stopResolveService(id)) {
+                            clientInfo.onStopSubscriptionSucceeded(clientId);
+                        } else {
+                            clientInfo.onStopSubscriptionFailed(
+                                    clientId, NsdManager.FAILURE_INTERNAL_ERROR);
+                        }
+                        clearSubscriptionInfo(clientInfo);
+                        break;
                     case MDNS_SERVICE_EVENT:
                         if (!handleMDnsServiceEvent(msg.arg1, msg.arg2, msg.obj)) {
                             return NOT_HANDLED;
@@ -473,6 +550,19 @@ public class NsdService extends INsdManager.Stub {
                         return NOT_HANDLED;
                 }
                 return HANDLED;
+            }
+
+            private void notifyResolveFailedResult(boolean isSubscription, int clientId,
+                    ClientInfo clientInfo, int error) {
+                if (isSubscription) {
+                    clientInfo.onSubscribeServiceFailed(
+                            clientId, error);
+                    clearSubscriptionInfo(clientInfo);
+                } else {
+                    clientInfo.onResolveServiceFailed(
+                            clientId, NsdManager.FAILURE_INTERNAL_ERROR);
+                    clientInfo.mResolvedService = null;
+                }
             }
 
             private boolean handleMDnsServiceEvent(int code, int id, Object obj) {
@@ -561,10 +651,15 @@ public class NsdService extends INsdManager.Stub {
                         String rest = fullName.substring(index);
                         String type = rest.replace(".local.", "");
 
-                        clientInfo.mResolvedService.setServiceName(name);
-                        clientInfo.mResolvedService.setServiceType(type);
-                        clientInfo.mResolvedService.setPort(info.port);
-                        clientInfo.mResolvedService.setTxtRecords(info.txtRecord);
+                        final boolean isSubscription =
+                                clientId == clientInfo.mSubscriptionClientId;
+                        final NsdServiceInfo serviceInfo = isSubscription
+                                ? clientInfo.mSubscribedService : clientInfo.mResolvedService;
+
+                        serviceInfo.setServiceName(name);
+                        serviceInfo.setServiceType(type);
+                        serviceInfo.setPort(info.port);
+                        serviceInfo.setTxtRecords(info.txtRecord);
                         // Network will be added after SERVICE_GET_ADDR_SUCCESS
 
                         stopResolveService(id);
@@ -574,9 +669,8 @@ public class NsdService extends INsdManager.Stub {
                         if (getAddrInfo(id2, info.hostname, info.interfaceIdx)) {
                             storeRequestMap(clientId, id2, clientInfo, NsdManager.RESOLVE_SERVICE);
                         } else {
-                            clientInfo.onResolveServiceFailed(
-                                    clientId, NsdManager.FAILURE_INTERNAL_ERROR);
-                            clientInfo.mResolvedService = null;
+                            notifyResolveFailedResult(isSubscription, clientId, clientInfo,
+                                    NsdManager.FAILURE_INTERNAL_ERROR);
                         }
                         break;
                     }
@@ -584,17 +678,15 @@ public class NsdService extends INsdManager.Stub {
                         /* NNN resolveId errorCode */
                         stopResolveService(id);
                         removeRequestMap(clientId, id, clientInfo);
-                        clientInfo.mResolvedService = null;
-                        clientInfo.onResolveServiceFailed(
-                                clientId, NsdManager.FAILURE_INTERNAL_ERROR);
+                        notifyResolveFailedResult(clientId == clientInfo.mSubscriptionClientId,
+                                clientId, clientInfo, NsdManager.FAILURE_INTERNAL_ERROR);
                         break;
                     case IMDnsEventListener.SERVICE_GET_ADDR_FAILED:
                         /* NNN resolveId errorCode */
                         stopGetAddrInfo(id);
                         removeRequestMap(clientId, id, clientInfo);
-                        clientInfo.mResolvedService = null;
-                        clientInfo.onResolveServiceFailed(
-                                clientId, NsdManager.FAILURE_INTERNAL_ERROR);
+                        notifyResolveFailedResult(clientId == clientInfo.mSubscriptionClientId,
+                                clientId, clientInfo, NsdManager.FAILURE_INTERNAL_ERROR);
                         break;
                     case IMDnsEventListener.SERVICE_GET_ADDR_SUCCESS: {
                         /* NNN resolveId hostname ttl addr interfaceIdx netId */
@@ -611,19 +703,38 @@ public class NsdService extends INsdManager.Stub {
                         // If the resolved service is on an interface without a network, consider it
                         // as a failure: it would not be usable by apps as they would need
                         // privileged permissions.
-                        if (netId != NETID_UNSET && serviceHost != null) {
-                            clientInfo.mResolvedService.setHost(serviceHost);
-                            setServiceNetworkForCallback(clientInfo.mResolvedService,
-                                    netId, info.interfaceIdx);
-                            clientInfo.onResolveServiceSucceeded(
-                                    clientId, clientInfo.mResolvedService);
+                        if (clientId == clientInfo.mSubscriptionClientId) {
+                            if (netId != NETID_UNSET && serviceHost != null) {
+                                setServiceNetworkForCallback(clientInfo.mSubscribedService,
+                                        netId, info.interfaceIdx);
+                                final List<InetAddress> addresses =
+                                        clientInfo.mSubscribedService.getHostAddresses();
+                                addresses.add(serviceHost);
+                                clientInfo.mSubscribedService.setHostAddresses(addresses);
+                                clientInfo.onSubscribedServiceUpdated(
+                                        clientId, clientInfo.mSubscribedService);
+                            } else {
+                                stopGetAddrInfo(id);
+                                removeRequestMap(clientId, id, clientInfo);
+                                clearSubscriptionInfo(clientInfo);
+                                clientInfo.onSubscribeServiceFailed(
+                                        clientId, NsdManager.FAILURE_INTERNAL_ERROR);
+                            }
                         } else {
-                            clientInfo.onResolveServiceFailed(
-                                    clientId, NsdManager.FAILURE_INTERNAL_ERROR);
+                            if (netId != NETID_UNSET && serviceHost != null) {
+                                clientInfo.mResolvedService.setHost(serviceHost);
+                                setServiceNetworkForCallback(clientInfo.mResolvedService,
+                                        netId, info.interfaceIdx);
+                                clientInfo.onResolveServiceSucceeded(
+                                        clientId, clientInfo.mResolvedService);
+                            } else {
+                                clientInfo.onResolveServiceFailed(
+                                        clientId, NsdManager.FAILURE_INTERNAL_ERROR);
+                            }
+                            stopResolveService(id);
+                            removeRequestMap(clientId, id, clientInfo);
+                            clientInfo.mResolvedService = null;
                         }
-                        stopGetAddrInfo(id);
-                        removeRequestMap(clientId, id, clientInfo);
-                        clientInfo.mResolvedService = null;
                         break;
                     }
                     default:
@@ -804,6 +915,19 @@ public class NsdService extends INsdManager.Stub {
         }
 
         @Override
+        public void subscribeService(int listenerKey, NsdServiceInfo serviceInfo) {
+            mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
+                    NsdManager.SUBSCRIBE_SERVICE, 0, listenerKey,
+                    new ListenerArgs(this, serviceInfo)));
+        }
+
+        @Override
+        public void stopSubscription(int listenerKey) {
+            mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
+                    NsdManager.STOP_SUBSCRIPTION, 0, listenerKey, new ListenerArgs(this, null)));
+        }
+
+        @Override
         public void startDaemon() {
             mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
                     NsdManager.DAEMON_STARTUP, new ListenerArgs(this, null)));
@@ -960,6 +1084,11 @@ public class NsdService extends INsdManager.Stub {
 
         // The target SDK of this client < Build.VERSION_CODES.S
         private boolean mIsLegacy = false;
+
+        /*** The service info that is subscribed for this client */
+        private NsdServiceInfo mSubscribedService;
+        /*** The client id that subscribes service */
+        private int mSubscriptionClientId;
 
         private ClientInfo(INsdManagerCallback cb) {
             mCb = cb;
@@ -1138,6 +1267,38 @@ public class NsdService extends INsdManager.Stub {
                 mCb.onStopResolutionSucceeded(listenerKey);
             } catch (RemoteException e) {
                 Log.e(TAG, "Error calling onStopResolutionSucceeded", e);
+            }
+        }
+
+        void onSubscribeServiceFailed(int listenerKey, int error) {
+            try {
+                mCb.onSubscribeServiceFailed(listenerKey, error);
+            } catch (RemoteException e) {
+                Log.e(TAG, "Error calling onResolveServiceFailed", e);
+            }
+        }
+
+        void onSubscribedServiceUpdated(int listenerKey, NsdServiceInfo info) {
+            try {
+                mCb.onSubscribedServiceUpdated(listenerKey, info);
+            } catch (RemoteException e) {
+                Log.e(TAG, "Error calling onSubscribedServiceUpdated", e);
+            }
+        }
+
+        void onStopSubscriptionFailed(int listenerKey, int error) {
+            try {
+                mCb.onStopSubscriptionFailed(listenerKey, error);
+            } catch (RemoteException e) {
+                Log.e(TAG, "Error calling onStopSubscriptionFailed", e);
+            }
+        }
+
+        void onStopSubscriptionSucceeded(int listenerKey) {
+            try {
+                mCb.onStopSubscriptionSucceeded(listenerKey);
+            } catch (RemoteException e) {
+                Log.e(TAG, "Error calling onStopSubscriptionSucceeded", e);
             }
         }
     }

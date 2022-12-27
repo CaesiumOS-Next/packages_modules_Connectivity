@@ -30,6 +30,7 @@ import android.net.ConnectivityManager;
 import android.net.ConnectivityManager.NetworkCallback;
 import android.net.Network;
 import android.net.NetworkRequest;
+import android.os.CancellationSignal;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
@@ -248,6 +249,20 @@ public final class NsdManager {
     /** @hide */
     public static final int STOP_RESOLUTION_SUCCEEDED               = 25;
 
+    /** @hide */
+    public static final int SUBSCRIBE_SERVICE                       = 26;
+    /** @hide */
+    public static final int SUBSCRIBE_SERVICE_FAILED                = 27;
+    /** @hide */
+    public static final int SUBSCRIBED_SERVICE_UPDATED              = 28;
+
+    /** @hide */
+    public static final int STOP_SUBSCRIPTION                       = 29;
+    /** @hide */
+    public static final int STOP_SUBSCRIPTION_FAILED                = 30;
+    /** @hide */
+    public static final int STOP_SUBSCRIPTION_SUCCEEDED             = 31;
+
     /** Dns based service discovery protocol */
     public static final int PROTOCOL_DNS_SD = 0x0001;
 
@@ -275,6 +290,10 @@ public final class NsdManager {
         EVENT_NAMES.put(MDNS_SERVICE_EVENT, "MDNS_SERVICE_EVENT");
         EVENT_NAMES.put(STOP_RESOLUTION_FAILED, "STOP_RESOLUTION_FAILED");
         EVENT_NAMES.put(STOP_RESOLUTION_SUCCEEDED, "STOP_RESOLUTION_SUCCEEDED");
+        EVENT_NAMES.put(SUBSCRIBE_SERVICE_FAILED, "SUBSCRIBE_SERVICE_FAILED");
+        EVENT_NAMES.put(SUBSCRIBED_SERVICE_UPDATED, "SUBSCRIBED_SERVICE_UPDATED");
+        EVENT_NAMES.put(STOP_SUBSCRIPTION_FAILED, "STOP_SUBSCRIPTION_FAILED");
+        EVENT_NAMES.put(STOP_SUBSCRIPTION_SUCCEEDED, "STOP_SUBSCRIPTION_SUCCEEDED");
     }
 
     /** @hide */
@@ -610,6 +629,26 @@ public final class NsdManager {
         public void onStopResolutionSucceeded(int listenerKey) {
             sendNoArg(STOP_RESOLUTION_SUCCEEDED, listenerKey);
         }
+
+        @Override
+        public void onSubscribeServiceFailed(int listenerKey, int error) {
+            sendError(SUBSCRIBE_SERVICE_FAILED, listenerKey, error);
+        }
+
+        @Override
+        public void onSubscribedServiceUpdated(int listenerKey, NsdServiceInfo info) {
+            sendInfo(SUBSCRIBED_SERVICE_UPDATED, listenerKey, info);
+        }
+
+        @Override
+        public void onStopSubscriptionFailed(int listenerKey, int error) {
+            sendError(STOP_SUBSCRIPTION_FAILED, listenerKey, error);
+        }
+
+        @Override
+        public void onStopSubscriptionSucceeded(int listenerKey) {
+            sendNoArg(STOP_SUBSCRIPTION_SUCCEEDED, listenerKey);
+        }
     }
 
     /**
@@ -673,6 +712,23 @@ public final class NsdManager {
 
         /*** Notify the stop resolution is failed */
         default void onStopResolutionFailed(@NonNull NsdServiceInfo serviceInfo,
+                int errorCode) { }
+    }
+
+    /** Interface for callback invocation for service subscription */
+    public interface SubscribeListener {
+
+        /*** Notify the subscription is failed */
+        default void onSubscribeFailed(@NonNull NsdServiceInfo serviceInfo, int errorCode) { }
+
+        /*** Notify the subscribed service is updated */
+        default void onServiceUpdated(@NonNull NsdServiceInfo serviceInfo) { }
+
+        /*** Notify the subscription is stopped */
+        default void onSubscribeStopped(@NonNull NsdServiceInfo serviceInfo) { }
+
+        /*** Notify the stop subscription is failed */
+        default void onStopSubscriptionFailed(@NonNull NsdServiceInfo serviceInfo,
                 int errorCode) { }
     }
 
@@ -774,6 +830,25 @@ public final class NsdManager {
                 case STOP_RESOLUTION_SUCCEEDED:
                     removeListener(key);
                     executor.execute(() -> ((ResolveListener) listener).onResolveStopped(
+                            ns));
+                    break;
+                case SUBSCRIBE_SERVICE_FAILED:
+                    removeListener(key);
+                    executor.execute(() -> ((SubscribeListener) listener).onSubscribeFailed(
+                            ns, errorCode));
+                    break;
+                case SUBSCRIBED_SERVICE_UPDATED:
+                    executor.execute(() -> ((SubscribeListener) listener)
+                            .onServiceUpdated((NsdServiceInfo) obj));
+                    break;
+                case STOP_SUBSCRIPTION_FAILED:
+                    removeListener(key);
+                    executor.execute(() -> ((SubscribeListener) listener).onStopSubscriptionFailed(
+                            ns, errorCode));
+                    break;
+                case STOP_SUBSCRIPTION_SUCCEEDED:
+                    removeListener(key);
+                    executor.execute(() -> ((SubscribeListener) listener).onSubscribeStopped(
                             ns));
                     break;
                 default:
@@ -1131,6 +1206,34 @@ public final class NsdManager {
         }
     }
 
+    /**
+     * Subscribe a discovered service. An application can subscribe a service which to continuously
+     * monitor the service status. This is different from {@link #resolveService} which provide a
+     * one shot service information. A service update is notified to with a call to
+     * {@link SubscribeListener#onServiceUpdated} continuously.
+     *
+     * <p> An application can subscribe a service once a time. It needs to cancel the subscription
+     * before subscribe other services.
+     *
+     * @param serviceInfo service to be subscribed
+     * @param executor Executor to run listener callbacks with
+     * @param listener to receive callback upon service updated
+     * @param cancellationSignal to cancel the service subscription
+     */
+    public void subscribeService(@NonNull NsdServiceInfo serviceInfo,
+            @NonNull Executor executor, @NonNull CancellationSignal cancellationSignal,
+            @NonNull SubscribeListener listener) {
+        checkServiceInfo(serviceInfo);
+        checkCancellationSignal(cancellationSignal);
+        int key = putListener(listener, executor, serviceInfo);
+        try {
+            mService.subscribeService(key, serviceInfo);
+            setSubscriptionCancellationSignal(cancellationSignal, listener);
+        } catch (RemoteException e) {
+            e.rethrowFromSystemServer();
+        }
+    }
+
     private static void checkListener(Object listener) {
         Objects.requireNonNull(listener, "listener cannot be null");
     }
@@ -1149,5 +1252,24 @@ public final class NsdManager {
         if (TextUtils.isEmpty(serviceInfo.getServiceType())) {
             throw new IllegalArgumentException("Service type cannot be empty");
         }
+    }
+
+    private static void checkCancellationSignal(CancellationSignal cancellationSignal) {
+        Objects.requireNonNull(cancellationSignal, "CancellationSignal cannot be null");
+        if (cancellationSignal.isCanceled()) {
+            throw new IllegalArgumentException("The operation is already canceled.");
+        }
+    }
+
+    private void setSubscriptionCancellationSignal(CancellationSignal cancellationSignal,
+            SubscribeListener listener) {
+        cancellationSignal.setOnCancelListener(() -> {
+            int id = getListenerKey(listener);
+            try {
+                mService.stopSubscription(id);
+            } catch (RemoteException e) {
+                e.rethrowFromSystemServer();
+            }
+        });
     }
 }

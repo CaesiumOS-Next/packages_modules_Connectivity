@@ -43,12 +43,17 @@ import android.net.cts.NsdManagerTest.NsdRegistrationRecord.RegistrationEvent.Un
 import android.net.cts.NsdManagerTest.NsdResolveRecord.ResolveEvent.ResolveFailed
 import android.net.cts.NsdManagerTest.NsdResolveRecord.ResolveEvent.ResolveStopped
 import android.net.cts.NsdManagerTest.NsdResolveRecord.ResolveEvent.ServiceResolved
+import android.net.cts.NsdManagerTest.NsdSubscribeRecord.SubscribeEvent.SubscribeFailed
+import android.net.cts.NsdManagerTest.NsdSubscribeRecord.SubscribeEvent.SubscribeStopped
+import android.net.cts.NsdManagerTest.NsdSubscribeRecord.SubscribeEvent.ServiceUpdated
+import android.net.cts.util.CtsNetUtils
 import android.net.nsd.NsdManager
 import android.net.nsd.NsdManager.DiscoveryListener
 import android.net.nsd.NsdManager.RegistrationListener
 import android.net.nsd.NsdManager.ResolveListener
 import android.net.nsd.NsdServiceInfo
 import android.os.Build
+import android.os.CancellationSignal
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.Process.myTid
@@ -59,6 +64,7 @@ import androidx.test.runner.AndroidJUnit4
 import com.android.net.module.util.ArrayTrackRecord
 import com.android.net.module.util.TrackRecord
 import com.android.networkstack.apishim.NsdShimImpl
+import com.android.networkstack.apishim.common.NsdShim
 import com.android.testutils.ConnectivityModuleTest
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.TestableNetworkAgent
@@ -114,6 +120,7 @@ class NsdManagerTest {
     private val serviceName = "NsdTest%09d".format(Random().nextInt(1_000_000_000))
     private val serviceType = "_nmt%09d._tcp".format(Random().nextInt(1_000_000_000))
     private val handlerThread = HandlerThread(NsdManagerTest::class.java.simpleName)
+    private val ctsNetUtils by lazy{ CtsNetUtils(context) }
 
     private lateinit var testNetwork1: TestTapNetwork
     private lateinit var testNetwork2: TestTapNetwork
@@ -277,6 +284,28 @@ class NsdManagerTest {
 
         override fun onResolveStopped(si: NsdServiceInfo) {
             add(ResolveStopped(si))
+        }
+    }
+
+    private class NsdSubscribeRecord : NsdShim.SubscribeListenerShim,
+            NsdRecord<NsdSubscribeRecord.SubscribeEvent>() {
+        sealed class SubscribeEvent : NsdEvent {
+            data class SubscribeFailed(val serviceInfo: NsdServiceInfo, val errorCode: Int) :
+                    SubscribeEvent()
+            data class ServiceUpdated(val serviceInfo: NsdServiceInfo) : SubscribeEvent()
+            data class SubscribeStopped(val serviceInfo: NsdServiceInfo) : SubscribeEvent()
+        }
+
+        override fun onSubscribeFailed(si: NsdServiceInfo, err: Int) {
+            add(SubscribeFailed(si, err))
+        }
+
+        override fun onServiceUpdated(si: NsdServiceInfo) {
+            add(ServiceUpdated(si))
+        }
+
+        override fun onSubscribeStopped(si: NsdServiceInfo) {
+            add(SubscribeStopped(si))
         }
     }
 
@@ -764,6 +793,62 @@ class NsdManagerTest {
         val stoppedCb = resolveRecord.expectCallback<ResolveStopped>()
         assertEquals(si.serviceName, stoppedCb.serviceInfo.serviceName)
         assertEquals(si.serviceType, stoppedCb.serviceInfo.serviceType)
+    }
+
+    @Test
+    fun testSubscribeService() {
+        // This test requires shims supporting U+ APIs (NsdManager.subscribeService)
+        assumeTrue(TestUtils.shouldTestUApis())
+
+        // Ensure Wi-Fi network connected and get addresses
+        val wifiNetwork = ctsNetUtils.ensureWifiConnected()
+        val lp = cm.getLinkProperties(wifiNetwork)
+        assertNotNull(lp)
+        val addresses = lp.allAddresses
+        assertFalse(addresses.isEmpty())
+
+        val si = NsdServiceInfo().apply {
+            serviceType = this@NsdManagerTest.serviceType
+            serviceName = this@NsdManagerTest.serviceName
+            network = wifiNetwork
+            port = 12345 // Test won't try to connect so port does not matter
+        }
+
+        // Register service on Wi-Fi network
+        val registrationRecord = NsdRegistrationRecord()
+        registerService(registrationRecord, si)
+
+        tryTest {
+            // Discover service on Wi-Fi network.
+            val discoveryRecord = NsdDiscoveryRecord()
+            nsdShim.discoverServices(nsdManager, serviceType, NsdManager.PROTOCOL_DNS_SD,
+                    wifiNetwork, Executor { it.run() }, discoveryRecord)
+            val foundInfo = discoveryRecord.waitForServiceDiscovered(
+                    serviceName, wifiNetwork)
+
+            // Subscribe service and check the host address that should be same as Wi-Fi address
+            val subscribeRecord = NsdSubscribeRecord()
+            val cancellationSignal = CancellationSignal()
+            nsdShim.subscribeService(
+                    nsdManager, foundInfo, { it.run() }, cancellationSignal, subscribeRecord)
+            for (i in addresses.indices) {
+                val subscribeCb = subscribeRecord.expectCallback<ServiceUpdated>()
+                assertEquals(foundInfo.serviceName, subscribeCb.serviceInfo.serviceName)
+                val hostAddresses = subscribeCb.serviceInfo.hostAddresses
+                assertEquals(i + 1, hostAddresses.size)
+                for (hostAddress in hostAddresses) {
+                    assertTrue(addresses.contains(hostAddress))
+                }
+            }
+
+            // Cancel subscription and check stop callback received.
+            cancellationSignal.cancel()
+            subscribeRecord.expectCallback<SubscribeStopped>()
+        } cleanupStep {
+            nsdManager.unregisterService(registrationRecord)
+        } cleanup {
+            registrationRecord.expectCallback<ServiceUnregistered>()
+        }
     }
 
     /**
