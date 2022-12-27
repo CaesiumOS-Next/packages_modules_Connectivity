@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "828f28b1_8137a59c",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-27T05:48:32Z",
+      "side": 1,
+      "message": "Okay, they look like no significant difference.\nIt looks like we can return mElapsedRealtime in Deps.getElapsedRealtime().",
+      "parentUuid": "2e4e93d8_2b43b44c",
+      "range": {
+        "startLine": 378,
+        "startChar": 8,
+        "endLine": 379,
+        "endChar": 39
+      },
+      "revId": "51ee93b958f987c6e57efd4255424c7a4a1fcccd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b7e643f_479ac1fd",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-26T05:59:44Z",
       "side": 1,
       "message": "Is it better if we make this function increase both of them?",
+      "range": {
+        "startLine": 2508,
+        "startChar": 17,
+        "endLine": 2508,
+        "endChar": 37
+      },
+      "revId": "51ee93b958f987c6e57efd4255424c7a4a1fcccd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92991ae1_9d1ff5b4",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2508,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-27T05:48:32Z",
+      "side": 1,
+      "message": "mElapsedRealtimeSinceBoot is removed.",
+      "parentUuid": "9b7e643f_479ac1fd",
       "range": {
         "startLine": 2508,
         "startChar": 17,
