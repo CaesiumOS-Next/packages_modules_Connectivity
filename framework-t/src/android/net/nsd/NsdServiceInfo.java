@@ -26,10 +26,14 @@ import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.Log;
 
+import com.android.net.module.util.InetAddressUtils;
+
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,6 +51,8 @@ public final class NsdServiceInfo implements Parcelable {
     private final ArrayMap<String, byte[]> mTxtRecord = new ArrayMap<>();
 
     private InetAddress mHost;
+
+    private final List<InetAddress> mHostAddresses = new ArrayList<>();
 
     private int mPort;
 
@@ -84,17 +90,31 @@ public final class NsdServiceInfo implements Parcelable {
         mServiceType = s;
     }
 
-    /** Get the host address. The host address is valid for a resolved service. */
+    /**
+     * Get the host address. The host address is valid for a resolved service.
+     *
+     * @deprecated Use {@link #getHostAddresses()} to get the entire list of addresses for the host.
+     */
+    @Deprecated
     public InetAddress getHost() {
         return mHost;
     }
 
-    /** Set the host address */
+    /**
+     * Set the host address
+     *
+     * @deprecated Use {@link #setHostAddresses(List)} to set multiple addresses for the host.
+     */
+    @Deprecated
     public void setHost(InetAddress s) {
         mHost = s;
     }
 
-    /** Get port number. The port number is valid for a resolved service. */
+    /**
+     * Get port number. The port number is valid for a resolved service.
+     *
+     * The port is valid for all addresses {@see getHostAddresses}
+     */
     public int getPort() {
         return mPort;
     }
@@ -102,6 +122,23 @@ public final class NsdServiceInfo implements Parcelable {
     /** Set port number */
     public void setPort(int p) {
         mPort = p;
+    }
+
+    /**
+     * Get the host addresses.
+     *
+     * All host addresses are valid for the resolved service.
+     * All addresses share the same port {@see getPort()}.
+     */
+    @NonNull
+    public List<InetAddress> getHostAddresses() {
+        return new ArrayList<>(mHostAddresses);
+    }
+
+    /** Set the host addresses */
+    public void setHostAddresses(@NonNull List<InetAddress> addresses) {
+        mHostAddresses.clear();
+        mHostAddresses.addAll(addresses);
     }
 
     /**
@@ -401,6 +438,10 @@ public final class NsdServiceInfo implements Parcelable {
 
         dest.writeParcelable(mNetwork, 0);
         dest.writeInt(mInterfaceIndex);
+        dest.writeInt(mHostAddresses.size());
+        for (InetAddress address : mHostAddresses) {
+            InetAddressUtils.parcelInetAddress(dest, address, flags);
+        }
     }
 
     /** Implement the Parcelable interface */
@@ -432,6 +473,10 @@ public final class NsdServiceInfo implements Parcelable {
                 }
                 info.mNetwork = in.readParcelable(null, Network.class);
                 info.mInterfaceIndex = in.readInt();
+                int size = in.readInt();
+                for (int i = 0; i < size; i++) {
+                    info.mHostAddresses.add(InetAddressUtils.unparcelInetAddress(in));
+                }
                 return info;
             }
 
