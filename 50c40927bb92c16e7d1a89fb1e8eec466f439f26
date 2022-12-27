@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb86fdc2_9f002035",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:03:27Z",
+      "side": 1,
+      "message": "Didn\u0027t look at the tests too carefully – mostly took a look at the API.",
+      "revId": "50c40927bb92c16e7d1a89fb1e8eec466f439f26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b24d5a85_83e2b83a",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:03:27Z",
+      "side": 1,
+      "message": "This is a public method – please have more extensive javadoc. Ideally you should also add javadoc to the existing 2 methods.\n\nIn particular, you should discuss when this is called, how many times, and on what thread.",
+      "range": {
+        "startLine": 672,
+        "startChar": 21,
+        "endLine": 672,
+        "endChar": 37
+      },
+      "revId": "50c40927bb92c16e7d1a89fb1e8eec466f439f26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bec14d16_0e091160",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:03:27Z",
+      "side": 1,
+      "message": "This sounds like a strange thing to happen. You need documentation to explain what might have happened, and what an app should do to recover from this.\n\nYou also need to explain what error codes can be passed. The best way to achieve this is an @IntDef.",
+      "range": {
+        "startLine": 675,
+        "startChar": 21,
+        "endLine": 675,
+        "endChar": 43
+      },
+      "revId": "50c40927bb92c16e7d1a89fb1e8eec466f439f26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2d42883_842c06c3",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:03:27Z",
+      "side": 1,
+      "message": "You need to explain in what cases and for what reasons stopping resolution might fail.",
+      "range": {
+        "startLine": 1119,
+        "startChar": 53,
+        "endLine": 1119,
+        "endChar": 55
+      },
+      "revId": "50c40927bb92c16e7d1a89fb1e8eec466f439f26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35fbff9d_3c3da5e2",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:03:27Z",
+      "side": 1,
+      "message": "You should explain what happens if the listener was not passed to resolveService.",
+      "range": {
+        "startLine": 1123,
+        "startChar": 54,
+        "endLine": 1123,
+        "endChar": 55
+      },
+      "revId": "50c40927bb92c16e7d1a89fb1e8eec466f439f26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5afd1779_024e4883",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:03:27Z",
+      "side": 1,
+      "message": "I know you just copied the code from elsewhere in the file, but can\u0027t we do a little bit better than this ? Like, actually testing for null before we use the objects ?",
+      "range": {
+        "startLine": 453,
+        "startChar": 33,
+        "endLine": 453,
+        "endChar": 53
+      },
+      "revId": "50c40927bb92c16e7d1a89fb1e8eec466f439f26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "259b8f96_61fcc476",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:03:27Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s fine to send INTERNAL_ERROR to a client who asks to stop resolution, because there is nothing they can do about it. When sending an error to an app in a public API we need to make sure clients understand what\u0027s going wrong and have ways to remedy the issue.\n\nWhat\u0027s really happening here ? Is the client already unregistered ?",
+      "range": {
+        "startLine": 455,
+        "startChar": 57,
+        "endLine": 455,
+        "endChar": 79
+      },
+      "revId": "50c40927bb92c16e7d1a89fb1e8eec466f439f26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4693958_9b6f7226",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:03:27Z",
+      "side": 1,
+      "message": "Likewise, this is really not okay I think. What went wrong exactly ?",
+      "range": {
+        "startLine": 463,
+        "startChar": 57,
+        "endLine": 463,
+        "endChar": 79
+      },
+      "revId": "50c40927bb92c16e7d1a89fb1e8eec466f439f26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
