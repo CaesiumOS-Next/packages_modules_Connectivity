@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb080480_895ad15e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T05:50:42Z",
+      "side": 1,
+      "message": "A tree might be a better data structure for this, but this is adequate (it\u0027s also what the existing state machine does)",
+      "revId": "97ebb76b71f1af428b4433e46de96e944a07fd61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e12ecaf_bcd21ef5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T05:50:42Z",
+      "side": 1,
+      "message": "com.android.internal.util.State doesn\u0027t implement equals() or hashcode() and is therefore not supposed to be usable as the key to a HashMap. What you\u0027ll get is simply object equality. Is that really what you want ? If so, you probably need to write comments about it ; start() and transitionTo() can only take the exact objects that were used to initialize the state, not a copy of it.\n\nAIUI this is also what the existing StateMachine does, and it doesn\u0027t sound too far-fetched, but at least it should be documented.",
+      "range": {
+        "startLine": 37,
+        "startChar": 18,
+        "endLine": 37,
+        "endChar": 31
+      },
+      "revId": "97ebb76b71f1af428b4433e46de96e944a07fd61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
