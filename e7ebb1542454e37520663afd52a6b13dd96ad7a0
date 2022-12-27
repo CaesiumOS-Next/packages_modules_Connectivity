@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b5f21a0_4f6d3ce2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-27T10:58:48Z",
+      "side": 1,
+      "message": "Eh, it probably doesn\u0027t matter, but I saw a tm-qpr-dev selinux boot time denial on the property... might as well avoid even looking at it on U+.",
+      "revId": "e7ebb1542454e37520663afd52a6b13dd96ad7a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
