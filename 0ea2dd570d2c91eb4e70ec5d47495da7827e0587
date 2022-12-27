@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e38cf8c2_1662694c",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T07:36:56Z",
+      "side": 1,
+      "message": "Comment that some code is taking mStatsLock *then* mOpenSessionCallsLock, therefore it is forbidden to take them in the reverse order.",
+      "range": {
+        "startLine": 432,
+        "startChar": 25,
+        "endLine": 432,
+        "endChar": 46
+      },
+      "revId": "0ea2dd570d2c91eb4e70ec5d47495da7827e0587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5193476d_0ec1d155",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 2516,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T07:36:56Z",
+      "side": 1,
+      "message": "You should at the very least have a comment here that this is called with mStatsLock taken, so to be careful of lock inversion",
+      "range": {
+        "startLine": 2516,
+        "startChar": 0,
+        "endLine": 2516,
+        "endChar": 46
+      },
+      "revId": "0ea2dd570d2c91eb4e70ec5d47495da7827e0587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2cbfcdc_59364f7f",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 2716,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T07:36:56Z",
+      "side": 1,
+      "message": "Here\u0027s hoping nobody is relying on the absence of a blank linke here 😕",
+      "range": {
+        "startLine": 2716,
+        "startChar": 15,
+        "endLine": 2716,
+        "endChar": 22
+      },
+      "revId": "0ea2dd570d2c91eb4e70ec5d47495da7827e0587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "129ecfe1_9a1d6dc7",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 2722,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T07:36:56Z",
+      "side": 1,
+      "message": "Maybe don\u0027t reverse l.2721 and 2722 ?",
+      "range": {
+        "startLine": 2722,
+        "startChar": 15,
+        "endLine": 2722,
+        "endChar": 29
+      },
+      "revId": "0ea2dd570d2c91eb4e70ec5d47495da7827e0587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a7d267b_bb4e5049",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T07:36:56Z",
+      "side": 1,
+      "message": "Are you sure this is not flaky ? If `sendBroadcast` above is synchronous then it\u0027s fine, but if it\u0027s asynchronous this will be flaky.\n\nYou can check that by running the test 100 times – if it doesn\u0027t flake then it\u0027s almost certainly fine",
+      "range": {
+        "startLine": 902,
+        "startChar": 8,
+        "endLine": 902,
+        "endChar": 31
+      },
+      "revId": "0ea2dd570d2c91eb4e70ec5d47495da7827e0587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11d7817c_435180b7",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 2529,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T07:36:56Z",
+      "side": 1,
+      "message": "Maybe you can clarify what this does by calling this `assertWhetherUidIsInTopSessionCallers`",
+      "range": {
+        "startLine": 2529,
+        "startChar": 17,
+        "endLine": 2529,
+        "endChar": 40
+      },
+      "revId": "0ea2dd570d2c91eb4e70ec5d47495da7827e0587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

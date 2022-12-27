@@ -120,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "17a7dafe_be76af01",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 2963,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T07:36:56Z",
+      "side": 1,
+      "message": "Okay, so what if you fill the ArrayList with an iteration ?\n\n    final ArrayList\u003cMap.Entry\u003cOpenSessionKey, Integer\u003e\u003e list \u003d new ArrayList\u003c\u003e();\n    for (Map.Entry\u003cOpenSessionKey, Integer\u003e elem : mOpenSessionCallsPerCaller.entrySet()) {\n      list.add(elem);\n    }\n\nI think this should work ? And it\u0027s probably simpler than the class too.",
+      "parentUuid": "2df9e199_7e69ac76",
+      "range": {
+        "startLine": 2963,
+        "startChar": 4,
+        "endLine": 2963,
+        "endChar": 5
+      },
+      "revId": "33928e345e9a25115b84ccf25da0f95781f76e18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3724719a_71d13b0b",
         "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
         "patchSetId": 22
