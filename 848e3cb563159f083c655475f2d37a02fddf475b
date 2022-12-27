@@ -1,0 +1,412 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a305c7b0_e3aa9235",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:51:53Z",
+      "side": 1,
+      "message": "are",
+      "range": {
+        "startLine": 9,
+        "startChar": 59,
+        "endLine": 9,
+        "endChar": 61
+      },
+      "revId": "848e3cb563159f083c655475f2d37a02fddf475b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57c99fbd_ae15722a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:51:53Z",
+      "side": 1,
+      "message": "limitations",
+      "range": {
+        "startLine": 11,
+        "startChar": 27,
+        "endLine": 11,
+        "endChar": 36
+      },
+      "revId": "848e3cb563159f083c655475f2d37a02fddf475b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0c07316_c2774a97",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:51:53Z",
+      "side": 1,
+      "message": "`deferring` or `deferred`",
+      "range": {
+        "startLine": 12,
+        "startChar": 17,
+        "endLine": 12,
+        "endChar": 22
+      },
+      "revId": "848e3cb563159f083c655475f2d37a02fddf475b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2cf2e5b_bbf8ac48",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:51:53Z",
+      "side": 1,
+      "message": "I\u0027m not sure what you mean here ; SyncStateMachine has specific requirements on threading, but I don\u0027t think it\u0027s \"not thread-safe\". It\u0027s thread safe only if you use it in the way prescribed, but you can\u0027t use it in any other way because it will instantly crash on you, courtesy of your checks.",
+      "range": {
+        "startLine": 13,
+        "startChar": 3,
+        "endLine": 13,
+        "endChar": 18
+      },
+      "revId": "848e3cb563159f083c655475f2d37a02fddf475b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d19a5d10_d803b809",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:51:53Z",
+      "side": 1,
+      "message": "Who does ?",
+      "range": {
+        "startLine": 15,
+        "startChar": 3,
+        "endLine": 15,
+        "endChar": 27
+      },
+      "revId": "848e3cb563159f083c655475f2d37a02fddf475b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22f03092_e66d05b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:51:53Z",
+      "side": 1,
+      "message": "can never change during state transitions",
+      "range": {
+        "startLine": 17,
+        "startChar": 3,
+        "endLine": 17,
+        "endChar": 55
+      },
+      "revId": "848e3cb563159f083c655475f2d37a02fddf475b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b5071bc_1215d149",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:51:53Z",
+      "side": 1,
+      "message": "The implementation doesn\u0027t have anything specific for this, so I think you need to give a more detailed explanation of what you mean here in the abstract (independently of how IpServer will use this)",
+      "range": {
+        "startLine": 19,
+        "startChar": 6,
+        "endLine": 19,
+        "endChar": 33
+      },
+      "revId": "848e3cb563159f083c655475f2d37a02fddf475b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c90d454_9054c4fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:51:53Z",
+      "side": 1,
+      "message": "Isn\u0027t that deferring a message, in a way ? So it\u0027s not true that deferred messages are not supported.",
+      "range": {
+        "startLine": 19,
+        "startChar": 35,
+        "endLine": 19,
+        "endChar": 69
+      },
+      "revId": "848e3cb563159f083c655475f2d37a02fddf475b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fa13935_190c4551",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:51:53Z",
+      "side": 1,
+      "message": "Suggest having a comment here saying this member can only ever be touched on mMyThread",
+      "range": {
+        "startLine": 50,
+        "startChar": 38,
+        "endLine": 50,
+        "endChar": 47
+      },
+      "revId": "848e3cb563159f083c655475f2d37a02fddf475b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b1660d6_96c66019",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:51:53Z",
+      "side": 1,
+      "message": "I think it may be useful to know what message that is. You could replace the boolean mIsInProcess with an int mCurrentlyProcessing, with 0 or Integer.MIN_VALUE as a sentinel to mean \"not currently processing a message\". That would allow you to print what message is currently processing in the exception.",
+      "range": {
+        "startLine": 161,
+        "startChar": 58,
+        "endLine": 161,
+        "endChar": 96
+      },
+      "revId": "848e3cb563159f083c655475f2d37a02fddf475b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf73cd21_9ae88831",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:51:53Z",
+      "side": 1,
+      "message": "Ideally you\u0027d say `if (HANDLED \u003d\u003d processMessage)`. Now HANDLED is not public in IState, so you can\u0027t do that without a change to IState, but at least you could have a comment explaining it here",
+      "range": {
+        "startLine": 181,
+        "startChar": 35,
+        "endLine": 181,
+        "endChar": 49
+      },
+      "revId": "848e3cb563159f083c655475f2d37a02fddf475b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5591b2c7_1c5a702b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:51:53Z",
+      "side": 1,
+      "message": "(only if you find this more readable)\n\nThis might be easier to understand written with recursion.\n\n    private void processMsg(final StateInfo si, final Message msg) {\n      if (si.state.processMessage(msg)) return\n      if (null !\u003d si.parent) processMsg(si.parent, msg);\n    }",
+      "revId": "848e3cb563159f083c655475f2d37a02fddf475b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7553bdc6_ac7fff44",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:51:53Z",
+      "side": 1,
+      "message": "If nobody handled the message do you want to throw or at least log ?",
+      "range": {
+        "startLine": 187,
+        "startChar": 4,
+        "endLine": 187,
+        "endChar": 5
+      },
+      "revId": "848e3cb563159f083c655475f2d37a02fddf475b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "467785de_0af9e07c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:51:53Z",
+      "side": 1,
+      "message": "Javadoc format is :\n\n    /**\n     * One-line description\n     *\n     * Detailed discussion...\n     * ...\n     */",
+      "range": {
+        "startLine": 189,
+        "startChar": 4,
+        "endLine": 189,
+        "endChar": 7
+      },
+      "revId": "848e3cb563159f083c655475f2d37a02fddf475b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b45c1d3_b0046784",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:51:53Z",
+      "side": 1,
+      "message": "during processMessage.",
+      "range": {
+        "startLine": 190,
+        "startChar": 25,
+        "endLine": 190,
+        "endChar": 61
+      },
+      "revId": "848e3cb563159f083c655475f2d37a02fddf475b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21d3c792_1c5ef2dd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:51:53Z",
+      "side": 1,
+      "message": "Can only be used ? Must only be used ?",
+      "range": {
+        "startLine": 190,
+        "startChar": 68,
+        "endLine": 190,
+        "endChar": 80
+      },
+      "revId": "848e3cb563159f083c655475f2d37a02fddf475b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a48c800_60a56370",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:51:53Z",
+      "side": 1,
+      "message": "something wrong happens",
+      "range": {
+        "startLine": 191,
+        "startChar": 27,
+        "endLine": 191,
+        "endChar": 51
+      },
+      "revId": "848e3cb563159f083c655475f2d37a02fddf475b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "deb4f325_712993c3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:51:53Z",
+      "side": 1,
+      "message": "If you call `Message.obtain` then you should recycle the message after you\u0027re finished using it. Call `Message#recycle` after l.172 when you\u0027re done with it.",
+      "range": {
+        "startLine": 199,
+        "startChar": 30,
+        "endLine": 199,
+        "endChar": 36
+      },
+      "revId": "848e3cb563159f083c655475f2d37a02fddf475b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
