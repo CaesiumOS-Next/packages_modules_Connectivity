@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99684a89_e9b0bd3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T05:41:24Z",
+      "side": 1,
+      "message": "Patch LGTM in isolation, but I want to look at followups before I +2 because I need to know where we go from here.",
+      "revId": "2f93eeb2c250167f4ed62ccc703e6233903d6680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c02a85a_e6b18181",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T05:41:24Z",
+      "side": 1,
+      "message": "If I\u0027m reading this correctly, as of this patch `volatile` is not necessary. This is written to false on the constructor thread, and to true in the machine thread, and the only read is in `addAllState` which guarantees that either the machine thread is not started (in which case there was no way to set it true) or it\u0027s called on the machine thread (in which case it must see the write).\n\nI don\u0027t know what other usages of this you will have later so maybe it\u0027s better to keep this, but as of this patch I think you don\u0027t need it",
+      "range": {
+        "startLine": 37,
+        "startChar": 12,
+        "endLine": 37,
+        "endChar": 20
+      },
+      "revId": "2f93eeb2c250167f4ed62ccc703e6233903d6680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3e491e0_cc80e918",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T05:41:24Z",
+      "side": 1,
+      "message": "Please have Javadoc to explain the two arguments in detail.",
+      "range": {
+        "startLine": 68,
+        "startChar": 53,
+        "endLine": 68,
+        "endChar": 59
+      },
+      "revId": "2f93eeb2c250167f4ed62ccc703e6233903d6680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95483415_6f1e71de",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T05:41:24Z",
+      "side": 1,
+      "message": "Do you need to have both constructors public ? I would suggest that the one in l.64 doesn\u0027t bring much ; in fact it obscures the fact that it still has thread confinement semantics, so I think it\u0027s better to force callers to say `new SyncStateMachine(name, Thread.currentThread())` if that\u0027s what they mean.",
+      "range": {
+        "startLine": 68,
+        "startChar": 11,
+        "endLine": 68,
+        "endChar": 27
+      },
+      "revId": "2f93eeb2c250167f4ed62ccc703e6233903d6680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bfb915c_5f288096",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T05:41:24Z",
+      "side": 1,
+      "message": "the automaton will transition to the given destination state.",
+      "range": {
+        "startLine": 111,
+        "startChar": 79,
+        "endLine": 112,
+        "endChar": 54
+      },
+      "revId": "2f93eeb2c250167f4ed62ccc703e6233903d6680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67c21ffe_175da32f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T05:41:24Z",
+      "side": 1,
+      "message": "Will you have any way to guarantee that ?",
+      "range": {
+        "startLine": 114,
+        "startChar": 21,
+        "endLine": 114,
+        "endChar": 79
+      },
+      "revId": "2f93eeb2c250167f4ed62ccc703e6233903d6680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
