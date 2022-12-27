@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcfd55f3_0de90ab2",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-27T05:43:32Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "5f2a196f_d826decd",
+      "range": {
+        "startLine": 916,
+        "startChar": 23,
+        "endLine": 916,
+        "endChar": 46
+      },
+      "revId": "e3ee743a7950555af6b81700efa9c3c5ab8f3c2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ace4c1bb_f098347f",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cc14f0d_09c06ea1",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-27T05:43:32Z",
+      "side": 1,
+      "message": "I think the TCP statistic does not contain user information. If we do not keep the information, then I think I would prefer to lower the log level to .e because the wtf logs do not provide any useful debug information w/o the full bytebuffer information.",
+      "parentUuid": "ace4c1bb_f098347f",
+      "range": {
+        "startLine": 925,
+        "startChar": 61,
+        "endLine": 925,
+        "endChar": 74
+      },
+      "revId": "e3ee743a7950555af6b81700efa9c3c5ab8f3c2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "69142da6_b9d151b7",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-12-23T10:50:32Z",
       "side": 1,
       "message": "It\u0027s not the remaining data size is it ? It\u0027s the offset at which the next message starts. \"remaining\" is the number of bytes to the end of the buffer but this is counted from the start",
+      "range": {
+        "startLine": 944,
+        "startChar": 18,
+        "endLine": 944,
+        "endChar": 35
+      },
+      "revId": "e3ee743a7950555af6b81700efa9c3c5ab8f3c2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30f6b74d_fdad1949",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-12-27T05:43:32Z",
+      "side": 1,
+      "message": "rename to nextMsgOffset",
+      "parentUuid": "69142da6_b9d151b7",
       "range": {
         "startLine": 944,
         "startChar": 18,
