@@ -1,0 +1,297 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ea396ea_9a5b3ac6",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T09:49:41Z",
+      "side": 1,
+      "message": "be kept",
+      "range": {
+        "startLine": 163,
+        "startChar": 50,
+        "endLine": 163,
+        "endChar": 54
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3e21d0a_2115b4f6",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T09:49:41Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 165,
+        "startChar": 58,
+        "endLine": 165,
+        "endChar": 65
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95867161_c26e3d98",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T09:49:41Z",
+      "side": 1,
+      "message": "If I understand correctly, you\u0027re doing this because you need to keep the listener so you can send updates to it, but old apps have no way of unregistering so if you always keep the listeners you\u0027ll fill up memory. So with Android 14+, you require apps to explicitly stop listening.\n\nIf that\u0027s the case, I have bad news for you. Most apps will simply upgrade their target SDKs to Android 14 without changes and test. In your scheme, nothing bad happens to them, but they fill up memory because the default behavior on Android 14 is to keep the listener, and to call a method that they didn\u0027t override, so they never notice.\n\nI\u0027m afraid a ChangeId is not the right way to deal with such a situation. Some ideas :\n\n- Lowest touch for the API is to remove if the app doesn\u0027t implement the new callback. You can do that by calling `.getClass().getMethod(\u003cyour new callback\u003e).getDeclaringClass() !\u003d YourBaseClass.class`. That\u0027s very cool because it always does the right thing with no change to the API, including on future Android instances. But it\u0027s uncool because it\u0027s reflection and it\u0027s pretty difficult to make sure it works and it stays working.\n- You could change the API so that the old API startResolution always behaves like before, and you introduce a new method that always behaves like the new one and requires stopping the resolution. That can be an override with a boolean `oneShot` to decide the behavior, or just a method with a new name.\n\nWhatever you do, you\u0027ll need to implement some scheme to limit the number of receivers registered at one time, if it\u0027s not already done. See b/249448132 for history of a similar issue in other cases.",
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d8f6ba4_27ffc33d",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T09:49:41Z",
+      "side": 1,
+      "message": "This name sounds a little bit off. As written, it sounds like if this is off it always removes the listener, and if it\u0027s on it only removes the listener for legacy apps. But that\u0027s not what this change does.\n\nWhat it does is, if off it removes the resolution listener upon resolution, if on it keeps it.\n\nSuggested wording :\n\n    /**\n     * When enabled, keep the resolution listener after initial resolution of a service.\n     *\n     * Before Android 14, resolving a service is a one-shot operation that removes\n     * the resolution listener.\n     * Starting with Android 14, the system will send updates to apps with {@link\n     * onServiceResolutionInfoUpdated} until {@link stopServiceResolution} is\n     * called.\n     *\n     * On Android 13- this change is disabled by default, removing the listener\n     * upon successful resolution.\n     * On Android 14+, this change is enabled by default, requiring apps to\n     * call {@link stopServiceResolution} to stop listening.\n     */\n\nSo that\u0027s for the wording, but see my other comment.",
+      "range": {
+        "startLine": 171,
+        "startChar": 29,
+        "endLine": 171,
+        "endChar": 75
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a71a6c0_62cb6796",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T09:49:41Z",
+      "side": 1,
+      "message": "Called when",
+      "range": {
+        "startLine": 696,
+        "startChar": 11,
+        "endLine": 696,
+        "endChar": 17
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42c8f0c8_0c1807b7",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T09:49:41Z",
+      "side": 1,
+      "message": "changes",
+      "range": {
+        "startLine": 699,
+        "startChar": 61,
+        "endLine": 699,
+        "endChar": 71
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcbfdc9f_117aeb00",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T09:49:41Z",
+      "side": 1,
+      "message": "as",
+      "range": {
+        "startLine": 699,
+        "startChar": 39,
+        "endLine": 699,
+        "endChar": 43
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc0369c3_704d7e0f",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T09:49:41Z",
+      "side": 1,
+      "message": "is called",
+      "range": {
+        "startLine": 700,
+        "startChar": 84,
+        "endLine": 700,
+        "endChar": 89
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f7c6255_3e2c69be",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T09:49:41Z",
+      "side": 1,
+      "message": "\"only once when\" ?",
+      "range": {
+        "startLine": 701,
+        "startChar": 11,
+        "endLine": 701,
+        "endChar": 15
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa311cfd_0d7e612a",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T09:49:41Z",
+      "side": 1,
+      "message": "You should also explain the ordering guarantees with other methods in this class, and if relevant on what thread/executor this is (if that\u0027s already explained on the registering method, link there).",
+      "range": {
+        "startLine": 702,
+        "startChar": 9,
+        "endLine": 702,
+        "endChar": 11
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc13d4de_097b8adc",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T09:49:41Z",
+      "side": 1,
+      "message": "Is there a meaningful difference between this and `onServiceResolved` ? Could we just call `onServiceResolved` multiple times ?",
+      "range": {
+        "startLine": 703,
+        "startChar": 21,
+        "endLine": 703,
+        "endChar": 51
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cb35728_1090866f",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T09:49:41Z",
+      "side": 1,
+      "message": "But what about the ports ? Is it possible that a service listens on address1:port1 and address2:port2 ? Or must it listen on the same port on all addresses ?",
+      "range": {
+        "startLine": 115,
+        "startChar": 29,
+        "endLine": 115,
+        "endChar": 45
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3aead158_d9ccdaa4",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T09:49:41Z",
+      "side": 1,
+      "message": "Well too bad, you\u0027re modifying the underlying list in setHostAddress. Example code :\n\n    final NsdServiceInfo nsi \u003d ...\n    final List\u003cInetAddress\u003e prevAddresses \u003d nsi.getHostAddresses();\n    // prevAddresses.add(linkAddress); // would crash, good\n    nsi.setHostAddresses(listOf(linkAddress));\n    final List\u003cInetAddress\u003e newAddresses \u003d nsi.getHostAddresses();\n\nAfter this code, newAddresses and prevAddresses have the same content : the one that was set. This is because `unmodifiableList` doesn\u0027t return a copy ; it returns a wrapper over the existing list. So when you mutate the underlying list in l.121, you\u0027re also mutating what was returned before.\n\nThe only defense against this is defensive copies. Either you make a copy in getHostAddresses, or you make the field mutable and make a copy in setHostAddresses.",
+      "range": {
+        "startLine": 116,
+        "startChar": 27,
+        "endLine": 116,
+        "endChar": 43
+      },
+      "revId": "679d0b72e7f3b2ac1fb4d375b6144001fde92240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
