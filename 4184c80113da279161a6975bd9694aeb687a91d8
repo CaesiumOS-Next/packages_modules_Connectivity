@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23cdd176_7dbded6b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T09:00:04Z",
+      "side": 1,
+      "message": "must\n\n(it\u0027s not what we usually do, it\u0027s a strict requirement, otherwise it just doest\u0027t work)",
+      "range": {
+        "startLine": 38,
+        "startChar": 15,
+        "endLine": 38,
+        "endChar": 22
+      },
+      "revId": "4184c80113da279161a6975bd9694aeb687a91d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab331ae8_5356e5c4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T09:00:04Z",
+      "side": 1,
+      "message": "I think you need to clarify this ; do you mean it\u0027s possible to have two different instances of the same state ? If so I suggest the following wording :\n\n    An instance of a state can\u0027t have multiple parent states, but it\u0027s fine to\n    have multiple instances of the same state as long as they have different\n    parents.\n    // Not supported:                   Supported:\n    //   State1    State2                 State1              State2\n    //         \\   /                        |                   |\n    //        State3@instance1            State3@instance1    State3@instance2",
+      "range": {
+        "startLine": 39,
+        "startChar": 7,
+        "endLine": 39,
+        "endChar": 37
+      },
+      "revId": "4184c80113da279161a6975bd9694aeb687a91d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
