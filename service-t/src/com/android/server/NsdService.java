@@ -392,6 +392,20 @@ public class NsdService extends INsdManager.Stub {
                                     clientId, NsdManager.FAILURE_OPERATION_NOT_RUNNING);
                         }
                         break;
+                    case NsdManager.REGISTER_SERVICE_CALLBACK:
+                        cInfo = getClientInfoForReply(msg);
+                        if (cInfo != null) {
+                            cInfo.onRegisterServiceCallbackFailed(
+                                    clientId, NsdManager.FAILURE_BAD_PARAMETERS);
+                        }
+                        break;
+                    case NsdManager.UNREGISTER_SERVICE_CALLBACK:
+                        cInfo = getClientInfoForReply(msg);
+                        if (cInfo != null) {
+                            cInfo.onUnregisterServiceCallbackFailed(
+                                    clientId, NsdManager.FAILURE_OPERATION_NOT_RUNNING);
+                        }
+                        break;
                     case NsdManager.DAEMON_CLEANUP:
                         maybeStopDaemon();
                         break;
@@ -467,6 +481,11 @@ public class NsdService extends INsdManager.Stub {
                 clientInfo.mListeners.delete(clientId);
                 mIdToClientInfoMap.remove(transactionId);
                 maybeStopMonitoringSocketsIfNoActiveRequest();
+            }
+
+            private void clearRegisteredServiceInfo(ClientInfo clientInfo) {
+                clientInfo.mRegisteredService = null;
+                clientInfo.mClientIdForServiceUpdates = 0;
             }
 
             /**
@@ -719,6 +738,57 @@ public class NsdService extends INsdManager.Stub {
                         clientInfo.mResolvedService = null;
                         // TODO: Implement the stop resolution with MdnsDiscoveryManager.
                         break;
+                    case NsdManager.REGISTER_SERVICE_CALLBACK:
+                        if (DBG) Log.d(TAG, "Register a service callback");
+                        args = (ListenerArgs) msg.obj;
+                        clientInfo = mClients.get(args.connector);
+                        // If the binder death notification for a INsdManagerCallback was received
+                        // before any calls are received by NsdService, the clientInfo would be
+                        // cleared and cause NPE. Add a null check here to prevent this corner case.
+                        if (clientInfo == null) {
+                            Log.e(TAG, "Unknown connector in callback registration");
+                            break;
+                        }
+
+                        if (clientInfo.mRegisteredService != null) {
+                            clientInfo.onRegisterServiceCallbackFailed(
+                                    clientId, NsdManager.FAILURE_ALREADY_ACTIVE);
+                            break;
+                        }
+
+                        maybeStartDaemon();
+                        id = getUniqueId();
+                        if (resolveService(id, args.serviceInfo)) {
+                            clientInfo.mRegisteredService = new NsdServiceInfo();
+                            clientInfo.mClientIdForServiceUpdates = clientId;
+                            storeRequestMap(clientId, id, clientInfo, msg.what);
+                        } else {
+                            clientInfo.onRegisterServiceCallbackFailed(
+                                    clientId, NsdManager.FAILURE_BAD_PARAMETERS);
+                        }
+                        break;
+                    case NsdManager.UNREGISTER_SERVICE_CALLBACK:
+                        if (DBG) Log.d(TAG, "Unregister a service callback");
+                        args = (ListenerArgs) msg.obj;
+                        clientInfo = mClients.get(args.connector);
+                        // If the binder death notification for a INsdManagerCallback was received
+                        // before any calls are received by NsdService, the clientInfo would be
+                        // cleared and cause NPE. Add a null check here to prevent this corner case.
+                        if (clientInfo == null) {
+                            Log.e(TAG, "Unknown connector in callback unregistration");
+                            break;
+                        }
+
+                        id = clientInfo.mClientIds.get(clientId);
+                        removeRequestMap(clientId, id, clientInfo);
+                        if (stopResolveService(id)) {
+                            clientInfo.onUnregisterServiceCallbackSucceeded(clientId);
+                        } else {
+                            clientInfo.onUnregisterServiceCallbackFailed(
+                                    clientId, NsdManager.FAILURE_OPERATION_NOT_RUNNING);
+                        }
+                        clearRegisteredServiceInfo(clientInfo);
+                        break;
                     case MDNS_SERVICE_EVENT:
                         if (!handleMDnsServiceEvent(msg.arg1, msg.arg2, msg.obj)) {
                             return NOT_HANDLED;
@@ -733,6 +803,18 @@ public class NsdService extends INsdManager.Stub {
                         return NOT_HANDLED;
                 }
                 return HANDLED;
+            }
+
+            private void notifyResolveFailedResult(boolean isListenedToUpdates, int clientId,
+                    ClientInfo clientInfo, int error) {
+                if (isListenedToUpdates) {
+                    clientInfo.onRegisterServiceCallbackFailed(clientId, error);
+                    clearRegisteredServiceInfo(clientInfo);
+                } else {
+                    // Resolve API returns FAILURE_INTERNAL_ERROR for most failed cases.
+                    clientInfo.onResolveServiceFailed(clientId, NsdManager.FAILURE_INTERNAL_ERROR);
+                    clientInfo.mResolvedService = null;
+                }
             }
 
             private boolean handleMDnsServiceEvent(int code, int id, Object obj) {
@@ -821,10 +903,15 @@ public class NsdService extends INsdManager.Stub {
                         String rest = fullName.substring(index);
                         String type = rest.replace(".local.", "");
 
-                        clientInfo.mResolvedService.setServiceName(name);
-                        clientInfo.mResolvedService.setServiceType(type);
-                        clientInfo.mResolvedService.setPort(info.port);
-                        clientInfo.mResolvedService.setTxtRecords(info.txtRecord);
+                        final boolean isListenedToUpdates =
+                                clientId == clientInfo.mClientIdForServiceUpdates;
+                        final NsdServiceInfo serviceInfo = isListenedToUpdates
+                                ? clientInfo.mRegisteredService : clientInfo.mResolvedService;
+
+                        serviceInfo.setServiceName(name);
+                        serviceInfo.setServiceType(type);
+                        serviceInfo.setPort(info.port);
+                        serviceInfo.setTxtRecords(info.txtRecord);
                         // Network will be added after SERVICE_GET_ADDR_SUCCESS
 
                         stopResolveService(id);
@@ -834,9 +921,8 @@ public class NsdService extends INsdManager.Stub {
                         if (getAddrInfo(id2, info.hostname, info.interfaceIdx)) {
                             storeRequestMap(clientId, id2, clientInfo, NsdManager.RESOLVE_SERVICE);
                         } else {
-                            clientInfo.onResolveServiceFailed(
-                                    clientId, NsdManager.FAILURE_INTERNAL_ERROR);
-                            clientInfo.mResolvedService = null;
+                            notifyResolveFailedResult(isListenedToUpdates, clientId, clientInfo,
+                                    NsdManager.FAILURE_BAD_PARAMETERS);
                         }
                         break;
                     }
@@ -844,17 +930,17 @@ public class NsdService extends INsdManager.Stub {
                         /* NNN resolveId errorCode */
                         stopResolveService(id);
                         removeRequestMap(clientId, id, clientInfo);
-                        clientInfo.mResolvedService = null;
-                        clientInfo.onResolveServiceFailed(
-                                clientId, NsdManager.FAILURE_INTERNAL_ERROR);
+                        notifyResolveFailedResult(
+                                clientId == clientInfo.mClientIdForServiceUpdates,
+                                clientId, clientInfo, NsdManager.FAILURE_BAD_PARAMETERS);
                         break;
                     case IMDnsEventListener.SERVICE_GET_ADDR_FAILED:
                         /* NNN resolveId errorCode */
                         stopGetAddrInfo(id);
                         removeRequestMap(clientId, id, clientInfo);
-                        clientInfo.mResolvedService = null;
-                        clientInfo.onResolveServiceFailed(
-                                clientId, NsdManager.FAILURE_INTERNAL_ERROR);
+                        notifyResolveFailedResult(
+                                clientId == clientInfo.mClientIdForServiceUpdates,
+                                clientId, clientInfo, NsdManager.FAILURE_BAD_PARAMETERS);
                         break;
                     case IMDnsEventListener.SERVICE_GET_ADDR_SUCCESS: {
                         /* NNN resolveId hostname ttl addr interfaceIdx netId */
@@ -871,19 +957,38 @@ public class NsdService extends INsdManager.Stub {
                         // If the resolved service is on an interface without a network, consider it
                         // as a failure: it would not be usable by apps as they would need
                         // privileged permissions.
-                        if (netId != NETID_UNSET && serviceHost != null) {
-                            clientInfo.mResolvedService.setHost(serviceHost);
-                            setServiceNetworkForCallback(clientInfo.mResolvedService,
-                                    netId, info.interfaceIdx);
-                            clientInfo.onResolveServiceSucceeded(
-                                    clientId, clientInfo.mResolvedService);
+                        if (clientId == clientInfo.mClientIdForServiceUpdates) {
+                            if (netId != NETID_UNSET && serviceHost != null) {
+                                setServiceNetworkForCallback(clientInfo.mRegisteredService,
+                                        netId, info.interfaceIdx);
+                                final List<InetAddress> addresses =
+                                        clientInfo.mRegisteredService.getHostAddresses();
+                                addresses.add(serviceHost);
+                                clientInfo.mRegisteredService.setHostAddresses(addresses);
+                                clientInfo.onServiceUpdated(
+                                        clientId, clientInfo.mRegisteredService);
+                            } else {
+                                stopGetAddrInfo(id);
+                                removeRequestMap(clientId, id, clientInfo);
+                                clearRegisteredServiceInfo(clientInfo);
+                                clientInfo.onRegisterServiceCallbackFailed(
+                                        clientId, NsdManager.FAILURE_BAD_PARAMETERS);
+                            }
                         } else {
-                            clientInfo.onResolveServiceFailed(
-                                    clientId, NsdManager.FAILURE_INTERNAL_ERROR);
+                            if (netId != NETID_UNSET && serviceHost != null) {
+                                clientInfo.mResolvedService.setHost(serviceHost);
+                                setServiceNetworkForCallback(clientInfo.mResolvedService,
+                                        netId, info.interfaceIdx);
+                                clientInfo.onResolveServiceSucceeded(
+                                        clientId, clientInfo.mResolvedService);
+                            } else {
+                                clientInfo.onResolveServiceFailed(
+                                        clientId, NsdManager.FAILURE_INTERNAL_ERROR);
+                            }
+                            stopGetAddrInfo(id);
+                            removeRequestMap(clientId, id, clientInfo);
+                            clientInfo.mResolvedService = null;
                         }
-                        stopGetAddrInfo(id);
-                        removeRequestMap(clientId, id, clientInfo);
-                        clientInfo.mResolvedService = null;
                         break;
                     }
                     default:
@@ -1192,6 +1297,20 @@ public class NsdService extends INsdManager.Stub {
         }
 
         @Override
+        public void registerServiceCallback(int listenerKey, NsdServiceInfo serviceInfo) {
+            mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
+                    NsdManager.REGISTER_SERVICE_CALLBACK, 0, listenerKey,
+                    new ListenerArgs(this, serviceInfo)));
+        }
+
+        @Override
+        public void unregisterServiceCallback(int listenerKey) {
+            mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
+                    NsdManager.UNREGISTER_SERVICE_CALLBACK, 0, listenerKey,
+                    new ListenerArgs(this, null)));
+        }
+
+        @Override
         public void startDaemon() {
             mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
                     NsdManager.DAEMON_STARTUP, new ListenerArgs(this, null)));
@@ -1351,6 +1470,11 @@ public class NsdService extends INsdManager.Stub {
 
         // The target SDK of this client < Build.VERSION_CODES.S
         private boolean mIsLegacy = false;
+
+        /*** The service that is registered to listen to its updates */
+        private NsdServiceInfo mRegisteredService;
+        /*** The client id that listen to updates */
+        private int mClientIdForServiceUpdates;
 
         private ClientInfo(INsdManagerCallback cb) {
             mCb = cb;
@@ -1538,6 +1662,38 @@ public class NsdService extends INsdManager.Stub {
                 mCb.onStopResolutionSucceeded(listenerKey);
             } catch (RemoteException e) {
                 Log.e(TAG, "Error calling onStopResolutionSucceeded", e);
+            }
+        }
+
+        void onRegisterServiceCallbackFailed(int listenerKey, int error) {
+            try {
+                mCb.onRegisterServiceCallbackFailed(listenerKey, error);
+            } catch (RemoteException e) {
+                Log.e(TAG, "Error calling onRegisterServiceCallbackFailed", e);
+            }
+        }
+
+        void onServiceUpdated(int listenerKey, NsdServiceInfo info) {
+            try {
+                mCb.onServiceUpdated(listenerKey, info);
+            } catch (RemoteException e) {
+                Log.e(TAG, "Error calling onServiceUpdated", e);
+            }
+        }
+
+        void onUnregisterServiceCallbackFailed(int listenerKey, int error) {
+            try {
+                mCb.onUnregisterServiceCallbackFailed(listenerKey, error);
+            } catch (RemoteException e) {
+                Log.e(TAG, "Error calling onUnregisterServiceCallbackFailed", e);
+            }
+        }
+
+        void onUnregisterServiceCallbackSucceeded(int listenerKey) {
+            try {
+                mCb.onUnregisterServiceCallbackSucceeded(listenerKey);
+            } catch (RemoteException e) {
+                Log.e(TAG, "Error calling onUnregisterServiceCallbackSucceeded", e);
             }
         }
     }
