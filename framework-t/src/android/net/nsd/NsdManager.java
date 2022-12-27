@@ -254,6 +254,20 @@ public final class NsdManager {
     /** @hide */
     public static final int STOP_RESOLUTION_SUCCEEDED               = 26;
 
+    /** @hide */
+    public static final int REGISTER_SERVICE_CALLBACK               = 27;
+    /** @hide */
+    public static final int SUBSCRIBE_SERVICE_FAILED                = 28;
+    /** @hide */
+    public static final int SUBSCRIBED_SERVICE_UPDATED              = 29;
+
+    /** @hide */
+    public static final int UNREGISTER_SERVICE_CALLBACK             = 30;
+    /** @hide */
+    public static final int STOP_SUBSCRIPTION_FAILED                = 31;
+    /** @hide */
+    public static final int STOP_SUBSCRIPTION_SUCCEEDED             = 32;
+
     /** Dns based service discovery protocol */
     public static final int PROTOCOL_DNS_SD = 0x0001;
 
@@ -281,6 +295,10 @@ public final class NsdManager {
         EVENT_NAMES.put(MDNS_SERVICE_EVENT, "MDNS_SERVICE_EVENT");
         EVENT_NAMES.put(STOP_RESOLUTION_FAILED, "STOP_RESOLUTION_FAILED");
         EVENT_NAMES.put(STOP_RESOLUTION_SUCCEEDED, "STOP_RESOLUTION_SUCCEEDED");
+        EVENT_NAMES.put(SUBSCRIBE_SERVICE_FAILED, "SUBSCRIBE_SERVICE_FAILED");
+        EVENT_NAMES.put(SUBSCRIBED_SERVICE_UPDATED, "SUBSCRIBED_SERVICE_UPDATED");
+        EVENT_NAMES.put(STOP_SUBSCRIPTION_FAILED, "STOP_SUBSCRIPTION_FAILED");
+        EVENT_NAMES.put(STOP_SUBSCRIPTION_SUCCEEDED, "STOP_SUBSCRIPTION_SUCCEEDED");
     }
 
     /** @hide */
@@ -616,6 +634,26 @@ public final class NsdManager {
         public void onStopResolutionSucceeded(int listenerKey) {
             sendNoArg(STOP_RESOLUTION_SUCCEEDED, listenerKey);
         }
+
+        @Override
+        public void onSubscribeServiceFailed(int listenerKey, int error) {
+            sendError(SUBSCRIBE_SERVICE_FAILED, listenerKey, error);
+        }
+
+        @Override
+        public void onSubscribedServiceUpdated(int listenerKey, NsdServiceInfo info) {
+            sendInfo(SUBSCRIBED_SERVICE_UPDATED, listenerKey, info);
+        }
+
+        @Override
+        public void onStopSubscriptionFailed(int listenerKey, int error) {
+            sendError(STOP_SUBSCRIPTION_FAILED, listenerKey, error);
+        }
+
+        @Override
+        public void onStopSubscriptionSucceeded(int listenerKey) {
+            sendNoArg(STOP_SUBSCRIPTION_SUCCEEDED, listenerKey);
+        }
     }
 
     /**
@@ -645,12 +683,41 @@ public final class NsdManager {
      */
     public static final int RESOLUTION_NOT_RUNNING              = 5;
 
+    /**
+     * Indicates that the stop subscription failed because the subscription is not existed.
+     * This failure is passed with {@link ServiceCallback#onStopSubscriptionFailed}.
+     */
+    public static final int SUBSCRIPTION_NOT_RUNNING            = 6;
+
+    /**
+     * Indicates that the service is failed to resolve. This failure is passed with
+     * {@link ServiceCallback#onSubscribeFailed}.
+     */
+    public static final int CANNOT_RESOLVE_SERVICE              = 7;
+
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(value = {
             RESOLUTION_NOT_RUNNING,
     })
     public @interface StopResolutionFailureCode {
+    }
+
+    /** @hide */
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef(value = {
+            FAILURE_ALREADY_ACTIVE,
+            CANNOT_RESOLVE_SERVICE,
+    })
+    public @interface ResolutionFailureCode {
+    }
+
+    /** @hide */
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef(value = {
+            SUBSCRIPTION_NOT_RUNNING,
+    })
+    public @interface StopSubscriptionFailureCode {
     }
 
     /** Interface for callback invocation for service discovery */
@@ -721,6 +788,46 @@ public final class NsdManager {
          */
         default void onStopResolutionFailed(@NonNull NsdServiceInfo serviceInfo,
                 @StopResolutionFailureCode int errorCode) { }
+    }
+
+    /**
+     * Callback for use with {@link NsdManager#registerServiceCallback} to subscribe the service
+     * info update and use with {@link NsdManager#unregisterServiceCallback} to stop subscription.
+     */
+    public interface ServiceCallback {
+
+        /**
+         * Called once with an executor passed to {@link NsdManager#registerServiceCallback} to
+         * report that subscribing failed with an error.
+         */
+        void onSubscribeFailed(@NonNull NsdServiceInfo serviceInfo,
+                @ResolutionFailureCode int errorCode);
+
+        /**
+         * Called with an executor passed to {@link NsdManager#registerServiceCallback} to
+         * report the updated service info. Any service updates will be notified via this callback
+         * until {@link NsdManager#unregisterServiceCallback} is called.
+         */
+        void onServiceUpdated(@NonNull NsdServiceInfo serviceInfo);
+
+        /**
+         * Called once with an executor passed to {@link NsdManager#registerServiceCallback} to
+         * report the subscription was stopped.
+         *
+         * A stop subscription operation would call either onSubscribeStopped or
+         * onStopSubscriptionFailed once based on the result..
+         */
+        void onSubscribeStopped(@NonNull NsdServiceInfo serviceInfo);
+
+        /**
+         * Called once with an executor passed to {@link NsdManager#registerServiceCallback} to
+         * report that stopping subscription failed with an error.
+         *
+         * A stop subscription operation would call either onSubscribeStopped or
+         * onStopSubscriptionFailed once based on the result.
+         */
+        void onStopSubscriptionFailed(@NonNull NsdServiceInfo serviceInfo,
+                @StopSubscriptionFailureCode int errorCode);
     }
 
     @VisibleForTesting
@@ -821,6 +928,25 @@ public final class NsdManager {
                 case STOP_RESOLUTION_SUCCEEDED:
                     removeListener(key);
                     executor.execute(() -> ((ResolveListener) listener).onResolveStopped(
+                            ns));
+                    break;
+                case SUBSCRIBE_SERVICE_FAILED:
+                    removeListener(key);
+                    executor.execute(() -> ((ServiceCallback) listener).onSubscribeFailed(
+                            ns, errorCode));
+                    break;
+                case SUBSCRIBED_SERVICE_UPDATED:
+                    executor.execute(() -> ((ServiceCallback) listener)
+                            .onServiceUpdated((NsdServiceInfo) obj));
+                    break;
+                case STOP_SUBSCRIPTION_FAILED:
+                    removeListener(key);
+                    executor.execute(() -> ((ServiceCallback) listener).onStopSubscriptionFailed(
+                            ns, errorCode));
+                    break;
+                case STOP_SUBSCRIPTION_SUCCEEDED:
+                    removeListener(key);
+                    executor.execute(() -> ((ServiceCallback) listener).onSubscribeStopped(
                             ns));
                     break;
                 default:
@@ -1175,6 +1301,61 @@ public final class NsdManager {
         int id = getListenerKey(listener);
         try {
             mService.stopResolution(id);
+        } catch (RemoteException e) {
+            e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * Register a callback to listen for updates to a service.
+     *
+     * An application can subscribe to a service to continuously monitor availability of said
+     * service. The callback methods will be called on the passed executor. And a service update is
+     * notified to with a call to {@link ServiceCallback#onServiceUpdated} continuously.
+     *
+     * This is different from {@link #resolveService} which provide a one shot service information.
+     *
+     * <p> An application can subscribe a service once a time. It needs to cancel the subscription
+     * before subscribe other services. Upon failure to register a callback like resolves service
+     * failed or duplicated registration, application is notified through
+     * {@link ServiceCallback#onSubscribeFailed} with {@link #CANNOT_RESOLVE_SERVICE} or
+     * {@link #FAILURE_ALREADY_ACTIVE}
+     *
+     * @param serviceInfo the service that want to subscribe for its updates.
+     * @param executor Executor to run callbacks with
+     * @param listener to receive callback upon service updated
+     */
+    public void registerServiceCallback(@NonNull NsdServiceInfo serviceInfo,
+            @NonNull Executor executor, @NonNull ServiceCallback listener) {
+        checkServiceInfo(serviceInfo);
+        int key = putListener(listener, executor, serviceInfo);
+        try {
+            mService.registerServiceCallback(key, serviceInfo);
+        } catch (RemoteException e) {
+            e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * Unregister the callback initiated with {@link #registerServiceCallback}.
+     *
+     * A successful unregistration is notified with a call to
+     * {@link ServiceCallback#onSubscribeStopped}.
+     *
+     * <p> Upon failure to unregister a callback like already unregistered, application is notified
+     * through {@link ServiceCallback#onStopSubscriptionFailed} with
+     * {@link #SUBSCRIPTION_NOT_RUNNING}
+     *
+     * @param listener This should be a listener object that was passed to
+     *                 {@link #registerServiceCallback}. It identifies the registration that should
+     *                 be unregistered and notifies of a successful or unsuccessful stop.
+     *                 Throw {@code IllegalArgumentException} if the listener was not passed to
+     *                 {@link #registerServiceCallback} before.
+     */
+    public void unregisterServiceCallback(@NonNull ServiceCallback listener) {
+        int id = getListenerKey(listener);
+        try {
+            mService.unregisterServiceCallback(id);
         } catch (RemoteException e) {
             e.rethrowFromSystemServer();
         }
