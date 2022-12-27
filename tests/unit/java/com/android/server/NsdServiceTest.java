@@ -16,6 +16,7 @@
 
 package com.android.server;
 
+import static android.net.nsd.NsdManager.FAILURE_CANNOT_RESOLVE_SERVICE;
 import static android.net.nsd.NsdManager.FAILURE_INTERNAL_ERROR;
 import static android.net.nsd.NsdManager.FAILURE_OPERATION_NOT_RUNNING;
 
@@ -62,6 +63,7 @@ import android.net.nsd.NsdManager;
 import android.net.nsd.NsdManager.DiscoveryListener;
 import android.net.nsd.NsdManager.RegistrationListener;
 import android.net.nsd.NsdManager.ResolveListener;
+import android.net.nsd.NsdManager.ServiceCallback;
 import android.net.nsd.NsdServiceInfo;
 import android.os.Binder;
 import android.os.Build;
@@ -661,6 +663,147 @@ public class NsdServiceTest {
         verify(resolveListener, timeout(TIMEOUT_MS)).onResolveStopped(argThat(ns ->
                 request.getServiceName().equals(ns.getServiceName())
                         && request.getServiceType().equals(ns.getServiceType())));
+    }
+
+    private void verifyUpdatedServiceInfo(NsdServiceInfo info, String serviceName,
+            String serviceType, String address, int port, int interfaceIndex, Network network) {
+        assertEquals(serviceName, info.getServiceName());
+        assertEquals(serviceType, info.getServiceType());
+        assertTrue(info.getHostAddresses().contains(InetAddresses.parseNumericAddress(address)));
+        assertEquals(port, info.getPort());
+        assertEquals(network, info.getNetwork());
+        assertEquals(interfaceIndex, info.getInterfaceIndex());
+    }
+
+    @Test
+    public void testRegisterAndUnregisterServiceCallback() throws RemoteException {
+        final NsdManager client = connectClient(mService);
+        final NsdServiceInfo request = new NsdServiceInfo(SERVICE_NAME, SERVICE_TYPE);
+        final ServiceCallback serviceCallback = mock(ServiceCallback.class);
+        client.registerServiceCallback(request, Runnable::run, serviceCallback);
+        waitForIdle();
+
+        final IMDnsEventListener eventListener = getEventListener();
+        final ArgumentCaptor<Integer> resolvIdCaptor = ArgumentCaptor.forClass(Integer.class);
+        verify(mMockMDnsM).resolve(resolvIdCaptor.capture(), eq(SERVICE_NAME), eq(SERVICE_TYPE),
+                eq("local.") /* domain */, eq(IFACE_IDX_ANY));
+
+        // Resolve service successfully.
+        final ResolutionInfo resolutionInfo = new ResolutionInfo(
+                resolvIdCaptor.getValue(),
+                IMDnsEventListener.SERVICE_RESOLVED,
+                null /* serviceName */,
+                null /* serviceType */,
+                null /* domain */,
+                SERVICE_FULL_NAME,
+                DOMAIN_NAME,
+                PORT,
+                new byte[0] /* txtRecord */,
+                IFACE_IDX_ANY);
+        doReturn(true).when(mMockMDnsM).getServiceAddress(anyInt(), any(), anyInt());
+        eventListener.onServiceResolutionStatus(resolutionInfo);
+        waitForIdle();
+
+        final ArgumentCaptor<Integer> getAddrIdCaptor = ArgumentCaptor.forClass(Integer.class);
+        verify(mMockMDnsM).getServiceAddress(getAddrIdCaptor.capture(), eq(DOMAIN_NAME),
+                eq(IFACE_IDX_ANY));
+
+        // First address info
+        final String v4Address = "192.0.2.1";
+        final String v6Address = "2001:db8::";
+        final GetAddressInfo addressInfo1 = new GetAddressInfo(
+                getAddrIdCaptor.getValue(),
+                IMDnsEventListener.SERVICE_GET_ADDR_SUCCESS,
+                SERVICE_FULL_NAME,
+                v4Address,
+                IFACE_IDX_ANY,
+                999 /* netId */);
+        eventListener.onGettingServiceAddressStatus(addressInfo1);
+        waitForIdle();
+
+        final ArgumentCaptor<NsdServiceInfo> updateInfoCaptor =
+                ArgumentCaptor.forClass(NsdServiceInfo.class);
+        verify(serviceCallback, timeout(TIMEOUT_MS).times(1))
+                .onServiceUpdated(updateInfoCaptor.capture());
+        verifyUpdatedServiceInfo(updateInfoCaptor.getAllValues().get(0) /* info */, SERVICE_NAME,
+                "." + SERVICE_TYPE, v4Address, PORT, IFACE_IDX_ANY, new Network(999));
+
+        // Second address info
+        final GetAddressInfo addressInfo2 = new GetAddressInfo(
+                getAddrIdCaptor.getValue(),
+                IMDnsEventListener.SERVICE_GET_ADDR_SUCCESS,
+                SERVICE_FULL_NAME,
+                v6Address,
+                IFACE_IDX_ANY,
+                999 /* netId */);
+        eventListener.onGettingServiceAddressStatus(addressInfo2);
+        waitForIdle();
+
+        verify(serviceCallback, timeout(TIMEOUT_MS).times(2))
+                .onServiceUpdated(updateInfoCaptor.capture());
+        verifyUpdatedServiceInfo(updateInfoCaptor.getAllValues().get(1) /* info */, SERVICE_NAME,
+                "." + SERVICE_TYPE, v6Address, PORT, IFACE_IDX_ANY, new Network(999));
+
+        client.unregisterServiceCallback(serviceCallback);
+        waitForIdle();
+
+        verify(serviceCallback, timeout(TIMEOUT_MS)).onUnregisterServiceCallbackSucceeded(
+                argThat(ns -> request.getServiceName().equals(ns.getServiceName())
+                        && request.getServiceType().equals(ns.getServiceType())));
+    }
+
+    @Test
+    public void testRegisterServiceCallbackFailed() throws Exception {
+        final NsdManager client = connectClient(mService);
+        final NsdServiceInfo request = new NsdServiceInfo(SERVICE_NAME, SERVICE_TYPE);
+        final ServiceCallback subscribeListener = mock(ServiceCallback.class);
+        client.registerServiceCallback(request, Runnable::run, subscribeListener);
+        waitForIdle();
+
+        final IMDnsEventListener eventListener = getEventListener();
+        final ArgumentCaptor<Integer> resolvIdCaptor = ArgumentCaptor.forClass(Integer.class);
+        verify(mMockMDnsM).resolve(resolvIdCaptor.capture(), eq(SERVICE_NAME), eq(SERVICE_TYPE),
+                eq("local.") /* domain */, eq(IFACE_IDX_ANY));
+
+        // Fail to resolve service.
+        final ResolutionInfo resolutionFailedInfo = new ResolutionInfo(
+                resolvIdCaptor.getValue(),
+                IMDnsEventListener.SERVICE_RESOLUTION_FAILED,
+                null /* serviceName */,
+                null /* serviceType */,
+                null /* domain */,
+                null /* serviceFullName */,
+                null /* domainName */,
+                0 /* port */,
+                new byte[0] /* txtRecord */,
+                IFACE_IDX_ANY);
+        eventListener.onServiceResolutionStatus(resolutionFailedInfo);
+        verify(subscribeListener, timeout(TIMEOUT_MS))
+                .onRegisterServiceCallbackFailed(any(), eq(FAILURE_CANNOT_RESOLVE_SERVICE));
+    }
+
+    @Test
+    public void testUnregisterServiceCallbackFailed() {
+        final NsdManager client = connectClient(mService);
+        final NsdServiceInfo request = new NsdServiceInfo(SERVICE_NAME, SERVICE_TYPE);
+        final ServiceCallback serviceCallback = mock(ServiceCallback.class);
+        client.registerServiceCallback(request, Runnable::run, serviceCallback);
+        waitForIdle();
+
+        final ArgumentCaptor<Integer> resolvIdCaptor = ArgumentCaptor.forClass(Integer.class);
+        verify(mMockMDnsM).resolve(resolvIdCaptor.capture(), eq(SERVICE_NAME), eq(SERVICE_TYPE),
+                eq("local.") /* domain */, eq(IFACE_IDX_ANY));
+
+        final int resolveId = resolvIdCaptor.getValue();
+        doReturn(false).when(mMockMDnsM).stopOperation(anyInt());
+        client.unregisterServiceCallback(serviceCallback);
+        waitForIdle();
+
+        verify(mMockMDnsM).stopOperation(resolveId);
+        verify(serviceCallback, timeout(TIMEOUT_MS)).onUnregisterServiceCallbackFailed(argThat(ns ->
+                        request.getServiceName().equals(ns.getServiceName())
+                                && request.getServiceType().equals(ns.getServiceType())),
+                eq(FAILURE_OPERATION_NOT_RUNNING));
     }
 
     private void makeServiceWithMdnsDiscoveryManagerEnabled() {
