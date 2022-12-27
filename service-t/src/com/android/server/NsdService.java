@@ -18,7 +18,9 @@ package com.android.server;
 
 import static android.net.ConnectivityManager.NETID_UNSET;
 import static android.net.nsd.NsdManager.MDNS_SERVICE_EVENT;
+import static android.net.nsd.NsdManager.REMOVE_RESOLUTION_LISTENER_ONLY_IF_LEGACY_APPS;
 
+import android.app.compat.CompatChanges;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -58,7 +60,9 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Network Service Discovery Service handles remote service discovery operation requests by
@@ -611,19 +615,48 @@ public class NsdService extends INsdManager.Stub {
                         // If the resolved service is on an interface without a network, consider it
                         // as a failure: it would not be usable by apps as they would need
                         // privileged permissions.
-                        if (netId != NETID_UNSET && serviceHost != null) {
-                            clientInfo.mResolvedService.setHost(serviceHost);
-                            setServiceNetworkForCallback(clientInfo.mResolvedService,
-                                    netId, info.interfaceIdx);
-                            clientInfo.onResolveServiceSucceeded(
-                                    clientId, clientInfo.mResolvedService);
+                        if (!CompatChanges.isChangeEnabled(
+                                REMOVE_RESOLUTION_LISTENER_ONLY_IF_LEGACY_APPS)) {
+                            if (netId != NETID_UNSET && serviceHost != null) {
+                                clientInfo.mResolvedService.setHost(serviceHost);
+                                clientInfo.mResolvedService.setHostAddresses(
+                                        List.of(serviceHost));
+                                setServiceNetworkForCallback(clientInfo.mResolvedService,
+                                        netId, info.interfaceIdx);
+                                clientInfo.onResolveServiceSucceeded(
+                                        clientId, clientInfo.mResolvedService);
+                            } else {
+                                clientInfo.onResolveServiceFailed(
+                                        clientId, NsdManager.FAILURE_INTERNAL_ERROR);
+                            }
+                            stopResolveService(id);
+                            removeRequestMap(clientId, id, clientInfo);
+                            clientInfo.mResolvedService = null;
                         } else {
-                            clientInfo.onResolveServiceFailed(
-                                    clientId, NsdManager.FAILURE_INTERNAL_ERROR);
+                            if (netId != NETID_UNSET && serviceHost != null) {
+                                setServiceNetworkForCallback(clientInfo.mResolvedService,
+                                        netId, info.interfaceIdx);
+                                if (clientInfo.mResolvedService.getHostAddresses().isEmpty()) {
+                                    clientInfo.mResolvedService.setHostAddresses(
+                                            List.of(serviceHost));
+                                    clientInfo.onResolveServiceSucceeded(
+                                            clientId, clientInfo.mResolvedService);
+                                } else {
+                                    final List<InetAddress> addresses = new ArrayList<>(
+                                            clientInfo.mResolvedService.getHostAddresses());
+                                    addresses.add(serviceHost);
+                                    clientInfo.mResolvedService.setHostAddresses(addresses);
+                                    clientInfo.onServiceResolutionInfoUpdated(
+                                            clientId, clientInfo.mResolvedService);
+                                }
+                            } else {
+                                stopGetAddrInfo(id);
+                                removeRequestMap(clientId, id, clientInfo);
+                                clientInfo.mResolvedService = null;
+                                clientInfo.onResolveServiceFailed(
+                                        clientId, NsdManager.FAILURE_INTERNAL_ERROR);
+                            }
                         }
-                        stopGetAddrInfo(id);
-                        removeRequestMap(clientId, id, clientInfo);
-                        clientInfo.mResolvedService = null;
                         break;
                     }
                     default:
@@ -1138,6 +1171,14 @@ public class NsdService extends INsdManager.Stub {
                 mCb.onStopResolutionSucceeded(listenerKey);
             } catch (RemoteException e) {
                 Log.e(TAG, "Error calling onStopResolutionSucceeded", e);
+            }
+        }
+
+        void onServiceResolutionInfoUpdated(int listenerKey, NsdServiceInfo info) {
+            try {
+                mCb.onServiceResolutionInfoUpdated(listenerKey, info);
+            } catch (RemoteException e) {
+                Log.e(TAG, "Error calling onServiceResolutionInfoUpdated", e);
             }
         }
     }

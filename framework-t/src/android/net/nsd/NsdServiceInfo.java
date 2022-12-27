@@ -29,7 +29,9 @@ import android.util.Log;
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,6 +49,8 @@ public final class NsdServiceInfo implements Parcelable {
     private final ArrayMap<String, byte[]> mTxtRecord = new ArrayMap<>();
 
     private InetAddress mHost;
+
+    private final List<InetAddress> mHostAddresses = new ArrayList<>();
 
     private int mPort;
 
@@ -85,11 +89,13 @@ public final class NsdServiceInfo implements Parcelable {
     }
 
     /** Get the host address. The host address is valid for a resolved service. */
+    @Deprecated
     public InetAddress getHost() {
         return mHost;
     }
 
     /** Set the host address */
+    @Deprecated
     public void setHost(InetAddress s) {
         mHost = s;
     }
@@ -102,6 +108,18 @@ public final class NsdServiceInfo implements Parcelable {
     /** Set port number */
     public void setPort(int p) {
         mPort = p;
+    }
+
+    /** Get the host addresses. The host addresses are valid for a resolved service. */
+    @NonNull
+    public List<InetAddress> getHostAddresses() {
+        return Collections.unmodifiableList(mHostAddresses);
+    }
+
+    /** Set the host addresses */
+    public void setHostAddresses(@NonNull List<InetAddress> addresses) {
+        mHostAddresses.clear();
+        mHostAddresses.addAll(addresses);
     }
 
     /**

@@ -156,6 +156,21 @@ public final class NsdManager {
     public static final long RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER = 235355681L;
 
     /**
+     * When enabled, apps targeting < Android 14 are considered legacy for
+     * the resolution listener.
+     * The resolution listener will be removed as soon as the service is resolved for legacy apps.
+     *
+     * After Android 14, resolution listener will keep for updating service information after the
+     * service information has been resolved. The apps need to call
+     * {@link #stopServiceResolution(ResolveListener)} to removed the listener.
+     *
+     * @hide
+     */
+    @ChangeId
+    @EnabledSince(targetSdkVersion = android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    public static final long REMOVE_RESOLUTION_LISTENER_ONLY_IF_LEGACY_APPS = 245369943L;
+
+    /**
      * Broadcast intent action to indicate whether network service discovery is
      * enabled or disabled. An extra {@link #EXTRA_NSD_STATE} provides the state
      * information as int.
@@ -248,6 +263,9 @@ public final class NsdManager {
     /** @hide */
     public static final int STOP_RESOLUTION_SUCCEEDED               = 25;
 
+    /** @hide */
+    public static final int SERVICE_RESOLUTION_INFO_UPDATED         = 26;
+
     /** Dns based service discovery protocol */
     public static final int PROTOCOL_DNS_SD = 0x0001;
 
@@ -275,6 +293,7 @@ public final class NsdManager {
         EVENT_NAMES.put(MDNS_SERVICE_EVENT, "MDNS_SERVICE_EVENT");
         EVENT_NAMES.put(STOP_RESOLUTION_FAILED, "STOP_RESOLUTION_FAILED");
         EVENT_NAMES.put(STOP_RESOLUTION_SUCCEEDED, "STOP_RESOLUTION_SUCCEEDED");
+        EVENT_NAMES.put(SERVICE_RESOLUTION_INFO_UPDATED, "SERVICE_RESOLUTION_INFO_UPDATED");
     }
 
     /** @hide */
@@ -610,6 +629,11 @@ public final class NsdManager {
         public void onStopResolutionSucceeded(int listenerKey) {
             sendNoArg(STOP_RESOLUTION_SUCCEEDED, listenerKey);
         }
+
+        @Override
+        public void onServiceResolutionInfoUpdated(int listenerKey, NsdServiceInfo info) {
+            sendInfo(SERVICE_RESOLUTION_INFO_UPDATED, listenerKey, info);
+        }
     }
 
     /**
@@ -667,6 +691,16 @@ public final class NsdManager {
         public void onResolveFailed(NsdServiceInfo serviceInfo, int errorCode);
 
         public void onServiceResolved(NsdServiceInfo serviceInfo);
+
+        /**
+         * Notify the service resolution information is updated.
+         *
+         * This callback is targeted to apps who want to know the updates from the service.
+         * It can be called many times when the service info is changed (hosts added / removed).
+         * It's different from {@link ResolveListener#onServiceResolved} which only calls
+         * once the service is resolved.
+         */
+        default void onServiceResolutionInfoUpdated(@NonNull NsdServiceInfo serviceInfo) { }
 
         /*** Notify the resolution is stopped */
         default void onResolveStopped(@NonNull NsdServiceInfo serviceInfo) { }
@@ -762,7 +796,13 @@ public final class NsdManager {
                             ns, errorCode));
                     break;
                 case RESOLVE_SERVICE_SUCCEEDED:
-                    removeListener(key);
+                    // Only proactively remove listener if the target SDK < U, otherwise the
+                    // listener will be kept for updating the service information. And remove it if
+                    // stopServiceResolution() is called.
+                    if (!CompatChanges.isChangeEnabled(
+                            REMOVE_RESOLUTION_LISTENER_ONLY_IF_LEGACY_APPS)) {
+                        removeListener(key);
+                    }
                     executor.execute(() -> ((ResolveListener) listener).onServiceResolved(
                             (NsdServiceInfo) obj));
                     break;
@@ -775,6 +815,10 @@ public final class NsdManager {
                     removeListener(key);
                     executor.execute(() -> ((ResolveListener) listener).onResolveStopped(
                             ns));
+                    break;
+                case SERVICE_RESOLUTION_INFO_UPDATED:
+                    executor.execute(() -> ((ResolveListener) listener)
+                            .onServiceResolutionInfoUpdated((NsdServiceInfo) obj));
                     break;
                 default:
                     Log.d(TAG, "Ignored " + message);
