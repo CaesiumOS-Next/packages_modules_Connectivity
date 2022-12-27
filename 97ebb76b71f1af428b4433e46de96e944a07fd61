@@ -39,6 +39,30 @@
       },
       "revId": "97ebb76b71f1af428b4433e46de96e944a07fd61",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19746674_90e95583",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-27T07:36:09Z",
+      "side": 1,
+      "message": "Yes, this is intended because we want to allow copied state. Adding the comment.",
+      "parentUuid": "4e12ecaf_bcd21ef5",
+      "range": {
+        "startLine": 37,
+        "startChar": 18,
+        "endLine": 37,
+        "endChar": 31
+      },
+      "revId": "97ebb76b71f1af428b4433e46de96e944a07fd61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
