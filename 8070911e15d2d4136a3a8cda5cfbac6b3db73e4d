@@ -1,0 +1,274 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "771e70bf_4dc34efb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:31:52Z",
+      "side": 1,
+      "message": "s/that/so that/",
+      "range": {
+        "startLine": 15,
+        "startChar": 39,
+        "endLine": 15,
+        "endChar": 43
+      },
+      "revId": "8070911e15d2d4136a3a8cda5cfbac6b3db73e4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "848f0094_984858a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:31:52Z",
+      "side": 1,
+      "message": "s/never/can never/",
+      "range": {
+        "startLine": 15,
+        "startChar": 55,
+        "endLine": 15,
+        "endChar": 60
+      },
+      "revId": "8070911e15d2d4136a3a8cda5cfbac6b3db73e4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6875fbf_e5666af5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:31:52Z",
+      "side": 1,
+      "message": "words",
+      "revId": "8070911e15d2d4136a3a8cda5cfbac6b3db73e4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "038c9baf_8475807f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:31:52Z",
+      "side": 1,
+      "message": "s/in the mid-way of state/mid-way of a state/",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 14
+      },
+      "revId": "8070911e15d2d4136a3a8cda5cfbac6b3db73e4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74acbe81_ce6e59bf",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:31:52Z",
+      "side": 1,
+      "message": "s/child/a child/",
+      "range": {
+        "startLine": 120,
+        "startChar": 68,
+        "endLine": 120,
+        "endChar": 73
+      },
+      "revId": "8070911e15d2d4136a3a8cda5cfbac6b3db73e4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8deea71a_782f9618",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:31:52Z",
+      "side": 1,
+      "message": "Why not just call `transitionTo(initialState); performTransitions();` here ? That would let you remove with CMD_START, which is good because then it can\u0027t be called from outside the state machine. The original state machine needs that so it performs the initial transition on the correct thread, but here you already know for sure this method is running on the right thread thanks to l.115.",
+      "range": {
+        "startLine": 122,
+        "startChar": 8,
+        "endLine": 122,
+        "endChar": 79
+      },
+      "revId": "8070911e15d2d4136a3a8cda5cfbac6b3db73e4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fec9e1e_a7882814",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:31:52Z",
+      "side": 1,
+      "message": "internal",
+      "range": {
+        "startLine": 130,
+        "startChar": 55,
+        "endLine": 130,
+        "endChar": 67
+      },
+      "revId": "8070911e15d2d4136a3a8cda5cfbac6b3db73e4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8e1799c_e94475c3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:31:52Z",
+      "side": 1,
+      "message": "You need documentation about this. It\u0027s clear that it means whether this is called from inside the sync state machine or not, but not at all what the method will do with this information.",
+      "range": {
+        "startLine": 133,
+        "startChar": 74,
+        "endLine": 133,
+        "endChar": 94
+      },
+      "revId": "8070911e15d2d4136a3a8cda5cfbac6b3db73e4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8be10af7_6cfa9e45",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:31:52Z",
+      "side": 1,
+      "message": "s/be //",
+      "range": {
+        "startLine": 160,
+        "startChar": 65,
+        "endLine": 160,
+        "endChar": 67
+      },
+      "revId": "8070911e15d2d4136a3a8cda5cfbac6b3db73e4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "075f825a_b77eace1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:31:52Z",
+      "side": 1,
+      "message": "Frankly this scheme looks very baroque. You need to have temporary storage, and the storage is shared through members with not even as much as comments for documentation.\n\nWhy not just use recursion here ? Something like :\n\n    private void performTransitions() {\n      if (null \u003d\u003d mDestState) return;\n      final StateInfo commonAncestor \u003d getLastActiveAncestor(mStateInfo.get(mDestState));\n      executeExitMethods(commonAncestor, mCurrentState);\n      executeEnterMethods(commonAncestor, mDestState);\n      mCurrentState \u003d mDestState;\n      mDestState \u003d null;\n    }\n\n    private StateInfo getLastActiveAncestor(@NonNull final StateInfo start) {\n      return (null \u003d\u003d start || start.mActive) ? start : getLastActiveAncestor(start.parent);\n    }\n\n    private void executeExitMethods(@NonNull StateInfo dest, @NonNull StateInfo start) {\n      if (dest \u003d\u003d start) return;\n      start.state.exit();\n      executeExitMethods(dest, start.parent);\n    }\n\n    private void executeEnterMethods(@NonNull StateInfo start, @NonNull StateInfo dest) {\n      if (dest \u003d\u003d start) return;\n      executeEnterMethods(start, dest.parent);\n      dest.enter();\n    }\n\nIsn\u0027t that much simpler ?\nYou could even imagine one less iteration by descending the stack first and calling the exits inline, but I think that would be harder to read.",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 36
+      },
+      "revId": "8070911e15d2d4136a3a8cda5cfbac6b3db73e4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eea95192_b8a416d7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:31:52Z",
+      "side": 1,
+      "message": "If this is a stack, why not use `java.util.Stack` instead of `ArrayList` ?",
+      "range": {
+        "startLine": 179,
+        "startChar": 18,
+        "endLine": 179,
+        "endChar": 27
+      },
+      "revId": "8070911e15d2d4136a3a8cda5cfbac6b3db73e4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c069a0a8_960b46eb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-12-27T08:31:52Z",
+      "side": 1,
+      "message": "Having a cache is fine, but if it\u0027s just a cache, the method could just return the stack as if it had been created ; that would make `invokeEnterMethods()` a lot easier to understand because it would not depend on the contents of a member being initalized beforehand.\n\nOf course if you implement my suggestion above you don\u0027t need this at all",
+      "range": {
+        "startLine": 179,
+        "startChar": 39,
+        "endLine": 179,
+        "endChar": 55
+      },
+      "revId": "8070911e15d2d4136a3a8cda5cfbac6b3db73e4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
