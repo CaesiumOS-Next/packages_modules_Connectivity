@@ -85,6 +85,8 @@ import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -148,6 +150,8 @@ public class BpfCoordinator {
     static final int NF_CONNTRACK_TCP_TIMEOUT_ESTABLISHED = 432_000;
     @VisibleForTesting
     static final int NF_CONNTRACK_UDP_TIMEOUT_STREAM = 180;
+    @VisibleForTesting
+    static final int INVALID_MTU = 0;
 
     // List of TCP port numbers which aren't offloaded because the packets require the netfilter
     // conntrack helper. See also TetherController::setForwardRules in netd.
@@ -332,6 +336,19 @@ public class BpfCoordinator {
          */
         public boolean isAtLeastS() {
             return SdkLevel.isAtLeastS();
+        }
+
+        /**
+         * Gets the MTU of an interface using NetworkInterface.
+         */
+        public int getNetworkInterfaceMtu(@NonNull String iface) {
+            try {
+                final NetworkInterface networkInterface = NetworkInterface.getByName(iface);
+                if (networkInterface != null) return networkInterface.getMTU();
+            } catch (SocketException ignore) { }
+
+            Log.e(TAG, "Fail to get MTU for " + iface);
+            return INVALID_MTU;
         }
 
         /** Get downstream4 BPF map. */
@@ -935,6 +952,7 @@ public class BpfCoordinator {
         // the rules, setting data limit and reporting data stats.
         String clatUnderlyingIfaceName = null;
         int clatUnderlyingIfaceIndex = 0;
+        int clatMtu = INVALID_MTU;
 
         Collection<InetAddress> upstreamAddresses = null;
         if (ns != null && ns.linkProperties != null) {
@@ -958,14 +976,16 @@ public class BpfCoordinator {
                 // TODO: support clat interface offload on S and T devices.
                 final String clatIface = get464XlatIfaceName(ns.linkProperties);
                 if (clatIface != null) {
+                    final int mtu = mDeps.getNetworkInterfaceMtu(clatIface);
                     final InterfaceParams underlyingIfaceParams = mDeps.getInterfaceParams(
                             ifaceName);
-                    if (underlyingIfaceParams != null) {
+                    if (mtu != INVALID_MTU && underlyingIfaceParams != null) {
                         // Prepare clat related information to build the upstream information
                         // mappings. We don't build the mapping right now because this can avoid
-                        // rollback if there is any error in the follows.
+                        // to rollback if there is any error in the follows.
                         clatUnderlyingIfaceName = ifaceName;
                         clatUnderlyingIfaceIndex = underlyingIfaceParams.index;
+                        clatMtu = mtu;
 
                         upstreamIfaceName = clatIface;
                         // Get all addresses which includes base interface and stacked interface.
@@ -1049,9 +1069,11 @@ public class BpfCoordinator {
 
         // 464xlat upstream interface needs to record its original interface index for setting
         // data limit and accounting data usage on its IPv6 upstream interface.
-        if (clatUnderlyingIfaceName != null && clatUnderlyingIfaceIndex != 0) {
+        if (clatMtu != INVALID_MTU && clatUnderlyingIfaceName != null
+                && clatUnderlyingIfaceIndex != 0) {
             // Record clat interface and which interface it stacked on.
-            final XlatInterfaceInfo xlatInfo = new XlatInterfaceInfo(upstreamIndex /* 464xlat */);
+            final XlatInterfaceInfo xlatInfo = new XlatInterfaceInfo(upstreamIndex /* 464xlat */,
+                    clatMtu);
             mUpstreamIfindexAndXlatInfoPair = new Pair<>(clatUnderlyingIfaceIndex, xlatInfo);
             // Needed for IPv6-only upstream which doesn't support IPv6 tethering. Ex: Wifi.
             // In this case, IpServer has never triggered updateUpstreamIPv6LinkProperties() to
@@ -1417,11 +1439,11 @@ public class BpfCoordinator {
 
         final String ageStr = (value.lastUsed == 0) ? "-"
                 : String.format("%dms", (now - value.lastUsed) / 1_000_000);
-        return String.format("%s [%s] %d(%s) %s:%d -> %d(%s) %s:%d -> %s:%d [%s] %d(%s) %s",
+        return String.format("%s [%s] %d(%s) %s:%d -> %d(%s) %s:%d -> %s:%d [%s] %d %d(%s) %s",
                 l4protoToString(key.l4proto), key.dstMac, key.iif, getIfName(key.iif),
                 src4, key.srcPort, value.oif, getIfName(value.oif),
-                public4, publicPort, dst4, value.dstPort, value.ethDstMac, value.accountIf,
-                getIfName(value.accountIf), ageStr);
+                public4, publicPort, dst4, value.dstPort, value.ethDstMac, value.pmtu,
+                value.accountIf, getIfName(value.accountIf), ageStr);
     }
 
     private void dumpIpv4ForwardingRuleMap(long now, boolean downstream,
@@ -1443,7 +1465,7 @@ public class BpfCoordinator {
         try (IBpfMap<Tether4Key, Tether4Value> upstreamMap = mDeps.getBpfUpstream4Map();
                 IBpfMap<Tether4Key, Tether4Value> downstreamMap = mDeps.getBpfDownstream4Map()) {
             pw.println("IPv4 Upstream: proto [inDstMac] iif(iface) src -> nat -> "
-                    + "dst [outDstMac] accountIf(iface) age");
+                    + "dst [outDstMac] pmtu accountIf(iface) age");
             pw.increaseIndent();
             dumpIpv4ForwardingRuleMap(now, UPSTREAM, upstreamMap, pw);
             pw.decreaseIndent();
@@ -1703,9 +1725,11 @@ public class BpfCoordinator {
     /** Xlat interface information class. */
     public static class XlatInterfaceInfo {
         public final int ifIndex;
+        public final int mtu;
 
-        public XlatInterfaceInfo(int ifIndex) {
+        public XlatInterfaceInfo(int ifIndex, int mtu) {
             this.ifIndex = ifIndex;
+            this.mtu = mtu;
         }
     }
 
@@ -1799,6 +1823,20 @@ public class BpfCoordinator {
         addr6[14] = addr4[2];
         addr6[15] = addr4[3];
         return addr6;
+    }
+
+    // Get the interface MTU for a given upstream interface index.
+    private int getMtu(int upstreamIndex) {
+        // Clat interface. Use clat interface mtu whihc is detected from upstream and minus clat
+        // translation overhead. See detectMtu in packages/modules/Connectivity/service/src/com/
+        // android/server/connectivity/ClatCoordinator.java
+        if (mUpstreamIfindexAndXlatInfoPair != null
+                && mUpstreamIfindexAndXlatInfoPair.second.ifIndex == upstreamIndex) {
+            return mUpstreamIfindexAndXlatInfoPair.second.mtu;
+        }
+        // Non-clat interface.
+        // TODO: consider to detect pmtu on the upstream.
+        return NetworkStackConstants.ETHER_MTU;
     }
 
     // If a given upstream interface index is clat interface, return its original upstream v6
@@ -1900,11 +1938,11 @@ public class BpfCoordinator {
 
         @NonNull
         private Tether4Value makeTetherUpstream4Value(@NonNull ConntrackEvent e,
-                int upstreamIndex, int accountIfIndex) {
+                int upstreamIndex, int mtu, int accountIfIndex) {
             return new Tether4Value(upstreamIndex,
                     NULL_MAC_ADDRESS /* ethDstMac (rawip) */,
                     NULL_MAC_ADDRESS /* ethSrcMac (rawip) */, ETH_P_IP,
-                    NetworkStackConstants.ETHER_MTU, toIpv4MappedAddressBytes(e.tupleReply.dstIp),
+                    mtu, toIpv4MappedAddressBytes(e.tupleReply.dstIp),
                     toIpv4MappedAddressBytes(e.tupleReply.srcIp), e.tupleReply.dstPort,
                     e.tupleReply.srcPort, 0 /* lastUsed, filled by bpf prog only */,
                     accountIfIndex);
@@ -1912,9 +1950,9 @@ public class BpfCoordinator {
 
         @NonNull
         private Tether4Value makeTetherDownstream4Value(@NonNull ConntrackEvent e,
-                @NonNull ClientInfo c, int upstreamIndex, int accountIfIndex) {
+                @NonNull ClientInfo c, int upstreamIndex, int mtu, int accountIfIndex) {
             return new Tether4Value(c.downstreamIfindex,
-                    c.clientMac, c.downstreamMac, ETH_P_IP, NetworkStackConstants.ETHER_MTU,
+                    c.clientMac, c.downstreamMac, ETH_P_IP, mtu,
                     toIpv4MappedAddressBytes(e.tupleOrig.dstIp),
                     toIpv4MappedAddressBytes(e.tupleOrig.srcIp),
                     e.tupleOrig.dstPort, e.tupleOrig.srcPort,
@@ -1968,10 +2006,12 @@ public class BpfCoordinator {
             // See do_forward4_bottom() in packages/modules/Connectivity/bpf_progs/offload.c
             // TODO: support clat interface offload on S and T devices.
             final int accountIfIndex = clatOffloadEnabled ? getAccountIfIndex(upstreamIndex) : 0;
+            final int mtu = clatOffloadEnabled
+                    ? getMtu(upstreamIndex) : NetworkStackConstants.ETHER_MTU;
             final Tether4Value upstream4Value = makeTetherUpstream4Value(e, upstreamIndex,
-                    accountIfIndex);
+                    mtu, accountIfIndex);
             final Tether4Value downstream4Value = makeTetherDownstream4Value(e, tetherClient,
-                    upstreamIndex, accountIfIndex);
+                    upstreamIndex, mtu, accountIfIndex);
 
             maybeAddDevMap(upstreamIndex, tetherClient.downstreamIfindex);
             maybeSetLimit(upstreamIndex);
