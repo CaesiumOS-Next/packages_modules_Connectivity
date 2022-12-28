@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a79280f_bf29cdce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-12-28T02:07:42Z",
+      "side": 1,
+      "message": "LGTM assuming Jean\u0027s comment will be addressed.",
+      "revId": "a8a06b670087e8615b9756db5d880e11dc94fd3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "535abd92_84cc0c18",
