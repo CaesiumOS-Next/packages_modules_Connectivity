@@ -2326,6 +2326,11 @@ public class ConnectivityManager {
                     // PacketKeepalive is only used for Nat-T keepalive and as such does not invoke
                     // this callback when data is received.
                 }
+
+                @Override
+                public void onTempDisabled() {
+                    // This callback is added for testing purpose.
+                }
             };
         }
     }

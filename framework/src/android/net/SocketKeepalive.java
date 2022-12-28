@@ -298,6 +298,19 @@ public abstract class SocketKeepalive implements AutoCloseable {
                     Binder.restoreCallingIdentity(token);
                 }
             }
+
+            @Override
+            public void onTempDisabled() {
+                final long token = Binder.clearCallingIdentity();
+                try {
+                    executor.execute(() -> {
+                        mSlot = null;
+                        callback.onTempDisabled();
+                    });
+                } finally {
+                    Binder.restoreCallingIdentity(token);
+                }
+            }
         };
     }
 
@@ -384,5 +397,11 @@ public abstract class SocketKeepalive implements AutoCloseable {
         /** The keepalive on a TCP socket was stopped because the socket received data. This is
          * never called for UDP sockets. */
         public void onDataReceived() {}
+
+        /**
+         * The keepalive was temporary disabled because of dynamic keepalive mode.
+         * @hide
+         */
+        public void onTempDisabled() {}
     }
 }
