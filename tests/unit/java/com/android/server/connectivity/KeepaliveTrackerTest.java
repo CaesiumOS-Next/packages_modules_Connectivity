@@ -315,7 +315,9 @@ public class KeepaliveTrackerTest {
 
     private static class TestSocketKeepaliveCallback extends ISocketKeepaliveCallback.Stub {
         private static final int TIMEOUT_MS = 2000;
-        public enum CallbackType { ON_STARTED, ON_STOPPED, ON_ERROR, ON_DATARECEIVED }
+        public enum CallbackType {
+            ON_STARTED, ON_STOPPED, ON_ERROR, ON_DATARECEIVED, ON_TEMP_DISABLED
+        }
         private final LinkedBlockingQueue<CallbackType> mCallbacks = new LinkedBlockingQueue<>();
         @Override
         public void onStarted(int slot) {
@@ -335,6 +337,11 @@ public class KeepaliveTrackerTest {
         @Override
         public void onDataReceived() {
             mCallbacks.add(CallbackType.ON_DATARECEIVED);
+        }
+
+        @Override
+        public void onTempDisabled() {
+            mCallbacks.add(CallbackType.ON_TEMP_DISABLED);
         }
 
         public void expect(CallbackType callbackValue) throws InterruptedException {
@@ -585,6 +592,7 @@ public class KeepaliveTrackerTest {
             mHandlerThread.getThreadHandler().post(() ->
                     mKeepaliveTracker.handleEventSocketKeepalive(
                             nai, slot, SocketKeepalive.SUCCESS));
+            mKeepaliveCallback.expect(TestSocketKeepaliveCallback.CallbackType.ON_TEMP_DISABLED);
             mKeepaliveCallback.expect(TestSocketKeepaliveCallback.CallbackType.ON_ERROR);
 
             setupResponseWithSocketExisting();
