@@ -43,6 +43,7 @@ import static com.android.net.module.util.netlink.ConntrackMessage.TupleProto;
 import static com.android.net.module.util.netlink.NetlinkConstants.IPCTNL_MSG_CT_DELETE;
 import static com.android.net.module.util.netlink.NetlinkConstants.IPCTNL_MSG_CT_NEW;
 import static com.android.networkstack.tethering.BpfCoordinator.CONNTRACK_TIMEOUT_UPDATE_INTERVAL_MS;
+import static com.android.networkstack.tethering.BpfCoordinator.INVALID_MTU;
 import static com.android.networkstack.tethering.BpfCoordinator.NF_CONNTRACK_TCP_TIMEOUT_ESTABLISHED;
 import static com.android.networkstack.tethering.BpfCoordinator.NF_CONNTRACK_UDP_TIMEOUT_STREAM;
 import static com.android.networkstack.tethering.BpfCoordinator.NON_OFFLOADED_UPSTREAM_IPV4_TCP_PORTS;
@@ -330,6 +331,11 @@ public class BpfCoordinatorTest {
                 return this;
             }
 
+            public Builder setPmtu(short pmtu) {
+                mPmtu = pmtu;
+                return this;
+            }
+
             public Builder setSrc46(Inet4Address src46) {
                 mSrc46 = toIpv4MappedAddressBytes(src46);
                 return this;
@@ -355,6 +361,11 @@ public class BpfCoordinatorTest {
             private int mDstPort = PRIVATE_PORT;
             private long mLastUsed = 0;
             private int mAccountIf = CLAT_OFFLOAD_ENABLED ? UPSTREAM_IFINDEX : 0 /* unused */;
+
+            public Builder setPmtu(short pmtu) {
+                mPmtu = pmtu;
+                return this;
+            }
 
             public Tether4Value build() {
                 return new Tether4Value(mOif, mEthDstMac, mEthSrcMac, mEthProto, mPmtu,
@@ -486,6 +497,11 @@ public class BpfCoordinatorTest {
 
                     public long elapsedRealtimeNanos() {
                         return mElapsedRealtimeNanos;
+                    }
+
+                    public int getNetworkInterfaceMtu(@NonNull String iface) {
+                        if (iface.startsWith("v4-")) return XLAT_MTU;  // clat interface
+                        return NetworkStackConstants.ETHER_MTU;
                     }
 
                     @Nullable
@@ -1746,9 +1762,11 @@ public class BpfCoordinatorTest {
                 .build();
         final Tether4Value expectedUpstream4ValueTcp = new TestUpstream4Value.Builder()
                 .setOif(UPSTREAM_XLAT_IFINDEX)
+                .setPmtu(XLAT_MTU)
                 .setSrc46(XLAT_LOCAL_IPV4ADDR)
                 .build();
         final Tether4Value expectedDownstream4ValueTcp = new TestDownstream4Value.Builder()
+                .setPmtu(XLAT_MTU)
                 .build();
 
         final Tether4Key expectedUpstream4KeyUdp = new TestUpstream4Key.Builder()
@@ -1761,9 +1779,11 @@ public class BpfCoordinatorTest {
                 .build();
         final Tether4Value expectedUpstream4ValueUdp = new TestUpstream4Value.Builder()
                 .setOif(UPSTREAM_XLAT_IFINDEX)
+                .setPmtu(XLAT_MTU)
                 .setSrc46(XLAT_LOCAL_IPV4ADDR)
                 .build();
         final Tether4Value expectedDownstream4ValueUdp = new TestDownstream4Value.Builder()
+                .setPmtu(XLAT_MTU)
                 .build();
 
         // [1] Adding the first rule on current upstream.
@@ -2554,7 +2574,7 @@ public class BpfCoordinatorTest {
         assertEquals(1, interfaceNames.size());
         assertTrue(interfaceNames.contains(UPSTREAM_IFINDEX));
 
-        // [5] verify xlat interface
+        // [5] Verify mobile with xlat interface
         // Expect that xlat interface information isn't added to mapping on S and T devices.
         // Expect that xlat interface information is added to mapping on U+ devices.
         doReturn(UPSTREAM_XLAT_IFACE_PARAMS).when(mDeps).getInterfaceParams(
@@ -2692,5 +2712,43 @@ public class BpfCoordinatorTest {
     @IgnoreAfter(Build.VERSION_CODES.TIRAMISU)
     public void testUpdateUpstreamNetworkState_ipv6AndXlatWifiOnSOrT() throws Exception {
         verifyUpdateUpstreamNetworkState_ipv6AndXlatWifi(false /* clatOffloadEnabled */);
+    }
+
+    private void verifyUpdateUpstreamNetworkState_invalidXlatMtu() throws Exception {
+        final BpfCoordinator coordinator = makeBpfCoordinator();
+        final HashMap<Inet4Address, Integer> ipv4UpstreamIndices =
+                coordinator.getIpv4UpstreamIndicesForTesting();
+
+        // Assign the xlat invalid mtu and update upstream network state.
+        // Expect that upstream address mapping is empty.
+        doReturn(INVALID_MTU).when(mDeps).getNetworkInterfaceMtu(UPSTREAM_XLAT_IFACE);
+        coordinator.addUpstreamNameToLookupTable(UPSTREAM_IFINDEX, UPSTREAM_IFACE);
+        coordinator.addUpstreamNameToLookupTable(UPSTREAM_XLAT_IFINDEX, UPSTREAM_XLAT_IFACE);
+        doReturn(UPSTREAM_IFACE_PARAMS).when(mDeps).getInterfaceParams(UPSTREAM_IFACE);
+        doReturn(UPSTREAM_XLAT_IFACE_PARAMS).when(mDeps).getInterfaceParams(
+                UPSTREAM_XLAT_IFACE);
+        final UpstreamNetworkState mobile464xlatUpstreamState = new UpstreamNetworkState(
+                buildUpstreamLinkProperties(UPSTREAM_IFACE,
+                        false /* IPv4 */, true /* IPv6 */, true /* 464xlat */),
+                new NetworkCapabilities().addTransportType(TRANSPORT_CELLULAR),
+                new Network(TEST_NET_ID));
+        coordinator.updateUpstreamNetworkState(mobile464xlatUpstreamState);
+        assertTrue(ipv4UpstreamIndices.isEmpty());
+
+        // Assign the xlat valid mtu and update upstream network state again.
+        // Expect that upstream address mapping is updated.
+        doReturn(NetworkStackConstants.ETHER_MTU).when(mDeps).getNetworkInterfaceMtu(
+                UPSTREAM_XLAT_IFACE);
+        coordinator.updateUpstreamNetworkState(mobile464xlatUpstreamState);
+        assertEquals(1, ipv4UpstreamIndices.size());
+        Integer upstreamIndex = ipv4UpstreamIndices.get(XLAT_LOCAL_IPV4ADDR);
+        assertNotNull(upstreamIndex);
+        assertEquals(UPSTREAM_XLAT_IFINDEX, (int) upstreamIndex);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testUpdateUpstreamNetworkState_invalidXlatMtu() throws Exception {
+        verifyUpdateUpstreamNetworkState_invalidXlatMtu();
     }
 }
