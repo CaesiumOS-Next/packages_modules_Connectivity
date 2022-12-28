@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11a20468_5ce6ee69",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1079,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-28T16:24:20Z",
+      "side": 1,
+      "message": "Jean might have a draft did not send.\nPer offline discussion, if we want to change the content of the collection, it should be changed after readPlatformCollectionForRecorder is called. It\u0027s not a good idea.",
+      "parentUuid": "1c36be5c_d1dbb9e0",
+      "range": {
+        "startLine": 1079,
+        "startChar": 17,
+        "endLine": 1079,
+        "endChar": 75
+      },
+      "revId": "059db61202b595356476317bf96b678a30d05c72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a127fd0e_8c172aec",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-19T07:31:17Z",
       "side": 1,
       "message": "That\u0027s a string so \u003d\u003d is maybe not appropriate ?",
+      "range": {
+        "startLine": 1131,
+        "startChar": 59,
+        "endLine": 1131,
+        "endChar": 61
+      },
+      "revId": "059db61202b595356476317bf96b678a30d05c72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc04ad44_897a3307",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1131,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-28T16:24:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a127fd0e_8c172aec",
       "range": {
         "startLine": 1131,
         "startChar": 59,
