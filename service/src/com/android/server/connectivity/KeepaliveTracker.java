@@ -123,7 +123,7 @@ public class KeepaliveTracker {
     private static final String EXTRA_NETWORK = "network_id";
     private static final String EXTRA_SLOT = "slot";
     private static final long DEFAULT_TCP_POLLING_INTERVAL_MS = 120_000L;
-
+    private static final long FIRST_TCP_POLLING_DELAY_MS = 1_000L;
     /** Keeps track of keepalive requests. */
     private final HashMap <NetworkAgentInfo, HashMap<Integer, KeepaliveInfo>> mKeepalives =
             new HashMap<> ();
@@ -550,7 +550,14 @@ public class KeepaliveTracker {
     private void handleStartKeepalive(KeepaliveInfo ki, int slot, NetworkAgentInfo nai) {
         ki.start(slot);
         if (ki.mDynamicKeepaliveMode) {
-            handleStartTcpPollingAlarm(nai.network(), slot);
+            // Monitor TCP sockets status. Delay sending message to wait for starting keepalive
+            // to be completed so that stopping keepalive for no TCP socket case will not be blocked
+            // by keepalive state.
+            // TODO: Replace with SkDestroyListener then the delay message is unnecessary.
+            mConnectivityServiceHandler.sendMessageDelayed(
+                    mConnectivityServiceHandler.obtainMessage(
+                            NetworkAgent.CMD_POLL_TCP_SOCKETS, slot, 0 , nai.network()),
+                            FIRST_TCP_POLLING_DELAY_MS);
         }
     }
 
