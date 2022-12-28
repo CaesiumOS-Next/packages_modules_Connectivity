@@ -606,7 +606,13 @@ public class KeepaliveTracker {
             return;
         }
 
-        if (ki.mDynamicKeepaliveMode && ki.mStopReason != TEMP_DISABLED) {
+        if (ki.mStopReason == TEMP_DISABLED) {
+            try {
+                ki.mCallback.onTempDisabled();
+            } catch (RemoteException e) {
+                Log.w(TAG, "Discarded onTempDisable callback");
+            }
+        } else if (ki.mDynamicKeepaliveMode) {
             cleanDynamicKeepalives(nai.network(), slot);
         }
 
