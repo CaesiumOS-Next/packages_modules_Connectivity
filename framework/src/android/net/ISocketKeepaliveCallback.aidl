@@ -31,4 +31,6 @@ oneway interface ISocketKeepaliveCallback
     void onError(int error);
     /** The keepalive on a TCP socket was stopped because the socket received data. */
     void onDataReceived();
+    /** The keepalive was temporary disabled because of dynamic keepalive mode. */
+    void onTempDisabled();
 }

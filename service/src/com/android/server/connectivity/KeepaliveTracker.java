@@ -584,7 +584,14 @@ public class KeepaliveTracker {
         }
         // Reserve the slot because it will be re-started again once it reaches the criteria of
         // dynamic keepalive.
-        if (ki.mStopReason == TEMP_DISABLED) return;
+        if (ki.mStopReason == TEMP_DISABLED) {
+            try {
+                ki.mCallback.onTempDisabled();
+            } catch (RemoteException e) {
+                Log.w(TAG, "Discarded onTempDisable callback");
+            }
+            return;
+        }
 
         // Remove the keepalive from hash table so the slot can be considered available when reusing
         // it.
