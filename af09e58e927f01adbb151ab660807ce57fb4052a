@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "131cc185_af0defde",
+        "filename": "framework-t/src/android/net/NetworkTemplate.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-28T10:54:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f22d2c40_ca3c3ac8",
+      "range": {
+        "startLine": 591,
+        "startChar": 19,
+        "endLine": 591,
+        "endChar": 20
+      },
+      "revId": "af09e58e927f01adbb151ab660807ce57fb4052a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96736579_f48997b0",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a14b1094_8df26ea6",
+        "filename": "tests/common/java/android/net/netstats/NetworkTemplateTest.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-28T10:54:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96736579_f48997b0",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 28
+      },
+      "revId": "af09e58e927f01adbb151ab660807ce57fb4052a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0a67827_28027ee2",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-12-26T04:24:16Z",
       "side": 1,
       "message": "You might want to say that TYPE_MOBILE with an empty |subscriberId| list will match any subscriber ID",
+      "range": {
+        "startLine": 491,
+        "startChar": 34,
+        "endLine": 491,
+        "endChar": 35
+      },
+      "revId": "af09e58e927f01adbb151ab660807ce57fb4052a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ce73494_df66a498",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-28T10:54:21Z",
+      "side": 1,
+      "message": "Done, but I think it should say MATCH_MOBILE for the template.",
+      "parentUuid": "d0a67827_28027ee2",
       "range": {
         "startLine": 491,
         "startChar": 34,

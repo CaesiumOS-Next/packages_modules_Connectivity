@@ -22,6 +22,30 @@
       },
       "revId": "fb7376fbdc17b3ac41a9be6687a3456a416eadd4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7429a669_c63fc0bb",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-28T10:54:21Z",
+      "side": 0,
+      "message": "Done, and also keep the test for WIFI_WILDCARD.",
+      "parentUuid": "a5192ff8_107135d4",
+      "range": {
+        "startLine": 550,
+        "startChar": 8,
+        "endLine": 550,
+        "endChar": 28
+      },
+      "revId": "fb7376fbdc17b3ac41a9be6687a3456a416eadd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
