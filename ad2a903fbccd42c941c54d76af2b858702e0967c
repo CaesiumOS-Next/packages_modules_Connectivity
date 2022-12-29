@@ -69,6 +69,30 @@
       },
       "revId": "ad2a903fbccd42c941c54d76af2b858702e0967c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12cb4042_40ff76cc",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-29T13:25:21Z",
+      "side": 1,
+      "message": "really we\u0027re passing in the \u0027minimum kernel version we can guarantee\u0027",
+      "parentUuid": "2f172353_bee9a4cd",
+      "range": {
+        "startLine": 371,
+        "startChar": 45,
+        "endLine": 371,
+        "endChar": 54
+      },
+      "revId": "ad2a903fbccd42c941c54d76af2b858702e0967c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
