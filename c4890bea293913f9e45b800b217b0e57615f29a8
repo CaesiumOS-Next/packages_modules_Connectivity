@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4443e113_56152bb3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-29T16:30:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9edc91f3_de15b18c",
+      "range": {
+        "startLine": 68,
+        "startChar": 21,
+        "endLine": 68,
+        "endChar": 29
+      },
+      "revId": "c4890bea293913f9e45b800b217b0e57615f29a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6ea9732_d64798c7",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-27T08:54:34Z",
       "side": 1,
       "message": "It must either be the thread on which this constructor is called, or a thread that is not started yet.",
+      "range": {
+        "startLine": 68,
+        "startChar": 66,
+        "endLine": 69,
+        "endChar": 44
+      },
+      "revId": "c4890bea293913f9e45b800b217b0e57615f29a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24d30806_abefdae1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/SyncStateMachine.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-12-29T16:30:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6ea9732_d64798c7",
       "range": {
         "startLine": 68,
         "startChar": 66,
