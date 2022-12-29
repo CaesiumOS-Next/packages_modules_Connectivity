@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97d38f1f_b9a7cec4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-29T12:32:08Z",
+      "side": 1,
+      "message": "lgtm. only nits. not strong opinion.",
+      "revId": "49bd4ac039c0eddc20b56cd8d8dd1ba2d6b754be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bd0f034_58319c27",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-29T12:32:08Z",
+      "side": 1,
+      "message": "nit: ditto as l.444",
+      "range": {
+        "startLine": 227,
+        "startChar": 31,
+        "endLine": 227,
+        "endChar": 39
+      },
+      "revId": "49bd4ac039c0eddc20b56cd8d8dd1ba2d6b754be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57204bfc_264aa9d3",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-29T12:32:08Z",
+      "side": 1,
+      "message": "nit: maybe also mention l2 header since we are starting to handle it at l.452",
+      "range": {
+        "startLine": 444,
+        "startChar": 31,
+        "endLine": 444,
+        "endChar": 39
+      },
+      "revId": "49bd4ac039c0eddc20b56cd8d8dd1ba2d6b754be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
