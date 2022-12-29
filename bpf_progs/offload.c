@@ -232,7 +232,7 @@ static inline __always_inline int do_forward6(struct __sk_buff* skb, const bool 
     // This would require a much newer kernel with newer ebpf accessors.
     // (This is also blindly assuming 12 bytes of tcp timestamp option in tcp header)
     uint64_t packets = 1;
-    uint64_t bytes = skb->len;
+    uint64_t bytes = skb->len - l2_header_size;
     if (bytes > v->pmtu) {
         const int tcp_overhead = sizeof(struct ipv6hdr) + sizeof(struct tcphdr) + 12;
         const int mss = v->pmtu - tcp_overhead;
@@ -449,7 +449,7 @@ static inline __always_inline int do_forward4_bottom(struct __sk_buff* skb,
     // This would require a much newer kernel with newer ebpf accessors.
     // (This is also blindly assuming 12 bytes of tcp timestamp option in tcp header)
     uint64_t packets = 1;
-    uint64_t bytes = skb->len;
+    uint64_t bytes = skb->len - l2_header_size;
     if (bytes > v->pmtu) {
         const int tcp_overhead = sizeof(struct iphdr) + sizeof(struct tcphdr) + 12;
         const int mss = v->pmtu - tcp_overhead;
