@@ -57,3 +57,11 @@ apex_key {
     public_key: "com.android.cronet.avbpubkey",
     private_key: "com.android.cronet.pem",
 }
+
+filegroup {
+    name: "cronet-hiddenapi-files",
+    srcs: [
+        "hiddenapi/*.txt",
+    ],
+    visibility: ["//packages/modules/Connectivity:__subpackages__"],
+}
