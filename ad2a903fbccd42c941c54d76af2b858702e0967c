@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2cc13c0_06eeeb5d",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-29T12:52:04Z",
+      "side": 1,
+      "message": "does the logic change here? or I misunderstanding the meaning of is_4_19. \n\n\"is_4_19\" sounds like 4.19 \"only\" and current change looks like 4.19\"+\"",
+      "range": {
+        "startLine": 199,
+        "startChar": 11,
+        "endLine": 199,
+        "endChar": 33
+      },
+      "revId": "ad2a903fbccd42c941c54d76af2b858702e0967c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f172353_bee9a4cd",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-29T12:52:04Z",
+      "side": 1,
+      "message": "nit: for reading, does KVER_NONE equal \"!is_4_19\"?\n\nalthough KVER_NONE(0) equals false(0) but KVER_NONE sounds like \"any\" which includes 4.19.",
+      "range": {
+        "startLine": 371,
+        "startChar": 45,
+        "endLine": 371,
+        "endChar": 54
+      },
+      "revId": "ad2a903fbccd42c941c54d76af2b858702e0967c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
