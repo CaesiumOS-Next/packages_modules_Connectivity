@@ -39,10 +39,33 @@ java_sdk_library {
         "cronet_aml_java",
     ],
     apex_available: ["com.android.tethering"],
-    jarjar_rules: "jarjar-rules.txt",
+    jarjar_rules: ":cronet-connectivity-jarjar-rules",
     unsafe_ignore_missing_latest_api: true,
     dist_group: "android",
     // cronet is used as a shared library.
     shared_library: true,
     exclude_kotlinc_generated_files: true,
+}
+
+java_genrule {
+    name: "cronet-connectivity-jarjar-rules",
+    tool_files: [
+        ":cronet-hiddenapi-files",
+        ":cronet_aml_java{.jar}",
+        "jarjar-excludes.txt",
+    ],
+    tools: [
+        "jarjar-rules-generator",
+    ],
+    out: ["cronet_connectivity_jarjar_rules.txt"],
+    cmd: "$(location jarjar-rules-generator) " +
+        "$(location :cronet_aml_java{.jar}) " +
+        "--prefix com.android.net.http " +
+        // Make a ":"-separated list. There will be an extra ":" but empty items are ignored.
+        "--unsupportedapi $$(printf ':%s' $(locations :cronet-hiddenapi-files)) " +
+        "--excludes $(location jarjar-excludes.txt) " +
+        "--output $(out)",
+    visibility: [
+        "//packages/modules/Connectivity/Cronet:__subpackages__",
+    ],
 }
