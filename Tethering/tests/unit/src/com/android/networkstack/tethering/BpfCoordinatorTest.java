@@ -41,6 +41,7 @@ import static com.android.net.module.util.netlink.ConntrackMessage.TupleProto;
 import static com.android.net.module.util.netlink.NetlinkConstants.IPCTNL_MSG_CT_DELETE;
 import static com.android.net.module.util.netlink.NetlinkConstants.IPCTNL_MSG_CT_NEW;
 import static com.android.networkstack.tethering.BpfCoordinator.CONNTRACK_TIMEOUT_UPDATE_INTERVAL_MS;
+import static com.android.networkstack.tethering.BpfCoordinator.INVALID_MTU;
 import static com.android.networkstack.tethering.BpfCoordinator.NF_CONNTRACK_TCP_TIMEOUT_ESTABLISHED;
 import static com.android.networkstack.tethering.BpfCoordinator.NF_CONNTRACK_UDP_TIMEOUT_STREAM;
 import static com.android.networkstack.tethering.BpfCoordinator.NON_OFFLOADED_UPSTREAM_IPV4_TCP_PORTS;
@@ -283,6 +284,11 @@ public class BpfCoordinatorTest {
             private int mDstPort = REMOTE_PORT;
             private long mLastUsed = 0;
 
+            public Builder setPmtu(short pmtu) {
+                mPmtu = pmtu;
+                return this;
+            }
+
             public Tether4Value build() {
                 return new Tether4Value(mOif, mEthDstMac, mEthSrcMac, mEthProto, mPmtu,
                         mSrc46, mDst46, mSrcPort, mDstPort, mLastUsed);
@@ -302,6 +308,11 @@ public class BpfCoordinatorTest {
             private int mSrcPort = REMOTE_PORT;
             private int mDstPort = PRIVATE_PORT;
             private long mLastUsed = 0;
+
+            public Builder setPmtu(short pmtu) {
+                mPmtu = pmtu;
+                return this;
+            }
 
             public Tether4Value build() {
                 return new Tether4Value(mOif, mEthDstMac, mEthSrcMac, mEthProto, mPmtu,
@@ -428,6 +439,10 @@ public class BpfCoordinatorTest {
 
                     public long elapsedRealtimeNanos() {
                         return mElapsedRealtimeNanos;
+                    }
+
+                    public int getNetworkInterfaceMtu(@NonNull String iface) {
+                        return NetworkStackConstants.ETHER_MTU;
                     }
 
                     @Nullable
@@ -2194,5 +2209,50 @@ public class BpfCoordinatorTest {
         ipv6ForwardingRules.put(mIpServer, addressRuleMap);
 
         verifyDump(coordinator);
+    }
+
+    private void verifyAddTetherOffloadRule4Mtu(final int mtu) throws Exception {
+        final BpfCoordinator coordinator = makeBpfCoordinator();
+        initBpfCoordinatorForRule4(coordinator);
+
+        final Tether4Key expectedUpstream4KeyTcp = new TestUpstream4Key.Builder()
+                .setProto(IPPROTO_TCP)
+                .build();
+        final Tether4Key expectedDownstream4KeyTcp = new TestDownstream4Key.Builder()
+                .setProto(IPPROTO_TCP)
+                .build();
+        final Tether4Value expectedUpstream4ValueTcp = new TestUpstream4Value.Builder()
+                .setPmtu((short) mtu)
+                .build();
+        final Tether4Value expectedDownstream4ValueTcp = new TestDownstream4Value.Builder()
+                .setPmtu((short) mtu)
+                .build();
+
+        doReturn(mtu).when(mDeps).getNetworkInterfaceMtu(any());
+        mConsumer.accept(new TestConntrackEvent.Builder()
+                .setMsgType(IPCTNL_MSG_CT_NEW)
+                .setProto(IPPROTO_TCP)
+                .build());
+        if (mtu == INVALID_MTU) {
+            verify(mBpfUpstream4Map, never()).insertEntry(any(), any());
+            verify(mBpfDownstream4Map, never()).insertEntry(any(), any());
+        } else {
+            verify(mBpfUpstream4Map)
+                    .insertEntry(eq(expectedUpstream4KeyTcp), eq(expectedUpstream4ValueTcp));
+            verify(mBpfDownstream4Map)
+                    .insertEntry(eq(expectedDownstream4KeyTcp), eq(expectedDownstream4ValueTcp));
+        }
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testAddTetherOffloadRule4LowMtu() throws Exception {
+        verifyAddTetherOffloadRule4Mtu(1280 /* mtu */);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testAddTetherOffloadRule4InvalidMtu() throws Exception {
+        verifyAddTetherOffloadRule4Mtu(INVALID_MTU);
     }
 }

@@ -27,6 +27,7 @@ import static android.net.netstats.provider.NetworkStatsProvider.QUOTA_UNLIMITED
 import static android.system.OsConstants.ETH_P_IP;
 import static android.system.OsConstants.ETH_P_IPV6;
 
+import static com.android.net.module.util.NetworkStackConstants.IPV4_MIN_MTU;
 import static com.android.net.module.util.ip.ConntrackMonitor.ConntrackEvent;
 import static com.android.networkstack.tethering.BpfUtils.DOWNSTREAM;
 import static com.android.networkstack.tethering.BpfUtils.UPSTREAM;
@@ -82,6 +83,8 @@ import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -143,6 +146,8 @@ public class BpfCoordinator {
     static final int NF_CONNTRACK_TCP_TIMEOUT_ESTABLISHED = 432_000;
     @VisibleForTesting
     static final int NF_CONNTRACK_UDP_TIMEOUT_STREAM = 180;
+    @VisibleForTesting
+    static final int INVALID_MTU = 0;
 
     // List of TCP port numbers which aren't offloaded because the packets require the netfilter
     // conntrack helper. See also TetherController::setForwardRules in netd.
@@ -318,6 +323,19 @@ public class BpfCoordinator {
          */
         public boolean isAtLeastS() {
             return SdkLevel.isAtLeastS();
+        }
+
+        /**
+         * Gets the MTU of an interface using NetworkInterface.
+         */
+        public int getNetworkInterfaceMtu(@NonNull String iface) {
+            try {
+                final NetworkInterface networkInterface = NetworkInterface.getByName(iface);
+                if (networkInterface != null) return networkInterface.getMTU();
+            } catch (SocketException ignore) { }
+
+            Log.e(TAG, "Fail to get MTU for " + iface);
+            return INVALID_MTU;
         }
 
         /** Get downstream4 BPF map. */
@@ -1258,10 +1276,10 @@ public class BpfCoordinator {
 
         final String ageStr = (value.lastUsed == 0) ? "-"
                 : String.format("%dms", (now - value.lastUsed) / 1_000_000);
-        return String.format("%s [%s] %d(%s) %s:%d -> %d(%s) %s:%d -> %s:%d [%s] %s",
+        return String.format("%s [%s] %d(%s) %s:%d -> %d(%s) %s:%d -> %s:%d [%s] %d %s",
                 l4protoToString(key.l4proto), key.dstMac, key.iif, getIfName(key.iif),
                 src4, key.srcPort, value.oif, getIfName(value.oif),
-                public4, publicPort, dst4, value.dstPort, value.ethDstMac, ageStr);
+                public4, publicPort, dst4, value.dstPort, value.ethDstMac, value.pmtu, ageStr);
     }
 
     private void dumpIpv4ForwardingRuleMap(long now, boolean downstream,
@@ -1283,13 +1301,13 @@ public class BpfCoordinator {
         try (IBpfMap<Tether4Key, Tether4Value> upstreamMap = mDeps.getBpfUpstream4Map();
                 IBpfMap<Tether4Key, Tether4Value> downstreamMap = mDeps.getBpfDownstream4Map()) {
             pw.println("IPv4 Upstream: proto [inDstMac] iif(iface) src -> nat -> "
-                    + "dst [outDstMac] age");
+                    + "dst [outDstMac] pmtu age");
             pw.increaseIndent();
             dumpIpv4ForwardingRuleMap(now, UPSTREAM, upstreamMap, pw);
             pw.decreaseIndent();
 
             pw.println("IPv4 Downstream: proto [inDstMac] iif(iface) src -> nat -> "
-                    + "dst [outDstMac] age");
+                    + "dst [outDstMac] pmtu age");
             pw.increaseIndent();
             dumpIpv4ForwardingRuleMap(now, DOWNSTREAM, downstreamMap, pw);
             pw.decreaseIndent();
@@ -1632,6 +1650,15 @@ public class BpfCoordinator {
         return addr6;
     }
 
+    // Get the interface MTU for a given upstream interface index.
+    private int getMtu(final int upstreamIndex) {
+        final String upstreamIface = mInterfaceNames.get(upstreamIndex);
+        if (upstreamIface == null) return INVALID_MTU;
+
+        final int mtu = mDeps.getNetworkInterfaceMtu(upstreamIface);
+        return mtu >= IPV4_MIN_MTU ? mtu : INVALID_MTU;
+    }
+
     // TODO: parse CTA_PROTOINFO of conntrack event in ConntrackMonitor. For TCP, only add rules
     // while TCP status is established.
     @VisibleForTesting
@@ -1711,20 +1738,20 @@ public class BpfCoordinator {
 
         @NonNull
         private Tether4Value makeTetherUpstream4Value(@NonNull ConntrackEvent e,
-                int upstreamIndex) {
+                int upstreamIndex, int mtu) {
             return new Tether4Value(upstreamIndex,
                     NULL_MAC_ADDRESS /* ethDstMac (rawip) */,
                     NULL_MAC_ADDRESS /* ethSrcMac (rawip) */, ETH_P_IP,
-                    NetworkStackConstants.ETHER_MTU, toIpv4MappedAddressBytes(e.tupleReply.dstIp),
+                    mtu, toIpv4MappedAddressBytes(e.tupleReply.dstIp),
                     toIpv4MappedAddressBytes(e.tupleReply.srcIp), e.tupleReply.dstPort,
                     e.tupleReply.srcPort, 0 /* lastUsed, filled by bpf prog only */);
         }
 
         @NonNull
         private Tether4Value makeTetherDownstream4Value(@NonNull ConntrackEvent e,
-                @NonNull ClientInfo c, int upstreamIndex) {
+                @NonNull ClientInfo c, int upstreamIndex, int mtu) {
             return new Tether4Value(c.downstreamIfindex,
-                    c.clientMac, c.downstreamMac, ETH_P_IP, NetworkStackConstants.ETHER_MTU,
+                    c.clientMac, c.downstreamMac, ETH_P_IP, mtu,
                     toIpv4MappedAddressBytes(e.tupleOrig.dstIp),
                     toIpv4MappedAddressBytes(e.tupleOrig.srcIp),
                     e.tupleOrig.dstPort, e.tupleOrig.srcPort,
@@ -1773,9 +1800,16 @@ public class BpfCoordinator {
                 return;
             }
 
-            final Tether4Value upstream4Value = makeTetherUpstream4Value(e, upstreamIndex);
+            // TODO: get MTU from a cache but system call.
+            final int mtu = getMtu(upstreamIndex);
+            if (mtu == INVALID_MTU) {
+                mLog.e("Could not get mtu for interface index " + upstreamIndex);
+                return;
+            }
+
+            final Tether4Value upstream4Value = makeTetherUpstream4Value(e, upstreamIndex, mtu);
             final Tether4Value downstream4Value = makeTetherDownstream4Value(e, tetherClient,
-                    upstreamIndex);
+                    upstreamIndex, mtu);
 
             maybeAddDevMap(upstreamIndex, tetherClient.downstreamIfindex);
             maybeSetLimit(upstreamIndex);
