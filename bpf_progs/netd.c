@@ -157,8 +157,10 @@ static __always_inline int is_system_uid(uint32_t uid) {
  * (which adjusts upward by 20 bytes per packet to account for ipv4 -> ipv6 header conversion)
  */
 #define DEFINE_UPDATE_STATS(the_stats_map, TypeOfKey)                                          \
-    static __always_inline inline void update_##the_stats_map(struct __sk_buff* skb,           \
-                                                              bool egress, TypeOfKey* key) {   \
+    static __always_inline inline void update_##the_stats_map(const struct __sk_buff* const skb, \
+                                                              const bool egress,               \
+                                                              const TypeOfKey* const key,      \
+                                                              const unsigned kver) {           \
         StatsValue* value = bpf_##the_stats_map##_lookup_elem(key);                            \
         if (!value) {                                                                          \
             StatsValue newValue = {};                                                          \
@@ -284,12 +286,15 @@ static __always_inline inline int bpf_owner_match(struct __sk_buff* skb, uint32_
     return PASS;
 }
 
-static __always_inline inline void update_stats_with_config(struct __sk_buff* skb, bool egress,
-                                                            StatsKey* key, uint32_t selectedMap) {
+static __always_inline inline void update_stats_with_config(const uint32_t selectedMap,
+                                                            const struct __sk_buff* const skb,
+                                                            const bool egress,
+                                                            const StatsKey* const key,
+                                                            const unsigned kver) {
     if (selectedMap == SELECT_MAP_A) {
-        update_stats_map_A(skb, egress, key);
+        update_stats_map_A(skb, egress, key, kver);
     } else if (selectedMap == SELECT_MAP_B) {
-        update_stats_map_B(skb, egress, key);
+        update_stats_map_B(skb, egress, key, kver);
     }
 }
 
@@ -349,12 +354,12 @@ static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb, boo
     }
 
     if (key.tag) {
-        update_stats_with_config(skb, egress, &key, *selectedMap);
+        update_stats_with_config(*selectedMap, skb, egress, &key, kver);
         key.tag = 0;
     }
 
-    update_stats_with_config(skb, egress, &key, *selectedMap);
-    update_app_uid_stats_map(skb, egress, &uid);
+    update_stats_with_config(*selectedMap, skb, egress, &key, kver);
+    update_app_uid_stats_map(skb, egress, &uid, kver);
     asm("%0 &= 1" : "+r"(match));
     return match;
 }
@@ -399,7 +404,7 @@ DEFINE_XTBPF_PROG("skfilter/egress/xtbpf", AID_ROOT, AID_NET_ADMIN, xt_bpf_egres
     }
 
     uint32_t key = skb->ifindex;
-    update_iface_stats_map(skb, EGRESS, &key);
+    update_iface_stats_map(skb, EGRESS, &key, KVER_NONE);
     return BPF_MATCH;
 }
 
@@ -412,7 +417,7 @@ DEFINE_XTBPF_PROG("skfilter/ingress/xtbpf", AID_ROOT, AID_NET_ADMIN, xt_bpf_ingr
     // Keep that in mind when moving this out of iptables xt_bpf and into tc ingress (or xdp).
 
     uint32_t key = skb->ifindex;
-    update_iface_stats_map(skb, INGRESS, &key);
+    update_iface_stats_map(skb, INGRESS, &key, KVER_NONE);
     return BPF_MATCH;
 }
 
@@ -422,7 +427,7 @@ DEFINE_SYS_BPF_PROG("schedact/ingress/account", AID_ROOT, AID_NET_ADMIN,
     if (is_received_skb(skb)) {
         // Account for ingress traffic before tc drops it.
         uint32_t key = skb->ifindex;
-        update_iface_stats_map(skb, INGRESS, &key);
+        update_iface_stats_map(skb, INGRESS, &key, KVER_NONE);
     }
     return TC_ACT_UNSPEC;
 }
