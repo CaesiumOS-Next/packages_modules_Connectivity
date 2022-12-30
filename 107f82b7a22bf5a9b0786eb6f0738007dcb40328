@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b77e625_ed10a4de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-30T20:38:33Z",
+      "side": 1,
+      "message": "eh, we actually even had a test that it counts the wrong thing...",
+      "revId": "107f82b7a22bf5a9b0786eb6f0738007dcb40328",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
