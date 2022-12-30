@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88d2654e_78c47ab8",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-30T10:41:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e38cf8c2_1662694c",
+      "range": {
+        "startLine": 432,
+        "startChar": 25,
+        "endLine": 432,
+        "endChar": 46
+      },
+      "revId": "0ea2dd570d2c91eb4e70ec5d47495da7827e0587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5193476d_0ec1d155",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-27T07:36:56Z",
       "side": 1,
       "message": "You should at the very least have a comment here that this is called with mStatsLock taken, so to be careful of lock inversion",
+      "range": {
+        "startLine": 2516,
+        "startChar": 0,
+        "endLine": 2516,
+        "endChar": 46
+      },
+      "revId": "0ea2dd570d2c91eb4e70ec5d47495da7827e0587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f2ebff9_da4e7de2",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 2516,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-30T10:41:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5193476d_0ec1d155",
       "range": {
         "startLine": 2516,
         "startChar": 0,
@@ -93,6 +141,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84092b19_5029a897",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 2722,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-30T10:41:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "129ecfe1_9a1d6dc7",
+      "range": {
+        "startLine": 2722,
+        "startChar": 15,
+        "endLine": 2722,
+        "endChar": 29
+      },
+      "revId": "0ea2dd570d2c91eb4e70ec5d47495da7827e0587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a7d267b_bb4e5049",
@@ -116,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f038829_18053dcc",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-30T10:41:11Z",
+      "side": 1,
+      "message": "Okay, from the [javadoc](https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/content/Context.java;l\u003d2188?q\u003dContext.java\u0026ss\u003dandroid%2Fplatform%2Fsuperproject) of the sendBroadcast, it\u0027s asynchronous so add some code to ensure the broadcast was received.",
+      "parentUuid": "0a7d267b_bb4e5049",
+      "range": {
+        "startLine": 902,
+        "startChar": 8,
+        "endLine": 902,
+        "endChar": 31
+      },
+      "revId": "0ea2dd570d2c91eb4e70ec5d47495da7827e0587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11d7817c_435180b7",
@@ -129,6 +225,30 @@
       "writtenOn": "2022-12-27T07:36:56Z",
       "side": 1,
       "message": "Maybe you can clarify what this does by calling this `assertWhetherUidIsInTopSessionCallers`",
+      "range": {
+        "startLine": 2529,
+        "startChar": 17,
+        "endLine": 2529,
+        "endChar": 40
+      },
+      "revId": "0ea2dd570d2c91eb4e70ec5d47495da7827e0587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c8801bf_73fc06c7",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 2529,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-12-30T10:41:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11d7817c_435180b7",
       "range": {
         "startLine": 2529,
         "startChar": 17,
