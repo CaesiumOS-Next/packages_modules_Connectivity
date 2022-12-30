@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31d5fa42_2fad5497",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-30T20:52:47Z",
+      "side": 1,
+      "message": "Both TH failures are unrelated.\n\nEarlier patch set was TH+2\u0027ed, and there\u0027s basically only been a rebase, addition of some \u0027const\u0027s to a function argument, and a lot of comments.  As such this new patchset could fail to build (due to the extra consts), but no other issues are possible.",
+      "revId": "0966bbee1a7b947e5aefae0befed2028e73ed09c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
