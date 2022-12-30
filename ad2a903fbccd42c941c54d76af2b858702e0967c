@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8b8dd5f_9937c9c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-30T09:13:53Z",
+      "side": 1,
+      "message": "lgtm. only nits. thank you",
+      "revId": "ad2a903fbccd42c941c54d76af2b858702e0967c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2cc13c0_06eeeb5d",
@@ -85,6 +102,30 @@
       "side": 1,
       "message": "really we\u0027re passing in the \u0027minimum kernel version we can guarantee\u0027",
       "parentUuid": "2f172353_bee9a4cd",
+      "range": {
+        "startLine": 371,
+        "startChar": 45,
+        "endLine": 371,
+        "endChar": 54
+      },
+      "revId": "ad2a903fbccd42c941c54d76af2b858702e0967c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2014bc54_87245812",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-12-30T09:13:53Z",
+      "side": 1,
+      "message": "nit: maybe add a comment for \u0027ker\u0027 in bpf_skb_load_bytes_net.",
+      "parentUuid": "12cb4042_40ff76cc",
       "range": {
         "startLine": 371,
         "startChar": 45,
