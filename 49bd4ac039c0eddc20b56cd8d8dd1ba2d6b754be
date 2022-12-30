@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1793c12_10755c88",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-30T18:08:02Z",
+      "side": 1,
+      "message": "same response as down below",
+      "parentUuid": "4bd0f034_58319c27",
+      "range": {
+        "startLine": 227,
+        "startChar": 31,
+        "endLine": 227,
+        "endChar": 39
+      },
+      "revId": "49bd4ac039c0eddc20b56cd8d8dd1ba2d6b754be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57204bfc_264aa9d3",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-12-29T12:32:08Z",
       "side": 1,
       "message": "nit: maybe also mention l2 header since we are starting to handle it at l.452",
+      "range": {
+        "startLine": 444,
+        "startChar": 31,
+        "endLine": 444,
+        "endChar": 39
+      },
+      "revId": "49bd4ac039c0eddc20b56cd8d8dd1ba2d6b754be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c59f414_e619f4d9",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-30T18:08:02Z",
+      "side": 1,
+      "message": "This comment talks only about L3 (IP) \u0026 L4 (TCP) overhead, and the calculation down below of \u0027tcp_overhead\u0027 is only L3/L4 as well.\n\nSo basically the comment *was* correct, it\u0027s just the calculation wasn\u0027t, because previously we counted the L2 header once total (when we clearly that wasn\u0027t the intent) instead of once per packet, or not at all.\n\nI think I\u0027ll solve this by adjusting the variable names.",
+      "parentUuid": "57204bfc_264aa9d3",
       "range": {
         "startLine": 444,
         "startChar": 31,
