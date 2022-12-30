@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f5bf3a4_903c85c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-30T15:16:31Z",
+      "side": 1,
+      "message": "perhaps \u0027instead of always setting mtu 1500\u0027\n\nor maybe I don\u0027t understand the sentence... seems like this repeats the next line?",
+      "range": {
+        "startLine": 9,
+        "startChar": 35,
+        "endLine": 9,
+        "endChar": 38
+      },
+      "revId": "13179332e4ec0cd97254097ddf3c00193b66126e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6838f94_bb0855f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-30T15:16:31Z",
+      "side": 1,
+      "message": "may be less",
+      "range": {
+        "startLine": 14,
+        "startChar": 3,
+        "endLine": 14,
+        "endChar": 4
+      },
+      "revId": "13179332e4ec0cd97254097ddf3c00193b66126e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86df2508_45f0e8a0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-30T15:16:31Z",
+      "side": 1,
+      "message": "1 more space",
+      "range": {
+        "startLine": 271,
+        "startChar": 0,
+        "endLine": 271,
+        "endChar": 3
+      },
+      "revId": "13179332e4ec0cd97254097ddf3c00193b66126e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39d78396_d39087e0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-30T15:16:31Z",
+      "side": 1,
+      "message": "not really following why this is the way it is written...\n\nwhy not prefix this with:\n\nif (mtu \u003d\u003d INVALID_MTU) {\n  mtu \u003d mDeps.getNetworkInterfaceMtu(ifaceName)\n}\nif (mtu \u003d\u003d INVALID_MTU) mtu \u003d 1500;\nif (mtu \u003c IPV4_MIN_MTU) mtu \u003d IPV4_MIN_MTU;\n\n// or maybe just:\nif (mtu \u003c IPV4_MIN_MTU) mtu \u003d 1500;\n\n// since less than ipv4-min-mtu is actually super duper unlikely",
+      "range": {
+        "startLine": 909,
+        "startChar": 12,
+        "endLine": 910,
+        "endChar": 23
+      },
+      "revId": "13179332e4ec0cd97254097ddf3c00193b66126e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e68384b_80d46d83",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1580,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-30T15:16:31Z",
+      "side": 1,
+      "message": "should it be final too?",
+      "range": {
+        "startLine": 1580,
+        "startChar": 19,
+        "endLine": 1580,
+        "endChar": 24
+      },
+      "revId": "13179332e4ec0cd97254097ddf3c00193b66126e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "881d3ee4_43f4ce03",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1585,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-30T15:16:31Z",
+      "side": 1,
+      "message": "this class seems to be equivalent to Pair\u003cInteger, Integer\u003e, is it worth keeping a class for that? could just have individual fields too... your call.",
+      "range": {
+        "startLine": 1585,
+        "startChar": 16,
+        "endLine": 1585,
+        "endChar": 28
+      },
+      "revId": "13179332e4ec0cd97254097ddf3c00193b66126e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c183d273_3a98586c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1772,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-30T15:16:31Z",
+      "side": 1,
+      "message": "should this not take a UpstreamInfo instead?",
+      "range": {
+        "startLine": 1772,
+        "startChar": 16,
+        "endLine": 1772,
+        "endChar": 42
+      },
+      "revId": "13179332e4ec0cd97254097ddf3c00193b66126e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f95c661_f03d5d2b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1783,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-12-30T15:16:31Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 1783,
+        "startChar": 39,
+        "endLine": 1783,
+        "endChar": 65
+      },
+      "revId": "13179332e4ec0cd97254097ddf3c00193b66126e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
