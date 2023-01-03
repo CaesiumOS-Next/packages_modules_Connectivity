@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af606874_7244fc2c",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-03T07:35:15Z",
+      "side": 1,
+      "message": "Is this needed? I would have expected cronet_aml_api_sources to be used by java_sdk_library directly.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 32
+      },
+      "revId": "46ec15cdebc27bdc8f96015c84026c882a181245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
