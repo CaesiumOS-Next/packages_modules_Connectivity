@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14f37f95_2cb88093",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 2
+      },
+      "lineNbr": 14488,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-03T09:35:57Z",
+      "side": 1,
+      "message": "I wonder if the default license should only include the Chromium license. Third-party licenses can be overwritten via addition_args (or similar). We could then add an additional check in Module.to_string() to assert any module which contains third_party in its name has its license property explicitly set.\n\nIn addition, we would probably want a linter for external/cronet, that checks for changes to LICENSE files (added, removed, modified) and highlights them.\n\nI am worried about mistakes creeping in in future updates if we are not very careful.",
+      "range": {
+        "startLine": 14488,
+        "startChar": 11,
+        "endLine": 14488,
+        "endChar": 34
+      },
+      "revId": "b3cb4cb8f3ebbbb392187e3a85248bd0c750ed68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
