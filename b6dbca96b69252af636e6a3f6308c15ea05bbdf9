@@ -39,6 +39,30 @@
       },
       "revId": "b6dbca96b69252af636e6a3f6308c15ea05bbdf9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a273dfaa_c60d35b4",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1284,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-03T12:49:56Z",
+      "side": 1,
+      "message": "Turns out, that\u0027s a little painful as well. Target contains inputs (.h files) which later aren\u0027t added to srcs. Let\u0027s leave it the way it is.",
+      "parentUuid": "eab06269_0c602e65",
+      "range": {
+        "startLine": 1284,
+        "startChar": 4,
+        "endLine": 1284,
+        "endChar": 64
+      },
+      "revId": "b6dbca96b69252af636e6a3f6308c15ea05bbdf9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
