@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eab06269_0c602e65",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1284,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-03T09:05:16Z",
+      "side": 1,
+      "message": "You can check if the target has input files here, and if not, return None.\nWe already don\u0027t add the dependency if no sources are specified, so this code could then be removed as well.",
+      "range": {
+        "startLine": 1284,
+        "startChar": 4,
+        "endLine": 1284,
+        "endChar": 64
+      },
+      "revId": "b6dbca96b69252af636e6a3f6308c15ea05bbdf9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
