@@ -35,6 +35,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52ec28c8_7868a9f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-03T11:33:35Z",
+      "side": 1,
+      "message": "ok, I guess we wait",
+      "revId": "107f82b7a22bf5a9b0786eb6f0738007dcb40328",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e928a6e4_29558f2c",
@@ -71,6 +88,30 @@
       "writtenOn": "2023-01-03T03:27:42Z",
       "side": 1,
       "message": "nit: \u0027L\u0027 -\u003e \u0027l\u0027?",
+      "range": {
+        "startLine": 235,
+        "startChar": 13,
+        "endLine": 235,
+        "endChar": 14
+      },
+      "revId": "107f82b7a22bf5a9b0786eb6f0738007dcb40328",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "370267ee_6d7f6e4a",
+        "filename": "bpf_progs/offload.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-03T11:33:35Z",
+      "side": 1,
+      "message": "that was intentional as it looks too much like \u002713\u0027\n\nwas actually wondering if \u0027l2\u0027 shouldn\u0027t be \u0027L2\u0027 as well...",
+      "parentUuid": "7c77a7a1_fa8f0a9b",
       "range": {
         "startLine": 235,
         "startChar": 13,
