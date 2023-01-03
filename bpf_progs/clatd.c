@@ -103,6 +103,8 @@ static inline __always_inline int nat64(struct __sk_buff* skb, bool is_ethernet)
     __u8 proto = ip6->nexthdr;
     __be16 ip_id = 0;
     __be16 frag_off = htons(IP_DF);
+<<<<<<< PATCH SET (396aba Revert "clatd - ipv6 fragment to ipv4 translation support")
+=======
     __u16 tot_len = ntohs(ip6->payload_len) + sizeof(struct iphdr);  // cannot overflow, see above
 
     if (proto == IPPROTO_FRAGMENT) {
@@ -125,6 +127,7 @@ static inline __always_inline int nat64(struct __sk_buff* skb, bool is_ethernet)
         // This is a badly formed IPv6 packet with less payload than the size of an IPv6 Frag EH
         if (tot_len < sizeof(struct iphdr)) return TC_ACT_PIPE;
     }
+>>>>>>> BASE      (b97fbb Merge "Remove mSubscriberIdMatchRule from NetworkTemplate")
 
     switch (proto) {
         case IPPROTO_TCP:  // For TCP & UDP the checksum neutrality of the chosen IPv6
@@ -151,7 +154,7 @@ static inline __always_inline int nat64(struct __sk_buff* skb, bool is_ethernet)
             .version = 4,                                                      // u4
             .ihl = sizeof(struct iphdr) / sizeof(__u32),                       // u4
             .tos = (ip6->priority << 4) + (ip6->flow_lbl[0] >> 4),             // u8
-            .tot_len = htons(tot_len),                                         // be16
+            .tot_len = htons(ntohs(ip6->payload_len) + sizeof(struct iphdr)),  // be16
             .id = ip_id,                                                       // be16
             .frag_off = frag_off,                                              // be16
             .ttl = ip6->hop_limit,                                             // u8
@@ -207,13 +210,6 @@ static inline __always_inline int nat64(struct __sk_buff* skb, bool is_ethernet)
     // else
     //   return -ENOTSUPP;
     bpf_csum_update(skb, sum6);
-
-    if (frag_off != htons(IP_DF)) {
-        // If we're converting an IPv6 Fragment, we need to trim off 8 more bytes
-        // We're beyond recovery on error here... but hard to imagine how this could fail.
-        if (bpf_skb_adjust_room(skb, -(__s32)sizeof(struct frag_hdr), BPF_ADJ_ROOM_NET, /*flags*/0))
-            return TC_ACT_SHOT;
-    }
 
     // bpf_skb_change_proto() invalidates all pointers - reload them.
     data = (void*)(long)skb->data;
