@@ -18,6 +18,7 @@ package android.net.cts;
 
 import static android.Manifest.permission.UPDATE_DEVICE_STATS;
 import static android.content.pm.PackageManager.FEATURE_TELEPHONY;
+import static android.content.pm.PackageManager.FEATURE_WIFI;
 
 import static androidx.test.InstrumentationRegistry.getContext;
 
@@ -98,6 +99,8 @@ public class BatteryStatsManagerTest{
     @AppModeFull(reason = "Cannot get CHANGE_NETWORK_STATE to request wifi/cell in instant mode")
     @RequiresDevice // Virtual hardware does not support wifi battery stats
     public void testReportNetworkInterfaceForTransports() throws Exception {
+        assumeTrue(mPm.hasSystemFeature(FEATURE_WIFI));
+
         try {
             assumeTrue("Battery is not present. Ignore test.", hasBattery());
             // Simulate the device being unplugged from charging.
@@ -199,6 +202,8 @@ public class BatteryStatsManagerTest{
     @Test
     public void testReportNetworkInterfaceForTransports_throwsSecurityException()
             throws Exception {
+        assumeTrue(mPm.hasSystemFeature(FEATURE_WIFI));
+
         Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
         final String iface = mCm.getLinkProperties(wifiNetwork).getInterfaceName();
         final int[] transportType = mCm.getNetworkCapabilities(wifiNetwork).getTransportTypes();
