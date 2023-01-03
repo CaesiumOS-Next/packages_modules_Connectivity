@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d294bdf1_018a7153",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-01-03T14:31:34Z",
+      "side": 1,
+      "message": "This is unnecessary at the moment. However, when we introduce the net unittests, this will be required so I guess let\u0027s just keep it there?",
+      "revId": "7184dce5775136dfdc5138fac562cd8ac78b5917",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
