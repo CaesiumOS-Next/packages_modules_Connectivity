@@ -18,6 +18,7 @@ package android.net.cts;
 
 import static android.Manifest.permission.UPDATE_DEVICE_STATS;
 import static android.content.pm.PackageManager.FEATURE_TELEPHONY;
+import static android.content.pm.PackageManager.FEATURE_WIFI;
 
 import static androidx.test.InstrumentationRegistry.getContext;
 
@@ -118,8 +119,10 @@ public class BatteryStatsManagerTest{
             // side effect is the point of using --write here.
             executeShellCommand("dumpsys batterystats --write");
 
-            // Make sure wifi is disabled.
-            mCtsNetUtils.ensureWifiDisconnected(null /* wifiNetworkToCheck */);
+            if (mPm.hasSystemFeature(FEATURE_WIFI)) {
+                // Make sure wifi is disabled.
+                mCtsNetUtils.ensureWifiDisconnected(null /* wifiNetworkToCheck */);
+            }
 
             verifyGetCellBatteryStats();
             verifyGetWifiBatteryStats();
@@ -170,6 +173,10 @@ public class BatteryStatsManagerTest{
     }
 
     private void verifyGetWifiBatteryStats() throws Exception {
+        if (!mPm.hasSystemFeature(FEATURE_WIFI)) {
+            return;
+        }
+
         final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
         final URL url = new URL(TEST_URL);
 
@@ -199,9 +206,15 @@ public class BatteryStatsManagerTest{
     @Test
     public void testReportNetworkInterfaceForTransports_throwsSecurityException()
             throws Exception {
-        Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
-        final String iface = mCm.getLinkProperties(wifiNetwork).getInterfaceName();
-        final int[] transportType = mCm.getNetworkCapabilities(wifiNetwork).getTransportTypes();
+        final Network network;
+        if (mPm.hasSystemFeature(FEATURE_WIFI)) {
+            network = mCtsNetUtils.ensureWifiConnected();
+        } else {
+            network = mCm.getActiveNetwork();
+        }
+
+        final String iface = mCm.getLinkProperties(network).getInterfaceName();
+        final int[] transportType = mCm.getNetworkCapabilities(network).getTransportTypes();
         assertThrows(SecurityException.class,
                 () -> mBsm.reportNetworkInterfaceForTransports(iface, transportType));
     }
