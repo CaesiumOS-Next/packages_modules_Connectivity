@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87cd5196_4d0e8ffc",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1598,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-03T07:27:15Z",
+      "side": 0,
+      "message": "It might be better to make media_ndk_headers apex_available (if the media team is okay with it). I am wary of building against any shared ndk libs, as FWIU, the implementation might be vendor specific (I think ndk libs are not pulled into the apex). Since we only use headers, it shouldn\u0027t matter in this case, but I am not sure we\u0027d notice if this ever were to change.",
+      "range": {
+        "startLine": 1598,
+        "startChar": 7,
+        "endLine": 1598,
+        "endChar": 24
+      },
+      "revId": "46ec15cdebc27bdc8f96015c84026c882a181245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
