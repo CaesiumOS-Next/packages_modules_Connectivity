@@ -20,7 +20,6 @@ package {
 
 java_defaults {
     name: "CtsHostsideNetworkTestsAppDefaults",
-    platform_apis: true,
     static_libs: [
         "CtsHostsideNetworkTestsAidl",
         "androidx.test.ext.junit",

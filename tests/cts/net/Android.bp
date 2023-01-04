@@ -60,7 +60,6 @@ java_defaults {
 
     // uncomment when b/13249961 is fixed
     // sdk_version: "current",
-    platform_apis: true,
     data: [":ConnectivityChecker"],
     per_testcase_directory: true,
     host_required: ["net-tests-utils-host-common"],
