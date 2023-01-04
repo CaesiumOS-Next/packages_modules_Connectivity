@@ -39,6 +39,30 @@
       },
       "revId": "3e90e2ad1779c4594265fed1dde90fad074164ae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d21b28b_5b4598a7",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-04T10:45:58Z",
+      "side": 1,
+      "message": "I\u0027ll add a comment.  It\u0027s not quite that trivial.",
+      "parentUuid": "791aee52_4b0c5c10",
+      "range": {
+        "startLine": 222,
+        "startChar": 29,
+        "endLine": 222,
+        "endChar": 53
+      },
+      "revId": "3e90e2ad1779c4594265fed1dde90fad074164ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
