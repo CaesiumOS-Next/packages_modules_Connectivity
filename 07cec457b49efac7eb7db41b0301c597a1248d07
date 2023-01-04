@@ -16,6 +16,69 @@
       "message": "but could you please get Mark to give this a look as well?",
       "revId": "07cec457b49efac7eb7db41b0301c597a1248d07",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03f862ce_6f77acd7",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2340,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-04T09:43:04Z",
+      "side": 1,
+      "message": "following",
+      "range": {
+        "startLine": 2340,
+        "startChar": 22,
+        "endLine": 2340,
+        "endChar": 29
+      },
+      "revId": "07cec457b49efac7eb7db41b0301c597a1248d07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b14e67e2_97b73c01",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2361,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-04T09:43:04Z",
+      "side": 1,
+      "message": "this seems to be the same as 2 lines up.  is this intentional?",
+      "range": {
+        "startLine": 2361,
+        "startChar": 26,
+        "endLine": 2361,
+        "endChar": 36
+      },
+      "revId": "07cec457b49efac7eb7db41b0301c597a1248d07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be1cccb9_2f419e29",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2442,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-04T09:43:04Z",
+      "side": 1,
+      "message": "seems to match here, maybe comment why we repeat",
+      "revId": "07cec457b49efac7eb7db41b0301c597a1248d07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
