@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a67bd97_50ba4af6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 5745,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-01-04T11:39:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "290c73fe_1cc588f4",
+      "range": {
+        "startLine": 5744,
+        "startChar": 68,
+        "endLine": 5745,
+        "endChar": 67
+      },
+      "revId": "fb9996881ae7327f1fd38c0f23b3c8c67205a0ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62d71d4e_8ee5a4ad",
@@ -60,6 +84,54 @@
       "writtenOn": "2022-11-10T07:48:08Z",
       "side": 1,
       "message": "I think \"fixup\" isn\u0027t very evocative here. When I wrote this patch it was the moniker in use but it\u0027s fallen out of favor now. How about\n\n    ProxyTracker#updateDefaultNetworkProxy(LinkProperties, Network)",
+      "range": {
+        "startLine": 5746,
+        "startChar": 22,
+        "endLine": 5746,
+        "endChar": 41
+      },
+      "revId": "fb9996881ae7327f1fd38c0f23b3c8c67205a0ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bab293d4_d3075acb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 5746,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-01-04T11:39:13Z",
+      "side": 1,
+      "message": "Looks like we should pass it, currently that method doesn\u0027t use network though.",
+      "parentUuid": "62d71d4e_8ee5a4ad",
+      "range": {
+        "startLine": 5746,
+        "startChar": 62,
+        "endLine": 5746,
+        "endChar": 66
+      },
+      "revId": "fb9996881ae7327f1fd38c0f23b3c8c67205a0ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0547e9f1_3b381e24",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 5746,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-01-04T11:39:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b676dd1a_72663984",
       "range": {
         "startLine": 5746,
         "startChar": 22,
@@ -154,6 +226,30 @@
       "side": 1,
       "message": "Here we should expect broadcast with an null proxyInfo\nIf no, may have bug here.",
       "parentUuid": "a522a102_f7a33853",
+      "range": {
+        "startLine": 10507,
+        "startChar": 21,
+        "endLine": 10507,
+        "endChar": 22
+      },
+      "revId": "fb9996881ae7327f1fd38c0f23b3c8c67205a0ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3448eac9_1ead660f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 10507,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-01-04T11:39:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cc11d10_52ba9cdc",
       "range": {
         "startLine": 10507,
         "startChar": 21,
