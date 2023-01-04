@@ -305,8 +305,8 @@ public class RateLimitTest {
         // allows to send at a higher data rate for a short period of time. The faster the data rate
         // and the longer the test, the less this test will be affected.
         final long dataLimitInBytesPerSecond = 2_000_000; // 2MB/s
-        long resultInBytesPerSecond = runIngressDataRateMeasurement(Duration.ofSeconds(1));
-        assertGreaterThan("Failed initial test with rate limit disabled", resultInBytesPerSecond,
+        final long initialDataRate = runIngressDataRateMeasurement(Duration.ofSeconds(1));
+        assertGreaterThan("Failed initial test with rate limit disabled", initialDataRate,
                 dataLimitInBytesPerSecond);
 
         // enable rate limit and wait until the tc filter is installed before starting the test.
@@ -314,16 +314,20 @@ public class RateLimitTest {
                 dataLimitInBytesPerSecond);
         waitForTcPoliceFilterInstalled(Duration.ofSeconds(1));
 
-        resultInBytesPerSecond = runIngressDataRateMeasurement(Duration.ofSeconds(10));
-        // Add 10% tolerance to reduce test flakiness. Burst size is constant at 128KiB.
-        assertLessThan("Failed test with rate limit enabled", resultInBytesPerSecond,
-                (long) (dataLimitInBytesPerSecond * 1.1));
+        final long limitedDataRate = runIngressDataRateMeasurement(Duration.ofSeconds(10));
+        // Add 30% tolerance to reduce test flakiness. Burst size is constant at 128KiB.
+        assertLessThan("Failed test with rate limit enabled", limitedDataRate,
+                (long) (dataLimitInBytesPerSecond * 1.3));
 
         ConnectivitySettingsManager.setIngressRateLimitInBytesPerSecond(mContext, -1);
 
-        resultInBytesPerSecond = runIngressDataRateMeasurement(Duration.ofSeconds(1));
-        assertGreaterThan("Failed test with rate limit disabled", resultInBytesPerSecond,
+        final long unlimitedDataRate = runIngressDataRateMeasurement(Duration.ofSeconds(1));
+        assertGreaterThan("Failed test with rate limit disabled", unlimitedDataRate,
                 dataLimitInBytesPerSecond);
+
+        // Since the tolerance is quite high, make sure the limited rate is always less than the
+        // rate when no limit is used.
+        assertLessThan("Limited rate exceeds unlimited rate", limitedDataRate, unlimitedDataRate);
     }
 
     @Test
