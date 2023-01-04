@@ -25,13 +25,18 @@ import static android.net.ConnectivityDiagnosticsManager.DataStallReport;
 import static android.net.ConnectivityManager.NetworkCallback;
 import static android.net.INetd.IF_STATE_DOWN;
 import static android.net.INetd.IF_STATE_UP;
+import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
+import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.RouteInfo.RTN_UNREACHABLE;
 import static android.net.VpnManager.TYPE_VPN_PLATFORM;
 import static android.net.ipsec.ike.IkeSessionConfiguration.EXTENSION_TYPE_MOBIKE;
 import static android.os.Build.VERSION_CODES.S_V2;
 import static android.os.UserHandle.PER_USER_RANGE;
+import static android.telephony.CarrierConfigManager.KEY_CARRIER_CONFIG_APPLIED_BOOL;
+import static android.telephony.CarrierConfigManager.KEY_MIN_UDP_PORT_4500_NAT_TIMEOUT_SEC_INT;
 
 import static com.android.net.module.util.NetworkStackConstants.IPV6_MIN_MTU;
+import static com.android.server.connectivity.Vpn.DEFAULT_LONG_LIVED_TCP_CONNS_EXPENSIVE_TIMEOUT_SEC;
 import static com.android.testutils.Cleanup.testAndCleanup;
 import static com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import static com.android.testutils.MiscAsserts.assertThrows;
@@ -71,6 +76,7 @@ import android.annotation.UserIdInt;
 import android.app.AppOpsManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -128,6 +134,9 @@ import android.os.UserManager;
 import android.os.test.TestLooper;
 import android.provider.Settings;
 import android.security.Credentials;
+import android.telephony.CarrierConfigManager;
+import android.telephony.SubscriptionManager;
+import android.telephony.TelephonyManager;
 import android.util.ArrayMap;
 import android.util.ArraySet;
 import android.util.Pair;
@@ -252,6 +261,7 @@ public class VpnTest extends VpnTestBase {
             "VPNAPPEXCLUDED_27_com.testvpn.vpn";
     static final String PKGS_BYTES = getPackageByteString(List.of(PKGS));
     private static final Range<Integer> PRIMARY_USER_RANGE = uidRangeForUser(PRIMARY_USER.id);
+    private static final int TEST_SUB_ID = 1234;
 
     @Mock(answer = Answers.RETURNS_DEEP_STUBS) private Context mContext;
     @Mock private UserManager mUserManager;
@@ -266,6 +276,9 @@ public class VpnTest extends VpnTestBase {
     @Mock private Vpn.VpnNetworkAgentWrapper mMockNetworkAgent;
     @Mock private ConnectivityManager mConnectivityManager;
     @Mock private ConnectivityDiagnosticsManager mCdm;
+    @Mock private TelephonyManager mTelephonyManager;
+    @Mock private CarrierConfigManager mConfigManager;
+    @Mock private SubscriptionManager mSubscriptionManager;
     @Mock private IpSecService mIpSecService;
     @Mock private VpnProfileStore mVpnProfileStore;
     @Mock private ScheduledThreadPoolExecutor mExecutor;
@@ -310,6 +323,11 @@ public class VpnTest extends VpnTestBase {
         mockService(IpSecManager.class, Context.IPSEC_SERVICE, mIpSecManager);
         mockService(ConnectivityDiagnosticsManager.class, Context.CONNECTIVITY_DIAGNOSTICS_SERVICE,
                 mCdm);
+        mockService(TelephonyManager.class, Context.TELEPHONY_SERVICE, mTelephonyManager);
+        mockService(CarrierConfigManager.class, Context.CARRIER_CONFIG_SERVICE, mConfigManager);
+        mockService(SubscriptionManager.class, Context.TELEPHONY_SUBSCRIPTION_SERVICE,
+                mSubscriptionManager);
+        doReturn(mTelephonyManager).when(mTelephonyManager).createForSubscriptionId(anyInt());
         when(mContext.getString(R.string.config_customVpnAlwaysOnDisconnectedDialogComponent))
                 .thenReturn(Resources.getSystem().getString(
                         R.string.config_customVpnAlwaysOnDisconnectedDialogComponent));
@@ -1485,6 +1503,8 @@ public class VpnTest extends VpnTestBase {
         final InterfaceConfigurationParcel config = new InterfaceConfigurationParcel();
         config.flags = new String[] {IF_STATE_DOWN};
         when(mNetd.interfaceGetCfg(anyString())).thenReturn(config);
+        doReturn(new NetworkCapabilities()).when(mConnectivityManager)
+                .getNetworkCapabilities(TEST_NETWORK);
         final NetworkCallback cb = networkCallbackCaptor.getValue();
         cb.onAvailable(TEST_NETWORK);
         // Trigger onCapabilitiesChanged() and onLinkPropertiesChanged() so the test can verify that
@@ -1893,9 +1913,145 @@ public class VpnTest extends VpnTestBase {
 
         // Check if allowBypass is set or not.
         assertTrue(nacCaptor.getValue().isBypassableVpn());
-        assertTrue(((VpnTransportInfo) ncCaptor.getValue().getTransportInfo()).isBypassable());
-
+        final VpnTransportInfo info = (VpnTransportInfo) ncCaptor.getValue().getTransportInfo();
+        assertTrue(info.isBypassable());
+        assertFalse(info.areLongLivedTcpConnectionsExpensive());
         return new PlatformVpnSnapshot(vpn, nwCb, ikeCb, childCb);
+    }
+
+
+    @Test
+    public void testUpdateLongLivedTcpConnectionsExpensive_ncChangeCellWithNoSubId()
+            throws Exception {
+        final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
+                createIkeConfig(createIkeConnectInfo(), false /* isMobikeEnabled */));
+        final NetworkCapabilities underlyNc = new NetworkCapabilities.Builder()
+                .addTransportType(TRANSPORT_CELLULAR).build();
+        testUpdateLongLivedTcpConnectionsExpensive_ncUpdate(vpnSnapShot,
+                TelephonyManager.SIM_STATE_LOADED, underlyNc,
+                false /* areLongLivedTcpConnectionsExpensive */,
+                DEFAULT_LONG_LIVED_TCP_CONNS_EXPENSIVE_TIMEOUT_SEC);
+        vpnSnapShot.vpn.mVpnRunner.exitVpnRunner();
+    }
+
+    @Test
+    public void testUpdateLongLivedTcpConnectionsExpensive_ncChangeNotCell() throws Exception {
+        final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
+                createIkeConfig(createIkeConnectInfo(), false /* isMobikeEnabled */));
+        final NetworkCapabilities underlyNc = new NetworkCapabilities.Builder()
+                .addTransportType(TRANSPORT_WIFI).build();
+        testUpdateLongLivedTcpConnectionsExpensive_ncUpdate(vpnSnapShot,
+                TelephonyManager.SIM_STATE_LOADED, underlyNc,
+                false /* areLongLivedTcpConnectionsExpensive */,
+                DEFAULT_LONG_LIVED_TCP_CONNS_EXPENSIVE_TIMEOUT_SEC);
+        vpnSnapShot.vpn.mVpnRunner.exitVpnRunner();
+    }
+
+    @Test
+    public void testUpdateLongLivedTcpConnectionsExpensive_lowKeepaliveNcUpdateSimAbsent()
+            throws Exception {
+        testUpdateLongLivedTcpConnectionsExpensive_lowKeepaliveNcUpdate(
+                TelephonyManager.SIM_STATE_ABSENT,
+                false /* areLongLivedTcpConnectionsExpensive */);
+    }
+
+    @Test
+    public void testUpdateLongLivedTcpConnectionsExpensive_lowKeepaliveNcUpdateSimLoaded()
+            throws Exception {
+        testUpdateLongLivedTcpConnectionsExpensive_lowKeepaliveNcUpdate(
+                TelephonyManager.SIM_STATE_LOADED,
+                true /* areLongLivedTcpConnectionsExpensive */);
+    }
+
+    private void testUpdateLongLivedTcpConnectionsExpensive_lowKeepaliveNcUpdate(
+            int simStatus, boolean areLongLivedTcpConnectionsExpensive) throws Exception {
+        final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
+                createIkeConfig(createIkeConnectInfo(), false /* isMobikeEnabled */));
+        final NetworkCapabilities underlyNc = new NetworkCapabilities.Builder()
+                .addTransportType(TRANSPORT_CELLULAR)
+                .setSubscriptionIds(Set.of(TEST_SUB_ID)).build();
+        testUpdateLongLivedTcpConnectionsExpensive_ncUpdate(vpnSnapShot,
+                simStatus, underlyNc, areLongLivedTcpConnectionsExpensive,
+                DEFAULT_LONG_LIVED_TCP_CONNS_EXPENSIVE_TIMEOUT_SEC - 1 /* keepalive */);
+        vpnSnapShot.vpn.mVpnRunner.exitVpnRunner();
+    }
+
+    private void testUpdateLongLivedTcpConnectionsExpensive_ncUpdate(
+            PlatformVpnSnapshot vpnSnapShot,
+            int simStatus, NetworkCapabilities nc,
+            boolean areLongLivedTcpConnectionsExpensive, int keepalive) throws Exception {
+        final ArgumentCaptor<NetworkCapabilities> ncCaptor =
+                ArgumentCaptor.forClass(NetworkCapabilities.class);
+
+        // Trigger NetworkCapabilities change to update subId change and setup different
+        // keepalive value.
+        setupKeepalive(keepalive, nc, simStatus);
+        vpnSnapShot.nwCb.onCapabilitiesChanged(TEST_NETWORK, nc);
+        verify(mMockNetworkAgent).doSendNetworkCapabilities(ncCaptor.capture());
+
+        final VpnTransportInfo info =
+                (VpnTransportInfo) ncCaptor.getValue().getTransportInfo();
+        assertEquals(areLongLivedTcpConnectionsExpensive,
+                info.areLongLivedTcpConnectionsExpensive());
+    }
+
+    private void setupKeepalive(int keepalive, NetworkCapabilities underlyNc, int simStatus) {
+        doReturn(underlyNc).when(mConnectivityManager).getNetworkCapabilities(TEST_NETWORK);
+        doReturn(simStatus).when(mTelephonyManager).getSimApplicationState();
+
+        final PersistableBundle persistableBundle = new PersistableBundle();
+        persistableBundle.putInt(KEY_MIN_UDP_PORT_4500_NAT_TIMEOUT_SEC_INT, keepalive);
+        // For CarrierConfigManager.isConfigForIdentifiedCarrier check
+        persistableBundle.putBoolean(KEY_CARRIER_CONFIG_APPLIED_BOOL, true);
+        doReturn(persistableBundle).when(mConfigManager).getConfigForSubId(TEST_SUB_ID);
+    }
+
+    @Test
+    public void testUpdateLongLivedTcpConnectionsExpensive_carrierConfigChanged() throws Exception {
+        final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
+                createIkeConfig(createIkeConnectInfo(), false /* isMobikeEnabled */));
+
+        final ArgumentCaptor<BroadcastReceiver> broadcastCaptor =
+                ArgumentCaptor.forClass(BroadcastReceiver.class);
+        verify(mContext).registerReceiver(broadcastCaptor.capture(), any());
+        final BroadcastReceiver receiver = broadcastCaptor.getValue();
+
+        // Setup with default keepalive first.
+        final NetworkCapabilities underlyNc = new NetworkCapabilities.Builder()
+                .addTransportType(TRANSPORT_CELLULAR)
+                .setSubscriptionIds(Set.of(TEST_SUB_ID)).build();
+        testUpdateLongLivedTcpConnectionsExpensive_ncUpdate(vpnSnapShot,
+                TelephonyManager.SIM_STATE_LOADED, underlyNc,
+                false /* areLongLivedTcpConnectionsExpensive */,
+                DEFAULT_LONG_LIVED_TCP_CONNS_EXPENSIVE_TIMEOUT_SEC);
+
+        // Setup low keepalive.
+        final NetworkCapabilities newNc = new NetworkCapabilities.Builder()
+                .addTransportType(TRANSPORT_CELLULAR)
+                .setSubscriptionIds(Set.of(TEST_SUB_ID)).build();
+        setupKeepalive(DEFAULT_LONG_LIVED_TCP_CONNS_EXPENSIVE_TIMEOUT_SEC - 1,
+                newNc, TelephonyManager.SIM_STATE_LOADED);
+
+        reset(mExecutor);
+        reset(mMockNetworkAgent);
+
+        // Trigger carrier config change
+        final ArgumentCaptor<Runnable> runnableCaptor = ArgumentCaptor.forClass(Runnable.class);
+        receiver.onReceive(
+                mContext, new Intent(CarrierConfigManager.ACTION_CARRIER_CONFIG_CHANGED));
+        verify(mExecutor).execute(runnableCaptor.capture());
+        runnableCaptor.getValue().run();
+
+        // Verify that networkCapabilities change is triggered and the
+        // longLivedTcpConnectionsExpensive value is expected.
+        final ArgumentCaptor<NetworkCapabilities> ncCaptor =
+                ArgumentCaptor.forClass(NetworkCapabilities.class);
+        verify(mMockNetworkAgent).doSendNetworkCapabilities(ncCaptor.capture());
+        final NetworkCapabilities updatedNc = ncCaptor.getValue();
+        assertTrue(((VpnTransportInfo) updatedNc.getTransportInfo())
+                .areLongLivedTcpConnectionsExpensive());
+
+        vpnSnapShot.vpn.mVpnRunner.exitVpnRunner();
     }
 
     @Test
@@ -1966,7 +2122,8 @@ public class VpnTest extends VpnTestBase {
         // Set MTU below 1280
         final int newMtu = IPV6_MIN_MTU - 1;
         doReturn(newMtu).when(mTestDeps).calculateVpnMtu(any(), anyInt(), anyInt(), anyBoolean());
-
+        doReturn(new NetworkCapabilities()).when(mConnectivityManager)
+                .getNetworkCapabilities(TEST_NETWORK_2);
         // Mock new network available & MOBIKE procedures
         vpnSnapShot.nwCb.onAvailable(TEST_NETWORK_2);
         vpnSnapShot.ikeCb.onIkeSessionConnectionInfoChanged(createIkeConnectInfo_2());
