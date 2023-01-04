@@ -93,6 +93,30 @@
       },
       "revId": "57af2ae11ec22ee01215008f06337e004aeec002",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff4c1014_5bb7753c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2412,
+      "author": {
+        "id": 1120458
+      },
+      "writtenOn": "2023-01-04T17:34:24Z",
+      "side": 1,
+      "message": "This would mean silently ignoring issues in certain cases, such as tests or in-process calls. The current behavior consistent with non-handler usage of a null value. To be clear, I believe the CL as is, is the best solution here. Are you sure you want me to change it? I will send a related doc offline.",
+      "parentUuid": "201da71c_3378106c",
+      "range": {
+        "startLine": 2410,
+        "startChar": 8,
+        "endLine": 2412,
+        "endChar": 9
+      },
+      "revId": "57af2ae11ec22ee01215008f06337e004aeec002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
