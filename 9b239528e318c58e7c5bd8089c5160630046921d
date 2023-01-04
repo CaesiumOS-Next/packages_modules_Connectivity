@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2fa7279_9f85d418",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-04T13:16:44Z",
+      "side": 1,
+      "message": "patchset 5 passed TH tests, patchset 6 differs only in addition of a big comment.",
+      "revId": "9b239528e318c58e7c5bd8089c5160630046921d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
