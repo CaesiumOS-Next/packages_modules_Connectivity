@@ -22,6 +22,30 @@
       },
       "revId": "57af2ae11ec22ee01215008f06337e004aeec002",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efccb8d5_17f3a059",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2412,
+      "author": {
+        "id": 1120458
+      },
+      "writtenOn": "2023-01-04T01:45:15Z",
+      "side": 1,
+      "message": "It causes NullPointerException into the mHandler, which crashes the process. If this is a oneway call, agreed w/ return. Though - throwing the exception will also cause a log to occur. WDYT?",
+      "parentUuid": "c6a5c8a9_06014092",
+      "range": {
+        "startLine": 2410,
+        "startChar": 8,
+        "endLine": 2412,
+        "endChar": 9
+      },
+      "revId": "57af2ae11ec22ee01215008f06337e004aeec002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
