@@ -47,37 +47,21 @@ java_defaults {
     ],
 }
 
-// Library including tethering integration tests targeting the latest stable SDK.
-// Use with NetworkStackJarJarRules.
-android_library {
-    name: "TetheringIntegrationTestsLatestSdkLib",
-    target_sdk_version: "33",
-    platform_apis: true,
-    defaults: ["TetheringIntegrationTestsDefaults"],
-    visibility: [
-        "//packages/modules/Connectivity/tests/cts/tethering",
-        "//packages/modules/Connectivity/tests:__subpackages__",
-        "//packages/modules/Connectivity/Tethering/tests:__subpackages__",
-    ]
-}
-
-// Library including tethering integration tests targeting current development SDK.
-// Use with NetworkStackJarJarRules.
+// Library including tethering integration tests. Use with NetworkStackJarJarRules.
 android_library {
     name: "TetheringIntegrationTestsLib",
-    target_sdk_version: "current",
     platform_apis: true,
     defaults: ["TetheringIntegrationTestsDefaults"],
     visibility: [
-        "//packages/modules/Connectivity/tests/cts/tethering",
-        "//packages/modules/Connectivity/Tethering/tests/mts",
+        "//packages/modules/Connectivity/tests:__subpackages__",
+        "//packages/modules/Connectivity/Tethering/tests:__subpackages__",
     ]
 }
 
 android_test {
     name: "TetheringIntegrationTests",
     platform_apis: true,
-    defaults: ["TetheringIntegrationTestsDefaults"],
+    static_libs: ["TetheringIntegrationTestsLib"],
     test_suites: [
         "device-tests",
     ],

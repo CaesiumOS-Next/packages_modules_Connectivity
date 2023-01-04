@@ -100,7 +100,6 @@ android_library {
     defaults: [
         "TetheringAndroidLibraryDefaults",
         "TetheringApiLevel",
-        "TetheringReleaseTargetSdk"
     ],
     static_libs: [
         "NetworkStackApiStableShims",
@@ -204,7 +203,11 @@ android_app {
 // Updatable tethering packaged for finalized API
 android_app {
     name: "Tethering",
-    defaults: ["TetheringAppDefaults", "TetheringApiLevel"],
+    defaults: [
+        "TetheringAppDefaults",
+        "TetheringApiLevel",
+        "TetheringReleaseTargetSdk"
+    ],
     static_libs: ["TetheringApiStableLib"],
     certificate: "networkstack",
     manifest: "AndroidManifest.xml",

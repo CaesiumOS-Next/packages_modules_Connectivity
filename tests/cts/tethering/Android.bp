@@ -19,6 +19,7 @@ package {
 java_defaults {
     name: "CtsTetheringTestDefaults",
     defaults: ["cts_defaults"],
+    min_sdk_version: "30",
 
     libs: [
         "android.test.base",
@@ -30,6 +31,7 @@ java_defaults {
 
     static_libs: [
         "TetheringCommonTests",
+        "TetheringIntegrationTestsLib",
         "compatibility-device-util-axt",
         "cts-net-utils",
         "net-tests-utils",
@@ -46,6 +48,12 @@ java_defaults {
 
     // Change to system current when TetheringManager move to bootclass path.
     platform_apis: true,
+
+    test_config_template: "AndroidTestTemplate.xml",
+
+    // Include both the 32 and 64 bit versions
+    compile_multilib: "both",
+    jarjar_rules: ":NetworkStackJarJarRules",
 }
 
 // Tethering CTS tests that target the latest released SDK. These tests can be installed on release
@@ -58,22 +66,10 @@ android_test {
         "CtsTetheringTestDefaults",
     ],
 
-    min_sdk_version: "30",
-
-    static_libs: [
-        "TetheringIntegrationTestsLatestSdkLib",
-    ],
-
     test_suites: [
         "general-tests",
         "mts-tethering",
     ],
-
-    test_config_template: "AndroidTestTemplate.xml",
-
-    // Include both the 32 and 64 bit versions
-    compile_multilib: "both",
-    jarjar_rules: ":NetworkStackJarJarRules",
 }
 
 // Tethering CTS tests for development and release. These tests always target the platform SDK
@@ -84,19 +80,9 @@ android_test {
     name: "CtsTetheringTest",
     defaults: ["CtsTetheringTestDefaults"],
 
-    static_libs: [
-        "TetheringIntegrationTestsLib",
-    ],
-
     // Tag this module as a cts test artifact
     test_suites: [
         "cts",
         "general-tests",
     ],
-
-    test_config_template: "AndroidTestTemplate.xml",
-
-    // Include both the 32 and 64 bit versions
-    compile_multilib: "both",
-    jarjar_rules: ":NetworkStackJarJarRules",
 }
