@@ -16,6 +16,29 @@
       "message": "Ugh 6 TH failures (3 different causes: a java build failure, a rust build failure, and a test flake)... none of them related to this commit...",
       "revId": "3e90e2ad1779c4594265fed1dde90fad074164ae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "791aee52_4b0c5c10",
+        "filename": "bpf_progs/clatd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-04T10:14:08Z",
+      "side": 1,
+      "message": "I guess it\u0027s safer to check the kernel version here too, but technically, this assertion is always false if proto is not a fragment, right?",
+      "range": {
+        "startLine": 222,
+        "startChar": 29,
+        "endLine": 222,
+        "endChar": 53
+      },
+      "revId": "3e90e2ad1779c4594265fed1dde90fad074164ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
