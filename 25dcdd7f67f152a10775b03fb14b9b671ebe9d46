@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3fcfbca4_5cafcced",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 10426,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-01-04T12:38:02Z",
+      "side": 1,
+      "message": "```\n+        final TestNetworkCallback wifiCallback \u003d new TestNetworkCallback();\n+        final NetworkRequest wifiRequest \u003d new NetworkRequest.Builder()\n+                .addTransportType(TRANSPORT_WIFI).build();\n+        mCm.registerNetworkCallback(wifiRequest, wifiCallback);\n+\n         mWiFiNetworkAgent \u003d new TestNetworkAgentWrapper(TRANSPORT_WIFI);\n         mWiFiNetworkAgent.connect(true);\n+        wifiCallback.expect(CallbackEntry.AVAILABLE, mWiFiNetworkAgent);\n```\nI tried to add above codes and remove waitForIdle(). The test will fail at l.10786.\nError message:\n```\njava.lang.AssertionError: expected:\u003cPAC Script: https://pac-url[localhost] -1 xl\u003d\u003e but was:\u003cnull\u003e\n```\nIt looks like that the proxy hasn\u0027t been updated yet.",
+      "parentUuid": "955366c4_e5a74a93",
+      "range": {
+        "startLine": 10426,
+        "startChar": 8,
+        "endLine": 10426,
+        "endChar": 19
+      },
+      "revId": "25dcdd7f67f152a10775b03fb14b9b671ebe9d46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "32067680_1c532d06",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 7
