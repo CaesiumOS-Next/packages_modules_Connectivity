@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6a5c8a9_06014092",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2412,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-04T01:43:51Z",
+      "side": 1,
+      "message": "unregisterTetheringEventCallback API is one-way binder, throwing exception directly probably doesn\u0027t work ?\n\nActually there is protection in TetheringManager#unregisterTetheringEventCallback which throwing illegal state exception if unregister a unregistered callback. Maybe just return is enough ?",
+      "range": {
+        "startLine": 2410,
+        "startChar": 8,
+        "endLine": 2412,
+        "endChar": 9
+      },
+      "revId": "57af2ae11ec22ee01215008f06337e004aeec002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
