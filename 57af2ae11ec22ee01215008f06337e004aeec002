@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca54f1fb_e6bfa4c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-05T05:49:28Z",
+      "side": 1,
+      "message": "How can it happen that Tethering#unregisterTetheringEventCallback is null? The commit message doesn\u0027t say, and there is no bug statement.\n\nIf the only way this can happen is if an app passes null to TetheringManager#unregisterTetheringEventCallback(), then we should add a null check there that throws NullPointerException (probably using Objects#requireNonNull).\n\nIf we want to protect against the case of an app using raw binder calls to pass null, then I guess it\u0027s OK for us to keep the null check here. Personally I don\u0027t think this is very useful, and I don\u0027t see the point of throwing NPE since it won\u0027t reach the caller anyway. But we do want to throw NPE here, then Objects#requireNonNull seems better than manually constructing the exception.\n\nDo we know what will happen if an app calls TetheringManager#unregisterTetheringEventCallback on boot just before the connector is registered? Will it crash the system? If so, that\u0027s a reason not to throw NPE.\n\nAlso, can you add a test for this? Something as simple as:\n\n    assertThrows(NullPointerException.class, () -\u003e\n            mTm.unregisterTetheringEventCallback(null));",
+      "revId": "57af2ae11ec22ee01215008f06337e004aeec002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "769e0f69_f9c50d6a",
