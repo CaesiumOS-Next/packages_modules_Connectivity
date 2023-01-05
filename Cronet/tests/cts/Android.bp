@@ -42,6 +42,8 @@ android_test {
         "framework-cronet",
         "org.apache.http.legacy",
     ],
+    min_sdk_version: "30",
+    target_sdk_version: "34",
 
     // Tag this as a cts test artifact
     test_suites: [
