@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bedd1d8c_4e255bdc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-05T06:25:14Z",
+      "side": 1,
+      "message": "TetheringManager maintain a map(TetheringEventCallback, ITetheringEventCallback) and ITetheringEventCallback is new inside   TetheringManager which never be null. If an app calls TetheringManager#unregisterTetheringEventCallback on boot just before the connector is registered, the app just get IllegalStateException indicate the callback is not registered.\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/Tethering/common/TetheringLib/src/android/net/TetheringManager.java;l\u003d1463;rcl\u003ddb878c5284815e0c7a5737c76a98e3dde6403792?q\u003dtetheringmanager.java\n\n    private final ArrayMap\u003cTetheringEventCallback, ITetheringEventCallback\u003e\n            mTetheringEventCallbacks \u003d new ArrayMap\u003c\u003e();\n\n+1 for Objects#requireNonNull",
+      "parentUuid": "ca54f1fb_e6bfa4c5",
+      "revId": "57af2ae11ec22ee01215008f06337e004aeec002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "769e0f69_f9c50d6a",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 2
