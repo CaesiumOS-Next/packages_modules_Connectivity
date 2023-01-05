@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "19c7f4c5_b1dd918f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-05T07:32:35Z",
+      "side": 1,
+      "message": "Ok, so what is the actual problem here? That if an app calls unregisterTetheringEventCallback before the system has finished booting, then it gets IllegalStateException instead of NullPointerException?\n\nRegardless of what the actual problem is, the commit message should probably explain. Right now it says that an unregistered callback will cause a crash, but it looks like that\u0027s not true?",
+      "parentUuid": "bedd1d8c_4e255bdc",
+      "revId": "57af2ae11ec22ee01215008f06337e004aeec002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "769e0f69_f9c50d6a",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 2
