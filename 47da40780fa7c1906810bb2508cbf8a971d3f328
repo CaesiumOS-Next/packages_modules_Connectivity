@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e61fc2b3_9fd62897",
+        "filename": "Cronet/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1978840
+      },
+      "writtenOn": "2023-01-05T08:29:15Z",
+      "side": 1,
+      "message": "This doesn\u0027t jarjar all dependencies, just the classes of the implementation JAR. Notably, this misses the androidx classes from the l94 dependency.\n\nWouldn\u0027t it be better to manually write a \"if under android.net leave it alone otherwise prefix with android.net.http.internal\" rule?\n\nEdit: since jarjar doesn\u0027t support negations it\u0027s likely still useful to use the tool but it should consider all JARS `framework-cronet` consists of.",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 47
+      },
+      "revId": "47da40780fa7c1906810bb2508cbf8a971d3f328",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
