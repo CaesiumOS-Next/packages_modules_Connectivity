@@ -22,6 +22,30 @@
       },
       "revId": "47da40780fa7c1906810bb2508cbf8a971d3f328",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6e87d03_1aee34e7",
+        "filename": "Cronet/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-01-05T10:26:32Z",
+      "side": 1,
+      "message": "One solution to this would be adding `$(location :androidx.core_core-nodeps)` as the jarjar script supports taking in multiple jars. However, This might be a problem in the future incase someone decides to add a new jar to `framework-cronet` but forget to add it to the `jarjar rules`.\n\nI think the best way to do this is do the jarjaring on the implementation module `cronet_aml_java` and have `androidx.core_core-nodeps` as a static lib there. This way we\u0027re sure that everything included in the implementation jar is being jarjared correctly.",
+      "parentUuid": "e61fc2b3_9fd62897",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 47
+      },
+      "revId": "47da40780fa7c1906810bb2508cbf8a971d3f328",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
