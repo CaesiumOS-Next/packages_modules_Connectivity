@@ -137,6 +137,7 @@ import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_OEM_PRIVA
 import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST;
 import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST_ONLY;
 import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_UNINITIALIZED;
+import static android.net.Proxy.PROXY_CHANGE_ACTION;
 import static android.net.RouteInfo.RTN_UNREACHABLE;
 import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.PREFIX_OPERATION_ADDED;
 import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.PREFIX_OPERATION_REMOVED;
@@ -2214,22 +2215,15 @@ public class ConnectivityServiceTest {
         }
     }
 
-    /** Expects that {@code count} CONNECTIVITY_ACTION broadcasts are received. */
-    private ExpectedBroadcast registerConnectivityBroadcast(final int count) {
-        return registerConnectivityBroadcastThat(count, intent -> true);
-    }
-
-    private ExpectedBroadcast registerConnectivityBroadcastThat(final int count,
+    private ExpectedBroadcast registerBroadcastReceiverThat(final String action, final int count,
             @NonNull final Predicate<Intent> filter) {
-        final IntentFilter intentFilter = new IntentFilter(CONNECTIVITY_ACTION);
+        final IntentFilter intentFilter = new IntentFilter(action);
         // AtomicReference allows receiver to access expected even though it is constructed later.
         final AtomicReference<ExpectedBroadcast> expectedRef = new AtomicReference<>();
         final BroadcastReceiver receiver = new BroadcastReceiver() {
             private int mRemaining = count;
             public void onReceive(Context context, Intent intent) {
-                final int type = intent.getIntExtra(EXTRA_NETWORK_TYPE, -1);
-                final NetworkInfo ni = intent.getParcelableExtra(EXTRA_NETWORK_INFO);
-                Log.d(TAG, "Received CONNECTIVITY_ACTION type=" + type + " ni=" + ni);
+                logActionIntent(action, intent);
                 if (!filter.test(intent)) return;
                 if (--mRemaining == 0) {
                     expectedRef.get().complete(intent);
@@ -2242,37 +2236,34 @@ public class ConnectivityServiceTest {
         return expected;
     }
 
+    private void logActionIntent(String action, Intent intent) {
+        if (CONNECTIVITY_ACTION.equals(action)) {
+            final int type = intent.getIntExtra(EXTRA_NETWORK_TYPE, -1);
+            final NetworkInfo ni = intent.getParcelableExtra(EXTRA_NETWORK_INFO);
+            Log.d(TAG, "Received CONNECTIVITY_ACTION type=" + type + " ni=" + ni);
+        } else if (PROXY_CHANGE_ACTION.equals(action)) {
+            final ProxyInfo proxy = (ProxyInfo) intent.getExtra(
+                    Proxy.EXTRA_PROXY_INFO, ProxyInfo.buildPacProxy(Uri.EMPTY));
+            Log.d(TAG, "Receive PROXY_CHANGE_ACTION, proxy = " + proxy);
+        }
+    }
+
+    /** Expects that {@code count} CONNECTIVITY_ACTION broadcasts are received. */
+    private ExpectedBroadcast registerConnectivityBroadcast(final int count) {
+        return registerBroadcastReceiverThat(CONNECTIVITY_ACTION, count, intent -> true);
+    }
+
     private ExpectedBroadcast expectProxyChangeAction(ProxyInfo proxy) {
-        return registerPacProxyBroadcastThat(intent -> {
+        return registerBroadcastReceiverThat(PROXY_CHANGE_ACTION, 1, intent -> {
             final ProxyInfo actualProxy = (ProxyInfo) intent.getExtra(Proxy.EXTRA_PROXY_INFO,
                     ProxyInfo.buildPacProxy(Uri.EMPTY));
             return proxy.equals(actualProxy);
         });
     }
 
+    /** Expects that PROXY_CHANGE_ACTION broadcast is received. */
     private ExpectedBroadcast registerPacProxyBroadcast() {
-        return registerPacProxyBroadcastThat(intent -> true);
-    }
-
-    private ExpectedBroadcast registerPacProxyBroadcastThat(
-            @NonNull final Predicate<Intent> filter) {
-        final IntentFilter intentFilter = new IntentFilter(Proxy.PROXY_CHANGE_ACTION);
-        // AtomicReference allows receiver to access expected even though it is constructed later.
-        final AtomicReference<ExpectedBroadcast> expectedRef = new AtomicReference<>();
-        final BroadcastReceiver receiver = new BroadcastReceiver() {
-            public void onReceive(Context context, Intent intent) {
-                final ProxyInfo proxy = (ProxyInfo) intent.getExtra(
-                            Proxy.EXTRA_PROXY_INFO, ProxyInfo.buildPacProxy(Uri.EMPTY));
-                Log.d(TAG, "Receive PROXY_CHANGE_ACTION, proxy = " + proxy);
-                if (filter.test(intent)) {
-                    expectedRef.get().complete(intent);
-                }
-            }
-        };
-        final ExpectedBroadcast expected = new ExpectedBroadcast(receiver);
-        expectedRef.set(expected);
-        mServiceContext.registerReceiver(receiver, intentFilter);
-        return expected;
+        return registerBroadcastReceiverThat(PROXY_CHANGE_ACTION, 1, intent -> true);
     }
 
     private boolean extraInfoInBroadcastHasExpectedNullness(NetworkInfo ni) {
@@ -2291,7 +2282,7 @@ public class ConnectivityServiceTest {
     }
 
     private ExpectedBroadcast expectConnectivityAction(int type, NetworkInfo.DetailedState state) {
-        return registerConnectivityBroadcastThat(1, intent -> {
+        return registerBroadcastReceiverThat(CONNECTIVITY_ACTION , 1, intent -> {
             final int actualType = intent.getIntExtra(EXTRA_NETWORK_TYPE, -1);
             final NetworkInfo ni = intent.getParcelableExtra(EXTRA_NETWORK_INFO);
             return type == actualType
