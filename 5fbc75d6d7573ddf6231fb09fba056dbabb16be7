@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a410dde6_c59d8e3f",
+        "filename": "tools/gn2bp/gen_desc_json.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-05T15:47:09Z",
+      "side": 1,
+      "message": "Somehow I fail to get this to work?\n```\n+ gn gen out/cronet \u0027--args\u003dtarget_os \u003d \u0027\\\u0027\u0027android\u0027\\\u0027\u0027 enable_websockets \u003d false disable_file_support \u003d true disable_brotli_filter \u003d false is_component_build \u003d false use_crash_key_stubs \u003d true use_partition_alloc \u003d false include_transport_security_state_preload_list \u003d false use_platform_icu_alternatives \u003d true default_min_sdk_version \u003d 19 use_errorprone_java_compiler \u003d true enable_reporting \u003d true use_hashed_jni_names \u003d true treat_warnings_as_errors \u003d false enable_base_tracing \u003d false target_cpu \u003d \u0027\\\u0027\u0027x86\u0027\\\u0027\u0027\u0027\nERROR at the command-line \"--args\":1:13: Invalid token.\ntarget_os \u003d \u0027android\u0027 enable_websockets \u003d false disable_file_support \u003d true disable_brotli_filter \u003d false is_component_build \u003d false use_crash_key_stubs \u003d true use_partition_alloc \u003d false include_transport_security_state_preload_list \u003d false use_platform_icu_alternatives \u003d true default_min_sdk_version \u003d 19 use_errorprone_java_compiler \u003d true enable_reporting \u003d true use_hashed_jni_names \u003d true treat_warnings_as_errors \u003d false enable_base_tracing \u003d false target_cpu \u003d \u0027x86\u0027\n            ^\nStrings are delimited by \" characters, not apostrophes.\n```",
+      "parentUuid": "2fbae044_0c0b3677",
+      "range": {
+        "startLine": 33,
+        "startChar": 26,
+        "endLine": 33,
+        "endChar": 28
+      },
+      "revId": "5fbc75d6d7573ddf6231fb09fba056dbabb16be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "26260075_d6604308",
         "filename": "tools/gn2bp/gen_desc_json.sh",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-05T15:36:02Z",
       "side": 1,
       "message": "don\u0027t need to quote this, also it is usually better to use regexp for matching this\n\nif [[ \"$1\" \u003d~ ^arm ]]; then\n\nIt\u0027s never clear to me how \u003d\u003d arm* works if armfoo exists in the local directory, etc.",
+      "range": {
+        "startLine": 37,
+        "startChar": 16,
+        "endLine": 37,
+        "endChar": 21
+      },
+      "revId": "5fbc75d6d7573ddf6231fb09fba056dbabb16be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2570641_5ecf59c8",
+        "filename": "tools/gn2bp/gen_desc_json.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-05T15:47:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26260075_d6604308",
       "range": {
         "startLine": 37,
         "startChar": 16,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7265103_36775963",
+        "filename": "tools/gn2bp/gen_desc_json.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-05T15:47:09Z",
+      "side": 1,
+      "message": "The style guide doesn\u0027t seem to use spaces in this case.",
+      "parentUuid": "e57a2436_3e2686fa",
+      "range": {
+        "startLine": 38,
+        "startChar": 11,
+        "endLine": 38,
+        "endChar": 13
+      },
+      "revId": "5fbc75d6d7573ddf6231fb09fba056dbabb16be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "73bcee13_dcfb23c9",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17c1a3cf_57188f5c",
+        "filename": "tools/gn2bp/gen_desc_json.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-05T15:47:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73bcee13_dcfb23c9",
+      "range": {
+        "startLine": 42,
+        "startChar": 9,
+        "endLine": 42,
+        "endChar": 20
+      },
+      "revId": "5fbc75d6d7573ddf6231fb09fba056dbabb16be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d9f5f65_9c73f938",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-01-05T15:36:02Z",
       "side": 1,
       "message": "recommended to use -r (for readonly) on vars you don\u0027t ever modify",
+      "range": {
+        "startLine": 45,
+        "startChar": 7,
+        "endLine": 45,
+        "endChar": 8
+      },
+      "revId": "5fbc75d6d7573ddf6231fb09fba056dbabb16be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6c20590_1c4a01ab",
+        "filename": "tools/gn2bp/gen_desc_json.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-05T15:47:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d9f5f65_9c73f938",
       "range": {
         "startLine": 45,
         "startChar": 7,
@@ -157,6 +277,54 @@
         "startChar": 61,
         "endLine": 46,
         "endChar": 72
+      },
+      "revId": "5fbc75d6d7573ddf6231fb09fba056dbabb16be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba05614a_655edec0",
+        "filename": "tools/gn2bp/gen_desc_json.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-05T15:47:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f9a3f32_f5352c16",
+      "range": {
+        "startLine": 46,
+        "startChar": 61,
+        "endLine": 46,
+        "endChar": 72
+      },
+      "revId": "5fbc75d6d7573ddf6231fb09fba056dbabb16be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e12eb24_c72b6f25",
+        "filename": "tools/gn2bp/gen_desc_json.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-05T15:47:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7af79f58_cb9ae049",
+      "range": {
+        "startLine": 46,
+        "startChar": 10,
+        "endLine": 46,
+        "endChar": 21
       },
       "revId": "5fbc75d6d7573ddf6231fb09fba056dbabb16be7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
