@@ -25,8 +25,10 @@ import android.net.ConnectivityManager;
 import android.net.http.cts.util.CronetCtsTestServer;
 import android.net.http.cts.util.TestUrlRequestCallback;
 import android.net.http.cts.util.TestUrlRequestCallback.ResponseStep;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
+import androidx.test.filters.SdkSuppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
@@ -39,6 +41,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
+@SdkSuppress(minSdkVersion = Build.VERSION_CODES.UPSIDE_DOWN_CAKE, codeName = "UpsideDownCake")
 public class CronetUrlRequestTest {
     private static final String TAG = CronetUrlRequestTest.class.getSimpleName();
 
