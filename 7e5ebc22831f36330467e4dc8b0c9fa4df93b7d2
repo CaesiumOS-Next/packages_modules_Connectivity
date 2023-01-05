@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bbf4c67_f6f1cb09",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-05T08:27:19Z",
+      "side": 1,
+      "message": "I think we shouldn\u0027t need to say \"per app\" since as of this patch, by definition restriction is per-app. App, this network is restricted for you so you can\u0027t use it.",
+      "range": {
+        "startLine": 895,
+        "startChar": 43,
+        "endLine": 895,
+        "endChar": 51
+      },
+      "revId": "7e5ebc22831f36330467e4dc8b0c9fa4df93b7d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22b90a45_fc27b353",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6001,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-05T08:27:19Z",
+      "side": 1,
+      "message": "I have trouble wrapping my head around the wording \"PerAppRestricted\". How about something like `isUidRestrictedFromUsingNetwork` or something ?",
+      "range": {
+        "startLine": 6001,
+        "startChar": 20,
+        "endLine": 6001,
+        "endChar": 41
+      },
+      "revId": "7e5ebc22831f36330467e4dc8b0c9fa4df93b7d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "454d2199_4e5d182a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8099,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-05T08:27:19Z",
+      "side": 1,
+      "message": "Use getAllowedUidsNoCopy, since this one will make defensive copies and torture the GC",
+      "range": {
+        "startLine": 8099,
+        "startChar": 51,
+        "endLine": 8099,
+        "endChar": 65
+      },
+      "revId": "7e5ebc22831f36330467e4dc8b0c9fa4df93b7d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
