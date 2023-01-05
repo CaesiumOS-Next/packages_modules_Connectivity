@@ -33,6 +33,10 @@
 #include "bpf_net_helpers.h"
 #include "netd.h"
 
+// bionic kernel uapi linux/udp.h header is munged...
+#define __kernel_udphdr udphdr
+#include <linux/udp.h>
+
 // This is defined for cgroup bpf filter only.
 static const int DROP = 0;
 static const int PASS = 1;
@@ -48,6 +52,14 @@ static const bool EGRESS = true;
 
 #define IP_PROTO_OFF offsetof(struct iphdr, protocol)
 #define IPV6_PROTO_OFF offsetof(struct ipv6hdr, nexthdr)
+
+// Offsets from beginning of L4 (TCP/UDP) header
+#define TCP_OFFSET(field) offsetof(struct tcphdr, field)
+#define UDP_OFFSET(field) offsetof(struct udphdr, field)
+
+// Offsets from beginning of L3 (IPv4/IPv6) header
+#define IP4_OFFSET(field) offsetof(struct iphdr, field)
+#define IP6_OFFSET(field) offsetof(struct ipv6hdr, field)
 
 // offsetof(struct iphdr, ihl) -- but that's a bitfield
 #define IPPROTO_IHL_OFF 0
@@ -94,6 +106,16 @@ DEFINE_BPF_MAP_RW_NETD(uid_permission_map, HASH, uint32_t, uint8_t, UID_OWNER_MA
 
 /* never actually used from ebpf */
 DEFINE_BPF_MAP_NO_NETD(iface_index_name_map, HASH, uint32_t, IfaceValue, IFACE_INDEX_NAME_MAP_SIZE)
+
+// A single-element configuration array, non-zero values enable packet tracing.
+DEFINE_BPF_MAP_EXT(packet_info_config, ARRAY, uint32_t, uint32_t, 1,
+                   AID_ROOT, AID_SYSTEM, 0060, "fs_bpf_net_readonly", "", false);
+
+// A ring buffer on which packet information is pushed. This map will only be loaded
+// on eng and userdebug devices. User devices won't load this to save memory.
+DEFINE_BPF_RINGBUF_EXT(packet_info, PacketInfo, PACKET_INFO_BUF_SIZE,
+                       AID_ROOT, AID_SYSTEM, 0060, "fs_bpf_netd_readonly", "", false,
+                       BPFLOADER_IGNORED_ON_VERSION, BPFLOADER_MAX_VER, false, true, false);
 
 // iptables xt_bpf programs need to be usable by both netd and netutils_wrappers
 // selinux contexts, because even non-xt_bpf iptables mutations are implemented as
@@ -222,6 +244,57 @@ static __always_inline inline int bpf_skb_load_bytes_net(const struct __sk_buff*
         : bpf_skb_load_bytes(skb, L3_off, to, len);
 }
 
+static __always_inline inline void do_packet_tracing(
+        struct __sk_buff* skb, bool egress, uint32_t uid, uint32_t tag,
+        const unsigned kver, bool enable_tracing) {
+    if (!enable_tracing || kver < KVER(5, 8, 0)) return;
+
+    uint32_t mapKey = 0;
+    uint32_t* traceConfig = bpf_packet_info_config_lookup_elem(&mapKey);
+    if (!traceConfig || *traceConfig == 0) return;
+
+    PacketInfo* pkt = bpf_packet_info_reserve();
+    if (pkt == NULL) return;
+
+    uint8_t proto = 0;
+    uint8_t l4_off = 0;
+    if (skb->protocol == htons(ETH_P_IP)) {
+        (void)bpf_skb_load_bytes_net(skb, IP4_OFFSET(protocol), &proto, sizeof(proto), kver);
+        (void)bpf_skb_load_bytes_net(skb, IPPROTO_IHL_OFF, &l4_off, sizeof(l4_off), kver);
+        l4_off = (l4_off & 0x0F) * 4;  // IHL calculation.
+    } else if (skb->protocol == htons(ETH_P_IPV6)) {
+        (void)bpf_skb_load_bytes_net(skb, IP6_OFFSET(nexthdr), &proto, sizeof(proto), kver);
+        l4_off = sizeof(struct ipv6hdr);
+    }
+
+    uint32_t flags = 0;
+    uint16_t sport = 0, dport = 0;
+    if (proto == IPPROTO_TCP) {
+        (void)bpf_skb_load_bytes_net(skb, l4_off + TCP_FLAG32_OFF, &flags, sizeof(flags), kver);
+        (void)bpf_skb_load_bytes_net(skb, l4_off + TCP_OFFSET(source), &sport, sizeof(sport), kver);
+        (void)bpf_skb_load_bytes_net(skb, l4_off + TCP_OFFSET(dest), &dport, sizeof(dport), kver);
+    } else if (proto == IPPROTO_UDP) {
+        (void)bpf_skb_load_bytes_net(skb, l4_off + UDP_OFFSET(source), &sport, sizeof(sport), kver);
+        (void)bpf_skb_load_bytes_net(skb, l4_off + UDP_OFFSET(dest), &dport, sizeof(dport), kver);
+    }
+
+    __builtin_memset(pkt, 0, sizeof(*pkt));
+    pkt->timestampNs = bpf_ktime_get_boot_ns();
+    pkt->ifindex = skb->ifindex;
+    pkt->length = skb->len;
+
+    pkt->uid = uid;
+    pkt->tag = tag;
+    pkt->localPort = ntohs(egress ? sport : dport);
+    pkt->remotePort = ntohs(egress ? dport : sport);
+
+    pkt->egress = egress;
+    pkt->ipProto = proto;
+    pkt->tcpFlags = ntohl(flags) >> 16;
+
+    bpf_packet_info_submit(pkt);
+}
+
 static __always_inline inline bool skip_owner_match(struct __sk_buff* skb, const unsigned kver) {
     uint32_t flag = 0;
     if (skb->protocol == htons(ETH_P_IP)) {
@@ -315,7 +388,7 @@ static __always_inline inline void update_stats_with_config(struct __sk_buff* sk
 }
 
 static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb, bool egress,
-                                                      const unsigned kver) {
+                                                      const unsigned kver, bool enable_tracing) {
     uint32_t sock_uid = bpf_get_socket_uid(skb);
     uint64_t cookie = bpf_get_socket_cookie(skb);
     UidTagValue* utag = bpf_cookie_tag_map_lookup_elem(&cookie);
@@ -374,34 +447,51 @@ static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb, boo
         key.tag = 0;
     }
 
+    do_packet_tracing(skb, egress, uid, tag, kver, enable_tracing);
     update_stats_with_config(skb, egress, &key, *selectedMap);
     update_app_uid_stats_map(skb, egress, &uid);
     asm("%0 &= 1" : "+r"(match));
     return match;
 }
 
+DEFINE_BPF_PROG_EXT("cgroupskb/ingress/stats$trace", AID_ROOT, AID_SYSTEM,
+                    bpf_cgroup_ingress_trace, KVER(5, 8, 0), KVER_INF,
+                    BPFLOADER_IGNORED_ON_VERSION, BPFLOADER_MAX_VER, false,
+                    "fs_bpf_netd_readonly", "", false, true, false)
+(struct __sk_buff* skb) {
+    return bpf_traffic_account(skb, INGRESS, KVER(5, 8, 0), true);
+}
+
 DEFINE_NETD_BPF_PROG_KVER_RANGE("cgroupskb/ingress/stats$4_19", AID_ROOT, AID_SYSTEM,
                                 bpf_cgroup_ingress_4_19, KVER(4, 19, 0), KVER_INF)
 (struct __sk_buff* skb) {
-    return bpf_traffic_account(skb, INGRESS, KVER(4, 19, 0));
+    return bpf_traffic_account(skb, INGRESS, KVER(4, 19, 0), false);
 }
 
 DEFINE_NETD_BPF_PROG_KVER_RANGE("cgroupskb/ingress/stats$4_14", AID_ROOT, AID_SYSTEM,
                                 bpf_cgroup_ingress_4_14, KVER_NONE, KVER(4, 19, 0))
 (struct __sk_buff* skb) {
-    return bpf_traffic_account(skb, INGRESS, KVER_NONE);
+    return bpf_traffic_account(skb, INGRESS, KVER_NONE, false);
+}
+
+DEFINE_BPF_PROG_EXT("cgroupskb/egress/stats$trace", AID_ROOT, AID_SYSTEM,
+                    bpf_cgroup_egress_trace, KVER(5, 8, 0), KVER_INF,
+                    BPFLOADER_IGNORED_ON_VERSION, BPFLOADER_MAX_VER, false,
+                    "fs_bpf_netd_readonly", "", false, true, false)
+(struct __sk_buff* skb) {
+    return bpf_traffic_account(skb, EGRESS, KVER(5, 8, 0), true);
 }
 
 DEFINE_NETD_BPF_PROG_KVER_RANGE("cgroupskb/egress/stats$4_19", AID_ROOT, AID_SYSTEM,
                                 bpf_cgroup_egress_4_19, KVER(4, 19, 0), KVER_INF)
 (struct __sk_buff* skb) {
-    return bpf_traffic_account(skb, EGRESS, KVER(4, 19, 0));
+    return bpf_traffic_account(skb, EGRESS, KVER(4, 19, 0), false);
 }
 
 DEFINE_NETD_BPF_PROG_KVER_RANGE("cgroupskb/egress/stats$4_14", AID_ROOT, AID_SYSTEM,
                                 bpf_cgroup_egress_4_14, KVER_NONE, KVER(4, 19, 0))
 (struct __sk_buff* skb) {
-    return bpf_traffic_account(skb, EGRESS, KVER_NONE);
+    return bpf_traffic_account(skb, EGRESS, KVER_NONE, false);
 }
 
 // WARNING: Android T's non-updatable netd depends on the name of this program.
