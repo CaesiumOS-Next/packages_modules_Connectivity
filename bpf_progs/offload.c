@@ -46,6 +46,9 @@
 #define TETHERING_GID AID_NETWORK_STACK
 #endif
 
+#define DEFAULT_BPF_PROG_UID TETHERING_UID
+#define DEFAULT_BPF_PROG_GID TETHERING_GID
+
 #include "bpf_helpers.h"
 #include "bpf_net_helpers.h"
 #include "offload.h"
@@ -302,14 +305,12 @@ static inline __always_inline int do_forward6(struct __sk_buff* skb, const bool 
     return bpf_redirect(v->oif, 0 /* this is effectively BPF_F_EGRESS */);
 }
 
-DEFINE_BPF_PROG("schedcls/tether_downstream6_ether", TETHERING_UID, TETHERING_GID,
-                sched_cls_tether_downstream6_ether)
+DEF_BPF_PROG("schedcls/tether_downstream6_ether", sched_cls_tether_downstream6_ether)
 (struct __sk_buff* skb) {
     return do_forward6(skb, /* is_ethernet */ true, /* downstream */ true);
 }
 
-DEFINE_BPF_PROG("schedcls/tether_upstream6_ether", TETHERING_UID, TETHERING_GID,
-                sched_cls_tether_upstream6_ether)
+DEF_BPF_PROG("schedcls/tether_upstream6_ether", sched_cls_tether_upstream6_ether)
 (struct __sk_buff* skb) {
     return do_forward6(skb, /* is_ethernet */ true, /* downstream */ false);
 }
@@ -328,27 +329,27 @@ DEFINE_BPF_PROG("schedcls/tether_upstream6_ether", TETHERING_UID, TETHERING_GID,
 // and in system/netd/tests/binder_test.cpp NetdBinderTest TetherOffloadForwarding.
 //
 // Hence, these mandatory (must load successfully) implementations for 4.14+ kernels:
-DEFINE_BPF_PROG_KVER("schedcls/tether_downstream6_rawip$4_14", TETHERING_UID, TETHERING_GID,
-                     sched_cls_tether_downstream6_rawip_4_14, KVER(4, 14, 0))
+DEF_BPF_PROG("schedcls/tether_downstream6_rawip$4_14", sched_cls_tether_downstream6_rawip_4_14,
+             .min_kver = KVER(4, 14, 0))
 (struct __sk_buff* skb) {
     return do_forward6(skb, /* is_ethernet */ false, /* downstream */ true);
 }
 
-DEFINE_BPF_PROG_KVER("schedcls/tether_upstream6_rawip$4_14", TETHERING_UID, TETHERING_GID,
-                     sched_cls_tether_upstream6_rawip_4_14, KVER(4, 14, 0))
+DEF_BPF_PROG("schedcls/tether_upstream6_rawip$4_14", sched_cls_tether_upstream6_rawip_4_14,
+             .min_kver = KVER(4, 14, 0))
 (struct __sk_buff* skb) {
     return do_forward6(skb, /* is_ethernet */ false, /* downstream */ false);
 }
 
 // and define no-op stubs for pre-4.14 kernels.
-DEFINE_BPF_PROG_KVER_RANGE("schedcls/tether_downstream6_rawip$stub", TETHERING_UID, TETHERING_GID,
-                           sched_cls_tether_downstream6_rawip_stub, KVER_NONE, KVER(4, 14, 0))
+DEF_BPF_PROG("schedcls/tether_downstream6_rawip$stub", sched_cls_tether_downstream6_rawip_stub,
+             .max_kver = KVER(4, 14, 0))
 (struct __sk_buff* skb) {
     return TC_ACT_PIPE;
 }
 
-DEFINE_BPF_PROG_KVER_RANGE("schedcls/tether_upstream6_rawip$stub", TETHERING_UID, TETHERING_GID,
-                           sched_cls_tether_upstream6_rawip_stub, KVER_NONE, KVER(4, 14, 0))
+DEF_BPF_PROG("schedcls/tether_upstream6_rawip$stub", sched_cls_tether_upstream6_rawip_stub,
+             .max_kver = KVER(4, 14, 0))
 (struct __sk_buff* skb) {
     return TC_ACT_PIPE;
 }
@@ -676,18 +677,14 @@ DEFINE_BPF_PROG_KVER("schedcls/tether_upstream4_ether$5_8", TETHERING_UID, TETHE
 // Full featured (optional) implementations for 4.14-S, 4.19-S & 5.4-S kernels
 // (optional, because we need to be able to fallback for 4.14/4.19/5.4 pre-S kernels)
 
-DEFINE_OPTIONAL_BPF_PROG_KVER_RANGE("schedcls/tether_downstream4_rawip$opt",
-                                    TETHERING_UID, TETHERING_GID,
-                                    sched_cls_tether_downstream4_rawip_opt,
-                                    KVER(4, 14, 0), KVER(5, 8, 0))
+DEF_BPF_PROG("schedcls/tether_downstream4_rawip$opt", sched_cls_tether_downstream4_rawip_opt,
+             .min_kver = KVER(4, 14, 0), .max_kver = KVER(5, 8, 0), .optional = true)
 (struct __sk_buff* skb) {
     return do_forward4(skb, /* is_ethernet */ false, /* downstream */ true, /* updatetime */ true);
 }
 
-DEFINE_OPTIONAL_BPF_PROG_KVER_RANGE("schedcls/tether_upstream4_rawip$opt",
-                                    TETHERING_UID, TETHERING_GID,
-                                    sched_cls_tether_upstream4_rawip_opt,
-                                    KVER(4, 14, 0), KVER(5, 8, 0))
+DEF_BPF_PROG("schedcls/tether_upstream4_rawip$opt", sched_cls_tether_upstream4_rawip_opt,
+             .min_kver = KVER(4, 14, 0), .max_kver = KVER(5, 8, 0), .optional = true)
 (struct __sk_buff* skb) {
     return do_forward4(skb, /* is_ethernet */ false, /* downstream */ false, /* updatetime */ true);
 }
