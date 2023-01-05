@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b48c864_3faa0ec5",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1237,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-05T04:00:15Z",
+      "side": 1,
+      "message": "Let\u0027s take this opportunity to explain a little bit what the default rules are, e.g. :\n\n    * ...the default rules :\n    * applications in the profile designated by the UserHandle behave like any\n    * other application and use the system default network as their default\n    * network. Compare other PROFILE_NETWORK_PREFERENCE_* settings.",
+      "range": {
+        "startLine": 1237,
+        "startChar": 80,
+        "endLine": 1237,
+        "endChar": 81
+      },
+      "revId": "42b3fa0c00425faeeeb5e7d7f73c678f74c083ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61c140b4_2c8e3a98",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1259,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-05T04:00:15Z",
+      "side": 1,
+      "message": "* should not have a default network at all (that is, network accesses that\n    * do not specify a network explicitly terminate with an error), even if there\n    * is a system default network available to apps outside of this preference.\n    * The apps can still use a non-enterprise network if they request it explicitly\n    * provided that specific network doesn\u0027t require any specific permission they\n    * do not hold.",
+      "range": {
+        "startLine": 1259,
+        "startChar": 14,
+        "endLine": 1259,
+        "endChar": 51
+      },
+      "revId": "42b3fa0c00425faeeeb5e7d7f73c678f74c083ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0c35634_0031446e",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1270,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-05T04:00:15Z",
+      "side": 1,
+      "message": "* ...ENTERPRISE}. If there is no such network, the apps will have no default\n    * network at all, even if there are available non-enterprise networks on the\n    * device (that is, network accesses that do not specify a network explicitly\n    * terminate with an error). Additionally, the designated apps should be\n    * blocked from using any non-enterprise network even if they specify it\n    * explicitly, unless they hold specific privilege overriding this (see\n    * {@link android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS}).",
+      "range": {
+        "startLine": 1269,
+        "startChar": 60,
+        "endLine": 1270,
+        "endChar": 34
+      },
+      "revId": "42b3fa0c00425faeeeb5e7d7f73c678f74c083ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c385a7e8_3af276dd",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-05T04:00:15Z",
+      "side": 1,
+      "message": "So this won\u0027t block only the default network : it blocks all non-enterprise networks, making the _DEFAULT inaccurate.\n\nSuggest simply `PROFILE_NETWORK_PREFERENCE_ENTERPRISE_BLOCKING`, or `PROFILE_NETWORK_PREFERENCE_ENTERPRISE_BLOCK_NON_ENTERPRISE_NETWORKS`.",
+      "range": {
+        "startLine": 1274,
+        "startChar": 66,
+        "endLine": 1274,
+        "endChar": 82
+      },
+      "revId": "42b3fa0c00425faeeeb5e7d7f73c678f74c083ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b34152f8_6f91f3e4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 4371,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-05T04:00:15Z",
+      "side": 1,
+      "message": "This test doesn\u0027t seem correct. Scenario :\n• There is a regular wifi (100) and an enterprise network (101)\n• wifi disconnects\n\nHere, you don\u0027t update the profile allowed networks. That means you\u0027re not going to clean up the preferences for network 100.\n\nGranted : this is inconsequential unless the netIds rotate after 65k+ connections, and it\u0027s very likely some other event will cleanup soon anyway. However, I think we should have one of two policies :\n❶ Always clean up\n  ... in which case we should just remove this test and always update the allowed networks\n❷ Exploit the fact that it\u0027s inconsequential\n  ...and in that case remove this code and replace with a comment",
+      "range": {
+        "startLine": 4371,
+        "startChar": 12,
+        "endLine": 4371,
+        "endChar": 76
+      },
+      "revId": "42b3fa0c00425faeeeb5e7d7f73c678f74c083ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17b8f734_ccf14822",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 8699,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-05T04:00:15Z",
+      "side": 1,
+      "message": "style ?",
+      "range": {
+        "startLine": 8699,
+        "startChar": 15,
+        "endLine": 8699,
+        "endChar": 16
+      },
+      "revId": "42b3fa0c00425faeeeb5e7d7f73c678f74c083ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d93194d8_1ac43598",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 8730,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-05T04:00:15Z",
+      "side": 1,
+      "message": "I don\u0027t think this will work, for multiple reasons.\n• This will happily create multiple NativeUidRangeConfig objects for the same network. If you have 2 enterprise preferences for 2 different profiles, they will come up with different lists of allowed UIDs for the same network, and you\u0027ll add them as a separate NativeUidRangeConfig. This is not what netd expects ; maybe we should have netd throw in this case in fact, but it should be disallowed to send a list with multiple objects for the same network.\n• This will block the wrong UIDs. Keep in mind that all UIDs not in the preference should not be restricted from using these networks, but this will restrict them. E.g. :\n    netid\u003d100 : wifi, non-enterprise\n    netid\u003d101 : cell, enterprise\n    Preference(profile\u003d2, mode\u003dBLOCKING, UIDs\u003d[2010005~2010008])\n\nYour code will say that only UIDs 2010005~2010008 have access to network 101, when that\u0027s absolutely incorrect : all UIDs should have access to network 101 (UIDs 0~2010004 and 2010009~9999999 have no restriction by the preference, and UIDs 2010005~2010008 are allowed because the network has the correct capabilities)\n\nYour code will also let UIDs 2010005~2010008 access network 100 because it won\u0027t send a NativeUidRangeConfig for netid 100, and that\u0027s also incorrect : they should be blocked.",
+      "range": {
+        "startLine": 8727,
+        "startChar": 0,
+        "endLine": 8730,
+        "endChar": 13
+      },
+      "revId": "42b3fa0c00425faeeeb5e7d7f73c678f74c083ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e2e4147_c3b773a1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 9378,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-05T04:00:15Z",
+      "side": 1,
+      "message": "Incorrect : you will have to update when a non-ENTERPRISE network comes up. E.g. preference restricting profile from using non-ENTERPRISE networks is set. A new wifi connects. You need to update the preferences to make sure the profile UIDs are blocked from using the newly connected wifi.",
+      "range": {
+        "startLine": 9378,
+        "startChar": 16,
+        "endLine": 9378,
+        "endChar": 89
+      },
+      "revId": "42b3fa0c00425faeeeb5e7d7f73c678f74c083ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0de1b68f_99486b16",
+        "filename": "service/src/com/android/server/connectivity/ProfileNetworkPreferenceInfo.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-05T04:00:15Z",
+      "side": 1,
+      "message": "Let\u0027s not use \"default\" since this has nothing to do with the default network, but with non-matching enterprise networks.\n\nI don\u0027t have a strong opinion against using a second boolean here, but maybe it\u0027s simpler to just have an int containing the preference to replace both `allowFallback` and `blockingDefault`.",
+      "range": {
+        "startLine": 35,
+        "startChar": 33,
+        "endLine": 35,
+        "endChar": 40
+      },
+      "revId": "42b3fa0c00425faeeeb5e7d7f73c678f74c083ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e6c0130_d977ab42",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 15762,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-05T04:00:15Z",
+      "side": 1,
+      "message": "Yes it should ! It should have a setting that prevents the profile apps from using it. Remember this is the point : this work is about blocking the profile apps from blocking the default network (and other non-enterprise networks).\n\nConversely, the enterprise network doesn\u0027t need to have a setting, since all apps can access it (but you can still have a setting specifying that UIDs 0~9999999 may use it if you want).",
+      "range": {
+        "startLine": 15761,
+        "startChar": 86,
+        "endLine": 15762,
+        "endChar": 97
+      },
+      "revId": "42b3fa0c00425faeeeb5e7d7f73c678f74c083ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
