@@ -102,26 +102,13 @@ DEFINE_BPF_MAP_NO_NETD(iface_index_name_map, HASH, uint32_t, IfaceValue, IFACE_I
 // program (see XT_BPF_MODE_PATH_PINNED) and then the iptables binary (or rather
 // the kernel acting on behalf of it) must be able to retrieve the pinned program
 // for the reload to succeed
-#define DEFINE_XTBPF_PROG(SECTION_NAME, prog_uid, prog_gid, the_prog) \
-    DEFINE_BPF_PROG(SECTION_NAME, prog_uid, prog_gid, the_prog)
-
-// programs that need to be usable by netd, but not by netutils_wrappers
-// (this is because these are currently attached by the mainline provided libnetd_updatable .so
-// which is loaded into netd and thus runs as netd uid/gid/selinux context)
-#define DEFINE_NETD_BPF_PROG_KVER_RANGE(SECTION_NAME, prog_uid, prog_gid, the_prog, minKV, maxKV) \
-    DEFINE_BPF_PROG_EXT(SECTION_NAME, prog_uid, prog_gid, the_prog, \
-                        minKV, maxKV, false, "fs_bpf_netd_readonly", "")
-
-#define DEFINE_NETD_BPF_PROG_KVER(SECTION_NAME, prog_uid, prog_gid, the_prog, min_kv) \
-    DEFINE_NETD_BPF_PROG_KVER_RANGE(SECTION_NAME, prog_uid, prog_gid, the_prog, min_kv, KVER_INF)
-
-#define DEFINE_NETD_BPF_PROG(SECTION_NAME, prog_uid, prog_gid, the_prog) \
-    DEFINE_NETD_BPF_PROG_KVER(SECTION_NAME, prog_uid, prog_gid, the_prog, KVER_NONE)
+#define DEFINE_XTBPF_PROG(SECTION_NAME, prog_uid, prog_gid, the_prog, ...)      \
+    DEF_BPF_PROG(SECTION_NAME, the_prog, .uid = prog_uid, .gid = prog_gid, __VA_ARGS__)
 
 // programs that only need to be usable by the system server
-#define DEFINE_SYS_BPF_PROG(SECTION_NAME, prog_uid, prog_gid, the_prog) \
-    DEFINE_BPF_PROG_EXT(SECTION_NAME, prog_uid, prog_gid, the_prog, \
-                        KVER_NONE, KVER_INF, false, "fs_bpf_net_shared", "")
+#define DEFINE_SYS_BPF_PROG(SECTION_NAME, prog_uid, prog_gid, the_prog, ...)    \
+    DEF_BPF_PROG(SECTION_NAME, the_prog, .uid = prog_uid, .gid = prog_gid, \
+                .pin_subdir = "fs_bpf_net_shared", __VA_ARGS__)
 
 static __always_inline int is_system_uid(uint32_t uid) {
     // MIN_SYSTEM_UID is AID_ROOT == 0, so uint32_t is *always* >= 0
@@ -378,26 +365,26 @@ static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb, boo
     return match;
 }
 
-DEFINE_NETD_BPF_PROG_KVER_RANGE("cgroupskb/ingress/stats$4_19", AID_ROOT, AID_SYSTEM,
-                                bpf_cgroup_ingress_4_19, KVER(4, 19, 0), KVER_INF)
+DEF_BPF_PROG("cgroupskb/ingress/stats$4_19", bpf_cgroup_ingress_4_19,
+             .gid = AID_SYSTEM, .min_kver = KVER(4, 19, 0))
 (struct __sk_buff* skb) {
     return bpf_traffic_account(skb, INGRESS, KVER(4, 19, 0));
 }
 
-DEFINE_NETD_BPF_PROG_KVER_RANGE("cgroupskb/ingress/stats$4_14", AID_ROOT, AID_SYSTEM,
-                                bpf_cgroup_ingress_4_14, KVER_NONE, KVER(4, 19, 0))
+DEF_BPF_PROG("cgroupskb/ingress/stats$4_14", bpf_cgroup_ingress_4_14,
+             .gid = AID_SYSTEM, .max_kver = KVER(4, 19, 0))
 (struct __sk_buff* skb) {
     return bpf_traffic_account(skb, INGRESS, KVER_NONE);
 }
 
-DEFINE_NETD_BPF_PROG_KVER_RANGE("cgroupskb/egress/stats$4_19", AID_ROOT, AID_SYSTEM,
-                                bpf_cgroup_egress_4_19, KVER(4, 19, 0), KVER_INF)
+DEF_BPF_PROG("cgroupskb/egress/stats$4_19", bpf_cgroup_egress_4_19,
+             .gid = AID_SYSTEM, .min_kver = KVER(4, 19, 0))
 (struct __sk_buff* skb) {
     return bpf_traffic_account(skb, EGRESS, KVER(4, 19, 0));
 }
 
-DEFINE_NETD_BPF_PROG_KVER_RANGE("cgroupskb/egress/stats$4_14", AID_ROOT, AID_SYSTEM,
-                                bpf_cgroup_egress_4_14, KVER_NONE, KVER(4, 19, 0))
+DEF_BPF_PROG("cgroupskb/egress/stats$4_14", bpf_cgroup_egress_4_14,
+             .gid = AID_SYSTEM, .max_kver = KVER(4, 19, 0))
 (struct __sk_buff* skb) {
     return bpf_traffic_account(skb, EGRESS, KVER_NONE);
 }
@@ -473,8 +460,7 @@ DEFINE_XTBPF_PROG("skfilter/denylist/xtbpf", AID_ROOT, AID_NET_ADMIN, xt_bpf_den
     return BPF_NOMATCH;
 }
 
-DEFINE_NETD_BPF_PROG_KVER("cgroupsock/inet/create", AID_ROOT, AID_ROOT, inet_socket_create,
-                          KVER(4, 14, 0))
+DEF_BPF_PROG("cgroupsock/inet/create", inet_socket_create, .min_kver = KVER(4, 14, 0))
 (struct bpf_sock* sk) {
     uint64_t gid_uid = bpf_get_current_uid_gid();
     /*
