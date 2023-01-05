@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95e3a337_d7a2e3c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2023-01-05T06:06:52Z",
+      "side": 1,
+      "message": "I guess this is an improvement, but calling this ensureCellConnected isn\u0027t a great name either, because it doesn\u0027t suggest to the reader that the method works by filing a NetworkRequest that must later be unregistered.\n\nMaybe call this requestCellNetwork?",
+      "revId": "50464ebfc5aa5e46972e06e6421c3437a7facf96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
