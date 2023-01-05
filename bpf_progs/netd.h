@@ -69,6 +69,24 @@ typedef struct {
     uint64_t tcpTxPackets;
 } Stats;
 
+typedef struct {
+  uint64_t timestampNs;
+  uint32_t ifindex;
+  uint32_t length;
+
+  uint32_t uid;
+  uint32_t tag;
+
+  __be16 localPort;
+  __be16 remotePort;
+
+  bool egress;
+  uint8_t ipProto;
+  uint8_t tcpFlags;
+  uint8_t pad;
+} PacketInfo;
+STRUCT_SIZE(PacketInfo, 8+4+4 + 4+4 + 2+2 + 1+1+1+1);
+
 // Since we cannot garbage collect the stats map since device boot, we need to make these maps as
 // large as possible. The maximum size of number of map entries we can have is depend on the rlimit
 // of MEM_LOCK granted to netd. The memory space needed by each map can be calculated by the
@@ -87,7 +105,8 @@ typedef struct {
 // dozable_uid_map:     key:  4 bytes, value:  1 bytes, cost:  145216 bytes    =   145Kbytes
 // standby_uid_map:     key:  4 bytes, value:  1 bytes, cost:  145216 bytes    =   145Kbytes
 // powersave_uid_map:   key:  4 bytes, value:  1 bytes, cost:  145216 bytes    =   145Kbytes
-// total:                                                                         4930Kbytes
+// packet_info:         key:  0 bytes, value: 24 bytes, cost:   32768 bytes    =    32Kbytes
+// total:                                                                         4962Kbytes
 // It takes maximum 4.9MB kernel memory space if all maps are full, which requires any devices
 // running this module to have a memlock rlimit to be larger then 5MB. In the old qtaguid module,
 // we don't have a total limit for data entries but only have limitation of tags each uid can have.
@@ -102,6 +121,7 @@ static const int IFACE_INDEX_NAME_MAP_SIZE = 1000;
 static const int IFACE_STATS_MAP_SIZE = 1000;
 static const int CONFIGURATION_MAP_SIZE = 2;
 static const int UID_OWNER_MAP_SIZE = 4000;
+static const int PACKET_INFO_BUF_SIZE = 32 * 1024;
 
 #ifdef __cplusplus
 
@@ -145,6 +165,8 @@ ASSERT_STRING_EQUAL(XT_BPF_DENYLIST_PROG_PATH,  BPF_NETD_PATH "prog_netd_skfilte
 #define CONFIGURATION_MAP_PATH BPF_NETD_PATH "map_netd_configuration_map"
 #define UID_OWNER_MAP_PATH BPF_NETD_PATH "map_netd_uid_owner_map"
 #define UID_PERMISSION_MAP_PATH BPF_NETD_PATH "map_netd_uid_permission_map"
+#define PACKET_INFO_MAP_PATH BPF_NETD_PATH "map_netd_packet_info"
+#define PACKET_INFO_CONFIG_MAP_PATH BPF_NETD_PATH "map_netd_packet_info_config"
 
 #endif // __cplusplus
 
