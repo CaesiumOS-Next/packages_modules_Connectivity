@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f2471e3_0f16c660",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2980,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-01-06T07:16:52Z",
+      "side": 1,
+      "message": "nit: This is nice.\nNot sure if we want some comments here.\nGiven that user could see the javadoc if they follow the link.",
+      "range": {
+        "startLine": 2980,
+        "startChar": 20,
+        "endLine": 2980,
+        "endChar": 61
+      },
+      "revId": "7ef35be3971a0cfdf09781f12bd7fab9c7f1d83a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
