@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3fb2559_7bbdc159",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2330,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-06T08:46:19Z",
+      "side": 1,
+      "message": "The test assume empty upstream first then have 6 upstream changes with order. This complexity sequence make this function less chance to reuse. Maybe you should just implement this inside testUpdateUpstreamNetworkState.",
+      "range": {
+        "startLine": 2330,
+        "startChar": 17,
+        "endLine": 2330,
+        "endChar": 49
+      },
+      "revId": "5f90be1e90344d22d2ff16d66c9bfc0583417eba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e639441_4ce86c76",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2378,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-06T08:46:19Z",
+      "side": 1,
+      "message": "nit: upstreamIndex.intValue()",
+      "range": {
+        "startLine": 2378,
+        "startChar": 39,
+        "endLine": 2378,
+        "endChar": 58
+      },
+      "revId": "5f90be1e90344d22d2ff16d66c9bfc0583417eba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "481d922b_272d308f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2380,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-06T08:46:19Z",
+      "side": 1,
+      "message": "You can have helper function, then use it for case 1, 3 and 5.\n\n    private void verifyIpv4Upstream(ipv4UpstreamIndices, interfaceNames) {\n        assertEquals(1, ipv4UpstreamIndices.size());\n        upstreamIndex \u003d ipv4UpstreamIndices.get(PUBLIC_ADDR);\n        assertNotNull(upstreamIndex);\n        assertEquals(UPSTREAM_IFINDEX, (int) upstreamIndex);\n        assertEquals(1, interfaceNames.size());\n        assertTrue(interfaceNames.contains(UPSTREAM_IFINDEX));\n    }",
+      "range": {
+        "startLine": 2375,
+        "startChar": 0,
+        "endLine": 2380,
+        "endChar": 62
+      },
+      "revId": "5f90be1e90344d22d2ff16d66c9bfc0583417eba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
