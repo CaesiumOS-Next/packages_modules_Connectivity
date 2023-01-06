@@ -22,6 +22,30 @@
       },
       "revId": "d8116a1be0daff9cdff6cd3032c9d8d746e7ca28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39613f70_baf966ca",
+        "filename": "Tethering/common/TetheringLib/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-06T09:57:07Z",
+      "side": 1,
+      "message": "We might, because I imagine the two modules (without defaults) to look something like:\n```\nstatic_library {\n    name: \"framework-tethering-prejarjar\",\n    srcs: [ \"cronet_aml_api_sources\", ...],\n    static_libs: [ \"cronet_aml_java\", ... ],\n}\n\njava_sdk_library {\n    name: \"framework-tethering\",\n    api_srcs: [ \"cronet_aml_api_sources\" ],\n    static_impl_libs: [ \"cronet_aml_java\" ],\n}\n```\n\nI am not sure though. It\u0027s possible we don\u0027t need two sets of defaults. Figured it would be easy to remove one though.",
+      "parentUuid": "5c1bb12a_81d1f542",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 30
+      },
+      "revId": "d8116a1be0daff9cdff6cd3032c9d8d746e7ca28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
