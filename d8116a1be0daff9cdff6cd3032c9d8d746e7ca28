@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c1bb12a_81d1f542",
+        "filename": "Tethering/common/TetheringLib/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-01-06T07:26:25Z",
+      "side": 1,
+      "message": "Do we need two defaults?\nI imagine `CronetJavaDefaultsEnabled` will contain the cronet and `framework-tethering` will have `cronet_java_defaults` in the defaults.\nHow will we use `cronet_java_prejarjar_defaults`?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 30
+      },
+      "revId": "d8116a1be0daff9cdff6cd3032c9d8d746e7ca28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
