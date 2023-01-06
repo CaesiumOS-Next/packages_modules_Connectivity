@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8dfe7ce8_f2fdf472",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-06T02:20:09Z",
+      "side": 1,
+      "message": "I think the problem is: a malicious app use reflection to access ITetheringConnector aidl directly and calling unregisterTetheringEventCallback with null callback, it could crash the device.",
+      "parentUuid": "19c7f4c5_b1dd918f",
+      "revId": "57af2ae11ec22ee01215008f06337e004aeec002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "769e0f69_f9c50d6a",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 2
