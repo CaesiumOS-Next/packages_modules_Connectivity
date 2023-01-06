@@ -33,6 +33,46 @@
       "message": "@jchalard@google.com: Could you take a look?",
       "revId": "fd14a055506b1a7b6559ead8edc091dea36ca957",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67bca39b_48021fe3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-06T04:03:09Z",
+      "side": 1,
+      "message": "Happy with the code, but should we have a unit test for it ?",
+      "revId": "fd14a055506b1a7b6559ead8edc091dea36ca957",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c268e22_e026d95e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3044,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2023-01-06T04:03:09Z",
+      "side": 1,
+      "message": "nit : our code uses return-early throughout, so for consistency we\u0027d prefer\n\n    if (!SdkLevel.isAtLeastU()) return;",
+      "range": {
+        "startLine": 3044,
+        "startChar": 35,
+        "endLine": 3044,
+        "endChar": 36
+      },
+      "revId": "fd14a055506b1a7b6559ead8edc091dea36ca957",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
