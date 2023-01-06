@@ -60,4 +60,5 @@ cc_test {
         },
     },
     require_root: true,
+    min_sdk_version: "30",
 }
