@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d482536_5984c022",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2023-01-06T07:55:49Z",
+      "side": 1,
+      "message": "Hi Mark, may I have your help to have a look? thank you",
+      "parentUuid": "a2079044_f9d66950",
+      "revId": "07cec457b49efac7eb7db41b0301c597a1248d07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03f862ce_6f77acd7",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-01-04T09:43:04Z",
       "side": 1,
       "message": "following",
+      "range": {
+        "startLine": 2340,
+        "startChar": 22,
+        "endLine": 2340,
+        "endChar": 29
+      },
+      "revId": "07cec457b49efac7eb7db41b0301c597a1248d07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a4072e2_dbb94471",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2340,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2023-01-06T07:55:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03f862ce_6f77acd7",
       "range": {
         "startLine": 2340,
         "startChar": 22,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af00dfa4_aa5ee190",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2361,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2023-01-06T07:55:49Z",
+      "side": 1,
+      "message": "Yes, it is intentional. Added comment to L.2442\n\nIt is a preparation to test the case#6 (wifi upstream removes tethering information) on T- device. \n\nFor U+ devices, case#5 (xlat offload) adds tethering information. we don\u0027t need to that preparation (l.2361).\n\nref:\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2174904/23/Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java#2358\n```\n// Test case:\n// - Clat offload is supported on U+ devices.\n// +-------+-------+-----------------------+\n// | Test  | Up    |       Protocol        |\n// | Case# | stream+-------+-------+-------+\n// |       |       | IPv4  | IPv6  | Xlat  |\n// +-------+-------+-------+-------+-------+\n// |   1   | Cell  |   O   |       |       |\n// +-------+-------+-------+-------+-------+\n// |   2   | Cell  |       |   O   |       |\n// +-------+-------+-------+-------+-------+\n// |   3   | Cell  |   O   |   O   |       |\n// +-------+-------+-------+-------+-------+\n// |   4   |   -   |       |       |       |\n// +-------+-------+-------+-------+-------+\n// |   5   | Cell  |       |   O   |   O   |\n// +-------+-------+-------+-------+-------+\n// |   6   | Wifi  |   O   |   O   |       | \u003c-- doesn\u0027t support offload (ether ip)\n// +-------+-------+-------+-------+-------+\n```",
+      "parentUuid": "b14e67e2_97b73c01",
+      "range": {
+        "startLine": 2361,
+        "startChar": 26,
+        "endLine": 2361,
+        "endChar": 36
+      },
+      "revId": "07cec457b49efac7eb7db41b0301c597a1248d07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be1cccb9_2f419e29",
@@ -77,6 +143,24 @@
       "writtenOn": "2023-01-04T09:43:04Z",
       "side": 1,
       "message": "seems to match here, maybe comment why we repeat",
+      "revId": "07cec457b49efac7eb7db41b0301c597a1248d07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a23987a9_0d11acde",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2442,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2023-01-06T07:55:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be1cccb9_2f419e29",
       "revId": "07cec457b49efac7eb7db41b0301c597a1248d07",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
