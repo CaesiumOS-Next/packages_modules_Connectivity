@@ -16,6 +16,24 @@
       "message": "I wonder if another error code might be better than EPERM? EPERM is already used to mean \"the caller does not have permission\", and this is slightly different. Maybe this instead?\n\n    [ENOSYS] \u003d \"Function not implemented\",",
       "revId": "24a5dbd66299ea6f9ead7d5e82c182b8a5b1e5e1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5004c29_b0e09262",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2023-01-06T02:30:21Z",
+      "side": 1,
+      "message": "Changed to ENOSYS",
+      "parentUuid": "c85c809a_1814fb94",
+      "revId": "24a5dbd66299ea6f9ead7d5e82c182b8a5b1e5e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
