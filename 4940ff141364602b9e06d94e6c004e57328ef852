@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6849420_e97842f8",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-01-06T13:57:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4357e0e_38e5a86a",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 1
+      },
+      "revId": "4940ff141364602b9e06d94e6c004e57328ef852",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1af70036_7dd72518",
@@ -135,6 +159,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "378b36c3_f02563a3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-01-06T13:57:51Z",
+      "side": 1,
+      "message": "Just to prevent someone call initOffload() more than once. But now I think it maybe safer to stop it and init again. Updated it in such way.",
+      "parentUuid": "9e92d328_5afa07cd",
+      "range": {
+        "startLine": 298,
+        "startChar": 8,
+        "endLine": 298,
+        "endChar": 32
+      },
+      "revId": "4940ff141364602b9e06d94e6c004e57328ef852",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "29ea0a5e_d438fcc3",
         "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
         "patchSetId": 2
@@ -146,6 +194,30 @@
       "writtenOn": "2023-01-05T13:05:20Z",
       "side": 1,
       "message": "If you want to set mIOffload here, maybe you should just call stopOffload. It give you a chance to also actually clean up mIOffload in low layer. It is not good to expect low layer will automatically cleanup well if init fail. If you set it to null here then return OFFLOAD_HAL_VERSION_NONE, calling stopOffload from OffloadController never actually doing the clean up.",
+      "range": {
+        "startLine": 318,
+        "startChar": 12,
+        "endLine": 318,
+        "endChar": 29
+      },
+      "revId": "4940ff141364602b9e06d94e6c004e57328ef852",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2450a0c6_963a0b31",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-01-06T13:57:51Z",
+      "side": 1,
+      "message": "Done. Call mIOffload.stopOffload() before setting it to null.",
+      "parentUuid": "29ea0a5e_d438fcc3",
       "range": {
         "startLine": 318,
         "startChar": 12,
@@ -179,6 +251,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48eb9947_b9e0ef93",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-01-06T13:57:51Z",
+      "side": 1,
+      "message": "Rearranged the code struct.",
+      "parentUuid": "29c56883_6b4d2aaa",
+      "range": {
+        "startLine": 332,
+        "startChar": 12,
+        "endLine": 332,
+        "endChar": 29
+      },
+      "revId": "4940ff141364602b9e06d94e6c004e57328ef852",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65d2c525_20f8a43e",
@@ -192,6 +288,30 @@
       "writtenOn": "2023-01-05T13:05:20Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 341,
+        "startChar": 12,
+        "endLine": 341,
+        "endChar": 21
+      },
+      "revId": "4940ff141364602b9e06d94e6c004e57328ef852",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49745dd2_47b203f7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-01-06T13:57:51Z",
+      "side": 1,
+      "message": "Rearranged the code struct.",
+      "parentUuid": "65d2c525_20f8a43e",
       "range": {
         "startLine": 341,
         "startChar": 12,
@@ -227,6 +347,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "58a9a2c5_3fa062b1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-01-06T13:57:51Z",
+      "side": 1,
+      "message": "mDeps.createConntrackSocket() won\u0027t throw any exception, already capture inside the function. Rewrite it another way, please help to review it. Thanks.",
+      "parentUuid": "0da30c02_052eb0d5",
+      "range": {
+        "startLine": 342,
+        "startChar": 12,
+        "endLine": 342,
+        "endChar": 33
+      },
+      "revId": "4940ff141364602b9e06d94e6c004e57328ef852",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ff594a5e_44ac4620",
         "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
         "patchSetId": 2
@@ -238,6 +382,30 @@
       "writtenOn": "2023-01-05T13:05:20Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 347,
+        "startChar": 12,
+        "endLine": 347,
+        "endChar": 21
+      },
+      "revId": "4940ff141364602b9e06d94e6c004e57328ef852",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94072472_5ef72aea",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-01-06T13:57:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff594a5e_44ac4620",
       "range": {
         "startLine": 347,
         "startChar": 12,
@@ -261,6 +429,30 @@
       "writtenOn": "2023-01-05T13:05:20Z",
       "side": 1,
       "message": "why only explicitly close FDs for HIDL here but l.342, l.348 and l. 349 don\u0027t need to check HAL version. If checking HAL version is needed, maybe just check inside closeFdInNativeHandle ?",
+      "range": {
+        "startLine": 354,
+        "startChar": 8,
+        "endLine": 354,
+        "endChar": 58
+      },
+      "revId": "4940ff141364602b9e06d94e6c004e57328ef852",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44888313_f54079e6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2023-01-06T13:57:51Z",
+      "side": 1,
+      "message": "FD in NativeHandle will be dup when pass to HIDL APIs but ParcelFileDescriptor (used in new AIDL interface) will keep the original FD. If I close it, access it in Cuttlefish default implementation service will crash.",
+      "parentUuid": "ee793433_4ecaaec8",
       "range": {
         "startLine": 354,
         "startChar": 8,
