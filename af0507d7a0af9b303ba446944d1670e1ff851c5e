@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58d55057_3390d835",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2023-01-06T03:01:34Z",
+      "side": 1,
+      "message": "This should be removed by aosp/2375257",
+      "revId": "af0507d7a0af9b303ba446944d1670e1ff851c5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
