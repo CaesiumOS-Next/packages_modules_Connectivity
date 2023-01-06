@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87543e91_93572831",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2239,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-01-06T02:47:56Z",
+      "side": 1,
+      "message": "1. the action should be able to be acquired from the intent?\n2. If so, maybe logIntentWithExtra?",
+      "range": {
+        "startLine": 2239,
+        "startChar": 17,
+        "endLine": 2239,
+        "endChar": 32
+      },
+      "revId": "dc97a1a0e252935152567c25589c09cc01e4cbe9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4c1f5d9_612d2bdb",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2243,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-01-06T02:47:56Z",
+      "side": 1,
+      "message": "Can we just print intent instead of hard-coded action?",
+      "range": {
+        "startLine": 2243,
+        "startChar": 33,
+        "endLine": 2243,
+        "endChar": 52
+      },
+      "revId": "dc97a1a0e252935152567c25589c09cc01e4cbe9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d02b2e9_aa8045c1",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2248,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-01-06T02:47:56Z",
+      "side": 1,
+      "message": "Maybe throw for others to prevent the caller from expecting logActionIntent to print other unsupported actions?",
+      "range": {
+        "startLine": 2248,
+        "startChar": 8,
+        "endLine": 2248,
+        "endChar": 9
+      },
+      "revId": "dc97a1a0e252935152567c25589c09cc01e4cbe9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78f040d8_0866d876",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2252,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-01-06T02:47:56Z",
+      "side": 1,
+      "message": "Is it better to name registerConnectivityBroadcast and expectConnectivityAction in the same style since they are waiting for the same intent?",
+      "range": {
+        "startLine": 2252,
+        "startChar": 30,
+        "endLine": 2252,
+        "endChar": 59
+      },
+      "revId": "dc97a1a0e252935152567c25589c09cc01e4cbe9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3226491_4f57f6c1",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2267,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-01-06T02:47:56Z",
+      "side": 1,
+      "message": "It seems to me they are waiting for the same action.\nIs it better if we make them have the same name? e.g.\nexpectProxyChangeAction(ProxyInfo proxy);\nexpectProxyChangeAction();",
+      "range": {
+        "startLine": 2267,
+        "startChar": 30,
+        "endLine": 2267,
+        "endChar": 55
+      },
+      "revId": "dc97a1a0e252935152567c25589c09cc01e4cbe9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
