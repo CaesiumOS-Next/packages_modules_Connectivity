@@ -52,6 +52,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6564e8b_cf826dab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2023-01-06T09:56:00Z",
+      "side": 1,
+      "message": "Added in the latest PS.",
+      "parentUuid": "67bca39b_48021fe3",
+      "revId": "fd14a055506b1a7b6559ead8edc091dea36ca957",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c268e22_e026d95e",
@@ -65,6 +83,30 @@
       "writtenOn": "2023-01-06T04:03:09Z",
       "side": 1,
       "message": "nit : our code uses return-early throughout, so for consistency we\u0027d prefer\n\n    if (!SdkLevel.isAtLeastU()) return;",
+      "range": {
+        "startLine": 3044,
+        "startChar": 35,
+        "endLine": 3044,
+        "endChar": 36
+      },
+      "revId": "fd14a055506b1a7b6559ead8edc091dea36ca957",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dd4871d_09210c76",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3044,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2023-01-06T09:56:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c268e22_e026d95e",
       "range": {
         "startLine": 3044,
         "startChar": 35,
