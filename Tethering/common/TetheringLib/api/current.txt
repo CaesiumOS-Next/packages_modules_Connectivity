@@ -1,1 +1,251 @@
 // Signature format: 2.0
+package android.net.http {
+
+  public abstract class CallbackException extends android.net.http.CronetException {
+    ctor protected CallbackException(String, Throwable);
+  }
+
+  public abstract class CronetEngine {
+    ctor public CronetEngine();
+    method public static android.net.http.CronetEngine.Builder builder(android.content.Context);
+    method public abstract java.net.URLStreamHandlerFactory createURLStreamHandlerFactory();
+    method public abstract byte[] getGlobalMetricsDeltas();
+    method public abstract String getVersionString();
+    method public abstract android.net.http.UrlRequest.Builder newUrlRequestBuilder(String, android.net.http.UrlRequest.Callback, java.util.concurrent.Executor);
+    method public abstract java.net.URLConnection openConnection(java.net.URL) throws java.io.IOException;
+    method public abstract void shutdown();
+    method public abstract void startNetLogToFile(String, boolean);
+    method public abstract void stopNetLog();
+  }
+
+  public static class CronetEngine.Builder {
+    method public android.net.http.CronetEngine.Builder addPublicKeyPins(String, java.util.Set<byte[]>, boolean, java.util.Date);
+    method public android.net.http.CronetEngine.Builder addQuicHint(String, int, int);
+    method public android.net.http.CronetEngine build();
+    method public android.net.http.CronetEngine.Builder enableBrotli(boolean);
+    method public android.net.http.CronetEngine.Builder enableHttp2(boolean);
+    method public android.net.http.CronetEngine.Builder enableHttpCache(int, long);
+    method public android.net.http.CronetEngine.Builder enablePublicKeyPinningBypassForLocalTrustAnchors(boolean);
+    method public android.net.http.CronetEngine.Builder enableQuic(boolean);
+    method public String getDefaultUserAgent();
+    method public android.net.http.CronetEngine.Builder setStoragePath(String);
+    method public android.net.http.CronetEngine.Builder setUserAgent(String);
+    field public static final int HTTP_CACHE_DISABLED = 0; // 0x0
+    field public static final int HTTP_CACHE_DISK = 3; // 0x3
+    field public static final int HTTP_CACHE_DISK_NO_HTTP = 2; // 0x2
+    field public static final int HTTP_CACHE_IN_MEMORY = 1; // 0x1
+  }
+
+  public class CronetException extends java.io.IOException {
+    ctor protected CronetException(String, Throwable);
+  }
+
+  public final class InlineExecutionProhibitedException extends java.util.concurrent.RejectedExecutionException {
+    ctor public InlineExecutionProhibitedException();
+  }
+
+  public abstract class NetworkException extends android.net.http.CronetException {
+    ctor protected NetworkException(String, Throwable);
+    method public abstract int getCronetInternalErrorCode();
+    method public abstract int getErrorCode();
+    method public abstract boolean immediatelyRetryable();
+    field public static final int ERROR_ADDRESS_UNREACHABLE = 9; // 0x9
+    field public static final int ERROR_CONNECTION_CLOSED = 5; // 0x5
+    field public static final int ERROR_CONNECTION_REFUSED = 7; // 0x7
+    field public static final int ERROR_CONNECTION_RESET = 8; // 0x8
+    field public static final int ERROR_CONNECTION_TIMED_OUT = 6; // 0x6
+    field public static final int ERROR_HOSTNAME_NOT_RESOLVED = 1; // 0x1
+    field public static final int ERROR_INTERNET_DISCONNECTED = 2; // 0x2
+    field public static final int ERROR_NETWORK_CHANGED = 3; // 0x3
+    field public static final int ERROR_OTHER = 11; // 0xb
+    field public static final int ERROR_QUIC_PROTOCOL_FAILED = 10; // 0xa
+    field public static final int ERROR_TIMED_OUT = 4; // 0x4
+  }
+
+  public abstract class QuicException extends android.net.http.NetworkException {
+    ctor protected QuicException(String, Throwable);
+    method public abstract int getQuicDetailedErrorCode();
+  }
+
+  public abstract class UploadDataProvider implements java.io.Closeable {
+    ctor public UploadDataProvider();
+    method public void close() throws java.io.IOException;
+    method public abstract long getLength() throws java.io.IOException;
+    method public abstract void read(android.net.http.UploadDataSink, java.nio.ByteBuffer) throws java.io.IOException;
+    method public abstract void rewind(android.net.http.UploadDataSink) throws java.io.IOException;
+  }
+
+  public abstract class UploadDataSink {
+    ctor public UploadDataSink();
+    method public abstract void onReadError(Exception);
+    method public abstract void onReadSucceeded(boolean);
+    method public abstract void onRewindError(Exception);
+    method public abstract void onRewindSucceeded();
+  }
+
+  public abstract class UrlRequest {
+    ctor public UrlRequest();
+    method public abstract void cancel();
+    method public abstract void followRedirect();
+    method public abstract void getStatus(android.net.http.UrlRequest.StatusListener);
+    method public abstract boolean isDone();
+    method public abstract void read(java.nio.ByteBuffer);
+    method public abstract void start();
+  }
+
+  public abstract static class UrlRequest.Builder {
+    ctor public UrlRequest.Builder();
+    method public abstract android.net.http.UrlRequest.Builder addHeader(String, String);
+    method public abstract android.net.http.UrlRequest.Builder allowDirectExecutor();
+    method public abstract android.net.http.UrlRequest build();
+    method public abstract android.net.http.UrlRequest.Builder disableCache();
+    method public abstract android.net.http.UrlRequest.Builder setHttpMethod(String);
+    method public abstract android.net.http.UrlRequest.Builder setPriority(int);
+    method public abstract android.net.http.UrlRequest.Builder setUploadDataProvider(android.net.http.UploadDataProvider, java.util.concurrent.Executor);
+    field public static final int REQUEST_PRIORITY_HIGHEST = 4; // 0x4
+    field public static final int REQUEST_PRIORITY_IDLE = 0; // 0x0
+    field public static final int REQUEST_PRIORITY_LOW = 2; // 0x2
+    field public static final int REQUEST_PRIORITY_LOWEST = 1; // 0x1
+    field public static final int REQUEST_PRIORITY_MEDIUM = 3; // 0x3
+  }
+
+  public abstract static class UrlRequest.Callback {
+    ctor public UrlRequest.Callback();
+    method public void onCanceled(android.net.http.UrlRequest, android.net.http.UrlResponseInfo);
+    method public abstract void onFailed(android.net.http.UrlRequest, android.net.http.UrlResponseInfo, android.net.http.CronetException);
+    method public abstract void onReadCompleted(android.net.http.UrlRequest, android.net.http.UrlResponseInfo, java.nio.ByteBuffer) throws java.lang.Exception;
+    method public abstract void onRedirectReceived(android.net.http.UrlRequest, android.net.http.UrlResponseInfo, String) throws java.lang.Exception;
+    method public abstract void onResponseStarted(android.net.http.UrlRequest, android.net.http.UrlResponseInfo) throws java.lang.Exception;
+    method public abstract void onSucceeded(android.net.http.UrlRequest, android.net.http.UrlResponseInfo);
+  }
+
+  public static class UrlRequest.Status {
+    field public static final int CONNECTING = 10; // 0xa
+    field public static final int DOWNLOADING_PAC_FILE = 5; // 0x5
+    field public static final int ESTABLISHING_PROXY_TUNNEL = 8; // 0x8
+    field public static final int IDLE = 0; // 0x0
+    field public static final int INVALID = -1; // 0xffffffff
+    field public static final int READING_RESPONSE = 14; // 0xe
+    field public static final int RESOLVING_HOST = 9; // 0x9
+    field public static final int RESOLVING_HOST_IN_PAC_FILE = 7; // 0x7
+    field public static final int RESOLVING_PROXY_FOR_URL = 6; // 0x6
+    field public static final int SENDING_REQUEST = 12; // 0xc
+    field public static final int SSL_HANDSHAKE = 11; // 0xb
+    field public static final int WAITING_FOR_AVAILABLE_SOCKET = 2; // 0x2
+    field public static final int WAITING_FOR_CACHE = 4; // 0x4
+    field public static final int WAITING_FOR_DELEGATE = 3; // 0x3
+    field public static final int WAITING_FOR_RESPONSE = 13; // 0xd
+    field public static final int WAITING_FOR_STALLED_SOCKET_POOL = 1; // 0x1
+  }
+
+  public abstract static class UrlRequest.StatusListener {
+    ctor public UrlRequest.StatusListener();
+    method public abstract void onStatus(int);
+  }
+
+  public abstract class UrlResponseInfo {
+    ctor public UrlResponseInfo();
+    method public abstract java.util.Map<java.lang.String,java.util.List<java.lang.String>> getAllHeaders();
+    method public abstract java.util.List<java.util.Map.Entry<java.lang.String,java.lang.String>> getAllHeadersAsList();
+    method public abstract int getHttpStatusCode();
+    method public abstract String getHttpStatusText();
+    method public abstract String getNegotiatedProtocol();
+    method public abstract String getProxyServer();
+    method public abstract long getReceivedByteCount();
+    method public abstract String getUrl();
+    method public abstract java.util.List<java.lang.String> getUrlChain();
+    method public abstract boolean wasCached();
+  }
+
+}
+
+package android.net.http.apihelpers {
+
+  public abstract class ByteArrayCronetCallback extends android.net.http.apihelpers.InMemoryTransformCronetCallback<byte[]> {
+    ctor public ByteArrayCronetCallback();
+    method public android.net.http.apihelpers.ByteArrayCronetCallback addCompletionListener(android.net.http.apihelpers.CronetRequestCompletionListener<? super byte[]>);
+    method protected final byte[] transformBodyBytes(android.net.http.UrlResponseInfo, byte[]);
+  }
+
+  public interface CronetRequestCompletionListener<T> {
+    method public void onCanceled(@Nullable android.net.http.UrlResponseInfo);
+    method public void onFailed(@Nullable android.net.http.UrlResponseInfo, android.net.http.CronetException);
+    method public void onSucceeded(android.net.http.UrlResponseInfo, T);
+  }
+
+  public class CronetResponse<T> {
+    method @Nullable public T getResponseBody();
+    method public android.net.http.UrlResponseInfo getUrlResponseInfo();
+  }
+
+  public abstract class ImplicitFlowControlCallback extends android.net.http.UrlRequest.Callback {
+    ctor public ImplicitFlowControlCallback();
+    method protected abstract void onBodyChunkRead(android.net.http.UrlResponseInfo, java.nio.ByteBuffer) throws java.lang.Exception;
+    method protected abstract void onCanceled(@Nullable android.net.http.UrlResponseInfo);
+    method public final void onCanceled(android.net.http.UrlRequest, android.net.http.UrlResponseInfo);
+    method protected abstract void onFailed(@Nullable android.net.http.UrlResponseInfo, android.net.http.CronetException);
+    method public final void onFailed(android.net.http.UrlRequest, android.net.http.UrlResponseInfo, android.net.http.CronetException);
+    method public final void onReadCompleted(android.net.http.UrlRequest, android.net.http.UrlResponseInfo, java.nio.ByteBuffer) throws java.lang.Exception;
+    method public final void onRedirectReceived(android.net.http.UrlRequest, android.net.http.UrlResponseInfo, String) throws java.lang.Exception;
+    method protected abstract void onResponseStarted(android.net.http.UrlResponseInfo) throws java.lang.Exception;
+    method public final void onResponseStarted(android.net.http.UrlRequest, android.net.http.UrlResponseInfo) throws java.lang.Exception;
+    method protected abstract void onSucceeded(android.net.http.UrlResponseInfo);
+    method public final void onSucceeded(android.net.http.UrlRequest, android.net.http.UrlResponseInfo);
+    method protected abstract boolean shouldFollowRedirect(android.net.http.UrlResponseInfo, String) throws java.lang.Exception;
+  }
+
+  public abstract class InMemoryTransformCronetCallback<T> extends android.net.http.apihelpers.ImplicitFlowControlCallback {
+    ctor public InMemoryTransformCronetCallback();
+    method public android.net.http.apihelpers.ImplicitFlowControlCallback addCompletionListener(android.net.http.apihelpers.CronetRequestCompletionListener<? super T>);
+    method protected final void onBodyChunkRead(android.net.http.UrlResponseInfo, java.nio.ByteBuffer) throws java.lang.Exception;
+    method protected final void onCanceled(@Nullable android.net.http.UrlResponseInfo);
+    method protected final void onFailed(@Nullable android.net.http.UrlResponseInfo, android.net.http.CronetException);
+    method protected final void onResponseStarted(android.net.http.UrlResponseInfo);
+    method protected final void onSucceeded(android.net.http.UrlResponseInfo);
+    method protected abstract T transformBodyBytes(android.net.http.UrlResponseInfo, byte[]);
+  }
+
+  public abstract class JsonCronetCallback extends android.net.http.apihelpers.InMemoryTransformCronetCallback<org.json.JSONObject> {
+    ctor public JsonCronetCallback();
+    method public android.net.http.apihelpers.JsonCronetCallback addCompletionListener(android.net.http.apihelpers.CronetRequestCompletionListener<? super org.json.JSONObject>);
+    method protected org.json.JSONObject transformBodyBytes(android.net.http.UrlResponseInfo, byte[]);
+  }
+
+  public interface RedirectHandler {
+    method public boolean shouldFollowRedirect(android.net.http.UrlResponseInfo, String) throws java.lang.Exception;
+  }
+
+  public class RedirectHandlers {
+    method public static android.net.http.apihelpers.RedirectHandler alwaysFollow();
+    method public static android.net.http.apihelpers.RedirectHandler neverFollow();
+  }
+
+  public abstract class StringCronetCallback extends android.net.http.apihelpers.InMemoryTransformCronetCallback<java.lang.String> {
+    method public android.net.http.apihelpers.StringCronetCallback addCompletionListener(android.net.http.apihelpers.CronetRequestCompletionListener<? super java.lang.String>);
+    method protected String transformBodyBytes(android.net.http.UrlResponseInfo, byte[]);
+  }
+
+  public final class UploadDataProviders {
+    method public static android.net.http.UploadDataProvider create(java.io.File);
+    method public static android.net.http.UploadDataProvider create(android.os.ParcelFileDescriptor);
+    method public static android.net.http.UploadDataProvider create(java.nio.ByteBuffer);
+    method public static android.net.http.UploadDataProvider create(byte[], int, int);
+    method public static android.net.http.UploadDataProvider create(byte[]);
+  }
+
+  public class UrlRequestCallbacks {
+    method public static android.net.http.apihelpers.ByteArrayCronetCallback forByteArrayBody(android.net.http.apihelpers.RedirectHandler, android.net.http.apihelpers.CronetRequestCompletionListener<byte[]>);
+    method public static android.net.http.apihelpers.UrlRequestCallbacks.CallbackAndResponseFuturePair<byte[],android.net.http.apihelpers.ByteArrayCronetCallback> forByteArrayBody(android.net.http.apihelpers.RedirectHandler);
+    method public static android.net.http.apihelpers.JsonCronetCallback forJsonBody(android.net.http.apihelpers.RedirectHandler, android.net.http.apihelpers.CronetRequestCompletionListener<org.json.JSONObject>);
+    method public static android.net.http.apihelpers.UrlRequestCallbacks.CallbackAndResponseFuturePair<org.json.JSONObject,android.net.http.apihelpers.JsonCronetCallback> forJsonBody(android.net.http.apihelpers.RedirectHandler);
+    method public static android.net.http.apihelpers.StringCronetCallback forStringBody(android.net.http.apihelpers.RedirectHandler, android.net.http.apihelpers.CronetRequestCompletionListener<java.lang.String>);
+    method public static android.net.http.apihelpers.UrlRequestCallbacks.CallbackAndResponseFuturePair<java.lang.String,android.net.http.apihelpers.StringCronetCallback> forStringBody(android.net.http.apihelpers.RedirectHandler);
+  }
+
+  public static class UrlRequestCallbacks.CallbackAndResponseFuturePair<ResponseBodyT, CallbackT extends android.net.http.apihelpers.InMemoryTransformCronetCallback<ResponseBodyT>> {
+    method public CallbackT getCallback();
+    method public java.util.concurrent.Future<android.net.http.apihelpers.CronetResponse<ResponseBodyT>> getFuture();
+  }
+
+}
+

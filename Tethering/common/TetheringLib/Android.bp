@@ -46,14 +46,24 @@ java_sdk_library {
         "//packages/modules/Wifi/service/tests/wifitests",
     ],
 
-    srcs: [":framework-tethering-srcs"],
-    libs: ["framework-connectivity.stubs.module_lib"],
+    srcs: [
+      ":framework-tethering-srcs",
+      ":cronet_aml_api_sources",
+    ],
+    libs: [
+      "framework-connectivity.stubs.module_lib",
+      "androidx.annotation_annotation",
+    ],
     stub_only_libs: ["framework-connectivity.stubs.module_lib"],
     aidl: {
         include_dirs: [
             "packages/modules/Connectivity/framework/aidl-export",
         ],
     },
+
+    impl_only_static_libs: [
+      "cronet_aml_java",
+    ],
 
     jarjar_rules: "jarjar-rules.txt",
     installable: true,
@@ -62,7 +72,43 @@ java_sdk_library {
     apex_available: ["com.android.tethering"],
     permitted_packages: ["android.net"],
     min_sdk_version: "30",
-    lint: { strict_updatability_linting: true },
+    lint: {
+      enabled: false,
+    },
+
+    api_lint: {
+      enabled: false,
+    },
+}
+
+java_library {
+  name: "framework-tethering-pre-jarjar",
+  defaults: ["framework-module-defaults"],
+  static_libs: [
+    "framework-tethering-lib",
+    "cronet_aml_api_java",
+    "cronet_aml_java"
+  ],
+  visibility: ["//packages/modules/Connectivity:__subpackages__"],
+  apex_available: ["com.android.tethering"],
+  min_sdk_version: "30",
+}
+
+java_library {
+    name: "framework-tethering-lib",
+    defaults: ["framework-module-defaults"],
+    srcs: [
+      ":framework-tethering-srcs"
+    ],
+    libs: ["framework-connectivity.stubs.module_lib"],
+    visibility: ["//packages/modules/Connectivity:__subpackages__"],
+    aidl: {
+        include_dirs: [
+            "packages/modules/Connectivity/framework/aidl-export",
+        ],
+    },
+    apex_available: ["com.android.tethering"],
+    min_sdk_version: "30",
 }
 
 filegroup {

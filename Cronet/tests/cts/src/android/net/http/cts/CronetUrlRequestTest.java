@@ -22,6 +22,9 @@ import static org.junit.Assert.assertTrue;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.http.CronetEngine;
+import android.net.http.UrlRequest;
+import android.net.http.UrlResponseInfo;
 import android.net.http.cts.util.CronetCtsTestServer;
 import android.net.http.cts.util.TestUrlRequestCallback;
 import android.net.http.cts.util.TestUrlRequestCallback.ResponseStep;
@@ -30,9 +33,6 @@ import androidx.annotation.NonNull;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
-import org.chromium.net.CronetEngine;
-import org.chromium.net.UrlRequest;
-import org.chromium.net.UrlResponseInfo;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,7 +50,7 @@ public class CronetUrlRequestTest {
     public void setUp() throws Exception {
         Context context = InstrumentationRegistry.getInstrumentation().getContext();
         mCm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        CronetEngine.Builder builder = new CronetEngine.Builder(context);
+        CronetEngine.Builder builder = CronetEngine.builder(context);
         builder.enableHttpCache(CronetEngine.Builder.HTTP_CACHE_IN_MEMORY, 100 * 1024)
                 .enableHttp2(true)
                 // .enableBrotli(true)
@@ -61,8 +61,12 @@ public class CronetUrlRequestTest {
 
     @After
     public void tearDown() throws Exception {
-        mCronetEngine.shutdown();
-        mTestServer.shutdown();
+        if (mCronetEngine != null) {
+            mCronetEngine.shutdown();
+        }
+        if (mTestServer != null) {
+            mTestServer.shutdown();
+        }
     }
 
     private static void assertGreaterThan(String msg, int first, int second) {

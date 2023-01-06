@@ -24,14 +24,13 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import android.net.http.CallbackException;
+import android.net.http.CronetException;
+import android.net.http.InlineExecutionProhibitedException;
+import android.net.http.UrlRequest;
+import android.net.http.UrlResponseInfo;
 import android.os.ConditionVariable;
 import android.os.StrictMode;
-
-import org.chromium.net.CallbackException;
-import org.chromium.net.CronetException;
-import org.chromium.net.InlineExecutionProhibitedException;
-import org.chromium.net.UrlRequest;
-import org.chromium.net.UrlResponseInfo;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;

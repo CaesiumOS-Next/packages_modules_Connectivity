@@ -1,1 +1,6 @@
 # jarjar rules for the bootclasspath tethering framework library here
+rule org.chromium.** android.net.http.@0
+rule J.** android.net.http.@0
+rule androidx.** android.net.http.@0
+rule android.support.** android.net.http.@0
+rule com.android.modules.utils.** android.net.http.@0
