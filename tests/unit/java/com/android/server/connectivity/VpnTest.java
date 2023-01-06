@@ -872,7 +872,8 @@ public class VpnTest extends VpnTestBase {
         when(mVpnProfileStore.get(PRIMARY_USER_APP_EXCLUDE_KEY))
                 .thenReturn(HexDump.hexStringToByteArray(PKGS_BYTES));
 
-        vpn.startVpnProfile(TEST_VPN_PKG);
+        final String sessionKey = vpn.startVpnProfile(TEST_VPN_PKG);
+        verify(mConnectivityManager).setVpnDefaultForUids(eq(sessionKey), any());
         verify(mVpnProfileStore).get(eq(vpn.getProfileNameForPackage(TEST_VPN_PKG)));
         vpn.mNetworkAgent = mMockNetworkAgent;
         return vpn;
@@ -886,9 +887,10 @@ public class VpnTest extends VpnTestBase {
         verify(mVpnProfileStore)
                 .put(eq(PRIMARY_USER_APP_EXCLUDE_KEY),
                      eq(HexDump.hexStringToByteArray(PKGS_BYTES)));
-        assertEquals(vpn.createUserAndRestrictedProfilesRanges(
-                PRIMARY_USER.id, null, Arrays.asList(PKGS)),
-                vpn.mNetworkCapabilities.getUids());
+        final Set<Range<Integer>> uidRanges = vpn.createUserAndRestrictedProfilesRanges(
+                PRIMARY_USER.id, null /* allowedApplications */, Arrays.asList(PKGS));
+        verify(mConnectivityManager, times(2)).setVpnDefaultForUids(anyString(), eq(uidRanges));
+        assertEquals(uidRanges, vpn.mNetworkCapabilities.getUids());
         assertEquals(Arrays.asList(PKGS), vpn.getAppExclusionList(TEST_VPN_PKG));
     }
 
@@ -1517,6 +1519,8 @@ public class VpnTest extends VpnTestBase {
                 .getRedactedLinkPropertiesForPackage(any(), anyInt(), anyString());
 
         final String sessionKey = vpn.startVpnProfile(TEST_VPN_PKG);
+        // This is triggered by Ikev2VpnRunner constructor.
+        verify(mConnectivityManager, times(1)).setVpnDefaultForUids(eq(sessionKey), any());
         final NetworkCallback cb = triggerOnAvailableAndGetCallback();
 
         verifyInterfaceSetCfgWithFlags(IF_STATE_UP);
@@ -1525,6 +1529,8 @@ public class VpnTest extends VpnTestBase {
         // state
         verify(mIkev2SessionCreator, timeout(TEST_TIMEOUT_MS))
                 .createIkeSession(any(), any(), any(), any(), captor.capture(), any());
+        // This is triggered by Vpn#startOrMigrateIkeSession().
+        verify(mConnectivityManager, times(2)).setVpnDefaultForUids(eq(sessionKey), any());
         reset(mIkev2SessionCreator);
         // For network lost case, the process should be triggered by calling onLost(), which is the
         // same process with the real case.
@@ -1544,20 +1550,29 @@ public class VpnTest extends VpnTestBase {
         verifyVpnManagerEvent(sessionKey, category, errorType, errorCode,
                 new String[] {TEST_VPN_PKG}, null /* profileState */);
         if (errorType == VpnManager.ERROR_CLASS_NOT_RECOVERABLE) {
+            verify(mConnectivityManager).setVpnDefaultForUids(eq(sessionKey),
+                    eq(Collections.EMPTY_LIST));
             verify(mConnectivityManager, timeout(TEST_TIMEOUT_MS))
                     .unregisterNetworkCallback(eq(cb));
         } else if (errorType == VpnManager.ERROR_CLASS_RECOVERABLE
                 // Vpn won't retry when there is no usable underlying network.
                 && errorCode != VpnManager.ERROR_CODE_NETWORK_LOST) {
             int retryIndex = 0;
-            final IkeSessionCallback ikeCb2 = verifyRetryAndGetNewIkeCb(retryIndex++);
+            // Retry 3 times to let the retry delay increasing to 5s.
+            final int retryTimes = 3;
+            for (int i = 0; i < retryTimes; i++) {
+                final IkeSessionCallback ikeCb2 =
+                        verifyRetryAndGetNewIkeCb(retryIndex++, sessionKey);
+                ikeCb2.onClosedWithException(exception);
+            }
 
-            ikeCb2.onClosedWithException(exception);
-            verifyRetryAndGetNewIkeCb(retryIndex++);
+            // The VPN network preference will be cleared when the retry delay is higher than 5s.
+            verify(mConnectivityManager).setVpnDefaultForUids(eq(sessionKey),
+                    eq(Collections.EMPTY_LIST));
         }
     }
 
-    private IkeSessionCallback verifyRetryAndGetNewIkeCb(int retryIndex) {
+    private IkeSessionCallback verifyRetryAndGetNewIkeCb(int retryIndex, String sessionKey) {
         final ArgumentCaptor<Runnable> runnableCaptor =
                 ArgumentCaptor.forClass(Runnable.class);
         final ArgumentCaptor<IkeSessionCallback> ikeCbCaptor =
@@ -1570,6 +1585,10 @@ public class VpnTest extends VpnTestBase {
         // Mock the event of firing the retry task
         runnableCaptor.getValue().run();
 
+        // Before retrying, setVpnDefaultForUids has been called 2 times, so the first retrying
+        // is the third time that setVpnDefaultForUids() is called.
+        verify(mConnectivityManager, times(retryIndex + 3)).setVpnDefaultForUids(eq(sessionKey),
+                any());
         verify(mIkev2SessionCreator)
                 .createIkeSession(any(), any(), any(), any(), ikeCbCaptor.capture(), any());
 
@@ -1825,7 +1844,8 @@ public class VpnTest extends VpnTestBase {
         when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
                 .thenReturn(mVpnProfile.encode());
 
-        vpn.startVpnProfile(TEST_VPN_PKG);
+        final String sessionKey = vpn.startVpnProfile(TEST_VPN_PKG);
+        verify(mConnectivityManager).setVpnDefaultForUids(eq(sessionKey), any());
         final NetworkCallback nwCb = triggerOnAvailableAndGetCallback();
 
         // Mock the setup procedure by firing callbacks
@@ -1903,6 +1923,7 @@ public class VpnTest extends VpnTestBase {
         final PlatformVpnSnapshot vpnSnapShot = verifySetupPlatformVpn(
                 createIkeConfig(createIkeConnectInfo(), true /* isMobikeEnabled */));
         vpnSnapShot.vpn.mVpnRunner.exitVpnRunner();
+        verify(mConnectivityManager).setVpnDefaultForUids(anyString(), eq(Collections.EMPTY_LIST));
     }
 
     @Test
@@ -2470,12 +2491,6 @@ public class VpnTest extends VpnTestBase {
         @Override
         public DeviceIdleInternal getDeviceIdleInternal() {
             return mDeviceIdleInternal;
-        }
-
-        @Override
-        public long getNextRetryDelaySeconds(int retryCount) {
-            // Simply return retryCount as the delay seconds for retrying.
-            return retryCount;
         }
 
         @Override
