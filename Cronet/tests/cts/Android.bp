@@ -49,4 +49,5 @@ android_test {
         "general-tests",
         "mts-tethering"
     ],
+    min_sdk_version: "29",
 }
