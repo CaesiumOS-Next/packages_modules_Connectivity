@@ -371,6 +371,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "43afe45e_0c0e72bd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2023-01-07T08:41:42Z",
+      "side": 1,
+      "message": "I don\u0027t catch your point. The scheme I suggested doesn\u0027t reply on exception.\n\nNormally finally block is always be called after leaving try block. If return happen in try block, finally will be called right after return.\n\nhttps://stackoverflow.com/questions/65035/does-a-finally-block-always-get-executed-in-java",
+      "parentUuid": "58a9a2c5_3fa062b1",
+      "range": {
+        "startLine": 342,
+        "startChar": 12,
+        "endLine": 342,
+        "endChar": 33
+      },
+      "revId": "4940ff141364602b9e06d94e6c004e57328ef852",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ff594a5e_44ac4620",
         "filename": "Tethering/src/com/android/networkstack/tethering/OffloadHardwareInterface.java",
         "patchSetId": 2
