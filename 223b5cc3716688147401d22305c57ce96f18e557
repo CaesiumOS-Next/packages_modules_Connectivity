@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6192533_eb8ac3cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-01-07T02:26:55Z",
+      "side": 1,
+      "message": "Thanks for finding and fixing! Looks like there might be one that\u0027s missing in IpSecManager, and potentially one in IpSecTransform.",
+      "revId": "223b5cc3716688147401d22305c57ce96f18e557",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11b6ecec_c7cc497d",
+        "filename": "framework-t/src/android/net/IpSecManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2023-01-07T02:26:55Z",
+      "side": 1,
+      "message": "Should we fix this at the same time?",
+      "range": {
+        "startLine": 276,
+        "startChar": 30,
+        "endLine": 276,
+        "endChar": 34
+      },
+      "revId": "223b5cc3716688147401d22305c57ce96f18e557",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
