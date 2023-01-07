@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fe8be35_daac0b84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2023-01-07T10:04:28Z",
+      "side": 1,
+      "message": "https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2379468",
+      "revId": "223b5cc3716688147401d22305c57ce96f18e557",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11b6ecec_c7cc497d",
