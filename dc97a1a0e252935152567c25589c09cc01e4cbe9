@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac366a57_09209824",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2239,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-01-07T09:56:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87543e91_93572831",
+      "range": {
+        "startLine": 2239,
+        "startChar": 17,
+        "endLine": 2239,
+        "endChar": 32
+      },
+      "revId": "dc97a1a0e252935152567c25589c09cc01e4cbe9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4c1f5d9_612d2bdb",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-06T02:47:56Z",
       "side": 1,
       "message": "Can we just print intent instead of hard-coded action?",
+      "range": {
+        "startLine": 2243,
+        "startChar": 33,
+        "endLine": 2243,
+        "endChar": 52
+      },
+      "revId": "dc97a1a0e252935152567c25589c09cc01e4cbe9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "303475b8_b29fb3b1",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2243,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-01-07T09:56:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4c1f5d9_612d2bdb",
       "range": {
         "startLine": 2243,
         "startChar": 33,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d9ccc13_769b0968",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2248,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-01-07T09:56:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d02b2e9_aa8045c1",
+      "range": {
+        "startLine": 2248,
+        "startChar": 8,
+        "endLine": 2248,
+        "endChar": 9
+      },
+      "revId": "dc97a1a0e252935152567c25589c09cc01e4cbe9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78f040d8_0866d876",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bcf5041_b9f8e884",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2252,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-01-07T09:56:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78f040d8_0866d876",
+      "range": {
+        "startLine": 2252,
+        "startChar": 30,
+        "endLine": 2252,
+        "endChar": 59
+      },
+      "revId": "dc97a1a0e252935152567c25589c09cc01e4cbe9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3226491_4f57f6c1",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-01-06T02:47:56Z",
       "side": 1,
       "message": "It seems to me they are waiting for the same action.\nIs it better if we make them have the same name? e.g.\nexpectProxyChangeAction(ProxyInfo proxy);\nexpectProxyChangeAction();",
+      "range": {
+        "startLine": 2267,
+        "startChar": 30,
+        "endLine": 2267,
+        "endChar": 55
+      },
+      "revId": "dc97a1a0e252935152567c25589c09cc01e4cbe9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75867dc7_5ca0946a",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2267,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2023-01-07T09:56:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3226491_4f57f6c1",
       "range": {
         "startLine": 2267,
         "startChar": 30,
