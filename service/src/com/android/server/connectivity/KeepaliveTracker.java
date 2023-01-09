@@ -544,14 +544,7 @@ public class KeepaliveTracker {
             mDynamicKeepalives.get(nai.network()).put(slot, ki);
 
         }
-        handleStartKeepalive(ki, slot, nai);
-    }
-
-    private void handleStartKeepalive(KeepaliveInfo ki, int slot, NetworkAgentInfo nai) {
         ki.start(slot);
-        if (ki.mDynamicKeepaliveMode) {
-            handleStartTcpPollingAlarm(nai.network(), slot);
-        }
     }
 
     public void handleStopAllKeepalives(NetworkAgentInfo nai, int reason) {
@@ -687,6 +680,12 @@ public class KeepaliveTracker {
                     ki.mCallback.onStarted(slot);
                 } catch (RemoteException e) {
                     Log.w(TAG, "Discarded onStarted(" + slot + ") callback");
+                }
+                if (ki.mDynamicKeepaliveMode) {
+                    // Start monitoring TCP sockets status.
+                    mConnectivityServiceHandler.sendMessage(
+                            mConnectivityServiceHandler.obtainMessage(
+                                    NetworkAgent.CMD_POLL_TCP_SOCKETS, slot, 0, nai.network()));
                 }
             } else {
                 Log.d(TAG, "Failed to start keepalive " + slot + " on " + nai.toShortString()
