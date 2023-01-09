@@ -54,6 +54,7 @@ import android.app.Activity;
 import android.app.DownloadManager;
 import android.app.DownloadManager.Query;
 import android.app.DownloadManager.Request;
+import android.app.UiAutomation;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -63,6 +64,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.ConnectivityManager.NetworkCallback;
+import android.net.IpSecManager;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.Network;
@@ -70,6 +72,7 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.net.Proxy;
 import android.net.ProxyInfo;
+import android.net.SocketKeepalive;
 import android.net.TestNetworkInterface;
 import android.net.TestNetworkManager;
 import android.net.TransportInfo;
@@ -78,6 +81,7 @@ import android.net.VpnManager;
 import android.net.VpnService;
 import android.net.VpnTransportInfo;
 import android.net.cts.util.CtsNetUtils;
+import android.net.util.KeepaliveUtils;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Handler;
@@ -86,6 +90,7 @@ import android.os.ParcelFileDescriptor;
 import android.os.Process;
 import android.os.SystemProperties;
 import android.os.UserHandle;
+import android.provider.DeviceConfig;
 import android.provider.Settings;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
@@ -141,6 +146,8 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executor;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -190,6 +197,9 @@ public class VpnTest {
     public static int SOCKET_TIMEOUT_MS = 100;
     public static String TEST_HOST = "connectivitycheck.gstatic.com";
 
+    private static final String DYNAMIC_KEEPALIVE_MODE = "dynamic_keepalive_mode";
+    private static final String DYNAMIC_KEEPALIVE_MODE_ENABLED = "1";
+
     private UiDevice mDevice;
     private MyActivity mActivity;
     private String mPackageName;
@@ -199,7 +209,8 @@ public class VpnTest {
     private CtsNetUtils mCtsNetUtils;
     private PackageManager mPackageManager;
     private TelephonyManager mTelephonyManager;
-
+    private Context mContext;
+    private UiAutomation mUiAutomation;
     Network mNetwork;
     NetworkCallback mCallback;
     final Object mLock = new Object();
@@ -230,9 +241,9 @@ public class VpnTest {
         mNetwork = null;
         mCallback = null;
         storePrivateDnsSetting();
-
+        mContext = getInstrumentation().getTargetContext();
         mDevice = UiDevice.getInstance(getInstrumentation());
-        mActivity = launchActivity(getInstrumentation().getTargetContext().getPackageName(),
+        mActivity = launchActivity(mContext.getPackageName(),
                 MyActivity.class);
         mPackageName = mActivity.getPackageName();
         mCM = (ConnectivityManager) mActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -240,10 +251,10 @@ public class VpnTest {
         mRemoteSocketFactoryClient = new RemoteSocketFactoryClient(mActivity);
         mRemoteSocketFactoryClient.bind();
         mDevice.waitForIdle();
-        mCtsNetUtils = new CtsNetUtils(getInstrumentation().getContext());
-        mPackageManager = getInstrumentation().getContext().getPackageManager();
-        mTelephonyManager =
-                getInstrumentation().getContext().getSystemService(TelephonyManager.class);
+        mCtsNetUtils = new CtsNetUtils(mContext);
+        mPackageManager = mContext.getPackageManager();
+        mTelephonyManager = mContext.getSystemService(TelephonyManager.class);
+        mUiAutomation = getInstrumentation().getUiAutomation();
     }
 
     @After
@@ -929,7 +940,7 @@ public class VpnTest {
         }
 
         final BlockingBroadcastReceiver receiver = new BlockingBroadcastReceiver(
-                getInstrumentation().getTargetContext(), MyVpnService.ACTION_ESTABLISHED);
+                mContext, MyVpnService.ACTION_ESTABLISHED);
         receiver.register();
 
         // Test the behaviour of a variety of types of network callbacks.
@@ -1024,6 +1035,126 @@ public class VpnTest {
         maybeExpectVpnTransportInfo(mCM.getActiveNetwork());
 
         checkStrictModePrivateDns();
+    }
+
+    private int getSupportedKeepalivesForNet(Network network) throws Exception {
+        final NetworkCapabilities nc = mCM.getNetworkCapabilities(network);
+        // Get number of supported concurrent keepalives for testing network.
+        final int[] keepalivesPerTransport = KeepaliveUtils.getSupportedKeepalives(mContext);
+        return KeepaliveUtils.getSupportedKeepalivesForNetworkCapabilities(
+                keepalivesPerTransport, nc);
+    }
+
+    private InetAddress getFirstV4Address(Network network) {
+        LinkProperties linkProperties = mCM.getLinkProperties(network);
+        for (InetAddress address : linkProperties.getAddresses()) {
+            if (address instanceof Inet4Address) {
+                return address;
+            }
+        }
+        return null;
+    }
+
+    private static class TestSocketKeepaliveCallback extends SocketKeepalive.Callback {
+        public enum CallbackType { ON_STARTED, ON_TEMP_DISABLED };
+        private static final long POLL_TIMEOUT_MS = 3_000L;
+        private final LinkedBlockingQueue<CallbackType> mCallbacks = new LinkedBlockingQueue<>();
+        @Override
+        public void onTempDisabled() {
+            Log.d(TAG, "onTempDisabled");
+            mCallbacks.add(CallbackType.ON_TEMP_DISABLED);
+        }
+
+        @Override
+        public void onStarted() {
+            Log.d(TAG, "onStarted");
+            mCallbacks.add(CallbackType.ON_STARTED);
+        }
+
+        public CallbackType pollCallback() {
+            try {
+                return mCallbacks.poll(POLL_TIMEOUT_MS,
+                        TimeUnit.MILLISECONDS);
+            } catch (InterruptedException e) {
+                fail("Callback not seen after " + POLL_TIMEOUT_MS + " ms");
+            }
+            return null;
+        }
+    }
+
+    private InetAddress getV4AddrByName(final String hostname) throws Exception {
+        final InetAddress[] allAddrs = InetAddress.getAllByName(hostname);
+        for (InetAddress addr : allAddrs) {
+            if (addr instanceof Inet4Address) return addr;
+        }
+        return null;
+    }
+
+    @Test
+    public void testDynamicKeepaliveMode() throws Exception {
+        assumeTrue(supportedHardware());
+
+        // Get current default network first before starting VPN
+        final Network defaultNetwork = mCM.getActiveNetwork();
+        assertNotNull("Test requires a working internet network", defaultNetwork);
+
+        // Setup VPN
+        final FileDescriptor fd = openSocketFdInOtherApp(TEST_HOST, 80, TIMEOUT_MS);
+        // Shell app must not be put in here or it would kill the ADB-over-network use case
+        String allowedApps = mRemoteSocketFactoryClient.getPackageName() + "," + mPackageName;
+        startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
+                new String[] {"192.0.2.0/24", "2001:db8::/32"},
+                allowedApps, "", null, null /* underlyingNetworks */, false /* isAlwaysMetered */);
+        assertSocketClosed(fd, TEST_HOST);
+
+        // Setup keepalive
+        final int supported = getSupportedKeepalivesForNet(defaultNetwork);
+        assumeTrue("Network " + defaultNetwork + " does not support keepalive", supported != 0);
+        final InetAddress srcAddr = getFirstV4Address(defaultNetwork);
+        assumeTrue("This test requires native IPv4", srcAddr != null);
+
+        final TestSocketKeepaliveCallback callback = new TestSocketKeepaliveCallback();
+
+        IpSecManager.UdpEncapsulationSocket nattSocket = null;
+        SocketKeepalive kp = null;
+        String origMode = null;
+        mUiAutomation.adoptShellPermissionIdentity();
+        try {
+            // Ensure flag is enabled during the test.
+            origMode = DeviceConfig.getProperty(DeviceConfig.NAMESPACE_CONNECTIVITY,
+                    DYNAMIC_KEEPALIVE_MODE);
+            DeviceConfig.setProperty(DeviceConfig.NAMESPACE_CONNECTIVITY, DYNAMIC_KEEPALIVE_MODE,
+                    DYNAMIC_KEEPALIVE_MODE_ENABLED, false);
+
+            // Initialize a real NaT-T socket.
+            final IpSecManager mIpSec = mContext.getSystemService(IpSecManager.class);
+            nattSocket = mIpSec.openUdpEncapsulationSocket();
+
+            final InetAddress dstAddr = getV4AddrByName(TEST_HOST);
+            assertNotNull(dstAddr);
+
+            // Start keepalive with dynamic keepalive mode enabled.
+            final Executor executor = mContext.getMainExecutor();
+            kp = mCM.createSocketKeepalive(defaultNetwork, nattSocket,
+                    srcAddr, dstAddr, executor, callback);
+            kp.start(10 /* intervalSec */, true /* dynamicKeepaliveMode */);
+
+            // Verify callback status.
+            TestSocketKeepaliveCallback.CallbackType cbType = callback.pollCallback();
+            assertEquals(TestSocketKeepaliveCallback.CallbackType.ON_STARTED, cbType);
+
+            // All the sockets should be blocked in VPN network. ON_TEMP_DISABLED should be
+            // triggered in the first TCP polling.
+            cbType = callback.pollCallback();
+            assertEquals(TestSocketKeepaliveCallback.CallbackType.ON_TEMP_DISABLED, cbType);
+        } finally {
+            if (nattSocket != null) nattSocket.close();
+            if (kp != null) kp.stop();
+
+            DeviceConfig.setProperty(DeviceConfig.NAMESPACE_CONNECTIVITY, DYNAMIC_KEEPALIVE_MODE,
+                    origMode, false);
+            mUiAutomation.dropShellPermissionIdentity();
+        }
     }
 
     @Test
