@@ -22,6 +22,30 @@
       },
       "revId": "b3cb4cb8f3ebbbb392187e3a85248bd0c750ed68",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f7a7398_431997a2",
+        "filename": "tools/gn2bp/Android.bp.swp",
+        "patchSetId": 2
+      },
+      "lineNbr": 14488,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-01-09T11:10:33Z",
+      "side": 1,
+      "message": "`In addition, we would probably want a linter for external/cronet, that checks for changes to LICENSE files (added, removed, modified) and highlights them.`\n\nAs discussed with Bob, we don\u0027t need to handle this ourself as this will be automatically handled by the compliance lint once it kicks in.\n\n`I wonder if the default license should only include the Chromium license. Third-party licenses can be overwritten via addition_args (or similar). We could then add an additional check in Module.to_string() to assert any module which contains third_party in its name has its license property explicitly set.`\n\nAs per my discussion with Bob, our current license module is **okay**. It could be improved further by breaking down into a module for each license.",
+      "parentUuid": "14f37f95_2cb88093",
+      "range": {
+        "startLine": 14488,
+        "startChar": 11,
+        "endLine": 14488,
+        "endChar": 34
+      },
+      "revId": "b3cb4cb8f3ebbbb392187e3a85248bd0c750ed68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
