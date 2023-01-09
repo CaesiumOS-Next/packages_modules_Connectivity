@@ -97,6 +97,8 @@ import java.io.FileDescriptor;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -526,15 +528,21 @@ public class KeepaliveTrackerTest {
 
     @Test
     public void testDynamicKeepaliveDisabled() throws Exception {
-        testDynamicKeepalive(false);
+        testDynamicKeepalive(false /* dynamicKeepalive */, true /* keepaliveOnVPN */);
     }
 
     @Test
     public void testDynamicKeepaliveEnabled() throws Exception {
-        testDynamicKeepalive(true);
+        testDynamicKeepalive(true /* dynamicKeepalive */, true /* keepaliveOnVPN */);
     }
 
-    public void testDynamicKeepalive(boolean dynamicKeepalive) throws Exception {
+    @Test
+    public void testDynamicKeepaliveEnabled_onNonVPNNetwork() throws Exception {
+        testDynamicKeepalive(true /* dynamicKeepalive */, false /* keepaliveOnVPN */);
+    }
+
+    public void testDynamicKeepalive(boolean dynamicKeepalive, boolean keepaliveOnVPN)
+            throws Exception {
         final TestNetworkAgent agent = new TestNetworkAgent(mHandlerThread.getThreadHandler());
         final NetworkAgentInfo nai = setupTestNetworkAgentInfo(agent);
         final KeepaliveTracker.KeepaliveInfo ki =
@@ -557,6 +565,10 @@ public class KeepaliveTrackerTest {
                 nai, agent.mSlot, SocketKeepalive.SUCCESS));
         mKeepaliveCallback.expect(TestSocketKeepaliveCallback.CallbackType.ON_STARTED);
 
+        final List<Network> vpnUnderlynetwork = new ArrayList<>();
+        vpnUnderlynetwork.add(
+                keepaliveOnVPN ? new Network(UNDERLY_NETID) : new Network(OTHER_NETID));
+
         setupResponseWithoutSocketExisting();
         final int agentSlot = agent.mSlot;
         if (dynamicKeepalive) {
@@ -565,33 +577,38 @@ public class KeepaliveTrackerTest {
             // Expect no socket and then stop the keepalive.
             mHandlerThread.getThreadHandler().post(() ->
                     mKeepaliveTracker.handleMonitorTcpConnections(
-                            nai.network(), agentSlot, TEST_NETID));
-            agent.expect(TestNetworkAgent.CallbackType.ON_STOP_KEEPALIVE);
-            agent.expect(TestNetworkAgent.CallbackType.ON_REMOVE_KEEPALIVE_PACKET_FILTER);
+                            nai.network(), agentSlot, TEST_NETID, vpnUnderlynetwork));
+            if (keepaliveOnVPN) {
+                agent.expect(TestNetworkAgent.CallbackType.ON_STOP_KEEPALIVE);
+                agent.expect(TestNetworkAgent.CallbackType.ON_REMOVE_KEEPALIVE_PACKET_FILTER);
 
-            verify(mAlarmManager, timeout(1000)).setExact(
-                    anyInt(), anyLong(), mIntentCaptor.capture());
-            final PendingIntent pi = mIntentCaptor.getValue();
-            final Intent alarmIntent = runAsShell(GET_INTENT_SENDER_INTENT, () -> pi.getIntent());
-            final int slot = alarmIntent.getIntExtra(KeepaliveTracker.EXTRA_SLOT, -1);
-            assertNotNull(alarmIntent);
-            assertEquals(agentSlot, slot);
+                verify(mAlarmManager, timeout(1000)).setExact(
+                        anyInt(), anyLong(), mIntentCaptor.capture());
+                final PendingIntent pi = mIntentCaptor.getValue();
+                final Intent alarmIntent = runAsShell(GET_INTENT_SENDER_INTENT,
+                        () -> pi.getIntent());
+                final int slot = alarmIntent.getIntExtra(KeepaliveTracker.EXTRA_SLOT, -1);
+                assertNotNull(alarmIntent);
+                assertEquals(agentSlot, slot);
 
-            // Make status to stopped
-            // In real case, this should be triggered from network agent.
-            mHandlerThread.getThreadHandler().post(() ->
-                    mKeepaliveTracker.handleEventSocketKeepalive(
-                            nai, slot, SocketKeepalive.SUCCESS));
-            mKeepaliveCallback.expect(TestSocketKeepaliveCallback.CallbackType.ON_TEMP_DISABLED);
-            mKeepaliveCallback.expect(TestSocketKeepaliveCallback.CallbackType.ON_ERROR);
+                // Make status to stopped
+                // In real case, this should be triggered from network agent.
+                mHandlerThread.getThreadHandler().post(() ->
+                        mKeepaliveTracker.handleEventSocketKeepalive(
+                                nai, slot, SocketKeepalive.SUCCESS));
+                mKeepaliveCallback.expect(
+                        TestSocketKeepaliveCallback.CallbackType.ON_TEMP_DISABLED);
+                mKeepaliveCallback.expect(TestSocketKeepaliveCallback.CallbackType.ON_ERROR);
 
-            setupResponseWithSocketExisting();
+                setupResponseWithSocketExisting();
 
-            // Trigger TCP socket status check. Expect to restart keepalive.
-            mHandlerThread.getThreadHandler().post(() ->
-                    mKeepaliveTracker.handleMonitorTcpConnections(nai.network(), slot, TEST_NETID));
-            agent.expect(TestNetworkAgent.CallbackType.ON_ADD_NATT_KEEPALIVE_PACKET_FILTER);
-            agent.expect(TestNetworkAgent.CallbackType.ON_START_NATT_KEEPALIVE);
+                // Trigger TCP socket status check. Expect to restart keepalive.
+                mHandlerThread.getThreadHandler().post(() ->
+                        mKeepaliveTracker.handleMonitorTcpConnections(
+                                nai.network(), slot, TEST_NETID, vpnUnderlynetwork));
+                agent.expect(TestNetworkAgent.CallbackType.ON_ADD_NATT_KEEPALIVE_PACKET_FILTER);
+                agent.expect(TestNetworkAgent.CallbackType.ON_START_NATT_KEEPALIVE);
+            }
         } else {
             verify(mAlarmManager, never()).setExact(anyInt(), anyLong(), any());
         }
