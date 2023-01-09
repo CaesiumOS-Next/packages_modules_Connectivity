@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "07eac6d6_0db8ef55",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2023-01-09T02:48:06Z",
+      "side": 1,
+      "message": "Another argument for KeepaliveTracker creator. I find that we may have misunderstanding in this comment. DataNetwork does not actually create com.android.server.connectivity.KeeapliveTracker. Telephony module defines and uses their own KeepaliveTracker.java in com.android.internal.telephony.data.KeepaliveTracker. So I think what we do here affect only the one that ConnectivityService created(It\u0027s the only one com.android.server.connectivity.KeeapliveTracker I think)",
+      "parentUuid": "2bc8e68e_31c39d42",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 97
+      },
+      "revId": "77098d01321d7e6289489cf111e33b033f4ddaa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de8d1269_d2f2ff83",
         "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
         "patchSetId": 11
