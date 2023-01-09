@@ -557,19 +557,6 @@ public class KeepaliveTrackerTest {
         // Lower the polling interval so that the alarm will be fired soon.
         doReturn(100L).when(mDependencies).getTcpPollingInterval();
 
-        // Verify alarm being received.
-        if (dynamicKeepalive) {
-            verify(mAlarmManager, timeout(1000)).setExact(
-                    anyInt(), anyLong(), mIntentCaptor.capture());
-            final PendingIntent pi = mIntentCaptor.getValue();
-            final Intent alarmIntent = runAsShell(GET_INTENT_SENDER_INTENT, () -> pi.getIntent());
-            final int slot = alarmIntent.getIntExtra(KeepaliveTracker.EXTRA_SLOT, -1);
-            assertNotNull(alarmIntent);
-            assertEquals(agent.mSlot, slot);
-        } else {
-            verify(mAlarmManager, never()).setExact(anyInt(), anyLong(), any());
-        }
-
         // Make keepalive status connected.
         // In real case, this should be triggered from network agent.
         mHandlerThread.getThreadHandler().post(() -> mKeepaliveTracker.handleEventSocketKeepalive(
@@ -577,15 +564,24 @@ public class KeepaliveTrackerTest {
         mKeepaliveCallback.expect(TestSocketKeepaliveCallback.CallbackType.ON_STARTED);
 
         setupResponseWithoutSocketExisting();
-        final int slot = agent.mSlot;
+        final int agentSlot = agent.mSlot;
         if (dynamicKeepalive) {
             // Store current slot so that the value will not be removed when keepalive is stopped.
             // Trigger TCP socket status check.
             // Expect no socket and then stop the keepalive.
             mHandlerThread.getThreadHandler().post(() ->
-                    mKeepaliveTracker.handleMonitorTcpConnections(nai.network(), slot, TEST_NETID));
+                    mKeepaliveTracker.handleMonitorTcpConnections(
+                            nai.network(), agentSlot, TEST_NETID));
             agent.expect(TestNetworkAgent.CallbackType.ON_STOP_KEEPALIVE);
             agent.expect(TestNetworkAgent.CallbackType.ON_REMOVE_KEEPALIVE_PACKET_FILTER);
+
+            verify(mAlarmManager, timeout(1000)).setExact(
+                    anyInt(), anyLong(), mIntentCaptor.capture());
+            final PendingIntent pi = mIntentCaptor.getValue();
+            final Intent alarmIntent = runAsShell(GET_INTENT_SENDER_INTENT, () -> pi.getIntent());
+            final int slot = alarmIntent.getIntExtra(KeepaliveTracker.EXTRA_SLOT, -1);
+            assertNotNull(alarmIntent);
+            assertEquals(agentSlot, slot);
 
             // Make status to stopped
             // In real case, this should be triggered from network agent.
@@ -602,9 +598,11 @@ public class KeepaliveTrackerTest {
                     mKeepaliveTracker.handleMonitorTcpConnections(nai.network(), slot, TEST_NETID));
             agent.expect(TestNetworkAgent.CallbackType.ON_ADD_NATT_KEEPALIVE_PACKET_FILTER);
             agent.expect(TestNetworkAgent.CallbackType.ON_START_NATT_KEEPALIVE);
+        } else {
+            verify(mAlarmManager, never()).setExact(anyInt(), anyLong(), any());
         }
 
-        mKeepaliveTracker.handleStopKeepalive(nai, slot, SocketKeepalive.SUCCESS);
+        mKeepaliveTracker.handleStopKeepalive(nai, agentSlot, SocketKeepalive.SUCCESS);
         agent.expect(TestNetworkAgent.CallbackType.ON_STOP_KEEPALIVE);
         agent.expect(TestNetworkAgent.CallbackType.ON_REMOVE_KEEPALIVE_PACKET_FILTER);
     }
