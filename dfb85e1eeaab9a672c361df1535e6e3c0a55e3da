@@ -22,6 +22,30 @@
       },
       "revId": "dfb85e1eeaab9a672c361df1535e6e3c0a55e3da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbf48adb_cf71e618",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1691,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-01-09T14:49:50Z",
+      "side": 1,
+      "message": "Yes. I will do a follow up to remove this. Both CLs will be in the same topic.",
+      "parentUuid": "54d784b9_5ef557eb",
+      "range": {
+        "startLine": 1691,
+        "startChar": 7,
+        "endLine": 1691,
+        "endChar": 42
+      },
+      "revId": "dfb85e1eeaab9a672c361df1535e6e3c0a55e3da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
