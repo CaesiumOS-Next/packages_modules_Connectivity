@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54d784b9_5ef557eb",
+        "filename": "tools/gn2bp/gen_android_bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1691,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2023-01-09T14:44:58Z",
+      "side": 1,
+      "message": "will you have a follow-up change to remove this?",
+      "range": {
+        "startLine": 1691,
+        "startChar": 7,
+        "endLine": 1691,
+        "endChar": 42
+      },
+      "revId": "dfb85e1eeaab9a672c361df1535e6e3c0a55e3da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
