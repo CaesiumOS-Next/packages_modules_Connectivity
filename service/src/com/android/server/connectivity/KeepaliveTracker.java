@@ -305,6 +305,8 @@ public class KeepaliveTracker {
                     + " interval=" + mInterval
                     + " uid=" + mUid + " pid=" + mPid + " privileged=" + mPrivileged
                     + " packetData=" + HexDump.toHexString(mPacket.getPacket())
+                    + " reason=" + mStopReason
+                    + " pendingAlarm=" + mTcpPollingAlarm
                     + " ]";
         }
 
@@ -941,6 +943,18 @@ public class KeepaliveTracker {
             pw.increaseIndent();
             for (int slot : mKeepalives.get(nai).keySet()) {
                 KeepaliveInfo ki = mKeepalives.get(nai).get(slot);
+                pw.println(slot + ": " + ki.toString());
+            }
+            pw.decreaseIndent();
+        }
+        pw.decreaseIndent();
+        pw.println("Dynamic socket keepalives:");
+        pw.increaseIndent();
+        for (Network n : mDynamicKeepalives.keySet()) {
+            pw.println(n);
+            pw.increaseIndent();
+            for (int slot : mDynamicKeepalives.get(n).keySet()) {
+                final KeepaliveInfo ki = mDynamicKeepalives.get(n).get(slot);
                 pw.println(slot + ": " + ki.toString());
             }
             pw.decreaseIndent();
