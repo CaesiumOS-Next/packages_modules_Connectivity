@@ -103,6 +103,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Manages socket keepalive requests.
@@ -761,7 +762,8 @@ public class KeepaliveTracker {
     /**
      * Determine if disable or re-enable keepalive is needed or not based on TCP sockets status.
      */
-    public void handleMonitorTcpConnections(Network network, int slot, int vpnNetId) {
+    public void handleMonitorTcpConnections(Network network, int slot, int vpnNetId,
+            List<Network> vpnUnderlyNetworks) {
         // Alarm received. Reset.
         final KeepaliveInfo ki = findDynamicKeepalives(network, slot);
         if (ki == null) return;
@@ -784,6 +786,10 @@ public class KeepaliveTracker {
             cleanDynamicKeepalives(network, slot);
             return;
         }
+
+        // Not only VPN network will start keepalive, but dynamic keepalive mode works on VPN
+        // network.
+        if (!vpnUnderlyNetworks.contains(network)) return;
 
         if (!isAnyTcpSocketConnected(vpnNetId)) {
             // No TCP socket exists. Stop keepalive.

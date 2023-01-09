@@ -5513,8 +5513,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     // TODO: determine what to do when more than one VPN
                     final NetworkAgentInfo vpnNai = getVpn();
                     final int vpnNetId = (vpnNai != null) ? vpnNai.network().netId : -1;
-
-                    mKeepaliveTracker.handleMonitorTcpConnections(network, slot, vpnNetId);
+                    final List<Network> vpnUnderlynetwork = (vpnNai != null)
+                            ? vpnNai.getCapsNoCopy().getUnderlyingNetworks() : new ArrayList<>();
+                    mKeepaliveTracker.handleMonitorTcpConnections(
+                            network, slot, vpnNetId, vpnUnderlynetwork);
                     break;
                 }
                 // Sent by KeepaliveTracker to process an app request on the state machine thread.
